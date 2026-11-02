@@ -37,11 +37,33 @@ public sealed partial class DesktopTests
                 try
                 {
                     window.Show(); Tick(window); Click(window, "打开实验"); await window.PendingOperation; Tick(window);
-                    var plot = window.GetLogicalDescendants().OfType<SpectrumPlot>().Single();
+                    var plot = WindowControls(window).OfType<SpectrumPlot>().Single();
                     await plot.PendingEvaluation; Tick(window);
                     Assert.Equal(400, plot.AnalysisOptions.MinimumNm); Assert.Equal(800, plot.AnalysisOptions.MaximumNm);
                     Assert.Equal(.5, plot.AnalysisOptions.StepNm); Assert.Equal(new double[] { 0 }, plot.AnalysisOptions.AnglesDegrees);
                     Assert.Equal(801, plot.SampleCount);
+                    var originalData = plot.DisplayData; var originalCount = plot.DisplayComputations;
+                    void SelectCurve(CoatingQuantity quantity, CoatingCurvePolarization pol, bool visible) =>
+                        Find<ToggleButton>(window, $"{quantity} {pol switch { CoatingCurvePolarization.Average => "平均", CoatingCurvePolarization.S => "s", _ => "p" }}").IsChecked = visible;
+                    foreach (var quantity in Enum.GetValues<CoatingQuantity>()) foreach (var pol in Enum.GetValues<CoatingCurvePolarization>())
+                        SelectCurve(quantity, pol, false);
+                    plot.SetTargets(false);
+                    int backgroundRed;
+                    using (var empty = SkiaSharp.SKBitmap.Decode(plot.CapturePng()))
+                        backgroundRed = empty.Pixels.Count(color => color.Red > 180 && color.Green < 140 && color.Blue < 160);
+                    SelectCurve(CoatingQuantity.R, CoatingCurvePolarization.P, true);
+                    foreach (var scale in new[] { 1d, 1.5, 2 })
+                    {
+                        plot.SetCurveWidth(scale); Tick(window);
+                        using var image = SkiaSharp.SKBitmap.Decode(plot.CapturePng());
+                        Assert.True(image.Pixels.Count(color => color.Red > 180 && color.Green < 140 && color.Blue < 160) > backgroundRed + 200, "The p-only curve must add visible red pixels beyond the unchanged axes.");
+                    }
+                    Capture(window, "p-only-0deg-1500");
+                    plot.SetCurveWidth(1.5);
+                    foreach (var quantity in Enum.GetValues<CoatingQuantity>()) foreach (var pol in Enum.GetValues<CoatingCurvePolarization>())
+                        SelectCurve(quantity, pol, pol == CoatingCurvePolarization.Average);
+                    plot.SetTargets(true);
+                    Assert.Same(originalData, plot.DisplayData); Assert.Equal(originalCount, plot.DisplayComputations);
                     Click(window, "光谱图设置"); Tick(window);
                     var options = Assert.IsType<Flyout>(Find<DropDownButton>(window, "光谱图设置").Flyout);
                     var content = Assert.IsType<StackPanel>(options.Content);
@@ -60,7 +82,7 @@ public sealed partial class DesktopTests
                     Assert.True(plot.HasData); var fingerprint = window.CurrentExperiment.Fingerprint();
                     var computations = plot.DisplayComputations; var data = plot.DisplayData;
                     var initialRange = plot.Range; var initial = plot.CapturePng();
-                    var s = window.GetLogicalDescendants().OfType<ToggleButton>().Single(b => AutomationProperties.GetName(b) == "T s");
+                    var s = WindowControls(window).OfType<ToggleButton>().Single(b => AutomationProperties.GetName(b) == "T s");
                     s.BringIntoView(); Tick(window);
                     var p = s.TranslatePoint(new Point(s.Bounds.Width / 2, s.Bounds.Height / 2), window)!.Value;
                     window.MouseDown(p, MouseButton.Left); window.MouseUp(p, MouseButton.Left); Tick(window);
@@ -106,7 +128,7 @@ public sealed partial class DesktopTests
                     Assert.InRange(Math.Abs(fractions.Rows[0].Values[1] * 100 - results.Rows[0].Values[1]), 0, 1e-12);
                     Assert.Same(data, plot.DisplayData);
                     plot.SetUnits(CoatingWavelengthUnit.Nanometers, CoatingValueUnit.Percent);
-                    var expander = window.GetLogicalDescendants().OfType<Expander>().Single(e => e.Content is DataGrid g && g.Name == "CoatingSpectrumResults");
+                    var expander = WindowControls(window).OfType<Expander>().Single(e => e.Content is DataGrid g && g.Name == "CoatingSpectrumResults");
                     expander.IsExpanded = true; Tick(window); Capture(window, "polarization-results-1500");
                     Click(window, "光谱图设置"); Tick(window);
                     content.GetLogicalDescendants().OfType<Button>().Single(b => AutomationProperties.GetName(b) == "恢复评估默认")

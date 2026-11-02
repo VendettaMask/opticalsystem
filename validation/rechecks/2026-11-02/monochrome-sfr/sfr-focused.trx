@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="4a8a8edd-83bf-4044-9a9f-1ece74c75154" name="optics@LAPTOP-G4BBBCS0 2026-11-02 11:21:25" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T11:21:25.6334674+08:00" queuing="2026-11-02T11:21:25.6334678+08:00" start="2026-11-02T11:21:17.7909548+08:00" finish="2026-11-02T11:22:36.5026657+08:00" />
+  <TestSettings name="default" id="09ebd660-1040-4395-82c1-dfee7a3480f7">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-02_11_21_25" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1f4d9f50-d7a6-4050-93c0-68035dace10d" testId="a55bc1dc-2146-04a0-9f26-b0854662d722" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.FlatInvalidRoiAndNonlinearInvalidValuesFailExplicitly" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0034252" startTime="2026-11-02T11:22:01.2045055+08:00" endTime="2026-11-02T11:22:01.2045797+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1f4d9f50-d7a6-4050-93c0-68035dace10d" />
+    <UnitTestResult executionId="3dee8b92-fb66-4e88-98e4-d136f0de5111" testId="df398ad8-060e-f6b4-bb74-dd95da7d6046" testName="OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:10.0668978" startTime="2026-11-02T11:22:26.3526852+08:00" endTime="2026-11-02T11:22:36.3451700+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3dee8b92-fb66-4e88-98e4-d136f0de5111">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no elements</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoElementsException()&#xD;
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)&#xD;
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 38&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 25&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b5811ecb-f56c-4246-8784-760278dd0c7e" testId="8707e0bc-2c94-90c2-5bde-ae21658e81cf" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.20000000000000001)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0032139" startTime="2026-11-02T11:21:23.6816119+08:00" endTime="2026-11-02T11:21:23.6839892+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5811ecb-f56c-4246-8784-760278dd0c7e" />
+    <UnitTestResult executionId="03110065-cbd0-4d29-9040-213c148dab52" testId="498374a1-17e4-a7a0-fbed-e2b2f199e949" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass" computerName="LAPTOP-G4BBBCS0" duration="00:00:34.3806867" startTime="2026-11-02T11:21:23.6871663+08:00" endTime="2026-11-02T11:21:58.0680583+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="03110065-cbd0-4d29-9040-213c148dab52" />
+    <UnitTestResult executionId="08ffac85-cdf7-4f94-9845-0014258c7af8" testId="7e5e45a7-09ce-948f-2f2c-37c6bec722c4" testName="OpticalSystemDesign.Tests.CameraSfrTests.UnsupportedModeSamplingAndCancellationHaveExplicitFailures" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.5764747" startTime="2026-11-02T11:22:06.2685829+08:00" endTime="2026-11-02T11:22:08.8451771+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08ffac85-cdf7-4f94-9845-0014258c7af8" />
+    <UnitTestResult executionId="0dbd0233-60ce-4629-8d4b-9b0dcd2d2937" testId="72e68e79-0626-e20d-d783-0543a577ddea" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.9602150" startTime="2026-11-02T11:21:58.2238337+08:00" endTime="2026-11-02T11:22:01.1929819+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0dbd0233-60ce-4629-8d4b-9b0dcd2d2937">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1E-08)&#xD;
+Actual: 3.928210472758579E-05</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SlantedEdgeSfrTests.cs:line 92&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="07de9977-7b9a-4758-b8d4-efeec92bb61d" testId="4ed83eb6-e003-300f-494f-330e0b3767f7" testName="OpticalSystemDesign.Tests.CameraSfrTests.CurrentLensLinearArraySfrConvergenceAndFrozenReplaySurviveWorkspaceReplacement" computerName="LAPTOP-G4BBBCS0" duration="00:00:42.6420130" startTime="2026-11-02T11:21:23.6386642+08:00" endTime="2026-11-02T11:22:06.2656347+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07de9977-7b9a-4758-b8d4-efeec92bb61d" />
+    <UnitTestResult executionId="6ce75d25-d201-405c-97dc-403ce8c18708" testId="55740872-092c-bcd6-cd0c-fe3cf0664d60" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: -1, phase: -0.31)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0305827" startTime="2026-11-02T11:21:23.6602221+08:00" endTime="2026-11-02T11:21:23.6807900+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6ce75d25-d201-405c-97dc-403ce8c18708" />
+    <UnitTestResult executionId="eac1e5a7-3846-4538-9f4c-65e64f7816ea" testId="7abd9b80-a6f2-33f4-c2c8-fbfdd5d9a898" testName="OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:17.4234304" startTime="2026-11-02T11:22:08.8498913+08:00" endTime="2026-11-02T11:22:26.2759999+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eac1e5a7-3846-4538-9f4c-65e64f7816ea">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no elements</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoElementsException()&#xD;
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)&#xD;
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 38&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 25&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0b4ee45e-c0fb-42a0-9eef-eaa50580fcc3" testId="4c0e553e-54a5-cb36-3cc0-bb121a0bf3a1" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.DirectionalFourierSectionMatchesIndependentAnisotropicGaussian" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0285633" startTime="2026-11-02T11:21:23.6371163+08:00" endTime="2026-11-02T11:21:23.6497496+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b4ee45e-c0fb-42a0-9eef-eaa50580fcc3" />
+    <UnitTestResult executionId="bf64fd49-cf68-4c8c-8d32-87f68bed1b53" testId="25738154-9dc0-d2af-706d-c599cd0b67c1" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.45000000000000001)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0029050" startTime="2026-11-02T11:21:23.6841268+08:00" endTime="2026-11-02T11:21:23.6869427+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf64fd49-cf68-4c8c-8d32-87f68bed1b53" />
+    <UnitTestResult executionId="c7e04063-338c-471c-aedc-0bd57d4d834a" testId="b1347a81-a241-e772-f32e-586ee609ecd0" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.SquarePixelIntegrationAndDeltaPsfPreserveAnalyticEdge" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1516429" startTime="2026-11-02T11:21:58.0760161+08:00" endTime="2026-11-02T11:21:58.2205811+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c7e04063-338c-471c-aedc-0bd57d4d834a" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.DirectionalFourierSectionMatchesIndependentAnisotropicGaussian" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4c0e553e-54a5-cb36-3cc0-bb121a0bf3a1">
+      <Execution id="0b4ee45e-c0fb-42a0-9eef-eaa50580fcc3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="DirectionalFourierSectionMatchesIndependentAnisotropicGaussian" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: -1, phase: -0.31)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="55740872-092c-bcd6-cd0c-fe3cf0664d60">
+      <Execution id="6ce75d25-d201-405c-97dc-403ce8c18708" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.FlatInvalidRoiAndNonlinearInvalidValuesFailExplicitly" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a55bc1dc-2146-04a0-9f26-b0854662d722">
+      <Execution id="1f4d9f50-d7a6-4050-93c0-68035dace10d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="FlatInvalidRoiAndNonlinearInvalidValuesFailExplicitly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.45000000000000001)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="25738154-9dc0-d2af-706d-c599cd0b67c1">
+      <Execution id="bf64fd49-cf68-4c8c-8d32-87f68bed1b53" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.20000000000000001)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8707e0bc-2c94-90c2-5bde-ae21658e81cf">
+      <Execution id="b5811ecb-f56c-4246-8784-760278dd0c7e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7abd9b80-a6f2-33f4-c2c8-fbfdd5d9a898">
+      <Execution id="eac1e5a7-3846-4538-9f4c-65e64f7816ea" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraSfrWindowTests" name="SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="df398ad8-060e-f6b4-bb74-dd95da7d6046">
+      <Execution id="3dee8b92-fb66-4e88-98e4-d136f0de5111" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraSfrWindowTests" name="SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraSfrTests.UnsupportedModeSamplingAndCancellationHaveExplicitFailures" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7e5e45a7-09ce-948f-2f2c-37c6bec722c4">
+      <Execution id="08ffac85-cdf7-4f94-9845-0014258c7af8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraSfrTests" name="UnsupportedModeSamplingAndCancellationHaveExplicitFailures" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraSfrTests.CurrentLensLinearArraySfrConvergenceAndFrozenReplaySurviveWorkspaceReplacement" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4ed83eb6-e003-300f-494f-330e0b3767f7">
+      <Execution id="07de9977-7b9a-4758-b8d4-efeec92bb61d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraSfrTests" name="CurrentLensLinearArraySfrConvergenceAndFrozenReplaySurviveWorkspaceReplacement" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.SquarePixelIntegrationAndDeltaPsfPreserveAnalyticEdge" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b1347a81-a241-e772-f32e-586ee609ecd0">
+      <Execution id="c7e04063-338c-471c-aedc-0bd57d4d834a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="SquarePixelIntegrationAndDeltaPsfPreserveAnalyticEdge" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="498374a1-17e4-a7a0-fbed-e2b2f199e949">
+      <Execution id="03110065-cbd0-4d29-9040-213c148dab52" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="72e68e79-0626-e20d-d783-0543a577ddea">
+      <Execution id="0dbd0233-60ce-4629-8d4b-9b0dcd2d2937" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a55bc1dc-2146-04a0-9f26-b0854662d722" executionId="1f4d9f50-d7a6-4050-93c0-68035dace10d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="df398ad8-060e-f6b4-bb74-dd95da7d6046" executionId="3dee8b92-fb66-4e88-98e4-d136f0de5111" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8707e0bc-2c94-90c2-5bde-ae21658e81cf" executionId="b5811ecb-f56c-4246-8784-760278dd0c7e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="498374a1-17e4-a7a0-fbed-e2b2f199e949" executionId="03110065-cbd0-4d29-9040-213c148dab52" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7e5e45a7-09ce-948f-2f2c-37c6bec722c4" executionId="08ffac85-cdf7-4f94-9845-0014258c7af8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="72e68e79-0626-e20d-d783-0543a577ddea" executionId="0dbd0233-60ce-4629-8d4b-9b0dcd2d2937" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4ed83eb6-e003-300f-494f-330e0b3767f7" executionId="07de9977-7b9a-4758-b8d4-efeec92bb61d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="55740872-092c-bcd6-cd0c-fe3cf0664d60" executionId="6ce75d25-d201-405c-97dc-403ce8c18708" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7abd9b80-a6f2-33f4-c2c8-fbfdd5d9a898" executionId="eac1e5a7-3846-4538-9f4c-65e64f7816ea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4c0e553e-54a5-cb36-3cc0-bb121a0bf3a1" executionId="0b4ee45e-c0fb-42a0-9eef-eaa50580fcc3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25738154-9dc0-d2af-706d-c599cd0b67c1" executionId="bf64fd49-cf68-4c8c-8d32-87f68bed1b53" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b1347a81-a241-e772-f32e-586ee609ecd0" executionId="c7e04063-338c-471c-aedc-0bd57d4d834a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="12" executed="12" passed="9" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.97]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.64]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.68]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:41.29]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:41.29]       Range:  (0 - 1E-08)&#xD;
+[xUnit.net 00:00:41.29]       Actual: 3.928210472758579E-05&#xD;
+[xUnit.net 00:00:41.29]       Stack Trace:&#xD;
+[xUnit.net 00:00:41.30]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SlantedEdgeSfrTests.cs(92,0): at OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid()&#xD;
+[xUnit.net 00:00:41.30]            at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+[xUnit.net 00:00:41.30]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:41.30]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:01:06.37]       System.InvalidOperationException : Sequence contains no elements&#xD;
+[xUnit.net 00:01:06.37]       Stack Trace:&#xD;
+[xUnit.net 00:01:06.37]            at System.Linq.ThrowHelper.ThrowNoElementsException()&#xD;
+[xUnit.net 00:01:06.37]            at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)&#xD;
+[xUnit.net 00:01:06.37]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs(38,0): at OpticalSystemDesign.Tests.CameraSfrWindowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:01:06.37]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:06.37]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:01:06.37]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:06.37]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs(25,0): at OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(String theme)&#xD;
+[xUnit.net 00:01:06.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:16.44]       System.InvalidOperationException : Sequence contains no elements&#xD;
+[xUnit.net 00:01:16.44]       Stack Trace:&#xD;
+[xUnit.net 00:01:16.44]            at System.Linq.ThrowHelper.ThrowNoElementsException()&#xD;
+[xUnit.net 00:01:16.44]            at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)&#xD;
+[xUnit.net 00:01:16.44]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs(38,0): at OpticalSystemDesign.Tests.CameraSfrWindowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:01:16.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:16.44]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:01:16.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:16.44]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs(25,0): at OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(String theme)&#xD;
+[xUnit.net 00:01:16.44]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:16.44]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-02T11:22:01.1970297+08:00">
+        <Text>[xUnit.net 00:00:41.29]     OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-02T11:22:26.2766694+08:00">
+        <Text>[xUnit.net 00:01:06.37]     OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: "Light") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-02T11:22:36.3457616+08:00">
+        <Text>[xUnit.net 00:01:16.44]     OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: "Dark") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

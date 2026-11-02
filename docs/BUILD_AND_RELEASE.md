@@ -1,6 +1,6 @@
 # 构建与发布
 
-更新：2026-10-26。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
+核对：2026-11-02。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
 
 ## 唯一产品入口
 
@@ -20,7 +20,7 @@ dotnet build OpticalSystemDesign.slnx -c Debug --no-restore /m:1 /nr:false
 dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false
 ```
 
-依赖有意变更时才使用 `dotnet restore OpticalSystemDesign.slnx --force-evaluate` 并审查锁文件。仓库通过 `Directory.Build.targets` 关闭 Avalonia 构建统计，不关闭 NuGet 安全审计。若运行中的产品锁住默认 App 输出，应正常关闭该特定程序再重建，不用另一个输出目录冒充默认产物更新。
+依赖有意变更时才使用 `dotnet restore OpticalSystemDesign.slnx --force-evaluate` 并审查锁文件。仓库通过 `Directory.Build.targets` 关闭 Avalonia 构建统计，不关闭 NuGet 安全审计。默认 App 输出被锁时先确认进程来源；仅可关闭本轮启动且不会影响用户的验证进程。用户正在使用的程序保持运行，记录未完成的默认输出验证；不能拿另一输出目录冒充默认产物更新。测试可使用独立目录避免相互占用，并注明实际使用的程序集。
 
 AutoLens 的 CUDA 瞄准、追迹及求导使用锁定的 ILGPU / ILGPU.Algorithms 1.5.3 C# 库，默认构建和发布自动包含 `ILGPU.dll`、`ILGPU.Algorithms.dll` 与 `Licenses/ILGPU-*.txt` 五份许可证/声明。发布脚本拒绝缺少这些文件的载荷。使用 GPU 需要机器上已有可用 NVIDIA CUDA 驱动，产品不安装驱动或另启外部计算程序；无 GPU 时自动模式仍可用 CPU。参见 [GPU 功能范围](AUTOLENS_GPU.md)。
 

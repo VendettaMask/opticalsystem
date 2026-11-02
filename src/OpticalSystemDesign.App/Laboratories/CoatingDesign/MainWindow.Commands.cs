@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
@@ -21,6 +20,7 @@ public sealed partial class MainWindow
         commands.Children.Add(ToolCommand("打开", "打开实验", "folder-open", OpenAsync, "O"));
         commands.Children.Add(ToolCommand("保存", "保存实验", "save", SaveAsync, "S"));
         commands.Children.Add(ToolCommand("导出", "导出结果", "download", ExportAsync));
+        commands.Children.Add(ToolCommand("恢复草稿", "检查恢复草稿", "history", OfferRecoveryAsync));
         commands.Children.Add(CommandDivider());
 
         var examples = new MenuFlyout();
@@ -43,7 +43,7 @@ public sealed partial class MainWindow
             AutomationProperties.SetName(item, automation);
             item.Click += (_, _) => TrackOperation(async () =>
             {
-                if (await ConfirmUnsavedChangesAsync("切换镀膜示例")) Load(Examples.Create(kind), markDirty: false);
+                if (await ConfirmUnsavedChangesAsync("切换镀膜示例")) Load(WorkspaceExample(Examples.Create(kind)), markDirty: false);
             });
             examples.Items.Add(item);
         }
@@ -55,29 +55,21 @@ public sealed partial class MainWindow
         var exampleButton = new DropDownButton { Content = ToolContent("layers", "示例"), Flyout = examples };
         exampleButton.Classes.Add("coating-tool");
         AutomationProperties.SetName(exampleButton, "镀膜示例");
-        ToolTip.SetTip(exampleButton, "选择镀膜示例");
+        CommandTip(exampleButton, "选择镀膜示例");
         commands.Children.Add(exampleButton);
         commands.Children.Add(SettingsMenu("设计", "设计选项", "sliders-horizontal", [("设计目标设置", 0), ("介质与膜料设置", 1)]));
         commands.Children.Add(SettingsMenu("优化", "优化选项", "settings-2", [("优化设置", 2), ("公差设置", 3)]));
         commands.Children.Add(CommandDivider());
         commands.Children.Add(ToolCommand("材料", "材料管理", "database", ManageMaterialsAsync));
+        commands.Children.Add(ToolCommand("堆栈几何", "堆栈几何分析", "layers", ShowStackGeometryAsync));
+        commands.Children.Add(ToolCommand("结果", "查看镀膜结果", "chart-line", ShowDesignResultsAsync));
+        commands.Children.Add(BuildWindowMenu());
 
-        var document = new TextBlock
-        {
-            Name = "CoatingDocumentName", VerticalAlignment = VerticalAlignment.Center,
-            TextTrimming = TextTrimming.CharacterEllipsis, MaxWidth = 280, Margin = new Thickness(20, 0, 4, 0)
-        };
-        document.Bind(TextBlock.TextProperty, new Binding(nameof(TextBox.Text)) { Source = _name });
-        document.Bind(ToolTip.TipProperty, new Binding(nameof(TextBox.Text)) { Source = _name });
-        document.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextMuted);
-        var row = new Grid { ColumnDefinitions = new("*,Auto") };
-        row.Children.Add(new ScrollViewer
+        var row = new ScrollViewer
         {
             Content = commands, HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden,
             VerticalScrollBarVisibility = ScrollBarVisibility.Disabled
-        });
-        Grid.SetColumn(document, 1); row.Children.Add(document);
-        row.SizeChanged += (_, _) => document.IsVisible = row.Bounds.Width >= 1000 * Math.Max(1, FontSize / 13);
+        };
 
         var bar = new Border
         {
@@ -106,7 +98,7 @@ public sealed partial class MainWindow
         var button = new Button { Content = ToolContent(icon, text) };
         button.Classes.Add("coating-tool");
         AutomationProperties.SetName(button, name);
-        ToolTip.SetTip(button, shortcut is null ? name : name + " · " + (OperatingSystem.IsMacOS() ? "⌘" : "Ctrl+") + shortcut);
+        CommandTip(button, shortcut is null ? name : name + " · " + (OperatingSystem.IsMacOS() ? "⌘" : "Ctrl+") + shortcut);
         button.Click += (_, _) => TrackOperation(action);
         return button;
     }
@@ -126,9 +118,12 @@ public sealed partial class MainWindow
             foreach (var item in menu.Items.OfType<MenuItem>()) item.Header = UiLocalization.Text((string)item.Tag!);
         };
         var button = new DropDownButton { Content = ToolContent(icon, text), Flyout = menu };
-        button.Classes.Add("coating-tool"); AutomationProperties.SetName(button, name); ToolTip.SetTip(button, name);
+        button.Classes.Add("coating-tool"); AutomationProperties.SetName(button, name); CommandTip(button, name);
         return button;
     }
+
+    private static void CommandTip(Control control, string text) => ToolTip.SetTip(control,
+        new ToolTip { Content = text, IsHitTestVisible = false });
 
     private static Control ToolContent(string icon, string text)
     {

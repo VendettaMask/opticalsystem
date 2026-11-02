@@ -20,10 +20,42 @@ try {
     $fenceIssues = [Collections.Generic.List[object]]::new()
     $paragraphs = [Collections.Generic.List[object]]::new()
     $anchorCache = @{}
+    $lifecycleIssues = [Collections.Generic.List[object]]::new()
+    $activePlans = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+    $historicalDocuments = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+    $lifecyclePath = Join-Path $root 'docs/documentation-lifecycle.json'
+    $lifecycleHash = $null
+    if (Test-Path -LiteralPath $lifecyclePath) {
+        $lifecycle = Get-Content -LiteralPath $lifecyclePath -Raw | ConvertFrom-Json
+        if ($lifecycle.SchemaVersion -ne 1) { throw 'Unsupported documentation lifecycle schema.' }
+        $lifecycleHash = (Get-FileHash -LiteralPath $lifecyclePath -Algorithm SHA256).Hash.ToLowerInvariant()
+        function Resolve-LifecyclePath([string]$Path) {
+            if ([string]::IsNullOrWhiteSpace($Path) -or [IO.Path]::IsPathRooted($Path)) { throw 'Lifecycle paths must be repository-relative.' }
+            $relative = [IO.Path]::GetRelativePath($root, [IO.Path]::GetFullPath((Join-Path $root $Path))).Replace('\', '/')
+            if ($relative -eq '..' -or $relative.StartsWith('../')) { throw 'Lifecycle path leaves repository.' }
+            return $relative
+        }
+        foreach ($path in @($lifecycle.ActivePlans | Where-Object { $_ })) {
+            $relative = Resolve-LifecyclePath $path; [void]$activePlans.Add($relative)
+            if (-not (Test-Path -LiteralPath (Join-Path $root $relative) -PathType Leaf)) { $lifecycleIssues.Add([pscustomobject]@{ Path=$relative; Issue='MissingActivePlan' }) }
+        }
+        foreach ($path in @($lifecycle.HistoricalDocuments | Where-Object { $_ })) {
+            $relative = Resolve-LifecyclePath $path; [void]$historicalDocuments.Add($relative)
+            if ($activePlans.Contains($relative)) { $lifecycleIssues.Add([pscustomobject]@{ Path=$relative; Issue='ConflictingLifecycle' }) }
+            if (-not (Test-Path -LiteralPath (Join-Path $root $relative) -PathType Leaf)) { $lifecycleIssues.Add([pscustomobject]@{ Path=$relative; Issue='MissingHistoricalDocument' }) }
+        }
+        foreach ($entry in @($lifecycle.RetiredDocuments | Where-Object { $_ })) {
+            $relative = Resolve-LifecyclePath $entry.Path; $replacement = Resolve-LifecyclePath $entry.Replacement
+            if (Test-Path -LiteralPath (Join-Path $root $relative)) { $lifecycleIssues.Add([pscustomobject]@{ Path=$relative; Issue='RetiredDocumentPresent' }) }
+            if (-not (Test-Path -LiteralPath (Join-Path $root $replacement) -PathType Leaf)) { $lifecycleIssues.Add([pscustomobject]@{ Path=$replacement; Issue='MissingReplacement' }) }
+        }
+    }
 
     function Get-Category([string]$Path) {
+        if ($activePlans.Contains($Path)) { return 'Guide' }
+        if ($historicalDocuments.Contains($Path)) { return 'Historical' }
         if ($Path -match '(?i)(LICENSE|COPYING|NOTICE|OFL)' -or $Path -match '^third_party/' -or $Path -eq 'packaging/windows/inno/SOURCE.md') { return 'ThirdParty' }
-        if ($Path -match '^(artifacts/|validation/|labs/InitialStructure/benchmarks/|output/pdf/|reports/)') { return 'Evidence' }
+        if ($Path -match '^(artifacts/|validation/|labs/InitialStructure/benchmarks/|output/|reports/)') { return 'Evidence' }
         if ($Path -match '^docs/history/' -or $Path -match '^tools/diagnostics/' -or $Path -match '^docs/(ARCHITECTURE_CONVERGENCE_PLAN|INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL|PYTHON_[A-Z_]+_REMOVAL|UI_DESIGN_REVIEW|ZEMAX_APODIZATION_LAYOUT_FIX|ZEMAX_38668_WORKING_F_NUMBER|ZEMAX_COMPARISON_TOOL|FFT_PSF_STOP_AIMING)\.md$' -or $Path -match '^docs/.*\d{4}-\d{2}-\d{2}\.md$' -and $Path -notmatch '(BUILT_IN_MODULES|WINDOWS_INSTALLATION_UPGRADE|OPEN_ISSUES)') { return 'Historical' }
         return 'Guide'
     }
@@ -69,6 +101,18 @@ try {
         return ,$anchors
     }
 
+    function Get-SrcsetTargets([string]$Value) {
+        while ($Value) {
+            $Value = $Value.TrimStart([char[]]" `t`r`n,")
+            $item = [regex]::Match($Value, '^(?<url>\S+)(?<tail>[\s\S]*)$')
+            if (-not $item.Success) { break }
+            $url = $item.Groups['url'].Value; $tail = $item.Groups['tail'].Value
+            $url.TrimEnd(',')
+            if ($url.EndsWith(',')) { $Value = $tail }
+            else { $comma = $tail.IndexOf(','); $Value = if ($comma -ge 0) { $tail.Substring($comma + 1) } else { '' } }
+        }
+    }
+
     foreach ($path in $documents) {
         $category = Get-Category $path
         $inventory.Add([pscustomobject]@{ Path=$path; Category=$category; Bytes=(Get-Item -LiteralPath $path).Length; Sha256=(Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() })
@@ -89,8 +133,13 @@ try {
         foreach ($line in $prose.Lines) {
             $lineNumber++
             $linkLine = [regex]::Replace($line, '`+[^`]*`+', '')
-            foreach ($match in [regex]::Matches($linkLine, '\[[^\]\r\n]*\]\((?<target><[^>]+>|[^\s)]+)(?:\s+"[^"]*")?\)')) {
-                $target = $match.Groups['target'].Value.Trim('<', '>')
+            $targets = [Collections.Generic.List[string]]::new()
+            foreach ($match in [regex]::Matches($linkLine, '\[[^\]\r\n]*\]\((?<target><[^>]+>|[^\s)]+)(?:\s+"[^"]*")?\)')) { $targets.Add($match.Groups['target'].Value.Trim('<', '>')) }
+            foreach ($match in [regex]::Matches($linkLine, '(?i)\b(?:href|src)\s*=\s*["''](?<target>[^"'']+)["'']')) { $targets.Add($match.Groups['target'].Value) }
+            foreach ($match in [regex]::Matches($linkLine, '(?i)\bsrcset\s*=\s*["''](?<sources>[^"'']+)["'']')) {
+                foreach ($candidate in @(Get-SrcsetTargets $match.Groups['sources'].Value)) { if ($candidate) { $targets.Add($candidate) } }
+            }
+            foreach ($target in @($targets | Sort-Object -Unique)) {
                 if ($target -match '^[A-Za-z][A-Za-z0-9+.-]*:' -or $target.StartsWith('//')) { continue }
                 $parts = $target -split '#', 2
                 $filePart = [uri]::UnescapeDataString(($parts[0] -split '\?', 2)[0])
@@ -122,8 +171,9 @@ try {
         Date=$AuditDate; SourceCommit=$sourceCommit; SourceDirty=(@(git status --porcelain=v1).Count -gt 0); Scope='Versioned and non-ignored Markdown, RST, text, HTML, PDF, Word and license documents; evidence and third-party contents fingerprinted, not rewritten.'
         Documents=$inventory.Count; Categories=@($inventory | Group-Object Category | ForEach-Object { [pscustomobject]@{ Category=$_.Name; Count=$_.Count } })
         BrokenLinks=$broken; MarkdownFenceIssues=@($fenceIssues); LocalOnlyLinks=@($links | Where-Object Issue -eq 'LocalOnlyArtifact'); RepeatedParagraphs=$duplicates; GuideRepeatedParagraphs=$guideDuplicates; Inventory=$inventory
+        LifecycleIssues=@($lifecycleIssues); LifecycleManifestSha256=$lifecycleHash; ActivePlans=@($activePlans | Sort-Object); HistoricalDocuments=@($historicalDocuments | Sort-Object)
         RepetitionPolicy=[ordered]@{ MinimumCharacters=100; MinimumDocuments=2; WhitespaceNormalized=$true; CodeAndTablesExcluded=$true; StrictRejects='Repeated prose in at least two current guides; historical/mixed groups remain reported.' }
-        Limitations=@('Local paths and Markdown inline links/headings checked; remote URLs not fetched.', 'Binary PDF/Word/ODT documents are inventoried and hashed, not decoded as UTF-8 or scanned for Markdown syntax.', 'Exact normalized paragraphs only; thematic/near-duplicate content still needs editorial review.', 'Historical test results are preserved, not rerun or promoted to current acceptance.', 'Evidence and third-party source prose is immutable; only inventory and hashes are checked.')
+        Limitations=@('Local Markdown links/headings and HTML href/src/srcset checked; remote URLs not fetched.', 'Binary PDF/Word/ODT documents are inventoried and hashed, not decoded as UTF-8 or scanned for Markdown syntax.', 'Exact normalized paragraphs only; thematic/near-duplicate content still needs editorial review.', 'Historical test results are preserved, not rerun or promoted to current acceptance.', 'Evidence and third-party prose is fingerprinted without rewriting by this checker; retirement still requires consumer and verified-archive review.')
     }
     if ($OutputPath) {
         $outputAbsolute = [IO.Path]::GetFullPath($OutputPath, $root)
@@ -134,4 +184,5 @@ try {
     if ($Strict -and $broken.Count -gt 0) { throw "$($broken.Count) documentation links require repair." }
     if ($Strict -and $fenceIssues.Count -gt 0) { throw "$($fenceIssues.Count) documentation code fences require repair." }
     if ($Strict -and $guideDuplicates.Count -gt 0) { throw "$($guideDuplicates.Count) repeated paragraph groups in current guides require consolidation." }
+    if ($Strict -and $lifecycleIssues.Count -gt 0) { throw "$($lifecycleIssues.Count) documentation lifecycle issues require repair." }
 } finally { Pop-Location }

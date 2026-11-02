@@ -101,8 +101,9 @@ public sealed class MarkdownReportImageTests
                 Assert.True(start.IsEnabled); Assert.False(progress.IsVisible);
                 Assert.False(Directory.Exists(chosen));
 
-                Assert.Equal(format == DesignReportFormat.Pdf, pdfDetails.IsVisible);
-                if (format == DesignReportFormat.Pdf) pdfDetails.IsChecked = true;
+                var supportsDetails = format is DesignReportFormat.Pdf or DesignReportFormat.Word;
+                Assert.Equal(supportsDetails, pdfDetails.IsVisible);
+                if (supportsDetails) pdfDetails.IsChecked = true;
 
                 start.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Assert.False(start.IsEnabled);
@@ -118,13 +119,13 @@ public sealed class MarkdownReportImageTests
                 Assert.Single(Directory.GetFiles(chosen, "*" + extension));
                 Assert.Empty(Directory.GetFiles(directory.Path, "*" + extension));
                 Assert.Equal(format, settings.ReportExport.Format);
-                Assert.Equal(format == DesignReportFormat.Pdf, settings.ReportExport.PdfIncludeDetails);
+                Assert.Equal(supportsDetails, settings.ReportExport.PdfIncludeDetails);
                 window.Close();
                 entry.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Dispatcher.UIThread.RunJobs();
                 var reopened = Assert.Single(main.OwnedWindows.OfType<MarkdownReportWindow>());
                 Assert.Equal(index, reopened.GetVisualDescendants().OfType<ComboBox>().Single(item => item.Name == "ReportExportFormat").SelectedIndex);
-                Assert.Equal(format == DesignReportFormat.Pdf,
+                Assert.Equal(supportsDetails,
                     reopened.GetVisualDescendants().OfType<CheckBox>().Single(item => item.Name == "ReportPdfDetails").IsChecked == true);
                 Assert.True(reopened.GetVisualDescendants().OfType<Button>().Single(item => item.Name == "ExportMarkdownReport").IsEnabled);
             }
@@ -208,7 +209,7 @@ public sealed class MarkdownReportImageTests
                     }));
                 Assert.Equal(0, result.Failed);
                 Assert.Equal(8, result.Succeeded);
-                Assert.True(images.Count >= (format == DesignReportFormat.Pdf ? 7 : 8));
+                Assert.Equal(7, images.Count); // Seidel is a native table in every format; the seven drawings stay complete.
                 foreach (var image in images)
                 {
                     using var bitmap = new Bitmap(new MemoryStream(image.Bytes));

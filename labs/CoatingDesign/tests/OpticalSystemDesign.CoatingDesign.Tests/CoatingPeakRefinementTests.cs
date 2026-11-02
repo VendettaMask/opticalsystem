@@ -50,6 +50,7 @@ public sealed class CoatingPeakRefinementTests
         var solver = new CoherentThinFilmSolver(new AirMaterial(), new ConstantIndexMaterial("S", 1.52),
             [new(new ConstantIndexMaterial("L", Math.Sqrt(1.52)), 550 / (4 * Math.Sqrt(1.52)))]);
         var samples = ThinFilmSpectrum.Sample(solver, [450, 550, 650], 0, ThinFilmPolarization.S);
+        Assert.Throws<ArgumentNullException>(() => ThinFilmSpectrum.RefineTransmissionPeak((CoherentThinFilmSolver)null!, samples, 0, ThinFilmPolarization.S));
         Assert.Throws<ArgumentException>(() => ThinFilmSpectrum.RefineTransmissionPeak(solver, samples, 0, ThinFilmPolarization.S, 0));
         Assert.Throws<ArgumentException>(() => ThinFilmSpectrum.RefineTransmissionPeak(solver, samples, 0, ThinFilmPolarization.S, 129));
         using var cancelled = new CancellationTokenSource(); cancelled.Cancel(); using var scope = ComputationCancellation.Push(cancelled.Token);

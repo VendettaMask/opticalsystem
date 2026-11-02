@@ -1,0 +1,129 @@
+{
+  "Index": 55,
+  "Key": "Sampled MTF",
+  "Title": "\u91C7\u6837 MTF",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-055.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "89739CD4703E0B2E26D3879B2E186DFD6A24BE792DE38A905E4568A8A024BEE6"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "Sampled"
+    },
+    {
+      "Metric": "\u77B3\u9762\u91C7\u6837\u6570",
+      "Value": "32"
+    },
+    {
+      "Metric": "Zernike \u62DF\u5408\u9879\u6570",
+      "Value": "37"
+    },
+    {
+      "Metric": "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "Value": "128"
+    },
+    {
+      "Metric": "\u622A\u6B62\u9891\u7387 (cycles/mm)",
+      "Value": "570.069"
+    },
+    {
+      "Metric": "DiffractionCutoffFrequency",
+      "Value": "570.069"
+    },
+    {
+      "Metric": "FrequencyUnit",
+      "Value": "cycles/mm"
+    },
+    {
+      "Metric": "ImageSpaceAfocal",
+      "Value": "False"
+    },
+    {
+      "Metric": "F \u6570",
+      "Value": "2.985"
+    },
+    {
+      "Metric": "\u5206\u6790\u6CE2\u957F (\u00B5m)",
+      "Value": "0.588"
+    },
+    {
+      "Metric": "\u89C6\u573A\u6570",
+      "Value": "3"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u91C7\u6837 MTF\r\n\u65B9\u6CD5\uFF1ASampled\r\n\u77B3\u9762\u91C7\u6837\u6570\uFF1A32\r\nZernike \u62DF\u5408\u9879\u6570\uFF1A37\r\n\u66F2\u7EBF\u91C7\u6837\u70B9\u6570\uFF1A128\r\n\u622A\u6B62\u9891\u7387 (cycles/mm)\uFF1A570.069\r\nDiffractionCutoffFrequency\uFF1A570.069\r\nFrequencyUnit\uFF1Acycles/mm\r\nImageSpaceAfocal\uFF1AFalse\r\nF \u6570\uFF1A2.985\r\n\u5206\u6790\u6CE2\u957F (\u00B5m)\uFF1A0.588\r\n\u89C6\u573A\u6570\uFF1A3",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "Sampled MTF",
+    "RequestFingerprint": "CFB157656B73DCA64B996A6F47BA85DAF6402AA217807356C535EF6680237D1F",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "PupilSampling": "32",
+    "ZernikeTerms": "37",
+    "PlotPointCount": "128",
+    "MaximumFrequency": "0"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "PupilSampling",
+      "DisplayName": "\u77B3\u9762\u91C7\u6837\u6570",
+      "DefaultValue": "32",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ZernikeTerms",
+      "DisplayName": "Zernike \u62DF\u5408\u9879\u6570",
+      "DefaultValue": "37",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "PlotPointCount",
+      "DisplayName": "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "DefaultValue": "128",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "MaximumFrequency",
+      "DisplayName": "\u6700\u5927\u9891\u7387\uFF080=\u622A\u6B62\uFF09",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u77B3\u9762\u91C7\u6837\u6570\uFF1A32"
+  ],
+  "Metrics": [
+    [
+      "\u622A\u6B62\u9891\u7387 (cycles/mm)",
+      "570.069"
+    ],
+    [
+      "\u5206\u6790\u6CE2\u957F (\u00B5m)",
+      "0.588"
+    ],
+    [
+      "\u65B9\u6CD5",
+      "Sampled"
+    ],
+    [
+      "\u77B3\u9762\u91C7\u6837\u6570",
+      "32"
+    ],
+    [
+      "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "128"
+    ]
+  ],
+  "PaneCount": 0
+}

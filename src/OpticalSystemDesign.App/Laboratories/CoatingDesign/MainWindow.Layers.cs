@@ -10,6 +10,7 @@ using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Styling;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.Core.Materials;
 
 namespace OpticalSystemDesign.App.Laboratories.CoatingDesign;
 
@@ -51,7 +52,7 @@ public sealed partial class MainWindow
             AutoGenerateColumns = false,
             CanUserSortColumns = false,
             CanUserReorderColumns = false,
-            SelectionMode = DataGridSelectionMode.Single,
+            SelectionMode = DataGridSelectionMode.Extended,
             GridLinesVisibility = DataGridGridLinesVisibility.Horizontal,
             HeadersVisibility = DataGridHeadersVisibility.Column,
             BorderThickness = new Thickness(0),
@@ -67,10 +68,12 @@ public sealed partial class MainWindow
         headers.Setters.Add(new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Stretch));
         table.Styles.Add(headers);
 
+        var numberTheme = LayerCellTheme(HorizontalAlignment.Center, numeric: true);
+        numberTheme.Setters.Add(new Setter(NameProperty, "CoatingLayerNumberCell"));
         table.Columns.Add(new DataGridTextColumn
         {
             Header = LayerHeader("层序", TextAlignment.Center), Binding = new Binding(nameof(LayerRow.Number)), IsReadOnly = true,
-            Width = new DataGridLength(52), CellTheme = LayerCellTheme(HorizontalAlignment.Center, numeric: true)
+            Width = new DataGridLength(52), CellTheme = numberTheme
         });
         table.Columns.Add(new DataGridTemplateColumn
         {
@@ -109,9 +112,20 @@ public sealed partial class MainWindow
         });
         table.Columns.Add(new DataGridTextColumn
         {
-            Header = LayerHeader("厚度 (nm)", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.ThicknessText)) { Mode = BindingMode.TwoWay },
-            Width = new DataGridLength(124), CellTheme = LayerCellTheme(HorizontalAlignment.Right, numeric: true)
+            Header = LayerHeader("物理厚度 (nm)", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.ThicknessText)) { Mode = BindingMode.TwoWay },
+            Width = new DataGridLength(148), CellTheme = LayerCellTheme(HorizontalAlignment.Right, numeric: true)
         });
+        var opticalTheme = LayerCellTheme(HorizontalAlignment.Right, numeric: true);
+        opticalTheme.Setters.Add(new Setter(ToolTip.TipProperty, new Binding(nameof(LayerRow.OpticalThicknessHelp))));
+        table.Columns.Add(new DataGridTextColumn
+        {
+            Header = LayerHeader("光学厚度 (nm)", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.OpticalThicknessText)) { Mode = BindingMode.TwoWay },
+            Width = new DataGridLength(148), CellTheme = opticalTheme
+        });
+        table.Columns.Add(new DataGridTextColumn
+        { Header = LayerHeader("QW", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.QuarterWaveText)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(100), CellTheme = opticalTheme });
+        table.Columns.Add(new DataGridTextColumn
+        { Header = LayerHeader("FW", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.FullWaveText)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(100), CellTheme = opticalTheme });
         table.Columns.Add(new DataGridTemplateColumn
         {
             Header = LayerHeader("变量", TextAlignment.Center), Width = new DataGridLength(68),
@@ -136,10 +150,13 @@ public sealed partial class MainWindow
             // Leave the user's font size intact, including larger accessibility settings.
             var scale = Math.Max(1, table.FontSize / 13);
             table.RowHeight = 38 * scale;
-            table.ColumnHeaderHeight = 32 * scale;
+            table.ColumnHeaderHeight = 42 * scale;
             table.Columns[0].Width = new DataGridLength(52 * scale);
-            table.Columns[2].Width = new DataGridLength(124 * scale);
-            table.Columns[3].Width = new DataGridLength(68 * scale);
+            table.Columns[2].Width = new DataGridLength(148 * scale);
+            table.Columns[3].Width = new DataGridLength(148 * scale);
+            table.Columns[4].Width = new DataGridLength(100 * scale);
+            table.Columns[5].Width = new DataGridLength(100 * scale);
+            table.Columns[6].Width = new DataGridLength(68 * scale);
         }
         table.PropertyChanged += (_, e) => { if (e.Property == FontSizeProperty) UpdateDensity(); };
         UpdateDensity();
@@ -166,6 +183,43 @@ public sealed partial class MainWindow
     private static TextBlock LayerHeader(string text, TextAlignment alignment) => new()
     {
         Text = text, TextAlignment = alignment, HorizontalAlignment = HorizontalAlignment.Stretch,
-        VerticalAlignment = VerticalAlignment.Center
+        VerticalAlignment = VerticalAlignment.Center, TextWrapping = TextWrapping.Wrap
     };
+
+    private void RefreshLayerOpticalThickness()
+    {
+        double wavelength;
+        try
+        {
+            wavelength = Value("reference");
+            if (wavelength <= 0) throw new ArgumentException("参考波长必须大于零。");
+        }
+        catch (ArgumentException error)
+        {
+            foreach (var row in _rows) row.UpdateOpticalThickness(null, 0, error.Message);
+            return;
+        }
+        var registry = new MaterialRegistry();
+        var indices = new Dictionary<string, (double? Index, string? Notice)>();
+        foreach (var row in _rows)
+        {
+            if (!indices.TryGetValue(row.MaterialId, out var value))
+            {
+                try
+                {
+                    var material = _session.Current.Materials.FirstOrDefault(m => m.Id == row.MaterialId)
+                        ?? throw new ArgumentException($"找不到材料快照：{row.MaterialId}");
+                    if (!material.HoldTabulatedEndpoints && (wavelength < material.MinimumNm || wavelength > material.MaximumNm))
+                        throw new ArgumentException($"参考波长超出 {material.Name} 的有效范围 {material.MinimumNm:G7}–{material.MaximumNm:G7} nm。");
+                    var index = material.Resolve(registry).RefractiveIndex(wavelength);
+                    if (!double.IsFinite(index) || index <= 0) throw new ArgumentException("参考波长处的折射率必须为正有限数值。");
+                    value = (index, material.RangeNotice(wavelength, wavelength));
+                }
+                catch (Exception error) when (error is ArgumentException or InvalidDataException or KeyNotFoundException or NotSupportedException)
+                { value = (null, error.Message); }
+                indices.Add(row.MaterialId, value);
+            }
+            row.UpdateOpticalThickness(value.Index, wavelength, value.Notice);
+        }
+    }
 }

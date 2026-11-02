@@ -1,5 +1,5 @@
 #requires -Version 7.0
-param([string]$OutputPath)
+param([string]$OutputPath, [ValidatePattern('^\d{4}-\d{2}-\d{2}$')][string]$AuditDate = (Get-Date -Format 'yyyy-MM-dd'))
 
 $ErrorActionPreference = 'Stop'
 $checker = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../verify-documentation.ps1'))
@@ -139,8 +139,48 @@ try {
         $r = Invoke-Fixture @{ 'a.md'= ('~~~text' + "`ncode`n" + '```') }
         Assert-Check ($r.ExitCode -ne 0 -and $r.Report.MarkdownFenceIssues.Count -eq 1) 'Unclosed mixed fence was accepted.'
     }
+    Run-Case 'HTML links and image source sets resolve' {
+        $r = Invoke-Fixture @{ 'a.md'='<a href="b.md#hello">B</a><img src="one.png"><source srcset="one.png 1x, two.png 2x">'; 'b.md'='# Hello'; 'one.png'=[byte[]]@(1); 'two.png'=[byte[]]@(2) }
+        Assert-Check ($r.ExitCode -eq 0 -and $r.Report.BrokenLinks.Count -eq 0) 'Valid HTML references failed.'
+    }
+    Run-Case 'Missing HTML image and anchor are rejected' {
+        $r = Invoke-Fixture @{ 'a.md'='<img src="missing.png"><a href="b.md#missing">B</a>'; 'b.md'='# Hello' }
+        Assert-Check ($r.ExitCode -ne 0 -and $r.Report.BrokenLinks.Count -eq 2) 'Broken HTML references were ignored.'
+    }
+    Run-Case 'Commas inside remote and data image URLs do not become local files' {
+        $r = Invoke-Fixture @{ 'a.md'='<source srcset="data:image/png;base64,AAAA 1x, one.png 2x"><source srcset="https://example.test/image?crop=1,2 1x, one.png 2x">'; 'one.png'=[byte[]]@(1) }
+        Assert-Check ($r.ExitCode -eq 0 -and $r.Report.BrokenLinks.Count -eq 0) 'A URL comma became a false local path.'
+    }
+    Run-Case 'HTML examples inside code do not become live references' {
+        $r = Invoke-Fixture @{ 'a.md'=('```html' + "`n" + '<img src="missing.png">' + "`n" + '```') }
+        Assert-Check ($r.ExitCode -eq 0 -and $r.Report.BrokenLinks.Count -eq 0) 'HTML code was scanned as a live image.'
+    }
+    Run-Case 'Dated active plans participate in current-guide checks' {
+        $manifest = @{ SchemaVersion=1; ActivePlans=@('docs/PLAN_2026-11-02.md'); HistoricalDocuments=@(); RetiredDocuments=@() } | ConvertTo-Json
+        $r = Invoke-Fixture @{ 'a.md'=$dup; 'docs/PLAN_2026-11-02.md'=$dup; 'docs/documentation-lifecycle.json'=$manifest }
+        Assert-Check ($r.ExitCode -ne 0 -and $r.Report.GuideRepeatedParagraphs.Count -eq 1 -and $r.Report.ActivePlans.Count -eq 1) 'An active dated plan was treated as history.'
+    }
+    Run-Case 'Explicit completed plan stays historical' {
+        $manifest = @{ SchemaVersion=1; ActivePlans=@(); HistoricalDocuments=@('docs/DONE.md'); RetiredDocuments=@() } | ConvertTo-Json
+        $r = Invoke-Fixture @{ 'a.md'=$dup; 'docs/DONE.md'=$dup; 'docs/documentation-lifecycle.json'=$manifest }
+        Assert-Check ($r.ExitCode -eq 0 -and $r.Report.RepeatedParagraphs[0].Scope -eq 'Mixed') 'Historical override was not honored.'
+    }
+    Run-Case 'Retired document cannot silently return' {
+        $manifest = @{ SchemaVersion=1; ActivePlans=@(); HistoricalDocuments=@(); RetiredDocuments=@(@{ Path='old.md'; Replacement='new.md' }) } | ConvertTo-Json -Depth 4
+        $r = Invoke-Fixture @{ 'old.md'='obsolete'; 'new.md'='current'; 'docs/documentation-lifecycle.json'=$manifest }
+        Assert-Check ($r.ExitCode -ne 0 -and $r.Report.LifecycleIssues[0].Issue -eq 'RetiredDocumentPresent') 'Retired file was silently accepted.'
+    }
+    Run-Case 'Retirement requires a live replacement' {
+        $manifest = @{ SchemaVersion=1; ActivePlans=@(); HistoricalDocuments=@(); RetiredDocuments=@(@{ Path='old.md'; Replacement='new.md' }) } | ConvertTo-Json -Depth 4
+        $r = Invoke-Fixture @{ 'a.md'='current'; 'docs/documentation-lifecycle.json'=$manifest }
+        Assert-Check ($r.ExitCode -ne 0 -and $r.Report.LifecycleIssues[0].Issue -eq 'MissingReplacement') 'Missing replacement was accepted.'
+    }
+    Run-Case 'Generated report formats are evidence, not current guides' {
+        $r = Invoke-Fixture @{ 'a.md'=$dup; 'output/run/Markdown/report.md'=$dup; 'output/run/Html/report.html'=$dup }
+        Assert-Check ($r.ExitCode -eq 0 -and $r.Report.GuideRepeatedParagraphs.Count -eq 0 -and @($r.Report.Inventory | Where-Object Category -eq 'Evidence').Count -eq 2) 'Generated reports were promoted to guides.'
+    }
     $failed = @($results | Where-Object { -not $_.Passed })
-    $report = [ordered]@{ Date='2026-10-14'; Cases=$results.Count; Passed=($results.Count-$failed.Count); Failed=$failed.Count; Results=$results.ToArray() }
+    $report = [ordered]@{ Date=$AuditDate; Cases=$results.Count; Passed=($results.Count-$failed.Count); Failed=$failed.Count; Results=$results.ToArray() }
     $json = $report | ConvertTo-Json -Depth 6
     if ($OutputPath) {
         $absolute = [IO.Path]::GetFullPath($OutputPath)

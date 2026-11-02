@@ -28,8 +28,7 @@ internal static class WorkspaceDockGuidance
         _installed = true;
         Control.PointerPressedEvent.AddClassHandler<DockControl>((dock, args) =>
         {
-            if (dock.Factory is WorkspaceDockFactory)
-                DragPointers.GetOrCreateValue(dock).Pointer = args.Pointer;
+            DragPointers.GetOrCreateValue(dock).Pointer = args.Pointer;
         }, RoutingStrategies.Tunnel, handledEventsToo: true);
         Window.KeyDownEvent.AddClassHandler<Window>((window, args) =>
         {
@@ -46,7 +45,7 @@ internal static class WorkspaceDockGuidance
         }, RoutingStrategies.Tunnel, handledEventsToo: true);
         Control.LoadedEvent.AddClassHandler<MdiDocumentWindow>((page, _) =>
         {
-            if (page.DataContext is not IDockable { Factory: WorkspaceDockFactory }) return;
+            if (page.DataContext is not IDockable) return;
             // Dock's MDI item template locally forces indicator-only/Fill. Keep
             // its group-sized host (the actual split target), but expose all valid
             // directions without replacing the page/content template.

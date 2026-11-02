@@ -91,7 +91,8 @@ public enum AnalysisAxisUnit
     Watt,
     CyclesPerMilliradian,
     Diopter,
-    WattsPerSquareMeterPerNanometer
+    WattsPerSquareMeterPerNanometer,
+    CyclesPerPixel
 }
 
 public sealed record AnalysisPoint(

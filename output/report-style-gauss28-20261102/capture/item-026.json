@@ -1,0 +1,213 @@
+{
+  "Index": 26,
+  "Key": "RMS vs Wavelength",
+  "Title": "RMS vs. \u6CE2\u957F",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-026.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "0E9F69C6C51CCF2DB1C37CFB96DEF4AA3E1B56B063A70AE872C6E5C754685FA1"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "WaveDensity",
+      "Value": "21"
+    },
+    {
+      "Metric": "\u5149\u7EBF\u5BC6\u5EA6",
+      "Value": "6"
+    },
+    {
+      "Metric": "GaussianAzimuthalSamples",
+      "Value": "6"
+    },
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "GQ"
+    },
+    {
+      "Metric": "\u6570\u636E",
+      "Value": "spot"
+    },
+    {
+      "Metric": "\u77B3\u5B54\u91C7\u6837\u5206\u5E03",
+      "Value": "gaussian"
+    },
+    {
+      "Metric": "\u89C6\u573A\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u53C2\u8003",
+      "Value": "centroid"
+    },
+    {
+      "Metric": "\u663E\u793A\u884D\u5C04\u6781\u9650",
+      "Value": "False"
+    },
+    {
+      "Metric": "ImageSpaceAfocal",
+      "Value": "False"
+    },
+    {
+      "Metric": "MetricUnit",
+      "Value": "mm"
+    },
+    {
+      "Metric": "\u884D\u5C04\u6781\u9650 (mm)",
+      "Value": "0.002"
+    },
+    {
+      "Metric": "DiffractionLimitMilliradians",
+      "Value": "0"
+    },
+    {
+      "Metric": "DiffractionLimitValue",
+      "Value": "0.002"
+    },
+    {
+      "Metric": "DiffractionLimitUnit",
+      "Value": "mm"
+    },
+    {
+      "Metric": "\u4F7F\u7528\u504F\u632F",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u79FB\u9664\u6E10\u6655",
+      "Value": "True"
+    },
+    {
+      "Metric": "MinimumWavelengthMicrometers",
+      "Value": "0.486"
+    },
+    {
+      "Metric": "MaximumWavelengthMicrometers",
+      "Value": "0.656"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1ARMS vs. \u6CE2\u957F\r\nWaveDensity\uFF1A21\r\n\u5149\u7EBF\u5BC6\u5EA6\uFF1A6\r\nGaussianAzimuthalSamples\uFF1A6\r\n\u65B9\u6CD5\uFF1AGQ\r\n\u6570\u636E\uFF1Aspot\r\n\u77B3\u5B54\u91C7\u6837\u5206\u5E03\uFF1Agaussian\r\n\u89C6\u573A\u5E8F\u53F7\uFF1A0\r\n\u53C2\u8003\uFF1Acentroid\r\n\u663E\u793A\u884D\u5C04\u6781\u9650\uFF1AFalse\r\nImageSpaceAfocal\uFF1AFalse\r\nMetricUnit\uFF1Amm\r\n\u884D\u5C04\u6781\u9650 (mm)\uFF1A0.002\r\nDiffractionLimitMilliradians\uFF1A0\r\nDiffractionLimitValue\uFF1A0.002\r\nDiffractionLimitUnit\uFF1Amm\r\n\u4F7F\u7528\u504F\u632F\uFF1AFalse\r\n\u79FB\u9664\u6E10\u6655\uFF1ATrue\r\nMinimumWavelengthMicrometers\uFF1A0.486\r\nMaximumWavelengthMicrometers\uFF1A0.656",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "RMS vs Wavelength",
+    "RequestFingerprint": "0D17612FF2F259F391DCEAB770D2DE17768785CF1E872F17468B732DBCA733EF",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "WaveDensity": "21",
+    "NumRings": "6",
+    "Method": "GQ",
+    "GaussianAzimuthalSamples": "6",
+    "Data": "spot",
+    "Distribution": "hexapolar",
+    "FieldNumber": "0",
+    "Reference": "centroid",
+    "ShowDiffractionLimit": "false",
+    "UsePolarization": "false",
+    "RemoveVignetting": "true"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "WaveDensity",
+      "DisplayName": "\u6CE2\u957F\u5BC6\u5EA6",
+      "DefaultValue": "21",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "NumRings",
+      "DisplayName": "\u5149\u77B3\u91C7\u6837\uFF08GQ \u73AF\u6570 / RA \u6BCF\u8FB9\u70B9\u6570\uFF09",
+      "DefaultValue": "6",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Method",
+      "DisplayName": "\u8BA1\u7B97\u65B9\u6CD5",
+      "DefaultValue": "GQ",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "GaussianAzimuthalSamples",
+      "DisplayName": "GQ \u89D2\u5411\u70B9\u6570",
+      "DefaultValue": "6",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Data",
+      "DisplayName": "\u6570\u636E",
+      "DefaultValue": "spot",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Distribution",
+      "DisplayName": "\u91C7\u6837\u65B9\u6CD5",
+      "DefaultValue": "hexapolar",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "FieldNumber",
+      "DisplayName": "\u89C6\u573A",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Reference",
+      "DisplayName": "\u53C2\u7167",
+      "DefaultValue": "centroid",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ShowDiffractionLimit",
+      "DisplayName": "\u663E\u793A\u884D\u5C04\u6781\u9650",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "UsePolarization",
+      "DisplayName": "\u4F7F\u7528\u504F\u632F",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "RemoveVignetting",
+      "DisplayName": "\u79FB\u9664\u6E10\u6655",
+      "DefaultValue": "true",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u6CE2\u957F\u5BC6\u5EA6\uFF1A21",
+    "GQ \u89D2\u5411\u70B9\u6570\uFF1A6",
+    "\u89C6\u573A\uFF1A\u5168\u90E8",
+    "\u53C2\u7167\uFF1Acentroid"
+  ],
+  "Metrics": [
+    [
+      "\u5149\u7EBF\u5BC6\u5EA6",
+      "6"
+    ],
+    [
+      "\u65B9\u6CD5",
+      "GQ"
+    ],
+    [
+      "\u6570\u636E",
+      "spot"
+    ],
+    [
+      "\u77B3\u5B54\u91C7\u6837\u5206\u5E03",
+      "gaussian"
+    ],
+    [
+      "\u53C2\u8003",
+      "centroid"
+    ]
+  ],
+  "PaneCount": 0
+}

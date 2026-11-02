@@ -7,7 +7,11 @@ using OpticalSystemDesign.Core.Tolerancing;
 namespace OpticalSystemDesign.CoatingDesign.Engine;
 
 public sealed record DesignProgress(string Stage, long Evaluations, double? BestMerit = null);
-public sealed record ToleranceTrial(int Number, bool Passed, double? Merit, double[] ThicknessNm, double AngleDegrees, RequirementCheck[] Checks, string? Error = null);
+public sealed record ToleranceTrial(int Number, bool Passed, double? Merit, double[] ThicknessNm, double AngleDegrees, RequirementCheck[] Checks, string? Error = null)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public double[]? BackThicknessNm { get; init; }
+}
 public sealed record ToleranceResult(int Trials, int Passed, int Seed, double Percent, double WorstMerit, string Fingerprint,
     ToleranceOptions? Options = null, ToleranceTrial[]? Samples = null);
 
@@ -25,6 +29,12 @@ public sealed partial class DesignService
         var used = experiment.Layers.Select(l => l.MaterialId)
             .Concat(displayBand is null ? [experiment.IncidentId, experiment.SubstrateId, experiment.LowId, experiment.HighId]
                 : new[] { experiment.IncidentId, experiment.SubstrateId }).ToHashSet();
+        if (displayBand is not null && experiment.StackGeometry is { IncludeBackSurface: true } stack) used.Add(stack.ExitMediumId);
+        if (experiment.Duplex is not null)
+        {
+            used = EvaluationMaterialIds(experiment).ToHashSet();
+            if (displayBand is null) { used.Add(experiment.LowId); used.Add(experiment.HighId); }
+        }
         var selected = experiment.Materials.Where(m => used.Contains(m.Id)).ToArray();
         foreach (var m in selected)
             if (!m.HoldTabulatedEndpoints && ((displayBand?.MinimumNm ?? experiment.Target.MinimumNm) < m.MinimumNm - 8e-15 * m.MinimumNm || (displayBand?.MaximumNm ?? experiment.Target.MaximumNm) > m.MaximumNm + 8e-15 * m.MaximumNm))
@@ -38,6 +48,7 @@ public sealed partial class DesignService
 
     public Experiment Generate(Experiment input, IProgress<DesignProgress>? progress = null, CancellationToken token = default)
     {
+        if (input.Duplex is not null) return GenerateDuplex(input, false, progress, token);
         using var scope = ComputationCancellation.Push(token);
         var d = input.Snapshot();
         var materials = Materials(d);
@@ -135,11 +146,18 @@ public sealed partial class DesignService
     }
 
     public Experiment Evaluate(Experiment input, RunRecord? run = null, IProgress<DesignProgress>? progress = null, CancellationToken token = default)
+        => EvaluateCounted(input, run, progress, token, null);
+
+    private Experiment EvaluateCounted(Experiment input, RunRecord? run, IProgress<DesignProgress>? progress, CancellationToken token, Action? countPower)
     {
         using var scope = ComputationCancellation.Push(token);
         var d = input.Snapshot();
         var materials = Materials(d);
-        var solver = Solver(d, materials);
+        var solver = d.Duplex is null ? Solver(d, materials) : null;
+        var physicalEvaluator = PowerEvaluator(d, materials);
+        ThinFilmPower Counted(double wavelength, double angle, ThinFilmPolarization polarization)
+        { countPower?.Invoke(); return physicalEvaluator(wavelength, angle, polarization); }
+        Func<double, double, ThinFilmPolarization, ThinFilmPower> evaluate = countPower is null ? physicalEvaluator : Counted;
         var t = d.Target;
         var intervals = d.Settings.PreviewIntervals;
         if (t.Kind == DesignKind.NarrowBand)
@@ -178,8 +196,9 @@ public sealed partial class DesignService
         if (t.Kind == DesignKind.NarrowBand && metrics.FwhmNanometers is null) warnings.Add("未找到完整的半高通带边缘，FWHM 未定义。");
         var result = new DesignResult(d.Fingerprint(), samples, metrics, checks, converged, samples.Length,
             (run ?? new("光谱复验", CoherentThinFilmSolver.Version, "计算完成", samples.Length, 0, null)) with
-            { DesignProtocol = Protocol(d) },
-            d.Settings.DesignProtocolVersion == 4 ? AssessGeneral(d, samples).Merit : ObjectiveMerit(d, Objective(d, solver, ObjectiveGrid(d))), warnings.ToArray())
+            { DesignProtocol = d.Duplex is null ? Protocol(d) : d.Duplex.OptimizationVersion == 2 ? DuplexAnalyticProtocol : DuplexDesignProtocol },
+            d.Duplex is not null ? Merit(DuplexResiduals(d, samples))
+                : d.Settings.DesignProtocolVersion == 4 ? AssessGeneral(d, samples).Merit : ObjectiveMerit(d, Objective(d, solver!, ObjectiveGrid(d))), warnings.ToArray())
         { MaterialSuitability = suitability, SpectrumMetricsVersion = ThinFilmSpectrum.MetricsVersion,
             SamplingProtocol = t.Kind == DesignKind.NarrowBand ? DenseSamplingProtocol : null,
             ExtremaRefinementEvaluations = t.Kind == DesignKind.NarrowBand ? extremaEvaluations : null,
@@ -193,7 +212,7 @@ public sealed partial class DesignService
             // Extrema of the reported band include its exact physical endpoints.
             // A moving grid edge must not masquerade as failed spectral convergence.
             if (t.Kind == DesignKind.NarrowBand) waves = waves.Append(domain.Minimum).Append(domain.Maximum);
-            var baseSamples = ThinFilmSpectrum.Sample(solver, waves, t.AngleDegrees, t.Polarization);
+            var baseSamples = ThinFilmSpectrum.Sample(w => evaluate(w, t.AngleDegrees, t.Polarization), waves);
             if (t.Kind != DesignKind.NarrowBand) return baseSamples;
             var m = Metrics(d, baseSamples);
             var step = (t.MaximumNm - t.MinimumNm) / count;
@@ -205,9 +224,9 @@ public sealed partial class DesignService
                     var upper = Math.Min(t.MaximumNm, center.Value + 2 * step);
                     points.AddRange(ThinFilmSpectrum.Grid(lower, upper, 32));
                 }
-            var localSamples = baseSamples.Concat(ThinFilmSpectrum.Sample(solver, points, t.AngleDegrees, t.Polarization))
+            var localSamples = baseSamples.Concat(ThinFilmSpectrum.Sample(w => evaluate(w, t.AngleDegrees, t.Polarization), points))
                 .GroupBy(x => x.WavelengthNanometers).Select(g => g.First()).OrderBy(x => x.WavelengthNanometers).ToArray();
-            var refined = RefineDenseExtrema(d, solver, localSamples, token);
+            var refined = RefineDenseExtrema(d, w => evaluate(w, t.AngleDegrees, t.Polarization), localSamples, token);
             extremaEvaluations += refined.Evaluations; extremaComplete = refined.Complete;
             return refined.Samples;
         }
@@ -215,6 +234,7 @@ public sealed partial class DesignService
 
     public Experiment Optimize(Experiment input, IProgress<DesignProgress>? progress = null, CancellationToken token = default)
     {
+        if (input.Duplex is not null) return OptimizeDuplex(input, progress, token);
         using var scope = ComputationCancellation.Push(token);
         var d = input.Snapshot();
         var materials = Materials(d);
@@ -319,6 +339,7 @@ public sealed partial class DesignService
 
     public ToleranceResult Tolerance(Experiment input, IProgress<DesignProgress>? progress = null, CancellationToken token = default)
     {
+        if (input.Duplex is not null) return ToleranceDuplex(input, progress, token);
         var d = input.Snapshot(); d.Validate();
         var random = new Random(d.Settings.RandomSeed);
         var options = d.Settings.Tolerancing ?? new();
@@ -436,11 +457,13 @@ public sealed partial class DesignService
     private static RequirementCheck[] Checks(Experiment d, ThinFilmSample[] samples, ThinFilmBandMetrics m)
     {
         var t = d.Target; var s = d.Settings;
+        var layers = d.Duplex is null ? d.Layers : d.Layers.Concat(d.EffectiveBackLayers).ToArray();
+        var count = d.Duplex is null ? d.Layers.Length : Math.Max(d.Layers.Length, d.EffectiveBackLayers.Length);
         var checks = new List<RequirementCheck>
         {
-            new("层数", d.Layers.Length, $"≤ {t.MaximumLayers}", d.Layers.Length <= t.MaximumLayers),
+            new(d.Duplex is null ? "层数" : "每面层数", count, $"≤ {t.MaximumLayers}", count <= t.MaximumLayers),
             new("物理厚度约束 (nm)", null, $"{s.MinimumThicknessNm:G8}–{s.MaximumThicknessNm:G8}",
-                d.Layers.All(l => l.ThicknessNm >= s.MinimumThicknessNm && l.ThicknessNm <= s.MaximumThicknessNm))
+                layers.All(l => l.ThicknessNm >= s.MinimumThicknessNm && l.ThicknessNm <= s.MaximumThicknessNm))
         };
         if (t.Kind == DesignKind.Antireflection)
             checks.Add(new("波段最大 R (%)", m.MaximumReflectance * 100, $"≤ {t.Reflectance * 100:G8}", m.MaximumReflectance <= t.Reflectance));

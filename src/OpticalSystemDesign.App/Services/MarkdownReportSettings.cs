@@ -13,6 +13,7 @@ public sealed class MarkdownReportSettings
     public bool Include3DLayout { get; set; } = true;
     public bool AllConfigurations { get; set; }
     public DesignReportFormat Format { get; set; } = DesignReportFormat.Markdown;
+    // Keep the existing persisted key; both paper formats now expose the same optional detailed appendix.
     public bool PdfIncludeDetails { get; set; }
 
     public MarkdownReportSettings Copy() => new()

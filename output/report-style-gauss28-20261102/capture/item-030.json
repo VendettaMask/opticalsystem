@@ -1,0 +1,118 @@
+{
+  "Index": 30,
+  "Key": "Zernike vs Field",
+  "Title": "Zernike\u7CFB\u6570 vs. \u89C6\u573A",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-030.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "1D25AD2FCEED8387A7A0623F458D51E5682F1ACFAB44C65B33C0FA41EFB08DED"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u89C6\u573A\u5BC6\u5EA6",
+      "Value": "20"
+    },
+    {
+      "Metric": "\u516D\u89D2\u91C7\u6837\u73AF\u6570",
+      "Value": "12"
+    },
+    {
+      "Metric": "UseRayAiming",
+      "Value": "False"
+    },
+    {
+      "Metric": "Zernike \u62DF\u5408\u9879\u6570",
+      "Value": "8"
+    },
+    {
+      "Metric": "\u8BF7\u6C42 Zernike \u62DF\u5408\u9879\u6570",
+      "Value": "8"
+    },
+    {
+      "Metric": "\u5B9E\u9645 Zernike \u8F93\u51FA\u9879\u6570",
+      "Value": "8"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "2"
+    },
+    {
+      "Metric": "\u5206\u6790\u6CE2\u957F (\u00B5m)",
+      "Value": "0.588"
+    },
+    {
+      "Metric": "MaximumField",
+      "Value": "14"
+    },
+    {
+      "Metric": "PolynomialType",
+      "Value": "Fringe"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1AZernike\u7CFB\u6570 vs. \u89C6\u573A\r\n\u89C6\u573A\u5BC6\u5EA6\uFF1A20\r\n\u516D\u89D2\u91C7\u6837\u73AF\u6570\uFF1A12\r\nUseRayAiming\uFF1AFalse\r\nZernike \u62DF\u5408\u9879\u6570\uFF1A8\r\n\u8BF7\u6C42 Zernike \u62DF\u5408\u9879\u6570\uFF1A8\r\n\u5B9E\u9645 Zernike \u8F93\u51FA\u9879\u6570\uFF1A8\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A2\r\n\u5206\u6790\u6CE2\u957F (\u00B5m)\uFF1A0.588\r\nMaximumField\uFF1A14\r\nPolynomialType\uFF1AFringe",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "Zernike vs Field",
+    "RequestFingerprint": "60B1FE24C433F46724BD5896F43DA84E98C43E487A641E0856CE27644353A585",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "FieldDensity": "20",
+    "NumRings": "12",
+    "ZernikeTerms": "8",
+    "WavelengthNumber": "2"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "FieldDensity",
+      "DisplayName": "\u89C6\u573A\u5BC6\u5EA6",
+      "DefaultValue": "20",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "NumRings",
+      "DisplayName": "\u516D\u89D2\u91C7\u6837\u73AF\u6570",
+      "DefaultValue": "12",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ZernikeTerms",
+      "DisplayName": "Zernike \u7CFB\u6570\u9879\u6570",
+      "DefaultValue": "8",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F",
+      "DefaultValue": "2",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u89C6\u573A\u5BC6\u5EA6\uFF1A20",
+    "\u6CE2\u957F\u5E8F\u53F7\uFF1A2"
+  ],
+  "Metrics": [
+    [
+      "\u5206\u6790\u6CE2\u957F (\u00B5m)",
+      "0.588"
+    ],
+    [
+      "\u89C6\u573A\u5BC6\u5EA6",
+      "20"
+    ],
+    [
+      "\u516D\u89D2\u91C7\u6837\u73AF\u6570",
+      "12"
+    ]
+  ],
+  "PaneCount": 0
+}

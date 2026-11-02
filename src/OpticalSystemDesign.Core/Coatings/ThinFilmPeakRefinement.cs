@@ -14,6 +14,12 @@ public static partial class ThinFilmSpectrum
         double angleDegrees, ThinFilmPolarization polarization, int iterations = 32)
     {
         ArgumentNullException.ThrowIfNull(solver);
+        return RefineTransmissionPeak(w => solver.Evaluate(w, angleDegrees, polarization), samples, iterations);
+    }
+
+    public static ThinFilmPeakRefinement RefineTransmissionPeak(Func<double, ThinFilmPower> evaluate, IReadOnlyList<ThinFilmSample> samples, int iterations = 32)
+    {
+        ArgumentNullException.ThrowIfNull(evaluate);
         if (samples.Count < 3 || iterations < 1 || iterations > 128) throw new ArgumentException("峰值细化要求至少三个点，迭代范围为1–128。");
         for (var i = 0; i < samples.Count; i++)
             if (!double.IsFinite(samples[i].WavelengthNanometers) || samples[i].WavelengthNanometers <= 0
@@ -26,7 +32,7 @@ public static partial class ThinFilmSpectrum
         ThinFilmSample Read(double wavelength)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
-            var sample = new ThinFilmSample(wavelength, solver.Evaluate(wavelength, angleDegrees, polarization)); evaluations++;
+            var sample = new ThinFilmSample(wavelength, evaluate(wavelength)); evaluations++;
             if (sample.Power.LogTransmittance > best.Power.LogTransmittance) best = sample;
             return sample;
         }

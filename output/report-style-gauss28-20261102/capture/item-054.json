@@ -1,0 +1,167 @@
+{
+  "Index": 54,
+  "Key": "Geometric MTF",
+  "Title": "\u51E0\u4F55 MTF",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-054.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "4C6C51F9D3E2FCCC091F3E7D78631E128D935A0FA829B748629482A710D50DD8"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "Geometric"
+    },
+    {
+      "Metric": "RayWeighting",
+      "Value": "Image-plane intensity"
+    },
+    {
+      "Metric": "\u5149\u7EBF\u6570",
+      "Value": "32"
+    },
+    {
+      "Metric": "\u77B3\u5B54\u91C7\u6837\u5206\u5E03",
+      "Value": "uniform"
+    },
+    {
+      "Metric": "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "Value": "128"
+    },
+    {
+      "Metric": "\u4E58\u4EE5\u884D\u5C04\u6781\u9650\u5305\u7EDC",
+      "Value": "True"
+    },
+    {
+      "Metric": "MaximumFrequency",
+      "Value": "570.069"
+    },
+    {
+      "Metric": "\u622A\u6B62\u9891\u7387 (cycles/mm)",
+      "Value": "570.069"
+    },
+    {
+      "Metric": "FrequencyUnit",
+      "Value": "cycles/mm"
+    },
+    {
+      "Metric": "ImageSpaceAfocal",
+      "Value": "False"
+    },
+    {
+      "Metric": "F \u6570",
+      "Value": "2.985"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u6CE2\u957F (\u00B5m)",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "\u89C6\u573A\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u89C6\u573A\u6570",
+      "Value": "3"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u51E0\u4F55 MTF\r\n\u65B9\u6CD5\uFF1AGeometric\r\nRayWeighting\uFF1AImage-plane intensity\r\n\u5149\u7EBF\u6570\uFF1A32\r\n\u77B3\u5B54\u91C7\u6837\u5206\u5E03\uFF1Auniform\r\n\u66F2\u7EBF\u91C7\u6837\u70B9\u6570\uFF1A128\r\n\u4E58\u4EE5\u884D\u5C04\u6781\u9650\u5305\u7EDC\uFF1ATrue\r\nMaximumFrequency\uFF1A570.069\r\n\u622A\u6B62\u9891\u7387 (cycles/mm)\uFF1A570.069\r\nFrequencyUnit\uFF1Acycles/mm\r\nImageSpaceAfocal\uFF1AFalse\r\nF \u6570\uFF1A2.985\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A0\r\n\u6CE2\u957F (\u00B5m)\uFF1ASystem.Double[]\r\n\u89C6\u573A\u5E8F\u53F7\uFF1A0\r\n\u89C6\u573A\u6570\uFF1A3",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "Geometric MTF",
+    "RequestFingerprint": "AB31A5169D1CFE4EE390B1586C928C27E3AC58DFFDC97FF6D117052B62778193",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "NumRays": "32",
+    "PlotPointCount": "128",
+    "Distribution": "uniform",
+    "MaximumFrequency": "0",
+    "WavelengthNumber": "0",
+    "FieldNumber": "0",
+    "ScaleByDiffractionLimit": "true"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "NumRays",
+      "DisplayName": "\u5149\u7EBF\u6570",
+      "DefaultValue": "32",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "PlotPointCount",
+      "DisplayName": "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "DefaultValue": "128",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Distribution",
+      "DisplayName": "\u77B3\u5B54\u91C7\u6837\u5206\u5E03",
+      "DefaultValue": "uniform",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "MaximumFrequency",
+      "DisplayName": "\u6700\u5927\u9891\u7387\uFF080=\u622A\u6B62\uFF09",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F\uFF080 \u4E3A\u5168\u90E8\uFF09",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "FieldNumber",
+      "DisplayName": "\u89C6\u573A\uFF080 \u4E3A\u5168\u90E8\uFF09",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ScaleByDiffractionLimit",
+      "DisplayName": "\u4E58\u4EE5\u884D\u5C04\u6781\u9650\u5305\u7EDC",
+      "DefaultValue": "true",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u6CE2\u957F\uFF1A\u5168\u90E8",
+    "\u89C6\u573A\uFF1A\u5168\u90E8"
+  ],
+  "Metrics": [
+    [
+      "\u622A\u6B62\u9891\u7387 (cycles/mm)",
+      "570.069"
+    ],
+    [
+      "\u65B9\u6CD5",
+      "Geometric"
+    ],
+    [
+      "\u5149\u7EBF\u6570",
+      "32"
+    ],
+    [
+      "\u77B3\u5B54\u91C7\u6837\u5206\u5E03",
+      "uniform"
+    ],
+    [
+      "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "128"
+    ]
+  ],
+  "PaneCount": 0
+}

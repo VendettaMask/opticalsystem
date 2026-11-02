@@ -104,6 +104,7 @@ internal static class MarkdownReportExporter
                     await Item(title, async () =>
                     {
                         var scene = await workspace.Visualization.BuildSceneAsync(dimension, cancellationToken).ConfigureAwait(false);
+                        pdfSection!.CoverImage = dimension == SceneDimension.TwoDimensional;
                         pdfSection!.Conditions = "长度单位：mm · 标准布局视角";
                         pdfSection.Metrics.AddRange(new[]
                         {
@@ -143,16 +144,8 @@ internal static class MarkdownReportExporter
                         if (result.View.ConfigurationScope is { } scope)
                             appendix.Paragraph($"分析配置：{string.Join(", ", scope.ConfigurationNumbers)}；显示方式：{scope.Display}。");
                         var hasPlot = AnalysisPanel.HasReportPlot(result);
-                        pdfSection!.Landscape = !hasPlot && result.View.Table?.Columns.Count > 5;
-                        pdfSection.Conditions = string.Join(" · ", descriptors.Where(parameter =>
-                            new[] { "Field", "Wave", "Sample", "Sampling", "Surface", "Reference" }.Any(part => parameter.Key.Contains(part, StringComparison.OrdinalIgnoreCase)))
-                            .Take(5).Select(parameter => DesignReportPdfModel.Condition(parameter, merged)));
-                        pdfSection.Metrics.AddRange(DesignReportPdfModel.KeyMetrics(result.View));
-                        var detectorWindow = result.View.Rows.Where(row => row.Metric is "探测器窗口来源" or "探测器范围").ToArray();
-                        if (detectorWindow.Length > 0)
-                            pdfSection.Conditions += " · " + string.Join(" · ", detectorWindow.Select(row => row.Metric + "：" + DesignReportPdfModel.ReadableValue(row.Value)));
-                        pdfSection.Table = DesignReportPdfModel.NumericalTable(result.View);
-                        if (settings.Format != DesignReportFormat.Pdf || hasPlot)
+                        pdfSection!.ApplyAnalysis(result.View, descriptors, merged, hasPlot);
+                        if (hasPlot)
                             await Images(new(result, null, result.SourceDocument ?? document, snapshot.CapturedAt, title), $"{prefix}-analysis-{i + 1:D3}", hasPlot ? text : appendix);
                         AppendAnalysis(text, appendix, result.View);
                     });
@@ -191,13 +184,17 @@ internal static class MarkdownReportExporter
             report.Append(text);
             var stagedReport = Path.Combine(stage, "report" + extension);
             if (settings.Format == DesignReportFormat.Markdown)
-                await BoundedApplicationFile.WriteAllTextAtomicAsync(stagedReport, report.Markdown(stem + "_assets"),
+            {
+                await BoundedApplicationFile.WriteAllTextAtomicAsync(Path.Combine(images, "company-logo.svg"), DesignReportHtmlWriter.Resource("Assets.Brand.CompanyLogo.svg"),
+                    BoundedApplicationFile.MaximumExportBytes, "Report company mark", cancellationToken).ConfigureAwait(false);
+                await BoundedApplicationFile.WriteAllTextAtomicAsync(stagedReport, DesignReportMarkdownWriter.Write(pdf, appendix, stem + "_assets"),
                     BoundedApplicationFile.MaximumExportBytes, "Markdown optical design report", cancellationToken).ConfigureAwait(false);
+            }
             else
                 BoundedApplicationFile.WriteAtomic(stagedReport, BoundedApplicationFile.MaximumExportBytes, "Optical design report", stream =>
                 {
-                    if (settings.Format == DesignReportFormat.Word) DesignReportWordWriter.Write(stream, report, images, cancellationToken);
-                    else if (settings.Format == DesignReportFormat.Html) DesignReportHtmlWriter.Write(stream, report, images, cancellationToken);
+                    if (settings.Format == DesignReportFormat.Word) DesignReportWordWriter.Write(stream, report, images, cancellationToken, pdf, settings.PdfIncludeDetails ? appendix : null);
+                    else if (settings.Format == DesignReportFormat.Html) DesignReportHtmlWriter.Write(stream, report, images, cancellationToken, pdf, appendix);
                     else DesignReportPdfWriter.Write(stream, report, images, cancellationToken, pdf,
                         settings.PdfIncludeDetails ? appendix : null);
                 });
@@ -268,9 +265,12 @@ internal static class MarkdownReportExporter
             {
                 text.Paragraph($"数值表节选：前 12 行，共 {table.Rows.Count} 行。完整数值表见附录。", ReportTextStyle.Muted);
                 text.Table(table.Columns.ToArray(), table.Rows.Take(12).Select(row => row.ToArray()));
-                appendix.Table(table.Columns.ToArray(), table.Rows.Select(row => row.ToArray()));
             }
             else text.Table(table.Columns.ToArray(), table.Rows.Select(row => row.ToArray()));
+            // The paper presentation may use a complete plot instead of its associated
+            // sample table. Keep every original table in the records in all cases.
+            appendix.Table(table.Columns.ToArray(), table.Rows.Select(row => row.ToArray()),
+                view.PresentationKind is AnalysisPresentationKind.ZernikeFringe or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular ? 3 : -1);
         }
         else if (view.Rows.Count > 0)
         {
@@ -278,9 +278,10 @@ internal static class MarkdownReportExporter
             if (view.Rows.Count > 8)
             {
                 text.Paragraph($"正文显示前 8 项，共 {view.Rows.Count} 项。完整指标见附录。", ReportTextStyle.Muted);
-                appendix.Table(["指标", "数值"], view.Rows.Select(row => new[] { row.Metric, row.Value }));
             }
         }
+        if (view.Rows.Count > 0)
+            appendix.Table(["指标", "数值"], view.Rows.Select(row => new[] { row.Metric, row.Value }));
         if (!string.IsNullOrWhiteSpace(view.ReportText))
         {
             appendix.Code(view.ReportText, "text");

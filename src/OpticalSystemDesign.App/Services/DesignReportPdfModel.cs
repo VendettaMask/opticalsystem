@@ -4,7 +4,7 @@ using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Services;
 
-/// <summary>Paper-specific presentation of the same frozen calculation results.</summary>
+/// <summary>Shared report metadata, original images and native results for all four writers.</summary>
 internal sealed class DesignReportPdfModel(string name, string fileName, DateTimeOffset capturedAt)
 {
     internal string Name { get; } = name;
@@ -27,7 +27,8 @@ internal sealed class DesignReportPdfModel(string name, string fileName, DateTim
     internal static ReportTable? NumericalTable(AnalysisViewDto view)
     {
         if (view.Table is { } table)
-            return new(table.Columns.ToArray(), table.Rows.Select(row => row.Select(ReadableValue).ToArray()).ToArray());
+            return new(table.Columns.ToArray(), table.Rows.Select(row => row.ToArray()).ToArray(),
+                view.PresentationKind is AnalysisPresentationKind.ZernikeFringe or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular ? 3 : -1);
         if (view.PresentationKind is not (AnalysisPresentationKind.ZernikeFringe
             or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular)) return null;
         // These reports publish each fitted term as a named result row, alongside
@@ -93,4 +94,26 @@ internal sealed class DesignReportPdfSection(int configuration, string title)
     internal string Conditions { get; set; } = "";
     internal ReportTable? Table { get; set; }
     internal string? Failure { get; set; }
+    internal string FormulaNote { get; set; } = "";
+    internal bool CoverImage { get; set; }
+
+    internal void ApplyAnalysis(AnalysisViewDto view, IReadOnlyList<AnalysisParameterDescriptor> parameters, IReadOnlyDictionary<string, string> settings, bool hasPlot)
+    {
+        Landscape = !hasPlot && view.Table?.Columns.Count > 5;
+        Conditions = string.Join(" · ", parameters.Where(parameter =>
+            new[] { "Field", "Wave", "Sample", "Sampling", "Surface", "Reference" }.Any(part => parameter.Key.Contains(part, StringComparison.OrdinalIgnoreCase)))
+            .Take(5).Select(parameter => DesignReportPdfModel.Condition(parameter, settings)));
+        Metrics.AddRange(DesignReportPdfModel.KeyMetrics(view));
+        var detectorWindow = view.Rows.Where(row => row.Metric is "探测器窗口来源" or "探测器范围").ToArray();
+        if (detectorWindow.Length > 0)
+            Conditions += " · " + string.Join(" · ", detectorWindow.Select(row => row.Metric + "：" + DesignReportPdfModel.ReadableValue(row.Value)));
+        Table = DesignReportPdfModel.NumericalTable(view);
+        if (!hasPlot && Table is null)
+            Table = new(["项目", "数值"], view.Rows.Select(row => new[] { row.Metric, row.Value }).ToArray());
+        if (view.PresentationKind is AnalysisPresentationKind.ZernikeFringe or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular)
+            FormulaNote = "W(ρ, θ) = Σ c_j Z_j(ρ, θ)。ρ 为归一化瞳孔半径，θ 为方位角，系数单位为波。"
+                + (view.PresentationKind == AnalysisPresentationKind.ZernikeAnnular
+                    ? $"ε = {settings.GetValueOrDefault("ObscurationRatio", "0.5")}；u = (2ρ² − 1 − ε²) / (1 − ε²)，ε ≤ ρ ≤ 1。公式采用本次环形瞳孔的实际归一化。"
+                    : view.PresentationKind == AnalysisPresentationKind.ZernikeStandard ? "0 ≤ ρ ≤ 1；Standard 基底采用单位 RMS 归一化。" : "0 ≤ ρ ≤ 1；Fringe 基底不加 Standard 归一化因子。");
+    }
 }

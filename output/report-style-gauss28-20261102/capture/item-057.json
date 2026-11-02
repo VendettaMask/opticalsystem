@@ -1,0 +1,179 @@
+{
+  "Index": 57,
+  "Key": "Optical Path Difference",
+  "Title": "\u5149\u7A0B\u5DEE\u56FE",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-057.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "294A5BE09A84CF9DDCA7A774411DFE27D2D18D8262F3499BA1691B62FC1BBABE"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "GraphScaleWaves",
+      "Value": "5"
+    },
+    {
+      "Metric": "\u539F\u70B9\u6BCF\u4FA7\u5149\u7EBF\u6570",
+      "Value": "20"
+    },
+    {
+      "Metric": "\u91C7\u6837\u70B9\u6570",
+      "Value": "41"
+    },
+    {
+      "Metric": "\u89C6\u573A\u6570",
+      "Value": "3"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u6570",
+      "Value": "3"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u89C6\u573A\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u8868\u9762\u5E8F\u53F7",
+      "Value": "12"
+    },
+    {
+      "Metric": "ImageSpaceAfocal",
+      "Value": "False"
+    },
+    {
+      "Metric": "ReferenceGeometry",
+      "Value": "reference sphere"
+    },
+    {
+      "Metric": "\u4F7F\u7528\u865A\u7EBF",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u6E10\u6655\u5149\u77B3",
+      "Value": "True"
+    },
+    {
+      "Metric": "UseRayAiming",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u68C0\u67E5\u5B54\u5F84",
+      "Value": "True"
+    },
+    {
+      "Metric": "MinimumOpticalPathDifferenceWaves",
+      "Value": "-4.775"
+    },
+    {
+      "Metric": "MaximumOpticalPathDifferenceWaves",
+      "Value": "3.556"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u5149\u7A0B\u5DEE\u56FE\r\nGraphScaleWaves\uFF1A5\r\n\u539F\u70B9\u6BCF\u4FA7\u5149\u7EBF\u6570\uFF1A20\r\n\u91C7\u6837\u70B9\u6570\uFF1A41\r\n\u89C6\u573A\u6570\uFF1A3\r\n\u6CE2\u957F\u6570\uFF1A3\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A0\r\n\u89C6\u573A\u5E8F\u53F7\uFF1A0\r\n\u8868\u9762\u5E8F\u53F7\uFF1A12\r\nImageSpaceAfocal\uFF1AFalse\r\nReferenceGeometry\uFF1Areference sphere\r\n\u4F7F\u7528\u865A\u7EBF\uFF1AFalse\r\n\u6E10\u6655\u5149\u77B3\uFF1ATrue\r\nUseRayAiming\uFF1AFalse\r\n\u68C0\u67E5\u5B54\u5F84\uFF1ATrue\r\nMinimumOpticalPathDifferenceWaves\uFF1A-4.775\r\nMaximumOpticalPathDifferenceWaves\uFF1A3.556",
+  "PresentationKind": "OpticalPathDifference",
+  "Provenance": {
+    "CanonicalAnalysisKey": "Optical Path Difference",
+    "RequestFingerprint": "A006F45486BC5DCC1A023765F57D05E00DF912B211FE0C6B06DBD3F904EDE296",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "GraphScale": "0",
+    "NumberOfRays": "20",
+    "UseDashes": "false",
+    "VignettedPupil": "true",
+    "CheckApertures": "true",
+    "WavelengthNumber": "\u6240\u6709",
+    "FieldNumber": "\u6240\u6709",
+    "SurfaceNumber": "\u50CF\u9762"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "GraphScale",
+      "DisplayName": "\u56FE\u5F62\u7F29\u653E",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "NumberOfRays",
+      "DisplayName": "\u5149\u7EBF\u6570",
+      "DefaultValue": "20",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "UseDashes",
+      "DisplayName": "\u4F7F\u7528\u865A\u7EBF",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "VignettedPupil",
+      "DisplayName": "\u6E10\u6655\u5149\u77B3",
+      "DefaultValue": "true",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "CheckApertures",
+      "DisplayName": "\u68C0\u67E5\u5B54\u5F84",
+      "DefaultValue": "true",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F",
+      "DefaultValue": "\u6240\u6709",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "FieldNumber",
+      "DisplayName": "\u89C6\u573A",
+      "DefaultValue": "\u6240\u6709",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "SurfaceNumber",
+      "DisplayName": "\u8868\u9762",
+      "DefaultValue": "\u50CF\u9762",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u6CE2\u957F\uFF1A\u5168\u90E8",
+    "\u89C6\u573A\uFF1A\u5168\u90E8",
+    "\u8868\u9762\uFF1A\u50CF\u9762"
+  ],
+  "Metrics": [
+    [
+      "\u539F\u70B9\u6BCF\u4FA7\u5149\u7EBF\u6570",
+      "20"
+    ],
+    [
+      "\u91C7\u6837\u70B9\u6570",
+      "41"
+    ],
+    [
+      "\u89C6\u573A\u6570",
+      "3"
+    ],
+    [
+      "\u6CE2\u957F\u6570",
+      "3"
+    ],
+    [
+      "\u4F7F\u7528\u865A\u7EBF",
+      "False"
+    ]
+  ],
+  "PaneCount": 6
+}

@@ -1,90 +1,79 @@
 # 项目文档索引
 
-最新光学检测修复：[双程零位检验与两种干涉仪](OPTICAL_TESTING_PROPAGATION_REPAIR_2026-11-01.md)，包括配置依赖、虚出瞳OPD、426项同版本复核与未关闭的收敛/照度问题。
-
-整理日期：2026-11-01。先按任务阅读当前指南；带日期的记录只证明对应阶段，不能把旧通过数、旧独立模块架构或旧命令当作当前状态。
-
-示例镜头精度换聊天入口：[14 类中文分类、已关闭项、剩余问题与后续顺序](EXAMPLE_ACCURACY_HANDOFF_2026-11-01.md)。分类菜单已中文化；历史全量计数与后续局部修复分开维护。
-
-最新镀膜优化验证：[非线性约束修正、真实材料高反与窄带对照](COATING_NONLINEAR_CORRECTION_2026-10-31.md)。
+核对：2026-11-02。先按现行指南操作；历史通过数、旧独立模块命令及内部对齐目标不作为当前验收。各阶段实际结果见[当前状态](CURRENT_STATUS.md)，旧记录见[历史索引](history/README.md)。
 
 ## 从这里开始
 
-| 需要做什么 | 入口 |
+| 任务 | 入口 |
 | --- | --- |
-| 了解产品、当前包和未解决问题 | [项目首页](../README.md)、[当前状态](CURRENT_STATUS.md)、[问题清单](OPEN_ISSUES_2026-10-08.md) |
-| 核对最新三平台云发布 | [云发布指南](GITHUB_CLOUD_RELEASE.md)、[2026-10-27 交付账目](validation/CLOUD_RELEASE_2026-10-27.json) |
-| 构建、测试、安装与恢复 | [构建发布](BUILD_AND_RELEASE.md)、[Windows 安装](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)、[内置模块交付](BUILT_IN_MODULES_2026-10-13.md) |
-| 使用桌面和两个模块 | [桌面工作流](GUI_QUICKSTART_REFACTOR.md)、[初始结构](../labs/InitialStructure/README.md)、[镀膜设计](../labs/CoatingDesign/README.md) |
-| 核对 AutoLens 原版优化规则 | [e58 逐项对齐、测试范围与保留差异](AUTOLENS_UPSTREAM_ALIGNMENT_2026-10-24.md)、[阶段交接修正](AUTOLENS_HANDOFF_REPAIR_2026-10-25.md) |
-| 按计划建设自主镜片增删流程 | [自主镜头拓扑设计实施计划](AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)，M0–M5 已核对完成，M6 内置界面与阶段验收已实现；[低F数/宽视场复验](../validation/rechecks/2026-10-27/representative-reduction/README.md)保留未达标边界；[两片视场冲突求步修复](../validation/rechecks/2026-10-28/two-element-field-conflict/README.md)（同预算改善但光斑仍未达标）；[合格三片3→2短程及失败诊断](../validation/rechecks/2026-10-28/three-to-two-continuation/README.md)（12次未达严格像质门槛，保留合格三片）；[指定合格四片4→3恢复修复](../validation/rechecks/2026-10-27/four-to-three-recovery/README.md)（两直接成功、渐进失败保留，原总配额、增加锥常数自由度）；[F/3.34、21°三项门槛修复](../validation/rechecks/2026-10-27/wide21-gates-repair/README.md)；[高精度/轴向接入及新处方回归](../validation/rechecks/2026-10-27/topology-integrated-compensation/README.md)；[积分精度/三片失光修复](../validation/rechecks/2026-10-27/topology-sampling-precision/README.md)；[通光优先/选参复验](../validation/rechecks/2026-10-27/topology-transmission-priority/README.md)；[边缘通光及预算修复](../validation/rechecks/2026-10-27/topology-edge-loss-repair/README.md)；[阶段验收修复](../validation/rechecks/2026-10-27/topology-reduction-repair/README.md)；[结果与边界](../validation/rechecks/2026-10-27/autonomous-comparison-m6/README.md) |
-| 推进自动初始结构的快速搜索和结构竞争 | [自动初始结构搜索实施计划](INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md)；[M0/M1 失光与快筛](INITIAL_STRUCTURE_M0_M1_2026-10-30.md)、[M2 结构恢复与竞争](INITIAL_STRUCTURE_M2_2026-10-30.md)已有工程交付，困难任务收益见真实对照；[M3.1 共享界面与过渡基础](INITIAL_STRUCTURE_M3_1_2026-10-30.md)、[M3.2 已有镜头检索](INITIAL_STRUCTURE_M3_2_2026-10-30.md)与[M3.5 准备断点续跑](INITIAL_STRUCTURE_PREPARATION_CHECKPOINT_2026-10-31.md)已验证；[M3.4 固定口径性能](INITIAL_STRUCTURE_PERFORMANCE_2026-11-01.md)已验证；[M3.6 三语展示、方案库与报告](INITIAL_STRUCTURE_PRODUCT_REVIEW_2026-11-01.md)已完成后台验证；[SPC鞍点与双分支算法](INITIAL_STRUCTURE_SPC_BRANCHES_2026-11-01.md)及[自动准备/数值续跑](INITIAL_STRUCTURE_SPC_AUTOMATIC_RESUME_2026-11-01.md)及[默认输出完整构建](INITIAL_STRUCTURE_SPC_DEFAULT_OUTPUT_2026-11-01.md)已完成后台验证；[自主胶合调度与断点续跑](INITIAL_STRUCTURE_CEMENTED_AUTOMATIC_2026-11-01.md)已交付后台验证，递归SPC未完成；M3.3继续暂缓 |
-| 维护代码与界面 | [架构](ARCHITECTURE.md)、[代码地图](CODE_READING_MAP.md)、[UI 规范](UI_DESIGN_SPEC.md)、[协作约束](../AGENTS.md) |
-| 查询文件和数值边界 | [文件格式](FILE_FORMATS_AND_PLUGINS.md)、[数值验证](NUMERICAL_PARITY.md)、[操作数支持](ZEMAX_OPERAND_SUPPORT.md) |
-| 核对精度结论、阶段重叠与文件复用 | [精度记录维护与去重](NUMERICAL_PARITY.md#精度结论与文件去重)，最近运行查状态页，未关闭项查问题清单，原始报告按阶段追溯 |
-| 一键导出镜头、布局与分析截图 | [Markdown 光学设计报告](MARKDOWN_REPORT_EXPORT.md) |
+| 使用产品 | [用户指南](USER_GUIDE.md)、[桌面工作流](GUI_QUICKSTART_REFACTOR.md)、[能力矩阵](PARITY_MATRIX.md) |
+| 构建、测试与安装 | [构建发布](BUILD_AND_RELEASE.md)、[Windows 安装/恢复](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)、[云发布](GITHUB_CLOUD_RELEASE.md)、[Mac OTA](MAC_OTA.md) |
+| 核对精度与未关闭问题 | [数值验收规则](NUMERICAL_PARITY.md)、[问题清单](OPEN_ISSUES_2026-10-08.md)、[95 示例分类交接](EXAMPLE_ACCURACY_HANDOFF_2026-11-01.md) |
+| 维护实现 | [架构](ARCHITECTURE.md)、[代码地图](CODE_READING_MAP.md)、[UI 规范](UI_DESIGN_SPEC.md)、[协作约束](../AGENTS.md) |
+| 维护文档 | [文档生命周期与检查](DOCUMENTATION_MAINTENANCE.md)、[历史报告索引](history/README.md) |
 
 ## 当前指南与功能契约
 
+### 计算、工程与交付
+
+- [计算指南](COMPUTATION_GUIDE.md)、[数学附录](COMPUTATION_FORMULAS.md)、[目录覆盖](COMPUTATION_COVERAGE.md)
+- [格式和插件](FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 版本](STAROPT_FILE_FORMAT.md)、[操作数支持](ZEMAX_OPERAND_SUPPORT.md)
+- [优化算法](OPTIMIZATION_ALGORITHMS.md)、[公差](TOLERANCING.md)、[制造图纸](MANUFACTURING_DRAWINGS.md)
+- [设计报告](MARKDOWN_REPORT_EXPORT.md)、[内置模块交付](BUILT_IN_MODULES_2026-10-13.md)
+
+### 初始结构、镀膜与相机
+
+- [初始结构当前范围](INITIAL_STRUCTURE_LAB_PLAN.md)、[内置模块操作](../labs/InitialStructure/README.md)、[GPU 支持域](AUTOLENS_GPU.md)
+- [镀膜计算契约](COATING_DESIGN_LAB.md)、[膜系编辑/光谱/堆栈/停靠操作](../labs/CoatingDesign/README.md)
+- [镀膜OT/QW/FW、历史与双面设计](COATING_EDITOR_DUPLEX_2026-11-02.md)、[该批实施计划](COATING_EDITOR_DUPLEX_PLAN_2026-11-02.md)
+- [镀膜独立λ₀、公式、剪贴板、异常恢复与双面解析优化](COATING_WORKFLOW_ANALYTIC_2026-11-02.md)、[实施计划](COATING_WORKFLOW_ANALYTIC_PLAN_2026-11-02.md)
+- [相机与 NSC→RAW/ISP](CAMERA_IMAGING_LAB.md)、[单色/多波长局部斜边 SFR](MONOCHROME_SLANTED_EDGE_SFR.md)
+- [物方棋盘：单 ROI 与预算内全幅逐源谱、线性数据交换](SCENE_SLANTED_EDGE_SFR.md)，原例 5000×3000/ROM 尚未验收
+- [非序列工作流](NON_SEQUENTIAL_TRACING.md)、[会话/数据库与杂散光](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md)、[光源](NONSEQUENTIAL_SOURCES.md)
+- [光学装调](OPTICAL_ASSEMBLY_LAB.md)、[后续非序列路线图](NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md)
+
+### 正在推进的计划
+
+- [初始结构搜索阶段计划](INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md)：按最新进度区分已交付、暂缓及仍未实现项。
+- [Ansys 场景斜边与 ROM/黑盒计划](ANSYS_SCENE_SFR_IMPLEMENTATION_PLAN_2026-11-02.md)：现有局部 PSF/SFR 不代表该物方场景工作流已经完成。
+
+已完成的镀膜停靠计划、M0–M6 首版拓扑计划及其他阶段验收放在历史索引，现行操作分别由模块指南维护。AutoLens 上游对齐只作来源与兼容证据，不再作为产品开发目标。
+
+<details>
+<summary>更多现行专门指南</summary>
+
 - [系统架构](ARCHITECTURE.md)
+- [AutoLens GPU 计算](AUTOLENS_GPU.md)
+- [AutoLens 官方目标的原生预设与验证](AUTOLENS_OFFICIAL_EXAMPLES.md)
 - [应用品牌资源](BRANDING.md)
 - [构建与发布](BUILD_AND_RELEASE.md)
 - [初始结构与镀膜设计：统一产品交付（2026-10-13）](BUILT_IN_MODULES_2026-10-13.md)
-- [镀膜设计计算与实现契约](COATING_DESIGN_LAB.md)
-- [截图中的五套完整镀膜参考示例、材料与逐点对照](COATING_REFERENCE_EXAMPLES_2026-11-01.md)
-- [协议 4：可行性之后的通用反射率质量阶段与跨规格对照](COATING_REFLECTANCE_QUALITY_2026-10-30.md)
-- [协议 4：真实材料高反/窄带的通用修正、参考 DLS/Newton 与跨规格验证](COATING_INFEASIBLE_REPAIR_2026-10-30.md)
-- [协议 4：峰值透射率/截止OD逐项保护、高反停滞重启与35组对照](COATING_TARGET_PRESERVATION_2026-10-30.md)
-- [协议 4：目标方向尺度、指导峰位一致性与41组收益/代价对照](COATING_TARGET_BALANCING_2026-10-31.md)
-- [协议 4：五组权衡退步、截止带极值与真实材料高反修复](COATING_TRADEOFF_REPAIR_2026-10-31.md)
-- [协议 4：收缩恢复续算、硬约束LS与严重未可行高反预处理](COATING_CONSTRAINED_CONTINUATION_2026-10-31.md)
-- [协议 4：紫光进展交接、固定指标窗口与高反度量续算](COATING_PROGRESS_ALLOCATION_2026-10-31.md)
-- [协议 4：紫光大N控制差距、峰值/截止/带宽余量与高反状态续算](COATING_MARGIN_REFINEMENT_2026-10-31.md)
+- [相机成像仿真实验室](CAMERA_IMAGING_LAB.md)
+- [镀膜设计：计算与实现契约](COATING_DESIGN_LAB.md)
 - [全仓库代码阅读地图](CODE_READING_MAP.md)
+- [分析入口与计算章节对应](COMPUTATION_COVERAGE.md)
+- [计算公式附录](COMPUTATION_FORMULAS.md)
+- [软件如何计算](COMPUTATION_GUIDE.md)
 - [当前实现与验证状态](CURRENT_STATUS.md)
-- [Grid GRIN MTF：材料查询与相位积分、独立控制及验收范围](GRID_GRIN_MTF_PHASE_REPAIR_2026-11-01.md)
 - [文件格式与插件](FILE_FORMATS_AND_PLUGINS.md)
+- [GitHub 云端构建与发布](GITHUB_CLOUD_RELEASE.md)
 - [GUI 工作流与重构对照](GUI_QUICKSTART_REFACTOR.md)
 - [初始结构内置模块：范围与后续计划](INITIAL_STRUCTURE_LAB_PLAN.md)
-- [自主镜头拓扑设计实施计划](AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)
-- [自动初始结构搜索实施计划](INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md)
-- [初始结构 M0/M1：失光诊断、符号覆盖和快筛](INITIAL_STRUCTURE_M0_M1_2026-10-30.md)
-- [初始结构 M2：结构分支、恢复和统一竞争](INITIAL_STRUCTURE_M2_2026-10-30.md)
-- [初始结构 M3.1：胶合共享界面与 SPC 过渡基础](INITIAL_STRUCTURE_M3_1_2026-10-30.md)
-- [初始结构 SPC：真正鞍点与双分支显式研究 API](INITIAL_STRUCTURE_SPC_BRANCHES_2026-11-01.md)
-- [初始结构：自主胶合结构调度与主检查点续跑](INITIAL_STRUCTURE_CEMENTED_AUTOMATIC_2026-11-01.md)
-- [初始结构 SPC：自动准备与精确续跑](INITIAL_STRUCTURE_SPC_AUTOMATIC_RESUME_2026-11-01.md)；[默认输出完整构建与验证](INITIAL_STRUCTURE_SPC_DEFAULT_OUTPUT_2026-11-01.md)
-- [初始结构 M3.2：已有镜头检索与原规格重验](INITIAL_STRUCTURE_M3_2_2026-10-30.md)
-- [初始结构 M3.5：准备阶段断点状态、操作及验证范围](INITIAL_STRUCTURE_PREPARATION_CHECKPOINT_2026-10-31.md)
-- [候选筛检、有界停止与原广角三臂同预算复验](BOUNDED_INITIAL_STRUCTURE_2026-10-29.md)
-- [Delano 厚系统实体化与固定光阑恢复：一阶4/4，完整像质仍未改善](DELANO_THICK_MATERIALIZATION_2026-10-29.md)
-- [自主拓扑设计：镜头结构显示与平移缩放](AUTONOMOUS_STRUCTURE_VIEW_2026-10-29.md)
-- [HappyLens 参考：结构起点与群体搜索](HAPPYLENS_SEARCH_2026-10-29.md)
-- [原21°广角任务：同预算新旧流程对照](HAPPYLENS_WIDE21_COMPARISON_2026-10-29.md)
+- [老国标光学零件图逐项核对](LEGACY_GB1991_OPTICAL_PARTS_REVIEW.md)
 - [打包镜头库](LENS_LIBRARY.md)
+- [界面语言](LOCALIZATION.md)
 - [本地矢量图标库](LOCAL_ICONS.md)
+- [Mac OTA](MAC_OTA.md)
 - [可制造性审查与光学制图](MANUFACTURING_DRAWINGS.md)
-- [非序列工作模式与光线追迹](NON_SEQUENTIAL_TRACING.md)
+- [光学设计报告导出](MARKDOWN_REPORT_EXPORT.md)
+- [斜边图像到 SFR：单色与镜头多波长](MONOCHROME_SLANTED_EDGE_SFR.md)
 - [非序列第二阶段：杂散光基础链路](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md)
-- [Lambertian BSDF、采样统计与 NSC→RAW/ISP](LAMBERTIAN_BSDF_2026-10-31.md)
-- [实测 BSDF 文件、插值、采样与 BTDF](MEASURED_BSDF_BTDF_2026-10-31.md)
-- [商业 BSDF 文本、固定材料轴与相机链路](COMMERCIAL_BSDF_AXES_2026-10-31.md)
-- [Speos 二进制、Zemax 镜面中心 BSDF 与相机链路](BINARY_ZEMAX_BSDF_2026-10-31.md)
-- [Speos v11、原生镜面配准/White Specular 与校准 XYZ](SPEOS_V11_XYZ_2026-10-31.md)
-- [Speos 原生逐值、θ 线性修正与 XYZ 实测校准失败边界](COMMERCIAL_BSDF_CALIBRATION_2026-10-31.md)
-- [White Specular 实际追迹功率修复、协议6与实测XYZ校准边界](WHITE_SPECULAR_RUNTIME_2026-10-31.md)
-- [有颜色适用域的XYZ校准、协议7与实测验证边界](XYZ_GAMUT_CALIBRATION_2026-11-01.md)
-- [已知观察条件的正值XYZ校准、协议8与完整链路验证](XYZ_KNOWN_CONDITIONS_2026-11-01.md)
-- [Cornell全入射角对数重建、绝对XYZ模型与剩余校准缺口](XYZ_LOG_RECONSTRUCTION_2026-11-01.md)
-- [实测角表与BTDF链路、协议9及三种XYZ校准未通过结果](XYZ_MEASURED_ANGULAR_2026-11-01.md)
 - [非序列光源](NONSEQUENTIAL_SOURCES.md)
 - [非序列模式 Zemax 工作流对齐路线图](NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md)
+- [非序列工作模式与光线追迹](NON_SEQUENTIAL_TRACING.md)
 - [数值验证与冻结历史回归](NUMERICAL_PARITY.md)
-- [无焦精度：本机 Zemax 后台核验与未关闭残差](AFOCAL_NATIVE_RESUME_2026-10-29.md)
 - [计算精度与发布待解决问题分类](OPEN_ISSUES_2026-10-08.md)
 - [光学装调实验室](OPTICAL_ASSEMBLY_LAB.md)
-- [相机成像仿真实验室：三维直射场景、传感器、ISP 与 A/B 对照](CAMERA_IMAGING_LAB.md)
-- [镀膜、装调与相机实验室界面改版（2026-10-24）](LABORATORY_PRESENTATION_2026-10-24.md)
 - [优化算法真实性与兼容策略](OPTIMIZATION_ALGORITHMS.md)
 - [产品能力与格式兼容矩阵](PARITY_MATRIX.md)
 - [镜头数据求解入口](RADIUS_SOLVE_EDITOR.md)
@@ -94,193 +83,24 @@
 - [表面类型与属性分类面板](SURFACE_PROPERTIES_EDITOR.md)
 - [主题包开发规范](THEME_PACKAGES.md)
 - [公差分析](TOLERANCING.md)
+- [产品字体](TYPOGRAPHY.md)
 - [UI 设计规范](UI_DESIGN_SPEC.md)
+- [用户指南](USER_GUIDE.md)
 - [Windows 未签名交付与升级保护（2026-10-12）](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)
 - [Zemax 分析设置与实现方式参考](ZEMAX_ANALYSIS_REFERENCE.md)
 - [Zemax 基准配置边界](ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)
 - [Zemax 顺序模式操作数支持规范](ZEMAX_OPERAND_SUPPORT.md)
 
+</details>
+
 ## 模块、工具和样例入口
 
-- [Project collaboration instructions](../AGENTS.md)
-- [光学镀膜设计（产品内置模块）](../labs/CoatingDesign/README.md)
-- [初始结构（产品内置模块）](../labs/InitialStructure/README.md)
-- [Fixed-protocol search evidence](../labs/InitialStructure/tools/OpticalSystemDesign.InitialStructure.Benchmarks/README.md)
-- [Optical System Design](../README.md)
-- [测试镜头样例](../samples/lenses/README.md)
-- [非序列功能测试与教学样例](../samples/non-sequential/README.md)
-- [内置玻璃目录](../src/OpticalSystemDesign.Core/Materials/Data/README.md)
-- [Workbench 历史重算命令](../tools/OpticalSystemDesign.ZemaxComparison/README.md#historical-workbench-recapture)
-- [C# Zemax / Workbench comparison](../tools/OpticalSystemDesign.ZemaxComparison/README.md)
-- [冻结证据与准备输入验收](../tools/validation/README.md)
-- [Zemax 一致性采集工具](../tools/zemax_parity/README.md)
+- [初始结构](../labs/InitialStructure/README.md)、[镀膜设计](../labs/CoatingDesign/README.md)、[相机样例](../samples/camera-imaging/README.md)
+- [顺序镜头样例](../samples/lenses/README.md)、[非序列样例](../samples/non-sequential/README.md)、[材料数据](../src/OpticalSystemDesign.Core/Materials/Data/README.md)
+- [Zemax/Workbench 比较工具](../tools/OpticalSystemDesign.ZemaxComparison/README.md)、[原生采集工具](../tools/zemax_parity/README.md)、[参考与准备输入核验](../tools/validation/README.md)
 
-另外保留 [Windows 随包说明](../packaging/windows/README.txt) 和 [用户镜头原件目录说明](../local-data/lens-library/originals/user-zmx/README.txt)。外部验证工具不是产品运行依赖，普通构建不会启动 Zemax。
+验证工具不进入产品运行依赖；普通构建不启动 Zemax。
 
 ## 历史报告与阶段提案
 
-以下报告保留原始设置、计数、差距和失败尝试，不是当前待办的自动授权。历史独立 App 命令仅用于溯源，现行构建均走主程序。
-
-<details>
-<summary>初始结构方法、求解与搜索阶段</summary>
-
-- [初始结构实验室 v11：随真实光束调整镜片直径](INITIAL_STRUCTURE_AUTOMATIC_DIAMETER_2026-09-26.md)
-- [初始结构实验室：实现方向复核（2026-09-27）](INITIAL_STRUCTURE_DIRECTION_REVIEW_2026-09-27.md)
-- [DSEARCH 形式搜索改造（2026-09-26）](INITIAL_STRUCTURE_DSEARCH_2026-09-26.md)
-- [DSEARCH 路径修正 R1：统一真实光线目标与连续求导域](INITIAL_STRUCTURE_DSEARCH_R1_2026-09-26.md)
-- [DSEARCH 路径修正 R2：缩放与正则化局部步长](INITIAL_STRUCTURE_DSEARCH_R2_2026-09-26.md)
-- [DSEARCH 实现路径复核（2026-09-26）](INITIAL_STRUCTURE_DSEARCH_ROUTE_AUDIT_2026-09-26.md)
-- [从平板生成定焦初始结构：产品方案与开发计划](INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL.md)
-- [初始结构实验室：全视场细化入口与渐进路径复核](INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md)
-- [初始结构实验室：文献复核、瞄准设置修复与剩余质量缺口](INITIAL_STRUCTURE_LITERATURE_AUDIT_2026-09-27.md)
-- [初始结构实验室 v13：让材料和光阑邻域获得实际预算](INITIAL_STRUCTURE_NEIGHBORHOODS_2026-09-26.md)
-- [精确平板启动：P0 / P1 实施与验证记录](INITIAL_STRUCTURE_P1_2026-09-07.md)
-- [精确平板生成：共享计算内核与 P2 完整目标流程](INITIAL_STRUCTURE_P2_2026-09-07.md)
-- [P3 多家族搜索：实施与验证记录](INITIAL_STRUCTURE_P3_2026-09-07.md)
-- [P4 独立实验室界面接入](INITIAL_STRUCTURE_P4_2026-09-07.md)
-- [P5：困难规格修复与首轮完整验收（未达发布门槛）](INITIAL_STRUCTURE_P5_2026-09-07.md)
-- [P5 续项：孔径恢复与多色继续优化](INITIAL_STRUCTURE_P5_APERTURE_2026-09-07.md)
-- [实体光阑与共享 Core 瞄准修复（2026-09-27）](INITIAL_STRUCTURE_PHYSICAL_STOP_2026-09-27.md)
-- [实体光阑接入初始结构搜索（2026-09-27）](INITIAL_STRUCTURE_PHYSICAL_STOP_SEARCH_2026-09-27.md)
-- [全视场失追迹后的阶段恢复（2026-09-27）](INITIAL_STRUCTURE_PROGRESSIVE_RECOVERY_2026-09-27.md)
-- [初始结构实验室：光学质量与结构合理性复核](INITIAL_STRUCTURE_QUALITY_AUDIT_2026-09-26.md)
-- [初始结构实验室 v12：面积积分、耦合几何约束和实际渐进阶段](INITIAL_STRUCTURE_QUALITY_FIX_2026-09-26.md)
-- [S1 通用局部求解器实施记录](INITIAL_STRUCTURE_S1_SOLVER_2026-09-08.md)
-- [正式数值回归与初始结构 S2–S4 实施记录](INITIAL_STRUCTURE_S2_S4_2026-09-23.md)
-- [初始结构自动搜索：策略整改](INITIAL_STRUCTURE_SEARCH_STRATEGY_2026-09-08.md)
-- [初始结构实验室 v14：减少重复求导，让同一预算完成更多优化步](INITIAL_STRUCTURE_SECANT_SOLVER_2026-09-27.md)
-- [初始结构实验室：宽视场失败路径与搜索预算复核](INITIAL_STRUCTURE_STAGE_AUDIT_2026-09-27.md)
-
-</details>
-
-<details>
-<summary>光学、UI、架构和可靠性阶段记录</summary>
-
-- [四无焦项目修复与复比（2026-10-24阶段）](AFOCAL_REPAIR_2026-10-24.md)；后续各阶段及当前入口见[阶段关系](NUMERICAL_PARITY.md#无焦记录的阶段关系)。
-- [精度与页面对比验证（2026-09-05 更新）](ACCURACY_VALIDATION_2026-07-31.md)
-- [C# Zemax 比较工具首轮历史审计（2026-09-05）](ZEMAX_COMPARISON_TOOL.md)
-- [旧、新架构收敛与单一结果链路修正计划](ARCHITECTURE_CONVERGENCE_PLAN.md)
-- [软件可靠性问题修复 · 2026-10-05](AUDIT_RELIABILITY_FIXES_2026-10-05.md)
-- [SVIG 自动渐晕](AUTOMATIC_VIGNETTING_2026-10-03.md)
-- [BFSD 最佳拟合球面接入](BEST_FIT_SPHERE_OPERAND_2026-10-02.md)
-- [正蓝 × 雾蓝主题（2026-09-27）](BLUE_THEME_2026-09-27.md)
-- [其他计算路径问题定位 2026年10月8日](CALCULATION_PATH_DIAGNOSIS_2026-10-08.md)
-- [计算路径修复与结果对比 2026年10月8日](CALCULATION_PATH_REPAIR_2026-10-08.md)
-- [CODA 与系统偏振设置](COATING_DATA_OPERAND_2026-10-03.md)
-- [物理膜层参数与九项约束](COATING_LAYER_CONSTRAINTS_2026-10-03.md)
-- [物理相干镀膜接入正式追迹](COHERENT_COATING_TRANSPORT_2026-10-02.md)
-- [商业软件质量与性能审计（2026-09-27）](COMMERCIAL_CODE_AUDIT_2026-09-27.md)
-- [商业质量计划第一阶段 · 2026-10-06](COMMERCIAL_PHASE1_2026-10-06.md)
-- [紧凑顶部菜单与工具栏（2026-09-27）](COMPACT_TOOLBAR_2026-09-27.md)
-- [确认缺陷修复与完整重算](CONFIRMED_ISSUE_REPAIR_2026-10-08.md)
-- [第二十九批：指定方向矢高与延伸区](DIRECTIONAL_SAG_OPERAND_2026-10-02.md)
-- [FFT 能量网格完整性修复](FFT_ENERGY_GRID_INTEGRITY_REPAIR_2026-10-10.md)
-- [FFT PSF：高 NA 镜头工作 F 数追迹失败修正](FFT_PSF_STOP_AIMING.md)
-- [FFT 瞳面相位与边界修复](FFT_PUPIL_PHASE_REPAIR_2026-10-09.md)
-- [FFT 采样和包围能量参考点修复](FFT_SAMPLING_REFERENCE_REPAIR_2026-10-09.md)
-- [无偏振 FFT 振幅选择与剩余数值残差](FFT_SCALAR_AMPLITUDE_REPAIR_2026-10-11.md)
-- [冻结证据的 Git 字节完整性修复](FROZEN_GIT_INTEGRITY_REPAIR_2026-10-11.md)
-- [玻璃库列表右侧遮挡修复](GLASS_CATALOG_SIDEBAR_2026-10-05.md)
-- [Gradient 5 空间折射率与色散基础](GRADIENT5_DISPERSION_2026-10-03.md)
-- [GRIN 空间折射率与连续传播基础](GRIN_CONTINUOUS_PROPAGATION_2026-10-03.md)
-- [GRIN 材料控制操作数](GRIN_CONTROL_OPERANDS_2026-10-03.md)
-- [GRIN 材料编辑、变量与完整状态保存](GRIN_MATERIAL_EDITOR_2026-10-04.md)
-- [GRIN 材料、顺序追迹与原生快照](GRIN_MATERIAL_TRANSPORT_2026-10-03.md)
-- [GRIN 一阶传递、瞳孔与光阑瞄准](GRIN_PARAXIAL_AIMING_2026-10-03.md)
-- [HYLD 与界面折射率追迹数据](HIGH_YIELD_OPERAND_2026-10-03.md)
-- [Huygens 与 FFT 包围能量原设置残差修复](HUYGENS_FFT_ENERGY_REPAIR_2026-10-11.md)
-- [惠更斯传播与复色合成和参考球修复](HUYGENS_IMPLEMENTATION_REPAIR_2026-10-09.md)
-- [Huygens 离轴 PSF、MTF 网格和视场采样修复](HUYGENS_OFFAXIS_REPAIR_2026-10-11.md)
-- [Huygens 非偏振残差与相干电场修复](HUYGENS_POLARIZATION_REPAIR_2026-10-12.md)
-- [Huygens 标量球面传播与离轴复色认证](HUYGENS_SPHERICAL_REPAIR_2026-10-11.md)
-- [RELI / EFNO 的共享照度基础](ILLUMINATION_CORE_2026-10-02.md)
-- [RELI / EFNO 评价函数接入](ILLUMINATION_OPERANDS_2026-10-02.md)
-- [照度的偏振功率链与像面入射边界](ILLUMINATION_POLARIZATION_2026-10-02.md)
-- [像方方向余弦网格与轴上照度参考](IMAGE_COSINE_ILLUMINATION_2026-10-02.md)
-- [多配置单元格变量与联合优化](MCE_CELL_VARIABLES_2026-10-03.md)
-- [多配置单元格拾取](MCE_PICKUP_SOLVES_2026-10-03.md)
-- [多配置行表与 MCOV / MCOG / MCOL](MCE_ROW_OPERANDS_2026-10-03.md)
-- [平铺子窗口交互与标题按钮修复](MDI_INTERACTION_FIX_2026-09-27.md)
-- [机械半直径显示精度修复](MECHANICAL_PRECISION_2026-09-27.md)
-- [指定频率 MTF 制造公差](MTF_TOLERANCING_2026-10-04.md)
-- [多配置操作数 CONF / ZTHI](MULTI_CONFIGURATION_OPERANDS_2026-10-03.md)
-- [Zemax 数值问题修复（2026-09-06）](NUMERICAL_REPAIR_2026-09-06.md)
-- [官方说明对照与轴上参考和几何质心修复](OFFICIAL_DOCUMENTATION_REPAIR_2026-10-09.md)
-- [操作数帮助层级导航](OPERAND_HELP_HIERARCHY_2026-10-01.md)
-- [正式优化入口与无效评价修复（2026-09-27）](OPTIMIZATION_ENTRY_FIX_2026-09-27.md)
-- [优化与自动设计路线：文献和实现交叉复核（2026-09-27）](OPTIMIZATION_ROUTE_LITERATURE_REVIEW_2026-09-27.md)
-- [库存匹配与制图容器修复](PANEL_CONTENT_LAYOUT_2026-09-27.md)
-- [共享复电场追迹与 RRET](POLARIZATION_RETARDANCE_2026-10-03.md)
-- [FFT 准备输入来源与证据核验修复](PREPARED_PUPIL_INTEGRITY_REPAIR_2026-10-10.md)
-- [主要动作与紧凑侧栏](PRIMARY_ACTIONS_AND_COMPACT_SIDEBAR_2026-09-27.md)
-- [项目审查与 Zemax 数值对齐检查（2026-09-05）](PROJECT_AUDIT_2026-09-05.md)
-- [项目审计修复与验证（2026-09-05）](PROJECT_REPAIR_2026-09-05.md)
-- [项目理解与下一步建议（2026-09-23）](PROJECT_REVIEW_2026-09-23.md)
-- [三维出瞳与物理平面刀口扩展](PUPIL_FOUCAULT_EXTENSION_2026-10-12.md)
-- [出瞳形状投影与物理 Foucault 刀口实现](PUPIL_SHAPE_FOUCAULT_IMPLEMENTATION_2026-10-10.md)
-- [Python Optiland 移除审计与实施记录](PYTHON_OPTILAND_REMOVAL.md)
-- [光线发射坐标基准修复](RAY_LAUNCH_COORDINATE_REPAIR_2026-10-09.md)
-- [可靠性与资源边界加固（2026-08-29）](RELIABILITY_HARDENING_2026-08-29.md)
-- [Huygens 与衍射包围能量残差分层诊断](RESIDUAL_DIAGNOSIS_2026-10-11.md)
-- [RMS 采样参数与偏振链路修正 · 2026-10-08](RMS_SAMPLING_POLARIZATION_REPAIR_2026-10-08.md)
-- [系统未完成能力收口计划](SYSTEM_COMPLETION_PLAN_2026-09-02.md)
-- [默认只打开镜头数据与二维视图](TWO_PAGE_STARTUP_2026-09-27.md)
-- [UI 审查问题修复（2026-09-27—28）](UI_AUDIT_FIXES_2026-09-27.md)
-- [UI 符合性审计](UI_CONFORMANCE_AUDIT_2026-08-04.md)
-- [UI 设计走查记录](UI_DESIGN_REVIEW.md)
-- [波前图修复验收报告 2026年10月8日](WAVEFRONT_ACCEPTANCE_2026-10-08.md)
-- [波前图系统瞄准修复 2026年10月8日](WAVEFRONT_AIMING_REPAIR_2026-10-08.md)
-- [38668 导入后的公共 Working F/# 修复](ZEMAX_38668_WORKING_F_NUMBER.md)
-- [MS-L7 全分析数值对比扩展（2026-09-06）](ZEMAX_ANALYSIS_EXPANSION_2026-09-06.md)
-- [ZMX 切趾与布局修复记录](ZEMAX_APODIZATION_LAYOUT_FIX.md)
-- [MS-L7 能量计算与相位对照修复（2026-09-06）](ZEMAX_ENERGY_REPAIR_2026-09-06.md)
-- [MS-L7 Huygens MTF 采样修复（2026-09-06）](ZEMAX_HUYGENS_REPAIR_2026-09-06.md)
-- [Zemax 操作数名称与支持口径复核](ZEMAX_OPERAND_AUTHENTICITY_AUDIT_2026-10-01.md)
-- [波前瞄准、带符号渐晕与 RA 网格诊断 · 2026-10-08](ZEMAX_PUPIL_DIAGNOSIS_2026-10-08.md)
-- [RA256、多文件光阑接纳与单光线路径复验 · 2026-10-07](ZEMAX_RA256_SINGLE_RAY_REPAIR_2026-10-07.md)
-- [RMS 光斑视场采样修复与多文件复验 · 2026-10-07](ZEMAX_RMS_FIELD_SAMPLING_REPAIR_2026-10-07.md)
-- [标准镜头 OPD 修复与复验 · 2026-10-06](ZEMAX_STANDARD_SAMPLE_OPD_REPAIR_2026-10-06.md)
-- [Tessar RMS 积分与连续渐晕修复 · 2026-10-07](ZEMAX_TESSAR_RMS_REPAIR_2026-10-07.md)
-- [Tessar 渐晕与相位复验 · 2026-10-06](ZEMAX_TESSAR_VIGNETTING_REPAIR_2026-10-06.md)
-- [Calculation path diagnosis 2026年10月8日](../tools/diagnostics/CalculationPaths20261008/README.md)
-- [Huygens spherical, spectral and experimental polarization controls](../tools/diagnostics/HuygensExtensions20261011/README.md)
-- [Huygens 完整光线平面参考诊断](../tools/diagnostics/HuygensReference20261010/README.md)
-- [Diffraction energy window controls](../tools/diagnostics/IssueRepair20261008/README.md)
-- [N02 分层诊断工具](../tools/diagnostics/N02Layers20261009/README.md)
-- [Pupil comparison diagnostic · 2026-10-08](../tools/diagnostics/PupilComparison20261008/README.md)
-- [N01/N02 residual controls and captured-settings verification](../tools/diagnostics/Residuals20261011/README.md)
-- [Native factor inspection](../tools/diagnostics/SignedVignetting20261008/README.md)
-
-</details>
-
-<details>
-<summary>历次源码同步记录</summary>
-
-- [远端同步复验 · 2026-10-05](PROJECT_SYNC_2026-10-05.md)
-- [可靠性与 Zemax 多文件修复同步 · 2026-10-07](PROJECT_SYNC_2026-10-07.md)
-- [计算路径修复与问题清单同步 2026年10月8日](PROJECT_SYNC_2026-10-08.md)
-- [光学计算修复和后续计划远端同步](PROJECT_SYNC_2026-10-09.md)
-- [远端更新与本机同步](PROJECT_SYNC_2026-10-12.md)
-- [FFT 相位修复与原生证据同步](PROJECT_SYNC_FFT_PUPIL_2026-10-09.md)
-- [出瞳与物理 Foucault 同步完成记录](PROJECT_SYNC_PUPIL_FOUCAULT_2026-10-10.md)
-- [工程与安装恢复收尾同步（2026-10-12）](PROJECT_SYNC_RECOVERY_2026-10-12.md)
-
-</details>
-
-原构建指南的 62 段带日期验收原文合并到 [历史构建账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)。原静态逐文件代码表由实时文件命令取代；旧 Python/Optiland 引用展开表并入 [保留用途说明](PYTHON_OPTILAND_REMOVAL.md#保留引用的用途与历史清单)，大文件拆分记录并入 [架构维护](ARCHITECTURE.md#拆分与架构维护)。两个冗余 Markdown 文件已删除，Git 中保留原文。
-
-## 冻结证据与第三方资料
-
-- [初始结构基准入口](../labs/InitialStructure/benchmarks/README.md)：固定规格、种子、预算与原协议。
-- [镀膜历史验收](../validation/coating/README.md) 与 [上游源和授权](../third_party/coating-reference/README.md)。
-- [Optiland 冻结辅助历史](../validation/history/optiland-0.5.8/README.md)：仅回归/溯源，不再生成外部对照。
-- [主要 Zemax 数值权威](ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)：仅认证捕获文件、设置和版本。
-- [既有六镜头报告](../reports/Zemax_Workbench_Six_Lens_Comparison_Report_2026-10-08.docx) 与 [当日修复 PDF](../output/pdf/Zemax_Workbench_Comparison_Repair_2026-10-08.pdf)：历史报告原件，不改写成新验收。
-
-原始报告、许可证、来源声明和冻结数据保持原字节。当前文档若引用本地安装包或截图，会明确它没有随 Git 分发；已缺失的历史产物只记录原路径和缺失状态，不伪造文件。清单与核验结果见 [文档审计账本](validation/DOCUMENTATION_AUDIT_2026-10-13.json)。
-
-## 后续维护规则
-
-当前测试状态只汇总在状态页并链接对应证据；专题页不再复制无关阶段的验收广播。更新行为时修改对应正文，而不是在过时正文前不断加免责声明。已失效的执行命令应修正或明确归入历史；合并/删除必须同时修复反向链接，并保留有价值的失败证据。
-
-检查命令：`pwsh -File scripts/verify-documentation.ps1 -Strict -OutputPath .tmp/documentation-audit.json`。它检查本地链接、围栏、指纹及至少 100 字符的跨文档段落重复；`-Strict` 会拒绝两份现行指南之间的正文重复，历史警示与混合范围仍报告而不删除。代码块和表格不参与正文重复判定；它不判断语义近似、不在线核验网址、不重跑产品测试，也不认证历史数值。检查器回归命令为 `pwsh -File scripts/tests/verify-documentation.tests.ps1`；两项检查已配置到三平台 CI 的独立 Documentation 任务，远端运行结果需另行核验。
+[完整历史索引](history/README.md)保留原分组和补齐的阶段报告。旧材料是否保留取决于实际消费者、独有证据与替代情况；不能因标为 frozen 自动永久保留，也不能仅因日期较早删除仍在使用的参考。

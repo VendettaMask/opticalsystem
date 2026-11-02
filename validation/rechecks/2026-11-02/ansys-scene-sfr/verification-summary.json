@@ -1,0 +1,97 @@
+{
+  "Date": "2026-11-02",
+  "Runs": [
+    {
+      "File": "scene-sfr-focused.trx",
+      "Total": 47,
+      "Passed": 47,
+      "Failed": 0,
+      "AllResultsPassed": true
+    },
+    {
+      "File": "scene-sfr-final-ui.trx",
+      "Total": 4,
+      "Passed": 4,
+      "Failed": 0,
+      "AllResultsPassed": true
+    }
+  ],
+  "DistinctTests": 47,
+  "DefaultReleaseAppBuild": {
+    "Warnings": 0,
+    "ElapsedSeconds": 18.76,
+    "ExitCode": 0,
+    "Errors": 0,
+    "Scope": "Normal App output and mandatory built-in dependencies; no launch"
+  },
+  "NativeControl": "native-scene-summary.json",
+  "OriginalReference": "original-reference-inventory.json",
+  "DocumentationAudit": "documentation-audit.json",
+  "SourceFiles": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/Imaging/DirectCameraScene.cs",
+      "Sha256": "abcd40261fe4c755f1111fb02689f62ce1dbf8fe35455a0716e5e05719e35649"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/Imaging/EmissiveCheckerboard.cs",
+      "Sha256": "200bd740360b0a86400703a2b898f41575ac3b2761db46991c079551b72ddb18"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/Imaging/LinearDetectorImage.cs",
+      "Sha256": "13218af4e93605e25a4843432a1a79912a91a23e91896fd9f695e0c8ad044def"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/Imaging/LinearImageSfr.cs",
+      "Sha256": "e553f78a52c8029dd3b6d0bafc8d5ba0e8897527ad91452a1e3c6a47ea05deec"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/CameraSceneSfrContracts.cs",
+      "Sha256": "24e4174d85df1bbecb1b8c58f0de2e5f60092d5a51d291ccb5c8c602dfabc624"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/CameraImagingContracts.cs",
+      "Sha256": "9e75e2489da04bfa8c4c022d993b3d37ad8f3f09010297e6baa728f5600d6631"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/CameraImagingService.SceneSfr.cs",
+      "Sha256": "8b8d048a6fc194883f797d5af7db732d0a6dd8b7d63143a598b5eaf0037eb64b"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneSfr.cs",
+      "Sha256": "4f17f183681851d807df7d6810894e179e6ee6e5c9e6a599a4dffc47d3c5a196"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.cs",
+      "Sha256": "ab4f24dc2a503b7c62447f8726ce79c72e80e409a517a15120f9e85e305f20bb"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Actions.cs",
+      "Sha256": "3f2df4f1715fce9c200d57a944023c3bf4424b4081eef0fb834b658b6d802ecb"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Sfr.cs",
+      "Sha256": "ae869f733ce5028c053ce394be807dbbc096115a534321243aeb0eafa090cf5d"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Experiments.cs",
+      "Sha256": "67ce8c0b48b0548d4d1313c6cc1562ca63b2a3269c731031e15d5ca302ae1159"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Sampling.cs",
+      "Sha256": "e4832557040122b6408b5135517572b94f4f90c45b8645fbf4c6b854b4513e7d"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.NonSequential.cs",
+      "Sha256": "5eb3876d0fe8942201f22018aade6375475a05bc9f24aa90f50d4e20c2e77eef"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SceneSlantedEdgeTests.cs",
+      "Sha256": "18c2a6f09def13596d05e296c3a8bb8dbac4094dd2524808a5c8855f9f86d84d"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SceneSlantedEdgeWindowTests.cs",
+      "Sha256": "20c0bb82128abb8a46f27186a8d58e87e35260d8ad49b2b57bc822a8e0a4f59d"
+    }
+  ],
+  "Scope": "M0 inventory and M1 small-frame scene pipeline, plus selected adjacent regression. UI supplement overlaps focused tests. No full-repo or original-article parity claim."
+}

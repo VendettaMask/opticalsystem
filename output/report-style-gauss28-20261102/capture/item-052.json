@@ -1,0 +1,195 @@
+{
+  "Index": 52,
+  "Key": "MTF",
+  "Title": "\u5085\u91CC\u53F6 MTF",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-052.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "4A509CB17FBDE5F91B6EBFA517884A8B3E0CDAAF53BB1E7E695EA2CA6EC133A9"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "FFT"
+    },
+    {
+      "Metric": "\u77B3\u9762\u91C7\u6837\u6570",
+      "Value": "64"
+    },
+    {
+      "Metric": "\u7F51\u683C\u5C3A\u5BF8",
+      "Value": "128"
+    },
+    {
+      "Metric": "MaximumFrequency",
+      "Value": "664.201"
+    },
+    {
+      "Metric": "\u622A\u6B62\u9891\u7387 (cycles/mm)",
+      "Value": "664.201"
+    },
+    {
+      "Metric": "FrequencyUnit",
+      "Value": "cycles/mm"
+    },
+    {
+      "Metric": "ImageSpaceAfocal",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u6CE2\u957F (\u00B5m)",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "\u89C6\u573A\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u89C6\u573A\u6570",
+      "Value": "3"
+    },
+    {
+      "Metric": "\u8868\u9762\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "Type",
+      "Value": "Modulation"
+    },
+    {
+      "Metric": "\u663E\u793A\u884D\u5C04\u6781\u9650",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u4F7F\u7528\u504F\u632F",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u4F7F\u7528\u865A\u7EBF",
+      "Value": "False"
+    },
+    {
+      "Metric": "ZemaxCompatible",
+      "Value": "True"
+    },
+    {
+      "Metric": "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "Value": "300"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u5085\u91CC\u53F6 MTF\r\n\u65B9\u6CD5\uFF1AFFT\r\n\u77B3\u9762\u91C7\u6837\u6570\uFF1A64\r\n\u7F51\u683C\u5C3A\u5BF8\uFF1A128\r\nMaximumFrequency\uFF1A664.201\r\n\u622A\u6B62\u9891\u7387 (cycles/mm)\uFF1A664.201\r\nFrequencyUnit\uFF1Acycles/mm\r\nImageSpaceAfocal\uFF1AFalse\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A0\r\n\u6CE2\u957F (\u00B5m)\uFF1ASystem.Double[]\r\n\u89C6\u573A\u5E8F\u53F7\uFF1A0\r\n\u89C6\u573A\u6570\uFF1A3\r\n\u8868\u9762\u5E8F\u53F7\uFF1A0\r\nType\uFF1AModulation\r\n\u663E\u793A\u884D\u5C04\u6781\u9650\uFF1AFalse\r\n\u4F7F\u7528\u504F\u632F\uFF1AFalse\r\n\u4F7F\u7528\u865A\u7EBF\uFF1AFalse\r\nZemaxCompatible\uFF1ATrue\r\n\u66F2\u7EBF\u91C7\u6837\u70B9\u6570\uFF1A300",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "MTF",
+    "RequestFingerprint": "69BBAA54A5943B0616F242824C9D19BFFFC9880646A59EE93FCCECF97275AD0E",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "Sampling": "64",
+    "MaximumFrequency": "0",
+    "WavelengthNumber": "0",
+    "FieldNumber": "0",
+    "SurfaceNumber": "0",
+    "Type": "\u8C03\u5236",
+    "ShowDiffractionLimit": "false",
+    "UsePolarization": "false",
+    "UseDashes": "false"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "Sampling",
+      "DisplayName": "\u91C7\u6837",
+      "DefaultValue": "64",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "MaximumFrequency",
+      "DisplayName": "\u6700\u5927\u9891\u7387 (cycles/mm\uFF0C0 \u4E3A\u9ED8\u8BA4)",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F\uFF080 \u4E3A\u5168\u90E8\uFF09",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "FieldNumber",
+      "DisplayName": "\u89C6\u573A\uFF080 \u4E3A\u5168\u90E8\uFF09",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "SurfaceNumber",
+      "DisplayName": "\u8868\u9762\uFF080 \u4E3A\u50CF\u9762\uFF09",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Type",
+      "DisplayName": "\u7C7B\u578B",
+      "DefaultValue": "\u8C03\u5236",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ShowDiffractionLimit",
+      "DisplayName": "\u663E\u793A\u884D\u5C04\u6781\u9650",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "UsePolarization",
+      "DisplayName": "\u504F\u632F\u52A0\u6743\uFF08\u6807\u91CF\u8FD1\u4F3C\uFF0CExperimental\uFF09",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "UseDashes",
+      "DisplayName": "\u4F7F\u7528\u865A\u7EBF",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u91C7\u6837\uFF1A64",
+    "\u6CE2\u957F\uFF1A\u5168\u90E8",
+    "\u89C6\u573A\uFF1A\u5168\u90E8",
+    "\u8868\u9762\uFF1A\u50CF\u9762"
+  ],
+  "Metrics": [
+    [
+      "\u622A\u6B62\u9891\u7387 (cycles/mm)",
+      "664.201"
+    ],
+    [
+      "\u65B9\u6CD5",
+      "FFT"
+    ],
+    [
+      "\u77B3\u9762\u91C7\u6837\u6570",
+      "64"
+    ],
+    [
+      "\u7F51\u683C\u5C3A\u5BF8",
+      "128"
+    ],
+    [
+      "\u89C6\u573A\u6570",
+      "3"
+    ]
+  ],
+  "PaneCount": 0
+}

@@ -1,0 +1,68 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:05:50.10]     OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: "Dark") [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: "Dark") [10 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.PolychromeSfrWindowTests.<>c__DisplayClass1_0.<<LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromeSfrWindowTests.cs:line 35
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromeSfrWindowTests.cs:line 25
+--- End of stack trace from previous location ---
+[xUnit.net 00:05:56.99]     OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: "Light") [FAIL]
+  失败 OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: "Light") [6 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.PolychromeSfrWindowTests.<>c__DisplayClass1_0.<<LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromeSfrWindowTests.cs:line 35
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\PolychromeSfrWindowTests.cs:line 25
+--- End of stack trace from previous location ---
+[xUnit.net 00:06:03.80]     OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: "Light") [FAIL]
+  失败 OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: "Light") [6 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.<>c__DisplayClass1_0.<<SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 38
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 27
+--- End of stack trace from previous location ---
+[xUnit.net 00:06:12.42]     OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: "Dark") [FAIL]
+  失败 OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: "Dark") [8 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.<>c__DisplayClass1_0.<<SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 38
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 27
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-02\polychrome-sfr\polychrome-regression.trx
+
+失败!  - 失败:     4，通过:    47，已跳过:     0，总计:    51，持续时间: 6 m 7 s - OpticalSystemDesign.Tests.dll (net10.0)

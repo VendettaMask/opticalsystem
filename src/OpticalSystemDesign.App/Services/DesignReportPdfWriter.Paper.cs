@@ -12,112 +12,73 @@ internal static partial class DesignReportPdfWriter
         private const float FigureWidth = 595.28f - 72;
         private const float FigureHeight = FigureWidth
             * (float)(UniformDiagramPage.SheetHeight + 2) / (float)(UniformDiagramPage.SheetWidth + 2);
-        private const float FigureTop = 140;
+        private const float FigureTop = 176;
 
         internal void PaperReport(DesignReportPdfModel report, string images, bool includeAppendix)
         {
-            StartPage(false);
-            Text("光学分析报告", 24, true, 5);
-            Text(report.Name, 16, false, 16, color: new SKColor(54, 69, 88));
-            Text($"{report.CapturedAt:yyyy-MM-dd HH:mm}  ·  {report.FileName}", 9.5f, false, 20,
-                color: new SKColor(99, 113, 134));
-            foreach (var configuration in report.Configurations)
-            {
-                var source = configuration.Document;
-                Text(report.Configurations.Count == 1 ? "系统概览" : $"配置 {configuration.Number} · 系统概览", 14, true, 10, keepNext: true);
-                Metrics([
-                    ["有效焦距", DesignReportPdfModel.Number(source.EffectiveFocalLength) + " mm"],
-                    ["F 数", DesignReportPdfModel.Number(source.FNumber)],
-                    ["系统总长", DesignReportPdfModel.Number(source.TotalTrack) + " mm"],
-                    ["入瞳直径", DesignReportPdfModel.Number(source.EntrancePupilDiameter) + " mm"]]);
-            }
-            Text(report.FieldLabel + "：" + report.Fields, 10, false, 8);
-            Text("波长：" + report.Wavelengths, 10, false, 18);
-            Text($"分析项目：{report.Sections.Count} 项 · 完成：{report.Sections.Count(section => section.Failure is null)} 项"
-                + $" · 未完成：{report.Sections.Count(section => section.Failure is not null)} 项", 10, false, 10);
-            Text("各图与结果来自同一工程快照。数值采用便于阅读的精度显示，计算精度保持。", 9, false, 8,
-                color: new SKColor(99, 113, 134));
-            Contents(report, includeAppendix);
-            var sectionNumber = 0;
+            var layout = DesignReportPresentation.Create(report);
             long imageBytes = 0;
-            foreach (var section in report.Sections)
+            var figure = 0;
+            foreach (var page in layout.Pages)
             {
                 token.ThrowIfCancellationRequested();
-                sectionNumber++;
-                var pageCount = Math.Max(1, section.Images.Count);
-                for (var index = 0; index < pageCount; index++)
+                StartPage(false);
+                if (page.SectionNumber > 0 && layout.SectionPages[page.SectionNumber - 1] == page.Number)
                 {
-                    Section(section.Images.Count == 0 && section.Landscape);
-                    if (index == 0)
-                    {
-                        SectionStartPages.Add(_pages);
-                        _canvas!.DrawNamedDestinationAnnotation(new SKPoint(Margin, _y), $"report-section-{sectionNumber}");
-                    }
-                    Text($"{sectionNumber:D2}  /  配置 {section.Configuration}"
-                        + (pageCount > 1 ? $"  ·  分图 {index + 1}/{pageCount}" : ""), 9, false, 5,
-                        color: new SKColor(54, 84, 113));
-                    Text(section.Title, 18, true, 10, keepNext: true);
-                    if (!string.IsNullOrWhiteSpace(section.Conditions))
-                        Text(section.Conditions, 9, false, 12, color: new SKColor(99, 113, 134));
-                    if (section.Failure is { } failure)
-                    {
-                        Text("未完成：" + failure, 10.5f, false, 12, color: new SKColor(155, 53, 47));
-                        continue;
-                    }
-                    if (section.Images.Count > 0)
-                    {
-                        using var source = DesignReportImage.Open(images, section.Images[index]);
-                        imageBytes += source.Length;
-                        if (imageBytes > OpticalSystemDesign.Application.Services.BoundedApplicationFile.MaximumExportBytes)
-                            throw new InvalidDataException("报告图片超过大小上限。");
-                        using var data = SKData.Create(source);
-                        using var image = DesignReportImage.Decode(data);
-                        var caption = $"图 {sectionNumber}" + (pageCount > 1 ? $"-{index + 1}" : "") + "  " + section.Title;
-                        UniformPicture(image, caption, 10);
-                    }
-                    else if (section.Table is { } table) Table(table);
-                    Metrics(section.Metrics);
-                    if (section.Images.Count == 0 && section.Table is null && section.Metrics.Count == 0)
-                        Text("此项未提供图形或数值表。", 10, false, 10);
+                    SectionStartPages.Add(_pages);
+                    _canvas!.DrawNamedDestinationAnnotation(new SKPoint(Margin, _y), $"report-section-{page.SectionNumber}");
                 }
+                if (page.Cover) Text("OPTICAL DESIGN & ANALYSIS", 8, false, 10, color: new SKColor(82, 109, 130));
+                Text((page.SectionNumber > 0 ? $"{page.SectionNumber:D2}  " : "") + page.Title,
+                    page.Cover ? 25 : 20, true, 12, color: new SKColor(32, 43, 54));
+                if (!page.Cover && page.Subtitle.Length > 0)
+                    Text(DesignReportHtmlWriter.ShortConditions(page.Subtitle), 8.5f, false, 14, color: new SKColor(82, 96, 110));
+                foreach (var block in page.Content.Blocks)
+                {
+                    switch (block)
+                    {
+                        case ReportParagraph { Text: "OPTICAL DESIGN & ANALYSIS" }: break;
+                        case ReportParagraph paragraph:
+                            Text(paragraph.Text, paragraph.Style == ReportTextStyle.Subtitle ? 11 : 8.5f,
+                                false, 10, color: paragraph.Style == ReportTextStyle.Warning ? new SKColor(141, 88, 61) : new SKColor(82, 96, 110));
+                            break;
+                        case ReportTable table: Table(table); break;
+                        case ReportDirectoryEntry entry: DirectoryEntry(entry); break;
+                        case ReportPicture picture:
+                            using (var source = DesignReportImage.Open(images, picture.FileName))
+                            {
+                                imageBytes += source.Length;
+                                if (imageBytes > OpticalSystemDesign.Application.Services.BoundedApplicationFile.MaximumExportBytes)
+                                    throw new InvalidDataException("报告图片超过大小上限。");
+                                using var data = SKData.Create(source); using var image = DesignReportImage.Decode(data);
+                                if (page.Cover) _y = Math.Max(_y, 200);
+                                UniformPicture(image, page.Cover ? picture.Title : $"图 {++figure}　{picture.Title}", 14);
+                            }
+                            break;
+                    }
+                }
+                if (includeAppendix && report.Sections.Count > 0 && page == layout.Pages.Last(candidate => candidate.Content.Blocks.Any(block => block is ReportDirectoryEntry)))
+                    DirectoryEntry(new("附录 详细计算记录", report.Sections.Count + 1, 0));
             }
         }
 
-        private void Contents(DesignReportPdfModel report, bool includeAppendix)
+        private void DirectoryEntry(ReportDirectoryEntry entry)
         {
-            if (report.Sections.Count == 0 && !includeAppendix) return;
-            Text("目录", 14, true, 10, keepNext: true);
-            using var font = new SKFont(typeface, 10);
-            using var ink = new SKPaint { Color = new SKColor(47, 75, 66), IsAntialias = true };
-            using var line = new SKPaint { Color = new SKColor(208, 220, 214), StrokeWidth = .5f };
-            var lineHeight = LineHeight(font);
-            var multipleConfigurations = report.Configurations.Count > 1;
-            for (var index = 0; index < report.Sections.Count + (includeAppendix ? 1 : 0); index++)
-            {
-                token.ThrowIfCancellationRequested();
-                var appendix = index == report.Sections.Count;
-                var title = appendix ? "附录 详细计算记录" : $"{index + 1:D2}  "
-                    + (multipleConfigurations ? $"配置 {report.Sections[index].Configuration} · " : "") + report.Sections[index].Title;
-                var lines = Wrap(title, font, Width - 56);
-                var height = lines.Count * lineHeight + 8;
-                if (_y + height > Bottom)
-                {
-                    StartPage(false);
-                    Text("目录（续）", 14, true, 10, keepNext: true);
-                }
-                var top = _y;
-                for (var row = 0; row < lines.Count; row++)
-                    Draw(lines[row], Margin, top + row * lineHeight, lineHeight, font, ink);
-                var page = appendix ? appendixPage : contentsPages?.ElementAtOrDefault(index);
-                var label = page is > 0 ? page.Value.ToString(System.Globalization.CultureInfo.InvariantCulture) : "0000";
-                Draw(label, Margin + Width - font.MeasureText(label), top, lineHeight, font, ink);
-                var start = Margin + font.MeasureText(lines[0]) + 10;
-                var end = Margin + Width - 44;
-                if (start < end) _canvas!.DrawLine(start, top + lineHeight / 2, end, top + lineHeight / 2, line);
-                _canvas!.DrawLinkDestinationAnnotation(new SKRect(Margin, top, Margin + Width, top + height),
-                    appendix ? "report-appendix" : $"report-section-{index + 1}");
-                _y += height;
-            }
+            using var font = new SKFont(typeface, 9.5f);
+            using var ink = new SKPaint { Color = new SKColor(61, 84, 101), IsAntialias = true };
+            using var rule = new SKPaint { Color = new SKColor(218, 225, 231), StrokeWidth = .4f };
+            var title = $"{entry.SectionNumber:D2}　{entry.Title}";
+            var lines = Wrap(title, font, Width - 40);
+            var lineHeight = LineHeight(font); var height = lines.Count * lineHeight + 6;
+            Reserve(height);
+            for (var index = 0; index < lines.Count; index++) Draw(lines[index], Margin, _y + index * lineHeight, lineHeight, font, ink);
+            var appendix = context is not null && entry.SectionNumber > context.Sections.Count;
+            var page = appendix ? appendixPage ?? 0 : contentsPages?.ElementAtOrDefault(entry.SectionNumber - 1) ?? entry.Page;
+            var label = page.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            Draw(label, Margin + Width - font.MeasureText(label), _y, lineHeight, font, ink);
+            _canvas!.DrawLine(Margin, _y + height - 2, Margin + Width, _y + height - 2, rule);
+            _canvas.DrawLinkDestinationAnnotation(new SKRect(Margin, _y, Margin + Width, _y + height), appendix ? "report-appendix" : $"report-section-{entry.SectionNumber}");
+            _y += height;
         }
 
         private void UniformPicture(SKImage image, string caption, float after)
@@ -140,27 +101,5 @@ internal static partial class DesignReportPdfWriter
             Text(caption, 9, false, after, centered: true, color: new SKColor(99, 113, 134));
         }
 
-        private void Metrics(IReadOnlyList<string[]> metrics)
-        {
-            if (metrics.Count == 0) return;
-            using var font = new SKFont(typeface, 10);
-            using var paint = new SKPaint { Color = new SKColor(54, 69, 88), IsAntialias = true };
-            using var fill = new SKPaint { Color = new SKColor(247, 250, 248) };
-            for (var index = 0; index < metrics.Count; index += 2)
-            {
-                var cells = metrics.Skip(index).Take(2)
-                    .Select(metric => Wrap(metric[0] + "：" + metric[1], font, Width / 2 - 22)).ToArray();
-                var lineHeight = LineHeight(font);
-                var height = cells.Max(lines => lines.Count) * lineHeight + 10;
-                Reserve(height);
-                _canvas!.DrawRect(new SKRect(Margin, _y, Margin + Width, _y + height), fill);
-                for (var column = 0; column < cells.Length; column++)
-                    for (var line = 0; line < cells[column].Count; line++)
-                        Draw(cells[column][line], Margin + column * Width / 2 + 10, _y + 5 + line * lineHeight,
-                            lineHeight, font, paint);
-                _y += height;
-            }
-            _y += 8;
-        }
     }
 }

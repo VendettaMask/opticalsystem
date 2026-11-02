@@ -1,0 +1,151 @@
+{
+  "Index": 45,
+  "Key": "Radiant Intensity",
+  "Title": "\u8F90\u5C04\u5F3A\u5EA6",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-045.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "22CA2278DF49559BB16E1D15171F7D3CFD4EEC136D97086E9DBF5652F9DF5CD3"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u53C2\u8003\u8868\u9762\u5E8F\u53F7",
+      "Value": "12"
+    },
+    {
+      "Metric": "\u89D2\u5EA6\u5206\u7BB1",
+      "Value": "101 x 101"
+    },
+    {
+      "Metric": "X \u89D2\u5EA6\u8303\u56F4",
+      "Value": "[-15, 15] deg"
+    },
+    {
+      "Metric": "Y \u89D2\u5EA6\u8303\u56F4",
+      "Value": "[-15, 15] deg"
+    },
+    {
+      "Metric": "\u4F7F\u7528\u7EDD\u5BF9\u5355\u4F4D",
+      "Value": "True"
+    },
+    {
+      "Metric": "\u5F52\u4E00\u5316\u663E\u793A",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u89D2\u529F\u7387\u5F52\u4E00\u5316\u65B9\u5F0F",
+      "Value": "Exact projected-angle solid angle"
+    },
+    {
+      "Metric": "\u5149\u7EBF\u6570",
+      "Value": "2048"
+    },
+    {
+      "Metric": "\u77B3\u5B54\u91C7\u6837\u5206\u5E03",
+      "Value": "random"
+    },
+    {
+      "Metric": "\u6709\u6548\u5149\u7EBF\u6570",
+      "Value": "15874"
+    },
+    {
+      "Metric": "\u5CF0\u503C\u8F90\u5C04\u5F3A\u5EA6 (W/sr)",
+      "Value": "226419.251"
+    },
+    {
+      "Metric": "\u89C6\u573A\u6570",
+      "Value": "3"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u6570",
+      "Value": "3"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u8F90\u5C04\u5F3A\u5EA6\r\n\u53C2\u8003\u8868\u9762\u5E8F\u53F7\uFF1A12\r\n\u89D2\u5EA6\u5206\u7BB1\uFF1A101 x 101\r\nX \u89D2\u5EA6\u8303\u56F4\uFF1A[-15, 15] deg\r\nY \u89D2\u5EA6\u8303\u56F4\uFF1A[-15, 15] deg\r\n\u4F7F\u7528\u7EDD\u5BF9\u5355\u4F4D\uFF1ATrue\r\n\u5F52\u4E00\u5316\u663E\u793A\uFF1AFalse\r\n\u89D2\u529F\u7387\u5F52\u4E00\u5316\u65B9\u5F0F\uFF1AExact projected-angle solid angle\r\n\u5149\u7EBF\u6570\uFF1A2048\r\n\u77B3\u5B54\u91C7\u6837\u5206\u5E03\uFF1Arandom\r\n\u6709\u6548\u5149\u7EBF\u6570\uFF1A15874\r\n\u5CF0\u503C\u8F90\u5C04\u5F3A\u5EA6 (W/sr)\uFF1A226419.251\r\n\u89C6\u573A\u6570\uFF1A3\r\n\u6CE2\u957F\u6570\uFF1A3",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "Radiant Intensity",
+    "RequestFingerprint": "76EFEB17C6CA3C0B2124FE493BF595694F3F941F553214B9FAEBE77EE8ADB19F",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "AngularBinsX": "101",
+    "AngularBinsY": "101",
+    "NumRays": "2048",
+    "ReferenceSurfaceIndex": "-1",
+    "Distribution": "random",
+    "UseAbsoluteUnits": "true"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "AngularBinsX",
+      "DisplayName": "X \u89D2\u5EA6\u5206\u7BB1",
+      "DefaultValue": "101",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "AngularBinsY",
+      "DisplayName": "Y \u89D2\u5EA6\u5206\u7BB1",
+      "DefaultValue": "101",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "NumRays",
+      "DisplayName": "\u5149\u7EBF\u6570",
+      "DefaultValue": "2048",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ReferenceSurfaceIndex",
+      "DisplayName": "\u53C2\u8003\u8868\u9762\u5E8F\u53F7",
+      "DefaultValue": "-1",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Distribution",
+      "DisplayName": "\u77B3\u5B54\u91C7\u6837\u5206\u5E03",
+      "DefaultValue": "random",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "UseAbsoluteUnits",
+      "DisplayName": "\u4F7F\u7528\u7EDD\u5BF9\u5355\u4F4D",
+      "DefaultValue": "true",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u53C2\u8003\u8868\u9762\u5E8F\u53F7\uFF1A-1"
+  ],
+  "Metrics": [
+    [
+      "\u89D2\u5EA6\u5206\u7BB1",
+      "101 x 101"
+    ],
+    [
+      "X \u89D2\u5EA6\u8303\u56F4",
+      "[-15, 15] deg"
+    ],
+    [
+      "Y \u89D2\u5EA6\u8303\u56F4",
+      "[-15, 15] deg"
+    ],
+    [
+      "\u4F7F\u7528\u7EDD\u5BF9\u5355\u4F4D",
+      "True"
+    ],
+    [
+      "\u5F52\u4E00\u5316\u663E\u793A",
+      "False"
+    ]
+  ],
+  "PaneCount": 18
+}

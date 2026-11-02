@@ -50,8 +50,9 @@ internal sealed partial class MarkdownReportWindow : Window
         var selectedFormat = Array.IndexOf(Formats, _options.Format);
         _format.SelectedIndex = selectedFormat >= 0 ? selectedFormat : 2;
         _pdfDetails.IsChecked = _options.PdfIncludeDetails;
-        _pdfDetails.IsVisible = _options.Format == DesignReportFormat.Pdf;
-        _format.SelectionChanged += (_, _) => _pdfDetails.IsVisible = _format.SelectedIndex == Array.IndexOf(Formats, DesignReportFormat.Pdf);
+        _pdfDetails.IsVisible = _options.Format is DesignReportFormat.Pdf or DesignReportFormat.Word;
+        _format.SelectionChanged += (_, _) => _pdfDetails.IsVisible = _format.SelectedIndex == Array.IndexOf(Formats, DesignReportFormat.Pdf)
+            || _format.SelectedIndex == Array.IndexOf(Formats, DesignReportFormat.Word);
         AutomationProperties.SetName(_format, "导出格式");
         _twoD.IsChecked = _options.Include2DLayout;
         _threeD.IsChecked = _options.Include3DLayout;
@@ -119,7 +120,7 @@ internal sealed partial class MarkdownReportWindow : Window
             { new TextBlock { Text = "导出格式", VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 12, 0) }, _format, _pdfDetails }
         };
         var root = new Grid { RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,*,Auto,Auto,Auto"), RowSpacing = 12, Margin = new Thickness(18), ClipToBounds = true };
-        Add(new TextBlock { Text = "导出系统概览、布局和所选分析。PDF 默认采用精简图文排版，可选附加详细计算记录。文件名自动包含时间。", TextWrapping = TextWrapping.Wrap }, 0);
+        Add(new TextBlock { Text = "导出系统概览、布局和所选分析。Word 和 PDF 默认采用精简图文排版，可选附加详细计算记录。文件名自动包含时间。", TextWrapping = TextWrapping.Wrap }, 0);
         Add(formatRow, 1); Add(directoryRow, 2); Add(layout, 3); Add(columns, 4); Add(_operationStatus, 5); Add(_status, 6); Add(actions, 7);
         var shell = new Grid { ClipToBounds = true };
         shell.Children.Add(_renderHost); shell.Children.Add(root); Content = shell;

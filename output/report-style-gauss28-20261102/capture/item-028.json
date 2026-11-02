@@ -1,0 +1,236 @@
+{
+  "Index": 28,
+  "Key": "RMS Field Map",
+  "Title": "\u4E8C\u7EF4\u89C6\u573ARMS\u56FE",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-028.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "397D65FABB7735127F481F71288C61B08A7C53C5E8410AC375409B59D703F4C2"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "X \u89C6\u573A\u91C7\u6837",
+      "Value": "11"
+    },
+    {
+      "Metric": "Y \u89C6\u573A\u91C7\u6837",
+      "Value": "11"
+    },
+    {
+      "Metric": "X \u89C6\u573A\u5BBD\u5EA6",
+      "Value": "14"
+    },
+    {
+      "Metric": "Y \u89C6\u573A\u5BBD\u5EA6",
+      "Value": "14"
+    },
+    {
+      "Metric": "\u5149\u7EBF\u5BC6\u5EA6",
+      "Value": "6"
+    },
+    {
+      "Metric": "GaussianAzimuthalSamples",
+      "Value": "6"
+    },
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "GQ"
+    },
+    {
+      "Metric": "\u6570\u636E",
+      "Value": "spot"
+    },
+    {
+      "Metric": "\u77B3\u5B54\u91C7\u6837\u5206\u5E03",
+      "Value": "gaussian"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u53C2\u8003",
+      "Value": "centroid"
+    },
+    {
+      "Metric": "ImageSpaceAfocal",
+      "Value": "False"
+    },
+    {
+      "Metric": "MetricUnit",
+      "Value": "mm"
+    },
+    {
+      "Metric": "\u884D\u5C04\u6781\u9650 (mm)",
+      "Value": "0.002"
+    },
+    {
+      "Metric": "DiffractionLimitMilliradians",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u4F7F\u7528\u504F\u632F",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u79FB\u9664\u6E10\u6655",
+      "Value": "True"
+    },
+    {
+      "Metric": "MinimumMetricValue",
+      "Value": "0.007"
+    },
+    {
+      "Metric": "MaximumMetricValue",
+      "Value": "0.075"
+    },
+    {
+      "Metric": "MinimumRmsSpotRadius",
+      "Value": "0.007"
+    },
+    {
+      "Metric": "MaximumRmsSpotRadius",
+      "Value": "0.075"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u4E8C\u7EF4\u89C6\u573ARMS\u56FE\r\nX \u89C6\u573A\u91C7\u6837\uFF1A11\r\nY \u89C6\u573A\u91C7\u6837\uFF1A11\r\nX \u89C6\u573A\u5BBD\u5EA6\uFF1A14\r\nY \u89C6\u573A\u5BBD\u5EA6\uFF1A14\r\n\u5149\u7EBF\u5BC6\u5EA6\uFF1A6\r\nGaussianAzimuthalSamples\uFF1A6\r\n\u65B9\u6CD5\uFF1AGQ\r\n\u6570\u636E\uFF1Aspot\r\n\u77B3\u5B54\u91C7\u6837\u5206\u5E03\uFF1Agaussian\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A0\r\n\u53C2\u8003\uFF1Acentroid\r\nImageSpaceAfocal\uFF1AFalse\r\nMetricUnit\uFF1Amm\r\n\u884D\u5C04\u6781\u9650 (mm)\uFF1A0.002\r\nDiffractionLimitMilliradians\uFF1A0\r\n\u4F7F\u7528\u504F\u632F\uFF1AFalse\r\n\u79FB\u9664\u6E10\u6655\uFF1ATrue\r\nMinimumMetricValue\uFF1A0.007\r\nMaximumMetricValue\uFF1A0.075\r\nMinimumRmsSpotRadius\uFF1A0.007\r\nMaximumRmsSpotRadius\uFF1A0.075",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "RMS Field Map",
+    "RequestFingerprint": "C565032D52CEFBB57BBBCCCA28A7DE540AA0D82F02E29DD2834B2E440AB62678",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "XFieldSamples": "11",
+    "YFieldSamples": "11",
+    "XFieldWidth": "0",
+    "YFieldWidth": "0",
+    "NumRings": "6",
+    "Method": "GQ",
+    "GaussianAzimuthalSamples": "6",
+    "Data": "spot",
+    "Distribution": "hexapolar",
+    "WavelengthNumber": "0",
+    "Reference": "centroid",
+    "UsePolarization": "false",
+    "RemoveVignetting": "true"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "XFieldSamples",
+      "DisplayName": "X\u89C6\u573A\u91C7\u6837",
+      "DefaultValue": "11",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "YFieldSamples",
+      "DisplayName": "Y\u89C6\u573A\u91C7\u6837",
+      "DefaultValue": "11",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "XFieldWidth",
+      "DisplayName": "X\u89C6\u573A\u5927\u5C0F",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "YFieldWidth",
+      "DisplayName": "Y\u89C6\u573A\u5927\u5C0F",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "NumRings",
+      "DisplayName": "\u5149\u77B3\u91C7\u6837\uFF08GQ \u73AF\u6570 / RA \u6BCF\u8FB9\u70B9\u6570\uFF09",
+      "DefaultValue": "6",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Method",
+      "DisplayName": "\u8BA1\u7B97\u65B9\u6CD5",
+      "DefaultValue": "GQ",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "GaussianAzimuthalSamples",
+      "DisplayName": "GQ \u89D2\u5411\u70B9\u6570",
+      "DefaultValue": "6",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Data",
+      "DisplayName": "\u6570\u636E",
+      "DefaultValue": "spot",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Distribution",
+      "DisplayName": "\u91C7\u6837\u65B9\u6CD5",
+      "DefaultValue": "hexapolar",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Reference",
+      "DisplayName": "\u53C2\u7167",
+      "DefaultValue": "centroid",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "UsePolarization",
+      "DisplayName": "\u4F7F\u7528\u504F\u632F",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "RemoveVignetting",
+      "DisplayName": "\u79FB\u9664\u6E10\u6655",
+      "DefaultValue": "true",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "X\u89C6\u573A\u91C7\u6837\uFF1A11",
+    "Y\u89C6\u573A\u91C7\u6837\uFF1A11",
+    "X\u89C6\u573A\u5927\u5C0F\uFF1A0",
+    "Y\u89C6\u573A\u5927\u5C0F\uFF1A0",
+    "GQ \u89D2\u5411\u70B9\u6570\uFF1A6"
+  ],
+  "Metrics": [
+    [
+      "X \u89C6\u573A\u91C7\u6837",
+      "11"
+    ],
+    [
+      "Y \u89C6\u573A\u91C7\u6837",
+      "11"
+    ],
+    [
+      "X \u89C6\u573A\u5BBD\u5EA6",
+      "14"
+    ],
+    [
+      "Y \u89C6\u573A\u5BBD\u5EA6",
+      "14"
+    ],
+    [
+      "\u5149\u7EBF\u5BC6\u5EA6",
+      "6"
+    ]
+  ],
+  "PaneCount": 0
+}

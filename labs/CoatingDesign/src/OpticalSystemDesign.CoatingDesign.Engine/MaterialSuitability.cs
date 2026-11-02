@@ -29,7 +29,9 @@ public sealed partial class DesignService
     {
         var grid = ThinFilmSpectrum.Grid(d.Target.MinimumNm, d.Target.MaximumNm, 64).Append(d.Target.CenterNm).Distinct().ToArray();
         var films = new List<FilmMaterialSuitability>();
-        foreach (var id in d.Layers.Select(l => l.MaterialId).Concat([d.LowId, d.HighId]).Distinct())
+        foreach (var id in (d.Duplex is null ? d.Layers.Select(l => l.MaterialId)
+            : EvaluationMaterialIds(d).Where(id => id != d.IncidentId && id != d.SubstrateId && id != d.StackGeometry!.ExitMediumId))
+            .Concat([d.LowId, d.HighId]).Distinct())
         {
             token.ThrowIfCancellationRequested();
             var material = materials[id]; var snapshot = d.Materials.Single(m => m.Id == id);
@@ -46,13 +48,16 @@ public sealed partial class DesignService
             messages.Add("当前 H/L 材料不满足参考无吸收窄带原型的中心 k≤1e-5 前提；继续使用真实 n/k 竞争与匹配，不代表规格已证明无解。");
         foreach (var film in films.Where(f => f.MaximumSampledExtinction > ReferenceLosslessThreshold))
             messages.Add(FormattableString.Invariant($"材料 {film.Name}：中心 k={film.CenterExtinction:G7}；64 区间及中心锚点采样内最大 k={film.MaximumSampledExtinction:G7}（{film.MaximumExtinctionWavelengthNm:G7} nm），须关注实际吸收。"));
-        var power = d.Layers.Length == 0 ? null : Solver(d, materials).Evaluate(d.Target.CenterNm, d.Target.AngleDegrees, d.Target.Polarization);
+        var evaluate = PowerEvaluator(d, materials);
+        var power = d.Layers.Length == 0 && d.EffectiveBackLayers.Length == 0 ? null : evaluate(d.Target.CenterNm, d.Target.AngleDegrees, d.Target.Polarization);
         if (power is not null)
-            messages.Add(FormattableString.Invariant($"中心能量：R={power.Reflectance:P5}，T={power.Transmittance:P5}，有限膜层 A={power.Absorptance:P5}；T 为进入基板的功率。"));
+            messages.Add(d.Duplex is null
+                ? FormattableString.Invariant($"中心能量：R={power.Reflectance:P5}，T={power.Transmittance:P5}，有限膜层 A={power.Absorptance:P5}；T 为进入基板的功率。")
+                : FormattableString.Invariant($"中心能量：R={power.Reflectance:P5}，T={power.Transmittance:P5}，A={power.Absorptance:P5}；评价对象：{EvaluationLabel(d)}。"));
         ThinFilmSample? worst = null;
-        if (d.Target.Kind == DesignKind.HighReflector && d.Layers.Length > 0)
+        if (d.Target.Kind == DesignKind.HighReflector && (d.Layers.Length > 0 || d.EffectiveBackLayers.Length > 0))
         {
-            worst = (verifiedSpectrum ?? ThinFilmSpectrum.Sample(Solver(d, materials), grid, d.Target.AngleDegrees, d.Target.Polarization))
+            worst = (verifiedSpectrum ?? ThinFilmSpectrum.Sample(w => evaluate(w, d.Target.AngleDegrees, d.Target.Polarization), grid))
                 .MinBy(s => s.Power.Reflectance);
             messages.Add(FormattableString.Invariant($"{(verifiedSpectrum is null ? "诊断采样" : "独立复验")}最差反射点 {worst!.WavelengthNanometers:G8} nm：R={worst.Power.Reflectance:P5}，T={worst.Power.Transmittance:P5}，有限膜层 A={worst.Power.Absorptance:P5}；不由吸收阈值推断物理无解。"));
         }

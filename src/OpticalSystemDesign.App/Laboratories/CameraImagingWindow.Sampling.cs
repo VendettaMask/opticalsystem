@@ -56,7 +56,7 @@ public sealed partial class CameraImagingWindow
     internal async Task RunSamplingAsync()
     {
         var run = _result;
-        if (_closed || _busy || !CanCheckSampling(run) || !SamplingRegionIsValid()) return;
+        if (_closed || _busy || SceneImagingBusy || !CanCheckSampling(run) || !SamplingRegionIsValid()) return;
         var region = new CameraSamplingRegion((int)V("sampling-x"), (int)V("sampling-y"), (int)V("sampling-width"), (int)V("sampling-height"));
         var axis = (CameraSamplingAxis)_samplingAxis.SelectedIndex; var previous = _samplingReport;
         Cancel(); var generation = _generation;
@@ -148,7 +148,7 @@ public sealed partial class CameraImagingWindow
         var eligible = CanCheckSampling(_result);
         var valid = SamplingRegionIsValid();
         var reason = _busy ? "正在计算，可取消后再检查。" : !eligible ? "请先运行或打开当前版本的三维衍射结果 B。" : "区域须位于原传感器范围内。";
-        ControlAvailability.Set(_checkSampling, !_busy && eligible && valid, reason);
+        ControlAvailability.Set(_checkSampling, !_busy && !SceneImagingBusy && eligible && valid, reason);
         ControlAvailability.Set(_samplingAxis, !_busy, reason);
         foreach (var key in new[] { "sampling-x", "sampling-y", "sampling-width", "sampling-height" }) ControlAvailability.Set(_numbers[key], !_busy, reason);
         ControlAvailability.Set(_exportSampling, !_busy && _samplingReport is not null && _result is not null, "请先完成至少一项采样检查。");

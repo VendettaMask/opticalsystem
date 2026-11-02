@@ -59,7 +59,7 @@ public sealed class MarkdownReportExportTests
         Assert.Contains("计算来源", markdown); Assert.DoesNotContain("```json", markdown);
         Assert.DoesNotContain("完整处方", markdown); Assert.DoesNotContain("半径 / mm", markdown);
         var links = Regex.Matches(markdown, @"!\[[^\]]*\]\(<([^>]+)>\)");
-        Assert.Equal(3, links.Count);
+        Assert.Equal(4, links.Count); // three complete original drawings plus the vector company mark
         foreach (Match link in links)
             Assert.True(File.Exists(Path.Combine(directory.Path, Uri.UnescapeDataString(link.Groups[1].Value))));
         Assert.Equal(progress[^1].Total, progress[^1].Completed);
@@ -122,11 +122,11 @@ public sealed class MarkdownReportExportTests
         Assert.True(result.Succeeded == 3, string.Join(Environment.NewLine,
             markdown.Split('\n').Where(line => line.Contains("未完成", StringComparison.Ordinal))));
         Assert.Equal(0, result.Failed);
-        Assert.Equal(new[] { AnalysisPresentationKind.ZernikeFringe, AnalysisPresentationKind.ZernikeStandard,
-            AnalysisPresentationKind.ZernikeAnnular }, seen);
+        Assert.Empty(seen); // coefficient reports are native tables in every format, without text screenshots.
+        Assert.Contains("公式", markdown);
         Assert.DoesNotContain("Zernike Fringe Fit", markdown);
         Assert.DoesNotContain("### Zernike 系数", markdown);
-        Assert.DoesNotContain("未完成", markdown);
+        Assert.DoesNotContain("未完成：", markdown);
         foreach (var key in keys) Assert.Contains(WorkbenchAnalysisCatalog.DisplayName(key), markdown);
         Assert.Equal(new[] { "Zernike", "Zernike 系数" }.Concat(keys), options.AnalysisKeys);
     }

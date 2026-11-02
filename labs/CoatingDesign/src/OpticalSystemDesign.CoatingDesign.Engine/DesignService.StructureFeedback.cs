@@ -27,6 +27,7 @@ public sealed partial class DesignService
     // enabled by ordinary Search until it demonstrates an independent benefit.
     public Experiment SearchMatchedFeedback(Experiment input, IProgress<DesignProgress>? progress = null, CancellationToken token = default)
     {
+        if (input.Duplex is not null) throw new NotSupportedException("单面匹配反馈研究接口不支持双面模式；请使用统一双面Search。");
         using var scope = Core.Services.ComputationCancellation.Push(token);
         var d = input.Snapshot(); d.Validate();
         if (d.Settings.DesignProtocolVersion != 4 || d.Target.Kind != DesignKind.NarrowBand)

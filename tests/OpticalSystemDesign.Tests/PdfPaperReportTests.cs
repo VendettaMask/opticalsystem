@@ -33,7 +33,7 @@ public sealed class PdfPaperReportTests
         Assert.Equal(1, summary.Succeeded); Assert.Equal(0, summary.Failed);
         Assert.True(Assert.Single(requests).ForPrint);
         var summaryPdf = Encoding.Latin1.GetString(await File.ReadAllBytesAsync(summary.ReportPath));
-        Assert.Equal(2, PageCount(summaryPdf));
+        Assert.Equal(4, PageCount(summaryPdf)); // cover, contents, system summary, complete original figure
         var sizes = Regex.Matches(summaryPdf, @"/MediaBox\s*\[\s*0\s+0\s+([\d.]+)\s+([\d.]+)\s*\]");
         Assert.All(sizes.Cast<Match>(), match => Assert.True(double.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture)
             < double.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture)));
@@ -116,9 +116,11 @@ public sealed class PdfPaperReportTests
             var coefficients = await application.Analyses.RunAsync(new(Guid.NewGuid(), 1, key, new Dictionary<string, string> { ["ZernikeTerms"] = "37" }));
             var table = Assert.IsType<ReportTable>(DesignReportPdfModel.NumericalTable(coefficients.View));
             Assert.Equal(37, table.Rows.Length);
-            Assert.StartsWith("Z1 (", table.Rows[0][0]);
-            Assert.StartsWith("Z37 (", table.Rows[^1][0]);
-            Assert.All(table.Rows, row => Assert.True(double.TryParse(row[1], NumberStyles.Float, CultureInfo.InvariantCulture, out _)));
+            Assert.Equal("Z1", table.Rows[0][0]);
+            Assert.Equal("Z37", table.Rows[^1][0]);
+            Assert.Equal(3, table.FormulaColumn);
+            Assert.All(table.Rows, row => Assert.True(double.TryParse(row[4], NumberStyles.Float, CultureInfo.InvariantCulture, out _)));
+            Assert.All(table.Rows, row => Assert.NotEmpty(row[3]));
         }
         using var snapshot = application.CaptureReportSnapshot();
         var result = await MarkdownReportExporter.ExportAsync(snapshot,
@@ -128,7 +130,7 @@ public sealed class PdfPaperReportTests
         var pdf = Encoding.Latin1.GetString(await File.ReadAllBytesAsync(result.ReportPath));
         Assert.Contains("/ToUnicode", pdf);
         Assert.DoesNotContain("/Subtype /Image", pdf);
-        Assert.InRange(PageCount(pdf), 2, 3);
+        Assert.InRange(PageCount(pdf), 4, 12);
     }
 
     [Fact]

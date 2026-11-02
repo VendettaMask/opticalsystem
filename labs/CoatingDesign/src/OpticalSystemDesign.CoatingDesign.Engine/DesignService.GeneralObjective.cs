@@ -209,6 +209,13 @@ public sealed partial class DesignService
             { sensitivity![i] = solver.EvaluateThicknessSensitivity(grid[i], t.AngleDegrees, t.Polarization); points[i] = new(grid[i], sensitivity[i].Power); if (work is not null) work.Sensitivity++; }
             else { points[i] = new(grid[i], solver.Evaluate(grid[i], t.AngleDegrees, t.Polarization)); if (work is not null) work.Spectrum++; }
         }
+        return GeneralConstraintSystem(d, grid, points, sensitivity, work);
+    }
+    private static GeneralSystem GeneralConstraintSystem(Experiment d, double[] grid, ThinFilmSample[] points,
+        ThinFilmThicknessSensitivity[]? sensitivity, GeneralCounter? work = null)
+    {
+        var t = d.Target; var derivatives = sensitivity is not null;
+        var derivativeCount = sensitivity?[0].Layers.Length ?? 0;
         if (t.Kind != DesignKind.NarrowBand)
         {
             var sign = t.Kind == DesignKind.Antireflection ? 1.0 : -1.0;
@@ -218,8 +225,8 @@ public sealed partial class DesignService
             scale *= Math.Sqrt(grid.Length);
             var rValues = points.Select(s => sign * (s.Power.Reflectance - t.Reflectance) / scale
                 + interior).ToArray();
-            double[,]? rJac = derivatives ? new double[grid.Length, d.Layers.Length] : null;
-            if (derivatives) for (var i = 0; i < grid.Length; i++) for (var j = 0; j < d.Layers.Length; j++)
+            double[,]? rJac = derivatives ? new double[grid.Length, derivativeCount] : null;
+            if (derivatives) for (var i = 0; i < grid.Length; i++) for (var j = 0; j < derivativeCount; j++)
                 rJac![i, j] = sign * sensitivity![i].Layers[j].Reflectance / scale;
             return new(rValues, rJac, points, grid.Select(w => new GeneralConstraintKey(-1, w)).ToArray());
         }
@@ -233,14 +240,14 @@ public sealed partial class DesignService
         {
             values.Add(value + (key.Group == 0 && t.PeakTransmittance == 1 ? 0 : GeneralConstraintInteriorGuard)); keys.Add(key);
             if (!derivatives) return;
-            var row = new double[d.Layers.Length];
+            var row = new double[derivativeCount];
             foreach (var term in terms)
                 for (var j = 0; j < row.Length; j++) row[j] += term.Factor * (term.Log
                     ? sensitivity![term.Point].Layers[j].LogTransmittance : sensitivity![term.Point].Layers[j].Transmittance);
             rows.Add(row);
         }
         void Inactive(GeneralConstraintKey key)
-        { values.Add(double.NegativeInfinity); keys.Add(key); if (derivatives) rows.Add(new double[d.Layers.Length]); }
+        { values.Add(double.NegativeInfinity); keys.Add(key); if (derivatives) rows.Add(new double[derivativeCount]); }
         var peakScale = t.PeakTransmittance;
         Row(new(0, t.CenterNm), (peakScale - center) / peakScale, (centerIndex, -1 / peakScale, false));
         var bandIndices = Enumerable.Range(0, grid.Length).Where(i => Math.Abs(grid[i] - t.CenterNm) <= 2 * t.FwhmNm).ToArray();
@@ -304,7 +311,7 @@ public sealed partial class DesignService
         }
         double[,]? jacobian = null;
         if (derivatives)
-        { jacobian = new double[rows.Count, d.Layers.Length]; for (var i = 0; i < rows.Count; i++) for (var j = 0; j < d.Layers.Length; j++) jacobian[i, j] = rows[i][j]; }
+        { jacobian = new double[rows.Count, derivativeCount]; for (var i = 0; i < rows.Count; i++) for (var j = 0; j < derivativeCount; j++) jacobian[i, j] = rows[i][j]; }
         return new(values.ToArray(), jacobian, points, keys.ToArray());
     }
 

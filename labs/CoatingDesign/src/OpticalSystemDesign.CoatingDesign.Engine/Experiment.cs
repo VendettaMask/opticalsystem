@@ -37,6 +37,19 @@ public sealed record CalculationSettings(int PreviewIntervals = 400, int Optimiz
     public int? DesignProtocolVersion { get; init; }
 }
 public sealed record FilmLayer(string MaterialId, double ThicknessNm, bool Variable = true);
+public sealed record CoatingStackGeometry(string ExitMediumId, double SubstrateThicknessMm = 1, bool IncludeBackSurface = true)
+{
+    public int Version { get; init; } = 1;
+}
+public enum CoatingDesignSurface { Front, Back, Both }
+public enum CoatingEvaluationSurface { Front, Back, WholePlate }
+public sealed record DuplexCoatingOptions(CoatingDesignSurface Optimize = CoatingDesignSurface.Front,
+    CoatingEvaluationSurface Evaluate = CoatingEvaluationSurface.WholePlate, bool Symmetric = false)
+{
+    public int Version { get; init; } = 1;
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? OptimizationVersion { get; init; }
+}
 
 public sealed record MaterialSnapshot(string Id, string Name, string Source, double MinimumNm, double MaximumNm,
     ComponentSnapshot Model)
@@ -124,6 +137,8 @@ public sealed record SearchSeedValidation(FilmLayer[] Layers, ThinFilmBandMetric
 public sealed record RunRecord(string Algorithm, string AlgorithmVersion, string StopReason, long Evaluations,
     int Iterations, int? RandomSeed, string SolverVersion = CoherentThinFilmSolver.Version)
 {
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public DuplexOptimizationRecord? Duplex { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public FilmLayer[]? QualityStartLayers { get; init; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -232,6 +247,8 @@ public sealed record Candidate(string Name, FilmLayer[] Layers, double Merit, bo
     [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] RunRecord? Run = null)
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FilmLayer[]? BackLayers { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public NarrowBandPrototype? OriginPrototype { get; init; }
 }
 public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignTarget Target,
@@ -241,7 +258,21 @@ public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignT
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public ReferenceExampleInfo? ReferenceExample { get; init; }
+    // Display-system geometry is separate from the established front-surface design acceptance.
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public CoatingStackGeometry? StackGeometry { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public FilmLayer[]? BackLayers { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public DuplexCoatingOptions? Duplex { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double? ReferenceWavelengthNm { get; init; }
+    [JsonIgnore]
+    public double EffectiveReferenceWavelengthNm => ReferenceWavelengthNm ?? Target.CenterNm;
+    [JsonIgnore]
+    public FilmLayer[] EffectiveBackLayers => Duplex?.Symmetric == true ? Layers : BackLayers ?? [];
     public const int CurrentSchema = 1;
+    public const int DuplexSchema = 2;
     public static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -256,14 +287,25 @@ public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignT
     internal bool MatchesFingerprint(string fingerprint) => fingerprint == Fingerprint()
         || fingerprint == Fingerprint(new JsonSerializerOptions(JsonOptions) { NewLine = "\r\n" });
 
-    private string Fingerprint(JsonSerializerOptions options) => Convert.ToHexString(SHA256.HashData(JsonSerializer.SerializeToUtf8Bytes(
-        new { Target, Settings, IncidentId, SubstrateId, LowId, HighId, Materials, Layers }, options)));
+    private string Fingerprint(JsonSerializerOptions options) => Convert.ToHexString(SHA256.HashData(Duplex is null
+        ? JsonSerializer.SerializeToUtf8Bytes(new { Target, Settings, IncidentId, SubstrateId, LowId, HighId, Materials, Layers }, options)
+        : JsonSerializer.SerializeToUtf8Bytes(new { Target, Settings, IncidentId, SubstrateId, LowId, HighId, Materials, Layers, BackLayers, Duplex, StackGeometry }, options)));
 
     public void Validate()
     {
-        if (SchemaVersion != CurrentSchema) throw new InvalidDataException($"不支持实验格式版本 {SchemaVersion}。");
+        if (SchemaVersion is not (CurrentSchema or DuplexSchema)) throw new InvalidDataException($"不支持实验格式版本 {SchemaVersion}。");
+        if (Duplex is null ? BackLayers is not null || SchemaVersion == DuplexSchema
+            : SchemaVersion != DuplexSchema || Duplex.Version != 1 || Duplex.OptimizationVersion is not (null or 2) || StackGeometry is null
+                || !Enum.IsDefined(Duplex.Optimize) || !Enum.IsDefined(Duplex.Evaluate)
+                || Duplex.Optimize == CoatingDesignSurface.Both && Duplex.Evaluate != CoatingEvaluationSurface.WholePlate
+                || Duplex.Optimize == CoatingDesignSurface.Front && Duplex.Evaluate == CoatingEvaluationSurface.Back
+                || Duplex.Optimize == CoatingDesignSurface.Back && Duplex.Evaluate == CoatingEvaluationSurface.Front
+                || Duplex.Symmetric && (Duplex.Optimize != CoatingDesignSurface.Both || BackLayers is not null))
+            throw new InvalidDataException("双面设计版本、优化/评价对象或对称链接无效；旧单面实验保持原验收语义。");
         if (Id == Guid.Empty || string.IsNullOrWhiteSpace(Name) || Target is null || Settings is null || Materials is null || Layers is null)
             throw new InvalidDataException("实验缺少名称、参数或材料快照。");
+        if (ReferenceWavelengthNm is { } reference && (!double.IsFinite(reference) || reference <= 0))
+            throw new InvalidDataException("参考波长λ₀必须为正有限数值。");
         if (Materials.Any(m => m is null) || Layers.Any(l => l is null)
             || Target.StopBands?.Any(b => b is null) == true)
             throw new InvalidDataException("材料、膜层或截止波段不能包含空元素。");
@@ -304,10 +346,17 @@ public sealed record Experiment(int SchemaVersion, Guid Id, string Name, DesignT
         if (Materials.Length is < 1 or > 500 || Materials.Select(m => m.Id).Distinct().Count() != Materials.Length)
             throw new InvalidDataException("材料快照为空、重复或超过数量上限。");
         var ids = Materials.Select(m => m.Id).ToHashSet();
+        if (StackGeometry is { } stack && (stack.Version != 1 || !ids.Contains(stack.ExitMediumId)
+            || !double.IsFinite(stack.SubstrateThicknessMm) || stack.SubstrateThicknessMm <= 0
+            || !double.IsFinite(stack.SubstrateThicknessMm * 1e6)))
+            throw new InvalidDataException("堆栈出射介质缺失，或基板厚度不是正有限数值。");
         if (new[] { IncidentId, SubstrateId, LowId, HighId }.Any(id => !ids.Contains(id)) || Layers.Any(l => !ids.Contains(l.MaterialId)))
             throw new InvalidDataException("膜层或基板引用了缺失的材料。");
         if (Layers.Length > 200 || Layers.Any(l => !double.IsFinite(l.ThicknessNm) || l.ThicknessNm <= 0 || l.ThicknessNm > 100000))
             throw new ArgumentException("膜层厚度必须大于零且不超过 100000 nm，膜层不能超过 200 层。");
+        if (BackLayers is { } rear && (rear.Length > 200 || rear.Any(l => l is null || !ids.Contains(l.MaterialId)
+            || !double.IsFinite(l.ThicknessNm) || l.ThicknessNm <= 0 || l.ThicknessNm > 100000)))
+            throw new ArgumentException("背面膜层引用、厚度或数量无效；每面最多200层。");
         var registry = new MaterialRegistry();
         foreach (var m in Materials)
         {

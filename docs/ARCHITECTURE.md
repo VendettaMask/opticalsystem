@@ -42,7 +42,9 @@ OpticalSurface
 
 支持平面、标准面、偶次/奇次非球面、双锥面、环曲面、多项式、Chebyshev、Zernike、Forbes Q 等模型。非物理平方根域返回 `NaN` 并拒绝交点，不延伸不存在的曲面分支。
 
-现有膜层和散射近似不作为物理 Thin Film、Lambertian 或 Measured BSDF 对外提供。生产名称为 `ApproximateTransmissionRippleCoating`、`MainRayScatterLossApproximation` 和 `MeanMeasuredScatterLoss`，界面统一标记 `Experimental`；旧类名和旧序列化 kind 仅为兼容入口并带弃用警告。2026-09-27 新增共享 `CoherentThinFilmSolver` 和 `ThinFilmSpectrum`，采用稳定散射递推计算真实 n/k、角度、S/P 与 R/T/A，供内置镀膜模块使用。2026-10-02 新增明确的 `CoherentMultilayerCoating` 接入正式顺序追迹和照度 Jones 链；非序列集成未在本轮验证，旧经验类型含义不变。BSDF `Evaluate + Sample + Pdf` 仍未实现。
+旧经验模型 `ApproximateTransmissionRippleCoating`、`MainRayScatterLossApproximation` 和 `MeanMeasuredScatterLoss` 仍明确标记为近似，不能冒充物理薄膜或正式方向散射。共享 `CoherentThinFilmSolver` / `ThinFilmSpectrum` 使用真实 n/k、角度、S/P 与 R/T/A，`CoherentMultilayerCoating` 接入正式顺序追迹和照度 Jones 链。内置镀膜模块另有全板基板吸收、裸背面与非相干内反射显示；该显示不替换前面设计验收，见 [镀膜契约](COATING_DESIGN_LAB.md)。
+
+正式 NSC 散射已具备 `Evaluate + Sample + Pdf`：支持不透明 Lambertian、多次方向散射、声明格式的实测 BRDF/BTDF、固定材料轴及路径/功率统计，并接入相机 RAW/ISP。它与顺序主光线损耗近似具有不同类型和契约，不会因旧近似保留而退回损耗模型。商业文本/二进制和 XYZ 校准的版本、测量条件及尚未通过范围分别见 [非序列追迹](NON_SEQUENTIAL_TRACING.md) 与 [相机链路](CAMERA_IMAGING_LAB.md)。
 
 ## 数值后端与光线追迹
 

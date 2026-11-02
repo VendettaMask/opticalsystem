@@ -131,7 +131,7 @@ public sealed partial class CameraImagingWindow
     internal async Task RecomputeExperimentAsync()
     {
         var b = _result; var a = _comparison;
-        if (_closed || _busy || b?.Inputs is null) return;
+        if (_closed || _busy || SceneImagingBusy || b?.Inputs is null) return;
         Cancel(); var generation = _generation;
         var operation = new CancellationTokenSource(); _operation = operation; _busy = true; UpdateAvailability();
         _status.Text = "正在按各自冻结输入复算 A/B…";
@@ -158,7 +158,7 @@ public sealed partial class CameraImagingWindow
         ControlAvailability.Set(_saveExperiment, !_busy && _result?.Inputs is not null, "请先完成仿真，再保存完整实验。");
         var sameVersion = CameraExperiment.CanRecompute(_result?.Inputs?.EngineVersion)
             && (_comparison is null || CameraExperiment.CanRecompute(_comparison.Inputs?.EngineVersion));
-        ControlAvailability.Set(_recomputeExperiment, !_busy && _result?.Inputs is not null && sameVersion,
+        ControlAvailability.Set(_recomputeExperiment, !_busy && !SceneImagingBusy && _result?.Inputs is not null && sameVersion,
             !sameVersion && _result is not null ? "计算模型版本不同，可查看结果，不能按当前模型复算。" : "请先完成仿真或打开完整实验。");
         _experimentInfo.Text = UsingExperimentInputs
             ? $"{(IsNsc ? "使用实验内嵌 NSC 功率" : "使用实验镜头与内嵌输入")} · {_experimentRun!.Inputs!.EngineVersion}"

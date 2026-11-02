@@ -1,0 +1,104 @@
+{
+  "Date": "2026-11-02",
+  "Runs": [
+    {
+      "File": "scene-linear-focused.trx",
+      "Total": 41,
+      "Passed": 41,
+      "Failed": 0,
+      "AllResultsPassed": true
+    },
+    {
+      "File": "scene-linear-final.trx",
+      "Total": 19,
+      "Passed": 19,
+      "Failed": 0,
+      "AllResultsPassed": true
+    }
+  ],
+  "DistinctTests": 49,
+  "NativeBatch": "native-batch-summary.json",
+  "Scope": "Budgeted complete sensors and source tasks, shared Core strip equality, linear exchange, frozen replay and scoped adjacent regression; original 5000x3000/ROM, formal MTF and sampling convergence remain unaccepted.",
+  "SourceFiles": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/Imaging/DirectCameraRenderer.cs",
+      "Sha256": "43b191fa50df2aa0fc9f1c69673e9cb5dfae498c6ca4e110f9cbcd9422b41210"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/Imaging/DirectCameraRenderer.Batch.cs",
+      "Sha256": "4d8b7ab096dd16a35cd4db184e8d4154f16edd5cc8bef0a115a477c2cd850829"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/Imaging/SceneEmissionSpectrum.cs",
+      "Sha256": "3eb169b69089fa57c15698516c66a792538604713175026d600921c7de77d20f"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/CameraSceneLinearBatchContracts.cs",
+      "Sha256": "449c07c61d03aaa0af8f10504a6b8dac11c2a3798ba79509531f51bcbc7d45e8"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/CameraImagingContracts.cs",
+      "Sha256": "f42ea8b94aacba71b0352e089760bed49645baa90af9a3ad311ee4f1fb46d220"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/CameraImagingService.SceneLinearBatch.cs",
+      "Sha256": "df1d0d04b36bce8a352b86c2939b19e94a3b958b1d07dbd8875ac76da37e6c1f"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/CameraImagingService.SceneLinearBatch.Store.cs",
+      "Sha256": "667b89ecd39894f208e5d386795891573e139a9d02e9e7aa799c7df7d2cc1521"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/LinearGray16Png.cs",
+      "Sha256": "6a0dbc91875182dd8f9c5b25afcd7adaba40c48621a992ffb2956b81a8abce06"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneBatch.cs",
+      "Sha256": "53f8ecfa6420513461214fa46a23a7ad46f3b827901f686dcd4879ad183a2656"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneSfr.cs",
+      "Sha256": "05a8f7bd3a45459b2cf3a3add040b8acc80bbbdb6700c2ef5adef488856db119"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.cs",
+      "Sha256": "2b32aa7dff771857085459e51591e076e68d7664df1bfb0ef75e27f3c0d5d852"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Actions.cs",
+      "Sha256": "078f2b5aa657020e09037e5a2533eee413a62346044e2de9c5ae2827a766b9e5"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Sfr.cs",
+      "Sha256": "c5abcbd59905ae615fabf40d7e0a15c96ea234126be8af9eb6af802604c68f03"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Experiments.cs",
+      "Sha256": "ac62b1712e5e539dd4e014a0387429b3f273dceac4e742373d9171c93666ee08"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Sampling.cs",
+      "Sha256": "a46fcbec43e6dbbb70bfddf75912b4d0a36c391125fde49aa6ce91fbfe0eb1ad"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.NonSequential.cs",
+      "Sha256": "9bc0017aa58a00c6a4c4823a99361d6005d6b5ad4e9f27f232743a3124bd67da"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SceneLinearBatchTests.cs",
+      "Sha256": "4ad7b2ed814fe87a5221b862f914faca4cfc068e0e8af33a11ad997a3c3f4a92"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/SceneLinearBatchWindowTests.cs",
+      "Sha256": "f5cad4c4a059541365f9c5d3c96ab010449488ce7591e712763e2a60476f65b8"
+    }
+  ],
+  "DefaultReleaseAppBuild": {
+    "ExitCode": 0,
+    "Warnings": 0,
+    "Errors": 0,
+    "ElapsedSeconds": 23.34,
+    "Scope": "Normal App output and mandatory built-in modules; no launch"
+  },
+  "DocumentationAudit": "documentation-audit.json"
+}

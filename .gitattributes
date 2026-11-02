@@ -12,6 +12,8 @@ validation/** -text whitespace=cr-at-eol
 src/OpticalSystemDesign.App/Assets/SequentialExamples/**/*.[zZ][mM][xX] -text -whitespace
 # Captured logs and reports keep their original bytes, including trailing spaces.
 artifacts/** -text -whitespace
+# Captured engineering reports and their inputs share exact-byte validation receipts.
+output/report-style-gauss28-20261102/** -text -whitespace
 # CI pins this explicit evidence-only relocation map by exact byte SHA-256.
 tools/validation/frozen-evidence-relocations.json -text
 # Captured comparison settings are part of the published exact-byte manifest.

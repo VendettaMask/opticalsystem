@@ -223,7 +223,8 @@ public static partial class DiffractionEngine
         WavefrontReferenceSphere? referenceSphere = null,
         PupilGridSpecification? explicitPupilGrid = null,
         bool interpolateScalarPupilAmplitude = false,
-        int? croppedOutputSize = null)
+        int? croppedOutputSize = null,
+        Action<WavefrontResult>? observeWavefront = null)
     {
         if (croppedOutputSize is { } crop) ValidateCroppedFft(pupilSampling, gridSize, crop);
         else AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
@@ -343,6 +344,7 @@ public static partial class DiffractionEngine
             if (!ignoreOpd)
                 wavefront = InterpolateFftPupilPhase(wavefront, grid);
         }
+        observeWavefront?.Invoke(wavefront);
         var polarization = usePolarization
             ? preparedPolarization ?? JonesPupilEngine.Generate(
                     optic,

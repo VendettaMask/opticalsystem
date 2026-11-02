@@ -1,0 +1,21 @@
+D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:18.95]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults [FAIL]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults [18 s]
+  错误消息:
+   光学镀膜设计 | 打开 | 保存 | 导出 | 示例 | 设计 | 优化 | 材料 | 结果 | 1 生成膜系 | 2 优化 | 结构搜索 | 计算 / 复验 | 取消 | 膜系编辑器 | 入射侧 → 基板 | 添加层 | 替换材料 | 堆栈几何 | → | Air | BK7 (Schott) | Air | 正面：20 层，1582.0 nm    背面：0 层（裸界面） | 入射介质 | 基板 | 出射介质 | 基板厚度 (mm) | 参考波长 (nm) | 计入基板与背面（非相干） | 光学评价 | T | 平均 | s | p | R | 平均 | s | p | A | 平均 | s | p | 目标 | 编辑 | 设置 |  | 线宽 |  |  | 结果 · 0 点    0° · 验收偏振：0° 平均    s — —   p · · ·
+整块基板评价：含吸收、裸背面及多次反射；设计验收仍为前表面
+参考示例 · 指标为本地比较目标
+Ta2O5：原数据 500–2475 nm，域外按参考模型延用端点（非实测） | 结果 · 0 行 | 导出
+  堆栈跟踪:
+     at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.<>c.<<FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults>b__2_0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs:line 50
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.<>c__DisplayClass1_0.<<Run>b__0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 311
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs:line 19
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-02\coating-workspace\ui-2\workspace-recheck.trx
+
+失败!  - 失败:     1，通过:     1，已跳过:     0，总计:     2，持续时间: 27 s - OpticalSystemDesign.CoatingDesign.Tests.dll (net10.0)

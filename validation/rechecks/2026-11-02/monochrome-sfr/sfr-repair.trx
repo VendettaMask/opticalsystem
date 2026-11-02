@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="99f42cb6-efc8-474a-9d88-c62b440ee906" name="optics@LAPTOP-G4BBBCS0 2026-11-02 11:24:41" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T11:24:41.7556611+08:00" queuing="2026-11-02T11:24:41.7556613+08:00" start="2026-11-02T11:24:29.7620853+08:00" finish="2026-11-02T11:25:13.3871270+08:00" />
+  <TestSettings name="default" id="a277d105-99cb-45ce-aef2-6dc063c25893">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-02_11_24_41" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3815650e-9b76-4b0d-a848-90522e159eb4" testId="df398ad8-060e-f6b4-bb74-dd95da7d6046" testName="OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:13.4316935" startTime="2026-11-02T11:24:59.7742861+08:00" endTime="2026-11-02T11:25:13.2057785+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3815650e-9b76-4b0d-a848-90522e159eb4" />
+    <UnitTestResult executionId="41ccb372-ae44-4086-9019-b4a3bddb3225" testId="7abd9b80-a6f2-33f4-c2c8-fbfdd5d9a898" testName="OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:18.0579760" startTime="2026-11-02T11:24:41.7322661+08:00" endTime="2026-11-02T11:24:59.7691350+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="41ccb372-ae44-4086-9019-b4a3bddb3225" />
+    <UnitTestResult executionId="cad91b56-f4df-483b-a84e-0f6332bd1711" testId="72e68e79-0626-e20d-d783-0543a577ddea" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid" computerName="LAPTOP-G4BBBCS0" duration="00:00:09.2984401" startTime="2026-11-02T11:24:32.4145313+08:00" endTime="2026-11-02T11:24:41.6968340+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cad91b56-f4df-483b-a84e-0f6332bd1711" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7abd9b80-a6f2-33f4-c2c8-fbfdd5d9a898">
+      <Execution id="41ccb372-ae44-4086-9019-b4a3bddb3225" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraSfrWindowTests" name="SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="df398ad8-060e-f6b4-bb74-dd95da7d6046">
+      <Execution id="3815650e-9b76-4b0d-a848-90522e159eb4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraSfrWindowTests" name="SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="72e68e79-0626-e20d-d783-0543a577ddea">
+      <Execution id="cad91b56-f4df-483b-a84e-0f6332bd1711" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="df398ad8-060e-f6b4-bb74-dd95da7d6046" executionId="3815650e-9b76-4b0d-a848-90522e159eb4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7abd9b80-a6f2-33f4-c2c8-fbfdd5d9a898" executionId="41ccb372-ae44-4086-9019-b4a3bddb3225" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="72e68e79-0626-e20d-d783-0543a577ddea" executionId="cad91b56-f4df-483b-a84e-0f6332bd1711" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.59]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.07]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.10]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:42.95]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

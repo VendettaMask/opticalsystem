@@ -7,7 +7,7 @@ public sealed partial class MainWindow
     private async Task LoadReferenceExampleAsync(string id)
     {
         if (!await ConfirmUnsavedChangesAsync("切换镀膜示例")) return;
-        Load(ReferenceExamples.Create(id), markDirty: false);
+        Load(WorkspaceExample(ReferenceExamples.Create(id)), markDirty: false);
         var revision = _uiRevision;
         SetBusy(true);
         try

@@ -153,19 +153,41 @@ public sealed partial class CoherentThinFilmSolver
 
     private ThinFilmAmplitude Solve(Complex[] n, Complex[] q, double wavelength, ThinFilmPolarization polarization)
     {
+        var (reflection, logAmplitude, transmissionPhase) = ScatterFields(n, q, _thickness, wavelength, polarization);
+        var firstY = polarization == ThinFilmPolarization.S ? q[0] : n[0] * n[0] / q[0];
+        var lastY = polarization == ThinFilmPolarization.S ? q[^1] : n[^1] * n[^1] / q[^1];
+        var r = reflection.Magnitude * reflection.Magnitude;
+        var flux = lastY.Real / firstY.Real;
+        var logT = flux <= 0 ? double.NegativeInfinity : 2 * logAmplitude + Math.Log(flux);
+        var t = Math.Exp(logT);
+        var a = 1 - r - t;
+        if (!double.IsFinite(r) || !double.IsFinite(t) || !double.IsFinite(a) || a < -2e-9 || r > 1 + 2e-9)
+            throw new ArithmeticException("薄膜计算未满足被动介质能量条件，结果不能用于设计验收。");
+        var power = new ThinFilmPower(r, t, a, logT);
+        // The admittance recursion uses tangential electric-field components.
+        // Reflection changes the local p direction, hence its sign conversion.
+        // Transparent exterior media need no additional transmission phase change.
+        return new(polarization == ThinFilmPolarization.P ? -reflection : reflection,
+            n[^1].Imaginary == 0 ? Complex.FromPolarCoordinates(Math.Exp(logT / 2), transmissionPhase) : null,
+            power, transmissionPhase);
+    }
+
+    private static (Complex Reflection, double LogAmplitude, double Phase) ScatterFields(Complex[] n, Complex[] q,
+        double[] thickness, double wavelength, ThinFilmPolarization polarization)
+    {
         var y = q.Select((z, i) => polarization == ThinFilmPolarization.S ? z : n[i] * n[i] / z).ToArray();
         var reflection = Complex.Zero;
         var logAmplitude = 0.0;
         var transmissionPhase = 0.0;
-        for (var j = _media.Length - 2; j >= 0; j--)
+        for (var j = n.Length - 2; j >= 0; j--)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var propagation = Complex.One;
             var attenuation = 0.0;
             var propagationPhase = 0.0;
-            if (j < _thickness.Length)
+            if (j < thickness.Length)
             {
-                var phase = 2 * Math.PI * q[j + 1] * _thickness[j] / wavelength;
+                var phase = 2 * Math.PI * q[j + 1] * thickness[j] / wavelength;
                 attenuation = -phase.Imaginary;
                 propagationPhase = phase.Real;
                 propagation = Complex.FromPolarCoordinates(Math.Exp(attenuation), phase.Real);
@@ -179,20 +201,7 @@ public sealed partial class CoherentThinFilmSolver
                 + propagationPhase - denominator.Phase, 2 * Math.PI);
             reflection = (interfaceReflection + reflectedWave) / denominator;
         }
-        var r = reflection.Magnitude * reflection.Magnitude;
-        var flux = y[^1].Real / y[0].Real;
-        var logT = flux <= 0 ? double.NegativeInfinity : 2 * logAmplitude + Math.Log(flux);
-        var t = Math.Exp(logT);
-        var a = 1 - r - t;
-        if (!double.IsFinite(r) || !double.IsFinite(t) || !double.IsFinite(a) || a < -2e-9 || r > 1 + 2e-9)
-            throw new ArithmeticException("薄膜计算未满足被动介质能量条件，结果不能用于设计验收。");
-        var power = new ThinFilmPower(r, t, a, logT);
-        // The admittance recursion uses tangential electric-field components.
-        // Reflection changes the local p direction, hence its sign conversion.
-        // Transparent exterior media need no additional transmission phase change.
-        return new(polarization == ThinFilmPolarization.P ? -reflection : reflection,
-            n[^1].Imaginary == 0 ? Complex.FromPolarCoordinates(Math.Exp(logT / 2), transmissionPhase) : null,
-            power, transmissionPhase);
+        return (reflection, logAmplitude, transmissionPhase);
     }
 
     private static Complex ForwardRoot(Complex z)

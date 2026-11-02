@@ -117,6 +117,19 @@ public sealed record CameraImagingResult(string DocumentName, long SourceRevisio
     CameraExperimentInputs? Inputs = null, Camera3DDiagnostics? Scene3D = null);
 public interface ICameraImagingService
 {
+    CameraSceneLinearBatchPlan PrepareSceneLinearBatch(CameraSceneLinearBatchRequest request);
+    Task<CameraSceneLinearBatchArtifact> RunSceneLinearBatchAsync(CameraSceneLinearBatchPlan plan, string path,
+        IProgress<CameraSceneLinearBatchProgress>? progress = null, CancellationToken cancellationToken = default);
+    Task<CameraSceneLinearBatchArtifact> OpenSceneLinearBatchAsync(string path, CancellationToken cancellationToken = default);
+    Task<CameraSceneLinearTaskImage> ReadSceneLinearTaskAsync(CameraSceneLinearBatchArtifact artifact, int taskIndex, CancellationToken cancellationToken = default);
+    Task<CameraSceneSfrResult> SimulateSceneSlantedEdgeAsync(CameraSceneSfrRequest request, CancellationToken cancellationToken = default);
+    Task<CameraSceneSfrResult> RecomputeSceneSlantedEdgeAsync(CameraSceneSfrResult result, CancellationToken cancellationToken = default);
+    Task ExportSceneSlantedEdgeAsync(CameraSceneSfrResult result, string path, CancellationToken cancellationToken = default);
+    Task<CameraSceneSfrResult> OpenSceneSlantedEdgeAsync(string path, CancellationToken cancellationToken = default);
+    Task<CameraSfrResult> SimulateSlantedEdgeAsync(CameraSfrRequest request, CancellationToken cancellationToken = default);
+    Task<CameraSfrResult> RecomputeSlantedEdgeAsync(CameraSfrResult result, CancellationToken cancellationToken = default);
+    Task ExportSlantedEdgeAsync(CameraSfrResult result, string path, CancellationToken cancellationToken = default);
+    Task<CameraSfrResult> OpenSlantedEdgeAsync(string path, CancellationToken cancellationToken = default);
     Task<CameraNscDetectorInput> CaptureNonSequentialDetectorAsync(Guid detectorId, string? pathFilter = null,
         CancellationToken cancellationToken = default);
     Task<CameraSamplingReport> CheckSamplingAsync(CameraImagingResult run, CameraSamplingRegion region, CameraSamplingAxis axis,

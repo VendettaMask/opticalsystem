@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using System.Text.Json;
+using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.FileIO;
 
 namespace OpticalSystemDesign.CoatingDesign.Engine;
@@ -49,11 +50,25 @@ public static class ExperimentStore
             ("run.json", JsonSerializer.Serialize(d.Result.Run, Experiment.JsonOptions)),
             ("material-suitability.json", JsonSerializer.Serialize(d.Result.MaterialSuitability, Experiment.JsonOptions)) })
             await BoundedFile.WriteAllTextAtomicAsync(Path.Combine(directory, name), content, BoundedFile.MaximumExportBytes, "镀膜结果导出", token);
+        if (d.Duplex is not null)
+        {
+            var back = new StringBuilder("层号,材料,物理厚度_nm,变量\n");
+            for (var i = 0; i < d.EffectiveBackLayers.Length; i++)
+            {
+                var layer = d.EffectiveBackLayers[i]; var name = d.Materials.Single(m => m.Id == layer.MaterialId).Name;
+                back.AppendLine($"{i + 1},{Csv(name)},{Number(layer.ThicknessNm)},{layer.Variable}");
+            }
+            await BoundedFile.WriteAllTextAtomicAsync(Path.Combine(directory, "back-layers.csv"), back.ToString(), BoundedFile.MaximumExportBytes, "背面膜层导出", token);
+            await BoundedFile.WriteAllTextAtomicAsync(Path.Combine(directory, "evaluation.json"), JsonSerializer.Serialize(new
+            { d.Duplex, d.StackGeometry, LayerOrder = "exterior-to-substrate on each face", Solver = CoherentThinFilmSolver.DuplexSubstrateVersion }, Experiment.JsonOptions),
+                BoundedFile.MaximumExportBytes, "双面评价对象", token);
+        }
         if (d.Tolerance is { } tolerance)
         {
-            var trials = new StringBuilder("样本,达标,merit,入射角_deg,膜厚_nm,错误\n");
+            var trials = new StringBuilder("样本,达标,merit,入射角_deg,膜厚_nm,错误" + (d.Duplex is null ? "\n" : ",背面膜厚_nm\n"));
             foreach (var trial in tolerance.Samples ?? [])
-                trials.AppendLine($"{trial.Number},{trial.Passed},{(trial.Merit.HasValue ? Number(trial.Merit.Value) : "")},{Number(trial.AngleDegrees)},{Csv(string.Join(';', trial.ThicknessNm.Select(Number)))},{Csv(trial.Error ?? "")}");
+                trials.AppendLine($"{trial.Number},{trial.Passed},{(trial.Merit.HasValue ? Number(trial.Merit.Value) : "")},{Number(trial.AngleDegrees)},{Csv(string.Join(';', trial.ThicknessNm.Select(Number)))},{Csv(trial.Error ?? "")}"
+                    + (d.Duplex is null ? "" : "," + Csv(string.Join(';', (trial.BackThicknessNm ?? []).Select(Number)))));
             await BoundedFile.WriteAllTextAtomicAsync(Path.Combine(directory, "tolerance.csv"), trials.ToString(), BoundedFile.MaximumExportBytes, "公差样本导出", token);
             await BoundedFile.WriteAllTextAtomicAsync(Path.Combine(directory, "tolerance.json"), JsonSerializer.Serialize(tolerance, Experiment.JsonOptions), BoundedFile.MaximumExportBytes, "公差明细导出", token);
         }

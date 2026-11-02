@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1bf88a6c-d6c8-48c9-8c45-b3d44169aaf1" name="optics@LAPTOP-G4BBBCS0 2026-11-02 14:06:32" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T14:06:32.2317955+08:00" queuing="2026-11-02T14:06:32.2317961+08:00" start="2026-11-02T14:06:19.4133102+08:00" finish="2026-11-02T14:06:32.2413304+08:00" />
+  <TestSettings name="default" id="7843f911-4751-4199-aa5e-584f41acecab">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-02_14_06_32" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="be9d514b-f3a7-4944-a11b-4b6329566766" testId="98bc48d5-dcab-355a-d10f-9a78d6257299" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.NativeTabReorderingAndSplitProportionsRoundTripWithTheActivePage" computerName="LAPTOP-G4BBBCS0" duration="00:00:11.9166813" startTime="2026-11-02T14:06:20.1348708+08:00" endTime="2026-11-02T14:06:32.0642685+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be9d514b-f3a7-4944-a11b-4b6329566766" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.NativeTabReorderingAndSplitProportionsRoundTripWithTheActivePage" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="98bc48d5-dcab-355a-d10f-9a78d6257299">
+      <Execution id="be9d514b-f3a7-4944-a11b-4b6329566766" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="NativeTabReorderingAndSplitProportionsRoundTripWithTheActivePage" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="98bc48d5-dcab-355a-d10f-9a78d6257299" executionId="be9d514b-f3a7-4944-a11b-4b6329566766" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.11]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.19]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.21]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:12.19]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

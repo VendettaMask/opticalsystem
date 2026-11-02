@@ -1,0 +1,79 @@
+{
+  "Scope": "Existing imaging front-end only; no SFR implementation or accuracy certification",
+  "ProductCodeModified": false,
+  "WorkingDocumentUnchanged": true,
+  "Cases": [
+    {
+      "Mode": "Geometric",
+      "Width": 8,
+      "Height": 8,
+      "TargetRotationDegrees": 5,
+      "OpticalModel": "Shared Core reverse geometric lens \u002B NSC scene intersections",
+      "OpticalFallbackCount": 0,
+      "MeanPhotoElectrons": 1316.1951530739939,
+      "TotalPowerWatts": 1.5717535208094263E-11,
+      "BandsNanometers": [
+        650,
+        550,
+        450
+      ],
+      "ExactSavedReplay": true,
+      "ExportedEntries": [
+        "B/scene3d.json",
+        "B/scene3d-diagnostics.json",
+        "B/detector-power.csv",
+        "B/metadata.json",
+        "B/sensor-profile.json",
+        "B/source.png",
+        "B/optical.png",
+        "B/electrons.png",
+        "B/raw-preview.png",
+        "B/noiseless-isp.png",
+        "B/developed.png",
+        "B/sensor.csv",
+        "README.txt"
+      ],
+      "SaturatedPixels": 0
+    },
+    {
+      "Mode": "Diffraction",
+      "Width": 8,
+      "Height": 8,
+      "TargetRotationDegrees": 5,
+      "OpticalModel": "Shared Core finite-cell scalar Huygens \u002B incoherent 3D surface quadrature",
+      "OpticalFallbackCount": 0,
+      "MeanPhotoElectrons": 795.3979894736378,
+      "TotalPowerWatts": 9.572007672939424E-12,
+      "BandsNanometers": [
+        650,
+        550,
+        450
+      ],
+      "ExactSavedReplay": true,
+      "ExportedEntries": [
+        "B/scene3d.json",
+        "B/scene3d-diagnostics.json",
+        "B/detector-power.csv",
+        "B/metadata.json",
+        "B/sensor-profile.json",
+        "B/source.png",
+        "B/optical.png",
+        "B/electrons.png",
+        "B/raw-preview.png",
+        "B/noiseless-isp.png",
+        "B/developed.png",
+        "B/sensor.csv",
+        "README.txt"
+      ],
+      "SaturatedPixels": 0
+    },
+    {
+      "Mode": "2D current-lens image simulation",
+      "OpticalModel": "Geometric",
+      "OpticalFallbackCount": 0,
+      "MeanPhotoElectrons": 891.9637687939073,
+      "Width": 4,
+      "Height": 4
+    }
+  ]
+}

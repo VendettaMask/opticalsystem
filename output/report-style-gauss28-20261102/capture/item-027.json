@@ -1,0 +1,230 @@
+{
+  "Index": 27,
+  "Key": "RMS vs Focus",
+  "Title": "RMS vs. \u79BB\u7126",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-027.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "63D44E4280A8F8F22357A9589EB3E8A836B9D439F95613C3B1C4F541A7DB2A58"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "FocusDensity",
+      "Value": "16"
+    },
+    {
+      "Metric": "MinimumFocus",
+      "Value": "-0.01"
+    },
+    {
+      "Metric": "MaximumFocus",
+      "Value": "0.01"
+    },
+    {
+      "Metric": "\u5149\u7EBF\u5BC6\u5EA6",
+      "Value": "6"
+    },
+    {
+      "Metric": "GaussianAzimuthalSamples",
+      "Value": "6"
+    },
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "GQ"
+    },
+    {
+      "Metric": "\u6570\u636E",
+      "Value": "wavefront"
+    },
+    {
+      "Metric": "\u77B3\u5B54\u91C7\u6837\u5206\u5E03",
+      "Value": "gaussian"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u53C2\u8003",
+      "Value": "chief"
+    },
+    {
+      "Metric": "\u663E\u793A\u884D\u5C04\u6781\u9650",
+      "Value": "False"
+    },
+    {
+      "Metric": "ImageSpaceAfocal",
+      "Value": "False"
+    },
+    {
+      "Metric": "DefocusUnit",
+      "Value": "mm"
+    },
+    {
+      "Metric": "MetricUnit",
+      "Value": "waves"
+    },
+    {
+      "Metric": "\u884D\u5C04\u6781\u9650 (mm)",
+      "Value": "0"
+    },
+    {
+      "Metric": "DiffractionLimitMilliradians",
+      "Value": "0"
+    },
+    {
+      "Metric": "DiffractionLimitValue",
+      "Value": "0.072"
+    },
+    {
+      "Metric": "DiffractionLimitUnit",
+      "Value": "waves"
+    },
+    {
+      "Metric": "\u4F7F\u7528\u504F\u632F",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u79FB\u9664\u6E10\u6655",
+      "Value": "True"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1ARMS vs. \u79BB\u7126\r\nFocusDensity\uFF1A16\r\nMinimumFocus\uFF1A-0.01\r\nMaximumFocus\uFF1A0.01\r\n\u5149\u7EBF\u5BC6\u5EA6\uFF1A6\r\nGaussianAzimuthalSamples\uFF1A6\r\n\u65B9\u6CD5\uFF1AGQ\r\n\u6570\u636E\uFF1Awavefront\r\n\u77B3\u5B54\u91C7\u6837\u5206\u5E03\uFF1Agaussian\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A0\r\n\u53C2\u8003\uFF1Achief\r\n\u663E\u793A\u884D\u5C04\u6781\u9650\uFF1AFalse\r\nImageSpaceAfocal\uFF1AFalse\r\nDefocusUnit\uFF1Amm\r\nMetricUnit\uFF1Awaves\r\n\u884D\u5C04\u6781\u9650 (mm)\uFF1A0\r\nDiffractionLimitMilliradians\uFF1A0\r\nDiffractionLimitValue\uFF1A0.072\r\nDiffractionLimitUnit\uFF1Awaves\r\n\u4F7F\u7528\u504F\u632F\uFF1AFalse\r\n\u79FB\u9664\u6E10\u6655\uFF1ATrue",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "RMS vs Focus",
+    "RequestFingerprint": "89160FE6D7F60071A06A0B8D88785C957CEF2A81A62FB4CC6CC638E3A92ACE1D",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "FocusDensity": "16",
+    "MinimumFocus": "-0.01",
+    "MaximumFocus": "0.01",
+    "NumRings": "6",
+    "Method": "GQ",
+    "GaussianAzimuthalSamples": "6",
+    "Data": "wavefront",
+    "Distribution": "hexapolar",
+    "WavelengthNumber": "0",
+    "Reference": "chief",
+    "ShowDiffractionLimit": "false",
+    "UsePolarization": "false",
+    "RemoveVignetting": "true"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "FocusDensity",
+      "DisplayName": "\u79BB\u7126\u5BC6\u5EA6",
+      "DefaultValue": "16",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "MinimumFocus",
+      "DisplayName": "\u6700\u5C0F\u79BB\u7126",
+      "DefaultValue": "-0.01",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "MaximumFocus",
+      "DisplayName": "\u6700\u5927\u79BB\u7126",
+      "DefaultValue": "0.01",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "NumRings",
+      "DisplayName": "\u5149\u77B3\u91C7\u6837\uFF08GQ \u73AF\u6570 / RA \u6BCF\u8FB9\u70B9\u6570\uFF09",
+      "DefaultValue": "6",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Method",
+      "DisplayName": "\u8BA1\u7B97\u65B9\u6CD5",
+      "DefaultValue": "GQ",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "GaussianAzimuthalSamples",
+      "DisplayName": "GQ \u89D2\u5411\u70B9\u6570",
+      "DefaultValue": "6",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Data",
+      "DisplayName": "\u6570\u636E",
+      "DefaultValue": "wavefront",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Distribution",
+      "DisplayName": "\u91C7\u6837\u65B9\u6CD5",
+      "DefaultValue": "hexapolar",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Reference",
+      "DisplayName": "\u53C2\u7167",
+      "DefaultValue": "chief",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ShowDiffractionLimit",
+      "DisplayName": "\u663E\u793A\u884D\u5C04\u6781\u9650",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "UsePolarization",
+      "DisplayName": "\u4F7F\u7528\u504F\u632F",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "RemoveVignetting",
+      "DisplayName": "\u79FB\u9664\u6E10\u6655",
+      "DefaultValue": "true",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "GQ \u89D2\u5411\u70B9\u6570\uFF1A6",
+    "\u6CE2\u957F\uFF1A\u5168\u90E8",
+    "\u53C2\u7167\uFF1Achief"
+  ],
+  "Metrics": [
+    [
+      "\u5149\u7EBF\u5BC6\u5EA6",
+      "6"
+    ],
+    [
+      "\u65B9\u6CD5",
+      "GQ"
+    ],
+    [
+      "\u6570\u636E",
+      "wavefront"
+    ],
+    [
+      "\u77B3\u5B54\u91C7\u6837\u5206\u5E03",
+      "gaussian"
+    ],
+    [
+      "\u53C2\u8003",
+      "chief"
+    ]
+  ],
+  "PaneCount": 0
+}

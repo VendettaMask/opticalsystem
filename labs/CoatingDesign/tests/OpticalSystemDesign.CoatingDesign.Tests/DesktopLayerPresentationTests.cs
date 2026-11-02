@@ -47,7 +47,8 @@ public sealed partial class DesktopTests
                     window.Show(); Tick(window); Click(window, "打开实验"); await window.PendingOperation; Tick(window);
                     var header = window.GetVisualDescendants().OfType<Border>().Single(c => c.Name == "LaboratoryHeader");
                     Assert.True(header.Bounds.Height <= Math.Max(50, fontSize * 3), $"Command bar consumed too much height: {header.Bounds}");
-                    Assert.Equal(experiment.Name, window.GetVisualDescendants().OfType<TextBlock>().Single(c => c.Name == "CoatingDocumentName").Text);
+                    Assert.DoesNotContain(window.GetVisualDescendants().OfType<TextBlock>(), c => c.Name == "CoatingDocumentName");
+                    Assert.Equal(experiment.Name, Find<TextBox>(window, "实验名称").Text);
                     var left = window.GetVisualDescendants().OfType<Border>().Single(c => c.Name == "CoatingLayerCard");
                     var right = window.GetVisualDescendants().OfType<Border>().Single(c => c.Name == "CoatingSpectrumCard");
                     Assert.True(left.Bounds.Width >= 300 && right.Bounds.Width >= 300);
@@ -64,12 +65,19 @@ public sealed partial class DesktopTests
                     Assert.Equal("界面设置检查", Find<TextBox>(window, "实验名称").Text);
                     Find<TextBox>(window, "实验名称").Text = originalName;
                     var fingerprint = window.CurrentExperiment.Fingerprint();
-                    var table = window.GetLogicalDescendants().OfType<DataGrid>().Single(g => g.Name == "CoatingLayerTable");
+                    var table = WindowControls(window).OfType<DataGrid>().Single(g => g.Name == "CoatingLayerTable");
+                    Assert.Equal(7, table.Columns.Count);
+                    Assert.Equal("物理厚度 (nm)", Assert.IsType<TextBlock>(table.Columns[2].Header).Text);
+                    Assert.Equal("光学厚度 (nm)", Assert.IsType<TextBlock>(table.Columns[3].Header).Text);
+                    Assert.False(table.Columns[2].IsReadOnly); Assert.False(table.Columns[3].IsReadOnly);
+                    Assert.False(table.Columns[4].IsReadOnly); Assert.False(table.Columns[5].IsReadOnly);
                     var rows = ((IEnumerable<LayerRow>)table.ItemsSource).ToArray();
+                    Assert.All(rows, row => Assert.NotNull(row.OpticalThicknessNm));
                     table.ScrollIntoView(rows[^1], table.Columns[1]); Tick(window);
                     table.ScrollIntoView(rows[0], table.Columns[1]); Tick(window);
                     var firstIndex = table.GetVisualDescendants().OfType<TextBlock>().Single(c =>
-                        c.Name == "CellTextBlock" && ReferenceEquals(c.DataContext, rows[0]) && c.Text == "1");
+                        c.Name == "CellTextBlock" && ReferenceEquals(c.DataContext, rows[0]) && c.Text == "1"
+                        && c.GetVisualAncestors().OfType<DataGridCell>().Any(cell => cell.Name == "CoatingLayerNumberCell"));
                     Assert.True(firstIndex.Bounds.Width >= fontSize * .6, $"Layer number clipped: {firstIndex.Bounds}");
                     foreach (var name in table.GetVisualDescendants().OfType<TextBlock>().Where(c => c.Name == "CoatingMaterialLabel"))
                     {
@@ -82,7 +90,7 @@ public sealed partial class DesktopTests
                     Assert.Same(rows[0].MaterialBrush, rows[2].MaterialBrush);
                     Assert.NotEqual(rows[0].MaterialBrush, rows[1].MaterialBrush);
                     Assert.Equal(experiment.Layers[0], rows[0].ToLayer());
-                    table.ScrollIntoView(rows[0], table.Columns[3]); Tick(window);
+                    table.ScrollIntoView(rows[0], table.Columns[6]); Tick(window);
                     var variable = table.GetVisualDescendants().OfType<CheckBox>()
                         .Single(c => c.Name == "CoatingLayerVariable" && ReferenceEquals(c.DataContext, rows[0]));
                     variable.BringIntoView(); Tick(window);
@@ -90,6 +98,7 @@ public sealed partial class DesktopTests
                     window.MouseDown(point, MouseButton.Left); window.MouseUp(point, MouseButton.Left); Tick(window);
                     Assert.Equal(!experiment.Layers[0].Variable, rows[0].Variable);
                     Assert.Equal(experiment.Layers[0].ThicknessNm, rows[0].ToLayer().ThicknessNm);
+                    table.ScrollIntoView(rows[0], table.Columns[1]); Tick(window);
                     rows[0].MaterialId = experiment.LowId; Tick(window);
                     Assert.Equal(experiment.Materials.Single(m => m.Id == experiment.LowId).Name, rows[0].MaterialName);
                     Assert.Contains(table.GetVisualDescendants().OfType<TextBlock>(), c => c.Name == "CoatingMaterialLabel"

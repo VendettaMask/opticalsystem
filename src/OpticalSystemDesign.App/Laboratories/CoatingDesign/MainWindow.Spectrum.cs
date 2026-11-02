@@ -12,7 +12,9 @@ using Avalonia.Platform.Storage;
 using Avalonia.Styling;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Modules;
 
 namespace OpticalSystemDesign.App.Laboratories.CoatingDesign;
 
@@ -127,12 +129,17 @@ public sealed partial class MainWindow
         _plotStatus.Text = _plot.DisplayError ?? (_plot.IsPreparing ? UiLocalization.Text("正在计算平均 / s / p 显示光谱…")
             : $"{UiLocalization.Text("结果")} · {_plot.SampleCount:N0} {UiLocalization.Text("点")}    {string.Join(" / ", _plot.AnalysisOptions.AnglesDegrees.Select(a => a.ToString("G5") + "°"))} · {UiLocalization.Text("验收偏振")}：{_session.Current.Target.AngleDegrees:G5}° {polarization}    "
                 + (_plot.OpticalDensity ? "OD ≤ 12（图形）" : "s — —   p · · ·"));
+        _plotStatus.Text += "\n" + (_session.Current.Duplex is not null
+            ? $"优化：{DesignService.OptimizationLabel(_session.Current)}；评价：{DesignService.EvaluationLabel(_session.Current)}（显示、优化与验收统一）"
+            : UiLocalization.Text(_session.Current.StackGeometry is { IncludeBackSurface: true }
+                ? "整块基板评价：含吸收、裸背面及多次反射；设计验收仍为前表面" : "前面单独评价"));
         if (_session.Current.ReferenceExample is not null)
-            _plotStatus.Text += "\n" + UiLocalization.Text("参考示例 · 前面单独评价；指标为本地比较目标");
+            _plotStatus.Text += "\n" + UiLocalization.Text("参考示例 · 指标为本地比较目标");
         var options = _plot.AnalysisOptions;
-        var notices = _session.Current.Materials.Select(m => m.RangeNotice(options.MinimumNm, options.MaximumNm)).Where(n => n is not null);
+        var notices = CoatingPresentation.AnalysisMaterials(_session.Current).Select(m => m.RangeNotice(options.MinimumNm, options.MaximumNm)).Where(n => n is not null);
         foreach (var notice in notices) _plotStatus.Text += "\n" + notice;
-        ToolTip.SetTip(_plotStatus, "评估使用独立的波段、步长和角度，不替代原设计的密集验收。");
+        ToolTip.SetTip(_plotStatus, UiLocalization.Text("深色底纹：材料域外延用（非实测）")
+            + "\n评估使用独立的波段、步长和角度，不替代原设计的密集验收。");
     }
     private async Task ExportSpectrumPngAsync()
     {

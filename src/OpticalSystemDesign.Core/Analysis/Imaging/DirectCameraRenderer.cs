@@ -21,12 +21,23 @@ public sealed record DirectCameraRenderResult(SpectralDetectorPower DetectorPowe
 
 /// <summary>Direct, non-polarized geometric camera transport through the actual shared-Core sequential surfaces.
 /// Scene intersections use the NSC BVH. Pixel quadrature samples the actual active area; no 2D PSF fallback.</summary>
-public static class DirectCameraRenderer
+public static partial class DirectCameraRenderer
 {
     public const long MaximumRays = 8_388_608;
     public const long MaximumSurfaceInteractions = 100_000_000;
 
     public static DirectCameraRenderResult Render(Optic optic, DirectCameraScene scene, DirectCameraRenderSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        var rows = RenderRows(optic, scene, settings, 0, settings.Height);
+        if (rows.PassedLensRays == 0) throw new InvalidOperationException("所有瞳面样本被镜头遮挡；请检查处方与像面，或增加瞳面环数以核实是否漏采有效通光区域。");
+        var power = new SpectralDetectorPower(settings.Width, settings.Height, settings.PixelPitchMicrometers, settings.PixelPitchMicrometers,
+            DetectorRowOrder.PositiveLocalYFirst, rows.Bands, settings.PixelSampling?.FillFactor ?? 1);
+        return new(power, rows.VisibleReflectance, rows.LaunchedRays, rows.PassedLensRays, rows.SceneHitRays,
+            rows.SurfaceInteractions, rows.ShadowQueries, rows.ShadowedLightSamples, rows.PupilPlaneZMillimeters, rows.PupilPlaneRadiusMillimeters);
+    }
+
+    private static DirectCameraStrip RenderRows(Optic optic, DirectCameraScene scene, DirectCameraRenderSettings settings, int firstRow, int rowCount)
     {
         ArgumentNullException.ThrowIfNull(optic); ArgumentNullException.ThrowIfNull(scene); ArgumentNullException.ThrowIfNull(settings);
         CameraSensorPipeline.ValidateDimensions(settings.Width, settings.Height); CameraPixelAperture.Validate(settings.PixelSampling);
@@ -58,13 +69,13 @@ public static class DirectCameraRenderer
         var pupilArea = Math.PI * pupilRadius * pupilRadius;
         var fill = settings.PixelSampling?.FillFactor ?? 1;
         var activeAreaMeters = Math.Pow(settings.PixelPitchMicrometers * 1e-6, 2) * fill;
-        var pixels = checked(settings.Width * settings.Height); var bands = scene.WavelengthsNanometers.Count;
+        var pixels = checked(settings.Width * rowCount); var bands = scene.WavelengthsNanometers.Count;
         var power = Enumerable.Range(0, bands).Select(_ => new double[pixels]).ToArray();
-        var reflectance = new double[bands, settings.Height, settings.Width];
+        var reflectance = new double[bands, rowCount, settings.Width];
         long launched = 0, passed = 0, hits = 0, interactions = 0, shadowQueries = 0, shadowed = 0;
         var reverse = surfaces.Select((s, index) => s.InteractionModel is ThinLensInteractionModel && index > 0 && index < surfaces.Length - 1
             ? ReverseThinLens(s) : s).ToArray();
-        for (var y = 0; y < settings.Height; y++)
+        for (var y = 0; y < rowCount; y++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             for (var x = 0; x < settings.Width; x++) foreach (var pixel in pixelNodes)
@@ -72,7 +83,7 @@ public static class DirectCameraRenderer
                 {
                     ComputationCancellation.ThrowIfCancellationRequested(); launched++;
                     var origin = new Vector3D((x + .5 - settings.Width / 2d + pixel.XOffsetPixels) * pixelPitch,
-                        (settings.Height / 2d - y - .5 + pixel.YOffsetPixels) * pixelPitch, imageZ);
+                        (settings.Height / 2d - (firstRow + y) - .5 + pixel.YOffsetPixels) * pixelPitch, imageZ);
                     if (image.PhysicalAperture is not null && !image.PhysicalAperture.Contains(image.CoordinateSystem.ToLocalPoint(origin))) continue;
                     var target = new Vector3D(pupil.X * pupilRadius, pupil.Y * pupilRadius, planeZ);
                     var delta = target - origin; var distance = delta.Length;
@@ -113,10 +124,9 @@ public static class DirectCameraRenderer
                     reflectance[b, y, x] += sample.Reflectance * pixel.Weight * pupil.Weight;
                 }
         }
-        if (passed == 0) throw new InvalidOperationException("所有瞳面样本被镜头遮挡；请检查处方与像面，或增加瞳面环数以核实是否漏采有效通光区域。");
-        var detector = new SpectralDetectorPower(settings.Width, settings.Height, settings.PixelPitchMicrometers, settings.PixelPitchMicrometers,
-            DetectorRowOrder.PositiveLocalYFirst, Enumerable.Range(0, bands).Select(b => new SpectralDetectorPowerBand(scene.WavelengthsNanometers[b], power[b])), fill);
-        return new(detector, new(reflectance), launched, passed, hits, interactions, shadowQueries, shadowed, planeZ, pupilRadius);
+        return new(0, firstRow, rowCount,
+            Array.AsReadOnly(Enumerable.Range(0, bands).Select(b => new SpectralDetectorPowerBand(scene.WavelengthsNanometers[b], Array.AsReadOnly(power[b]))).ToArray()),
+            new(reflectance), launched, passed, hits, interactions, shadowQueries, shadowed, planeZ, pupilRadius);
     }
 
     internal static OpticalSurface ReverseThinLens(OpticalSurface surface)

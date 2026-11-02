@@ -7,7 +7,9 @@ namespace OpticalSystemDesign.Core.Analysis.Imaging;
 
 public sealed record DirectSceneMaterial(Guid ObjectId, IReadOnlyList<double> Reflectance,
     IReadOnlyList<double>? EmittedRadiance = null, IReadOnlyList<double>? DarkReflectance = null,
-    double CheckerSizeMillimeters = 0, bool TwoSided = false);
+    double CheckerSizeMillimeters = 0, bool TwoSided = false,
+    IReadOnlyList<double>? DarkEmittedRadiance = null,
+    double CheckerOriginXMillimeters = 0, double CheckerOriginYMillimeters = 0);
 public sealed record DirectPointLight(Vector3D Position, IReadOnlyList<double> BandPowerWatts);
 public readonly record struct DirectSceneSample(double RadianceWattsPerSquareMeterSteradian, double Reflectance, int ShadowQueries, int BlockedLights);
 
@@ -47,9 +49,13 @@ public sealed class DirectCameraScene
         {
             Reflectance = Freeze(m.Reflectance, bandCount, 1),
             DarkReflectance = m.DarkReflectance is null ? null : Freeze(m.DarkReflectance, bandCount, 1),
-            EmittedRadiance = m.EmittedRadiance is null ? null : Freeze(m.EmittedRadiance, bandCount, 1e6)
+            EmittedRadiance = m.EmittedRadiance is null ? null : Freeze(m.EmittedRadiance, bandCount, 1e6),
+            DarkEmittedRadiance = m.DarkEmittedRadiance is null ? null : Freeze(m.DarkEmittedRadiance, bandCount, 1e6)
         }).ToDictionary(m => m.ObjectId);
-        if (records.Any(m => !double.IsFinite(m.CheckerSizeMillimeters) || m.CheckerSizeMillimeters is < 0 or > 1e6))
+        if (records.Any(m => !double.IsFinite(m.CheckerSizeMillimeters) || m.CheckerSizeMillimeters is < 0 or > 1e6
+            || !double.IsFinite(m.CheckerOriginXMillimeters) || Math.Abs(m.CheckerOriginXMillimeters) > 1e6
+            || !double.IsFinite(m.CheckerOriginYMillimeters) || Math.Abs(m.CheckerOriginYMillimeters) > 1e6
+            || m.DarkEmittedRadiance is not null && m.CheckerSizeMillimeters <= 0))
             throw new ArgumentException("Invalid checker dimensions.");
         _lights = Array.AsReadOnly(emitters.Select(l =>
         {
@@ -75,11 +81,13 @@ public sealed class DirectCameraScene
             normal = -normal;
         }
         var rho = material.Reflectance[band];
-        if (material.CheckerSizeMillimeters > 0 && material.DarkReflectance is not null
-            && ((long)Math.Floor(hit.LocalPosition.X / material.CheckerSizeMillimeters)
-                + (long)Math.Floor(hit.LocalPosition.Y / material.CheckerSizeMillimeters)) % 2 != 0)
+        var dark = material.CheckerSizeMillimeters > 0
+            && (Math.Floor((hit.LocalPosition.X - material.CheckerOriginXMillimeters) / material.CheckerSizeMillimeters)
+                + Math.Floor((hit.LocalPosition.Y - material.CheckerOriginYMillimeters) / material.CheckerSizeMillimeters)) % 2 != 0;
+        if (dark && material.DarkReflectance is not null)
             rho = material.DarkReflectance[band];
-        var radiance = material.EmittedRadiance?[band] ?? 0;
+        var radiance = (dark && material.DarkEmittedRadiance is not null
+            ? material.DarkEmittedRadiance : material.EmittedRadiance)?[band] ?? 0;
         var queries = 0; var blocked = 0;
         foreach (var light in _lights)
         {

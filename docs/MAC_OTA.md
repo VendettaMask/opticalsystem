@@ -33,10 +33,9 @@ workflow validates the native bridge, throwaway signed/tampered archives,
 headless UI contracts and a disposable packaged application/DMG. It does not
 publish to Releases or update `main`.
 
-Release wiring is prepared, with archive/feed signing before release mutation,
-the existing Windows attachment publisher, and a final archive-identity gate
-before activating the appcast. The maintainer authorized main integration and
-cloud publication after successful regression. Complete bundle replacement and
+The release workflow signs the archive/feed before changing release assets,
+uses the existing Windows attachment publisher, and verifies the published
+archive identity before activating the appcast. Complete bundle replacement and
 test-driver relaunch passed in [Actions 40464598219](https://github.com/VendettaMask/opticalsystem/actions/runs/40464598219).
 The bootstrap and signed production feed were activated by [release 40469805561](https://github.com/VendettaMask/opticalsystem/actions/runs/40469805561). Public downloads and both update protocols were independently verified. The final validation source includes a reentrant-quit guard tested by the real Mac close delegates.
 

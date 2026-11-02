@@ -7,6 +7,7 @@ using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Laboratories.CoatingDesign;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Tests;
@@ -37,7 +38,26 @@ public sealed partial class DesktopTests
                 window.Show(); Tick(window);
                 Click(window, "1 生成膜系"); await window.PendingOperation; Tick(window);
                 Assert.NotNull(window.CurrentExperiment.Result);
-                var table = window.GetLogicalDescendants().OfType<DataGrid>().Single(g => g.Name == "CoatingLayerTable");
+                Assert.DoesNotContain(WindowControls(window).OfType<Control>(), c => c.Name is "CoatingResultDetails" or "LaboratoryStatus" or "CoatingDocumentName");
+                Assert.False(WindowControls(window).OfType<Control>().Single(c => c.Name == "CoatingOperationStatus").IsVisible);
+                var candidate = window.CurrentExperiment.Candidates![0].Layers;
+                Click(window, "查看镀膜结果"); await window.PendingOperation;
+                var results = (Control)window.DockWorkspace.DockFactory.Pages[CoatingDockWorkspace.ResultsId].Context!; Tick(window);
+                Assert.Contains(results.GetLogicalDescendants().OfType<TextBlock>(), t => t.Text?.Contains("复验采样", StringComparison.Ordinal) == true);
+                Find<ComboBox>(window, "候选").SelectedIndex = 0;
+                Click(window, "采用候选"); await window.PendingOperation;
+                Assert.Equal(candidate, window.CurrentExperiment.Layers); Assert.Null(window.CurrentExperiment.Result);
+                window.DockWorkspace.Close(CoatingDockWorkspace.ResultsId); Tick(window);
+                Click(window, "查看镀膜结果"); await window.PendingOperation;
+                results = (Control)window.DockWorkspace.DockFactory.Pages[CoatingDockWorkspace.ResultsId].Context!; Tick(window);
+                Assert.Contains(results.GetLogicalDescendants().OfType<Control>(), c => c.Name == "CoatingResultDetails");
+                window.DockWorkspace.Close(CoatingDockWorkspace.ResultsId); Tick(window);
+                Click(window, "计算 / 复验"); await window.PendingOperation;
+                var table = WindowControls(window).OfType<DataGrid>().Single(g => g.Name == "CoatingLayerTable");
+                var editorCard = window.GetVisualDescendants().OfType<Border>().Single(c => c.Name == "CoatingLayerCard");
+                var tableTop = table.TranslatePoint(new Point(0, 0), editorCard)!.Value.Y;
+                Assert.True(table.Bounds.Height >= 120);
+                Assert.True(tableTop + table.Bounds.Height <= editorCard.Bounds.Height + 1, "Layer table must remain within the dock content at the minimum window size.");
                 var rows = (IEnumerable<LayerRow>)table.ItemsSource;
                 var originalCount = rows.Count();
                 table.SelectedItem = rows.First();
@@ -55,7 +75,7 @@ public sealed partial class DesktopTests
                 Find<TextBox>(window, "中心波长 (nm)").Text = "not-a-number";
                 Assert.Null(window.CurrentExperiment.Result);
                 Click(window, "计算 / 复验"); await window.PendingOperation;
-                Assert.Contains(window.GetLogicalDescendants().OfType<TextBlock>(), t => t.Text?.Contains("请输入有效数值", StringComparison.Ordinal) == true);
+                Assert.Contains(WindowControls(window).OfType<TextBlock>(), t => t.Text?.Contains("请输入有效数值", StringComparison.Ordinal) == true);
                 Assert.Null(window.CurrentExperiment.Result);
                 Click(window, "示例：窄带"); await window.PendingOperation;
                 Assert.Equal(DesignKind.NarrowBand, window.CurrentExperiment.Target.Kind);
@@ -160,7 +180,7 @@ public sealed partial class DesktopTests
                     await File.WriteAllTextAsync(path, "{ damaged");
                     Click(window, "打开实验"); await window.PendingOperation;
                     Assert.Null(window.CurrentExperiment.Result);
-                    Assert.Contains(window.GetLogicalDescendants().OfType<TextBlock>(), t => t.Text?.Contains("未完成", StringComparison.Ordinal) == true);
+                    Assert.Contains(WindowControls(window).OfType<TextBlock>(), t => t.Text?.Contains("未完成", StringComparison.Ordinal) == true);
                 }
                 finally { window.Close(); }
             });
@@ -188,7 +208,7 @@ public sealed partial class DesktopTests
                 var product = Assert.IsType<global::OpticalSystemDesign.App.App>(Avalonia.Application.Current);
                 product.ApplyTheme(global::OpticalSystemDesign.App.Theming.ThemeRegistry.SelectableThemes[theme].SettingsValue);
                 Tick(window);
-                var plot = window.GetLogicalDescendants().OfType<SpectrumPlot>().Single();
+                var plot = WindowControls(window).OfType<SpectrumPlot>().Single();
                 if (global::OpticalSystemDesign.App.Theming.ThemeRegistry.SelectableThemes[theme].FollowsSystem
                     && !plot.TryFindResource(global::OpticalSystemDesign.App.Services.ThemeResourceBindings.PlotText, plot.ActualThemeVariant, out _))
                 {
@@ -209,10 +229,10 @@ public sealed partial class DesktopTests
                 Assert.NotEqual(Assert.IsAssignableFrom<Avalonia.Media.ISolidColorBrush>(plot.PlotBackgroundBrush).Color,
                     Assert.IsAssignableFrom<Avalonia.Media.ISolidColorBrush>(plot.PlotTextBrush).Color);
                 Assert.Equal(fingerprint, window.CurrentExperiment.Fingerprint());
-                var workspace = window.GetLogicalDescendants().OfType<Grid>().Single(x => x.Name == "CoatingWorkspace");
-                Assert.Equal(3, workspace.ColumnDefinitions.Count);
-                Assert.DoesNotContain(window.GetLogicalDescendants().OfType<Control>(), x => x.Name == "CoatingSidebar");
-                Assert.All(window.GetLogicalDescendants().OfType<Button>().Where(x => x.Content?.ToString() is "1 生成膜系" or "2 优化" or "结构搜索"), b => Assert.Contains("accent", b.Classes));
+                Assert.True(window.DockWorkspace.IsDockingEnabled);
+                Assert.Equal(2, window.DockWorkspace.DockFactory.AllDockables().OfType<Dock.Model.Controls.IDocument>().Count());
+                Assert.DoesNotContain(WindowControls(window).OfType<Control>(), x => x.Name == "CoatingSidebar");
+                Assert.All(WindowControls(window).OfType<Button>().Where(x => x.Content?.ToString() is "1 生成膜系" or "2 优化" or "结构搜索"), b => Assert.Contains("accent", b.Classes));
                 Assert.False(Find<Button>(window, "取消").IsEnabled);
                 Assert.NotEmpty(AutomationProperties.GetHelpText(Find<Button>(window, "取消"))!);
                 Capture(window, $"theme-{theme}-820");
@@ -257,15 +277,21 @@ public sealed partial class DesktopTests
     private static Task<global::OpticalSystemDesign.App.UnsavedChangesChoice> DiscardChanges(string operation) =>
         Task.FromResult(global::OpticalSystemDesign.App.UnsavedChangesChoice.Discard);
 
-    private static T Find<T>(Window window, string label) where T : Control => window.GetLogicalDescendants()
-        .Concat(window is MainWindow coating ? coating.SettingsContent.GetLogicalDescendants() : [])
-        .OfType<T>().Distinct().Single(c => AutomationProperties.GetName(c) == label);
+    private static IEnumerable<Control> WindowControls(Window window) => window.GetLogicalDescendants().OfType<Control>()
+        .Concat(window.GetVisualDescendants().OfType<Control>())
+        .Concat(window is MainWindow coating ? coating.SettingsContent.GetLogicalDescendants().OfType<Control>() : [])
+        .Concat(window is MainWindow docked ? docked.DockWorkspace.PageContents
+            .SelectMany(c => c.GetLogicalDescendants().OfType<Control>().Prepend(c)) : []).Distinct();
+    private static T Find<T>(Window window, string label) where T : Control => WindowControls(window)
+        .OfType<T>().Single(c => AutomationProperties.GetName(c) == label);
     private static void Tick(Window window) { window.UpdateLayout(); Dispatcher.UIThread.RunJobs(); AvaloniaHeadlessPlatform.ForceRenderTimerTick(); }
     private static void Click(Window window, string label)
     {
         var menuName = label.StartsWith("示例：", StringComparison.Ordinal) ? "镀膜示例"
             : label is "设计目标设置" or "介质与膜料设置" ? "设计选项"
-            : label is "优化设置" or "公差设置" ? "优化选项" : null;
+            : label is "优化设置" or "公差设置" ? "优化选项"
+            : label.StartsWith("显示", StringComparison.Ordinal) || label.StartsWith("镀膜", StringComparison.Ordinal) && label.EndsWith("布局", StringComparison.Ordinal)
+                || label is "浮动当前镀膜面板" or "停靠全部镀膜面板" or "重置镀膜布局" or "保存镀膜布局" or "恢复镀膜布局" ? "镀膜窗口" : null;
         if (menuName is not null)
         {
             Click(window, menuName); Tick(window);
@@ -280,7 +306,21 @@ public sealed partial class DesktopTests
         Assert.True(button.IsEffectivelyEnabled, label);
         var point = button.TranslatePoint(new Point(button.Bounds.Width / 2, button.Bounds.Height / 2), window)!.Value;
         Assert.InRange(point.X, 0, window.Bounds.Width); Assert.InRange(point.Y, 0, window.Bounds.Height);
-        window.MouseDown(point, MouseButton.Left); window.MouseUp(point, MouseButton.Left);
+        window.MouseMove(point); Tick(window);
+        var hit = window.InputHitTest(point);
+        var hitPath = hit is Control hitControl ? string.Join(" > ", hitControl.GetVisualAncestors().Prepend(hitControl)
+            .OfType<Control>().Select(c => c.GetType().Name + ":" + c.Name)) : hit?.ToString();
+        var activated = false;
+        var pressedAfterDown = false;
+        void Activated(object? sender, RoutedEventArgs args) => activated = true;
+        button.Click += Activated;
+        try
+        {
+            window.MouseDown(point, MouseButton.Left); Tick(window); pressedAfterDown = button.IsPressed;
+            window.MouseUp(point, MouseButton.Left); Tick(window);
+        }
+        finally { button.Click -= Activated; }
+        Assert.True(activated, $"{label}: click not activated at {point}; hit={hit}; path={hitPath}; pointerOver={button.IsPointerOver}; pressedAfterDown={pressedAfterDown}; mode={button.ClickMode}; enabled={button.IsEffectivelyEnabled}; bounds={button.Bounds}.");
     }
     private static void Capture(Window window, string name)
     {
@@ -292,12 +332,30 @@ public sealed partial class DesktopTests
     }
     private sealed class Host : IDisposable
     {
-        private readonly SafeHeadlessUnitTestSession _session = SafeHeadlessUnitTestSession.StartNew(typeof(DesktopTests));
+        private readonly SafeHeadlessUnitTestSession _session;
+        private readonly string? _settingsDirectory;
+        public Host()
+        {
+            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY")))
+            {
+                _settingsDirectory = Path.Combine(Path.GetTempPath(), "coating-settings-" + Guid.NewGuid());
+                Environment.SetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY", _settingsDirectory);
+            }
+            _session = SafeHeadlessUnitTestSession.StartNew(typeof(DesktopTests));
+        }
         public Task Run(Func<Task> test) => _session.Dispatch(async () => { await test(); return true; }, CancellationToken.None).WaitAsync(TimeSpan.FromMinutes(2));
         public void Dispose()
         {
             try { _session.Dispose(); }
             catch (NullReferenceException exception) when (exception.StackTrace?.Contains("Avalonia.Headless.HeadlessUnitTestSession.Dispose", StringComparison.Ordinal) == true) { }
+            finally
+            {
+                if (_settingsDirectory is not null)
+                {
+                    Environment.SetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SETTINGS_DIRECTORY", null);
+                    if (Directory.Exists(_settingsDirectory)) Directory.Delete(_settingsDirectory, recursive: true);
+                }
+            }
         }
     }
 }

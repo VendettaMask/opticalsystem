@@ -6,7 +6,7 @@ namespace OpticalSystemDesign.Core.Analysis;
 
 public sealed record ZernikeCoefficient(int Number, int RadialOrder, int AzimuthalOrder, double Value);
 
-public static class ZernikeFitEngine
+public static partial class ZernikeFitEngine
 {
     public const int MaximumFringeTerm = 37;
     public const int MaximumStandardTerm = 231;

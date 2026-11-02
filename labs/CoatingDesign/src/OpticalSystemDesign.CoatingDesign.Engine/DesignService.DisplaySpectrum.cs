@@ -25,14 +25,14 @@ public sealed partial class DesignService
     {
         options.Validate(); using var scope = ComputationCancellation.Push(token); token.ThrowIfCancellationRequested();
         var d = input.Snapshot();
-        var solver = Solver(d, Materials(d, new(options.MinimumNm, options.MaximumNm)));
+        var materials = Materials(d, new(options.MinimumNm, options.MaximumNm));
+        var evaluate = PowerEvaluator(d, materials, display: true);
         var intervals = (int)Math.Floor((options.MaximumNm - options.MinimumNm) / options.StepNm);
         var grid = Enumerable.Range(0, intervals + 1).Select(i => options.MinimumNm + i * options.StepNm)
             .Where(w => w < options.MaximumNm).Append(options.MaximumNm).ToArray();
+        ThinFilmSample[] Sample(double angle, ThinFilmPolarization pol) => ThinFilmSpectrum.Sample(w => evaluate(w, angle, pol), grid);
         return options.AnglesDegrees.Select(angle => new AngleDisplaySpectrum(angle, new(
-            ThinFilmSpectrum.Sample(solver, grid, angle, ThinFilmPolarization.Unpolarized),
-            ThinFilmSpectrum.Sample(solver, grid, angle, ThinFilmPolarization.S),
-            ThinFilmSpectrum.Sample(solver, grid, angle, ThinFilmPolarization.P)))).ToArray();
+            Sample(angle, ThinFilmPolarization.Unpolarized), Sample(angle, ThinFilmPolarization.S), Sample(angle, ThinFilmPolarization.P)))).ToArray();
     }
     /// <summary>Read-only display sampling on the exact certified grid. Does not change targets or acceptance.</summary>
     public PolarizedDisplaySpectrum EvaluateDisplayPolarizations(Experiment input, CancellationToken token = default)
@@ -48,9 +48,9 @@ public sealed partial class DesignService
         for (var i = 0; i < grid.Length; i++)
             if (!double.IsFinite(grid[i]) || grid[i] < d.Target.MinimumNm || grid[i] > d.Target.MaximumNm || i > 0 && grid[i] <= grid[i - 1])
                 throw new ArgumentException("显示采样必须在已计算波段内严格递增。");
-        var solver = Solver(d, Materials(d));
+        var evaluate = PowerEvaluator(d, Materials(d));
         ThinFilmSample[] Sample(ThinFilmPolarization polarization) =>
-            ThinFilmSpectrum.Sample(solver, grid, d.Target.AngleDegrees, polarization);
+            ThinFilmSpectrum.Sample(w => evaluate(w, d.Target.AngleDegrees, polarization), grid);
         // Unpolarized power and its stable log(T) are computed only by the shared Core.
         return new(Sample(ThinFilmPolarization.Unpolarized), Sample(ThinFilmPolarization.S), Sample(ThinFilmPolarization.P));
     }

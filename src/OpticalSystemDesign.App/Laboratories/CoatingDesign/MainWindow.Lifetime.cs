@@ -39,7 +39,7 @@ public sealed partial class MainWindow
         }
         catch (Exception error)
         {
-            _status.Text = "镀膜实验尚未保存，操作已取消：" + error.Message;
+            ShowFailure("镀膜实验尚未保存，操作已取消：" + error.Message);
             return false;
         }
     }
@@ -51,6 +51,7 @@ public sealed partial class MainWindow
         try
         {
             _settingsWindow?.Close();
+            _formulaWindow?.Close(); _recoveryWindow?.Close();
             _plot.CancelPendingEvaluation();
             _session.Cancel();
             while (_pendingOperations.Count > 0)
@@ -59,13 +60,16 @@ public sealed partial class MainWindow
                 await Task.WhenAll(pending);
                 _pendingOperations.ExceptWith(pending);
             }
-            return await ConfirmUnsavedChangesAsync("关闭镀膜设计");
+            if (!await ConfirmUnsavedChangesAsync("关闭镀膜设计")) return false;
+            await FinishRecoveryAsync();
+            return true;
         }
         finally { _preparingHostClose = false; }
     }
 
     internal void CloseAfterHostApproval()
     {
+        FinishRecoveryAsync().GetAwaiter().GetResult();
         _closeApproved = true;
         Close();
     }
@@ -80,7 +84,7 @@ public sealed partial class MainWindow
         {
             if (await PrepareForHostCloseAsync()) CloseAfterHostApproval();
         }
-        catch (Exception error) { _status.Text = "关闭未完成：" + error.Message; }
+        catch (Exception error) { ShowFailure("关闭未完成：" + error.Message); }
         finally { _closeInProgress = false; }
     }
 }

@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="bd96fa38-9c18-4cc9-a333-7da9ca0bb231" name="optics@LAPTOP-G4BBBCS0 2026-11-02 15:02:54" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T15:02:54.6317751+08:00" queuing="2026-11-02T15:02:54.6317753+08:00" start="2026-11-02T15:02:51.0151966+08:00" finish="2026-11-02T15:03:49.7517805+08:00" />
+  <TestSettings name="default" id="474540fe-162d-47f8-bdc2-8965a3fb5459">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-02_15_02_54" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="2317851b-983a-435e-8c91-67b561d56104" testId="1df3651e-679c-1d29-1d15-d15faecba713" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: &quot;Light&quot;, fontSize: 18, count: 200)" computerName="LAPTOP-G4BBBCS0" duration="00:00:14.4247623" startTime="2026-11-02T15:02:53.9374472+08:00" endTime="2026-11-02T15:03:08.3814010+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2317851b-983a-435e-8c91-67b561d56104">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.All() Failure: 28 out of 200 items in the collection did not pass.&#xD;
+[0]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 1, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 30, Color = #ff2fa84f, PhysicalThickness = 30 nm, Side = 正面, FaceNumber = 0, LayerLabel = 1 }, Front = 285, 150, 320, 0.9537179806018403 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[1]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 2, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 34.75, Color = #ff00a5c8, PhysicalThickness = 34.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 2 }, Front = 285, 150.95371798060185, 320, 0.962223327530465 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[2]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 3, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 39.5, Color = #ff2fa84f, PhysicalThickness = 39.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 3 }, Front = 285, 151.91594130813232, 320, 0.9707286744590898 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[3]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 4, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 44.25, Color = #ff00a5c8, PhysicalThickness = 44.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 4 }, Front = 285, 152.8866699825914, 320, 0.9792340213877145 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[4]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 5, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 49, Color = #ff2fa84f, PhysicalThickness = 49 nm, Side = 正面, FaceNumber = 0, LayerLabel = 5 }, Front = 285, 153.86590400397913, 320, 0.9877393683163392 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[5]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 6, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 53.75, Color = #ff00a5c8, PhysicalThickness = 53.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 6 }, Front = 285, 154.85364337229547, 320, 0.9962447152449639 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[6]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 7, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 58.5, Color = #ff2fa84f, PhysicalThickness = 58.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 7 }, Front = 285, 155.84988808754042, 320, 1.0047500621735888 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[7]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 8, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 63.25, Color = #ff00a5c8, PhysicalThickness = 63.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 8 }, Front = 285, 156.85463814971402, 320, 1.0132554091022135 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[8]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 9, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 68, Color = #ff2fa84f, PhysicalThickness = 68 nm, Side = 正面, FaceNumber = 0, LayerLabel = 9 }, Front = 285, 157.86789355881623, 320, 1.0217607560308382 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[9]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 10, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 72.75, Color = #ff00a5c8, PhysicalThickness = 72.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 10 }, Front = 285, 158.88965431484706, 320, 1.0302661029594629 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[10]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 11, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 77.5, Color = #ff2fa84f, PhysicalThickness = 77.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 11 }, Front = 285, 159.91992041780654, 320, 1.0387714498880876 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[11]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 12, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 82.25, Color = #ff00a5c8, PhysicalThickness = 82.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 12 }, Front = 285, 160.95869186769463, 320, 1.0472767968167123 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[12]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 13, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 87, Color = #ff2fa84f, PhysicalThickness = 87 nm, Side = 正面, FaceNumber = 0, LayerLabel = 13 }, Front = 285, 162.00596866451133, 320, 1.055782143745337 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[13]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 14, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 91.75, Color = #ff00a5c8, PhysicalThickness = 91.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 14 }, Front = 285, 163.06175080825668, 320, 1.0642874906739617 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[14]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 15, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 96.5, Color = #ff2fa84f, PhysicalThickness = 96.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 15 }, Front = 285, 164.12603829893064, 320, 1.0727928376025864 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[15]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 16, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 101.25, Color = #ff00a5c8, PhysicalThickness = 101.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 16 }, Front = 285, 165.19883113653322, 320, 1.081298184531211 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[16]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 17, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 106, Color = #ff2fa84f, PhysicalThickness = 106 nm, Side = 正面, FaceNumber = 0, LayerLabel = 17 }, Front = 285, 166.28012932106444, 320, 1.089803531459836 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[17]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 18, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 110.75, Color = #ff00a5c8, PhysicalThickness = 110.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 18 }, Front = 285, 167.36993285252427, 320, 1.0983088783884607 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[18]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 19, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 115.5, Color = #ff2fa84f, PhysicalThickness = 115.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 19 }, Front = 285, 168.46824173091272, 320, 1.1068142253170854 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[19]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 20, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 120.25, Color = #ff00a5c8, PhysicalThickness = 120.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 20 }, Front = 285, 169.57505595622982, 320, 1.11531957224571 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[20]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 21, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 125, Color = #ff2fa84f, PhysicalThickness = 125 nm, Side = 正面, FaceNumber = 0, LayerLabel = 21 }, Front = 285, 170.69037552847553, 320, 1.1238249191743348 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[21]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 22, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 129.75, Color = #ff00a5c8, PhysicalThickness = 129.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 22 }, Front = 285, 171.81420044764985, 320, 1.1323302661029595 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[22]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 23, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 134.5, Color = #ff2fa84f, PhysicalThickness = 134.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 23 }, Front = 285, 172.94653071375282, 320, 1.1408356130315842 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[23]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 24, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 139.25, Color = #ff00a5c8, PhysicalThickness = 139.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 24 }, Front = 285, 174.0873663267844, 320, 1.149340959960209 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[24]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 25, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 144, Color = #ff2fa84f, PhysicalThickness = 144 nm, Side = 正面, FaceNumber = 0, LayerLabel = 25 }, Front = 285, 175.2367072867446, 320, 1.1578463068888336 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[25]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 26, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 148.75, Color = #ff00a5c8, PhysicalThickness = 148.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 26 }, Front = 285, 176.39455359363345, 320, 1.1663516538174583 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[26]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 27, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 153.5, Color = #ff2fa84f, PhysicalThickness = 153.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 27 }, Front = 285, 177.5609052474509, 320, 1.174857000746083 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False&#xD;
+[27]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 28, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 158.25, Color = #ff00a5c8, PhysicalThickness = 158.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 28 }, Front = 285, 178.73576224819698, 320, 1.183362347674708 }&#xD;
+      Error: Assert.True() Failure&#xD;
+             Expected: True&#xD;
+             Actual:   False</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass20_0.&lt;&lt;VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopStackGeometryTests.cs:line 53&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 342&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(String theme, Double fontSize, Int32 count) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopStackGeometryTests.cs:line 30&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b12ac8ac-fc6b-4250-a697-51b8a1d423a0" testId="7c4cded3-e01a-165d-c878-25d4a56bdaeb" testName="OpticalSystemDesign.CoatingDesign.Tests.LayerEditingTests.FourThicknessUnitsShareOneFullPrecisionPhysicalValueAndRejectInvalidConversion" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.2829664" startTime="2026-11-02T15:02:52.6174494+08:00" endTime="2026-11-02T15:02:53.9129727+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b12ac8ac-fc6b-4250-a697-51b8a1d423a0" />
+    <UnitTestResult executionId="1cc294b0-f9c4-4dfe-916a-17495e5fd593" testId="e4dbd416-e787-9750-bc58-2964ebc3fbbf" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: &quot;Dark&quot;, fontSize: 13, count: 20)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.9411850" startTime="2026-11-02T15:03:08.3951838+08:00" endTime="2026-11-02T15:03:15.3234016+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1cc294b0-f9c4-4dfe-916a-17495e5fd593" />
+    <UnitTestResult executionId="6c1b1f9b-be58-43f9-8086-42514ae2326f" testId="5793d0ea-84d0-314b-c78d-c568178b3eaf" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.BackFilmKeyboardEditingFloatingUndoSymmetryAndPersistenceKeepOneEvaluationObject(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:09.1984725" startTime="2026-11-02T15:03:28.4804276+08:00" endTime="2026-11-02T15:03:37.6790087+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6c1b1f9b-be58-43f9-8086-42514ae2326f" />
+    <UnitTestResult executionId="ea2bd263-70dc-464c-9722-8a2e6268c250" testId="1fb39f1c-4175-df3c-3c61-ed0e084b7b41" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.MultiSelectionBatchAndHistoryRestoreWholeEditsAndNeverPartiallyApplyInvalidThickness" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.0390807" startTime="2026-11-02T15:03:22.4404630+08:00" endTime="2026-11-02T15:03:28.4798773+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ea2bd263-70dc-464c-9722-8a2e6268c250" />
+    <UnitTestResult executionId="c8dc38eb-71ff-481d-b8dd-bb94f06f0710" testId="ffd3d7c1-2b56-8745-f7ca-565c766425db" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: &quot;Light&quot;, fontSize: 13, count: 20)" computerName="LAPTOP-G4BBBCS0" duration="00:00:07.1146357" startTime="2026-11-02T15:03:15.3242290+08:00" endTime="2026-11-02T15:03:22.4389103+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c8dc38eb-71ff-481d-b8dd-bb94f06f0710" />
+    <UnitTestResult executionId="c26e4f54-346d-4798-a927-06d1126acd12" testId="d2ffcd60-f3e7-d7f1-ebd0-4cdd4866d47f" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.BackFilmKeyboardEditingFloatingUndoSymmetryAndPersistenceKeepOneEvaluationObject(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:11.8842838" startTime="2026-11-02T15:03:37.6797601+08:00" endTime="2026-11-02T15:03:49.5652210+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c26e4f54-346d-4798-a927-06d1126acd12" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.MultiSelectionBatchAndHistoryRestoreWholeEditsAndNeverPartiallyApplyInvalidThickness" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="1fb39f1c-4175-df3c-3c61-ed0e084b7b41">
+      <Execution id="ea2bd263-70dc-464c-9722-8a2e6268c250" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="MultiSelectionBatchAndHistoryRestoreWholeEditsAndNeverPartiallyApplyInvalidThickness" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.BackFilmKeyboardEditingFloatingUndoSymmetryAndPersistenceKeepOneEvaluationObject(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="d2ffcd60-f3e7-d7f1-ebd0-4cdd4866d47f">
+      <Execution id="c26e4f54-346d-4798-a927-06d1126acd12" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="BackFilmKeyboardEditingFloatingUndoSymmetryAndPersistenceKeepOneEvaluationObject" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: &quot;Light&quot;, fontSize: 13, count: 20)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="ffd3d7c1-2b56-8745-f7ca-565c766425db">
+      <Execution id="c8dc38eb-71ff-481d-b8dd-bb94f06f0710" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.LayerEditingTests.FourThicknessUnitsShareOneFullPrecisionPhysicalValueAndRejectInvalidConversion" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="7c4cded3-e01a-165d-c878-25d4a56bdaeb">
+      <Execution id="b12ac8ac-fc6b-4250-a697-51b8a1d423a0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.LayerEditingTests" name="FourThicknessUnitsShareOneFullPrecisionPhysicalValueAndRejectInvalidConversion" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.BackFilmKeyboardEditingFloatingUndoSymmetryAndPersistenceKeepOneEvaluationObject(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="5793d0ea-84d0-314b-c78d-c568178b3eaf">
+      <Execution id="6c1b1f9b-be58-43f9-8086-42514ae2326f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="BackFilmKeyboardEditingFloatingUndoSymmetryAndPersistenceKeepOneEvaluationObject" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: &quot;Dark&quot;, fontSize: 13, count: 20)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="e4dbd416-e787-9750-bc58-2964ebc3fbbf">
+      <Execution id="1cc294b0-f9c4-4dfe-916a-17495e5fd593" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: &quot;Light&quot;, fontSize: 18, count: 200)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="1df3651e-679c-1d29-1d15-d15faecba713">
+      <Execution id="2317851b-983a-435e-8c91-67b561d56104" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1df3651e-679c-1d29-1d15-d15faecba713" executionId="2317851b-983a-435e-8c91-67b561d56104" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7c4cded3-e01a-165d-c878-25d4a56bdaeb" executionId="b12ac8ac-fc6b-4250-a697-51b8a1d423a0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e4dbd416-e787-9750-bc58-2964ebc3fbbf" executionId="1cc294b0-f9c4-4dfe-916a-17495e5fd593" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5793d0ea-84d0-314b-c78d-c568178b3eaf" executionId="6c1b1f9b-be58-43f9-8086-42514ae2326f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1fb39f1c-4175-df3c-3c61-ed0e084b7b41" executionId="ea2bd263-70dc-464c-9722-8a2e6268c250" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ffd3d7c1-2b56-8745-f7ca-565c766425db" executionId="c8dc38eb-71ff-481d-b8dd-bb94f06f0710" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d2ffcd60-f3e7-d7f1-ebd0-4cdd4866d47f" executionId="c26e4f54-346d-4798-a927-06d1126acd12" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="7" executed="7" passed="6" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.75]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.93]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:01.06]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:16.85]       Assert.All() Failure: 28 out of 200 items in the collection did not pass.&#xD;
+[xUnit.net 00:00:16.85]       [0]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 1, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 30, Color = #ff2fa84f, PhysicalThickness = 30 nm, Side = 正面, FaceNumber = 0, LayerLabel = 1 }, Front = 285, 150, 320, 0.9537179806018403 }&#xD;
+[xUnit.net 00:00:16.85]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.85]                    Expected: True&#xD;
+[xUnit.net 00:00:16.85]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.85]       [1]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 2, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 34.75, Color = #ff00a5c8, PhysicalThickness = 34.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 2 }, Front = 285, 150.95371798060185, 320, 0.962223327530465 }&#xD;
+[xUnit.net 00:00:16.85]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.85]                    Expected: True&#xD;
+[xUnit.net 00:00:16.85]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.85]       [2]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 3, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 39.5, Color = #ff2fa84f, PhysicalThickness = 39.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 3 }, Front = 285, 151.91594130813232, 320, 0.9707286744590898 }&#xD;
+[xUnit.net 00:00:16.85]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.85]                    Expected: True&#xD;
+[xUnit.net 00:00:16.85]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.85]       [3]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 4, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 44.25, Color = #ff00a5c8, PhysicalThickness = 44.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 4 }, Front = 285, 152.8866699825914, 320, 0.9792340213877145 }&#xD;
+[xUnit.net 00:00:16.85]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.85]                    Expected: True&#xD;
+[xUnit.net 00:00:16.85]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.85]       [4]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 5, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 49, Color = #ff2fa84f, PhysicalThickness = 49 nm, Side = 正面, FaceNumber = 0, LayerLabel = 5 }, Front = 285, 153.86590400397913, 320, 0.9877393683163392 }&#xD;
+[xUnit.net 00:00:16.85]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.85]                    Expected: True&#xD;
+[xUnit.net 00:00:16.85]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.85]       [5]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 6, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 53.75, Color = #ff00a5c8, PhysicalThickness = 53.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 6 }, Front = 285, 154.85364337229547, 320, 0.9962447152449639 }&#xD;
+[xUnit.net 00:00:16.85]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.85]                    Expected: True&#xD;
+[xUnit.net 00:00:16.85]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.85]       [6]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 7, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 58.5, Color = #ff2fa84f, PhysicalThickness = 58.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 7 }, Front = 285, 155.84988808754042, 320, 1.0047500621735888 }&#xD;
+[xUnit.net 00:00:16.85]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.85]                    Expected: True&#xD;
+[xUnit.net 00:00:16.85]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.85]       [7]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 8, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 63.25, Color = #ff00a5c8, PhysicalThickness = 63.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 8 }, Front = 285, 156.85463814971402, 320, 1.0132554091022135 }&#xD;
+[xUnit.net 00:00:16.85]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.85]                    Expected: True&#xD;
+[xUnit.net 00:00:16.85]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.85]       [8]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 9, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 68, Color = #ff2fa84f, PhysicalThickness = 68 nm, Side = 正面, FaceNumber = 0, LayerLabel = 9 }, Front = 285, 157.86789355881623, 320, 1.0217607560308382 }&#xD;
+[xUnit.net 00:00:16.85]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.85]                    Expected: True&#xD;
+[xUnit.net 00:00:16.85]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.85]       [9]:  Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 10, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 72.75, Color = #ff00a5c8, PhysicalThickness = 72.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 10 }, Front = 285, 158.88965431484706, 320, 1.0302661029594629 }&#xD;
+[xUnit.net 00:00:16.85]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.85]                    Expected: True&#xD;
+[xUnit.net 00:00:16.85]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.85]       [10]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 11, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 77.5, Color = #ff2fa84f, PhysicalThickness = 77.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 11 }, Front = 285, 159.91992041780654, 320, 1.0387714498880876 }&#xD;
+[xUnit.net 00:00:16.85]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.85]                    Expected: True&#xD;
+[xUnit.net 00:00:16.85]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [11]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 12, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 82.25, Color = #ff00a5c8, PhysicalThickness = 82.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 12 }, Front = 285, 160.95869186769463, 320, 1.0472767968167123 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [12]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 13, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 87, Color = #ff2fa84f, PhysicalThickness = 87 nm, Side = 正面, FaceNumber = 0, LayerLabel = 13 }, Front = 285, 162.00596866451133, 320, 1.055782143745337 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [13]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 14, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 91.75, Color = #ff00a5c8, PhysicalThickness = 91.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 14 }, Front = 285, 163.06175080825668, 320, 1.0642874906739617 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [14]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 15, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 96.5, Color = #ff2fa84f, PhysicalThickness = 96.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 15 }, Front = 285, 164.12603829893064, 320, 1.0727928376025864 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [15]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 16, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 101.25, Color = #ff00a5c8, PhysicalThickness = 101.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 16 }, Front = 285, 165.19883113653322, 320, 1.081298184531211 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [16]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 17, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 106, Color = #ff2fa84f, PhysicalThickness = 106 nm, Side = 正面, FaceNumber = 0, LayerLabel = 17 }, Front = 285, 166.28012932106444, 320, 1.089803531459836 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [17]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 18, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 110.75, Color = #ff00a5c8, PhysicalThickness = 110.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 18 }, Front = 285, 167.36993285252427, 320, 1.0983088783884607 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [18]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 19, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 115.5, Color = #ff2fa84f, PhysicalThickness = 115.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 19 }, Front = 285, 168.46824173091272, 320, 1.1068142253170854 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [19]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 20, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 120.25, Color = #ff00a5c8, PhysicalThickness = 120.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 20 }, Front = 285, 169.57505595622982, 320, 1.11531957224571 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [20]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 21, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 125, Color = #ff2fa84f, PhysicalThickness = 125 nm, Side = 正面, FaceNumber = 0, LayerLabel = 21 }, Front = 285, 170.69037552847553, 320, 1.1238249191743348 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [21]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 22, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 129.75, Color = #ff00a5c8, PhysicalThickness = 129.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 22 }, Front = 285, 171.81420044764985, 320, 1.1323302661029595 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [22]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 23, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 134.5, Color = #ff2fa84f, PhysicalThickness = 134.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 23 }, Front = 285, 172.94653071375282, 320, 1.1408356130315842 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [23]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 24, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 139.25, Color = #ff00a5c8, PhysicalThickness = 139.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 24 }, Front = 285, 174.0873663267844, 320, 1.149340959960209 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [24]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 25, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 144, Color = #ff2fa84f, PhysicalThickness = 144 nm, Side = 正面, FaceNumber = 0, LayerLabel = 25 }, Front = 285, 175.2367072867446, 320, 1.1578463068888336 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [25]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 26, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 148.75, Color = #ff00a5c8, PhysicalThickness = 148.75 nm, Side = 正面, FaceNumber = 0, LayerLabel = 26 }, Front = 285, 176.39455359363345, 320, 1.1663516538174583 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [26]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 27, MaterialId = Ta2O5, MaterialName = Ta2O5, ThicknessNm = 153.5, Color = #ff2fa84f, PhysicalThickness = 153.5 nm, Side = 正面, FaceNumber = 0, LayerLabel = 27 }, Front = 285, 177.5609052474509, 320, 1.174857000746083 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       [27]: Item:  CoatingStackBand { Layer = CoatingStackLayer { Number = 28, MaterialId = SiO2, MaterialName = SiO2 (Fused Silica), ThicknessNm = 158.25, Color = #ff00a5c8, PhysicalThickness = 158.25 nm, Side = 正面, FaceNumber = 0, LayerLabel = 28 }, Front = 285, 178.73576224819698, 320, 1.183362347674708 }&#xD;
+[xUnit.net 00:00:16.86]             Error: Assert.True() Failure&#xD;
+[xUnit.net 00:00:16.86]                    Expected: True&#xD;
+[xUnit.net 00:00:16.86]                    Actual:   False&#xD;
+[xUnit.net 00:00:16.86]       Stack Trace:&#xD;
+[xUnit.net 00:00:16.86]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopStackGeometryTests.cs(53,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass20_0.&lt;&lt;VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:16.86]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.86]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(342,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:16.86]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.86]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:16.86]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.86]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopStackGeometryTests.cs(30,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(String theme, Double fontSize, Int32 count)&#xD;
+[xUnit.net 00:00:16.86]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:58.05]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-02T15:03:08.3845471+08:00">
+        <Text>[xUnit.net 00:00:16.85]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: "Light", fontSize: 18, count: 200) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

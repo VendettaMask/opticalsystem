@@ -1,0 +1,191 @@
+{
+  "Index": 35,
+  "Key": "Fourier MTF vs Field",
+  "Title": "\u5085\u91CC\u53F6 MTF VS \u89C6\u573A",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-035.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "05517736468E1CF388B54678C549BCBB79A12022971118EAE725C91FDF8A09AE"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "Fourier"
+    },
+    {
+      "Metric": "\u7A7A\u95F4\u9891\u7387 (cycles/mm)",
+      "Value": "20"
+    },
+    {
+      "Metric": "SpatialFrequencies",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "HuygensMtfTransformSize",
+      "Value": "0"
+    },
+    {
+      "Metric": "HuygensFrequencySampling",
+      "Value": "NotApplicable"
+    },
+    {
+      "Metric": "FrequencyUnit",
+      "Value": "cycles/mm"
+    },
+    {
+      "Metric": "ImageSpaceAfocal",
+      "Value": "False"
+    },
+    {
+      "Metric": "FieldPointCount",
+      "Value": "21"
+    },
+    {
+      "Metric": "\u89C6\u573A\u5BC6\u5EA6",
+      "Value": "21"
+    },
+    {
+      "Metric": "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "Value": "300"
+    },
+    {
+      "Metric": "MaximumField",
+      "Value": "14"
+    },
+    {
+      "Metric": "FieldUnit",
+      "Value": ""
+    },
+    {
+      "Metric": "ScanType",
+      "Value": "\u002By"
+    },
+    {
+      "Metric": "\u79FB\u9664\u6E10\u6655\u56E0\u5B50",
+      "Value": "True"
+    },
+    {
+      "Metric": "VignettingFactorsApplied",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u6CE2\u957F (\u00B5m)",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "Tangential",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "Sagittal",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "TangentialByFrequency",
+      "Value": "System.Double[][]"
+    },
+    {
+      "Metric": "SagittalByFrequency",
+      "Value": "System.Double[][]"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u5085\u91CC\u53F6 MTF VS \u89C6\u573A\r\n\u65B9\u6CD5\uFF1AFourier\r\n\u7A7A\u95F4\u9891\u7387 (cycles/mm)\uFF1A20\r\nSpatialFrequencies\uFF1ASystem.Double[]\r\nHuygensMtfTransformSize\uFF1A0\r\nHuygensFrequencySampling\uFF1ANotApplicable\r\nFrequencyUnit\uFF1Acycles/mm\r\nImageSpaceAfocal\uFF1AFalse\r\nFieldPointCount\uFF1A21\r\n\u89C6\u573A\u5BC6\u5EA6\uFF1A21\r\n\u66F2\u7EBF\u91C7\u6837\u70B9\u6570\uFF1A300\r\nMaximumField\uFF1A14\r\nFieldUnit\uFF1A\r\nScanType\uFF1A\u002By\r\n\u79FB\u9664\u6E10\u6655\u56E0\u5B50\uFF1ATrue\r\nVignettingFactorsApplied\uFF1AFalse\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A0\r\n\u6CE2\u957F (\u00B5m)\uFF1ASystem.Double[]\r\nTangential\uFF1ASystem.Double[]\r\nSagittal\uFF1ASystem.Double[]\r\nTangentialByFrequency\uFF1ASystem.Double[][]\r\nSagittalByFrequency\uFF1ASystem.Double[][]",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "Fourier MTF vs Field",
+    "RequestFingerprint": "630B4E5FD61DA2374279579D663421F13CF6AAA98F65616ADCC3050335CECFF0",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "SpatialFrequency": "20",
+    "PupilSampling": "32",
+    "ImageSize": "64",
+    "PixelPitchMillimeters": "0.005",
+    "WavelengthNumber": "0",
+    "Distribution": "uniform",
+    "ScaleByDiffractionLimit": "true"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "SpatialFrequency",
+      "DisplayName": "\u7A7A\u95F4\u9891\u7387 (cycles/mm)",
+      "DefaultValue": "20",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "PupilSampling",
+      "DisplayName": "\u77B3\u9762/\u5149\u7EBF\u91C7\u6837\u6570",
+      "DefaultValue": "32",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ImageSize",
+      "DisplayName": "\u8BA1\u7B97\u7F51\u683C\u5C3A\u5BF8",
+      "DefaultValue": "64",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "PixelPitchMillimeters",
+      "DisplayName": "\u60E0\u66F4\u65AF\u50CF\u7D20\u95F4\u8DDD (mm)",
+      "DefaultValue": "0.005",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F\uFF080 \u4E3A\u5168\u90E8\uFF09",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Distribution",
+      "DisplayName": "\u51E0\u4F55\u5149\u7EBF\u91C7\u6837\u5206\u5E03",
+      "DefaultValue": "uniform",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ScaleByDiffractionLimit",
+      "DisplayName": "\u51E0\u4F55\u7ED3\u679C\u4E58\u4EE5\u884D\u5C04\u6781\u9650\u5305\u7EDC",
+      "DefaultValue": "true",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u77B3\u9762/\u5149\u7EBF\u91C7\u6837\u6570\uFF1A32",
+    "\u6CE2\u957F\uFF1A\u5168\u90E8"
+  ],
+  "Metrics": [
+    [
+      "\u65B9\u6CD5",
+      "Fourier"
+    ],
+    [
+      "\u7A7A\u95F4\u9891\u7387 (cycles/mm)",
+      "20"
+    ],
+    [
+      "\u89C6\u573A\u5BC6\u5EA6",
+      "21"
+    ],
+    [
+      "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "300"
+    ],
+    [
+      "\u79FB\u9664\u6E10\u6655\u56E0\u5B50",
+      "True"
+    ]
+  ],
+  "PaneCount": 0
+}

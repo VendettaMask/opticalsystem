@@ -1,0 +1,219 @@
+{
+  "Index": 23,
+  "Key": "Extended Source Encircled Energy",
+  "Title": "\u6269\u5C55\u5149\u6E90",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-023.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "D4FB35C1305EC054EE88765100039CE5A0DA34A5D5BEBADEDEF6A3FDDA0F4928"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "Extended uniform square source"
+    },
+    {
+      "Metric": "Source",
+      "Value": "uniform square"
+    },
+    {
+      "Metric": "FieldSize",
+      "Value": "1.4"
+    },
+    {
+      "Metric": "SourceSampling",
+      "Value": "5"
+    },
+    {
+      "Metric": "ActiveSourcePointCount",
+      "Value": "25"
+    },
+    {
+      "Metric": "ActiveSourcePixelCount",
+      "Value": "25"
+    },
+    {
+      "Metric": "RequestedRayCount",
+      "Value": "5000"
+    },
+    {
+      "Metric": "\u5149\u7EBF\u6570",
+      "Value": "4950"
+    },
+    {
+      "Metric": "\u6E10\u6655\u5149\u7EBF\u6570",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u89C6\u573A\u5E8F\u53F7",
+      "Value": "1"
+    },
+    {
+      "Metric": "\u53C2\u8003",
+      "Value": "centroid"
+    },
+    {
+      "Metric": "ReferenceXMicrometers",
+      "Value": "-0.054"
+    },
+    {
+      "Metric": "ReferenceYMicrometers",
+      "Value": "0.195"
+    },
+    {
+      "Metric": "Type",
+      "Value": "encircled"
+    },
+    {
+      "Metric": "MaximumDistanceMicrometers",
+      "Value": "1818.375"
+    },
+    {
+      "Metric": "\u603B\u6743\u91CD",
+      "Value": "4950"
+    },
+    {
+      "Metric": "\u91C7\u6837\u70B9\u6570",
+      "Value": "4950"
+    },
+    {
+      "Metric": "ZemaxCompatibleOutput",
+      "Value": "True"
+    },
+    {
+      "Metric": "CumulativeKnotCount",
+      "Value": "100"
+    },
+    {
+      "Metric": "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "Value": "396"
+    },
+    {
+      "Metric": "CumulativeKnotEvaluationOffsetMicrometers",
+      "Value": "-18.367"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u6269\u5C55\u5149\u6E90\r\n\u65B9\u6CD5\uFF1AExtended uniform square source\r\nSource\uFF1Auniform square\r\nFieldSize\uFF1A1.4\r\nSourceSampling\uFF1A5\r\nActiveSourcePointCount\uFF1A25\r\nActiveSourcePixelCount\uFF1A25\r\nRequestedRayCount\uFF1A5000\r\n\u5149\u7EBF\u6570\uFF1A4950\r\n\u6E10\u6655\u5149\u7EBF\u6570\uFF1A0\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A0\r\n\u89C6\u573A\u5E8F\u53F7\uFF1A1\r\n\u53C2\u8003\uFF1Acentroid\r\nReferenceXMicrometers\uFF1A-0.054\r\nReferenceYMicrometers\uFF1A0.195\r\nType\uFF1Aencircled\r\nMaximumDistanceMicrometers\uFF1A1818.375\r\n\u603B\u6743\u91CD\uFF1A4950\r\n\u91C7\u6837\u70B9\u6570\uFF1A4950\r\nZemaxCompatibleOutput\uFF1ATrue\r\nCumulativeKnotCount\uFF1A100\r\n\u66F2\u7EBF\u91C7\u6837\u70B9\u6570\uFF1A396\r\nCumulativeKnotEvaluationOffsetMicrometers\uFF1A-18.367",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "Extended Source Encircled Energy",
+    "RequestFingerprint": "8E44A42748562FFFCAC7481AC4F99D52BF45183C0F958A552DA6FAD05E8A4914",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "SourceFile": "",
+    "FieldSize": "0",
+    "SourceSampling": "5",
+    "NumRays": "5000",
+    "NumPoints": "256",
+    "WavelengthNumber": "0",
+    "FieldNumber": "1",
+    "Type": "encircled",
+    "Reference": "centroid",
+    "MaximumDistanceMicrometers": "0"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "SourceFile",
+      "DisplayName": "\u6E90 IMA \u6587\u4EF6",
+      "DefaultValue": "",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "FieldSize",
+      "DisplayName": "\u89C6\u573A\u5C3A\u5BF8",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "SourceSampling",
+      "DisplayName": "\u5149\u6E90\u91C7\u6837",
+      "DefaultValue": "5",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "NumRays",
+      "DisplayName": "\u5149\u7EBF\u6570",
+      "DefaultValue": "5000",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "NumPoints",
+      "DisplayName": "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "DefaultValue": "256",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "FieldNumber",
+      "DisplayName": "\u89C6\u573A",
+      "DefaultValue": "1",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Type",
+      "DisplayName": "\u7C7B\u578B",
+      "DefaultValue": "encircled",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Reference",
+      "DisplayName": "\u53C2\u7167",
+      "DefaultValue": "centroid",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "MaximumDistanceMicrometers",
+      "DisplayName": "\u6700\u5927\u8DDD\u79BB (\u00B5m)",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u89C6\u573A\u5C3A\u5BF8\uFF1A0",
+    "\u5149\u6E90\u91C7\u6837\uFF1A5",
+    "\u6CE2\u957F\uFF1A\u5168\u90E8",
+    "\u89C6\u573A\u5E8F\u53F7\uFF1A1",
+    "\u53C2\u7167\uFF1Acentroid"
+  ],
+  "Metrics": [
+    [
+      "\u65B9\u6CD5",
+      "Extended uniform square source"
+    ],
+    [
+      "\u5149\u7EBF\u6570",
+      "4950"
+    ],
+    [
+      "\u6E10\u6655\u5149\u7EBF\u6570",
+      "0"
+    ],
+    [
+      "\u53C2\u8003",
+      "centroid"
+    ],
+    [
+      "\u603B\u6743\u91CD",
+      "4950"
+    ]
+  ],
+  "PaneCount": 0
+}

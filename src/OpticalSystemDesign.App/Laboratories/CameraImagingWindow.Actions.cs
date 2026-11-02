@@ -10,7 +10,7 @@ public sealed partial class CameraImagingWindow
 {
     internal async Task RunAsync()
     {
-        if (_closed) return;
+        if (_closed || _sfrBusy || SceneImagingBusy) return;
         Invalidate("正在生成光学像、传感器 RAW 与 ISP 对照…");
         var generation = _generation;
         var operation = new CancellationTokenSource(); _operation = operation; _busy = true; UpdateAvailability();
@@ -166,9 +166,9 @@ public sealed partial class CameraImagingWindow
         if (IsNsc) _opticsInputInfo.Text = "光学传播已经包含在 NSC 功率中；只应用一次曝光、QE、噪声、ADC 和 ISP。";
     }
     private void OnWorkspaceChanged(object? sender, WorkspaceChangedEventArgs args) => OnUi(() =>
-    { UpdateSource(); if (!UsingExperimentInputs) { _nscInput = null; Invalidate("镜头已改变，旧结果已清除，请重新运行。", true); } });
+    { ClearSceneBatch("镜头已改变，请重新生成全幅图。", true); ClearSceneEdge("镜头已改变，请重新生成场景像。", true); ClearSfr("镜头已改变，请重新生成斜边。", true); UpdateSource(); if (!UsingExperimentInputs) { _nscInput = null; Invalidate("镜头已改变，旧结果已清除，请重新运行。", true); } });
     private void OnModeChanged(object? sender, WorkbenchModeChangedEventArgs args) => OnUi(() =>
-    { if (!UsingExperimentInputs) Invalidate("模式已改变，旧结果已清除。", true); });
+    { ClearSceneBatch("模式已改变，请重新生成全幅图。", true); ClearSceneEdge("模式已改变，请重新生成场景像。", true); ClearSfr("模式已改变，请重新生成斜边。", true); if (!UsingExperimentInputs) Invalidate("模式已改变，旧结果已清除。", true); });
     private void OnUi(Action action)
     { if (Dispatcher.UIThread.CheckAccess()) { if (!_closed) action(); } else Dispatcher.UIThread.Post(() => { if (!_closed) action(); }); }
     private void UpdateAvailability()
@@ -181,7 +181,7 @@ public sealed partial class CameraImagingWindow
         var fillReady = IsScene3D || _pixelSampling.SelectedIndex == 0 || _numbers["fill-factor"].Value == 1;
         var validNumbers = _numbers.Where(pair => NumberUsedByRun(pair.Key)).All(pair => ValidNumber(pair.Value, IntegerNumber(pair.Key)));
         var spectrumReason = validNumbers ? Scene3DReadiness() ?? SpectrumReadiness() : "请输入有效数值。";
-        var canRun = !_busy && validNumbers && sourceReady && sizeReady && pixelReady && fillReady && spectrumReason is null && (IsNsc || _optics.SelectedIndex == 1 || validLens);
+        var canRun = !_busy && !_sfrBusy && !SceneImagingBusy && validNumbers && sourceReady && sizeReady && pixelReady && fillReady && spectrumReason is null && (IsNsc || _optics.SelectedIndex == 1 || validLens);
         ControlAvailability.Set(_run, canRun, _busy ? "正在计算，可取消后修改。" : !sourceReady ? "请先导入图片。"
             : !validNumbers ? "请输入有效数值。"
             : !sizeReady ? "当前镜头首批支持到 256 × 192；512 × 384 用于理想光学对照。"
@@ -206,6 +206,9 @@ public sealed partial class CameraImagingWindow
         UpdateScene3DControls();
         UpdateNscControls();
         UpdateSamplingControls();
+        UpdateSfrControls();
+        UpdateSceneEdgeControls();
+        UpdateSceneBatchControls();
     }
     private double V(string key) => ValidNumber(_numbers[key], IntegerNumber(key))
         ? (double)_numbers[key].Value!.Value : throw new InvalidOperationException("请输入有效数值。");

@@ -23,13 +23,16 @@ public static partial class ThinFilmSpectrum
 
     public static ThinFilmSample[] Sample(CoherentThinFilmSolver solver, IEnumerable<double> wavelengths,
         double angleDegrees, ThinFilmPolarization polarization)
+        => Sample(w => solver.Evaluate(w, angleDegrees, polarization), wavelengths);
+
+    public static ThinFilmSample[] Sample(Func<double, ThinFilmPower> evaluate, IEnumerable<double> wavelengths)
     {
         var grid = wavelengths.Distinct().Order().Take(MaximumSamples + 1).ToArray();
         if (grid.Length > MaximumSamples) throw new ArgumentException("光谱采样超过资源上限，请缩小范围或放宽带宽。");
         return grid.Select(w =>
         {
             ComputationCancellation.ThrowIfCancellationRequested();
-            return new ThinFilmSample(w, solver.Evaluate(w, angleDegrees, polarization));
+            return new ThinFilmSample(w, evaluate(w));
         }).ToArray();
     }
 

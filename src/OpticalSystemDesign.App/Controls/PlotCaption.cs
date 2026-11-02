@@ -74,6 +74,11 @@ internal static class PlotCaption
     internal static Border Create(Control summary, OpticalDocumentSnapshot document, string logoName)
     {
         var documentName = string.IsNullOrWhiteSpace(document.Path) ? document.Name : Path.GetFileName(document.Path);
+        return Create(summary, documentName, document.Name, logoName);
+    }
+
+    internal static Border Create(Control summary, string documentName, string documentTitle, string logoName)
+    {
         var assembly = Assembly.GetExecutingAssembly();
         var version = assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
             .InformationalVersion?.Split('+')[0]
@@ -98,7 +103,7 @@ internal static class PlotCaption
                 productDescription
             }
         };
-        var documentDescription = Label(document.Name, DisplayTypography.Caption, ThemeResourceBindings.TextSecondary);
+        var documentDescription = Label(documentTitle, DisplayTypography.Caption, ThemeResourceBindings.TextSecondary);
         documentDescription.TextAlignment = TextAlignment.Center;
         var documentNameText = Label(documentName, DisplayTypography.CompactBody, ThemeResourceBindings.TextSecondary,
             FontWeight.Medium);

@@ -10,6 +10,7 @@ public sealed partial class DesignService
 
     public Experiment Search(Experiment input, IProgress<DesignProgress>? progress = null, CancellationToken token = default)
     {
+        if (input.Duplex is not null) return GenerateDuplex(input, true, progress, token);
         using var scope = ComputationCancellation.Push(token);
         var d = input.Snapshot(); d.Validate();
         if (d.Settings.DesignProtocolVersion == 4 && d.Target.Kind == DesignKind.NarrowBand) return GenerateGeneralNarrowBand(d, Materials(d), true, progress, token);

@@ -1,0 +1,177 @@
+{
+  "Index": 21,
+  "Key": "Diffraction Encircled Energy",
+  "Title": "\u884D\u5C04",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-021.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "E82BF829ACB5D6E81971B6AAD52501150BBB55DBC3795BC2964E606573429BD0"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "FFT cumulative distance-bin integration"
+    },
+    {
+      "Metric": "\u77B3\u9762\u91C7\u6837\u6570",
+      "Value": "64"
+    },
+    {
+      "Metric": "ImageSampling",
+      "Value": "128"
+    },
+    {
+      "Metric": "EffectiveImageSampling",
+      "Value": "128"
+    },
+    {
+      "Metric": "BoundedFourierSampling",
+      "Value": "System.Int32[]"
+    },
+    {
+      "Metric": "BoundedImagePitch",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "DistanceBinWidth",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "CumulativeKnotCount",
+      "Value": "64"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u89C6\u573A\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u89C6\u573A\u6570",
+      "Value": "3"
+    },
+    {
+      "Metric": "\u53C2\u8003",
+      "Value": "centroid"
+    },
+    {
+      "Metric": "Type",
+      "Value": "encircled"
+    },
+    {
+      "Metric": "MaximumDistanceMicrometers",
+      "Value": "20"
+    },
+    {
+      "Metric": "MaximumDistanceMilliradians",
+      "Value": "0"
+    },
+    {
+      "Metric": "DiffractionLimit",
+      "Value": "True"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u884D\u5C04\r\n\u65B9\u6CD5\uFF1AFFT cumulative distance-bin integration\r\n\u77B3\u9762\u91C7\u6837\u6570\uFF1A64\r\nImageSampling\uFF1A128\r\nEffectiveImageSampling\uFF1A128\r\nBoundedFourierSampling\uFF1ASystem.Int32[]\r\nBoundedImagePitch\uFF1ASystem.Double[]\r\nDistanceBinWidth\uFF1ASystem.Double[]\r\nCumulativeKnotCount\uFF1A64\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A0\r\n\u89C6\u573A\u5E8F\u53F7\uFF1A0\r\n\u89C6\u573A\u6570\uFF1A3\r\n\u53C2\u8003\uFF1Acentroid\r\nType\uFF1Aencircled\r\nMaximumDistanceMicrometers\uFF1A20\r\nMaximumDistanceMilliradians\uFF1A0\r\nDiffractionLimit\uFF1ATrue",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "Diffraction Encircled Energy",
+    "RequestFingerprint": "82694D84810319375C870F47BF003166B04C45350E43DBD62ED469FF46BF3927",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "PupilSampling": "64 x 64",
+    "ImageSampling": "128 x 128",
+    "NumPoints": "401",
+    "WavelengthNumber": "0",
+    "FieldNumber": "0",
+    "Type": "encircled",
+    "Reference": "centroid",
+    "MaximumDistanceMicrometers": "0"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "PupilSampling",
+      "DisplayName": "\u77B3\u9762\u91C7\u6837",
+      "DefaultValue": "64 x 64",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ImageSampling",
+      "DisplayName": "\u50CF\u9762\u91C7\u6837",
+      "DefaultValue": "128 x 128",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "NumPoints",
+      "DisplayName": "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "DefaultValue": "401",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "FieldNumber",
+      "DisplayName": "\u89C6\u573A",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Type",
+      "DisplayName": "\u7C7B\u578B",
+      "DefaultValue": "encircled",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Reference",
+      "DisplayName": "\u53C2\u7167",
+      "DefaultValue": "centroid",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "MaximumDistanceMicrometers",
+      "DisplayName": "\u6700\u5927\u8DDD\u79BB (\u00B5m)",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u77B3\u9762\u91C7\u6837\uFF1A64 x 64",
+    "\u50CF\u9762\u91C7\u6837\uFF1A128 x 128",
+    "\u6CE2\u957F\uFF1A\u5168\u90E8",
+    "\u89C6\u573A\uFF1A\u5168\u90E8",
+    "\u53C2\u7167\uFF1Acentroid"
+  ],
+  "Metrics": [
+    [
+      "\u65B9\u6CD5",
+      "FFT cumulative distance-bin integration"
+    ],
+    [
+      "\u77B3\u9762\u91C7\u6837\u6570",
+      "64"
+    ],
+    [
+      "\u89C6\u573A\u6570",
+      "3"
+    ],
+    [
+      "\u53C2\u8003",
+      "centroid"
+    ]
+  ],
+  "PaneCount": 0
+}

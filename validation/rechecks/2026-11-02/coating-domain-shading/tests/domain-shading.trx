@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d64dbd31-b1d4-42de-8a14-14f5f286ca61" name="optics@LAPTOP-G4BBBCS0 2026-11-02 10:52:30" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T10:52:30.1407934+08:00" queuing="2026-11-02T10:52:30.1407936+08:00" start="2026-11-02T10:52:07.7770318+08:00" finish="2026-11-02T10:52:56.8889560+08:00" />
+  <TestSettings name="default" id="00fc31ea-62c2-4820-b3c1-5dd26fd6646d">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-02_10_52_30" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="cf1df182-4a58-47e6-820a-c5443ea36ae6" testId="37fc9d63-5933-4e03-ca66-2d5f2ca7ffe2" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DomainShadingUnionsAllParticipatingRangesAndOnlyIncludesAnActiveExitMedium" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0154553" startTime="2026-11-02T10:52:48.0754598+08:00" endTime="2026-11-02T10:52:48.1049861+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cf1df182-4a58-47e6-820a-c5443ea36ae6">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [SpectralBand { MinimumNm = 400, MaximumNm = 800 }]&#xD;
+Actual:   [SpectralBand { MinimumNm = 400, MaximumNm = 500 }, SpectralBand { MinimumNm = 650, MaximumNm = 800 }]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DomainShadingUnionsAllParticipatingRangesAndOnlyIncludesAnActiveExitMedium() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDomainShadingTests.cs:line 35&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="566d056a-dbad-42be-bcc9-7e701c058601" testId="66f4858c-f199-6d9a-4823-03c6ad96da19" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:09.4725669" startTime="2026-11-02T10:52:30.1182952+08:00" endTime="2026-11-02T10:52:39.5562884+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="566d056a-dbad-42be-bcc9-7e701c058601" />
+    <UnitTestResult executionId="16e7bdaf-2892-4cdf-b18b-97c9dd869e03" testId="0800a023-76a1-bac2-1c1d-0dfbcdd5d22b" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView" computerName="LAPTOP-G4BBBCS0" duration="00:00:08.6524345" startTime="2026-11-02T10:52:48.1097531+08:00" endTime="2026-11-02T10:52:56.7578897+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="16e7bdaf-2892-4cdf-b18b-97c9dd869e03" />
+    <UnitTestResult executionId="e1314a99-2c4c-473a-8f5f-3d357063fc57" testId="d9f62096-b2af-087f-5694-b249c4b2af68" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:08.5180136" startTime="2026-11-02T10:52:39.5603500+08:00" endTime="2026-11-02T10:52:48.0742717+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e1314a99-2c4c-473a-8f5f-3d357063fc57" />
+    <UnitTestResult executionId="33e5d2c2-e383-428b-8ac9-0e8bd256c654" testId="d01bda2d-b12d-7b8b-0e62-2a7f98c9cab3" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults" computerName="LAPTOP-G4BBBCS0" duration="00:00:21.5415146" startTime="2026-11-02T10:52:08.5101901+08:00" endTime="2026-11-02T10:52:30.0783487+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="33e5d2c2-e383-428b-8ac9-0e8bd256c654">
+      <Output>
+        <ErrorInfo>
+          <Message>光学镀膜设计 | 打开 | 保存 | 导出 | 示例 | 设计 | 优化 | 材料 | 结果 | 1 生成膜系 | 2 优化 | 结构搜索 | 计算 / 复验 | 取消 | 膜系编辑器 | 入射侧 → 基板 | 添加层 | 替换材料 | 堆栈几何 | → | Air | BK7 (Schott) | Air | 正面：20 层，1582.0 nm    背面：0 层（裸界面） | 入射介质 | 基板 | 出射介质 | 基板厚度 (mm) | 参考波长 (nm) | 计入基板与背面（非相干） | 光学评价 | T | 平均 | s | p | R | 平均 | s | p | A | 平均 | s | p | 目标 | 编辑 | 设置 |  | 线宽 |  |  | 结果 · 0 点    0° · 验收偏振：0° 平均    s — —   p · · ·
+整块基板评价：含吸收、裸背面及多次反射；设计验收仍为前表面
+参考示例 · 指标为本地比较目标
+Ta2O5：原数据 500–2475 nm，域外按参考模型延用端点（非实测） | 结果 · 0 行 | 导出</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c.&lt;&lt;FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults&gt;b__4_0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs:line 50&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass1_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 311&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs:line 19&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="0800a023-76a1-bac2-1c1d-0dfbcdd5d22b">
+      <Execution id="16e7bdaf-2892-4cdf-b18b-97c9dd869e03" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DomainShadingUnionsAllParticipatingRangesAndOnlyIncludesAnActiveExitMedium" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="37fc9d63-5933-4e03-ca66-2d5f2ca7ffe2">
+      <Execution id="cf1df182-4a58-47e6-820a-c5443ea36ae6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="DomainShadingUnionsAllParticipatingRangesAndOnlyIncludesAnActiveExitMedium" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="d01bda2d-b12d-7b8b-0e62-2a7f98c9cab3">
+      <Execution id="33e5d2c2-e383-428b-8ac9-0e8bd256c654" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="66f4858c-f199-6d9a-4823-03c6ad96da19">
+      <Execution id="566d056a-dbad-42be-bcc9-7e701c058601" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="d9f62096-b2af-087f-5694-b249c4b2af68">
+      <Execution id="e1314a99-2c4c-473a-8f5f-3d357063fc57" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="37fc9d63-5933-4e03-ca66-2d5f2ca7ffe2" executionId="cf1df182-4a58-47e6-820a-c5443ea36ae6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="66f4858c-f199-6d9a-4823-03c6ad96da19" executionId="566d056a-dbad-42be-bcc9-7e701c058601" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0800a023-76a1-bac2-1c1d-0dfbcdd5d22b" executionId="16e7bdaf-2892-4cdf-b18b-97c9dd869e03" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d9f62096-b2af-087f-5694-b249c4b2af68" executionId="e1314a99-2c4c-473a-8f5f-3d357063fc57" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d01bda2d-b12d-7b8b-0e62-2a7f98c9cab3" executionId="33e5d2c2-e383-428b-8ac9-0e8bd256c654" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="3" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.10]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.19]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.22]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:21.81]       光学镀膜设计 | 打开 | 保存 | 导出 | 示例 | 设计 | 优化 | 材料 | 结果 | 1 生成膜系 | 2 优化 | 结构搜索 | 计算 / 复验 | 取消 | 膜系编辑器 | 入射侧 → 基板 | 添加层 | 替换材料 | 堆栈几何 | → | Air | BK7 (Schott) | Air | 正面：20 层，1582.0 nm    背面：0 层（裸界面） | 入射介质 | 基板 | 出射介质 | 基板厚度 (mm) | 参考波长 (nm) | 计入基板与背面（非相干） | 光学评价 | T | 平均 | s | p | R | 平均 | s | p | A | 平均 | s | p | 目标 | 编辑 | 设置 |  | 线宽 |  |  | 结果 · 0 点    0° · 验收偏振：0° 平均    s — —   p · · ·
+整块基板评价：含吸收、裸背面及多次反射；设计验收仍为前表面
+参考示例 · 指标为本地比较目标
+Ta2O5：原数据 500–2475 nm，域外按参考模型延用端点（非实测） | 结果 · 0 行 | 导出&#xD;
+[xUnit.net 00:00:21.81]       Stack Trace:&#xD;
+[xUnit.net 00:00:21.82]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs(50,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c.&lt;&lt;FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults&gt;b__4_0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:21.82]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.82]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(311,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass1_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:21.82]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.82]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:21.82]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.82]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs(19,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults()&#xD;
+[xUnit.net 00:00:21.82]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:39.84]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:39.84]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:39.84]       Expected: [SpectralBand { MinimumNm = 400, MaximumNm = 800 }]&#xD;
+[xUnit.net 00:00:39.84]       Actual:   [SpectralBand { MinimumNm = 400, MaximumNm = 500 }, SpectralBand { MinimumNm = 650, MaximumNm = 800 }]&#xD;
+[xUnit.net 00:00:39.84]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:39.84]       Stack Trace:&#xD;
+[xUnit.net 00:00:39.84]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDomainShadingTests.cs(35,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DomainShadingUnionsAllParticipatingRangesAndOnlyIncludesAnActiveExitMedium()&#xD;
+[xUnit.net 00:00:39.84]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:39.84]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:48.50]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-02T10:52:30.0836235+08:00">
+        <Text>[xUnit.net 00:00:21.81]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-02T10:52:48.1083561+08:00">
+        <Text>[xUnit.net 00:00:39.83]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DomainShadingUnionsAllParticipatingRangesAndOnlyIncludesAnActiveExitMedium [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

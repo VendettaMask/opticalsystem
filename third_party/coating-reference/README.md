@@ -1,5 +1,9 @@
 # 镀膜设计参考源（不参与产品构建）
 
+2026-11-02 双面扩展继续复用既有固定Byrnes `inc_tmm`与原MIT许可，新增162组零/一/两层背面、吸收膜/基板、三波长/三角度/s/p的独立数值输入，仍按2e-11比较。输入只保存于测试fixture `duplex-substrate-20261102.json`；生成器和出处身份见[本轮记录](../../validation/rechecks/2026-11-02/coating-editor-duplex/README.md)。产品双面组合仍由共享C# Core计算，不加载Python或上游应用。
+
+2026-11-02：整块基板的新独立验证参考为 [sbyrnes321/tmm](https://github.com/sbyrnes321/tmm/blob/9c265c20e2c5f75b5ac46d63ab466665948eb821/tmm_core.py) 的 `inc_tmm`，固定提交 `9c265c20e2c5f75b5ac46d63ab466665948eb821`，源文件 SHA-256 `0b6831a436bc2be5f1c035d3aa79a88dcc4c7e000dd32e095f968a51afb35628`。MIT原文保留为 `Byrnes-tmm-LICENSE.txt`；54组混合相干/非相干数值在测试 fixture `incoherent-substrate-20261102.json`，生成入口为 `tools/diagnostics/CoatingWorkspace20261102/generate-slab-reference.py`。该Python参考只用于离线独立核验，产品仍使用共享C# Core，无新增运行时依赖。固定TFStudio的 `thinFilmMath/totalSystem.js` 用于对照系统组成；本地不沿用其真实角度近似、临界角裁剪或传输截断。物理约定可参考[Byrnes 推导](https://arxiv.org/abs/1603.02720)，实际范围见[本轮验证](../../validation/rechecks/2026-11-02/coating-workspace/README.md)。
+
 2026-11-01：截图中的五套完整示例按本归档 `web/demo-examples.js` 加入产品静态JSON，材料系数、n/k表、PCHIP和端点规则来自同归档 `materialDatabase.js` / `pchip.js`。源归档仍不参与运行或构建导入，生产计算全部使用C#共享Core。保留MIT/CC0来源与BK7吸收，Ta₂O₅的400–500 nm端点延用标为非实测；原真实吸收模板和验收不变。见[实现与逐点范围](../../docs/COATING_REFERENCE_EXAMPLES_2026-11-01.md)。
 
 获取日期：2026-09-27。

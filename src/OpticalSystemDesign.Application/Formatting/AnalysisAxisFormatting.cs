@@ -8,10 +8,10 @@ namespace OpticalSystemDesign.Application.Formatting;
 public static class AnalysisAxisFormatting
 {
     private static readonly Regex ParenthesizedUnit = new(
-        @"[（(]\s*(?:mm|µm|μm|nm|waves?|deg(?:rees)?|°|%|cycles/mm|cycles/mrad|µm⁻¹|μm⁻¹|radians?|rad|mrad|px|dB|W/sr|W/mm²|10⁻⁶/K|D|-)\s*[）)]",
+        @"[（(]\s*(?:mm|µm|μm|nm|waves?|deg(?:rees)?|°|%|cycles/mm|cycles/pixel|cycles/mrad|µm⁻¹|μm⁻¹|radians?|rad|mrad|px|dB|W/sr|W/mm²|10⁻⁶/K|D|-)\s*[）)]",
         RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
     private static readonly Regex ExplicitUnit = new(
-        @"(?:单位\s*[:：]\s*)?(?:毫米|微米|µm|μm|mm|nm|waves?|degrees?|deg|°|%|cycles/mm|cycles/mrad|µm⁻¹|μm⁻¹|radians?|rad|mrad|px|dB|W/sr|W/mm²|10⁻⁶/K|D)\s*$",
+        @"(?:单位\s*[:：]\s*)?(?:毫米|微米|µm|μm|mm|nm|waves?|degrees?|deg|°|%|cycles/mm|cycles/pixel|cycles/mrad|µm⁻¹|μm⁻¹|radians?|rad|mrad|px|dB|W/sr|W/mm²|10⁻⁶/K|D)\s*$",
         RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
     private static readonly Regex EnglishInUnit = new(
         @"\s+in\s+(?:millimeters?|micrometers?|degrees?|waves?)\s*$",
@@ -27,6 +27,7 @@ public static class AnalysisAxisFormatting
         AnalysisAxisUnit.Wave => "waves",
         AnalysisAxisUnit.Percent => "%",
         AnalysisAxisUnit.CyclesPerMillimeter => "cycles/mm",
+        AnalysisAxisUnit.CyclesPerPixel => "cycles/pixel",
         AnalysisAxisUnit.InverseMicrometer => "µm⁻¹",
         AnalysisAxisUnit.Pixel => "px",
         AnalysisAxisUnit.Radian => "rad",

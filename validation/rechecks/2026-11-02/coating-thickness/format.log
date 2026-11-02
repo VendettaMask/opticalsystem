@@ -1,0 +1,23 @@
+无法使用 '--no-restore' 指定 '--folder' 选项。
+
+Description:
+  运行空白格式化。
+
+用法:
+  dotnet-format [<PROJECT | SOLUTION>] whitespace [<PROJECT | SOLUTION>] [options]
+
+参数:
+  <PROJECT | SOLUTION>  要操作的项目或解决方案文件。如果没有指定文件，则命令将在当前目录里搜索一个文件。 [default: D:\optical system design\opticalsystem\]
+
+选项:
+  --folder                                                                 是否将 "<workspace>" 参数视为文件的简单文件夹。
+  --no-restore                                                             在格式化前不执行隐式还原。
+  --verify-no-changes                                                      验证不会执行任何格式更改。如果任何文件已格式化，则以非零退出代码终止。
+  --include <include>                                                      要进行格式化的文件或文件夹的相对路径列表。如果为空，则格式化所有文件。
+  --exclude <exclude>                                                      不进行格式化的文件或文件夹的相对路径列表。
+  --include-generated                                                      SDK 生成的格式化文件。
+  -v, --verbosity <d|detailed|diag|diagnostic|m|minimal|n|normal|q|quiet>  设置详细级别。允许的值为 q[uiet]、m[inimal]、n[ormal]、d[etailed] 和 diag[nostic]
+  --binarylog <binary-log-path>                                            将所有项目或解决方案加载信息记录到二进制日志文件中。
+  --report <report-path>                                                   接受将在给定目录中生成 json 报表的文件路径(如果提供)。
+  -?, -h, --help                                                           Show help and usage information
+

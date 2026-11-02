@@ -1,0 +1,156 @@
+{
+  "Index": 22,
+  "Key": "Geometric Line Edge Spread",
+  "Title": "\u51E0\u4F55\u7EBF/\u8FB9\u7F18\u6269\u6563",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-022.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "42032F6D99A2B1CCAE37BEED10E7DFBFF1A8E1804854E21DD0755039D597F3AA"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "Geometric ray histogram"
+    },
+    {
+      "Metric": "\u77B3\u9762\u91C7\u6837\u6570",
+      "Value": "32"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u89C6\u573A\u5E8F\u53F7",
+      "Value": "1"
+    },
+    {
+      "Metric": "Orientation",
+      "Value": "X"
+    },
+    {
+      "Metric": "Display",
+      "Value": "line and edge"
+    },
+    {
+      "Metric": "MaximumRadiusMicrometers",
+      "Value": "17.716"
+    },
+    {
+      "Metric": "HistogramBinWidthMicrometers",
+      "Value": "0.138"
+    },
+    {
+      "Metric": "DisplayCoordinateStepMicrometers",
+      "Value": "0.138"
+    },
+    {
+      "Metric": "PupilGridConvention",
+      "Value": "N intervals, N\u002B1 axis nodes, inclusive disk boundary"
+    },
+    {
+      "Metric": "EdgeIntegration",
+      "Value": "Cumulative histogram through the center of each bin"
+    },
+    {
+      "Metric": "\u5149\u7EBF\u6570",
+      "Value": "2391"
+    },
+    {
+      "Metric": "\u6E10\u6655\u5149\u7EBF\u6570",
+      "Value": "0"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u51E0\u4F55\u7EBF/\u8FB9\u7F18\u6269\u6563\r\n\u65B9\u6CD5\uFF1AGeometric ray histogram\r\n\u77B3\u9762\u91C7\u6837\u6570\uFF1A32\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A0\r\n\u89C6\u573A\u5E8F\u53F7\uFF1A1\r\nOrientation\uFF1AX\r\nDisplay\uFF1Aline and edge\r\nMaximumRadiusMicrometers\uFF1A17.716\r\nHistogramBinWidthMicrometers\uFF1A0.138\r\nDisplayCoordinateStepMicrometers\uFF1A0.138\r\nPupilGridConvention\uFF1AN intervals, N\u002B1 axis nodes, inclusive disk boundary\r\nEdgeIntegration\uFF1ACumulative histogram through the center of each bin\r\n\u5149\u7EBF\u6570\uFF1A2391\r\n\u6E10\u6655\u5149\u7EBF\u6570\uFF1A0",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "Geometric Line Edge Spread",
+    "RequestFingerprint": "35F94350A0B2D7F25CFE1833ECBD3F7ED4B70AA56152F6AE806E4D98EF6027DA",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "PupilSampling": "32 x 32",
+    "NumPoints": "257",
+    "WavelengthNumber": "0",
+    "FieldNumber": "1",
+    "Orientation": "X",
+    "Display": "line and edge",
+    "MaximumRadiusMicrometers": "0"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "PupilSampling",
+      "DisplayName": "\u77B3\u9762\u91C7\u6837",
+      "DefaultValue": "32 x 32",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "NumPoints",
+      "DisplayName": "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "DefaultValue": "257",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "FieldNumber",
+      "DisplayName": "\u89C6\u573A",
+      "DefaultValue": "1",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Orientation",
+      "DisplayName": "\u65B9\u5411",
+      "DefaultValue": "X",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Display",
+      "DisplayName": "\u663E\u793A",
+      "DefaultValue": "line and edge",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "MaximumRadiusMicrometers",
+      "DisplayName": "\u6700\u5927\u534A\u5F84 (\u00B5m)",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u77B3\u9762\u91C7\u6837\uFF1A32 x 32",
+    "\u6CE2\u957F\uFF1A\u5168\u90E8",
+    "\u89C6\u573A\u5E8F\u53F7\uFF1A1"
+  ],
+  "Metrics": [
+    [
+      "\u65B9\u6CD5",
+      "Geometric ray histogram"
+    ],
+    [
+      "\u77B3\u9762\u91C7\u6837\u6570",
+      "32"
+    ],
+    [
+      "\u5149\u7EBF\u6570",
+      "2391"
+    ],
+    [
+      "\u6E10\u6655\u5149\u7EBF\u6570",
+      "0"
+    ]
+  ],
+  "PaneCount": 0
+}

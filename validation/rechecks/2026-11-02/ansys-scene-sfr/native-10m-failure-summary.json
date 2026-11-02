@@ -1,0 +1,72 @@
+[
+  {
+    "label": "double-gauss",
+    "Status": "rendered",
+    "SourceSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+    "Algorithm": "SceneSlantedEdge/1; geometric inverse transport; PhysicalEmissiveCheckerboard/1",
+    "LensSha256": "2343ae28727836ee6bfbfd308eacd2b8d916cef00cfe8b0e10a6c9cbeddf1f17",
+    "Request": {
+      "Chart": {
+        "Columns": 14,
+        "Rows": 14,
+        "CellSizeMillimeters": 200,
+        "DistanceMillimeters": 10000,
+        "CenterXMillimeters": 0,
+        "CenterYMillimeters": 100,
+        "RotationXDegrees": 0,
+        "RotationYDegrees": 0,
+        "RotationZDegrees": 5
+      },
+      "Bands": [
+        {
+          "WavelengthNanometers": 587.6,
+          "BrightRadiance": 1,
+          "DarkRadiance": 0,
+          "BrightReflectance": 0,
+          "DarkReflectance": 0
+        }
+      ],
+      "Width": 96,
+      "Height": 96,
+      "PixelPitchMicrometers": 3,
+      "PixelSamplesPerAxis": 2,
+      "FillFactor": 1,
+      "PupilRings": 4,
+      "PupilArms": 16,
+      "BareInterfaceFresnel": true,
+      "Edge": {
+        "Region": {
+          "X": 0,
+          "Y": 0,
+          "Width": 96,
+          "Height": 96
+        },
+        "BandIndex": 0,
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "CaptureLensPrimaryWavelength": false
+    },
+    "LaunchedRays": 2359296,
+    "PassedLensRays": 589824,
+    "SceneHitRays": 589824,
+    "SurfaceInteractions": 12386304,
+    "TotalPowerWatts": 3.0532050568998085E-09,
+    "FirstLensVertexZMillimeters": 0,
+    "SensorPlaneZMillimeters": 132.988419345,
+    "EdgeFailure": "Use a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+    "Mtf50CyclesPerPixel": null,
+    "EdgeFitRmsPixels": null,
+    "MeasurementSucceeded": false,
+    "ExactReplay": true,
+    "UnchangedDocumentRevision": true,
+    "ElapsedSeconds": 24.3046192,
+    "Scope": "Native geometric chart at declared control conditions; 96x96 complete control sensor. NOT original 5000x3000 camera/ROM parity, formal MTF agreement or sampling convergence."
+  },
+  {
+    "label": "lens-710-original",
+    "Status": "failed",
+    "Exception": "NotSupportedException",
+    "Message": "\u4E09\u7EF4\u76F4\u5C04\u9996\u7248\u652F\u6301\u5171\u8F74\u3001\u975E\u6298\u8FD4\u7684\u987A\u5E8F\u955C\u5934\u3002"
+  }
+]

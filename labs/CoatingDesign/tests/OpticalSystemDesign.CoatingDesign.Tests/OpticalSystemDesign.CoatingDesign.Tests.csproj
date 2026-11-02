@@ -8,6 +8,7 @@
     <Using Include="Xunit" />
     <ProjectReference Include="../../src/OpticalSystemDesign.CoatingDesign.Engine/OpticalSystemDesign.CoatingDesign.Engine.csproj" />
     <ProjectReference Include="../../../../src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj" />
+    <ProjectReference Include="../../../../tools/diagnostics/CoatingRecovery20261102/CoatingRecovery20261102.csproj" ReferenceOutputAssembly="false" />
     <None Include="../../../../validation/coating/tmmcore-0.4.2.json" Link="tmmcore-0.4.2.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures/tfstudio-prototypes-8b942b3.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures/tfstudio-demo-examples-8b942b3.json" CopyToOutputDirectory="PreserveNewest" />
@@ -23,6 +24,8 @@
     <None Include="Fixtures/nonlinear-correction-20261031.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures/search-seed-ranking-20261031.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="Fixtures/dense-extrema-20261101.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures/incoherent-substrate-20261102.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Fixtures/duplex-substrate-20261102.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="../../../../tests/Shared/SafeHeadlessUnitTestSession.cs" Link="Shared/SafeHeadlessUnitTestSession.cs" />

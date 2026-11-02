@@ -1,0 +1,712 @@
+{
+  "SourceFileSha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460",
+  "SharedLensSnapshot": true,
+  "Results": [
+    {
+      "label": "double-gauss-512-lens-wavelengths",
+      "Status": "complete",
+      "LensSha256": "2343ae28727836ee6bfbfd308eacd2b8d916cef00cfe8b0e10a6c9cbeddf1f17",
+      "Plan": {
+        "Format": "OpticalSystemDesign.SceneLinearBatch",
+        "SchemaVersion": 1,
+        "Algorithm": "SceneLinearBatch/1; shared geometric transport; SceneRadianceQuadrature/1; piecewise-linear source; Gauss-Legendre 2/3",
+        "SourceDocument": {
+          "Name": "DOUBLE GAUSS",
+          "Path": "D:\\optical system design\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Double Gauss 28 degree field.zmx",
+          "Revision": 1,
+          "Status": "\u5DF2\u6253\u5F00 Double Gauss 28 degree field.zmx\uFF08zemax-zmx\uFF09\u3002",
+          "CanUndo": false,
+          "CanRedo": false,
+          "EffectiveFocalLength": 99.50067904919332,
+          "FNumber": 2.9853189033661365,
+          "ApertureValue": 33.33,
+          "TotalTrack": 132.988419345,
+          "SurfaceCount": 13,
+          "FieldCount": 3,
+          "WavelengthCount": 3,
+          "EntrancePupilDiameter": 33.33,
+          "IsDirty": false
+        },
+        "LensSha256": "2343ae28727836ee6bfbfd308eacd2b8d916cef00cfe8b0e10a6c9cbeddf1f17",
+        "Request": {
+          "Chart": {
+            "Columns": 14,
+            "Rows": 14,
+            "CellSizeMillimeters": 2000,
+            "DistanceMillimeters": 100000,
+            "CenterXMillimeters": -87.15574274765817,
+            "CenterYMillimeters": 996.1946980917455,
+            "RotationXDegrees": 0,
+            "RotationYDegrees": 0,
+            "RotationZDegrees": 5
+          },
+          "Width": 512,
+          "Height": 512,
+          "PixelPitchMicrometers": 3,
+          "PixelSamplesPerAxis": 1,
+          "FillFactor": 1,
+          "PupilRings": 2,
+          "PupilArms": 4,
+          "BareInterfaceFresnel": true,
+          "Mode": 0,
+          "UseLensWeightsAsSourceMultipliers": true,
+          "BrightBandRadiance": 1,
+          "DarkBandRadiance": 0.1,
+          "SpectralQuadratureOrder": 2,
+          "Sources": null,
+          "RowsPerStrip": 17,
+          "PngMaximumIrradiance": null
+        },
+        "Tasks": [
+          {
+            "Source": {
+              "Name": "W1: 486.09999999999997 nm",
+              "WavelengthNanometers": 486.09999999999997,
+              "RelativeSpectrum": null,
+              "SourceMultiplier": 1,
+              "LensWavelengthNumber": 1,
+              "LensWeight": 1,
+              "Provenance": "Frozen current lens wavelength row. Declared source radiance multiplier; no image-energy normalization."
+            },
+            "Nodes": [
+              {
+                "WavelengthNanometers": 486.09999999999997,
+                "SpectralFraction": 1,
+                "BrightRadiance": 1,
+                "DarkRadiance": 0.1
+              }
+            ],
+            "ShapeAreaNanometers": null,
+            "InputShapeMaximum": null
+          },
+          {
+            "Source": {
+              "Name": "W2: 587.60000000000002 nm",
+              "WavelengthNanometers": 587.6,
+              "RelativeSpectrum": null,
+              "SourceMultiplier": 1,
+              "LensWavelengthNumber": 2,
+              "LensWeight": 1,
+              "Provenance": "Frozen current lens wavelength row. Declared source radiance multiplier; no image-energy normalization."
+            },
+            "Nodes": [
+              {
+                "WavelengthNanometers": 587.6,
+                "SpectralFraction": 1,
+                "BrightRadiance": 1,
+                "DarkRadiance": 0.1
+              }
+            ],
+            "ShapeAreaNanometers": null,
+            "InputShapeMaximum": null
+          },
+          {
+            "Source": {
+              "Name": "W3: 656.29999999999995 nm",
+              "WavelengthNanometers": 656.3,
+              "RelativeSpectrum": null,
+              "SourceMultiplier": 1,
+              "LensWavelengthNumber": 3,
+              "LensWeight": 1,
+              "Provenance": "Frozen current lens wavelength row. Declared source radiance multiplier; no image-energy normalization."
+            },
+            "Nodes": [
+              {
+                "WavelengthNanometers": 656.3,
+                "SpectralFraction": 1,
+                "BrightRadiance": 1,
+                "DarkRadiance": 0.1
+              }
+            ],
+            "ShapeAreaNanometers": null,
+            "InputShapeMaximum": null
+          }
+        ],
+        "Work": {
+          "Pixels": 262144,
+          "SpectralNodes": 3,
+          "Rays": 6291456,
+          "MaximumInteractions": 69206016,
+          "WithinBudget": true,
+          "Failure": null
+        },
+        "Float64Values": 1572864,
+        "WithinBudget": true,
+        "BudgetFailure": null
+      },
+      "CompletedRays": 6291456,
+      "SurfaceInteractions": 37450032,
+      "Png": {
+        "BitDepth": 16,
+        "ColorType": "Grayscale",
+        "TransferFunction": "Linear",
+        "CommonMaximumWattsPerSquareMeter": 0.13389324324134133,
+        "OffsetWattsPerSquareMeter": 0,
+        "MaximumQuantizationError": 1.0215399652196637E-06,
+        "ColorMetadata": "None: no gAMA, sRGB, iCCP, cICP or alpha",
+        "ClippedPixels": 0
+      },
+      "Tasks": [
+        {
+          "Name": "W1: 486.09999999999997 nm",
+          "Pixels": 262144,
+          "SumPowerWatts": 1.0502650623758839E-07,
+          "MinimumPower": 5.889637161988132E-14,
+          "MaximumPower": 1.1753453870011616E-12,
+          "FirstPixel": 5.927376574487697E-14,
+          "LastPixel": 5.927376574487697E-13,
+          "MaximumIrradiance": 0.13059393188901794
+        },
+        {
+          "Name": "W2: 587.60000000000002 nm",
+          "Pixels": 262144,
+          "SumPowerWatts": 9.923471013695712E-08,
+          "MinimumPower": 5.988864177297232E-14,
+          "MaximumPower": 1.196056813822114E-12,
+          "FirstPixel": 6.032382435774308E-14,
+          "LastPixel": 6.032382435774308E-13,
+          "MaximumIrradiance": 0.13289520153579043
+        },
+        {
+          "Name": "W3: 656.29999999999995 nm",
+          "Pixels": 262144,
+          "SumPowerWatts": 9.630014364493803E-08,
+          "MinimumPower": 6.031480306472018E-14,
+          "MaximumPower": 1.2050391891720721E-12,
+          "FirstPixel": 6.077922690769696E-14,
+          "LastPixel": 6.077922690769697E-13,
+          "MaximumIrradiance": 0.13389324324134133
+        }
+      ],
+      "UnpartitionedFirstBandBitExact": true,
+      "UnchangedActiveDocumentRevision": true,
+      "MeasuredVerificationSeconds": 24.8186808,
+      "ArchiveSha256": "29de1c86e883951f4ae92a69849f403cf4d2476cca4a3d3bfcb8186ba2cbbaa8",
+      "Scope": "Complete declared native sensor, one immutable lens/chart, all source tasks and nodes, global existing budget. No Ansys ROM/original 5000x3000, formal MTF or convergence claim."
+    },
+    {
+      "label": "double-gauss-128-article-source-shapes",
+      "Status": "complete",
+      "LensSha256": "2343ae28727836ee6bfbfd308eacd2b8d916cef00cfe8b0e10a6c9cbeddf1f17",
+      "Plan": {
+        "Format": "OpticalSystemDesign.SceneLinearBatch",
+        "SchemaVersion": 1,
+        "Algorithm": "SceneLinearBatch/1; shared geometric transport; SceneRadianceQuadrature/1; piecewise-linear source; Gauss-Legendre 2/3",
+        "SourceDocument": {
+          "Name": "DOUBLE GAUSS",
+          "Path": "D:\\optical system design\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Double Gauss 28 degree field.zmx",
+          "Revision": 1,
+          "Status": "\u5DF2\u6253\u5F00 Double Gauss 28 degree field.zmx\uFF08zemax-zmx\uFF09\u3002",
+          "CanUndo": false,
+          "CanRedo": false,
+          "EffectiveFocalLength": 99.50067904919332,
+          "FNumber": 2.9853189033661365,
+          "ApertureValue": 33.33,
+          "TotalTrack": 132.988419345,
+          "SurfaceCount": 13,
+          "FieldCount": 3,
+          "WavelengthCount": 3,
+          "EntrancePupilDiameter": 33.33,
+          "IsDirty": false
+        },
+        "LensSha256": "2343ae28727836ee6bfbfd308eacd2b8d916cef00cfe8b0e10a6c9cbeddf1f17",
+        "Request": {
+          "Chart": {
+            "Columns": 14,
+            "Rows": 14,
+            "CellSizeMillimeters": 2000,
+            "DistanceMillimeters": 100000,
+            "CenterXMillimeters": -87.15574274765817,
+            "CenterYMillimeters": 996.1946980917455,
+            "RotationXDegrees": 0,
+            "RotationYDegrees": 0,
+            "RotationZDegrees": 5
+          },
+          "Width": 128,
+          "Height": 128,
+          "PixelPitchMicrometers": 3,
+          "PixelSamplesPerAxis": 1,
+          "FillFactor": 1,
+          "PupilRings": 2,
+          "PupilArms": 4,
+          "BareInterfaceFresnel": true,
+          "Mode": 1,
+          "UseLensWeightsAsSourceMultipliers": true,
+          "BrightBandRadiance": 1,
+          "DarkBandRadiance": 0.1,
+          "SpectralQuadratureOrder": 2,
+          "Sources": null,
+          "RowsPerStrip": 17,
+          "PngMaximumIrradiance": null
+        },
+        "Tasks": [
+          {
+            "Source": {
+              "Name": "\u539F\u6587\u6E90\u8C31\u5F62\u72B6 486 nm",
+              "WavelengthNanometers": null,
+              "RelativeSpectrum": [
+                {
+                  "WavelengthNanometers": 400,
+                  "Value": 0
+                },
+                {
+                  "WavelengthNanometers": 484.5,
+                  "Value": 0
+                },
+                {
+                  "WavelengthNanometers": 485,
+                  "Value": 100
+                },
+                {
+                  "WavelengthNanometers": 486,
+                  "Value": 100
+                },
+                {
+                  "WavelengthNanometers": 487,
+                  "Value": 100
+                },
+                {
+                  "WavelengthNanometers": 487.5,
+                  "Value": 0
+                },
+                {
+                  "WavelengthNanometers": 800,
+                  "Value": 0
+                }
+              ],
+              "SourceMultiplier": 1,
+              "LensWavelengthNumber": null,
+              "LensWeight": null,
+              "Provenance": "Ansys Data_MTF_KB.zip SHA256 5e685a058b2b48b5e3494097d66df5d3b8128b974e1ab4c77d78f5958b5632c4; Gaussian_*nm.spectrum relative samples; current native lens, no original ROM/range claim."
+            },
+            "Nodes": [
+              {
+                "WavelengthNanometers": 484.6056624327026,
+                "SpectralFraction": 0.021132486540523132,
+                "BrightRadiance": 0.021132486540523132,
+                "DarkRadiance": 0.0021132486540523135
+              },
+              {
+                "WavelengthNanometers": 484.8943375672974,
+                "SpectralFraction": 0.07886751345947687,
+                "BrightRadiance": 0.07886751345947687,
+                "DarkRadiance": 0.007886751345947688
+              },
+              {
+                "WavelengthNanometers": 485.2113248654052,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 485.7886751345948,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 486.2113248654052,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 486.7886751345948,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 487.1056624327026,
+                "SpectralFraction": 0.07886751345947687,
+                "BrightRadiance": 0.07886751345947687,
+                "DarkRadiance": 0.007886751345947688
+              },
+              {
+                "WavelengthNanometers": 487.3943375672974,
+                "SpectralFraction": 0.021132486540523132,
+                "BrightRadiance": 0.021132486540523132,
+                "DarkRadiance": 0.0021132486540523135
+              }
+            ],
+            "ShapeAreaNanometers": 2.5,
+            "InputShapeMaximum": 100
+          },
+          {
+            "Source": {
+              "Name": "\u539F\u6587\u6E90\u8C31\u5F62\u72B6 588 nm",
+              "WavelengthNanometers": null,
+              "RelativeSpectrum": [
+                {
+                  "WavelengthNanometers": 400,
+                  "Value": 0
+                },
+                {
+                  "WavelengthNanometers": 586.5,
+                  "Value": 0
+                },
+                {
+                  "WavelengthNanometers": 587,
+                  "Value": 100
+                },
+                {
+                  "WavelengthNanometers": 588,
+                  "Value": 100
+                },
+                {
+                  "WavelengthNanometers": 589,
+                  "Value": 100
+                },
+                {
+                  "WavelengthNanometers": 589.5,
+                  "Value": 0
+                },
+                {
+                  "WavelengthNanometers": 800,
+                  "Value": 0
+                }
+              ],
+              "SourceMultiplier": 1,
+              "LensWavelengthNumber": null,
+              "LensWeight": null,
+              "Provenance": "Ansys Data_MTF_KB.zip SHA256 5e685a058b2b48b5e3494097d66df5d3b8128b974e1ab4c77d78f5958b5632c4; Gaussian_*nm.spectrum relative samples; current native lens, no original ROM/range claim."
+            },
+            "Nodes": [
+              {
+                "WavelengthNanometers": 586.6056624327026,
+                "SpectralFraction": 0.021132486540523132,
+                "BrightRadiance": 0.021132486540523132,
+                "DarkRadiance": 0.0021132486540523135
+              },
+              {
+                "WavelengthNanometers": 586.8943375672974,
+                "SpectralFraction": 0.07886751345947687,
+                "BrightRadiance": 0.07886751345947687,
+                "DarkRadiance": 0.007886751345947688
+              },
+              {
+                "WavelengthNanometers": 587.2113248654052,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 587.7886751345948,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 588.2113248654052,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 588.7886751345948,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 589.1056624327026,
+                "SpectralFraction": 0.07886751345947687,
+                "BrightRadiance": 0.07886751345947687,
+                "DarkRadiance": 0.007886751345947688
+              },
+              {
+                "WavelengthNanometers": 589.3943375672974,
+                "SpectralFraction": 0.021132486540523132,
+                "BrightRadiance": 0.021132486540523132,
+                "DarkRadiance": 0.0021132486540523135
+              }
+            ],
+            "ShapeAreaNanometers": 2.5,
+            "InputShapeMaximum": 100
+          },
+          {
+            "Source": {
+              "Name": "\u539F\u6587\u6E90\u8C31\u5F62\u72B6 656 nm",
+              "WavelengthNanometers": null,
+              "RelativeSpectrum": [
+                {
+                  "WavelengthNanometers": 400,
+                  "Value": 0
+                },
+                {
+                  "WavelengthNanometers": 654.5,
+                  "Value": 0
+                },
+                {
+                  "WavelengthNanometers": 655,
+                  "Value": 100
+                },
+                {
+                  "WavelengthNanometers": 656,
+                  "Value": 100
+                },
+                {
+                  "WavelengthNanometers": 657,
+                  "Value": 100
+                },
+                {
+                  "WavelengthNanometers": 657.5,
+                  "Value": 0
+                },
+                {
+                  "WavelengthNanometers": 800,
+                  "Value": 0
+                }
+              ],
+              "SourceMultiplier": 1,
+              "LensWavelengthNumber": null,
+              "LensWeight": null,
+              "Provenance": "Ansys Data_MTF_KB.zip SHA256 5e685a058b2b48b5e3494097d66df5d3b8128b974e1ab4c77d78f5958b5632c4; Gaussian_*nm.spectrum relative samples; current native lens, no original ROM/range claim."
+            },
+            "Nodes": [
+              {
+                "WavelengthNanometers": 654.6056624327026,
+                "SpectralFraction": 0.021132486540523132,
+                "BrightRadiance": 0.021132486540523132,
+                "DarkRadiance": 0.0021132486540523135
+              },
+              {
+                "WavelengthNanometers": 654.8943375672974,
+                "SpectralFraction": 0.07886751345947687,
+                "BrightRadiance": 0.07886751345947687,
+                "DarkRadiance": 0.007886751345947688
+              },
+              {
+                "WavelengthNanometers": 655.2113248654052,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 655.7886751345948,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 656.2113248654052,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 656.7886751345948,
+                "SpectralFraction": 0.2,
+                "BrightRadiance": 0.2,
+                "DarkRadiance": 0.020000000000000004
+              },
+              {
+                "WavelengthNanometers": 657.1056624327026,
+                "SpectralFraction": 0.07886751345947687,
+                "BrightRadiance": 0.07886751345947687,
+                "DarkRadiance": 0.007886751345947688
+              },
+              {
+                "WavelengthNanometers": 657.3943375672974,
+                "SpectralFraction": 0.021132486540523132,
+                "BrightRadiance": 0.021132486540523132,
+                "DarkRadiance": 0.0021132486540523135
+              }
+            ],
+            "ShapeAreaNanometers": 2.5,
+            "InputShapeMaximum": 100
+          }
+        ],
+        "Work": {
+          "Pixels": 16384,
+          "SpectralNodes": 24,
+          "Rays": 3145728,
+          "MaximumInteractions": 34603008,
+          "WithinBudget": true,
+          "Failure": null
+        },
+        "Float64Values": 491520,
+        "WithinBudget": true,
+        "BudgetFailure": null
+      },
+      "CompletedRays": 3145728,
+      "SurfaceInteractions": 21424256,
+      "Png": {
+        "BitDepth": 16,
+        "ColorType": "Grayscale",
+        "TransferFunction": "Linear",
+        "CommonMaximumWattsPerSquareMeter": 0.13333597753147852,
+        "OffsetWattsPerSquareMeter": 0,
+        "MaximumQuantizationError": 1.0172883003851265E-06,
+        "ColorMetadata": "None: no gAMA, sRGB, iCCP, cICP or alpha",
+        "ClippedPixels": 0
+      },
+      "Tasks": [
+        {
+          "Name": "\u539F\u6587\u6E90\u8C31\u5F62\u72B6 486 nm",
+          "Pixels": 16384,
+          "SumPowerWatts": 1.0546950440384062E-08,
+          "MinimumPower": 1.1703952790872537E-13,
+          "MaximumPower": 1.170442974734724E-12,
+          "FirstPixel": 1.1703952790872537E-13,
+          "LastPixel": 1.1703952790872535E-12,
+          "MaximumIrradiance": 0.1300492194149693
+        },
+        {
+          "Name": "\u539F\u6587\u6E90\u8C31\u5F62\u72B6 588 nm",
+          "Pixels": 16384,
+          "SumPowerWatts": 9.976238411190694E-09,
+          "MinimumPower": 5.967764821272651E-14,
+          "MaximumPower": 1.1911680994302236E-12,
+          "FirstPixel": 5.96945268486765E-14,
+          "LastPixel": 5.96945268486765E-13,
+          "MaximumIrradiance": 0.13235201104780261
+        },
+        {
+          "Name": "\u539F\u6587\u6E90\u8C31\u5F62\u72B6 656 nm",
+          "Pixels": 16384,
+          "SumPowerWatts": 9.127264654155193E-09,
+          "MinimumPower": 6.00982347424054E-14,
+          "MaximumPower": 1.200023797783307E-12,
+          "FirstPixel": 6.013892569859353E-14,
+          "LastPixel": 6.013892569859352E-13,
+          "MaximumIrradiance": 0.13333597753147852
+        }
+      ],
+      "UnpartitionedFirstBandBitExact": null,
+      "UnchangedActiveDocumentRevision": true,
+      "MeasuredVerificationSeconds": 0.195036,
+      "ArchiveSha256": "1a932104ee81ccfb871cd85a32b580cce21c06b0017678eb1cffc0e14de80f2a",
+      "Scope": "Complete declared native sensor, one immutable lens/chart, all source tasks and nodes, global existing budget. No Ansys ROM/original 5000x3000, formal MTF or convergence claim."
+    }
+  ],
+  "OriginalRasterPreflight": {
+    "Format": "OpticalSystemDesign.SceneLinearBatch",
+    "SchemaVersion": 1,
+    "Algorithm": "SceneLinearBatch/1; shared geometric transport; SceneRadianceQuadrature/1; piecewise-linear source; Gauss-Legendre 2/3",
+    "SourceDocument": {
+      "Name": "DOUBLE GAUSS",
+      "Path": "D:\\optical system design\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Double Gauss 28 degree field.zmx",
+      "Revision": 1,
+      "Status": "\u5DF2\u6253\u5F00 Double Gauss 28 degree field.zmx\uFF08zemax-zmx\uFF09\u3002",
+      "CanUndo": false,
+      "CanRedo": false,
+      "EffectiveFocalLength": 99.50067904919332,
+      "FNumber": 2.9853189033661365,
+      "ApertureValue": 33.33,
+      "TotalTrack": 132.988419345,
+      "SurfaceCount": 13,
+      "FieldCount": 3,
+      "WavelengthCount": 3,
+      "EntrancePupilDiameter": 33.33,
+      "IsDirty": false
+    },
+    "LensSha256": "2343ae28727836ee6bfbfd308eacd2b8d916cef00cfe8b0e10a6c9cbeddf1f17",
+    "Request": {
+      "Chart": {
+        "Columns": 14,
+        "Rows": 14,
+        "CellSizeMillimeters": 2000,
+        "DistanceMillimeters": 100000,
+        "CenterXMillimeters": -87.15574274765817,
+        "CenterYMillimeters": 996.1946980917455,
+        "RotationXDegrees": 0,
+        "RotationYDegrees": 0,
+        "RotationZDegrees": 5
+      },
+      "Width": 5000,
+      "Height": 3000,
+      "PixelPitchMicrometers": 0.5,
+      "PixelSamplesPerAxis": 1,
+      "FillFactor": 1,
+      "PupilRings": 2,
+      "PupilArms": 4,
+      "BareInterfaceFresnel": true,
+      "Mode": 0,
+      "UseLensWeightsAsSourceMultipliers": true,
+      "BrightBandRadiance": 1,
+      "DarkBandRadiance": 0.1,
+      "SpectralQuadratureOrder": 2,
+      "Sources": null,
+      "RowsPerStrip": 16,
+      "PngMaximumIrradiance": null
+    },
+    "Tasks": [
+      {
+        "Source": {
+          "Name": "W1: 486.09999999999997 nm",
+          "WavelengthNanometers": 486.09999999999997,
+          "RelativeSpectrum": null,
+          "SourceMultiplier": 1,
+          "LensWavelengthNumber": 1,
+          "LensWeight": 1,
+          "Provenance": "Frozen current lens wavelength row. Declared source radiance multiplier; no image-energy normalization."
+        },
+        "Nodes": [
+          {
+            "WavelengthNanometers": 486.09999999999997,
+            "SpectralFraction": 1,
+            "BrightRadiance": 1,
+            "DarkRadiance": 0.1
+          }
+        ],
+        "ShapeAreaNanometers": null,
+        "InputShapeMaximum": null
+      },
+      {
+        "Source": {
+          "Name": "W2: 587.60000000000002 nm",
+          "WavelengthNanometers": 587.6,
+          "RelativeSpectrum": null,
+          "SourceMultiplier": 1,
+          "LensWavelengthNumber": 2,
+          "LensWeight": 1,
+          "Provenance": "Frozen current lens wavelength row. Declared source radiance multiplier; no image-energy normalization."
+        },
+        "Nodes": [
+          {
+            "WavelengthNanometers": 587.6,
+            "SpectralFraction": 1,
+            "BrightRadiance": 1,
+            "DarkRadiance": 0.1
+          }
+        ],
+        "ShapeAreaNanometers": null,
+        "InputShapeMaximum": null
+      },
+      {
+        "Source": {
+          "Name": "W3: 656.29999999999995 nm",
+          "WavelengthNanometers": 656.3,
+          "RelativeSpectrum": null,
+          "SourceMultiplier": 1,
+          "LensWavelengthNumber": 3,
+          "LensWeight": 1,
+          "Provenance": "Frozen current lens wavelength row. Declared source radiance multiplier; no image-energy normalization."
+        },
+        "Nodes": [
+          {
+            "WavelengthNanometers": 656.3,
+            "SpectralFraction": 1,
+            "BrightRadiance": 1,
+            "DarkRadiance": 0.1
+          }
+        ],
+        "ShapeAreaNanometers": null,
+        "InputShapeMaximum": null
+      }
+    ],
+    "Work": {
+      "Pixels": 15000000,
+      "SpectralNodes": 3,
+      "Rays": 360000000,
+      "MaximumInteractions": 3960000000,
+      "WithinBudget": false,
+      "Failure": "\u5B8C\u6574\u4F20\u611F\u5668\u8D85\u51FA\u65E2\u6709 1024/\u8FB9\u3001262144 \u50CF\u5143\u4E0A\u9650\uFF1B\u672A\u7F29\u56FE\u6216\u622A\u53D6 ROI\u3002"
+    },
+    "Float64Values": 90000000,
+    "WithinBudget": false,
+    "BudgetFailure": "\u5B8C\u6574\u4F20\u611F\u5668\u8D85\u51FA\u65E2\u6709 1024/\u8FB9\u3001262144 \u50CF\u5143\u4E0A\u9650\uFF1B\u672A\u7F29\u56FE\u6216\u622A\u53D6 ROI\u3002"
+  },
+  "OriginalResources": "../ansys-scene-sfr/original-reference-inventory.json"
+}

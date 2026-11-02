@@ -11,7 +11,13 @@ public sealed partial class AnalysisPanel
     {
         var view = result.View;
         if (!HasReportPlot(result)) return null;
-        var content = BuildResultContent(view, document, generatedAt, result.ReferenceScene);
+        return CreateResultPlot(view, document, generatedAt, result.ReferenceScene);
+    }
+
+    internal static ResponsiveAnalysisPlotHost? CreateResultPlot(AnalysisViewDto view,
+        OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto? scene = null)
+    {
+        var content = BuildResultContent(view, document, generatedAt, scene);
         if (content is ResponsiveAnalysisPlotHost page) return page;
         if (content is TabControl { ItemsSource: object[] tabs }
             && tabs[0] is TabItem { Content: ResponsiveAnalysisPlotHost plot } tab)

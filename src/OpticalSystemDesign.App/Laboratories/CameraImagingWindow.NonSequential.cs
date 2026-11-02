@@ -35,7 +35,7 @@ public sealed partial class CameraImagingWindow
 
     internal async Task<bool> CaptureNscAsync()
     {
-        if (_closed || _busy || UsingExperimentInputs || _nscDetector.SelectedIndex < 0
+        if (_closed || _busy || SceneImagingBusy || UsingExperimentInputs || _nscDetector.SelectedIndex < 0
             || _nscDetector.SelectedIndex >= _nscChoices.Length) return false;
         var id = _nscChoices[_nscDetector.SelectedIndex].Id; var filter = _nscFilter.Text ?? "";
         Cancel(); var generation = _generation; var operation = new CancellationTokenSource();
@@ -105,7 +105,7 @@ public sealed partial class CameraImagingWindow
         }
         var ready = _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential
             && _application.NonSequentialAnalysis.GetCurrentSession() is { IsStale: false, State: NonSequentialTraceSessionState.Completed or NonSequentialTraceSessionState.Warning };
-        ControlAvailability.Set(_nscRead, !_busy && !UsingExperimentInputs && ready && _nscChoices.Length > 0,
+        ControlAvailability.Set(_nscRead, !_busy && !SceneImagingBusy && !UsingExperimentInputs && ready && _nscChoices.Length > 0,
             UsingExperimentInputs ? "取消使用实验输入后，可读取当前 NSC 结果。" : "请先完成当前场景的非序列分析追迹。");
         ControlAvailability.Set(_nscDetector, !_busy && !UsingExperimentInputs, "取消使用实验输入后，可选择当前探测器。");
         ControlAvailability.Set(_nscFilter, !_busy && !UsingExperimentInputs, "取消使用实验输入后，可选择当前路径。");

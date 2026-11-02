@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="11a08ac8-8827-4a93-8196-3d2b2e2be3a7" name="optics@LAPTOP-G4BBBCS0 2026-11-02 10:57:00" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T10:57:00.1629048+08:00" queuing="2026-11-02T10:57:00.1629051+08:00" start="2026-11-02T10:56:37.2527508+08:00" finish="2026-11-02T10:57:00.2585007+08:00" />
+  <TestSettings name="default" id="1cd06f25-43e0-4543-b1e5-dcaa8ac4042e">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-02_10_57_00" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="39965c40-7f7a-4ccb-9472-447ccec3f9eb" testId="37fc9d63-5933-4e03-ca66-2d5f2ca7ffe2" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DomainShadingUnionsAllParticipatingRangesAndOnlyIncludesAnActiveExitMedium" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0138254" startTime="2026-11-02T10:57:00.1380664+08:00" endTime="2026-11-02T10:57:00.1386948+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="39965c40-7f7a-4ccb-9472-447ccec3f9eb" />
+    <UnitTestResult executionId="ef0100eb-e61e-47b4-bf2d-047531dc6aab" testId="d01bda2d-b12d-7b8b-0e62-2a7f98c9cab3" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults" computerName="LAPTOP-G4BBBCS0" duration="00:00:21.1880737" startTime="2026-11-02T10:56:38.8838095+08:00" endTime="2026-11-02T10:57:00.1008681+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ef0100eb-e61e-47b4-bf2d-047531dc6aab">
+      <Output>
+        <ErrorInfo>
+          <Message>光学镀膜设计 | 打开 | 保存 | 导出 | 示例 | 设计 | 优化 | 材料 | 结果 | 1 生成膜系 | 2 优化 | 结构搜索 | 计算 / 复验 | 取消 | 膜系编辑器 | 入射侧 → 基板 | 添加层 | 替换材料 | 堆栈几何 | → | Air | BK7 (Schott) | Air | 正面：20 层，1582.0 nm    背面：0 层（裸界面） | 入射介质 | 基板 | 出射介质 | 基板厚度 (mm) | 参考波长 (nm) | 计入基板与背面（非相干） | 光学评价 | T | 平均 | s | p | R | 平均 | s | p | A | 平均 | s | p | 目标 | 编辑 | 设置 |  | 线宽 |  |  | 结果 · 0 点    0° · 验收偏振：0° 平均    s — —   p · · ·
+整块基板评价：含吸收、裸背面及多次反射；设计验收仍为前表面
+参考示例 · 指标为本地比较目标
+Ta2O5：原数据 500–2475 nm，域外按参考模型延用端点（非实测） | 结果 · 0 行 | 导出
+Inputs: TextBox 基板厚度 (mm) Text: 1 -&gt; 2</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c.&lt;&lt;FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults&gt;b__4_0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs:line 58&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass1_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 311&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs:line 20&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DomainShadingUnionsAllParticipatingRangesAndOnlyIncludesAnActiveExitMedium" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="37fc9d63-5933-4e03-ca66-2d5f2ca7ffe2">
+      <Execution id="39965c40-7f7a-4ccb-9472-447ccec3f9eb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="DomainShadingUnionsAllParticipatingRangesAndOnlyIncludesAnActiveExitMedium" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="d01bda2d-b12d-7b8b-0e62-2a7f98c9cab3">
+      <Execution id="ef0100eb-e61e-47b4-bf2d-047531dc6aab" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="37fc9d63-5933-4e03-ca66-2d5f2ca7ffe2" executionId="39965c40-7f7a-4ccb-9472-447ccec3f9eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d01bda2d-b12d-7b8b-0e62-2a7f98c9cab3" executionId="ef0100eb-e61e-47b4-bf2d-047531dc6aab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="1" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.01]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:01.11]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:01.13]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:22.38]       光学镀膜设计 | 打开 | 保存 | 导出 | 示例 | 设计 | 优化 | 材料 | 结果 | 1 生成膜系 | 2 优化 | 结构搜索 | 计算 / 复验 | 取消 | 膜系编辑器 | 入射侧 → 基板 | 添加层 | 替换材料 | 堆栈几何 | → | Air | BK7 (Schott) | Air | 正面：20 层，1582.0 nm    背面：0 层（裸界面） | 入射介质 | 基板 | 出射介质 | 基板厚度 (mm) | 参考波长 (nm) | 计入基板与背面（非相干） | 光学评价 | T | 平均 | s | p | R | 平均 | s | p | A | 平均 | s | p | 目标 | 编辑 | 设置 |  | 线宽 |  |  | 结果 · 0 点    0° · 验收偏振：0° 平均    s — —   p · · ·
+整块基板评价：含吸收、裸背面及多次反射；设计验收仍为前表面
+参考示例 · 指标为本地比较目标
+Ta2O5：原数据 500–2475 nm，域外按参考模型延用端点（非实测） | 结果 · 0 行 | 导出
+Inputs: TextBox 基板厚度 (mm) Text: 1 -&gt; 2&#xD;
+[xUnit.net 00:00:22.38]       Stack Trace:&#xD;
+[xUnit.net 00:00:22.38]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs(58,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c.&lt;&lt;FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults&gt;b__4_0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:22.38]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.38]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(311,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass1_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:22.38]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.38]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:22.38]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.38]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopReferenceExampleTests.cs(20,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults()&#xD;
+[xUnit.net 00:00:22.38]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.42]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-02T10:57:00.1068760+08:00">
+        <Text>[xUnit.net 00:00:22.38]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

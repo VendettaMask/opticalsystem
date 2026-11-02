@@ -1,0 +1,179 @@
+{
+  "Index": 29,
+  "Key": "RMS Wavefront vs Field",
+  "Title": "RMS \u6CE2\u524D-\u89C6\u573A",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-029.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "B3B7B822D2CF8E6F037883E9A7532B0B50B837EF0BA12061D75A92CD26705237"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u89C6\u573A\u6570",
+      "Value": "16"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u6570",
+      "Value": "3"
+    },
+    {
+      "Metric": "\u5149\u7EBF\u5BC6\u5EA6",
+      "Value": "6"
+    },
+    {
+      "Metric": "PupilSampleCount",
+      "Value": "36"
+    },
+    {
+      "Metric": "PupilWeighting",
+      "Value": "geometric"
+    },
+    {
+      "Metric": "\u4F7F\u7528\u504F\u632F",
+      "Value": "False"
+    },
+    {
+      "Metric": "GaussianAzimuthalSamples",
+      "Value": "6"
+    },
+    {
+      "Metric": "\u89C6\u573A\u5BC6\u5EA6",
+      "Value": "15"
+    },
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "GQ"
+    },
+    {
+      "Metric": "\u53C2\u8003",
+      "Value": "chief"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "ScanType",
+      "Value": "\u002By"
+    },
+    {
+      "Metric": "\u79FB\u9664\u6E10\u6655\u56E0\u5B50",
+      "Value": "True"
+    },
+    {
+      "Metric": "\u6700\u5927 RMS \u6CE2\u524D\u8BEF\u5DEE (\u6CE2)",
+      "Value": "0.802"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1ARMS \u6CE2\u524D-\u89C6\u573A\r\n\u89C6\u573A\u6570\uFF1A16\r\n\u6CE2\u957F\u6570\uFF1A3\r\n\u5149\u7EBF\u5BC6\u5EA6\uFF1A6\r\nPupilSampleCount\uFF1A36\r\nPupilWeighting\uFF1Ageometric\r\n\u4F7F\u7528\u504F\u632F\uFF1AFalse\r\nGaussianAzimuthalSamples\uFF1A6\r\n\u89C6\u573A\u5BC6\u5EA6\uFF1A15\r\n\u65B9\u6CD5\uFF1AGQ\r\n\u53C2\u8003\uFF1Achief\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A0\r\nScanType\uFF1A\u002By\r\n\u79FB\u9664\u6E10\u6655\u56E0\u5B50\uFF1ATrue\r\n\u6700\u5927 RMS \u6CE2\u524D\u8BEF\u5DEE (\u6CE2)\uFF1A0.802",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "RMS Wavefront vs Field",
+    "RequestFingerprint": "5EA290AB53A8A5158CC1C8D43E0FDCF194249FA7AC9EEDAE9E507F03D94C00D9",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "RayDensity": "6",
+    "FieldDensity": "15",
+    "Method": "GQ",
+    "GaussianAzimuthalSamples": "6",
+    "Reference": "chief",
+    "WavelengthNumber": "0",
+    "ScanType": "\u002By",
+    "RemoveVignettingFactors": "true",
+    "UsePolarization": "false"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "RayDensity",
+      "DisplayName": "\u5149\u77B3\u91C7\u6837\uFF08GQ \u73AF\u6570 / RA \u6BCF\u8FB9\u70B9\u6570\uFF09",
+      "DefaultValue": "6",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "FieldDensity",
+      "DisplayName": "\u89C6\u573A\u5BC6\u5EA6",
+      "DefaultValue": "15",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Method",
+      "DisplayName": "\u8BA1\u7B97\u65B9\u6CD5",
+      "DefaultValue": "GQ",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "GaussianAzimuthalSamples",
+      "DisplayName": "GQ \u89D2\u5411\u70B9\u6570",
+      "DefaultValue": "6",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Reference",
+      "DisplayName": "\u53C2\u7167",
+      "DefaultValue": "chief",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F\uFF080 \u4E3A\u5168\u90E8\uFF09",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ScanType",
+      "DisplayName": "\u89C6\u573A\u65B9\u5411",
+      "DefaultValue": "\u002By",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "RemoveVignettingFactors",
+      "DisplayName": "\u79FB\u9664\u6E10\u6655\u56E0\u5B50",
+      "DefaultValue": "true",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "UsePolarization",
+      "DisplayName": "\u4F7F\u7528\u504F\u632F",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u89C6\u573A\u5BC6\u5EA6\uFF1A15",
+    "GQ \u89D2\u5411\u70B9\u6570\uFF1A6",
+    "\u53C2\u7167\uFF1Achief",
+    "\u6CE2\u957F\uFF1A\u5168\u90E8"
+  ],
+  "Metrics": [
+    [
+      "\u6700\u5927 RMS \u6CE2\u524D\u8BEF\u5DEE (\u6CE2)",
+      "0.802"
+    ],
+    [
+      "\u89C6\u573A\u6570",
+      "16"
+    ],
+    [
+      "\u6CE2\u957F\u6570",
+      "3"
+    ],
+    [
+      "\u5149\u7EBF\u5BC6\u5EA6",
+      "6"
+    ],
+    [
+      "\u4F7F\u7528\u504F\u632F",
+      "False"
+    ]
+  ],
+  "PaneCount": 0
+}

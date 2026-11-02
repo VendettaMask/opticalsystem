@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="0a5f7ae5-3369-425b-b3fb-b9a0fc8f5605" name="optics@LAPTOP-G4BBBCS0 2026-11-02 15:50:24" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T15:50:24.4647878+08:00" queuing="2026-11-02T15:50:24.4647882+08:00" start="2026-11-02T15:50:23.5792345+08:00" finish="2026-11-02T15:50:24.4717376+08:00" />
+  <TestSettings name="default" id="e1480f5a-f0da-4d59-8c9f-5d105fe22cfe">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-02_15_50_24" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5aaf262e-55ef-4b9a-b784-f2ee3141e084" testId="c72540cf-1a19-934b-c3be-11cbe201206e" testName="OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.DuplexReciprocityTotalReflectionAndOpaqueLogTransmissionRemainPhysical" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0290629" startTime="2026-11-02T15:50:24.2903371+08:00" endTime="2026-11-02T15:50:24.3439814+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5aaf262e-55ef-4b9a-b784-f2ee3141e084">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArithmeticException : 非相干基板内部往返求和无法稳定求解。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.&lt;&gt;c__DisplayClass19_0.&lt;EvaluateIncoherentSubstrate&gt;g__Scalar|3(ThinFilmPolarization pol) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmDuplexSubstrate.cs:line 53&#xD;
+   at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.EvaluateIncoherentSubstrate(CoherentThinFilmSolver rear, Double substrateThicknessNanometers, Double wavelengthNanometers, Double angleDegrees, ThinFilmPolarization polarization) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmDuplexSubstrate.cs:line 62&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.DuplexReciprocityTotalReflectionAndOpaqueLogTransmissionRemainPhysical() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DuplexCoatingTests.cs:line 91&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.DuplexReciprocityTotalReflectionAndOpaqueLogTransmissionRemainPhysical" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="c72540cf-1a19-934b-c3be-11cbe201206e">
+      <Execution id="5aaf262e-55ef-4b9a-b784-f2ee3141e084" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests" name="DuplexReciprocityTotalReflectionAndOpaqueLogTransmissionRemainPhysical" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c72540cf-1a19-934b-c3be-11cbe201206e" executionId="5aaf262e-55ef-4b9a-b784-f2ee3141e084" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.10]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.19]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.21]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.29]       System.ArithmeticException : 非相干基板内部往返求和无法稳定求解。&#xD;
+[xUnit.net 00:00:00.29]       Stack Trace:&#xD;
+[xUnit.net 00:00:00.29]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmDuplexSubstrate.cs(53,0): at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.&lt;&gt;c__DisplayClass19_0.&lt;EvaluateIncoherentSubstrate&gt;g__Scalar|3(ThinFilmPolarization pol)&#xD;
+[xUnit.net 00:00:00.29]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\Coatings\ThinFilmDuplexSubstrate.cs(62,0): at OpticalSystemDesign.Core.Coatings.CoherentThinFilmSolver.EvaluateIncoherentSubstrate(CoherentThinFilmSolver rear, Double substrateThicknessNanometers, Double wavelengthNanometers, Double angleDegrees, ThinFilmPolarization polarization)&#xD;
+[xUnit.net 00:00:00.29]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DuplexCoatingTests.cs(91,0): at OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.DuplexReciprocityTotalReflectionAndOpaqueLogTransmissionRemainPhysical()&#xD;
+[xUnit.net 00:00:00.29]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:00.29]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:00:00.30]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-02T15:50:24.3467592+08:00">
+        <Text>[xUnit.net 00:00:00.29]     OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.DuplexReciprocityTotalReflectionAndOpaqueLogTransmissionRemainPhysical [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

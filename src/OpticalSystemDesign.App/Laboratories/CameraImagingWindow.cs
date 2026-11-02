@@ -151,7 +151,9 @@ public sealed partial class CameraImagingWindow : Window
                         + "EMVA 1288 — https://www.emva.org/standards-technology/emva-1288/\n\n"
                         + "验收依据：独立光子/电子数公式、曝光与增益控制、暗场/平场统计、Bayer 已知色块及无噪声/A-B 对照。未宣称 EMVA 合规或与商业软件结果一致。"
                 }) },
-                new TabItem { Header = "采样检查", Content = Scroll(_samplingInfo) }
+                new TabItem { Header = "采样检查", Content = Scroll(_samplingInfo) },
+                new TabItem { Header = "斜边 SFR", Name = "camera-sfr-tab", Content = BuildSfrPage() },
+                new TabItem { Header = "场景斜边", Name = "camera-scene-edge-tab", Content = BuildSceneEdgePage() }
             }
         };
         var body = new Grid { Name = "CameraWorkspace", ColumnDefinitions = new ColumnDefinitions("310,*"), ColumnSpacing = 14 };
@@ -197,6 +199,9 @@ public sealed partial class CameraImagingWindow : Window
         Closed += (_, _) =>
         {
             _closed = true; Cancel(); application.Events.Changed -= OnWorkspaceChanged; application.Modes.ModeChanged -= OnModeChanged;
+            ClearSfr(""); _sfrSource.Dispose(); _sfrImage.Dispose();
+            ClearSceneEdge(""); _sceneEdgeTarget.Dispose(); _sceneEdgeImage.Dispose();
+            ClearSceneBatch(""); _sceneBatchPreview.Dispose();
             application.NonSequentialAnalysis.SessionChanged -= OnNscSessionChanged;
             foreach (var view in _stageViews.Concat(_comparisonViews)) view.Dispose();
         };

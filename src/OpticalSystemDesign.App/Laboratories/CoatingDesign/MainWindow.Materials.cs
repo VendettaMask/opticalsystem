@@ -12,7 +12,8 @@ public sealed partial class MainWindow
     private void RefreshMaterials(Experiment d)
     {
         var names = _materials.Names.Concat(d.Materials.Select(m => m.Id)).Concat(d.Materials.Select(m => m.Name)).Distinct().Order().ToArray();
-        foreach (var picker in new[] { _incident, _substrate, _low, _high, _layerMaterial }) picker.ItemsSource = names;
+        foreach (var picker in new[] { _incident, _substrate, _low, _high, _layerMaterial, _exit }) picker.ItemsSource = names;
+        _stackIncident.ItemsSource = names; _stackSubstrate.ItemsSource = names; _stackExit.ItemsSource = names;
     }
     private async Task ManageMaterialsAsync()
     {

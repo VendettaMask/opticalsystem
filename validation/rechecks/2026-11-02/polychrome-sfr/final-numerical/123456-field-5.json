@@ -1,0 +1,1249 @@
+{
+  "Algorithm": "PolychromeLocalFourierEdge/1",
+  "Source": "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX",
+  "Sha256": "0cd65a2f823baf5079f20f91d8310765899a182a6be72ddac53ede943f2bf75b",
+  "PrescriptionUnchanged": true,
+  "Settings": {
+    "WavelengthNanometers": 550,
+    "FieldNumber": 5,
+    "PixelPitchMicrometers": 3,
+    "Width": 96,
+    "Height": 96,
+    "EdgeAngleDegrees": 5,
+    "DarkLevel": 0.2,
+    "BrightLevel": 0.8,
+    "EdgeOffsetPixels": 0.2,
+    "PupilSampling": 256,
+    "ImageSamplesPerPixel": 8,
+    "PsfRadiusPixels": 24,
+    "Roi": null,
+    "EdgeHalfWindowPixels": 24,
+    "UseLensWavelengths": true
+  },
+  "Spectrum": [
+    {
+      "WavelengthNumber": 1,
+      "WavelengthNanometers": 420,
+      "Weight": 1,
+      "NormalizedWeight": 0.3333333333333333,
+      "IsPrimary": false
+    },
+    {
+      "WavelengthNumber": 2,
+      "WavelengthNanometers": 440,
+      "Weight": 1,
+      "NormalizedWeight": 0.3333333333333333,
+      "IsPrimary": true
+    },
+    {
+      "WavelengthNumber": 3,
+      "WavelengthNanometers": 460,
+      "Weight": 1,
+      "NormalizedWeight": 0.3333333333333333,
+      "IsPrimary": false
+    }
+  ],
+  "ReferenceWavelengthNanometers": 440,
+  "SamplingConverged": true,
+  "Mtf50CyclesPerPixel": 0.4722565545957486,
+  "RelativePsfReadoutIntegral": 0.9965137982836755,
+  "MaximumSfrReferenceDifference": 0.003636768649891764,
+  "MaximumSfrFullPupilDifference": 0.004857611831666109,
+  "MaximumWindowFullPupilDifference": 0.003690574089865506,
+  "Curve": [
+    {
+      "CyclesPerPixel": 0,
+      "CyclesPerMillimeter": 0,
+      "Sfr": 1,
+      "WindowMtf": 1,
+      "WindowPixelMtf": 1,
+      "FullMtf": 1,
+      "FullPixelMtf": 1
+    },
+    {
+      "CyclesPerPixel": 0.00390625,
+      "CyclesPerMillimeter": 1.3020833333333333,
+      "Sfr": 0.9997359090002435,
+      "WindowMtf": 0.999680203644971,
+      "WindowPixelMtf": 0.9996551121606527,
+      "FullMtf": 0.9978707053936169,
+      "FullPixelMtf": 0.99784565932682
+    },
+    {
+      "CyclesPerPixel": 0.0078125,
+      "CyclesPerMillimeter": 2.6041666666666665,
+      "Sfr": 0.9989569750031022,
+      "WindowMtf": 0.9987530170602734,
+      "WindowPixelMtf": 0.9986527464986004,
+      "FullMtf": 0.9958228573539806,
+      "FullPixelMtf": 0.9957228809678991
+    },
+    {
+      "CyclesPerPixel": 0.01171875,
+      "CyclesPerMillimeter": 3.90625,
+      "Sfr": 0.9977016518895567,
+      "WindowMtf": 0.9973086957257875,
+      "WindowPixelMtf": 0.9970834217873038,
+      "FullMtf": 0.9938084530112619,
+      "FullPixelMtf": 0.9935839697140965
+    },
+    {
+      "CyclesPerPixel": 0.015625,
+      "CyclesPerMillimeter": 5.208333333333333,
+      "Sfr": 0.9960290601118281,
+      "WindowMtf": 0.9954780257267324,
+      "WindowPixelMtf": 0.9950782951449705,
+      "FullMtf": 0.9917874516368669,
+      "FullPixelMtf": 0.9913892029917122
+    },
+    {
+      "CyclesPerPixel": 0.01953125,
+      "CyclesPerMillimeter": 6.510416666666667,
+      "Sfr": 0.9940123329390975,
+      "WindowMtf": 0.9934078222580273,
+      "WindowPixelMtf": 0.9927845847657505,
+      "FullMtf": 0.9897883915833562,
+      "FullPixelMtf": 0.9891674248250585
+    },
+    {
+      "CyclesPerPixel": 0.0234375,
+      "CyclesPerMillimeter": 7.8125,
+      "Sfr": 0.9917307539399984,
+      "WindowMtf": 0.9912351867975931,
+      "WindowPixelMtf": 0.9903397625219441,
+      "FullMtf": 0.9877654320091028,
+      "FullPixelMtf": 0.9868731421083323
+    },
+    {
+      "CyclesPerPixel": 0.02734375,
+      "CyclesPerMillimeter": 9.114583333333334,
+      "Sfr": 0.9892618235725744,
+      "WindowMtf": 0.9890663072408121,
+      "WindowPixelMtf": 0.9878503222882955,
+      "FullMtf": 0.985750241255678,
+      "FullPixelMtf": 0.9845383331646518
+    },
+    {
+      "CyclesPerPixel": 0.03125,
+      "CyclesPerMillimeter": 10.416666666666666,
+      "Sfr": 0.9866743386695968,
+      "WindowMtf": 0.9869641624020326,
+      "WindowPixelMtf": 0.9853794935436048,
+      "FullMtf": 0.9837285804711772,
+      "FullPixelMtf": 0.9821491066604726
+    },
+    {
+      "CyclesPerPixel": 0.03515625,
+      "CyclesPerMillimeter": 11.71875,
+      "Sfr": 0.98402333727485,
+      "WindowMtf": 0.9849470323283647,
+      "WindowPixelMtf": 0.9829457935597616,
+      "FullMtf": 0.9816986441607874,
+      "FullPixelMtf": 0.9797040055443986
+    },
+    {
+      "CyclesPerPixel": 0.0390625,
+      "CyclesPerMillimeter": 13.020833333333334,
+      "Sfr": 0.9813474034305323,
+      "WindowMtf": 0.9829969203106396,
+      "WindowPixelMtf": 0.9805315031762191,
+      "FullMtf": 0.9796718819762259,
+      "FullPixelMtf": 0.9772148042438046
+    },
+    {
+      "CyclesPerPixel": 0.04296875,
+      "CyclesPerMillimeter": 14.322916666666666,
+      "Sfr": 0.9786684141618228,
+      "WindowMtf": 0.9810746251646828,
+      "WindowPixelMtf": 0.9780977796342883,
+      "FullMtf": 0.9776375615234116,
+      "FullPixelMtf": 0.974671144972909
+    },
+    {
+      "CyclesPerPixel": 0.046875,
+      "CyclesPerMillimeter": 15.625,
+      "Sfr": 0.9759934220388727,
+      "WindowMtf": 0.9791368713480154,
+      "WindowPixelMtf": 0.9756017949025264,
+      "FullMtf": 0.9756058157870037,
+      "FullPixelMtf": 0.9720834878669832
+    },
+    {
+      "CyclesPerPixel": 0.05078125,
+      "CyclesPerMillimeter": 16.927083333333332,
+      "Sfr": 0.9733180694343068,
+      "WindowMtf": 0.9771508970022599,
+      "WindowPixelMtf": 0.9730112942046872,
+      "FullMtf": 0.9735655443095778,
+      "FullPixelMtf": 0.9694411305028585
+    },
+    {
+      "CyclesPerPixel": 0.0546875,
+      "CyclesPerMillimeter": 18.229166666666668,
+      "Sfr": 0.9706307702540377,
+      "WindowMtf": 0.9751031172625271,
+      "WindowPixelMtf": 0.9703132027691962,
+      "FullMtf": 0.9715175730261174,
+      "FullPixelMtf": 0.9667452714908423
+    },
+    {
+      "CyclesPerPixel": 0.05859375,
+      "CyclesPerMillimeter": 19.53125,
+      "Sfr": 0.967916886624302,
+      "WindowMtf": 0.9730004872101639,
+      "WindowPixelMtf": 0.9675149277672384,
+      "FullMtf": 0.9694699285102987,
+      "FullPixelMtf": 0.9640042735688297
+    },
+    {
+      "CyclesPerPixel": 0.0625,
+      "CyclesPerMillimeter": 20.833333333333332,
+      "Sfr": 0.9651622560884456,
+      "WindowMtf": 0.9708653597625156,
+      "WindowPixelMtf": 0.9646391762283762,
+      "FullMtf": 0.9674169948259924,
+      "FullPixelMtf": 0.9612129257413713
+    },
+    {
+      "CyclesPerPixel": 0.06640625,
+      "CyclesPerMillimeter": 22.135416666666668,
+      "Sfr": 0.9623556486996624,
+      "WindowMtf": 0.9687263445814,
+      "WindowPixelMtf": 0.96171481305933,
+      "FullMtf": 0.9653652131468747,
+      "FullPixelMtf": 0.9583780091133002
+    },
+    {
+      "CyclesPerPixel": 0.0703125,
+      "CyclesPerMillimeter": 23.4375,
+      "Sfr": 0.9594899980995454,
+      "WindowMtf": 0.9666084833306651,
+      "WindowPixelMtf": 0.9587670774797219,
+      "FullMtf": 0.9633107877575912,
+      "FullPixelMtf": 0.9554961337609998
+    },
+    {
+      "CyclesPerPixel": 0.07421875,
+      "CyclesPerMillimeter": 24.739583333333332,
+      "Sfr": 0.9565624997923201,
+      "WindowMtf": 0.9645258208393573,
+      "WindowPixelMtf": 0.955810223563542,
+      "FullMtf": 0.9612549544917632,
+      "FullPixelMtf": 0.9525689132456703
+    },
+    {
+      "CyclesPerPixel": 0.078125,
+      "CyclesPerMillimeter": 26.041666666666668,
+      "Sfr": 0.9535738572041466,
+      "WindowMtf": 0.9624783446754389,
+      "WindowPixelMtf": 0.9528445315342459,
+      "FullMtf": 0.9591994090222677,
+      "FullPixelMtf": 0.9495984159996357
+    },
+    {
+      "CyclesPerPixel": 0.08203125,
+      "CyclesPerMillimeter": 27.34375,
+      "Sfr": 0.950527054363004,
+      "WindowMtf": 0.9604537016366353,
+      "WindowPixelMtf": 0.9498580702282632,
+      "FullMtf": 0.9571396727569376,
+      "FullPixelMtf": 0.946580601391414
+    },
+    {
+      "CyclesPerPixel": 0.0859375,
+      "CyclesPerMillimeter": 28.645833333333332,
+      "Sfr": 0.9474260380319979,
+      "WindowMtf": 0.9584325905256655,
+      "WindowPixelMtf": 0.9468320907090421,
+      "FullMtf": 0.9550785994590856,
+      "FullPixelMtf": 0.943518695061626
+    },
+    {
+      "CyclesPerPixel": 0.08984375,
+      "CyclesPerMillimeter": 29.947916666666668,
+      "Sfr": 0.9442746172942217,
+      "WindowMtf": 0.9563957238385186,
+      "WindowPixelMtf": 0.9437479408706282,
+      "FullMtf": 0.9530107942014947,
+      "FullPixelMtf": 0.9404077749797646
+    },
+    {
+      "CyclesPerPixel": 0.09375,
+      "CyclesPerMillimeter": 31.25,
+      "Sfr": 0.9410757647962508,
+      "WindowMtf": 0.9543300002220824,
+      "WindowPixelMtf": 0.9405931583910287,
+      "FullMtf": 0.9509373380479701,
+      "FullPixelMtf": 0.9372493309634519
+    },
+    {
+      "CyclesPerPixel": 0.09765625,
+      "CyclesPerMillimeter": 32.552083333333336,
+      "Sfr": 0.9378313668771731,
+      "WindowMtf": 0.952232034093648,
+      "WindowPixelMtf": 0.9373649169260567,
+      "FullMtf": 0.9488613188458171,
+      "FullPixelMtf": 0.9340468283666105
+    },
+    {
+      "CyclesPerPixel": 0.1015625,
+      "CyclesPerMillimeter": 33.854166666666664,
+      "Sfr": 0.9345423524743884,
+      "WindowMtf": 0.9501082163716208,
+      "WindowPixelMtf": 0.934070030559643,
+      "FullMtf": 0.946780867047447,
+      "FullPixelMtf": 0.9307988481497248
+    },
+    {
+      "CyclesPerPixel": 0.10546875,
+      "CyclesPerMillimeter": 35.15625,
+      "Sfr": 0.9312090558920325,
+      "WindowMtf": 0.9479716591456323,
+      "WindowPixelMtf": 0.9307218912922247,
+      "FullMtf": 0.9447001623024865,
+      "FullPixelMtf": 0.9275099242467612
+    },
+    {
+      "CyclesPerPixel": 0.109375,
+      "CyclesPerMillimeter": 36.458333333333336,
+      "Sfr": 0.9278316454013394,
+      "WindowMtf": 0.9458373239796066,
+      "WindowPixelMtf": 0.9273356435807005,
+      "FullMtf": 0.9426129011788358,
+      "FullPixelMtf": 0.92417429424787
+    },
+    {
+      "CyclesPerPixel": 0.11328125,
+      "CyclesPerMillimeter": 37.760416666666664,
+      "Sfr": 0.9244104736015963,
+      "WindowMtf": 0.9437170740530265,
+      "WindowPixelMtf": 0.9239233207508845,
+      "FullMtf": 0.9405196718421226,
+      "FullPixelMtf": 0.9207929816379262
+    },
+    {
+      "CyclesPerPixel": 0.1171875,
+      "CyclesPerMillimeter": 39.0625,
+      "Sfr": 0.920946261360079,
+      "WindowMtf": 0.9416162353670607,
+      "WindowPixelMtf": 0.9204904986940056,
+      "FullMtf": 0.938422971865771,
+      "FullPixelMtf": 0.9173688780141989
+    },
+    {
+      "CyclesPerPixel": 0.12109375,
+      "CyclesPerMillimeter": 40.364583333333336,
+      "Sfr": 0.9174400946185438,
+      "WindowMtf": 0.939532609172485,
+      "WindowPixelMtf": 0.9170353755124608,
+      "FullMtf": 0.936319410762232,
+      "FullPixelMtf": 0.9138991175667811
+    },
+    {
+      "CyclesPerPixel": 0.125,
+      "CyclesPerMillimeter": 41.666666666666664,
+      "Sfr": 0.9138932726878164,
+      "WindowMtf": 0.937457998707421,
+      "WindowPixelMtf": 0.913550315323746,
+      "FullMtf": 0.9342166966719054,
+      "FullPixelMtf": 0.9103916751492662
+    },
+    {
+      "CyclesPerPixel": 0.12890625,
+      "CyclesPerMillimeter": 42.96875,
+      "Sfr": 0.9103070836236519,
+      "WindowMtf": 0.9353815017242664,
+      "WindowPixelMtf": 0.9100251006996333,
+      "FullMtf": 0.932113074472682,
+      "FullPixelMtf": 0.9068452742509922
+    },
+    {
+      "CyclesPerPixel": 0.1328125,
+      "CyclesPerMillimeter": 44.270833333333336,
+      "Sfr": 0.9066825909163198,
+      "WindowMtf": 0.9332933293849602,
+      "WindowPixelMtf": 0.9064506679653709,
+      "FullMtf": 0.9300081217551792,
+      "FullPixelMtf": 0.903259946938379
+    },
+    {
+      "CyclesPerPixel": 0.13671875,
+      "CyclesPerMillimeter": 45.572916666666664,
+      "Sfr": 0.9030204985860173,
+      "WindowMtf": 0.9311878683721445,
+      "WindowPixelMtf": 0.9028220717057198,
+      "FullMtf": 0.9279031178028272,
+      "FullPixelMtf": 0.899637381038291
+    },
+    {
+      "CyclesPerPixel": 0.140625,
+      "CyclesPerMillimeter": 46.875,
+      "Sfr": 0.8993211279529824,
+      "WindowMtf": 0.9290650771070825,
+      "WindowPixelMtf": 0.899139804092821,
+      "FullMtf": 0.9257943489779104,
+      "FullPixelMtf": 0.8959744264225485
+    },
+    {
+      "CyclesPerPixel": 0.14453125,
+      "CyclesPerMillimeter": 48.177083333333336,
+      "Sfr": 0.89558450107042,
+      "WindowMtf": 0.9269299373344021,
+      "WindowPixelMtf": 0.8954092176765973,
+      "FullMtf": 0.9236853991831286,
+      "FullPixelMtf": 0.8922750116802863
+    },
+    {
+      "CyclesPerPixel": 0.1484375,
+      "CyclesPerMillimeter": 49.479166666666664,
+      "Sfr": 0.8918104946591293,
+      "WindowMtf": 0.9247903399632704,
+      "WindowPixelMtf": 0.8916384406672714,
+      "FullMtf": 0.9215742287691934,
+      "FullPixelMtf": 0.888537620680102
+    },
+    {
+      "CyclesPerPixel": 0.15234375,
+      "CyclesPerMillimeter": 50.78125,
+      "Sfr": 0.8879990122408936,
+      "WindowMtf": 0.9226542528715134,
+      "WindowPixelMtf": 0.8878356217073108,
+      "FullMtf": 0.919461708452683,
+      "FullPixelMtf": 0.8847635558168659
+    },
+    {
+      "CyclesPerPixel": 0.15625,
+      "CyclesPerMillimeter": 52.083333333333336,
+      "Sfr": 0.8841501235472035,
+      "WindowMtf": 0.9205271644552535,
+      "WindowPixelMtf": 0.8840064703265961,
+      "FullMtf": 0.9173492354325793,
+      "FullPixelMtf": 0.8809546214222292
+    },
+    {
+      "CyclesPerPixel": 0.16015625,
+      "CyclesPerMillimeter": 53.385416666666664,
+      "Sfr": 0.8802641363707394,
+      "WindowMtf": 0.9184106042952797,
+      "WindowPixelMtf": 0.8801528600319735,
+      "FullMtf": 0.9152341076063529,
+      "FullPixelMtf": 0.8771086849837266
+    },
+    {
+      "CyclesPerPixel": 0.1640625,
+      "CyclesPerMillimeter": 54.6875,
+      "Sfr": 0.8763415901993276,
+      "WindowMtf": 0.9163021079006529,
+      "WindowPixelMtf": 0.8762728321539872,
+      "FullMtf": 0.9131192607422313,
+      "FullPixelMtf": 0.8732290298209189
+    },
+    {
+      "CyclesPerPixel": 0.16796875,
+      "CyclesPerMillimeter": 55.989583333333336,
+      "Sfr": 0.8723831851507123,
+      "WindowMtf": 0.9141964825278839,
+      "WindowPixelMtf": 0.8723618444346516,
+      "FullMtf": 0.9110030497240377,
+      "FullPixelMtf": 0.8693145466337039
+    },
+    {
+      "CyclesPerPixel": 0.171875,
+      "CyclesPerMillimeter": 57.291666666666664,
+      "Sfr": 0.8683896768705999,
+      "WindowMtf": 0.9120878205451441,
+      "WindowPixelMtf": 0.8684147180177002,
+      "FullMtf": 0.908885829858141,
+      "FullPixelMtf": 0.8653660468514882
+    },
+    {
+      "CyclesPerPixel": 0.17578125,
+      "CyclesPerMillimeter": 58.59375,
+      "Sfr": 0.8643617740419871,
+      "WindowMtf": 0.9099715206951576,
+      "WindowPixelMtf": 0.8644275676278025,
+      "FullMtf": 0.9067688154824627,
+      "FullPixelMtf": 0.8613851573832227
+    },
+    {
+      "CyclesPerPixel": 0.1796875,
+      "CyclesPerMillimeter": 59.895833333333336,
+      "Sfr": 0.860300069599496,
+      "WindowMtf": 0.9078456543829234,
+      "WindowPixelMtf": 0.860399084637155,
+      "FullMtf": 0.9046496887259166,
+      "FullPixelMtf": 0.8573701491429496
+    },
+    {
+      "CyclesPerPixel": 0.18359375,
+      "CyclesPerMillimeter": 61.197916666666664,
+      "Sfr": 0.8562050226709066,
+      "WindowMtf": 0.905711301379189,
+      "WindowPixelMtf": 0.8563308263086393,
+      "FullMtf": 0.9025310135151303,
+      "FullPixelMtf": 0.8533239315835967
+    },
+    {
+      "CyclesPerPixel": 0.1875,
+      "CyclesPerMillimeter": 62.5,
+      "Sfr": 0.8520769908294757,
+      "WindowMtf": 0.9035718601417927,
+      "WindowPixelMtf": 0.8522265314511818,
+      "FullMtf": 0.9004112399429061,
+      "FullPixelMtf": 0.8492455129974763
+    },
+    {
+      "CyclesPerPixel": 0.19140625,
+      "CyclesPerMillimeter": 63.802083333333336,
+      "Sfr": 0.8479162969722766,
+      "WindowMtf": 0.901431676136638,
+      "WindowPixelMtf": 0.8480908021093451,
+      "FullMtf": 0.8982909030061542,
+      "FullPixelMtf": 0.8451358795411795
+    },
+    {
+      "CyclesPerPixel": 0.1953125,
+      "CyclesPerMillimeter": 65.10416666666667,
+      "Sfr": 0.8437233063075583,
+      "WindowMtf": 0.8992945190836179,
+      "WindowPixelMtf": 0.8439276616227667,
+      "FullMtf": 0.8961708328839315,
+      "FullPixelMtf": 0.8409962913828691
+    },
+    {
+      "CyclesPerPixel": 0.19921875,
+      "CyclesPerMillimeter": 66.40625,
+      "Sfr": 0.8394984884291549,
+      "WindowMtf": 0.8971624304605885,
+      "WindowPixelMtf": 0.839739480901425,
+      "FullMtf": 0.8940492070471944,
+      "FullPixelMtf": 0.8368255195892559
+    },
+    {
+      "CyclesPerPixel": 0.203125,
+      "CyclesPerMillimeter": 67.70833333333333,
+      "Sfr": 0.8352424465008224,
+      "WindowMtf": 0.8950352802671434,
+      "WindowPixelMtf": 0.8355265843720389,
+      "FullMtf": 0.8919281248100687,
+      "FullPixelMtf": 0.8326260160442879
+    },
+    {
+      "CyclesPerPixel": 0.20703125,
+      "CyclesPerMillimeter": 69.01041666666667,
+      "Sfr": 0.8309559072425453,
+      "WindowMtf": 0.8929110968161936,
+      "WindowPixelMtf": 0.8312875834832544,
+      "FullMtf": 0.8898062841100004,
+      "FullPixelMtf": 0.8283970468319546
+    },
+    {
+      "CyclesPerPixel": 0.2109375,
+      "CyclesPerMillimeter": 70.3125,
+      "Sfr": 0.8266396777232783,
+      "WindowMtf": 0.8907869678143704,
+      "WindowPixelMtf": 0.8270202369578947,
+      "FullMtf": 0.8876842246196008,
+      "FullPixelMtf": 0.8241396027491862
+    },
+    {
+      "CyclesPerPixel": 0.21484375,
+      "CyclesPerMillimeter": 71.61458333333333,
+      "Sfr": 0.8222945841753,
+      "WindowMtf": 0.8886601435220397,
+      "WindowPixelMtf": 0.822722485203577,
+      "FullMtf": 0.8855613154192904,
+      "FullPixelMtf": 0.8198535869228369
+    },
+    {
+      "CyclesPerPixel": 0.21875,
+      "CyclesPerMillimeter": 72.91666666666667,
+      "Sfr": 0.8179214117320504,
+      "WindowMtf": 0.8865289488924629,
+      "WindowPixelMtf": 0.8183932913965399,
+      "FullMtf": 0.883436142938503,
+      "FullPixelMtf": 0.8155381881904076
+    },
+    {
+      "CyclesPerPixel": 0.22265625,
+      "CyclesPerMillimeter": 74.21875,
+      "Sfr": 0.813520861640705,
+      "WindowMtf": 0.8843932230724056,
+      "WindowPixelMtf": 0.8140330326279539,
+      "FullMtf": 0.8813114673225105,
+      "FullPixelMtf": 0.8111964539280508
+    },
+    {
+      "CyclesPerPixel": 0.2265625,
+      "CyclesPerMillimeter": 75.52083333333333,
+      "Sfr": 0.8090935354668365,
+      "WindowMtf": 0.8822541981297767,
+      "WindowPixelMtf": 0.809643368487819,
+      "FullMtf": 0.8791837903721418,
+      "FullPixelMtf": 0.8068256598446725
+    },
+    {
+      "CyclesPerPixel": 0.23046875,
+      "CyclesPerMillimeter": 76.82291666666667,
+      "Sfr": 0.8046399467190111,
+      "WindowMtf": 0.8801139289683184,
+      "WindowPixelMtf": 0.8052267000732724,
+      "FullMtf": 0.8770561723130385,
+      "FullPixelMtf": 0.8024291221460098
+    },
+    {
+      "CyclesPerPixel": 0.234375,
+      "CyclesPerMillimeter": 78.125,
+      "Sfr": 0.8001605521593464,
+      "WindowMtf": 0.8779745240067993,
+      "WindowPixelMtf": 0.8007854560660495,
+      "FullMtf": 0.8749281409381283,
+      "FullPixelMtf": 0.7980069024881341
+    },
+    {
+      "CyclesPerPixel": 0.23828125,
+      "CyclesPerMillimeter": 79.42708333333333,
+      "Sfr": 0.7956557902328766,
+      "WindowMtf": 0.8758374616745042,
+      "WindowPixelMtf": 0.7963214695738297,
+      "FullMtf": 0.872798303322098,
+      "FullPixelMtf": 0.7935582319283097
+    },
+    {
+      "CyclesPerPixel": 0.2421875,
+      "CyclesPerMillimeter": 80.72916666666667,
+      "Sfr": 0.7911261136884356,
+      "WindowMtf": 0.8737032112954497,
+      "WindowPixelMtf": 0.7918356427627544,
+      "FullMtf": 0.8706690447274935,
+      "FullPixelMtf": 0.7890857830809701
+    },
+    {
+      "CyclesPerPixel": 0.24609375,
+      "CyclesPerMillimeter": 82.03125,
+      "Sfr": 0.7865720072309692,
+      "WindowMtf": 0.8715712439841045,
+      "WindowPixelMtf": 0.7873279709309241,
+      "FullMtf": 0.8685398088351921,
+      "FullPixelMtf": 0.7845895445529592
+    },
+    {
+      "CyclesPerPixel": 0.25,
+      "CyclesPerMillimeter": 83.33333333333333,
+      "Sfr": 0.7819939873445708,
+      "WindowMtf": 0.8694403741181215,
+      "WindowPixelMtf": 0.7827978646550424,
+      "FullMtf": 0.8664108248834385,
+      "FullPixelMtf": 0.7800702196751522
+    },
+    {
+      "CyclesPerPixel": 0.25390625,
+      "CyclesPerMillimeter": 84.63541666666667,
+      "Sfr": 0.7773925880115081,
+      "WindowMtf": 0.8673092668147047,
+      "WindowPixelMtf": 0.7782446152891781,
+      "FullMtf": 0.8642823630859842,
+      "FullPixelMtf": 0.7755285466179336
+    },
+    {
+      "CyclesPerPixel": 0.2578125,
+      "CyclesPerMillimeter": 85.9375,
+      "Sfr": 0.7727683407779121,
+      "WindowMtf": 0.8651769132494757,
+      "WindowPixelMtf": 0.7736678227339139,
+      "FullMtf": 0.8621539373063809,
+      "FullPixelMtf": 0.7709645846097168
+    },
+    {
+      "CyclesPerPixel": 0.26171875,
+      "CyclesPerMillimeter": 87.23958333333333,
+      "Sfr": 0.7681217590894411,
+      "WindowMtf": 0.8630429160708946,
+      "WindowPixelMtf": 0.769067645168623,
+      "FullMtf": 0.860026106150653,
+      "FullPixelMtf": 0.7663793305343471
+    },
+    {
+      "CyclesPerPixel": 0.265625,
+      "CyclesPerMillimeter": 88.54166666666667,
+      "Sfr": 0.7634533347782112,
+      "WindowMtf": 0.8609075174251052,
+      "WindowPixelMtf": 0.7644448146190153,
+      "FullMtf": 0.8578986586247918,
+      "FullPixelMtf": 0.7617730915114046
+    },
+    {
+      "CyclesPerPixel": 0.26953125,
+      "CyclesPerMillimeter": 89.84375,
+      "Sfr": 0.7587635498939974,
+      "WindowMtf": 0.8587714033010365,
+      "WindowPixelMtf": 0.7598004537124128,
+      "FullMtf": 0.855771614948876,
+      "FullPixelMtf": 0.7571463823934895
+    },
+    {
+      "CyclesPerPixel": 0.2734375,
+      "CyclesPerMillimeter": 91.14583333333333,
+      "Sfr": 0.7540529013906503,
+      "WindowMtf": 0.8566353921416588,
+      "WindowPixelMtf": 0.7551357938310028,
+      "FullMtf": 0.8536452457942904,
+      "FullPixelMtf": 0.7524999390012768
+    },
+    {
+      "CyclesPerPixel": 0.27734375,
+      "CyclesPerMillimeter": 92.44791666666667,
+      "Sfr": 0.7493219313781371,
+      "WindowMtf": 0.8545001397283376,
+      "WindowPixelMtf": 0.750451913420985,
+      "FullMtf": 0.851519276275383,
+      "FullPixelMtf": 0.7478340148649619
+    },
+    {
+      "CyclesPerPixel": 0.28125,
+      "CyclesPerMillimeter": 93.75,
+      "Sfr": 0.7445712532375046,
+      "WindowMtf": 0.8523659643968583,
+      "WindowPixelMtf": 0.74574958738308,
+      "FullMtf": 0.8493939583549659,
+      "FullPixelMtf": 0.7431493283722576
+    },
+    {
+      "CyclesPerPixel": 0.28515625,
+      "CyclesPerMillimeter": 95.05208333333333,
+      "Sfr": 0.7398015645668776,
+      "WindowMtf": 0.8502328343288273,
+      "WindowPixelMtf": 0.7410292813415134,
+      "FullMtf": 0.8472693137954641,
+      "FullPixelMtf": 0.7384463941576603
+    },
+    {
+      "CyclesPerPixel": 0.2890625,
+      "CyclesPerMillimeter": 96.35416666666667,
+      "Sfr": 0.7350136414017853,
+      "WindowMtf": 0.848100490187898,
+      "WindowPixelMtf": 0.736291263872866,
+      "FullMtf": 0.8451452140368069,
+      "FullPixelMtf": 0.7337255961983925
+    },
+    {
+      "CyclesPerPixel": 0.29296875,
+      "CyclesPerMillimeter": 97.65625,
+      "Sfr": 0.7302083133151148,
+      "WindowMtf": 0.8459686286522087,
+      "WindowPixelMtf": 0.7315357690704157,
+      "FullMtf": 0.8430219612719001,
+      "FullPixelMtf": 0.7289876927999245
+    },
+    {
+      "CyclesPerPixel": 0.296875,
+      "CyclesPerMillimeter": 98.95833333333333,
+      "Sfr": 0.7253864242777269,
+      "WindowMtf": 0.8438370609975475,
+      "WindowPixelMtf": 0.7267631339273793,
+      "FullMtf": 0.8408993934404043,
+      "FullPixelMtf": 0.72423303827391
+    },
+    {
+      "CyclesPerPixel": 0.30078125,
+      "CyclesPerMillimeter": 100.26041666666667,
+      "Sfr": 0.7205487880142724,
+      "WindowMtf": 0.8417057853773555,
+      "WindowPixelMtf": 0.7219738583779758,
+      "FullMtf": 0.8387775652793117,
+      "FullPixelMtf": 0.7194621750806858
+    },
+    {
+      "CyclesPerPixel": 0.3046875,
+      "CyclesPerMillimeter": 101.5625,
+      "Sfr": 0.7156961479729332,
+      "WindowMtf": 0.8395749573839766,
+      "WindowPixelMtf": 0.7171685768459314,
+      "FullMtf": 0.8366566408004712,
+      "FullPixelMtf": 0.714675738139189
+    },
+    {
+      "CyclesPerPixel": 0.30859375,
+      "CyclesPerMillimeter": 102.86458333333333,
+      "Sfr": 0.7108291506611548,
+      "WindowMtf": 0.8374447895741082,
+      "WindowPixelMtf": 0.7123479698966274,
+      "FullMtf": 0.8345364526965688,
+      "FullPixelMtf": 0.7098740780099225
+    },
+    {
+      "CyclesPerPixel": 0.3125,
+      "CyclesPerMillimeter": 104.16666666666667,
+      "Sfr": 0.7059483374999724,
+      "WindowMtf": 0.8353154379233824,
+      "WindowPixelMtf": 0.7075126669141498,
+      "FullMtf": 0.8324171697701349,
+      "FullPixelMtf": 0.7050578320847659
+    },
+    {
+      "CyclesPerPixel": 0.31640625,
+      "CyclesPerMillimeter": 105.46875,
+      "Sfr": 0.7010541556313542,
+      "WindowMtf": 0.8331869322957064,
+      "WindowPixelMtf": 0.7026631883591727,
+      "FullMtf": 0.8302988518189659,
+      "FullPixelMtf": 0.7002275430587444
+    },
+    {
+      "CyclesPerPixel": 0.3203125,
+      "CyclesPerMillimeter": 106.77083333333333,
+      "Sfr": 0.696146983625448,
+      "WindowMtf": 0.8310591821186056,
+      "WindowPixelMtf": 0.6977999527463533,
+      "FullMtf": 0.8281808695172043,
+      "FullPixelMtf": 0.6953831737245189
+    },
+    {
+      "CyclesPerPixel": 0.32421875,
+      "CyclesPerMillimeter": 108.07291666666667,
+      "Sfr": 0.691227164958825,
+      "WindowMtf": 0.8289320508036183,
+      "WindowPixelMtf": 0.6929233410291409,
+      "FullMtf": 0.826062055871511,
+      "FullPixelMtf": 0.6905242463444023
+    },
+    {
+      "CyclesPerPixel": 0.328125,
+      "CyclesPerMillimeter": 109.375,
+      "Sfr": 0.6862950411621931,
+      "WindowMtf": 0.8268054601650616,
+      "WindowPixelMtf": 0.6880337843317621,
+      "FullMtf": 0.8239441727731341,
+      "FullPixelMtf": 0.6856527376561202
+    },
+    {
+      "CyclesPerPixel": 0.33203125,
+      "CyclesPerMillimeter": 110.67708333333333,
+      "Sfr": 0.6813509777139528,
+      "WindowMtf": 0.8246794728429457,
+      "WindowPixelMtf": 0.6831318311045314,
+      "FullMtf": 0.8218272242279145,
+      "FullPixelMtf": 0.6807691412555472
+    },
+    {
+      "CyclesPerPixel": 0.3359375,
+      "CyclesPerMillimeter": 111.97916666666667,
+      "Sfr": 0.6763953785335185,
+      "WindowMtf": 0.8225543113194616,
+      "WindowPixelMtf": 0.6782181600719522,
+      "FullMtf": 0.81971013041123,
+      "FullPixelMtf": 0.675873056391931
+    },
+    {
+      "CyclesPerPixel": 0.33984375,
+      "CyclesPerMillimeter": 113.28125,
+      "Sfr": 0.6714286883706172,
+      "WindowMtf": 0.8204303010085622,
+      "WindowPixelMtf": 0.6732935303565012,
+      "FullMtf": 0.8175927873199746,
+      "FullPixelMtf": 0.6709648991413019
+    },
+    {
+      "CyclesPerPixel": 0.34375,
+      "CyclesPerMillimeter": 114.58333333333333,
+      "Sfr": 0.6664513854802044,
+      "WindowMtf": 0.8183077590655928,
+      "WindowPixelMtf": 0.6683586885203303,
+      "FullMtf": 0.8154767094491524,
+      "FullPixelMtf": 0.6660464085891945
+    },
+    {
+      "CyclesPerPixel": 0.34765625,
+      "CyclesPerMillimeter": 115.88541666666667,
+      "Sfr": 0.6614639689233852,
+      "WindowMtf": 0.81618687522895,
+      "WindowPixelMtf": 0.6634142717058261,
+      "FullMtf": 0.813361759148394,
+      "FullPixelMtf": 0.6611179565065151
+    },
+    {
+      "CyclesPerPixel": 0.3515625,
+      "CyclesPerMillimeter": 117.1875,
+      "Sfr": 0.6564669452725496,
+      "WindowMtf": 0.8140676358017085,
+      "WindowPixelMtf": 0.6584607485142976,
+      "FullMtf": 0.8112465237751135,
+      "FullPixelMtf": 0.6561788846310281
+    },
+    {
+      "CyclesPerPixel": 0.35546875,
+      "CyclesPerMillimeter": 118.48958333333333,
+      "Sfr": 0.6514608185356487,
+      "WindowMtf": 0.811949824980096,
+      "WindowPixelMtf": 0.6534984240281838,
+      "FullMtf": 0.8091318647345649,
+      "FullPixelMtf": 0.6512303866165445
+    },
+    {
+      "CyclesPerPixel": 0.359375,
+      "CyclesPerMillimeter": 119.79166666666667,
+      "Sfr": 0.6464460852533608,
+      "WindowMtf": 0.8098331063270985,
+      "WindowPixelMtf": 0.6485275090838253,
+      "FullMtf": 0.8070180745787793,
+      "FullPixelMtf": 0.6462731859233295
+    },
+    {
+      "CyclesPerPixel": 0.36328125,
+      "CyclesPerMillimeter": 121.09375,
+      "Sfr": 0.6414232346613619,
+      "WindowMtf": 0.8077171543144502,
+      "WindowPixelMtf": 0.643548227546222,
+      "FullMtf": 0.804905749979684,
+      "FullPixelMtf": 0.6413082425875142
+    },
+    {
+      "CyclesPerPixel": 0.3671875,
+      "CyclesPerMillimeter": 122.39583333333333,
+      "Sfr": 0.6363927522062761,
+      "WindowMtf": 0.8056017849621795,
+      "WindowPixelMtf": 0.6385609196900914,
+      "FullMtf": 0.8027947349773105,
+      "FullPixelMtf": 0.636335909203008
+    },
+    {
+      "CyclesPerPixel": 0.37109375,
+      "CyclesPerMillimeter": 123.69791666666667,
+      "Sfr": 0.6313551239807905,
+      "WindowMtf": 0.8034870341233102,
+      "WindowPixelMtf": 0.6335661010533743,
+      "FullMtf": 0.8006846460914351,
+      "FullPixelMtf": 0.6313563602814761
+    },
+    {
+      "CyclesPerPixel": 0.375,
+      "CyclesPerMillimeter": 125,
+      "Sfr": 0.6263108398874647,
+      "WindowMtf": 0.801373152023063,
+      "WindowPixelMtf": 0.6285644535813154,
+      "FullMtf": 0.7985763891111558,
+      "FullPixelMtf": 0.626370786689579
+    },
+    {
+      "CyclesPerPixel": 0.37890625,
+      "CyclesPerMillimeter": 126.30208333333333,
+      "Sfr": 0.6212603943156282,
+      "WindowMtf": 0.7992605152062663,
+      "WindowPixelMtf": 0.6235567523698984,
+      "FullMtf": 0.7964689193579357,
+      "FullPixelMtf": 0.6213788411532221
+    },
+    {
+      "CyclesPerPixel": 0.3828125,
+      "CyclesPerMillimeter": 127.60416666666667,
+      "Sfr": 0.6162042843770981,
+      "WindowMtf": 0.7971494891760544,
+      "WindowPixelMtf": 0.6185437562820525,
+      "FullMtf": 0.7943635040037944,
+      "FullPixelMtf": 0.6163819864298545
+    },
+    {
+      "CyclesPerPixel": 0.38671875,
+      "CyclesPerMillimeter": 128.90625,
+      "Sfr": 0.611143006809677,
+      "WindowMtf": 0.7950402941534778,
+      "WindowPixelMtf": 0.6135261044223913,
+      "FullMtf": 0.7922610607770694,
+      "FullPixelMtf": 0.6113813927150129
+    },
+    {
+      "CyclesPerPixel": 0.390625,
+      "CyclesPerMillimeter": 130.20833333333334,
+      "Sfr": 0.6060770551611586,
+      "WindowMtf": 0.7929329252271872,
+      "WindowPixelMtf": 0.608504257808675,
+      "FullMtf": 0.7901591847265798,
+      "FullPixelMtf": 0.6063756630045277
+    },
+    {
+      "CyclesPerPixel": 0.39453125,
+      "CyclesPerMillimeter": 131.51041666666666,
+      "Sfr": 0.6010069186810644,
+      "WindowMtf": 0.7908271573644828,
+      "WindowPixelMtf": 0.6034785079335019,
+      "FullMtf": 0.78805900274151,
+      "FullPixelMtf": 0.6013661350767475
+    },
+    {
+      "CyclesPerPixel": 0.3984375,
+      "CyclesPerMillimeter": 132.8125,
+      "Sfr": 0.5959330835956314,
+      "WindowMtf": 0.7887226335456201,
+      "WindowPixelMtf": 0.5984490483656038,
+      "FullMtf": 0.7859591119585729,
+      "FullPixelMtf": 0.5963522062140459
+    },
+    {
+      "CyclesPerPixel": 0.40234375,
+      "CyclesPerMillimeter": 134.11458333333334,
+      "Sfr": 0.5908560364368177,
+      "WindowMtf": 0.7866190031101147,
+      "WindowPixelMtf": 0.5934160820146657,
+      "FullMtf": 0.7838623376417883,
+      "FullPixelMtf": 0.5913364861554611
+    },
+    {
+      "CyclesPerPixel": 0.40625,
+      "CyclesPerMillimeter": 135.41666666666666,
+      "Sfr": 0.5857762682205193,
+      "WindowMtf": 0.7845160590582876,
+      "WindowPixelMtf": 0.5883799240169263,
+      "FullMtf": 0.7817665945548694,
+      "FullPixelMtf": 0.5863178505935341
+    },
+    {
+      "CyclesPerPixel": 0.41015625,
+      "CyclesPerMillimeter": 136.71875,
+      "Sfr": 0.580694277839186,
+      "WindowMtf": 0.782413824173286,
+      "WindowPixelMtf": 0.58334106281268,
+      "FullMtf": 0.779671123333156,
+      "FullPixelMtf": 0.5812961986070287
+    },
+    {
+      "CyclesPerPixel": 0.4140625,
+      "CyclesPerMillimeter": 138.02083333333334,
+      "Sfr": 0.5756105731964873,
+      "WindowMtf": 0.7803125555387816,
+      "WindowPixelMtf": 0.5783001583836749,
+      "FullMtf": 0.7775772186173606,
+      "FullPixelMtf": 0.5762729633018294
+    },
+    {
+      "CyclesPerPixel": 0.41796875,
+      "CyclesPerMillimeter": 139.32291666666666,
+      "Sfr": 0.5705256693036395,
+      "WindowMtf": 0.778212667465607,
+      "WindowPixelMtf": 0.5732579801720826,
+      "FullMtf": 0.7754831316410161,
+      "FullPixelMtf": 0.5712473110336476
+    },
+    {
+      "CyclesPerPixel": 0.421875,
+      "CyclesPerMillimeter": 140.625,
+      "Sfr": 0.5654400835362003,
+      "WindowMtf": 0.7761146023695105,
+      "WindowPixelMtf": 0.5682153088838756,
+      "FullMtf": 0.7733955665641411,
+      "FullPixelMtf": 0.5662246263670188
+    },
+    {
+      "CyclesPerPixel": 0.42578125,
+      "CyclesPerMillimeter": 141.92708333333334,
+      "Sfr": 0.5603543291841975,
+      "WindowMtf": 0.7740186968615771,
+      "WindowPixelMtf": 0.563172838260835,
+      "FullMtf": 0.771310472239403,
+      "FullPixelMtf": 0.5612023451018171
+    },
+    {
+      "CyclesPerPixel": 0.4296875,
+      "CyclesPerMillimeter": 143.22916666666666,
+      "Sfr": 0.5552689090082428,
+      "WindowMtf": 0.7719250901214312,
+      "WindowPixelMtf": 0.558131111079594,
+      "FullMtf": 0.7692253619760282,
+      "FullPixelMtf": 0.5561791052584469
+    },
+    {
+      "CyclesPerPixel": 0.43359375,
+      "CyclesPerMillimeter": 144.53125,
+      "Sfr": 0.5501843105542176,
+      "WindowMtf": 0.7698337043298822,
+      "WindowPixelMtf": 0.5530905094861589,
+      "FullMtf": 0.7671414606260146,
+      "FullPixelMtf": 0.5511562548108206
+    },
+    {
+      "CyclesPerPixel": 0.4375,
+      "CyclesPerMillimeter": 145.83333333333334,
+      "Sfr": 0.5451010044730207,
+      "WindowMtf": 0.7677442996724843,
+      "WindowPixelMtf": 0.5480512991808181,
+      "FullMtf": 0.7650570411189195,
+      "FullPixelMtf": 0.5461330100549409
+    },
+    {
+      "CyclesPerPixel": 0.44140625,
+      "CyclesPerMillimeter": 147.13541666666666,
+      "Sfr": 0.5400194462079205,
+      "WindowMtf": 0.7656565796887026,
+      "WindowPixelMtf": 0.5430137078614787,
+      "FullMtf": 0.7629779861202335,
+      "FullPixelMtf": 0.5411140141031364
+    },
+    {
+      "CyclesPerPixel": 0.4453125,
+      "CyclesPerMillimeter": 148.4375,
+      "Sfr": 0.5349400804323936,
+      "WindowMtf": 0.7635703063242947,
+      "WindowPixelMtf": 0.537978007618303,
+      "FullMtf": 0.7609002863691162,
+      "FullPixelMtf": 0.5360968291545899
+    },
+    {
+      "CyclesPerPixel": 0.44921875,
+      "CyclesPerMillimeter": 149.73958333333334,
+      "Sfr": 0.5298633468485117,
+      "WindowMtf": 0.7614853834059053,
+      "WindowPixelMtf": 0.5329445720152314,
+      "FullMtf": 0.7588230970407128,
+      "FullPixelMtf": 0.5310813043827872
+    },
+    {
+      "CyclesPerPixel": 0.453125,
+      "CyclesPerMillimeter": 151.04166666666666,
+      "Sfr": 0.5247896856171314,
+      "WindowMtf": 0.7594018816785982,
+      "WindowPixelMtf": 0.52791389016918,
+      "FullMtf": 0.7567480378897188,
+      "FullPixelMtf": 0.5260690158907652
+    },
+    {
+      "CyclesPerPixel": 0.45703125,
+      "CyclesPerMillimeter": 152.34375,
+      "Sfr": 0.519719540871289,
+      "WindowMtf": 0.7573200017642113,
+      "WindowPixelMtf": 0.522886537206556,
+      "FullMtf": 0.7546728925537675,
+      "FullPixelMtf": 0.5210588583317974
+    },
+    {
+      "CyclesPerPixel": 0.4609375,
+      "CyclesPerMillimeter": 153.64583333333334,
+      "Sfr": 0.5146533613865054,
+      "WindowMtf": 0.7552399942217335,
+      "WindowPixelMtf": 0.5178631163037664,
+      "FullMtf": 0.7526023820938313,
+      "FullPixelMtf": 0.5160545229472087
+    },
+    {
+      "CyclesPerPixel": 0.46484375,
+      "CyclesPerMillimeter": 154.94791666666666,
+      "Sfr": 0.5095915983401184,
+      "WindowMtf": 0.753162069868002,
+      "WindowPixelMtf": 0.5128441963425214,
+      "FullMtf": 0.7505345344467585,
+      "FullPixelMtf": 0.5110550511566715
+    },
+    {
+      "CyclesPerPixel": 0.46875,
+      "CyclesPerMillimeter": 156.25,
+      "Sfr": 0.5045347009207839,
+      "WindowMtf": 0.751086334052687,
+      "WindowPixelMtf": 0.5078302683265581,
+      "FullMtf": 0.7484678757538182,
+      "FullPixelMtf": 0.5060598561645613
+    },
+    {
+      "CyclesPerPixel": 0.47265625,
+      "CyclesPerMillimeter": 157.55208333333334,
+      "Sfr": 0.49948311110858234,
+      "WindowMtf": 0.7490127664697341,
+      "WindowPixelMtf": 0.5028217342816503,
+      "FullMtf": 0.7464036628809689,
+      "FullPixelMtf": 0.5010702100751848
+    },
+    {
+      "CyclesPerPixel": 0.4765625,
+      "CyclesPerMillimeter": 158.85416666666666,
+      "Sfr": 0.49443725909159486,
+      "WindowMtf": 0.7469412488649217,
+      "WindowPixelMtf": 0.49781892869835775,
+      "FullMtf": 0.7443398394173664,
+      "FullPixelMtf": 0.4960851499490173
+    },
+    {
+      "CyclesPerPixel": 0.48046875,
+      "CyclesPerMillimeter": 160.15625,
+      "Sfr": 0.4893975605052648,
+      "WindowMtf": 0.7448716245420395,
+      "WindowPixelMtf": 0.4928221602460062,
+      "FullMtf": 0.7422783668888635,
+      "FullPixelMtf": 0.49110640843508385
+    },
+    {
+      "CyclesPerPixel": 0.484375,
+      "CyclesPerMillimeter": 161.45833333333334,
+      "Sfr": 0.48436441609243885,
+      "WindowMtf": 0.7428037629225718,
+      "WindowPixelMtf": 0.48783175509424104,
+      "FullMtf": 0.7402175491667354,
+      "FullPixelMtf": 0.4861332752822991
+    },
+    {
+      "CyclesPerPixel": 0.48828125,
+      "CyclesPerMillimeter": 162.76041666666666,
+      "Sfr": 0.47933821368243934,
+      "WindowMtf": 0.7407376031072037,
+      "WindowPixelMtf": 0.4828480846612546,
+      "FullMtf": 0.7381581194332223,
+      "FullPixelMtf": 0.4811666542246569
+    },
+    {
+      "CyclesPerPixel": 0.4921875,
+      "CyclesPerMillimeter": 164.0625,
+      "Sfr": 0.4743193317905747,
+      "WindowMtf": 0.7386731613050154,
+      "WindowPixelMtf": 0.47787156869379754,
+      "FullMtf": 0.7361012965552621,
+      "FullPixelMtf": 0.4762077461714501
+    },
+    {
+      "CyclesPerPixel": 0.49609375,
+      "CyclesPerMillimeter": 165.36458333333334,
+      "Sfr": 0.46930814380856845,
+      "WindowMtf": 0.7366105030627815,
+      "WindowPixelMtf": 0.4729026555087543,
+      "FullMtf": 0.7340455644592769,
+      "FullPixelMtf": 0.47125596940833786
+    },
+    {
+      "CyclesPerPixel": 0.5,
+      "CyclesPerMillimeter": 166.66666666666666,
+      "Sfr": 0.4643050217590979,
+      "WindowMtf": 0.7345496956688713,
+      "WindowPixelMtf": 0.46794179040898964,
+      "FullMtf": 0.7319924822904401,
+      "FullPixelMtf": 0.46631272839478344
+    }
+  ],
+  "Sampling": [
+    {
+      "Axis": "Pupil",
+      "WithinCriteria": true,
+      "MaximumImageDifference": 0.00011037323937349942,
+      "MaximumSfrDifference": 0.00021943087882581036,
+      "MaximumMtfDifference": 0.00024658576991976044,
+      "MaximumFullPupilMtfDifference": 0.0001193501580526446,
+      "RelativeReadoutIntegralDifference": 0.0003003035745472642,
+      "Message": "One-axis doubled-sampling comparison; thresholds describe numerical differences, not absolute optical accuracy."
+    },
+    {
+      "Axis": "ImagePlane",
+      "WithinCriteria": true,
+      "MaximumImageDifference": 0.0004942056738806617,
+      "MaximumSfrDifference": 1.929770180314483E-05,
+      "MaximumMtfDifference": 5.251562687602629E-06,
+      "MaximumFullPupilMtfDifference": 0,
+      "RelativeReadoutIntegralDifference": 3.6996713512181684E-06,
+      "Message": "One-axis doubled-sampling comparison; thresholds describe numerical differences, not absolute optical accuracy."
+    },
+    {
+      "Axis": "PsfWindow",
+      "WithinCriteria": true,
+      "MaximumImageDifference": 0.000697773147196462,
+      "MaximumSfrDifference": 0.0005246462863145451,
+      "MaximumMtfDifference": 0.0019295916387924716,
+      "MaximumFullPupilMtfDifference": 3.2980576863961275E-07,
+      "RelativeReadoutIntegralDifference": 0.0014963295281678409,
+      "Message": "One-axis doubled-sampling comparison; thresholds describe numerical differences, not absolute optical accuracy."
+    }
+  ],
+  "Seconds": 54.3585627
+}

@@ -1,6 +1,6 @@
 # 文件格式与插件
 
-更新：2026-11-01。本页说明文件入口、导出边界和插件接口。STAROPT 的二进制布局、版本与迁移只在 [格式契约](STAROPT_FILE_FORMAT.md) 维护；操作数逐项参数和历史验证只在 [支持规范](ZEMAX_OPERAND_SUPPORT.md) 维护。
+更新：2026-11-02。本页说明文件入口、导出边界和插件接口。STAROPT 的二进制布局、版本与迁移只在 [格式契约](STAROPT_FILE_FORMAT.md) 维护；操作数逐项参数和历史验证只在 [支持规范](ZEMAX_OPERAND_SUPPORT.md) 维护。
 
 ZMX 配置先应用 GLSS/THIC/CRVT/PRAM/EDVA，再求解同列曲率、厚度、玻璃与参数拾取依赖；GLSS 可将镜面切换为空气或玻璃。支持坐标断点主光线 X/Y 偏心求解，非零厚度断点保留透明参考面，入射参考法线作为可选平面元数据随快照保持；它只定义断点报告角度，不改变交点法线。厚度/曲率本地拾取随 STAROPT 保存，参数与材料配置按各配置求值保存。未声明任意跨列拾取及全部外部求解支持；旧导入工程须从原 ZMX 重新导入才取得修正后的配置。范围与MM/CM回归见[光学检测修复](OPTICAL_TESTING_PROPAGATION_REPAIR_2026-11-01.md)。
 
@@ -9,6 +9,12 @@ ZMX `OBSC` 作为圆形/环带遮挡的补集导入，保留单位、半径、`O
 CODE V / OSLO 顺序文本导入保留有限厚度的正负号，不再将负厚度静默改成零。这项修复仅防止导入阶段改变处方，不代表支持两种格式的全部命令；此前已按零厚度保存的工程需要从原始文件重新导入。验证见[本轮修复记录](PRIORITY_RELIABILITY_REPAIR_2026-10-26.md)。
 
 顺序文本导出的有限数值使用 invariant `G17`，避免极小厚度被十位小数格式化为零；CODE V / OSLO 公共子集保留名称中的 `!`、`#` 和 `//`，不把名称剩余部分作为注释丢弃。有界 UTF-8 文本读取拒绝非法字节序列。分析和镀膜 CSV 对可能被表格软件执行的文本加前导单引号，有限数值（含负数）保持数值内容；CSV 仍按原规则处理引号、逗号和换行。详见[续修说明](FULL_RELIABILITY_REPAIR_2026-10-26.md)。
+
+## 设计报告导出
+
+相机原始数据交换与报告截图分开：`.scene-linear.zip` 保存冻结镜头/源谱、逐节点和逐任务 float64 功率、W/m² 图、文件摘要与共用物理标尺的 Gray16 PNG；完整尺寸、面积和行序由清单定义，打开时检查求和/单位与编码一致性。它不经过显示 Gamma、QE 或 ISP，不等同于 `.scene-sfr.zip` 单 ROI 记录或 2404×1804 曲线 PNG。操作与预算范围见[场景线性数据](SCENE_SLANTED_EDGE_SFR.md)。
+
+HTML、PDF、Word、Markdown 使用共享的工程报告结构与完整原图。前三者采用统一的钢蓝/浅灰配色、正式 Logo、封面、目录及编号图表；Markdown 保留相同语义结构与 SVG 标志资源，外观由阅读器决定。Zernike 三类系数表均带实际公式与 n/m；Word 使用原生可编辑公式。Word/PDF 的详细采样记录是可选附录，HTML/Markdown 可以展开查看。图像、处方过滤、快照、原子发布与资源上限见[设计报告导出](MARKDOWN_REPORT_EXPORT.md)。
 
 ## 无焦参考与 POB 导入补充（2026-10-24）
 
@@ -49,6 +55,18 @@ CODE V / OSLO 顺序文本导入保留有限厚度的正负号，不再将负厚
 准备配置/结果增加可空 `Retrieval` v1，空值省略，旧计划、记录与内容指纹保持。启用时计划嵌入完整冻结库，准备报告保存库身份、来源、筛选和拒绝、尺寸/固定逐面口径变换、原输入复用、完整原规格验收和实际费用。文件不是可恢复准备检查点，也不新增普通 `.optic.json` 的读取路由。入口与原验收边界见[M3.2](INITIAL_STRUCTURE_M3_2_2026-10-30.md)。
 
 ## 镀膜实验文件
+
+双面实验显式使用schema2：新增`Duplex` v1（`Optimize=Front/Back/Both`、`Evaluate=Front/Back/WholePlate`、`Symmetric`）和`BackLayers`，两面均按各自外侧→基板保存。两面优化必须评价整片；对称模式由`Layers`派生背面，`BackLayers`必须为空。`Duplex`、背面处方、有限基板厚度和出射介质都进入schema2完整输入指纹，旧结果或公差不能跨对象复用。schema1保留旧指纹、原单面协议及显示设置语义，不自动升级；未知版本和不一致模式明确拒绝，旧读取器拒绝schema2，防止背面静默丢失。
+
+物理厚度仍是唯一保存的层数值。OT/QW/FW由参考波长的真实n换算，历史与界面多选不进入文件。双面候选增加`BackLayers`，`Run.Duplex`记录优化对象、初始两面、独立变量数与实际指导光谱点数，设计路径身份为`duplex-target-constraints/1`。正式导出保留正面`layers.csv`并增加`back-layers.csv`、`evaluation.json`；双面公差的`BackThicknessNm`与CSV背面列保存实际误差，不把设计对称当成误差相关。详见[双面与编辑契约](COATING_EDITOR_DUPLEX_2026-11-02.md)。
+
+参考单位元数据新增可选`ReferenceWavelengthNm`，缺项以目标中心初始化，null不写出；该字段不进入物理指纹，不隐式缩放d。双面数据合同`Duplex.Version=1`保持，新增可选`OptimizationVersion=2`选择`duplex-analytic-restoration-quality/2`，缺项维持原双面v1。新路径成本存`Run.Duplex.Analytic`，普通功率点、灵敏度点和密集复验分别计数，不混称等价调用。
+
+膜层剪贴板富数据`OpticalSystemDesign.CoatingLayers.v1`含完整材料/物理厚度/变量/源参考波长，接收方按完整材料身份合并且保留自己的λ₀，另有物理nm的TSV退路。恢复目录独立于实验，版本1草稿含会话GUID、时间、原始编辑JSON及SHA-256，以独占锁及有界原子文件保护；不写入原实验或储存结果。公式边界、数据上限和损坏恢复规则见[工程操作契约](COATING_WORKFLOW_ANALYTIC_2026-11-02.md)。
+
+镀膜界面布局另外保存为用户设置目录中的 `coating-workspace-layout.json`，格式版本1包含 `Version`、`Tree`、`ActiveDockables` 和 `ActivePage`。`Tree`为不含控件/实验数据的Dock结构JSON，保存标签次序、分栏比例和浮窗几何；活动引用单独保存，恢复时重新绑定当前四类面板。该文件不进入 `.coating.json`，不存膜层、光谱或优化结果，不改变实验指纹。使用原子有界读写，拒绝未知版本、面板、节点及重复/无效引用，失败保留当前布局；窗口坐标按可用屏幕与缩放率修正。使用约定见[镀膜停靠计划](COATING_DOCKING_PLAN_2026-11-02.md)。
+
+2026-11-02：schema 1 增加可空 `StackGeometry` v1，保存 `ExitMediumId`、`SubstrateThicknessMm`、`IncludeBackSurface` 和 `Version`。缺失时保持旧前表面显示；新字段本身不进入原前表面设计结果指纹，材料快照和前面处方仍沿用原规则。完整基板的评估光谱使用共享 Core `incoherent-substrate-scattering/1`，T 为进入出射介质的功率、A 包含有限膜层及基板吸收；`system_` 数值列标明当前完整系统显示。此设置不把旧正式验收改为整个基板，也不添加背面膜层编辑或相干厚基板条纹。保存重开、导出与支持范围见[模块说明](../labs/CoatingDesign/README.md)和[验证](../validation/rechecks/2026-11-02/coating-workspace/README.md)。
 
 schema 1 新增可选 `ReferenceExample` 来源记录（原示例ID/提交、名称/注记、1 mm基板厚度、出射介质与单面评价模式），材料可选 `HoldTabulatedEndpoints` / `DisplayColor`；缺省字段不写入，保留旧输入指纹。显式 `catalog_glass` formula `tabulated nk pchip-clamped/1` 和 `formula 2 pchip-k-clamped/1` 随原始系数/n/k保存，重开按同一规则复算。端点规则不改变测量有效域；解析n仍在其声明域内。不支持这些新formula的旧运行时不能作为兼容重算环境。该映射仅用于[五套内置参考处方](COATING_REFERENCE_EXAMPLES_2026-11-01.md)，不表示可任意导入完整TFStudio项目。
 
@@ -206,6 +224,8 @@ schema 1 新增可选 Structure/Search/Tolerancing 设置，缺省时不参与�
 本地 `ChipZone` 已进入 JSON/STAROPT；CAD/STEP 曲面延伸到净半径加延伸区，然后生成机械平环。外部 ZMX/CODE V/OSLO/通用处方的非零延伸区列尚未验证，当前明确拒绝导出，避免静默丢失。TSAG 原始 MFE 行仍禁用保留，本地八槽可执行。见[完整范围](DIRECTIONAL_SAG_OPERAND_2026-10-02.md)。
 
 ## NSC 相机实验（2026-10-31）
+
+斜边使用独立 `.sfr-experiment.zip`，保留 `OpticalSystemDesign.MonochromeSlantedEdge` schema 1 容器标识。单色当前算法为 `MonochromeLocalFourierEdge/3`，镜头多波长为 `PolychromeLocalFourierEdge/1`；`UseLensWavelengths` 必须匹配身份。多波长各帧的 `Spectrum` 保存原波长编号、nm、原始/归一化权重、主波长标记，另存 `ReferenceWavelengthNanometers`；读取和写出时逐行与内嵌镜头核对，不能只更换模式标签。六个条目仍包含冻结镜头与浮点结果、JSON SHA-256、线性像元/SFR CSV、显示 PNG 和说明；曲线 CSV 保留完整瞳孔两列。当前记录必须有与曲线一致的对照差值，64 MiB 有界原子写入/校验读取。单色 V3 与多波长当前版可按各自冻结快照复算，单色 V1/V2 保留原身份供查看/另存，禁用跨版本复算。不改变旧相机、STAROPT 或 NSC 版本。[完整斜边契约](MONOCHROME_SLANTED_EDGE_SFR.md)。
 
 相机实验容器仍为 `OpticalSystemDesign.CameraExperiment` schema 1、`.camera-experiment.zip`，NSC 功率输入使用 `CameraLabV9-NscDetector/1`。`Request.NscDetector` 是 `OpticalSystemDesign.CameraNscDetector` schema 1，内嵌分波长带积分 W/像元（固定负局部 Y 起始）、探测器尺寸/世界坐标轴、波长表、场景/会话/数据库身份、追迹设置、源 ID、路径筛选及警告。曝光、QE、噪声、ADC 和 ISP 参数仍各自保存。
 

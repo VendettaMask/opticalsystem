@@ -146,8 +146,19 @@ public sealed class SpectrumPlot : Control, IDisposable
     public void Dispose() { CancelPendingEvaluation(); _data = null; }
     internal IBrush PlotTextBrush => ThemeBrush(ThemeResourceBindings.PlotText, ThemePalette.Light.PlotText);
     internal IBrush PlotBackgroundBrush => ThemeBrush(ThemeResourceBindings.PlotBackground, ThemePalette.Light.PlotBackground);
+    private IBrush PlotAreaBackgroundBrush => ThemeBrush(ThemeResourceBindings.SubtleSurface, Colors.WhiteSmoke);
+    private IBrush ExtrapolatedBackgroundBrush
+    {
+        get
+        {
+            var color = (PlotAreaBackgroundBrush as ISolidColorBrush)?.Color ?? Colors.WhiteSmoke;
+            var factor = .2126 * color.R + .7152 * color.G + .0722 * color.B < 128 ? .5 : .84;
+            return new ImmutableSolidColorBrush(Color.FromRgb((byte)Math.Round(color.R * factor),
+                (byte)Math.Round(color.G * factor), (byte)Math.Round(color.B * factor)));
+        }
+    }
     private IBrush ThemeBrush(string key, Color fallback) => this.TryFindResource(key, ActualThemeVariant, out var value) && value is IBrush brush ? brush : new SolidColorBrush(fallback);
-    private Rect PlotRect => new(DisplayTypography.Scale(48), 16, Math.Max(1, Bounds.Width - DisplayTypography.Scale(48) - 18), Math.Max(1, Bounds.Height - DisplayTypography.Scale(38) - 22));
+    internal Rect PlotRect => new(DisplayTypography.Scale(48), 16, Math.Max(1, Bounds.Width - DisplayTypography.Scale(48) - 18), Math.Max(1, Bounds.Height - DisplayTypography.Scale(38) - 22));
     private IEnumerable<(CoatingQuantity Q, CoatingCurvePolarization P)> SelectedCurves()
     {
         foreach (var q in Enum.GetValues<CoatingQuantity>()) foreach (var p in Enum.GetValues<CoatingCurvePolarization>())
@@ -162,7 +173,9 @@ public sealed class SpectrumPlot : Control, IDisposable
         var headers = new[] { WavelengthUnit == CoatingWavelengthUnit.Micrometers ? "λ (µm)" : "λ (nm)" }
             .Concat(columns.Select(c => $"{c.Q} {PolarizationLabel(c.P)}" + (_data.Angles.Length > 1 ? $" {_data.Angles[c.Angle].AngleDegrees:G5}°" : "") + $" ({unit})")).ToArray();
         var ids = new[] { WavelengthUnit == CoatingWavelengthUnit.Micrometers ? "wavelength_um" : "wavelength_nm" }.Concat(columns.Select(c =>
-            (_od ? "OD" : c.Q.ToString()) + "_" + (c.P == CoatingCurvePolarization.Average ? "average" : c.P.ToString().ToLowerInvariant())
+            (_experiment?.Duplex?.Evaluate switch { CoatingEvaluationSurface.Back => "back_", CoatingEvaluationSurface.Front => "front_",
+                CoatingEvaluationSurface.WholePlate => "system_", _ => _experiment?.StackGeometry is { IncludeBackSurface: true } ? "system_" : "" })
+            + (_od ? "OD" : c.Q.ToString()) + "_" + (c.P == CoatingCurvePolarization.Average ? "average" : c.P.ToString().ToLowerInvariant())
             + "_" + _data.Angles[c.Angle].AngleDegrees.ToString("G17", CultureInfo.InvariantCulture) + "deg"
             + (_od ? "" : _valueUnit == CoatingValueUnit.Percent ? "_percent" : "_fraction"))).ToArray();
         var rows = _data.Average.Select((sample, index) => new CoatingResultRow(new[] { sample.WavelengthNanometers / (WavelengthUnit == CoatingWavelengthUnit.Micrometers ? 1000 : 1) }
@@ -182,6 +195,10 @@ public sealed class SpectrumPlot : Control, IDisposable
         _hover = index;
         var tip = new StackPanel { Spacing = 5 };
         tip.Children.Add(new TextBlock { Text = $"{waves[index].WavelengthNanometers / (WavelengthUnit == CoatingWavelengthUnit.Micrometers ? 1000 : 1):G10} {(WavelengthUnit == CoatingWavelengthUnit.Micrometers ? "µm" : "nm")} · " + UiLocalization.Text("实算采样"), FontWeight = FontWeight.SemiBold });
+        if (_experiment is { } experiment)
+            foreach (var notice in CoatingPresentation.AnalysisMaterials(experiment)
+                .Select(m => m.RangeNotice(waves[index].WavelengthNanometers, waves[index].WavelengthNanometers)).Where(n => n is not null))
+                tip.Children.Add(new TextBlock { Text = notice, TextWrapping = TextWrapping.Wrap, MaxWidth = 380 });
         foreach (var (q, p) in SelectedCurves())
         for (var a = 0; a < _data.Angles.Length; a++)
         {
@@ -206,9 +223,13 @@ public sealed class SpectrumPlot : Control, IDisposable
     {
         base.Render(context); context.FillRectangle(PlotBackgroundBrush, new Rect(Bounds.Size));
         var rect = PlotRect; var view = Range; var text = PlotTextBrush;
-        context.FillRectangle(ThemeBrush(ThemeResourceBindings.SubtleSurface, Colors.WhiteSmoke), rect);
+        context.FillRectangle(PlotAreaBackgroundBrush, rect);
         double X(double w) => rect.Left + (w - view.MinimumNm) / (view.MaximumNm - view.MinimumNm) * rect.Width;
         double Y(double v) => rect.Bottom - (v - view.MinimumY) / (view.MaximumY - view.MinimumY) * rect.Height;
+        if (_data is not null && _experiment is { } current)
+            foreach (var band in CoatingPresentation.ExtrapolatedBands(current, view.MinimumNm, view.MaximumNm))
+                context.FillRectangle(ExtrapolatedBackgroundBrush, new Rect(X(band.MinimumNm), rect.Top,
+                    X(band.MaximumNm) - X(band.MinimumNm), rect.Height));
         void Label(string value, double x, double y, double anchor = 0)
         {
             var label = new FormattedText(value, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, DisplayTypography.Typeface(), LaboratoryTypography.Caption, text);
@@ -256,7 +277,9 @@ public sealed class SpectrumPlot : Control, IDisposable
                     path.EndFigure(false);
                 }
                 var dash = p switch { CoatingCurvePolarization.S => DashStyle.Dash, CoatingCurvePolarization.P => DashStyle.Dot, _ => a == 0 ? null : new DashStyle([2 + a * 2, 3], 0) };
-                context.DrawGeometry(null, new Pen(CurveBrush(q), 1.5 * _width, dash), geometry);
+                // Dot uses zero-length dash marks; round caps make those marks visible in Skia and PNG output.
+                context.DrawGeometry(null, new Pen(CurveBrush(q), 1.5 * _width, dash,
+                    lineCap: p == CoatingCurvePolarization.P ? PenLineCap.Round : PenLineCap.Flat), geometry);
                 double DisplayValue(CoatingSample sample) => _od ? Math.Min(12, Value(sample.Power, q)) : Value(sample.Power, q);
             }
             if (!_exporting && _hover is { } index) context.DrawLine(new Pen(text, .7, DashStyle.Dash), new Point(X(_data.Average[index].WavelengthNanometers), rect.Top), new Point(X(_data.Average[index].WavelengthNanometers), rect.Bottom));

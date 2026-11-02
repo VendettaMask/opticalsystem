@@ -80,7 +80,7 @@ Optical System Design is a non-commercial optical-design project maintained by S
     </td>
     <td width="50%" valign="top">
       <h3>🧩 Initial-structure design</h3>
-      <p>Generate, optimize, and refine candidates from specifications and random seeds through the AutoLens workflow, with budgets, saved runs, and resume support. Select automatic CUDA preference, GPU, or CPU; evaluate candidates independently through the shared Core and export projects.</p>
+      <p>Generate or retrieve starting lenses, run autonomous topology, constrained compensation and cemented-structure searches, and retain budgets, checkpoints, a solution library and reports. Managed AutoLens keeps its own protocol and CUDA/CPU choices. Candidates undergo independent shared-Core acceptance against the original specification.</p>
       <a href="labs/InitialStructure/README.md">Built-in module guide →</a>
     </td>
   </tr>
@@ -104,7 +104,7 @@ Optical System Design is a non-commercial optical-design project maintained by S
     </td>
     <td width="50%" valign="top">
       <h3>📷 Camera imaging simulation</h3>
-      <p>Combine a current-lens snapshot, sensor settings, QE, illuminant, and reflectance spectra. Inspect optical, noise, ADC, and basic ISP stages, with continuous spectral integration, A/B comparisons, and result export.</p>
+      <p>Connect direct/scalar-diffraction 3D imaging and non-sequential absolute power to sensor, RAW/ADC and basic ISP stages, with frozen A/B and sampling replay. Local monochrome/lens-spectrum slanted-edge SFR includes an independent full-pupil MTF reference; object-space scene SFR and ROM/black-box workflows remain a separate plan.</p>
       <a href="docs/CAMERA_IMAGING_LAB.md">Imaging laboratory and model scope →</a>
     </td>
   </tr>
@@ -118,7 +118,7 @@ Optical System Design is a non-commercial optical-design project maintained by S
 | Diffraction and energy | FFT/Huygens PSF, FFT/Huygens/geometric MTF, encircled energy, relative illumination, and supported scan settings |
 | Wavefront and interference | Surface, contour, and 2D heatmap wavefront views; grayscale, false-color, and contour interferograms with beam, tilt, analysis-surface, and subaperture settings |
 | Zernike coefficients | Named Fringe, Standard, and Annular coefficient tables and fit statistics, plus coefficients versus field; use Wavefront Map for wavefront distributions |
-| Interaction and export | Named-curve legend selection, zoom/pan, plot/data/text views, readable reflow or scrolling in small panes, and complete analysis PNG export |
+| Interaction and export | Named-curve selection, zoom/pan, plot/data/text views and curve widths; fixed original analysis sheets scroll in small panes and export as complete PNGs |
 | Layouts and solids | 2D layout, 3D layout, and solid model, with view presets, orientation indicators, ray display, and current-viewport PNG export |
 
 Interferograms display fringe intensity computed by the shared Core from wavefront differences. See the [interference guide](docs/INTERFEROGRAM_2026-10-26.md) for settings and physical assumptions. Each analysis has its own sampling, reference, units, and applicable scope; see the [User Guide](docs/USER_GUIDE.md) and [capability matrix](docs/PARITY_MATRIX.md).

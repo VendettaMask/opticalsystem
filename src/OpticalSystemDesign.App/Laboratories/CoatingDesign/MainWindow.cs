@@ -25,7 +25,7 @@ public sealed partial class MainWindow : Window
 {
     private readonly MaterialLibrary _materials = new();
     private readonly DesignService _service = new();
-    private readonly ExperimentSession _session = new(Examples.Create(DesignKind.Antireflection));
+    private readonly ExperimentSession _session = new(WorkspaceExample(Examples.Create(DesignKind.Antireflection)));
     private readonly Dictionary<string, TextBox> _numbers = new();
     private readonly ObservableCollection<LayerRow> _rows = [];
     private readonly ComboBox _kind = new() { ItemsSource = new[] { "减反膜", "高反膜", "窄带滤光片" }, HorizontalAlignment = HorizontalAlignment.Stretch };
@@ -42,12 +42,15 @@ public sealed partial class MainWindow : Window
     private readonly TextBox _stopBands = new();
     private readonly DataGrid _table;
     private readonly TabControl _settingsContent;
+    private readonly Control _designResultsContent;
+    private readonly CoatingDockWorkspace _workspace;
+    internal CoatingDockWorkspace DockWorkspace => _workspace;
     internal TabControl SettingsContent => _settingsContent;
     private readonly SpectrumPlot _plot = new() { MinHeight = 240 };
     private readonly TextBlock _summary = new() { TextWrapping = TextWrapping.Wrap };
     private readonly TextBlock _status = new() { Text = "选择示例，或输入指标后生成膜系。", TextWrapping = TextWrapping.Wrap };
     private readonly TextBlock _materialSource = new() { TextWrapping = TextWrapping.Wrap };
-    private readonly OperationStatusBar _operationStatus = new();
+    private readonly OperationStatusBar _operationStatus = new() { Name = "CoatingOperationStatus" };
     private readonly StackPanel _narrowFields = new() { Spacing = 8 };
     private readonly ComboBox _narrowProtocol = new() { ItemsSource = new[] { "原始设计流程", "候选竞争（兼容）", "通用约束优化（试验）" } };
     private Control? _reflectanceField;
@@ -73,7 +76,7 @@ public sealed partial class MainWindow : Window
         _table = BuildLayerTable();
         _table.SelectionChanged += (_, _) => { if (_table.SelectedItem is LayerRow row) _layerMaterial.Text = row.MaterialId; };
         _table.CellEditEnded += (_, _) => Changed();
-        _table.KeyDown += (_, e) => { if (e.Key == Key.Delete && _table.SelectedItem is LayerRow row) { _rows.Remove(row); Renumber(); Changed(); e.Handled = true; } };
+        _table.KeyDown += (_, e) => { if (e.Key == Key.Delete && e.Source is not TextBox) { TrackOperation(() => EditLayer("remove")); e.Handled = true; } };
 
         var commandBar = BuildCommandBar();
         _settingsContent = BuildInputs();
@@ -87,6 +90,7 @@ public sealed partial class MainWindow : Window
         layerTools.Children.Add(LayerTool("删除", "trash-2", () => EditLayer("remove")));
         layerTools.Children.Add(LayerTool("上移", "arrow-up", () => EditLayer("up")));
         layerTools.Children.Add(LayerTool("下移", "arrow-down", () => EditLayer("down")));
+        AddEditorTools(layerTools);
         var actions = new WrapPanel();
         AddCompute("1 生成膜系", () => RunAsync("generate"), actions);
         AddCompute("2 优化", () => RunAsync("optimize"), actions);
@@ -94,12 +98,8 @@ public sealed partial class MainWindow : Window
         AddCompute("计算 / 复验", () => RunAsync("evaluate"), actions);
         _cancel = ActionButton("取消", () => { _uiRevision++; _session.Cancel(); _plot.CancelPendingEvaluation(); _status.Text = "已请求取消；当前已完成结果保留。"; return Task.CompletedTask; });
         actions.Children.Add(_cancel);
-        var candidateBar = new WrapPanel(); candidateBar.Children.Add(_candidates);
-        candidateBar.Children.Insert(0, new TextBlock { Text = "候选", VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 6, 0) });
-        candidateBar.Children.Add(ActionButton("采用候选", SelectCandidateAsync));
         var layerPanel = new Grid { RowDefinitions = new("Auto,*") };
         var layerTitle = new Grid { ColumnDefinitions = new("Auto,*"), ColumnSpacing = 12 };
-        layerTitle.Children.Add(LaboratoryPresentation.Heading("膜系编辑器", "layers"));
         var layerHint = LaboratoryPresentation.Hint("入射侧 → 基板");
         layerHint.HorizontalAlignment = HorizontalAlignment.Right;
         layerHint.VerticalAlignment = VerticalAlignment.Center;
@@ -109,9 +109,16 @@ public sealed partial class MainWindow : Window
             Margin = new Thickness(8),
             Spacing = 6,
             Children =
-            { layerTitle, layerTools }
+            { BuildDuplexControls(), layerTitle, layerTools }
         };
-        layerPanel.Children.Add(layerHeading);
+        var editorControls = new ScrollViewer
+        {
+            Name = "CoatingEditorControlsScroll", MaxHeight = 360,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+            Content = new StackPanel { Children = { layerHeading, BuildStackGeometryPanel() } }
+        };
+        layerPanel.SizeChanged += (_, _) => editorControls.MaxHeight = Math.Max(64, Math.Min(360, layerPanel.Bounds.Height - 180));
+        layerPanel.Children.Add(editorControls);
         _table.BorderThickness = new Thickness(0);
         Put(layerPanel, _table, 1);
         var plotPanel = new Grid { RowDefinitions = new("Auto,*") };
@@ -120,54 +127,58 @@ public sealed partial class MainWindow : Window
             Margin = new Thickness(8),
             Spacing = 6,
             Children =
-            { LaboratoryPresentation.Heading("光学评价", "chart-line"), BuildSpectrumToolbar() }
+            { BuildSpectrumToolbar() }
         });
         _plot.Margin = new Thickness(4, 0, 4, 8); Put(plotPanel, _plot, 1);
         _summary.FontSize = DisplayTypography.BodySmall;
-        var details = new Expander
-        {
-            Header = "指标与公差",
-            Name = "CoatingResultDetails",
-            HorizontalAlignment = HorizontalAlignment.Stretch,
-            HorizontalContentAlignment = HorizontalAlignment.Stretch,
-            Content = new Border { Padding = new Thickness(12), Child = new ScrollViewer { Content = _summary, MaxHeight = 220 } }
-        };
-        var evaluation = new Grid { RowDefinitions = new("*,Auto,Auto,Auto,Auto") };
+        _designResultsContent = BuildDesignResultsContent();
+        var evaluation = new Grid { RowDefinitions = new("*,Auto,Auto") };
         evaluation.Children.Add(plotPanel); _plotStatus.Margin = new Thickness(8, 3); Put(evaluation, _plotStatus, 1);
-        candidateBar.Margin = new Thickness(8, 3); Put(evaluation, BuildResultsPanel(), 2); Put(evaluation, candidateBar, 3); Put(evaluation, details, 4);
-        var panes = new Grid { Name = "CoatingWorkspace", ColumnDefinitions = new("*,6,*") };
-        panes.ColumnDefinitions[0].MinWidth = 300; panes.ColumnDefinitions[2].MinWidth = 300;
-        panes.Children.Add(WorkspacePane(layerPanel, "CoatingLayerCard"));
-        var splitter = new GridSplitter
+        Put(evaluation, BuildResultsPanel(), 2);
+        _workspace = new CoatingDockWorkspace(WorkspacePane(layerPanel, "CoatingLayerCard"), WorkspacePane(evaluation, "CoatingSpectrumCard"), this);
+        _workspace.RegisterPageFactory(CoatingDockWorkspace.ResultsId, "镀膜设计结果", () => _designResultsContent);
+        _workspace.RegisterPageFactory(CoatingDockWorkspace.StackId, "堆栈几何", () =>
         {
-            ResizeDirection = GridResizeDirection.Columns, ResizeBehavior = GridResizeBehavior.PreviousAndNext,
-            HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Stretch
+            _stackAnalysisView ??= new CoatingStackAnalysisView { FontFamily = FontFamily, FontSize = FontSize };
+            RefreshStackGeometry(); return _stackAnalysisView;
+        });
+        _workspace.HostCreated += host =>
+        {
+            LaboratoryPresentation.Apply(host);
+            host.KeyDown += HandleWorkspaceKey;
+            host.AddHandler(KeyDownEvent, HandleEditorHistoryKey, Avalonia.Interactivity.RoutingStrategies.Tunnel);
+            host.AddHandler(KeyDownEvent, HandleEditorClipboardKey, Avalonia.Interactivity.RoutingStrategies.Tunnel);
         };
-        Grid.SetColumn(splitter, 1); panes.Children.Add(splitter);
-        var spectrumPane = WorkspacePane(evaluation, "CoatingSpectrumCard");
-        Grid.SetColumn(spectrumPane, 2); panes.Children.Add(spectrumPane);
         var main = new Grid { RowDefinitions = new("Auto,*"), RowSpacing = 6, Name = "CoatingResults" };
-        main.Children.Add(actions); Put(main, panes, 1);
-        var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*,Auto,Auto") };
+        main.Children.Add(actions); Put(main, _workspace, 1);
+        var root = new Grid { RowDefinitions = new RowDefinitions("Auto,*,Auto") };
         main.Margin = new Thickness(8, 8, 8, 0);
-        _operationStatus.Margin = new Thickness(12, 8, 12, 0);
-        var status = LaboratoryPresentation.Status(_status);
-        status.Margin = new Thickness(12, 8, 12, 12);
+        _operationStatus.Margin = new Thickness(12, 8, 12, 8);
         Put(root, commandBar, 0); Put(root, main, 1); Put(root, _operationStatus, 2);
-        Put(root, status, 3);
         Content = MainWindowTitleBar.Wrap(this, root);
-        KeyDown += async (_, e) =>
-        {
-            var command = (e.KeyModifiers & (KeyModifiers.Control | KeyModifiers.Meta)) != 0;
-            if (command && e.Key == Key.S) { e.Handled = true; await TrackOperation(SaveAsync); }
-            if (command && e.Key == Key.O) { e.Handled = true; await TrackOperation(OpenAsync); }
-            if (e.Key == Key.Escape) { _uiRevision++; _session.Cancel(); _plot.CancelPendingEvaluation(); }
-            if (e.Key == Key.F5 && !_busy) { e.Handled = true; await TrackOperation(() => RunAsync("evaluate")); }
-        };
-        Closed += (_, _) => { _plot.Dispose(); _session.Dispose(); _operationStatus.Dispose(); };
+        KeyDown += HandleWorkspaceKey;
+        AddHandler(KeyDownEvent, HandleEditorHistoryKey, Avalonia.Interactivity.RoutingStrategies.Tunnel);
+        AddHandler(KeyDownEvent, HandleEditorClipboardKey, Avalonia.Interactivity.RoutingStrategies.Tunnel);
+        UiLocalization.LanguageChanged += OnEditorLanguageChanged;
+        Closed += (_, _) => { DisposeRecovery(); UiLocalization.LanguageChanged -= OnEditorLanguageChanged; _workspace.Dispose(); _stackAnalysisView?.Dispose(); _plot.Dispose(); _session.Dispose(); _operationStatus.Dispose(); };
         Closing += OnClosing;
         Load(_session.Current, markDirty: false); SetBusy(false);
+        InitializeRecovery();
+        Opened += (_, _) =>
+        {
+            if (File.Exists(_layoutPath)) TrackOperation(RestoreWorkspaceLayoutAsync);
+            TrackOperation(OfferRecoveryAsync);
+        };
         LaboratoryPresentation.Apply(this);
+    }
+
+    private async void HandleWorkspaceKey(object? sender, KeyEventArgs e)
+    {
+        var command = (e.KeyModifiers & (KeyModifiers.Control | KeyModifiers.Meta)) != 0;
+        if (command && e.Key == Key.S) { e.Handled = true; await TrackOperation(SaveAsync); }
+        if (command && e.Key == Key.O) { e.Handled = true; await TrackOperation(OpenAsync); }
+        if (e.Key == Key.Escape) { _uiRevision++; _session.Cancel(); _plot.CancelPendingEvaluation(); }
+        if (e.Key == Key.F5 && !_busy) { e.Handled = true; await TrackOperation(() => RunAsync("evaluate")); }
     }
 
     private TabControl BuildInputs()
@@ -252,7 +263,7 @@ public sealed partial class MainWindow : Window
     private void Watch(Control control, AvaloniaProperty property) => control.PropertyChanged += (_, e) =>
     {
         // TextChanged is queued by Avalonia; invalidate synchronously before a completed task can write back.
-        if (e.Property == property) { if (control is AutoCompleteBox picker) ToolTip.SetTip(picker, picker.Text); Changed(); }
+        if (e.Property == property) { if (control is AutoCompleteBox picker) ToolTip.SetTip(picker, picker.Text); Changed($"field:{control.GetHashCode()}"); }
     };
     private static Control Field(string label, Control control)
     {
@@ -282,17 +293,28 @@ public sealed partial class MainWindow : Window
     private static void Put(Grid grid, Control control, int row) { Grid.SetRow(control, row); grid.Children.Add(control); }
     private async Task Guard(Func<Task> action)
     {
+        if (!_busy) _operationStatus.IsVisible = false;
         try { await action(); }
         catch (OperationCanceledException) { _status.Text = "操作已取消。"; }
-        catch (Exception error) { _status.Text = "未完成：" + error.Message; _operationStatus.MarkFailed(_status.Text); }
+        catch (Exception error) { ShowFailure("未完成：" + error.Message); }
     }
 
-    private void Changed()
+    private void ShowFailure(string message)
+    {
+        _status.Text = message;
+        _operationStatus.MarkFailed(message);
+        _operationStatus.IsVisible = true;
+    }
+
+    private void Changed(string? historyKey = null)
     {
         if (_loading) return;
         _hasUnsavedChanges = true;
         _uiRevision++; _session.Invalidate(); _plot.SetExperiment(null); _summary.Text = "参数或膜层已修改，请重新计算。";
         _candidates.ItemsSource = null; _status.Text = "输入已修改，旧结果已失效。";
+        RefreshStackGeometry();
+        RefreshLayerOpticalThickness();
+        RecordEditorHistory(historyKey);
     }
     private void Visibility()
     {
@@ -314,16 +336,8 @@ public sealed partial class MainWindow : Window
     {
         _table.CommitEdit();
         var current = _session.Current;
-        MaterialSnapshot Select(AutoCompleteBox box)
-        {
-            var name = box.Text?.Trim() ?? "";
-            var exact = current.Materials.FirstOrDefault(m => m.Id == name);
-            if (exact is not null) return exact;
-            var named = current.Materials.Where(m => m.Name == name).ToArray();
-            if (named.Length > 1) throw new ArgumentException("材料名称重复，请选择唯一材料 ID。");
-            return named.SingleOrDefault() ?? _materials.Select(name);
-        }
-        var incident = Select(_incident); var substrate = Select(_substrate); var low = Select(_low); var high = Select(_high);
+        var incident = SelectMaterial(_incident); var substrate = SelectMaterial(_substrate); var low = SelectMaterial(_low); var high = SelectMaterial(_high);
+        var exit = SelectMaterial(_exit);
         var cavityCount = Integer("cavities");
         var structure = current.Target.Structure is { } originalStructure ? originalStructure with { Cavities = cavityCount }
             : cavityCount == 1 ? null : new StructureOptions(cavityCount);
@@ -340,7 +354,10 @@ public sealed partial class MainWindow : Window
         { DesignProtocolVersion = protocol };
         if (current.Settings.Search is null && settings.Search == new SearchOptions()) settings = settings with { Search = null };
         if (current.Settings.Tolerancing is null && settings.Tolerancing == new ToleranceOptions()) settings = settings with { Tolerancing = null };
-        var materials = current.Materials.Concat([incident, substrate, low, high]).GroupBy(m => m.Id).Select(g => g.First()).ToArray();
+        CoatingStackGeometry? geometry = new(exit.Id, Value("substrateThickness"), _includeBackSurface.IsChecked == true);
+        if (_duplexEnabled.IsChecked != true && current.StackGeometry is null && !geometry.IncludeBackSurface && geometry.ExitMediumId == (current.ReferenceExample?.ExitMediumId ?? current.IncidentId)
+            && geometry.SubstrateThicknessMm == (current.ReferenceExample?.SubstrateThicknessMm ?? 1)) geometry = null;
+        var materials = current.Materials.Concat([incident, substrate, low, high, exit]).GroupBy(m => m.Id).Select(g => g.First()).ToArray();
         var d = current with
         {
             Name = _name.Text?.Trim() ?? "",
@@ -351,8 +368,11 @@ public sealed partial class MainWindow : Window
             LowId = low.Id,
             HighId = high.Id,
             Materials = materials,
-            Layers = _rows.Select(r => r.ToLayer()).ToArray()
+            ReferenceWavelengthNm = current.ReferenceWavelengthNm is null && Value("reference") == target.CenterNm ? null : Value("reference"),
+            StackGeometry = geometry,
+            Layers = FrontEditorRows.Select(r => r.ToLayer()).ToArray()
         };
+        d = ReadFilmEditors(d);
         if (d.Result?.Fingerprint != d.Fingerprint()) d = d with { Result = null };
         if (d.Tolerance?.Fingerprint != d.Fingerprint()) d = d with { Tolerance = null };
         d.Validate(); return d;
@@ -376,8 +396,13 @@ public sealed partial class MainWindow : Window
         _uiRevision++; _session.Replace(d); _loading = true;
         try
         {
+            RefreshMaterials(d);
             _name.Text = d.Name; _kind.SelectedIndex = (int)d.Target.Kind; _polarization.SelectedIndex = CoatingPresentation.PolarizationIndex(d.Target);
             _incident.Text = d.IncidentId; _substrate.Text = d.SubstrateId; _low.Text = d.LowId; _high.Text = d.HighId; _layerMaterial.Text = d.LowId;
+            _exit.Text = d.StackGeometry?.ExitMediumId ?? d.ReferenceExample?.ExitMediumId ?? d.IncidentId;
+            _numbers["substrateThickness"].Text = (d.StackGeometry?.SubstrateThicknessMm ?? d.ReferenceExample?.SubstrateThicknessMm ?? 1).ToString("G17", CultureInfo.CurrentCulture);
+            _numbers["reference"].Text = d.EffectiveReferenceWavelengthNm.ToString("G17", CultureInfo.CurrentCulture);
+            _includeBackSurface.IsChecked = d.StackGeometry?.IncludeBackSurface ?? false;
             var t = d.Target; var s = d.Settings;
             foreach (var (key, value) in new (string, double)[] { ("center", t.CenterNm), ("min", t.MinimumNm), ("max", t.MaximumNm),
                 ("r", t.Reflectance * 100), ("layers", t.MaximumLayers), ("angle", t.AngleDegrees), ("fwhm", t.FwhmNm), ("peak", t.PeakTransmittance * 100),
@@ -390,19 +415,23 @@ public sealed partial class MainWindow : Window
             _correlation.SelectedIndex = (int)(s.Tolerancing?.Correlation ?? ThicknessCorrelation.Independent);
             _varyStructure.IsChecked = s.Search?.VaryStructure ?? true;
             _narrowProtocol.SelectedIndex = s.DesignProtocolVersion switch { 4 => 2, 2 or 3 => 1, _ => 0 };
-            RefreshMaterials(d);
             _stopBands.Text = string.Join(';', (t.StopBands ?? [new SpectralBand(490, 510), new SpectralBand(590, 610)])
                 .Select(b => $"{b.MinimumNm.ToString("G17", CultureInfo.InvariantCulture)}-{b.MaximumNm.ToString("G17", CultureInfo.InvariantCulture)}"));
-            _rows.Clear(); foreach (var layer in d.Layers) AddRow(layer); Renumber();
+            LoadFilmEditors(d);
             _candidates.ItemsSource = (d.Candidates ?? []).Select(c => c.Name + $" · merit {NumericDisplayFormatter.Format(c.Merit)}").ToArray();
             _candidates.SelectedIndex = d.Candidates is { Length: > 0 } ? 0 : -1;
             _plot.SetExperiment(d);
             _materialSource.Text = string.Join("\n\n", d.Materials.Select(m => m.Name + "\n" + m.Source))
-                + "\n\n相干、各向同性膜层；半无限基板。T 为进入基板的功率。OD 显示上限 12，真实数值不截断。";
+                + (d.Duplex is not null ? $"\n\n相干、各向同性膜层。评价对象：{DesignService.EvaluationLabel(d)}；优化对象：{DesignService.OptimizationLabel(d)}。整片评价含两面膜系、有限基板吸收及非相干内部多次反射。"
+                    : "\n\n相干、各向同性膜层。正式设计指标按前表面、半无限基板验收，T 为进入基板的功率。整片显示可计入有限基板吸收、裸背面及非相干内部多次反射，T 为进入出射介质的功率。")
+                + "OD 显示上限 12，真实数值不截断。";
             _summary.Text = Summary(d);
+            RefreshStackGeometry();
+            RefreshLayerOpticalThickness();
             Visibility(); _status.Text = d.Result is null ? "示例 / 实验已打开，请生成膜系或计算。" : "计算已完成，请查看逐项指标。";
         }
         finally { _loading = false; _hasUnsavedChanges = markDirty; }
+        RecordEditorHistory(null);
     }
 
     private static string Summary(Experiment d)
@@ -412,8 +441,9 @@ public sealed partial class MainWindow : Window
             try { return "尚无当前输入的计算结果。\n材料适用性诊断：\n" + string.Join("\n", new DesignService().AssessMaterials(d).Messages); }
             catch (ArgumentException error) { return "材料适用性诊断：" + error.Message; }
         }
-        var text = (r.Passed ? "✓ 全部目标达标" : "未全部达标 · 保留当前有效结果") + $"    复验采样 {r.VerificationSamples} 点 / {(r.SamplingConverged ? "收敛" : "未收敛")}\n";
-        if (d.ReferenceExample is { } example)
+        var text = (d.Duplex is null ? "" : $"优化：{DesignService.OptimizationLabel(d)}；评价：{DesignService.EvaluationLabel(d)}\n")
+            + (r.Passed ? "✓ 全部目标达标" : "未全部达标 · 保留当前有效结果") + $"    复验采样 {r.VerificationSamples} 点 / {(r.SamplingConverged ? "收敛" : "未收敛")}\n";
+        if (d.ReferenceExample is { } example && d.Duplex is null)
             text = $"参考原处方：{example.OriginalName}\n基板 {example.SubstrateThicknessMm:G7} mm；出射介质 {example.ExitMediumId}；前面单独评价（忽略背面）。\n"
                 + "参考未定义优化验收目标；以下按本软件原默认指标比较。\n" + text;
         foreach (var check in r.Checks)
@@ -450,38 +480,24 @@ public sealed partial class MainWindow : Window
         _ => reason
     };
     private void AddRow(FilmLayer layer)
+        => _rows.Add(CreateRow(layer));
+
+    private LayerRow CreateRow(FilmLayer layer)
     {
         var row = new LayerRow(layer, id => _session.Current.Materials.FirstOrDefault(m => m.Id == id)?.Name ?? id, MaterialBrushFor);
-        row.PropertyChanged += (_, _) => Changed(); _rows.Add(row);
+        row.InputChanged += key => Changed($"row:{row.GetHashCode()}:{key}");
+        return row;
     }
     private void Renumber() { for (var i = 0; i < _rows.Count; i++) _rows[i].Number = i + 1; }
     private Task EditLayer(string action)
     {
-        _table.CommitEdit();
-        var selected = _table.SelectedItem as LayerRow;
-        var index = selected is null ? -1 : _rows.IndexOf(selected);
-        if (action is "add" or "material")
-        {
-            var d = _session.Current;
-            var material = d.Materials.FirstOrDefault(m => m.Id == _layerMaterial.Text) ?? _materials.Select(_layerMaterial.Text ?? "");
-            _session.Replace(d with { Materials = d.Materials.Append(material).DistinctBy(m => m.Id).ToArray(), Result = null });
-            if (action == "add") AddRow(new(material.Id, 100));
-            else if (selected is not null) selected.MaterialId = material.Id;
-        }
-        else if (selected is not null)
-        {
-            if (action == "copy") AddRow(selected.ToLayer());
-            if (action == "remove") _rows.Remove(selected);
-            if (action == "up" && index > 0) _rows.Move(index, index - 1);
-            if (action == "down" && index < _rows.Count - 1) _rows.Move(index, index + 1);
-        }
-        Renumber(); Changed(); return Task.CompletedTask;
+        EditSelectedLayers(action); return Task.CompletedTask;
     }
     private Task SelectCandidateAsync()
     {
         var d = ReadInputs(); var index = _candidates.SelectedIndex;
         if (index < 0 || d.Candidates is null || index >= d.Candidates.Length) throw new ArgumentException("请先生成并选择候选。");
-        Load(d with { Layers = d.Candidates[index].Layers, Result = null, Tolerance = null });
+        Load(d with { Layers = d.Candidates[index].Layers, BackLayers = d.Candidates[index].BackLayers, Result = null, Tolerance = null });
         return Task.CompletedTask;
     }
 
@@ -550,6 +566,7 @@ public sealed partial class MainWindow : Window
             return false;
         }
         _hasUnsavedChanges = false;
+        ScheduleRecovery();
         _status.Text = "已保存：" + path;
         return true;
     }
@@ -567,7 +584,8 @@ public sealed partial class MainWindow : Window
         _session.Invalidate(); _plot.SetExperiment(null); _summary.Text = "正在打开并重算材料快照…";
         var revision = ++_uiRevision;
         var applied = await _session.RunAsync((_, token) => ExperimentStore.OpenAsync(path, token));
-        if (applied && revision == _uiRevision) { Load(_session.Current, markDirty: false); await _plot.PendingEvaluation; }
+        if (applied && revision == _uiRevision)
+        { _historyCurrent = null; _undo.Clear(); _redo.Clear(); _historyKey = null; Load(_session.Current, markDirty: false); await _plot.PendingEvaluation; }
     }
     private async Task ExportAsync()
     {
@@ -586,51 +604,3 @@ public sealed partial class MainWindow : Window
 }
 
 public sealed record LaboratoryFileDialogs(Func<Task<string?>> Save, Func<Task<string?>> Open, Func<Task<string?>> ExportDirectory);
-
-public sealed class LayerRow : INotifyPropertyChanged
-{
-    private string _materialId, _thickness;
-    private readonly Func<string, string> _displayName;
-    private readonly Func<string, IBrush> _materialBrush;
-    private readonly string _originalText;
-    private readonly double _originalThickness;
-    private bool _variable;
-    private int _number;
-    public LayerRow(FilmLayer layer, Func<string, string>? displayName = null, Func<string, IBrush>? materialBrush = null)
-    {
-        _displayName = displayName ?? (id => id);
-        _materialBrush = materialBrush ?? (_ => Brushes.Transparent);
-        _materialId = layer.MaterialId; _originalThickness = layer.ThicknessNm;
-        _thickness = _originalText = NumericDisplayFormatter.Format(layer.ThicknessNm); _variable = layer.Variable;
-    }
-    public int Number { get => _number; set { _number = value; Notify(); } }
-    public string MaterialName => _displayName(_materialId);
-    public string MaterialLabel => SplitMaterialName().Label;
-    public string MaterialAnnotation => SplitMaterialName().Annotation;
-    public IBrush MaterialBrush => _materialBrush(_materialId);
-    public string MaterialId
-    {
-        get => _materialId;
-        set { _materialId = value; Notify(); Notify(nameof(MaterialName)); Notify(nameof(MaterialLabel)); Notify(nameof(MaterialAnnotation)); Notify(nameof(MaterialBrush)); }
-    }
-    private (string Label, string Annotation) SplitMaterialName()
-    {
-        // A trailing name annotation is presented separately, never discarded or used as material identity.
-        var name = MaterialName;
-        var open = name.EndsWith('）') ? name.LastIndexOf('（') : name.EndsWith(')') ? name.LastIndexOf('(') : -1;
-        return open > 0 && open < name.Length - 2
-            ? (name[..open].TrimEnd(), name[(open + 1)..^1])
-            : (name, string.Empty);
-    }
-    public string ThicknessText { get => _thickness; set { _thickness = value; Notify(); } }
-    public bool Variable { get => _variable; set { _variable = value; Notify(); } }
-    public FilmLayer ToLayer()
-    {
-        if (ThicknessText == _originalText) return new(MaterialId, _originalThickness, Variable);
-        if (!double.TryParse(ThicknessText, NumberStyles.Float, CultureInfo.CurrentCulture, out var value) || !double.IsFinite(value) || value <= 0)
-            throw new ArgumentException($"第 {Number} 层厚度请输入大于零的数值（nm）。");
-        return new(MaterialId, value, Variable);
-    }
-    public event PropertyChangedEventHandler? PropertyChanged;
-    private void Notify([CallerMemberName] string? name = null) => PropertyChanged?.Invoke(this, new(name));
-}

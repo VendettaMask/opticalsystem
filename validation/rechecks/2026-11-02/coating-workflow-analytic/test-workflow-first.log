@@ -1,0 +1,39 @@
+D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:02.55]     OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(face: Back, evaluation: WholePlate, symmetric: False) [FAIL]
+[xUnit.net 00:00:02.66]     OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(face: Front, evaluation: WholePlate, symmetric: False) [FAIL]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(face: Back, evaluation: WholePlate, symmetric: False) [96 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(CoatingDesignSurface face, CoatingEvaluationSurface evaluation, Boolean symmetric) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DuplexAnalyticTests.cs:line 21
+   at InvokeStub_DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(face: Front, evaluation: WholePlate, symmetric: False) [106 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(CoatingDesignSurface face, CoatingEvaluationSurface evaluation, Boolean symmetric) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DuplexAnalyticTests.cs:line 21
+   at InvokeStub_DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:04.73]     OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.SameBudgetVersionComparisonUsesRealMaterialsAndRetainsEachOriginalTargetGate(kind: NarrowBand) [FAIL]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.SameBudgetVersionComparisonUsesRealMaterialsAndRetainsEachOriginalTargetGate(kind: NarrowBand) [2 s]
+  错误消息:
+   System.InvalidOperationException : 约束光谱缺少目标锚点。
+  堆栈跟踪:
+     at OpticalSystemDesign.CoatingDesign.Engine.DesignService.<>c__DisplayClass57_0.<GeneralConstraintSystem>g__At|0(Double w) in D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.GeneralObjective.cs:line 233
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.GeneralConstraintSystem(Experiment d, Double[] grid, ThinFilmSample[] points, ThinFilmThicknessSensitivity[] sensitivity, GeneralCounter work) in D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.GeneralObjective.cs:line 285
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.<>c__DisplayClass40_0.<OptimizeDuplexAnalytic>g__SystemAt|10(IReadOnlyList`1 point, Boolean analytic) in D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.DuplexAnalytic.cs:line 78
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.OptimizeDuplexAnalytic(Experiment input, IProgress`1 progress, CancellationToken token, Nullable`1 iterations, Boolean certify) in D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.DuplexAnalytic.cs:line 97
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.OptimizeDuplex(Experiment input, IProgress`1 progress, CancellationToken token, Nullable`1 iterations, Boolean certify) in D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.Duplex.cs:line 52
+   at OpticalSystemDesign.CoatingDesign.Engine.DesignService.Optimize(Experiment input, IProgress`1 progress, CancellationToken token) in D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\DesignService.cs:line 231
+   at OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.SameBudgetVersionComparisonUsesRealMaterialsAndRetainsEachOriginalTargetGate(DesignKind kind) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DuplexAnalyticTests.cs:line 40
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-02\coating-workflow-analytic\workflow-first.trx
+
+失败!  - 失败:     3，通过:    26，已跳过:     0，总计:    29，持续时间: 17 s - OpticalSystemDesign.CoatingDesign.Tests.dll (net10.0)

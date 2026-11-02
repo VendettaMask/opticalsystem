@@ -9,7 +9,9 @@ namespace OpticalSystemDesign.App.Panels;
 
 public sealed partial class AnalysisPanel
 {
-    private DropDownButton CreateCurveWidthButton()
+    private DropDownButton CreateCurveWidthButton() => CreateCurveWidthButton(_resultHost);
+
+    internal static DropDownButton CreateCurveWidthButton(Control resultHost)
     {
         var menu = new MenuFlyout();
         foreach (var (width, label) in new[]
@@ -31,7 +33,7 @@ public sealed partial class AnalysisPanel
             {
                 // Inherited rendering state also reaches plots created by a refresh.
                 // Never replace result series or reset their interactive viewport.
-                _resultHost.SetValue(AnalysisPlotControl.CurveWidthProperty, width);
+                resultHost.SetValue(AnalysisPlotControl.CurveWidthProperty, width);
                 foreach (var choice in menu.Items.OfType<MenuItem>())
                     choice.IsChecked = Equals(choice.Tag, width);
             };

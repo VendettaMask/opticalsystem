@@ -12,6 +12,46 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class DesignReportFormatTests
 {
+    [Fact]
+    public async Task MarkdownKeepsPlotSampleTablesAndAllMetricsInRecordsWithoutExpandingTheFigureChapter()
+    {
+        using var directory = new ReportTestDirectory(); using var app = WorkbenchApplication.Create("cooke");
+        using var snapshot = app.CaptureReportSnapshot();
+        var exported = await MarkdownReportExporter.ExportAsync(snapshot,
+            new() { AnalysisKeys = ["Single Ray Trace"], Include2DLayout = false, Include3DLayout = false }, directory.Path, WriteImage);
+        Assert.Equal(0, exported.Failed);
+        var text = await File.ReadAllTextAsync(exported.ReportPath);
+        var parts = text.Split("## 附录 完整参数与计算记录", StringSplitOptions.None);
+        Assert.Equal(2, parts.Length);
+        Assert.Contains("*图 1", parts[0]);
+        var original = await app.Analyses.RunAsync(new(Guid.NewGuid(), 1, "Single Ray Trace", new Dictionary<string, string>()));
+        Assert.NotNull(original.View.Table); Assert.NotEmpty(original.View.Table.Rows);
+        foreach (var column in original.View.Table.Columns) Assert.Contains(MarkdownReportExporter.Escape(column), parts[1]);
+        Assert.True(parts[1].Split('\n').Count(line => line.StartsWith("| ", StringComparison.Ordinal)) >= original.View.Table.Rows.Count + original.View.Rows.Count);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task WordKeepsCompleteNativeResultsAndMakesDetailedRecordsAnExplicitChoice(bool includeDetails)
+    {
+        using var directory = new ReportTestDirectory();
+        using var app = WorkbenchApplication.Create("cooke");
+        var before = app.Documents.GetRecoveryState();
+        using var snapshot = app.CaptureReportSnapshot();
+        var exported = await MarkdownReportExporter.ExportAsync(snapshot, new()
+        { Format = DesignReportFormat.Word, AnalysisKeys = ["Zernike Fringe"], Include2DLayout = false, Include3DLayout = false, PdfIncludeDetails = includeDetails },
+            directory.Path, (_, _, _, _) => throw new InvalidOperationException("A coefficient table must not need screenshots."));
+        Assert.Equal(0, exported.Failed);
+        using var archive = ZipFile.OpenRead(exported.ReportPath); using var stream = archive.GetEntry("word/document.xml")!.Open();
+        var xml = XDocument.Load(stream); XNamespace w = "http://schemas.openxmlformats.org/wordprocessingml/2006/main";
+        XNamespace math = "http://schemas.openxmlformats.org/officeDocument/2006/math";
+        var text = string.Join("\n", xml.Descendants(w + "t").Select(node => node.Value));
+        Assert.Contains("Z37", text); Assert.Equal(includeDetails, text.Contains("计算来源", StringComparison.Ordinal));
+        Assert.True(xml.Descendants(math + "oMath").Count() >= 37);
+        Assert.Equal(before, app.Documents.GetRecoveryState());
+    }
+
     [Theory]
     [InlineData(DesignReportFormat.Markdown)]
     [InlineData(DesignReportFormat.Word)]
@@ -86,7 +126,8 @@ public sealed class DesignReportFormatTests
             Assert.DoesNotContain(label, xml.Descendants(w + "t").Select(text => text.Value));
             Assert.True(xml.Descendants(w + "tbl").Count() >= 2);
             Assert.Contains(xml.Descendants(w + "pStyle"), style => (string?)style.Attribute(w + "val") == "Title");
-            Assert.Single(zip.Entries, entry => entry.FullName.StartsWith("word/media/", StringComparison.Ordinal));
+            Assert.Single(zip.Entries, entry => entry.FullName.StartsWith("word/media/image", StringComparison.Ordinal));
+            Assert.NotNull(zip.GetEntry("word/media/brand.svg"));
             using var relStream = zip.GetEntry("word/_rels/document.xml.rels")!.Open();
             var relationships = XDocument.Load(relStream);
             foreach (var relationship in relationships.Descendants(r + "Relationship"))
@@ -111,7 +152,10 @@ public sealed class DesignReportFormatTests
             Assert.DoesNotContain(WebUtility.HtmlEncode(label), html);
             Assert.Contains("data:image/png;base64,", html);
             Assert.Contains("Content-Security-Policy", html);
-            Assert.DoesNotContain("<script", html, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("script-src 'sha256-", html);
+            Assert.Single(Regex.Matches(html, "<script>").Cast<Match>());
+            var script = Regex.Match(html, @"<script>([\s\S]*?)</script>").Groups[1].Value.Replace("\r\n", "\n", StringComparison.Ordinal).Replace('\r', '\n');
+            Assert.Contains("sha256-" + Convert.ToBase64String(System.Security.Cryptography.SHA256.HashData(Encoding.UTF8.GetBytes(script))), html);
             Assert.DoesNotContain("src=\"http", html, StringComparison.OrdinalIgnoreCase);
         }
         using var repeat = application.CaptureReportSnapshot();

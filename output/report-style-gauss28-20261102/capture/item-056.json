@@ -1,0 +1,169 @@
+{
+  "Index": 56,
+  "Key": "Contrast Loss Map",
+  "Title": "\u5BF9\u6BD4\u5EA6\u635F\u5931\u56FE",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-056.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "04841D29B646A3189350D383DABA4ADE17019C523F615C1397F73446C56A4E00"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "Moore-Elliott"
+    },
+    {
+      "Metric": "\u91C7\u6837",
+      "Value": "13"
+    },
+    {
+      "Metric": "\u9891\u7387 (cycles/mm)",
+      "Value": "100"
+    },
+    {
+      "Metric": "\u8BF7\u6C42\u9891\u7387 (cycles/mm)",
+      "Value": "100"
+    },
+    {
+      "Metric": "FrequencyUnit",
+      "Value": "cycles/mm"
+    },
+    {
+      "Metric": "\u622A\u6B62\u9891\u7387 (cycles/mm)",
+      "Value": "571.416"
+    },
+    {
+      "Metric": "\u77B3\u5B54\u5206\u79BB\u91CF",
+      "Value": "0.35"
+    },
+    {
+      "Metric": "\u5F52\u4E00\u5316",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "2"
+    },
+    {
+      "Metric": "\u5206\u6790\u6CE2\u957F (\u00B5m)",
+      "Value": "0.588"
+    },
+    {
+      "Metric": "\u89C6\u573A\u5E8F\u53F7",
+      "Value": "1"
+    },
+    {
+      "Metric": "\u5F52\u4E00\u5316\u89C6\u573A Hx",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u5F52\u4E00\u5316\u89C6\u573A Hy",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u663E\u793A OPD",
+      "Value": "False"
+    },
+    {
+      "Metric": "PhaseIndicatorDefinition",
+      "Value": "Mean OPD of the two shifted pupil rays, modulo one wave"
+    },
+    {
+      "Metric": "\u6700\u5927\u5BF9\u6BD4\u5EA6\u635F\u5931",
+      "Value": "1"
+    },
+    {
+      "Metric": "\u6709\u6548\u91C7\u6837\u6570",
+      "Value": "174"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u5BF9\u6BD4\u5EA6\u635F\u5931\u56FE\r\n\u65B9\u6CD5\uFF1AMoore-Elliott\r\n\u91C7\u6837\uFF1A13\r\n\u9891\u7387 (cycles/mm)\uFF1A100\r\n\u8BF7\u6C42\u9891\u7387 (cycles/mm)\uFF1A100\r\nFrequencyUnit\uFF1Acycles/mm\r\n\u622A\u6B62\u9891\u7387 (cycles/mm)\uFF1A571.416\r\n\u77B3\u5B54\u5206\u79BB\u91CF\uFF1A0.35\r\n\u5F52\u4E00\u5316\uFF1AFalse\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A2\r\n\u5206\u6790\u6CE2\u957F (\u00B5m)\uFF1A0.588\r\n\u89C6\u573A\u5E8F\u53F7\uFF1A1\r\n\u5F52\u4E00\u5316\u89C6\u573A Hx\uFF1A0\r\n\u5F52\u4E00\u5316\u89C6\u573A Hy\uFF1A0\r\n\u663E\u793A OPD\uFF1AFalse\r\nPhaseIndicatorDefinition\uFF1AMean OPD of the two shifted pupil rays, modulo one wave\r\n\u6700\u5927\u5BF9\u6BD4\u5EA6\u635F\u5931\uFF1A1\r\n\u6709\u6548\u91C7\u6837\u6570\uFF1A174",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "Contrast Loss Map",
+    "RequestFingerprint": "A3384172298D1A07FE2018489B247F442C8B65F3A4F9ECCEF72E932F4A3C3FB5",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "Sampling": "13",
+    "Frequency": "100",
+    "Normalize": "false",
+    "WavelengthNumber": "2",
+    "FieldNumber": "1",
+    "ShowOPD": "false"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "Sampling",
+      "DisplayName": "\u91C7\u6837",
+      "DefaultValue": "13",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Frequency",
+      "DisplayName": "\u9891\u7387 (cycles/mm\uFF0C0=5%\u622A\u6B62)",
+      "DefaultValue": "100",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Normalize",
+      "DisplayName": "\u5F52\u4E00\u5316",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F",
+      "DefaultValue": "2",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "FieldNumber",
+      "DisplayName": "\u89C6\u573A",
+      "DefaultValue": "1",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ShowOPD",
+      "DisplayName": "\u663E\u793A OPD",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u91C7\u6837\uFF1A13",
+    "\u6CE2\u957F\u5E8F\u53F7\uFF1A2",
+    "\u89C6\u573A\u5E8F\u53F7\uFF1A1"
+  ],
+  "Metrics": [
+    [
+      "\u622A\u6B62\u9891\u7387 (cycles/mm)",
+      "571.416"
+    ],
+    [
+      "\u5206\u6790\u6CE2\u957F (\u00B5m)",
+      "0.588"
+    ],
+    [
+      "\u65B9\u6CD5",
+      "Moore-Elliott"
+    ],
+    [
+      "\u91C7\u6837",
+      "13"
+    ],
+    [
+      "\u9891\u7387 (cycles/mm)",
+      "100"
+    ]
+  ],
+  "PaneCount": 2
+}

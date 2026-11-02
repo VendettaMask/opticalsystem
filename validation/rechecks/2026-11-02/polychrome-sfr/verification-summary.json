@@ -1,0 +1,268 @@
+{
+  "Algorithm": "PolychromeLocalFourierEdge/1",
+  "DistinctCases": 52,
+  "Passed": 52,
+  "Failed": 0,
+  "Cases": [
+    {
+      "Test": "OpticalSystemDesign.Tests.PolychromeSfrTests.LensWeightsKeepOriginalRowsIgnoreZeroAndRejectEmptyPower",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PolychromeSfrTests.SpectralOtfIsCombinedBeforeMagnitudeAndPreservesItsPhaseSign",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PolychromeSfrTests.PrimaryReferencePreservesOffAxisChromaticDisplacement",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PolychromeSfrTests.LinearPsfMixUsesRawCapturedEnergyBeforeSingleNormalization",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PolychromeSfrTests.UnsavedLensWeightsFreezeReplayAndValidateAgainstSnapshot",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PolychromeSfrTests.SingleBandAndZeroWeightBandReduceToOriginalMonochromeImage",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CameraSfrTests.ActualPreviousArchivesKeepTheirOriginalCurvesAndRemainViewOnly(folder: \"monochrome-sfr\", algorithm: \"MonochromeLocalFourierEdge/1\")",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CameraSfrTests.CurrentLensLinearArraySfrConvergenceAndFrozenReplaySurviveWorkspaceReplacement",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: \"Light\")",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.CancellationIsNotSwallowedByStopAimingRetry",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.MissingParaxialEdgeLaunchRetriesWholePupilWithStopAiming(hy: -0.70666666666666667, polarized: True)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.FourierPupilCorrelationTests.DirectionalFftMatchesIndependentLinearComplexCorrelation(size: 8, transformSize: 32)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.Primary123456FixtureStillProducesFiniteFftPsfWithoutChangingItsScale",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SfrPupilReferenceTests.FullSquarePupilHasIndependentTriangularOverlap(nx: 0.59999999999999998, ny: -0.80000000000000004)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.MissingParaxialEdgeLaunchRetriesWholePupilWithStopAiming(hy: 0, polarized: False)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.UnaimedPreparedPupilIsNotSilentlyCombinedWithAimedScale",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.OffAxisFftFrequencyGridIsReciprocalToThePhysicalImageSampling(tessar: True)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.SquarePixelIntegrationAndDeltaPsfPreserveAnalyticEdge",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.MissingParaxialEdgeLaunchRetriesWholePupilWithStopAiming(hy: 0, polarized: True)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.PreparedStopAimedPupilIsPreservedIncludingItsPhase",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.20000000000000001)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.MissingParaxialEdgeLaunchRetriesWholePupilWithStopAiming(hy: -1, polarized: False)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.MissingParaxialEdgeLaunchRetriesWholePupilWithStopAiming(hy: -1, polarized: True)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.DirectionalFourierSectionMatchesIndependentAnisotropicGaussian",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: \"Light\")",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-example-retry.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.FourierPupilCorrelationTests.DirectionalFftMatchesIndependentLinearComplexCorrelation(size: 5, transformSize: 16)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.FourierPupilCorrelationTests.FullPupilMtfRetainsTheExistingComplexOtfAndPhysicalFrequencyAxes(native: True)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalCellIntegralAgreesWithSharedFftTimesAnalyticCellFootprint",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: -1, phase: -0.31)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.ImportedHighNaLensCompletesApplicationDefaultPolychromaticFftPsf",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.LegacyPsfMtfKeepsItsOffAxisFrequencyScale",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SfrPupilReferenceTests.PhysicalChirpWindowMatchesIndependentComplexSum(dx: -0.031, dy: 0.010999999999999999)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: \"Dark\")",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CameraSfrTests.ActualPreviousArchivesKeepTheirOriginalCurvesAndRemainViewOnly(folder: \"double-gauss-sfr\", algorithm: \"MonochromeLocalFourierEdge/2\")",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.45000000000000001)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.FourierPupilCorrelationTests.FullPupilMtfRetainsTheExistingComplexOtfAndPhysicalFrequencyAxes(native: False)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SfrPupilReferenceTests.PhysicalChirpWindowMatchesIndependentComplexSum(dx: 0.023, dy: -0.017000000000000001)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.FlatInvalidRoiAndNonlinearInvalidValuesFailExplicitly",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SfrPupilReferenceTests.LargeWindowMtfChirpMatchesIndependentPointPhasors",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SfrPupilReferenceTests.FullPupilReferenceRejectsInvalidDataAndPreservesBounds",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SfrPupilReferenceTests.FullSquarePupilHasIndependentTriangularOverlap(nx: 0, ny: -1)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.Primary123456FixtureProducesSpotDiagramWithAiryDiskAfterDiamImport",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: \"Dark\")",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-example-retry.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SfrPupilReferenceTests.FullSquarePupilHasIndependentTriangularOverlap(nx: 1, ny: 0)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.PhysicallyBlockedMarginalRaysAreNotIgnored",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.OffAxisFftFrequencyGridIsReciprocalToThePhysicalImageSampling(tessar: False)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CameraSfrTests.UnsupportedModeSamplingAndCancellationHaveExplicitFailures",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SfrPupilReferenceTests.FftPupilCorrelationMatchesIndependentSparseComplexCellOverlap",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SfrPupilReferenceTests.FinitePsfSelfConsistencyDoesNotHideMissingFullPupilTails",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PsfWorkingFNumberRegressionTests.MissingParaxialEdgeLaunchRetriesWholePupilWithStopAiming(hy: -0.70666666666666667, polarized: False)",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-regression.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.PolychromeSfrTests.OriginalMonochromeV3ArchiveStillReplaysWithoutSpectralMixing",
+      "Outcome": "Passed",
+      "LatestReceipt": "polychrome-final.trx"
+    }
+  ]
+}

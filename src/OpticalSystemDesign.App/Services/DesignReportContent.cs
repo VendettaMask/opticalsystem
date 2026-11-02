@@ -10,7 +10,9 @@ internal sealed record ReportParagraph(string Text, ReportTextStyle Style = Repo
 internal sealed record ReportContents(IReadOnlyList<ReportHeading> Entries) : DesignReportBlock;
 internal sealed record ReportAppendixStart : DesignReportBlock;
 internal sealed record ReportCode(string Text, string Language) : DesignReportBlock;
-internal sealed record ReportTable(string[] Columns, string[][] Rows) : DesignReportBlock;
+internal sealed record ReportTable(string[] Columns, string[][] Rows, int FormulaColumn = -1) : DesignReportBlock;
+internal sealed record ReportPageStart(string Title, string Subtitle, int Number, int SectionNumber = 0, int Configuration = 1, bool Cover = false) : DesignReportBlock;
+internal sealed record ReportDirectoryEntry(string Title, int SectionNumber, int Page) : DesignReportBlock;
 internal sealed record ReportPicture(string Title, string FileName) : DesignReportBlock;
 
 /// <summary>One calculation result feeds all formats; user text is never parsed as markup.</summary>
@@ -33,18 +35,18 @@ internal sealed class DesignReportContent
     internal void BeginAppendix() => Add(new ReportAppendixStart(), 0);
     internal void Code(string text, string language) => Add(new ReportCode(text, language), text.Length);
     internal void Picture(string title, string fileName) => Add(new ReportPicture(title, fileName), title.Length + fileName.Length);
-    internal void Table(string[] columns, IEnumerable<string[]> rows)
+    internal void Table(string[] columns, IEnumerable<string[]> rows, int formulaColumn = -1)
     {
         if (columns.Length == 0) throw new InvalidDataException("报告表格缺少列定义。");
         var values = new List<string[]>();
-        Add(new ReportTable(columns, []), columns.Sum(value => (long)value.Length));
+        Add(new ReportTable(columns, [], formulaColumn), columns.Sum(value => (long)value.Length));
         foreach (var row in rows)
         {
             if (row.Length != columns.Length) throw new InvalidDataException("报告表格列数不一致。");
             CheckLength(row.Sum(value => (long)value.Length));
             values.Add(row);
         }
-        Blocks[^1] = new ReportTable(columns, values.ToArray());
+        Blocks[^1] = new ReportTable(columns, values.ToArray(), formulaColumn);
     }
 
     private void Add(DesignReportBlock block, long characters)

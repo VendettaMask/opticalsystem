@@ -616,6 +616,14 @@ public sealed class ZernikeAnalysis : BaseAnalysis
                 XMaximum: 1,
                 YMinimum: -1,
                 YMaximum: 1),
+            Table: new AnalysisTable(["序号", "n", "m", "公式", "系数 / 波"], coefficients.Select(coefficient => (IReadOnlyList<string>)new[]
+            {
+                "Z" + coefficient.Number.ToString(CultureInfo.InvariantCulture),
+                coefficient.RadialOrder.ToString(CultureInfo.InvariantCulture),
+                coefficient.AzimuthalOrder.ToString(CultureInfo.InvariantCulture),
+                ZernikeFitEngine.PolynomialExpression(coefficient.RadialOrder, coefficient.AzimuthalOrder, isStandard, isAnnular, _obscurationRatio),
+                coefficient.Value.ToString("G12", CultureInfo.InvariantCulture)
+            }).ToArray()),
             ReportText: isZemaxFringe
                 ? BuildFringeReport(
                     field,

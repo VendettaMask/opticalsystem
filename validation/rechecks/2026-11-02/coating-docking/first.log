@@ -1,0 +1,96 @@
+D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:07.73]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Left) [FAIL]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Left) [5 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DragCoatingTab(Window window, Document source, Document target) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 196
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.<>c__DisplayClass3_0.<CoatingTabsUseNativeCompassAndRetainTheSameContents>b__0() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 143
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 339
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(DockOperation direction) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 134
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:08.98]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Fill) [FAIL]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Fill) [1 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DragCoatingTab(Window window, Document source, Document target) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 196
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.<>c__DisplayClass3_0.<CoatingTabsUseNativeCompassAndRetainTheSameContents>b__0() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 143
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 339
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(DockOperation direction) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 134
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:10.16]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Bottom) [FAIL]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Bottom) [1 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DragCoatingTab(Window window, Document source, Document target) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 196
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.<>c__DisplayClass3_0.<CoatingTabsUseNativeCompassAndRetainTheSameContents>b__0() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 143
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 339
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(DockOperation direction) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 134
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:11.61]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Right) [FAIL]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Right) [1 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DragCoatingTab(Window window, Document source, Document target) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 196
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.<>c__DisplayClass3_0.<CoatingTabsUseNativeCompassAndRetainTheSameContents>b__0() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 143
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 339
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(DockOperation direction) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 134
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:12.78]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Top) [FAIL]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Top) [1 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DragCoatingTab(Window window, Document source, Document target) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 196
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.<>c__DisplayClass3_0.<CoatingTabsUseNativeCompassAndRetainTheSameContents>b__0() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 143
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 339
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(DockOperation direction) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 134
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:13.87]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CancellingADockDragAndCancellingMainCloseKeepTheFloatingWorkspace [FAIL]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CancellingADockDragAndCancellingMainCloseKeepTheFloatingWorkspace [1 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DragCoatingTab(Window window, Document source, Document target) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 196
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.<>c.<<CancellingADockDragAndCancellingMainCloseKeepTheFloatingWorkspace>b__4_0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 175
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 339
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CancellingADockDragAndCancellingMainCloseKeepTheFloatingWorkspace() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopDockingTests.cs:line 166
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-02\coating-docking\first\docking.trx
+
+失败!  - 失败:     6，通过:     3，已跳过:     0，总计:     9，持续时间: 26 s - OpticalSystemDesign.CoatingDesign.Tests.dll (net10.0)

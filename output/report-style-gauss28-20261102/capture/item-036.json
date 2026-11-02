@@ -1,0 +1,234 @@
+{
+  "Index": 36,
+  "Key": "Huygens MTF vs Field",
+  "Title": "\u60E0\u66F4\u65AF MTF VS \u89C6\u573A",
+  "Status": "Success",
+  "OutcomeReason": null,
+  "HasPlot": true,
+  "RenderError": null,
+  "Images": [
+    {
+      "File": "item-036.png",
+      "Width": 2404,
+      "Height": 1804,
+      "Sha256": "6CE630F3C1741FD29A7E658DDAD313ADF88D8FE59B19B403717DFF8271BB912C"
+    }
+  ],
+  "Rows": [
+    {
+      "Metric": "\u65B9\u6CD5",
+      "Value": "Huygens"
+    },
+    {
+      "Metric": "\u7A7A\u95F4\u9891\u7387 (cycles/mm)",
+      "Value": "10"
+    },
+    {
+      "Metric": "SpatialFrequencies",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "HuygensMtfTransformSize",
+      "Value": "128"
+    },
+    {
+      "Metric": "HuygensFrequencySampling",
+      "Value": "NaturalCubicEndpointSpan"
+    },
+    {
+      "Metric": "FrequencyUnit",
+      "Value": "cycles/mm"
+    },
+    {
+      "Metric": "ImageSpaceAfocal",
+      "Value": "False"
+    },
+    {
+      "Metric": "FieldPointCount",
+      "Value": "10"
+    },
+    {
+      "Metric": "\u89C6\u573A\u5BC6\u5EA6",
+      "Value": "10"
+    },
+    {
+      "Metric": "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "Value": "300"
+    },
+    {
+      "Metric": "MaximumField",
+      "Value": "14"
+    },
+    {
+      "Metric": "FieldUnit",
+      "Value": ""
+    },
+    {
+      "Metric": "ScanType",
+      "Value": "\u002By"
+    },
+    {
+      "Metric": "\u79FB\u9664\u6E10\u6655\u56E0\u5B50",
+      "Value": "True"
+    },
+    {
+      "Metric": "VignettingFactorsApplied",
+      "Value": "False"
+    },
+    {
+      "Metric": "\u6CE2\u957F\u5E8F\u53F7",
+      "Value": "0"
+    },
+    {
+      "Metric": "\u6CE2\u957F (\u00B5m)",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "Tangential",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "Sagittal",
+      "Value": "System.Double[]"
+    },
+    {
+      "Metric": "TangentialByFrequency",
+      "Value": "System.Double[][]"
+    },
+    {
+      "Metric": "SagittalByFrequency",
+      "Value": "System.Double[][]"
+    }
+  ],
+  "Table": null,
+  "ReportText": "\u5206\u6790\uFF1A\u60E0\u66F4\u65AF MTF VS \u89C6\u573A\r\n\u65B9\u6CD5\uFF1AHuygens\r\n\u7A7A\u95F4\u9891\u7387 (cycles/mm)\uFF1A10\r\nSpatialFrequencies\uFF1ASystem.Double[]\r\nHuygensMtfTransformSize\uFF1A128\r\nHuygensFrequencySampling\uFF1ANaturalCubicEndpointSpan\r\nFrequencyUnit\uFF1Acycles/mm\r\nImageSpaceAfocal\uFF1AFalse\r\nFieldPointCount\uFF1A10\r\n\u89C6\u573A\u5BC6\u5EA6\uFF1A10\r\n\u66F2\u7EBF\u91C7\u6837\u70B9\u6570\uFF1A300\r\nMaximumField\uFF1A14\r\nFieldUnit\uFF1A\r\nScanType\uFF1A\u002By\r\n\u79FB\u9664\u6E10\u6655\u56E0\u5B50\uFF1ATrue\r\nVignettingFactorsApplied\uFF1AFalse\r\n\u6CE2\u957F\u5E8F\u53F7\uFF1A0\r\n\u6CE2\u957F (\u00B5m)\uFF1ASystem.Double[]\r\nTangential\uFF1ASystem.Double[]\r\nSagittal\uFF1ASystem.Double[]\r\nTangentialByFrequency\uFF1ASystem.Double[][]\r\nSagittalByFrequency\uFF1ASystem.Double[][]",
+  "PresentationKind": "Standard",
+  "Provenance": {
+    "CanonicalAnalysisKey": "Huygens MTF vs Field",
+    "RequestFingerprint": "BC1725FA86D8B891EC637E80A5D540A6C48074DD638C423DD385C01BD9761DBF",
+    "ExecutorId": "Application.WorkbenchRuntime.BuildAnalysisView/v1"
+  },
+  "Parameters": {
+    "Sampling": "64",
+    "Frequency1": "10",
+    "Frequency2": "20",
+    "Frequency3": "30",
+    "Frequency4": "40",
+    "Frequency5": "50",
+    "Frequency6": "60",
+    "WavelengthNumber": "0",
+    "UsePolarization": "false",
+    "UseDashes": "false",
+    "RemoveVignettingFactors": "true",
+    "FieldDensity": "10",
+    "ScanType": "\u002By"
+  },
+  "ParameterLabels": [
+    {
+      "Key": "Sampling",
+      "DisplayName": "\u77B3\u9762\u91C7\u6837",
+      "DefaultValue": "64",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Frequency1",
+      "DisplayName": "\u7A7A\u95F4\u9891\u7387 1 (cycles/mm)",
+      "DefaultValue": "10",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Frequency2",
+      "DisplayName": "\u7A7A\u95F4\u9891\u7387 2 (cycles/mm)",
+      "DefaultValue": "20",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Frequency3",
+      "DisplayName": "\u7A7A\u95F4\u9891\u7387 3 (cycles/mm)",
+      "DefaultValue": "30",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Frequency4",
+      "DisplayName": "\u7A7A\u95F4\u9891\u7387 4 (cycles/mm)",
+      "DefaultValue": "40",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Frequency5",
+      "DisplayName": "\u7A7A\u95F4\u9891\u7387 5 (cycles/mm)",
+      "DefaultValue": "50",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "Frequency6",
+      "DisplayName": "\u7A7A\u95F4\u9891\u7387 6 (cycles/mm)",
+      "DefaultValue": "60",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "WavelengthNumber",
+      "DisplayName": "\u6CE2\u957F\uFF080 \u4E3A\u5168\u90E8\uFF09",
+      "DefaultValue": "0",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "UsePolarization",
+      "DisplayName": "\u4F7F\u7528\u504F\u632F",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "UseDashes",
+      "DisplayName": "\u4F7F\u7528\u865A\u7EBF",
+      "DefaultValue": "false",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "RemoveVignettingFactors",
+      "DisplayName": "\u79FB\u9664\u6E10\u6655\u56E0\u5B50",
+      "DefaultValue": "true",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "FieldDensity",
+      "DisplayName": "\u89C6\u573A\u5BC6\u5EA6",
+      "DefaultValue": "10",
+      "ChoiceLabels": null
+    },
+    {
+      "Key": "ScanType",
+      "DisplayName": "\u626B\u63CF\u65B9\u5411",
+      "DefaultValue": "\u002By",
+      "ChoiceLabels": null
+    }
+  ],
+  "Conditions": [
+    "\u77B3\u9762\u91C7\u6837\uFF1A64",
+    "\u6CE2\u957F\uFF1A\u5168\u90E8",
+    "\u89C6\u573A\u5BC6\u5EA6\uFF1A10"
+  ],
+  "Metrics": [
+    [
+      "\u65B9\u6CD5",
+      "Huygens"
+    ],
+    [
+      "\u7A7A\u95F4\u9891\u7387 (cycles/mm)",
+      "10"
+    ],
+    [
+      "\u89C6\u573A\u5BC6\u5EA6",
+      "10"
+    ],
+    [
+      "\u66F2\u7EBF\u91C7\u6837\u70B9\u6570",
+      "300"
+    ],
+    [
+      "\u79FB\u9664\u6E10\u6655\u56E0\u5B50",
+      "True"
+    ]
+  ],
+  "PaneCount": 0
+}

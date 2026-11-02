@@ -18,10 +18,10 @@
 
 ## 文档状态
 
-- 状态：执行中（尚未全部完成）
+- 状态：历史迁移计划，已退出当前执行入口；遗留维护任务按 [系统架构](ARCHITECTURE.md) 和 [问题清单](OPEN_ISSUES_2026-10-08.md) 核对，不再按此旧看板启动迁移。
 - 编写日期：2026-08-02
-- 最后更新：2026-09-02
-- 适用范围：`OptilandWorkbench.Core`、`OptilandWorkbench.Application`、`OptilandWorkbench.App` 及相关测试
+- 原计划阶段：2026-08-02 至 2026-09-02；以下保留随后各批次记录，非当前产品验收。
+- 原命名范围：`OptilandWorkbench.Core`、`OptilandWorkbench.Application`、`OptilandWorkbench.App` 及当时测试；现产品使用 `OpticalSystemDesign`，不恢复旧身份或兼容入口。
 - 核心目标：同一个镜头、同一份设置和同一修订号，无论从哪个受支持入口执行，都必须进入同一条规范计算链路并得到一致结果
 
 ### 当前实施进度

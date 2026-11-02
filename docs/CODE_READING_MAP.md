@@ -8,7 +8,7 @@
 - 内置初始结构与镀膜设计：根 `OpticalSystemDesign.slnx` 统一构建，界面在 `src/OpticalSystemDesign.App/Laboratories/`，显示适配在 `src/OpticalSystemDesign.Modules/`；`labs/` 仅保留内部领域库、测试及历史证据，不是独立产品。
 - 桌面启动：`Program.Main → App → MainWindow → WorkbenchApplication.Create`。`MainWindow` 创建工作区、命令和服务，具体功能分布在 `Shell` 与 `Panels`。
 - 实际依赖方向：主工作台为 `App → Application → Core`；内置模块为 `App → Modules / 内部领域库 → Application / Core`。App 没有直接 Core 引用，UI 契约不暴露 Core 类型；旧 Compatibility 项目已移除。
-- Core 没有第三方 NuGet 计算库依赖；FFT、几何交点、数值优化、材料公式等实现位于仓库内。Application 引用 SkiaSharp，App 引用 Avalonia、Dock 与 SkiaSharp。
+- FFT、几何交点、数值优化和材料公式由仓库内的共享 Core 实现。Core 引用锁定的 ILGPU / ILGPU.Algorithms 1.5.3 执行受支持的 CUDA 路径；这不是外部光学引擎。Application 引用 SkiaSharp，App 引用 Avalonia、Dock 与 SkiaSharp。具体设备边界见 [GPU 说明](AUTOLENS_GPU.md)。
 - 桌面 UI 大量使用 C# 构造控件和事件订阅。`ViewModels/EditorRows.cs` 主要是编辑行模型，不能把整个 App 理解成纯 XAML/MVVM 绑定架构。
 - Python 仅用于产品之外的 Zemax 捕获/报告、FreeCAD 验证和图标维护；Optiland 参考生成器已删除。正式产品无 Python 依赖。
 
@@ -54,7 +54,7 @@
 | Interactions | 折射/反射、薄透镜、衍射及相位交互；返回传播方向和交互类型 |
 | Phase | 常相位、线性光栅、径向、多项式和网格相位；网格支持插值 |
 | Coatings | 无镀膜、标量系数和经验兼容模型保持原义；`CoherentThinFilmSolver` / `ThinFilmSpectrum` 提供真实相干功率及复振幅，`CoherentMultilayerCoating` 接入正式顺序追迹和照度 Jones 链，完整材料快照可保存；实验室 UI 应用与旧电场 Jones 光瞳尚未接通 |
-| Scattering | 现有近似主要扣除主光线强度，不生成完整 BSDF 方向分布 |
+| Scattering | 顺序主光线损耗近似与正式 NSC BSDF 分开；后者具有 Lambertian / 实测表格的 Evaluate、Sample、Pdf、BRDF/BTDF、多次方向散射与路径统计；商业格式、固定材料轴和 XYZ 校准各有独立支持域，见 [非序列追迹](NON_SEQUENTIAL_TRACING.md) |
 | Propagation | 均匀传播、旧入口方向近似，以及 Gradient 1～5 连续曲线积分；正式顺序显式光线及限定共轴系统的连续近轴矩阵已接通 |
 | Plugins | 通过程序集加载与注册工厂扩展几何、材料、分析；注册机制本身不能证明桌面已接入全部扩展入口 |
 

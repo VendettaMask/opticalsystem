@@ -8,6 +8,10 @@ public sealed partial class DesignService
     // not the physical peak, especially beside a hard centre or OD gate.
     private static (ThinFilmSample[] Samples, int Evaluations, bool Complete) RefineDenseExtrema(
         Experiment d, CoherentThinFilmSolver solver, ThinFilmSample[] samples, CancellationToken token)
+        => RefineDenseExtrema(d, w => solver.Evaluate(w, d.Target.AngleDegrees, d.Target.Polarization), samples, token);
+
+    private static (ThinFilmSample[] Samples, int Evaluations, bool Complete) RefineDenseExtrema(
+        Experiment d, Func<double, ThinFilmPower> evaluate, ThinFilmSample[] samples, CancellationToken token)
     {
         const int maximumPeaks = 64;
         var domain = PassbandMetricDomain(d);
@@ -23,7 +27,7 @@ public sealed partial class DesignService
                 var left = local[i - 1].Power.LogTransmittance; var center = local[i].Power.LogTransmittance; var right = local[i + 1].Power.LogTransmittance;
                 if (!(center >= left && center >= right && (center > left || center > right))) continue;
                 if (peaks.Count == maximumPeaks) { complete = false; continue; }
-                var refined = ThinFilmSpectrum.RefineTransmissionPeak(solver, [local[i - 1], local[i], local[i + 1]], d.Target.AngleDegrees, d.Target.Polarization);
+                var refined = ThinFilmSpectrum.RefineTransmissionPeak(evaluate, [local[i - 1], local[i], local[i + 1]]);
                 evaluations += refined.Evaluations; peaks.Add(refined.Peak);
             }
         }

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="178ffe22-9464-4d19-941b-3607e8cba7bb" name="optics@LAPTOP-G4BBBCS0 2026-11-02 13:41:46" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-02T13:41:46.7155478+08:00" queuing="2026-11-02T13:41:46.7155483+08:00" start="2026-11-02T13:41:27.0504185+08:00" finish="2026-11-02T13:42:05.3166961+08:00" />
+  <TestSettings name="default" id="3cd245b7-4d27-499c-b171-b3ffd0c53c87">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-02_13_41_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="f5aa0fd6-57fb-4514-a4e1-b6c45bc5f39c" testId="6356c5d3-e577-6806-a23a-d4a197f380d6" testName="OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:18.4886616" startTime="2026-11-02T13:41:46.6900889+08:00" endTime="2026-11-02T13:42:05.1543634+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f5aa0fd6-57fb-4514-a4e1-b6c45bc5f39c" />
+    <UnitTestResult executionId="6d5585d4-f2fa-453c-830d-ed4877be3387" testId="54be28f6-68fe-58c8-3b46-c6bad00f19ed" testName="OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:17.4357585" startTime="2026-11-02T13:41:29.2375508+08:00" endTime="2026-11-02T13:41:46.6630041+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d5585d4-f2fa-453c-830d-ed4877be3387" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="54be28f6-68fe-58c8-3b46-c6bad00f19ed">
+      <Execution id="6d5585d4-f2fa-453c-830d-ed4877be3387" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromeSfrWindowTests" name="LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6356c5d3-e577-6806-a23a-d4a197f380d6">
+      <Execution id="f5aa0fd6-57fb-4514-a4e1-b6c45bc5f39c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PolychromeSfrWindowTests" name="LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6356c5d3-e577-6806-a23a-d4a197f380d6" executionId="f5aa0fd6-57fb-4514-a4e1-b6c45bc5f39c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="54be28f6-68fe-58c8-3b46-c6bad00f19ed" executionId="6d5585d4-f2fa-453c-830d-ed4877be3387" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.18]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.63]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.66]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:37.63]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

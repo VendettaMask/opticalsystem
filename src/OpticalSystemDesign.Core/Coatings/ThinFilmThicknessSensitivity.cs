@@ -45,8 +45,14 @@ public sealed partial class CoherentThinFilmSolver
     {
         // Reuse the authoritative forward response. No transfer matrix or growing exponential is introduced.
         var response = Solve(n, q, wavelength, pol);
+        return DifferentiateScatter(n, q, _thickness, _adjustments.Select(a => a.Multiplier).ToArray(), wavelength, pol, response.Power);
+    }
+
+    private static ThinFilmThicknessSensitivity DifferentiateScatter(Complex[] n, Complex[] q, double[] thickness,
+        double[] multipliers, double wavelength, ThinFilmPolarization pol, ThinFilmPower power)
+    {
         var y = q.Select((z, i) => pol == ThinFilmPolarization.S ? z : n[i] * n[i] / z).ToArray();
-        var count = _thickness.Length;
+        var count = thickness.Length;
         var reflected = Complex.Zero;
         var drNext = new Complex[count]; var drLocal = new Complex[count];
         var dlNext = new Complex[count]; var dlLocal = new Complex[count];
@@ -54,37 +60,37 @@ public sealed partial class CoherentThinFilmSolver
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var beta = j < count ? 2 * Math.PI * q[j + 1] / wavelength : Complex.Zero;
-            var phase = j < count ? beta * _thickness[j] : Complex.Zero;
+            var phase = j < count ? beta * thickness[j] : Complex.Zero;
             var propagationSquared = Complex.FromPolarCoordinates(Math.Exp(-2 * phase.Imaginary), 2 * phase.Real);
             var a = (y[j] - y[j + 1]) / (y[j] + y[j + 1]);
             var wave = reflected * propagationSquared;
             var denominator = 1 + a * wave;
             if (j < count)
             {
-                var waveDerivative = 2 * Complex.ImaginaryOne * beta * wave * _adjustments[j].Multiplier;
+                var waveDerivative = 2 * Complex.ImaginaryOne * beta * wave * multipliers[j];
                 var factor = (1 - a * a) / (denominator * denominator);
                 drLocal[j] = factor * waveDerivative;
                 drNext[j] = factor * propagationSquared;
-                dlLocal[j] = Complex.ImaginaryOne * beta * _adjustments[j].Multiplier - a * waveDerivative / denominator;
+                dlLocal[j] = Complex.ImaginaryOne * beta * multipliers[j] - a * waveDerivative / denominator;
                 dlNext[j] = -a * propagationSquared / denominator;
             }
             reflected = (a + wave) / denominator;
         }
         var derivatives = new ThinFilmThicknessDerivative[count];
         var adjointReflection = Complex.One; var adjointLogTransmission = Complex.Zero;
-        var hasLog = !double.IsNegativeInfinity(response.Power.LogTransmittance);
+        var hasLog = !double.IsNegativeInfinity(power.LogTransmittance);
         for (var j = 0; j < count; j++)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             var dr = 2 * (Complex.Conjugate(reflected) * adjointReflection * drLocal[j]).Real;
             var dlog = hasLog ? 2 * (dlLocal[j] + adjointLogTransmission * drLocal[j]).Real : 0;
-            var dt = response.Power.Transmittance * dlog;
+            var dt = power.Transmittance * dlog;
             if (!double.IsFinite(dr) || !double.IsFinite(dt) || !double.IsFinite(dlog))
                 throw new ArithmeticException("薄膜膜厚导数非有限，不能用于优化。");
             derivatives[j] = new(dr, dt, -dr - dt, dlog);
             adjointReflection *= drNext[j];
             adjointLogTransmission = dlNext[j] + adjointLogTransmission * drNext[j];
         }
-        return new(response.Power, derivatives, hasLog);
+        return new(power, derivatives, hasLog);
     }
 }

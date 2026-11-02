@@ -1,0 +1,2930 @@
+{
+  "baseCommit": "24aaec5bd948ba1ddc3a0d50795e42d423d820f3",
+  "sourceState": "uncommitted working tree; scoped coating validation",
+  "capturedUtc": "2026-11-02T09:31:16.0568627+00:00",
+  "tests": [
+    {
+      "path": "final/final-coating.trx",
+      "total": 164,
+      "passed": 164,
+      "cases": [
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintsPreserveResultsAndToleranceOnOpenAndSave(saveThroughStore: True)",
+          "outcome": "Passed",
+          "duration": "00:00:00.2813858"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: \"demo-hr-qw\", layers: 15)",
+          "outcome": "Passed",
+          "duration": "00:00:00.3803212"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Fill)",
+          "outcome": "Passed",
+          "duration": "00:00:02.3442187"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: -690)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003261"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"save-failed\", canClose: False)",
+          "outcome": "Passed",
+          "duration": "00:00:04.2185879"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.AnalysisDisplaySettingsTests.IndependentAnalysisMatchesFactoryStepAndAnglesWithoutChangingDesign",
+          "outcome": "Passed",
+          "duration": "00:00:00.7809246"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.AnalysisDisplaySettingsTests.SavedDefaultsRoundTripAndFactoryRestoreDoesNotUseDesignTargets",
+          "outcome": "Passed",
+          "duration": "00:00:00.0516258"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.LayerCellsRetainMaterialIdentityAndEditableValuesWhenRecycled(theme: \"Light\", width: 1200, fontSize: 13)",
+          "outcome": "Passed",
+          "duration": "00:00:05.6234536"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.LayerCellsRetainMaterialIdentityAndEditableValuesWhenRecycled(theme: \"Dark\", width: 1200, fontSize: 13)",
+          "outcome": "Passed",
+          "duration": "00:00:05.8232050"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.MaterialDialogCreatesIndependentSnapshotAndInvalidatesOldResult",
+          "outcome": "Passed",
+          "duration": "00:00:06.6312753"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.MultipleCavitiesGenerateRealStacksWithinLayerLimitAndDenseGridAgrees(cavities: 2)",
+          "outcome": "Passed",
+          "duration": "00:00:00.4532652"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.DuplexVersionFingerprintsAndStoredCandidatesRetainBothFacesAndRejectStaleResults",
+          "outcome": "Passed",
+          "duration": "00:00:00.2015677"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.InvalidFormulaNeverReturnsPartialLayers(formula: \"(HL)^101\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.6206490"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.HybridAnalyticIndexKeepsItsDeclaredRangeWhileItsKTableUsesPchip",
+          "outcome": "Passed",
+          "duration": "00:00:00.0040146"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: 4)",
+          "outcome": "Passed",
+          "duration": "00:00:04.2289097"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: Unpolarized)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004379"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.SymmetricFacesUseOneVariableAndManufacturingCorrelationRemainsExplicit",
+          "outcome": "Passed",
+          "duration": "00:00:00.1462115"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.InvalidFormulaNeverReturnsPartialLayers(formula: \"-1H\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0083586"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:03.7677934"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: -745)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004123"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CancellingADockDragAndCancellingMainCloseKeepTheFloatingWorkspace",
+          "outcome": "Passed",
+          "duration": "00:00:02.9003451"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintsPreserveResultsAndToleranceOnOpenAndSave(saveThroughStore: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.2421078"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.NativeTabReorderingAndSplitProportionsRoundTripWithTheActivePage",
+          "outcome": "Passed",
+          "duration": "00:00:05.2501962"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.EditingReferenceTablePreservesItsInterpolationBoundaryPolicyAndRawValues",
+          "outcome": "Passed",
+          "duration": "00:00:00.0209081"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingDerivativeTests.AdjointIncludesPhysicalThicknessMultiplierAndMatchesIndependentCentralDifferences(wave: 900, angle: 33, pol: S)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0013093"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RecoveryRestoresRawBothFaceEditsAndCancelCloseKeepsDraftWithoutOverwritingOriginal",
+          "outcome": "Passed",
+          "duration": "00:00:04.1733402"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView",
+          "outcome": "Passed",
+          "duration": "00:00:05.9501370"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DomainShadingUnionsAllParticipatingRangesAndOnlyIncludesAnActiveExitMedium",
+          "outcome": "Passed",
+          "duration": "00:00:00.0068197"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.FixedUpstreamReferenceMatchesAllCases",
+          "outcome": "Passed",
+          "duration": "00:00:00.0113493"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexSensitivityTests.EvanescentExitHasNoTransmissionOrSpuriousLogDerivative(pol: S)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000677"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexSensitivityTests.OpaqueSubstrateBareBackAdjustmentsAndLosslessMirrorsKeepFiniteDerivatives(pol: P, angle: 35)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0046997"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.PointerTearOffAndCrossWindowRedockUseTheSameCoatingPage",
+          "outcome": "Passed",
+          "duration": "00:00:02.7757708"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyWindowsFingerprintStillRejectsChangedInputs",
+          "outcome": "Passed",
+          "duration": "00:00:00.1781336"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: \"BK7\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0356712"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 4)",
+          "outcome": "Passed",
+          "duration": "00:00:03.7551708"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.JointOptimizationMovesBothFacesAndPreservesFixedAndInactiveLayers",
+          "outcome": "Passed",
+          "duration": "00:00:00.1678675"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.PhysicalAndOpticalThicknessFollowReferenceAndMaterialWithoutChangingStoredPrescription",
+          "outcome": "Passed",
+          "duration": "00:00:03.4079865"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: -1000)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000053"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"save-ok\", canClose: True)",
+          "outcome": "Passed",
+          "duration": "00:00:02.1436144"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.SameBudgetVersionComparisonUsesRealMaterialsAndRetainsEachOriginalTargetGate(kind: NarrowBand)",
+          "outcome": "Passed",
+          "duration": "00:00:02.7385778"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SavedCoatingLayoutLoadsInANewWindowAndInvalidFilesKeepCurrentLayout",
+          "outcome": "Passed",
+          "duration": "00:00:05.8691755"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexSensitivityTests.OpaqueSubstrateBareBackAdjustmentsAndLosslessMirrorsKeepFiniteDerivatives(pol: Unpolarized, angle: 50)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0057919"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.BothCoherentFacesMatch162IndependentMixedCoherenceReferences",
+          "outcome": "Passed",
+          "duration": "00:00:00.0103576"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.HighReflectorMatchesQuarterWaveAnalyticSolution",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003337"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.SameBudgetVersionComparisonUsesRealMaterialsAndRetainsEachOriginalTargetGate(kind: Antireflection)",
+          "outcome": "Passed",
+          "duration": "00:00:00.2614236"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.DuplexReciprocityTotalReflectionAndOpaqueLogTransmissionRemainPhysical",
+          "outcome": "Passed",
+          "duration": "00:00:00.0013410"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.FormulaDomainNestingAndAliasesAreBoundedWithoutGuessingMaterials",
+          "outcome": "Passed",
+          "duration": "00:00:00.3752145"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SaveOpenExportButtonsPreserveSnapshotAndBrokenFileClearsOldContent",
+          "outcome": "Passed",
+          "duration": "00:00:04.8440698"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.FixedFilmsAndVersionedRunSurviveSaveRecomputeAndLegacyNullStaysVersionOne",
+          "outcome": "Passed",
+          "duration": "00:00:00.0882280"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.LegacyVersionOneExampleRemainsReadableWithOriginalFingerprint",
+          "outcome": "Passed",
+          "duration": "00:00:00.0454154"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"clean\", canClose: True)",
+          "outcome": "Passed",
+          "duration": "00:00:02.2086138"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Left)",
+          "outcome": "Passed",
+          "duration": "00:00:02.3462385"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingDerivativeTests.OptionalAnalyticValueJacobianRespectsWeightsFixedVariablesAndTheLegacyFallback",
+          "outcome": "Passed",
+          "duration": "00:00:00.0548114"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: \"Dark\", fontSize: 13, count: 20)",
+          "outcome": "Passed",
+          "duration": "00:00:05.9464229"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.MultipleCavitiesGenerateRealStacksWithinLayerLimitAndDenseGridAgrees(cavities: 3)",
+          "outcome": "Passed",
+          "duration": "00:00:00.5179293"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(face: Both, evaluation: WholePlate, symmetric: True)",
+          "outcome": "Passed",
+          "duration": "00:00:00.1064569"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingRecoveryProcessTests.FreshProcessRecoversDraftAfterOnlyItsOwnedWriterIsKilled",
+          "outcome": "Passed",
+          "duration": "00:00:00.3780872"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: null)",
+          "outcome": "Passed",
+          "duration": "00:00:03.1011220"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.BareSubstrateAndLanguageChangesRemainViewOnly",
+          "outcome": "Passed",
+          "duration": "00:00:04.0181936"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.LayerEditingTests.FourThicknessUnitsShareOneFullPrecisionPhysicalValueAndRejectInvalidConversion",
+          "outcome": "Passed",
+          "duration": "00:00:00.0393714"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: 2)",
+          "outcome": "Passed",
+          "duration": "00:00:04.5050164"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.InvalidTextAndNonContiguousMultiRowEditsHaveAtomicDesignHistory",
+          "outcome": "Passed",
+          "duration": "00:00:06.7230019"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.RichClipboardPreservesFullPrecisionAndRemapsConflictingMaterialWithoutOverwritingNk",
+          "outcome": "Passed",
+          "duration": "00:00:00.0457244"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ThicknessFormattingDoesNotRoundStoredValuesAndInvalidEditsRemainInvalid",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003712"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: \"MgF2\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0415530"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingDerivativeTests.AdjointIncludesPhysicalThicknessMultiplierAndMatchesIndependentCentralDifferences(wave: 1500, angle: 57, pol: P)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001174"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: \"demo-bbar-4\", layers: 4)",
+          "outcome": "Passed",
+          "duration": "00:00:00.2230895"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.HalfMaximumWidthAndPeakAreInvariantToTransmissionScaleIncludingUnderflow(logPeak: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000110"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(face: Front, evaluation: WholePlate, symmetric: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.1068719"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.LayerCellsRetainMaterialIdentityAndEditableValuesWhenRecycled(theme: \"Light\", width: 820, fontSize: 18)",
+          "outcome": "Passed",
+          "duration": "00:00:04.9612003"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: \"Light\", fontSize: 13, count: 20)",
+          "outcome": "Passed",
+          "duration": "00:00:05.7475493"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"changed-during-save\", canClose: False)",
+          "outcome": "Passed",
+          "duration": "00:00:02.1986908"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.InvalidFormulaNeverReturnsPartialLayers(formula: \"0H\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0045582"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0431049"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: S, tir: True)",
+          "outcome": "Passed",
+          "duration": "00:00:00.4256916"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: \"SiO2\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0435117"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkspaceTests.ReusedRealMaterialWorkspaceMatchesIndependentSolversAtEveryThicknessAngleWavelengthAndPolarization",
+          "outcome": "Passed",
+          "duration": "00:00:00.7028858"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"cancel\", canClose: False)",
+          "outcome": "Passed",
+          "duration": "00:00:02.1545654"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: S, tir: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.4958117"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.SameBudgetVersionComparisonUsesRealMaterialsAndRetainsEachOriginalTargetGate(kind: HighReflector)",
+          "outcome": "Passed",
+          "duration": "00:00:00.2398787"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FourCoatingPagesFloatCloseReopenAndRestoreWithoutRecalculatingOrLosingEdits",
+          "outcome": "Passed",
+          "duration": "00:00:11.0405955"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: \"demo-metal-ag\", layers: 2)",
+          "outcome": "Passed",
+          "duration": "00:00:00.8406224"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.FormalDisplayAndPolarizationSamplingUseExactlyTheSelectedPhysicalObject(optimize: Back, evaluate: Back)",
+          "outcome": "Passed",
+          "duration": "00:00:00.7138748"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.BareFresnelAndBrewsterAnalyticChecks",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002717"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: \"Air\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0449469"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.FormulaUsesExplicitReferenceAndRealMaterialSnapshotWithBoundedNestedExpansion",
+          "outcome": "Passed",
+          "duration": "00:00:00.0255262"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 35)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006234"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: \"Ta2O5\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0376764"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.DuplexGenerationAndSearchKeepFixedFaceAndAttachBothFacesToEveryCandidate",
+          "outcome": "Passed",
+          "duration": "00:00:00.2484392"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmSubstrateTests.GeometryAndWholePlateDisplayRoundTripWithoutRedefiningFrontSurfaceAcceptance",
+          "outcome": "Passed",
+          "duration": "00:00:00.7818272"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.SingleQuarterWaveCancelsAndZeroThicknessIsIdentity",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002345"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.FormalDisplayAndPolarizationSamplingUseExactlyTheSelectedPhysicalObject(optimize: Both, evaluate: WholePlate)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0415329"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.ExplicitReferenceRoundTripsIndependentlyWithoutChangingOldPhysicalIdentity",
+          "outcome": "Passed",
+          "duration": "00:00:03.2628863"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: S)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000235"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 3)",
+          "outcome": "Passed",
+          "duration": "00:00:03.8138184"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexSensitivityTests.EvanescentExitHasNoTransmissionOrSpuriousLogDerivative(pol: Unpolarized)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003694"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(face: Both, evaluation: WholePlate, symmetric: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.1082964"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults",
+          "outcome": "Passed",
+          "duration": "00:00:09.7298338"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmSubstrateTests.BarePlateIncludesRearReflectionAndOpaqueSubstrateRetainsUntruncatedLogTransmission",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006893"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: \"Light\", fontSize: 18, count: 200)",
+          "outcome": "Passed",
+          "duration": "00:00:09.0720103"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexSensitivityTests.BothFaceAdjointsMatchCentralDifferencesAcross162IndependentPhysicalInputs",
+          "outcome": "Passed",
+          "duration": "00:00:00.0592676"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmSubstrateTests.CompletePlateMatchesIndependentMixedCoherenceReferenceWithRealSubstrateLoss",
+          "outcome": "Passed",
+          "duration": "00:00:00.0449259"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexSensitivityTests.OpaqueSubstrateBareBackAdjustmentsAndLosslessMirrorsKeepFiniteDerivatives(pol: S, angle: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0514157"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: \"Light\")",
+          "outcome": "Passed",
+          "duration": "00:00:04.6652832"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.ToleranceCorrelationsReproduceActualTrialsAndSurviveExport(correlation: Common)",
+          "outcome": "Passed",
+          "duration": "00:00:00.5828609"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.InvalidFormulaNeverReturnsPartialLayers(formula: \"()\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0040535"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.TotalInternalReflectionAndPassiveInputValidation",
+          "outcome": "Passed",
+          "duration": "00:00:00.0008871"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.EveryPageCanFloatTogetherAndFloatingEditorKeepsSaveShortcuts",
+          "outcome": "Passed",
+          "duration": "00:00:05.2672600"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.EndpointHoldingIsExplicitAndDoesNotRelaxOriginalMaterials",
+          "outcome": "Passed",
+          "duration": "00:00:00.0086733"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingDerivativeTests.AdjointIncludesPhysicalThicknessMultiplierAndMatchesIndependentCentralDifferences(wave: 450, angle: 0, pol: Unpolarized)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003426"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 1)",
+          "outcome": "Passed",
+          "duration": "00:00:03.7673705"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.ThickAbsorberAndThousandLayersRemainFiniteWithoutClippingTransmission",
+          "outcome": "Passed",
+          "duration": "00:00:00.0023016"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.TotalInternalReflectionHasNoHalfMaximumEdgesOrNanMetrics(pol: P)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002574"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExplicitCubicModelRetainsKnotsAndPlateausWhileLegacyLinearIsUnchanged",
+          "outcome": "Passed",
+          "duration": "00:00:00.0008912"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexSensitivityTests.EvanescentExitHasNoTransmissionOrSpuriousLogDerivative(pol: P)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0025790"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.MultiSelectionBatchAndHistoryRestoreWholeEditsAndNeverPartiallyApplyInvalidThickness",
+          "outcome": "Passed",
+          "duration": "00:00:04.5514677"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: Unpolarized, tir: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.5394757"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ApprovedCloseDrainsAnInFlightRecoveryWriteWithoutBlockingTheUiThread",
+          "outcome": "Passed",
+          "duration": "00:00:02.0887796"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 1200, height: 900)",
+          "outcome": "Passed",
+          "duration": "00:00:14.3161032"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(face: Front, evaluation: Front, symmetric: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0554470"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingDerivativeTests.AdaptiveGuidePreservesAnchorsAndReportsAnUnfinishedPointBudget",
+          "outcome": "Passed",
+          "duration": "00:00:00.0119040"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(face: Back, evaluation: WholePlate, symmetric: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.1076652"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: \"demo-mgf2-ar\", layers: 1)",
+          "outcome": "Passed",
+          "duration": "00:00:00.1662490"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexCoatingTests.FormalDisplayAndPolarizationSamplingUseExactlyTheSelectedPhysicalObject(optimize: Front, evaluate: Front)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0588082"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: \"Dark\")",
+          "outcome": "Passed",
+          "duration": "00:00:04.7981307"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.InvalidFormulaNeverReturnsPartialLayers(formula: \"NaNH\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0036117"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Bottom)",
+          "outcome": "Passed",
+          "duration": "00:00:02.4041671"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FormulaPreviewClipboardMultiSelectionAndIndependentReferenceHaveAtomicHistory",
+          "outcome": "Passed",
+          "duration": "00:00:07.0833434"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: Unpolarized, tir: True)",
+          "outcome": "Passed",
+          "duration": "00:00:00.5880756"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingDerivativeTests.StableAdjointAgreesWithTheIndependentPinnedAnalyticReferenceAcrossWavesAnglesAndLosses",
+          "outcome": "Passed",
+          "duration": "00:00:00.0022453"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingPeakRefinementTests.RefinementHonorsCancellationAndItsBoundedResourceContract",
+          "outcome": "Passed",
+          "duration": "00:00:00.0020123"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"save-cancel\", canClose: False)",
+          "outcome": "Passed",
+          "duration": "00:00:02.3907737"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ThinFilmPhysicsTests.LosslessPowerAndUnpolarizedAverage(angle: 70)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003357"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.ToleranceCorrelationsReproduceActualTrialsAndSurviveExport(correlation: SameMaterial)",
+          "outcome": "Passed",
+          "duration": "00:00:00.5745498"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.HostClosePreservesUnsavedExperimentUnlessExplicitlyResolved(scenario: \"discard\", canClose: True)",
+          "outcome": "Passed",
+          "duration": "00:00:02.3157796"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.InvalidFormulaNeverReturnsPartialLayers(formula: \"(H\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0107434"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.RecoveryLeasesSeparateWindowsKeepLatestDraftAndPreserveCorruption",
+          "outcome": "Passed",
+          "duration": "00:00:00.0465031"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DuplexAnalyticTests.AnalyticStagesPreserveFixedOppositeFacesAndOriginalDenseGates(face: Back, evaluation: Back, symmetric: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.7658667"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SharedThemesSwitchWithoutChangingExperimentAndSidebarStaysCompact(theme: 2)",
+          "outcome": "Passed",
+          "duration": "00:00:05.4478087"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Top)",
+          "outcome": "Passed",
+          "duration": "00:00:04.3126488"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingPeakRefinementTests.RefinedPhysicalPeakIsStationaryAndIndependentOfTheStartingGridAndOverallScale",
+          "outcome": "Passed",
+          "duration": "00:00:00.0599665"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: \"Ag\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0596632"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.InvalidFormulaNeverReturnsPartialLayers(formula: \"H; System.Run()\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0182972"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.MaterialImportPreservesUnitsExtinctionAndExactTableOnRoundTrip",
+          "outcome": "Passed",
+          "duration": "00:00:00.0024311"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingPeakRefinementTests.FlatOrEvanescentSpectraKeepTheirActualPowerWithoutInventingAnInteriorPeak",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005189"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OpeningEditingAndSavingKeepsTheSelectedDesignProtocol(version: 3)",
+          "outcome": "Passed",
+          "duration": "00:00:04.8846590"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: P, tir: True)",
+          "outcome": "Passed",
+          "duration": "00:00:00.4469237"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.ExactPrescriptionsAndEverySpectrumSampleMatchReference(id: \"demo-edge\", layers: 20)",
+          "outcome": "Passed",
+          "duration": "00:00:00.3471212"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.SearchIsDeterministicRecordsEveryStartAndPreservesFixedLayers",
+          "outcome": "Passed",
+          "duration": "00:00:00.2373455"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820, height: 900)",
+          "outcome": "Passed",
+          "duration": "00:00:14.4241737"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.BackFilmKeyboardEditingFloatingUndoSymmetryAndPersistenceKeepOneEvaluationObject(theme: \"Dark\")",
+          "outcome": "Passed",
+          "duration": "00:00:06.9248594"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingDerivativeTests.BoundActiveSetKeepsAnOutwardVariableAtItsBoundWhileImprovingFreeVariables",
+          "outcome": "Passed",
+          "duration": "00:00:00.0010430"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DailyDesignTests.ToleranceCorrelationsReproduceActualTrialsAndSurviveExport(correlation: Independent)",
+          "outcome": "Passed",
+          "duration": "00:00:02.4003256"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FloatingBoundsHandleRemovedScreensNegativeOriginsAndDisplayScaling",
+          "outcome": "Passed",
+          "duration": "00:00:00.0058946"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.BackFilmKeyboardEditingFloatingUndoSymmetryAndPersistenceKeepOneEvaluationObject(theme: \"Light\")",
+          "outcome": "Passed",
+          "duration": "00:00:07.1790368"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CoatingTabsUseNativeCompassAndRetainTheSameContents(direction: Right)",
+          "outcome": "Passed",
+          "duration": "00:00:02.4540546"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.CompletedRecoveryCannotBeRecreatedByQueuedOldWritesAndClearHonorsRevision",
+          "outcome": "Passed",
+          "duration": "00:00:00.0199228"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.InvalidFormulaNeverReturnsPartialLayers(formula: \"Sub | HL | Inc\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0133724"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingDerivativeTests.AdjointIncludesPhysicalThicknessMultiplierAndMatchesIndependentCentralDifferences(wave: 700, angle: 42, pol: Unpolarized)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005765"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingWorkflowTests.InvalidFormulaNeverReturnsPartialLayers(formula: \"(HL)^0\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0039684"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.ReferenceExampleTests.MaterialKnotsMidpointsAbsorptionAndEndpointRulesMatchReference(id: \"TiO2\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0516321"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820, height: 640)",
+          "outcome": "Passed",
+          "duration": "00:00:13.7823455"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.GeneralCoatingDerivativeTests.OpaqueFilmRetainsFiniteLogDerivativeAndEvanescentExitReportsItsUnsupportedLogDerivative",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005620"
+        },
+        {
+          "name": "OpticalSystemDesign.CoatingDesign.Tests.CoatingSpectrumEdgeTests.DarkNarrowBandSpectraFinishEvaluationAndCanReopenWithoutInventingAPassband(pol: P, tir: False)",
+          "outcome": "Passed",
+          "duration": "00:00:01.2930956"
+        }
+      ],
+      "sha256": "0edb05f3fcbb8168bd04380e829fbcfef4839553d8265e211cf1ff21a075c2ce"
+    },
+    {
+      "path": "final/final-shared.trx",
+      "total": 178,
+      "passed": 178,
+      "cases": [
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.WildcardBoundsUseTheWorstLayerAndRejectMissingSpecifiedLayers(code: \"CIGT\", expected: -0.10000000000000001)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000811"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.NativeRowsStayDisabledUntilCoatingMappingIsVerified(code: \"CMVA\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005838"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: 1)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001066"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.NativeRowsStayDisabledUntilCoatingMappingIsVerified(code: \"CEGT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005719"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.LocalComplexComponentsAndRadiansReachOperandWithoutDroppingCommonPhase(data: 104)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004749"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.ThickAbsorberKeepsFiniteLogTransmissionAndPhaseAfterAmplitudeUnderflow",
+          "outcome": "Passed",
+          "duration": "00:00:00.0032554"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.EmptyStackAgreesWithPowerFresnelIncludingSignsAndTir(n1: 1, n2: 1.5, degrees: 40)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000130"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.NativeRowsStayDisabledUntilCoatingMappingIsVerified(code: \"CMGT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0007558"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: -7)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006855"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: True, reverseMerge: True)",
+          "outcome": "Passed",
+          "duration": "00:00:02.2692503"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.TextExportRefusesToSilentlyDropUnmappedPolarization(extension: \".txt\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004526"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Right)",
+          "outcome": "Passed",
+          "duration": "00:00:01.9942013"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.CodaAlwaysUsesSpecifiedJonesButDataEightUsesTheOrthogonalAverage(unpolarized: True)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0016482"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.WildcardBoundsUseTheWorstLayerAndRejectMissingSpecifiedLayers(code: \"CMGT\", expected: 0.69999999999999996)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001153"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.UnmappedPhysicalCoatingDataCannotBeSilentlyExportedAsAName(extension: \".txt\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0012435"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.NativeRowsStayDisabledUntilCoatingMappingIsVerified(code: \"CIVA\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006196"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.IndividualLayerValuesAndBoundariesUseTheStoredAdjustment(code: \"CMVA\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0024774"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidReferencesAndModesAreExplicitErrors(problem: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000741"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: -3)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000782"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.InvalidAdjustmentsCannotEnterThePhysicalCalculation(problem: 3)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000864"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: 2)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001348"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: 7)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001429"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.CoatedPlateUsesIncidentAngleAndDoesNotMultiplyScalarLossTwice(degrees: 40)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0638990"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidSnapshotPolarizationNeverReplacesThePreviousState(problem: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0007067"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Bottom)",
+          "outcome": "Passed",
+          "duration": "00:00:02.1169906"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.NativeRowsStayDisabledUntilCoatingMappingIsVerified(code: \"CILT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0010250"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DocumentBoundaryAppliesToNewAndPreviouslySavedLayouts(nonSequential: False, restored: True)",
+          "outcome": "Passed",
+          "duration": "00:00:00.1630787"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.IndividualLayerValuesAndBoundariesUseTheStoredAdjustment(code: \"CIVA\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002828"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidReferencesAndModesAreExplicitErrors(problem: 2)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005837"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.ValueOperandsDoNotInventAnAllLayerAverage(code: \"CIVA\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0007951"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.NativeDocumentRoundTripPreservesLayerPhysicsAndPower(project: True)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0113536"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.ProductionDlsCanOptimizeCodaTransmissionUsingRadius",
+          "outcome": "Passed",
+          "duration": "00:00:00.0084055"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.AbsorbingSingleFilmMatchesIndependentAiryAmplitudes(polarization: P, angle: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000217"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.QuarterWaveAntireflectionRetainsQuarterCycleTransmissionPhase",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005708"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.RepeatedSplitsUseOnlyTheTargetPaneAndPreserveEveryPage",
+          "outcome": "Passed",
+          "duration": "00:00:06.1867015"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.CoatedPlateUsesIncidentAngleAndDoesNotMultiplyScalarLossTwice(degrees: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003972"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.WildcardBoundsUseTheWorstLayerAndRejectMissingSpecifiedLayers(code: \"CMLT\", expected: 1.8)",
+          "outcome": "Passed",
+          "duration": "00:00:00.5855638"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.IncompletePhysicalCoatingPayloadIsRejectedRatherThanDefaulted(mutation: \"count\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001044"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidSnapshotPolarizationNeverReplacesThePreviousState(problem: 3)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0296547"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.UnmappedPhysicalCoatingDataCannotBeSilentlyExportedAsAName(extension: \".seq\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003691"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.ApplicationEditingPreservesBaseMaterialsThroughReorderingSaveUndoAndStaleRejection",
+          "outcome": "Passed",
+          "duration": "00:00:00.2210701"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.LocalComplexComponentsAndRadiansReachOperandWithoutDroppingCommonPhase(data: 101)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0070722"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.ProductionDlsUsesCoatingVariablesToOptimizeActualCodaTransmission",
+          "outcome": "Passed",
+          "duration": "00:00:00.0745212"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.WildcardBoundsUseTheWorstLayerAndRejectMissingSpecifiedLayers(code: \"CEGT\", expected: -0.01)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0008043"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Top)",
+          "outcome": "Passed",
+          "duration": "00:00:07.6702605"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: -3)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001302"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.MatchedFilmRetainsItsPropagationPhase(polarization: P)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003637"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.NativeRowsStayDisabledUntilCoatingMappingIsVerified(code: \"CIGT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005234"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.IndividualLayerValuesAndBoundariesUseTheStoredAdjustment(code: \"CMGT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000305"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: 5)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000943"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidReferencesAndModesAreExplicitErrors(problem: 6)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002486"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DocumentBoundaryAppliesToNewAndPreviouslySavedLayouts(nonSequential: True, restored: True)",
+          "outcome": "Passed",
+          "duration": "00:00:00.1082359"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Right)",
+          "outcome": "Passed",
+          "duration": "00:00:02.1423317"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: -1)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000865"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.InvalidAdjustmentsCannotEnterThePhysicalCalculation(problem: 1)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0010707"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: 4)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001394"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: 1)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001657"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: False, reverseMerge: True)",
+          "outcome": "Passed",
+          "duration": "00:00:02.0783766"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.IncompletePhysicalCoatingPayloadIsRejectedRatherThanDefaulted(mutation: \"index\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0009909"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidReferencesAndModesAreExplicitErrors(problem: 1)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000964"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.IncompletePhysicalCoatingPayloadIsRejectedRatherThanDefaulted(mutation: \"material\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003232"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Top)",
+          "outcome": "Passed",
+          "duration": "00:00:02.0275817"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.NativeDocumentRoundTripPreservesLayerPhysicsAndPower(project: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0456483"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.WildcardNeverSilentlyOmitsAnUnsupportedCoatingAndCancellationPropagates",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005731"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingOverSystemOptionsDoesNotOfferDocumentDocking(mdi: False)",
+          "outcome": "Passed",
+          "duration": "00:00:01.8782419"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.IndividualLayerValuesAndBoundariesUseTheStoredAdjustment(code: \"CMLT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000368"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.SharedIlluminationUsesThePersistedPhysicalCoatingModel",
+          "outcome": "Passed",
+          "duration": "00:00:00.9095076"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidSnapshotPolarizationNeverReplacesThePreviousState(problem: 2)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002276"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.DispersionOffsetsAndThicknessMultiplierMatchIndependentNormalIncidenceAiry(wavelength: 550)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001973"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.IndividualLayerValuesAndBoundariesUseTheStoredAdjustment(code: \"CEVA\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000547"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Bottom)",
+          "outcome": "Passed",
+          "duration": "00:00:01.9308708"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: True, reverseMerge: False)",
+          "outcome": "Passed",
+          "duration": "00:00:01.9587645"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.MalformedLayerSnapshotsFailAndOldSnapshotsRetainUnperturbedDefaults(key: \"indexOffset_0\", invalid: NaN)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003609"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.ReflectionFromAbsorbingSubstrateUsesPhysicalCoatingInsteadOfIdealMirrorPower",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006970"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.WildcardBoundsUseTheWorstLayerAndRejectMissingSpecifiedLayers(code: \"CELT\", expected: 0.10000000000000001)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000878"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.IndividualLayerValuesAndBoundariesUseTheStoredAdjustment(code: \"CELT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000300"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidSnapshotPolarizationNeverReplacesThePreviousState(problem: 1)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003093"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.RretUsesGlobalReferenceAxisButKeepsItsOwnExplicitJonesInputs",
+          "outcome": "Passed",
+          "duration": "00:00:00.0198922"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.EllipseHasIndependentRotatedAxesAndExcludesZ(angle: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003639"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: 4)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001175"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.GuidanceUsesCurrentThemeAndLanguage(theme: \"Dark\", language: \"en-US\", hint: \"Dock Left\")",
+          "outcome": "Passed",
+          "duration": "00:00:01.9014439"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.EmptyStackAgreesWithPowerFresnelIncludingSignsAndTir(n1: 1.5, n2: 1, degrees: 30)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003449"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidSnapshotPolarizationNeverReplacesThePreviousState(problem: 4)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001609"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.GuidanceUsesCurrentThemeAndLanguage(theme: \"Isekai\", language: \"en-US\", hint: \"Dock Left\")",
+          "outcome": "Passed",
+          "duration": "00:00:01.9058003"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Left)",
+          "outcome": "Passed",
+          "duration": "00:00:02.2444314"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.CodaEllipseMatchesLinearPlateFieldAndCircularAngleIsUndefined",
+          "outcome": "Passed",
+          "duration": "00:00:00.0014633"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.ValueOperandsDoNotInventAnAllLayerAverage(code: \"CMVA\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004483"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.SplitLayoutRoundTripsThroughExplicitSlot(direction: Bottom)",
+          "outcome": "Passed",
+          "duration": "00:00:03.5634228"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.AbsorbingSingleFilmMatchesIndependentAiryAmplitudes(polarization: S, angle: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003042"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.LocalComplexComponentsAndRadiansReachOperandWithoutDroppingCommonPhase(data: 106)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006556"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.LocalComplexComponentsAndRadiansReachOperandWithoutDroppingCommonPhase(data: 105)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004608"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.ProductionDlsOptimizesEachMarkedLayerVariable(code: \"CMVA\", kind: Multiplier, target: 1.6000000000000001)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0023620"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: 3)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001521"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.IndividualLayerValuesAndBoundariesUseTheStoredAdjustment(code: \"CILT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000294"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.GuidanceUsesCurrentThemeAndLanguage(theme: \"Pixel\", language: \"ja-JP\", hint: \"左側にドッキング\")",
+          "outcome": "Passed",
+          "duration": "00:00:02.8477431"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: 6)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000920"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.EllipseHasIndependentRotatedAxesAndExcludesZ(angle: 30)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003891"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: 2)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001581"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DocumentBoundaryAppliesToNewAndPreviouslySavedLayouts(nonSequential: True, restored: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0050988"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: -5)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001205"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.AbsorbingFilmTransportsItsComplexJonesResponseThroughTheNextInterface",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005009"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.ApplicationEditorStaroptAndUndoRedoPreserveSystemStateAndOperandSlots",
+          "outcome": "Passed",
+          "duration": "00:00:00.3267828"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.CodaAlwaysUsesSpecifiedJonesButDataEightUsesTheOrthogonalAverage(unpolarized: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0027552"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.CoatedPlateUsesIncidentAngleAndDoesNotMultiplyScalarLossTwice(degrees: 60)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0007802"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingOverSystemOptionsDoesNotOfferDocumentDocking(mdi: True)",
+          "outcome": "Passed",
+          "duration": "00:00:02.1243417"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.EmptyStackAgreesWithPowerFresnelIncludingSignsAndTir(n1: 1, n2: 1.5, degrees: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0010175"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: 3)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000899"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.AbsorbingSingleFilmMatchesIndependentAiryAmplitudes(polarization: P, angle: 45)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0008020"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidReferencesAndModesAreExplicitErrors(problem: 3)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000641"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.InvalidAdjustmentsCannotEnterThePhysicalCalculation(problem: 0)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002982"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Left)",
+          "outcome": "Passed",
+          "duration": "00:00:01.7898082"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: -4)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001283"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.LocalComplexComponentsAndRadiansReachOperandWithoutDroppingCommonPhase(data: 112)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005080"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: False, direction: Top)",
+          "outcome": "Passed",
+          "duration": "00:00:02.1851412"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.UnmappedPhysicalCoatingDataCannotBeSilentlyExportedAsAName(extension: \".len\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001235"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.ProductionDlsOptimizesEachMarkedLayerVariable(code: \"CEVA\", kind: ExtinctionOffset, target: 0.10000000000000001)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0020392"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.LocalComplexComponentsAndRadiansReachOperandWithoutDroppingCommonPhase(data: 113)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0012290"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.TextExportRefusesToSilentlyDropUnmappedPolarization(extension: \".seq\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0013046"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.RemoveAllVariablesAlsoClearsCoatingFlagsIncludingImageSurfaceAndCanUndo",
+          "outcome": "Passed",
+          "duration": "00:00:00.1664122"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.LocalComplexComponentsAndRadiansReachOperandWithoutDroppingCommonPhase(data: 111)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0008610"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Right)",
+          "outcome": "Passed",
+          "duration": "00:00:01.9562818"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.TextExportRefusesToSilentlyDropUnmappedPolarization(extension: \".zmx\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0119294"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: -4)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000827"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.IndividualLayerValuesAndBoundariesUseTheStoredAdjustment(code: \"CIGT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000317"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.IlluminationHonorsGlobalJonesWhileUnpolarizedAverageRemainsAvailable",
+          "outcome": "Passed",
+          "duration": "00:00:00.5225921"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.DispersionOffsetsAndThicknessMultiplierMatchIndependentNormalIncidenceAiry(wavelength: 450)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0010977"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.MalformedLayerSnapshotsFailAndOldSnapshotsRetainUnperturbedDefaults(key: \"multiplier_0\", invalid: 11)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0007293"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.ValueOperandsDoNotInventAnAllLayerAverage(code: \"CEVA\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0010970"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.ImmutableReplacementSeparatesSurfacesAndSnapshotsAndInvalidatesTracing",
+          "outcome": "Passed",
+          "duration": "00:00:00.0011428"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidReferencesAndModesAreExplicitErrors(problem: 7)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0009155"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.IncompletePhysicalCoatingPayloadIsRejectedRatherThanDefaulted(mutation: \"negative\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001122"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.EscapeCancelsAndCenterMergesWithoutReplacingPageContent(mdi: False, reverseMerge: False)",
+          "outcome": "Passed",
+          "duration": "00:00:02.2063755"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.ImagePlaneCoatingIsExcludedFromIncidentIrradiance",
+          "outcome": "Passed",
+          "duration": "00:00:00.0046739"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidReferencesAndModesAreExplicitErrors(problem: 5)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004554"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.EmptyStackAgreesWithPowerFresnelIncludingSignsAndTir(n1: 1, n2: 1.5, degrees: 56.309932474020215)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000217"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.CancellationIsNotConvertedToAnOperandFailureOrZero",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005984"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.NativeRowsStayDisabledUntilCoatingMappingIsVerified(code: \"CEVA\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0006689"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.AbsorbingSubstrateKeepsReflectionButDoesNotInventTransverseTransmission",
+          "outcome": "Passed",
+          "duration": "00:00:00.0181428"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.InvalidAdjustmentsCannotEnterThePhysicalCalculation(problem: 5)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000796"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.ReflectionUsesTypedBranchAndRetainsBothCoatingCoefficients",
+          "outcome": "Passed",
+          "duration": "00:00:00.0017492"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DraggingAPageShowsFourDirectionsAndAPreview(mdi: True, direction: Left)",
+          "outcome": "Passed",
+          "duration": "00:00:02.2569643"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: -5)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000759"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: -2)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004153"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidReferencesAndModesAreExplicitErrors(problem: 8)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0219055"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.DocumentBoundaryAppliesToNewAndPreviouslySavedLayouts(nonSequential: False, restored: False)",
+          "outcome": "Passed",
+          "duration": "00:00:00.1256653"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.NativeRowsStayDisabledUntilCoatingMappingIsVerified(code: \"CMLT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0553218"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.MatchedFilmRetainsItsPropagationPhase(polarization: S)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004064"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.IndividualLayerValuesAndBoundariesUseTheStoredAdjustment(code: \"CEGT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000291"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.InvalidAdjustmentsCannotEnterThePhysicalCalculation(problem: 2)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000459"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: 5)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000825"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.ScalarCoatingReportsDeclaredPowerAndOnlyAttenuatesOnce",
+          "outcome": "Passed",
+          "duration": "00:00:00.0019999"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.ProductionDlsOptimizesEachMarkedLayerVariable(code: \"CIVA\", kind: IndexOffset, target: 0.29999999999999999)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0035552"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: 7)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000718"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.NativeRowsStayDisabledUntilCoatingMappingIsVerified(code: \"CELT\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005658"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: -6)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005530"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.UnmappedPhysicalCoatingDataCannotBeSilentlyExportedAsAName(extension: \".zmx\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0018744"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: -7)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001431"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.WildcardBoundsUseTheWorstLayerAndRejectMissingSpecifiedLayers(code: \"CILT\", expected: 0.29999999999999999)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005448"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.LocalComplexComponentsAndRadiansReachOperandWithoutDroppingCommonPhase(data: 110)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0008350"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.DispersionOffsetsAndThicknessMultiplierMatchIndependentNormalIncidenceAiry(wavelength: 650)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004569"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.NativeCodaRowsRemainReadOnlyAndDoNotAcquireDefaultSystemSettingsAsVerifiedInput",
+          "outcome": "Passed",
+          "duration": "00:00:00.0035638"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.BareInterfaceDataMatchesIndependentPowerFresnel(data: -6)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000829"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: 6)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001093"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.MalformedLayerSnapshotsFailAndOldSnapshotsRetainUnperturbedDefaults(key: \"indexVariable_0\", invalid: -0.5)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0484743"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.LocalComplexComponentsAndRadiansReachOperandWithoutDroppingCommonPhase(data: 103)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0004086"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.InvalidAdjustmentsCannotEnterThePhysicalCalculation(problem: 4)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0023429"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.TextExportRefusesToSilentlyDropUnmappedPolarization(extension: \".len\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0002012"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.EmptyStackAgreesWithPowerFresnelIncludingSignsAndTir(n1: 1.5, n2: 1, degrees: 60)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000270"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.InvalidReferencesAndModesAreExplicitErrors(problem: 4)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003655"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.WorkspaceDockGuidanceTests.GuidanceUsesCurrentThemeAndLanguage(theme: \"Light\", language: \"zh-CN\", hint: \"停靠到左侧\")",
+          "outcome": "Passed",
+          "duration": "00:00:01.7645161"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.AbsorbingSingleFilmMatchesIndependentAiryAmplitudes(polarization: S, angle: 45)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000099"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.LegacyElectricFieldPupilDoesNotSilentlyReplacePhysicalStackWithBareFresnel",
+          "outcome": "Passed",
+          "duration": "00:00:00.5443312"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.LocalComplexComponentsAndRadiansReachOperandWithoutDroppingCommonPhase(data: 102)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0005325"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: -2)",
+          "outcome": "Passed",
+          "duration": "00:00:00.6078565"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.EllipseHasIndependentRotatedAxesAndExcludesZ(angle: -70)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0000112"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingLayerConstraintTests.MalformedLayerSnapshotsFailAndOldSnapshotsRetainUnperturbedDefaults(key: \"extinctionVariable_0\", invalid: 2)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0003647"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoatingDataOperandTests.AbsorbingFilmDataMatchesIndependentComplexAiry(data: -1)",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001264"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.CoherentCoatingTransportTests.IncompletePhysicalCoatingPayloadIsRejectedRatherThanDefaulted(mutation: \"thickness\")",
+          "outcome": "Passed",
+          "duration": "00:00:00.0001243"
+        }
+      ],
+      "sha256": "816a8044f6d3969ff7ce9a6d4946ca44b4023b01d7b63491d316cdd133ac4aa6"
+    }
+  ],
+  "distinctTests": 342,
+  "allPassed": true,
+  "assemblies": [
+    {
+      "name": "OpticalSystemDesign.App.dll",
+      "identical": true,
+      "copies": [
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+          "sha256": "db6a71f2b000efc9c3c4076e97bfcdce0cf26ccced5a485e5dd51fae77005e80"
+        },
+        {
+          "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+          "sha256": "db6a71f2b000efc9c3c4076e97bfcdce0cf26ccced5a485e5dd51fae77005e80"
+        },
+        {
+          "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+          "sha256": "db6a71f2b000efc9c3c4076e97bfcdce0cf26ccced5a485e5dd51fae77005e80"
+        }
+      ]
+    },
+    {
+      "name": "OpticalSystemDesign.Core.dll",
+      "identical": true,
+      "copies": [
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "af7755dc14b92dabb9ad4e505937b99379598fdf8743c7d1a7a618a4d77e908a"
+        },
+        {
+          "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "af7755dc14b92dabb9ad4e505937b99379598fdf8743c7d1a7a618a4d77e908a"
+        },
+        {
+          "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "af7755dc14b92dabb9ad4e505937b99379598fdf8743c7d1a7a618a4d77e908a"
+        }
+      ]
+    },
+    {
+      "name": "OpticalSystemDesign.CoatingDesign.Engine.dll",
+      "identical": true,
+      "copies": [
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.CoatingDesign.Engine.dll",
+          "sha256": "2ab833f2467a0bca9a2f451de9bdc9ee442182f788a4cb0f6dbd3618386295b5"
+        },
+        {
+          "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.CoatingDesign.Engine.dll",
+          "sha256": "2ab833f2467a0bca9a2f451de9bdc9ee442182f788a4cb0f6dbd3618386295b5"
+        },
+        {
+          "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.CoatingDesign.Engine.dll",
+          "sha256": "2ab833f2467a0bca9a2f451de9bdc9ee442182f788a4cb0f6dbd3618386295b5"
+        }
+      ]
+    }
+  ],
+  "binaryCopiesMatch": true,
+  "testAssemblies": [
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.CoatingDesign.Tests.dll",
+      "sha256": "bb4f6dd5b60674f3fcc0acaf213be6ca745d5e5598d50e3652e4b73d01e14bf0"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll",
+      "sha256": "b22ac3265cbd9c994e08fba550728aa24ac309fa0c3b647b1e59a00316effcb9"
+    },
+    {
+      "path": "tools/diagnostics/CoatingRecovery20261102/bin/Release/net10.0/CoatingRecovery20261102.dll",
+      "sha256": "cb8695623b3c7bb27a681f51500a91af51e0f2fe4852220b3609866e880e8a3e"
+    }
+  ],
+  "legacyNumericalSources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentThinFilmSolver.cs",
+      "sha256": "14db55021faab3416df8eb04141ef46b6d54afd85d9f2c31e4df2738d9961168",
+      "previousSha256": "14db55021faab3416df8eb04141ef46b6d54afd85d9f2c31e4df2738d9961168",
+      "unchanged": true
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmIncoherentSubstrate.cs",
+      "sha256": "b5c4bbf71693c0ea016e16bc630b2a84de9bfdc0602d5c4d87177ddff5facf24",
+      "previousSha256": "b5c4bbf71693c0ea016e16bc630b2a84de9bfdc0602d5c4d87177ddff5facf24",
+      "unchanged": true
+    }
+  ],
+  "sources": [
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/CoatingLayerClipboard.cs",
+      "sha256": "38fb1409bfa5f9558649e249750e6dfeb62ab5f5f020a543fd199de743dc4e99"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/CoatingRecoveryStore.cs",
+      "sha256": "7baa9e067ec88ce591927818b4de05d9620406c150aa7bd6ca7ad4e05700d8ef"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/CoatingStackFormula.cs",
+      "sha256": "50634b851021e95edb57a7528a7d4d0888e3ba8552e64e2f6209c16977bdcf57"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.Balanced.cs",
+      "sha256": "9d154bc46f017ea82f13d2f399f907c893b7d5f11ce544494ba4d8a9ba63a2cd"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.cs",
+      "sha256": "d0b03840738c46c609c66d7a129ced18d3dba4e10414fa1c3955510a9d754c59"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.DenseExtrema.cs",
+      "sha256": "a8ad5efceb5bef40391df6806dbf5a0bed7622533cb0d467bbf1afcccc974033"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.DisplaySpectrum.cs",
+      "sha256": "42a8bc79c7e1aa5c64d8e0499305a58f73df1781665591f10fb54887f6954b83"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.Duplex.cs",
+      "sha256": "5c235bae2cf6a7fb08f819e091131d46693fb2e0a0cad194c416c2abb34f9be2"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.DuplexAnalytic.cs",
+      "sha256": "b49c6e6df996592a240be213b28c5b1277c01d0c766815f864da440668dd82ee"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.FeasibleReflectance.cs",
+      "sha256": "b9749ae7e70984e043080990a3fa43d1c552fc78e8c57ac911502d07fc81440e"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.FeasibleTargets.cs",
+      "sha256": "49bc97932d27f2f4978b3c177b93885b7d078a609536851081a5cd6914dca411"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralMatching.cs",
+      "sha256": "60061f33aab5d6c2101eacf42c51ce2d2858c7f22d67c30988845b6b5df74d17"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralObjective.cs",
+      "sha256": "95255491d0aaede1261000132e4e4adf413ce3ec7a85169613df225405eb5977"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralSearch.cs",
+      "sha256": "4e7a70d2de280f30f70d44fe88697da3441d6afe323be9304a01b59b9c779c64"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.NarrowBand.cs",
+      "sha256": "bb94dd3345179aef1a813d0ba3d6c274317ae9c2504020542514dcfb3d25d9d4"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.NonlinearCorrection.cs",
+      "sha256": "e3e1e6b405e635ab985f74f9512abc6b905fd55cfea3f4d4e0ba1de624fe407f"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.PassbandQuality.cs",
+      "sha256": "695d2addc4c60c06945975cbe1677edbca1777c8f259a75653eeb2f72a6f4cae"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.ReflectanceQuality.cs",
+      "sha256": "9849a5fde0063d3e4eeee895b6a6c6a71ab78da7245b3f05d5f0bdc5560b82d7"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.Search.cs",
+      "sha256": "0f35ee7a549145e28fbe6f9b4e78868f6dd552110858e17fb7d8117d41e1ff51"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.SearchSampling.cs",
+      "sha256": "56065380bba2e71c897e3469f56681957469b6304dcf5e4037cfe4de6f01762c"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.SeedRanking.cs",
+      "sha256": "59c0ed45e861a37946a0931641be456d60d225a96a7a277487c896753228b801"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.StructureFeedback.cs",
+      "sha256": "9c7cf5d6b49dc225a2f7dbc9d59d91bae0fd71c1d211051cfc3574c5c25b0a35"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.TargetProtection.cs",
+      "sha256": "6ca22e288c3af85681801cbd3d3be8dc5fe200c505af2fe7aa325f4146489993"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Examples.cs",
+      "sha256": "9a9dc871c726b286ebc4655b28cc4ed6246ebbd0586d580f440a333eb7fa583f"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/Experiment.cs",
+      "sha256": "8ad39af2c81a2496b17c1c654671cada38bfef1d9f50991d325c3ccdc1277bdc"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/ExperimentSession.cs",
+      "sha256": "a4e5260c9eb042a6a78cba888bbfcd3420c34ba2e3ed2f497701effeed86d0a5"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/ExperimentStore.cs",
+      "sha256": "f1070d62697d29cd09347066963cbea57845afbaa2d6c691843d1f4a70e8d901"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/MaterialLibrary.cs",
+      "sha256": "96d2700ae56c23dfcf93f47f12042c8b3c20ef445a66670ff5ba162d05f1860b"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/MaterialSuitability.cs",
+      "sha256": "ef20fee2b76a06f98b95d6e79b8716ed28ecac75da7e8f89d6b0c73e686c5112"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/MaterialTable.cs",
+      "sha256": "81c56dff577d2eb210f5332ad1ca379078efd1797bcf607771dd1da64a151828"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/OpticalSystemDesign.CoatingDesign.Engine.csproj",
+      "sha256": "68b3a74888c70f69871bfe50009f31577a0493de02a1362e2c12ebe8d418254b"
+    },
+    {
+      "path": "labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/ReferenceExamples.cs",
+      "sha256": "6817ef2181443a0c7aaecc854149d54a1ed08fead1ca61932583494fa44d4264"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/AnalysisDisplaySettingsTests.cs",
+      "sha256": "526bdbd84b5b282226ac7b059ca3e648823e4c2fc2a257c8e89172e6eaf7fd1e"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/BalancedDesignTests.cs",
+      "sha256": "9df9c379f436e37fa919d1f3678cf50dbbe7892029cb553175da814e31aae014"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/CoatingBandSensitivityTests.cs",
+      "sha256": "dc3924b05abbec224da2b032abd257c50b6750fccd615aeba145e0ef5a3bbcc2"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/CoatingPeakRefinementTests.cs",
+      "sha256": "2b89690efb92f913ad7c1b100b5e4e7dde23551929399ac3254b7a28d17d2925"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/CoatingRecoveryProcessTests.cs",
+      "sha256": "f037054beb3c53ae7faaf50216df918d2d95809382d02173a89bd3ba2c1f5c73"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/CoatingSpectrumEdgeTests.cs",
+      "sha256": "0f6a16fdd2e3685c7b60ff6c82c66d1b42fbd6970c0656926fc443227489a305"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/CoatingWorkflowTests.cs",
+      "sha256": "4f44353e9f0891e11b52d1066162f78eabec0e9127ffdb680e08b32de8702fdb"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/CoatingWorkspaceTests.cs",
+      "sha256": "c484ed42d1de7a595af1069c72880de2afebf8cb60cf29f935d41ad4ad78fb58"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DailyDesignTests.cs",
+      "sha256": "818e2aa0deac26fa70a95c232340d161ac77a92ddc4bebc2eba7b1abd132275d"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DenseExtremaTests.cs",
+      "sha256": "4ca6435e06328d584d0d70accb407d89bcfd4a05417b8ddd63d8df79f52fcde0"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopDockingTests.cs",
+      "sha256": "8be17d2c8dce619b8ed761c7d9aa0ab9ae1902bca4ab5a2a8b7c14e7169c50a0"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopDomainShadingTests.cs",
+      "sha256": "e111b20a443ad1b194013a0ebc99c9b7b99472afab714875fa0689bdb754da15"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopDuplexTests.cs",
+      "sha256": "dbb1bd972da0e63eddb72253f8eec03341f957e25bbf1b451166fee5f230f461"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopEditorTests.cs",
+      "sha256": "0604d26807633fe144c6369db1d1d91f8c907aed3c05fa061c4259985242ace6"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopLayerPresentationTests.cs",
+      "sha256": "d2c438177ba6796702e7f7e4570940cb0247c537e80a6a9f2c562d1452319626"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopProtocolTests.cs",
+      "sha256": "a9d49b1b1fd701bb21905800ac31f4b7e54fc57adbe09b45381ed4dcdecd19d3"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopReferenceExampleTests.cs",
+      "sha256": "4014042c484bf9b786f230688e9ede8c69ca3f9264f051db21c68e1c1d7b5821"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopSpectrumTests.cs",
+      "sha256": "a535f09a720bd374caa6dc5cca52f62257517e3a1d759a8e5b755400c5ec55ac"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopStackGeometryTests.cs",
+      "sha256": "54766f51b640ed2ead60507526ec2b91fc66adc2a4ff82d76e0ed8a766a22d4d"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopTests.cs",
+      "sha256": "1bee7c77ab6c5d68bbd8d7989fc28b4f7cfeeeace864ee538a70479e0e122557"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopThicknessTests.cs",
+      "sha256": "80d0ff109533b887448ae32f440aa85c7bc142ca3d86d55503dc20ce8a7028a0"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopWorkflowTests.cs",
+      "sha256": "1150c0fe3199a128b6cec44aafacc9208dd583ef0bccc1ccaa5bc593a132ad46"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DisplayPolarizationTests.cs",
+      "sha256": "5a0ce44f10b35d888966138ac8953b14853281caa2b5388da71846f9ff88e641"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DuplexAnalyticTests.cs",
+      "sha256": "220f276409478cf3ea6d2b7d250979486f67cd1160c93805d81e024a9d8cace2"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DuplexCoatingTests.cs",
+      "sha256": "0fa395a907a427b3d4ea2d9c031ddba6dd9f79d3626a473b384b7cd55bf1c7cc"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DuplexSensitivityTests.cs",
+      "sha256": "80e6a81d021652052da294d712f3afe99f3f7209a905b3fb185d9ea45615a072"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/GeneralCoatingDerivativeTests.cs",
+      "sha256": "0f8aaa535cf1ac6257ff79e61d7d06a2cad1d6acf524e9971dd1a5154cedf39f"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/GeneralCoatingTests.cs",
+      "sha256": "0623fc0ce4caa6ca9e00a6e359aa8acd7d79ee4739ea1d07c0ef8d89b5e732ff"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/InequalityStepTests.cs",
+      "sha256": "b6cd4f243ef1ca9c2564096229e0831ccd88c7a03b6009127aff7a91b5edb660"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/InfeasibleCoatingTests.cs",
+      "sha256": "caacba34b6fdfbf1c6b7daa271b782b1cc28c6cc9b4c19f65c2ae35dfa8f11b9"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/MarginRefinementTests.cs",
+      "sha256": "d929639b09b8eca9e06d6cd10ba6f4af138918b4b7979d2b6753a31d6f3ba544"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/NarrowBandCompetitionTests.cs",
+      "sha256": "54cf3621781a7438a95b519e49596e87c9e813d28494da106ded3c6082261efa"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/NonlinearCoatingRegressionTests.cs",
+      "sha256": "00c14b7ed3249de313513a8bf7b4a6db8a9d8408f4f11cd7c312f207db01bc8e"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/NonlinearCorrectionTests.cs",
+      "sha256": "e1180e892e61b1292fcca6482b0c114e64a00a4eefc74744c6472d989412cb89"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/OpticalSystemDesign.CoatingDesign.Tests.csproj",
+      "sha256": "fb2f3cabe791bcefe7414643323a470cf784c71087e29d076714a0946b0f828c"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/ProgressAllocationTests.cs",
+      "sha256": "30de8694c4284329b2c07c45f4f7cf216387c9e256bf31ab6da800141bab1fa2"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/ReferenceExampleTests.cs",
+      "sha256": "373a0f40e6abf9cfdd9b814322b7ce41d1164a506f5604fbf6db2674530e3691"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/ReflectanceQualityTests.cs",
+      "sha256": "16515b5388d76630c43bc1acc599fe5941a978f7ec52cfd134e8d6065cec40b9"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/SearchSeedRankingTests.cs",
+      "sha256": "5f1b13e0d1e63678833490ccb24c59bc26e8ea2f57f577d0ec67c6e520c78c91"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/StructureFeedbackTests.cs",
+      "sha256": "3b936b4b6a0630178354f571fafb171f26b5c63ac98acff0f2eedea86f99d383"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/TargetBalancingTests.cs",
+      "sha256": "f0225f4339c11615ee209d5f1ff69bc1f7ec81f48f9c013efa27e504bddde099"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/TargetContinuationTests.cs",
+      "sha256": "38c0c7213b3bcd6b4a8acbd2288ab16fca50d843d98b44205a8de7a0950f300d"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/TargetPreservationTests.cs",
+      "sha256": "bf9e69ab036cb4d4be352c1a0d568440585eea987f93c28a64c9bfa257b7351b"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/TargetTradeoffTests.cs",
+      "sha256": "e620a8172b1dc089d741d9c138f65ebf09dbba7d71029d752615b3995bd7440e"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/ThinFilmPhysicsTests.cs",
+      "sha256": "d0c2dcdd66a26690d99c98f43a19967fbb8d2b730184c008620f1601bc4f6d5b"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/ThinFilmSubstrateTests.cs",
+      "sha256": "fc00c4b115b8a8bdcbc3b3e1854c6680e1fd5fd88a5b811aae5a8714352e55c0"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/WorkflowTests.cs",
+      "sha256": "8aa652c16391fcf1d98f4deddb1019b35ba3ada99b4ec6952dfc83db6042c18f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingDockLayoutStore.cs",
+      "sha256": "5bedd1069cd5d298a37d5006360444ae6ae840e4bf4fbb9b403b775d30429a4f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingDockWorkspace.cs",
+      "sha256": "df0f0aaea8f332015123e18ab78527964dd171f0c5c2df6760b9c5bc3ae059cb"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingFormulaWindow.cs",
+      "sha256": "2e5f9ce23fb494d12a84005c8e3f58ab601119572debbc63a0adcf68a2d096b2"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingPlotDefaults.cs",
+      "sha256": "ca9dbef525dbb563092a33072c9fa18bcd9b6e84a7078e8c6b0b5dde020c959a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingResultSnapshot.cs",
+      "sha256": "68d4a259f4feda37afef41b1f81e26fb5dfdb37c5478cff0d80a25d1d230b305"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingStackAnalysisView.cs",
+      "sha256": "3f96d560e2a6f4a734f1b0aa18b5ac51615be802a1e9d9ef713e54cd714b3335"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs",
+      "sha256": "69ab31c290bb40fe37f0ca42aec26a14c73e0e7b99e0310a4b0c84007f714d31"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/LaboratoryTypography.cs",
+      "sha256": "c09952c55623dc8d8609a74c0c3e040d65672647a1004401684f3aacf8bd1361"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/LayerRow.cs",
+      "sha256": "16523ec7e5099a32fd485b4092f338cbf79e5e25abbe39f29dc27bdf9532e6ab"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs",
+      "sha256": "f29f0a1eedd3195c1c6217dc2eaa180441cabdd09a582392e5fe64467d351647"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.cs",
+      "sha256": "8c4da3ca4b1ae9028f961defbc220aa507c1ee241b0125584746e8ed50a7d493"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Docking.cs",
+      "sha256": "32f521d66ace8cf339d07dd871a31403fc48bf602fda24573f96d89409c38d5c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Duplex.cs",
+      "sha256": "ce433181b1088a5577cf61be605d0a1965ce984fa90afe1f87d44b159ce148d5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Editor.cs",
+      "sha256": "5f8fa9192b2e4f854926eb66ffc67df93fb921bf5f595b3904874f734d2d35c2"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.EvaluationSettings.cs",
+      "sha256": "5d5f00a515ca0b8fda9158400a1753aac593a90d4cd3b04b30a0fea4010b8848"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Geometry.cs",
+      "sha256": "a9c47c18c35da49a9d6bae9b39c3057122f2b455c3f11fd04c3196976ba61d9c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Layers.cs",
+      "sha256": "a1d79e5ec7f74898020987db37ba29bbe7b31872e439805f5cf29bfe08c7b4ce"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.LayerTransfer.cs",
+      "sha256": "e5446fa9ec4f003ca256f6dc1871ebd13724f4ac460ca791c581fd2632c7bc8e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Lifetime.cs",
+      "sha256": "2e33d198db5e0e8e747e4741d38a97f33de2ac72f3efd64194ba5eb46290c457"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Materials.cs",
+      "sha256": "2d0391e28eba8a5fa7da82757fb29f96741412fad960d45e83c0cd006d624883"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Recovery.cs",
+      "sha256": "95678b6959785aceeef4ee0ff3f9e51731ea18bd58be53a66cd64a3cb7a0e81a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Reference.cs",
+      "sha256": "40bfcd8fe3c484200e9e91f1f0a05bf374ec0cb1017e99865ed72ab381b327a0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.ReferenceExamples.cs",
+      "sha256": "d9e7c892b301990745949d7cce5ca0eee69cc23badf88d78f690f18dacfbfb00"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Results.cs",
+      "sha256": "229169b3104535232fb222747d270ecdf92f0cdafbc6f68db762d63d1fb36c0a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Settings.cs",
+      "sha256": "a179424e7b8d720ae26ec9b1eeea5bb0d46f6b4a2a54515f8408981c3b939e50"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Spectrum.cs",
+      "sha256": "daa198737cc04cc068a14e2241ee6360a7769fe3f71b7ffaddd871ee42e4eae0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MaterialEditorWindow.cs",
+      "sha256": "b1febb7286715e127fd377f10d732abfc32e58e8c1df01579704bcf0bff9e43b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/SpectrumPlot.cs",
+      "sha256": "aa584fec6fe63642a5135423365a655d79311397cc2458580dbb16aa014e9a34"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/AdaptiveThinFilmSpectrum.cs",
+      "sha256": "c42822f3f6562cf8eeb7c153df74dd5d242f7a2049847d3c2d252260d581f931"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoatingLayerParameters.cs",
+      "sha256": "684a02218a940d146456dcd9292e0c896d259a24c8c9ab588d1548e57fc96882"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoatingModels.cs",
+      "sha256": "692ccd58c7aab511811be3dd77bdb3e01fc0184247552e3443e0b8d3c20d11ea"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentMultilayerCoating.cs",
+      "sha256": "d421bdc097954197a001fdca5daa6d75d470474d5821760385b7c9b3bda90807"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/CoherentThinFilmSolver.cs",
+      "sha256": "14db55021faab3416df8eb04141ef46b6d54afd85d9f2c31e4df2738d9961168"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/FresnelPower.cs",
+      "sha256": "4b586838643bb3783f48dd38abc08d3dd7e0b8072a2ef7371e768a0f075ffd1e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmBandSensitivity.cs",
+      "sha256": "1a6c49f19420dede96fa473cc68af85342019a221c186926f577e9514877a0b1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmDuplexSensitivity.cs",
+      "sha256": "df5811ea77f5d54875dd513add8d1c359362e6ff60972d4b703fe87cc1d91f12"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmDuplexSubstrate.cs",
+      "sha256": "2b555e916621b44f59d87933c61438605a427ec642b4df5c3c0f55784c4f96ca"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmIncoherentSubstrate.cs",
+      "sha256": "b5c4bbf71693c0ea016e16bc630b2a84de9bfdc0602d5c4d87177ddff5facf24"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmPeakRefinement.cs",
+      "sha256": "7f632d036c4af6e7c53dc69d242d996639b2058d237fe5f93051fc4a5af739f7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmSpectrum.cs",
+      "sha256": "e866c53cf4b5d9a8e946e44e5fc5213ae372dc0a3d097c4c1d6e26453cfb174b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmThicknessSensitivity.cs",
+      "sha256": "28138d18aca8903b72ea9b638112250ca0efb8286465dd12f99710833427871e"
+    },
+    {
+      "path": "tools/diagnostics/CoatingRecovery20261102/CoatingRecovery20261102.csproj",
+      "sha256": "55aa52b2176c27ffecf2e4987f3401541bb3993d682d868231c52eb3ec66b4e0"
+    },
+    {
+      "path": "tools/diagnostics/CoatingRecovery20261102/packages.lock.json",
+      "sha256": "f70397da8f0d99310c667d8b3dae592d6ac7843eb4270508c61cf656a7da93e6"
+    },
+    {
+      "path": "tools/diagnostics/CoatingRecovery20261102/Program.cs",
+      "sha256": "c5ad1a0d6c1aadb82c6a3e06a4fe52ed438f3186ef94d8ebc6662206257a6f2c"
+    },
+    {
+      "path": "tools/diagnostics/CoatingRecovery20261102/Summarize-Workflow.ps1",
+      "sha256": "bebbc18fb6aa0e9e65bdf3a6a70179e0ca0e3b0d1780d4caf1e5e75dd1aac827"
+    }
+  ],
+  "independentInputs": [
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/Fixtures/duplex-substrate-20261102.json",
+      "sha256": "a58520bf58edb9f5da7af6f9e92071e9872f9f450d76b753b2be791caff8b403"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/Fixtures/incoherent-substrate-20261102.json",
+      "sha256": "c8c1bd3cf187bfe2469390bc359a1371e280fd41bab60385a5392dac346970d4"
+    },
+    {
+      "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/Fixtures/tmmcore-sensitivity-0.4.2.json",
+      "sha256": "624757920f99a860d080e8bf0dceda7345b7202d5be4cb257c17098795cdbfaa"
+    },
+    {
+      "path": "validation/coating/tmmcore-0.4.2.json",
+      "sha256": "69ca380fe41bc78f07c232b823986a64754bda07f0dd523d82c62596fd1e1e00"
+    }
+  ],
+  "buildLogs": [
+    {
+      "path": "validation/rechecks/2026-11-02/coating-workflow-analytic/build-final.log",
+      "sha256": "4f3fbe0f3fd805b91c15f00c397eacac2fd7f1ac5dc58c0d57fe111c4b87d9bd"
+    },
+    {
+      "path": "validation/rechecks/2026-11-02/coating-workflow-analytic/build-shared.log",
+      "sha256": "1a0383730c098d0390327448e1dd25c7e7acabeef1197ec19415561a9092c266"
+    }
+  ],
+  "documentation": [
+    {
+      "path": "docs/COATING_WORKFLOW_ANALYTIC_2026-11-02.md",
+      "sha256": "992d9c26e336a4e80ddd1bc149c581d6f282462ecfd18d75b73a2ab79e611088"
+    },
+    {
+      "path": "docs/COATING_WORKFLOW_ANALYTIC_PLAN_2026-11-02.md",
+      "sha256": "9d1edb5e332d4078833f9698661b6d64f7504da2b49e23939a7f3a43e97057c9"
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "sha256": "be07f041cb89e4781b9a1a696069612884fe348bc7d48dc090b932abf95d5d33"
+    },
+    {
+      "path": "validation/rechecks/2026-11-02/coating-workflow-analytic/README.md",
+      "sha256": "d8ef6cf738165573c02da0f9987929d114e2bc7e26ff4d27849ba69ea3a2f316"
+    },
+    {
+      "path": "validation/rechecks/2026-11-02/coating-workflow-analytic/documentation.log",
+      "sha256": "91a5f11033e91fafb42cf357db6e5bab7ce98dc707db233478928c4447c28b0b"
+    }
+  ],
+  "comparisons": [
+    {
+      "path": "duplex-budget-Antireflection.json",
+      "inputFingerprint": "DE09783279908E3260A2EEB8F9FA4A88404ABDEF7A97E55627870FA6E89DAC6D",
+      "iterationLimit": 12,
+      "baseline": {
+        "PeakWavelengthNanometers": 500,
+        "PeakTransmittance": 0.19034449382826937,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.7597910031940551,
+        "MaximumReflectance": 0.8433988060644162
+      },
+      "v1": {
+        "PeakWavelengthNanometers": 600,
+        "PeakTransmittance": 0.49969540940058843,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.03318572974066882,
+        "MaximumReflectance": 0.3140024466447184
+      },
+      "v2": {
+        "PeakWavelengthNanometers": 589.84375,
+        "PeakTransmittance": 0.4804154752287926,
+        "LeftHalfMaximumNanometers": 506.5229542698709,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.012080522278254546,
+        "MaximumReflectance": 0.25853002110464335
+      },
+      "v1Passed": false,
+      "v2Passed": false,
+      "v1Work": {
+        "Options": {
+          "Optimize": "Both",
+          "Evaluate": "WholePlate",
+          "Symmetric": false,
+          "Version": 1
+        },
+        "IndependentVariables": 9,
+        "InitialFront": [
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          }
+        ],
+        "InitialBack": [
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 110,
+            "Variable": true
+          }
+        ],
+        "PowerEvaluations": 4257
+      },
+      "v2Work": {
+        "Options": {
+          "Optimize": "Both",
+          "Evaluate": "WholePlate",
+          "Symmetric": false,
+          "Version": 1,
+          "OptimizationVersion": 2
+        },
+        "IndependentVariables": 9,
+        "InitialFront": [
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          }
+        ],
+        "InitialBack": [
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 110,
+            "Variable": true
+          }
+        ],
+        "PowerEvaluations": 792,
+        "Analytic": {
+          "SensitivityEvaluations": 396,
+          "AnalyticJacobians": 12,
+          "RestorationIterations": 8,
+          "QualityIterations": 4,
+          "DenseValidations": 2,
+          "DenseSpectrumPoints": 258,
+          "DensePowerEvaluations": 388,
+          "RejectedProtectedCandidates": 11,
+          "IterationBudget": 12
+        }
+      },
+      "sha256": "a4ce444a8d3ea14ed55016d17dbc666cd2106bd1128c927430364b22ad31bf36"
+    },
+    {
+      "path": "duplex-budget-HighReflector.json",
+      "inputFingerprint": "FA4207DFEBF624879D90ED36B3946305AAF04DA0BDDC9DB30CE0FAB183021AA8",
+      "iterationLimit": 12,
+      "baseline": {
+        "PeakWavelengthNanometers": 580,
+        "PeakTransmittance": 0.1455027659698823,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.8211482569444702,
+        "MaximumReflectance": 0.8433987936718329
+      },
+      "v1": {
+        "PeakWavelengthNanometers": 580,
+        "PeakTransmittance": 0.1455027659698823,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.8211482569444702,
+        "MaximumReflectance": 0.8433987936718329
+      },
+      "v2": {
+        "PeakWavelengthNanometers": 580,
+        "PeakTransmittance": 0.1455027659698823,
+        "LeftHalfMaximumNanometers": null,
+        "RightHalfMaximumNanometers": null,
+        "FwhmNanometers": null,
+        "MinimumReflectance": 0.8211482569444702,
+        "MaximumReflectance": 0.8433987936718329
+      },
+      "v1Passed": false,
+      "v2Passed": false,
+      "v1Work": {
+        "Options": {
+          "Optimize": "Both",
+          "Evaluate": "WholePlate",
+          "Symmetric": false,
+          "Version": 1
+        },
+        "IndependentVariables": 9,
+        "InitialFront": [
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          }
+        ],
+        "InitialBack": [
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 110,
+            "Variable": true
+          }
+        ],
+        "PowerEvaluations": 4356
+      },
+      "v2Work": {
+        "Options": {
+          "Optimize": "Both",
+          "Evaluate": "WholePlate",
+          "Symmetric": false,
+          "Version": 1,
+          "OptimizationVersion": 2
+        },
+        "IndependentVariables": 9,
+        "InitialFront": [
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          }
+        ],
+        "InitialBack": [
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 110,
+            "Variable": true
+          }
+        ],
+        "PowerEvaluations": 1023,
+        "Analytic": {
+          "SensitivityEvaluations": 396,
+          "AnalyticJacobians": 12,
+          "RestorationIterations": 8,
+          "QualityIterations": 4,
+          "DenseValidations": 2,
+          "DenseSpectrumPoints": 258,
+          "DensePowerEvaluations": 388,
+          "RejectedProtectedCandidates": 38,
+          "IterationBudget": 12
+        }
+      },
+      "sha256": "09fdf95ce1edf66a028bb46c7947ab98fad37a42342901c44ff82a9736d3092f"
+    },
+    {
+      "path": "duplex-budget-NarrowBand.json",
+      "inputFingerprint": "700A5059BB37F34A4D82F42A68DE11F27243D37827A4260431126F40D61A73FB",
+      "iterationLimit": 12,
+      "baseline": {
+        "PeakWavelengthNanometers": 550.3453444645093,
+        "PeakTransmittance": 0.5675155179601217,
+        "LeftHalfMaximumNanometers": 540.7978206046118,
+        "RightHalfMaximumNanometers": 560.4511390956034,
+        "FwhmNanometers": 19.653318490991524,
+        "MinimumReflectance": 0.13952551149724554,
+        "MaximumReflectance": 0.8776769582706502
+      },
+      "v1": {
+        "PeakWavelengthNanometers": 550.162386260666,
+        "PeakTransmittance": 0.5675218819481691,
+        "LeftHalfMaximumNanometers": 540.6204585482211,
+        "RightHalfMaximumNanometers": 560.2648499052214,
+        "FwhmNanometers": 19.644391357000245,
+        "MinimumReflectance": 0.13948952727156821,
+        "MaximumReflectance": 0.8784221238584359
+      },
+      "v2": {
+        "PeakWavelengthNanometers": 550.2491466792064,
+        "PeakTransmittance": 0.5682031582274616,
+        "LeftHalfMaximumNanometers": 540.7095948405316,
+        "RightHalfMaximumNanometers": 560.3510501597253,
+        "FwhmNanometers": 19.64145531919371,
+        "MinimumReflectance": 0.1392370390372823,
+        "MaximumReflectance": 0.8779800530693669
+      },
+      "v1Passed": false,
+      "v2Passed": false,
+      "v1Work": {
+        "Options": {
+          "Optimize": "Both",
+          "Evaluate": "WholePlate",
+          "Symmetric": false,
+          "Version": 1
+        },
+        "IndependentVariables": 14,
+        "InitialFront": [
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 129.9780417866419,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          }
+        ],
+        "InitialBack": [
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 110,
+            "Variable": true
+          }
+        ],
+        "PowerEvaluations": 21037
+      },
+      "v2Work": {
+        "Options": {
+          "Optimize": "Both",
+          "Evaluate": "WholePlate",
+          "Symmetric": false,
+          "Version": 1,
+          "OptimizationVersion": 2
+        },
+        "IndependentVariables": 14,
+        "InitialFront": [
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 129.9780417866419,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          },
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 93.7839038155646,
+            "Variable": true
+          },
+          {
+            "MaterialId": "Ta2O5 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 64.98902089332095,
+            "Variable": true
+          }
+        ],
+        "InitialBack": [
+          {
+            "MaterialId": "SiO2 薄膜（Rodríguez-de Marcos 2016）",
+            "ThicknessNm": 110,
+            "Variable": true
+          }
+        ],
+        "PowerEvaluations": 9824,
+        "Analytic": {
+          "SensitivityEvaluations": 3688,
+          "AnalyticJacobians": 12,
+          "RestorationIterations": 8,
+          "QualityIterations": 4,
+          "DenseValidations": 2,
+          "DenseSpectrumPoints": 9774,
+          "DensePowerEvaluations": 19264,
+          "RejectedProtectedCandidates": 18,
+          "IterationBudget": 12
+        }
+      },
+      "sha256": "112f052a2d2aae10a93cb2790ef4b2e95e9fb533972327e9ca462a572f7aba5d"
+    }
+  ],
+  "previews": [
+    {
+      "path": "validation/rechecks/2026-11-02/coating-workflow-analytic/formula-preview.png",
+      "sha256": "e9cc69350ca6f285c23192ac9e04872a0ac13fd21cbd12fbdfe8ab5635003df0"
+    },
+    {
+      "path": "validation/rechecks/2026-11-02/coating-workflow-analytic/recovery-choice.png",
+      "sha256": "a7c8bcca876f00469df4fc9ae809e6b998238c4db24b452eb779297d45e62a69"
+    },
+    {
+      "path": "validation/rechecks/2026-11-02/coating-workflow-analytic/workflow-editor.png",
+      "sha256": "f06715ee43e93ff7a0264a177fbce3b9b8f773b88abb3d16316e9eea2d865aa5"
+    }
+  ],
+  "scope": "Headless and background only; no native user clipboard or desktop interaction. No installation, release, full repository suite or remote synchronization."
+}

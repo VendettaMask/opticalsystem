@@ -1,0 +1,54 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs(47,98): warning CS0618: “Bitmap.Save(string, int?)”已过时:“Use the overload accepting BitmapEncoderOptions instead.” [D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj]
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:41.29]     OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid [FAIL]
+  失败 OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid [2 s]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 1E-08)
+Actual: 3.928210472758579E-05
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalFourierKernelAgreesWithSharedFftOnItsNaturalGrid() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SlantedEdgeSfrTests.cs:line 92
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:01:06.37]     OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: "Light") [FAIL]
+  失败 OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: "Light") [17 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no elements
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.<>c__DisplayClass1_0.<<SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 38
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 25
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:16.44]     OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: "Dark") [FAIL]
+  失败 OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: "Dark") [10 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no elements
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoElementsException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.<>c__DisplayClass1_0.<<SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 38
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraSfrWindowTests.cs:line 25
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-02\monochrome-sfr\sfr-focused.trx
+
+失败!  - 失败:     3，通过:     9，已跳过:     0，总计:    12，持续时间: 1 m 12 s - OpticalSystemDesign.Tests.dll (net10.0)

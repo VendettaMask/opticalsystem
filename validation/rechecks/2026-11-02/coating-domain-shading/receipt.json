@@ -1,0 +1,286 @@
+{
+  "BaseCommit": "24aaec5bd948ba1ddc3a0d50795e42d423d820f3",
+  "SourceState": "uncommitted working tree; concurrent camera changes are outside this coating scope",
+  "Tests": [
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820, height: 640)",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.FiveReferenceExamplesOpenWithOriginalLayersAndComputedResults",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.PhysicalAndOpticalThicknessFollowReferenceAndMaterialWithoutChangingStoredPrescription",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 1200, height: 900)",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.DomainShadingUnionsAllParticipatingRangesAndOnlyIncludesAnActiveExitMedium",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ThicknessFormattingDoesNotRoundStoredValuesAndInvalidEditsRemainInvalid",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.LayerCellsRetainMaterialIdentityAndEditableValuesWhenRecycled(theme: \"Dark\", width: 1200, fontSize: 13)",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: \"Light\")",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.LayerCellsRetainMaterialIdentityAndEditableValuesWhenRecycled(theme: \"Light\", width: 1200, fontSize: 13)",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.LayerCellsRetainMaterialIdentityAndEditableValuesWhenRecycled(theme: \"Light\", width: 820, fontSize: 18)",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.RealMouseWorkflowEditsLayersAndClearsStaleSpectrum(width: 820, height: 900)",
+      "Outcome": "Passed"
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: \"Dark\")",
+      "Outcome": "Passed"
+    }
+  ],
+  "Total": 13,
+  "Passed": 13,
+  "Sources": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/SpectrumPlot.cs",
+      "Sha256": "d0d4f19d0d24063ac33d5d224eb76f27091677fdf8d64c990151abdd9e48dd77"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Spectrum.cs",
+      "Sha256": "b7f7f7dbac40681e39859f6d6bae30f2ddcfc5bf2a90eecf218812873df61d42"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "Sha256": "5018660fa3d140d6df0029afaaecc7e45f6c6fb0e38e00e78b081e667728c055"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Modules/CoatingPresentation.cs",
+      "Sha256": "4e8faa96fc6545110614a5b2f2598deaf476d1419b9420d294dcd67cfbd63261"
+    },
+    {
+      "Path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopDomainShadingTests.cs",
+      "Sha256": "a9ef2f699974d4d16bc9dc5fb4d6becbdbf6cc84672f5b2a4fc359dc0c70028e"
+    },
+    {
+      "Path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopTests.cs",
+      "Sha256": "6d16157d98a232ce22617cc7774e435bf6bade13d7a1cb4887b7677194f97787"
+    },
+    {
+      "Path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/DesktopReferenceExampleTests.cs",
+      "Sha256": "c76e4ba8d70b1652ec8ce989d2abf1c7bec3e5b8712bcdaafba82bb359958a47"
+    }
+  ],
+  "Binaries": [
+    {
+      "Name": "OpticalSystemDesign.App.dll",
+      "Identical": true,
+      "Copies": [
+        {
+          "Path": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.dll",
+          "Sha256": "84d3bcd81f01b48165ef59638758af46a17ba3a7935298ef78f7b98eb2c79338"
+        },
+        {
+          "Path": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.dll",
+          "Sha256": "84d3bcd81f01b48165ef59638758af46a17ba3a7935298ef78f7b98eb2c79338"
+        }
+      ]
+    },
+    {
+      "Name": "OpticalSystemDesign.Core.dll",
+      "Identical": true,
+      "Copies": [
+        {
+          "Path": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.Core.dll",
+          "Sha256": "2e9d9337549c65bd5c9cf262cfb7372c896fb4b6f7541879a8a06f33b64316a1"
+        },
+        {
+          "Path": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.Core.dll",
+          "Sha256": "2e9d9337549c65bd5c9cf262cfb7372c896fb4b6f7541879a8a06f33b64316a1"
+        }
+      ]
+    },
+    {
+      "Name": "OpticalSystemDesign.Modules.dll",
+      "Identical": true,
+      "Copies": [
+        {
+          "Path": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.Modules.dll",
+          "Sha256": "b71b2608653d9f55c8be1b72192513a790980e6de369c60565aca0accc4972f8"
+        },
+        {
+          "Path": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.Modules.dll",
+          "Sha256": "b71b2608653d9f55c8be1b72192513a790980e6de369c60565aca0accc4972f8"
+        }
+      ]
+    },
+    {
+      "Name": "OpticalSystemDesign.CoatingDesign.Engine.dll",
+      "Identical": true,
+      "Copies": [
+        {
+          "Path": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.CoatingDesign.Engine.dll",
+          "Sha256": "d73157edadd5433fd8390572ba7230760ce61c058ea542a484e7b9dbf303f794"
+        },
+        {
+          "Path": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.CoatingDesign.Engine.dll",
+          "Sha256": "d73157edadd5433fd8390572ba7230760ce61c058ea542a484e7b9dbf303f794"
+        }
+      ]
+    }
+  ],
+  "CoreCoatingSources": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/Coatings/CoherentThinFilmSolver.cs",
+      "Sha256": "14db55021faab3416df8eb04141ef46b6d54afd85d9f2c31e4df2738d9961168",
+      "Unchanged": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Coatings/ThinFilmIncoherentSubstrate.cs",
+      "Sha256": "b5c4bbf71693c0ea016e16bc630b2a84de9bfdc0602d5c4d87177ddff5facf24",
+      "Unchanged": true
+    }
+  ],
+  "Previews": [
+    {
+      "Path": "previews/ar-1200-900.png",
+      "Sha256": "8301dca6965dc0e5a06b2d703e08842691aa1366cd2bccb16cd2f011b8a17423"
+    },
+    {
+      "Path": "previews/ar-820-640.png",
+      "Sha256": "4582841fd12124859825f9ab1480fa3fdef300620c1ef310f0ad415af41ca3ea"
+    },
+    {
+      "Path": "previews/ar-820-900.png",
+      "Sha256": "2360d85a6cc07ea79c3ae99806e5bb9cb4b7d08ecaa36f6674e3cb8392ec66f0"
+    },
+    {
+      "Path": "previews/command-bar-Dark-1200-13.png",
+      "Sha256": "164861b0222dc39b33cfbefd96f32a109dc9c98c2a22315697e6f3b70af01790"
+    },
+    {
+      "Path": "previews/command-bar-Light-1200-13.png",
+      "Sha256": "1144c84068c877e42f1bd4f14b5a8f2babc06d8bd571d2ca098a2a312db544f3"
+    },
+    {
+      "Path": "previews/command-bar-Light-820-18.png",
+      "Sha256": "8a2887d6d00535a31e26087e98269c878406a693c59d6aa589f832d9d7c70074"
+    },
+    {
+      "Path": "previews/demo-bbar-4-1500.png",
+      "Sha256": "9254f11ab8b5e8051c345489f2f4e4c96511d1e512b8182b7f9ceb2146f91bfc"
+    },
+    {
+      "Path": "previews/demo-edge-1500.png",
+      "Sha256": "66d729d17fae09bf6113acd75fefe17ae664d91c0fc836e742ac1fe1dc5440c3"
+    },
+    {
+      "Path": "previews/demo-hr-qw-1500.png",
+      "Sha256": "9339e69ea3441b633067b4f7b4878e6e04ccd7df8a0730f1d973e519fa31c697"
+    },
+    {
+      "Path": "previews/demo-hr-qw-results-1500.png",
+      "Sha256": "6c06aa26f778d28ac6fad0d0b732b136d2e77285f503fcbdce3de23ed4a64cdb"
+    },
+    {
+      "Path": "previews/demo-metal-ag-1500.png",
+      "Sha256": "3245b33bdf97ca9cc02691d1cd3daa236dfcd13a99a2dfd46f630612fb259f70"
+    },
+    {
+      "Path": "previews/demo-mgf2-ar-1500.png",
+      "Sha256": "62a94c0fc458ba584db5a54b561809449b24cf89bf959675a5558098e8bdbd65"
+    },
+    {
+      "Path": "previews/domain-shading-Dark-1500.png",
+      "Sha256": "8f04e4cc36a3ac55c5efb8e8421d785060461083efa28a560b14b42ca8b711b4"
+    },
+    {
+      "Path": "previews/domain-shading-Light-1500.png",
+      "Sha256": "b11311cb5de76b5a31ed6a9ebb45c0ec50724a4abd4c74637e7a2b22853e2dc8"
+    },
+    {
+      "Path": "previews/domain-spectrum-Dark.png",
+      "Sha256": "87899de68e2352b1b3caeabb8e73f97310af27bcd1c238242b0828aee9a931de"
+    },
+    {
+      "Path": "previews/domain-spectrum-Light.png",
+      "Sha256": "3ecac96de69506539d9fd59fd2caebb98fbe60d15c5b9b2ce62e7f3d74e5987c"
+    },
+    {
+      "Path": "previews/evaluation-settings-factory-1500.png",
+      "Sha256": "e081e98b5c05ea97ffe2ce007369be4a42c420c71d470573eb4a513c680ff719"
+    },
+    {
+      "Path": "previews/geometry-settings-1500.png",
+      "Sha256": "18519be1d6907e7abd9f7dc3e00d501243fe0caf7040a41f736d6eaada52dfef"
+    },
+    {
+      "Path": "previews/layer-card-Dark-1200-13.png",
+      "Sha256": "c402956b4ae4160329c710e822ad387d6df0cf49d8f6cbac7c69f8decd90f0d2"
+    },
+    {
+      "Path": "previews/layer-card-Light-1200-13.png",
+      "Sha256": "b4f7b1589a7a9d43aad4a08f5d3f8e28c54deb05c150c7c720c12a5fc8cd4233"
+    },
+    {
+      "Path": "previews/layer-card-Light-820-18.png",
+      "Sha256": "5806ab2aa430761ed0c521b0a5f7e82e256581b35fcac4b825418f9e4c8f9d6e"
+    },
+    {
+      "Path": "previews/layers-Dark-1200-13.png",
+      "Sha256": "c7ab327bcc09cbced859769639a526831f66490c23496a37b4f8f315472f675b"
+    },
+    {
+      "Path": "previews/layers-Light-1200-13.png",
+      "Sha256": "bd7f96e9caf777556301ab098a62ffa6b00a7c88923791a181b9878ce10574b3"
+    },
+    {
+      "Path": "previews/layers-Light-820-18.png",
+      "Sha256": "d12de8f82b67f44ef232145208a4c288ca8582d9d51f4a8eef8b9a83545ddb94"
+    },
+    {
+      "Path": "previews/narrow-1200-900.png",
+      "Sha256": "244813c760ada75c12e91e8680929ee5cd59d6020bb6b5153c3ed3c659d4eaae"
+    },
+    {
+      "Path": "previews/narrow-820-640.png",
+      "Sha256": "cdb29cbc00858764bf071afd0632485e364d2e15cd15199148eb11e3df250b2e"
+    },
+    {
+      "Path": "previews/narrow-820-900.png",
+      "Sha256": "611c6a581e5aa87a1fa5ad1d372faeb9dcf464e246ec4a3687e944d15a444474"
+    },
+    {
+      "Path": "previews/p-only-0deg-1500.png",
+      "Sha256": "ab9cc5c867423ef0bb3d78ed653612ad5288154d9045f8ba52fedc4e2c69ad88"
+    },
+    {
+      "Path": "previews/physical-optical-thickness-1500.png",
+      "Sha256": "8e16a9b9b838fb0a745ced4718d010c9cf9576528bf5d493377fcdc6e12c818a"
+    },
+    {
+      "Path": "previews/polarization-controls-1500.png",
+      "Sha256": "1fae8ffb80355d90aeada6b6c5377b377fa04d6947a316beea8fac52e57815ed"
+    },
+    {
+      "Path": "previews/polarization-results-1500.png",
+      "Sha256": "b8cdaadd11ab3676a260002622ff4131d6a8ef60097d44d38f458f4a2984fb1d"
+    }
+  ]
+}

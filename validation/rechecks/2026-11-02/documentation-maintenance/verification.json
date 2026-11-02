@@ -1,0 +1,116 @@
+{
+  "date": "2026-11-02",
+  "sourceCommit": "24aaec5bd948ba1ddc3a0d50795e42d423d820f3",
+  "includesPreexistingUncommittedWork": true,
+  "beforeDocuments": 1885,
+  "afterDocuments": 1892,
+  "categories": [
+    {
+      "Category": "Evidence",
+      "Count": 1415
+    },
+    {
+      "Category": "Guide",
+      "Count": 83
+    },
+    {
+      "Category": "Historical",
+      "Count": 325
+    },
+    {
+      "Category": "ThirdParty",
+      "Count": 69
+    }
+  ],
+  "updatedExistingDocuments": [
+    "README.md",
+    "README_EN.md",
+    "docs/ANSYS_SCENE_SFR_IMPLEMENTATION_PLAN_2026-11-02.md",
+    "docs/ARCHITECTURE.md",
+    "docs/ARCHITECTURE_CONVERGENCE_PLAN.md",
+    "docs/AUTOLENS_OFFICIAL_EXAMPLES.md",
+    "docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md",
+    "docs/BUILD_AND_RELEASE.md",
+    "docs/CODE_READING_MAP.md",
+    "docs/COMPUTATION_GUIDE.md",
+    "docs/CURRENT_STATUS.md",
+    "docs/INITIAL_STRUCTURE_LAB_PLAN.md",
+    "docs/INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md",
+    "docs/LENS_LIBRARY.md",
+    "docs/MAC_OTA.md",
+    "docs/MONOCHROME_SLANTED_EDGE_SFR.md",
+    "docs/OPEN_ISSUES_2026-10-08.md",
+    "docs/OPTIMIZATION_ALGORITHMS.md",
+    "docs/PARITY_MATRIX.md",
+    "docs/README.md",
+    "docs/UI_DESIGN_SPEC.md"
+  ],
+  "reviewedIncomingDocuments": [
+    "docs/SCENE_SLANTED_EDGE_SFR.md"
+  ],
+  "removed": [
+    {
+      "Path": "docs/MAC_OTA_PUBLISHING_PROPOSAL.md",
+      "Replacement": "docs/MAC_OTA.md",
+      "Reason": "发布已交付，操作及信任/验证边界由现行 Mac OTA 与云发布指南维护；原激活运行身份已在替代文档保留。无独立消费者或独有验收输入。"
+    }
+  ],
+  "newIndicesRulesAndReceipt": [
+    "docs/DOCUMENTATION_MAINTENANCE.md",
+    "docs/history/README.md",
+    "validation/rechecks/2026-11-02/documentation-maintenance/README.md"
+  ],
+  "checks": {
+    "brokenLinks": 0,
+    "codeFenceIssues": 0,
+    "lifecycleIssues": 0,
+    "guideRepeatedParagraphGroups": 0,
+    "toolCasesPassed": 27,
+    "toolCasesFailed": 0,
+    "analysisCoverageEntries": 76,
+    "scopedWhitespace": "passed"
+  },
+  "retainedEvidenceAndNoticeEntriesAtStart": 1475,
+  "changedOutsideOwnedScope": [],
+  "sourceSha256": {
+    "README.md": "d02415e203393d35da63500f09d611cfb4c959a617703c639cdb3190cdc1339a",
+    "README_EN.md": "1a647b64e8813ec5c03ba1b9d518d40b0cc5861b61e85cc03fb7fd40fd09432b",
+    "docs/ARCHITECTURE.md": "a961854a5ece6122d881c7bec3fa46ddc8f663a16c961596e2cd3e6f450095f5",
+    "docs/ARCHITECTURE_CONVERGENCE_PLAN.md": "e39184bee9454036915802abc5165196c1e8663e533361088eaeb93388158ea1",
+    "docs/AUTOLENS_OFFICIAL_EXAMPLES.md": "23979385483b057e468a8ce91f6e77ab4ee1229b0cf895b59bb4b031e34ae337",
+    "docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md": "92cc5ab8e588d8a40c67af6ef5d35362d238a60e3d0e396570cc5ff4321d87d4",
+    "docs/BUILD_AND_RELEASE.md": "f2bcd26591845061356be2864387999dcf6d0fdbd21c131f69e6a266756c007a",
+    "docs/CODE_READING_MAP.md": "d84fef8099222d6427ab9838e5c1013fc07fbf5b942ad9b4919af471014c6773",
+    "docs/COMPUTATION_GUIDE.md": "3c82296c5cf7e4b7955b38376462fcc6b19721f8d9e934ca673b2c5e11fb755b",
+    "docs/INITIAL_STRUCTURE_LAB_PLAN.md": "8a32ccb0c0f9159cf1cb67c987e6f9d1dae1a2c11da3b73f58314408871c3e7e",
+    "docs/INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md": "e796371682e1e5ffb33c8d7921962e7e3c0e9d54fde76a50f23d2fe41c622abf",
+    "docs/LENS_LIBRARY.md": "f0d48ebcb3f6d0786a0f66580561dde681ce54e1cb5440d333204c1027f8efb0",
+    "docs/MAC_OTA.md": "c7cf843093e27f9635622fe9e260826de5f5e5ceb774b053b3f5570b8c5ce9b1",
+    "docs/OPEN_ISSUES_2026-10-08.md": "3335c4975593f06659f72560a6b0b97dd5e820570a3dedb0fab805b1fd4d74da",
+    "docs/OPTIMIZATION_ALGORITHMS.md": "cdc1a71ca33b2d29ebc59041ce6ede4679aaf84c6ab039282930d047fd5973e8",
+    "docs/PARITY_MATRIX.md": "050657f92cd75d1c554afe14545793fb9161b44378169392f0785589a07bbb3e",
+    "docs/README.md": "0286b134950ab185934f8fa2d35875896982031f8bdc70e283c951cbe80b4ff7",
+    "docs/UI_DESIGN_SPEC.md": "51d4a1cdb5b051b9d4ad1d51986e4364fdfc31300e9e392e63d16a6853bf537f",
+    "docs/MONOCHROME_SLANTED_EDGE_SFR.md": "b439dfef20c0b064711720528758703e9e0c0d4e69df382fe5569dc8832601ca",
+    "docs/ANSYS_SCENE_SFR_IMPLEMENTATION_PLAN_2026-11-02.md": "bdd8283d3f3982abf20d319b78f415cb8b128d1d379586390fbf58ec2003b2be",
+    "docs/CURRENT_STATUS.md": "3e914b3528722e637aa89efa36b0ef14b2ab41baee19cbf590ddbc7de8b4285a",
+    "docs/SCENE_SLANTED_EDGE_SFR.md": "6669faa145d0f558496f60453b0b0de250f5fddd0f2ef62eb9f8d5442a2245f0",
+    "docs/DOCUMENTATION_MAINTENANCE.md": "1fa7c22bd3449147e01453fb52796c3f280efcde1ea8e19833f699590a930bc4",
+    "docs/history/README.md": "03e7a0ac855c26a6aae982915eed1ec616293513172fe4482c0ae2ea0a11f337",
+    "validation/rechecks/2026-11-02/documentation-maintenance/README.md": "32dba95d711282a844a99700ec98a7d1be21677f6ab54ee137b1bff0d4bdbd26",
+    "docs/documentation-lifecycle.json": "d8153bc629a675995fdf13412e72939d1b836fa045eca2644186e82cd5367a25",
+    "scripts/verify-documentation.ps1": "85d935eca3b7feedaebf764d5da060cdcfd1429c25d73ad8d28a2caadf8fecac",
+    "scripts/tests/verify-documentation.tests.ps1": "82b772368b17b9ad3e0e85cdcaeb373f2ff1aca402cc2d4abbfba7109dbda068",
+    "tools/diagnostics/DocumentationMaintenance20261102/review.py": "cd819829ed0cc8bee5b4420132ecdc38f9fd56d09011427a0f81946fdcdac24d",
+    "tools/diagnostics/DocumentationMaintenance20261102/reorganize_index.py": "e2f04b37f9225205f9fb999fd498cd06b8ed06c2a4c8e6f5e3ba2513befd814d",
+    "tools/diagnostics/DocumentationMaintenance20261102/finalize.py": "6b07d1b934797abfe0d5227ed02f3c4940f44911cb98f86a8889fa2247d7d7ca"
+  },
+  "reviewLedgerSha256": "7effc41860708018e30d18ec77da8767da5ad77a3c0b65f1f3e0f06b9c7f11ea",
+  "evidenceSha256": "dca9567f249e6892272b1155e78e87c0370f7ba99527b9b5f05b8823320cf5c7",
+  "limitations": [
+    "Remote URLs not fetched; PDF/Office bodies inventoried and fingerprinted",
+    "Historical bodies not all reinterpreted or rewritten; unique inputs/failures and consumer relationships preserved",
+    "No optical recalc, product code change, native desktop, build/release or push by this task",
+    "Other tasks were editing scenario SFR/coating code and documentation; their changes retained. Global whitespace log is distinct from owned-document checks."
+  ]
+}
