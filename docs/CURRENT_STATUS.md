@@ -4,7 +4,9 @@
 
 远端 `232e8780` 的[发布运行 41435413433](https://github.com/VendettaMask/opticalsystem/actions/runs/41435413433)在 Windows x64、Windows ARM64 和 Apple Silicon Mac 的依赖还原阶段均报 `NU1004`；同提交的普通 CI 也是该原因。比较工具项目未声明运行平台，锁文件却包含 `net10.0/win-x64`，与严格还原要求不一致。编译、测试、安装包生成及发布尚未执行，不能将这次失败当作新包交付。
 
-已按项目当前声明重新生成比较工具锁文件，仅删除多余平台段，保留全部八项公共依赖的版本、哈希及引用。后台先复现原错误，再通过完整解决方案 `--locked-mode -p:ContinuousIntegrationBuild=true` 还原，以及该工具和共享 Core/Application 的 Release 编译，零警告、零错误。没有关闭锁定还原、NuGet 审计或警告门禁，没有修改光学计算或执行前台程序。本轮尚未完成修复后云端打包；原始失败和定向验证见[修复记录](../validation/rechecks/2026-11-02/cloud-lockfile/README.md)。
+已按项目当前声明重新生成比较工具锁文件，仅删除多余平台段，保留全部八项公共依赖的版本、哈希及引用。后台先复现原错误，再通过完整解决方案 `--locked-mode -p:ContinuousIntegrationBuild=true` 还原，以及该工具和共享 Core/Application 的 Release 编译，零警告、零错误。修复提交 `cf4803ee` 的[云端重试 41443918880](https://github.com/VendettaMask/opticalsystem/actions/runs/41443918880)已在三个平台完成严格还原、完整编译及安装/模块检查，但随后分析契约组出现 3 项过时断言，199 项通过，publish 仍跳过。
+
+后续只修订两份测试：FFT MTF 的完整采样选项补齐已实现的 2048；桌面波前投影改为检查同一投影网格在伪彩色/等高线与控件传递中不被修改，且不重复施加显示拉伸，保留通用 Core 的显示投影默认及现有原生网格参考。原断言错误地要求入口与投影后重新取样的网格逐点相同。更新后的发布分析契约及相邻原生/默认保护共 **207/207** 通过，零失败/跳过，无新增用例、无数值容差或产品代码变更。没有关闭锁定还原、NuGet 审计或警告门禁，没有执行前台程序；修复后新包尚未交付。原始失败和定向验证见[修复记录](../validation/rechecks/2026-11-02/cloud-lockfile/README.md)。
 
 ## 2026-11-02 镀膜工程操作与双面解析优化
 

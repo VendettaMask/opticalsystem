@@ -19,8 +19,8 @@
   },
   "evidence": {
     "path": "evidence.zip",
-    "bytes": 131354,
-    "sha256": "0db7fcc8ddef846c3c8b69c0ba574e4c0e112c1d70ebf505cd547237bceccd1d"
+    "bytes": 297101,
+    "sha256": "584ea2b859e750a72a324821d3a221b0dec035eb5e88598b0ee84769266aee61"
   },
   "lockFileSha256": "a4481e6cca4b7d22838471c99483f525d54169bca9d695bcbe1ff78be8ce44bf",
   "documentation": {
@@ -28,5 +28,39 @@
     "documents": 1906,
     "brokenLinks": 0,
     "guideRepeatedParagraphs": 0
+  },
+  "retry": {
+    "run": 41443918880,
+    "sourceCommit": "cf4803ee256a83748407a08c2f11e0b824a9c5e9",
+    "allPlatformsRestoredAndBuilt": true,
+    "publish": "skipped",
+    "analysisContracts": {
+      "passed": 199,
+      "failed": 3
+    },
+    "failureCause": "Two old desktop pupil-grid assertions and one FFT MTF sampling-choice assertion no longer describe the documented product contract."
+  },
+  "analysisContractRepair": {
+    "passed": 207,
+    "failed": 0,
+    "skipped": 0,
+    "newCases": 0,
+    "newIndependentOpticalInvestigation": false,
+    "productSourcesChanged": false,
+    "referenceOrToleranceChanges": false,
+    "productSourceHashes": {
+      "src/OpticalSystemDesign.Core/Analysis/Wavefront/WavefrontAnalyses.cs": "70697bf93b0b7956cc749dd5fdc4169ff6854dba92f77ea2dc0b52dd913eaf23",
+      "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs": "97f25b4c1e92de3cee8ee49879ad88bb80e19671728c9cf28040ef1702630b9c",
+      "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs": "b8bcf0e24410730fbef28ebd0642ee3aed0c5c06a880026899afb9e612c1c792",
+      "src/OpticalSystemDesign.App/Controls/WavefrontSurfaceControl.cs": "43e13309d748b263b049be42bf5590a14f25dae9c7d4eeed9c0a9a0671a60833"
+    },
+    "changedTests": [
+      "tests/OpticalSystemDesign.Tests/PupilShapeAndFoucaultPanelTests.cs",
+      "tests/OpticalSystemDesign.Tests/AnalysisGuiContractTests.cs"
+    ]
+  },
+  "contractDocumentation": {
+    "strictPassed": true,
+    "documents": 1906
   }
 }

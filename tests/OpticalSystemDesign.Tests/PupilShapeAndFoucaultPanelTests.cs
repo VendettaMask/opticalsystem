@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
@@ -35,16 +36,24 @@ public sealed class PupilShapeAndFoucaultPanelTests
         await session.Dispatch(() =>
         {
             var runtime = new WorkbenchRuntime(Optic.CreateCookeTriplet());
-            var circular = WavefrontView(runtime, false, display);
             var projected = WavefrontView(runtime, true, display);
-            Assert.Equal(circular.Series.Single().Points, projected.Series.Single().Points);
+            var series = Assert.Single(projected.Series);
+            var points = series.Points.ToArray();
+            var snapshot = JsonSerializer.Serialize(projected);
+            var alternateDisplay = display == "伪彩色" ? "等高线" : "伪彩色";
+            Assert.Equal(points, Assert.Single(WavefrontView(runtime, true, alternateDisplay).Series).Points);
             var control = Build<WavefrontSurfaceControl>("BuildWavefrontMapPlot", projected);
             control.Measure(new Size(600, 420)); control.Arrange(new Rect(0, 0, 600, 420));
+            Assert.Same(series, control.Series);
+            Assert.Equal(points, control.Series!.Points);
+            Assert.Equal(snapshot, JsonSerializer.Serialize(projected));
             Assert.Equal(projected.PlotOptions.SpatialDisplayScaleX, control.SpatialDisplayScaleX);
             Assert.Equal(projected.PlotOptions.SpatialDisplayScaleY, control.SpatialDisplayScaleY);
             Assert.Equal(control.SpatialDisplayScaleX / control.SpatialDisplayScaleY,
                 control.PlanarPlotBounds.Width / control.PlanarPlotBounds.Height, 12);
-            Assert.True(control.SpatialDisplayScaleX != 1 || control.SpatialDisplayScaleY != 1);
+            // Desktop samples the already projected grid; the control must not stretch it again.
+            Assert.Equal(1, control.SpatialDisplayScaleX);
+            Assert.Equal(1, control.SpatialDisplayScaleY);
         }, CancellationToken.None);
     }
 
