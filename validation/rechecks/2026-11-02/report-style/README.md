@@ -19,12 +19,12 @@ Word 实际打开确认 **111 个原生 OMML 方程**，包含真正的上标与
 
 ## 验证
 
-- 最终 **62/62 个不同定向用例通过**，见 [TRX](report-style-frozen-build-62.trx)。覆盖四容器、XSS/离线资源、取消及原子清理、源快照安全、配置、处方过滤、空附录、实际图像像素、设置窗口与开始导出、Word/PDF 详细附录、公式定义/归一化和 PDF 上标字形。
+- 最终 **63/63 个不同定向用例通过**，见 [TRX](report-style-data-preservation-63.trx)。覆盖四容器、XSS/离线资源、取消及原子清理、源快照安全、配置、处方过滤、空附录、实际图像像素、图表背后数值表与全部指标的记录保留、Markdown 正文范围、设置窗口与开始导出、Word/PDF 详细附录、公式定义/归一化和 PDF 上标字形。
 - 初轮旧版断言仍期待不同目录结构和文字截图，已随新需求修正；原失败记录 [第一轮](report-style-first.trx)、[第二轮](report-style-second.trx) 保留，不叠加重复通过数量。
 - 浏览器检查 1600、1100、390 像素视口、完整目录、最后一页导航、原图预览、111 个公式、原始记录窗口及 A4 打印边界，见 [HTML 检查](html-inspection.json)。Windows HTML 换行的 CSP 哈希按浏览器规范化，固定阅读脚本可以执行，用户内容不参与脚本。
 - HTML/Word/Markdown 的原图文件字节一致；产品 PDF 解码后 RGB 像素与原 PNG 全部一致，不使用 JPEG。PDF/Word 图宽统一为 **523.28 pt，约 184.60 mm**，保留完整比例。见 [容器检查](artifact-inspection.json) 与 [源图清单](source-image-manifest.json)。
 - 先尝试标准 DOCX 渲染脚本；本机没有 LibreOffice，改用独立且不可见的 Microsoft Word 16 实际分页和渲染。确认 80 页、63 次完整整图放置与 111 个可编辑公式，见 [Word 记录](word-render.json) 和 [Word 渲染检查](word-render-inspection.json)。内部 Word 转出的 QA PDF 可能被 Word 重采样，不作为产品 PDF 或原 PNG 完整性证据。
-- 其他任务曾占用默认测试 DLL，且镀膜模块处于并行编辑阶段；测试基于已成功编译且含最终报告修改的 App 二进制，在独立目录完成，没有终止其他任务。最后正常默认 Release App 与内置模块依赖构建 **0 警告、0 错误**，见 [构建日志](default-app-build.log)。未替其他任务修改镀膜源码。
+- 其他任务曾占用默认测试 DLL，且镀膜模块处于并行编辑阶段；测试使用独立目录，包含全部最终报告修改；最后一轮重新构建实际 App 依赖并全部通过，没有终止其他任务。最后正常默认 Release App 与内置模块依赖构建 **0 警告、0 错误**，见 [构建日志](default-app-build.log)。未替其他任务修改镀膜源码。
 
 ## 产物与范围
 
