@@ -1,5 +1,9 @@
 # 当前实现与验证状态
 
+## 2026-11-02 README 下载入口
+
+中英文 README 的下载入口统一跳转 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)，由用户在对应版本的 Assets 中选择 Windows x64、Windows ARM64 或 M 系列 Mac 安装包。页面包含测试发布，入口保持稳定，随发布页提供当前包、更新说明与校验值；原先写死旧源码短码的下载地址已移除。当前公开发布与三平台附件已核对，严格文档检查通过。平台选择说明见[中文 README](../README.md#下载安装包)和[英文 README](../README_EN.md#download-a-package)。
+
 ## 2026-11-02 云打包锁文件与分析契约修复已发布
 
 [发布运行 41447293816](https://github.com/VendettaMask/opticalsystem/actions/runs/41447293816)已从干净提交 `a20ba98cbe7c0e151327444ab70c099b088e0199` 完成 Windows x64、Windows ARM64 和 Apple Silicon Mac 云端构建、定向门禁、打包及公开发布，三个平台完整编译均零警告/错误。当前 [1.0.4 测试发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)的 Windows 文件以 `-Setup-a20ba98c.exe` 结尾，Mac 为原名 M 系列 DMG；原标签未移动。发布附件大小、服务端 SHA-256、正文源码记录及两个 Windows OTA 签名已核对。此轮没有本机打包或操作用户安装。
