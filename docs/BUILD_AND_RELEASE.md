@@ -22,6 +22,8 @@ dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false
 
 依赖有意变更时才使用 `dotnet restore OpticalSystemDesign.slnx --force-evaluate` 并审查锁文件。仓库通过 `Directory.Build.targets` 关闭 Avalonia 构建统计，不关闭 NuGet 安全审计。默认 App 输出被锁时先确认进程来源；仅可关闭本轮启动且不会影响用户的验证进程。用户正在使用的程序保持运行，记录未完成的默认输出验证；不能拿另一输出目录冒充默认产物更新。测试可使用独立目录避免相互占用，并注明实际使用的程序集。
 
+标准锁文件的目标框架及运行平台必须与项目声明一致。`OpticalSystemDesign.ZemaxComparison` 仅声明 `net10.0`，不在入库锁文件保留临时 `win-x64` 还原段；针对特定平台发布工具时，应隔离临时还原状态，避免覆盖标准锁文件。遇到 `NU1004` 应核对并修正不一致的锁文件，再用完整解决方案的 `--locked-mode` 复验，不通过关闭 CI 的锁定还原或移除比较工具绕过检查。2026-11-02 的实际失败与修复见[定向记录](../validation/rechecks/2026-11-02/cloud-lockfile/README.md)。
+
 AutoLens 的 CUDA 瞄准、追迹及求导使用锁定的 ILGPU / ILGPU.Algorithms 1.5.3 C# 库，默认构建和发布自动包含 `ILGPU.dll`、`ILGPU.Algorithms.dll` 与 `Licenses/ILGPU-*.txt` 五份许可证/声明。发布脚本拒绝缺少这些文件的载荷。使用 GPU 需要机器上已有可用 NVIDIA CUDA 驱动，产品不安装驱动或另启外部计算程序；无 GPU 时自动模式仍可用 CPU。参见 [GPU 功能范围](AUTOLENS_GPU.md)。
 
 ## 测试

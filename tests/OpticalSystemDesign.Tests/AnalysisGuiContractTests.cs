@@ -2381,7 +2381,7 @@ public sealed class AnalysisGuiContractTests
             },
             fftMtfDescriptors.Select(item => item.Key));
         Assert.Equal(
-            new[] { "32", "64", "128", "256", "512", "1024" },
+            new[] { "32", "64", "128", "256", "512", "1024", "2048" },
             fftMtfDescriptors.Single(item => item.Key == "Sampling").Choices);
         Assert.Equal("0", fftMtfDescriptors.Single(item => item.Key == "MaximumFrequency").DefaultValue);
         Assert.Equal("0", fftMtfDescriptors.Single(item => item.Key == "SurfaceNumber").DefaultValue);

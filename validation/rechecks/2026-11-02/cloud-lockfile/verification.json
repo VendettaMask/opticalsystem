@@ -1,0 +1,269 @@
+{
+  "date": "2026-11-02",
+  "baseCommit": "232e878001acf23a1c17799573fcefa4c2929d83",
+  "cause": "Comparison tool has no RuntimeIdentifier, but committed lock file included net10.0/win-x64; locked restore rejects with NU1004 before compilation.",
+  "failedCloudRun": 41435413433,
+  "failedCiRun": 41424094991,
+  "scope": "Remove only undeclared RID-specific lock segment; all eight shared dependency records identical.",
+  "verification": {
+    "beforeLockedRestoreExitCode": 1,
+    "afterSolutionLockedRestoreExitCode": 0,
+    "comparisonReleaseBuildExitCode": 0,
+    "compilerWarnings": 0,
+    "compilerErrors": 0,
+    "newTests": 0,
+    "fullSuiteRun": false,
+    "cloudRebuildVerified": true,
+    "foregroundAppsLaunched": false,
+    "localInstallerBuild": false
+  },
+  "evidence": {
+    "path": "evidence.zip",
+    "bytes": 437787,
+    "sha256": "37b6bd009c2f2ded75f7760e1ab4c9455f07a7e7b64651529c08d5181c6e8e8e",
+    "sourceFilesIndexed": 48,
+    "uniquePayloads": 44,
+    "allIndexedPayloadsHashVerified": true
+  },
+  "lockFileSha256": "a4481e6cca4b7d22838471c99483f525d54169bca9d695bcbe1ff78be8ce44bf",
+  "documentation": {
+    "strictPassed": true,
+    "documents": 1906,
+    "brokenLinks": 0,
+    "guideRepeatedParagraphs": 0
+  },
+  "retry": {
+    "run": 41443918880,
+    "sourceCommit": "cf4803ee256a83748407a08c2f11e0b824a9c5e9",
+    "allPlatformsRestoredAndBuilt": true,
+    "publish": "skipped",
+    "analysisContracts": {
+      "passed": 199,
+      "failed": 3
+    },
+    "failureCause": "Two old desktop pupil-grid assertions and one FFT MTF sampling-choice assertion no longer describe the documented product contract."
+  },
+  "analysisContractRepair": {
+    "passed": 207,
+    "failed": 0,
+    "skipped": 0,
+    "newCases": 0,
+    "newIndependentOpticalInvestigation": false,
+    "productSourcesChanged": false,
+    "referenceOrToleranceChanges": false,
+    "productSourceHashes": {
+      "src/OpticalSystemDesign.Core/Analysis/Wavefront/WavefrontAnalyses.cs": "70697bf93b0b7956cc749dd5fdc4169ff6854dba92f77ea2dc0b52dd913eaf23",
+      "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs": "97f25b4c1e92de3cee8ee49879ad88bb80e19671728c9cf28040ef1702630b9c",
+      "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.Parameters.cs": "b8bcf0e24410730fbef28ebd0642ee3aed0c5c06a880026899afb9e612c1c792",
+      "src/OpticalSystemDesign.App/Controls/WavefrontSurfaceControl.cs": "43e13309d748b263b049be42bf5590a14f25dae9c7d4eeed9c0a9a0671a60833"
+    },
+    "changedTests": [
+      "tests/OpticalSystemDesign.Tests/PupilShapeAndFoucaultPanelTests.cs",
+      "tests/OpticalSystemDesign.Tests/AnalysisGuiContractTests.cs"
+    ]
+  },
+  "contractDocumentation": {
+    "strictPassed": true,
+    "documents": 1906
+  },
+  "localFocusedTests": {
+    "scope": "Local focused release-contract, existing native/default guards, and real Skia render/export preflight; separate from cloud runs",
+    "groups": [
+      {
+        "file": "analysis-contract-repair.trx",
+        "passed": 207,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "file": "preflight-analysis-render.trx",
+        "passed": 42,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "file": "preflight-analysis-export.trx",
+        "passed": 23,
+        "failed": 0,
+        "skipped": 0
+      }
+    ],
+    "distinctPassed": 230,
+    "distinctFailed": 0,
+    "distinctSkipped": 0,
+    "repeatExecutionsNotAdded": 42,
+    "newTestCases": 0
+  },
+  "finalCloudRelease": {
+    "runId": 41447293816,
+    "url": "https://github.com/VendettaMask/opticalsystem/actions/runs/41447293816",
+    "sourceCommit": "a20ba98cbe7c0e151327444ab70c099b088e0199",
+    "status": "completed",
+    "conclusion": "success",
+    "completedAt": "2026-11-02T13:12:39Z",
+    "platforms": [
+      {
+        "runtime": "win-x64",
+        "conclusion": "success",
+        "compilerWarnings": 0,
+        "compilerErrors": 0,
+        "analysisContracts": {
+          "passed": 202,
+          "failed": 0,
+          "skipped": 0
+        },
+        "realOffscreenAnalysisRender": {
+          "passed": 42,
+          "failed": 0,
+          "skipped": 0
+        },
+        "analysisImageExport": {
+          "passed": 23,
+          "failed": 0,
+          "skipped": 0
+        },
+        "scope": "Scoped release gates; do not sum overlapping groups or platforms into a whole-suite total."
+      },
+      {
+        "runtime": "win-arm64",
+        "conclusion": "success",
+        "compilerWarnings": 0,
+        "compilerErrors": 0,
+        "analysisContracts": {
+          "passed": 202,
+          "failed": 0,
+          "skipped": 0
+        },
+        "realOffscreenAnalysisRender": {
+          "passed": 42,
+          "failed": 0,
+          "skipped": 0
+        },
+        "analysisImageExport": {
+          "passed": 23,
+          "failed": 0,
+          "skipped": 0
+        },
+        "scope": "Scoped release gates; do not sum overlapping groups or platforms into a whole-suite total."
+      },
+      {
+        "runtime": "osx-arm64",
+        "conclusion": "success",
+        "compilerWarnings": 0,
+        "compilerErrors": 0,
+        "analysisContracts": {
+          "passed": 202,
+          "failed": 0,
+          "skipped": 0
+        },
+        "realOffscreenAnalysisRender": {
+          "passed": 42,
+          "failed": 0,
+          "skipped": 0
+        },
+        "analysisImageExport": {
+          "passed": 23,
+          "failed": 0,
+          "skipped": 0
+        },
+        "scope": "Scoped release gates; do not sum overlapping groups or platforms into a whole-suite total."
+      }
+    ],
+    "knownSkippedInOtherReleaseGatesPerPlatform": {
+      "cudaHardwareCases": 1,
+      "optInViewerPixelCases": 2,
+      "viewerCases": [
+        "Viewer3DGeometryTests.UnselectedImageSurfaceIsVisibleWithoutRaysAndStaysWholeInCutaway",
+        "Viewer3DGeometryTests.BothViewersKeepOnlyTheLowerLeftLabelledTriad"
+      ]
+    },
+    "windowsArm64NativeExecutionVerified": false,
+    "windowsArm64Packaging": "Cross-packaged on Windows x64",
+    "macCloudOwnedUpdateAndRelaunchVerified": true,
+    "macSigning": "ad-hoc",
+    "developerIdSigned": false,
+    "notarized": false,
+    "nativeGuiAcceptance": false,
+    "localInstallerBuild": false,
+    "foregroundAppsLaunched": false,
+    "wholeOrdinaryCiVerdictClaimed": false
+  },
+  "publishedRelease": {
+    "sourceCommit": "a20ba98cbe7c0e151327444ab70c099b088e0199",
+    "runId": 41447293816,
+    "conclusion": "success",
+    "releaseId": 416939680,
+    "releaseTag": "v1.0.4-test.20261019",
+    "prerelease": true,
+    "originalTagUnchanged": true,
+    "onlyThreeCanonicalInstallerAssets": true,
+    "packages": [
+      {
+        "name": "OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+        "assetId": 701806603,
+        "bytes": 122202283,
+        "sha256": "8838cd4462151b5df6021d109a3323a545f132eb5b80dab3f4afa51039588091",
+        "sourceCommit": "a20ba98cbe7c0e151327444ab70c099b088e0199",
+        "releaseId": "1.0.4-osx-arm64-8976ca359cc6",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg"
+      },
+      {
+        "name": "OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-a20ba98c.exe",
+        "assetId": 701806803,
+        "bytes": 339874945,
+        "sha256": "b3f5fd89fa506dee198db065538a54abf21df4affec277843c76c5918051f5b0",
+        "sourceCommit": "a20ba98cbe7c0e151327444ab70c099b088e0199",
+        "releaseId": "1.0.4-win-arm64-230ed02d7c30",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-arm64-UnsignedTest-Setup-a20ba98c.exe"
+      },
+      {
+        "name": "OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-a20ba98c.exe",
+        "assetId": 701808189,
+        "bytes": 330292159,
+        "sha256": "032c37b2100cd87eab039ffd6f3a6edc8f443a6ccf2ca208d55fe99b0d31a409",
+        "sourceCommit": "a20ba98cbe7c0e151327444ab70c099b088e0199",
+        "releaseId": "1.0.4-win-x64-689c877897cc",
+        "downloadUrl": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-win-x64-UnsignedTest-Setup-a20ba98c.exe"
+      }
+    ],
+    "publishedInstallerBytesDownloadedLocally": false,
+    "allPlatformsReplaced": true,
+    "windowsOtaSignaturesIndependentlyVerified": true,
+    "windowsOtaSignatureVerification": "RSA-PSS SHA-256 against repository-pinned public key; both Verified OK",
+    "originalTagCommit": "9242b31abf38b4d97f23d19e4b00f8df47abfabb",
+    "macAppcastCommit": {
+      "commit": "e454fc01c646b66ddac75c35352f93330bf4ef2b",
+      "commitSubject": "Update signed Mac OTA feed for 1.0.4 (1.41.1) [skip ci]",
+      "path": "updates/macos/appcast.xml",
+      "sha256": "2255504b90be2c1365ce3972ea9e798270bac9d970ea9e23f5dc6cc0d3704e26",
+      "enclosure": {
+        "url": "https://github.com/VendettaMask/opticalsystem/releases/download/v1.0.4-test.20261019/OpticalSystemDesign-1.0.4-osx-arm64-AdHocTest.dmg",
+        "length": "122202283",
+        "type": "application/octet-stream",
+        "{http://www.andymatuschak.org/xml-namespaces/sparkle}edSignature": "YBlrkJ+57mjIBG9xrd0Ro/DUOAT9zsx0dxN17o6DaCIjclBj4Xn1Erjy1e7f6NhyXR6GjoQ9SSM6rsxwtGOwBw==",
+        "{http://www.andymatuschak.org/xml-namespaces/sparkle}os": "macos"
+      },
+      "signedXmlBytesModifiedLocally": false
+    }
+  },
+  "supersededCi": {
+    "runId": 41443819160,
+    "sourceCommit": "cf4803ee256a83748407a08c2f11e0b824a9c5e9",
+    "action": "cancellation requested",
+    "reason": "Own superseded CI; current fix a20ba98c has its own CI and release run. Known old UI assertions superseded; no whole-suite pass claimed.",
+    "latestReleaseRun": 41447293816,
+    "status": "completed",
+    "conclusion": "cancelled",
+    "wholeSuiteVerdict": "Incomplete, not passed"
+  },
+  "finalDocumentation": {
+    "strictPassed": true,
+    "report": "final-documentation.json",
+    "documents": 1906,
+    "brokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0,
+    "guideRepeatedParagraphs": 0,
+    "lifecycleIssues": 0
+  }
+}

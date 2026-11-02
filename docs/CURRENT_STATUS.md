@@ -50,6 +50,22 @@
 
 **270个不同定向用例通过**（269项完整范围及一项真实导入/快照补验），正常默认Release App与两个内置模块零警告/错误，执行Core哈希一致。证据逐成员读回后复用旧3306份字节，仅新增约10.2MB归档；保留原生失败和早期诊断。未做全仓测试、前台UI操作或本轮提交推送。算法、原门槛下误差及后续优先项见[专题](HUYGENS_COMMON_REPAIR_2026-11-02.md)，逐请求与身份见[证据](../validation/rechecks/2026-11-02/huygens-common/README.md)。
 
+## 2026-11-02 README 下载入口
+
+中英文 README 的下载入口统一跳转 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)，由用户在对应版本的 Assets 中选择 Windows x64、Windows ARM64 或 M 系列 Mac 安装包。页面包含测试发布，入口保持稳定，随发布页提供当前包、更新说明与校验值；原先写死旧源码短码的下载地址已移除。当前公开发布与三平台附件已核对，严格文档检查通过。平台选择说明见[中文 README](../README.md#下载安装包)和[英文 README](../README_EN.md#download-a-package)。
+
+## 2026-11-02 云打包锁文件与分析契约修复已发布
+
+[发布运行 41447293816](https://github.com/VendettaMask/opticalsystem/actions/runs/41447293816)已从干净提交 `a20ba98cbe7c0e151327444ab70c099b088e0199` 完成 Windows x64、Windows ARM64 和 Apple Silicon Mac 云端构建、定向门禁、打包及公开发布，三个平台完整编译均零警告/错误。当前 [1.0.4 测试发布](https://github.com/VendettaMask/opticalsystem/releases/tag/v1.0.4-test.20261019)的 Windows 文件以 `-Setup-a20ba98c.exe` 结尾，Mac 为原名 M 系列 DMG；原标签未移动。发布附件大小、服务端 SHA-256、正文源码记录及两个 Windows OTA 签名已核对。此轮没有本机打包或操作用户安装。
+
+远端 `232e8780` 的[发布运行 41435413433](https://github.com/VendettaMask/opticalsystem/actions/runs/41435413433)在 Windows x64、Windows ARM64 和 Apple Silicon Mac 的依赖还原阶段均报 `NU1004`；同提交的普通 CI 也是该原因。比较工具项目未声明运行平台，锁文件却包含 `net10.0/win-x64`，与严格还原要求不一致。编译、测试、安装包生成及发布尚未执行，不能将这次失败当作新包交付。
+
+已按项目当前声明重新生成比较工具锁文件，仅删除多余平台段，保留全部八项公共依赖的版本、哈希及引用。后台先复现原错误，再通过完整解决方案 `--locked-mode -p:ContinuousIntegrationBuild=true` 还原，以及该工具和共享 Core/Application 的 Release 编译，零警告、零错误。修复提交 `cf4803ee` 的[云端重试 41443918880](https://github.com/VendettaMask/opticalsystem/actions/runs/41443918880)已在三个平台完成严格还原、完整编译及安装/模块检查，但随后分析契约组出现 3 项过时断言，199 项通过，publish 仍跳过。
+
+后续只修订两份测试：FFT MTF 的完整采样选项补齐已实现的 2048；桌面波前投影改为检查同一投影网格在伪彩色/等高线与控件传递中不被修改，且不重复施加显示拉伸，保留通用 Core 的显示投影默认及现有原生网格参考。原断言错误地要求入口与投影后重新取样的网格逐点相同。更新后的发布分析契约及相邻原生/默认保护共 **207/207** 通过，再补查 PNG 导出 **23/23**，本机合计 **230 个不同定向用例**；真实绘图另复跑 **42/42**，不累加，无新增用例或数值容差、产品代码变更。
+
+最终云端三个平台各通过分析契约 **202/202**、独立进程真实绘图 **42/42** 和 PNG 导出 **23/23**；这些重叠组及跨平台结果不求和为全仓通过数。另有既定 CUDA 硬件与两个需单独启用的 Viewer 像素用例跳过，不当成通过。Mac 包和云端临时副本的更新/重启检查已通过，仍为 ad-hoc 签名、未公证；Windows ARM64 为交叉打包，不宣称原生执行或全 GUI 验收。旧提交 `cf4803ee` 的普通 CI 已因被替代而取消，记为未完成；本次未把普通 CI 全量结果纳入发布定向结论。没有关闭锁定还原、NuGet 审计或警告门禁，没有执行用户前台程序。完整失败、附件身份与复验见[修复记录](../validation/rechecks/2026-11-02/cloud-lockfile/README.md)。
+
 ## 2026-11-02 镀膜工程操作与双面解析优化
 
 独立参考λ₀已与设计中心分开保存，物理膜厚、原材料域和物理指纹保持。新增有界堆栈公式预览/应用、携带完整材料快照的跨实验膜层剪贴板，以及每窗口独占锁、原子写入和校验的恢复草稿；错误厚度/单位输入及两面模式可恢复，原实验不覆盖，关闭取消保留草稿。草稿停止输入1.5秒后落盘，正常确认关闭只清理自己的文件。
