@@ -122,6 +122,8 @@
 
 ## Documentation synchronization
 
+- User cloud-delivery decision (2026-11-03): keep the release workflow focused on locked build, version/architecture identity, installation/OTA safety, mandatory module delivery, actual package integrity and authenticated publication. Run UI/layout/font/legend/workspace regressions, isolated rendering/PNG/navigation, documentation and frozen-evidence checks in ordinary CI. Preserve those checks and their independent results; do not reintroduce them as release dependencies or claim CI passed merely because a package published.
+
 - User icon-documentation requirement (2026-11-03): keep the original Word/HTML icon standard, semantic design guide, local-icon/theme/UI specifications, full actual-use gallery and delivered SVG package, current change/verification records and persistent preferences synchronized. Correct conflicting current-body rules rather than only appending a newer paragraph. Lumen means Iron-Man-like technical HUD; Isekai remains a sword-and-magic world, including classical alchemy as its instrument vocabulary. Separate document-only verification from product test results, and label historical packages by their scope.
 
 - Product direction (2026-10-30): evolve Optical System Design into one integrated imaging, illumination and stray-light simulation product informed by ImSym and Speos. Share the optical Core, physical spectral detector results, sensor/RAW/ISP pipeline and engineering provenance; keep implemented desktop behavior, library-only bridges and planned capabilities distinct. The camera laboratory alone is not the full product completion gate. Preserve independent physical validation, original reference/tolerance identities and the existing single-product integration rules.

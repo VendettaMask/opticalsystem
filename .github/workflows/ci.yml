@@ -140,6 +140,7 @@ jobs:
         run: dotnet restore ${{ env.MAIN_SOLUTION }} --locked-mode ${{ env.DOTNET_CI_ARGS }}
 
       - name: Build main solution
+        id: build
         run: dotnet build ${{ env.MAIN_SOLUTION }} -c ${{ env.CONFIGURATION }} --no-restore /m:1 /nr:false ${{ env.DOTNET_CI_ARGS }}
 
       - name: Test main solution
@@ -164,6 +165,80 @@ jobs:
           --results-directory "${{ runner.temp }}/test-results/main"
           --blame-hang --blame-hang-timeout 30m
           /m:1 /nr:false
+
+      # The full main test assembly above covers layout, typography, legends,
+      # viewers, update panels and workspace persistence. Keep real rendering
+      # and native navigation in separate processes, independently of publishing.
+      - name: Verify lens navigation in isolated native processes
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          $results = Join-Path '${{ runner.temp }}' 'desktop-ui'
+          if ($IsMacOS) {
+            $reports = Join-Path $results 'native-crash'
+            [void][IO.Directory]::CreateDirectory($reports)
+            $env:DOTNET_DbgEnableMiniDump = '1'
+            $env:DOTNET_EnableCrashReportOnly = '1'
+            $env:DOTNET_DbgMiniDumpName = Join-Path $reports 'navigation.%p'
+            $env:OPTICAL_SYSTEM_DESIGN_NAVIGATION_TRACE = Join-Path $reports 'navigation-stages.txt'
+          }
+          ./scripts/test-lens-navigation-release.ps1 -ResultsDirectory $results -Configuration $env:CONFIGURATION
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+
+      - name: Render update check feedback in three languages
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        shell: pwsh
+        env:
+          OPTICAL_SYSTEM_DESIGN_UPDATE_CAPTURE_DIR: ${{ runner.temp }}/desktop-ui/update-feedback
+        run: |
+          dotnet test $env:MAIN_TEST_PROJECT -c $env:CONFIGURATION --no-build --no-restore --filter 'FullyQualifiedName~AboutUpdateTests.CheckButtonShowsBusyProgressAndPersistentLocalizedResults' --logger 'trx;LogFileName=update-feedback-render.trx' --results-directory '${{ runner.temp }}/desktop-ui'
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+
+      - name: Render complete analysis pages in an isolated Skia process
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        shell: pwsh
+        env:
+          OPTICAL_SYSTEM_DESIGN_ANALYSIS_FIT_CAPTURE_DIR: ${{ runner.temp }}/desktop-ui/analysis-pages
+        run: |
+          dotnet test $env:MAIN_TEST_PROJECT -c $env:CONFIGURATION --no-build --no-restore --filter 'FullyQualifiedName~AnalysisResponsivePlotTests' --logger 'trx;LogFileName=analysis-render.trx' --results-directory '${{ runner.temp }}/desktop-ui'
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+
+      - name: Verify complete PNG export in an isolated Skia process
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        shell: pwsh
+        env:
+          OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR: ${{ runner.temp }}/desktop-ui/analysis-export
+        run: |
+          dotnet test $env:MAIN_TEST_PROJECT -c $env:CONFIGURATION --no-build --no-restore --filter 'FullyQualifiedName~AnalysisImageExportTests' --logger 'trx;LogFileName=analysis-export.trx' --results-directory '${{ runner.temp }}/desktop-ui'
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+
+      - name: Retain authorized bounded cloud Mac test crash reports
+        if: ${{ failure() && matrix.label == 'macos' }}
+        shell: bash
+        run: |
+          # Only temporary GitHub runner test processes; no maintainer files.
+          reports='${{ runner.temp }}/desktop-ui/native-crash'
+          mkdir -p "$reports"
+          count=0
+          sleep 2
+          for directory in "$HOME/Library/Logs/DiagnosticReports" "$HOME/Library/Logs/DiagnosticReports/Retired"; do
+            for report in "$directory"/{testhost,dotnet}*.{ips,crash}; do
+              [[ -f "$report" ]] || continue
+              if [[ $(stat -f%z "$report") -le 20971520 && $count -lt 5 ]]; then
+                cp "$report" "$reports/"
+                count=$((count+1))
+              fi
+            done
+          done
+
+      - name: Upload isolated desktop UI results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-ui-${{ matrix.label }}
+          path: ${{ runner.temp }}/desktop-ui
+          if-no-files-found: warn
+          retention-days: 30
 
       - name: Upload main test results
         if: ${{ always() }}

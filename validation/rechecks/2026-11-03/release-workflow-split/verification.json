@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-03",
+  "baseCommit": "80f5f7786564343c0a029c362ecc0230aac6160d",
+  "scope": "Release/CI split; no product, installer, signing or optical computation implementation changed.",
+  "sourceFiles": {
+    ".github/workflows/release.yml": "f6b46a4164aeba4540b89c4d09b900ffb28581611775cf386cc524974e54c9a2",
+    ".github/workflows/ci.yml": "c980d0f086a2d3541ab2c8ed3bcc99961131acb9019ad299ff3fda2fcde1878a",
+    "tests/OpticalSystemDesign.Tests/CloudReleaseTests.cs": "1deb7d3d3b7fbf69134ecb6a2c1d658d9fea2512784e1834bcc20af77045d4b0",
+    "AGENTS.md": "124c2ccd9d735891284e00979e7c180572afb236cc07f916765bf3d9dfe8fce7",
+    "docs/BUILD_AND_RELEASE.md": "e77cb67bc4349e0bb936b6a5e5a82596972caa4f852c00fd11f82fcf7000ce0a",
+    "docs/GITHUB_CLOUD_RELEASE.md": "3e725c90e4a8579cd4c33b84916394220c7867eb6b7acb92b4f59aebb7b3a1c0",
+    "docs/CURRENT_STATUS.md": "bd18b2062bdd54cd6f0950db04bf70c3bede9706158545df358cdafacd15bc1f",
+    "validation/rechecks/2026-11-03/release-workflow-split/README.md": "f35fb1eff40de19a2c676fb88a9a62fb3b24102d237e65da19f496c694018b54"
+  },
+  "verification": {
+    "localHost": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "configuration": "Release",
+    "defaultOutput": true,
+    "lockedRestore": true,
+    "compileAndTestsExitCode": 0,
+    "warnings": 0,
+    "errors": 0,
+    "focusedTests": {
+      "passed": 153,
+      "failed": 0,
+      "skipped": 0,
+      "newCases": 0,
+      "selector": "Exact Mac essential release filter from release.yml"
+    },
+    "yamlSyntaxPassed": 2,
+    "inlineScriptSyntaxPassed": 22,
+    "releaseActionPinsVerified": 8,
+    "workflowStructureChecksPassed": 14,
+    "platformPackageStepsBefore": 17,
+    "platformPackageStepsAfter": 10,
+    "fullSuiteRun": false,
+    "nativeWindowsVerified": false,
+    "newCloudReleaseRun": false,
+    "installerBuildOrInstall": false,
+    "foregroundAppLaunched": false,
+    "changedTestWhitespaceCheckExitCode": 0,
+    "productOrInstallerSourcesChanged": false
+  },
+  "documentation": {
+    "strictPassed": true,
+    "documents": 1968,
+    "BrokenLinks": 0,
+    "MarkdownFenceIssues": 0,
+    "LocalOnlyLinks": 0,
+    "GuideRepeatedParagraphs": 0,
+    "LifecycleIssues": 0
+  },
+  "evidence": {
+    "path": "evidence.zip",
+    "bytes": 146305,
+    "sha256": "fc06ca886e34715743ae14097287c38ae3f878dd31475e0526c59e3bacf12a32",
+    "allEntriesVerified": true,
+    "sourceTreesOrRuntimeOrInstallerOrImagesCopied": false
+  }
+}

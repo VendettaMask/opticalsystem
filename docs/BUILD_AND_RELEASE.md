@@ -1,6 +1,6 @@
 # 构建与发布
 
-核对：2026-11-02。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
+核对：2026-11-03。本文只说明当前命令和交付规则。最新验收见 [当前状态](CURRENT_STATUS.md)，历史构建验收原文已集中到 [历史账本](validation/BUILD_VERIFICATION_HISTORY_2026-10-13.json)，不作为当前通过结论或可直接执行的旧命令。
 
 ## 唯一产品入口
 
@@ -116,7 +116,7 @@ Mac 使用同一“帮助 → 关于”入口，由 Sparkle 读取固定 HTTPS A
 
 OTA 云端签名、密钥备份和客户端实机验收分别记账。正式与测试 EXE 都在发布前生成 RSA-PSS/SHA-256 元数据，公钥不匹配或密钥不可用时停止；测试包额外校验构建编号与本次工作流一致，仍为预发布且不标 Latest。私有 GitHub 仓库保存密码加密备份，日常发布不依赖维护者电脑；恢复只需 GitHub 权限、加密文件与单独保管的恢复密码，不使用机器绑定、明文私钥附件或永久依赖 Actions artifact。步骤及安全边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md#ota-签名与纯云端密钥备份)，实际结果见[当前状态](CURRENT_STATUS.md)。
 
-安装包分发地址为 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)。[发布工作流](../.github/workflows/release.yml) 在 GitHub 托管 Windows / Apple Silicon Mac runner 编译完整解决方案，运行版本、升级、安装、内置模块、自动初始结构界面的定向测试及冻结证据/文档门禁，再生成自包含 Windows Setup EXE 或 Apple Silicon DMG。镜头表头/结构导航、材料行显示、二维结构选择和三维几何/显示模式另以定向集合检查，记录在 `lens-viewers.trx`，不扩大为全套或实机 GUI 验收。x64 对实际载荷的隔离副本运行完整性/内置模块探测；Windows ARM64 在 x64 runner 上仅交叉打包，不宣称原生执行验收。全部所选架构通过后自动上传并公开发布；不再止于草稿。本地构建本身不会联网发布。
+安装包分发地址为 [GitHub Releases](https://github.com/VendettaMask/opticalsystem/releases)。[发布工作流](../.github/workflows/release.yml) 在 GitHub 托管 Windows / Apple Silicon Mac runner 编译完整解决方案，只执行版本、安装/更新保护、OTA、内置模块交付与产品依赖检查，再生成并验证自包含 EXE 或 DMG。页面、图例、字体、视图、工作区、初始结构预设等回归，以及文档和冻结证据检查由普通 CI 承担；实际绘图、PNG 和导航隔离进程的记录归入 CI 的 `desktop-ui-*` 产物。x64 对实际载荷的隔离副本运行完整性/内置模块与 OTA 辅助进程探测；Windows ARM64 在 x64 runner 上仅交叉打包，不宣称原生执行验收。Mac 保留 bundle/DMG 及云端自有副本的更新替换和重启检查。全部所选架构通过后自动上传并公开发布；本地构建本身不会联网发布。流程分工及仅验证模式见[云端发布指南](GITHUB_CLOUD_RELEASE.md#验证范围)。
 
 推送与产品版本一致的 `v<产品版本>` 标签自动构建 Windows x64/ARM64 和 Mac `osx-arm64` 并发布正式版；推送 `v<产品版本>-test.YYYYMMDD` 标签发布测试预发布、不标 Latest。维护者也可在 Actions 的 **Desktop build and publish → Run workflow** 选择分支、已有标签及 `all` 或单个平台，勾选 `replace_existing` 才允许覆盖已有附件。手动刷新不移动旧标签，发布说明记录实际源码提交。详细操作和边界见[云端发布指南](GITHUB_CLOUD_RELEASE.md)。
 
