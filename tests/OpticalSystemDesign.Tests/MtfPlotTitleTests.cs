@@ -89,9 +89,12 @@ public sealed class MtfPlotTitleTests
             using var app = WorkbenchApplication.Create();
             await app.Documents.OpenAsync(DoubleGaussSfrTests.StandardLens);
             var original = app.Documents.GetRecoveryState();
+            // The FFT fixture must satisfy the shared pupil-phase sampling gate;
+            // low-count Huygens/geometric inputs still suffice for UI coverage.
+            var pupilSampling = analysis == "MTF" ? "256" : "32";
             var result = await app.Analyses.RunAsync(new(Guid.NewGuid(), 1, analysis, new Dictionary<string, string>
             {
-                ["Sampling"] = "32", ["PupilSampling"] = "32", ["ImageSampling"] = "32", ["NumRays"] = "32",
+                ["Sampling"] = pupilSampling, ["PupilSampling"] = pupilSampling, ["ImageSampling"] = "32", ["NumRays"] = "32",
                 ["PlotPointCount"] = "32", ["WavelengthNumber"] = "1", ["FieldNumber"] = "0", ["MaximumFrequency"] = "100"
             }));
             Assert.Equal(AnalysisOutcome.Success, result.View.Outcome);

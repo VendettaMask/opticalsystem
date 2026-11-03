@@ -262,10 +262,13 @@ public sealed class AnalysisLegendLayoutTests
             ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
             using var app = WorkbenchApplication.Create();
             var runtime = new WorkbenchRuntime(Optic.CreateCookeTriplet());
+            // Exercise selectable FFT curves with a resolved pupil rather than
+            // asking the UI test to accept the old undersampled eight-node grid.
+            var pupilSampling = analysis == "MTF" ? "256" : "8";
             var view = WorkbenchMapper.ToAnalysisViewDto(runtime.BuildAnalysisView(analysis, new Dictionary<string, string>
             {
-                ["Sampling"] = "8",
-                ["PupilSampling"] = "8",
+                ["Sampling"] = pupilSampling,
+                ["PupilSampling"] = pupilSampling,
                 ["ImageSampling"] = "16",
                 ["NumRays"] = "8",
                 ["PlotPointCount"] = "16",
