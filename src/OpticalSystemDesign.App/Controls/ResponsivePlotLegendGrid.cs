@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Controls;
 
@@ -20,6 +21,9 @@ internal sealed class ResponsivePlotLegendGrid : Grid
         Children.Add(plot);
         Children.Add(legend);
         SetColumn(legend, 1);
+        var ornament = ThemeDrawingSurface.LegendOrnament(legend);
+        SetColumn(ornament, 1);
+        Children.Add(ornament);
     }
 
     protected override Size MeasureOverride(Size availableSize)

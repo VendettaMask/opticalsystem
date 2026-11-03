@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Controls;
 
@@ -32,6 +33,8 @@ internal sealed class UniformDiagramPage : Grid
         Children.Add(plot);
         SetRow(caption, 1);
         Children.Add(caption);
+        ThemeDrawingSurface.ApplyResources(this, transparentPlot: true);
+        ThemeDrawingSurface.AddPaper(this);
         _overflow = new Border
         {
             IsVisible = false,

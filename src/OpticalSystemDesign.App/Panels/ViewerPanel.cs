@@ -171,6 +171,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         };
         _summaryBar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         _summaryBar.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        ThemeDrawingSurface.ApplyResources(_summaryBar);
+        ThemeDrawingSurface.ApplyResources(_glassLegend);
         DockPanel.SetDock(_summaryBar, Avalonia.Controls.Dock.Bottom);
         var workspace = dimension == SceneDimension.TwoDimensional
             ? Build2DWorkspace()

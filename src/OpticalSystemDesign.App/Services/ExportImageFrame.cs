@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Services;
 
@@ -15,13 +16,14 @@ internal static class ExportImageFrame
     {
         var canvas = new PixelSize(ImageExportResolution.PixelWidth, ImageExportResolution.PixelHeight);
         ValidatePixels(canvas.Width, canvas.Height);
-        var frame = ImageExportResolution.FitFrame(content.Bounds.Size, canvas, ImageExportResolution.PreserveAspectRatio);
+        var owner = themeContext ?? content;
+        var border = ThemeDrawingSurface.FrameInset(owner);
+        var frame = ImageExportResolution.FitFrame(content.Bounds.Size, canvas, ImageExportResolution.PreserveAspectRatio, border);
         if (frame.Width <= 0 || frame.Height <= 0) throw new InvalidOperationException("导出图像尚未显示");
-        var scale = Math.Min(canvas.Width / (content.Bounds.Width + 2), canvas.Height / (content.Bounds.Height + 2));
+        var scale = Math.Min(canvas.Width / (content.Bounds.Width + 2 * border), canvas.Height / (content.Bounds.Height + 2 * border));
         using var source = Capture(content, scale, themeContext);
         using var pixels = new WriteableBitmap(source.PixelSize, new Vector(96, 96), PixelFormat.Bgra8888, AlphaFormat.Premul);
         using (var buffer = pixels.Lock()) source.CopyPixels(buffer);
-        var owner = themeContext ?? content;
         var background = owner.TryFindResource(ThemeResourceBindings.PlotBackground, owner.ActualThemeVariant, out var resource)
             && resource is IBrush brush ? brush : Brushes.White;
         var page = new CanvasPage(pixels, background, new Rect(frame.X, frame.Y, frame.Width, frame.Height))
@@ -41,7 +43,7 @@ internal static class ExportImageFrame
     {
         // Print metadata must not change the raster pixels or the live drawing.
         var bitmap = CaptureCore(content, ImageExportResolution.Scale, themeContext,
-            ImageExportResolution.ReferenceHeight / (content.Bounds.Height + 2 * BorderWidth));
+            ImageExportResolution.ReferenceHeight / (content.Bounds.Height + 2 * BorderWidth), ornamentalMat: false);
         PngImageWriter.SetPrintDpi(bitmap, ImageExportResolution.Dpi);
         return bitmap;
     }
@@ -49,21 +51,25 @@ internal static class ExportImageFrame
     internal static RenderTargetBitmap Capture(Control content, double scale = 1, Control? themeContext = null)
         => CaptureCore(content, scale, themeContext, 1);
 
-    private static RenderTargetBitmap CaptureCore(Control content, double scale, Control? themeContext, double sourceScale)
+    private static RenderTargetBitmap CaptureCore(Control content, double scale, Control? themeContext, double sourceScale, bool ornamentalMat = true)
     {
         if (!double.IsFinite(scale) || scale <= 0) throw new ArgumentOutOfRangeException(nameof(scale));
         var size = content.Bounds.Size;
         if (!double.IsFinite(size.Width) || !double.IsFinite(size.Height) || size.Width <= 0 || size.Height <= 0)
             throw new InvalidOperationException("导出图像尚未显示");
         if (!double.IsFinite(sourceScale) || sourceScale <= 0) throw new InvalidOperationException("导出图像尚未显示");
-        var width = Math.Ceiling((size.Width + 2 * BorderWidth) * sourceScale * scale - 1e-8);
-        var height = Math.Ceiling((size.Height + 2 * BorderWidth) * sourceScale * scale - 1e-8);
+        var owner = themeContext ?? content;
+        // The decorative mat is outside the source sheet. Reports retain the
+        // original source and physical text size, independent of canvas padding.
+        var material = ornamentalMat ? ThemeDrawingSurface.Material(owner) : null;
+        var border = material?.FrameInset ?? BorderWidth;
+        var width = Math.Ceiling((size.Width + 2 * border) * sourceScale * scale - 1e-8);
+        var height = Math.Ceiling((size.Height + 2 * border) * sourceScale * scale - 1e-8);
         ValidatePixels(width, height);
 
-        var owner = themeContext ?? content;
         var brush = owner.TryFindResource(ThemeResourceBindings.PlotAxis, owner.ActualThemeVariant, out var resource)
             && resource is IBrush axis ? axis : new SolidColorBrush(Color.FromRgb(112, 128, 148));
-        var page = new FramedPage(content, brush, sourceScale)
+        var page = new FramedPage(content, brush, sourceScale, border, material)
         {
             Width = width / scale,
             Height = height / scale,
@@ -94,17 +100,23 @@ internal static class ExportImageFrame
         }
     }
 
-    private sealed class FramedPage(Control content, IBrush brush, double sourceScale) : Control
+    private sealed class FramedPage(Control content, IBrush brush, double sourceScale, double border, IThemeDrawingMaterial? material) : Control
     {
         public override void Render(DrawingContext context)
         {
+            if (material is not null)
+            {
+                using var transform = context.PushTransform(Matrix.CreateScale(sourceScale, sourceScale));
+                material.DrawFrame(context, new Rect(0, 0, Bounds.Width / sourceScale, Bounds.Height / sourceScale));
+            }
             context.DrawRectangle(new VisualBrush(content)
             {
                 Stretch = sourceScale == 1 ? Stretch.None : Stretch.Fill,
                 AlignmentX = AlignmentX.Left,
                 AlignmentY = AlignmentY.Top
-            }, null, new Rect(BorderWidth * sourceScale, BorderWidth * sourceScale,
+            }, null, new Rect(border * sourceScale, border * sourceScale,
                 content.Bounds.Width * sourceScale, content.Bounds.Height * sourceScale));
+            if (material is not null) return;
             var stroke = BorderWidth * sourceScale;
             context.DrawRectangle(null, new Pen(brush, stroke),
                 new Rect(stroke / 2, stroke / 2, Bounds.Width - stroke, Bounds.Height - stroke));

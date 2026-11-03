@@ -215,7 +215,7 @@ public sealed class ThemeResourceTests
         Assert.Empty(isekai.AccentPrimitives);
         Assert.Equal(Matrix.Identity, isekai.ContentTransform);
         Assert.Equal(PenLineCap.Round, isekai.LineCap);
-        Assert.Equal(IsekaiTheme.Palette.TextAccent, ThemeRegistry.FromSettings("Isekai").IconPalette.Signal);
+        Assert.Equal(ScientificIconPalette.IsekaiArcane.Signal, ThemeRegistry.FromSettings("Isekai").IconPalette.Signal);
 
         Assert.True(IsekaiThemeIconPack.Names.Count >= 80);
         Assert.All(IsekaiThemeIconPack.Names, iconName =>

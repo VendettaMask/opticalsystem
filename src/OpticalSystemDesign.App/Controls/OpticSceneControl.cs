@@ -6,6 +6,7 @@ using Avalonia.Input;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using Layout2DLensEdge = OpticalSystemDesign.Application.Contracts.SceneLensEdge2Dto;
 using Layout2DLensElement = OpticalSystemDesign.Application.Contracts.SceneLensElement2Dto;
@@ -202,6 +203,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     public OpticSceneControl()
     {
+        ThemeDrawingSurface.Track(this);
         Focusable = true;
         InteractiveCanvasFocus.Attach(this);
         ClipToBounds = true;
@@ -617,7 +619,9 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     private void RenderContent(DrawingContext context, bool includeFocus)
     {
-        context.DrawRectangle(
+        if (ThemeDrawingSurface.Material(this) is { } material)
+            material.DrawPaper(context, new Rect(Bounds.Size), scene: true);
+        else context.DrawRectangle(
             SceneBackgroundBrush(
                 ViewMode == OpticSceneViewMode.ThreeDimensional,
                 VisualStyle == OpticSceneVisualStyle.SolidModel),
@@ -1847,7 +1851,9 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         var y = Math.Max(24, Bounds.Height - 24);
         var left = new Point(centerX - (width / 2.0), y);
         var right = new Point(centerX + (width / 2.0), y);
-        IPen pen = darkBackground ? SolidAxisPen : ThemePen(ThemeResourceBindings.SceneAxis, AxisPen);
+        var drawingInk = ThemeDrawingSurface.Material(this)?.Ink;
+        IPen pen = drawingInk is not null ? new Pen(drawingInk, AxisPen.Thickness)
+            : darkBackground ? SolidAxisPen : ThemePen(ThemeResourceBindings.SceneAxis, AxisPen);
         context.DrawLine(pen, left, right);
         context.DrawLine(pen, left + new Vector(0, -5), left + new Vector(0, 5));
         context.DrawLine(pen, right + new Vector(0, -5), right + new Vector(0, 5));
@@ -1857,7 +1863,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             FlowDirection.LeftToRight,
             DisplayTypography.Typeface(),
             VisualStyle == OpticSceneVisualStyle.OpticalLayout ? DisplayTypography.CompactBody : 12,
-            darkBackground ? ThemeBrush(ThemeResourceBindings.TextOnAccent, Brushes.White) : ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+            drawingInk ?? (darkBackground ? ThemeBrush(ThemeResourceBindings.TextOnAccent, Brushes.White) : ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black)));
         context.DrawText(label, new Point(centerX - (label.Width / 2.0), y - 21));
     }
 

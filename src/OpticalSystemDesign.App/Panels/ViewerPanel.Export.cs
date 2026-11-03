@@ -7,6 +7,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 
@@ -155,6 +156,9 @@ public sealed partial class ViewerPanel
             RowDefinitions = new RowDefinitions($"{UniformDiagramPage.PlotHeight},{UniformDiagramPage.CaptionHeight}"),
             Background = _summaryBar.Background
         };
+        // Detached export grids have no compositor sorting pass. Put the paper
+        // before the scene as well as below it in Z, so rays cannot be covered.
+        ThemeDrawingSurface.AddPaper(page, _scene);
         page.Children.Add(new SceneImageCanvas(_scene));
         if (_staleLayoutBanner.IsVisible)
             page.Children.Add(new Border

@@ -22,6 +22,7 @@ internal sealed record ThemeDefinition(
     bool FollowsSystem = false)
 {
     public ScientificIconPalette IconPalette { get; init; } = ScientificIconPalette.Light;
+    public IThemeDrawingMaterial? DrawingMaterial { get; init; }
 
     public ResourceDictionary BuildResources()
     {
@@ -88,7 +89,8 @@ internal static class ThemeRegistry
         IsekaiTheme.ApplyAccentResources,
         IsDarkLike: true)
     {
-        IconPalette = ScientificIconPalette.IsekaiArcane
+        IconPalette = ScientificIconPalette.IsekaiArcane,
+        DrawingMaterial = IsekaiDrawingMaterial.Instance
     };
 
     private static readonly ThemeDefinition Pixel = new(

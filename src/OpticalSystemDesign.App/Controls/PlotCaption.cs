@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
 
@@ -128,6 +129,7 @@ internal static class PlotCaption
         var frame = new Border { BorderThickness = new Thickness(0, 1, 0, 1), Child = grid };
         frame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         frame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
+        ThemeDrawingSurface.ApplyCaptionResources(frame);
         return frame;
     }
 

@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Media;
+using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Controls;
 
@@ -111,7 +112,8 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
             if (Child is null) return default;
             if (Source is UniformDiagramPage)
             {
-                _fit.Measure(FitToViewport ? _viewport : new Size(UniformDiagramPage.SheetWidth + 2, UniformDiagramPage.SheetHeight + 2));
+                var inset = ThemeDrawingSurface.FrameInset(_frame);
+                _fit.Measure(FitToViewport ? _viewport : new Size(UniformDiagramPage.SheetWidth + 2 * inset, UniformDiagramPage.SheetHeight + 2 * inset));
                 return _fit.DesiredSize;
             }
             var width = Math.Max(Math.Max(320, _viewport.Width), MinimumReadableWidth(Child));

@@ -46,7 +46,7 @@ dotnet run --project tools/previews/FuiThemePreview/FuiThemePreview.csproj -c Re
 | --- | --- | --- | --- | --- |
 | `Light` | 普通模式 | Avalonia Light | `ScientificThemeIconPack` | 窗口级浅蓝渐变、玻璃反光及细亮边、半透明侧栏分组、白色数据区、12 DIP 圆角停靠区 |
 | `Dark` | 暗夜模式 | Avalonia Dark | `ScientificThemeIconPack` | 现有圆角、边框和阴影 |
-| `Isekai` | 异世界 | Dark 派生 | `ScientificThemeIconPack` | 旧金锐角框、工作区/视口/对话框双框、皮革剑刃 Ribbon |
+| `Isekai` | 异世界 | Dark 派生，图纸局部羊皮纸 | `ScientificThemeIconPack` | 皮革剑刃 Ribbon、旧金操作框；图纸内角钢笔百合/藤蔓、天体星盘、炼金瓶与晶簇，外侧窄皮革金边 |
 | `Pixel` | 像素风格 | Light 派生 | `ScientificThemeIconPack` | 明亮 8-bit 色板、中文像素字、主题色科学轮廓图标、方角硬边与紧凑点阵 Ribbon |
 | `Lumen` | 光域 | Dark 派生 | `ScientificThemeIconPack` | 灰青暗场、暖金主操作、灰蓝选择态、蓝色材料行、方角细边框，无装饰圆环或阴影 |
 | `System` | 跟随系统 | 由系统决定 Light/Dark | 对应实际明暗主题 | 对应实际明暗主题 |
@@ -54,6 +54,10 @@ dotnet run --project tools/previews/FuiThemePreview/FuiThemePreview.csproj -c Re
 各主题共用 Optical Scientific Outline 1.3 的功能语义与网格；普通/黑洞/像素保持基础图形，光域与异世界各有221款独立主题SVG。光域使用钢铁侠式科技 HUD，异世界属于剑与魔法，古典炼金器具是其中的功能语汇。图形来源与当前目录见[本地图标说明](LOCAL_ICONS.md)。普通亮模式采用确认的玻璃工作台：窗口级浅蓝渐变及反光顶栏、白色编辑区、半透明玻璃侧栏分组（圆角 6、间距 6、细亮边与浅阴影），选中文档页签白底蓝字，蓝色选中边从下沿移至右侧（2 DIP），保留原生模板与圆角。原连续白底内收分隔线已移除，嵌套视场/波长卡片恢复完整细轮廓；暗夜主题保留自己的 Chrome。`BlueThemeTokens` 集中底色与比例，`LightGlassMaterial` 集中不可变的玻璃反光、透明面及亮边，`LightTheme` 映射 Fluent/Dock 实际资源及当前布局资源，`BlueThemeStyles` 修复原模板的组合状态、焦点及禁用优先级；业务面板不判断主题名。顶部 Ribbon 仍为紧凑分类页签与横向工具栏，各主题共用最小高度 72、命令最小尺寸 56×36、18 DIP 图标、6 DIP 图文间距和 22 DIP 居中短分隔线。Light 标题与工具栏共用 `WorkbenchBackdrop` 的窗口级蓝色渐变，材质反光在原背景层叠加，工具页保持透明；状态栏使用 `StatusBarBackground`，其他主题回落到自身 Surface/SubtleSurface；背景渐变为不可变资源，避免跨界面线程共享可变画刷。布局细节见 [UI 规范](UI_DESIGN_SPEC.md)，历史记录见 [主题报告](BLUE_THEME_2026-09-27.md)。
 
 异世界采用旧铜/浅金/灰绿的魔导器具风格，像素保留原科学轮廓及海军蓝/红/绿角色色。异世界的旧金 Chrome 与装饰层、像素主题的中文像素字体及方角色板保持独立；像素字仍由 OFL 授权的 `Fusion Pixel 10px Mono zh_hans` 提供。旧 GameIconsFantasy/FarmFresh32 目录属于历史来源，当前运行图标以注册表和[本地图标说明](LOCAL_ICONS.md)为准；不改变命令 ID、文案或布局。
+
+异世界绘图材质通过注册表的可选 `DrawingMaterial` 接入，具体实现为 `IsekaiDrawingMaterial`。根据用户两张附图，现嵌入圆角旧金窄框、羊皮纸、透明内角花饰和分析用黄铜星盘四张素材。花叶保留在纸内，上角百合/藤蔓/天体星盘与下角炼金瓶/晶簇沿用；第二张参考补充圆角包角、顶部星芒、双层细线内框及分析页纸内侧边花饰。图例下方仅在实际剩余空间足够时出现黄铜星盘，不增加图例占位。解码和角部画刷按 UI 线程缓存，装饰局部高质量插值，不改变科学数据采样。完整提示词、尺寸与哈希见[素材记录](../src/OpticalSystemDesign.App/Assets/Themes/Isekai/README.md)。菜单、参数和数据页仍使用原深色资源，功能图标保持独立 SVG。
+
+外框分片绘制并独立保留中心徽记，28 DIP 窄边只增加源图外围尺寸；实时及 PNG 外轮廓均为圆角，透明角外不补成矩形。普通源图仍为 1200×900 与 160 DIP 图签，内部花饰绘制在数据后方；2D/3D 使用较清晰墨色，分析和图签降低浓度，不挪动坐标、文字或曲线。实时适应窗口、100% 滚动及 PNG 包含完整窄框；默认 PNG 仍为 1920×1080。报告复用含内部花饰和双细框的原源图及物理文字大小，不纳入外部皮革边，原强制亮色打印选项有效。装饰不接收指针、不随相机移动，不充当镜片/光线/数据。原字体、品牌矢量、其他主题及实体模型紧凑信息栏保留。见[当前验证](../validation/rechecks/2026-11-03/isekai-rounded-border/README.md)；[图内花饰阶段](../validation/rechecks/2026-11-03/isekai-inner-ornament/README.md)、[宽花框阶段](../validation/rechecks/2026-11-03/isekai-rich-frame/README.md)与[首版](../validation/rechecks/2026-11-03/isekai-parchment/README.md)保留历史范围。
 
 Ribbon 下沿通过 `ThemeChromeRole.Ribbon` 提供主题圆角，Light/Dark 为仅底部 8 DIP，Isekai/Pixel 保留锐角/方角。`ThemeLayoutResources.RibbonWorkspaceMargin` 在所有主题提供下方 8 DIP 间隔；外露区域绑定工作区背景，内容随圆角裁切。业务布局不判断主题名称，顺序和非序列模式共用框架。
 
@@ -65,6 +69,8 @@ Ribbon 下沿通过 `ThemeChromeRole.Ribbon` 提供主题圆角，Light/Dark 为
 
 ## 主题包组成
 
+异世界本次确认的概念稿、图内花饰参考和分析页边框参考原图保存在[参考原稿目录](assets/themes/isekai/references/README.md)，与实际运行素材和验证截图分开标明来源。
+
 每个可选主题通过一个 `ThemeDefinition` 声明：
 
 - 稳定设置值和中文显示名称；
@@ -73,7 +79,7 @@ Ribbon 下沿通过 `ThemeChromeRole.Ribbon` 提供主题圆角，Light/Dark 为
 - 强调色应用器；
 - 实际 `IThemeIconPack`；
 - `ThemeChromeProfile`；
-- 可选的 `IThemeDecorationRenderer`。
+- 可选的 `IThemeDecorationRenderer` 以及绘图用 `IThemeDrawingMaterial`。
 
 `App` 只遍历注册中心建立资源字典；`ThemeApplicationService` 在 UI 线程中先准备 Fluent/Dock 兼容强调资源，再发布主题变体切换。显示设置窗口直接读取注册中心，并在不改变全局主题的独立样例中预览所选色板和 Chrome。新增主题不得修改 `MainWindow`、`DisplaySettingsWindow` 或业务面板的主题 switch。
 

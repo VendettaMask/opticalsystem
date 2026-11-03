@@ -1,0 +1,433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="207e6570-eaa2-4edc-9b1b-b78405ce1bd9" name="@starlabdeMacBook-Air 2026-11-03 22:39:05" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T22:39:06.1011810+08:00" queuing="2026-11-03T22:39:06.1011810+08:00" start="2026-11-03T22:39:04.1216710+08:00" finish="2026-11-03T22:39:06.7195460+08:00" />
+  <TestSettings name="default" id="35e0cff2-7da5-4af1-840b-e40623dab270">
+    <Deployment runDeploymentRoot="_starlabdeMacBook-Air_2026-11-03_22_39_05" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="e5127b0a-75d5-41a6-a5e0-3a0e4cf6e0b9" testId="7b17255b-58a5-902d-ff38-e3a5f2f356fb" testName="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Wavefront Map&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.1118953" startTime="2026-11-03T22:39:06.2329470+08:00" endTime="2026-11-03T22:39:06.3447230+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e5127b0a-75d5-41a6-a5e0-3a0e4cf6e0b9">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 112
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 143
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 19
+   at System.Threading.ThreadLocal`1.GetValueSlow()
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.get_CaptionBackground() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 23
+   at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyCaptionResources(Control control) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs:line 41
+   at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, String documentName, String documentTitle, String logoName) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs:line 130
+   at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, OpticalDocumentSnapshot document, String logoName) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs:line 78
+   at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildAnalysisTitleBlock(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs:line 800
+   at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildResultContent(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs:line 66
+   at OpticalSystemDesign.App.Panels.AnalysisPanel.PresentResult(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs:line 34
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 43
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key) in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 34
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fa8f3754-4250-40ed-a007-b27729f4639f" testId="05c3f684-5cd6-6d11-646e-e5e8928d796b" testName="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(dimension: ThreeDimensional, mode: SolidModel)" computerName="starlabdeMacBook-Air" duration="00:00:00.0615316" startTime="2026-11-03T22:39:05.9980400+08:00" endTime="2026-11-03T22:39:06.0592160+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fa8f3754-4250-40ed-a007-b27729f4639f">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 112
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 143
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 19
+   at System.Threading.ThreadLocal`1.GetValueSlow()
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.CreateResources(Boolean transparentPlot) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 25
+   at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyResources(Control control, Boolean transparentPlot) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs:line 33
+   at OpticalSystemDesign.App.Panels.ViewerPanel..ctor(IVisualizationService visualization, IWorkspaceEventStream events, SurfaceSelectionService surfaceSelection, SceneDimension dimension, ViewerPresentationMode presentationMode, IWorkbenchModeService modes, INonSequentialAnalysisService nonSequentialAnalysis) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/ViewerPanel.cs:line 174
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SceneAndExportSharePaperAndPreserveCameraAndMaterialColours&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 122
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(SceneDimension dimension, ViewerPresentationMode mode) in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 118
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6a0c55bf-b9a3-486a-88d1-a8c43ea7fcdb" testId="5815ee82-298f-f4f9-7592-ff78405269d8" testName="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(dimension: ThreeDimensional, mode: OpticalLayout)" computerName="starlabdeMacBook-Air" duration="00:00:00.5749852" startTime="2026-11-03T22:39:05.3560570+08:00" endTime="2026-11-03T22:39:05.9363360+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a0c55bf-b9a3-486a-88d1-a8c43ea7fcdb">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 112
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 143
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 19
+   at System.Threading.ThreadLocal`1.GetValueSlow()
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.CreateResources(Boolean transparentPlot) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 25
+   at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyResources(Control control, Boolean transparentPlot) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs:line 33
+   at OpticalSystemDesign.App.Panels.ViewerPanel..ctor(IVisualizationService visualization, IWorkspaceEventStream events, SurfaceSelectionService surfaceSelection, SceneDimension dimension, ViewerPresentationMode presentationMode, IWorkbenchModeService modes, INonSequentialAnalysisService nonSequentialAnalysis) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/ViewerPanel.cs:line 174
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SceneAndExportSharePaperAndPreserveCameraAndMaterialColours&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 122
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(SceneDimension dimension, ViewerPresentationMode mode) in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 118
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="67f9c051-f28b-4001-a7e8-d350902368a3" testId="7b904617-5845-b068-f1a7-b9b3e28b4919" testName="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Spot Diagram&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.1708491" startTime="2026-11-03T22:39:06.0599500+08:00" endTime="2026-11-03T22:39:06.2324650+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67f9c051-f28b-4001-a7e8-d350902368a3">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 112
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 143
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 19
+   at System.Threading.ThreadLocal`1.GetValueSlow()
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.get_CaptionBackground() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 23
+   at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyCaptionResources(Control control) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs:line 41
+   at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, String documentName, String documentTitle, String logoName) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs:line 130
+   at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, OpticalDocumentSnapshot document, String logoName) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs:line 78
+   at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildAnalysisTitleBlock(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs:line 800
+   at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildResultContent(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs:line 66
+   at OpticalSystemDesign.App.Panels.AnalysisPanel.PresentResult(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs:line 34
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 43
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key) in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 34
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c4b96afa-bb2d-4e0a-b1a3-691d65e096d4" testId="40902e9c-a322-c7ae-3a54-e870c569fcdd" testName="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.OrnamentCannotCropOrResampleTheSourceEdgesAndOnePixelDetails" computerName="starlabdeMacBook-Air" duration="00:00:00.1430941" startTime="2026-11-03T22:39:06.5491120+08:00" endTime="2026-11-03T22:39:06.6929360+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c4b96afa-bb2d-4e0a-b1a3-691d65e096d4">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 112
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 143
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 19
+   at System.Threading.ThreadLocal`1.GetValueSlow()
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFrame(DrawingContext context, Rect bounds) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 70
+   at OpticalSystemDesign.App.Services.ExportImageFrame.FramedPage.Render(DrawingContext context) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Services/ExportImageFrame.cs:line 110
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect bounds, Matrix parentTransform, Rect clipRect)
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect clipRect)
+   at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual)
+   at Avalonia.Media.Imaging.RenderTargetBitmap.Render(Visual visual)
+   at OpticalSystemDesign.App.Services.ExportImageFrame.CaptureCore(Control content, Double scale, Control themeContext, Double sourceScale, Boolean ornamentalMat) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Services/ExportImageFrame.cs:line 83
+   at OpticalSystemDesign.App.Services.ExportImageFrame.Capture(Control content, Double scale, Control themeContext) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Services/ExportImageFrame.cs:line 52
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c.&lt;OrnamentCannotCropOrResampleTheSourceEdgesAndOnePixelDetails&gt;b__3_0() in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 202
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.OrnamentCannotCropOrResampleTheSourceEdgesAndOnePixelDetails() in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 184
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="76d931c6-623e-4896-be0a-a27a7c50b9ba" testId="ac23c494-18c9-6d93-1be3-b5a25859b07c" testName="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Huygens MTF&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:00.2035393" startTime="2026-11-03T22:39:06.3452700+08:00" endTime="2026-11-03T22:39:06.5486090+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="76d931c6-623e-4896-be0a-a27a7c50b9ba">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 112
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 143
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 19
+   at System.Threading.ThreadLocal`1.GetValueSlow()
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.get_CaptionBackground() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 23
+   at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyCaptionResources(Control control) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs:line 41
+   at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, String documentName, String documentTitle, String logoName) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs:line 130
+   at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, OpticalDocumentSnapshot document, String logoName) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs:line 78
+   at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildAnalysisTitleBlock(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs:line 800
+   at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildResultContent(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs:line 66
+   at OpticalSystemDesign.App.Panels.AnalysisPanel.PresentResult(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs:line 34
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 43
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key) in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 34
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="747a7c34-81dd-4c4c-9554-9da2288c2a81" testId="8e86eacf-b23e-0592-5ce6-31978723780d" testName="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(dimension: TwoDimensional, mode: OpticalLayout)" computerName="starlabdeMacBook-Air" duration="00:00:00.0605968" startTime="2026-11-03T22:39:05.9503260+08:00" endTime="2026-11-03T22:39:05.9973520+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="747a7c34-81dd-4c4c-9554-9da2288c2a81">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 112
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 143
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0() in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 19
+   at System.Threading.ThreadLocal`1.GetValueSlow()
+   at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.CreateResources(Boolean transparentPlot) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs:line 25
+   at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyResources(Control control, Boolean transparentPlot) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs:line 33
+   at OpticalSystemDesign.App.Panels.ViewerPanel..ctor(IVisualizationService visualization, IWorkspaceEventStream events, SurfaceSelectionService surfaceSelection, SceneDimension dimension, ViewerPresentationMode presentationMode, IWorkbenchModeService modes, INonSequentialAnalysisService nonSequentialAnalysis) in /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/ViewerPanel.cs:line 174
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SceneAndExportSharePaperAndPreserveCameraAndMaterialColours&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 122
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(SceneDimension dimension, ViewerPresentationMode mode) in /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs:line 118
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(dimension: ThreeDimensional, mode: SolidModel)" storage="/users/starlab/documents/opticalsystem/tests/opticalsystemdesign.tests/bin/release/net10.0/opticalsystemdesign.tests.dll" id="05c3f684-5cd6-6d11-646e-e5e8928d796b">
+      <Execution id="fa8f3754-4250-40ed-a007-b27729f4639f" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests" name="SceneAndExportSharePaperAndPreserveCameraAndMaterialColours" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.OrnamentCannotCropOrResampleTheSourceEdgesAndOnePixelDetails" storage="/users/starlab/documents/opticalsystem/tests/opticalsystemdesign.tests/bin/release/net10.0/opticalsystemdesign.tests.dll" id="40902e9c-a322-c7ae-3a54-e870c569fcdd">
+      <Execution id="c4b96afa-bb2d-4e0a-b1a3-691d65e096d4" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests" name="OrnamentCannotCropOrResampleTheSourceEdgesAndOnePixelDetails" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Wavefront Map&quot;)" storage="/users/starlab/documents/opticalsystem/tests/opticalsystemdesign.tests/bin/release/net10.0/opticalsystemdesign.tests.dll" id="7b17255b-58a5-902d-ff38-e3a5f2f356fb">
+      <Execution id="e5127b0a-75d5-41a6-a5e0-3a0e4cf6e0b9" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests" name="PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(dimension: TwoDimensional, mode: OpticalLayout)" storage="/users/starlab/documents/opticalsystem/tests/opticalsystemdesign.tests/bin/release/net10.0/opticalsystemdesign.tests.dll" id="8e86eacf-b23e-0592-5ce6-31978723780d">
+      <Execution id="747a7c34-81dd-4c4c-9554-9da2288c2a81" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests" name="SceneAndExportSharePaperAndPreserveCameraAndMaterialColours" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Spot Diagram&quot;)" storage="/users/starlab/documents/opticalsystem/tests/opticalsystemdesign.tests/bin/release/net10.0/opticalsystemdesign.tests.dll" id="7b904617-5845-b068-f1a7-b9b3e28b4919">
+      <Execution id="67f9c051-f28b-4001-a7e8-d350902368a3" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests" name="PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(dimension: ThreeDimensional, mode: OpticalLayout)" storage="/users/starlab/documents/opticalsystem/tests/opticalsystemdesign.tests/bin/release/net10.0/opticalsystemdesign.tests.dll" id="5815ee82-298f-f4f9-7592-ff78405269d8">
+      <Execution id="6a0c55bf-b9a3-486a-88d1-a8c43ea7fcdb" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests" name="SceneAndExportSharePaperAndPreserveCameraAndMaterialColours" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Huygens MTF&quot;)" storage="/users/starlab/documents/opticalsystem/tests/opticalsystemdesign.tests/bin/release/net10.0/opticalsystemdesign.tests.dll" id="ac23c494-18c9-6d93-1be3-b5a25859b07c">
+      <Execution id="76d931c6-623e-4896-be0a-a27a7c50b9ba" />
+      <TestMethod codeBase="/Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests" name="PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7b17255b-58a5-902d-ff38-e3a5f2f356fb" executionId="e5127b0a-75d5-41a6-a5e0-3a0e4cf6e0b9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="05c3f684-5cd6-6d11-646e-e5e8928d796b" executionId="fa8f3754-4250-40ed-a007-b27729f4639f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5815ee82-298f-f4f9-7592-ff78405269d8" executionId="6a0c55bf-b9a3-486a-88d1-a8c43ea7fcdb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b904617-5845-b068-f1a7-b9b3e28b4919" executionId="67f9c051-f28b-4001-a7e8-d350902368a3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="40902e9c-a322-c7ae-3a54-e870c569fcdd" executionId="c4b96afa-bb2d-4e0a-b1a3-691d65e096d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ac23c494-18c9-6d93-1be3-b5a25859b07c" executionId="76d931c6-623e-4896-be0a-a27a7c50b9ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8e86eacf-b23e-0592-5ce6-31978723780d" executionId="747a7c34-81dd-4c4c-9554-9da2288c2a81" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="7" executed="7" passed="0" failed="7" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.17]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:00.85]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:00.87]   Starting:    OpticalSystemDesign.Tests
+[xUnit.net 00:00:01.46]       System.NotImplementedException : The method or operation is not implemented.
+[xUnit.net 00:00:01.46]       Stack Trace:
+[xUnit.net 00:00:01.46]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.46]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.46]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.46]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(112,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale)
+[xUnit.net 00:00:01.46]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(143,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor()
+[xUnit.net 00:00:01.46]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(19,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0()
+[xUnit.net 00:00:01.46]            at System.Threading.ThreadLocal`1.GetValueSlow()
+[xUnit.net 00:00:01.46]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(25,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.CreateResources(Boolean transparentPlot)
+[xUnit.net 00:00:01.46]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs(33,0): at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyResources(Control control, Boolean transparentPlot)
+[xUnit.net 00:00:01.46]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/ViewerPanel.cs(174,0): at OpticalSystemDesign.App.Panels.ViewerPanel..ctor(IVisualizationService visualization, IWorkspaceEventStream events, SurfaceSelectionService surfaceSelection, SceneDimension dimension, ViewerPresentationMode presentationMode, IWorkbenchModeService modes, INonSequentialAnalysisService nonSequentialAnalysis)
+[xUnit.net 00:00:01.46]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(122,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SceneAndExportSharePaperAndPreserveCameraAndMaterialColours&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:01.46]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.46]         /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:01.46]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.46]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+[xUnit.net 00:00:01.46]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.46]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(118,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(SceneDimension dimension, ViewerPresentationMode mode)
+[xUnit.net 00:00:01.46]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.52]       System.NotImplementedException : The method or operation is not implemented.
+[xUnit.net 00:00:01.52]       Stack Trace:
+[xUnit.net 00:00:01.52]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.52]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.52]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.52]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(112,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale)
+[xUnit.net 00:00:01.52]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(143,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor()
+[xUnit.net 00:00:01.52]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(19,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0()
+[xUnit.net 00:00:01.52]            at System.Threading.ThreadLocal`1.GetValueSlow()
+[xUnit.net 00:00:01.52]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(25,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.CreateResources(Boolean transparentPlot)
+[xUnit.net 00:00:01.52]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs(33,0): at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyResources(Control control, Boolean transparentPlot)
+[xUnit.net 00:00:01.52]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/ViewerPanel.cs(174,0): at OpticalSystemDesign.App.Panels.ViewerPanel..ctor(IVisualizationService visualization, IWorkspaceEventStream events, SurfaceSelectionService surfaceSelection, SceneDimension dimension, ViewerPresentationMode presentationMode, IWorkbenchModeService modes, INonSequentialAnalysisService nonSequentialAnalysis)
+[xUnit.net 00:00:01.52]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(122,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SceneAndExportSharePaperAndPreserveCameraAndMaterialColours&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:01.52]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.52]         /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:01.52]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.52]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+[xUnit.net 00:00:01.52]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.52]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(118,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(SceneDimension dimension, ViewerPresentationMode mode)
+[xUnit.net 00:00:01.52]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.58]       System.NotImplementedException : The method or operation is not implemented.
+[xUnit.net 00:00:01.58]       Stack Trace:
+[xUnit.net 00:00:01.58]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.58]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.58]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.58]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(112,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale)
+[xUnit.net 00:00:01.58]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(143,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor()
+[xUnit.net 00:00:01.58]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(19,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0()
+[xUnit.net 00:00:01.58]            at System.Threading.ThreadLocal`1.GetValueSlow()
+[xUnit.net 00:00:01.58]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(25,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.CreateResources(Boolean transparentPlot)
+[xUnit.net 00:00:01.58]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs(33,0): at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyResources(Control control, Boolean transparentPlot)
+[xUnit.net 00:00:01.58]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/ViewerPanel.cs(174,0): at OpticalSystemDesign.App.Panels.ViewerPanel..ctor(IVisualizationService visualization, IWorkspaceEventStream events, SurfaceSelectionService surfaceSelection, SceneDimension dimension, ViewerPresentationMode presentationMode, IWorkbenchModeService modes, INonSequentialAnalysisService nonSequentialAnalysis)
+[xUnit.net 00:00:01.58]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(122,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SceneAndExportSharePaperAndPreserveCameraAndMaterialColours&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:01.58]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.58]         /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:01.58]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.58]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+[xUnit.net 00:00:01.58]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.58]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(118,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(SceneDimension dimension, ViewerPresentationMode mode)
+[xUnit.net 00:00:01.58]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.76]       System.NotImplementedException : The method or operation is not implemented.
+[xUnit.net 00:00:01.76]       Stack Trace:
+[xUnit.net 00:00:01.76]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.76]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.76]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(112,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale)
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(143,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor()
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(19,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0()
+[xUnit.net 00:00:01.76]            at System.Threading.ThreadLocal`1.GetValueSlow()
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(23,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.get_CaptionBackground()
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs(41,0): at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyCaptionResources(Control control)
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs(130,0): at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, String documentName, String documentTitle, String logoName)
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs(78,0): at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, OpticalDocumentSnapshot document, String logoName)
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs(800,0): at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildAnalysisTitleBlock(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt)
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs(66,0): at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildResultContent(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene)
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs(34,0): at OpticalSystemDesign.App.Panels.AnalysisPanel.PresentResult(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene)
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(43,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:01.76]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:01.76]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.76]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+[xUnit.net 00:00:01.76]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.76]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key)
+[xUnit.net 00:00:01.76]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.87]       System.NotImplementedException : The method or operation is not implemented.
+[xUnit.net 00:00:01.87]       Stack Trace:
+[xUnit.net 00:00:01.87]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.87]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.87]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(112,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale)
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(143,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor()
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(19,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0()
+[xUnit.net 00:00:01.87]            at System.Threading.ThreadLocal`1.GetValueSlow()
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(23,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.get_CaptionBackground()
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs(41,0): at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyCaptionResources(Control control)
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs(130,0): at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, String documentName, String documentTitle, String logoName)
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs(78,0): at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, OpticalDocumentSnapshot document, String logoName)
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs(800,0): at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildAnalysisTitleBlock(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt)
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs(66,0): at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildResultContent(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene)
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs(34,0): at OpticalSystemDesign.App.Panels.AnalysisPanel.PresentResult(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene)
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(43,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:01.87]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:01.87]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.87]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+[xUnit.net 00:00:01.87]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:01.87]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key)
+[xUnit.net 00:00:01.87]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.07]       System.NotImplementedException : The method or operation is not implemented.
+[xUnit.net 00:00:02.07]       Stack Trace:
+[xUnit.net 00:00:02.07]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:02.07]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:02.07]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(112,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale)
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(143,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor()
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(19,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0()
+[xUnit.net 00:00:02.07]            at System.Threading.ThreadLocal`1.GetValueSlow()
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(23,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.get_CaptionBackground()
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs(41,0): at OpticalSystemDesign.App.Theming.ThemeDrawingSurface.ApplyCaptionResources(Control control)
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs(130,0): at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, String documentName, String documentTitle, String logoName)
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Controls/PlotCaption.cs(78,0): at OpticalSystemDesign.App.Controls.PlotCaption.Create(Control summary, OpticalDocumentSnapshot document, String logoName)
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs(800,0): at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildAnalysisTitleBlock(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt)
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs(66,0): at OpticalSystemDesign.App.Panels.AnalysisPanel.BuildResultContent(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene)
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs(34,0): at OpticalSystemDesign.App.Panels.AnalysisPanel.PresentResult(AnalysisViewDto view, OpticalDocumentSnapshot document, DateTimeOffset generatedAt, SceneDto cardinalScene)
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(43,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:02.07]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()
+[xUnit.net 00:00:02.07]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.07]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+[xUnit.net 00:00:02.07]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.07]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key)
+[xUnit.net 00:00:02.07]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.22]       System.NotImplementedException : The method or operation is not implemented.
+[xUnit.net 00:00:02.22]       Stack Trace:
+[xUnit.net 00:00:02.22]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:02.22]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:02.22]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)
+[xUnit.net 00:00:02.22]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(112,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFlourishes(DrawingContext context, Rect bounds, Bitmap bitmap, Double relativeScale)
+[xUnit.net 00:00:02.22]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(143,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.Artwork..ctor()
+[xUnit.net 00:00:02.22]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(19,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.&lt;&gt;c.&lt;.cctor&gt;b__21_0()
+[xUnit.net 00:00:02.22]            at System.Threading.ThreadLocal`1.GetValueSlow()
+[xUnit.net 00:00:02.22]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs(70,0): at OpticalSystemDesign.App.Theming.IsekaiDrawingMaterial.DrawFrame(DrawingContext context, Rect bounds)
+[xUnit.net 00:00:02.22]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Services/ExportImageFrame.cs(110,0): at OpticalSystemDesign.App.Services.ExportImageFrame.FramedPage.Render(DrawingContext context)
+[xUnit.net 00:00:02.22]            at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect bounds, Matrix parentTransform, Rect clipRect)
+[xUnit.net 00:00:02.22]            at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual, Rect clipRect)
+[xUnit.net 00:00:02.22]            at Avalonia.Rendering.ImmediateRenderer.Render(DrawingContext context, Visual visual)
+[xUnit.net 00:00:02.22]            at Avalonia.Media.Imaging.RenderTargetBitmap.Render(Visual visual)
+[xUnit.net 00:00:02.22]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Services/ExportImageFrame.cs(83,0): at OpticalSystemDesign.App.Services.ExportImageFrame.CaptureCore(Control content, Double scale, Control themeContext, Double sourceScale, Boolean ornamentalMat)
+[xUnit.net 00:00:02.22]         /Users/starlab/Documents/opticalsystem/src/OpticalSystemDesign.App/Services/ExportImageFrame.cs(52,0): at OpticalSystemDesign.App.Services.ExportImageFrame.Capture(Control content, Double scale, Control themeContext)
+[xUnit.net 00:00:02.22]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(202,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.&lt;&gt;c.&lt;OrnamentCannotCropOrResampleTheSourceEdgesAndOnePixelDetails&gt;b__3_0()
+[xUnit.net 00:00:02.22]         /Users/starlab/Documents/opticalsystem/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()
+[xUnit.net 00:00:02.22]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()
+[xUnit.net 00:00:02.22]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()
+[xUnit.net 00:00:02.22]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.22]         /Users/starlab/Documents/opticalsystem/tests/OpticalSystemDesign.Tests/IsekaiDrawingMaterialTests.cs(184,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.OrnamentCannotCropOrResampleTheSourceEdgesAndOnePixelDetails()
+[xUnit.net 00:00:02.22]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:02.22]   Finished:    OpticalSystemDesign.Tests
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-11-03T22:39:05.9375000+08:00">
+        <Text>[xUnit.net 00:00:01.46]     OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(dimension: ThreeDimensional, mode: OpticalLayout) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-11-03T22:39:06.1034080+08:00">
+        <Text>[xUnit.net 00:00:01.52]     OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(dimension: TwoDimensional, mode: OpticalLayout) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-11-03T22:39:06.1034410+08:00">
+        <Text>[xUnit.net 00:00:01.58]     OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(dimension: ThreeDimensional, mode: SolidModel) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-11-03T22:39:06.2327700+08:00">
+        <Text>[xUnit.net 00:00:01.76]     OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: "Spot Diagram") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-11-03T22:39:06.3449950+08:00">
+        <Text>[xUnit.net 00:00:01.87]     OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: "Wavefront Map") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-11-03T22:39:06.5488570+08:00">
+        <Text>[xUnit.net 00:00:02.07]     OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: "Huygens MTF") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="starlabdeMacBook-Air" outcome="Error" timestamp="2026-11-03T22:39:06.6931930+08:00">
+        <Text>[xUnit.net 00:00:02.22]     OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.OrnamentCannotCropOrResampleTheSourceEdgesAndOnePixelDetails [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

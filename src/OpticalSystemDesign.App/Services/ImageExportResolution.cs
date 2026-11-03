@@ -30,12 +30,12 @@ public static class ImageExportResolution
     }
     internal static int Pixels(double logical, double scale) => checked((int)Math.Ceiling(logical * scale - 1e-8));
     public static PixelSize SheetPixels(int pixelHeight) => new(Pixels(1202, NormalizeHeight(pixelHeight) / ReferenceHeight), NormalizeHeight(pixelHeight));
-    public static PixelRect FitFrame(Size source, PixelSize canvas, bool preserveAspectRatio)
+    public static PixelRect FitFrame(Size source, PixelSize canvas, bool preserveAspectRatio, double border = 1)
     {
         if (!preserveAspectRatio) return new PixelRect(canvas);
-        var scale = Math.Min(canvas.Width / (source.Width + 2), canvas.Height / (source.Height + 2));
-        var width = Math.Min(canvas.Width, Pixels(source.Width + 2, scale));
-        var height = Math.Min(canvas.Height, Pixels(source.Height + 2, scale));
+        var scale = Math.Min(canvas.Width / (source.Width + 2 * border), canvas.Height / (source.Height + 2 * border));
+        var width = Math.Min(canvas.Width, Pixels(source.Width + 2 * border, scale));
+        var height = Math.Min(canvas.Height, Pixels(source.Height + 2 * border, scale));
         return new((canvas.Width - width) / 2, (canvas.Height - height) / 2, width, height);
     }
 }
