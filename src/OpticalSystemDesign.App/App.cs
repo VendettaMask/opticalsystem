@@ -458,6 +458,7 @@ public sealed class App : Avalonia.Application
         AddDockIconStyles();
         Styles.Add(new BlueThemeStyles());
         Styles.Add(new LumenThemeStyles());
+        Styles.Add(new BlackHoleDarkThemeStyles());
     }
 
     internal static Selector RibbonCommandPointerOverSelector(Selector? selector) => selector
@@ -561,8 +562,12 @@ public sealed class App : Avalonia.Application
         var closeTemplate = new FuncDataTemplate<object>((data, _) =>
         {
             var control = originalCloseTemplate.Build(data);
-            if (control is Button button && button.Content is Avalonia.Controls.Shapes.Shape glyph)
-                glyph.Bind(Avalonia.Controls.Shapes.Shape.FillProperty, button.GetObservable(Button.ForegroundProperty));
+            if (control is Button button)
+            {
+                button.Classes.Add("dock-document-close");
+                if (button.Content is Avalonia.Controls.Shapes.Shape glyph)
+                    glyph.Bind(Avalonia.Controls.Shapes.Shape.FillProperty, button.GetObservable(Button.ForegroundProperty));
+            }
             return control;
         });
         Styles.Add(new Style(selector => selector.OfType<DocumentControl>())

@@ -36,8 +36,8 @@ public sealed partial class CameraImagingWindow : Window
     private readonly TextBlock _comparisonInfo = new() { Text = "运行后固定 A，再修改参数运行 B；同尺寸图像可查看差异。", TextWrapping = TextWrapping.Wrap };
     private readonly TextBlock _fileInfo = new() { Text = "内置测试图", TextWrapping = TextWrapping.Wrap };
     private readonly TextBlock _opticsInputInfo = new() { TextWrapping = TextWrapping.Wrap };
-    private readonly UniformGrid _stages = new() { Columns = 2 };
-    private readonly UniformGrid _comparisons = new() { Columns = 2 };
+    private readonly Grid _stages = new();
+    private readonly Grid _comparisons = new();
     private readonly CameraFrameView[] _stageViews = Enumerable.Range(0, 6).Select(_ => new CameraFrameView()).ToArray();
     private readonly CameraFrameView[] _comparisonViews = Enumerable.Range(0, 3).Select(_ => new CameraFrameView()).ToArray();
     private string _sourceFile = "";
@@ -60,27 +60,24 @@ public sealed partial class CameraImagingWindow : Window
         if (application.Modes.CurrentMode != OpticalWorkbenchMode.Sequential || application.Documents.GetSnapshot().SurfaceCount < 4)
             _optics.SelectedIndex = 1;
         var import = new Button { Content = "导入图片", Name = "camera-import" };
-        _document.FontSize = DisplayTypography.BodySmall;
-        _document.FontWeight = FontWeight.Normal;
-        var header = LaboratoryPresentation.Header("相机成像仿真", "camera",
-            "设置输入与曝光 → 检查成像阶段 → 比较 A/B 结果", LaboratoryPresentation.Muted(_document),
-            import, _run, _cancel, _pin, _export);
+        var experimentActions = BuildExperimentCard();
+        var header = BuildCameraCommandBar(import, experimentActions);
 
-        var settings = new StackPanel { Spacing = 12 };
-        settings.Children.Add(BuildExperimentCard());
-        settings.Children.Add(BuildSamplingCard());
+        var settings = new StackPanel { Spacing = 0 };
+
+        var samplingSettings = BuildSamplingCard();
         settings.Children.Add(Group("输入与光学", new Control[]
         {
             Field("源图像", _source), _fileInfo, Field("光学模型", _optics), Field("像差模型", _aberration),
-            Field("输出像素", _size), Field("光谱模型", _spectralModel),
-            _opticsInputInfo
+            Field("输出像素", _size),
+            new Expander { Header = "输入说明", Content = _opticsInputInfo, HorizontalContentAlignment = HorizontalAlignment.Stretch }
         }));
-        settings.Children.Add(BuildSensorFilesCard());
-        settings.Children.Add(BuildPixelSamplingCard());
-        settings.Children.Add(BuildScene3DCard());
-        settings.Children.Add(BuildNonSequentialCard());
-        _legacySpectraCard = BuildSceneSpectraCard(); settings.Children.Add(_legacySpectraCard);
-        _legacyMaterialsCard = BuildMaterialSceneCard(); settings.Children.Add(_legacyMaterialsCard);
+        var sensorFiles = BuildSensorFilesCard();
+        var pixelSettings = BuildPixelSamplingCard();
+        var sceneSettings = BuildScene3DCard();
+        var nscSettings = BuildNonSequentialCard();
+        _legacySpectraCard = BuildSceneSpectraCard();
+        _legacyMaterialsCard = BuildMaterialSceneCard();
         settings.Children.Add(Group("曝光与传感器", new Control[]
         {
             Number("exposure", "曝光 (ms)", 10, 0.001m, 10000, 1),
@@ -88,6 +85,9 @@ public sealed partial class CameraImagingWindow : Window
             Number("irradiance", "满白每波段辐照度 (W/m²)", 0.02m, 0, 1000, 0.005m),
             new TextBlock { Text = "这是像面线性值 1 对应的每波段标定量，非场景 lux 或实测光谱。", TextWrapping = TextWrapping.Wrap },
             Field("Bayer 排列", _bayer),
+        }));
+        settings.Children.Add(Group("响应与噪声", new Control[]
+        {
             Number("qe-r", "红 QE (0–1)", 0.5m, 0, 1, 0.05m),
             Number("qe-g", "绿 QE (0–1)", 0.6m, 0, 1, 0.05m),
             Number("qe-b", "蓝 QE (0–1)", 0.45m, 0, 1, 0.05m),
@@ -113,27 +113,25 @@ public sealed partial class CameraImagingWindow : Window
             Number("denoise", "方框降噪 (0–1)", 0, 0, 1, 0.1m),
             Number("sharpen", "非锐化掩模 (0–2)", 0, 0, 2, 0.1m)
         }));
+        settings.Children.Add(sensorFiles); settings.Children.Add(pixelSettings);
+        settings.Children.Add(Group("光谱模型", new Control[] { Field("光谱模型", _spectralModel) }));
+        settings.Children.Add(sceneSettings); settings.Children.Add(nscSettings);
+        settings.Children.Add(_legacySpectraCard); settings.Children.Add(_legacyMaterialsCard); settings.Children.Add(samplingSettings);
         var left = LaboratoryPresentation.Scroll(settings);
         left.Name = "CameraSettings";
-        left.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+        left.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
         foreach (var (view, title) in _stageViews.Zip(new[]
         { "输入图 · sRGB 解码后预览", "光学像 · 固定 Gamma 2.2", "期望光电子 · 满阱固定标尺", "Bayer RAW · ADC 固定标尺", "无噪声对照 · 同曝光/ADC/ISP", "当前结果 B · ISP 输出" }))
         { view.Title = title; _stages.Children.Add(view); }
         foreach (var (view, title) in _comparisonViews.Zip(new[] { "固定结果 A", "当前结果 B", "显示 RGB 绝对差 ×4" }))
         { view.Title = title; _comparisons.Children.Add(view); }
-        _metrics.FontSize = DisplayTypography.BodySmall;
-        var metrics = LaboratoryPresentation.Card(new Border { Padding = new Thickness(12), Child = _metrics }, "CameraMetricsCard");
-        metrics.IsVisible = !string.IsNullOrWhiteSpace(_metrics.Text);
-        _metrics.PropertyChanged += (_, args) =>
-        { if (args.Property == TextBlock.TextProperty) metrics.IsVisible = !string.IsNullOrWhiteSpace(_metrics.Text); };
         var tabs = new TabControl
         {
             Name = "CameraResults",
             ItemsSource = new[]
             {
-                new TabItem { Header = "成像阶段", Content = Scroll(new StackPanel { Spacing = 12, Children = { metrics, _stages } }) },
-                new TabItem { Header = "A/B 对照", Content = Scroll(new StackPanel { Spacing = 12, Children =
-                { LaboratoryPresentation.Card(new Border { Padding = new Thickness(12), Child = _comparisonInfo }), _comparisons } }) },
+                new TabItem { Header = "成像阶段", Content = BuildStageWorkspace() },
+                new TabItem { Header = "A/B 对照", Content = BuildComparisonWorkspace() },
                 new TabItem { Header = "光谱响应", Name = "camera-response-tab", Content = BuildResponsePage() },
                 new TabItem { Header = "光源与场景光谱", Name = "camera-scene-spectra-tab", Content = BuildSceneSpectraPage() },
                 new TabItem { Header = "参考与实现范围", Content = Scroll(new TextBlock
@@ -156,19 +154,8 @@ public sealed partial class CameraImagingWindow : Window
                 new TabItem { Header = "场景斜边", Name = "camera-scene-edge-tab", Content = BuildSceneEdgePage() }
             }
         };
-        var body = new Grid { Name = "CameraWorkspace", ColumnDefinitions = new ColumnDefinitions("310,*"), ColumnSpacing = 14 };
-        foreach (var tab in ((TabItem[])tabs.ItemsSource!))
-        { tab.FontSize = DisplayTypography.BodySmall; tab.Classes.Add("lab-tab"); tab.MinHeight = 40; }
-        body.Children.Add(left); Grid.SetColumn(tabs, 1); body.Children.Add(tabs);
-        var root = new Grid { RowDefinitions = new("Auto,*,Auto"), RowSpacing = 12, Margin = new Thickness(16) };
-        root.Children.Add(header); Grid.SetRow(body, 1); root.Children.Add(body);
-        var status = LaboratoryPresentation.Status(_status); Grid.SetRow(status, 2); root.Children.Add(status);
-        Content = MainWindowTitleBar.Wrap(this, root);
+        Content = MainWindowTitleBar.Wrap(this, BuildCameraWorkspace(header, left, tabs));
         ThemeChrome.ApplyDialogDecoration(this);
-        tabs.SizeChanged += (_, _) =>
-        {
-            _stages.Columns = _comparisons.Columns = tabs.Bounds.Width >= 880 ? 3 : tabs.Bounds.Width >= 550 ? 2 : 1;
-        };
         _run.Click += async (_, _) => await RunAsync(); _cancel.Click += (_, _) =>
         { if (_samplingBusy) CancelSampling(); else Invalidate("计算已取消"); };
         _pin.Click += (_, _) => PinComparison(); _export.Click += async (_, _) => await ExportAsync();
@@ -201,7 +188,7 @@ public sealed partial class CameraImagingWindow : Window
             _closed = true; Cancel(); application.Events.Changed -= OnWorkspaceChanged; application.Modes.ModeChanged -= OnModeChanged;
             ClearSfr(""); _sfrSource.Dispose(); _sfrImage.Dispose();
             ClearSceneEdge(""); _sceneEdgeTarget.Dispose(); _sceneEdgeImage.Dispose();
-            ClearSceneBatch(""); _sceneBatchPreview.Dispose();
+            ClearSceneBatch(""); _sceneBatchPreview.Dispose(); _sceneRoiImage.Dispose();
             application.NonSequentialAnalysis.SessionChanged -= OnNscSessionChanged;
             foreach (var view in _stageViews.Concat(_comparisonViews)) view.Dispose();
         };
@@ -229,15 +216,13 @@ public sealed partial class CameraImagingWindow : Window
     private static Control Field(string label, Control input)
     {
         AutomationProperties.SetName(input, label);
+        input.Width = double.NaN; input.MinWidth = 0; input.HorizontalAlignment = HorizontalAlignment.Stretch;
         var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("*,130"), ColumnSpacing = 8, Margin = new Thickness(0, 3) };
         var caption = new TextBlock { Text = label, TextWrapping = TextWrapping.Wrap, VerticalAlignment = VerticalAlignment.Center };
         caption.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
+        if (input is ComboBox) return new StackPanel { Spacing = 4, Children = { caption, input } };
         grid.Children.Add(caption);
         Grid.SetColumn(input, 1); grid.Children.Add(input); return grid;
-    }
-    private static Control Group(string title, Control[] controls)
-    {
-        return LaboratoryPresentation.Section(title, title == "输入与光学" ? "camera" : "sliders-horizontal", controls);
     }
     private static ScrollViewer Scroll(Control content) => new()
     { Content = content, Margin = new Thickness(0, 10, 0, 0), HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled };
@@ -250,22 +235,26 @@ public sealed partial class CameraImagingWindow : Window
             FontWeight = FontWeight.SemiBold,
             FontSize = DisplayTypography.BodySmall
         };
-        private readonly Image _image = new() { Height = 180, Stretch = Stretch.Uniform };
+        private readonly Image _image = new() { Stretch = Stretch.Uniform };
+        private readonly ScrollViewer _viewportHost;
+        private bool _fit = true;
         private readonly TextBlock _empty = LaboratoryPresentation.Hint("运行仿真后显示图像");
         private WriteableBitmap? _bitmap;
-        public string Title { set => _title.Text = value; }
+        public string Title { get => _title.Text ?? ""; set => _title.Text = value; }
         public CameraFrameView(bool categorical = false)
         {
+            MinHeight = 220;
             if (categorical) RenderOptions.SetBitmapInterpolationMode(_image, BitmapInterpolationMode.None);
-            Padding = new Thickness(12); Margin = new Thickness(0, 0, 10, 10);
+            Padding = new Thickness(10); Margin = new Thickness(3);
             Classes.Add("lab-card");
             ThemeChrome.Apply(this, ThemeChromeRole.SurfaceCard, shadow: false);
             this.BindThemeResource(BackgroundProperty, ThemeResourceBindings.Surface);
             _empty.HorizontalAlignment = HorizontalAlignment.Center; _empty.VerticalAlignment = VerticalAlignment.Center;
             _empty.TextAlignment = TextAlignment.Center;
             var viewport = new Grid { Children = { _image, _empty } };
-            var body = new Grid { RowDefinitions = new("Auto,*"), RowSpacing = 10 };
-            body.Children.Add(_title); Grid.SetRow(viewport, 1); body.Children.Add(viewport); Child = body;
+            _viewportHost = new ScrollViewer { Content = viewport, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Disabled, HorizontalContentAlignment = HorizontalAlignment.Stretch, VerticalContentAlignment = VerticalAlignment.Stretch };
+            var body = new Grid { RowDefinitions = new("Auto,*"), RowSpacing = 8 };
+            body.Children.Add(_title); Grid.SetRow(_viewportHost, 1); body.Children.Add(_viewportHost); Child = body;
         }
         public void Set(CameraImage? frame)
         {
@@ -287,7 +276,16 @@ public sealed partial class CameraImagingWindow : Window
                     Marshal.Copy(row, 0, buffer.Address + y * buffer.RowBytes, row.Length);
                 }
             }
-            _image.Source = _bitmap; AutomationProperties.SetName(_image, $"{_title.Text} · {frame.Width} × {frame.Height}");
+            _image.Source = _bitmap; SetFit(_fit); AutomationProperties.SetName(_image, $"{_title.Text} · {frame.Width} × {frame.Height}");
+        }
+        public void SetFit(bool fit)
+        {
+            _fit = fit; _image.Width = fit || _bitmap is null ? double.NaN : _bitmap.PixelSize.Width;
+            _image.Height = fit || _bitmap is null ? double.NaN : _bitmap.PixelSize.Height;
+            _image.Stretch = fit ? Stretch.Uniform : Stretch.None;
+            _image.HorizontalAlignment = fit ? HorizontalAlignment.Stretch : HorizontalAlignment.Center;
+            _image.VerticalAlignment = fit ? VerticalAlignment.Stretch : VerticalAlignment.Center;
+            _viewportHost.HorizontalScrollBarVisibility = _viewportHost.VerticalScrollBarVisibility = fit ? ScrollBarVisibility.Disabled : ScrollBarVisibility.Auto;
         }
         public void Dispose() => Set(null);
     }

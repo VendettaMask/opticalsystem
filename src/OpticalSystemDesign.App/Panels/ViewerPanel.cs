@@ -201,7 +201,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         {
             root.Children.Add(_summaryBar);
             root.Children.Add(workspace);
-            Content = root;
+            Content = new AnalysisImageFrame { Child = root };
         }
 
         ApplyDisplaySettings();
@@ -263,7 +263,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         };
         showRays.IsCheckedChanged += (_, _) => _scene.ShowRays = showRays.IsChecked == true;
 
-        var reset = CompactButton("rotate-ccw", "恢复二维视图的缩放与平移");
+        var reset = CompactButton("action-reset-view", "恢复二维视图的缩放与平移");
         reset.Click += (_, _) => _scene.ResetView();
         var tools = new ViewerToolbarLayout
         {
@@ -453,7 +453,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         var toggle = SettingsPanelChrome.CreateToggleButton();
         toggle.Click += (_, _) => settingsContent.IsVisible = !settingsContent.IsVisible;
 
-        var synchronize = CompactButton("refresh-cw", "同步并重新生成视图");
+        var synchronize = CompactButton("action-recalculate", "同步并重新生成视图");
         synchronize.BindThemeResource(Button.BackgroundProperty, ThemeResourceBindings.SettingsSurface);
         synchronize.Click += (_, _) =>
         {
@@ -737,7 +737,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
     {
         var namePrefix = _presentationMode == ViewerPresentationMode.SolidModel ? "SolidModel" : "Viewer3D";
         var items = new WrapPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Center };
-        var fitIcon = new LocalIcon { IconName = "maximize-2", Width = 26, Height = 24 };
+        var fitIcon = new LocalIcon { IconName = "action-fit-view", Width = 26, Height = 24 };
         fitIcon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextPrimary);
         var fit = new Button
         {

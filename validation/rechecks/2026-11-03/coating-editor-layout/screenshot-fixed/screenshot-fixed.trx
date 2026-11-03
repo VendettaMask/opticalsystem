@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="719d103e-d9a9-4c20-bb5e-9e034757125a" name="optics@LAPTOP-G4BBBCS0 2026-11-03 09:59:58" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T09:59:58.9133443+08:00" queuing="2026-11-03T09:59:58.9133446+08:00" start="2026-11-03T09:59:50.9507339+08:00" finish="2026-11-03T10:00:22.1809777+08:00" />
+  <TestSettings name="default" id="e4ac1243-e9a1-4132-a2d4-e68ee193fae3">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_09_59_58" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a4b18cf8-447b-4827-9ed1-b0006fbe0578" testId="08521b46-5517-d997-bbe3-50b7d9a19741" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 1200, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.5852440" startTime="2026-11-03T09:59:58.8993250+08:00" endTime="2026-11-03T10:00:05.4506161+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a4b18cf8-447b-4827-9ed1-b0006fbe0578" />
+    <UnitTestResult executionId="18731536-0633-4305-a9b6-bcb91c129154" testId="cd8b8e16-2922-590d-9ac6-ed4c497ca61a" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 820, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.4847483" startTime="2026-11-03T10:00:05.4558240+08:00" endTime="2026-11-03T10:00:10.9356541+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="18731536-0633-4305-a9b6-bcb91c129154" />
+    <UnitTestResult executionId="0cca7194-dd3a-42c2-be51-dea77787aa90" testId="3bf22ca0-73d2-021c-67c1-5edcb67f50ab" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.4869335" startTime="2026-11-03T09:59:52.3876209+08:00" endTime="2026-11-03T09:59:58.8631996+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0cca7194-dd3a-42c2-be51-dea77787aa90">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains more than one matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowMoreThanOneMatchException()&#xD;
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Func`2 predicate, Boolean&amp; found)&#xD;
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 95&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 373&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 82&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a80215a2-e023-4b3e-bea4-9510ac22d5f7" testId="becdd0f9-ede8-2617-f936-dcf9ce57e938" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 1440, fontSize: 22)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.8428413" startTime="2026-11-03T10:00:17.2047119+08:00" endTime="2026-11-03T10:00:22.0460325+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a80215a2-e023-4b3e-bea4-9510ac22d5f7" />
+    <UnitTestResult executionId="df1b7f9e-4cc4-4cfd-a5a3-ac17c6bc50d4" testId="0b02ca93-7f7e-4839-cdc7-b737200cdb76" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Dark&quot;, width: 1440, fontSize: 22)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.2667461" startTime="2026-11-03T10:00:10.9395641+08:00" endTime="2026-11-03T10:00:17.2028056+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df1b7f9e-4cc4-4cfd-a5a3-ac17c6bc50d4" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 820, fontSize: 18)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="cd8b8e16-2922-590d-9ac6-ed4c497ca61a">
+      <Execution id="18731536-0633-4305-a9b6-bcb91c129154" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 1200, fontSize: 13)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="08521b46-5517-d997-bbe3-50b7d9a19741">
+      <Execution id="a4b18cf8-447b-4827-9ed1-b0006fbe0578" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Dark&quot;, width: 1440, fontSize: 22)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="0b02ca93-7f7e-4839-cdc7-b737200cdb76">
+      <Execution id="df1b7f9e-4cc4-4cfd-a5a3-ac17c6bc50d4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="3bf22ca0-73d2-021c-67c1-5edcb67f50ab">
+      <Execution id="0cca7194-dd3a-42c2-be51-dea77787aa90" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 1440, fontSize: 22)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="becdd0f9-ede8-2617-f936-dcf9ce57e938">
+      <Execution id="a80215a2-e023-4b3e-bea4-9510ac22d5f7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="08521b46-5517-d997-bbe3-50b7d9a19741" executionId="a4b18cf8-447b-4827-9ed1-b0006fbe0578" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cd8b8e16-2922-590d-9ac6-ed4c497ca61a" executionId="18731536-0633-4305-a9b6-bcb91c129154" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bf22ca0-73d2-021c-67c1-5edcb67f50ab" executionId="0cca7194-dd3a-42c2-be51-dea77787aa90" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="becdd0f9-ede8-2617-f936-dcf9ce57e938" executionId="a80215a2-e023-4b3e-bea4-9510ac22d5f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0b02ca93-7f7e-4839-cdc7-b737200cdb76" executionId="df1b7f9e-4cc4-4cfd-a5a3-ac17c6bc50d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="4" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.51]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.61]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.64]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:07.17]       System.InvalidOperationException : Sequence contains more than one matching element&#xD;
+[xUnit.net 00:00:07.17]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.17]            at System.Linq.ThrowHelper.ThrowMoreThanOneMatchException()&#xD;
+[xUnit.net 00:00:07.17]            at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Func`2 predicate, Boolean&amp; found)&#xD;
+[xUnit.net 00:00:07.17]            at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:07.17]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(95,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:07.17]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.17]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(373,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:07.17]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.17]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:07.17]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.17]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(82,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory()&#xD;
+[xUnit.net 00:00:07.17]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:30.36]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T09:59:58.8669177+08:00">
+        <Text>[xUnit.net 00:00:07.17]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-03T10:00:22.1426326+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

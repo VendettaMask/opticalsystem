@@ -12,7 +12,7 @@ internal sealed class UniformDiagramPage : Grid
     internal const double SheetHeight = 900;
     internal const double CaptionHeight = 160;
     internal const double PlotHeight = SheetHeight - CaptionHeight;
-    internal const double ExportScale = 2;
+    internal static double ExportScale => ImageExportResolution.Scale;
     private readonly Control _plot;
     private readonly Control _caption;
     private readonly Border _overflow;

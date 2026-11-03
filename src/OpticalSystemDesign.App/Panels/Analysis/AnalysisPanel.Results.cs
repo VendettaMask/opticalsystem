@@ -76,7 +76,8 @@ public sealed partial class AnalysisPanel
                 ? BuildPairedFanPanePlot(
                     view.PlotPanes,
                     defaultSquareCells: IsRayFanView(view) || IsPupilAberrationView(view))
-                : BuildPanePlot(view.PlotPanes, view.PlotPaneColumns)
+                : BuildPanePlot(view.PlotPanes, view.PlotPaneColumns,
+                    alignTitleRows: view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion)
             : IsSeidelDiagramView(view)
                 ? BuildSeidelDiagramPlot(view)
                 : view.PresentationKind == AnalysisPresentationKind.Interferogram
@@ -673,7 +674,7 @@ public sealed partial class AnalysisPanel
             {
                 new LocalIcon
                 {
-                    IconName = "circle-alert",
+                    IconName = "analysis-warning",
                     Width = 32,
                     Height = 32,
                     HorizontalAlignment = HorizontalAlignment.Center

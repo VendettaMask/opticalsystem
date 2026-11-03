@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a5c3bf9c-c7f7-4d69-a844-50f2057b7923" name="optics@LAPTOP-G4BBBCS0 2026-11-03 12:55:20" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T12:55:20.0553224+08:00" queuing="2026-11-03T12:55:20.0553228+08:00" start="2026-11-03T12:55:14.3389600+08:00" finish="2026-11-03T12:55:26.1717298+08:00" />
+  <TestSettings name="default" id="5bf5186e-5934-4768-9799-0eed6e934056">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_12_55_20" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b553f218-104d-44f7-9fea-f56b41ff00ac" testId="dc931140-7b2b-dc4d-fee9-91dbc5d080f2" testName="OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4308085" startTime="2026-11-03T12:55:20.0409338+08:00" endTime="2026-11-03T12:55:21.4516235+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b553f218-104d-44f7-9fea-f56b41ff00ac">
+      <Output>
+        <ErrorInfo>
+          <Message>Close button covers the tab with White.</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.AssertTransparent(IBrush brush) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 125&#xD;
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.&lt;&gt;c__DisplayClass1_0.&lt;ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 65&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 39&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3530f7da-f674-4834-a09d-ae8b7cd4feb2" testId="00be3de4-c2e5-3f3e-6fb3-ef5c4c4a3785" testName="OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.6036019" startTime="2026-11-03T12:55:24.4418125+08:00" endTime="2026-11-03T12:55:26.0447758+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3530f7da-f674-4834-a09d-ae8b7cd4feb2">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Single() Failure: The collection did not contain any matching items&#xD;
+Expected:   (predicate expression)&#xD;
+Collection: []</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.&lt;&gt;c__DisplayClass1_0.&lt;ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 66&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 39&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4ea68986-76de-4b21-9487-f02a1f7fe13a" testId="ffb14a90-b9a1-1f7f-2d25-b66603dd941a" testName="OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4526714" startTime="2026-11-03T12:55:21.4540975+08:00" endTime="2026-11-03T12:55:22.9047537+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4ea68986-76de-4b21-9487-f02a1f7fe13a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Single() Failure: The collection did not contain any matching items&#xD;
+Expected:   (predicate expression)&#xD;
+Collection: []</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.&lt;&gt;c__DisplayClass1_0.&lt;ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 66&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 39&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0dc19d6e-75d7-4b0f-875d-ab03e9fca81c" testId="5550f4d2-c56e-858e-b609-b708d9bef944" testName="OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5349819" startTime="2026-11-03T12:55:22.9058802+08:00" endTime="2026-11-03T12:55:24.4405678+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0dc19d6e-75d7-4b0f-875d-ab03e9fca81c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Single() Failure: The collection did not contain any matching items&#xD;
+Expected:   (predicate expression)&#xD;
+Collection: []</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.&lt;&gt;c__DisplayClass1_0.&lt;ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 66&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 39&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3ab3af93-616d-4672-af5a-b7a65271d4ff" testId="9742cbfa-9878-5ff2-505c-483ba4153e6c" testName="OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.5538059" startTime="2026-11-03T12:55:16.4734016+08:00" endTime="2026-11-03T12:55:20.0192768+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3ab3af93-616d-4672-af5a-b7a65271d4ff">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Single() Failure: The collection did not contain any matching items&#xD;
+Expected:   (predicate expression)&#xD;
+Collection: []</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.&lt;&gt;c__DisplayClass1_0.&lt;ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 66&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 39&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="00be3de4-c2e5-3f3e-6fb3-ef5c4c4a3785">
+      <Execution id="3530f7da-f674-4834-a09d-ae8b7cd4feb2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DocumentCloseButtonTests" name="ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5550f4d2-c56e-858e-b609-b708d9bef944">
+      <Execution id="0dc19d6e-75d7-4b0f-875d-ab03e9fca81c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DocumentCloseButtonTests" name="ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9742cbfa-9878-5ff2-505c-483ba4153e6c">
+      <Execution id="3ab3af93-616d-4672-af5a-b7a65271d4ff" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DocumentCloseButtonTests" name="ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ffb14a90-b9a1-1f7f-2d25-b66603dd941a">
+      <Execution id="4ea68986-76de-4b21-9487-f02a1f7fe13a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DocumentCloseButtonTests" name="ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="dc931140-7b2b-dc4d-fee9-91dbc5d080f2">
+      <Execution id="b553f218-104d-44f7-9fea-f56b41ff00ac" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DocumentCloseButtonTests" name="ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="dc931140-7b2b-dc4d-fee9-91dbc5d080f2" executionId="b553f218-104d-44f7-9fea-f56b41ff00ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="00be3de4-c2e5-3f3e-6fb3-ef5c4c4a3785" executionId="3530f7da-f674-4834-a09d-ae8b7cd4feb2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ffb14a90-b9a1-1f7f-2d25-b66603dd941a" executionId="4ea68986-76de-4b21-9487-f02a1f7fe13a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5550f4d2-c56e-858e-b609-b708d9bef944" executionId="0dc19d6e-75d7-4b0f-875d-ab03e9fca81c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9742cbfa-9878-5ff2-505c-483ba4153e6c" executionId="3ab3af93-616d-4672-af5a-b7a65271d4ff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="0" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.20]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.58]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.61]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:05.21]       Assert.Single() Failure: The collection did not contain any matching items&#xD;
+[xUnit.net 00:00:05.21]       Expected:   (predicate expression)&#xD;
+[xUnit.net 00:00:05.21]       Collection: []&#xD;
+[xUnit.net 00:00:05.21]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.21]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs(66,0): at OpticalSystemDesign.Tests.DocumentCloseButtonTests.&lt;&gt;c__DisplayClass1_0.&lt;ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument&gt;b__0()&#xD;
+[xUnit.net 00:00:05.21]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.21]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.21]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:05.21]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.21]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs(39,0): at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme)&#xD;
+[xUnit.net 00:00:05.21]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.64]       Close button covers the tab with White.&#xD;
+[xUnit.net 00:00:06.64]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.64]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs(125,0): at OpticalSystemDesign.Tests.DocumentCloseButtonTests.AssertTransparent(IBrush brush)&#xD;
+[xUnit.net 00:00:06.64]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs(65,0): at OpticalSystemDesign.Tests.DocumentCloseButtonTests.&lt;&gt;c__DisplayClass1_0.&lt;ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument&gt;b__0()&#xD;
+[xUnit.net 00:00:06.64]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:06.64]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:06.64]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:06.64]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.64]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs(39,0): at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme)&#xD;
+[xUnit.net 00:00:06.64]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.10]       Assert.Single() Failure: The collection did not contain any matching items&#xD;
+[xUnit.net 00:00:08.10]       Expected:   (predicate expression)&#xD;
+[xUnit.net 00:00:08.10]       Collection: []&#xD;
+[xUnit.net 00:00:08.10]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.10]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs(66,0): at OpticalSystemDesign.Tests.DocumentCloseButtonTests.&lt;&gt;c__DisplayClass1_0.&lt;ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument&gt;b__0()&#xD;
+[xUnit.net 00:00:08.10]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:08.10]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:08.10]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.10]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.10]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs(39,0): at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme)&#xD;
+[xUnit.net 00:00:08.10]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.63]       Assert.Single() Failure: The collection did not contain any matching items&#xD;
+[xUnit.net 00:00:09.63]       Expected:   (predicate expression)&#xD;
+[xUnit.net 00:00:09.63]       Collection: []&#xD;
+[xUnit.net 00:00:09.63]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.63]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs(66,0): at OpticalSystemDesign.Tests.DocumentCloseButtonTests.&lt;&gt;c__DisplayClass1_0.&lt;ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument&gt;b__0()&#xD;
+[xUnit.net 00:00:09.63]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:09.63]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:09.63]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:09.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.63]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs(39,0): at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme)&#xD;
+[xUnit.net 00:00:09.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.24]       Assert.Single() Failure: The collection did not contain any matching items&#xD;
+[xUnit.net 00:00:11.24]       Expected:   (predicate expression)&#xD;
+[xUnit.net 00:00:11.24]       Collection: []&#xD;
+[xUnit.net 00:00:11.24]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.24]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs(66,0): at OpticalSystemDesign.Tests.DocumentCloseButtonTests.&lt;&gt;c__DisplayClass1_0.&lt;ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument&gt;b__0()&#xD;
+[xUnit.net 00:00:11.24]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:11.24]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:11.24]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:11.24]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.24]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs(39,0): at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme)&#xD;
+[xUnit.net 00:00:11.24]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.24]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:55:20.0222851+08:00">
+        <Text>[xUnit.net 00:00:05.21]     OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Lumen") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:55:21.4521367+08:00">
+        <Text>[xUnit.net 00:00:06.64]     OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Light") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:55:22.9057075+08:00">
+        <Text>[xUnit.net 00:00:08.10]     OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Isekai") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:55:24.4410371+08:00">
+        <Text>[xUnit.net 00:00:09.63]     OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Pixel") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:55:26.0450813+08:00">
+        <Text>[xUnit.net 00:00:11.24]     OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Dark") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

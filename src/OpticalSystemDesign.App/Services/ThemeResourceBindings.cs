@@ -10,7 +10,11 @@ public static class ThemeResourceBindings
     public const string SettingsSurface = "OpticalSystemDesignSettingsSurfaceBrush";
     public const string SettingsOverlaySurface = "OpticalSystemDesignSettingsOverlaySurfaceBrush";
     public const string Workspace = "OpticalSystemDesignWorkspaceBrush";
+    public const string WorkbenchBackdrop = "OpticalSystemDesignWorkbenchBackdropBrush";
+    public const string ShellBackground = "OpticalSystemDesignShellBackgroundBrush";
     public const string Sidebar = "OpticalSystemDesignSidebarBrush";
+    public const string SidebarSectionSurface = "OpticalSystemDesignSidebarSectionSurfaceBrush";
+    public const string SidebarSectionContent = "OpticalSystemDesignSidebarSectionContentBrush";
     public const string HeaderBackground = "OpticalSystemDesignHeaderBackgroundBrush";
     public const string TableHeader = "OpticalSystemDesignTableHeaderBrush";
     public const string LensEditorHeaderBackground = "OpticalSystemDesignLensEditorHeaderBackgroundBrush";

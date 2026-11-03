@@ -1,0 +1,45 @@
+{
+  "DateLocal": "2026-11-03",
+  "Scope": "Normal App output versus final format-guard test output. All source documents compared; only per-build generated AssemblyInfo differs.",
+  "Assemblies": [
+    {
+      "Assembly": "OpticalSystemDesign.Core",
+      "ProductDocumentCount": 463,
+      "TestDocumentCount": 463,
+      "ProductPdbSha256": "b709979d0f310bfe8eeab237d68d201daa2b42129ee5918230696fc56ef3661d",
+      "TestPdbSha256": "92ce8f865b6dde2e21f67314627b9deb004c7c7da14d746437eb0246941afd55",
+      "ProductDllBoundToPdb": true,
+      "TestDllBoundToPdb": true,
+      "ChangedDocuments": [
+        "D:/optical system design/opticalsystem/src/OpticalSystemDesign.Core/obj/Release/net10.0/OpticalSystemDesign.Core.AssemblyInfo.cs"
+      ],
+      "AllHandwrittenSourceChecksumsMatch": true
+    },
+    {
+      "Assembly": "OpticalSystemDesign.Application",
+      "ProductDocumentCount": 95,
+      "TestDocumentCount": 95,
+      "ProductPdbSha256": "cf793eb9f56101382d12b16e1a14d9162bf0a023336fb2e091ed8e727b185a7b",
+      "TestPdbSha256": "67195bb570abbbf517afc3e7cd37a8833b8960ba325820bff1be92e9055e9e2d",
+      "ProductDllBoundToPdb": true,
+      "TestDllBoundToPdb": true,
+      "ChangedDocuments": [
+        "D:/optical system design/opticalsystem/src/OpticalSystemDesign.Application/obj/Release/net10.0/OpticalSystemDesign.Application.AssemblyInfo.cs"
+      ],
+      "AllHandwrittenSourceChecksumsMatch": true
+    },
+    {
+      "Assembly": "OpticalSystemDesign.App",
+      "ProductDocumentCount": 300,
+      "TestDocumentCount": 300,
+      "ProductPdbSha256": "ad18a7acd17094e9742cad7e7e707012d699b31ac590b1de0ad06342cbc4a613",
+      "TestPdbSha256": "9dde2b81ffb971859402bb5247d6b2f33acbda94e6c7f6ad675d443cb40eaf76",
+      "ProductDllBoundToPdb": true,
+      "TestDllBoundToPdb": true,
+      "ChangedDocuments": [
+        "D:/optical system design/opticalsystem/src/OpticalSystemDesign.App/obj/Release/net10.0/OpticalSystemDesign.App.AssemblyInfo.cs"
+      ],
+      "AllHandwrittenSourceChecksumsMatch": true
+    }
+  ]
+}

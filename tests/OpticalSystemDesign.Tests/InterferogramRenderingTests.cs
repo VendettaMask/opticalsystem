@@ -58,8 +58,8 @@ public sealed class InterferogramRenderingTests
                 Assert.Equal(0, graph.ValueMinimum); Assert.Equal(1, graph.ValueMaximum);
                 var captions = page.GetVisualDescendants().OfType<TextBlock>().Select(t => t.Text ?? "").ToArray();
                 Assert.Contains(captions, t => t.Contains("条纹数/波长 = 2") && t.Contains("X倾斜 = 3，Y倾斜 = -1"));
-                using var image = new RenderTargetBitmap(new PixelSize((int)page.Child!.Bounds.Width, (int)page.Child.Bounds.Height), new Vector(96, 96));
-                image.Render(page.Child);
+                using var image = ExportImageFrame.CaptureForReport(page.Child!);
+                Assert.Equal(new PixelSize(1440, 1080), image.PixelSize);
                 var pixels = Pixels(image);
                 Assert.True(pixels.Distinct().Count() > 20);
                 host.Child = null;

@@ -101,7 +101,7 @@ public sealed class AnalysisImageExportTests
                 var button = Assert.Single(panel.GetVisualDescendants().OfType<Button>(), item => item.Name == "ExportAnalysisImage");
                 Assert.True(button.IsVisible);
                 Assert.True(button.IsEnabled);
-                Assert.Equal("camera", Assert.IsType<LocalIcon>(button.Content).IconName);
+                Assert.Equal("file-export-image", Assert.IsType<LocalIcon>(button.Content).IconName);
                 Assert.Equal("导出图片（PNG）", AutomationProperties.GetName(button));
                 var page = Assert.Single(panel.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
                 var surface = panel.GetVisualDescendants().OfType<WavefrontSurfaceControl>().FirstOrDefault();
@@ -129,7 +129,7 @@ public sealed class AnalysisImageExportTests
                 using var image = panel.CapturePlotImage();
                 Assert.Equal(camera, (surface?.ViewYawDegrees, surface?.ViewPitchDegrees, surface?.ViewZoom));
                 Assert.IsType<UniformDiagramPage>(page.Child);
-                Assert.Equal(new PixelSize(2404, 1804), image.PixelSize);
+                Assert.Equal(new PixelSize(1920, 1080), image.PixelSize);
                 ExportImageAssertions.HasCompleteBorder(image);
                 Assert.True(page.Bounds.Height < height); // No toolbar/tab strip; the exported content may scroll.
                 AssertHasInk(image, 0, image.PixelSize.Height / 2); // The plot.
@@ -329,7 +329,7 @@ public sealed class AnalysisImageExportTests
                 window.Show(); Render(window);
                 var page = Assert.Single(panel.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
                 page.Child!.Width = width; page.Child.Height = height; Render(window);
-                var exception = Assert.Throws<InvalidOperationException>(() => panel.CapturePlotImage());
+                var exception = Assert.Throws<InvalidOperationException>(() => panel.CapturePlotImage(renderScale: 1));
                 Assert.Contains("尺寸上限", exception.Message);
             }
             finally { window.Close(); }
@@ -431,10 +431,15 @@ public sealed class AnalysisImageExportTests
                 Assert.False(Pixels(shown).SequenceEqual(Pixels(hidden)));
                 var page = Assert.Single(panel.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>()).Child!;
                 var bytes = Pixels(hidden);
+                var exportedFrame = ExportImageAssertions.FrameBounds(hidden);
+                var scaleX = exportedFrame.Width / (page.Bounds.Width + 2);
+                var scaleY = exportedFrame.Height / (page.Bounds.Height + 2);
                 foreach (var plot in plots)
                 {
                     var frame = (Rect)typeof(AnalysisPlotControl).GetField("_lastPlot", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(plot)!;
                     var bounds = frame.TransformToAABB(plot.TransformToVisual(page)!.Value);
+                    bounds = new Rect(exportedFrame.X + (bounds.X + 1) * scaleX,
+                        exportedFrame.Y + (bounds.Y + 1) * scaleY, bounds.Width * scaleX, bounds.Height * scaleY);
                     var ink = 0;
                     for (var y = Math.Max(0, (int)bounds.Top - 1); y < Math.Min(hidden.PixelSize.Height, (int)Math.Ceiling(bounds.Bottom) + 1); y++)
                         for (var x = Math.Max(0, (int)bounds.Left - 1); x < Math.Min(hidden.PixelSize.Width, (int)Math.Ceiling(bounds.Right) + 1); x++)

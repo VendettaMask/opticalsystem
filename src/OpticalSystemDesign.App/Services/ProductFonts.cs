@@ -7,6 +7,8 @@ public static class ProductFonts
 {
     private const string Source = "avares://OpticalSystemDesign.App/Assets/Fonts/Typography/";
     private const string Latin = Source + "Latin#DM Sans";
+    // This collection contains real Medium/Bold faces. Normal CJK text resolves to
+    // Medium without changing the requested weight of the Latin/numeric families.
     private const string Cjk = Source + "Cjk#Source Han Sans SC";
     private const string Mono = Source + "Numeric#JetBrains Mono";
     public const string NumericClass = "numeric-text";

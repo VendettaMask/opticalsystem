@@ -487,8 +487,8 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
     private readonly CheckBox _logarithmic = new() { Content = "对数显示" };
     private readonly ComboBox _colorMap = new()
     {
-        ItemsSource = Enum.GetValues<AnalysisColorMap>(),
-        SelectedItem = AnalysisColorMap.Inferno
+        ItemsSource = new object[] { "全局配色" }.Concat(Enum.GetValues<AnalysisColorMap>().Cast<object>()).ToArray(),
+        SelectedIndex = 0
     };
     private readonly ComboBox _normalization = new()
     {
@@ -571,12 +571,14 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
                 _cursorValue
             }
         };
+        var heatmapFrame = new AnalysisImageFrame { Child = _plot };
+        var profileFrame = new AnalysisImageFrame { Child = _profilePlot };
         var plots = new Grid
         {
             RowDefinitions = new RowDefinitions("3*,8,*"),
-            Children = { _plot, _profilePlot }
+            Children = { heatmapFrame, profileFrame }
         };
-        Grid.SetRow(_profilePlot, 2);
+        Grid.SetRow(profileFrame, 2);
         var topControls = new StackPanel
         {
             Children = { controls, inspectionControls, _filter }
@@ -786,6 +788,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         var (valueQuantity, valueUnit) = NonSequentialDetectorDisplay.ValueAxis(dataType, transformed);
         var axisQuantity = angle ? AnalysisAxisQuantity.IncidentAngle : AnalysisAxisQuantity.Coordinate;
         var axisUnit = angle ? AnalysisAxisUnit.Degree : AnalysisAxisUnit.Millimeter;
+        _plot.UseSeriesColorMap = _colorMap.SelectedItem is AnalysisColorMap;
         var series = new AnalysisSeriesDto(
             $"X ({view.XUnit})",
             $"Y ({view.YUnit})",
@@ -936,47 +939,23 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
             return;
         }
 
-        var file = await storageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
-        {
-            Title = "导出探测器图像",
-            SuggestedFileName = "detector.png",
-            DefaultExtension = "png",
-            FileTypeChoices = new[] { new FilePickerFileType("PNG 图像") { Patterns = new[] { "*.png" } } }
-        });
-        if (file is null)
-        {
-            return;
-        }
-
-        var width = Math.Clamp((int)Math.Ceiling(_plot.Bounds.Width), 1, 4096);
-        var height = Math.Clamp((int)Math.Ceiling(_plot.Bounds.Height), 1, 4096);
-        using var bitmap = new RenderTargetBitmap(
-            new Avalonia.PixelSize(width, height),
-            new Avalonia.Vector(96, 96));
-        bitmap.Render(_plot);
-        var targetPath = file.Path.LocalPath;
-        var temporaryPath = targetPath + $".tmp-{Guid.NewGuid():N}";
         try
         {
-            await using (var stream = new FileStream(
-                temporaryPath,
-                FileMode.CreateNew,
-                FileAccess.Write,
-                FileShare.None))
+            using var bitmap = ExportImageFrame.CaptureConfigured(_plot, this);
+            var file = await storageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                bitmap.Save(stream, PngBitmapEncoderOptions.Default);
-                await stream.FlushAsync();
-            }
-
-            File.Move(temporaryPath, targetPath, overwrite: true);
-            _statistics.Text = $"探测器 PNG 已导出：{targetPath}";
+                Title = "导出探测器图像",
+                SuggestedFileName = "detector.png",
+                DefaultExtension = "png",
+                FileTypeChoices = new[] { new FilePickerFileType("PNG 图像") { Patterns = new[] { "*.png" } } }
+            });
+            if (file is null) return;
+            AnalysisPanel.SavePlotImage(bitmap, file.Path.LocalPath);
+            _statistics.Text = $"探测器 PNG 已导出：{file.Path.LocalPath}";
         }
-        finally
+        catch (Exception error) when (error is IOException or UnauthorizedAccessException or InvalidOperationException or NotSupportedException)
         {
-            if (File.Exists(temporaryPath))
-            {
-                File.Delete(temporaryPath);
-            }
+            _statistics.Text = "探测器图片导出失败：" + error.Message;
         }
     }
 

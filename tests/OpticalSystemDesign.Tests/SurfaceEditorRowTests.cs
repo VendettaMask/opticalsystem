@@ -10,14 +10,14 @@ public sealed class SurfaceEditorRowTests
     {
         var row = new SurfaceEditorRow(CreateSurface(radius: 0, thickness: 12));
 
-        Assert.Equal("无限", row.RadiusDisplay);
+        Assert.Equal("∞", row.RadiusDisplay);
 
         row.RadiusDisplay = "25.5";
         Assert.Equal(25.5, row.Radius, precision: 12);
 
         row.RadiusDisplay = "∞";
         Assert.Equal(0, row.Radius, precision: 12);
-        Assert.Equal("无限", row.RadiusDisplay);
+        Assert.Equal("∞", row.RadiusDisplay);
     }
 
     [Fact]
@@ -54,6 +54,8 @@ public sealed class SurfaceEditorRowTests
         {
             row.ThicknessDisplay = infinity;
             Assert.Equal(double.PositiveInfinity, row.Thickness);
+            Assert.Equal("∞", row.ThicknessDisplay);
+            Assert.Equal(row.RadiusDisplay, row.ThicknessDisplay);
         }
         row.ThicknessDisplay = "0";
         Assert.Equal(0, row.Thickness);

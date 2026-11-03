@@ -99,6 +99,7 @@ internal sealed class MainWindowTitleBar : Border
         var titleBar = new MainWindowTitleBar(window, search);
         DockPanel.SetDock(titleBar, Avalonia.Controls.Dock.Top);
         var root = new DockPanel { Children = { titleBar, content } };
+        root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.WorkbenchBackdrop);
         root.Bind(MarginProperty, new Binding(nameof(Window.OffScreenMargin)) { Source = window });
         return root;
     }

@@ -49,7 +49,10 @@ public sealed partial class DesktopTests
                     row = ((IEnumerable<LayerRow>)table.ItemsSource).Single(); Assert.Equal(expected, row.ToLayer().ThicknessNm, 10);
                     Click(window, "保存实验"); await window.PendingOperation;
                     var saved = await ExperimentStore.OpenAsync(path); Assert.Equal(original.Layers, saved.Layers); Assert.Equal(expected, saved.BackLayers![0].ThicknessNm, 10);
-                    var symmetric = Find<CheckBox>(window, "对称双面"); PointerClick(symmetric); Tick(floating);
+                    Click(window, "表面与评价设置"); Tick(window);
+                    var surfaceSettings = window.OwnedWindows.Single(w => w.Name == "CoatingSettingsWindow"); Tick(surfaceSettings);
+                    var symmetric = Find<CheckBox>(window, "对称双面"); PointerClick(symmetric); Tick(surfaceSettings);
+                    Click(surfaceSettings, "完成"); await window.PendingOperation; Tick(floating);
                     Assert.True(symmetric.IsChecked); Assert.Equal(0, tabs.SelectedIndex); Assert.False(((TabItem)tabs.Items[1]!).IsEnabled);
                     Click(window, "计算 / 复验"); await window.PendingOperation; Tick(window);
                     Assert.True(window.CurrentExperiment.Duplex!.Symmetric); Assert.Null(window.CurrentExperiment.BackLayers);
@@ -57,13 +60,14 @@ public sealed partial class DesktopTests
                     Click(window, "堆栈几何分析"); await window.PendingOperation; Tick(window);
                     var stack = WindowControls(window).OfType<CoatingStackAnalysisView>().Single();
                     Assert.Equal(2, stack.Plot.Bands.Count); Assert.Contains(stack.Plot.Bands, b => b.Layer.Side == "背面");
-                    using var image = stack.CaptureImage(); Assert.Equal(2404, image.PixelSize.Width); Assert.Equal(1804, image.PixelSize.Height);
+                    using var image = stack.CaptureImage(); Assert.Equal(1920, image.PixelSize.Width); Assert.Equal(1080, image.PixelSize.Height);
                     window.DockWorkspace.ApplyLayout(CoatingPaneLayout.Columns); Tick(window);
                     Capture(window, "coating-duplex-" + theme);
                     window.DockWorkspace.Open(CoatingDockWorkspace.SpectrumId); Tick(window);
                     Capture(window, "coating-duplex-spectrum-" + theme);
                     Click(window, "打开实验"); await window.PendingOperation; Tick(window);
-                    Assert.False(Find<Button>(window, "撤销").IsEnabled);
+                    var historyMenu = Assert.IsType<MenuFlyout>(Find<DropDownButton>(window, "膜层工具").Flyout);
+                    Assert.False(historyMenu.Items.OfType<MenuItem>().Single(i => Avalonia.Automation.AutomationProperties.GetName(i) == "撤销").IsEnabled);
                     Assert.False(window.CurrentExperiment.Duplex!.Symmetric);
                     Assert.Equal(expected, window.CurrentExperiment.BackLayers![0].ThicknessNm, 10);
                 }

@@ -2,6 +2,8 @@
 
 桌面图标采用黑洞与暖色吸积盘视觉，启动画面沿用同一品牌语言。产品名称和加载进度由 Avalonia 在运行时绘制，避免把版本文字固化进图片。
 
+暗夜模式按同一原图采用近黑、暖炭灰、偏暖白和橙金强调色，保留原主题身份与界面结构；直接使用主题资源，不把黑洞位图铺到表格或绘图区。材料行蓝色、物理波长与分析语义色保持独立。当前规则见 [UI 规范](UI_DESIGN_SPEC.md)，实际离屏预览及验证见 [黑洞暗夜配色](../validation/rechecks/2026-11-03/black-hole-dark/README.md)。
+
 ## 统一产品名称
 
 界面名称为 **Optical System Design**；解决方案、项目、程序集、命名空间、主题资源键、开发启动器与发布载荷统一使用 `OpticalSystemDesign`。开发入口为 `OpticalSystemDesign.slnx`、`Run-OpticalSystemDesign.cmd` / `.command` 和 `OpticalSystemDesign.App.exe`，不再使用退役品牌作为产品代码或新输出标识。插件接口同步为 `IOpticalSystemDesignPlugin`，旧插件必须针对新程序集重新编译。
@@ -26,7 +28,7 @@ Windows 标准发布脚本通过 `-p:Version=$AppVersion` 注入发布版本，�
 
 Nasalization 字体只用于本机离线制作完整字标，不随软件分发；SVG 已转为轮廓，运行时及矢量导出不依赖该字体。字体作者的桌面制作授权与字体嵌入授权有不同范围，维护时须使用自己取得的适用版本；不要把制作字体自动加入产品字体菜单或发布包。
 
-主窗口标题行也使用 `AppIcon.png` 的真实品牌位图，左侧与文件标题排列；不以示例中的占位图标替代品牌。紧凑搜索置于标题行右侧，普通 Light 标题/菜单共享蓝色渐变，其余主题沿用各自资源。窗口标题、修改标记和版本来源仍按实际运行状态生成；当前交互与验收边界见 [UI 规范](UI_DESIGN_SPEC.md) 和 [当前状态](CURRENT_STATUS.md)。
+主窗口标题行也使用 `AppIcon.png` 的真实品牌位图，左侧与文件标题排列；不以示例中的占位图标替代品牌。紧凑搜索置于标题行右侧，普通 Light 按选定概念稿使用上半区浅蓝、向下淡入白色的统一窗口背景，标题/菜单透出同一渐变并使用深蓝文字，其余主题沿用各自资源。黑洞图标保持原色，不把暖橙图或其他预览配色套入本次亮色方案。窗口标题、修改标记和版本来源仍按实际运行状态生成；当前交互与验收边界见 [UI 规范](UI_DESIGN_SPEC.md) 和 [当前状态](CURRENT_STATUS.md)。
 
 资源位于 `src/OpticalSystemDesign.App/Assets/Brand`：
 

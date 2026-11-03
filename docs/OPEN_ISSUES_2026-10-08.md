@@ -20,7 +20,7 @@ Huygens高采样工作量阻塞已在共享有限傅里叶求和路径解除。�
 
 ## 2026-11-02 相机与镀膜的范围区分
 
-- 局部斜边 SFR 的单色/镜头多波长、完整瞳孔对照与加密检查见[当前契约](MONOCHROME_SLANTED_EDGE_SFR.md)。[物方棋盘](SCENE_SLANTED_EDGE_SFR.md)已有单 ROI、预算内全幅逐源谱、浮点/Gray16 交换与冻结回放；原例 5000×3000 专用预算、独立测量和 ROM 等仍是[开放目标](ANSYS_SCENE_SFR_IMPLEMENTATION_PLAN_2026-11-02.md)，不替代菜单原分析的数值验收。
+- 局部斜边 SFR 的单色/镜头多波长、完整瞳孔对照与加密检查见[当前契约](MONOCHROME_SLANTED_EDGE_SFR.md)。[物方棋盘](SCENE_SLANTED_EDGE_SFR.md)已有预算内全幅逐源谱、浮点/Gray16、原图多 ROI 近水平/近竖直测量、质量与冻结回放；原例 5000×3000 专用预算、独立工具、同条件正式 MTF/收敛和 ROM 等仍是[开放目标](ANSYS_SCENE_SFR_IMPLEMENTATION_PLAN_2026-11-02.md)，不替代菜单原分析的数值验收。
 - 三维表面衍射局部加密的追迹额度阻断已解除并完成保存复算；原瞳面 48→64 的电子相对 L1 差仍约 1.542%，尚不能确认收敛，见[原记录](../validation/rechecks/2026-10-30/camera-sampling-budget/README.md)。不把后来局部斜边的通过结果移用于这个不同模型。
 - 镀膜的物理/光学厚度分列、域外底纹、全板基板/背面显示、竖直堆栈与独立停靠工作区已交付，不能继续列为未实现；原真实材料高反/窄带目标、实验写回主镜头 UI 和原生跨屏验收仍按[模块边界](COATING_DESIGN_LAB.md)及[停靠记录](../validation/rechecks/2026-11-02/coating-docking/README.md)分别保留。
 

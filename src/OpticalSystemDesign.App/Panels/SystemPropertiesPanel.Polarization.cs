@@ -22,7 +22,7 @@ public sealed partial class SystemPropertiesPanel
 
     private Control BuildPolarizationSection()
     {
-        var apply = CommandButton("check", "应用偏振", 108);
+        var apply = CommandButton("action-accept", "应用偏振", 108);
         apply.Classes.Add("accent");
         AutomationProperties.SetName(apply, "应用系统偏振设置");
         foreach (var (control, name) in new (Control, string)[] {

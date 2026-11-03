@@ -23,10 +23,11 @@ public sealed class ThemeResourceTests
             Assert.Equal(light ? 96d : 128d, resources[ThemeLayoutResources.StatusMetricMinWidth]);
             if (light)
             {
-                Assert.Same(BlueThemeTokens.RibbonPageGradient, resources[ThemeResourceBindings.RibbonPageBackground]);
+                Assert.Same(BlueThemeTokens.RibbonSurface, resources[ThemeResourceBindings.RibbonPageBackground]);
                 Assert.Same(BlueThemeTokens.StatusBarGradient, resources[ThemeResourceBindings.StatusBarBackground]);
-                Assert.IsAssignableFrom<ILinearGradientBrush>(resources[ThemeResourceBindings.RibbonPageBackground]);
-                Assert.IsNotType<LinearGradientBrush>(resources[ThemeResourceBindings.RibbonPageBackground]);
+                Assert.Same(BlueThemeTokens.WorkbenchGradient, resources[ThemeResourceBindings.WorkbenchBackdrop]);
+                Assert.IsAssignableFrom<ILinearGradientBrush>(resources[ThemeResourceBindings.WorkbenchBackdrop]);
+                Assert.IsNotType<LinearGradientBrush>(resources[ThemeResourceBindings.WorkbenchBackdrop]);
             }
             else
             {
@@ -62,7 +63,7 @@ public sealed class ThemeResourceTests
     public void CustomThemesDefineAnalysisAndSceneRenderingResources()
     {
         var lightResources = ThemePalette.Light.ToResourceDictionary();
-        var resources = ThemePalette.DarkOpticStudio.ToResourceDictionary();
+        var resources = ThemeRegistry.FromSettings("Dark").BuildResources();
         var isekaiResources = ThemeRegistry.FromSettings(IsekaiTheme.SettingsValue).BuildResources();
         var pixelResources = ThemeRegistry.FromSettings(PixelTheme.SettingsValue).BuildResources();
         var settings = new AppSettings { Theme = IsekaiTheme.SettingsValue };
@@ -128,7 +129,7 @@ public sealed class ThemeResourceTests
     public void DarkThemeKeepsRenderingPaletteDarkerThanLightTheme()
     {
         var light = ThemePalette.Light.ToResourceDictionary();
-        var dark = ThemePalette.DarkOpticStudio.ToResourceDictionary();
+        var dark = ThemeRegistry.FromSettings("Dark").BuildResources();
         var isekai = ThemeRegistry.FromSettings(IsekaiTheme.SettingsValue).BuildResources();
         var pixel = ThemeRegistry.FromSettings(PixelTheme.SettingsValue).BuildResources();
 
@@ -176,13 +177,15 @@ public sealed class ThemeResourceTests
     }
 
     [Fact]
-    public void StandardThemesKeepExistingIconGeometryAndChromeMetrics()
+    public void StandardThemesShareScientificGeometryWithTheirOwnPaletteAndKeepChromeMetrics()
     {
         Assert.True(ThemeIconResolver.TryResolve(ThemeVariant.Light, "save", out var light));
         Assert.True(ThemeIconResolver.TryResolve(ThemeVariant.Dark, "save", out var dark));
-        Assert.Equal(StandardThemeIconPack.Instance.Id, ThemeIconResolver.PackId(ThemeVariant.Light));
-        Assert.Equal(StandardThemeIconPack.Instance.Id, ThemeIconResolver.PackId(ThemeVariant.Dark));
+        Assert.Equal("ScientificOutline:Light", ThemeIconResolver.PackId(ThemeVariant.Light));
+        Assert.Equal("ScientificOutline:Dark", ThemeIconResolver.PackId(ThemeVariant.Dark));
         Assert.Same(light, dark);
+        Assert.NotNull(light.Artwork);
+        Assert.NotEqual(ThemeRegistry.FromSettings("Light").IconPalette, ThemeRegistry.FromSettings("Dark").IconPalette);
         Assert.Empty(light.AccentPrimitives);
         Assert.Equal(Matrix.Identity, light.ContentTransform);
         Assert.Equal(PenLineCap.Round, light.LineCap);
@@ -202,22 +205,23 @@ public sealed class ThemeResourceTests
     }
 
     [Fact]
-    public void IsekaiThemeUsesImportedGameIconsPackAndChrome()
+    public void IsekaiUsesScientificThemeColoursAndRetainsArchivedArtworkAttributionAndChrome()
     {
-        Assert.Equal(IsekaiThemeIconPack.Instance.Id, ThemeIconResolver.PackId(IsekaiTheme.Variant));
+        Assert.Equal("ScientificOutline:Isekai", ThemeIconResolver.PackId(IsekaiTheme.Variant));
         Assert.True(ThemeIconResolver.TryResolve(ThemeVariant.Light, "save", out var standard));
         Assert.True(ThemeIconResolver.TryResolve(IsekaiTheme.Variant, "save", out var isekai));
-        Assert.NotSame(standard, isekai);
+        Assert.Same(standard, isekai);
+        Assert.NotNull(isekai.Artwork);
         Assert.Empty(isekai.AccentPrimitives);
-        Assert.NotEqual(Matrix.Identity, isekai.ContentTransform);
-        Assert.All(isekai.Primitives, primitive => Assert.IsType<FilledPathPrimitive>(primitive));
-        Assert.Equal(PenLineCap.Square, isekai.LineCap);
+        Assert.Equal(Matrix.Identity, isekai.ContentTransform);
+        Assert.Equal(PenLineCap.Round, isekai.LineCap);
+        Assert.Equal(IsekaiTheme.Palette.TextAccent, ThemeRegistry.FromSettings("Isekai").IconPalette.Signal);
 
         Assert.True(IsekaiThemeIconPack.Names.Count >= 80);
         Assert.All(IsekaiThemeIconPack.Names, iconName =>
         {
             Assert.True(
-                ThemeIconResolver.TryResolve(IsekaiTheme.Variant, iconName, out var imported),
+                IsekaiThemeIconPack.Instance.TryResolve(iconName, out var imported),
                 $"异世界图标包无法解析语义图标 '{iconName}'。");
             Assert.True(StandardThemeIconPack.Instance.TryResolve(iconName, out var standardIcon));
             Assert.NotSame(standardIcon, imported);
@@ -252,20 +256,21 @@ public sealed class ThemeResourceTests
     }
 
     [Fact]
-    public void PixelThemeUsesColoredRasterIconsAndSquaredChrome()
+    public void PixelThemeUsesScientificVectorsAndItsOwnPaletteWithSquaredChrome()
     {
-        Assert.Equal(PixelThemeIconPack.Instance.Id, ThemeIconResolver.PackId(PixelTheme.Variant));
+        Assert.Equal("ScientificOutline:Pixel", ThemeIconResolver.PackId(PixelTheme.Variant));
         Assert.True(ThemeIconResolver.TryResolve(ThemeVariant.Light, "save", out var standard));
         Assert.True(ThemeIconResolver.TryResolve(PixelTheme.Variant, "save", out var pixel));
-        Assert.NotSame(standard, pixel);
+        Assert.Same(standard, pixel);
         Assert.Empty(pixel.Primitives);
         Assert.Null(standard.Image);
-        Assert.NotNull(pixel.Image);
+        Assert.Null(pixel.Image);
+        Assert.NotNull(pixel.Artwork);
         Assert.Equal(Matrix.Identity, pixel.ContentTransform);
-        Assert.Equal(PenLineCap.Square, pixel.LineCap);
-        Assert.Equal(PenLineJoin.Miter, pixel.LineJoin);
+        Assert.Equal(PenLineCap.Round, pixel.LineCap);
+        Assert.Equal(PenLineJoin.Round, pixel.LineJoin);
         Assert.Equal(1, pixel.StrokeWidthScale, precision: 12);
-        Assert.True(pixel.UseAliasedEdges);
+        Assert.False(pixel.UseAliasedEdges);
         Assert.False(standard.UseAliasedEdges);
         Assert.Equal(87, PixelThemeIconPack.Names.Count);
         Assert.True(PixelThemeIconPack.TryGetSource("save", out var saveSource));

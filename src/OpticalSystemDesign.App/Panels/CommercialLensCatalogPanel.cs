@@ -48,9 +48,9 @@ internal sealed class CommercialLensCatalogPanel : UserControl
     private readonly TextBlock _classification = ValueText();
     private readonly TextBlock _availability = ValueText();
     private readonly TextBlock _source = ValueText();
-    private readonly Button _productPage = CommandButton("external-link", "厂商页面");
-    private readonly Button _dataSheet = CommandButton("file-text", "数据表");
-    private readonly Button _openModel = CommandButton("folder-open", "载入模型");
+    private readonly Button _productPage = CommandButton("action-open-link", "厂商页面");
+    private readonly Button _dataSheet = CommandButton("catalog-data-sheet", "数据表");
+    private readonly Button _openModel = CommandButton("file-open", "载入模型");
     private readonly DispatcherTimer _filterTimer = new() { Interval = TimeSpan.FromMilliseconds(220) };
     private IReadOnlyList<CommercialLensEntryDto> _all = Array.Empty<CommercialLensEntryDto>();
     private IReadOnlyList<CommercialLensRow> _visible = Array.Empty<CommercialLensRow>();
@@ -134,11 +134,11 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         firstRow.Children.Add(Labeled("元件数", _elementCount));
         firstRow.Children.Add(Labeled("搜索", _search));
 
-        var searchButton = CommandButton("search", "搜索");
+        var searchButton = CommandButton("action-search", "搜索");
         searchButton.Classes.Add("accent");
         searchButton.Click += (_, _) => ApplyFilterImmediately();
         ToolTip.SetTip(searchButton, "立即应用当前筛选；筛选控件本身也会自动更新结果。");
-        var resetButton = CommandButton("rotate-ccw", "重置");
+        var resetButton = CommandButton("action-reset-view", "重置");
         resetButton.Click += (_, _) => ResetFilters();
         ToolTip.SetTip(resetButton, "清除全部筛选条件并显示完整目录。");
         firstRow.Children.Add(searchButton);

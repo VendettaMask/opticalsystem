@@ -55,7 +55,7 @@ public sealed class DiagramViewportFitTests
                     Assert.Same(series, sheet.GetVisualDescendants().OfType<AnalysisPlotControl>().Single().Series);
                     Assert.Equal(source, app.Documents.GetRecoveryState());
                     using var image = panel.CapturePlotImage();
-                    Assert.Equal(new PixelSize(2404, 1804), image.PixelSize);
+                    Assert.Equal(new PixelSize(1920, 1080), image.PixelSize);
                     Assert.Equal(pixels, PixelHash(image));
                     Capture(window, $"analysis-fit-{size.Item1}x{size.Item2}");
                 }
@@ -107,7 +107,7 @@ public sealed class DiagramViewportFitTests
                     Assert.InRange(export.TransformToVisual(viewer)!.Value.M11, .999, 1.001);
                     Assert.Same(originalScene, scene.Scene); Assert.Equal(camera, scene.OrientationAxesForRendering());
                     using var image = viewer.CaptureViewerImage();
-                    Assert.Equal(new PixelSize(2404, 1804), image.PixelSize);
+                    Assert.Equal(new PixelSize(1920, 1080), image.PixelSize);
                     Assert.Equal(pixels, PixelHash(image));
                     Capture(window, $"layout-{dimension}-{size.Item1}x{size.Item2}");
                 }

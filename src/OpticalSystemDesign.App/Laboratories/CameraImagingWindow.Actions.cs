@@ -156,7 +156,7 @@ public sealed partial class CameraImagingWindow
     private void Cancel() { _generation++; _operation?.Cancel(); _operation = null; _busy = false; _samplingBusy = false; }
     private void UpdateSource()
     {
-        _document.Text = "相机成像仿真 · " + (UsingExperimentInputs ? "实验快照：" + _experimentRun!.DocumentName : _application.Documents.GetSnapshot().Name);
+        _document.Text = UsingExperimentInputs ? "实验快照：" + _experimentRun!.DocumentName : _application.Documents.GetSnapshot().Name;
         _opticsInputInfo.Text = UsingExperimentInputs
             ? "当前镜头使用实验快照；像面视场按像元尺寸与分辨率采样。取消上方勾选后使用当前工程。"
             : "当前镜头沿用未保存处方；像面视场按像元尺寸与分辨率采样。";
@@ -209,6 +209,8 @@ public sealed partial class CameraImagingWindow
         UpdateSfrControls();
         UpdateSceneEdgeControls();
         UpdateSceneBatchControls();
+        _activity.IsVisible = _busy || _sfrBusy || SceneImagingBusy;
+        RefreshCameraStageNames();
     }
     private double V(string key) => ValidNumber(_numbers[key], IntegerNumber(key))
         ? (double)_numbers[key].Value!.Value : throw new InvalidOperationException("请输入有效数值。");

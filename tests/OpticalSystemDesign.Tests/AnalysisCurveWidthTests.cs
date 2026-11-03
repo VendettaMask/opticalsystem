@@ -138,7 +138,7 @@ public sealed class AnalysisCurveWidthTests
                         screen.Render(window); screen.Save(Path.Combine(directory, $"{kind}-toolbar-{index}.png"), PngBitmapEncoderOptions.Default);
                     }
                 }
-                Assert.All(sizes, size => Assert.Equal(new PixelSize(2404, 1804), size));
+                Assert.All(sizes, size => Assert.Equal(new PixelSize(1920, 1080), size));
                 Assert.True(ink[1] > ink[0], $"Standard ink {ink[1]} must exceed thin {ink[0]}.");
                 Assert.True(ink[2] > ink[1], $"Thick ink {ink[2]} must exceed standard {ink[1]}.");
                 Assert.Equal(images[0], images[3]);

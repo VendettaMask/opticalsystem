@@ -25,6 +25,7 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
     public WavefrontSurfaceControl()
     {
+        ScientificColorMaps.Track(this);
         ClipToBounds = true;
         Focusable = true;
         InteractiveCanvasFocus.Attach(this);
@@ -78,8 +79,8 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
     public AnalysisColorMap? ColorMapOverride { get; init; }
     public IReadOnlyList<double>? ContourLevels { get; init; }
-    private Color PlotColor(double value) => ColorMapOverride is { } map
-        ? AnalysisPlotControl.ColorFor(map, value) : JetColor(value);
+    internal Color PlotColor(double value) => ScientificColorMaps.ScalarColor(
+        ColorMapOverride ?? Series?.ColorMap ?? AnalysisColorMap.Viridis, value);
     private IEnumerable<double> Levels(double minimum, double maximum) => ContourLevels
         ?? Enumerable.Range(0, ContourLevelCount).Select(i => minimum + (maximum - minimum) * i / (ContourLevelCount - 1));
 
@@ -1032,15 +1033,6 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
     }
 
     private static long CoordinateKey(double value) => (long)Math.Round(value * 1_000_000_000);
-
-    private static Color JetColor(double value)
-    {
-        value = Math.Clamp(value, 0, 1);
-        var red = Math.Clamp(1.5 - Math.Abs((4 * value) - 3), 0, 1);
-        var green = Math.Clamp(1.5 - Math.Abs((4 * value) - 2), 0, 1);
-        var blue = Math.Clamp(1.5 - Math.Abs((4 * value) - 1), 0, 1);
-        return Color.FromRgb((byte)(red * 255), (byte)(green * 255), (byte)(blue * 255));
-    }
 
     private static FormattedText Text(string value, double size, IBrush brush)
     {

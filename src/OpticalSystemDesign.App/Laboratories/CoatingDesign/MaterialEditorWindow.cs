@@ -67,7 +67,7 @@ public sealed class MaterialEditorWindow : Window
             LaboratoryPresentation.Hint("表头 wavelength_nm,n,k 或 wavelength_um,n,k；波长严格递增，n > 0，k ≥ 0。解析色散材料只读，复制时须显式提供表格。") }
         };
         var root = new Grid { Margin = new Thickness(16), RowDefinitions = new("Auto,Auto,*,Auto,Auto"), RowSpacing = 12 };
-        root.Children.Add(LaboratoryPresentation.Heading("实验材料管理", "layers", page: true));
+        root.Children.Add(LaboratoryPresentation.Heading("实验材料管理", "coating-materials", page: true));
         var properties = LaboratoryPresentation.Card(form); Grid.SetRow(properties, 1); root.Children.Add(properties);
         _data.MinHeight = 160;
         var data = LaboratoryPresentation.Card(new Border { Padding = new Thickness(8), Child = _data });

@@ -78,11 +78,11 @@ public sealed class CommandSearchTests
                 Assert.True(window.CanMinimize && window.CanMaximize && window.CanResize);
                 if (theme == "Light")
                 {
-                    Assert.Same(BlueThemeTokens.HeaderGradient, caption.Background);
-                    Assert.Equal(Colors.White, Assert.IsAssignableFrom<ISolidColorBrush>(search.SearchBox.Foreground).Color);
-                    var stops = Assert.IsAssignableFrom<ILinearGradientBrush>(caption.Background).GradientStops;
-                    Assert.Equal(Color.Parse("#1876E9"), stops[0].Color);
-                    Assert.Equal(Color.Parse("#1455B8"), stops[1].Color);
+                    Assert.Same(BlueThemeTokens.HeaderSurface, caption.Background);
+                    Assert.Equal(BlueThemeTokens.TitleText, Assert.IsAssignableFrom<ISolidColorBrush>(search.SearchBox.Foreground).Color);
+                    var stops = Assert.IsAssignableFrom<ILinearGradientBrush>(Assert.IsType<DockPanel>(window.Content).Background).GradientStops;
+                    Assert.Equal(BlueThemeTokens.HeaderBackground, stops[0].Color);
+                    Assert.Equal(Colors.White, stops[^1].Color);
                 }
                 var directory = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_CHROME_CAPTURE_DIR");
                 if (!string.IsNullOrWhiteSpace(directory))

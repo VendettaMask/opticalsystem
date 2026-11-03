@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="a7bdb2c5-eb2c-426f-8609-e39a7aff20c4" name="optics@LAPTOP-G4BBBCS0 2026-11-03 11:26:51" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T11:26:51.7604289+08:00" queuing="2026-11-03T11:26:51.7604293+08:00" start="2026-11-03T11:26:41.8441413+08:00" finish="2026-11-03T11:27:31.9958611+08:00" />
+  <TestSettings name="default" id="20a5a616-e4f7-431a-8e90-9abbb1610889">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_11_26_51" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="021e161a-ca2d-423c-a429-543afed5177e" testId="305a16ed-9497-0f15-58e7-39fa6b2fe330" testName="OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: &quot;camera&quot;, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 760, height: 680, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:07.2665303" startTime="2026-11-03T11:26:44.4270878+08:00" endTime="2026-11-03T11:26:51.6969778+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="021e161a-ca2d-423c-a429-543afed5177e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 760.10000000000002)&#xD;
+Actual: 788</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LaboratoryPresentationTests.&lt;&gt;c__DisplayClass1_0.&lt;LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LaboratoryPresentationTests.cs:line 62&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(String module, String theme, String language, Int32 width, Int32 height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LaboratoryPresentationTests.cs:line 36&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5e81e880-b74b-41b6-9a0c-658db67db972" testId="a7d1d5b4-64b7-688c-5a43-b5b5938660dc" testName="OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.4487392" startTime="2026-11-03T11:27:23.4746736+08:00" endTime="2026-11-03T11:27:27.9236797+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e81e880-b74b-41b6-9a0c-658db67db972">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.CameraImagingWindowTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs:line 103&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs:line 81&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="18ee14a9-4fc7-4430-b2f2-5b43d6b3ad25" testId="d8a20d4d-1d9d-889c-3456-a28b83363167" testName="OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: &quot;camera&quot;, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 1000, height: 760, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:16.0396170" startTime="2026-11-03T11:27:07.4285641+08:00" endTime="2026-11-03T11:27:23.4663509+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="18ee14a9-4fc7-4430-b2f2-5b43d6b3ad25" />
+    <UnitTestResult executionId="3a4f6283-e02c-4733-b067-76288b69a1db" testId="2ce75b56-3a19-de1b-be17-e31b8ff8d2f9" testName="OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: &quot;camera&quot;, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1280, height: 900, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:15.7255777" startTime="2026-11-03T11:26:51.7329307+08:00" endTime="2026-11-03T11:27:07.4251843+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3a4f6283-e02c-4733-b067-76288b69a1db" />
+    <UnitTestResult executionId="dd582eb7-0f70-483c-bb72-6a3144ce7c00" testId="365196a2-0057-00fc-b815-8fb04c391d70" testName="OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.9090476" startTime="2026-11-03T11:27:27.9269063+08:00" endTime="2026-11-03T11:27:31.8339491+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dd582eb7-0f70-483c-bb72-6a3144ce7c00">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.CameraImagingWindowTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs:line 103&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs:line 81&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a7d1d5b4-64b7-688c-5a43-b5b5938660dc">
+      <Execution id="5e81e880-b74b-41b6-9a0c-658db67db972" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraImagingWindowTests" name="StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: &quot;camera&quot;, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1280, height: 900, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2ce75b56-3a19-de1b-be17-e31b8ff8d2f9">
+      <Execution id="3a4f6283-e02c-4733-b067-76288b69a1db" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LaboratoryPresentationTests" name="LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: &quot;camera&quot;, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 760, height: 680, fontSize: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="305a16ed-9497-0f15-58e7-39fa6b2fe330">
+      <Execution id="021e161a-ca2d-423c-a429-543afed5177e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LaboratoryPresentationTests" name="LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: &quot;camera&quot;, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 1000, height: 760, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d8a20d4d-1d9d-889c-3456-a28b83363167">
+      <Execution id="18ee14a9-4fc7-4430-b2f2-5b43d6b3ad25" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LaboratoryPresentationTests" name="LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="365196a2-0057-00fc-b815-8fb04c391d70">
+      <Execution id="dd582eb7-0f70-483c-bb72-6a3144ce7c00" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraImagingWindowTests" name="StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="305a16ed-9497-0f15-58e7-39fa6b2fe330" executionId="021e161a-ca2d-423c-a429-543afed5177e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a7d1d5b4-64b7-688c-5a43-b5b5938660dc" executionId="5e81e880-b74b-41b6-9a0c-658db67db972" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d8a20d4d-1d9d-889c-3456-a28b83363167" executionId="18ee14a9-4fc7-4430-b2f2-5b43d6b3ad25" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2ce75b56-3a19-de1b-be17-e31b8ff8d2f9" executionId="3a4f6283-e02c-4733-b067-76288b69a1db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="365196a2-0057-00fc-b815-8fb04c391d70" executionId="dd582eb7-0f70-483c-bb72-6a3144ce7c00" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="2" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.61]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.02]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.06]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:09.38]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:09.38]       Range:  (0 - 760.10000000000002)&#xD;
+[xUnit.net 00:00:09.38]       Actual: 788&#xD;
+[xUnit.net 00:00:09.38]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.39]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LaboratoryPresentationTests.cs(62,0): at OpticalSystemDesign.Tests.LaboratoryPresentationTests.&lt;&gt;c__DisplayClass1_0.&lt;LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes&gt;b__0()&#xD;
+[xUnit.net 00:00:09.39]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:09.39]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:09.39]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:09.39]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.39]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LaboratoryPresentationTests.cs(36,0): at OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(String module, String theme, String language, Int32 width, Int32 height, Double fontSize)&#xD;
+[xUnit.net 00:00:09.39]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:45.60]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:45.60]       Stack Trace:&#xD;
+[xUnit.net 00:00:45.60]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:45.60]            at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:45.60]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs(103,0): at OpticalSystemDesign.Tests.CameraImagingWindowTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:45.60]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:45.60]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:45.60]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:45.60]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs(81,0): at OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(String theme)&#xD;
+[xUnit.net 00:00:45.61]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:49.51]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:49.51]       Stack Trace:&#xD;
+[xUnit.net 00:00:49.51]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:49.51]            at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:49.51]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs(103,0): at OpticalSystemDesign.Tests.CameraImagingWindowTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:49.51]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:49.51]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:49.51]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:49.51]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs(81,0): at OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(String theme)&#xD;
+[xUnit.net 00:00:49.51]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:49.53]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T11:26:51.7017809+08:00">
+        <Text>[xUnit.net 00:00:09.38]     OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: "camera", theme: "Light", language: "ja-JP", width: 760, height: 680, fontSize: 18) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T11:27:27.9245015+08:00">
+        <Text>[xUnit.net 00:00:45.60]     OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: "Dark") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T11:27:31.8344536+08:00">
+        <Text>[xUnit.net 00:00:49.51]     OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: "Light") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

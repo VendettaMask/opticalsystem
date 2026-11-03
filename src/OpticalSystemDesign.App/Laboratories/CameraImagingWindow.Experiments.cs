@@ -49,11 +49,11 @@ public sealed partial class CameraImagingWindow
             if (_applyingSensor) return;
             UpdateSource(); Invalidate("计算输入已切换；A 保留，请运行 B。");
         };
-        return Group("实验文件", new Control[]
-        {
+        return new Avalonia.Controls.StackPanel { Spacing = 8, Children = {
             LaboratoryPresentation.Commands(open, _saveExperiment, _recomputeExperiment), _useExperiment, _experimentInfo,
-            LaboratoryPresentation.Hint("完整实验保存 A/B 各自的镜头快照、输入原文件、光源/材质/传感器/ISP 与结果。打开后可直接复算，也可修改设置再运行 B。勾选时使用实验镜头；取消后使用当前工程和图片路径。")
-        });
+            new Expander { Header = "说明", HorizontalContentAlignment = Avalonia.Layout.HorizontalAlignment.Stretch,
+                Content = LaboratoryPresentation.Hint("完整实验保存 A/B 各自的镜头快照、输入原文件、光源/材质/传感器/ISP 与结果。打开后可直接复算，也可修改设置再运行 B。勾选时使用实验镜头；取消后使用当前工程和图片路径。") }
+        } };
     }
 
     internal async Task<bool> OpenExperimentFromPathAsync(string path)

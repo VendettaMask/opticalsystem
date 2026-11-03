@@ -21,12 +21,18 @@ public sealed partial class AnalysisPanel
 {
     private static Control BuildSinglePlot(AnalysisViewDto view)
     {
+        // The drawing's caption already names the analysis. MTF implementations
+        // differ in whether their raw plot options contain a duplicate title.
+        var plotOptions = view.PresentationKind switch
+        {
+            AnalysisPresentationKind.Mtf => view.PlotOptions with { Title = string.Empty },
+            AnalysisPresentationKind.LateralColor => view.PlotOptions with { ShowLegend = false },
+            _ => view.PlotOptions
+        };
         var plot = new AnalysisPlotControl
         {
             Series = view.Series,
-            PlotOptions = view.PresentationKind == AnalysisPresentationKind.LateralColor
-                ? view.PlotOptions with { ShowLegend = false }
-                : view.PlotOptions,
+            PlotOptions = plotOptions,
             MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
             MinWidth = DisplayTypography.Scale(240)
         };
@@ -74,7 +80,7 @@ public sealed partial class AnalysisPanel
                 !TryGetSelectableLegend(series, out var seriesKey, out _)
                 || enabled.Contains(seriesKey)).ToArray());
         });
-        plot.PlotOptions = view.PlotOptions with { ShowLegend = false };
+        plot.PlotOptions = plotOptions with { ShowLegend = false };
         var layout = BuildPlotLegendLayout(plotRoot, legend);
         layout.Children.Add(EmptyPlotMessage(view.Series.Count == 0));
         return layout;
@@ -83,7 +89,8 @@ public sealed partial class AnalysisPanel
     private static Control BuildPanePlot(
         IReadOnlyList<AnalysisPlotPaneDto> panes,
         int requestedColumns,
-        bool defaultSquareCells = false)
+        bool defaultSquareCells = false,
+        bool alignTitleRows = false)
     {
         var baseColumns = Math.Clamp(requestedColumns, 1, Math.Max(1, panes.Count));
         var baseRows = (int)Math.Ceiling(panes.Count / (double)baseColumns);
@@ -93,11 +100,12 @@ public sealed partial class AnalysisPanel
                 panes.Count,
                 Math.Min(6, baseColumns * (int)Math.Ceiling(baseRows / 3.0)));
         var rows = (int)Math.Ceiling(panes.Count / (double)columns);
-        var paneGrid = new ResponsiveAnalysisPaneGrid(columns, DisplayTypography.Scale(200))
-        {
-            ColumnDefinitions = new ColumnDefinitions(string.Join(',', Enumerable.Repeat("*", columns))),
-            RowDefinitions = new RowDefinitions(string.Join(',', Enumerable.Repeat("*", rows)))
-        };
+        Grid paneGrid = alignTitleRows
+            ? new Grid()
+            : new ResponsiveAnalysisPaneGrid(columns, DisplayTypography.Scale(200));
+        paneGrid.ColumnDefinitions = new ColumnDefinitions(string.Join(',', Enumerable.Repeat("*", columns)));
+        paneGrid.RowDefinitions = new RowDefinitions(string.Join(',', Enumerable.Range(0, rows)
+            .SelectMany(_ => alignTitleRows ? new[] { "Auto", "*" } : new[] { "*" })));
         var plots = new List<AnalysisPlotControl>(panes.Count);
         for (var index = 0; index < panes.Count; index++)
         {
@@ -105,7 +113,7 @@ public sealed partial class AnalysisPanel
             var plot = new AnalysisPlotControl
             {
                 Series = pane.Series,
-                PlotOptions = pane.PlotOptions,
+                PlotOptions = alignTitleRows ? pane.PlotOptions with { Title = string.Empty } : pane.PlotOptions,
                 MinWidth = DisplayTypography.Scale(176),
                 MinHeight = DisplayTypography.Scale(176),
                 Margin = new Thickness(2)
@@ -117,8 +125,30 @@ public sealed partial class AnalysisPanel
                 MinWidth = DisplayTypography.Scale(176),
                 MinHeight = DisplayTypography.Scale(176)
             };
+            if (alignTitleRows)
+            {
+                // Both titles occupy one Auto row. The paired plots share one star
+                // row, so missing or wrapped titles cannot give them different heights.
+                var titleTypeface = DisplayTypography.Typeface(FontWeight.SemiBold);
+                var titleFontSize = DisplayTypography.Scale(AnalysisPlotControl.PlotTextSize);
+                var title = new TextBlock
+                {
+                    Text = pane.PlotOptions.Title,
+                    FontSize = titleFontSize,
+                    FontFamily = titleTypeface.FontFamily,
+                    FontStyle = titleTypeface.Style,
+                    FontWeight = titleTypeface.Weight,
+                    Margin = new Thickness(0, titleFontSize, 0, 0),
+                    TextAlignment = TextAlignment.Center,
+                    TextWrapping = TextWrapping.Wrap
+                };
+                title.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.PlotText);
+                Grid.SetColumn(title, index % columns);
+                Grid.SetRow(title, index / columns * 2);
+                paneGrid.Children.Add(title);
+            }
             Grid.SetColumn(squareHost, index % columns);
-            Grid.SetRow(squareHost, index / columns);
+            Grid.SetRow(squareHost, alignTitleRows ? index / columns * 2 + 1 : index / columns);
             paneGrid.Children.Add(squareHost);
             plots.Add(plot);
         }

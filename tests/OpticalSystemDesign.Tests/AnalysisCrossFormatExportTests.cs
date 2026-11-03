@@ -82,10 +82,10 @@ public sealed class AnalysisCrossFormatExportTests
                             var sheet = Assert.Single(panel.GetVisualDescendants().OfType<UniformDiagramPage>());
                             Assert.False(sheet.HasOverflow);
                             using var image = panel.CapturePlotImage();
-                            Assert.Equal(new PixelSize(2404, 1804), image.PixelSize);
+                            Assert.Equal(new PixelSize(1920, 1080), image.PixelSize);
                             ExportImageAssertions.HasCompleteBorder(image);
-                            using var png = new MemoryStream();
-                            image.Save(png, PngBitmapEncoderOptions.Default);
+                            using var frame = ExportImageAssertions.FrameBitmap(image);
+                            using var png = frame.Encode(SKEncodedImageFormat.Png, 100);
                             host.Child = null;
                             return png.ToArray();
                         });
@@ -93,7 +93,7 @@ public sealed class AnalysisCrossFormatExportTests
                         var bytes = await File.ReadAllBytesAsync(Path.Combine(output, file), token);
                         using var actual = SKBitmap.Decode(bytes);
                         using var expected = SKBitmap.Decode(ordinary);
-                        Assert.Equal(2404, actual.Width); Assert.Equal(1804, actual.Height);
+                        Assert.Equal(1440, actual.Width); Assert.Equal(1080, actual.Height);
                         var identical = actual.GetPixelSpan().SequenceEqual(expected.GetPixelSpan());
                         if (!identical && Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_CROSS_FORMAT_CAPTURE_DIR") is { } diagnostic)
                         {
@@ -138,8 +138,12 @@ public sealed class AnalysisCrossFormatExportTests
                 await stream.CopyToAsync(memory);
                 embedded.Add(Convert.ToHexString(SHA256.HashData(memory.ToArray())));
             }
-            Assert.Equal(2, embedded.Count);
-            Assert.All(drawings.Values, png => Assert.Contains(Convert.ToHexString(SHA256.HashData(png)), embedded));
+            // Covers and page headers also contain branding images. Each source
+            // drawing must still be embedded once, byte-for-byte, without JPEG.
+            Assert.All(drawings.Values, png => Assert.Single(embedded, hash => hash == Convert.ToHexString(SHA256.HashData(png))));
+            Assert.DoesNotContain(zip.Entries, entry => entry.FullName.StartsWith("word/media/", StringComparison.Ordinal)
+                && (entry.FullName.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
+                    || entry.FullName.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)));
         }
         else if (format == DesignReportFormat.Html)
         {
@@ -159,7 +163,7 @@ public sealed class AnalysisCrossFormatExportTests
         else
         {
             var pdf = Encoding.Latin1.GetString(await File.ReadAllBytesAsync(path));
-            Assert.Contains("/Width 2404", pdf); Assert.Contains("/Height 1804", pdf);
+            Assert.Contains("/Width 1440", pdf); Assert.Contains("/Height 1080", pdf);
             Assert.DoesNotContain("/DCTDecode", pdf);
         }
     }

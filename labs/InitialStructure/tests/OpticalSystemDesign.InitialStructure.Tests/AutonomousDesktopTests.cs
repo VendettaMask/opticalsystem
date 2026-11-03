@@ -422,15 +422,23 @@ public sealed partial class AutonomousDesktopTests
             }
         };
     }
-    private static T Find<T>(Window window, string name) where T : Control => Assert.Single(window.GetLogicalDescendants().OfType<T>().Distinct(), item => item.Name == name);
+    private static T Find<T>(Window window, string name) where T : Control => Assert.Single(window.GetLogicalDescendants().OfType<Control>()
+        .Concat(window is MainWindow main ? main.CommandPopupContents.SelectMany(c => c.GetLogicalDescendants().OfType<Control>().Prepend(c)) : [])
+        .Distinct().OfType<T>(), item => item.Name == name);
     private static void Click(Window window, string name)
     {
+        if (window is MainWindow && name == "OpenAutonomousTopology")
+        {
+            Click(window, "DesignTools"); window.UpdateLayout();
+            Avalonia.Threading.Dispatcher.UIThread.RunJobs(); AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+        }
         var button = Find<Button>(window, name); Assert.True(button.IsEffectivelyEnabled, name);
         button.BringIntoView(); window.UpdateLayout();
-        var point = button.TranslatePoint(new(button.Bounds.Width / 2, button.Bounds.Height / 2), window)!.Value;
-        Assert.InRange(point.X, 0, window.Bounds.Width);
-        Assert.InRange(point.Y, 0, window.Bounds.Height);
-        window.MouseDown(point, MouseButton.Left); window.MouseUp(point, MouseButton.Left);
+        var input = Assert.IsAssignableFrom<TopLevel>(TopLevel.GetTopLevel(button));
+        var point = button.TranslatePoint(new(button.Bounds.Width / 2, button.Bounds.Height / 2), input)!.Value;
+        Assert.InRange(point.X, 0, input.ClientSize.Width);
+        Assert.InRange(point.Y, 0, input.ClientSize.Height);
+        input.MouseDown(point, MouseButton.Left); input.MouseUp(point, MouseButton.Left);
     }
     private static async Task Until(Func<bool> condition)
     {

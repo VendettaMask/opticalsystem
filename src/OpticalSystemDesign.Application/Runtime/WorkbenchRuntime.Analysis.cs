@@ -88,6 +88,8 @@ public partial class WorkbenchRuntime
             OpticCapabilityOperation.Analysis,
             canonicalName);
         settings ??= new Dictionary<string, string>();
+        if (canonicalName == "Image Simulation" && settings.TryGetValue("OutputFile", out var destination)
+            && !string.IsNullOrWhiteSpace(destination)) LosslessImageOutput.RequirePngOrBmp(destination);
         var analysis = CreateAnalysis(canonicalName, settings);
         var data = analysis.GenerateData(cancellationToken);
         if (string.Equals(canonicalName, "Image Simulation", StringComparison.Ordinal)

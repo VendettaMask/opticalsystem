@@ -70,15 +70,17 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
             VerticalAlignment = VerticalAlignment.Center
         };
         private Control? _source;
+        private readonly AnalysisImageFrame _frame = new();
         internal Control? Source
         {
             get => _source;
             set
             {
                 if (ReferenceEquals(_source, value)) return;
-                Child = null; _fit.Child = null; _source = value;
-                if (value is UniformDiagramPage) { _fit.Child = value; Child = _fit; }
-                else Child = value;
+                Child = null; _fit.Child = null; _frame.Child = null; _source = value;
+                _frame.Child = value;
+                if (value is UniformDiagramPage) { _fit.Child = _frame; Child = _fit; }
+                else Child = value is null ? null : _frame;
                 InvalidateMeasure();
             }
         }
@@ -109,7 +111,7 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
             if (Child is null) return default;
             if (Source is UniformDiagramPage)
             {
-                _fit.Measure(FitToViewport ? _viewport : new Size(UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight));
+                _fit.Measure(FitToViewport ? _viewport : new Size(UniformDiagramPage.SheetWidth + 2, UniformDiagramPage.SheetHeight + 2));
                 return _fit.DesiredSize;
             }
             var width = Math.Max(Math.Max(320, _viewport.Width), MinimumReadableWidth(Child));

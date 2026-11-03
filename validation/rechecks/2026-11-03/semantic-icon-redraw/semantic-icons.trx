@@ -1,0 +1,730 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7188097b-c903-4284-9c55-b88ff2a77d86" name="optics@LAPTOP-G4BBBCS0 2026-11-03 13:54:57" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T13:54:57.4085745+08:00" queuing="2026-11-03T13:54:57.4085748+08:00" start="2026-11-03T13:54:50.6367118+08:00" finish="2026-11-03T13:56:03.1356233+08:00" />
+  <TestSettings name="default" id="3131d434-bb6e-42e0-9cd7-d7218c566e2a">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_13_54_57" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="fe6e0327-707e-4752-baf2-c285aa8bc591" testId="8556fab6-bffd-ff03-9db5-81282f8a1fd8" testName="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Lumen&quot;, fontSize: 13, language: &quot;zh-CN&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5923282" startTime="2026-11-03T13:55:58.3819262+08:00" endTime="2026-11-03T13:55:58.9744666+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fe6e0327-707e-4752-baf2-c285aa8bc591" />
+    <UnitTestResult executionId="af249ee9-1ef6-4aca-8041-965e82ec3dac" testId="6aaef2a8-434f-6b19-0f9f-2eb71977c86a" testName="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Dark&quot;, fontSize: 13, language: &quot;zh-CN&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5554880" startTime="2026-11-03T13:55:59.7423076+08:00" endTime="2026-11-03T13:56:00.2979578+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="af249ee9-1ef6-4aca-8041-965e82ec3dac" />
+    <UnitTestResult executionId="31f3d367-7bd5-45b9-a722-9c8f1e6aa288" testId="7853e0a6-0756-e6ee-7521-7cb22ff63dc3" testName="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Isekai&quot;, fontSize: 13, language: &quot;zh-CN&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5665452" startTime="2026-11-03T13:55:57.5721458+08:00" endTime="2026-11-03T13:55:58.1389137+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31f3d367-7bd5-45b9-a722-9c8f1e6aa288" />
+    <UnitTestResult executionId="ced7ac15-fd03-46f4-a302-a7ab663620a4" testId="064c04c4-8827-1b1c-51db-e801095196fe" testName="OpticalSystemDesign.Tests.SemanticIconTests.EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes(themeName: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1552836" startTime="2026-11-03T13:55:21.1582508+08:00" endTime="2026-11-03T13:55:21.3138581+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ced7ac15-fd03-46f4-a302-a7ab663620a4" />
+    <UnitTestResult executionId="c0e304df-4c29-47b1-8e12-a16f269e2364" testId="f26cf00c-77fc-d7eb-651a-f5f6b04dc3aa" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-03T13:56:02.9903256+08:00" endTime="2026-11-03T13:56:02.9903715+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c0e304df-4c29-47b1-8e12-a16f269e2364">
+      <Output>
+        <ErrorInfo>
+          <Message>Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c8e3351b-556b-4808-9da0-bb47f4efd553" testId="cb691211-bbd7-f08c-2b6c-bb53bb9dff32" testName="OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0090855" startTime="2026-11-03T13:55:54.9496659+08:00" endTime="2026-11-03T13:55:54.9590271+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c8e3351b-556b-4808-9da0-bb47f4efd553" />
+    <UnitTestResult executionId="5decdba1-74ee-4460-8be2-c4dc5c679aaa" testId="1e032d71-cf62-66d0-b0e6-42ccd13e437e" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-03T13:56:02.9907690+08:00" endTime="2026-11-03T13:56:02.9907874+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5decdba1-74ee-4460-8be2-c4dc5c679aaa">
+      <Output>
+        <ErrorInfo>
+          <Message>Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="615fa23c-5498-4b9b-85d8-f7bc93b6219f" testId="82ce7543-2c19-681b-6bae-62365af044ee" testName="OpticalSystemDesign.Tests.ScientificIconTests.ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens(fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:16.9625032" startTime="2026-11-03T13:55:37.8991077+08:00" endTime="2026-11-03T13:55:54.8616125+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="615fa23c-5498-4b9b-85d8-f7bc93b6219f" />
+    <UnitTestResult executionId="a90db8ee-7eff-4609-b005-e70b025f2904" testId="5eaf8ec7-c23d-6a2a-7d4a-ac1ba4e3006e" testName="OpticalSystemDesign.Tests.ScientificIconTests.EveryCatalogEntryIsNativeVectorAndUnknownNamesUseTheScientificFallback" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1533839" startTime="2026-11-03T13:55:55.0517263+08:00" endTime="2026-11-03T13:55:55.2051696+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a90db8ee-7eff-4609-b005-e70b025f2904" />
+    <UnitTestResult executionId="43296526-42ab-416c-af70-519fa806bc40" testId="921df269-819f-6bac-e1ee-f1ec055d3248" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-03T13:56:02.9911241+08:00" endTime="2026-11-03T13:56:02.9911366+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="43296526-42ab-416c-af70-519fa806bc40">
+      <Output>
+        <ErrorInfo>
+          <Message>Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9e3fb1ac-1367-44f2-9719-f79ea5086c30" testId="34ecab71-fde9-86d0-f88e-350675d1bc21" testName="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1602204" startTime="2026-11-03T13:55:56.6147901+08:00" endTime="2026-11-03T13:55:56.7747421+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9e3fb1ac-1367-44f2-9719-f79ea5086c30">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: #fff0f5fc&#xD;
+Actual:   Transparent</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass2_0.&lt;FrameResourcesSurviveThemePageAndSizeChanges&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 161&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(String initialTheme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 134&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="be4c4108-ca4b-4d0a-b5df-e2ee96f50e29" testId="e8a5cda2-537e-cc03-c340-ff223e7ac5f0" testName="OpticalSystemDesign.Tests.SemanticIconTests.EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes(themeName: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2142961" startTime="2026-11-03T13:55:20.6417333+08:00" endTime="2026-11-03T13:55:20.8562797+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="be4c4108-ca4b-4d0a-b5df-e2ee96f50e29" />
+    <UnitTestResult executionId="7a15a034-60f9-417f-a8d8-f10578aa6328" testId="48d05091-1ead-aa4a-13a3-8d505f2720d1" testName="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1283579" startTime="2026-11-03T13:55:56.2668751+08:00" endTime="2026-11-03T13:55:56.3968481+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7a15a034-60f9-417f-a8d8-f10578aa6328">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: #fff0f5fc&#xD;
+Actual:   Transparent</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass2_0.&lt;FrameResourcesSurviveThemePageAndSizeChanges&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 161&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(String initialTheme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 134&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1464a66f-c26e-43ba-a05a-dcb43b2a3f1a" testId="c43eff1e-f53a-efa0-a9b0-24acf55cf3f5" testName="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Light&quot;, fontSize: 18, language: &quot;en-US&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2425940" startTime="2026-11-03T13:55:58.1390105+08:00" endTime="2026-11-03T13:55:58.3818302+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1464a66f-c26e-43ba-a05a-dcb43b2a3f1a" />
+    <UnitTestResult executionId="13988851-d491-4e90-b8de-6ef5f2a95f7f" testId="fbd96edd-b919-6540-4c7a-76d8197adce3" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 640, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1944642" startTime="2026-11-03T13:55:55.4207854+08:00" endTime="2026-11-03T13:55:55.6152119+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="13988851-d491-4e90-b8de-6ef5f2a95f7f" />
+    <UnitTestResult executionId="e5dd0bee-dc7d-476c-bcb1-66e232b81c65" testId="634392e2-2dbd-3612-7eb5-a130d0cf3fba" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionFollowsGraphSelectionAndNeverExportsTextOrUnavailableResults" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.8611975" startTime="2026-11-03T13:56:00.3224893+08:00" endTime="2026-11-03T13:56:01.1834106+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e5dd0bee-dc7d-476c-bcb1-66e232b81c65" />
+    <UnitTestResult executionId="2327347b-52c1-4748-9d38-018b0423c506" testId="37e9d007-5caa-6237-c226-b009e144732c" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 736, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2145804" startTime="2026-11-03T13:55:55.8114780+08:00" endTime="2026-11-03T13:55:56.0263668+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2327347b-52c1-4748-9d38-018b0423c506" />
+    <UnitTestResult executionId="24e937c7-4e71-48dd-ab56-ef39d2f5f942" testId="fc795d34-45e0-0653-9c11-eccf49425d87" testName="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0615994" startTime="2026-11-03T13:55:13.5656680+08:00" endTime="2026-11-03T13:55:13.6545747+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24e937c7-4e71-48dd-ab56-ef39d2f5f942">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidCastException : Unable to cast object of type 'Avalonia.Headless.HeadlessPlatformTypeface' to type 'Avalonia.Skia.SkiaTypeface'.</Message>
+          <StackTrace>   at Avalonia.Skia.GlyphRunImpl..ctor(GlyphTypeface glyphTypeface, Double fontRenderingEmSize, IReadOnlyList`1 glyphInfos, Point baselineOrigin)&#xD;
+   at Avalonia.Media.TextFormatting.TextLineImpl.CreateLineMetrics()&#xD;
+   at Avalonia.Media.TextFormatting.TextLineImpl.FinalizeLine()&#xD;
+   at Avalonia.Media.TextFormatting.TextLayout.CreateTextLines()&#xD;
+   at Avalonia.Controls.TextBlock.CreateTextLayout(String text)&#xD;
+   at Avalonia.Controls.TextBlock.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Controls.StackPanel.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at OpticalSystemDesign.App.Panels.LensEditorPanel.LensHeaderLayout.MeasureOverride(Size availableSize) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Panels\LensEditorPanel.SurfaceProperties.cs:line 102&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Layout.LayoutHelper.MeasureChild(Layoutable control, Size availableSize, Thickness padding, Thickness borderThickness)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Controls.StackPanel.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Controls.DockPanel.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Controls.Presenters.ContentPresenter.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Controls.Presenters.ContentPresenter.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Layout.LayoutHelper.MeasureChild(Layoutable control, Size availableSize, Thickness padding)&#xD;
+   at Avalonia.Controls.Decorator.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Controls.Primitives.VisualLayerManager.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Controls.Window.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Controls.WindowBase.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Controls.TopLevelHost.MeasureOverride(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+   at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+   at Avalonia.Layout.LayoutManager.Measure(Layoutable control)&#xD;
+   at Avalonia.Layout.LayoutManager.ExecuteInitialLayoutPass()&#xD;
+   at Avalonia.Controls.Window.ShowCore[TResult](Window owner, Boolean modal)&#xD;
+   at Avalonia.Controls.Window.Show()&#xD;
+   at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.&lt;&gt;c.&lt;&lt;StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload&gt;b__2_0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SurfacePropertiesPanelTests.cs:line 47&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SurfacePropertiesPanelTests.cs:line 39&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e218c615-7be7-45d9-b2cc-1fcbddb29e66" testId="1b8fe94f-1bfd-8bab-d0f4-befc095be317" testName="OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0970702" startTime="2026-11-03T13:55:21.3231545+08:00" endTime="2026-11-03T13:55:21.4205330+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e218c615-7be7-45d9-b2cc-1fcbddb29e66" />
+    <UnitTestResult executionId="944bf227-6508-4e4d-86fd-4864d9dc51ac" testId="a73b5093-01d6-3f7e-ce1e-3ea41812f261" testName="OpticalSystemDesign.Tests.ScientificIconTests.EntireScientificCatalogParsesThroughTheNativeRenderer" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0875243" startTime="2026-11-03T13:55:54.8619408+08:00" endTime="2026-11-03T13:55:54.9495472+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="944bf227-6508-4e4d-86fd-4864d9dc51ac" />
+    <UnitTestResult executionId="ee56402c-2df2-4d3f-b384-f2866c52e2a1" testId="8e1f3f9b-aa25-af2b-0573-ca304940faf8" testName="OpticalSystemDesign.Tests.SemanticIconTests.EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes(themeName: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1520368" startTime="2026-11-03T13:55:20.8565600+08:00" endTime="2026-11-03T13:55:21.0086700+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee56402c-2df2-4d3f-b384-f2866c52e2a1" />
+    <UnitTestResult executionId="18d91c15-50a8-44ed-bee1-84708e015293" testId="8daf048d-e7ae-57cc-b6fa-4fd2345661f0" testName="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1223096" startTime="2026-11-03T13:55:56.4913896+08:00" endTime="2026-11-03T13:55:56.6139029+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="18d91c15-50a8-44ed-bee1-84708e015293">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: #fff0f5fc&#xD;
+Actual:   Transparent</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass2_0.&lt;FrameResourcesSurviveThemePageAndSizeChanges&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 161&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(String initialTheme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 134&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="85797d23-d4fd-47ec-a8a4-d4660ff84102" testId="16abc51e-60eb-169b-9f93-8bd41899aa8d" testName="OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0288420" startTime="2026-11-03T13:55:54.9913009+08:00" endTime="2026-11-03T13:55:55.0203768+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85797d23-d4fd-47ec-a8a4-d4660ff84102" />
+    <UnitTestResult executionId="09527e60-1d85-43eb-aecc-2c2e81763ce4" testId="88cd9256-6190-c051-a661-b98c994be486" testName="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.MechanicalSemiDiameterUsesDisplayPrecisionInGridAndDrawingSummaryWithoutChangingData" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.0890670" startTime="2026-11-03T13:55:15.9870469+08:00" endTime="2026-11-03T13:55:19.0763734+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="09527e60-1d85-43eb-aecc-2c2e81763ce4" />
+    <UnitTestResult executionId="c72006ad-a8a0-4dfc-9769-93da6d513632" testId="a4abb198-dc6a-64a8-1d46-911575be42ef" testName="OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0067706" startTime="2026-11-03T13:55:54.9778597+08:00" endTime="2026-11-03T13:55:54.9848328+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c72006ad-a8a0-4dfc-9769-93da6d513632" />
+    <UnitTestResult executionId="6f2a7d40-af3a-41ab-9ba5-37f071da13c5" testId="f2c78907-8ef4-416d-9441-cee56193131b" testName="OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0974778" startTime="2026-11-03T13:55:21.6922051+08:00" endTime="2026-11-03T13:55:21.7900007+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6f2a7d40-af3a-41ab-9ba5-37f071da13c5" />
+    <UnitTestResult executionId="97cf2dab-a017-490a-bc27-97c4acaf598a" testId="3de51e77-4f0f-d2bc-b381-8c3357c92e3d" testName="OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1858357" startTime="2026-11-03T13:55:21.5059515+08:00" endTime="2026-11-03T13:55:21.6920882+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="97cf2dab-a017-490a-bc27-97c4acaf598a" />
+    <UnitTestResult executionId="10a29707-623c-4bab-b588-ecd140140156" testId="fc6ae0d8-f601-3ad3-fa18-c474c8460666" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;en-US&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5169540" startTime="2026-11-03T13:56:01.7465992+08:00" endTime="2026-11-03T13:56:02.2637263+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="10a29707-623c-4bab-b588-ecd140140156" />
+    <UnitTestResult executionId="a6ef8f0c-64e1-4a54-8f75-fbce44c95cf7" testId="021bf89c-493d-8afe-a3d4-2f475b0ce89e" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;zh-CN&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5626890" startTime="2026-11-03T13:56:01.1835409+08:00" endTime="2026-11-03T13:56:01.7464772+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a6ef8f0c-64e1-4a54-8f75-fbce44c95cf7" />
+    <UnitTestResult executionId="71ec5afe-9fe3-40a6-af63-22c34617c0e4" testId="690e9cd7-2b62-cca2-68be-f9e001a1a511" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-03T13:56:02.9879371+08:00" endTime="2026-11-03T13:56:02.9884240+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="71ec5afe-9fe3-40a6-af63-22c34617c0e4">
+      <Output>
+        <ErrorInfo>
+          <Message>Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7272b7af-b458-4566-950b-e2349328b4ab" testId="1d9516da-b3da-a137-4830-cc52ab91c460" testName="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(width: 1000)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.8279958" startTime="2026-11-03T13:55:06.7375736+08:00" endTime="2026-11-03T13:55:13.5651664+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7272b7af-b458-4566-950b-e2349328b4ab" />
+    <UnitTestResult executionId="b14e3d5c-897a-4827-8108-50fd29820cd9" testId="de9f32a2-0d92-255d-4bf3-88eaed5a5dae" testName="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0934548" startTime="2026-11-03T13:55:56.3979288+08:00" endTime="2026-11-03T13:55:56.4908503+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b14e3d5c-897a-4827-8108-50fd29820cd9">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: #fff0f5fc&#xD;
+Actual:   Transparent</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass2_0.&lt;FrameResourcesSurviveThemePageAndSizeChanges&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 161&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(String initialTheme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 134&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4d2d3837-b1da-4b1a-8036-ae4ccb7a2266" testId="109b674d-13f6-508c-cb21-76d92cfd8ddd" testName="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.HeaderNavigationCommitsNumericEditButRejectsStaleQueuedNavigation" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3529128" startTime="2026-11-03T13:55:19.0767281+08:00" endTime="2026-11-03T13:55:20.4296452+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4d2d3837-b1da-4b1a-8036-ae4ccb7a2266" />
+    <UnitTestResult executionId="c251aefe-2ba2-4a18-ac03-89e29e84cd7c" testId="4da4750c-6d50-90e9-7013-dce1ede898a0" testName="OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0246794" startTime="2026-11-03T13:55:21.7901184+08:00" endTime="2026-11-03T13:55:21.8151615+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c251aefe-2ba2-4a18-ac03-89e29e84cd7c" />
+    <UnitTestResult executionId="20ec68f6-5d8c-4bff-aa6f-49fa34260e18" testId="da0cad5f-c8d0-9e88-f40c-9223169b4efe" testName="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Pixel&quot;, fontSize: 13, language: &quot;zh-CN&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2121718" startTime="2026-11-03T13:55:58.9745567+08:00" endTime="2026-11-03T13:55:59.1869221+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="20ec68f6-5d8c-4bff-aa6f-49fa34260e18" />
+    <UnitTestResult executionId="19cbe13e-6f86-4e3d-ac2f-3cab9626cc85" testId="13a94853-047a-1a1a-07d1-0080c127cd16" testName="OpticalSystemDesign.Tests.ScientificIconTests.EveryThemeOwnsACompleteScientificPackageAndItsActualColours" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0036652" startTime="2026-11-03T13:55:21.3193496+08:00" endTime="2026-11-03T13:55:21.3230381+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="19cbe13e-6f86-4e3d-ac2f-3cab9626cc85" />
+    <UnitTestResult executionId="eed54828-f6f3-45ef-b74b-769a9d14fcf6" testId="aeba1ec4-da9c-70c5-0a14-1fc3bc62126f" testName="OpticalSystemDesign.Tests.SemanticIconTests.ActualFunctionsUseAuthoredArtworkAndEveryActiveAnalysisNameHasAValidDrawing" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0030638" startTime="2026-11-03T13:55:21.3161084+08:00" endTime="2026-11-03T13:55:21.3191841+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eed54828-f6f3-45ef-b74b-769a9d14fcf6" />
+    <UnitTestResult executionId="695ebe46-b9ae-407c-bee0-964aec8c3206" testId="4e2c1489-29d6-9712-fa20-c4d75e13f6b1" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-03T13:56:02.9905938+08:00" endTime="2026-11-03T13:56:02.9906040+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="695ebe46-b9ae-407c-bee0-964aec8c3206">
+      <Output>
+        <ErrorInfo>
+          <Message>Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8cbbbd40-12b6-4682-93e8-f1c9dc4c905a" testId="21374b40-59a1-40b7-2daa-9bc054a363fb" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;ja-JP&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7237519" startTime="2026-11-03T13:56:02.2638300+08:00" endTime="2026-11-03T13:56:02.9877985+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8cbbbd40-12b6-4682-93e8-f1c9dc4c905a" />
+    <UnitTestResult executionId="d02232bf-9666-4f2a-b5f3-31c4c6a50888" testId="b707c7d6-66a2-09d1-2211-1c52b86863da" testName="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Dark&quot;, fontSize: 18, language: &quot;ja-JP&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7967545" startTime="2026-11-03T13:55:56.7756822+08:00" endTime="2026-11-03T13:55:57.5720522+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d02232bf-9666-4f2a-b5f3-31c4c6a50888" />
+    <UnitTestResult executionId="d850d054-902d-4f59-9c42-3bcf697175a7" testId="64d56afc-bade-ff29-c658-6844029721c8" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Dark&quot;, width: 736, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2146114" startTime="2026-11-03T13:55:55.2053816+08:00" endTime="2026-11-03T13:55:55.4203674+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d850d054-902d-4f59-9c42-3bcf697175a7" />
+    <UnitTestResult executionId="5d5a9852-71b1-46ee-9782-0ecfb385890e" testId="5a2afaca-6636-ad7e-47fa-8da82efcd755" testName="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(width: 1000)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.4536756" startTime="2026-11-03T13:54:57.3932973+08:00" endTime="2026-11-03T13:54:59.8065071+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5d5a9852-71b1-46ee-9782-0ecfb385890e" />
+    <UnitTestResult executionId="259cc7ef-863b-4538-b2e0-7e1817d47223" testId="4038f43a-4576-e5cf-0647-b08b1bd483ef" testName="OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0184089" startTime="2026-11-03T13:55:54.9591184+08:00" endTime="2026-11-03T13:55:54.9777635+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="259cc7ef-863b-4538-b2e0-7e1817d47223" />
+    <UnitTestResult executionId="a45642a8-c600-4b58-9bdd-00c151607904" testId="98d8d854-1798-8a5f-f24e-bf8ce5bbf089" testName="OpticalSystemDesign.Tests.SemanticIconTests.EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes(themeName: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1490962" startTime="2026-11-03T13:55:21.0087889+08:00" endTime="2026-11-03T13:55:21.1581281+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a45642a8-c600-4b58-9bdd-00c151607904" />
+    <UnitTestResult executionId="2533f1aa-e67a-44a3-8549-971137df79ca" testId="01d0d54c-4a4f-f9c6-4193-86339f31708b" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Pixel&quot;, width: 736, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0204255" startTime="2026-11-03T13:55:56.0265966+08:00" endTime="2026-11-03T13:55:56.0473344+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2533f1aa-e67a-44a3-8549-971137df79ca" />
+    <UnitTestResult executionId="058f0a4b-deca-4708-b5ee-a040de98c651" testId="06d59997-cc25-bde9-cd6c-ef2fde295d08" testName="OpticalSystemDesign.Tests.SemanticIconTests.EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes(themeName: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2096191" startTime="2026-11-03T13:55:20.4318021+08:00" endTime="2026-11-03T13:55:20.6416056+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="058f0a4b-deca-4708-b5ee-a040de98c651" />
+    <UnitTestResult executionId="61f6f0a1-ccca-4200-947c-c79f2c392afa" testId="4034aea1-44dd-dd37-5c4c-589358001c56" testName="OpticalSystemDesign.Tests.ScientificIconTests.ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens(fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:16.0830920" startTime="2026-11-03T13:55:21.8152988+08:00" endTime="2026-11-03T13:55:37.8987257+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="61f6f0a1-ccca-4200-947c-c79f2c392afa" />
+    <UnitTestResult executionId="3dd90341-ff0b-4610-9f88-9a40916c786c" testId="43b3ab29-50a7-bc49-bfa9-87f07867688f" testName="OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0061027" startTime="2026-11-03T13:55:54.9849283+08:00" endTime="2026-11-03T13:55:54.9912068+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3dd90341-ff0b-4610-9f88-9a40916c786c" />
+    <UnitTestResult executionId="24ff269b-2277-4553-9abe-ffc44d7c70e6" testId="c48f82f7-47c4-94a3-7d8a-3e09930ec463" testName="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(width: 600)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.9287069" startTime="2026-11-03T13:54:59.8097939+08:00" endTime="2026-11-03T13:55:06.7370573+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24ff269b-2277-4553-9abe-ffc44d7c70e6" />
+    <UnitTestResult executionId="d5f99bbe-70a9-4c11-8222-9ca1dc78f881" testId="1082dcd2-04d6-f6b5-7a15-ecfb07634580" testName="OpticalSystemDesign.Tests.CompactRibbonTests.HistoryAvailabilityExplainsDisabledCommandsAndClearsStaleReasons" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0052758" startTime="2026-11-03T13:55:56.2612786+08:00" endTime="2026-11-03T13:55:56.2667692+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d5f99bbe-70a9-4c11-8222-9ca1dc78f881" />
+    <UnitTestResult executionId="363d3378-0d6c-40bd-a87a-5f752308bb72" testId="e3fbace2-eed8-c7c7-e031-87fd7e922129" testName="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(width: 600)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.0702353" startTime="2026-11-03T13:54:53.2969948+08:00" endTime="2026-11-03T13:54:57.3518485+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="363d3378-0d6c-40bd-a87a-5f752308bb72" />
+    <UnitTestResult executionId="88c0a9b5-8bac-441c-809b-e9d46c291112" testId="07278922-4233-96a3-4445-a3e8afefbe2a" testName="OpticalSystemDesign.Tests.AnalysisImageExportTests.ClickingTheImageIconSavesPngAndCancelPreservesTheFile" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010000" startTime="2026-11-03T13:56:02.9909879+08:00" endTime="2026-11-03T13:56:02.9910007+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="88c0a9b5-8bac-441c-809b-e9d46c291112">
+      <Output>
+        <ErrorInfo>
+          <Message>Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d4069ad2-4775-4adf-93ae-93b25fdeb5b7" testId="d4495048-f4e0-defe-2866-595bd5c70f28" testName="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Light&quot;, fontSize: 13, language: &quot;zh-CN&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5549273" startTime="2026-11-03T13:55:59.1870168+08:00" endTime="2026-11-03T13:55:59.7422115+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d4069ad2-4775-4adf-93ae-93b25fdeb5b7" />
+    <UnitTestResult executionId="571a9524-8b3c-4353-a90e-dac2ff3c8bc3" testId="e8caed1f-5783-b3f8-9454-ef0ff69d1dba" testName="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.ApplyAndRevertUseSelectedSurfaceAndNavigationDoesNotCommitDrafts" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.3325577" startTime="2026-11-03T13:55:13.6609276+08:00" endTime="2026-11-03T13:55:15.9868927+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="571a9524-8b3c-4353-a90e-dac2ff3c8bc3" />
+    <UnitTestResult executionId="5da59eb9-9f57-4ed0-aef0-cd04cb541a11" testId="17be9356-4580-2034-c729-e30145712912" testName="OpticalSystemDesign.Tests.ScientificIconTests.ExistingIconRepaintsAllThreeRolesAndDisabledStateAcrossEveryTheme" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0307986" startTime="2026-11-03T13:55:55.0204917+08:00" endTime="2026-11-03T13:55:55.0516005+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5da59eb9-9f57-4ed0-aef0-cd04cb541a11" />
+    <UnitTestResult executionId="aacd3d78-f512-491e-affe-93b006042769" testId="f32791d1-485d-020d-f331-ca18a79597e8" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Isekai&quot;, width: 736, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1957957" startTime="2026-11-03T13:55:55.6153188+08:00" endTime="2026-11-03T13:55:55.8113430+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aacd3d78-f512-491e-affe-93b006042769" />
+    <UnitTestResult executionId="3edb5ea2-ffc6-4b3e-a84c-2c28a28c842d" testId="2e8aeae9-603a-4aed-e519-151c7a930097" testName="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.RuntimeThemeSwitchRecolorsTheSameVectorWithoutChangingGeometry" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0230763" startTime="2026-11-03T13:56:00.2980847+08:00" endTime="2026-11-03T13:56:00.3216147+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3edb5ea2-ffc6-4b3e-a84c-2c28a28c842d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+                      ↓ (pos 784)&#xD;
+Expected: [···, 0, 0, 35, 38, 41, ···]&#xD;
+Actual:   [···, 0, 0, 40, 39, 33, ···]&#xD;
+                      ↑ (pos 784)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.&lt;&gt;c.&lt;RuntimeThemeSwitchRecolorsTheSameVectorWithoutChangingGeometry&gt;b__2_0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 137&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.RuntimeThemeSwitchRecolorsTheSameVectorWithoutChangingGeometry() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs:line 122&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7de88e81-2174-47bd-a225-b8d587448737" testId="99ce49d3-5c05-f02a-e4f4-a5cf168cd0ff" testName="OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0849972" startTime="2026-11-03T13:55:21.4215851+08:00" endTime="2026-11-03T13:55:21.5058352+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7de88e81-2174-47bd-a225-b8d587448737" />
+    <UnitTestResult executionId="beea21d5-fe31-4200-a439-64096fc48117" testId="5a272c4e-82e0-98f5-6da7-d1cb9d439bce" testName="OpticalSystemDesign.Tests.SemanticIconTests.MtfMethodAndIndependentVariableAreBothEncodedInNineDedicatedNames" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0016136" startTime="2026-11-03T13:55:21.3139890+08:00" endTime="2026-11-03T13:55:21.3159979+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="beea21d5-fe31-4200-a439-64096fc48117" />
+    <UnitTestResult executionId="52b770de-2e2b-4f74-a532-acadd9e2c4b4" testId="f908ef86-9da3-4e17-83fb-4ff4a20db351" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 640, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2134550" startTime="2026-11-03T13:55:56.0474609+08:00" endTime="2026-11-03T13:55:56.2611522+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="52b770de-2e2b-4f74-a532-acadd9e2c4b4" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionFollowsGraphSelectionAndNeverExportsTextOrUnavailableResults" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="634392e2-2dbd-3612-7eb5-a130d0cf3fba">
+      <Execution id="e5dd0bee-dc7d-476c-bcb1-66e232b81c65" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ImageActionFollowsGraphSelectionAndNeverExportsTextOrUnavailableResults" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Dark&quot;, fontSize: 18, language: &quot;ja-JP&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b707c7d6-66a2-09d1-2211-1c52b86863da">
+      <Execution id="d02232bf-9666-4f2a-b5f3-31c4c6a50888" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests" name="ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;ja-JP&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="21374b40-59a1-40b7-2daa-9bc054a363fb">
+      <Execution id="8cbbbd40-12b6-4682-93e8-f1c9dc4c905a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ImageActionHasOnlyAnIconAndLocalizedTooltip" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Light&quot;, fontSize: 18, language: &quot;en-US&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c43eff1e-f53a-efa0-a9b0-24acf55cf3f5">
+      <Execution id="1464a66f-c26e-43ba-a05a-dcb43b2a3f1a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests" name="ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.MechanicalSemiDiameterUsesDisplayPrecisionInGridAndDrawingSummaryWithoutChangingData" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="88cd9256-6190-c051-a661-b98c994be486">
+      <Execution id="09527e60-1d85-43eb-aecc-2c2e81763ce4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests" name="MechanicalSemiDiameterUsesDisplayPrecisionInGridAndDrawingSummaryWithoutChangingData" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Dark&quot;, fontSize: 13, language: &quot;zh-CN&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6aaef2a8-434f-6b19-0f9f-2eb71977c86a">
+      <Execution id="af249ee9-1ef6-4aca-8041-965e82ec3dac" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests" name="ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="690e9cd7-2b62-cca2-68be-f9e001a1a511">
+      <Execution id="71ec5afe-9fe3-40a6-af63-22c34617c0e4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="OversizedContentIsRejectedBeforeAllocatingTheExportBitmap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;zh-CN&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="021bf89c-493d-8afe-a3d4-2f475b0ce89e">
+      <Execution id="a6ef8f0c-64e1-4a54-8f75-fbce44c95cf7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ImageActionHasOnlyAnIconAndLocalizedTooltip" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(width: 1000)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5a2afaca-6636-ad7e-47fa-8da82efcd755">
+      <Execution id="5d5a9852-71b1-46ee-9782-0ecfb385890e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests" name="CompactHeaderTracksSelectionAndNavigatesWithoutEditing" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="921df269-819f-6bac-e1ee-f1ec055d3248">
+      <Execution id="43296526-42ab-416c-af70-519fa806bc40" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SemanticIconTests.EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes(themeName: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="064c04c4-8827-1b1c-51db-e801095196fe">
+      <Execution id="ced7ac15-fd03-46f4-a302-a7ab663620a4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SemanticIconTests" name="EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a4abb198-dc6a-64a8-1d46-911575be42ef">
+      <Execution id="c72006ad-a8a0-4dfc-9769-93da6d513632" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: &quot;en-US&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fc6ae0d8-f601-3ad3-fa18-c474c8460666">
+      <Execution id="10a29707-623c-4bab-b588-ecd140140156" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ImageActionHasOnlyAnIconAndLocalizedTooltip" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens(fontSize: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4034aea1-44dd-dd37-5c4c-589358001c56">
+      <Execution id="61f6f0a1-ccca-4200-947c-c79f2c392afa" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.ExistingIconRepaintsAllThreeRolesAndDisabledStateAcrossEveryTheme" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="17be9356-4580-2034-c729-e30145712912">
+      <Execution id="5da59eb9-9f57-4ed0-aef0-cd04cb541a11" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="ExistingIconRepaintsAllThreeRolesAndDisabledStateAcrossEveryTheme" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4e2c1489-29d6-9712-fa20-c4d75e13f6b1">
+      <Execution id="695ebe46-b9ae-407c-bee0-964aec8c3206" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="CardinalSceneExportsItsGraphicAndDataTableWithoutSeries" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.ApplyAndRevertUseSelectedSurfaceAndNavigationDoesNotCommitDrafts" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e8caed1f-5783-b3f8-9454-ef0ff69d1dba">
+      <Execution id="571a9524-8b3c-4353-a90e-dac2ff3c8bc3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests" name="ApplyAndRevertUseSelectedSurfaceAndNavigationDoesNotCommitDrafts" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f26cf00c-77fc-d7eb-651a-f5f6b04dc3aa">
+      <Execution id="c0e304df-4c29-47b1-8e12-a16f269e2364" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="AllHiddenWavelengthsExportAxesAndCanBeRestored" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="cb691211-bbd7-f08c-2b6c-bb53bb9dff32">
+      <Execution id="c8e3351b-556b-4808-9da0-bb47f4efd553" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SemanticIconTests.MtfMethodAndIndependentVariableAreBothEncodedInNineDedicatedNames" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5a272c4e-82e0-98f5-6da7-d1cb9d439bce">
+      <Execution id="beea21d5-fe31-4200-a439-64096fc48117" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SemanticIconTests" name="MtfMethodAndIndependentVariableAreBothEncodedInNineDedicatedNames" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="de9f32a2-0d92-255d-4bf3-88eaed5a5dae">
+      <Execution id="b14e3d5c-897a-4827-8108-50fd29820cd9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="FrameResourcesSurviveThemePageAndSizeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="43b3ab29-50a7-bc49-bfa9-87f07867688f">
+      <Execution id="3dd90341-ff0b-4610-9f88-9a40916c786c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.HeaderNavigationCommitsNumericEditButRejectsStaleQueuedNavigation" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="109b674d-13f6-508c-cb21-76d92cfd8ddd">
+      <Execution id="4d2d3837-b1da-4b1a-8036-ae4ccb7a2266" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests" name="HeaderNavigationCommitsNumericEditButRejectsStaleQueuedNavigation" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.HistoryAvailabilityExplainsDisabledCommandsAndClearsStaleReasons" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1082dcd2-04d6-f6b5-7a15-ecfb07634580">
+      <Execution id="d5f99bbe-70a9-4c11-8222-9ca1dc78f881" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="HistoryAvailabilityExplainsDisabledCommandsAndClearsStaleReasons" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="34ecab71-fde9-86d0-f88e-350675d1bc21">
+      <Execution id="9e3fb1ac-1367-44f2-9719-f79ea5086c30" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="FrameResourcesSurviveThemePageAndSizeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.RuntimeThemeSwitchRecolorsTheSameVectorWithoutChangingGeometry" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2e8aeae9-603a-4aed-e519-151c7a930097">
+      <Execution id="3edb5ea2-ffc6-4b3e-a84c-2c28a28c842d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests" name="RuntimeThemeSwitchRecolorsTheSameVectorWithoutChangingGeometry" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Pixel&quot;, width: 736, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="01d0d54c-4a4f-f9c6-4193-86339f31708b">
+      <Execution id="2533f1aa-e67a-44a3-8549-971137df79ca" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4038f43a-4576-e5cf-0647-b08b1bd483ef">
+      <Execution id="259cc7ef-863b-4538-b2e0-7e1817d47223" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Lumen&quot;, fontSize: 13, language: &quot;zh-CN&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8556fab6-bffd-ff03-9db5-81282f8a1fd8">
+      <Execution id="fe6e0327-707e-4752-baf2-c285aa8bc591" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests" name="ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="48d05091-1ead-aa4a-13a3-8d505f2720d1">
+      <Execution id="7a15a034-60f9-417f-a8d8-f10578aa6328" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="FrameResourcesSurviveThemePageAndSizeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Light&quot;, fontSize: 13, language: &quot;zh-CN&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d4495048-f4e0-defe-2866-595bd5c70f28">
+      <Execution id="d4069ad2-4775-4adf-93ae-93b25fdeb5b7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests" name="ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4da4750c-6d50-90e9-7013-dce1ede898a0">
+      <Execution id="c251aefe-2ba2-4a18-ac03-89e29e84cd7c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SemanticIconTests.EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes(themeName: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="06d59997-cc25-bde9-cd6c-ef2fde295d08">
+      <Execution id="058f0a4b-deca-4708-b5ee-a040de98c651" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SemanticIconTests" name="EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(width: 1000)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1d9516da-b3da-a137-4830-cc52ab91c460">
+      <Execution id="7272b7af-b458-4566-950b-e2349328b4ab" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests" name="CategoriesUseBoundedPanelAndOnlyApplicableParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fc795d34-45e0-0653-9c11-eccf49425d87">
+      <Execution id="24e937c7-4e71-48dd-ab56-ef39d2f5f942" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests" name="StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3de51e77-4f0f-d2bc-b381-8c3357c92e3d">
+      <Execution id="97cf2dab-a017-490a-bc27-97c4acaf598a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="99ce49d3-5c05-f02a-e4f4-a5cf168cd0ff">
+      <Execution id="7de88e81-2174-47bd-a225-b8d587448737" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1b8fe94f-1bfd-8bab-d0f4-befc095be317">
+      <Execution id="e218c615-7be7-45d9-b2cc-1fcbddb29e66" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Isekai&quot;, width: 736, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f32791d1-485d-020d-f331-ca18a79597e8">
+      <Execution id="aacd3d78-f512-491e-affe-93b006042769" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.EveryThemeOwnsACompleteScientificPackageAndItsActualColours" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="13a94853-047a-1a1a-07d1-0080c127cd16">
+      <Execution id="19cbe13e-6f86-4e3d-ac2f-3cab9626cc85" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="EveryThemeOwnsACompleteScientificPackageAndItsActualColours" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 640, fontSize: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f908ef86-9da3-4e17-83fb-4ff4a20db351">
+      <Execution id="52b770de-2e2b-4f74-a532-acadd9e2c4b4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens(fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="82ce7543-2c19-681b-6bae-62365af044ee">
+      <Execution id="615fa23c-5498-4b9b-85d8-f7bc93b6219f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SemanticIconTests.ActualFunctionsUseAuthoredArtworkAndEveryActiveAnalysisNameHasAValidDrawing" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="aeba1ec4-da9c-70c5-0a14-1fc3bc62126f">
+      <Execution id="eed54828-f6f3-45ef-b74b-769a9d14fcf6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SemanticIconTests" name="ActualFunctionsUseAuthoredArtworkAndEveryActiveAnalysisNameHasAValidDrawing" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f2c78907-8ef4-416d-9441-cee56193131b">
+      <Execution id="6f2a7d40-af3a-41ab-9ba5-37f071da13c5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CategoriesUseBoundedPanelAndOnlyApplicableParameters(width: 600)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c48f82f7-47c4-94a3-7d8a-3e09930ec463">
+      <Execution id="24ff269b-2277-4553-9abe-ffc44d7c70e6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests" name="CategoriesUseBoundedPanelAndOnlyApplicableParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SemanticIconTests.EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes(themeName: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8e1f3f9b-aa25-af2b-0573-ca304940faf8">
+      <Execution id="ee56402c-2df2-4d3f-b384-f2866c52e2a1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SemanticIconTests" name="EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.CompactHeaderTracksSelectionAndNavigatesWithoutEditing(width: 600)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e3fbace2-eed8-c7c7-e031-87fd7e922129">
+      <Execution id="363d3378-0d6c-40bd-a87a-5f752308bb72" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests" name="CompactHeaderTracksSelectionAndNavigatesWithoutEditing" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="16abc51e-60eb-169b-9f93-8bd41899aa8d">
+      <Execution id="85797d23-d4fd-47ec-a8a4-d4660ff84102" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8daf048d-e7ae-57cc-b6fa-4fd2345661f0">
+      <Execution id="18d91c15-50a8-44ed-bee1-84708e015293" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="FrameResourcesSurviveThemePageAndSizeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 736, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="37e9d007-5caa-6237-c226-b009e144732c">
+      <Execution id="2327347b-52c1-4748-9d38-018b0423c506" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Dark&quot;, width: 736, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="64d56afc-bade-ff29-c658-6844029721c8">
+      <Execution id="d850d054-902d-4f59-9c42-3bcf697175a7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.ClickingTheImageIconSavesPngAndCancelPreservesTheFile" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="07278922-4233-96a3-4445-a3e8afefbe2a">
+      <Execution id="88c0a9b5-8bac-441c-809b-e9d46c291112" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="ClickingTheImageIconSavesPngAndCancelPreservesTheFile" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Isekai&quot;, fontSize: 13, language: &quot;zh-CN&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7853e0a6-0756-e6ee-7521-7cb22ff63dc3">
+      <Execution id="31f3d367-7bd5-45b9-a722-9c8f1e6aa288" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests" name="ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths(theme: &quot;Pixel&quot;, fontSize: 13, language: &quot;zh-CN&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="da0cad5f-c8d0-9e88-f40c-9223169b4efe">
+      <Execution id="20ec68f6-5d8c-4bff-aa6f-49fa34260e18" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests" name="ApprovedVectorsKeepMenusReachableAcrossThemesAndNarrowWidths" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.EntireScientificCatalogParsesThroughTheNativeRenderer" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a73b5093-01d6-3f7e-ce1e-3ea41812f261">
+      <Execution id="944bf227-6508-4e4d-86fd-4864d9dc51ac" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="EntireScientificCatalogParsesThroughTheNativeRenderer" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SemanticIconTests.EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes(themeName: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e8a5cda2-537e-cc03-c340-ff223e7ac5f0">
+      <Execution id="be4c4108-ca4b-4d0a-b5df-e2ee96f50e29" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SemanticIconTests" name="EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1e032d71-cf62-66d0-b0e6-42ccd13e437e">
+      <Execution id="5decdba1-74ee-4460-8be2-c4dc5c679aaa" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisImageExportTests" name="BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SemanticIconTests.EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes(themeName: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="98d8d854-1798-8a5f-f24e-bf8ce5bbf089">
+      <Execution id="a45642a8-c600-4b58-9bdd-00c151607904" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SemanticIconTests" name="EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.EveryCatalogEntryIsNativeVectorAndUnknownNamesUseTheScientificFallback" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5eaf8ec7-c23d-6a2a-7d4a-ac1ba4e3006e">
+      <Execution id="a90db8ee-7eff-4609-b005-e70b025f2904" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="EveryCatalogEntryIsNativeVectorAndUnknownNamesUseTheScientificFallback" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 640, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fbd96edd-b919-6540-4c7a-76d8197adce3">
+      <Execution id="13988851-d491-4e90-b8de-6ef5f2a95f7f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8556fab6-bffd-ff03-9db5-81282f8a1fd8" executionId="fe6e0327-707e-4752-baf2-c285aa8bc591" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6aaef2a8-434f-6b19-0f9f-2eb71977c86a" executionId="af249ee9-1ef6-4aca-8041-965e82ec3dac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7853e0a6-0756-e6ee-7521-7cb22ff63dc3" executionId="31f3d367-7bd5-45b9-a722-9c8f1e6aa288" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="064c04c4-8827-1b1c-51db-e801095196fe" executionId="ced7ac15-fd03-46f4-a302-a7ab663620a4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f26cf00c-77fc-d7eb-651a-f5f6b04dc3aa" executionId="c0e304df-4c29-47b1-8e12-a16f269e2364" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cb691211-bbd7-f08c-2b6c-bb53bb9dff32" executionId="c8e3351b-556b-4808-9da0-bb47f4efd553" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1e032d71-cf62-66d0-b0e6-42ccd13e437e" executionId="5decdba1-74ee-4460-8be2-c4dc5c679aaa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="82ce7543-2c19-681b-6bae-62365af044ee" executionId="615fa23c-5498-4b9b-85d8-f7bc93b6219f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5eaf8ec7-c23d-6a2a-7d4a-ac1ba4e3006e" executionId="a90db8ee-7eff-4609-b005-e70b025f2904" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="921df269-819f-6bac-e1ee-f1ec055d3248" executionId="43296526-42ab-416c-af70-519fa806bc40" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34ecab71-fde9-86d0-f88e-350675d1bc21" executionId="9e3fb1ac-1367-44f2-9719-f79ea5086c30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e8a5cda2-537e-cc03-c340-ff223e7ac5f0" executionId="be4c4108-ca4b-4d0a-b5df-e2ee96f50e29" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="48d05091-1ead-aa4a-13a3-8d505f2720d1" executionId="7a15a034-60f9-417f-a8d8-f10578aa6328" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c43eff1e-f53a-efa0-a9b0-24acf55cf3f5" executionId="1464a66f-c26e-43ba-a05a-dcb43b2a3f1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fbd96edd-b919-6540-4c7a-76d8197adce3" executionId="13988851-d491-4e90-b8de-6ef5f2a95f7f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="634392e2-2dbd-3612-7eb5-a130d0cf3fba" executionId="e5dd0bee-dc7d-476c-bcb1-66e232b81c65" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="37e9d007-5caa-6237-c226-b009e144732c" executionId="2327347b-52c1-4748-9d38-018b0423c506" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc795d34-45e0-0653-9c11-eccf49425d87" executionId="24e937c7-4e71-48dd-ab56-ef39d2f5f942" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1b8fe94f-1bfd-8bab-d0f4-befc095be317" executionId="e218c615-7be7-45d9-b2cc-1fcbddb29e66" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a73b5093-01d6-3f7e-ce1e-3ea41812f261" executionId="944bf227-6508-4e4d-86fd-4864d9dc51ac" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8e1f3f9b-aa25-af2b-0573-ca304940faf8" executionId="ee56402c-2df2-4d3f-b384-f2866c52e2a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8daf048d-e7ae-57cc-b6fa-4fd2345661f0" executionId="18d91c15-50a8-44ed-bee1-84708e015293" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="16abc51e-60eb-169b-9f93-8bd41899aa8d" executionId="85797d23-d4fd-47ec-a8a4-d4660ff84102" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="88cd9256-6190-c051-a661-b98c994be486" executionId="09527e60-1d85-43eb-aecc-2c2e81763ce4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a4abb198-dc6a-64a8-1d46-911575be42ef" executionId="c72006ad-a8a0-4dfc-9769-93da6d513632" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f2c78907-8ef4-416d-9441-cee56193131b" executionId="6f2a7d40-af3a-41ab-9ba5-37f071da13c5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3de51e77-4f0f-d2bc-b381-8c3357c92e3d" executionId="97cf2dab-a017-490a-bc27-97c4acaf598a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc6ae0d8-f601-3ad3-fa18-c474c8460666" executionId="10a29707-623c-4bab-b588-ecd140140156" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="021bf89c-493d-8afe-a3d4-2f475b0ce89e" executionId="a6ef8f0c-64e1-4a54-8f75-fbce44c95cf7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="690e9cd7-2b62-cca2-68be-f9e001a1a511" executionId="71ec5afe-9fe3-40a6-af63-22c34617c0e4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1d9516da-b3da-a137-4830-cc52ab91c460" executionId="7272b7af-b458-4566-950b-e2349328b4ab" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="de9f32a2-0d92-255d-4bf3-88eaed5a5dae" executionId="b14e3d5c-897a-4827-8108-50fd29820cd9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="109b674d-13f6-508c-cb21-76d92cfd8ddd" executionId="4d2d3837-b1da-4b1a-8036-ae4ccb7a2266" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4da4750c-6d50-90e9-7013-dce1ede898a0" executionId="c251aefe-2ba2-4a18-ac03-89e29e84cd7c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="da0cad5f-c8d0-9e88-f40c-9223169b4efe" executionId="20ec68f6-5d8c-4bff-aa6f-49fa34260e18" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="13a94853-047a-1a1a-07d1-0080c127cd16" executionId="19cbe13e-6f86-4e3d-ac2f-3cab9626cc85" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aeba1ec4-da9c-70c5-0a14-1fc3bc62126f" executionId="eed54828-f6f3-45ef-b74b-769a9d14fcf6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4e2c1489-29d6-9712-fa20-c4d75e13f6b1" executionId="695ebe46-b9ae-407c-bee0-964aec8c3206" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="21374b40-59a1-40b7-2daa-9bc054a363fb" executionId="8cbbbd40-12b6-4682-93e8-f1c9dc4c905a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b707c7d6-66a2-09d1-2211-1c52b86863da" executionId="d02232bf-9666-4f2a-b5f3-31c4c6a50888" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="64d56afc-bade-ff29-c658-6844029721c8" executionId="d850d054-902d-4f59-9c42-3bcf697175a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5a2afaca-6636-ad7e-47fa-8da82efcd755" executionId="5d5a9852-71b1-46ee-9782-0ecfb385890e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4038f43a-4576-e5cf-0647-b08b1bd483ef" executionId="259cc7ef-863b-4538-b2e0-7e1817d47223" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="98d8d854-1798-8a5f-f24e-bf8ce5bbf089" executionId="a45642a8-c600-4b58-9bdd-00c151607904" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="01d0d54c-4a4f-f9c6-4193-86339f31708b" executionId="2533f1aa-e67a-44a3-8549-971137df79ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="06d59997-cc25-bde9-cd6c-ef2fde295d08" executionId="058f0a4b-deca-4708-b5ee-a040de98c651" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4034aea1-44dd-dd37-5c4c-589358001c56" executionId="61f6f0a1-ccca-4200-947c-c79f2c392afa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="43b3ab29-50a7-bc49-bfa9-87f07867688f" executionId="3dd90341-ff0b-4610-9f88-9a40916c786c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c48f82f7-47c4-94a3-7d8a-3e09930ec463" executionId="24ff269b-2277-4553-9abe-ffc44d7c70e6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1082dcd2-04d6-f6b5-7a15-ecfb07634580" executionId="d5f99bbe-70a9-4c11-8222-9ca1dc78f881" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e3fbace2-eed8-c7c7-e031-87fd7e922129" executionId="363d3378-0d6c-40bd-a87a-5f752308bb72" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="07278922-4233-96a3-4445-a3e8afefbe2a" executionId="88c0a9b5-8bac-441c-809b-e9d46c291112" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d4495048-f4e0-defe-2866-595bd5c70f28" executionId="d4069ad2-4775-4adf-93ae-93b25fdeb5b7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e8caed1f-5783-b3f8-9454-ef0ff69d1dba" executionId="571a9524-8b3c-4353-a90e-dac2ff3c8bc3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="17be9356-4580-2034-c729-e30145712912" executionId="5da59eb9-9f57-4ed0-aef0-cd04cb541a11" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f32791d1-485d-020d-f331-ca18a79597e8" executionId="aacd3d78-f512-491e-affe-93b006042769" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e8aeae9-603a-4aed-e519-151c7a930097" executionId="3edb5ea2-ffc6-4b3e-a84c-2c28a28c842d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="99ce49d3-5c05-f02a-e4f4-a5cf168cd0ff" executionId="7de88e81-2174-47bd-a225-b8d587448737" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5a272c4e-82e0-98f5-6da7-d1cb9d439bce" executionId="beea21d5-fe31-4200-a439-64096fc48117" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f908ef86-9da3-4e17-83fb-4ff4a20db351" executionId="52b770de-2e2b-4f74-a532-acadd9e2c4b4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="60" executed="54" passed="48" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.55]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.03]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.10]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:22.51]       System.InvalidCastException : Unable to cast object of type 'Avalonia.Headless.HeadlessPlatformTypeface' to type 'Avalonia.Skia.SkiaTypeface'.&#xD;
+[xUnit.net 00:00:22.51]       Stack Trace:&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Skia.GlyphRunImpl..ctor(GlyphTypeface glyphTypeface, Double fontRenderingEmSize, IReadOnlyList`1 glyphInfos, Point baselineOrigin)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Media.TextFormatting.TextLineImpl.CreateLineMetrics()&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Media.TextFormatting.TextLineImpl.FinalizeLine()&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Media.TextFormatting.TextLayout.CreateTextLines()&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.TextBlock.CreateTextLayout(String text)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.TextBlock.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.StackPanel.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Panels\LensEditorPanel.SurfaceProperties.cs(102,0): at OpticalSystemDesign.App.Panels.LensEditorPanel.LensHeaderLayout.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.LayoutHelper.MeasureChild(Layoutable control, Size availableSize, Thickness padding, Thickness borderThickness)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.StackPanel.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.DockPanel.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.Presenters.ContentPresenter.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.Presenters.ContentPresenter.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.LayoutHelper.MeasureChild(Layoutable control, Size availableSize, Thickness padding)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.Decorator.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.Primitives.VisualLayerManager.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.Window.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.WindowBase.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.TopLevelHost.MeasureOverride(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.MeasureCore(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.Layoutable.Measure(Size availableSize)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.LayoutManager.Measure(Layoutable control)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Layout.LayoutManager.ExecuteInitialLayoutPass()&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.Window.ShowCore[TResult](Window owner, Boolean modal)&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Controls.Window.Show()&#xD;
+[xUnit.net 00:00:22.51]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SurfacePropertiesPanelTests.cs(47,0): at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.&lt;&gt;c.&lt;&lt;StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload&gt;b__2_0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:22.51]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.51]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:22.51]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.51]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SurfacePropertiesPanelTests.cs(39,0): at OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload()&#xD;
+[xUnit.net 00:00:22.51]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:05.25]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:01:05.25]       Expected: #fff0f5fc&#xD;
+[xUnit.net 00:01:05.25]       Actual:   Transparent&#xD;
+[xUnit.net 00:01:05.25]       Stack Trace:&#xD;
+[xUnit.net 00:01:05.25]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(161,0): at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass2_0.&lt;FrameResourcesSurviveThemePageAndSizeChanges&gt;b__0()&#xD;
+[xUnit.net 00:01:05.25]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:05.25]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:05.25]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:01:05.25]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:05.25]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(134,0): at OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(String initialTheme)&#xD;
+[xUnit.net 00:01:05.25]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:05.35]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:01:05.35]       Expected: #fff0f5fc&#xD;
+[xUnit.net 00:01:05.35]       Actual:   Transparent&#xD;
+[xUnit.net 00:01:05.35]       Stack Trace:&#xD;
+[xUnit.net 00:01:05.35]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(161,0): at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass2_0.&lt;FrameResourcesSurviveThemePageAndSizeChanges&gt;b__0()&#xD;
+[xUnit.net 00:01:05.35]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:05.35]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:05.35]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:01:05.35]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:05.35]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(134,0): at OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(String initialTheme)&#xD;
+[xUnit.net 00:01:05.35]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:05.47]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:01:05.47]       Expected: #fff0f5fc&#xD;
+[xUnit.net 00:01:05.47]       Actual:   Transparent&#xD;
+[xUnit.net 00:01:05.47]       Stack Trace:&#xD;
+[xUnit.net 00:01:05.47]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(161,0): at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass2_0.&lt;FrameResourcesSurviveThemePageAndSizeChanges&gt;b__0()&#xD;
+[xUnit.net 00:01:05.47]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:05.47]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:05.47]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:01:05.47]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:05.47]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(134,0): at OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(String initialTheme)&#xD;
+[xUnit.net 00:01:05.47]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:05.63]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:01:05.63]       Expected: #fff0f5fc&#xD;
+[xUnit.net 00:01:05.63]       Actual:   Transparent&#xD;
+[xUnit.net 00:01:05.63]       Stack Trace:&#xD;
+[xUnit.net 00:01:05.63]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(161,0): at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass2_0.&lt;FrameResourcesSurviveThemePageAndSizeChanges&gt;b__0()&#xD;
+[xUnit.net 00:01:05.63]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:05.63]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:05.63]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:01:05.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:05.63]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(134,0): at OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(String initialTheme)&#xD;
+[xUnit.net 00:01:05.63]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:09.18]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:01:09.18]                             ↓ (pos 784)&#xD;
+[xUnit.net 00:01:09.18]       Expected: [···, 0, 0, 35, 38, 41, ···]&#xD;
+[xUnit.net 00:01:09.18]       Actual:   [···, 0, 0, 40, 39, 33, ···]&#xD;
+[xUnit.net 00:01:09.18]                             ↑ (pos 784)&#xD;
+[xUnit.net 00:01:09.18]       Stack Trace:&#xD;
+[xUnit.net 00:01:09.18]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(137,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.&lt;&gt;c.&lt;RuntimeThemeSwitchRecolorsTheSameVectorWithoutChangingGeometry&gt;b__2_0()&#xD;
+[xUnit.net 00:01:09.18]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:09.18]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:09.18]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:01:09.18]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:09.18]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisToolbarArtworkTests.cs(122,0): at OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.RuntimeThemeSwitchRecolorsTheSameVectorWithoutChangingGeometry()&#xD;
+[xUnit.net 00:01:09.18]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:11.84]       Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.&#xD;
+[xUnit.net 00:01:11.85]       Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.&#xD;
+[xUnit.net 00:01:11.85]       Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.&#xD;
+[xUnit.net 00:01:11.85]       Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.&#xD;
+[xUnit.net 00:01:11.85]       Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.&#xD;
+[xUnit.net 00:01:11.85]       Set OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR and run AnalysisImageExportTests in a separate process for Skia pixel/PNG checks.&#xD;
+[xUnit.net 00:01:11.85]   Finished:    OpticalSystemDesign.Tests&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.AnalysisImageExportTests.ClickingTheImageIconSavesPngAndCancelPreservesTheFile”。&#xD;
+在测试运行中跳过测试“OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings”。&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T13:55:13.6571654+08:00">
+        <Text>[xUnit.net 00:00:22.51]     OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T13:55:56.3972858+08:00">
+        <Text>[xUnit.net 00:01:05.25]     OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: "Pixel") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T13:55:56.4910956+08:00">
+        <Text>[xUnit.net 00:01:05.35]     OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: "Light") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T13:55:56.6144003+08:00">
+        <Text>[xUnit.net 00:01:05.47]     OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: "Isekai") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T13:55:56.7750793+08:00">
+        <Text>[xUnit.net 00:01:05.63]     OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: "Dark") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T13:56:00.3219554+08:00">
+        <Text>[xUnit.net 00:01:09.18]     OpticalSystemDesign.Tests.AnalysisToolbarArtworkTests.RuntimeThemeSwitchRecolorsTheSameVectorWithoutChangingGeometry [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-03T13:56:02.9893810+08:00">
+        <Text>[xUnit.net 00:01:11.84]     OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-03T13:56:02.9905384+08:00">
+        <Text>[xUnit.net 00:01:11.85]     OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-03T13:56:02.9907139+08:00">
+        <Text>[xUnit.net 00:01:11.85]     OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-03T13:56:02.9909113+08:00">
+        <Text>[xUnit.net 00:01:11.85]     OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-03T13:56:02.9912667+08:00">
+        <Text>[xUnit.net 00:01:11.85]     OpticalSystemDesign.Tests.AnalysisImageExportTests.ClickingTheImageIconSavesPngAndCancelPreservesTheFile [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-03T13:56:02.9912960+08:00">
+        <Text>[xUnit.net 00:01:11.85]     OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings [SKIP]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

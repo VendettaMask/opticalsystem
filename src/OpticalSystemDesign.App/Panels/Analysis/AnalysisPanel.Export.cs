@@ -54,19 +54,23 @@ public sealed partial class AnalysisPanel
         page.UpdateLayout();
         var content = page.Child ?? throw new InvalidOperationException("分析图像尚未显示");
         if (content is UniformDiagramPage source) source.ValidateForExport();
-        var scale = renderScale ?? UniformDiagramPage.ExportScale;
+        var scale = renderScale;
         var size = content.Bounds.Size;
         if (!double.IsFinite(size.Width) || !double.IsFinite(size.Height) || size.Width <= 0 || size.Height <= 0)
             throw new InvalidOperationException("分析图像尚未显示");
 
         // Frame the complete page while retaining its camera, legend and footer.
         // Toolbar, settings and result tabs remain outside the image.
-        return ExportImageFrame.Capture(content, scale, this);
+        return scale is { } explicitScale ? ExportImageFrame.Capture(content, explicitScale, this)
+            : ExportImageFrame.CaptureConfigured(content, this);
     }
 
-    internal static void SavePlotImage(RenderTargetBitmap bitmap, string path) =>
+    internal static void SavePlotImage(RenderTargetBitmap bitmap, string path)
+    {
+        LosslessImageOutput.RequirePng(path);
         BoundedApplicationFile.WriteAtomic(path, BoundedApplicationFile.MaximumImageDataBytes,
-            "Analysis image export", stream => bitmap.Save(stream, PngBitmapEncoderOptions.Default));
+            "Analysis image export", stream => PngImageWriter.Write(bitmap, stream));
+    }
 
     private async Task ExportImageAsync()
     {

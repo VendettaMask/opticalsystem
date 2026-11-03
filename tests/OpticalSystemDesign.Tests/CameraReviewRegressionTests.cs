@@ -1,6 +1,8 @@
 using System.Globalization;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.LogicalTree;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Laboratories;
 using OpticalSystemDesign.App.Services;
@@ -112,6 +114,10 @@ public sealed class CameraReviewRegressionTests
             try
             {
                 window.Show(); window.UpdateLayout();
+                foreach (var group in window.GetLogicalDescendants().OfType<Expander>()) group.IsExpanded = true;
+                window.UpdateLayout(); Dispatcher.UIThread.RunJobs();
+                var fileMenu = Find<DropDownButton>(window, "camera-file-menu");
+                fileMenu.Flyout!.ShowAt(fileMenu); window.UpdateLayout(); Dispatcher.UIThread.RunJobs();
                 foreach (var language in new[] { UiLocalization.Chinese, UiLocalization.English, UiLocalization.Japanese, UiLocalization.Chinese })
                 {
                     UiLocalization.Apply(language); window.UpdateLayout();
@@ -134,7 +140,7 @@ public sealed class CameraReviewRegressionTests
         }, CancellationToken.None).WaitAsync(TimeSpan.FromMinutes(1));
     }
 
-    private static T Find<T>(Control root, string name) where T : Control => root.GetVisualDescendants().OfType<T>().Single(c => c.Name == name);
+    private static T Find<T>(Control root, string name) where T : Control => root.GetVisualDescendants().OfType<Control>().Concat(root.GetLogicalDescendants().OfType<Control>()).Concat(root is CameraImagingWindow camera ? camera.FileActionsContent.GetLogicalDescendants().OfType<Control>() : []).Distinct().OfType<T>().Single(c => c.Name == name);
     private static void SmallSize(CameraImagingWindow window)
-    { var size = Find<ComboBox>(window, "camera-size"); size.SelectedIndex = size.ItemCount - 1; }
+    { foreach (var group in window.GetLogicalDescendants().OfType<Expander>()) group.IsExpanded = true; window.UpdateLayout(); var size = Find<ComboBox>(window, "camera-size"); size.SelectedIndex = size.ItemCount - 1; }
 }

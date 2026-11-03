@@ -1,0 +1,61 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:07.83]     OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13) [FAIL]
+  失败 OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13) [5 s]
+  错误消息:
+   Sidebar backdrop at (9, 225) is #ffffffff; expected shared window gradient #ffe9f3fe.
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LightGradientThemeTests.<AssertSidebarBackdrop>g__Check|2_0(Control host, Point point, <>c__DisplayClass2_0&) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 145
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.AssertSidebarBackdrop(Window window, DockPanel root, SKBitmap pixels) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 132
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.<>c__DisplayClass1_0.<<RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 81
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(Double width, Double height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 54
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:11.42]     OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18) [FAIL]
+  失败 OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18) [3 s]
+  错误消息:
+   Sidebar backdrop at (9, 266) is #ffffffff; expected shared window gradient #ffddecfb.
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LightGradientThemeTests.<AssertSidebarBackdrop>g__Check|2_0(Control host, Point point, <>c__DisplayClass2_0&) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 145
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.AssertSidebarBackdrop(Window window, DockPanel root, SKBitmap pixels) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 132
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.<>c__DisplayClass1_0.<<RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 81
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(Double width, Double height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 54
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:14.55]     OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13) [FAIL]
+  失败 OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13) [3 s]
+  错误消息:
+   Sidebar backdrop at (9, 274) is #ffffffff; expected shared window gradient #ffcbe1f7.
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LightGradientThemeTests.<AssertSidebarBackdrop>g__Check|2_0(Control host, Point point, <>c__DisplayClass2_0&) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 145
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.AssertSidebarBackdrop(Window window, DockPanel root, SKBitmap pixels) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 132
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.<>c__DisplayClass1_0.<<RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 81
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(Double width, Double height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 54
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-03\light-sidebar-backdrop\before.trx
+
+失败!  - 失败:     3，通过:     0，已跳过:     0，总计:     3，持续时间: 12 s - OpticalSystemDesign.Tests.dll (net10.0)

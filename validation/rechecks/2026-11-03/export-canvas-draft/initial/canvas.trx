@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c9ce54d3-df1b-4339-ad56-d51aa4f398d3" name="optics@LAPTOP-G4BBBCS0 2026-11-03 14:43:35" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T14:43:35.3006049+08:00" queuing="2026-11-03T14:43:35.3006053+08:00" start="2026-11-03T14:43:28.5075889+08:00" finish="2026-11-03T14:43:51.5795245+08:00" />
+  <TestSettings name="default" id="34dc2582-883a-43c6-84dd-4cd4ff9ca7cb">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_14_43_35" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="41c51597-7ba7-4296-b279-06018606023c" testId="a5307b35-75ec-aba8-a928-c7f2bd92d4b8" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 2160, width: 3840, dpi: 600)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.6167898" startTime="2026-11-03T14:43:47.9115345+08:00" endTime="2026-11-03T14:43:49.5282510+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="41c51597-7ba7-4296-b279-06018606023c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [126, 91, 55, 255]&#xD;
+Actual:   [155, 128, 100, 255]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 26&#xD;
+   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 130&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(Int32 height, Int32 width, Int32 dpi) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 108&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4f0bda22-9ca6-40ec-ba53-e2d61d11c20f" testId="d432085f-2a3f-a9bb-618e-684b6ce00dfc" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;二维热力图&quot;, map: Rainbow)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3577828" startTime="2026-11-03T14:43:37.5571311+08:00" endTime="2026-11-03T14:43:38.9125849+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4f0bda22-9ca6-40ec-ba53-e2d61d11c20f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 1352, 1065&#xD;
+Actual:   1440, 1080</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 248&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 219&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d422f2b9-e534-47fd-8253-ed747de9631f" testId="022ac5e6-5503-7989-a277-ff83cf77f9fa" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;表面&quot;, map: Viridis)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.2895897" startTime="2026-11-03T14:43:35.2858032+08:00" endTime="2026-11-03T14:43:37.5541134+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d422f2b9-e534-47fd-8253-ed747de9631f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 1146, 1065&#xD;
+Actual:   1440, 1080</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 248&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 219&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="90ffd87c-a3d9-47f0-8b75-da6b46d42e95" testId="11eba376-79b1-2575-5e1d-52eab8daccc8" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;二维热力图&quot;, map: Viridis)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.0367081" startTime="2026-11-03T14:43:31.2329032+08:00" endTime="2026-11-03T14:43:35.2633191+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="90ffd87c-a3d9-47f0-8b75-da6b46d42e95">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 1352, 1065&#xD;
+Actual:   1440, 1080</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 248&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 219&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="036a25e5-b175-4a2d-b019-0e8dd91b49b5" testId="5a17b05a-1f31-0727-94ce-204a1a81d9c9" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.FixedCanvasPadsCenteredOrFillsOnlyWhenTheUserUnlocksIt" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0508524" startTime="2026-11-03T14:43:46.2713062+08:00" endTime="2026-11-03T14:43:46.3228553+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="036a25e5-b175-4a2d-b019-0e8dd91b49b5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [126, 91, 55, 255]&#xD;
+Actual:   [110, 77, 158, 255]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 26&#xD;
+   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c.&lt;FixedCanvasPadsCenteredOrFillsOnlyWhenTheUserUnlocksIt&gt;b__6_0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 207&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.FixedCanvasPadsCenteredOrFillsOnlyWhenTheUserUnlocksIt() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 196&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f47bec9d-a233-42ef-852b-e5c6624b95fb" testId="25d71579-3db9-620d-eb24-654c7e163e99" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;ja-JP&quot;, theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.6531362" startTime="2026-11-03T14:43:43.6033676+08:00" endTime="2026-11-03T14:43:46.2563515+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f47bec9d-a233-42ef-852b-e5c6624b95fb" />
+    <UnitTestResult executionId="eb63a651-f8ca-4b12-a444-d8df24820852" testId="1e8c0e50-b27a-ab33-7da7-cf730fd2740c" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;二维热力图&quot;, map: RedBlue)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4515676" startTime="2026-11-03T14:43:38.9136512+08:00" endTime="2026-11-03T14:43:40.3647215+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eb63a651-f8ca-4b12-a444-d8df24820852">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 1352, 1065&#xD;
+Actual:   1440, 1080</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 248&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 219&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cc3a1b9c-10a4-44cf-b832-f225c3ac1070" testId="77a5af8e-b41a-15db-8ab2-9f42701122c4" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PrintDpiChangesOnlyMetadataAndJpegPathsCannotOverwriteFiles" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4013705" startTime="2026-11-03T14:43:51.0295283+08:00" endTime="2026-11-03T14:43:51.4304869+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc3a1b9c-10a4-44cf-b832-f225c3ac1070" />
+    <UnitTestResult executionId="3d59debe-a52e-4d4a-abec-5d88a1a5b72b" testId="d779e0cb-ad03-6f18-0de5-23f3ea438ee9" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1080, width: 1920, dpi: 96)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4998393" startTime="2026-11-03T14:43:49.5294087+08:00" endTime="2026-11-03T14:43:51.0286650+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d59debe-a52e-4d4a-abec-5d88a1a5b72b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [126, 91, 55, 255]&#xD;
+Actual:   [202, 187, 170, 255]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 26&#xD;
+   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 130&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(Int32 height, Int32 width, Int32 dpi) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 108&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4fccda5c-5d35-4eea-b2d5-33ed8561bb8f" testId="add2b76c-feb1-d5db-50ae-cd9425cce3d2" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1440, width: 2560, dpi: 300)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5872453" startTime="2026-11-03T14:43:46.3241912+08:00" endTime="2026-11-03T14:43:47.9108357+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4fccda5c-5d35-4eea-b2d5-33ed8561bb8f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [126, 91, 55, 255]&#xD;
+Actual:   [149, 120, 90, 255]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 26&#xD;
+   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 130&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(Int32 height, Int32 width, Int32 dpi) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 108&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5f49ed5b-c63c-4b50-8b91-18a7fa965d99" testId="b10b692e-b425-d3a2-3357-162c402b65d2" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.OldSettingsDefaultTo1080AndIndependent150DpiAndRoundTrip" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0143691" startTime="2026-11-03T14:43:46.2568326+08:00" endTime="2026-11-03T14:43:46.2710878+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5f49ed5b-c63c-4b50-8b91-18a7fa965d99" />
+    <UnitTestResult executionId="72fe98ec-7a90-4956-b9e3-85536779f5a3" testId="7a44cec7-69ab-d717-eee3-f7133baae015" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;zh-CN&quot;, theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.8075593" startTime="2026-11-03T14:43:41.7962924+08:00" endTime="2026-11-03T14:43:43.6029023+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="72fe98ec-7a90-4956-b9e3-85536779f5a3" />
+    <UnitTestResult executionId="f8621128-b426-41cc-a753-c756f0c8ae29" testId="d66a2d99-d7f9-56d3-0468-e8a9bece3f16" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;en-US&quot;, theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4262181" startTime="2026-11-03T14:43:40.3684079+08:00" endTime="2026-11-03T14:43:41.7953121+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8621128-b426-41cc-a753-c756f0c8ae29" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;ja-JP&quot;, theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="25d71579-3db9-620d-eb24-654c7e163e99">
+      <Execution id="f47bec9d-a233-42ef-852b-e5c6624b95fb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="SettingsKeepPresetsAndDpiIndependentAndSaveAtomically" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PrintDpiChangesOnlyMetadataAndJpegPathsCannotOverwriteFiles" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="77a5af8e-b41a-15db-8ab2-9f42701122c4">
+      <Execution id="cc3a1b9c-10a4-44cf-b832-f225c3ac1070" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="PrintDpiChangesOnlyMetadataAndJpegPathsCannotOverwriteFiles" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 2160, width: 3840, dpi: 600)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a5307b35-75ec-aba8-a928-c7f2bd92d4b8">
+      <Execution id="41c51597-7ba7-4296-b279-06018606023c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;en-US&quot;, theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d66a2d99-d7f9-56d3-0468-e8a9bece3f16">
+      <Execution id="f8621128-b426-41cc-a753-c756f0c8ae29" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="SettingsKeepPresetsAndDpiIndependentAndSaveAtomically" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1440, width: 2560, dpi: 300)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="add2b76c-feb1-d5db-50ae-cd9425cce3d2">
+      <Execution id="4fccda5c-5d35-4eea-b2d5-33ed8561bb8f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.OldSettingsDefaultTo1080AndIndependent150DpiAndRoundTrip" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b10b692e-b425-d3a2-3357-162c402b65d2">
+      <Execution id="5f49ed5b-c63c-4b50-8b91-18a7fa965d99" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="OldSettingsDefaultTo1080AndIndependent150DpiAndRoundTrip" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;zh-CN&quot;, theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7a44cec7-69ab-d717-eee3-f7133baae015">
+      <Execution id="72fe98ec-7a90-4956-b9e3-85536779f5a3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="SettingsKeepPresetsAndDpiIndependentAndSaveAtomically" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;二维热力图&quot;, map: Viridis)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="11eba376-79b1-2575-5e1d-52eab8daccc8">
+      <Execution id="90ffd87c-a3d9-47f0-8b75-da6b46d42e95" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="RealWavefrontLivePngAndReportShareOnePaletteAndSource" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1080, width: 1920, dpi: 96)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d779e0cb-ad03-6f18-0de5-23f3ea438ee9">
+      <Execution id="3d59debe-a52e-4d4a-abec-5d88a1a5b72b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;二维热力图&quot;, map: RedBlue)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1e8c0e50-b27a-ab33-7da7-cf730fd2740c">
+      <Execution id="eb63a651-f8ca-4b12-a444-d8df24820852" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="RealWavefrontLivePngAndReportShareOnePaletteAndSource" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;表面&quot;, map: Viridis)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="022ac5e6-5503-7989-a277-ff83cf77f9fa">
+      <Execution id="d422f2b9-e534-47fd-8253-ed747de9631f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="RealWavefrontLivePngAndReportShareOnePaletteAndSource" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;二维热力图&quot;, map: Rainbow)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d432085f-2a3f-a9bb-618e-684b6ce00dfc">
+      <Execution id="4f0bda22-9ca6-40ec-ba53-e2d61d11c20f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="RealWavefrontLivePngAndReportShareOnePaletteAndSource" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.FixedCanvasPadsCenteredOrFillsOnlyWhenTheUserUnlocksIt" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5a17b05a-1f31-0727-94ce-204a1a81d9c9">
+      <Execution id="036a25e5-b175-4a2d-b019-0e8dd91b49b5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="FixedCanvasPadsCenteredOrFillsOnlyWhenTheUserUnlocksIt" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a5307b35-75ec-aba8-a928-c7f2bd92d4b8" executionId="41c51597-7ba7-4296-b279-06018606023c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d432085f-2a3f-a9bb-618e-684b6ce00dfc" executionId="4f0bda22-9ca6-40ec-ba53-e2d61d11c20f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="022ac5e6-5503-7989-a277-ff83cf77f9fa" executionId="d422f2b9-e534-47fd-8253-ed747de9631f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="11eba376-79b1-2575-5e1d-52eab8daccc8" executionId="90ffd87c-a3d9-47f0-8b75-da6b46d42e95" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5a17b05a-1f31-0727-94ce-204a1a81d9c9" executionId="036a25e5-b175-4a2d-b019-0e8dd91b49b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25d71579-3db9-620d-eb24-654c7e163e99" executionId="f47bec9d-a233-42ef-852b-e5c6624b95fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1e8c0e50-b27a-ab33-7da7-cf730fd2740c" executionId="eb63a651-f8ca-4b12-a444-d8df24820852" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="77a5af8e-b41a-15db-8ab2-9f42701122c4" executionId="cc3a1b9c-10a4-44cf-b832-f225c3ac1070" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d779e0cb-ad03-6f18-0de5-23f3ea438ee9" executionId="3d59debe-a52e-4d4a-abec-5d88a1a5b72b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="add2b76c-feb1-d5db-50ae-cd9425cce3d2" executionId="4fccda5c-5d35-4eea-b2d5-33ed8561bb8f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b10b692e-b425-d3a2-3357-162c402b65d2" executionId="5f49ed5b-c63c-4b50-8b91-18a7fa965d99" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7a44cec7-69ab-d717-eee3-f7133baae015" executionId="72fe98ec-7a90-4956-b9e3-85536779f5a3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d66a2d99-d7f9-56d3-0468-e8a9bece3f16" executionId="f8621128-b426-41cc-a753-c756f0c8ae29" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="13" executed="13" passed="5" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.63]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.16]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.19]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:06.28]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:06.28]       Expected: 1352, 1065&#xD;
+[xUnit.net 00:00:06.28]       Actual:   1440, 1080&#xD;
+[xUnit.net 00:00:06.28]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.28]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(248,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.28]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.28]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.28]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.28]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:06.28]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.28]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(219,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map)&#xD;
+[xUnit.net 00:00:06.28]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.56]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:08.56]       Expected: 1146, 1065&#xD;
+[xUnit.net 00:00:08.56]       Actual:   1440, 1080&#xD;
+[xUnit.net 00:00:08.56]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.56]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(248,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:08.56]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.56]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:08.56]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.56]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.56]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.56]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(219,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map)&#xD;
+[xUnit.net 00:00:08.56]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.92]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:09.92]       Expected: 1352, 1065&#xD;
+[xUnit.net 00:00:09.92]       Actual:   1440, 1080&#xD;
+[xUnit.net 00:00:09.92]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.92]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(248,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:09.92]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.92]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:09.92]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.92]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:09.92]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.92]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(219,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map)&#xD;
+[xUnit.net 00:00:09.92]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.37]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:11.37]       Expected: 1352, 1065&#xD;
+[xUnit.net 00:00:11.37]       Actual:   1440, 1080&#xD;
+[xUnit.net 00:00:11.37]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.37]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(248,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:11.37]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.37]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:11.37]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.37]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:11.37]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.37]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(219,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map)&#xD;
+[xUnit.net 00:00:11.37]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:17.33]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:17.33]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:17.33]       Expected: [126, 91, 55, 255]&#xD;
+[xUnit.net 00:00:17.33]       Actual:   [110, 77, 158, 255]&#xD;
+[xUnit.net 00:00:17.33]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:17.33]       Stack Trace:&#xD;
+[xUnit.net 00:00:17.33]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(26,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:17.33]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(207,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c.&lt;FixedCanvasPadsCenteredOrFillsOnlyWhenTheUserUnlocksIt&gt;b__6_0()&#xD;
+[xUnit.net 00:00:17.33]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:17.33]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:17.33]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:17.33]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:17.33]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(196,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.FixedCanvasPadsCenteredOrFillsOnlyWhenTheUserUnlocksIt()&#xD;
+[xUnit.net 00:00:17.33]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:18.92]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:18.92]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:18.92]       Expected: [126, 91, 55, 255]&#xD;
+[xUnit.net 00:00:18.92]       Actual:   [149, 120, 90, 255]&#xD;
+[xUnit.net 00:00:18.92]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:18.92]       Stack Trace:&#xD;
+[xUnit.net 00:00:18.92]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(26,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:18.92]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(130,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:18.92]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:18.92]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:18.92]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:18.92]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:18.92]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:18.92]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(108,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(Int32 height, Int32 width, Int32 dpi)&#xD;
+[xUnit.net 00:00:18.92]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:20.54]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:20.54]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:20.54]       Expected: [126, 91, 55, 255]&#xD;
+[xUnit.net 00:00:20.54]       Actual:   [155, 128, 100, 255]&#xD;
+[xUnit.net 00:00:20.54]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:20.54]       Stack Trace:&#xD;
+[xUnit.net 00:00:20.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(26,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:20.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(130,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:20.54]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:20.54]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:20.54]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:20.54]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:20.54]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:20.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(108,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(Int32 height, Int32 width, Int32 dpi)&#xD;
+[xUnit.net 00:00:20.54]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.04]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:22.04]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:22.04]       Expected: [126, 91, 55, 255]&#xD;
+[xUnit.net 00:00:22.04]       Actual:   [202, 187, 170, 255]&#xD;
+[xUnit.net 00:00:22.04]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:22.04]       Stack Trace:&#xD;
+[xUnit.net 00:00:22.04]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(26,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:22.04]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(130,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass4_0.&lt;&lt;PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:22.04]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.04]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:22.04]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.04]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:22.04]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.04]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(108,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(Int32 height, Int32 width, Int32 dpi)&#xD;
+[xUnit.net 00:00:22.04]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.44]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T14:43:35.2662779+08:00">
+        <Text>[xUnit.net 00:00:06.27]     OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "二维热力图", map: Viridis) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T14:43:37.5546128+08:00">
+        <Text>[xUnit.net 00:00:08.56]     OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "表面", map: Viridis) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T14:43:38.9132970+08:00">
+        <Text>[xUnit.net 00:00:09.92]     OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "二维热力图", map: Rainbow) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T14:43:40.3651032+08:00">
+        <Text>[xUnit.net 00:00:11.37]     OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "二维热力图", map: RedBlue) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T14:43:46.3231037+08:00">
+        <Text>[xUnit.net 00:00:17.33]     OpticalSystemDesign.Tests.AnalysisFrameDpiTests.FixedCanvasPadsCenteredOrFillsOnlyWhenTheUserUnlocksIt [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T14:43:47.9111271+08:00">
+        <Text>[xUnit.net 00:00:18.92]     OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1440, width: 2560, dpi: 300) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T14:43:49.5285997+08:00">
+        <Text>[xUnit.net 00:00:20.54]     OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 2160, width: 3840, dpi: 600) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T14:43:51.0289763+08:00">
+        <Text>[xUnit.net 00:00:22.04]     OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1080, width: 1920, dpi: 96) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

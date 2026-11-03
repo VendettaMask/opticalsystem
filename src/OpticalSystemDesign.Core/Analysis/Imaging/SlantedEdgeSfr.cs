@@ -6,6 +6,7 @@ namespace OpticalSystemDesign.Core.Analysis.Imaging;
 public sealed record SfrRegion(int X, int Y, int Width, int Height);
 public sealed record SfrSample(double CyclesPerPixel, double CyclesPerMillimeter, double Response);
 public sealed record EdgeProfileSample(double DistancePixels, double Value);
+public sealed record SlantedEdgeFit(double EdgeSlope, double EdgeIntercept, double EdgeFitRmsPixels, double Contrast, int Scanlines);
 public sealed record SlantedEdgeMeasurement(IReadOnlyList<SfrSample> Curve,
     IReadOnlyList<EdgeProfileSample> Esf, IReadOnlyList<EdgeProfileSample> Lsf,
     double EdgeSlope, double EdgeIntercept, double EdgeFitRmsPixels, double Contrast,
@@ -17,7 +18,7 @@ public static class SlantedEdgeSfr
     public const string Algorithm = "LinearEdgeSfr/1; centroid-linear-fit; 8x bins; Tukey-0.6; central-difference/bin corrections";
 
     public static SlantedEdgeMeasurement Measure(IReadOnlyList<double> pixels, int width, int height,
-        SfrRegion roi, double pixelPitchMicrometers, int halfWindowPixels = 24)
+        SfrRegion roi, double pixelPitchMicrometers, int halfWindowPixels = 24, Action<SlantedEdgeFit>? fitted = null)
     {
         ArgumentNullException.ThrowIfNull(pixels); ArgumentNullException.ThrowIfNull(roi);
         if (width is < 32 or > 256 || height is < 32 or > 256 || pixels.Count != width * height
@@ -52,6 +53,7 @@ public static class SlantedEdgeSfr
         var intercept = mean - slope * middleY;
         var fitRms = Math.Sqrt(Enumerable.Range(0, roi.Height).Average(y => Math.Pow(centers[y] - intercept - slope * y, 2)));
         var scale = Math.Sqrt(1 + slope * slope);
+        fitted?.Invoke(new(slope, intercept + roi.X - slope * roi.Y, fitRms, Math.Abs(delta), roi.Height));
         if (Math.Abs(slope) is < .02 or > .25 || fitRms > .25)
             throw new InvalidOperationException("Use a single near-vertical edge, about 2–10 degrees from vertical; fit residual must be <= 0.25 pixel.");
         if (Enumerable.Range(0, roi.Height).Any(y => Math.Min(intercept + slope * y, roi.Width - 1 - intercept - slope * y) / scale < halfWindowPixels + 1))

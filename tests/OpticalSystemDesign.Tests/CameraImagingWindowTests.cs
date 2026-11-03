@@ -4,6 +4,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -36,7 +37,7 @@ public sealed class CameraImagingWindowTests
             try
             {
                 await app.CameraImaging.SaveExperimentAsync(new(CameraExperiment.FormatIdentifier, 1, b, a), path);
-                window.Show(); Assert.True(await window.OpenExperimentFromPathAsync(path));
+                window.Show(); ExpandParameters(window); Assert.True(await window.OpenExperimentFromPathAsync(path));
                 Assert.Equal(b.RawDn, window.Result!.RawDn); Assert.Equal(a.RawDn, window.Comparison!.RawDn);
                 app.Documents.NewBlank(); Assert.NotNull(window.Result); // Explicit saved-input mode survives unrelated project changes.
                 var controls = window.GetVisualDescendants().OfType<Control>().ToArray();
@@ -56,7 +57,7 @@ public sealed class CameraImagingWindowTests
                 await window.RunAsync(); Assert.NotNull(window.Result!.Request.SensorIdentity?.Calibration);
                 Capture(window, theme + "-experiment-calibration");
                 window.Width = 760; window.Height = 540; Capture(window, theme + "-experiment-narrow");
-                Assert.True(controls.OfType<Button>().Single(c => c.Name == "camera-save-experiment").IsEnabled);
+                Assert.True(window.FileActionsContent.GetLogicalDescendants().OfType<Button>().Single(c => c.Name == "camera-save-experiment").IsEnabled);
                 return true;
             }
             finally { window.Close(); File.Delete(path); File.Delete(calibrationPath); }
@@ -84,7 +85,7 @@ public sealed class CameraImagingWindowTests
             var window = new CameraImagingWindow(app);
             try
             {
-                window.Show(); await window.RunAsync();
+                window.Show(); ExpandParameters(window); await window.RunAsync();
                 var a = Assert.IsType<CameraImagingResult>(window.Result);
                 Assert.Equal(CameraOptics.Ideal, a.Request.Optics);
                 var controls = window.GetVisualDescendants().OfType<Control>().ToArray();
@@ -98,6 +99,9 @@ public sealed class CameraImagingWindowTests
                 Assert.Equal(a.MeanPhotoElectrons * 2, window.Result!.MeanPhotoElectrons, 8);
                 Capture(window, theme + "-stages");
                 var tabs = controls.OfType<TabControl>().Single(); tabs.SelectedIndex = 1;
+                window.UpdateLayout();
+                window.GetVisualDescendants().OfType<Expander>().Single(e => e.Header?.ToString() == UiLocalization.Text("对照信息")).IsExpanded = true;
+                window.UpdateLayout();
                 Capture(window, theme + "-AB");
                 Assert.Contains("平均绝对差", window.GetVisualDescendants().OfType<TextBlock>().Single(x => x.Text?.Contains("A：") == true).Text);
                 window.Width = 760; window.Height = 540; Capture(window, theme + "-narrow");
@@ -121,7 +125,7 @@ public sealed class CameraImagingWindowTests
         await session.Dispatch<bool>(async () =>
         {
             using var app = WorkbenchApplication.Create();
-            var window = new CameraImagingWindow(app); window.Show();
+            var window = new CameraImagingWindow(app); window.Show(); ExpandParameters(window);
             var pending = window.RunAsync(); window.Close(); await pending;
             Assert.Null(window.Result);
             return true;
@@ -171,7 +175,7 @@ public sealed class CameraImagingWindowTests
             var before = app.Documents.GetSnapshot(); var window = new CameraImagingWindow(app);
             try
             {
-                window.Show(); await window.RunAsync();
+                window.Show(); ExpandParameters(window); await window.RunAsync();
                 Assert.NotNull(window.Result); Assert.NotEqual("Ideal optical control", window.Result.OpticalModel);
                 Assert.Equal(before, app.Documents.GetSnapshot()); Capture(window, "Light-current-lens-stages");
                 var controls = window.GetVisualDescendants().OfType<Control>().ToArray();
@@ -197,7 +201,7 @@ public sealed class CameraImagingWindowTests
             var window = new CameraImagingWindow(app);
             try
             {
-                window.Show(); await window.RunAsync(); window.PinComparison();
+                window.Show(); ExpandParameters(window); await window.RunAsync(); window.PinComparison();
                 var a = Assert.IsType<CameraImagingResult>(window.Comparison);
                 var profile = new CameraSensorProfile(CameraSensorProfile.FormatIdentifier, 1, "Synthetic imported sensor", "Numerical control, not measured",
                     new(ExposureMilliseconds: 20, NoiseEnabled: false, DarkElectronsPerSecond: 0, RedQe: 0, GreenQe: 0, BlueQe: 0,
@@ -259,7 +263,7 @@ public sealed class CameraImagingWindowTests
             var window = new CameraImagingWindow(app);
             try
             {
-                window.Show(); await window.RunAsync(); window.PinComparison();
+                window.Show(); ExpandParameters(window); await window.RunAsync(); window.PinComparison();
                 var a = Assert.IsType<CameraImagingResult>(window.Comparison); var originalRaw = a.RawDn.ToArray();
                 var controls = window.GetVisualDescendants().OfType<Control>().ToArray();
                 var mode = controls.OfType<ComboBox>().Single(c => c.Name == "camera-spectral-model");
@@ -319,7 +323,7 @@ public sealed class CameraImagingWindowTests
             var window = new CameraImagingWindow(app);
             try
             {
-                window.Show(); await window.RunAsync(); window.PinComparison(); var legacy = window.Comparison;
+                window.Show(); ExpandParameters(window); await window.RunAsync(); window.PinComparison(); var legacy = window.Comparison;
                 Assert.True(await window.ImportResponseFromPathAsync(Path.Combine(CameraSensorFileTests.Examples, "example-qe.csv")));
                 Assert.True(await window.ImportSceneSpectrumFromPathAsync(Path.Combine(CameraSensorFileTests.Examples, "illuminant-flat.csv"), true));
                 Assert.True(await window.ImportMaterialSceneFromPathAsync(CameraMaterialServiceTests.Example));
@@ -366,6 +370,12 @@ public sealed class CameraImagingWindowTests
         }, CancellationToken.None);
     }
 
+    private static void ExpandParameters(CameraImagingWindow window)
+    {
+        var settings = window.GetLogicalDescendants().OfType<ScrollViewer>().Single(c => c.Name == "CameraSettings");
+        foreach (var group in settings.GetLogicalDescendants().OfType<Expander>()) group.IsExpanded = true;
+        window.UpdateLayout();
+    }
     private static void Capture(Window window, string name)
     {
         Dispatcher.UIThread.RunJobs(); window.UpdateLayout(); AvaloniaHeadlessPlatform.ForceRenderTimerTick();

@@ -32,6 +32,7 @@ public sealed class DocumentCloseButtonTests
     [InlineData("Dark")]
     [InlineData("Pixel")]
     [InlineData("Isekai")]
+    [InlineData("Lumen")]
     public async Task ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(DocumentCloseButtonTests));
@@ -42,6 +43,7 @@ public sealed class DocumentCloseButtonTests
             using var panels = new PanelManager(application, new AppSettings(),
                 new WorkspaceSessionStore(System.IO.Path.Combine(System.IO.Path.GetTempPath(), "caption-repair", Guid.NewGuid().ToString("N"))));
             var window = new Window { Width = 800, Height = 500, Content = panels.WorkspaceControl };
+            if (theme == "Light") window.Background = BlueThemeTokens.WorkbenchGradient;
             try
             {
                 window.Show();
@@ -54,15 +56,24 @@ public sealed class DocumentCloseButtonTests
                 foreach (var presenter in new[] { normal, compact })
                 {
                     var button = Assert.Single(presenter.GetVisualDescendants().OfType<Button>());
+                    // The alternate compact presenter is normally hidden; instantiate
+                    // its native button template before checking its painted surface.
+                    button.ApplyTemplate();
+                    Tick(window);
                     Assert.True(button.IsEnabled);
                     var path = Assert.IsType<Avalonia.Controls.Shapes.Path>(button.Content);
                     var originalData = path.Data;
                     var originalStroke = path.Stroke;
                     AssertColor("#FF5F57", button.Foreground);
                     AssertColor("#FF5F57", path.Fill);
+                    AssertTransparent(button.Background);
+                    var background = Assert.Single(button.GetVisualDescendants().OfType<ContentPresenter>(),
+                        item => item.Name == "PART_ContentPresenter");
+                    AssertTransparent(background.Background);
                     ((IPseudoClasses)button.Classes).Set(":pointerover", true);
                     Tick(window);
                     AssertColor("#E5484D", path.Fill);
+                    Assert.NotEqual(Colors.Transparent, Assert.IsAssignableFrom<ISolidColorBrush>(background.Background).Color);
                     ((IPseudoClasses)button.Classes).Set(":pressed", true);
                     Tick(window);
                     AssertColor("#C9353A", path.Fill);
@@ -70,6 +81,7 @@ public sealed class DocumentCloseButtonTests
                     ((IPseudoClasses)button.Classes).Set(":pointerover", false);
                     Tick(window);
                     AssertColor("#FF5F57", path.Fill);
+                    AssertTransparent(background.Background);
                     Assert.Same(originalData, path.Data);
                     Assert.Equal(originalStroke, path.Stroke);
                     button.IsEnabled = false;
@@ -112,4 +124,7 @@ public sealed class DocumentCloseButtonTests
 
     private static void AssertColor(string expected, IBrush? brush) =>
         Assert.Equal(Color.Parse(expected), Assert.IsAssignableFrom<ISolidColorBrush>(brush).Color);
+
+    private static void AssertTransparent(IBrush? brush) =>
+        Assert.True(brush is null || brush is ISolidColorBrush { Color.A: 0 }, $"Close button covers the tab with {brush}.");
 }

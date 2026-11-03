@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="2631a0e9-ac86-4297-96d3-d74c38130730" name="optics@LAPTOP-G4BBBCS0 2026-11-03 12:37:28" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T12:37:28.6716491+08:00" queuing="2026-11-03T12:37:28.6716493+08:00" start="2026-11-03T12:37:20.3275389+08:00" finish="2026-11-03T12:37:35.4961578+08:00" />
+  <TestSettings name="default" id="f95547a6-6b2e-4cee-8a52-0969c195f9c3">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_12_37_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="266891f1-e5d0-4567-8ba8-700572e2d7b0" testId="ad4c3a58-7387-3909-8b55-d7efd4f0b45a" testName="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.1833168" startTime="2026-11-03T12:37:32.2290106+08:00" endTime="2026-11-03T12:37:35.3593456+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="266891f1-e5d0-4567-8ba8-700572e2d7b0">
+      <Output>
+        <ErrorInfo>
+          <Message>Sidebar backdrop at (9, 274) is #ffffffff; expected shared window gradient #ffcbe1f7.</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;AssertSidebarBackdrop&gt;g__Check|2_0(Control host, Point point, &lt;&gt;c__DisplayClass2_0&amp;) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 145&#xD;
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.AssertSidebarBackdrop(Window window, DockPanel root, SKBitmap pixels) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 132&#xD;
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 81&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(Double width, Double height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 54&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2dd38a9c-fbbb-43e1-b450-976c4e23dae7" testId="12dc5b93-5e08-5c3d-a45a-81e9c3a38ee0" testName="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.5655979" startTime="2026-11-03T12:37:23.0786685+08:00" endTime="2026-11-03T12:37:28.6360287+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2dd38a9c-fbbb-43e1-b450-976c4e23dae7">
+      <Output>
+        <ErrorInfo>
+          <Message>Sidebar backdrop at (9, 225) is #ffffffff; expected shared window gradient #ffe9f3fe.</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;AssertSidebarBackdrop&gt;g__Check|2_0(Control host, Point point, &lt;&gt;c__DisplayClass2_0&amp;) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 145&#xD;
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.AssertSidebarBackdrop(Window window, DockPanel root, SKBitmap pixels) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 132&#xD;
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 81&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(Double width, Double height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 54&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1805d1bd-8daf-430c-a41a-9f9c2faf3e15" testId="2ddc5b20-59af-6e40-fb19-750600c71e6c" testName="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.5379658" startTime="2026-11-03T12:37:28.6572509+08:00" endTime="2026-11-03T12:37:32.2236164+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1805d1bd-8daf-430c-a41a-9f9c2faf3e15">
+      <Output>
+        <ErrorInfo>
+          <Message>Sidebar backdrop at (9, 266) is #ffffffff; expected shared window gradient #ffddecfb.</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;AssertSidebarBackdrop&gt;g__Check|2_0(Control host, Point point, &lt;&gt;c__DisplayClass2_0&amp;) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 145&#xD;
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.AssertSidebarBackdrop(Window window, DockPanel root, SKBitmap pixels) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 132&#xD;
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 81&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(Double width, Double height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs:line 54&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2ddc5b20-59af-6e40-fb19-750600c71e6c">
+      <Execution id="1805d1bd-8daf-430c-a41a-9f9c2faf3e15" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LightGradientThemeTests" name="RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="12dc5b93-5e08-5c3d-a45a-81e9c3a38ee0">
+      <Execution id="2dd38a9c-fbbb-43e1-b450-976c4e23dae7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LightGradientThemeTests" name="RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ad4c3a58-7387-3909-8b55-d7efd4f0b45a">
+      <Execution id="266891f1-e5d0-4567-8ba8-700572e2d7b0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LightGradientThemeTests" name="RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="ad4c3a58-7387-3909-8b55-d7efd4f0b45a" executionId="266891f1-e5d0-4567-8ba8-700572e2d7b0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="12dc5b93-5e08-5c3d-a45a-81e9c3a38ee0" executionId="2dd38a9c-fbbb-43e1-b450-976c4e23dae7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2ddc5b20-59af-6e40-fb19-750600c71e6c" executionId="1805d1bd-8daf-430c-a41a-9f9c2faf3e15" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="0" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.61]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.19]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.22]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:07.83]       Sidebar backdrop at (9, 225) is #ffffffff; expected shared window gradient #ffe9f3fe.&#xD;
+[xUnit.net 00:00:07.83]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.83]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(145,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;AssertSidebarBackdrop&gt;g__Check|2_0(Control host, Point point, &lt;&gt;c__DisplayClass2_0&amp;)&#xD;
+[xUnit.net 00:00:07.83]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(132,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.AssertSidebarBackdrop(Window window, DockPanel root, SKBitmap pixels)&#xD;
+[xUnit.net 00:00:07.83]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(81,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:07.83]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.83]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:07.83]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.83]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:07.83]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.83]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(54,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(Double width, Double height, Double fontSize)&#xD;
+[xUnit.net 00:00:07.83]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.42]       Sidebar backdrop at (9, 266) is #ffffffff; expected shared window gradient #ffddecfb.&#xD;
+[xUnit.net 00:00:11.42]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.42]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(145,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;AssertSidebarBackdrop&gt;g__Check|2_0(Control host, Point point, &lt;&gt;c__DisplayClass2_0&amp;)&#xD;
+[xUnit.net 00:00:11.42]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(132,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.AssertSidebarBackdrop(Window window, DockPanel root, SKBitmap pixels)&#xD;
+[xUnit.net 00:00:11.42]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(81,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:11.42]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.42]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:11.42]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.42]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:11.42]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.42]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(54,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(Double width, Double height, Double fontSize)&#xD;
+[xUnit.net 00:00:11.42]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.55]       Sidebar backdrop at (9, 274) is #ffffffff; expected shared window gradient #ffcbe1f7.&#xD;
+[xUnit.net 00:00:14.55]       Stack Trace:&#xD;
+[xUnit.net 00:00:14.55]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(145,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;AssertSidebarBackdrop&gt;g__Check|2_0(Control host, Point point, &lt;&gt;c__DisplayClass2_0&amp;)&#xD;
+[xUnit.net 00:00:14.55]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(132,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.AssertSidebarBackdrop(Window window, DockPanel root, SKBitmap pixels)&#xD;
+[xUnit.net 00:00:14.55]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(81,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:14.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.55]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:14.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.55]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:14.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.55]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LightGradientThemeTests.cs(54,0): at OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(Double width, Double height, Double fontSize)&#xD;
+[xUnit.net 00:00:14.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.56]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:37:28.6391325+08:00">
+        <Text>[xUnit.net 00:00:07.83]     OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:37:32.2244235+08:00">
+        <Text>[xUnit.net 00:00:11.42]     OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:37:35.3600591+08:00">
+        <Text>[xUnit.net 00:00:14.55]     OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

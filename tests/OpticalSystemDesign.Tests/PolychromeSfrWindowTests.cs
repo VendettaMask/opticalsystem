@@ -54,7 +54,7 @@ public sealed class PolychromeSfrWindowTests
                 Dispatcher.UIThread.RunJobs(); window.UpdateLayout(); AvaloniaHeadlessPlatform.ForceRenderTimerTick();
                 var graph = window.GetVisualDescendants().OfType<ContentControl>().Single(c => c.Name == "camera-sfr-graph");
                 Assert.Equal(5, graph.GetVisualDescendants().OfType<CheckBox>().Count());
-                using var bitmap = window.CaptureSfrImage(); Assert.Equal(new PixelSize(2404, 1804), bitmap.PixelSize);
+                using var bitmap = window.CaptureSfrImage(); Assert.Equal(new PixelSize(1920, 1080), bitmap.PixelSize);
                 var dir = Environment.GetEnvironmentVariable("OPTICAL_POLY_SFR_EVIDENCE_DIR");
                 if (!string.IsNullOrWhiteSpace(dir))
                 {

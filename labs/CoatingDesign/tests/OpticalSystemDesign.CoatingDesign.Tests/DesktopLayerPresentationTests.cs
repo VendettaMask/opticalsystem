@@ -67,22 +67,22 @@ public sealed partial class DesktopTests
                     var fingerprint = window.CurrentExperiment.Fingerprint();
                     var table = WindowControls(window).OfType<DataGrid>().Single(g => g.Name == "CoatingLayerTable");
                     Assert.Equal(7, table.Columns.Count);
-                    Assert.Equal("物理厚度 (nm)", Assert.IsType<TextBlock>(table.Columns[2].Header).Text);
-                    Assert.Equal("光学厚度 (nm)", Assert.IsType<TextBlock>(table.Columns[3].Header).Text);
+                    Assert.Equal("d (nm)", Assert.IsType<TextBlock>(table.Columns[2].Header).Text);
+                    Assert.Equal("OT", Assert.IsType<TextBlock>(table.Columns[3].Header).Text);
                     Assert.False(table.Columns[2].IsReadOnly); Assert.False(table.Columns[3].IsReadOnly);
                     Assert.False(table.Columns[4].IsReadOnly); Assert.False(table.Columns[5].IsReadOnly);
-                    var rows = ((IEnumerable<LayerRow>)table.ItemsSource).ToArray();
+                    var rows = PhysicalRows(table);
                     Assert.All(rows, row => Assert.NotNull(row.OpticalThicknessNm));
                     table.ScrollIntoView(rows[^1], table.Columns[1]); Tick(window);
                     table.ScrollIntoView(rows[0], table.Columns[1]); Tick(window);
                     var firstIndex = table.GetVisualDescendants().OfType<TextBlock>().Single(c =>
-                        c.Name == "CellTextBlock" && ReferenceEquals(c.DataContext, rows[0]) && c.Text == "1"
+                        c.Name == "CellTextBlock" && ReferenceEquals(c.DataContext, rows[0]) && c.Text == rows[0].Number.ToString()
                         && c.GetVisualAncestors().OfType<DataGridCell>().Any(cell => cell.Name == "CoatingLayerNumberCell"));
                     Assert.True(firstIndex.Bounds.Width >= fontSize * .6, $"Layer number clipped: {firstIndex.Bounds}");
                     foreach (var name in table.GetVisualDescendants().OfType<TextBlock>().Where(c => c.Name == "CoatingMaterialLabel"))
                     {
-                        var row = Assert.IsType<LayerRow>(name.DataContext);
-                        Assert.Equal(row.MaterialLabel, name.Text);
+                        var row = Assert.IsType<LayerRow>(name.GetVisualAncestors().OfType<DataGridRow>().First().DataContext);
+                        Assert.Equal(row.MaterialName, name.Text);
                         Assert.Equal(experiment.Materials.Single(m => m.Id == row.MaterialId).Name, row.MaterialName);
                         Assert.Contains(row.MaterialLabel, row.MaterialName);
                     }
@@ -91,8 +91,8 @@ public sealed partial class DesktopTests
                     Assert.NotEqual(rows[0].MaterialBrush, rows[1].MaterialBrush);
                     Assert.Equal(experiment.Layers[0], rows[0].ToLayer());
                     table.ScrollIntoView(rows[0], table.Columns[6]); Tick(window);
-                    var variable = table.GetVisualDescendants().OfType<CheckBox>()
-                        .Single(c => c.Name == "CoatingLayerVariable" && ReferenceEquals(c.DataContext, rows[0]));
+                    var variable = table.GetVisualDescendants().OfType<Avalonia.Controls.Primitives.ToggleButton>()
+                        .Single(c => c.Name == "CoatingLayerLock" && ReferenceEquals(c.DataContext, rows[0]));
                     variable.BringIntoView(); Tick(window);
                     var point = variable.TranslatePoint(new Point(variable.Bounds.Width / 2, variable.Bounds.Height / 2), window)!.Value;
                     window.MouseDown(point, MouseButton.Left); window.MouseUp(point, MouseButton.Left); Tick(window);
@@ -102,9 +102,9 @@ public sealed partial class DesktopTests
                     rows[0].MaterialId = experiment.LowId; Tick(window);
                     Assert.Equal(experiment.Materials.Single(m => m.Id == experiment.LowId).Name, rows[0].MaterialName);
                     Assert.Contains(table.GetVisualDescendants().OfType<TextBlock>(), c => c.Name == "CoatingMaterialLabel"
-                        && ReferenceEquals(c.DataContext, rows[0]) && c.Text == rows[0].MaterialLabel);
+                        && c.GetVisualAncestors().OfType<DataGridRow>().Any(r => ReferenceEquals(r.DataContext, rows[0])) && c.Text == rows[0].MaterialName);
                     var marker = table.GetVisualDescendants().OfType<Ellipse>()
-                        .Single(c => c.Name == "CoatingMaterialMarker" && ReferenceEquals(c.DataContext, rows[0]));
+                        .Single(c => c.Name == "CoatingMaterialMarker" && c.GetVisualAncestors().OfType<DataGridRow>().Any(r => ReferenceEquals(r.DataContext, rows[0])));
                     Assert.Same(rows[1].MaterialBrush, marker.Fill);
                     rows[0].MaterialId = experiment.HighId; rows[0].Variable = experiment.Layers[0].Variable;
                     table.ScrollIntoView(rows[0], table.Columns[0]); Tick(window);

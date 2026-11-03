@@ -13,6 +13,7 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
 {
     public FoucaultPlotControl()
     {
+        ScientificColorMaps.Track(this);
         ClipToBounds = true;
         AutomationProperties.SetName(this, "刀口阴影图");
         AutomationProperties.SetHelpText(this, "只读图表；可在分析结果的数据页查看完整采样数据。");
@@ -151,7 +152,7 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
         }
     }
 
-    private Color DisplayColor(double value)
+    internal Color DisplayColor(double value)
     {
         if (DisplayAs.Contains("灰", StringComparison.Ordinal))
         {
@@ -159,10 +160,7 @@ public sealed class FoucaultPlotControl : Control, IReadOnlyChartAutomationSourc
             return Color.FromRgb(component, component, component);
         }
 
-        var red = Math.Clamp(1.5 - Math.Abs((4 * value) - 3), 0, 1);
-        var green = Math.Clamp(1.5 - Math.Abs((4 * value) - 2), 0, 1);
-        var blue = Math.Clamp(1.5 - Math.Abs((4 * value) - 1), 0, 1);
-        return Color.FromRgb((byte)(red * 255), (byte)(green * 255), (byte)(blue * 255));
+        return ScientificColorMaps.ColorFor(ScientificColorMaps.Current, value);
     }
 
     private static FormattedText Text(string value, double size, IBrush brush)

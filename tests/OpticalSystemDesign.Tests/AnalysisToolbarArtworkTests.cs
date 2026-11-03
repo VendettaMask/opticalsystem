@@ -71,6 +71,17 @@ public sealed class AnalysisToolbarArtworkTests
                     Assert.Equal(menu.CommandIds.Where(id => id != "-").Select(id => "ribbon-" + id),
                         flyout.Items.OfType<MenuItem>().Select(AutomationProperties.GetAutomationId));
                     Assert.Equal(menu.CommandIds.Count(id => id == "-"), flyout.Items.OfType<Separator>().Count());
+                    foreach (var item in flyout.Items.OfType<MenuItem>())
+                    {
+                        var automationId = AutomationProperties.GetAutomationId(item);
+                        Assert.NotNull(automationId);
+                        var commandId = automationId["ribbon-".Length..];
+                        var command = WorkbenchAnalysisCatalog.RibbonCommands.Single(c => c.Id == commandId);
+                        var header = Assert.IsType<LocalIconLabel>(item.Header);
+                        var glyph = Assert.Single(header.Children.OfType<LocalIcon>());
+                        Assert.Equal(command.IconName, glyph.IconName);
+                        Assert.True(ScientificIconLibrary.Contains(glyph.IconName), glyph.IconName);
+                    }
                 }
                 Capture(window, $"analysis-toolbar-{theme}-{language}-{fontSize:0}");
                 window.Width = 480; Tick(window);
@@ -107,7 +118,7 @@ public sealed class AnalysisToolbarArtworkTests
     }
 
     [Fact]
-    public async Task RuntimeThemeSwitchRecolorsTheSameVectorWithoutChangingGeometry()
+    public async Task RuntimeThemeSwitchPreservesBoundsAndRestoresTheOriginalAfterHudArtwork()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisToolbarArtworkTests));
         await session.Dispatch(() =>
@@ -125,7 +136,10 @@ public sealed class AnalysisToolbarArtworkTests
                 Assert.Equal(bounds, icon.Bounds);
                 Assert.Equal(light.Where((_, index) => index % 4 == 3), dark.Where((_, index) => index % 4 == 3));
                 ThemeApplicationService.Apply(Avalonia.Application.Current!, "Lumen"); Tick(window);
-                Assert.Equal(dark, VectorPixels(icon));
+                var lumen = VectorPixels(icon);
+                Assert.False(dark.SequenceEqual(lumen));
+                Assert.False(dark.Where((_, index) => index % 4 == 3).SequenceEqual(lumen.Where((_, index) => index % 4 == 3)));
+                Assert.Equal(bounds, icon.Bounds);
                 ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light"); Tick(window);
                 Assert.Equal(light, VectorPixels(icon));
                 Assert.Same(icon, window.Content);

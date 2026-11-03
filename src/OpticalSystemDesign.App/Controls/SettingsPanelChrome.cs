@@ -14,7 +14,7 @@ internal static class SettingsPanelChrome
     {
         var button = new Button
         {
-            Content = new LocalIconLabel("settings", "设置"),
+            Content = new LocalIconLabel("settings-general", "设置"),
             MinWidth = 0,
             Height = 32,
             Padding = new Thickness(8, 3)

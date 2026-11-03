@@ -17,9 +17,12 @@ internal static class LightTheme
             var brush = new SolidColorBrush(color);
             foreach (var key in keys) resources[key] = brush;
         }
-        Set(Sidebar, ThemeResourceBindings.Sidebar);
-        resources[ThemeResourceBindings.HeaderBackground] = HeaderGradient;
-        resources[ThemeResourceBindings.RibbonPageBackground] = RibbonPageGradient;
+        resources[ThemeResourceBindings.WorkbenchBackdrop] = WorkbenchGradient;
+        Set(Colors.Transparent, ThemeResourceBindings.ShellBackground, ThemeResourceBindings.Sidebar);
+        resources[ThemeResourceBindings.SidebarSectionSurface] = LightGlassMaterial.SectionSurface;
+        Set(Colors.Transparent, ThemeResourceBindings.SidebarSectionContent);
+        resources[ThemeResourceBindings.HeaderBackground] = HeaderSurface;
+        resources[ThemeResourceBindings.RibbonPageBackground] = RibbonSurface;
         resources[ThemeResourceBindings.StatusBarBackground] = StatusBarGradient;
         resources[ThemeLayoutResources.WorkspaceContentMargin] = new Thickness(5, 0, 5, 6);
         resources[ThemeLayoutResources.SystemSectionsMargin] = new Thickness(6, 4, 6, 12);
@@ -28,7 +31,7 @@ internal static class LightTheme
         resources[ThemeLayoutResources.LensEditorContentMargin] = new Thickness(0);
         resources[ThemeLayoutResources.StatusMetricMinWidth] = 96d;
         Set(TableHeader, ThemeResourceBindings.TableHeader);
-        Set(LensEditorHeaderBackground, ThemeResourceBindings.LensEditorHeaderBackground);
+        resources[ThemeResourceBindings.LensEditorHeaderBackground] = LightGlassMaterial.EditorHeaderSurface;
         Set(SelectedBackground, ThemeResourceBindings.SelectionBackground);
         Set(TextPrimary, ThemeResourceBindings.SelectionForeground, ThemeResourceBindings.SectionHeaderForeground, ThemeResourceBindings.SectionHeaderEmphasizedForeground);
         Set(Surface, ThemeResourceBindings.SectionHeaderBackground, ThemeResourceBindings.SectionHeaderEmphasizedBackground);
@@ -170,6 +173,9 @@ internal static class LightTheme
         Set(HoverBackground, "DockTabHoverBackgroundBrush", "DockTabCloseHoverBackgroundBrush", "DockChromeButtonHoverBackgroundBrush");
         Set(PressedBackground, "DockChromeButtonPressedBackgroundBrush", "DockSplitterHoverBrush");
         Set(Accent, "DockTabActiveIndicatorBrush", "DockTargetIndicatorBrush", "DockSplitterDragBrush");
+        // Reveal the common backdrop in outer chrome only; editors and plots stay white.
+        Set(Colors.Transparent, "DockThemeBackgroundBrush", "DockSurfaceWorkbenchBrush", "DockSurfaceSidebarBrush",
+            "DockTabBackgroundBrush", "DockDocumentTabStripBackgroundBrush");
 
         void States(string control, string state, Color normal, Color hover, Color pressed, Color border, bool primary = false)
         {

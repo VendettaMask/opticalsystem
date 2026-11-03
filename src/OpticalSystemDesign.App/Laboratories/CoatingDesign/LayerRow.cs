@@ -57,7 +57,9 @@ public sealed class LayerRow : INotifyPropertyChanged
         get => _thickness;
         set { if (_thickness == value && _invalidUnit is null) return; _thickness = value; _invalidUnit = _invalidText = null; Notify(); InputChanged?.Invoke(nameof(ThicknessText)); }
     }
-    public bool Variable { get => _variable; set { if (_variable == value) return; _variable = value; Notify(); InputChanged?.Invoke(nameof(Variable)); } }
+    public bool Variable { get => _variable; set { if (_variable == value) return; _variable = value; Notify(); Notify(nameof(Locked)); InputChanged?.Invoke(nameof(Variable)); } }
+    public bool Locked { get => !Variable; set => Variable = !value; }
+    internal void RefreshMaterialIdentity() { Notify(nameof(MaterialId)); Notify(nameof(MaterialName)); Notify(nameof(MaterialBrush)); }
     public FilmLayer ToLayer()
     {
         if (_invalidUnit is not null) throw new ArgumentException($"第 {Number} 层 {_invalidUnit} 输入无效：{_invalidText}。");

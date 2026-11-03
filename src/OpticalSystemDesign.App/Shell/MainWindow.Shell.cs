@@ -36,7 +36,7 @@ public sealed partial class MainWindow
     internal static DockPanel BuildShellLayout(Control ribbon, Control workspace, Control status)
     {
         var root = new DockPanel();
-        root.Bind(Panel.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.Workspace));
+        root.Bind(Panel.BackgroundProperty, new DynamicResourceExtension(ThemeResourceBindings.ShellBackground));
         DockPanel.SetDock(ribbon, Avalonia.Controls.Dock.Top);
         root.Children.Add(ribbon);
         DockPanel.SetDock(status, Avalonia.Controls.Dock.Bottom);
@@ -68,95 +68,95 @@ public sealed partial class MainWindow
                 RibbonTab("文件", BuildFileRibbonPage(includeSequentialCommands: true)),
                 RibbonTab("设置", BuildRibbonPage(
                     RibbonGroup("工作模式",
-                        RibbonButton("enter-non-sequential-mode", "route", "非序列模式")),
+                        RibbonButton("enter-non-sequential-mode", "nonsequential-mode", "非序列模式")),
                     RibbonGroup("系统",
-                        RibbonButton("show-system", "settings", "系统选项"),
-                        RibbonButton("show-lens-editor", "table-2", "镜头数据"),
-                        RibbonButton("show-multiconfig", "panels-top-left", "多重结构")),
+                        RibbonButton("show-system", "system-settings", "系统选项"),
+                        RibbonButton("show-lens-editor", "lens-prescription", "镜头数据"),
+                        RibbonButton("show-multiconfig", "configuration-matrix", "多重结构")),
                     RibbonGroup("显示",
-                        RibbonButton("display-settings", "type", "格式与字体")),
+                        RibbonButton("display-settings", "format-font", "格式与字体")),
                     RibbonGroup("语言", RibbonLanguageMenuButton()))),
                 RibbonTab("视图", BuildRibbonPage(
                     RibbonGroup("系统布局",
-                        RibbonButton("show-viewer-2d", "panel-top", "2D视图"),
-                        RibbonButton("show-viewer-3d", "box", "3D视图"),
-                        RibbonButton("show-solid-model", "cylinder", "实体模型")))),
+                        RibbonButton("show-viewer-2d", "layout-2d", "2D视图"),
+                        RibbonButton("show-viewer-3d", "layout-3d", "3D视图"),
+                        RibbonButton("show-solid-model", "solid-model", "实体模型")))),
                 RibbonTab("分析", BuildSequentialAnalysisRibbonPage(_actions)),
                 RibbonTab("优化", BuildRibbonPage(
                     RibbonGroup("手动调整",
-                        RibbonButton("quick-focus", "focus", "快速聚焦"),
-                        RibbonButton("quick-adjust", "scan-search", "快速调整"),
-                        RibbonButton("optimization-slider", "sliders-horizontal", "滑块"),
+                        RibbonButton("quick-focus", "optimization-focus", "快速聚焦"),
+                        RibbonButton("quick-adjust", "optimization-adjust", "快速调整"),
+                        RibbonButton("optimization-slider", "settings-general", "滑块"),
                         RibbonButton(
                             "show-visual-optimizer",
-                            "chart-no-axes-combined",
+                            "optimization-visual",
                             "可视化优化器")),
                     RibbonGroup("自动优化",
-                        RibbonButton("show-merit-editor", "list-tree", "评价函数编辑器"),
+                        RibbonButton("show-merit-editor", "merit-function-editor", "评价函数编辑器"),
                         RibbonButton(
                             "show-optimization-wizard",
-                            "wand-sparkles",
+                            "optimization-wizard",
                             "优化向导"),
-                        RibbonButton("run-optimization", "play", "执行优化"),
+                        RibbonButton("run-optimization", "action-run", "执行优化"),
                         RibbonButton(
                             "clear-optimization-variables",
-                            "trash-2",
+                            "optimization-variables-clear",
                             "移除所有变量"),
                         RibbonButton(
                             "set-all-radius-variables",
-                            "circle-dot",
+                            "radius-variables",
                             "设全部半径变量"),
                         RibbonButton(
                             "set-all-thickness-variables",
-                            "move-vertical",
+                            "thickness-variables",
                             "设全部厚度变量")),
                     RibbonGroup("搜索算法",
-                        RibbonButton("run-random-perturbation", "shuffle", "随机扰动搜索"),
+                        RibbonButton("run-random-perturbation", "optimization-random-search", "随机扰动搜索"),
                         RibbonButton(
                             "glass-replacement-template",
-                            "replace",
+                            "glass-replacement",
                             "玻璃替换模板")))),
                 RibbonTab("公差", BuildRibbonPage(
                     RibbonGroup("公差分析",
-                        RibbonButton("show-tolerancing", "table", "公差数据编辑器"),
-                        RibbonButton("run-tolerancing", "activity", "公差分析")),
+                        RibbonButton("show-tolerancing", "tolerance-data-editor", "公差数据编辑器"),
+                        RibbonButton("run-tolerancing", "tolerance-analysis", "公差分析")),
                     RibbonGroup("公差数据可视化",
-                        RibbonButton("show-tolerance-data-viewer", "table", "公差数据查看器"),
-                        RibbonButton("show-tolerance-histogram", "chart-column", "直方图"),
-                        RibbonButton("show-tolerance-yield", "badge-percent", "良率"),
-                        RibbonButton("show-tolerance-report", "file-text", "公差报告")))),
+                        RibbonButton("show-tolerance-data-viewer", "tolerance-data-viewer", "公差数据查看器"),
+                        RibbonButton("show-tolerance-histogram", "tolerance-histogram", "直方图"),
+                        RibbonButton("show-tolerance-yield", "tolerance-yield", "良率"),
+                        RibbonButton("show-tolerance-report", "tolerance-report", "公差报告")))),
                 RibbonTab("加工与图纸", BuildRibbonPage(
                     RibbonGroup("制造准备",
-                        RibbonButton("show-manufacturability", "clipboard-check", "可加工性评估")),
+                        RibbonButton("show-manufacturability", "manufacturability-review", "可加工性评估")),
                     RibbonGroup("光学制图",
-                        RibbonButton("show-optical-drawing", "drafting-compass", "光学制图")))),
+                        RibbonButton("show-optical-drawing", "optical-drawing", "光学制图")))),
                 RibbonTab("数据库", BuildRibbonPage(
                     RibbonGroup("光学材料",
-                        RibbonButton("show-material-library", "database", "材料库"),
+                        RibbonButton("show-material-library", "materials-library", "材料库"),
                         RibbonMaterialAnalysisMenuButton()),
                     RibbonGroup("镜头设计",
-                        RibbonButton("show-lens-library", "telescope", "镜头库"),
-                        RibbonButton("show-stock-lens-catalog", "package-search", "库存镜头查看"),
-                        RibbonButton("show-stock-lens-matching", "scan-search", "库存镜头匹配")),
+                        RibbonButton("show-lens-library", "lens-library", "镜头库"),
+                        RibbonButton("show-stock-lens-catalog", "stock-lens-catalog", "库存镜头查看"),
+                        RibbonButton("show-stock-lens-matching", "stock-lens-match", "库存镜头匹配")),
                     RibbonGroup("设计报告",
-                        RibbonButton("export-markdown-report", "file-down", "导出设计报告…")))),
+                        RibbonButton("export-markdown-report", "file-export-report", "导出设计报告…")))),
                 BuildLaboratoryRibbonTab(),
                 RibbonTab("窗口", BuildRibbonPage(
                     RibbonGroup("页面窗口布局",
                         RibbonWindowLayoutMenuButton()),
                     RibbonGroup("页面",
-                        RibbonButton("analysis-clone", "copy", "克隆分析"),
-                        RibbonButton("toggle-page-lock", "lock-keyhole", "切换锁定"),
-                        RibbonButton("close-all-pages", "x", "关闭其他页")),
+                        RibbonButton("analysis-clone", "clone-analysis", "克隆分析"),
+                        RibbonButton("toggle-page-lock", "toggle-page-lock", "切换锁定"),
+                        RibbonButton("close-all-pages", "close-other-pages", "关闭其他页")),
                     RibbonGroup("布局",
-                        RibbonButton("save-default-layout", "save", "保存默认"),
-                        RibbonButton("restore-default-layout", "rotate-ccw", "载入默认")))),
+                        RibbonButton("save-default-layout", "save-default-layout", "保存默认"),
+                        RibbonButton("restore-default-layout", "load-default-layout", "载入默认")))),
                 RibbonTab("帮助", BuildRibbonPage(
                     RibbonGroup("支持",
-                        RibbonButton("show-user-guide", "book-open-text", "用户指南"),
-                        RibbonButton("show-operand-help", "book-open-text", "操作数帮助"),
-                        RibbonButton("recover-document", "history", "恢复未保存工程"),
-                        RibbonButton("about", "circle-question-mark", "关于"))))
+                        RibbonButton("show-user-guide", "user-guide", "用户指南"),
+                        RibbonButton("show-operand-help", "operand-help", "操作数帮助"),
+                        RibbonButton("recover-document", "recover-unsaved-project", "恢复未保存工程"),
+                        RibbonButton("about", "about", "关于"))))
             }
         };
         return BuildRibbonFrame(tabs);
@@ -176,29 +176,29 @@ public sealed partial class MainWindow
                 RibbonTab("文件", BuildFileRibbonPage(includeSequentialCommands: false)),
                 RibbonTab("非序列", BuildRibbonPage(
                     RibbonGroup("工作模式",
-                        RibbonButton("enter-sequential-mode", "rows-3", "顺序模式")),
+                        RibbonButton("enter-sequential-mode", "sequential-mode", "顺序模式")),
                     RibbonGroup("对象",
-                        RibbonButton("show-non-sequential-objects", "boxes", "对象数据")))),
+                        RibbonButton("show-non-sequential-objects", "nonsequential-objects", "对象数据")))),
                 RibbonTab("设置", BuildRibbonPage(
                     RibbonGroup("语言", RibbonLanguageMenuButton()))),
                 RibbonTab("视图", BuildRibbonPage(
                     RibbonGroup("非序列布局",
-                        RibbonButton("show-viewer-3d", "box", "3D视图"),
-                        RibbonButton("show-solid-model", "cylinder", "实体模型")))),
+                        RibbonButton("show-viewer-3d", "layout-3d", "3D视图"),
+                        RibbonButton("show-solid-model", "solid-model", "实体模型")))),
                 RibbonTab("分析", BuildRibbonPage(analysisGroups)),
                 BuildLaboratoryRibbonTab(),
                 RibbonTab("窗口", BuildRibbonPage(
                     RibbonGroup("页面窗口布局",
                         RibbonWindowLayoutMenuButton()),
                     RibbonGroup("页面",
-                        RibbonButton("analysis-clone", "copy", "克隆分析"),
-                        RibbonButton("toggle-page-lock", "lock-keyhole", "切换锁定"),
-                        RibbonButton("close-all-pages", "x", "关闭其他页")))),
+                        RibbonButton("analysis-clone", "clone-analysis", "克隆分析"),
+                        RibbonButton("toggle-page-lock", "toggle-page-lock", "切换锁定"),
+                        RibbonButton("close-all-pages", "close-other-pages", "关闭其他页")))),
                 RibbonTab("帮助", BuildRibbonPage(
                     RibbonGroup("支持",
-                        RibbonButton("show-user-guide", "book-open-text", "用户指南"),
-                        RibbonButton("show-operand-help", "book-open-text", "操作数帮助"),
-                        RibbonButton("about", "circle-question-mark", "关于"))))
+                        RibbonButton("show-user-guide", "user-guide", "用户指南"),
+                        RibbonButton("show-operand-help", "operand-help", "操作数帮助"),
+                        RibbonButton("about", "about", "关于"))))
             }
         };
         return BuildRibbonFrame(tabs);
@@ -231,22 +231,22 @@ public sealed partial class MainWindow
         var groups = new List<Control>
         {
             RibbonGroup("文件",
-                RibbonButton("new", "file-plus", "新建"),
-                RibbonButton("open", "folder-open", "打开"),
-                RibbonButton("save-as", "save", "保存"))
+                RibbonButton("new", "file-new", "新建"),
+                RibbonButton("open", "file-open", "打开"),
+                RibbonButton("save-as", "file-save", "保存"))
         };
         if (includeSequentialCommands)
         {
             groups.Add(RibbonGroup("交换与示例",
-                RibbonMenuButton("import", "download", "导入",
-                    ("import-zemax", "file-input", "Zemax ZMX")),
-                RibbonMenuButton("export", "upload", "导出",
-                    ("export-cad", "box", "CAD（STEP）")),
+                RibbonMenuButton("import", "file-import", "导入",
+                    ("import-zemax", "file-import", "Zemax ZMX")),
+                RibbonMenuButton("export", "file-export", "导出",
+                    ("export-cad", "file-export-cad", "CAD（STEP）")),
                 RibbonSequentialExamplesButton()));
         }
 
-        _undoButton = RibbonButton("undo", "undo", "撤销");
-        _redoButton = RibbonButton("redo", "redo", "重做");
+        _undoButton = RibbonButton("undo", "action-undo", "撤销");
+        _redoButton = RibbonButton("redo", "action-redo", "重做");
         var snapshot = _application.Documents.GetSnapshot();
         UpdateHistoryButtons(_undoButton, _redoButton, snapshot.CanUndo, snapshot.CanRedo);
         groups.Add(RibbonGroup("编辑", false, _undoButton, _redoButton));
@@ -269,13 +269,13 @@ public sealed partial class MainWindow
 
     private TabItem BuildLaboratoryRibbonTab() => RibbonTab("实验室", BuildRibbonPage(
         RibbonGroup("结构生成",
-            RibbonButton("launch-initial-structure-lab", "wand-sparkles", "AI 初始结构")),
+            RibbonButton("launch-initial-structure-lab", "initial-structure-design", "AI 初始结构")),
         RibbonGroup("镀膜设计",
-            RibbonButton("launch-coating-design-lab", "layers", "光学镀膜设计")),
+            RibbonButton("launch-coating-design-lab", "coating-design", "光学镀膜设计")),
         RibbonGroup("装调计算",
-            RibbonButton("open-optical-assembly-lab", "scan-eye", "光学装调")),
+            RibbonButton("open-optical-assembly-lab", "optical-alignment", "光学装调")),
         RibbonGroup("成像系统",
-            RibbonButton("open-camera-imaging-lab", "camera", "相机成像仿真"))));
+            RibbonButton("open-camera-imaging-lab", "camera-imaging", "相机成像仿真"))));
 
     private static TabItem RibbonTab(string title, Control content)
     {
@@ -451,20 +451,20 @@ public sealed partial class MainWindow
     }
 
     private DropDownButton RibbonWindowLayoutMenuButton() => RibbonMenuButton(
-        "window-layout", "panels-top-left", "窗口布局",
-        ("analysis-dock-all", "panel-top", "保留分栏停靠"),
-        ("dock-single-pane", "panels-top-left", "合并单窗格"),
-        ("analysis-float-all", "picture-in-picture-2", "全部独立浮动"),
-        ("analysis-tile-all", "grid-2x2", "平铺全部"),
-        ("analysis-cascade-all", "rows-3", "层叠全部"));
+        "window-layout", "window-layout", "窗口布局",
+        ("analysis-dock-all", "layout-dock", "保留分栏停靠"),
+        ("dock-single-pane", "layout-merge", "合并单窗格"),
+        ("analysis-float-all", "layout-float", "全部独立浮动"),
+        ("analysis-tile-all", "layout-tile", "平铺全部"),
+        ("analysis-cascade-all", "layout-cascade", "层叠全部"));
 
     private DropDownButton RibbonMaterialAnalysisMenuButton() => RibbonMenuButton(
-        "material-analysis", "chart-scatter", "材料分析",
-        ("show-material-dispersion-diagram", "chart-scatter", "色散图"),
-        ("show-material-glass-map", "gem", "玻璃图"),
-        ("show-material-athermal-map", "thermometer-sun", "无热化玻璃图"),
-        ("show-material-transmission", "arrow-right-left", "内部透过率 vs. 波长"),
-        ("show-material-dispersion-wavelength", "chart-line", "色散 vs. 波长"));
+        "material-analysis", "material-dispersion-chart", "材料分析",
+        ("show-material-dispersion-diagram", "material-dispersion-chart", "色散图"),
+        ("show-material-glass-map", "material-glass-map", "玻璃图"),
+        ("show-material-athermal-map", "material-athermal-map", "无热化玻璃图"),
+        ("show-material-transmission", "material-transmission", "内部透过率 vs. 波长"),
+        ("show-material-dispersion-wavelength", "material-dispersion-wavelength", "色散 vs. 波长"));
 
     private DropDownButton RibbonLanguageMenuButton()
     {
@@ -487,7 +487,7 @@ public sealed partial class MainWindow
             flyout.Items.Add(item);
         }
 
-        var content = RibbonDropDownCommandContent("languages", "语言");
+        var content = RibbonDropDownCommandContent("settings-language", "语言");
         var button = new DropDownButton
         {
             HorizontalContentAlignment = HorizontalAlignment.Center,

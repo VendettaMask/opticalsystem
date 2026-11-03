@@ -21,6 +21,8 @@ internal sealed record ThemeDefinition(
     bool IsDarkLike,
     bool FollowsSystem = false)
 {
+    public ScientificIconPalette IconPalette { get; init; } = ScientificIconPalette.Light;
+
     public ResourceDictionary BuildResources()
     {
         if (Palette is null)
@@ -48,11 +50,11 @@ internal static class ThemeRegistry
         "普通模式",
         ThemeVariant.Light,
         ThemePalette.Light,
-        StandardThemeIconPack.Instance,
+        new ScientificThemeIconPack("Light"),
         ProductFonts.Interface,
         TextRenderingMode.Unspecified,
         ThemeChromeProfile.CreateStandard(ThemePalette.Light.Border, shadows: false, cardRadius: 6),
-        NoThemeDecorationRenderer.Instance,
+        LightGlassDecorationRenderer.Instance,
         LightTheme.ApplyResources,
         IsDarkLike: false);
 
@@ -60,60 +62,74 @@ internal static class ThemeRegistry
         "Dark",
         "暗夜模式",
         ThemeVariant.Dark,
-        ThemePalette.DarkOpticStudio,
-        StandardThemeIconPack.Instance,
+        BlackHoleDarkTheme.Palette,
+        new ScientificThemeIconPack("Dark"),
         ProductFonts.Interface,
         TextRenderingMode.Unspecified,
-        ThemeChromeProfile.CreateStandard(ThemePalette.DarkOpticStudio.Border),
+        ThemeChromeProfile.CreateStandard(BlackHoleDarkTheme.Palette.Border),
         NoThemeDecorationRenderer.Instance,
-        StandardTheme.ApplyAccentResources,
-        IsDarkLike: true);
+        BlackHoleDarkTheme.ApplyResources,
+        IsDarkLike: true)
+    {
+        IconPalette = new(BlackHoleDarkTheme.Palette.TextMuted, BlackHoleDarkTheme.Accent,
+            BlackHoleDarkTheme.Palette.PlotZeroLine)
+    };
 
     private static readonly ThemeDefinition Isekai = new(
         IsekaiTheme.SettingsValue,
         "异世界",
         IsekaiTheme.Variant,
         IsekaiTheme.Palette,
-        IsekaiThemeIconPack.Instance,
+        new ScientificThemeIconPack("Isekai"),
         ProductFonts.Interface,
         TextRenderingMode.Unspecified,
         ThemeChromeProfile.CreateIsekai(),
         IsekaiThemeDecorationRenderer.Instance,
         IsekaiTheme.ApplyAccentResources,
-        IsDarkLike: true);
+        IsDarkLike: true)
+    {
+        IconPalette = ScientificIconPalette.IsekaiArcane
+    };
 
     private static readonly ThemeDefinition Pixel = new(
         PixelTheme.SettingsValue,
         "像素风格",
         PixelTheme.Variant,
         PixelTheme.Palette,
-        PixelThemeIconPack.Instance,
+        new ScientificThemeIconPack("Pixel"),
         new FontFamily($"avares://{typeof(ThemeRegistry).Assembly.GetName().Name}/Assets/Fonts/fusion-pixel-10px-monospaced-zh_hans.ttf#Fusion Pixel 10px Mono zh_hans"),
         TextRenderingMode.Alias,
         ThemeChromeProfile.CreatePixel(),
         PixelThemeDecorationRenderer.Instance,
         PixelTheme.ApplyAccentResources,
-        IsDarkLike: false);
+        IsDarkLike: false)
+    {
+        IconPalette = new(PixelTheme.Palette.TextSecondary, PixelTheme.Palette.TextAccent,
+            PixelTheme.Palette.TextSuccess)
+    };
 
     private static readonly ThemeDefinition Lumen = new(
         LumenTheme.SettingsValue,
         "光域",
         LumenTheme.Variant,
         LumenTheme.Palette,
-        StandardThemeIconPack.Instance,
+        new ScientificThemeIconPack("Lumen"),
         ProductFonts.Interface,
         TextRenderingMode.Unspecified,
         LumenTheme.Chrome,
         NoThemeDecorationRenderer.Instance,
         LumenTheme.ApplyAccentResources,
-        IsDarkLike: true);
+        IsDarkLike: true)
+    {
+        IconPalette = ScientificIconPalette.LumenHud
+    };
 
     private static readonly ThemeDefinition System = new(
         "System",
         "跟随系统",
         ThemeVariant.Default,
         null,
-        StandardThemeIconPack.Instance,
+        new ScientificThemeIconPack("System"),
         ProductFonts.Interface,
         TextRenderingMode.Unspecified,
         ThemeChromeProfile.CreateStandard(ThemePalette.Light.Border, shadows: false, cardRadius: 6),

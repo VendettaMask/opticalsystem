@@ -123,10 +123,15 @@ public sealed partial class MainWindow
             _settings.UpperScientificExponent,
             _settings.LowerScientificExponent));
         DisplayTypography.Configure(_settings);
+        ScientificColorMaps.Configure(_settings);
+        ImageExportResolution.Configure(_settings);
     }
 
     private async Task ShowDisplaySettingsAsync()
     {
+        var previousAppearance = (_settings.Theme, _settings.FontFamily, _settings.FontShape,
+            _settings.FontSize, _settings.DecimalPlaces, _settings.UpperScientificExponent,
+            _settings.LowerScientificExponent);
         var dialog = new DisplaySettingsWindow(_settings);
         if (!await dialog.ShowDialog<bool>(this))
         {
@@ -135,6 +140,10 @@ public sealed partial class MainWindow
 
         var previousFontSize = DisplayTypography.FontSize;
         ConfigureDisplaySettings();
+        // Colormap/export-only changes retain existing drawing data and camera/zoom state.
+        if (previousAppearance == (_settings.Theme, _settings.FontFamily, _settings.FontShape,
+            _settings.FontSize, _settings.DecimalPlaces, _settings.UpperScientificExponent,
+            _settings.LowerScientificExponent)) return;
         ApplyTheme(save: false);
         DisplayTypography.ApplyRecursively(this, previousFontSize);
         _laboratories?.ApplyDisplaySettings(previousFontSize);

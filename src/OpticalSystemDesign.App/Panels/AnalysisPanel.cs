@@ -80,13 +80,13 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
             initialSettings ?? SavedAnalysisSettings());
         _automaticRefreshTimer.Tick += OnAutomaticRefreshTimerTick;
 
-        _syncButton = IconButton("refresh-cw", "同步当前设置并重新运行");
+        _syncButton = IconButton("action-recalculate", "同步当前设置并重新运行");
         _syncButton.Click += async (_, _) => await RunAsync();
-        var copyButton = CommandButton("clipboard-copy", "复制文本", 96);
+        var copyButton = CommandButton("clipboard-copy-text", "复制文本", 96);
         copyButton.Click += async (_, _) => await CopyReportAsync();
-        var exportButton = CommandButton("upload", "导出文本", 96);
+        var exportButton = CommandButton("file-export-text", "导出文本", 96);
         exportButton.Click += async (_, _) => await ExportReportAsync();
-        _exportImageButton = IconButton("camera", "导出图片（PNG）");
+        _exportImageButton = IconButton("file-export-image", "导出图片（PNG）");
         _exportImageButton.Name = "ExportAnalysisImage";
         _exportImageButton.IsVisible = false;
         _exportImageButton.Click += async (_, _) => await ExportImageAsync();

@@ -1,0 +1,95 @@
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:06.88]     OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "表面", map: Viridis) [FAIL]
+  失败 OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "表面", map: Viridis) [4 s]
+  错误消息:
+   Assert.Equal() Failure: Collections differ
+                      ↓ (pos 51)
+Expected: [···, 0, 0, 32, 0, 73, ···]
+Actual:   [···, 0, 0, 0, 1, 115, ···]
+                      ↑ (pos 51)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ScientificColorMapTests.<>c__DisplayClass7_0.<<RealWavefrontLivePngAndReportShareOnePaletteAndSource>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 243
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 215
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:08.72]     OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "二维热力图", map: Rainbow) [FAIL]
+  失败 OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "二维热力图", map: Rainbow) [1 s]
+  错误消息:
+   Assert.Equal() Failure: Collections differ
+                      ↓ (pos 51)
+Expected: [···, 0, 0, 32, 0, 73, ···]
+Actual:   [···, 0, 0, 0, 1, 115, ···]
+                      ↑ (pos 51)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ScientificColorMapTests.<>c__DisplayClass7_0.<<RealWavefrontLivePngAndReportShareOnePaletteAndSource>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 243
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 215
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:10.56]     OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "二维热力图", map: RedBlue) [FAIL]
+  失败 OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "二维热力图", map: RedBlue) [1 s]
+  错误消息:
+   Assert.Equal() Failure: Collections differ
+                      ↓ (pos 51)
+Expected: [···, 0, 0, 32, 0, 73, ···]
+Actual:   [···, 0, 0, 0, 1, 115, ···]
+                      ↑ (pos 51)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ScientificColorMapTests.<>c__DisplayClass7_0.<<RealWavefrontLivePngAndReportShareOnePaletteAndSource>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 243
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 215
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:14.04]     OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: "zh-CN", theme: "Light", size: 13) [FAIL]
+  失败 OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: "zh-CN", theme: "Light", size: 13) [1 s]
+  错误消息:
+   System.InvalidOperationException : Could not find parent name scope.
+  堆栈跟踪:
+     at Avalonia.Controls.ControlExtensions.FindControl[T](Control control, String name)
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.<>c__DisplayClass4_0.<SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 93
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(String language, String theme, Double size) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 78
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:15.42]     OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: "en-US", theme: "Dark", size: 18) [FAIL]
+  失败 OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: "en-US", theme: "Dark", size: 18) [1 s]
+  错误消息:
+   System.InvalidOperationException : Could not find parent name scope.
+  堆栈跟踪:
+     at Avalonia.Controls.ControlExtensions.FindControl[T](Control control, String name)
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.<>c__DisplayClass4_0.<SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 93
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(String language, String theme, Double size) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 78
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:18.22]     OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: "ja-JP", theme: "Light", size: 22) [FAIL]
+  失败 OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: "ja-JP", theme: "Light", size: 22) [2 s]
+  错误消息:
+   System.InvalidOperationException : Could not find parent name scope.
+  堆栈跟踪:
+     at Avalonia.Controls.ControlExtensions.FindControl[T](Control control, String name)
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.<>c__DisplayClass4_0.<SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 93
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(String language, String theme, Double size) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 78
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-03\scientific-colormaps\checked\colormaps.trx
+
+失败!  - 失败:     6，通过:    10，已跳过:     0，总计:    16，持续时间: 16 s - OpticalSystemDesign.Tests.dll (net10.0)

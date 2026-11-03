@@ -1,0 +1,718 @@
+{
+  "Date": "2026-11-03",
+  "Scope": "Native image-only ROI measurement and quality gates. No formal MTF/independent-tool accuracy or convergence claim.",
+  "UnchangedLiveRevision": true,
+  "Receipts": [
+    {
+      "label": "double-gauss-512-lens-wavelengths",
+      "InputArchive": "validation\\rechecks\\2026-11-02\\scene-linear-batch\\double-gauss-512-lens-wavelengths.scene-linear.zip",
+      "InputSha256": "29de1c86e883951f4ae92a69849f403cf4d2476cca4a3d3bfcb8186ba2cbbaa8",
+      "SourceManifestSha256": "9834aa5b8943c515a85527a719446263cbf1552e30e92d12a87d224f42c3d313",
+      "LensSha256": "2343ae28727836ee6bfbfd308eacd2b8d916cef00cfe8b0e10a6c9cbeddf1f17",
+      "Width": 512,
+      "Height": 512,
+      "PixelPitchMicrometers": 3,
+      "CompletedRays": 6291456,
+      "SurfaceInteractions": 37450032,
+      "ReportPath": "validation\\rechecks\\2026-11-03\\scene-multi-roi-sfr\\double-gauss-512-lens-wavelengths.scene-sfr-rois.json",
+      "ReportSha256": "7e7ef53b0bda435a5e798c389c4833a9b0fd79a29a0269fb1db6fc0f6eaad3b9",
+      "ReplayedExactly": true,
+      "Results": [
+        {
+          "TaskIndex": 0,
+          "Name": "W1: 486.09999999999997 nm",
+          "IrradianceSha256": "86d0aa3e6a2be2a612734069018a116d51f85630b389484f0e98717dc0e2c1ec",
+          "Regions": [
+            {
+              "Roi": {
+                "Id": "V top",
+                "Region": {
+                  "X": 160,
+                  "Y": 8,
+                  "Width": 192,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": 0.11452041488501578,
+                "EdgeIntercept": 187.4011943762025,
+                "EdgeFitRmsPixels": 0.2637027306301071,
+                "Contrast": 0.05905098144355302,
+                "Scanlines": 128
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            },
+            {
+              "Roi": {
+                "Id": "V middle",
+                "Region": {
+                  "X": 160,
+                  "Y": 192,
+                  "Width": 192,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": 0.12003892299339153,
+                "EdgeIntercept": 198.60077370256872,
+                "EdgeFitRmsPixels": 6.183376636680847,
+                "Contrast": 0.08687252925202087,
+                "Scanlines": 128
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            },
+            {
+              "Roi": {
+                "Id": "V bottom",
+                "Region": {
+                  "X": 160,
+                  "Y": 360,
+                  "Width": 192,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": 0.14668355908042827,
+                "EdgeIntercept": 179.0918417877793,
+                "EdgeFitRmsPixels": 0.2980712000408209,
+                "Contrast": 0.05903558192268245,
+                "Scanlines": 128
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            },
+            {
+              "Roi": {
+                "Id": "H candidate",
+                "Region": {
+                  "X": 8,
+                  "Y": 144,
+                  "Width": 144,
+                  "Height": 128
+                },
+                "Orientation": 1,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": -0.024789828474088203,
+                "EdgeIntercept": 198.01050292929426,
+                "EdgeFitRmsPixels": 0.2844992722787978,
+                "Contrast": 0.0032516171689082754,
+                "Scanlines": 144
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            }
+          ]
+        },
+        {
+          "TaskIndex": 1,
+          "Name": "W2: 587.60000000000002 nm",
+          "IrradianceSha256": "29265da73ca43c9702df21f58d22e5de4c73ec204e8432bfb2a2efc28da4d27c",
+          "Regions": [
+            {
+              "Roi": {
+                "Id": "V top",
+                "Region": {
+                  "X": 160,
+                  "Y": 8,
+                  "Width": 192,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AEdge window does not contain a usable line-spread response.",
+              "Fit": {
+                "EdgeSlope": 0.11416515152866952,
+                "EdgeIntercept": 201.1188112647823,
+                "EdgeFitRmsPixels": 0.21394859039765132,
+                "Contrast": 0.06009463146850709,
+                "Scanlines": 128
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            },
+            {
+              "Roi": {
+                "Id": "V middle",
+                "Region": {
+                  "X": 160,
+                  "Y": 192,
+                  "Width": 192,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": 0.12875848335352658,
+                "EdgeIntercept": 202.81402292553153,
+                "EdgeFitRmsPixels": 7.917716842030825,
+                "Contrast": 0.07767878247084009,
+                "Scanlines": 128
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            },
+            {
+              "Roi": {
+                "Id": "V bottom",
+                "Region": {
+                  "X": 160,
+                  "Y": 360,
+                  "Width": 192,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 0,
+              "Failure": null,
+              "Fit": {
+                "EdgeSlope": 0.14549872210335596,
+                "EdgeIntercept": 193.52861188721099,
+                "EdgeFitRmsPixels": 0.2441690588296615,
+                "Contrast": 0.06007878933007201,
+                "Scanlines": 128
+              },
+              "Geometry": {
+                "Column": 255.14732069798222,
+                "Row": 423.5,
+                "XMillimeters": -0.0010580379060533289,
+                "YMillimeters": -0.504,
+                "NormalX": 0.9895802113631936,
+                "NormalY": 0.14398265617211356,
+                "NormalAngleDegrees": 8.278371505221276,
+                "ProjectedSamples": 6225,
+                "MinimumBinSamples": 15
+              },
+              "Mtf50": 0.08837635510250082,
+              "Mtf10": 0.2584631185211962
+            },
+            {
+              "Roi": {
+                "Id": "H candidate",
+                "Region": {
+                  "X": 8,
+                  "Y": 144,
+                  "Width": 144,
+                  "Height": 128
+                },
+                "Orientation": 1,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": -0.02460178034449577,
+                "EdgeIntercept": 220.8235723341536,
+                "EdgeFitRmsPixels": 0.2968392462953166,
+                "Contrast": 0.003308774739402309,
+                "Scanlines": 144
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            }
+          ]
+        },
+        {
+          "TaskIndex": 2,
+          "Name": "W3: 656.29999999999995 nm",
+          "IrradianceSha256": "5498dca5408e87b9e09c49c3a0b4425647597b833e476514d35599a6239ece92",
+          "Regions": [
+            {
+              "Roi": {
+                "Id": "V top",
+                "Region": {
+                  "X": 160,
+                  "Y": 8,
+                  "Width": 192,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": 0.11425305430185419,
+                "EdgeIntercept": 207.83439746773524,
+                "EdgeFitRmsPixels": 0.27479768268672683,
+                "Contrast": 0.06054725653479682,
+                "Scanlines": 128
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            },
+            {
+              "Roi": {
+                "Id": "V middle",
+                "Region": {
+                  "X": 160,
+                  "Y": 192,
+                  "Width": 192,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": 0.12749545052395397,
+                "EdgeIntercept": 208.42993989808937,
+                "EdgeFitRmsPixels": 2.80604713559224,
+                "Contrast": 0.07356149464842249,
+                "Scanlines": 128
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            },
+            {
+              "Roi": {
+                "Id": "V bottom",
+                "Region": {
+                  "X": 160,
+                  "Y": 360,
+                  "Width": 192,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": 0.14433102358629818,
+                "EdgeIntercept": 200.4720620939976,
+                "EdgeFitRmsPixels": 0.2651594743340807,
+                "Contrast": 0.06053122256275555,
+                "Scanlines": 128
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            },
+            {
+              "Roi": {
+                "Id": "H candidate",
+                "Region": {
+                  "X": 8,
+                  "Y": 144,
+                  "Width": 144,
+                  "Height": 128
+                },
+                "Orientation": 1,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": -0.023773537383842178,
+                "EdgeIntercept": 231.64993366670026,
+                "EdgeFitRmsPixels": 0.3206027116966048,
+                "Contrast": 0.003333563821449843,
+                "Scanlines": 144
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "double-gauss-128-article-source-shapes",
+      "InputArchive": "validation\\rechecks\\2026-11-02\\scene-linear-batch\\double-gauss-128-article-source-shapes.scene-linear.zip",
+      "InputSha256": "1a932104ee81ccfb871cd85a32b580cce21c06b0017678eb1cffc0e14de80f2a",
+      "SourceManifestSha256": "a7904f9235c7486e2e245c8bac16878e75a1d2d24c524d3ed49e8dfe37641375",
+      "LensSha256": "2343ae28727836ee6bfbfd308eacd2b8d916cef00cfe8b0e10a6c9cbeddf1f17",
+      "Width": 128,
+      "Height": 128,
+      "PixelPitchMicrometers": 3,
+      "CompletedRays": 3145728,
+      "SurfaceInteractions": 21424256,
+      "ReportPath": "validation\\rechecks\\2026-11-03\\scene-multi-roi-sfr\\double-gauss-128-article-source-shapes.scene-sfr-rois.json",
+      "ReportSha256": "34c7ecedfb2167e4637106767123df3f93551b46dd99976fb8e0f649b3c564d9",
+      "ReplayedExactly": true,
+      "Results": [
+        {
+          "TaskIndex": 0,
+          "Name": "\u539F\u6587\u6E90\u8C31\u5F62\u72B6 486 nm",
+          "IrradianceSha256": "b5c5c6ac1c7f6821617f9199bded3a3273d417548ad070ba9a7687795c945f47",
+          "Regions": [
+            {
+              "Roi": {
+                "Id": "V centre",
+                "Region": {
+                  "X": 0,
+                  "Y": 0,
+                  "Width": 128,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 0,
+              "Failure": null,
+              "Fit": {
+                "EdgeSlope": 0.08754572840700002,
+                "EdgeIntercept": 57.939815938722205,
+                "EdgeFitRmsPixels": 0.07407646478523841,
+                "Contrast": 0.11704121718166297,
+                "Scanlines": 128
+              },
+              "Geometry": {
+                "Column": 63.4989696925667,
+                "Row": 63.5,
+                "XMillimeters": -3.0909222998900533E-06,
+                "YMillimeters": -0,
+                "NormalX": 0.9961897607662367,
+                "NormalY": 0.08721215823787529,
+                "NormalAngleDegrees": 5.003244724654789,
+                "ProjectedSamples": 6184,
+                "MinimumBinSamples": 15
+              },
+              "Mtf50": 0.10530529177761472,
+              "Mtf10": 0.1663759744450929
+            },
+            {
+              "Roi": {
+                "Id": "H candidate",
+                "Region": {
+                  "X": 0,
+                  "Y": 0,
+                  "Width": 128,
+                  "Height": 128
+                },
+                "Orientation": 1,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AEdge does not span the ROI consistently.",
+              "Fit": null,
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            }
+          ]
+        },
+        {
+          "TaskIndex": 1,
+          "Name": "\u539F\u6587\u6E90\u8C31\u5F62\u72B6 588 nm",
+          "IrradianceSha256": "caff9f9d30a05a93710388566095ee14a2da96ccd3274d99fc890382460f60c1",
+          "Regions": [
+            {
+              "Roi": {
+                "Id": "V centre",
+                "Region": {
+                  "X": 0,
+                  "Y": 0,
+                  "Width": 128,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": 0.12235239280575541,
+                "EdgeIntercept": 31.706524193275982,
+                "EdgeFitRmsPixels": 3.9429473632878884,
+                "Contrast": 0.08508512773123875,
+                "Scanlines": 128
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            },
+            {
+              "Roi": {
+                "Id": "H candidate",
+                "Region": {
+                  "X": 0,
+                  "Y": 0,
+                  "Width": 128,
+                  "Height": 128
+                },
+                "Orientation": 1,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AEdge does not span the ROI consistently.",
+              "Fit": null,
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            }
+          ]
+        },
+        {
+          "TaskIndex": 2,
+          "Name": "\u539F\u6587\u6E90\u8C31\u5F62\u72B6 656 nm",
+          "IrradianceSha256": "57398fef7964f4b448bb9dad7812fe152ca969b4f8ce1503e86eabdf0e89078e",
+          "Regions": [
+            {
+              "Roi": {
+                "Id": "V centre",
+                "Region": {
+                  "X": 0,
+                  "Y": 0,
+                  "Width": 128,
+                  "Height": 128
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be \u003C= 0.25 pixel.",
+              "Fit": {
+                "EdgeSlope": 0.12472338641530573,
+                "EdgeIntercept": 34.930484639090864,
+                "EdgeFitRmsPixels": 4.131762474562401,
+                "Contrast": 0.08071158945226249,
+                "Scanlines": 128
+              },
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            },
+            {
+              "Roi": {
+                "Id": "H candidate",
+                "Region": {
+                  "X": 0,
+                  "Y": 0,
+                  "Width": 128,
+                  "Height": 128
+                },
+                "Orientation": 1,
+                "HalfWindowPixels": 24
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AEdge does not span the ROI consistently.",
+              "Fit": null,
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "double-gauss-cross-128",
+      "InputArchive": "validation\\rechecks\\2026-11-03\\scene-multi-roi-sfr\\double-gauss-cross-128.scene-linear.zip",
+      "InputSha256": "56c63642194a806d9bc9fadc8e2181a0413eb27deafe5850ec95fbecd305fa86",
+      "SourceManifestSha256": "40bb2418231f3ed9cda13fed60f8d628b02de5f3ec0f9be177137a5e9124df50",
+      "LensSha256": "2343ae28727836ee6bfbfd308eacd2b8d916cef00cfe8b0e10a6c9cbeddf1f17",
+      "Width": 128,
+      "Height": 128,
+      "PixelPitchMicrometers": 3,
+      "CompletedRays": 8388608,
+      "SurfaceInteractions": 45088768,
+      "ReportPath": "validation\\rechecks\\2026-11-03\\scene-multi-roi-sfr\\double-gauss-cross-128.scene-sfr-rois.json",
+      "ReportSha256": "c28c4a3e8830438a75a5fbdaf65c4d358145249e529442ffe47bf4d512a9300e",
+      "ReplayedExactly": true,
+      "Results": [
+        {
+          "TaskIndex": 0,
+          "Name": "d 587.6 nm",
+          "IrradianceSha256": "c12f95002111621ccb4b12d9e3b880eb7f72df99b26983f075c128e6f73232d6",
+          "Regions": [
+            {
+              "Roi": {
+                "Id": "V top",
+                "Region": {
+                  "X": 24,
+                  "Y": 0,
+                  "Width": 80,
+                  "Height": 48
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 12
+              },
+              "Status": 0,
+              "Failure": null,
+              "Fit": {
+                "EdgeSlope": 0.08756550920017296,
+                "EdgeIntercept": 57.94180890496718,
+                "EdgeFitRmsPixels": 0.03357685517443151,
+                "Contrast": 0.040092614612142856,
+                "Scanlines": 48
+              },
+              "Geometry": {
+                "Column": 59.999598371171246,
+                "Row": 23.5,
+                "XMillimeters": -0.010501204886486263,
+                "YMillimeters": 0.12,
+                "NormalX": 0.9961880485728123,
+                "NormalY": 0.08723171373240494,
+                "NormalAngleDegrees": 5.004369458425215,
+                "ProjectedSamples": 1164,
+                "MinimumBinSamples": 5
+              },
+              "Mtf50": 0.062456333991990555,
+              "Mtf10": 0.09152298235625583
+            },
+            {
+              "Roi": {
+                "Id": "H left",
+                "Region": {
+                  "X": 0,
+                  "Y": 24,
+                  "Width": 48,
+                  "Height": 80
+                },
+                "Orientation": 1,
+                "HalfWindowPixels": 12
+              },
+              "Status": 0,
+              "Failure": null,
+              "Fit": {
+                "EdgeSlope": -0.08756550926323625,
+                "EdgeIntercept": 69.05767923593321,
+                "EdgeFitRmsPixels": 0.03357685517245078,
+                "Contrast": 0.04009261461214284,
+                "Scanlines": 48
+              },
+              "Geometry": {
+                "Column": 23.5,
+                "Row": 66.99988976824716,
+                "XMillimeters": -0.12,
+                "YMillimeters": -0.010499669304741475,
+                "NormalX": 0.0872317137947498,
+                "NormalY": -0.996188048567353,
+                "NormalAngleDegrees": -84.99563053798903,
+                "ProjectedSamples": 1164,
+                "MinimumBinSamples": 5
+              },
+              "Mtf50": 0.06245636155788967,
+              "Mtf10": 0.0915229891326016
+            },
+            {
+              "Roi": {
+                "Id": "V bottom",
+                "Region": {
+                  "X": 24,
+                  "Y": 80,
+                  "Width": 80,
+                  "Height": 48
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 12
+              },
+              "Status": 0,
+              "Failure": null,
+              "Fit": {
+                "EdgeSlope": 0.08756550920017252,
+                "EdgeIntercept": 57.937371426610895,
+                "EdgeFitRmsPixels": 0.03357685517443276,
+                "Contrast": 0.040092614612142856,
+                "Scanlines": 48
+              },
+              "Geometry": {
+                "Column": 67.00040162882875,
+                "Row": 103.5,
+                "XMillimeters": 0.010501204886486263,
+                "YMillimeters": -0.12,
+                "NormalX": 0.9961880485728123,
+                "NormalY": 0.0872317137324045,
+                "NormalAngleDegrees": 5.00436945842519,
+                "ProjectedSamples": 1164,
+                "MinimumBinSamples": 5
+              },
+              "Mtf50": 0.06245633399199053,
+              "Mtf10": 0.09152298235625582
+            },
+            {
+              "Roi": {
+                "Id": "H right",
+                "Region": {
+                  "X": 80,
+                  "Y": 24,
+                  "Width": 48,
+                  "Height": 80
+                },
+                "Orientation": 1,
+                "HalfWindowPixels": 12
+              },
+              "Status": 0,
+              "Failure": null,
+              "Fit": {
+                "EdgeSlope": -0.08756550926323639,
+                "EdgeIntercept": 69.06314044049782,
+                "EdgeFitRmsPixels": 0.0335768551724466,
+                "Contrast": 0.04009261461214285,
+                "Scanlines": 48
+              },
+              "Geometry": {
+                "Column": 103.5,
+                "Row": 60.000110231752856,
+                "XMillimeters": 0.12,
+                "YMillimeters": 0.010499669304741431,
+                "NormalX": 0.08723171379474993,
+                "NormalY": -0.996188048567353,
+                "NormalAngleDegrees": -84.995630537989,
+                "ProjectedSamples": 1164,
+                "MinimumBinSamples": 5
+              },
+              "Mtf50": 0.06245636155788961,
+              "Mtf10": 0.09152298913260158
+            },
+            {
+              "Roi": {
+                "Id": "crossing",
+                "Region": {
+                  "X": 16,
+                  "Y": 16,
+                  "Width": 96,
+                  "Height": 96
+                },
+                "Orientation": 0,
+                "HalfWindowPixels": 16
+              },
+              "Status": 3,
+              "Failure": "\u672A\u6EE1\u8DB3\u5355\u4E00\u659C\u8FB9\u8D28\u91CF\u6761\u4EF6\uFF1AROI has no measurable edge contrast.",
+              "Fit": null,
+              "Geometry": null,
+              "Mtf50": null,
+              "Mtf10": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

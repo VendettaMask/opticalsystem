@@ -1,0 +1,159 @@
+{
+  "DateLocal": "2026-11-03",
+  "Scope": "Scene linear float64 image multi-ROI SFR, both near-axis edge orientations, original estimator gates; background/off-screen only.",
+  "DistinctPassedTests": 44,
+  "Failed": 0,
+  "Skipped": 0,
+  "Runs": [
+    {
+      "File": "multi-roi-final.trx",
+      "Sha256": "bf59e39e7ce323abe920e8bc0bfdad7089b8a8e4e054c9255ebe397f56bb667a",
+      "Passed": 44,
+      "Names": [
+        "OpticalSystemDesign.Tests.SceneSlantedEdgeTests.PhysicalAreaAndRowOrderConvertOnceAndKeepAbsoluteBandRatios",
+        "OpticalSystemDesign.Tests.SceneSlantedEdgeTests.EveryEmissiveCellMatchesSeparateCoplanarFacesIncludingOddCountsAndPose(columns: 14, rows: 14, rx: 0, ry: 0, rz: 5)",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.DragOnLetterboxedRasterKeepsOriginalPixelCoordinatesAfterResize",
+        "OpticalSystemDesign.Tests.SceneSlantedEdgeTests.ImageOnlyMeasurementIsScaleInvariantAndHorizontalTransposePreservesFrequency",
+        "OpticalSystemDesign.Tests.SceneLinearBatchWindowTests.FullRasterTaskSelectionFrozenRecomputeAndOriginalBudgetFailureAreVisible(theme: \"Dark\", mode: 1)",
+        "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.45000000000000001)",
+        "OpticalSystemDesign.Tests.SceneSlantedEdgeTests.ActualObjectChartInvertsAtKnownConjugateAndRadianceScalesWithoutChangingPrescription",
+        "OpticalSystemDesign.Tests.CameraWorkspaceTests.ViewingStagesOverviewZoomAndABNeverChangesFrozenSensorOrImageResults(theme: \"Dark\")",
+        "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: -1, phase: -0.31)",
+        "OpticalSystemDesign.Tests.SceneLinearBatchWindowTests.FullRasterTaskSelectionFrozenRecomputeAndOriginalBudgetFailureAreVisible(theme: \"Light\", mode: 0)",
+        "OpticalSystemDesign.Tests.SceneLinearBatchTests.ArticleShapeTasksKeepAllNodesAndCancelOrEncodingFailurePreservesTheExistingDestination",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: 0.086999999999999994, reverse: False)",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.FullImageRoiManagementBothDirectionsProfilesAndFrozenRecordsRemainUsable(theme: \"Dark\")",
+        "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalCellIntegralAgreesWithSharedFftTimesAnalyticCellFootprint",
+        "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass",
+        "OpticalSystemDesign.Tests.CameraWorkspaceTests.ViewingStagesOverviewZoomAndABNeverChangesFrozenSensorOrImageResults(theme: \"Light\")",
+        "OpticalSystemDesign.Tests.SceneLinearBatchTests.StripsRetainFullSensorCoordinatesPupilBoundsAndFullyVignettedRows(rows: 1)",
+        "OpticalSystemDesign.Tests.SceneSlantedEdgeTests.InvalidRoiIsARecordedFailureAndBudgetCancellationAndUnsupportedPoseFailExplicitly",
+        "OpticalSystemDesign.Tests.SceneSlantedEdgeTests.OldReflectedCheckerKeepsUniformEmissionAndNewEmissionArraysAreFrozen",
+        "OpticalSystemDesign.Tests.SceneLinearBatchTests.Gray16UsesOnePhysicalLinearScaleAndConformsToAnIndependentPngDecoder",
+        "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.FlatInvalidRoiAndNonlinearInvalidValuesFailExplicitly",
+        "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.DirectionalFourierSectionMatchesIndependentAnisotropicGaussian",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.BadRoisStayIndependentAndNeverGetFabricatedCurves",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: -0.123, reverse: False)",
+        "OpticalSystemDesign.Tests.SceneLinearBatchTests.StripsRetainFullSensorCoordinatesPupilBoundsAndFullyVignettedRows(rows: 16)",
+        "OpticalSystemDesign.Tests.CameraWorkspaceTests.CompactWorkspaceKeepsOneStageAndAllViewsAndFileActionsReachable(theme: \"Light\", language: \"ja-JP\", width: 760, height: 680, font: 18)",
+        "OpticalSystemDesign.Tests.SceneSlantedEdgeWindowTests.ScenePageUsesCurrentLensSavesLinearDataAndKeepsFrozenReplayAfterDocumentSwitch(theme: \"Light\")",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: 0.086999999999999994, reverse: True)",
+        "OpticalSystemDesign.Tests.CameraWorkspaceTests.CompactWorkspaceKeepsOneStageAndAllViewsAndFileActionsReachable(theme: \"Light\", language: \"zh-CN\", width: 1440, height: 900, font: 18)",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.RealFullFrameMultiTaskMeasurementRoundTripsWithoutRetracingAndRejectsWrongSourceOrEditedCurves",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: -0.123, reverse: True)",
+        "OpticalSystemDesign.Tests.SceneSlantedEdgeTests.EveryEmissiveCellMatchesSeparateCoplanarFacesIncludingOddCountsAndPose(columns: 5, rows: 3, rx: 17, ry: -11, rz: 23)",
+        "OpticalSystemDesign.Tests.SceneLinearBatchTests.StripsRetainFullSensorCoordinatesPupilBoundsAndFullyVignettedRows(rows: 7)",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.FullImageRoiManagementBothDirectionsProfilesAndFrozenRecordsRemainUsable(theme: \"Light\")",
+        "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.20000000000000001)",
+        "OpticalSystemDesign.Tests.SceneLinearBatchTests.FiniteSourceShapeIntegratesRadianceAndKnownSpectralMomentsWithoutPhotonWeights(order: 3)",
+        "OpticalSystemDesign.Tests.SceneLinearBatchTests.LensTasksFreezeWeightsKeepZeroRowsAndRoundTripAllFloatPlanesAcrossStripSizesAndCultures",
+        "OpticalSystemDesign.Tests.SlantedEdgeSfrTests.SquarePixelIntegrationAndDeltaPsfPreserveAnalyticEdge",
+        "OpticalSystemDesign.Tests.SceneSlantedEdgeWindowTests.ScenePageUsesCurrentLensSavesLinearDataAndKeepsFrozenReplayAfterDocumentSwitch(theme: \"Dark\")",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.BoundsUniqueNamesAndCancellationRemainExplicit",
+        "OpticalSystemDesign.Tests.SceneLinearBatchTests.GlobalBudgetCannotBeResetPerSourceOrStripAndOriginalRasterIsReportedWithoutCropping",
+        "OpticalSystemDesign.Tests.CameraWorkspaceTests.CompactWorkspaceKeepsOneStageAndAllViewsAndFileActionsReachable(theme: \"Dark\", language: \"en-US\", width: 1260, height: 850, font: 13)",
+        "OpticalSystemDesign.Tests.SceneSlantedEdgeTests.CurrentLensPrimaryBandLinearFrameSaveAndFrozenReplayAreIndependentOfLiveDocument",
+        "OpticalSystemDesign.Tests.SceneLinearBatchTests.FiniteSourceShapeIntegratesRadianceAndKnownSpectralMomentsWithoutPhotonWeights(order: 2)"
+      ]
+    },
+    {
+      "File": "multi-roi-save-guard.trx",
+      "Sha256": "e070f07c43fae45f4fa0292ea70fcb78ec2a748334bc32d0def954a60276f5f9",
+      "Passed": 10,
+      "Names": [
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.FullImageRoiManagementBothDirectionsProfilesAndFrozenRecordsRemainUsable(theme: \"Light\")",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.RealFullFrameMultiTaskMeasurementRoundTripsWithoutRetracingAndRejectsWrongSourceOrEditedCurves",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.BadRoisStayIndependentAndNeverGetFabricatedCurves",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: -0.123, reverse: False)",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: 0.086999999999999994, reverse: True)",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: -0.123, reverse: True)",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.DragOnLetterboxedRasterKeepsOriginalPixelCoordinatesAfterResize",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: 0.086999999999999994, reverse: False)",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.FullImageRoiManagementBothDirectionsProfilesAndFrozenRecordsRemainUsable(theme: \"Dark\")",
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.BoundsUniqueNamesAndCancellationRemainExplicit"
+      ]
+    },
+    {
+      "File": "multi-roi-format-guard.trx",
+      "Sha256": "9bc496e79b94a85b52a3a3592758e46beec2dc75f478443920ebeb7bd860f691",
+      "Passed": 1,
+      "Names": [
+        "OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.RealFullFrameMultiTaskMeasurementRoundTripsWithoutRetracingAndRejectsWrongSourceOrEditedCurves"
+      ]
+    }
+  ],
+  "Build": {
+    "Project": "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj",
+    "Configuration": "Release",
+    "DefaultOutput": true,
+    "Warnings": 0,
+    "Errors": 0,
+    "ElapsedSeconds": 62.04
+  },
+  "Binaries": [
+    {
+      "Assembly": "OpticalSystemDesign.Core",
+      "ProductSha256": "7d190f42001b1a74b5c33b090787fa17c1a84c5a37e6dda7e95eb197d69034f7",
+      "TestSha256": "e560a44ef74c1cc662ab8ef27ced8aa58e865f872d368b0fb33a2853f2be7a10",
+      "SameBytes": false
+    },
+    {
+      "Assembly": "OpticalSystemDesign.Application",
+      "ProductSha256": "ae84aced175f7bab5bb4682b48aa61bd379421d8dd217fddb8170d7c65f3ae39",
+      "TestSha256": "034366a2319b6d520156e60d28cca9e953699b430c1796de9d1202d877efcb80",
+      "SameBytes": false
+    },
+    {
+      "Assembly": "OpticalSystemDesign.App",
+      "ProductSha256": "8960b48a6079466a7704534b4e4dfefaa62551cfee8fe827e9fbf34dbef800c5",
+      "TestSha256": "8334e6e7c0a1b80817f733bc69c6c824078686012e42ec1be7a2d53d9e4b912f",
+      "SameBytes": false
+    }
+  ],
+  "ProductSources": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/Imaging/LinearImageRoiSfr.cs",
+      "Sha256": "3b134f6466fb563a1d3871b087e739b015c5941e4c01cd9598cae0429a898225"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/Imaging/LinearImageSfr.cs",
+      "Sha256": "8282eb73b964a6db237660f302cd6d7bfecf511d967c20cdf7958ca896c0a22d"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Analysis/Imaging/SlantedEdgeSfr.cs",
+      "Sha256": "96b347383fc9edc5902a3c74801d80706a0fcee89c6431596643d78cf27852f6"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/CameraSceneRoiSfrContracts.cs",
+      "Sha256": "ff74541b8a2343729cdabea7349b28b1ca12ef73c785746d136bf2394f3035c6"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/CameraImagingService.SceneRoiSfr.cs",
+      "Sha256": "84572af84cd2fdc14a11c198b623e549919789565d4388b18854b14fb53c74aa"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/LinearRoiImageView.cs",
+      "Sha256": "f4fb7a8409baf66f6da529df2ab171487914578bd035375e6831951de43bab97"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneRoiSfr.cs",
+      "Sha256": "f19e9fd5e74ff8f1246fbe6ba34f46e64eb34cdc625d17bb9c77caee26bbaf7c"
+    }
+  ],
+  "FollowUpScope": "Main 44 checks, then same 10 with save guard, then same service identity with final malformed-record checks. Last source change only added structural file validation; no optical or estimator math changed after the main run.",
+  "IncompleteAttempt": "multi-roi-core-service.trx: restricted testhost connection timed out at 90 s; aborted, not a pass.",
+  "NotAccepted": [
+    "Original Ansys 5000x3000 and ROM",
+    "Independent SFR tool comparison",
+    "Same-conjugate/direction formal MTF",
+    "Scene/measuring/ROM sampling convergence"
+  ],
+  "SourceConsistencyAudit": "compiled-source-audit.json: Core/Application/App source checksums match normal App versus final test; only three generated AssemblyInfo documents differ; DLL/PDB debug identities bound.",
+  "DocumentationAudit": {
+    "File": "documentation-audit.json",
+    "FullRepositoryPassed": false,
+    "FullRepositoryBrokenLinks": 4,
+    "TaskDocumentBrokenLinks": 0,
+    "Explanation": "All four missing links belong to concurrent scripts/icon-gallery-inputs/gallery.html inputs, not this task; no changes made to that unrelated work."
+  }
+}

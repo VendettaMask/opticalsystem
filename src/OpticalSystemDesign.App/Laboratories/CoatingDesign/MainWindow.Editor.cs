@@ -18,26 +18,11 @@ public sealed partial class MainWindow
     private string? _historyKey;
     private bool _historyRestoring;
     private int _editorTransaction;
-    private Button? _undoButton, _redoButton;
+    private readonly List<Control> _undoCommands = [], _redoCommands = [];
+    internal bool CanRedoEditor => _redo.Count > 0;
     private readonly TextBox _batchValue = new() { Text = "1", Width = 80 };
     private readonly ComboBox _batchUnit = new() { ItemsSource = new[] { "nm", "OT", "QW", "FW" }, SelectedIndex = 0, Width = 80 };
 
-    private void AddEditorTools(Panel tools)
-    {
-        _undoButton = LayerTool("撤销", "undo-2", () => { RestoreEditorHistory(false); return Task.CompletedTask; });
-        _redoButton = LayerTool("重做", "redo-2", () => { RestoreEditorHistory(true); return Task.CompletedTask; });
-        tools.Children.Add(_undoButton); tools.Children.Add(_redoButton);
-        foreach (var (text, action) in new[] { ("全选", "selectAll"), ("反转层序", "reverse"), ("固定所选", "fix"), ("释放所选", "vary") })
-            tools.Children.Add(ActionButton(text, () => EditLayer(action)));
-        AutomationProperties.SetName(_batchValue, "批量厚度值"); AutomationProperties.SetName(_batchUnit, "批量厚度单位");
-        tools.Children.Add(_batchValue); tools.Children.Add(_batchUnit);
-        tools.Children.Add(ActionButton("设定所选厚度", () => EditLayer("setThickness")));
-        tools.Children.Add(ActionButton("所选厚度乘倍数", () => EditLayer("multiply")));
-        tools.Children.Add(ActionButton("堆栈公式", ShowStackFormulaAsync));
-        tools.Children.Add(ActionButton("复制到剪贴板", () => CopyLayersAsync()));
-        tools.Children.Add(ActionButton("剪切膜层", () => CopyLayersAsync(true)));
-        tools.Children.Add(ActionButton("粘贴膜层", PasteLayersAsync));
-    }
     private EditorState CaptureEditorState()
     {
         var basis = _session.Current with { Result = null, Candidates = null, Tolerance = null };
@@ -66,8 +51,8 @@ public sealed partial class MainWindow
     }
     private void RefreshHistoryButtons()
     {
-        if (_undoButton is not null) ControlAvailability.Set(_undoButton, _undo.Count > 0, "当前没有可撤销的镀膜编辑。");
-        if (_redoButton is not null) ControlAvailability.Set(_redoButton, _redo.Count > 0, "当前没有可重做的镀膜编辑。");
+        foreach (var command in _undoCommands) ControlAvailability.Set(command, _undo.Count > 0, "当前没有可撤销的镀膜编辑。");
+        foreach (var command in _redoCommands) ControlAvailability.Set(command, _redo.Count > 0, "当前没有可重做的镀膜编辑。");
     }
     private void HandleEditorHistoryKey(object? sender, KeyEventArgs e)
     {
@@ -117,6 +102,7 @@ public sealed partial class MainWindow
     private void EditSelectedLayers(string action)
     {
         _table.CommitEdit();
+        if (action == "reverseAll") { _table.SelectAll(); action = "reverse"; }
         if (action == "selectAll") { _table.SelectAll(); _historyKey = null; return; }
         var selected = _table.SelectedItems.OfType<LayerRow>().OrderBy(r => _rows.IndexOf(r)).ToArray();
         if (action != "add" && selected.Length == 0) return;
@@ -140,9 +126,9 @@ public sealed partial class MainWindow
         try
         {
             if (material is not null) _session.Replace(d with { Materials = d.Materials.Append(material).DistinctBy(m => m.Id).ToArray(), Result = null });
-            if (action == "add") AddRow(new(material!.Id, 100));
+            if (action == "add") _rows.Insert(indices.DefaultIfEmpty(0).Min(), CreateRow(new(material!.Id, 100)));
             if (action == "material") foreach (var row in selected) row.MaterialId = material!.Id;
-            if (action == "copy") foreach (var layer in copies) AddRow(layer);
+            if (action == "copy") { var insert = indices.DefaultIfEmpty(0).Min(); foreach (var layer in copies) _rows.Insert(insert++, CreateRow(layer)); }
             if (action == "remove") foreach (var row in selected) _rows.Remove(row);
             if (action == "up") foreach (var i in indices) if (i > 0 && !selected.Contains(_rows[i - 1])) _rows.Move(i, i - 1);
             if (action == "down") foreach (var i in indices.Reverse()) if (i < _rows.Count - 1 && !selected.Contains(_rows[i + 1])) _rows.Move(i, i + 1);

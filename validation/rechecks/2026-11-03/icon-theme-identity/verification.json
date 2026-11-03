@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-03",
+  "version": "1.3",
+  "actualSemanticIcons": 221,
+  "uiReferencesAndStates": 332,
+  "independentProfiles": {
+    "Lumen": 221,
+    "Isekai": 221
+  },
+  "identities": {
+    "Lumen": "Gunmetal/ice-cyan technical HUD",
+    "Isekai": "Sword-and-magic: grimoires, scrolls, magic circles, runic calibration and alchemical tools"
+  },
+  "standaloneThemeSvgFiles": 1105,
+  "themeMasters": 442,
+  "unchangedPixelCombinations": 1989,
+  "unchangedSvgFiles": 663,
+  "nativeTests": {
+    "report": "icon-identity-final.trx",
+    "passed": 35,
+    "failed": 0,
+    "skipped": 0,
+    "sha256": "43ad6f03e80615289f38238c3480bae2e7b80d7573cc970932b70e7f535908bb"
+  },
+  "galleryChecks": [
+    {
+      "name": "All 1105 theme SVGs render visibly on transparent backgrounds",
+      "result": "passed"
+    },
+    {
+      "name": "Both new profiles preserve nine distinct MTF drawings at 18/24/32 pixels",
+      "result": "passed"
+    },
+    {
+      "name": "Gallery includes exactly all 221 actually used semantic icons",
+      "result": "passed"
+    },
+    {
+      "name": "All 332 function references and alternate states remain listed",
+      "result": "passed"
+    },
+    {
+      "name": "Theme-specific artwork loads and downloads exactly match all five SVG exports",
+      "result": "passed"
+    },
+    {
+      "name": "Top menu and icon gallery repaint together when switching the two profiles",
+      "result": "passed"
+    },
+    {
+      "name": "Narrow-width layout and script-error checks pass",
+      "result": "passed"
+    }
+  ],
+  "disabledAndEmphasisOverride": "Readable monochrome; no steel/glow",
+  "geometryCache": "Shared metadata, thread-local lazy geometry",
+  "scope": "Icon artwork/materials only. Theme settings, layout, commands, text, brand marks and physical data colours retained. Background/off-screen checks; no user app restart."
+}

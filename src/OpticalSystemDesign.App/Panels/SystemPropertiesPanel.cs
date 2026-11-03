@@ -60,10 +60,10 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         Height = 210,
         HorizontalAlignment = HorizontalAlignment.Stretch
     };
-    private readonly Button _addGlassCatalog = CommandButton("arrow-up", "加入当前", 108);
-    private readonly Button _removeGlassCatalog = CommandButton("arrow-down", "移出当前", 108);
-    private readonly Button _moveGlassCatalogUp = CommandButton("chevron-up", "优先级上移", 118);
-    private readonly Button _moveGlassCatalogDown = CommandButton("chevron-down", "优先级下移", 118);
+    private readonly Button _addGlassCatalog = CommandButton("catalog-add-active", "加入当前", 108);
+    private readonly Button _removeGlassCatalog = CommandButton("catalog-remove-active", "移出当前", 108);
+    private readonly Button _moveGlassCatalogUp = CommandButton("action-move-up", "优先级上移", 118);
+    private readonly Button _moveGlassCatalogDown = CommandButton("action-move-down", "优先级下移", 118);
     private Grid? _apodizationParameterRow;
     private bool _refreshing;
     private bool _applyingLocalChange;
@@ -93,9 +93,9 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         ConfigureEnvironmentControls();
         ConfigureGlassCatalogControls();
 
-        var addField = CommandButton("plus", "添加视场", 96);
+        var addField = CommandButton("field-add", "添加视场", 96);
         addField.Click += (_, _) => _prescription.AddField();
-        var addWavelength = CommandButton("plus", "添加波长", 112);
+        var addWavelength = CommandButton("wavelength-add", "添加波长", 112);
         addWavelength.Click += (_, _) => _prescription.AddWavelength();
 
         var sections = new StackPanel
@@ -103,13 +103,13 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
             HorizontalAlignment = HorizontalAlignment.Stretch,
             Children =
             {
-                Section("系统孔径", "aperture", BuildApertureSection(), expanded: true),
-                Section("视场", "focus", BuildFieldSection(addField), expanded: true),
-                Section("波长", "activity", BuildWavelengthSection(addWavelength)),
-                Section("偏振", "disc-2", BuildPolarizationSection()),
-                Section("材料库", "database", BuildMaterialLibrarySection()),
-                Section("环境", "settings", BuildEnvironmentSection()),
-                Section("高级", "sliders-horizontal", BuildAdvancedSection())
+                Section("系统孔径", "system-aperture", BuildApertureSection(), expanded: true),
+                Section("视场", "field-settings", BuildFieldSection(addField), expanded: true),
+                Section("波长", "wavelength-settings", BuildWavelengthSection(addWavelength)),
+                Section("偏振", "polarization-settings", BuildPolarizationSection()),
+                Section("材料库", "materials-library", BuildMaterialLibrarySection()),
+                Section("环境", "environment-settings", BuildEnvironmentSection()),
+                Section("高级", "settings-general", BuildAdvancedSection())
             }
         };
         sections.Classes.Add("system-property-sections");
@@ -533,7 +533,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
     {
         var arrow = new LocalIcon
         {
-            IconName = "chevron-right",
+            IconName = "disclosure-closed",
             Width = 18,
             Height = 18,
             VerticalAlignment = VerticalAlignment.Center
@@ -563,7 +563,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
             HorizontalAlignment = HorizontalAlignment.Stretch,
             Child = content
         };
-        contentHost.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        contentHost.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SidebarSectionContent);
         var header = new Button
         {
             Height = 35,
@@ -593,7 +593,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         section.Classes.Add("system-property-card");
         section.Classes.Add("system-property-section");
         // Theme styles supply section chrome; nested field cards keep their own outline.
-        section.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
+        section.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SidebarSectionSurface);
 
         var isExpanded = expanded;
         var isHovered = false;
@@ -611,7 +611,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         {
             isExpanded = value;
             contentHost.IsVisible = value;
-            arrow.IconName = value ? "chevron-down" : "chevron-right";
+            arrow.IconName = value ? "disclosure-expand" : "disclosure-closed";
             UpdateVisuals();
         }
 
@@ -718,7 +718,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         decenterY.ValueChanged += (_, _) => Commit();
         vignetteAngle.ValueChanged += (_, _) => Commit();
         weight.ValueChanged += (_, _) => Commit();
-        var delete = CommandButton("trash-2", "删除此视场", 96);
+        var delete = CommandButton("field-delete", "删除此视场", 96);
         delete.Click += (_, _) => _prescription.RemoveField(field.Index);
         var content = Form(
             ("标签", label),
@@ -799,7 +799,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         nanometers.ValueChanged += (_, _) => Commit();
         weight.ValueChanged += (_, _) => Commit();
         primary.IsCheckedChanged += (_, _) => Commit();
-        var delete = CommandButton("trash-2", "删除此波长", 104);
+        var delete = CommandButton("wavelength-delete", "删除此波长", 104);
         delete.Click += (_, _) => _prescription.RemoveWavelength(wavelength.Index);
         var content = Form(
             ("标签", label),
@@ -861,7 +861,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         bool isField = false,
         Control? indicator = null)
     {
-        var arrow = new LocalIcon { IconName = "chevron-right", Width = 16, Height = 16 };
+        var arrow = new LocalIcon { IconName = "disclosure-closed", Width = 16, Height = 16 };
         var titleText = new TextBlock
         {
             Text = title,
@@ -937,7 +937,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         {
             contentHost.IsVisible = expanded;
             if (isField) header.Classes.Set("field-editor-expanded", expanded);
-            arrow.IconName = expanded ? "chevron-down" : "chevron-right";
+            arrow.IconName = expanded ? "disclosure-expand" : "disclosure-closed";
             if (expanded)
             {
                 expandedItems.Add(index);

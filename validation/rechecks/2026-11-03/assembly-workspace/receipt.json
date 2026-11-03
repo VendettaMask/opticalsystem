@@ -1,0 +1,280 @@
+{
+  "baseCommit": "d303a6936be6da610a0d88284a383e467633e8ce",
+  "capturedUtc": "2026-11-03T03:08:40.5578682+00:00",
+  "sourceState": "uncommitted shared working tree",
+  "runs": [
+    {
+      "path": "checked/workspace-checked.trx",
+      "sha256": "bae89115dee021ddfb175ce5f5f3d000a6e8fe9f471d55ad79ee12ca9eec8f7d",
+      "cases": [
+        {
+          "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: \"Light\", language: \"zh-CN\", width: 1440, height: 900, fontSize: 18)",
+          "outcome": "Passed",
+          "duration": "00:00:03.5794454"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: \"Dark\")",
+          "outcome": "Failed",
+          "duration": "00:00:00.6304977"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: \"Light\", language: \"zh-CN\", width: 1440, height: 960, fontSize: 22)",
+          "outcome": "Passed",
+          "duration": "00:00:03.4764469"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"assembly\", theme: \"Dark\", language: \"en-US\", width: 1100, height: 760, fontSize: 13)",
+          "outcome": "Passed",
+          "duration": "00:00:05.7782254"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: \"Light\")",
+          "outcome": "Failed",
+          "duration": "00:00:00.0983009"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"assembly\", theme: \"Light\", language: \"ja-JP\", width: 760, height: 680, fontSize: 18)",
+          "outcome": "Passed",
+          "duration": "00:00:05.9449824"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"assembly\", theme: \"Light\", language: \"zh-CN\", width: 1260, height: 850, fontSize: 13)",
+          "outcome": "Passed",
+          "duration": "00:00:10.8856503"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: \"Dark\", language: \"en-US\", width: 1260, height: 850, fontSize: 13)",
+          "outcome": "Passed",
+          "duration": "00:00:03.0625471"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: \"Light\", language: \"ja-JP\", width: 760, height: 680, fontSize: 18)",
+          "outcome": "Passed",
+          "duration": "00:00:04.2513291"
+        }
+      ]
+    },
+    {
+      "path": "final-typography/workspace-real-final.trx",
+      "sha256": "4c1a26362e4aca23afdaf9a0b44ad1aaeb9fff3b1cd2f7dbcebb2223901c1cfb",
+      "cases": [
+        {
+          "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: \"Light\")",
+          "outcome": "Passed",
+          "duration": "00:00:10.5537296"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: \"Dark\")",
+          "outcome": "Passed",
+          "duration": "00:00:16.3398144"
+        }
+      ]
+    }
+  ],
+  "distinctTests": 9,
+  "resolvedTests": [
+    {
+      "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: \"Light\", language: \"zh-CN\", width: 1440, height: 900, fontSize: 18)",
+      "outcome": "Passed",
+      "run": "checked/workspace-checked.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"assembly\", theme: \"Light\", language: \"zh-CN\", width: 1260, height: 850, fontSize: 13)",
+      "outcome": "Passed",
+      "run": "checked/workspace-checked.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: \"Dark\", language: \"en-US\", width: 1260, height: 850, fontSize: 13)",
+      "outcome": "Passed",
+      "run": "checked/workspace-checked.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: \"Light\", language: \"zh-CN\", width: 1440, height: 960, fontSize: 22)",
+      "outcome": "Passed",
+      "run": "checked/workspace-checked.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"assembly\", theme: \"Light\", language: \"ja-JP\", width: 760, height: 680, fontSize: 18)",
+      "outcome": "Passed",
+      "run": "checked/workspace-checked.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: \"assembly\", theme: \"Dark\", language: \"en-US\", width: 1100, height: 760, fontSize: 13)",
+      "outcome": "Passed",
+      "run": "checked/workspace-checked.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: \"Light\", language: \"ja-JP\", width: 760, height: 680, fontSize: 18)",
+      "outcome": "Passed",
+      "run": "checked/workspace-checked.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: \"Light\")",
+      "outcome": "Passed",
+      "run": "final-typography/workspace-real-final.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: \"Dark\")",
+      "outcome": "Passed",
+      "run": "final-typography/workspace-real-final.trx"
+    }
+  ],
+  "allResolvedPassed": true,
+  "testAdaptation": "Two real-lens setup failures used a serializer that rejected the legitimate infinite object distance. Test-only named-floating-point recording was enabled; final two cases also verify actual 22-point reticle rendering. Product binaries unchanged. Seven passing layout cases are not rerun or added twice.",
+  "assemblies": [
+    {
+      "name": "OpticalSystemDesign.App.dll",
+      "test": {
+        "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+        "sha256": "4495da2556ae3535bf7006388b366021ae8f4bd60b03e4d77b4bfef670bd6abd"
+      },
+      "normalApp": {
+        "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+        "sha256": "4495da2556ae3535bf7006388b366021ae8f4bd60b03e4d77b4bfef670bd6abd"
+      },
+      "before": "4495da2556ae3535bf7006388b366021ae8f4bd60b03e4d77b4bfef670bd6abd",
+      "unchanged": true,
+      "identical": true
+    },
+    {
+      "name": "OpticalSystemDesign.Core.dll",
+      "test": {
+        "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "aea0da211c3692bbf22043537e3f767c8765cdb89e917c1b36008898ece032fd"
+      },
+      "normalApp": {
+        "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+        "sha256": "aea0da211c3692bbf22043537e3f767c8765cdb89e917c1b36008898ece032fd"
+      },
+      "before": "aea0da211c3692bbf22043537e3f767c8765cdb89e917c1b36008898ece032fd",
+      "unchanged": true,
+      "identical": true
+    },
+    {
+      "name": "OpticalSystemDesign.Application.dll",
+      "test": {
+        "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+        "sha256": "3d2fa7a1dd1232b23a1ce04fba397232ef3d62e6e94b42faed68053dadc5b2ab"
+      },
+      "normalApp": {
+        "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+        "sha256": "3d2fa7a1dd1232b23a1ce04fba397232ef3d62e6e94b42faed68053dadc5b2ab"
+      },
+      "before": "3d2fa7a1dd1232b23a1ce04fba397232ef3d62e6e94b42faed68053dadc5b2ab",
+      "unchanged": true,
+      "identical": true
+    }
+  ],
+  "productRuntimeUnchanged": true,
+  "normalAppIdentical": true,
+  "compiledSources": [
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/AssemblyReticleView.cs",
+      "compiled": "02d8c65db04ce195e0bf7b7cf31f7069fc09a579ab7d77c752947cddfa8d4d15",
+      "source": "02d8c65db04ce195e0bf7b7cf31f7069fc09a579ab7d77c752947cddfa8d4d15",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.cs",
+      "compiled": "e6c046737439c6e8529f7a7eb7ce508d439b9004e4331a5bd47d3b71e28ece4f",
+      "source": "e6c046737439c6e8529f7a7eb7ce508d439b9004e4331a5bd47d3b71e28ece4f",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs",
+      "compiled": "0dd6375f190e9fe07a44fe45ecf27a313198768542d45870068300db6885c5fa",
+      "source": "0dd6375f190e9fe07a44fe45ecf27a313198768542d45870068300db6885c5fa",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "compiled": "de486bcf6c83d3668c80373592a92e10087a71e234bcc749c197e2866a5a3342",
+      "source": "de486bcf6c83d3668c80373592a92e10087a71e234bcc749c197e2866a5a3342",
+      "matches": true
+    },
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/AssemblyReticleView.cs",
+      "compiled": "02d8c65db04ce195e0bf7b7cf31f7069fc09a579ab7d77c752947cddfa8d4d15",
+      "source": "02d8c65db04ce195e0bf7b7cf31f7069fc09a579ab7d77c752947cddfa8d4d15",
+      "matches": true
+    },
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.cs",
+      "compiled": "e6c046737439c6e8529f7a7eb7ce508d439b9004e4331a5bd47d3b71e28ece4f",
+      "source": "e6c046737439c6e8529f7a7eb7ce508d439b9004e4331a5bd47d3b71e28ece4f",
+      "matches": true
+    },
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs",
+      "compiled": "0dd6375f190e9fe07a44fe45ecf27a313198768542d45870068300db6885c5fa",
+      "source": "0dd6375f190e9fe07a44fe45ecf27a313198768542d45870068300db6885c5fa",
+      "matches": true
+    },
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "compiled": "de486bcf6c83d3668c80373592a92e10087a71e234bcc749c197e2866a5a3342",
+      "source": "de486bcf6c83d3668c80373592a92e10087a71e234bcc749c197e2866a5a3342",
+      "matches": true
+    }
+  ],
+  "sourceBindingPassed": true,
+  "sharedCalculationUnchanged": true,
+  "calculationChanges": [],
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.cs",
+      "sha256": "e6c046737439c6e8529f7a7eb7ce508d439b9004e4331a5bd47d3b71e28ece4f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs",
+      "sha256": "0dd6375f190e9fe07a44fe45ecf27a313198768542d45870068300db6885c5fa"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/AssemblyReticleView.cs",
+      "sha256": "02d8c65db04ce195e0bf7b7cf31f7069fc09a579ab7d77c752947cddfa8d4d15"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "sha256": "de486bcf6c83d3668c80373592a92e10087a71e234bcc749c197e2866a5a3342"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/AssemblyWorkspaceTests.cs",
+      "sha256": "024f24b395c169f01bdcafae45973da2f660c72d23ce3311ff3b8de2a1499e12"
+    }
+  ],
+  "previews": [
+    {
+      "path": "validation/rechecks/2026-11-03/assembly-workspace/computed-Dark.png",
+      "sha256": "3cb851b9c53ee37d63e85f643d9e51845edca2c301dace7befc345a2d77b1410"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/assembly-workspace/computed-Light-large.png",
+      "sha256": "a4f2937a1b76bca7530e72e81f415bfbfa52ee181a2839c775e108189146adec"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/assembly-workspace/computed-Light-narrow-image.png",
+      "sha256": "94e7c9b011a4242a3de6427771bff1e1ee4d5bb20d08a0c58a8c05c930fbc129"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/assembly-workspace/computed-Light.png",
+      "sha256": "7c30fcbe67cbbd74d11a6473476203d04d976255808000aa81b3a7827fdaff96"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/assembly-workspace/empty-Light-ja-JP-760-18.png",
+      "sha256": "d6506670e35776d8bb5a6c23469f647cc93c3ca8192c03035b00d999912002e3"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/assembly-workspace/empty-Light-zh-CN-1440-18.png",
+      "sha256": "4a3b712e9633eb191a6205f8f3e4c840d9093fc717a4cd8be01ce292eb4caa72"
+    }
+  ],
+  "scope": "Background/headless UI only; actual source lens and service requests, no user desktop/clipboard input, installation, publication, hardware calibration, full-repository or native multi-screen acceptance."
+}

@@ -341,11 +341,11 @@ public sealed class BlueThemeInteractionTests
         item.IsChecked = false; item.IsSelected = true; Away(window);
         Equal("#2446F0", menuLabel.Foreground);
         Move(window, item); Equal("#1C3ED8", menuLabel.Foreground);
-        Equal("#235AB3", Part<Border>(ribbon, "PART_LayoutRoot").Background);
-        Equal("#F5F8FF", Presenter(ribbon).Foreground);
+        Equal("#A8C9F0", Part<Border>(ribbon, "PART_LayoutRoot").Background);
+        Equal("#16324F", Presenter(ribbon).Foreground);
         item.IsEnabled = false; Move(window, item);
         Equal("#9BA9BF", menuLabel.Foreground); Equal("#9BA9BF", menuArrow.Fill);
-        ribbon.IsEnabled = false; Move(window, ribbon); Equal("#D1DDF0", Presenter(ribbon).Foreground);
+        ribbon.IsEnabled = false; Move(window, ribbon); Equal("#50657D", Presenter(ribbon).Foreground);
     });
 
     [Fact]
@@ -361,33 +361,33 @@ public sealed class BlueThemeInteractionTests
         var secondBody = Part<Border>(second, "PART_LayoutRoot");
         var size = first.Bounds.Size;
         Away(window);
-        Equal("#235AB3", firstBody.Background);
+        Equal("#A8C9F0", firstBody.Background);
         Equal("#00FFFFFF", secondBody.Background);
-        Equal("#F5F8FF", Presenter(first).Foreground);
+        Equal("#16324F", Presenter(first).Foreground);
         Assert.False(Part<Border>(first, "PART_SelectedPipe").IsVisible);
-        Move(window, first); Equal("#235AB3", firstBody.Background);
+        Move(window, first); Equal("#A8C9F0", firstBody.Background);
         window.MouseDown(Point(first, window), MouseButton.Left); Tick();
-        Equal("#235AB3", firstBody.Background);
+        Equal("#A8C9F0", firstBody.Background);
         Assert.False(Part<Border>(first, "PART_SelectedPipe").IsVisible);
         window.MouseUp(Point(first, window), MouseButton.Left); Tick();
-        Equal("#F5F8FF", Presenter(first).Foreground);
-        Move(window, second); Equal("#2864C3", secondBody.Background);
+        Equal("#16324F", Presenter(first).Foreground);
+        Move(window, second); Equal("#C4DCF7", secondBody.Background);
         Away(window); Equal("#00FFFFFF", secondBody.Background);
         Move(window, second);
         window.MouseDown(Point(second, window), MouseButton.Left); Tick();
-        Equal("#235AB3", secondBody.Background);
+        Equal("#A8C9F0", secondBody.Background);
         window.MouseUp(Point(second, window), MouseButton.Left); Tick();
         Assert.True(second.IsSelected); Assert.False(first.IsSelected);
         Assert.False(Part<Border>(second, "PART_SelectedPipe").IsVisible);
-        Away(window); Equal("#235AB3", secondBody.Background); Equal("#00FFFFFF", firstBody.Background);
+        Away(window); Equal("#A8C9F0", secondBody.Background); Equal("#00FFFFFF", firstBody.Background);
         Assert.Equal(size, first.Bounds.Size);
         second.IsEnabled = false; Move(window, second);
-        Equal("#D1DDF0", Presenter(second).Foreground);
+        Equal("#50657D", Presenter(second).Foreground);
         Assert.False(Part<Border>(second, "PART_SelectedPipe").IsVisible);
         foreach (var theme in new[] { "Dark", "Pixel", "Light" })
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
         second.IsEnabled = true; Away(window); Tick();
-        Equal("#235AB3", secondBody.Background); Equal("#F5F8FF", Presenter(second).Foreground);
+        Equal("#A8C9F0", secondBody.Background); Equal("#16324F", Presenter(second).Foreground);
         second.Focus(NavigationMethod.Tab); Tick();
         Assert.False(Part<Border>(second, "PART_SelectedPipe").IsVisible);
         Assert.NotNull(second.FocusAdorner);
@@ -454,8 +454,8 @@ public sealed class BlueThemeInteractionTests
         foreach (var (foreground, background) in new[]
         {
             ("#22334C", "#FFFFFF"), ("#5C6F8A", "#FFFFFF"), ("#22334C", "#DFEAFE"),
-            ("#FFFFFF", "#2F6FD1"), ("#F5F8FF", "#2F6FD1"), ("#F5F8FF", "#2864C3"),
-            ("#F5F8FF", "#235AB3"), ("#FFFFFF", "#2F65CC"), ("#2446F0", "#DFEAFE"),
+            ("#16324F", BlueThemeTokens.HeaderBackground.ToString()), ("#16324F", "#C4DCF7"), ("#16324F", "#C4DCF7"),
+            ("#16324F", "#A8C9F0"), ("#FFFFFF", "#2F65CC"), ("#2446F0", "#DFEAFE"),
             ("#AD3F3B", "#FBEDEC")
         }) Assert.True(Contrast(foreground, background) >= 4.5, $"{foreground} on {background}");
         Assert.True(Contrast("#2F65CC", "#FFFFFF") >= 3);

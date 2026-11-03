@@ -19,8 +19,8 @@ public sealed partial class LensEditorPanel
         FontWeight = Avalonia.Media.FontWeight.Bold,
         VerticalAlignment = VerticalAlignment.Center
     };
-    private readonly Button _previousConfiguration = PropertyHeaderButton("PreviousLensConfiguration", "chevron-left", "上一个结构");
-    private readonly Button _nextConfiguration = PropertyHeaderButton("NextLensConfiguration", "chevron-right", "下一个结构");
+    private readonly Button _previousConfiguration = PropertyHeaderButton("PreviousLensConfiguration", "action-previous", "上一个结构");
+    private readonly Button _nextConfiguration = PropertyHeaderButton("NextLensConfiguration", "action-next", "下一个结构");
     private readonly TextBlock _configurationMessage = new()
     {
         Name = "LensConfigurationMessage",

@@ -6,6 +6,7 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Laboratories.InitialStructure;
 using OpticalSystemDesign.App.Services;
@@ -23,7 +24,7 @@ namespace OpticalSystemDesign.InitialStructure.Tests;
 public sealed class LabDesktopCollection { public const string Name = "Initial structure desktop"; }
 
 [Collection(LabDesktopCollection.Name)]
-public sealed class FlatStartDesktopTests
+public sealed partial class FlatStartDesktopTests
 {
     [Theory]
     [InlineData(1240)]
@@ -665,7 +666,9 @@ public sealed class FlatStartDesktopTests
         });
     }
 
-    private static T Find<T>(Window window, string name) where T : Control => window.GetLogicalDescendants().OfType<T>().Distinct().Single(control => control.Name == name);
+    private static T Find<T>(Window window, string name) where T : Control => window.GetLogicalDescendants().OfType<Control>()
+        .Concat(window is MainWindow main ? main.CommandPopupContents.SelectMany(c => c.GetLogicalDescendants().OfType<Control>().Prepend(c)) : [])
+        .Distinct().OfType<T>().Single(control => control.Name == name);
     private static Task AtFirstCandidate(MainWindow window, Action action)
     {
         var source = Assert.IsAssignableFrom<INotifyCollectionChanged>(Find<DataGrid>(window, "Candidates").ItemsSource);
@@ -685,15 +688,21 @@ public sealed class FlatStartDesktopTests
     }
     private static void Click(Window window, string name)
     {
+        if (name is "Resume" or "OpenRun" or "OpenAutonomousTopology")
+        {
+            Click(window, name == "OpenAutonomousTopology" ? "DesignTools" : "RunRecords");
+            Dispatcher.UIThread.RunJobs(); window.UpdateLayout(); AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+        }
         var control = Find<Button>(window, name);
         Assert.True(control.IsEffectivelyEnabled, name + " is disabled");
         control.BringIntoView(); window.UpdateLayout();
-        var translated = control.TranslatePoint(new Point(control.Bounds.Width / 2, control.Bounds.Height / 2), window);
+        var input = Assert.IsAssignableFrom<TopLevel>(TopLevel.GetTopLevel(control));
+        var translated = control.TranslatePoint(new Point(control.Bounds.Width / 2, control.Bounds.Height / 2), input);
         Assert.True(translated.HasValue, name + " is not attached to the active view");
         var point = translated.GetValueOrDefault();
-        Assert.InRange(point.X, 0, window.Bounds.Width);
-        Assert.InRange(point.Y, 0, window.Bounds.Height);
-        window.MouseDown(point, MouseButton.Left); window.MouseUp(point, MouseButton.Left);
+        Assert.InRange(point.X, 0, input.ClientSize.Width);
+        Assert.InRange(point.Y, 0, input.ClientSize.Height);
+        input.MouseDown(point, MouseButton.Left); input.MouseUp(point, MouseButton.Left);
     }
     private static async Task Until(Func<bool> condition)
     {

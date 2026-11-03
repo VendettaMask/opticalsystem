@@ -92,7 +92,7 @@ public sealed partial class MainWindow
         epdInput.IsVisible = false;
         _apertureMode.SelectionChanged += (_, _) => { fInput.IsVisible = _apertureMode.SelectedIndex == 0; epdInput.IsVisible = !fInput.IsVisible; };
         var apertureValue = new Grid { Children = { fInput, epdInput } };
-        systemPanel.Children.Add(Section("光学系统", "aperture",
+        systemPanel.Children.Add(Section("光学系统", "optical-system",
             Field("实验名称", _name),
             Pairs(Field("焦距 mm", _effectiveFocalLength), Field("最大半视场 °", _fieldAngle)),
             Pairs(Field("孔径定义", _apertureMode), apertureValue),
@@ -111,13 +111,13 @@ public sealed partial class MainWindow
         add.Click += (_, _) => { if (_wavelengths.Count < 64) AddWave(new() { Nanometers = 550, Weight = 1 }); };
         remove.Click += (_, _) => { if (_wavelengthGrid.SelectedItem is WavelengthRow row) { _wavelengths.Remove(row); ParametersChanged(); } };
         visible.Click += (_, _) => SetWaves(new InitialStructureSpecification().Wavelengths);
-        systemPanel.Children.Add(Section("波长与权重", "activity", _wavelengthGrid, Buttons(add, remove, visible)));
+        systemPanel.Children.Add(Section("波长与权重", "wavelength-weights", _wavelengthGrid, Buttons(add, remove, visible)));
         SetWaves(AutoLensReferenceExamples.Mobile().Specification.Wavelengths);
 
-        goalsPanel.Children.Add(Section("结构规模", "layers",
+        goalsPanel.Children.Add(Section("结构规模", "structure-size",
             Pairs(Field("最少片数", _minimumElements), Field("最多片数", _maximumElements)),
             Field("最大总长 mm", _maximumTrack)));
-        goalsPanel.Children.Add(Section("像质与验收", "target",
+        goalsPanel.Children.Add(Section("像质与验收", "image-quality-acceptance",
             Pairs(Field("最差 RMS 上限 mm", _rmsLimit), Field("最大光斑半径 mm", _maximumSpotLimit)),
             Pairs(Field("焦距容差 %", _focalTolerance), Field("F/# 容差 %", _fNumberTolerance)),
             Field("最低通光 %", _transmission),
@@ -134,10 +134,10 @@ public sealed partial class MainWindow
         goalsPanel.Children.Add(Disclosure("口径与光阑", "ApertureSettings",
             Hint("使用前置独立实体光阑；镜片口径按原版周期修形更新。预算不足时保留训练状态。")));
 
-        searchPanel.Children.Add(Section("搜索策略", "sliders-horizontal",
+        searchPanel.Children.Add(Section("搜索策略", "search-strategy",
             Field("局部优化算法", _optimizationMethod),
             Field("计算设备", _computeMode), Field("设备检测", _computeStatus)));
-        searchPanel.Children.Add(Section("运行预算", "timer",
+        searchPanel.Children.Add(Section("运行预算", "run-budget",
             Pairs(Field("起始试验上限", _seedCount), Field("保留方案数", _retainedForms)),
             Pairs(Field("评价次数上限", _maximumEvaluations), Field("时间上限 min", _minutes)),
             Pairs(Field("并行任务数", _parallelism), Field("随机种子", _randomSeed))));

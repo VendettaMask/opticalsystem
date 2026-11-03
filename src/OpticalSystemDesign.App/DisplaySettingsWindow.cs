@@ -21,6 +21,20 @@ public sealed class DisplaySettingsWindow : Window
     private readonly ComboBox _fontFamily = new() { MinWidth = 230 };
     private readonly ComboBox _fontShape = new() { MinWidth = 150 };
     private readonly NumericUpDown _fontSize = Number(9, 32, 1);
+    private readonly ComboBox _analysisColorMap = new() { Name = "AnalysisColorMap", MinWidth = 230 };
+    private readonly Border _colorMapPreview = new() { Height = 18, Margin = new Thickness(130, 0, 0, 0) };
+    private readonly ComboBox _imageExportPreset = new() { Name = "ImageExportPreset", MinWidth = 230 };
+    private readonly NumericUpDown _imageExportDpi = Number((decimal)ImageExportResolution.MinimumDpi,
+        (decimal)ImageExportResolution.MaximumDpi, 1m);
+    private readonly NumericUpDown _imageExportHeight = Number(128, 8192, 1);
+    private readonly NumericUpDown _imageExportWidth = Number(128, 8192, 1);
+    private readonly CheckBox _imageExportAspect = new() { Name = "ImageExportPreserveAspectRatio", Content = "锁定原图长宽比", IsChecked = true };
+    private readonly ComboBox _imageExportDpiPreset = new() { Name = "ImageExportDpiPreset", MinWidth = 230 };
+    private readonly ExportCanvasPreview _exportCanvasPreview = new() { Height = 118, Margin = new Thickness(130, 0, 0, 0) };
+    private readonly TextBlock _imageExportPixels = new() { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(130, 0, 0, 0) };
+    private bool _changingExportPreset;
+    private static readonly ExportPreset[] ExportPresets = [new(1920, 1080, "1080P（1920×1080）"), new(2560, 1440, "2560×1440"), new(3840, 2160, "4K（3840×2160）"), new(0, 0, "自定义尺寸")];
+    private static readonly DpiPreset[] DpiPresets = [new(96, "96 DPI"), new(150, "150 DPI"), new(300, "300 DPI"), new(600, "600 DPI"), new(0, "自定义 DPI")];
     private readonly TextBlock _preview = new()
     {
         TextWrapping = TextWrapping.Wrap,
@@ -64,6 +78,55 @@ public sealed class DisplaySettingsWindow : Window
         _upperExponent.Value = settings.UpperScientificExponent;
         _lowerExponent.Value = settings.LowerScientificExponent;
         _fontSize.Value = (decimal)settings.FontSize;
+        _analysisColorMap.ItemsSource = Enum.GetValues<ScientificColorMap>();
+        _analysisColorMap.ItemTemplate = new FuncDataTemplate<ScientificColorMap>((map, _) =>
+        {
+            var text = new TextBlock { Text = ColorMapLabel(map) };
+            UiLocalization.LocalizeChoiceLabel(text);
+            return text;
+        });
+        _analysisColorMap.SelectedItem = ScientificColorMaps.Parse(settings.AnalysisColorMap);
+        _analysisColorMap.SelectionChanged += (_, _) => UpdateColorMapPreview();
+        _imageExportDpi.Name = "ImageExportDpi";
+        _imageExportDpi.FormatString = "0.##";
+        _imageExportDpi.Value = (decimal)ImageExportResolution.Normalize(settings.ImageExportDpi);
+        _imageExportHeight.Name = "ImageExportHeight";
+        _imageExportHeight.Value = ImageExportResolution.NormalizeHeight(settings.ImageExportPixelHeight);
+        _imageExportWidth.Name = "ImageExportWidth";
+        _imageExportWidth.Value = ImageExportResolution.NormalizeWidth(settings.ImageExportPixelWidth);
+        _imageExportAspect.IsChecked = settings.ImageExportPreserveAspectRatio;
+        _imageExportPreset.ItemsSource = ExportPresets;
+        _imageExportPreset.ItemTemplate = new FuncDataTemplate<ExportPreset>((preset, _) =>
+        {
+            var label = new TextBlock { Text = preset?.Label };
+            UiLocalization.LocalizeChoiceLabel(label);
+            return label;
+        });
+        _imageExportPreset.SelectionChanged += (_, _) =>
+        {
+            if (_changingExportPreset || _imageExportPreset.SelectedItem is not ExportPreset { Height: > 0 } preset) return;
+            _changingExportPreset = true;
+            _imageExportWidth.Value = preset.Width;
+            _imageExportHeight.Value = preset.Height;
+            _changingExportPreset = false;
+            UpdateExportPreview();
+        };
+        _imageExportDpiPreset.ItemsSource = DpiPresets;
+        _imageExportDpiPreset.ItemTemplate = new FuncDataTemplate<DpiPreset>((preset, _) =>
+        {
+            var text = new TextBlock { Text = preset?.Label };
+            UiLocalization.LocalizeChoiceLabel(text); return text;
+        });
+        _imageExportDpiPreset.SelectionChanged += (_, _) =>
+        {
+            if (!_changingExportPreset && _imageExportDpiPreset.SelectedItem is DpiPreset { Value: > 0 } preset)
+                _imageExportDpi.Value = preset.Value;
+        };
+        _imageExportDpi.ValueChanged += (_, _) => UpdateExportPreview();
+        _imageExportHeight.ValueChanged += (_, _) => UpdateExportPreview();
+        _imageExportWidth.ValueChanged += (_, _) => UpdateExportPreview();
+        _imageExportAspect.IsCheckedChanged += (_, _) => UpdateExportPreview();
+        UpdateExportPreview();
 
         var themes = ThemeRegistry.SelectableThemes;
         _theme.ItemsSource = themes;
@@ -122,7 +185,7 @@ public sealed class DisplaySettingsWindow : Window
             VerticalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto,
             Content = new Grid
             {
-                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto"),
+                RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto,Auto,Auto"),
                 Margin = new Thickness(22),
                 RowSpacing = 14,
                 Children =
@@ -141,6 +204,18 @@ public sealed class DisplaySettingsWindow : Window
                         SettingRow("字体", _fontFamily),
                         SettingRow("字形", _fontShape),
                         SettingRow("大小", _fontSize, "单位：DIP")), 2),
+                    At(Section("分析图配色",
+                        SettingRow("数值色图", _analysisColorMap, "用于二维伪彩色与三维曲面；保留灰度显示。", wrapHint: true),
+                        _colorMapPreview), 3),
+                    At(Section("图像导出",
+                        SettingRow("分辨率预设", _imageExportPreset),
+                        SettingRow("像素宽度", _imageExportWidth),
+                        SettingRow("像素高度", _imageExportHeight),
+                        SettingRow("原图比例", _imageExportAspect, "锁定时完整图框等比居中，不足处留白。", wrapHint: true),
+                        SettingRow("DPI 预设", _imageExportDpiPreset),
+                        SettingRow("导出 DPI", _imageExportDpi, "DPI 用于打印尺寸，不改变所选像素数。", wrapHint: true),
+                        _imageExportPixels,
+                        _exportCanvasPreview), 4),
                     At(PreviewBox(new Border
                     {
                         BorderThickness = new Thickness(1),
@@ -156,7 +231,7 @@ public sealed class DisplaySettingsWindow : Window
                                 _validation
                             }
                         }
-                    }), 3),
+                    }), 5),
                     At(new Grid
                     {
                         ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto,Auto"),
@@ -167,13 +242,14 @@ public sealed class DisplaySettingsWindow : Window
                             InColumn(cancel, 2),
                             InColumn(_save, 3)
                         }
-                    }, 4)
+                    }, 6)
                 }
             }
         };
 
         ThemeChrome.ApplyDialogDecoration(this);
         UpdateThemeSample();
+        UpdateColorMapPreview();
         UpdatePreview();
     }
 
@@ -191,7 +267,12 @@ public sealed class DisplaySettingsWindow : Window
             settings.LowerScientificExponent,
             settings.FontFamily,
             settings.FontShape,
-            settings.FontSize);
+            settings.FontSize,
+            settings.AnalysisColorMap,
+            settings.ImageExportDpi,
+            settings.ImageExportPixelHeight,
+            settings.ImageExportPixelWidth,
+            settings.ImageExportPreserveAspectRatio);
         settings.DecimalPlaces = options.DecimalPlaces;
         settings.Theme = SelectedTheme();
         settings.UpperScientificExponent = options.UpperScientificExponent;
@@ -199,6 +280,11 @@ public sealed class DisplaySettingsWindow : Window
         settings.FontFamily = SelectedFontFamily();
         settings.FontShape = SelectedFontShape();
         settings.FontSize = (double)(_fontSize.Value ?? (decimal)AppSettings.DefaultFontSize);
+        settings.AnalysisColorMap = SelectedColorMap().ToString();
+        settings.ImageExportDpi = (double)(_imageExportDpi.Value ?? (decimal)ImageExportResolution.DefaultDpi);
+        settings.ImageExportPixelHeight = (int)(_imageExportHeight.Value ?? ImageExportResolution.DefaultPixelHeight);
+        settings.ImageExportPixelWidth = (int)(_imageExportWidth.Value ?? ImageExportResolution.DefaultPixelWidth);
+        settings.ImageExportPreserveAspectRatio = _imageExportAspect.IsChecked != false;
         settings.NormalizeDisplaySettings();
         if (!settings.TrySave(out var errorMessage))
         {
@@ -217,7 +303,12 @@ public sealed class DisplaySettingsWindow : Window
         int LowerScientificExponent,
         string FontFamily,
         string FontShape,
-        double FontSize)
+        double FontSize,
+        string AnalysisColorMap,
+        double ImageExportDpi,
+        int ImageExportPixelHeight,
+        int ImageExportPixelWidth,
+        bool ImageExportPreserveAspectRatio)
     {
         public void Restore(AppSettings settings)
         {
@@ -228,6 +319,11 @@ public sealed class DisplaySettingsWindow : Window
             settings.FontFamily = FontFamily;
             settings.FontShape = FontShape;
             settings.FontSize = FontSize;
+            settings.AnalysisColorMap = AnalysisColorMap;
+            settings.ImageExportDpi = ImageExportDpi;
+            settings.ImageExportPixelHeight = ImageExportPixelHeight;
+            settings.ImageExportPixelWidth = ImageExportPixelWidth;
+            settings.ImageExportPreserveAspectRatio = ImageExportPreserveAspectRatio;
         }
     }
 
@@ -240,6 +336,11 @@ public sealed class DisplaySettingsWindow : Window
         _fontFamily.SelectedItem = ProductDefaultFont;
         _fontShape.SelectedIndex = 0;
         _fontSize.Value = (decimal)AppSettings.DefaultFontSize;
+        _analysisColorMap.SelectedItem = ScientificColorMap.Viridis;
+        _imageExportDpi.Value = (decimal)ImageExportResolution.DefaultDpi;
+        _imageExportHeight.Value = ImageExportResolution.DefaultPixelHeight;
+        _imageExportWidth.Value = ImageExportResolution.DefaultPixelWidth;
+        _imageExportAspect.IsChecked = true;
         UpdatePreview();
     }
 
@@ -276,6 +377,53 @@ public sealed class DisplaySettingsWindow : Window
         _numericPreview.FontStyle = _preview.FontStyle;
         _numericPreview.FontWeight = _preview.FontWeight;
     }
+
+    private ScientificColorMap SelectedColorMap() =>
+        _analysisColorMap.SelectedItem is ScientificColorMap map ? map : ScientificColorMap.Viridis;
+
+    private static string ColorMapLabel(ScientificColorMap map) => map switch
+    {
+        ScientificColorMap.RedBlue => "红蓝（蓝—白—红）",
+        ScientificColorMap.Rainbow => "Rainbow（Jet 彩虹）",
+        ScientificColorMap.Inferno => "Inferno（黑—红—黄）",
+        ScientificColorMap.Gray => "Gray（灰度）",
+        _ => "Viridis（紫—绿—黄）"
+    };
+
+    private void UpdateColorMapPreview()
+    {
+        var stops = new GradientStops();
+        for (var i = 0; i <= 32; i++)
+            stops.Add(new GradientStop(ScientificColorMaps.ColorFor(SelectedColorMap(), i / 32.0), i / 32.0));
+        _colorMapPreview.Background = new LinearGradientBrush
+        {
+            StartPoint = new RelativePoint(0, .5, RelativeUnit.Relative),
+            EndPoint = new RelativePoint(1, .5, RelativeUnit.Relative),
+            GradientStops = stops
+        };
+    }
+
+    private void UpdateExportPreview()
+    {
+        if (_changingExportPreset) return;
+        var dpi = (double)(_imageExportDpi.Value ?? (decimal)ImageExportResolution.DefaultDpi);
+        var height = (int)(_imageExportHeight.Value ?? ImageExportResolution.DefaultPixelHeight);
+        var width = (int)(_imageExportWidth.Value ?? ImageExportResolution.DefaultPixelWidth);
+        _changingExportPreset = true;
+        try
+        {
+            _imageExportPreset.SelectedItem = ExportPresets.FirstOrDefault(p => p.Height > 0
+                && p.Height == height && p.Width == width) ?? ExportPresets[^1];
+            _imageExportDpiPreset.SelectedItem = DpiPresets.FirstOrDefault(p => p.Value > 0
+                && Math.Abs((double)p.Value - dpi) < 1e-6) ?? DpiPresets[^1];
+        }
+        finally { _changingExportPreset = false; }
+        _imageExportPixels.Text = $"{width} × {height} px · {dpi:0.##} DPI";
+        _exportCanvasPreview.SetCanvas(width, height, _imageExportAspect.IsChecked != false);
+    }
+
+    private sealed record ExportPreset(int Width, int Height, string Label);
+    private sealed record DpiPreset(decimal Value, string Label);
 
     private bool TryOptions(out NumericDisplayOptions options)
     {
@@ -376,7 +524,7 @@ public sealed class DisplaySettingsWindow : Window
         return panel;
     }
 
-    private static Control SettingRow(string label, Control editor, string? hint = null)
+    private static Control SettingRow(string label, Control editor, string? hint = null, bool wrapHint = false)
     {
         var grid = new Grid
         {
@@ -395,6 +543,7 @@ public sealed class DisplaySettingsWindow : Window
             var text = new TextBlock
             {
                 Text = hint,
+                TextWrapping = wrapHint ? TextWrapping.Wrap : TextWrapping.NoWrap,
                 FontSize = DisplayTypography.RibbonText
             };
             text.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextMuted);

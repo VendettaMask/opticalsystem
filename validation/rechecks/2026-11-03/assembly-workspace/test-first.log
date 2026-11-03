@@ -1,0 +1,252 @@
+VSTest 版本 18.6.0 (x64)
+
+正在启动测试执行，请稍候...
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:11.06]     OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: "Light", language: "zh-CN", width: 1440, height: 960, fontSize: 22) [FAIL]
+  失败 OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: "Light", language: "zh-CN", width: 1440, height: 960, fontSize: 22) [7 s]
+  错误消息:
+   System.InvalidOperationException : The control Border already has a visual parent Grid (Name = AssemblyResultSplit) while trying to add it as a child of Grid (Name = AssemblyResultSplit).
+  堆栈跟踪:
+     at Avalonia.Visual.Avalonia.Collections.IAvaloniaListItemValidator<Avalonia.Visual>.Validate(Visual item)
+   at Avalonia.Collections.AvaloniaList`1.InsertRange(Int32 index, IEnumerable`1 items)
+   at Avalonia.Controls.Panel.ChildrenChanged(Object sender, NotifyCollectionChangedEventArgs e)
+   at Avalonia.Controls.Grid.ChildrenChanged(Object sender, NotifyCollectionChangedEventArgs e)
+   at Avalonia.Collections.AvaloniaList`1.NotifyAdd(T item, Int32 index)
+   at Avalonia.Collections.AvaloniaList`1.Add(T item)
+   at OpticalSystemDesign.App.Laboratories.OpticalAssemblyWindow.<>c__DisplayClass67_0.<BuildPresentation>g__ArrangeResults|0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Laboratories\OpticalAssemblyWindow.Presentation.cs:line 133
+   at OpticalSystemDesign.App.Laboratories.OpticalAssemblyWindow.<>c__DisplayClass67_0.<BuildPresentation>b__1(Object _, SizeChangedEventArgs _) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Laboratories\OpticalAssemblyWindow.Presentation.cs:line 137
+   at Avalonia.Interactivity.Interactive.<AddHandler>g__InvokeAdapter|8_0[TEventArgs](Delegate baseHandler, Object sender, RoutedEventArgs args)
+   at Avalonia.Interactivity.Interactive.<>c__8`1.<AddHandler>b__8_1(Delegate baseHandler, Object sender, RoutedEventArgs args)
+   at Avalonia.Interactivity.EventRoute.RaiseEventImpl(RoutedEventArgs e)
+   at Avalonia.Interactivity.EventRoute.RaiseEvent(Interactive source, RoutedEventArgs e)
+   at Avalonia.Interactivity.Interactive.RaiseEvent(RoutedEventArgs e)
+   at Avalonia.Controls.Control.OnSizeChanged(SizeChangedEventArgs e)
+   at Avalonia.Controls.Control.OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+   at Avalonia.Animation.Animatable.OnPropertyChangedCore(AvaloniaPropertyChangedEventArgs change)
+   at Avalonia.AvaloniaObject.RaisePropertyChanged[T](AvaloniaProperty`1 property, Optional`1 oldValue, BindingValue`1 newValue, BindingPriority priority, Boolean isEffectiveValue)
+   at Avalonia.AvaloniaObject.SetAndRaise[T](DirectPropertyBase`1 property, T& field, T value)
+   at Avalonia.Visual.set_Bounds(Rect value)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.Grid.ArrangeOverride(Size arrangeSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.Grid.ArrangeOverride(Size arrangeSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.DockPanel.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.Presenters.ContentPresenter.ArrangeOverrideImpl(Size finalSize, Vector offset)
+   at Avalonia.Controls.Presenters.ContentPresenter.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.LayoutHelper.ArrangeChildInternal(Layoutable child, Size availableSize, Thickness padding)
+   at Avalonia.Layout.LayoutHelper.ArrangeChild(Layoutable child, Size availableSize, Thickness padding)
+   at Avalonia.Controls.Decorator.ArrangeOverride(Size finalSize)
+   at Avalonia.Controls.Primitives.VisualLayerManager.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.Layoutable.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.Layoutable.ArrangeOverride(Size finalSize)
+   at Avalonia.Controls.WindowBase.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.TopLevelHost.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.LayoutManager.Arrange(Layoutable control)
+   at Avalonia.Layout.LayoutManager.ExecuteInitialLayoutPass()
+   at Avalonia.Controls.Window.ShowCore[TResult](Window owner, Boolean modal)
+   at Avalonia.Controls.Window.Show()
+   at OpticalSystemDesign.Tests.AssemblyWorkspaceTests.<>c__DisplayClass0_0.<<CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AssemblyWorkspaceTests.cs:line 40
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(String theme, String language, Int32 width, Int32 height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AssemblyWorkspaceTests.cs:line 31
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:16.22]     OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: "Dark", language: "en-US", width: 1260, height: 850, fontSize: 13) [FAIL]
+  失败 OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: "Dark", language: "en-US", width: 1260, height: 850, fontSize: 13) [937 ms]
+  错误消息:
+   System.InvalidOperationException : The control Border already has a visual parent Grid (Name = AssemblyResultSplit) while trying to add it as a child of Grid (Name = AssemblyResultSplit).
+  堆栈跟踪:
+     at Avalonia.Visual.Avalonia.Collections.IAvaloniaListItemValidator<Avalonia.Visual>.Validate(Visual item)
+   at Avalonia.Collections.AvaloniaList`1.InsertRange(Int32 index, IEnumerable`1 items)
+   at Avalonia.Controls.Panel.ChildrenChanged(Object sender, NotifyCollectionChangedEventArgs e)
+   at Avalonia.Collections.AvaloniaList`1.Add(T item)
+   at OpticalSystemDesign.App.Laboratories.OpticalAssemblyWindow.<>c__DisplayClass67_0.<BuildPresentation>g__ArrangeResults|0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Laboratories\OpticalAssemblyWindow.Presentation.cs:line 133
+   at OpticalSystemDesign.App.Laboratories.OpticalAssemblyWindow.<>c__DisplayClass67_0.<BuildPresentation>b__1(Object _, SizeChangedEventArgs _) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Laboratories\OpticalAssemblyWindow.Presentation.cs:line 137
+   at Avalonia.Interactivity.Interactive.<AddHandler>g__InvokeAdapter|8_0[TEventArgs](Delegate baseHandler, Object sender, RoutedEventArgs args)
+   at Avalonia.Interactivity.Interactive.<>c__8`1.<AddHandler>b__8_1(Delegate baseHandler, Object sender, RoutedEventArgs args)
+   at Avalonia.Interactivity.EventRoute.RaiseEventImpl(RoutedEventArgs e)
+   at Avalonia.Interactivity.EventRoute.RaiseEvent(Interactive source, RoutedEventArgs e)
+   at Avalonia.Interactivity.Interactive.RaiseEvent(RoutedEventArgs e)
+   at Avalonia.Controls.Control.OnSizeChanged(SizeChangedEventArgs e)
+   at Avalonia.Controls.Control.OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+   at Avalonia.Animation.Animatable.OnPropertyChangedCore(AvaloniaPropertyChangedEventArgs change)
+   at Avalonia.AvaloniaObject.RaisePropertyChanged[T](AvaloniaProperty`1 property, Optional`1 oldValue, BindingValue`1 newValue, BindingPriority priority, Boolean isEffectiveValue)
+   at Avalonia.AvaloniaObject.SetAndRaise[T](DirectPropertyBase`1 property, T& field, T value)
+   at Avalonia.Visual.set_Bounds(Rect value)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.Grid.ArrangeOverride(Size arrangeSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.Grid.ArrangeOverride(Size arrangeSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.DockPanel.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.Presenters.ContentPresenter.ArrangeOverrideImpl(Size finalSize, Vector offset)
+   at Avalonia.Controls.Presenters.ContentPresenter.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.LayoutHelper.ArrangeChildInternal(Layoutable child, Size availableSize, Thickness padding)
+   at Avalonia.Layout.LayoutHelper.ArrangeChild(Layoutable child, Size availableSize, Thickness padding)
+   at Avalonia.Controls.Decorator.ArrangeOverride(Size finalSize)
+   at Avalonia.Controls.Primitives.VisualLayerManager.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.Layoutable.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.Layoutable.ArrangeOverride(Size finalSize)
+   at Avalonia.Controls.WindowBase.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.TopLevelHost.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.LayoutManager.Arrange(Layoutable control)
+   at Avalonia.Layout.LayoutManager.ExecuteInitialLayoutPass()
+   at Avalonia.Controls.Window.ShowCore[TResult](Window owner, Boolean modal)
+   at Avalonia.Controls.Window.Show()
+   at OpticalSystemDesign.Tests.AssemblyWorkspaceTests.<>c__DisplayClass0_0.<<CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AssemblyWorkspaceTests.cs:line 40
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(String theme, String language, Int32 width, Int32 height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AssemblyWorkspaceTests.cs:line 31
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:17.95]     OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: "Light", language: "zh-CN", width: 1440, height: 900, fontSize: 18) [FAIL]
+  失败 OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(theme: "Light", language: "zh-CN", width: 1440, height: 900, fontSize: 18) [1 s]
+  错误消息:
+   System.InvalidOperationException : The control Border already has a visual parent Grid (Name = AssemblyResultSplit) while trying to add it as a child of Grid (Name = AssemblyResultSplit).
+  堆栈跟踪:
+     at Avalonia.Visual.Avalonia.Collections.IAvaloniaListItemValidator<Avalonia.Visual>.Validate(Visual item)
+   at Avalonia.Collections.AvaloniaList`1.InsertRange(Int32 index, IEnumerable`1 items)
+   at Avalonia.Controls.Panel.ChildrenChanged(Object sender, NotifyCollectionChangedEventArgs e)
+   at Avalonia.Collections.AvaloniaList`1.Add(T item)
+   at OpticalSystemDesign.App.Laboratories.OpticalAssemblyWindow.<>c__DisplayClass67_0.<BuildPresentation>g__ArrangeResults|0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Laboratories\OpticalAssemblyWindow.Presentation.cs:line 133
+   at OpticalSystemDesign.App.Laboratories.OpticalAssemblyWindow.<>c__DisplayClass67_0.<BuildPresentation>b__1(Object _, SizeChangedEventArgs _) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Laboratories\OpticalAssemblyWindow.Presentation.cs:line 137
+   at Avalonia.Interactivity.Interactive.<AddHandler>g__InvokeAdapter|8_0[TEventArgs](Delegate baseHandler, Object sender, RoutedEventArgs args)
+   at Avalonia.Interactivity.EventRoute.RaiseEventImpl(RoutedEventArgs e)
+   at Avalonia.Interactivity.EventRoute.RaiseEvent(Interactive source, RoutedEventArgs e)
+   at Avalonia.Interactivity.Interactive.RaiseEvent(RoutedEventArgs e)
+   at Avalonia.Controls.Control.OnSizeChanged(SizeChangedEventArgs e)
+   at Avalonia.Controls.Control.OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+   at Avalonia.Animation.Animatable.OnPropertyChangedCore(AvaloniaPropertyChangedEventArgs change)
+   at Avalonia.AvaloniaObject.RaisePropertyChanged[T](AvaloniaProperty`1 property, Optional`1 oldValue, BindingValue`1 newValue, BindingPriority priority, Boolean isEffectiveValue)
+   at Avalonia.AvaloniaObject.SetAndRaise[T](DirectPropertyBase`1 property, T& field, T value)
+   at Avalonia.Visual.set_Bounds(Rect value)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.Grid.ArrangeOverride(Size arrangeSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.Grid.ArrangeOverride(Size arrangeSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.DockPanel.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.Presenters.ContentPresenter.ArrangeOverrideImpl(Size finalSize, Vector offset)
+   at Avalonia.Controls.Presenters.ContentPresenter.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.LayoutHelper.ArrangeChildInternal(Layoutable child, Size availableSize, Thickness padding)
+   at Avalonia.Layout.LayoutHelper.ArrangeChild(Layoutable child, Size availableSize, Thickness padding)
+   at Avalonia.Controls.Decorator.ArrangeOverride(Size finalSize)
+   at Avalonia.Controls.Primitives.VisualLayerManager.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.Layoutable.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.Layoutable.ArrangeOverride(Size finalSize)
+   at Avalonia.Controls.WindowBase.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Controls.TopLevelHost.ArrangeOverride(Size finalSize)
+   at Avalonia.Layout.Layoutable.ArrangeCore(Rect finalRect)
+   at Avalonia.Layout.Layoutable.Arrange(Rect rect)
+   at Avalonia.Layout.LayoutManager.Arrange(Layoutable control)
+   at Avalonia.Layout.LayoutManager.ExecuteInitialLayoutPass()
+   at Avalonia.Controls.Window.ShowCore[TResult](Window owner, Boolean modal)
+   at Avalonia.Controls.Window.Show()
+   at OpticalSystemDesign.Tests.AssemblyWorkspaceTests.<>c__DisplayClass0_0.<<CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AssemblyWorkspaceTests.cs:line 40
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AssemblyWorkspaceTests.CompactWorkspaceKeepsCommandsSplittersAndEveryParameterReachable(String theme, String language, Int32 width, Int32 height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AssemblyWorkspaceTests.cs:line 31
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:18.50]     OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: "Dark") [FAIL]
+[xUnit.net 00:00:18.61]     OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: "Light") [FAIL]
+  失败 OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: "Dark") [549 ms]
+  错误消息:
+   System.ArgumentException : .NET number values such as positive and negative infinity cannot be written as valid JSON. To make it work when using 'JsonSerializer', consider specifying 'JsonNumberHandling.AllowNamedFloatingPointLiterals' (see https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonnumberhandling).
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowArgumentException_ValueNotSupported()
+   at System.Text.Json.Utf8JsonWriter.WriteNumberValue(Double value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Serialize(Utf8JsonWriter writer, T& rootValue, Object rootValueBoxed)
+   at System.Text.Json.JsonSerializer.WriteString[TValue](TValue& value, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Serialize[TValue](TValue value, JsonSerializerOptions options)
+   at OpticalSystemDesign.Tests.AssemblyWorkspaceTests.<>c__DisplayClass1_0.<<RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AssemblyWorkspaceTests.cs:line 88
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AssemblyWorkspaceTests.cs:line 83
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: "Light") [110 ms]
+  错误消息:
+   System.ArgumentException : .NET number values such as positive and negative infinity cannot be written as valid JSON. To make it work when using 'JsonSerializer', consider specifying 'JsonNumberHandling.AllowNamedFloatingPointLiterals' (see https://learn.microsoft.com/dotnet/api/system.text.json.serialization.jsonnumberhandling).
+  堆栈跟踪:
+     at System.Text.Json.ThrowHelper.ThrowArgumentException_ValueNotSupported()
+   at System.Text.Json.Utf8JsonWriter.WriteNumberValue(Double value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.IEnumerableDefaultConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Serialize(Utf8JsonWriter writer, T& rootValue, Object rootValueBoxed)
+   at System.Text.Json.JsonSerializer.WriteString[TValue](TValue& value, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Serialize[TValue](TValue value, JsonSerializerOptions options)
+   at OpticalSystemDesign.Tests.AssemblyWorkspaceTests.<>c__DisplayClass1_0.<<RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AssemblyWorkspaceTests.cs:line 88
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AssemblyWorkspaceTests.cs:line 83
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-03\assembly-workspace\first\workspace-first.trx
+
+失败!  - 失败:     5，通过:     1，已跳过:     0，总计:     6，持续时间: 14 s - OpticalSystemDesign.Tests.dll (net10.0)

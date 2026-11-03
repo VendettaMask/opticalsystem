@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c6737021-8afb-4c68-92b4-7492e9a8fa57" name="optics@LAPTOP-G4BBBCS0 2026-11-03 12:42:46" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T12:42:46.2911839+08:00" queuing="2026-11-03T12:42:46.2911842+08:00" start="2026-11-03T12:42:28.9351393+08:00" finish="2026-11-03T12:43:19.0637385+08:00" />
+  <TestSettings name="default" id="5a002f1b-0125-4d33-9150-8e8de5103eb3">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_12_42_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d0d22376-85df-48e9-8e41-4717c1fe6865" testId="12dc5b93-5e08-5c3d-a45a-81e9c3a38ee0" testName="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:14.7811265" startTime="2026-11-03T12:42:31.4951698+08:00" endTime="2026-11-03T12:42:46.2586705+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d0d22376-85df-48e9-8e41-4717c1fe6865" />
+    <UnitTestResult executionId="1968afeb-466b-4d76-b625-334596bc02f9" testId="2ddc5b20-59af-6e40-fb19-750600c71e6c" testName="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:15.1338906" startTime="2026-11-03T12:42:46.2750742+08:00" endTime="2026-11-03T12:43:01.4095658+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1968afeb-466b-4d76-b625-334596bc02f9" />
+    <UnitTestResult executionId="5687be79-e542-48d4-b863-239199f62805" testId="ad4c3a58-7387-3909-8b55-d7efd4f0b45a" testName="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:17.5161766" startTime="2026-11-03T12:43:01.4119967+08:00" endTime="2026-11-03T12:43:18.9262816+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5687be79-e542-48d4-b863-239199f62805" />
+    <UnitTestResult executionId="61b3e25c-026d-4f79-8d92-8cd1619e70b5" testId="ae1b474b-db36-019e-401b-4ed05aaa197a" testName="OpticalSystemDesign.Tests.LightGradientThemeTests.BackdropIsRelativeAndHeaderInkReadableWhileDataSurfacesStayWhite" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0086768" startTime="2026-11-03T12:43:18.9285515+08:00" endTime="2026-11-03T12:43:18.9366224+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="61b3e25c-026d-4f79-8d92-8cd1619e70b5" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2ddc5b20-59af-6e40-fb19-750600c71e6c">
+      <Execution id="1968afeb-466b-4d76-b625-334596bc02f9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LightGradientThemeTests" name="RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="12dc5b93-5e08-5c3d-a45a-81e9c3a38ee0">
+      <Execution id="d0d22376-85df-48e9-8e41-4717c1fe6865" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LightGradientThemeTests" name="RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ad4c3a58-7387-3909-8b55-d7efd4f0b45a">
+      <Execution id="5687be79-e542-48d4-b863-239199f62805" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LightGradientThemeTests" name="RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LightGradientThemeTests.BackdropIsRelativeAndHeaderInkReadableWhileDataSurfacesStayWhite" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ae1b474b-db36-019e-401b-4ed05aaa197a">
+      <Execution id="61b3e25c-026d-4f79-8d92-8cd1619e70b5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LightGradientThemeTests" name="BackdropIsRelativeAndHeaderInkReadableWhileDataSurfacesStayWhite" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="12dc5b93-5e08-5c3d-a45a-81e9c3a38ee0" executionId="d0d22376-85df-48e9-8e41-4717c1fe6865" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2ddc5b20-59af-6e40-fb19-750600c71e6c" executionId="1968afeb-466b-4d76-b625-334596bc02f9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ad4c3a58-7387-3909-8b55-d7efd4f0b45a" executionId="5687be79-e542-48d4-b863-239199f62805" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ae1b474b-db36-019e-401b-4ed05aaa197a" executionId="61b3e25c-026d-4f79-8d92-8cd1619e70b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.23]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.94]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.97]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:49.47]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

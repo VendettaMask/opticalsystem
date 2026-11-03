@@ -48,19 +48,19 @@ public sealed partial class MainWindow
             group.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
             commands.Children.Add(group);
         }
-        var targets = new ToggleButton { Content = ToolContent("target", "目标"), IsChecked = true };
+        var targets = new ToggleButton { Content = ToolContent("coating-target", "目标"), IsChecked = true };
         targets.Classes.Add("coating-plot-tool"); AutomationProperties.SetName(targets, "显示目标线");
         ToolTip.SetTip(targets, "显示原设计目标，不改变验收偏振");
         targets.IsCheckedChanged += (_, _) => _plot.SetTargets(targets.IsChecked == true);
         commands.Children.Add(targets);
-        var edit = PlotButton("编辑设计目标", "pencil", async () => await Guard(() => ShowSettingsAsync(0)), "编辑");
+        var edit = PlotButton("编辑设计目标", "edit-target", async () => await Guard(() => ShowSettingsAsync(0)), "编辑");
         commands.Children.Add(edit);
-        var settings = new DropDownButton { Content = ToolContent("settings", "设置"), Flyout = EvaluationSettingsFlyout() };
+        var settings = new DropDownButton { Content = ToolContent("settings-general", "设置"), Flyout = EvaluationSettingsFlyout() };
         settings.Classes.Add("coating-plot-tool"); AutomationProperties.SetName(settings, "光谱图设置");
         ToolTip.SetTip(settings, "光谱显示范围、网格与纵轴设置"); commands.Children.Add(settings);
 
         var tools = new WrapPanel();
-        _plotPng = PlotButton("保存光谱 PNG", "camera", () => TrackOperation(ExportSpectrumPngAsync));
+        _plotPng = PlotButton("保存光谱 PNG", "file-export-image", () => TrackOperation(ExportSpectrumPngAsync));
         var widthMenu = new MenuFlyout();
         foreach (var (name, scale) in new[] { ("细", 1d), ("标准", 1.5), ("粗", 2d) })
         {
@@ -73,9 +73,9 @@ public sealed partial class MainWindow
         lineWidth.Classes.Add("coating-plot-tool"); AutomationProperties.SetName(lineWidth, "光谱线宽");
         ToolTip.SetTip(lineWidth, "曲线线宽：细、标准、粗");
         tools.Children.Add(new StackPanel { Orientation = Orientation.Horizontal, Children = { _plotPng, lineWidth } });
-        _plotRefresh = PlotButton("刷新光谱", "refresh-cw", () => TrackOperation(() => RunAsync("evaluate")));
+        _plotRefresh = PlotButton("刷新光谱", "action-recalculate", () => TrackOperation(() => RunAsync("evaluate")));
         tools.Children.Add(_plotRefresh);
-        tools.Children.Add(PlotButton("重置光谱视图", "maximize", () => { _plot.ResetView(); return Task.CompletedTask; }));
+        tools.Children.Add(PlotButton("重置光谱视图", "action-fit-view", () => { _plot.ResetView(); return Task.CompletedTask; }));
         var header = new StackPanel { Spacing = 2, Children = { commands, tools } };
         var curveStyle = new Style(s => s.OfType<ToggleButton>().Class("coating-curve"));
         curveStyle.Setters.Add(new Setter(PaddingProperty, new Thickness(5, 2)));

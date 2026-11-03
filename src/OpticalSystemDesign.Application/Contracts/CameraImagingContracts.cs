@@ -117,6 +117,10 @@ public sealed record CameraImagingResult(string DocumentName, long SourceRevisio
     CameraExperimentInputs? Inputs = null, Camera3DDiagnostics? Scene3D = null);
 public interface ICameraImagingService
 {
+    Task<CameraSceneRoiSfrReport> MeasureSceneLinearRoisAsync(CameraSceneLinearBatchArtifact artifact, CameraSceneRoiSfrRequest request,
+        IProgress<CameraSceneRoiSfrProgress>? progress = null, CancellationToken cancellationToken = default);
+    Task SaveSceneLinearRoisAsync(CameraSceneRoiSfrReport report, string path, CancellationToken cancellationToken = default);
+    Task<CameraSceneRoiSfrReport> OpenSceneLinearRoisAsync(CameraSceneLinearBatchArtifact artifact, string path, CancellationToken cancellationToken = default);
     CameraSceneLinearBatchPlan PrepareSceneLinearBatch(CameraSceneLinearBatchRequest request);
     Task<CameraSceneLinearBatchArtifact> RunSceneLinearBatchAsync(CameraSceneLinearBatchPlan plan, string path,
         IProgress<CameraSceneLinearBatchProgress>? progress = null, CancellationToken cancellationToken = default);

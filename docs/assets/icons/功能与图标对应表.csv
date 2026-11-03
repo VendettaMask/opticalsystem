@@ -1,0 +1,333 @@
+﻿所在界面,功能名称,重绘图标ID,源绑定,源行,设计含义
+主程序 · 优化,快速聚焦,optimization-focus,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,87,收敛光束和可移动像面表示自动聚焦。
+主程序 · 优化,快速调整,optimization-adjust,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,88,共轴光学面与侧边调节杆表示快速调整光学参数。
+主程序 · 优化,滑块,settings-general,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,89,三个独立调节通道表示可调整设置。
+主程序 · 优化,可视化优化器,optimization-visual,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,90,由高到低的目标值轨迹与迭代节点表示可视化优化。
+主程序 · 优化,评价函数编辑器,merit-function-editor,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,95,多项加权条目与目标值列表示评价函数编辑。
+主程序 · 优化,优化向导,optimization-wizard,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,96,目标、调整步骤和收敛结果组成向导流程。
+主程序 · 优化,执行优化,action-run,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,100,向前的播放三角表示开始运行。
+主程序 · 优化,移除所有变量,optimization-variables-clear,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,101,参数表上的变量点与清除叉表示移除变量而保留条目。
+主程序 · 优化,设全部半径变量,radius-variables,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,105,弧形表面、曲率半径连线与控制点表示半径变量。
+主程序 · 优化,设全部厚度变量,thickness-variables,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,109,两光学面间的双向尺寸标记表示厚度变量。
+主程序 · 优化,随机扰动搜索,optimization-random-search,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,114,多个参数节点与不同探索分支表示随机扰动搜索。
+主程序 · 优化,玻璃替换模板,glass-replacement,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,115,两个材料块和双向替换箭头表示玻璃替换。
+主程序 · 公差,公差数据编辑器,tolerance-data-editor,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,121,保留用户先前确认的专用矢量稿。
+主程序 · 公差,公差分析,tolerance-analysis,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,122,保留用户先前确认的专用矢量稿。
+主程序 · 公差,公差数据查看器,tolerance-data-viewer,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,124,保留用户先前确认的专用矢量稿。
+主程序 · 公差,直方图,tolerance-histogram,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,125,保留用户先前确认的专用矢量稿。
+主程序 · 公差,良率,tolerance-yield,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,126,保留用户先前确认的专用矢量稿。
+主程序 · 公差,公差报告,tolerance-report,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,127,保留用户先前确认的专用矢量稿。
+主程序 · 加工与图纸,可加工性评估,manufacturability-review,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,130,机械边界、尺寸和检查勾表示制造适用性评估。
+主程序 · 加工与图纸,光学制图,optical-drawing,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,132,透镜剖面与双向尺寸线表示光学工程制图。
+主程序 · 实验室,AI 初始结构,initial-structure-design,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,272,由目标指标生成两片透镜结构，表示初始结构生成。
+主程序 · 实验室,光学镀膜设计,coating-design,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,274,基底上的多层薄膜截面表示光学镀膜。
+主程序 · 实验室,光学装调,optical-alignment,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,276,透镜轴线与对中十字表示光学对准。
+主程序 · 实验室,相机成像仿真,camera-imaging,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,278,前置镜头、像素传感器和相机外壳表示物理成像。
+主程序 · 帮助,用户指南,user-guide,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,156,保留用户先前确认的专用矢量稿。
+主程序 · 帮助,操作数帮助,operand-help,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,157,保留用户先前确认的专用矢量稿。
+主程序 · 帮助,恢复未保存工程,recover-unsaved-project,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,158,保留用户先前确认的专用矢量稿。
+主程序 · 帮助,关于,about,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,159,保留用户先前确认的专用矢量稿。
+主程序 · 帮助,用户指南,user-guide,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,199,保留用户先前确认的专用矢量稿。
+主程序 · 帮助,操作数帮助,operand-help,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,200,保留用户先前确认的专用矢量稿。
+主程序 · 帮助,关于,about,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,201,保留用户先前确认的专用矢量稿。
+主程序 · 数据库,材料库,materials-library,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,135,材料层片与玻璃棱块表示光学材料库。
+主程序 · 数据库,镜头库,lens-library,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,138,多片透镜装在分格柜中，表示镜头设计库。
+主程序 · 数据库,库存镜头查看,stock-lens-catalog,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,139,装盒镜片与浏览放大镜表示库存镜头目录。
+主程序 · 数据库,库存镜头匹配,stock-lens-match,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,140,目标镜片与库内镜片之间的匹配勾表示镜头匹配。
+主程序 · 数据库,导出设计报告…,file-export-report,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,142,带标题、文本和小图表的文档及向外箭头表示报告导出。
+主程序 · 数据库,色散图,material-dispersion-chart,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,461,材料坐标上的离散玻璃样本表示材料色散分析。
+主程序 · 数据库,玻璃图,material-glass-map,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,461,玻璃样本分区中的多组材料点表示玻璃图。
+主程序 · 数据库,无热化玻璃图,material-athermal-map,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,461,温度计与不同热响应材料轨迹表示无热化选材。
+主程序 · 数据库,内部透过率 vs. 波长,material-transmission,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,461,透过率平台与吸收谷表示材料光谱透过率。
+主程序 · 数据库,色散 vs. 波长,material-dispersion-wavelength,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,461,折射率随波长逐渐下降的色散曲线配光谱标记。
+主程序 · 数据库,材料分析,material-dispersion-chart,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,461,材料坐标上的离散玻璃样本表示材料色散分析。
+主程序 · 文件,新建,file-new,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,234,空白工程页和加号表示建立新工程。
+主程序 · 文件,打开,file-open,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,235,文件夹与进入的箭头表示打开已有文件。
+主程序 · 文件,保存,file-save,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,236,存储外壳、顶端记录槽及底部标签区表示保存。
+主程序 · 文件,Zemax ZMX,file-import,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,241,箭头从页外进入文档内，表示导入数据。
+主程序 · 文件,导入,file-import,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,241,箭头从页外进入文档内，表示导入数据。
+主程序 · 文件,CAD（STEP）,file-export-cad,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,243,机械边界和立体模型旁的向外箭头表示导出 STEP 实体。
+主程序 · 文件,导出,file-export,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,243,箭头从文档内部向外离开，表示导出数据。
+主程序 · 文件,撤销,action-undo,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,248,向左回转箭头表示恢复上一步。
+主程序 · 文件,重做,action-redo,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,249,向右回转箭头表示重做下一步。
+主程序 · 示例,示例系统,optical-examples,src/OpticalSystemDesign.App/Shell/MainWindow.Examples.cs,42,包含光学截面的文件夹表示可载入的示例设计。
+主程序 · 示例,示例,optical-examples,src/OpticalSystemDesign.App/Shell/MainWindow.Examples.cs,55,包含光学截面的文件夹表示可载入的示例设计。
+主程序 · 窗口,克隆分析,clone-analysis,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,148,保留用户先前确认的专用矢量稿。
+主程序 · 窗口,切换锁定,toggle-page-lock,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,149,保留用户先前确认的专用矢量稿。
+主程序 · 窗口,关闭其他页,close-other-pages,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,150,保留用户先前确认的专用矢量稿。
+主程序 · 窗口,保存默认,save-default-layout,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,152,保留用户先前确认的专用矢量稿。
+主程序 · 窗口,载入默认,load-default-layout,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,153,保留用户先前确认的专用矢量稿。
+主程序 · 窗口,克隆分析,clone-analysis,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,194,保留用户先前确认的专用矢量稿。
+主程序 · 窗口,切换锁定,toggle-page-lock,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,195,保留用户先前确认的专用矢量稿。
+主程序 · 窗口,关闭其他页,close-other-pages,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,196,保留用户先前确认的专用矢量稿。
+主程序 · 窗口,保留分栏停靠,layout-dock,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,453,相邻分栏和共同外框表示保留停靠布局。
+主程序 · 窗口,合并单窗格,layout-merge,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,453,两个窗格的指向箭头汇入单一中央窗格。
+主程序 · 窗口,全部独立浮动,layout-float,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,453,分离窗口和斜向移出箭头表示浮动。
+主程序 · 窗口,平铺全部,layout-tile,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,453,四个并列且互不覆盖的窗格表示平铺。
+主程序 · 窗口,层叠全部,layout-cascade,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,453,三个有序错位窗口表示层叠排列。
+主程序 · 窗口,窗口布局,window-layout,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,453,保留用户先前确认的专用矢量稿。
+主程序 · 视图,2D视图,layout-2d,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,81,侧视透镜截面与折射光线表示二维布局。
+主程序 · 视图,3D视图,layout-3d,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,82,透镜的立体椭圆边缘与空间光束表示三维布局。
+主程序 · 视图,实体模型,solid-model,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,83,透镜机械厚度、端面及剖面表示实体模型。
+主程序 · 视图,3D视图,layout-3d,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,186,透镜的立体椭圆边缘与空间光束表示三维布局。
+主程序 · 视图,实体模型,solid-model,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,187,透镜机械厚度、端面及剖面表示实体模型。
+主程序 · 设置,非序列模式,nonsequential-mode,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,71,分支光线及反射边界表示非序列传播。
+主程序 · 设置,系统选项,system-settings,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,73,共轴透镜和可调节通道表示系统级设置。
+主程序 · 设置,镜头数据,lens-prescription,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,74,透镜形状所在的数据表表示镜头处方编辑。
+主程序 · 设置,多重结构,configuration-matrix,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,75,表格列头与两组处方列表示多重结构矩阵。
+主程序 · 设置,格式与字体,format-font,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,77,大小字形骨架和基线表示字体与排版格式。
+主程序 · 设置,语言,settings-language,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,490,经纬网球与对话框表示界面语言切换。
+主程序 · 非序列,顺序模式,sequential-mode,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,179,按顺序穿过三个光学面的连续光线表示顺序模式。
+主程序 · 非序列,对象数据,nonsequential-objects,src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs,181,球、柱及倾斜面所在表格表示非序列对象编辑。
+分析 · MTF 曲线,傅里叶 MTF,mtf-fourier-frequency,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,71,下降的调制传递曲线表示频率响应；采样频谱短线标识傅里叶方法。
+分析 · MTF 曲线,傅里叶离焦 MTF,mtf-fourier-focus,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,72,具有最大值的穿焦曲线及焦面参考线表示离焦扫描；采样频谱短线标识傅里叶方法。
+分析 · MTF 曲线,傅里叶 MTF VS 视场,mtf-fourier-field,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,73,离散场点和向边缘变化的传递曲线表示随视场扫描；采样频谱短线标识傅里叶方法。
+分析 · MTF 曲线,惠更斯 MTF,mtf-huygens-frequency,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,74,下降的调制传递曲线表示频率响应；次波圆弧标识惠更斯传播。
+分析 · MTF 曲线,惠更斯离焦 MTF,mtf-huygens-focus,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,75,具有最大值的穿焦曲线及焦面参考线表示离焦扫描；次波圆弧标识惠更斯传播。
+分析 · MTF 曲线,惠更斯 MTF VS 视场,mtf-huygens-field,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,76,离散场点和向边缘变化的传递曲线表示随视场扫描；次波圆弧标识惠更斯传播。
+分析 · MTF 曲线,几何 MTF,mtf-geometric-frequency,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,77,下降的调制传递曲线表示频率响应；会聚几何光线标识几何方法。
+分析 · MTF 曲线,几何离焦 MTF,mtf-geometric-focus,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,78,具有最大值的穿焦曲线及焦面参考线表示离焦扫描；会聚几何光线标识几何方法。
+分析 · MTF 曲线,几何 MTF VS 视场,mtf-geometric-field,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,79,离散场点和向边缘变化的传递曲线表示随视场扫描；会聚几何光线标识几何方法。
+分析 · RMS,RMS vs. 视场,rms-field,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,61,底部有最小值的 RMS 曲线与视场扇表示对应自变量。
+分析 · RMS,RMS vs. 波长,rms-wavelength,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,62,底部有最小值的 RMS 曲线与光谱波形表示对应自变量。
+分析 · RMS,RMS vs. 离焦,rms-focus,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,63,底部有最小值的 RMS 曲线与焦面跨度表示对应自变量。
+分析 · RMS,二维视场RMS图,rms-field-map,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,64,视场坐标框内的等值环和采样点表示二维 RMS 分布。
+分析 · 像差分析,光线像差图,aberration-ray-fan,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,39,横向光瞳坐标与异号像差扇曲线表示光线像差。
+分析 · 像差分析,网格畸变,aberration-grid-distortion,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,48,弯曲的正交格线表示成像网格畸变。
+分析 · 像差分析,场曲/畸变,aberration-field-curvature,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,49,成对弯曲焦面与场点标记表示场曲和畸变。
+分析 · 像差分析,轴向像差,aberration-axial,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,50,不同孔径高度光线沿光轴落在不同交点，表示轴向像差。
+分析 · 像差分析,垂轴色差,aberration-lateral-color,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,51,同一像面上分离的两个像点表示垂轴色差。
+分析 · 像差分析,色焦移,aberration-color-focus,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,52,两种波形的轴向聚焦位置偏移表示色焦移。
+分析 · 像差分析,赛德尔系数,seidel-coefficients,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,53,系数表的五个独立条目表示五项初级像差系数。
+分析 · 像差分析,赛德尔图,seidel-diagram,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,54,跨越零线的不同高度柱表示有符号的赛德尔像差贡献。
+分析 · 像差分析,光瞳像差,aberration-pupil,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,59,光瞳圆上的参考节点与偏离节点表示瞳像差。
+分析 · 像差分析,全视场像差,aberration-full-field,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,60,多个场点上的局部像差扇表示全视场分析。
+分析 · 光线数据库,光线数据库查看器,ray-database,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,135,分层存储和定向光线表示光线数据库。
+分析 · 光线数据库,路径分析,ray-path-analysis,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,142,有方向的分支传播及交互节点表示路径分析。
+分析 · 光线迹点,单光线追迹,ray-single-trace,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,34,穿过两面并折转的单根光线表示逐面追迹。
+分析 · 光线迹点,标准点列图,spot-standard,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,40,统一像面框内的聚焦点簇表示点列分布。
+分析 · 光线迹点,光迹图,ray-footprint,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,41,倾斜入射光束在圆形表面上的足迹表示光线覆盖。
+分析 · 光线迹点,离焦点列图,spot-through-focus,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,42,三个轴向像面上的大、小、大点斑表示离焦变化。
+分析 · 光线迹点,全视场点列图,spot-full-field,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,43,场点扇和多个位置的点簇表示全视场点列。
+分析 · 光线迹点,矩阵点列图,spot-field-matrix,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,44,九格中各自独立的点斑表示视场矩阵点列。
+分析 · 光线迹点,结构矩阵点列图,spot-configuration-matrix,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,45,双层列头与点斑网格表示按结构和视场排列的矩阵。
+分析 · 光线迹点,渐晕图,vignetting,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,47,边缘光束被孔径截断，表示渐晕。
+分析 · 光线迹点,入射角 vs. 像高,incidence-vs-height,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,65,曲线与入射方向夹角标记表示入射角随像高变化。
+分析 · 光线迹点,Y-Ybar,y-ybar,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,103,两条光线高度轨迹及交点表示 Y–Ybar 关系。
+分析 · 光线追迹,追迹控制,trace-control,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,108,发射光线旁的播放控制表示启动非序列追迹。
+分析 · 光线追迹,单光线追迹,ray-single-trace,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,115,穿过两面并折转的单根光线表示逐面追迹。
+分析 · 分类入口,光线迹点,analysis-ray-spots,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,184,保留用户先前确认的专用矢量稿。
+分析 · 分类入口,报告,analysis-engineering-report,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,200,保留用户先前确认的专用矢量稿。
+分析 · 分类入口,像差分析,analysis-aberration,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,209,保留用户先前确认的专用矢量稿。
+分析 · 分类入口,波前,analysis-wavefront,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,224,保留用户先前确认的专用矢量稿。
+分析 · 分类入口,点扩散函数,analysis-point-spread,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,237,保留用户先前确认的专用矢量稿。
+分析 · 分类入口,MTF 曲线,analysis-mtf-transfer,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,246,保留用户先前确认的专用矢量稿。
+分析 · 分类入口,RMS,analysis-rms-curve,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,260,保留用户先前确认的专用矢量稿。
+分析 · 分类入口,圈入能量,analysis-encircled-energy,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,267,保留用户先前确认的专用矢量稿。
+分析 · 分类入口,扩展图像分析,analysis-image-analysis,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,274,保留用户先前确认的专用矢量稿。
+分析 · 分类入口,光线追迹,trace-control,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,291,发射光线旁的播放控制表示启动非序列追迹。
+分析 · 分类入口,探测器,detector-view,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,296,像素阵列和选定探测点表示探测器数据。
+分析 · 分类入口,光线数据库,ray-database,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,301,分层存储和定向光线表示光线数据库。
+分析 · 分类入口,布局,layout-3d,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,306,透镜的立体椭圆边缘与空间光束表示三维布局。
+分析 · 圈入能量,衍射,encircled-energy-huygens,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,55,能量包围圈与随半径累积上升的曲线表示圈入能量。
+分析 · 圈入能量,几何,encircled-energy-geometric,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,56,能量包围圈与随半径累积上升的曲线表示圈入能量。
+分析 · 圈入能量,几何线/边缘扩散,spread-geometric,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,57,峰形线扩散与阶跃边缘扩散共用坐标，表示线/边缘响应。
+分析 · 圈入能量,扩展光源,encircled-energy-extended,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,58,扩展面源及其包围圈表示扩展光源的能量累积。
+分析 · 布局,非序列 3D 布局,layout-3d,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,149,透镜的立体椭圆边缘与空间光束表示三维布局。
+分析 · 扩展图像分析,图像模拟,image-simulation,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,92,物方图形经透镜投影到像面，表示光学图像模拟。
+分析 · 扩展图像分析,几何图像分析,image-geometric,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,93,对象点通过几何光线在像面形成离散像点。
+分析 · 扩展图像分析,几何位图图像分析,image-geometric-bitmap,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,94,输入像素格及像面上的离散光斑表示位图追迹。
+分析 · 扩展图像分析,光源分析,source-analysis,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,95,发光面及不同角度射出的光束表示光源分布。
+分析 · 扩展图像分析,部分相干图像分析,image-partial-coherence,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,96,两组部分重叠的次波轮廓及不同相位表示部分相干叠加。
+分析 · 扩展图像分析,扩展图像分析,image-extended-diffraction,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,97,多点扩展对象和传播到像面的波纹表示扩展衍射成像。
+分析 · 扩展图像分析,相对照度,relative-illumination,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,98,随视场边缘逐渐下降的照度和环形场点标记表示相对照度。
+分析 · 扩展图像分析,IMA和BIM图片浏览器,viewer-ima-bim,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,101,图像页与像素小格表示光学 IMA/BIM 图像数据。
+分析 · 扩展图像分析,位图文件查看器,viewer-bitmap,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,102,边框中的离散像素与景物表示位图查看。
+分析 · 报告,表面数据报告,report-surface-data,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,35,文档中的光学面列和处方表表示逐面数据。
+分析 · 报告,系统数据报告,report-system-data,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,36,文档中的共轴透镜及汇总行表示系统参数报告。
+分析 · 报告,分类数据报告,report-classified-data,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,37,树状分支和三类条目表示分类数据。
+分析 · 报告,系统数据摘要,report-system-summary,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,38,少量关键指标与分隔线表示系统摘要。
+分析 · 报告,基面数据,report-cardinal-points,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,46,光轴、主面及两侧基点表示光学基面数据。
+分析 · 探测器,探测器查看器,detector-view,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,121,像素阵列和选定探测点表示探测器数据。
+分析 · 探测器,清空探测器,detector-clear,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,128,探测器像素阵列与清除斜线表示清空记录。
+分析 · 波前,光程差图,wavefront-opd,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,80,两个传播路径相对参考线的程差表示 OPD。
+分析 · 波前,波前图,wavefront-map,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,81,光瞳边界和偏心等程差轮廓表示波前分布。
+分析 · 波前,干涉图,wavefront-interferogram,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,82,光瞳内相邻亮暗条带的轮廓表示干涉条纹。
+分析 · 波前,傅科分析,wavefront-foucault,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,83,刀口遮挡半瞳与收敛光束表示傅科刀口检验。
+分析 · 波前,对比度损失图,contrast-loss,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,84,两组幅度不同的周期信号表示对比度下降。
+分析 · 波前,Zernike Fringe系数,zernike-fringe,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,87,系数表配合径向十字瞳标记表示 Fringe 约定。
+分析 · 波前,Zernike Standard系数,zernike-standard,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,88,系数表配合对角模态标记表示 Standard 约定。
+分析 · 波前,Zernike Annular系数,zernike-annular,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,89,系数表配合带中心遮拦的环形瞳表示 Annular 基底。
+分析 · 波前,Zernike系数 vs. 视场,zernike-vs-field,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,90,不同模态系数随场点变化的有符号曲线表示视场系数扫描。
+分析 · 点扩散函数,FFT PSF,psf-fourier,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,66,中央点峰与同心衍射环表示二维点扩散函数；方法标记区分计算族。
+分析 · 点扩散函数,FFT PSF截面图,psf-fourier-section,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,67,窄主峰与较弱旁瓣表示点扩散函数的截面。
+分析 · 点扩散函数,FFT 线/边缘扩散,spread-fourier,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,68,峰形线扩散与阶跃边缘扩散共用坐标，表示线/边缘响应。
+分析 · 点扩散函数,惠更斯PSF,psf-huygens,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,69,中央点峰与同心衍射环表示二维点扩散函数；方法标记区分计算族。
+分析 · 点扩散函数,惠更斯PSF截面图,psf-huygens-section,src/OpticalSystemDesign.Application/Services/WorkbenchAnalysisRibbonCatalog.cs,70,窄主峰与较弱旁瓣表示点扩散函数的截面。
+实验室 · 光学装调,计算共轭,alignment-compute,src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs,22,由物面经过透镜得到像面的光路及求解箭头表示计算共轭。
+实验室 · 光学装调,更新图像,alignment-reticle,src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs,22,像面框中的横纵叉丝表示装调检测图像。
+实验室 · 光学装调,取消,action-stop,src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs,22,独立方形表示停止运行。
+实验室 · 光学装调,测量设置,settings-general,src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs,50,三个独立调节通道表示可调整设置。
+实验室 · 光学装调,测量头参数,alignment-measurement-head,src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs,52,测量镜头与定位标尺表示装调测量头。
+实验室 · 光学装调,叉丝与探测面,alignment-reticle,src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs,53,像面框中的横纵叉丝表示装调检测图像。
+实验室 · 光学装调,坐标与模拟说明,information-note,src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs,55,信息圆框与独立信息符号表示说明。
+实验室 · 光学装调,暂无共轭结果,alignment-conjugates,src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs,76,两侧物像平面经光学面共轭表示共轭位置表。
+实验室 · 光学装调,表面共轭位置,alignment-conjugates,src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs,84,两侧物像平面经光学面共轭表示共轭位置表。
+实验室 · 光学装调,尚无叉丝图像,alignment-reticle,src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs,90,像面框中的横纵叉丝表示装调检测图像。
+实验室 · 光学装调,返回叉丝像,alignment-reticle,src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs,105,像面框中的横纵叉丝表示装调检测图像。
+实验室 · 共用界面,信息提示,information-note,src/OpticalSystemDesign.App/Laboratories/LaboratoryPresentation.cs,109,信息圆框与独立信息符号表示说明。
+实验室 · 初始结构,从预设开始,optical-examples,src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Examples.cs,39,包含光学截面的文件夹表示可载入的示例设计。
+实验室 · 初始结构,光学系统,optical-system,src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Inputs.cs,95,共轴的两组透镜与光轴表示光学系统。
+实验室 · 初始结构,波长与权重,wavelength-weights,src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Inputs.cs,114,波形和高低权重柱表示光谱采样及权重。
+实验室 · 初始结构,结构规模,structure-size,src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Inputs.cs,117,多组有序光学面及计数短线表示镜片和结构规模。
+实验室 · 初始结构,像质与验收,image-quality-acceptance,src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Inputs.cs,120,像面点斑和验收勾表示像质目标检查。
+实验室 · 初始结构,搜索策略,search-strategy,src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Inputs.cs,137,分支参数路径和目标点表示设计搜索策略。
+实验室 · 初始结构,运行预算,run-budget,src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Inputs.cs,140,时钟和预算刻度表示运行时间与成本限制。
+实验室 · 初始结构,候选方案,design-candidates,src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.cs,120,多个光学结构卡片和选择勾表示候选设计集合。
+实验室 · 初始结构,等待生成候选,design-candidates,src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.cs,127,多个光学结构卡片和选择勾表示候选设计集合。
+实验室 · 初始结构,在这里查看实际光线,layout-2d,src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.cs,144,侧视透镜截面与折射光线表示二维布局。
+实验室 · 相机成像,开始运行,action-run,src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Presentation.cs,43,向前的播放三角表示开始运行。
+实验室 · 相机成像,停止运行,action-stop,src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Presentation.cs,43,独立方形表示停止运行。
+实验室 · 相机成像,固定参数面板,action-pin,src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Presentation.cs,43,固定针的头部、横肩与针尖表示固定面板。
+实验室 · 相机成像,导出,file-export,src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Presentation.cs,43,箭头从文档内部向外离开，表示导出数据。
+实验室 · 膜系设计,导出 PNG,file-export-image,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingStackAnalysisView.cs,52,图像框中的景物与离开边框的箭头表示导出图像。
+实验室 · 膜系设计,打开,file-open,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs,20,文件夹与进入的箭头表示打开已有文件。
+实验室 · 膜系设计,保存,file-save,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs,21,存储外壳、顶端记录槽及底部标签区表示保存。
+实验室 · 膜系设计,导出,file-export,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs,22,箭头从文档内部向外离开，表示导出数据。
+实验室 · 膜系设计,恢复草稿,recover-unsaved-project,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs,23,保留用户先前确认的专用矢量稿。
+实验室 · 膜系设计,示例,optical-examples,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs,55,包含光学截面的文件夹表示可载入的示例设计。
+实验室 · 膜系设计,设计,settings-general,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs,60,三个独立调节通道表示可调整设置。
+实验室 · 膜系设计,优化,optimization-wizard,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs,61,目标、调整步骤和收敛结果组成向导流程。
+实验室 · 膜系设计,材料,materials-library,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs,63,材料层片与玻璃棱块表示光学材料库。
+实验室 · 膜系设计,堆栈几何,coating-stack,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs,64,相邻薄膜条带及厚度尺寸表示实际层堆栈。
+实验室 · 膜系设计,结果,coating-spectrum,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs,65,高反射带及透射谷表示膜系光谱分析结果。
+实验室 · 膜系设计,窗口,configuration-matrix,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Docking.cs,50,表格列头与两组处方列表示多重结构矩阵。
+实验室 · 膜系设计,膜层,coating-layer-add,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.EditorChrome.cs,41,膜层截面和顶端加号表示新增一层薄膜。
+实验室 · 膜系设计,反转,coating-layer-reverse,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.EditorChrome.cs,43,厚薄不同的层条及上下对向箭头表示层序反转。
+实验室 · 膜系设计,全部解锁,coating-layer-unlock,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.EditorChrome.cs,118,薄膜条带与打开锁梁表示膜层厚度的优化锁定状态。
+实验室 · 膜系设计,全部锁定,coating-layer-lock,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.EditorChrome.cs,118,薄膜条带与闭合锁梁表示膜层厚度的优化锁定状态。
+实验室 · 膜系设计,添加,action-add,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.EvaluationSettings.cs,23,交叉的水平与垂直笔画，表示添加项目。
+实验室 · 膜系设计,删除评价项,action-remove,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.EvaluationSettings.cs,56,水平减号表示从当前集合移除。
+实验室 · 膜系设计,膜层已锁定,coating-layer-lock,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Layers.cs,137,薄膜条带与闭合锁梁表示膜层厚度的优化锁定状态。
+实验室 · 膜系设计,膜层可编辑,coating-layer-unlock,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Layers.cs,137,薄膜条带与打开锁梁表示膜层厚度的优化锁定状态。
+实验室 · 膜系设计,膜层上移,action-move-up,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Layers.cs,141,行条目与向上箭头表示将项目向上调整。
+实验室 · 膜系设计,膜层下移,action-move-down,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Layers.cs,141,行条目与向下箭头表示将项目向下调整。
+实验室 · 膜系设计,删除膜层,action-delete,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Layers.cs,141,容器、提手和两根内容线表示删除项目。
+实验室 · 膜系设计,候选,design-candidates,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Results.cs,33,多个光学结构卡片和选择勾表示候选设计集合。
+实验室 · 膜系设计,指标与公差,coating-tolerance-metrics,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Results.cs,35,目标曲线与上下允许边界表示指标和公差。
+实验室 · 膜系设计,展开 / 下一项,disclosure-closed,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Results.cs,64,向右的短尖角表示折叠分组可展开。
+实验室 · 膜系设计,展开 / 下移,disclosure-expand,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Results.cs,75,向下的短尖角表示展开内容。
+实验室 · 膜系设计,展开 / 下一项,disclosure-closed,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Results.cs,76,向右的短尖角表示折叠分组可展开。
+实验室 · 膜系设计,导出,file-export,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Results.cs,92,箭头从文档内部向外离开，表示导出数据。
+实验室 · 膜系设计,目标,coating-target,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Spectrum.cs,51,目标光谱的范围带与可调节点表示膜系目标。
+实验室 · 膜系设计,编辑设计目标,edit-target,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Spectrum.cs,56,目标曲线与铅笔表示编辑目标值。
+实验室 · 膜系设计,设置,settings-general,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Spectrum.cs,58,三个独立调节通道表示可调整设置。
+实验室 · 膜系设计,保存光谱 PNG,file-export-image,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Spectrum.cs,63,图像框中的景物与离开边框的箭头表示导出图像。
+实验室 · 膜系设计,刷新光谱,action-recalculate,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Spectrum.cs,76,首尾衔接的环形箭头表示更新计算或刷新。
+实验室 · 膜系设计,重置光谱视图,action-fit-view,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Spectrum.cs,78,四角框与向外定位短线表示完整内容适配窗口。
+实验室 · 膜系设计,实验材料管理,coating-materials,src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MaterialEditorWindow.cs,70,折射介质层及可编辑材料条目表示膜系材料管理。
+视图 · 3D/实体模型,前视图,view-front,src/OpticalSystemDesign.App/Panels/ViewerPanel.cs,758,着色目标面表示前视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。
+视图 · 3D/实体模型,后视图,view-back,src/OpticalSystemDesign.App/Panels/ViewerPanel.cs,759,着色目标面表示后视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。
+视图 · 3D/实体模型,左视图,view-left,src/OpticalSystemDesign.App/Panels/ViewerPanel.cs,760,着色目标面表示左视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。
+视图 · 3D/实体模型,右视图,view-right,src/OpticalSystemDesign.App/Panels/ViewerPanel.cs,761,着色目标面表示右视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。
+视图 · 3D/实体模型,俯视图,view-top,src/OpticalSystemDesign.App/Panels/ViewerPanel.cs,762,着色目标面表示俯视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。
+视图 · 3D/实体模型,仰视图,view-bottom,src/OpticalSystemDesign.App/Panels/ViewerPanel.cs,763,着色目标面表示仰视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。
+视图 · 3D/实体模型,等轴测视图,view-isometric,src/OpticalSystemDesign.App/Panels/ViewerPanel.cs,764,着色目标面表示等轴测视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。
+页面 · 2D/3D视图,导出图片（PNG）,file-export-image,src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs,17,图像框中的景物与离开边框的箭头表示导出图像。
+页面 · 2D/3D视图,恢复二维视图的缩放与平移,action-reset-view,src/OpticalSystemDesign.App/Panels/ViewerPanel.cs,266,回转箭头围绕中心定位点，表示恢复视图位置。
+页面 · 2D/3D视图,同步并重新生成视图,action-recalculate,src/OpticalSystemDesign.App/Panels/ViewerPanel.cs,456,首尾衔接的环形箭头表示更新计算或刷新。
+页面 · 2D/3D视图,适配窗口,action-fit-view,src/OpticalSystemDesign.App/Panels/ViewerPanel.cs,740,四角框与向外定位短线表示完整内容适配窗口。
+页面 · 优化,添加,action-add,src/OpticalSystemDesign.App/Panels/OptimizationPanel.cs,73,交叉的水平与垂直笔画，表示添加项目。
+页面 · 优化,删除,action-delete,src/OpticalSystemDesign.App/Panels/OptimizationPanel.cs,75,容器、提手和两根内容线表示删除项目。
+页面 · 优化,上移,action-move-up,src/OpticalSystemDesign.App/Panels/OptimizationPanel.cs,77,行条目与向上箭头表示将项目向上调整。
+页面 · 优化,下移,action-move-down,src/OpticalSystemDesign.App/Panels/OptimizationPanel.cs,79,行条目与向下箭头表示将项目向下调整。
+页面 · 优化,优化向导,optimization-wizard,src/OpticalSystemDesign.App/Panels/OptimizationPanel.cs,81,目标、调整步骤和收敛结果组成向导流程。
+页面 · 优化,重新计算,action-recalculate,src/OpticalSystemDesign.App/Panels/OptimizationPanel.cs,83,首尾衔接的环形箭头表示更新计算或刷新。
+页面 · 优化,执行优化,action-run,src/OpticalSystemDesign.App/Panels/OptimizationPanel.cs,85,向前的播放三角表示开始运行。
+页面 · 优化向导,生成评价函数,merit-function-wizard,src/OpticalSystemDesign.App/Panels/OptimizationWizardWindow.cs,34,由目标生成评价条目，箭头连接目标与函数表。
+页面 · 光学制图,更新预览,action-recalculate,src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs,135,首尾衔接的环形箭头表示更新计算或刷新。
+页面 · 光学制图,导出 PDF,file-export-report,src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs,137,带标题、文本和小图表的文档及向外箭头表示报告导出。
+页面 · 光学制图,缩小,action-zoom-out,src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs,139,放大镜与减号表示缩小视图。
+页面 · 光学制图,适合窗口,action-fit-view,src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs,141,四角框与向外定位短线表示完整内容适配窗口。
+页面 · 光学制图,放大,action-zoom-in,src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs,143,放大镜与加号表示放大视图。
+页面 · 光学制图,导入 PNG,file-import-image,src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs,264,图像框与进入画框的箭头表示导入位图。
+页面 · 光学制图,恢复默认,action-reset-view,src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs,266,回转箭头围绕中心定位点，表示恢复视图位置。
+页面 · 公差向导,保存,file-save,src/OpticalSystemDesign.App/Panels/ToleranceWizardWindow.cs,372,存储外壳、顶端记录槽及底部标签区表示保存。
+页面 · 公差向导,载入,file-open,src/OpticalSystemDesign.App/Panels/ToleranceWizardWindow.cs,373,文件夹与进入的箭头表示打开已有文件。
+页面 · 公差向导,验证,action-accept,src/OpticalSystemDesign.App/Panels/ToleranceWizardWindow.cs,374,连贯勾线表示应用或验证通过。
+页面 · 公差向导,公差分析向导,tolerance-wizard,src/OpticalSystemDesign.App/Panels/ToleranceWizardWindow.cs,375,名义区间、扰动箭头与通过标记表示公差向导。
+页面 · 公差向导,重置,action-reset-view,src/OpticalSystemDesign.App/Panels/ToleranceWizardWindow.cs,376,回转箭头围绕中心定位点，表示恢复视图位置。
+页面 · 公差向导,帮助,help-topic,src/OpticalSystemDesign.App/Panels/ToleranceWizardWindow.cs,377,问号与信息圆框表示查看当前功能帮助。
+页面 · 公差向导,帮助 / 关于,help-topic,src/OpticalSystemDesign.App/Panels/ToleranceWizardWindow.cs,575,问号与信息圆框表示查看当前功能帮助。
+页面 · 公差图表,刷新,action-recalculate,src/OpticalSystemDesign.App/Panels/ToleranceChartDocumentPanel.cs,251,首尾衔接的环形箭头表示更新计算或刷新。
+页面 · 公差图表,重置视图,action-reset-view,src/OpticalSystemDesign.App/Panels/ToleranceChartDocumentPanel.cs,253,回转箭头围绕中心定位点，表示恢复视图位置。
+页面 · 公差数据编辑器,公差向导,tolerance-wizard,src/OpticalSystemDesign.App/Panels/TolerancingPanel.cs,90,名义区间、扰动箭头与通过标记表示公差向导。
+页面 · 公差数据编辑器,添加,action-add,src/OpticalSystemDesign.App/Panels/TolerancingPanel.cs,92,交叉的水平与垂直笔画，表示添加项目。
+页面 · 公差数据编辑器,删除,action-delete,src/OpticalSystemDesign.App/Panels/TolerancingPanel.cs,94,容器、提手和两根内容线表示删除项目。
+页面 · 公差数据编辑器,验证,action-accept,src/OpticalSystemDesign.App/Panels/TolerancingPanel.cs,96,连贯勾线表示应用或验证通过。
+页面 · 公差数据编辑器,保存公差,file-save,src/OpticalSystemDesign.App/Panels/TolerancingPanel.cs,98,存储外壳、顶端记录槽及底部标签区表示保存。
+页面 · 公差数据编辑器,载入公差,file-open,src/OpticalSystemDesign.App/Panels/TolerancingPanel.cs,100,文件夹与进入的箭头表示打开已有文件。
+页面 · 公差数据编辑器,导出报告,file-export-report,src/OpticalSystemDesign.App/Panels/TolerancingPanel.cs,102,带标题、文本和小图表的文档及向外箭头表示报告导出。
+页面 · 公差文本,刷新,action-recalculate,src/OpticalSystemDesign.App/Panels/ToleranceTextDocumentPanel.cs,37,首尾衔接的环形箭头表示更新计算或刷新。
+页面 · 公差文本,复制文本,clipboard-copy-text,src/OpticalSystemDesign.App/Panels/ToleranceTextDocumentPanel.cs,39,剪贴板与文本横线表示复制文本。
+页面 · 公差文本,导出文本,file-export-text,src/OpticalSystemDesign.App/Panels/ToleranceTextDocumentPanel.cs,41,带文本行的页面及向外箭头，表示文本数据导出。
+页面 · 分析页导出与状态,分析异常提示,analysis-warning,src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs,677,带感叹号的分析图框表示结果异常提示。
+页面 · 分析页导出与状态,同步当前设置并重新运行,action-recalculate,src/OpticalSystemDesign.App/Panels/AnalysisPanel.cs,83,首尾衔接的环形箭头表示更新计算或刷新。
+页面 · 分析页导出与状态,复制文本,clipboard-copy-text,src/OpticalSystemDesign.App/Panels/AnalysisPanel.cs,85,剪贴板与文本横线表示复制文本。
+页面 · 分析页导出与状态,导出文本,file-export-text,src/OpticalSystemDesign.App/Panels/AnalysisPanel.cs,87,带文本行的页面及向外箭头，表示文本数据导出。
+页面 · 分析页导出与状态,导出图片（PNG）,file-export-image,src/OpticalSystemDesign.App/Panels/AnalysisPanel.cs,89,图像框中的景物与离开边框的箭头表示导出图像。
+页面 · 可加工性评估,重新评估,manufacturability-review,src/OpticalSystemDesign.App/Panels/ManufacturabilityPanel.Presentation.cs,43,机械边界、尺寸和检查勾表示制造适用性评估。
+页面 · 命令搜索,搜索,action-search,src/OpticalSystemDesign.App/Controls/CommandSearchControl.cs,55,放大镜圆框与延伸柄表示查找。
+页面 · 多重结构,展开操作数属性,disclosure-expand,src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Matrix.cs,21,向下的短尖角表示展开内容。
+页面 · 多重结构,上一个操作数,action-previous,src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Matrix.cs,22,向左的方向尖角表示顺序后退。
+页面 · 多重结构,下一个操作数,action-next,src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Matrix.cs,23,向右的方向尖角表示顺序前进。
+页面 · 多重结构,上一个结构,action-previous,src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Matrix.cs,24,向左的方向尖角表示顺序后退。
+页面 · 多重结构,下一个结构,action-next,src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Matrix.cs,25,向右的方向尖角表示顺序前进。
+页面 · 多重结构,收起 / 上移,disclosure-collapse,src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Matrix.cs,69,向上的短尖角表示收起内容。
+页面 · 多重结构,展开 / 下移,disclosure-expand,src/OpticalSystemDesign.App/Panels/MultiConfigurationPanel.Matrix.cs,69,向下的短尖角表示展开内容。
+页面 · 库存镜头匹配,厂商页面,action-open-link,src/OpticalSystemDesign.App/Panels/StockLensMatchingPanel.cs,39,页面角框与向外箭头表示前往外部页面。
+页面 · 库存镜头匹配,开始匹配,stock-lens-match,src/OpticalSystemDesign.App/Panels/StockLensMatchingPanel.cs,163,目标镜片与库内镜片之间的匹配勾表示镜头匹配。
+页面 · 库存镜头查看,厂商页面,action-open-link,src/OpticalSystemDesign.App/Panels/CommercialLensCatalogPanel.cs,51,页面角框与向外箭头表示前往外部页面。
+页面 · 库存镜头查看,数据表,catalog-data-sheet,src/OpticalSystemDesign.App/Panels/CommercialLensCatalogPanel.cs,52,文档中的表格和参数行表示厂商数据表。
+页面 · 库存镜头查看,载入模型,file-open,src/OpticalSystemDesign.App/Panels/CommercialLensCatalogPanel.cs,53,文件夹与进入的箭头表示打开已有文件。
+页面 · 库存镜头查看,搜索,action-search,src/OpticalSystemDesign.App/Panels/CommercialLensCatalogPanel.cs,137,放大镜圆框与延伸柄表示查找。
+页面 · 库存镜头查看,重置,action-reset-view,src/OpticalSystemDesign.App/Panels/CommercialLensCatalogPanel.cs,141,回转箭头围绕中心定位点，表示恢复视图位置。
+页面 · 材料分析,重新计算,action-recalculate,src/OpticalSystemDesign.App/Panels/MaterialAnalysisPanel.cs,61,首尾衔接的环形箭头表示更新计算或刷新。
+页面 · 材料库,重载玻璃库,action-recalculate,src/OpticalSystemDesign.App/Panels/MaterialDatabasePanels.cs,205,首尾衔接的环形箭头表示更新计算或刷新。
+页面 · 材料库,复制玻璃,material-copy-glass,src/OpticalSystemDesign.App/Panels/MaterialDatabasePanels.cs,206,玻璃块及重叠副本表示复制材料条目。
+页面 · 材料库,复制玻璃报告,material-glass-report,src/OpticalSystemDesign.App/Panels/MaterialDatabasePanels.cs,207,报告页面中的玻璃截面和数据行表示材料报告。
+页面 · 材料库,计算 Nd/Vd,material-nd-vd,src/OpticalSystemDesign.App/Panels/MaterialDatabasePanels.cs,208,透镜两侧的光谱采样与数据求取标记表示折射率和阿贝数计算。
+页面 · 材料库,搜索,action-search,src/OpticalSystemDesign.App/Panels/MaterialDatabasePanels.cs,665,放大镜圆框与延伸柄表示查找。
+页面 · 用户指南,更多操作,action-more,src/OpticalSystemDesign.App/Panels/UserGuidePanel.Layout.cs,173,三个等距实心点表示更多操作菜单。
+页面 · 系统选项,应用偏振,action-accept,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.Polarization.cs,25,连贯勾线表示应用或验证通过。
+页面 · 系统选项,加入当前,catalog-add-active,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,63,条目进入当前列表与加号表示启用材料库条目。
+页面 · 系统选项,移出当前,catalog-remove-active,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,64,从当前列表移出的箭头与减号表示停用条目。
+页面 · 系统选项,优先级上移,action-move-up,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,65,行条目与向上箭头表示将项目向上调整。
+页面 · 系统选项,优先级下移,action-move-down,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,66,行条目与向下箭头表示将项目向下调整。
+页面 · 系统选项,添加视场,field-add,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,96,视场扇配加号表示添加场点。
+页面 · 系统选项,添加波长,wavelength-add,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,98,光谱波形配加号表示添加波长采样。
+页面 · 系统选项,系统孔径,system-aperture,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,106,受光阑约束的开口与两侧边界表示系统孔径。
+页面 · 系统选项,视场,field-settings,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,107,三个场点及其指向光轴的光束扇表示视场。
+页面 · 系统选项,波长,wavelength-settings,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,108,完整正弦波与一个周期的跨度标记表示波长。
+页面 · 系统选项,偏振,polarization-settings,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,109,传播轴、正交电场和椭圆轨迹表示偏振。
+页面 · 系统选项,材料库,materials-library,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,110,材料层片与玻璃棱块表示光学材料库。
+页面 · 系统选项,环境,environment-settings,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,111,温度计与压力刻度表示光学环境参数。
+页面 · 系统选项,高级,settings-general,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,112,三个独立调节通道表示可调整设置。
+页面 · 系统选项,展开 / 下一项,disclosure-closed,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,536,向右的短尖角表示折叠分组可展开。
+页面 · 系统选项,展开 / 下移,disclosure-expand,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,614,向下的短尖角表示展开内容。
+页面 · 系统选项,展开 / 下一项,disclosure-closed,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,614,向右的短尖角表示折叠分组可展开。
+页面 · 系统选项,删除此视场,field-delete,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,721,视场扇配减号表示删除场点。
+页面 · 系统选项,删除此波长,wavelength-delete,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,802,光谱波形配减号表示删除波长采样。
+页面 · 系统选项,展开 / 下一项,disclosure-closed,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,864,向右的短尖角表示折叠分组可展开。
+页面 · 系统选项,展开 / 下移,disclosure-expand,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,940,向下的短尖角表示展开内容。
+页面 · 系统选项,展开 / 下一项,disclosure-closed,src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs,940,向右的短尖角表示折叠分组可展开。
+页面 · 镜头数据,上一个结构,action-previous,src/OpticalSystemDesign.App/Panels/LensEditorPanel.Configurations.cs,22,向左的方向尖角表示顺序后退。
+页面 · 镜头数据,下一个结构,action-next,src/OpticalSystemDesign.App/Panels/LensEditorPanel.Configurations.cs,23,向右的方向尖角表示顺序前进。
+页面 · 镜头数据,上一面,action-previous,src/OpticalSystemDesign.App/Panels/LensEditorPanel.SurfaceProperties.cs,39,向左的方向尖角表示顺序后退。
+页面 · 镜头数据,下一面,action-next,src/OpticalSystemDesign.App/Panels/LensEditorPanel.SurfaceProperties.cs,40,向右的方向尖角表示顺序前进。
+页面 · 镜头数据,展开表面属性,disclosure-expand,src/OpticalSystemDesign.App/Panels/LensEditorPanel.SurfaceProperties.cs,44,向下的短尖角表示展开内容。
+页面 · 镜头数据,收起 / 上移,disclosure-collapse,src/OpticalSystemDesign.App/Panels/LensEditorPanel.SurfaceProperties.cs,57,向上的短尖角表示收起内容。
+页面 · 镜头数据,展开 / 下移,disclosure-expand,src/OpticalSystemDesign.App/Panels/LensEditorPanel.SurfaceProperties.cs,57,向下的短尖角表示展开内容。
+页面 · 镜头数据,还原,action-recalculate,src/OpticalSystemDesign.App/Panels/LensEditorPanel.SurfaceProperties.cs,293,首尾衔接的环形箭头表示更新计算或刷新。
+页面 · 镜头数据,应用,action-accept,src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs,64,连贯勾线表示应用或验证通过。
+页面 · 页面设置,设置,settings-general,src/OpticalSystemDesign.App/Controls/SettingsPanelChrome.cs,17,三个独立调节通道表示可调整设置。

@@ -1,0 +1,2591 @@
+{
+  "baseCommit": "d303a6936be6da610a0d88284a383e467633e8ce",
+  "capturedUtc": "2026-11-03T06:19:41.7058319+00:00",
+  "sourceState": "shared uncommitted working tree; unrelated UI/icon work preserved",
+  "runs": [
+    {
+      "path": "validation/rechecks/2026-11-03/analysis-frame-dpi/final/frame-export-final.trx",
+      "sha256": "45612d3da74bff26d5a8cd32855dfef040484138bcf7087e69ba212b892e75c3"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/analysis-frame-dpi/retry/frame-retry.trx",
+      "sha256": "ac842f232dbb4248620f4f09376a0b73b458b70255d3665ebd6a2e603c6e8896"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/analysis-frame-dpi/legend-final/legend-final.trx",
+      "sha256": "83e22b981b2a0db2527f13f5b3963e4a0fad69322a6076c87f9b6cd22a5f365f"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/analysis-frame-dpi/coating-checked/coating-frame-checked.trx",
+      "sha256": "b07198b9224d1f56a0ddba2354018598ce671d1b10edfb40d92e96ea9ba295b6"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/analysis-frame-dpi/coating-verified/coating-spectrum-verified.trx",
+      "sha256": "104fe429a71e53b8a7391250fce8888fde4b9cf5085594669c6b1caed491d165"
+    }
+  ],
+  "history": [
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:04.6245182"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 32769, height: 300)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5354200"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.RuntimeExportsRealSupportedFormatsThatCanBeReadBack(extension: \"bmp\", magic: \"424D\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0178021"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidAndOverBudgetInputIsRejectedAndReleased(kind: \"large-dimensions\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0123474"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: \"ja-JP\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.9360925"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+      "outcome": "Passed",
+      "duration": "00:00:00.3314844"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: \"en-US\", theme: \"Dark\", size: 18)",
+      "outcome": "Passed",
+      "duration": "00:00:01.6857749"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeDoesNotSilentlyFallBackAndPreservesExistingOutput(input: \"\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0019419"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ClickingTheImageIconSavesPngAndCancelPreservesTheFile",
+      "outcome": "Passed",
+      "duration": "00:00:01.1198526"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Light\", scale: 1)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0062360"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidAndOverBudgetInputIsRejectedAndReleased(kind: \"invalid\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0034685"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1440, width: 1919, dpi: 300)",
+      "outcome": "Passed",
+      "duration": "00:00:01.8480605"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5607704"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 840, height: 620)",
+      "outcome": "Passed",
+      "duration": "00:00:01.8814793"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: \"zh-CN\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.5905114"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: False, stale: False, loaded: False, expectedState: \"尚未准备布局光线\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.5901208"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.SwitchingModesDoesNotRequireDeletingTheRetainedPath",
+      "outcome": "Passed",
+      "duration": "00:00:00.0310170"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeUsesTheSelectedFileInTheRealRuntime(extension: \"jpeg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.7763506"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.InterferogramRenderingTests.SoftwareAndActualReportRendererPreserveTheSameFringes(mode: \"灰度\", theme: \"Light\", sampling: 128)",
+      "outcome": "Passed",
+      "duration": "00:00:01.9725583"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7807824"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport",
+      "outcome": "Failed",
+      "duration": "00:00:01.0921129"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.TransparentPngIsStillCompositedAgainstBlack",
+      "outcome": "Passed",
+      "duration": "00:00:00.0048098"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BuiltInModeIgnoresRetainedValidOrMissingExternalPaths(explicitMode: True, missingFile: False)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0246863"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: \"ja-JP\", theme: \"Light\", size: 22)",
+      "outcome": "Passed",
+      "duration": "00:00:02.6678778"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:01.2690839"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: FftPsf, width: 840, height: 620)",
+      "outcome": "Passed",
+      "duration": "00:00:01.1450524"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7836452"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:01.6442491"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5947249"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionFollowsGraphSelectionAndNeverExportsTextOrUnavailableResults",
+      "outcome": "Passed",
+      "duration": "00:00:01.2117163"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1080, width: 1440, dpi: 96)",
+      "outcome": "Passed",
+      "duration": "00:00:01.7658900"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7666885"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:01.6543792"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BmpHasRealHeadersRowPaddingBgrChannelsAndBottomUpRows(width: 2, height: 3)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0170115"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LossyOutputIsRejectedWithoutReplacingAnyExistingFile(extension: \"jpeg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0016899"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Light\", scale: 2)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0066127"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7457847"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.RuntimeExportsRealSupportedFormatsThatCanBeReadBack(extension: \"png\", magic: \"89504E47\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0357044"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:09.0467600"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: RedBlue)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5061674"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: TwoDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.4581852"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LoadRgbReadsSupportedFilesAndReleasesTheirHandles(extension: \"png\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0026631"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: Standard)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0378506"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Incoherent Irradiance\")",
+      "outcome": "Passed",
+      "duration": "00:00:05.3772779"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:01.5987006"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidAndOverBudgetInputIsRejectedAndReleased(kind: \"tiny\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0025115"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: \"RedBlue\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0054006"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "duration": "00:00:02.1708596"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 420, height: 280)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4926630"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BmpHasRealHeadersRowPaddingBgrChannelsAndBottomUpRows(width: 4, height: 2)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0098423"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeUsesTheSelectedFileInTheRealRuntime(extension: \"png\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0126826"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BuiltInModeIgnoresRetainedValidOrMissingExternalPaths(explicitMode: True, missingFile: True)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0202149"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: ThreeDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.6086821"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 420, height: 280)",
+      "outcome": "Passed",
+      "duration": "00:00:01.3145977"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: \"Gray\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0045581"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:07.5623988"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidRasterCannotReplaceExistingOutput(extension: \"png\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0034895"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: False, expectedState: \"布局结果已过期并隐藏\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.5968365"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata",
+      "outcome": "Passed",
+      "duration": "00:00:00.7258925"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"zh-CN\", theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:01.6283674"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Dark\", scale: 2)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0140317"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0082582"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"二维热力图\", map: Rainbow)",
+      "outcome": "Passed",
+      "duration": "00:00:01.1157436"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:01.7724641"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 2160, width: 2879, dpi: 600)",
+      "outcome": "Passed",
+      "duration": "00:00:02.7182889"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.InterferogramRenderingTests.SoftwareAndActualReportRendererPreserveTheSameFringes(mode: \"灰度\", theme: \"Dark\", sampling: 32)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0553214"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: False, loaded: True, expectedState: \"布局结果与当前场景一致\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.5995457"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BuiltInModeIgnoresRetainedValidOrMissingExternalPaths(explicitMode: False, missingFile: False)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0207438"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: \"Rainbow\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0046195"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.InterferogramRenderingTests.SoftwareAndActualReportRendererPreserveTheSameFringes(mode: \"等高线\", theme: \"Light\", sampling: 32)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0648566"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.PaletteEndpointsInterpolationAndInvalidValuesAreDefined",
+      "outcome": "Passed",
+      "duration": "00:00:00.0014714"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 840, height: 620, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:01.2513652"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: \"en-US\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.6529333"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"en-US\", theme: \"Dark\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.9222093"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 420, height: 280, fontSize: 32)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4492396"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Field Curvature and Distortion\")",
+      "outcome": "Passed",
+      "duration": "00:00:02.2795339"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LossyOutputIsRejectedWithoutReplacingAnyExistingFile(extension: \"jpg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0022233"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "duration": "00:00:02.1628889"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeDoesNotSilentlyFallBackAndPreservesExistingOutput(input: \"missing.png\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0017746"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:01.9209308"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Wavefront Map\")",
+      "outcome": "Passed",
+      "duration": "00:00:02.8085112"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PrintDpiChangesOnlyMetadataAndJpegPathsCannotOverwriteFiles",
+      "outcome": "Passed",
+      "duration": "00:00:00.2862305"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.SceneSlantedEdgeWindowTests.ScenePageUsesCurrentLensSavesLinearDataAndKeepsFrozenReplayAfterDocumentSwitch(theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:07.9385487"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4292735"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Dark\", scale: 1.25)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0063168"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word)",
+      "outcome": "Failed",
+      "duration": "00:00:04.5054698"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BuiltInModeIgnoresRetainedValidOrMissingExternalPaths(explicitMode: False, missingFile: True)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0229621"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.LayoutUsesTheSameFitHostAndKeepsCameraAndExportAcrossResize(dimension: ThreeDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.9846218"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: SpotDiagram, width: 840, height: 620)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4083446"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: \"Inferno\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0087306"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BmpHasRealHeadersRowPaddingBgrChannelsAndBottomUpRows(width: 1, height: 1)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0146940"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"MTF\")",
+      "outcome": "Passed",
+      "duration": "00:00:02.6263405"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.InterferogramRenderingTests.FullConfigurationContextAndTextSettingsReachWorkerWithoutChangingTheDocument",
+      "outcome": "Passed",
+      "duration": "00:00:00.6833173"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: True, expectedState: \"警告：正在查看过期结果\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.5659215"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: \"zh-CN\", theme: \"Light\", size: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:02.4053075"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeUsesTheSelectedFileInTheRealRuntime(extension: \"bmp\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0136038"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: \"Viridis\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0051049"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"二维热力图\", map: RedBlue)",
+      "outcome": "Passed",
+      "duration": "00:00:01.1264392"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:02.6381807"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: OpticalPathDifference)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7526345"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidRasterCannotReplaceExistingOutput(extension: \"bmp\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0015138"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LoadRgbReadsSupportedFilesAndReleasesTheirHandles(extension: \"jpg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0024441"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+      "outcome": "Passed",
+      "duration": "00:00:00.2789294"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Light\", scale: 1.25)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0208598"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.9662496"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.MainWindowAppliesOnlyPaletteWithoutRerunningOpenAnalysis",
+      "outcome": "Passed",
+      "duration": "00:00:05.0774546"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 8192, height: 8192)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7930322"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4470838"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.AnalysisFitsBothWindowSizesAndModeSurvivesRefreshWithoutChangingExport",
+      "outcome": "Passed",
+      "duration": "00:00:02.0506076"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"二维热力图\", map: Viridis)",
+      "outcome": "Passed",
+      "duration": "00:00:01.1460008"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: Viridis)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5168966"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"ja-JP\", theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:02.0695131"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.OldSettingsDefaultTo1080AndIndependent150DpiAndRoundTrip",
+      "outcome": "Passed",
+      "duration": "00:00:00.0059186"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.InterferogramRenderingTests.SoftwareAndActualReportRendererPreserveTheSameFringes(mode: \"伪彩色\", theme: \"Light\", sampling: 32)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0820622"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: ThreeDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0749096"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 840, height: 620)",
+      "outcome": "Passed",
+      "duration": "00:00:01.3669966"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Html)",
+      "outcome": "Passed",
+      "duration": "00:00:04.8321236"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: TwoDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.8847020"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"表面\", map: Viridis)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4761134"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Ray Fan\")",
+      "outcome": "Passed",
+      "duration": "00:00:01.2082156"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Spot Diagram\")",
+      "outcome": "Passed",
+      "duration": "00:00:01.1194209"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: Rainbow)",
+      "outcome": "Passed",
+      "duration": "00:00:00.4989389"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OversizedSourceIsExplicitlyRejectedWithoutClippingShrinkingOrChangingTheResult",
+      "outcome": "Passed",
+      "duration": "00:00:01.0502882"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.LayoutUsesTheSameFitHostAndKeepsCameraAndExportAcrossResize(dimension: TwoDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7644325"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5285320"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LoadRgbReadsSupportedFilesAndReleasesTheirHandles(extension: \"jpeg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0031118"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: \"Dark\")",
+      "outcome": "Passed",
+      "duration": "00:00:23.9804205"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidAndOverBudgetInputIsRejectedAndReleased(kind: \"large-file\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0017730"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.LinesScatterColoredLinesAndRgbRasterRemainPixelIdentical",
+      "outcome": "Passed",
+      "duration": "00:00:00.3665214"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: \"Dark\")",
+      "outcome": "Passed",
+      "duration": "00:00:04.7774179"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7915891"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Markdown)",
+      "outcome": "Passed",
+      "duration": "00:00:04.3584054"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Through Focus\")",
+      "outcome": "Passed",
+      "duration": "00:00:01.6841887"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BmpHasRealHeadersRowPaddingBgrChannelsAndBottomUpRows(width: 3, height: 2)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0089556"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0952147"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True)",
+      "outcome": "Passed",
+      "duration": "00:00:04.8006735"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeUsesTheSelectedFileInTheRealRuntime(extension: \"jpg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0132718"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "duration": "00:00:01.1250991"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BmpHasRealHeadersRowPaddingBgrChannelsAndBottomUpRows(width: 5, height: 2)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0145959"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Pdf)",
+      "outcome": "Passed",
+      "duration": "00:00:09.3852321"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Dark\", scale: 1)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0071720"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeDoesNotSilentlyFallBackAndPreservesExistingOutput(input: \" \")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0022637"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LoadRgbReadsSupportedFilesAndReleasesTheirHandles(extension: \"bmp\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0027369"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.SceneSlantedEdgeWindowTests.ScenePageUsesCurrentLensSavesLinearDataAndKeepsFrozenReplayAfterDocumentSwitch(theme: \"Dark\")",
+      "outcome": "Passed",
+      "duration": "00:00:08.3740145"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LossyOutputIsRejectedWithoutReplacingAnyExistingFile(extension: \"webp\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0013773"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0891381"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.9714690"
+    },
+    {
+      "run": "retry/frame-retry.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport",
+      "outcome": "NotExecuted",
+      "duration": "00:00:00.0010000"
+    },
+    {
+      "run": "retry/frame-retry.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word)",
+      "outcome": "Passed",
+      "duration": "00:00:08.0201265"
+    },
+    {
+      "run": "retry/frame-retry.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Markdown)",
+      "outcome": "Passed",
+      "duration": "00:00:04.2847540"
+    },
+    {
+      "run": "retry/frame-retry.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Pdf)",
+      "outcome": "Passed",
+      "duration": "00:00:10.3906199"
+    },
+    {
+      "run": "retry/frame-retry.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Html)",
+      "outcome": "Passed",
+      "duration": "00:00:04.4757749"
+    },
+    {
+      "run": "legend-final/legend-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport",
+      "outcome": "Passed",
+      "duration": "00:00:03.4294639"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:05.7801629"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: \"Dark\", fontSize: 13, count: 20)",
+      "outcome": "Passed",
+      "duration": "00:00:07.0141276"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView",
+      "outcome": "Failed",
+      "duration": "00:00:04.4028311"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: \"Dark\")",
+      "outcome": "Passed",
+      "duration": "00:00:14.1297610"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: \"Light\", fontSize: 13, count: 20)",
+      "outcome": "Passed",
+      "duration": "00:00:06.4062844"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: \"Light\", fontSize: 18, count: 200)",
+      "outcome": "Passed",
+      "duration": "00:00:09.9022795"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.BareSubstrateAndLanguageChangesRemainViewOnly",
+      "outcome": "Passed",
+      "duration": "00:00:03.5121178"
+    },
+    {
+      "run": "coating-verified/coating-spectrum-verified.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView",
+      "outcome": "Passed",
+      "duration": "00:00:09.2793929"
+    }
+  ],
+  "cases": [
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.InterferogramRenderingTests.SoftwareAndActualReportRendererPreserveTheSameFringes(mode: \"灰度\", theme: \"Dark\", sampling: 32)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0553214"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:01.9209308"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: True, expectedState: \"警告：正在查看过期结果\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.5659215"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.InterferogramRenderingTests.SoftwareAndActualReportRendererPreserveTheSameFringes(mode: \"伪彩色\", theme: \"Light\", sampling: 32)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0820622"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BmpHasRealHeadersRowPaddingBgrChannelsAndBottomUpRows(width: 2, height: 3)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0170115"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: \"Dark\")",
+      "outcome": "Passed",
+      "duration": "00:00:23.9804205"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1080, width: 1440, dpi: 96)",
+      "outcome": "Passed",
+      "duration": "00:00:01.7658900"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: FftPsf, width: 840, height: 620)",
+      "outcome": "Passed",
+      "duration": "00:00:01.1450524"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.SwitchingModesDoesNotRequireDeletingTheRetainedPath",
+      "outcome": "Passed",
+      "duration": "00:00:00.0310170"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "duration": "00:00:02.1708596"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: TwoDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.4581852"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LossyOutputIsRejectedWithoutReplacingAnyExistingFile(extension: \"jpg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0022233"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:04.6245182"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeUsesTheSelectedFileInTheRealRuntime(extension: \"jpg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0132718"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: \"Gray\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0045581"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7836452"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Light\", scale: 1.25)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0208598"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:02.6381807"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0952147"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidRasterCannotReplaceExistingOutput(extension: \"bmp\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0015138"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 420, height: 280)",
+      "outcome": "Passed",
+      "duration": "00:00:01.3145977"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ClickingTheImageIconSavesPngAndCancelPreservesTheFile",
+      "outcome": "Passed",
+      "duration": "00:00:01.1198526"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:01.5987006"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.9662496"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"二维热力图\", map: RedBlue)",
+      "outcome": "Passed",
+      "duration": "00:00:01.1264392"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: \"Dark\", fontSize: 13, count: 20)",
+      "outcome": "Passed",
+      "duration": "00:00:07.0141276"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeDoesNotSilentlyFallBackAndPreservesExistingOutput(input: \" \")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0022637"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidRasterCannotReplaceExistingOutput(extension: \"png\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0034895"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BuiltInModeIgnoresRetainedValidOrMissingExternalPaths(explicitMode: True, missingFile: False)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0246863"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: \"en-US\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.6529333"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.PaletteEndpointsInterpolationAndInvalidValuesAreDefined",
+      "outcome": "Passed",
+      "duration": "00:00:00.0014714"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True)",
+      "outcome": "Passed",
+      "duration": "00:00:04.8006735"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0891381"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4470838"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"MTF\")",
+      "outcome": "Passed",
+      "duration": "00:00:02.6263405"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BmpHasRealHeadersRowPaddingBgrChannelsAndBottomUpRows(width: 4, height: 2)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0098423"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 8192, height: 8192)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7930322"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.OldSettingsDefaultTo1080AndIndependent150DpiAndRoundTrip",
+      "outcome": "Passed",
+      "duration": "00:00:00.0059186"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: \"ja-JP\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.9360925"
+    },
+    {
+      "run": "legend-final/legend-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport",
+      "outcome": "Passed",
+      "duration": "00:00:03.4294639"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.RuntimeExportsRealSupportedFormatsThatCanBeReadBack(extension: \"png\", magic: \"89504E47\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0357044"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.9714690"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 840, height: 620, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:01.2513652"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeDoesNotSilentlyFallBackAndPreservesExistingOutput(input: \"missing.png\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0017746"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7807824"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeUsesTheSelectedFileInTheRealRuntime(extension: \"bmp\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0136038"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: RedBlue)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5061674"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: \"en-US\", theme: \"Dark\", size: 18)",
+      "outcome": "Passed",
+      "duration": "00:00:01.6857749"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+      "outcome": "Passed",
+      "duration": "00:00:00.2789294"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: SpotDiagram, width: 840, height: 620)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4083446"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BuiltInModeIgnoresRetainedValidOrMissingExternalPaths(explicitMode: True, missingFile: True)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0202149"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"zh-CN\", theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:01.6283674"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Light\", scale: 1)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0062360"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:05.7801629"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidAndOverBudgetInputIsRejectedAndReleased(kind: \"tiny\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0025115"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.LayoutUsesTheSameFitHostAndKeepsCameraAndExportAcrossResize(dimension: ThreeDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.9846218"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.AnalysisFitsBothWindowSizesAndModeSurvivesRefreshWithoutChangingExport",
+      "outcome": "Passed",
+      "duration": "00:00:02.0506076"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5947249"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeUsesTheSelectedFileInTheRealRuntime(extension: \"jpeg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.7763506"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Light\", scale: 2)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0066127"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0082582"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LossyOutputIsRejectedWithoutReplacingAnyExistingFile(extension: \"webp\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0013773"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: \"Rainbow\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0046195"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: OpticalPathDifference)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7526345"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: False, expectedState: \"布局结果已过期并隐藏\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.5968365"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"表面\", map: Viridis)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4761134"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.InterferogramRenderingTests.FullConfigurationContextAndTextSettingsReachWorkerWithoutChangingTheDocument",
+      "outcome": "Passed",
+      "duration": "00:00:00.6833173"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeDoesNotSilentlyFallBackAndPreservesExistingOutput(input: \"\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0019419"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7915891"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.InterferogramRenderingTests.SoftwareAndActualReportRendererPreserveTheSameFringes(mode: \"等高线\", theme: \"Light\", sampling: 32)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0648566"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.CardinalSceneExportsItsGraphicAndDataTableWithoutSeries(width: 420, height: 280, fontSize: 32)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4492396"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.BareSubstrateAndLanguageChangesRemainViewOnly",
+      "outcome": "Passed",
+      "duration": "00:00:03.5121178"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: Viridis)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5168966"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 840, height: 620)",
+      "outcome": "Passed",
+      "duration": "00:00:01.3669966"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 840, height: 620)",
+      "outcome": "Passed",
+      "duration": "00:00:01.8814793"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BuiltInModeIgnoresRetainedValidOrMissingExternalPaths(explicitMode: False, missingFile: False)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0207438"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:01.7724641"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.RuntimeExportsRealSupportedFormatsThatCanBeReadBack(extension: \"bmp\", magic: \"424D\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0178021"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata",
+      "outcome": "Passed",
+      "duration": "00:00:00.7258925"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.AllHiddenWavelengthsExportAxesAndCanBeRestored(kind: Standard)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0378506"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: \"zh-CN\", theme: \"Light\", size: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:02.4053075"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: Rainbow)",
+      "outcome": "Passed",
+      "duration": "00:00:00.4989389"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.ExternalModeUsesTheSelectedFileInTheRealRuntime(extension: \"png\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0126826"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Spot Diagram\")",
+      "outcome": "Passed",
+      "duration": "00:00:01.1194209"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LoadRgbReadsSupportedFilesAndReleasesTheirHandles(extension: \"jpg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0024441"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: \"Inferno\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0087306"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.SceneSlantedEdgeWindowTests.ScenePageUsesCurrentLensSavesLinearDataAndKeepsFrozenReplayAfterDocumentSwitch(theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:07.9385487"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: TwoDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.8847020"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4292735"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Ray Fan\")",
+      "outcome": "Passed",
+      "duration": "00:00:01.2082156"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Incoherent Irradiance\")",
+      "outcome": "Passed",
+      "duration": "00:00:05.3772779"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BmpHasRealHeadersRowPaddingBgrChannelsAndBottomUpRows(width: 1, height: 1)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0146940"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 420, height: 280)",
+      "outcome": "Passed",
+      "duration": "00:00:01.4926630"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Through Focus\")",
+      "outcome": "Passed",
+      "duration": "00:00:01.6841887"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: ThreeDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.6086821"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: \"Dark\")",
+      "outcome": "Passed",
+      "duration": "00:00:04.7774179"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidAndOverBudgetInputIsRejectedAndReleased(kind: \"large-dimensions\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0123474"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.LayoutUsesTheSameFitHostAndKeepsCameraAndExportAcrossResize(dimension: TwoDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7644325"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "duration": "00:00:01.1250991"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.InterferogramRenderingTests.SoftwareAndActualReportRendererPreserveTheSameFringes(mode: \"灰度\", theme: \"Light\", sampling: 128)",
+      "outcome": "Passed",
+      "duration": "00:00:01.9725583"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.OutOfDomainBackgroundRemainsDarkerInLiveAndPngThroughViewChanges(theme: \"Dark\")",
+      "outcome": "Passed",
+      "duration": "00:00:14.1297610"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: False, stale: False, loaded: False, expectedState: \"尚未准备布局光线\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.5901208"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1440, width: 1919, dpi: 300)",
+      "outcome": "Passed",
+      "duration": "00:00:01.8480605"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionFollowsGraphSelectionAndNeverExportsTextOrUnavailableResults",
+      "outcome": "Passed",
+      "duration": "00:00:01.2117163"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PrintDpiChangesOnlyMetadataAndJpegPathsCannotOverwriteFiles",
+      "outcome": "Passed",
+      "duration": "00:00:00.2862305"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.LinesScatterColoredLinesAndRgbRasterRemainPixelIdentical",
+      "outcome": "Passed",
+      "duration": "00:00:00.3665214"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"en-US\", theme: \"Dark\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.9222093"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Dark\", scale: 1)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0071720"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.TransparentPngIsStillCompositedAgainstBlack",
+      "outcome": "Passed",
+      "duration": "00:00:00.0048098"
+    },
+    {
+      "run": "retry/frame-retry.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Markdown)",
+      "outcome": "Passed",
+      "duration": "00:00:04.2847540"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: \"ja-JP\", theme: \"Light\", size: 22)",
+      "outcome": "Passed",
+      "duration": "00:00:02.6678778"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.OversizedContentIsRejectedBeforeAllocatingTheExportBitmap(width: 32769, height: 300)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5354200"
+    },
+    {
+      "run": "coating-verified/coating-spectrum-verified.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView",
+      "outcome": "Passed",
+      "duration": "00:00:09.2793929"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.MainWindowAppliesOnlyPaletteWithoutRerunningOpenAnalysis",
+      "outcome": "Passed",
+      "duration": "00:00:05.0774546"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Wavefront Map\")",
+      "outcome": "Passed",
+      "duration": "00:00:02.8085112"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Dark\", scale: 2)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0140317"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OversizedSourceIsExplicitlyRejectedWithoutClippingShrinkingOrChangingTheResult",
+      "outcome": "Passed",
+      "duration": "00:00:01.0502882"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.CameraSfrWindowTests.SingleRoiPageExportsOriginalSizeChangesLineWidthAndClearsStaleResults(theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:07.5623988"
+    },
+    {
+      "run": "retry/frame-retry.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word)",
+      "outcome": "Passed",
+      "duration": "00:00:08.0201265"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"ja-JP\", theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:02.0695131"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LossyOutputIsRejectedWithoutReplacingAnyExistingFile(extension: \"jpeg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0016899"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: ThreeDimensional)",
+      "outcome": "Passed",
+      "duration": "00:00:01.0749096"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"二维热力图\", map: Rainbow)",
+      "outcome": "Passed",
+      "duration": "00:00:01.1157436"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidAndOverBudgetInputIsRejectedAndReleased(kind: \"invalid\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0034685"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.ImageActionHasOnlyAnIconAndLocalizedTooltip(language: \"zh-CN\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.5905114"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.InvalidAndOverBudgetInputIsRejectedAndReleased(kind: \"large-file\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0017730"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:01.6442491"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LoadRgbReadsSupportedFilesAndReleasesTheirHandles(extension: \"png\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0026631"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BmpHasRealHeadersRowPaddingBgrChannelsAndBottomUpRows(width: 5, height: 2)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0145959"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7666885"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 2160, width: 2879, dpi: 600)",
+      "outcome": "Passed",
+      "duration": "00:00:02.7182889"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.7457847"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:01.2690839"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: \"Light\", fontSize: 18, count: 200)",
+      "outcome": "Passed",
+      "duration": "00:00:09.9022795"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.SceneSlantedEdgeWindowTests.ScenePageUsesCurrentLensSavesLinearDataAndKeepsFrozenReplayAfterDocumentSwitch(theme: \"Dark\")",
+      "outcome": "Passed",
+      "duration": "00:00:08.3740145"
+    },
+    {
+      "run": "retry/frame-retry.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Pdf)",
+      "outcome": "Passed",
+      "duration": "00:00:10.3906199"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5285320"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisImageExportTests.BorderStaysOutsideOriginalContentAcrossThemesAndPixelScales(theme: \"Dark\", scale: 1.25)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0063168"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LoadRgbReadsSupportedFilesAndReleasesTheirHandles(extension: \"bmp\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0027369"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+      "outcome": "Passed",
+      "duration": "00:00:00.3314844"
+    },
+    {
+      "run": "retry/frame-retry.trx",
+      "name": "OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Html)",
+      "outcome": "Passed",
+      "duration": "00:00:04.4757749"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BuiltInModeIgnoresRetainedValidOrMissingExternalPaths(explicitMode: False, missingFile: True)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0229621"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Field Curvature and Distortion\")",
+      "outcome": "Passed",
+      "duration": "00:00:02.2795339"
+    },
+    {
+      "run": "coating-checked/coating-frame-checked.trx",
+      "name": "OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.VerticalStackAnalysisIsSeparateLiveAndExportsOneOriginalSheet(theme: \"Light\", fontSize: 13, count: 20)",
+      "outcome": "Passed",
+      "duration": "00:00:06.4062844"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: \"RedBlue\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0054006"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed",
+      "duration": "00:00:02.1628889"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: \"Viridis\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0051049"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "outcome": "Passed",
+      "duration": "00:00:01.6543792"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: \"二维热力图\", map: Viridis)",
+      "outcome": "Passed",
+      "duration": "00:00:01.1460008"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: False, loaded: True, expectedState: \"布局结果与当前场景一致\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.5995457"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.LoadRgbReadsSupportedFilesAndReleasesTheirHandles(extension: \"jpeg\")",
+      "outcome": "Passed",
+      "duration": "00:00:00.0031118"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.PolychromeSfrWindowTests.LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(theme: \"Light\")",
+      "outcome": "Passed",
+      "duration": "00:00:09.0467600"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed",
+      "duration": "00:00:00.5607704"
+    },
+    {
+      "run": "final/frame-export-final.trx",
+      "name": "OpticalSystemDesign.Tests.ImageFileRepairTests.BmpHasRealHeadersRowPaddingBgrChannelsAndBottomUpRows(width: 3, height: 2)",
+      "outcome": "Passed",
+      "duration": "00:00:00.0089556"
+    }
+  ],
+  "distinctTests": 154,
+  "allPassed": true,
+  "assemblies": [
+    {
+      "name": "OpticalSystemDesign.App",
+      "copies": [
+        {
+          "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+          "sha256": "8da4fad54d1babe10a30a7edda8219686c212d32822989238561a1a9d8af6764"
+        },
+        {
+          "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+          "sha256": "8da4fad54d1babe10a30a7edda8219686c212d32822989238561a1a9d8af6764"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+          "sha256": "8da4fad54d1babe10a30a7edda8219686c212d32822989238561a1a9d8af6764"
+        }
+      ],
+      "identical": true
+    },
+    {
+      "name": "OpticalSystemDesign.Application",
+      "copies": [
+        {
+          "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+          "sha256": "e86a3bd05336413852e028cef7691475615f83b79e840902e11826ca87002b00"
+        },
+        {
+          "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+          "sha256": "e86a3bd05336413852e028cef7691475615f83b79e840902e11826ca87002b00"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+          "sha256": "e86a3bd05336413852e028cef7691475615f83b79e840902e11826ca87002b00"
+        }
+      ],
+      "identical": true
+    },
+    {
+      "name": "OpticalSystemDesign.Core",
+      "copies": [
+        {
+          "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "aea0da211c3692bbf22043537e3f767c8765cdb89e917c1b36008898ece032fd"
+        },
+        {
+          "path": "labs/CoatingDesign/tests/OpticalSystemDesign.CoatingDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "aea0da211c3692bbf22043537e3f767c8765cdb89e917c1b36008898ece032fd"
+        },
+        {
+          "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+          "sha256": "aea0da211c3692bbf22043537e3f767c8765cdb89e917c1b36008898ece032fd"
+        }
+      ],
+      "identical": true
+    }
+  ],
+  "normalAppIdentical": true,
+  "mainRunAppSha256": "8da4fad54d1babe10a30a7edda8219686c212d32822989238561a1a9d8af6764",
+  "mainRunProductRetained": true,
+  "compiledSources": [
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Controls/AnalysisImageFrame.cs",
+      "compiled": "611b1ba90d6f2fb3523debd97a604e87bdc12a7bb948cdfcaca209fc02994b88",
+      "source": "611b1ba90d6f2fb3523debd97a604e87bdc12a7bb948cdfcaca209fc02994b88",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Controls/ResponsiveAnalysisPlotHost.cs",
+      "compiled": "fd1f3598e701b96517532dd8f797074cf2afdd6f1f7133f263dcb38a73cf522e",
+      "source": "fd1f3598e701b96517532dd8f797074cf2afdd6f1f7133f263dcb38a73cf522e",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Controls/UniformDiagramPage.cs",
+      "compiled": "a2f51041d85ef3f72cd95f7a25267ca0953f63ad618fffa1141a861889f6c27b",
+      "source": "a2f51041d85ef3f72cd95f7a25267ca0953f63ad618fffa1141a861889f6c27b",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/DisplaySettingsWindow.cs",
+      "compiled": "a73c1c645628f93c160f65c309ef6e903073079d5e672b9955bcfb9736e94324",
+      "source": "a73c1c645628f93c160f65c309ef6e903073079d5e672b9955bcfb9736e94324",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneSfr.cs",
+      "compiled": "d19b0f2b3935ed4d717e21d6adb0028d03066a9f811c8762188c06a2e5023309",
+      "source": "d19b0f2b3935ed4d717e21d6adb0028d03066a9f811c8762188c06a2e5023309",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Sfr.cs",
+      "compiled": "3e4bef94612c02e5cc486fd19395cd1779f8d1cffdc7458cb110aa471361507f",
+      "source": "3e4bef94612c02e5cc486fd19395cd1779f8d1cffdc7458cb110aa471361507f",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingStackAnalysisView.cs",
+      "compiled": "fbe3c63f29988fd272ca0c8e2f6fd3abaa6e619cd7f3cfa7c8822502562cf23b",
+      "source": "fbe3c63f29988fd272ca0c8e2f6fd3abaa6e619cd7f3cfa7c8822502562cf23b",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.cs",
+      "compiled": "bcc442b1138319733e54d9beb1874728e17e8f3ad6ee30b970ce2b485bf5ec5d",
+      "source": "bcc442b1138319733e54d9beb1874728e17e8f3ad6ee30b970ce2b485bf5ec5d",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/SpectrumPlot.cs",
+      "compiled": "b00f40335a47ea0672bab6b2c826e84a3fb263001150e05e5655ed2eec655460",
+      "source": "b00f40335a47ea0672bab6b2c826e84a3fb263001150e05e5655ed2eec655460",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Export.cs",
+      "compiled": "28f46f39760c8af0d62a9b0f9449cd79c3ca6239c74624410e904110e2b98cb1",
+      "source": "28f46f39760c8af0d62a9b0f9449cd79c3ca6239c74624410e904110e2b98cb1",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Parameters.cs",
+      "compiled": "535a1f2abd71ca7ad0b2f3be4193489293bea1930594852a754a725b4af8ee2b",
+      "source": "535a1f2abd71ca7ad0b2f3be4193489293bea1930594852a754a725b4af8ee2b",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialStrayLightWindows.cs",
+      "compiled": "9a487c046d61aa0192e3ec5af998bb013ccfa5193223085549d4c5dbb78e5012",
+      "source": "9a487c046d61aa0192e3ec5af998bb013ccfa5193223085549d4c5dbb78e5012",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs",
+      "compiled": "ff7000800bf390715830230ea7735788db1063c54d126541acf18a3bd7cf7c21",
+      "source": "ff7000800bf390715830230ea7735788db1063c54d126541acf18a3bd7cf7c21",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs",
+      "compiled": "35352109edd5b55176100b04cf1290e0aea0bdd5767559683448b43e00d39e21",
+      "source": "35352109edd5b55176100b04cf1290e0aea0bdd5767559683448b43e00d39e21",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/AppSettings.cs",
+      "compiled": "d9bcf148ff09a6ebbcbd1c332cab78ea2372b9b03e7571e1d47939f0684437e4",
+      "source": "d9bcf148ff09a6ebbcbd1c332cab78ea2372b9b03e7571e1d47939f0684437e4",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/ExportImageFrame.cs",
+      "compiled": "ac31c325e715b8d1670c7d2afb0477c9626e1b76b1ea39a2e54ac2dcd5b72a2c",
+      "source": "ac31c325e715b8d1670c7d2afb0477c9626e1b76b1ea39a2e54ac2dcd5b72a2c",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/ImageExportResolution.cs",
+      "compiled": "236debb05f75f932bcc2fdf51cd433e356389e5eb759062d0cefe1e40a3fa17f",
+      "source": "236debb05f75f932bcc2fdf51cd433e356389e5eb759062d0cefe1e40a3fa17f",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/PngImageWriter.cs",
+      "compiled": "bef7cceeecb9d7cab57b70a09a1c80e7b2fef91c9e49e101b80d5b17805a8b8b",
+      "source": "bef7cceeecb9d7cab57b70a09a1c80e7b2fef91c9e49e101b80d5b17805a8b8b",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "compiled": "e1a8125e23351ff1697dc38057443b3087f10e091b11e7f5176526ff23a56f92",
+      "source": "e1a8125e23351ff1697dc38057443b3087f10e091b11e7f5176526ff23a56f92",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Workspace.cs",
+      "compiled": "9c9f8198a62b02d1a151beb206991546b06efeba589a6fb2780fbdc0ebd6b8ee",
+      "source": "9c9f8198a62b02d1a151beb206991546b06efeba589a6fb2780fbdc0ebd6b8ee",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.pdb",
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "compiled": "6b6e7e6be0ac73bd439baed40228a40cfa5b9a1ce2e116aa21e2bd2f22bcad01",
+      "source": "6b6e7e6be0ac73bd439baed40228a40cfa5b9a1ce2e116aa21e2bd2f22bcad01",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.pdb",
+      "path": "src/OpticalSystemDesign.Application/Services/ImageFileLoader.cs",
+      "compiled": "ad1a04282f9c1312d1acbfe30434e9a611edcebc40d7ad1972d8426c89d54c89",
+      "source": "ad1a04282f9c1312d1acbfe30434e9a611edcebc40d7ad1972d8426c89d54c89",
+      "matches": true
+    },
+    {
+      "pdb": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.pdb",
+      "path": "src/OpticalSystemDesign.Application/Services/LosslessImageOutput.cs",
+      "compiled": "a31c13dc50fbd7f0e665293c4077e27b6a1685c2717b18a11ed50e5aae63c488",
+      "source": "a31c13dc50fbd7f0e665293c4077e27b6a1685c2717b18a11ed50e5aae63c488",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Controls/AnalysisImageFrame.cs",
+      "compiled": "611b1ba90d6f2fb3523debd97a604e87bdc12a7bb948cdfcaca209fc02994b88",
+      "source": "611b1ba90d6f2fb3523debd97a604e87bdc12a7bb948cdfcaca209fc02994b88",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Controls/ResponsiveAnalysisPlotHost.cs",
+      "compiled": "fd1f3598e701b96517532dd8f797074cf2afdd6f1f7133f263dcb38a73cf522e",
+      "source": "fd1f3598e701b96517532dd8f797074cf2afdd6f1f7133f263dcb38a73cf522e",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Controls/UniformDiagramPage.cs",
+      "compiled": "a2f51041d85ef3f72cd95f7a25267ca0953f63ad618fffa1141a861889f6c27b",
+      "source": "a2f51041d85ef3f72cd95f7a25267ca0953f63ad618fffa1141a861889f6c27b",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/DisplaySettingsWindow.cs",
+      "compiled": "a73c1c645628f93c160f65c309ef6e903073079d5e672b9955bcfb9736e94324",
+      "source": "a73c1c645628f93c160f65c309ef6e903073079d5e672b9955bcfb9736e94324",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneSfr.cs",
+      "compiled": "d19b0f2b3935ed4d717e21d6adb0028d03066a9f811c8762188c06a2e5023309",
+      "source": "d19b0f2b3935ed4d717e21d6adb0028d03066a9f811c8762188c06a2e5023309",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Sfr.cs",
+      "compiled": "3e4bef94612c02e5cc486fd19395cd1779f8d1cffdc7458cb110aa471361507f",
+      "source": "3e4bef94612c02e5cc486fd19395cd1779f8d1cffdc7458cb110aa471361507f",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingStackAnalysisView.cs",
+      "compiled": "fbe3c63f29988fd272ca0c8e2f6fd3abaa6e619cd7f3cfa7c8822502562cf23b",
+      "source": "fbe3c63f29988fd272ca0c8e2f6fd3abaa6e619cd7f3cfa7c8822502562cf23b",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.cs",
+      "compiled": "bcc442b1138319733e54d9beb1874728e17e8f3ad6ee30b970ce2b485bf5ec5d",
+      "source": "bcc442b1138319733e54d9beb1874728e17e8f3ad6ee30b970ce2b485bf5ec5d",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/SpectrumPlot.cs",
+      "compiled": "b00f40335a47ea0672bab6b2c826e84a3fb263001150e05e5655ed2eec655460",
+      "source": "b00f40335a47ea0672bab6b2c826e84a3fb263001150e05e5655ed2eec655460",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Export.cs",
+      "compiled": "28f46f39760c8af0d62a9b0f9449cd79c3ca6239c74624410e904110e2b98cb1",
+      "source": "28f46f39760c8af0d62a9b0f9449cd79c3ca6239c74624410e904110e2b98cb1",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Parameters.cs",
+      "compiled": "535a1f2abd71ca7ad0b2f3be4193489293bea1930594852a754a725b4af8ee2b",
+      "source": "535a1f2abd71ca7ad0b2f3be4193489293bea1930594852a754a725b4af8ee2b",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialStrayLightWindows.cs",
+      "compiled": "9a487c046d61aa0192e3ec5af998bb013ccfa5193223085549d4c5dbb78e5012",
+      "source": "9a487c046d61aa0192e3ec5af998bb013ccfa5193223085549d4c5dbb78e5012",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs",
+      "compiled": "ff7000800bf390715830230ea7735788db1063c54d126541acf18a3bd7cf7c21",
+      "source": "ff7000800bf390715830230ea7735788db1063c54d126541acf18a3bd7cf7c21",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs",
+      "compiled": "35352109edd5b55176100b04cf1290e0aea0bdd5767559683448b43e00d39e21",
+      "source": "35352109edd5b55176100b04cf1290e0aea0bdd5767559683448b43e00d39e21",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/AppSettings.cs",
+      "compiled": "d9bcf148ff09a6ebbcbd1c332cab78ea2372b9b03e7571e1d47939f0684437e4",
+      "source": "d9bcf148ff09a6ebbcbd1c332cab78ea2372b9b03e7571e1d47939f0684437e4",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/ExportImageFrame.cs",
+      "compiled": "ac31c325e715b8d1670c7d2afb0477c9626e1b76b1ea39a2e54ac2dcd5b72a2c",
+      "source": "ac31c325e715b8d1670c7d2afb0477c9626e1b76b1ea39a2e54ac2dcd5b72a2c",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/ImageExportResolution.cs",
+      "compiled": "236debb05f75f932bcc2fdf51cd433e356389e5eb759062d0cefe1e40a3fa17f",
+      "source": "236debb05f75f932bcc2fdf51cd433e356389e5eb759062d0cefe1e40a3fa17f",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/PngImageWriter.cs",
+      "compiled": "bef7cceeecb9d7cab57b70a09a1c80e7b2fef91c9e49e101b80d5b17805a8b8b",
+      "source": "bef7cceeecb9d7cab57b70a09a1c80e7b2fef91c9e49e101b80d5b17805a8b8b",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "compiled": "e1a8125e23351ff1697dc38057443b3087f10e091b11e7f5176526ff23a56f92",
+      "source": "e1a8125e23351ff1697dc38057443b3087f10e091b11e7f5176526ff23a56f92",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Workspace.cs",
+      "compiled": "9c9f8198a62b02d1a151beb206991546b06efeba589a6fb2780fbdc0ebd6b8ee",
+      "source": "9c9f8198a62b02d1a151beb206991546b06efeba589a6fb2780fbdc0ebd6b8ee",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.pdb",
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "compiled": "6b6e7e6be0ac73bd439baed40228a40cfa5b9a1ce2e116aa21e2bd2f22bcad01",
+      "source": "6b6e7e6be0ac73bd439baed40228a40cfa5b9a1ce2e116aa21e2bd2f22bcad01",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.pdb",
+      "path": "src/OpticalSystemDesign.Application/Services/ImageFileLoader.cs",
+      "compiled": "ad1a04282f9c1312d1acbfe30434e9a611edcebc40d7ad1972d8426c89d54c89",
+      "source": "ad1a04282f9c1312d1acbfe30434e9a611edcebc40d7ad1972d8426c89d54c89",
+      "matches": true
+    },
+    {
+      "pdb": "labs\\CoatingDesign\\tests\\OpticalSystemDesign.CoatingDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.pdb",
+      "path": "src/OpticalSystemDesign.Application/Services/LosslessImageOutput.cs",
+      "compiled": "a31c13dc50fbd7f0e665293c4077e27b6a1685c2717b18a11ed50e5aae63c488",
+      "source": "a31c13dc50fbd7f0e665293c4077e27b6a1685c2717b18a11ed50e5aae63c488",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Controls/AnalysisImageFrame.cs",
+      "compiled": "611b1ba90d6f2fb3523debd97a604e87bdc12a7bb948cdfcaca209fc02994b88",
+      "source": "611b1ba90d6f2fb3523debd97a604e87bdc12a7bb948cdfcaca209fc02994b88",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Controls/ResponsiveAnalysisPlotHost.cs",
+      "compiled": "fd1f3598e701b96517532dd8f797074cf2afdd6f1f7133f263dcb38a73cf522e",
+      "source": "fd1f3598e701b96517532dd8f797074cf2afdd6f1f7133f263dcb38a73cf522e",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Controls/UniformDiagramPage.cs",
+      "compiled": "a2f51041d85ef3f72cd95f7a25267ca0953f63ad618fffa1141a861889f6c27b",
+      "source": "a2f51041d85ef3f72cd95f7a25267ca0953f63ad618fffa1141a861889f6c27b",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/DisplaySettingsWindow.cs",
+      "compiled": "a73c1c645628f93c160f65c309ef6e903073079d5e672b9955bcfb9736e94324",
+      "source": "a73c1c645628f93c160f65c309ef6e903073079d5e672b9955bcfb9736e94324",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneSfr.cs",
+      "compiled": "d19b0f2b3935ed4d717e21d6adb0028d03066a9f811c8762188c06a2e5023309",
+      "source": "d19b0f2b3935ed4d717e21d6adb0028d03066a9f811c8762188c06a2e5023309",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Sfr.cs",
+      "compiled": "3e4bef94612c02e5cc486fd19395cd1779f8d1cffdc7458cb110aa471361507f",
+      "source": "3e4bef94612c02e5cc486fd19395cd1779f8d1cffdc7458cb110aa471361507f",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingStackAnalysisView.cs",
+      "compiled": "fbe3c63f29988fd272ca0c8e2f6fd3abaa6e619cd7f3cfa7c8822502562cf23b",
+      "source": "fbe3c63f29988fd272ca0c8e2f6fd3abaa6e619cd7f3cfa7c8822502562cf23b",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.cs",
+      "compiled": "bcc442b1138319733e54d9beb1874728e17e8f3ad6ee30b970ce2b485bf5ec5d",
+      "source": "bcc442b1138319733e54d9beb1874728e17e8f3ad6ee30b970ce2b485bf5ec5d",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/SpectrumPlot.cs",
+      "compiled": "b00f40335a47ea0672bab6b2c826e84a3fb263001150e05e5655ed2eec655460",
+      "source": "b00f40335a47ea0672bab6b2c826e84a3fb263001150e05e5655ed2eec655460",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Export.cs",
+      "compiled": "28f46f39760c8af0d62a9b0f9449cd79c3ca6239c74624410e904110e2b98cb1",
+      "source": "28f46f39760c8af0d62a9b0f9449cd79c3ca6239c74624410e904110e2b98cb1",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Parameters.cs",
+      "compiled": "535a1f2abd71ca7ad0b2f3be4193489293bea1930594852a754a725b4af8ee2b",
+      "source": "535a1f2abd71ca7ad0b2f3be4193489293bea1930594852a754a725b4af8ee2b",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialStrayLightWindows.cs",
+      "compiled": "9a487c046d61aa0192e3ec5af998bb013ccfa5193223085549d4c5dbb78e5012",
+      "source": "9a487c046d61aa0192e3ec5af998bb013ccfa5193223085549d4c5dbb78e5012",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs",
+      "compiled": "ff7000800bf390715830230ea7735788db1063c54d126541acf18a3bd7cf7c21",
+      "source": "ff7000800bf390715830230ea7735788db1063c54d126541acf18a3bd7cf7c21",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs",
+      "compiled": "35352109edd5b55176100b04cf1290e0aea0bdd5767559683448b43e00d39e21",
+      "source": "35352109edd5b55176100b04cf1290e0aea0bdd5767559683448b43e00d39e21",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/AppSettings.cs",
+      "compiled": "d9bcf148ff09a6ebbcbd1c332cab78ea2372b9b03e7571e1d47939f0684437e4",
+      "source": "d9bcf148ff09a6ebbcbd1c332cab78ea2372b9b03e7571e1d47939f0684437e4",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/ExportImageFrame.cs",
+      "compiled": "ac31c325e715b8d1670c7d2afb0477c9626e1b76b1ea39a2e54ac2dcd5b72a2c",
+      "source": "ac31c325e715b8d1670c7d2afb0477c9626e1b76b1ea39a2e54ac2dcd5b72a2c",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/ImageExportResolution.cs",
+      "compiled": "236debb05f75f932bcc2fdf51cd433e356389e5eb759062d0cefe1e40a3fa17f",
+      "source": "236debb05f75f932bcc2fdf51cd433e356389e5eb759062d0cefe1e40a3fa17f",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/PngImageWriter.cs",
+      "compiled": "bef7cceeecb9d7cab57b70a09a1c80e7b2fef91c9e49e101b80d5b17805a8b8b",
+      "source": "bef7cceeecb9d7cab57b70a09a1c80e7b2fef91c9e49e101b80d5b17805a8b8b",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "compiled": "e1a8125e23351ff1697dc38057443b3087f10e091b11e7f5176526ff23a56f92",
+      "source": "e1a8125e23351ff1697dc38057443b3087f10e091b11e7f5176526ff23a56f92",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Workspace.cs",
+      "compiled": "9c9f8198a62b02d1a151beb206991546b06efeba589a6fb2780fbdc0ebd6b8ee",
+      "source": "9c9f8198a62b02d1a151beb206991546b06efeba589a6fb2780fbdc0ebd6b8ee",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.pdb",
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "compiled": "6b6e7e6be0ac73bd439baed40228a40cfa5b9a1ce2e116aa21e2bd2f22bcad01",
+      "source": "6b6e7e6be0ac73bd439baed40228a40cfa5b9a1ce2e116aa21e2bd2f22bcad01",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.pdb",
+      "path": "src/OpticalSystemDesign.Application/Services/ImageFileLoader.cs",
+      "compiled": "ad1a04282f9c1312d1acbfe30434e9a611edcebc40d7ad1972d8426c89d54c89",
+      "source": "ad1a04282f9c1312d1acbfe30434e9a611edcebc40d7ad1972d8426c89d54c89",
+      "matches": true
+    },
+    {
+      "pdb": "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.Application.pdb",
+      "path": "src/OpticalSystemDesign.Application/Services/LosslessImageOutput.cs",
+      "compiled": "a31c13dc50fbd7f0e665293c4077e27b6a1685c2717b18a11ed50e5aae63c488",
+      "source": "a31c13dc50fbd7f0e665293c4077e27b6a1685c2717b18a11ed50e5aae63c488",
+      "matches": true
+    }
+  ],
+  "sourceBindingPassed": true,
+  "computationUnchanged": true,
+  "unexpectedCalculationChanges": [],
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/AnalysisImageFrame.cs",
+      "sha256": "611b1ba90d6f2fb3523debd97a604e87bdc12a7bb948cdfcaca209fc02994b88"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/ResponsiveAnalysisPlotHost.cs",
+      "sha256": "fd1f3598e701b96517532dd8f797074cf2afdd6f1f7133f263dcb38a73cf522e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/UniformDiagramPage.cs",
+      "sha256": "a2f51041d85ef3f72cd95f7a25267ca0953f63ad618fffa1141a861889f6c27b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/ExportImageFrame.cs",
+      "sha256": "ac31c325e715b8d1670c7d2afb0477c9626e1b76b1ea39a2e54ac2dcd5b72a2c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/ImageExportResolution.cs",
+      "sha256": "236debb05f75f932bcc2fdf51cd433e356389e5eb759062d0cefe1e40a3fa17f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/PngImageWriter.cs",
+      "sha256": "bef7cceeecb9d7cab57b70a09a1c80e7b2fef91c9e49e101b80d5b17805a8b8b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/AppSettings.cs",
+      "sha256": "d9bcf148ff09a6ebbcbd1c332cab78ea2372b9b03e7571e1d47939f0684437e4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "sha256": "e1a8125e23351ff1697dc38057443b3087f10e091b11e7f5176526ff23a56f92"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/DisplaySettingsWindow.cs",
+      "sha256": "a73c1c645628f93c160f65c309ef6e903073079d5e672b9955bcfb9736e94324"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Workspace.cs",
+      "sha256": "9c9f8198a62b02d1a151beb206991546b06efeba589a6fb2780fbdc0ebd6b8ee"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Export.cs",
+      "sha256": "28f46f39760c8af0d62a9b0f9449cd79c3ca6239c74624410e904110e2b98cb1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Parameters.cs",
+      "sha256": "535a1f2abd71ca7ad0b2f3be4193489293bea1930594852a754a725b4af8ee2b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs",
+      "sha256": "35352109edd5b55176100b04cf1290e0aea0bdd5767559683448b43e00d39e21"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs",
+      "sha256": "ff7000800bf390715830230ea7735788db1063c54d126541acf18a3bd7cf7c21"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/NonSequentialStrayLightWindows.cs",
+      "sha256": "9a487c046d61aa0192e3ec5af998bb013ccfa5193223085549d4c5dbb78e5012"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Sfr.cs",
+      "sha256": "3e4bef94612c02e5cc486fd19395cd1779f8d1cffdc7458cb110aa471361507f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneSfr.cs",
+      "sha256": "d19b0f2b3935ed4d717e21d6adb0028d03066a9f811c8762188c06a2e5023309"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/CoatingStackAnalysisView.cs",
+      "sha256": "fbe3c63f29988fd272ca0c8e2f6fd3abaa6e619cd7f3cfa7c8822502562cf23b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/SpectrumPlot.cs",
+      "sha256": "b00f40335a47ea0672bab6b2c826e84a3fb263001150e05e5655ed2eec655460"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.cs",
+      "sha256": "bcc442b1138319733e54d9beb1874728e17e8f3ad6ee30b970ce2b485bf5ec5d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/LosslessImageOutput.cs",
+      "sha256": "a31c13dc50fbd7f0e665293c4077e27b6a1685c2717b18a11ed50e5aae63c488"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/ImageFileLoader.cs",
+      "sha256": "ad1a04282f9c1312d1acbfe30434e9a611edcebc40d7ad1972d8426c89d54c89"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Analysis.cs",
+      "sha256": "6b6e7e6be0ac73bd439baed40228a40cfa5b9a1ce2e116aa21e2bd2f22bcad01"
+    }
+  ],
+  "previews": [
+    {
+      "path": "validation/rechecks/2026-11-03/analysis-frame-dpi/settings-en-US-Dark.png",
+      "sha256": "5736d976854dbd58371387bbbdca1cf00d3d0eec7d003fc5e008a5b587799f4b"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/analysis-frame-dpi/settings-ja-JP-Light.png",
+      "sha256": "aadb1c8d8de8ac8a41b1e98f980ec03cd1cf75548f1653e40017a3aea40b1230"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/analysis-frame-dpi/settings-zh-CN-Light.png",
+      "sha256": "46539697d3327b0cad4733149d8e577bd1789da89bedea98e390e6669406bfee"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/analysis-frame-dpi/wavefront-1080.png",
+      "sha256": "8c7e4657404259d9df50cbd5cdc1cd0bef2b8a110cfb599d3018bcd94c906ed1"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/analysis-frame-dpi/wavefront-1440.png",
+      "sha256": "f53159572d6212198732b81cd04acbf6d04043047ff33829efbd3640bfd220e1"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/analysis-frame-dpi/wavefront-2160.png",
+      "sha256": "48721ba68d2016d27b94dba0a890ae305626433e81dca21d51d4ffb8cb7c2c30"
+    }
+  ],
+  "scope": "154 distinct focused cases after test-only precondition repairs: 147 main-app cases and seven coating cases. Actual PNG/BMP signatures/pixels, independent DPI, complete live/export/report frames, viewport/camera/legend state, SFR and Word/PDF/HTML/Markdown drawing retention. No full suite, external optical certification, foreground desktop control, installation or publishing."
+}

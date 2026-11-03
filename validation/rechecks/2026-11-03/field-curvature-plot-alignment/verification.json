@@ -1,0 +1,83 @@
+{
+  "Date": "2026-11-03",
+  "SourceBase": "d303a6936be6da610a0d88284a383e467633e8ce",
+  "IncludesUncommittedChanges": true,
+  "Scope": "Field curvature/distortion proportional plot-area alignment",
+  "Tests": {
+    "Total": 25,
+    "Passed": 25,
+    "Failed": 0,
+    "Skipped": 0,
+    "Trx": "final-25.trx"
+  },
+  "Build": "Default Release App, built-in dependencies and test project",
+  "RuntimeBindings": [
+    {
+      "Product": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "TestCopy": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "dc88971cd0e4c9ae9ded6af2e6a47a4dd2a6039e82841b28c47b3857c73b5958",
+      "Equal": true
+    },
+    {
+      "Product": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "TestCopy": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "aea0da211c3692bbf22043537e3f767c8765cdb89e917c1b36008898ece032fd",
+      "Equal": true
+    }
+  ],
+  "Files": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Plots.cs",
+      "Sha256": "d565d6236cfb28e098fc71d57cfb6c2696067182e773afa40cca82dc046ab8d1"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs",
+      "Sha256": "bc6817d67e4349e30b447b5617307e27a9e66310649e73baa6553a009be38e9c"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/FieldCurvaturePlotAlignmentTests.cs",
+      "Sha256": "42b22be8c5b28cf875898677436095244b5c13e402fd296aee2be858a10e2bf7"
+    },
+    {
+      "Path": "docs/UI_DESIGN_SPEC.md",
+      "Sha256": "2b16cbf489300bb8b7db25212072e90286515d0c5701e10629b62b76c0bed51f"
+    },
+    {
+      "Path": "docs/CURRENT_STATUS.md",
+      "Sha256": "d333f1e452f6825d036e26b62e0fe4b914f9be66441e7f64448e22c5a6cb4640"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-03/field-curvature-plot-alignment/README.md",
+      "Sha256": "2ed8c74737eea7ccbc8f2fe707fc392af7f4619afcbefb76acd5fcc5a75c7a73"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Double Gauss 28 degree field.zmx",
+      "Sha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-03/field-curvature-plot-alignment/final-25.trx",
+      "Sha256": "75448dbc95aa9b369f429c1a017583344be619dfb362e29823271563bdbae3db"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-03/field-curvature-plot-alignment/final-tests.log",
+      "Sha256": "e496538d77aeddc591e7a000ffd95afb22a4017d8931657e96c0fbdb0808f9b8"
+    },
+    {
+      "Path": "validation/rechecks/2026-11-03/field-curvature-plot-alignment/previews/field-curvature-aligned.png",
+      "Sha256": "749a3e04ccb6e25b2c17b2be4fd05ed6166e5ad3b49a6dfeb6171d816c50db9d"
+    }
+  ],
+  "Verification": [
+    "Four themes; 13/18/22 fonts; single/multiline/absent titles",
+    "Plot boundaries equal across container sizes",
+    "Actual unchanged Double Gauss; document recovery state unchanged",
+    "2404x1804 PNG full pixels unchanged across viewport resize",
+    "Report source image and live PNG full pixels equal"
+  ],
+  "Limitations": [
+    "Off-screen only; no native user-window interaction",
+    "No final Word/PDF container generation",
+    "No release, push or full optical matrix rerun",
+    "Preexisting coating changes retained"
+  ]
+}

@@ -35,7 +35,7 @@ public sealed partial class CameraImagingWindow
     private bool _sceneBatchBusy, _sceneBatchApplying, _sceneBatchFrozen;
     private int _sceneBatchGeneration, _sceneBatchReadSerial;
     private double? _sceneBatchRequestedPngMaximum;
-    private bool SceneImagingBusy => _sceneSfrBusy || _sceneBatchBusy;
+    private bool SceneImagingBusy => _sceneSfrBusy || _sceneBatchBusy || _sceneRoiBusy;
     internal CameraSceneLinearBatchArtifact? SceneBatchArtifact => _sceneBatchArtifact;
     internal CameraSceneLinearTaskImage? SceneBatchImage => _sceneBatchImage;
 
@@ -123,12 +123,14 @@ public sealed partial class CameraImagingWindow
         ControlAvailability.Set(_sceneBatchReplay, ready && _sceneBatchArtifact is not null, "先完成或打开全幅线性实验。");
         ControlAvailability.Set(_sceneBatchOpen, ready, "请先等待计算完成。");
         ControlAvailability.Set(_sceneBatchWeights, _sceneBatchMode.SelectedIndex == 0, "源谱形状任务使用声明的总带宽辐亮度，不套用镜头波长权重。");
-        ControlAvailability.Set(_sceneBatchTask, !_sceneBatchBusy && _sceneBatchArtifact is not null, "先完成或打开全幅线性实验。");
+        ControlAvailability.Set(_sceneBatchTask, ready && _sceneBatchArtifact is not null, "先完成或打开全幅线性实验。");
+        UpdateSceneRoiControls();
     }
 
     private void ClearSceneBatch(string message, bool lensChange = false)
     {
         if (lensChange && _sceneBatchFrozen && !_sceneBatchBusy) { UpdateSceneBatchControls(); return; }
+        ResetSceneRois();
         _sceneBatchGeneration++; _sceneBatchReadSerial++; _sceneBatchOperation?.Cancel(); _sceneBatchOperation = null;
         _sceneBatchBusy = false; _sceneBatchFrozen = false; _sceneBatchArtifact = null; _sceneBatchImage = null; _sceneBatchPreview.Set(null);
         _sceneBatchInfo.Text = message; _sceneBatchProgress.Text = ""; _sceneBatchApplying = true;
@@ -195,11 +197,13 @@ public sealed partial class CameraImagingWindow
     {
         var artifact = _sceneBatchArtifact; var index = _sceneBatchTask.SelectedIndex; if (artifact is null || index < 0) return;
         var serial = ++_sceneBatchReadSerial; var generation = _sceneBatchGeneration; _sceneBatchImage = null; _sceneBatchPreview.Set(null);
+        UpdateSceneRoiSource();
         try
         {
             var image = await _application.CameraImaging.ReadSceneLinearTaskAsync(artifact, index);
             if (_closed || generation != _sceneBatchGeneration || serial != _sceneBatchReadSerial) return;
             _sceneBatchImage = image; _sceneBatchPreview.Set(image.Preview);
+            UpdateSceneRoiSource();
         }
         catch (Exception ex) { if (!_closed && serial == _sceneBatchReadSerial) _sceneBatchInfo.Text += "\n读取像元失败：" + ex.Message; }
     }

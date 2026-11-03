@@ -64,7 +64,7 @@ public sealed partial class MainWindow
         var ids = materials.Select(m => m.Id).ToHashSet();
         if (incoming.Any(l => !ids.Contains(l.MaterialId) || !double.IsFinite(l.ThicknessNm) || l.ThicknessNm <= 0 || l.ThicknessNm > 100000))
             throw new ArgumentException("导入膜层的材料或厚度无效。");
-        var index = _table.SelectedItems.OfType<LayerRow>().Select(r => _rows.IndexOf(r)).DefaultIfEmpty(_rows.Count - 1).Max() + 1;
+        var index = _table.SelectedItems.OfType<LayerRow>().Select(r => _rows.IndexOf(r)).DefaultIfEmpty(0).Min();
         var rows = incoming.Select(CreateRow).ToArray();
         _editorTransaction++;
         try

@@ -41,10 +41,20 @@ public sealed class ProductTypographyTests
                 window.Show(); Tick(window);
                 var uiFamilies = Faces(label);
                 Assert.Contains(uiFamilies, family => family.StartsWith("DM Sans", StringComparison.Ordinal));
-                Assert.Contains("Source Han Sans SC", uiFamilies);
-                Assert.All(uiFamilies, family => Assert.True(family.StartsWith("DM Sans", StringComparison.Ordinal) || family == "Source Han Sans SC", family));
+                Assert.Contains("Source Han Sans SC Medium", uiFamilies);
+                Assert.All(uiFamilies, family => Assert.True(family.StartsWith("DM Sans", StringComparison.Ordinal) || family == "Source Han Sans SC Medium", family));
                 Assert.Contains("JetBrains Mono", Faces(numeric));
-                Assert.Contains("Source Han Sans SC", Faces(numeric));
+                Assert.Contains("Source Han Sans SC Medium", Faces(numeric));
+                foreach (var text in new[] { label, numeric })
+                {
+                    Assert.Equal(FontWeight.Normal, text.FontWeight);
+                    foreach (var glyphFace in GlyphFaces(text))
+                    {
+                        Assert.Equal(glyphFace.FamilyName.StartsWith("Source Han Sans SC", StringComparison.Ordinal)
+                            ? FontWeight.Medium : FontWeight.Normal, glyphFace.Weight);
+                        Assert.Equal(FontSimulations.None, glyphFace.FontSimulations);
+                    }
+                }
                 var face = new Typeface(ProductFonts.Numeric).GlyphTypeface;
                 var widths = "0123456789".Select(c =>
                 {
@@ -73,6 +83,8 @@ public sealed class ProductTypographyTests
                 var face = new Typeface(family, weight: FontWeight.Bold).GlyphTypeface;
                 Assert.Equal(expected, face.FamilyName);
                 Assert.Equal(FontWeight.Bold, face.Weight);
+                if (expected == "Source Han Sans SC")
+                    Assert.Equal(FontSimulations.None, face.FontSimulations);
             }
         }, CancellationToken.None);
     }
@@ -198,8 +210,9 @@ public sealed class ProductTypographyTests
         }, CancellationToken.None);
     }
 
-    private static string[] Faces(TextBlock text) => text.TextLayout.TextLines.SelectMany(line => line.TextRuns)
-        .OfType<ShapedTextRun>().Select(run => run.GlyphRun.GlyphTypeface.FamilyName).Distinct().ToArray();
+    private static GlyphTypeface[] GlyphFaces(TextBlock text) => text.TextLayout.TextLines.SelectMany(line => line.TextRuns)
+        .OfType<ShapedTextRun>().Select(run => run.GlyphRun.GlyphTypeface).Distinct().ToArray();
+    private static string[] Faces(TextBlock text) => GlyphFaces(text).Select(face => face.FamilyName).Distinct().ToArray();
     private static T Field<T>(object target, string name) => (T)target.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(target)!;
     private static void Tick(Window window)
     {

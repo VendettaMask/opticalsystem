@@ -49,7 +49,7 @@ internal sealed class CoatingStackAnalysisView : UserControl, IDisposable
             finally { _synchronizing = false; }
         };
         _png.Content = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 6,
-            Children = { new LocalIcon { IconName = "camera", Width = 16, Height = 16 }, new TextBlock { Text = "PNG" } } };
+            Children = { new LocalIcon { IconName = "file-export-image", Width = 16, Height = 16 }, new TextBlock { Text = "PNG" } } };
         AutomationProperties.SetName(_png, "导出堆栈几何 PNG");
         var toolbar = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12, Margin = new Thickness(12, 8), Children = { _png, _selection } };
         var tabs = new TabControl { Name = "CoatingStackAnalysisTabs", ItemsSource = new[]
@@ -118,6 +118,6 @@ internal sealed class CoatingStackAnalysisView : UserControl, IDisposable
     {
         if (_snapshot is null || _drawing.Child is not UniformDiagramPage page) throw new InvalidOperationException("请先显示有效堆栈。");
         _drawing.UpdateLayout(); page.ValidateForExport();
-        return ExportImageFrame.Capture(page, UniformDiagramPage.ExportScale, this);
+        return ExportImageFrame.CaptureConfigured(page, this);
     }
 }

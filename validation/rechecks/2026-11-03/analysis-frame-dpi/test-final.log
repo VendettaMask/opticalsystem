@@ -1,0 +1,34 @@
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:49.54]     OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport [FAIL]
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport [1 s]
+  错误消息:
+   The last legend color must be rendered below the on-screen legend viewport.
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c.<<ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport>b__10_0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 394
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 358
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:15.11]     OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word) [FAIL]
+  失败 OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(format: Word) [4 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 2
+Actual:   4
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.VerifyPackage(String path, DesignReportFormat format, Dictionary`2 drawings) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 141
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.<>c__DisplayClass1_0.<<GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 114
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisCrossFormatExportTests.GaussRepairsReachEveryReportUsingTheSameCompleteDrawingAsOrdinaryPng(DesignReportFormat format) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisCrossFormatExportTests.cs:line 36
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-03\analysis-frame-dpi\final\frame-export-final.trx
+
+失败!  - 失败:     2，通过:   145，已跳过:     0，总计:   147，持续时间: 3 m 31 s - OpticalSystemDesign.Tests.dll (net10.0)

@@ -24,8 +24,6 @@ internal sealed class AnalysisCategoryIcon : Control
         ["image"] = "image-analysis"
     };
     private static readonly Lazy<IReadOnlyDictionary<string, IReadOnlyList<Part>>> Drawings = new(Load);
-    private static readonly IBrush[] LightInk = BrushesFor("#8298a8", "#398ff0", "#28adaf");
-    private static readonly IBrush[] DarkInk = BrushesFor("#9db1c0", "#63b2ff", "#54d0cd");
 
     internal string SemanticName { get; }
     internal static bool Supports(string name) => Assets.ContainsKey(name);
@@ -45,7 +43,17 @@ internal sealed class AnalysisCategoryIcon : Control
         base.Render(context);
         var scale = Math.Min(Bounds.Width, Bounds.Height) / 32;
         if (scale <= 0) return;
-        var ink = ThemeRegistry.FromActualVariant(ActualThemeVariant).IsDarkLike ? DarkInk : LightInk;
+        var theme = ThemeRegistry.FromActualVariant(ActualThemeVariant);
+        if (theme.SettingsValue is "Lumen" or "Isekai")
+        {
+            var palette = IsEffectivelyEnabled || theme.Palette is null ? theme.IconPalette
+                : ScientificIconPalette.Monochrome(theme.Palette.TextDisabled);
+            ScientificIconLibrary.Resolve("analysis-" + Assets[SemanticName], theme.SettingsValue).Artwork!
+                .Draw(context, Bounds, palette);
+            return;
+        }
+        var ink = (IsEffectivelyEnabled || theme.Palette is null ? theme.IconPalette
+            : ScientificIconPalette.Monochrome(theme.Palette.TextDisabled)).Brushes;
         using var transform = context.PushTransform(Matrix.CreateScale(scale, scale)
             * Matrix.CreateTranslation((Bounds.Width - 32 * scale) / 2, (Bounds.Height - 32 * scale) / 2));
         foreach (var part in Drawings.Value[SemanticName])
@@ -57,9 +65,6 @@ internal sealed class AnalysisCategoryIcon : Control
             context.DrawGeometry(part.Filled ? brush : null, pen, part.Geometry);
         }
     }
-
-    private static IBrush[] BrushesFor(params string[] colors) =>
-        colors.Select(color => (IBrush)new Avalonia.Media.Immutable.ImmutableSolidColorBrush(Color.Parse(color))).ToArray();
 
     private sealed record Part(Geometry Geometry, int Ink, bool Filled, double Opacity, IDashStyle? Dash);
 

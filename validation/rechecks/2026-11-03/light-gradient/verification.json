@@ -1,0 +1,611 @@
+{
+  "date": "2026-11-03",
+  "sourceBase": "d303a6936be6da610a0d88284a383e467633e8ce",
+  "includesUncommittedWork": true,
+  "reference": "reference.png; selected generated light-blue visual concept, not a numerical optical reference",
+  "build": "Normal default Release App, built-in dependencies and test project",
+  "distinctTests": {
+    "passed": 70,
+    "failed": 0,
+    "skipped": 0,
+    "identity": "full TRX testName, replacing earlier verdict with focused final verdict"
+  },
+  "batches": [
+    {
+      "file": "final-ui.trx",
+      "counters": {
+        "total": "69",
+        "executed": "69",
+        "passed": "67",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "file": "corrected-menu-final.trx",
+      "counters": {
+        "total": "2",
+        "executed": "2",
+        "passed": "2",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    {
+      "file": "isolated-export.trx",
+      "counters": {
+        "total": "1",
+        "executed": "1",
+        "passed": "1",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.BlueTextAndKeyboardFocusHaveReadableContrast",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.ComboKeyboardSelectionEscapeAndDisabledSelectedOptionAreThemed",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.DockAndMenuHeadersUseEmphasisWithoutRecoloringOtherContent",
+      "outcome": "Passed",
+      "batch": "corrected-menu-final.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.NarrowWorkspaceKeepsSystemEditorsUsableAndTableScrollable",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.PopupMenusAndLateWindowsResolveBlueResourcesAcrossThemeSwitches",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.PrimaryAndOrdinaryButtonsRestoreHoverAndDoNotLatchPressed",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.ScrollThumbAndTooltipKeepTheirPaletteDuringInteraction",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.SectionAndFieldEmphasisRestoresTransientColorsWithoutChangingChrome",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.TableSelectionCurrentCellEditCancelAndRefocusKeepBlueStates",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.TabsAndRadioButtonsRetainTheirOwnSelectionSemantics",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.TextSelectionErrorFocusAndDisabledUseDistinctVisuals",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.ToggleAndCheckBoxKeepSelectionButDisabledWins",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.TopMenuSeparatesHoverPressAndOpenWithoutChangingLightTabText",
+      "outcome": "Passed",
+      "batch": "corrected-menu-final.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: \"Dark\", width: 640, fontSize: 18)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: \"Isekai\", width: 640, fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: \"Light\", width: 1024, fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: \"Light\", width: 640, fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: \"Light\", width: 640, fontSize: 18)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: \"Pixel\", width: 640, fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CommandSearchTests.ControlQFocusesSearchSelectsQueryAndIsNotTakenWhenHidden",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CommandSearchTests.SearchUsesRegisteredCommandsWithKeyboardNavigationAndEmptyState",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CommandSearchTests.SearchUsesSharedFailureHandlingAndDoesNotExecuteTwice",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramViewportFitTests.AnalysisFitsBothWindowSizesAndModeSurvivesRefreshWithoutChangingExport",
+      "outcome": "Passed",
+      "batch": "isolated-export.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.BackdropIsRelativeAndHeaderInkReadableWhileDataSurfacesStayWhite",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LocalizedCommandSearchTests.SearchFindsTranslatedNamesAndCategoriesWithoutMutatingActionsOrLanguage(language: \"en-US\", name: \"Quick Focus\", category: \"Optimize\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LocalizedCommandSearchTests.SearchFindsTranslatedNamesAndCategoriesWithoutMutatingActionsOrLanguage(language: \"ja-JP\", name: \"クイックフォーカス\", category: \"最適化\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LocalizedCommandSearchTests.SearchFindsTranslatedNamesAndCategoriesWithoutMutatingActionsOrLanguage(language: \"zh-CN\", name: \"快速聚焦\", category: \"优化\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MainWindowTitleBarTests.CaptionTracksDocumentTitleAndThemeWithoutReplacingNativeWindowActions",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: \"Dark\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: \"Isekai\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: \"Light\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: \"Pixel\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Dark\", width: 1280, fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Isekai\", width: 1280, fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Light\", width: 1024, fontSize: 18)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Light\", width: 1280, fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Light\", width: 640, fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Pixel\", width: 1280, fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: \"Dark\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: \"Isekai\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: \"Light\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: \"Lumen\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.AccentedSurfacesKeepActualIconPixelsReadableDuringStateChanges(themeName: \"Pixel\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens(fontSize: 13)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens(fontSize: 18)",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.EntireScientificCatalogParsesThroughTheNativeRenderer",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.EveryCatalogEntryIsNativeVectorAndUnknownNamesUseTheScientificFallback",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.EveryThemeOwnsACompleteScientificPackageAndItsActualColours",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.ExistingIconRepaintsAllThreeRolesAndDisabledStateAcrossEveryTheme",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: \"Dark\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: \"Isekai\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: \"Light\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: \"Lumen\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ScientificIconTests.NativeAtlasIncludesApprovedAndGeneralIconsAtRealUiSizes(themeName: \"Pixel\")",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.AThemePackageCanBeBuiltWithoutAddingResolverBranches",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.CustomThemesDefineAnalysisAndSceneRenderingResources",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.DarkThemeKeepsRenderingPaletteDarkerThanLightTheme",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.IsekaiChromeKeepsStructuralThicknessLayoutCompatible",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.IsekaiIconMappingsKeepReviewedOperationsSemanticallyDistinct",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.IsekaiUsesScientificThemeColoursAndRetainsArchivedArtworkAttributionAndChrome",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.PixelThemeOverridesFluentControlsWithEightBitColorRoles",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.PixelThemeUsesScientificVectorsAndItsOwnPaletteWithSquaredChrome",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.ReferenceWorkbenchResourcesStayInsideTheLightTheme",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.StandardThemesShareScientificGeometryWithTheirOwnPaletteAndKeepChromeMetrics",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.ThemeChromeOverlayIsInputTransparentAndDoesNotRequestLayoutSpace",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.ThemeIconPacksOwnImportedAssetsAndFallbackPolicy",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ThemeResourceTests.ThemeRegistryOwnsSelectionResourcesIconsAndChrome",
+      "outcome": "Passed",
+      "batch": "final-ui.trx"
+    }
+  ],
+  "compiledSourceChecks": {
+    "matched": 18,
+    "mismatched": 0,
+    "path": "compiled-source-audit.json"
+  },
+  "assemblies": [
+    {
+      "product": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "productSha256": "83f5e0931c4fc2959a61201a4aaeeb7c14c8db2292043f5b4d133cbd8158106a",
+      "testCopy": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "testCopySha256": "83f5e0931c4fc2959a61201a4aaeeb7c14c8db2292043f5b4d133cbd8158106a",
+      "equalAtReceipt": true
+    },
+    {
+      "product": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "productSha256": "aea0da211c3692bbf22043537e3f767c8765cdb89e917c1b36008898ece032fd",
+      "testCopy": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "testCopySha256": "aea0da211c3692bbf22043537e3f767c8765cdb89e917c1b36008898ece032fd",
+      "equalAtReceipt": true
+    }
+  ],
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "dd0ac62922e1fbb12c5c1bbf58625250c4bbe6cbe1cb7a3de19fe30de907cee0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/BlueThemeTokens.cs",
+      "sha256": "05d3bc6b56f2e6e840509f6cec02c94ac251dcc6a4ae92a438ee82c28b1ea114"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/LightTheme.cs",
+      "sha256": "60124626c5c9aee0921172ed808d12d2b9cb32553129d7fe60a8585b4867a38e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/BlueThemeStyles.cs",
+      "sha256": "61047fcc9ae56f78381a1818f5dce5d199e396a1f77bab89459e45478abe07ac"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/MainWindowTitleBar.cs",
+      "sha256": "01672a1458b7b8d44d2288eba8c7a02aead74628039a4ec5c74b9bfe8e1b07f5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/ThemePalette.cs",
+      "sha256": "450930a5daba7ab5745d6ddab2759a02467788b4599e97345b441654428a8774"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/ThemeResourceBindings.cs",
+      "sha256": "d15a3ed081a0c048a15cdaef2ba1717021f72e3c8d78c8420dda04a2cead0567"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs",
+      "sha256": "1cd7d8de09e19d0d88ecab616887f3cc98d359682cdd4024dcbed6da2261b64f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/LocalIcon.cs",
+      "sha256": "ad65e462c1536b68bd4f010f5e05c63d6ae3dcac6201e2908c8acd950de902b6"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/IconBackgroundSampling.cs",
+      "sha256": "53da546b49526831db3f4b66eb7ee63642e3bda0707a23883f79c80da9cf7646"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/LightGradientThemeTests.cs",
+      "sha256": "f131a8fb068da606da9f337fddab58524859a5ee82aa9e93375d5bd2a80a2352"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/BlueThemeInteractionTests.cs",
+      "sha256": "987d87fbb9e996a9f930aa3114400d570a4afbb6e93e4aaf5381494f19ea8e6c"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/CommandSearchTests.cs",
+      "sha256": "a3fa0e18ecc393764701ab2c9dc1896fe75bc61be139eb6168aafaa0ad8cbdf1"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/MainWindowTitleBarTests.cs",
+      "sha256": "26a44f58889ea31ccdcd143dda927d90b09a6081fef6d8d11b1d451c496120bf"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ReferenceWorkbenchLayoutTests.cs",
+      "sha256": "cd4f31fa2943d29d968905184c1090155d18ff92009d5fa5ce609146a53bfa98"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ThemeResourceTests.cs",
+      "sha256": "71cbb09fca1a2c1025d495988dae82a21df1ef03ea696e49f787252ac8067a00"
+    },
+    {
+      "path": "docs/UI_DESIGN_SPEC.md",
+      "sha256": "12e93801cacde1360170a44c610965db6197ddbd3c90fb843492c64b59ea2686"
+    },
+    {
+      "path": "docs/BRANDING.md",
+      "sha256": "13644d567ba861af5954fd15b31fab09403b6e2b96c6e89e7761af2b275c9dd7"
+    },
+    {
+      "path": "docs/LOCAL_ICONS.md",
+      "sha256": "1f5b8f5e4f5105bea6ce1de88b62e69e8159349faf3dc76d7a2f6025a8da30de"
+    },
+    {
+      "path": "docs/GUI_QUICKSTART_REFACTOR.md",
+      "sha256": "7613d257c11d7c2c1bdbc1927cbd395411098e45af04f97c7d79f1b2caea5e53"
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "sha256": "e9a1d2483275b7b9479d2c3e2baee77de7366fd8b78a4323a04d39ba00489765"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/compiled-source-audit.json",
+      "sha256": "db18c01e742b1e9dcfffca8518e4540e11692466c98dcbe4cab98ef1a42d3b25"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/corrected-menu-final.log",
+      "sha256": "4ffb38c0a731c6bff1316160ca3653d4d39645253d76778ea5092c0a3f594384"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/corrected-menu-final.trx",
+      "sha256": "d5c6f516a42aa7743694c4dc48bb154f21dad121b5828a6c0be1b8cc29c549a7"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/corrected-menu.log",
+      "sha256": "b17a0b4d6eba8975131086206e8a2ae9ec990fe46fe90e335ffeddb282478d2b"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/final-ui.log",
+      "sha256": "22f3dc126ca789e29890f6cc71c4c67e19857d72ca04aabebaeba184aaca6399"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/final-ui.trx",
+      "sha256": "dc5989ba8cf6af872b77ab38c39568a18da6a1146a8b1d6fe07ff79e01047974"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/isolated-export.log",
+      "sha256": "fd2ce329e85d4a310e63442fbc9a0552144dd69fdc7ed2570e997bc8894daf87"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/isolated-export.trx",
+      "sha256": "650214a72fb7434e3830d179c832bed02e6d2ab84660a53d5db798377a993ce0"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/light-gradient-final.trx",
+      "sha256": "f276aa198ae50616d94359e1c9967309f3033424187296cf1ca0614b54b9e257"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/light-gradient.trx",
+      "sha256": "57c1ce158d47c7ee7c7ab63ee17b99e472ba01313126d3b510435710edaf319b"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/README.md",
+      "sha256": "5cc7c17eeb104ca292a100998074a76a3922021581d86bc6f224c29106feae44"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/reference.png",
+      "sha256": "aec218b285033ac0e7dbec180f4bbfd2e22e9a3737a7ccb845e6f79720c7d341"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/tests-final.log",
+      "sha256": "7c3e8992288d55de6139dffa43f180eb949d11c44a02e64eb5ae88ec00c34d60"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/tests.log",
+      "sha256": "3d77bfd7d99b9ea74f7a992fd6aa1696adb2be5d4eb202f4b2ad28421d0f9a88"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/previews/workbench-1600x1000-13.png",
+      "sha256": "79deac19a03554fd6d3860211f0f4f51043b85186487cae8695c97a1d3b1585a"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/previews/workbench-640x500-13.png",
+      "sha256": "05bbb3b536441bb102b640de029ab32b2d930477d551c6b8930e783a0a25dd84"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/light-gradient/previews/workbench-900x700-18.png",
+      "sha256": "bd6ea8162534b76ddd7469b3327b5c9e7f614683fb8c56570dd368fe90932c31"
+    }
+  ],
+  "limitations": [
+    "Background/off-screen only; no native user desktop control or settings changes",
+    "UI palette only; original prescription, sampling, numerical tolerances and reference identities retained",
+    "No install, publish or push; no full optical matrix rerun",
+    "Concurrent unrelated workspace changes retained; PDB checks apply to nine theme product files, not a claim about all workspace changes"
+  ]
+}

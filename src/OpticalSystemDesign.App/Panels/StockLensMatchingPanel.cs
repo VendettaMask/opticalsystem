@@ -36,7 +36,7 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
         SelectionMode = DataGridSelectionMode.Single,
         ClipToBounds = true
     };
-    private readonly Button _productPage = CommandButton("external-link", "厂商页面");
+    private readonly Button _productPage = CommandButton("action-open-link", "厂商页面");
     private CancellationTokenSource? _matchCancellation;
     private long _matchGeneration;
     private bool _disposed;
@@ -160,7 +160,7 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
             Children = { _matchShape, _matchDirection }
         };
 
-        var run = CommandButton("search", "开始匹配");
+        var run = CommandButton("stock-lens-match", "开始匹配");
         run.MinWidth = 120;
         run.Classes.Add("accent");
         run.Click += (_, _) => BeginMatch();

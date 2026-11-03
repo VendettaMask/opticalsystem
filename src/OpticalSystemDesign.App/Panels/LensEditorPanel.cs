@@ -61,7 +61,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             _thinLensFocalLength.IsEnabled = _infiniteThinLensFocalLength.IsChecked != true;
 
         ConfigureSurfaceContextMenu();
-        _applyComponentsButton = CommandButton("check", "应用", 72);
+        _applyComponentsButton = CommandButton("action-accept", "应用", 72);
         _applyComponentsButton.Click += (_, _) => ApplySelectedComponents();
 
         var componentSection = BuildSurfacePropertiesSection();

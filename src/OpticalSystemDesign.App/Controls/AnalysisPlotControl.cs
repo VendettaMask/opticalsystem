@@ -24,7 +24,21 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
     static AnalysisPlotControl()
     {
         AffectsRender<AnalysisPlotControl>(CurveWidthProperty);
+        AffectsRender<AnalysisPlotControl>(UseSeriesColorMapProperty);
     }
+
+    public static readonly StyledProperty<bool> UseSeriesColorMapProperty =
+        AvaloniaProperty.Register<AnalysisPlotControl, bool>(nameof(UseSeriesColorMap));
+
+    public bool UseSeriesColorMap
+    {
+        get => GetValue(UseSeriesColorMapProperty);
+        set => SetValue(UseSeriesColorMapProperty, value);
+    }
+
+    internal Color ScalarColor(AnalysisSeries series, double value) =>
+        UseSeriesColorMap ? ColorFor(series.ColorMap, value)
+            : ScientificColorMaps.ScalarColor(series.ColorMap, value);
 
     public AnalysisCurveWidth CurveWidth
     {
@@ -188,6 +202,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
 
     public AnalysisPlotControl()
     {
+        ScientificColorMaps.Track(this);
         ClipToBounds = true;
         Focusable = true;
         InteractiveCanvasFocus.Attach(this);
@@ -917,7 +932,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         }
     }
 
-    private static void DrawHeatmap(
+    private void DrawHeatmap(
         DrawingContext context,
         AnalysisSeries series,
         IReadOnlyList<AnalysisPoint> points,
@@ -940,7 +955,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         foreach (var point in valued)
         {
             var normalized = Math.Abs(maximum - minimum) <= 1e-30 ? 0.5 : (point.Value!.Value - minimum) / (maximum - minimum);
-            var brush = new SolidColorBrush(ColorFor(series.ColorMap, normalized));
+            var brush = new SolidColorBrush(ScalarColor(series, normalized));
             var left = mapX(point.X - (xStep / 2));
             var right = mapX(point.X + (xStep / 2));
             var top = mapY(point.Y + (yStep / 2));
@@ -1134,7 +1149,8 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             var fraction = index / (double)(steps - 1);
             var y = top + (height * (1 - fraction));
             context.DrawRectangle(
-                new SolidColorBrush(ColorFor(series.ColorMap, fraction)),
+                new SolidColorBrush(series.Kind == AnalysisSeriesKind.Heatmap
+                    ? ScalarColor(series, fraction) : ColorFor(series.ColorMap, fraction)),
                 null,
                 new Rect(left, y, width, (height / steps) + 1));
         }

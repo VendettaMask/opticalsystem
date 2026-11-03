@@ -67,6 +67,19 @@
     <EmbeddedResource Include="Assets/Icons/Analysis/*.svg">
       <LogicalName>OpticalSystemDesign.App.Assets.Icons.Analysis.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Assets/Icons/Scientific/Approved/*.svg;Assets/Icons/Scientific/Glyphs/*.svg;Assets/Icons/Scientific/Designed/*.svg">
+      <LogicalName>OpticalSystemDesign.App.Assets.Icons.Scientific.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets/Icons/Scientific/Designed/manifest.json"
+                      LogicalName="OpticalSystemDesign.App.Assets.Icons.SemanticManifest.json" />
+    <EmbeddedResource Include="Assets/Icons/Scientific/Themes/Lumen/*.svg">
+      <LogicalName>OpticalSystemDesign.App.Assets.IconThemes.Lumen.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets/Icons/Scientific/Themes/Isekai/*.svg">
+      <LogicalName>OpticalSystemDesign.App.Assets.IconThemes.Isekai.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets/Icons/Scientific/Themes/manifest.json"
+                      LogicalName="OpticalSystemDesign.App.Assets.IconThemes.Manifest.json" />
     <EmbeddedResource Include="Assets/Icons/game-icons-isekai.json"
                       LogicalName="OpticalSystemDesign.App.Assets.Icons.game-icons-isekai.json" />
     <EmbeddedResource Include="Assets/Icons/farm-fresh-icons.json"
@@ -79,6 +92,7 @@
     <AvaloniaResource Include="Assets/Fonts/Typography/**/*.otf" />
     <Content Include="Assets/Fonts/Typography/*-OFL.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="Assets/Icons/GAME-ICONS-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets/Icons/LUCIDE-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="Assets/Icons/FARM-FRESH-ICONS-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../third_party/coating-reference/*LICENSE.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />

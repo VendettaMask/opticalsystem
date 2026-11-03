@@ -12,7 +12,8 @@ public static class LinearImageSfr
 {
     public const string Algorithm = "LinearImageEdge/1; cropped; orientation transpose; relative conditioning; " + SlantedEdgeSfr.Algorithm;
     public static LinearImageEdgeResult Measure(IReadOnlyList<double> pixels, int width, int height, SfrRegion roi,
-        double pixelPitchMicrometers, LinearEdgeOrientation orientation = LinearEdgeOrientation.NearVertical, int halfWindowPixels = 24)
+        double pixelPitchMicrometers, LinearEdgeOrientation orientation = LinearEdgeOrientation.NearVertical, int halfWindowPixels = 24,
+        Action<SlantedEdgeFit>? fitted = null)
     {
         ArgumentNullException.ThrowIfNull(pixels); ArgumentNullException.ThrowIfNull(roi);
         if (width is < 4 or > 1024 || height is < 4 or > 1024 || (long)width * height > 262144
@@ -34,7 +35,11 @@ public static class LinearImageSfr
         }
         if (scale <= 0) throw new InvalidOperationException("ROI contains no light.");
         var measured = SlantedEdgeSfr.Measure(values.Select(v => v / scale).ToArray(), w, h,
-            new(0, 0, w, h), pixelPitchMicrometers, halfWindowPixels);
+            new(0, 0, w, h), pixelPitchMicrometers, halfWindowPixels, fit => fitted?.Invoke(fit with
+            {
+                EdgeIntercept = fit.EdgeIntercept + (transpose ? roi.Y : roi.X) - fit.EdgeSlope * (transpose ? roi.X : roi.Y),
+                Contrast = fit.Contrast * scale
+            }));
         // Fit uses x(y) in the selected orientation; global intercept remains in that oriented raster.
         measured = measured with
         {

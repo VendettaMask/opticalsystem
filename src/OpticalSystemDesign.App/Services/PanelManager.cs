@@ -57,6 +57,7 @@ public sealed class PanelManager : IDisposable
             Layout = Layout,
             IsDockingEnabled = true
         };
+        WorkspaceControl.Classes.Add("optical-workspace");
         _saveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
         _saveTimer.Tick += OnSaveTimerTick;
         Factory.LayoutChanged += OnLayoutChanged;

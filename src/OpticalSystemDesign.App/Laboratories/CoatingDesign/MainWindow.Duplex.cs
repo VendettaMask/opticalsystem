@@ -17,8 +17,8 @@ public sealed partial class MainWindow
     private readonly TabControl _filmSideTabs = new()
     {
         Name = "CoatingFilmSideTabs",
-        Height = 42,
-        Items = { new TabItem { Header = "正面膜系" }, new TabItem { Header = "背面膜系" } },
+        Items = { new TabItem { Header = "正面镀膜", FontSize = DisplayTypography.Body, Padding = new(14, 6) },
+            new TabItem { Header = "背面镀膜", FontSize = DisplayTypography.Body, Padding = new(14, 6) } },
         SelectedIndex = 0
     };
     private readonly TextBlock _evaluationBadge = new() { TextWrapping = Avalonia.Media.TextWrapping.Wrap };
@@ -50,13 +50,8 @@ public sealed partial class MainWindow
             finally { _editorTransaction--; }
             RecordEditorHistory(null);
         };
-        var modes = new WrapPanel { Orientation = Orientation.Horizontal };
-        modes.Children.Add(_duplexEnabled);
-        modes.Children.Add(new StackPanel { Margin = new(8, 0), Children = { new TextBlock { Text = "优化表面" }, _optimizeSurface } });
-        modes.Children.Add(new StackPanel { Margin = new(8, 0), Children = { new TextBlock { Text = "评价对象" }, _evaluationSurface } });
-        modes.Children.Add(_symmetricFilms);
-        modes.Children.Add(new StackPanel { Margin = new(8, 0), Children = { new TextBlock { Text = "双面优化流程" }, _duplexProtocol } });
-        return new StackPanel { Spacing = 6, Children = { modes, _evaluationBadge, _filmSideTabs } };
+        return new StackPanel { Spacing = 12, Children = { _duplexEnabled, Field("优化表面", _optimizeSurface),
+            _symmetricFilms, Field("双面优化流程", _duplexProtocol), _evaluationBadge } };
     }
     private void ChangeDuplexMode()
     {
@@ -93,6 +88,7 @@ public sealed partial class MainWindow
         _symmetricFilms.IsEnabled = enabled;
         ((TabItem)_filmSideTabs.Items[1]!).IsEnabled = _symmetricFilms.IsChecked != true;
         _includeBackSurface.IsVisible = !enabled;
+        RefreshCompactSurfaceMode(enabled);
         var optimize = UiLocalization.Text(_optimizeSurface.SelectedIndex switch { 1 => "背面", 2 => "两面", _ => "正面" });
         var evaluate = UiLocalization.Text(_evaluationSurface.SelectedIndex switch { 1 => "背面", 2 => "整片", _ => "正面" });
         _evaluationBadge.Text = enabled ? $"{UiLocalization.Text("优化表面")}：{optimize}；{UiLocalization.Text("评价对象")}：{evaluate}"

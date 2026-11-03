@@ -133,6 +133,16 @@ public static partial class WorkbenchAnalysisCatalog
     private static readonly IReadOnlyDictionary<string, AnalysisPresentationKind> PresentationKindsByKey =
         new Dictionary<string, AnalysisPresentationKind>(StringComparer.Ordinal)
         {
+            ["MTF"] = AnalysisPresentationKind.Mtf,
+            ["Huygens MTF"] = AnalysisPresentationKind.Mtf,
+            ["Geometric MTF"] = AnalysisPresentationKind.Mtf,
+            ["Sampled MTF"] = AnalysisPresentationKind.Mtf,
+            ["Fourier Through Focus MTF"] = AnalysisPresentationKind.Mtf,
+            ["Huygens Through Focus MTF"] = AnalysisPresentationKind.Mtf,
+            ["Geometric Through Focus MTF"] = AnalysisPresentationKind.Mtf,
+            ["Fourier MTF vs Field"] = AnalysisPresentationKind.Mtf,
+            ["Huygens MTF vs Field"] = AnalysisPresentationKind.Mtf,
+            ["Geometric MTF vs Field"] = AnalysisPresentationKind.Mtf,
             ["Cardinal Points Data"] = AnalysisPresentationKind.CardinalPoints,
             ["Seidel Coefficients"] = AnalysisPresentationKind.SeidelCoefficients,
             ["Zernike Fringe"] = AnalysisPresentationKind.ZernikeFringe,

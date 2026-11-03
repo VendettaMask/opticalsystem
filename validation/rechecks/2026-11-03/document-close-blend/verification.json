@@ -1,0 +1,121 @@
+{
+  "date": "2026-11-03",
+  "scope": "Document close button transparent idle surface and native interaction; ordinary Light action buttons unchanged",
+  "head": "d303a6936be6da610a0d88284a383e467633e8ce",
+  "distinctFinalCases": 10,
+  "cases": [
+    {
+      "name": "OpticalSystemDesign.Tests.StandardActionButtonThemeTests.LateCreatedDialogButtonsUseSameRuleWithoutOverridingExplicitSurfaces",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.StandardActionButtonThemeTests.OtherThemesKeepNativeButtonStatesAcrossRoundTrips(theme: \"Isekai\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: \"Light\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.StandardActionButtonThemeTests.OtherThemesKeepNativeButtonStatesAcrossRoundTrips(theme: \"Pixel\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.StandardActionButtonThemeTests.OtherThemesKeepNativeButtonStatesAcrossRoundTrips(theme: \"Dark\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: \"Lumen\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.StandardActionButtonThemeTests.AddFieldUsesBlueStatesAndStillAddsExactlyOneField",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: \"Dark\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: \"Pixel\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: \"Isekai\")",
+      "outcome": "Passed"
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/App.cs",
+      "sha256": "b01c52f0ad9eddb80fa0e055a731406d20ba19d6726aae9bca963f3524793534"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/StandardActionButtonStyles.cs",
+      "sha256": "e8b69f4091770a48b47c00767295a45fd6858d7277d75494634ee78e2f627da9"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/DocumentCloseButtonTests.cs",
+      "sha256": "26fe8e0c8f8a9aae846351ff3c54a7eb084f36e8cafa5390a61801d23744e391"
+    }
+  ],
+  "compiledSourceAudit": [
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/App.cs",
+      "compiledSha256": "b01c52f0ad9eddb80fa0e055a731406d20ba19d6726aae9bca963f3524793534",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/StandardActionButtonStyles.cs",
+      "compiledSha256": "e8b69f4091770a48b47c00767295a45fd6858d7277d75494634ee78e2f627da9",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/App.cs",
+      "compiledSha256": "b01c52f0ad9eddb80fa0e055a731406d20ba19d6726aae9bca963f3524793534",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/StandardActionButtonStyles.cs",
+      "compiledSha256": "e8b69f4091770a48b47c00767295a45fd6858d7277d75494634ee78e2f627da9",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.pdb",
+      "path": "tests/OpticalSystemDesign.Tests/DocumentCloseButtonTests.cs",
+      "compiledSha256": "26fe8e0c8f8a9aae846351ff3c54a7eb084f36e8cafa5390a61801d23744e391",
+      "matchesCurrent": true
+    }
+  ],
+  "previews": [
+    {
+      "path": "previews/workspace-close-Dark.png",
+      "sha256": "baf9f7cf6ad45e9afa597792c8b35ef917b59fab4aea58e75c389bf8c95e2af8"
+    },
+    {
+      "path": "previews/workspace-close-Isekai.png",
+      "sha256": "405f6e6f37091e3ad0018cd93b513aa455265184ad7fa163165806c424cfb431"
+    },
+    {
+      "path": "previews/workspace-close-Light.png",
+      "sha256": "ed5fe138336e41614d10fc6064b69a791715aec1d990f10fcb1e3da1fb447bc7"
+    },
+    {
+      "path": "previews/workspace-close-Lumen.png",
+      "sha256": "eaf8a51ea11279ce22674ba41e9ec813bdd183d057388d6b1754e37226957ae6"
+    },
+    {
+      "path": "previews/workspace-close-Pixel.png",
+      "sha256": "6e6db07dbe5bc33f85141d6c84367ef087185c86af8884a26115c6b235712cab"
+    }
+  ],
+  "limitations": [
+    "Off-screen Avalonia/Skia only; no user-window interaction",
+    "No complete repository suite or numerical optics matrix",
+    "Initial hidden-template test setup failures retained in before.trx; not counted as product regressions"
+  ]
+}

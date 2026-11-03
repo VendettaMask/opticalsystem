@@ -58,7 +58,7 @@ public sealed class MaterialAnalysisPanel : UserControl
 
         var refresh = new Button
         {
-            Content = new LocalIconLabel("refresh-cw", "重新计算"),
+            Content = new LocalIconLabel("action-recalculate", "重新计算"),
             MinWidth = 118,
             MinHeight = 34,
             Padding = new Thickness(12, 6)

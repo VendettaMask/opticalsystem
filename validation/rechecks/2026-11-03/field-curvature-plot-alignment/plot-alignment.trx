@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c6b09c8d-0ba4-4fcb-a379-00cfabbddc3d" name="optics@LAPTOP-G4BBBCS0 2026-11-03 09:35:48" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T09:35:48.0923879+08:00" queuing="2026-11-03T09:35:48.0923883+08:00" start="2026-11-03T09:35:40.6507889+08:00" finish="2026-11-03T09:35:53.0580870+08:00" />
+  <TestSettings name="default" id="c85765fa-0c23-4baa-8b59-be20ad35aef3">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_09_35_48" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a20c2db2-744c-4356-8667-ba285c19d348" testId="28e3730c-49d9-81d4-b012-dff0aaea05bc" testName="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(theme: &quot;Pixel&quot;, fontSize: 13, multiline: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0492709" startTime="2026-11-03T09:35:48.0779569+08:00" endTime="2026-11-03T09:35:48.1210372+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a20c2db2-744c-4356-8667-ba285c19d348">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 0.01)&#xD;
+Actual: 11</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.AssertAligned(AnalysisPlotControl[] plots, Control root) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs:line 142&#xD;
+   at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.&lt;&gt;c__DisplayClass1_0.&lt;MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs:line 59&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(String theme, Double fontSize, Boolean multiline) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs:line 35&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b51b68bd-d78d-45f6-8d10-364b7100bc4b" testId="d516ad54-b767-4f1b-4746-d591ad8f6020" testName="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(theme: &quot;Isekai&quot;, fontSize: 22, multiline: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2701798" startTime="2026-11-03T09:35:48.1276093+08:00" endTime="2026-11-03T09:35:48.3910582+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b51b68bd-d78d-45f6-8d10-364b7100bc4b" />
+    <UnitTestResult executionId="bbb83b5a-21f4-4b8e-b905-c758f740be20" testId="6cafc95a-7e34-60c6-501e-b18fa0812191" testName="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.ActualDoubleGaussKeepsAlignedSourceAndIdenticalLiveAndReportExportsAcrossResize" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.2744235" startTime="2026-11-03T09:35:48.6535355+08:00" endTime="2026-11-03T09:35:52.9275627+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bbb83b5a-21f4-4b8e-b905-c758f740be20" />
+    <UnitTestResult executionId="d5910e0d-91aa-400a-a5d2-8fc2010c1b7e" testId="3bb555f2-1cbf-791f-74cd-00b8ded701ab" testName="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(theme: &quot;Dark&quot;, fontSize: 18, multiline: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2588825" startTime="2026-11-03T09:35:48.3915081+08:00" endTime="2026-11-03T09:35:48.6510497+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d5910e0d-91aa-400a-a5d2-8fc2010c1b7e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 0.01)&#xD;
+Actual: 23.999999999999993</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.AssertAligned(AnalysisPlotControl[] plots, Control root) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs:line 142&#xD;
+   at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.&lt;&gt;c__DisplayClass1_0.&lt;MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs:line 59&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(String theme, Double fontSize, Boolean multiline) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs:line 35&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ce648011-7811-472c-9d96-2577ff2b1516" testId="513c5c73-a234-a6a8-d0cc-d80c6626c62d" testName="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(theme: &quot;Light&quot;, fontSize: 13, multiline: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.7489102" startTime="2026-11-03T09:35:45.3225103+08:00" endTime="2026-11-03T09:35:48.0626790+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ce648011-7811-472c-9d96-2577ff2b1516" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(theme: &quot;Dark&quot;, fontSize: 18, multiline: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3bb555f2-1cbf-791f-74cd-00b8ded701ab">
+      <Execution id="d5910e0d-91aa-400a-a5d2-8fc2010c1b7e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests" name="MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(theme: &quot;Isekai&quot;, fontSize: 22, multiline: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d516ad54-b767-4f1b-4746-d591ad8f6020">
+      <Execution id="b51b68bd-d78d-45f6-8d10-364b7100bc4b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests" name="MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(theme: &quot;Light&quot;, fontSize: 13, multiline: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="513c5c73-a234-a6a8-d0cc-d80c6626c62d">
+      <Execution id="ce648011-7811-472c-9d96-2577ff2b1516" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests" name="MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(theme: &quot;Pixel&quot;, fontSize: 13, multiline: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="28e3730c-49d9-81d4-b012-dff0aaea05bc">
+      <Execution id="a20c2db2-744c-4356-8667-ba285c19d348" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests" name="MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.ActualDoubleGaussKeepsAlignedSourceAndIdenticalLiveAndReportExportsAcrossResize" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6cafc95a-7e34-60c6-501e-b18fa0812191">
+      <Execution id="bbb83b5a-21f4-4b8e-b905-c758f740be20" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests" name="ActualDoubleGaussKeepsAlignedSourceAndIdenticalLiveAndReportExportsAcrossResize" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="28e3730c-49d9-81d4-b012-dff0aaea05bc" executionId="a20c2db2-744c-4356-8667-ba285c19d348" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d516ad54-b767-4f1b-4746-d591ad8f6020" executionId="b51b68bd-d78d-45f6-8d10-364b7100bc4b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6cafc95a-7e34-60c6-501e-b18fa0812191" executionId="bbb83b5a-21f4-4b8e-b905-c758f740be20" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bb555f2-1cbf-791f-74cd-00b8ded701ab" executionId="d5910e0d-91aa-400a-a5d2-8fc2010c1b7e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="513c5c73-a234-a6a8-d0cc-d80c6626c62d" executionId="ce648011-7811-472c-9d96-2577ff2b1516" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="3" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.46]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.61]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.64]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:05.47]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:05.47]       Range:  (0 - 0.01)&#xD;
+[xUnit.net 00:00:05.47]       Actual: 11&#xD;
+[xUnit.net 00:00:05.47]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.47]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs(142,0): at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.AssertAligned(AnalysisPlotControl[] plots, Control root)&#xD;
+[xUnit.net 00:00:05.47]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs(59,0): at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.&lt;&gt;c__DisplayClass1_0.&lt;MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes&gt;b__0()&#xD;
+[xUnit.net 00:00:05.47]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.47]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.47]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:05.47]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.47]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs(35,0): at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(String theme, Double fontSize, Boolean multiline)&#xD;
+[xUnit.net 00:00:05.47]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.00]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:00:06.00]       Range:  (0 - 0.01)&#xD;
+[xUnit.net 00:00:06.00]       Actual: 23.999999999999993&#xD;
+[xUnit.net 00:00:06.00]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.00]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs(142,0): at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.AssertAligned(AnalysisPlotControl[] plots, Control root)&#xD;
+[xUnit.net 00:00:06.00]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs(59,0): at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.&lt;&gt;c__DisplayClass1_0.&lt;MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes&gt;b__0()&#xD;
+[xUnit.net 00:00:06.00]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:06.00]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:06.00]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:06.00]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.00]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvaturePlotAlignmentTests.cs(35,0): at OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(String theme, Double fontSize, Boolean multiline)&#xD;
+[xUnit.net 00:00:06.00]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.28]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T09:35:48.1237923+08:00">
+        <Text>[xUnit.net 00:00:05.47]     OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(theme: "Pixel", fontSize: 13, multiline: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T09:35:48.6518364+08:00">
+        <Text>[xUnit.net 00:00:06.00]     OpticalSystemDesign.Tests.FieldCurvaturePlotAlignmentTests.MixedTitlesKeepPlotBordersAlignedAtDifferentFontsAndContainerSizes(theme: "Dark", fontSize: 18, multiline: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

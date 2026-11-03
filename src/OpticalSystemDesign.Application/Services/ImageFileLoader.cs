@@ -67,6 +67,7 @@ internal static class ImageFileLoader
 
     internal static void SaveAnalysisRaster(AnalysisData data, string path)
     {
+        LosslessImageOutput.RequirePngOrBmp(path);
         var series = data.PlotPanes?
             .SelectMany(pane => pane.Series)
             .FirstOrDefault(item => item.Kind == AnalysisSeriesKind.Raster)
@@ -108,9 +109,8 @@ internal static class ImageFileLoader
     private static byte[] EncodeRaster(SKBitmap bitmap, string extension)
     {
         if (extension == ".bmp") return EncodeBmp(bitmap);
-        var format = extension is ".jpg" or ".jpeg" ? SKEncodedImageFormat.Jpeg : SKEncodedImageFormat.Png;
         using var image = SKImage.FromBitmap(bitmap);
-        using var encoded = image.Encode(format, 95)
+        using var encoded = image.Encode(SKEncodedImageFormat.Png, 100)
             ?? throw new InvalidOperationException("Unable to encode the image simulation output.");
         return encoded.ToArray();
     }

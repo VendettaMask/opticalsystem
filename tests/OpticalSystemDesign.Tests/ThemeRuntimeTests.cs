@@ -224,30 +224,31 @@ public sealed class ThemeRuntimeTests
                 var lightBounds = content.Bounds.Size;
                 var lightCorner = content.CornerRadius;
                 Assert.Equal(ThemeVariant.Light, content.ActualThemeVariant);
-                Assert.Equal(StandardThemeIconPack.Instance.Id, ThemeIconResolver.PackId(content.ActualThemeVariant));
+                Assert.Equal("ScientificOutline:Light", ThemeIconResolver.PackId(content.ActualThemeVariant));
 
                 ThemeApplicationService.Apply(application, IsekaiTheme.SettingsValue);
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
                 Assert.Equal(IsekaiTheme.Variant, content.ActualThemeVariant);
-                Assert.Equal(IsekaiThemeIconPack.Instance.Id, ThemeIconResolver.PackId(content.ActualThemeVariant));
+                Assert.Equal("ScientificOutline:Isekai", ThemeIconResolver.PackId(content.ActualThemeVariant));
                 Assert.NotEqual(lightCorner, content.CornerRadius);
                 Assert.Equal(lightBounds, content.Bounds.Size);
 
                 ThemeApplicationService.Apply(application, PixelTheme.SettingsValue);
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
                 Assert.Equal(PixelTheme.Variant, content.ActualThemeVariant);
-                Assert.Equal(PixelThemeIconPack.Instance.Id, ThemeIconResolver.PackId(content.ActualThemeVariant));
+                Assert.Equal("ScientificOutline:Pixel", ThemeIconResolver.PackId(content.ActualThemeVariant));
                 Assert.Equal(new CornerRadius(0), content.CornerRadius);
                 Assert.Equal(lightBounds, content.Bounds.Size);
 
                 ThemeApplicationService.Apply(application, "Dark");
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
                 Assert.Equal(ThemeVariant.Dark, content.ActualThemeVariant);
-                Assert.Equal(StandardThemeIconPack.Instance.Id, ThemeIconResolver.PackId(content.ActualThemeVariant));
+                Assert.Equal("ScientificOutline:Dark", ThemeIconResolver.PackId(content.ActualThemeVariant));
                 Assert.Equal(lightBounds, content.Bounds.Size);
 
-                // Theme-only Fluent overrides must not leak into the next theme.
-                Assert.False(application.Resources.ContainsKey("TextControlBackground"));
+                // Each destination theme must replace the previous theme's field background.
+                Assert.Equal(BlackHoleDarkTheme.ControlBackground,
+                    Assert.IsAssignableFrom<ISolidColorBrush>(application.Resources["TextControlBackground"]).Color);
                 ThemeApplicationService.Apply(application, "Light");
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
                 Assert.Equal(Colors.White,

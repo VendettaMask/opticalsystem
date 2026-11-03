@@ -15,6 +15,7 @@ using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Application.Services;
 
 namespace OpticalSystemDesign.App.Panels;
@@ -86,19 +87,19 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         ConfigureGrids();
         ConfigureEditor();
 
-        var wizardButton = CommandButton("sparkles", "公差向导");
+        var wizardButton = CommandButton("tolerance-wizard", "公差向导");
         wizardButton.Click += async (_, _) => await ShowWizardAsync();
-        var addButton = CommandButton("plus", "添加");
+        var addButton = CommandButton("action-add", "添加");
         addButton.Click += (_, _) => AddOperand();
-        var removeButton = CommandButton("trash", "删除");
+        var removeButton = CommandButton("action-delete", "删除");
         removeButton.Click += (_, _) => RemoveSelected();
-        var validateButton = CommandButton("check", "验证");
+        var validateButton = CommandButton("action-accept", "验证");
         validateButton.Click += (_, _) => Validate(showSuccess: true);
-        var saveButton = CommandButton("save", "保存公差");
+        var saveButton = CommandButton("file-save", "保存公差");
         saveButton.Click += async (_, _) => await SaveToleranceFileAsync();
-        var loadButton = CommandButton("folder-open", "载入公差");
+        var loadButton = CommandButton("file-open", "载入公差");
         loadButton.Click += async (_, _) => await LoadToleranceFileAsync();
-        var exportButton = CommandButton("download", "导出报告");
+        var exportButton = CommandButton("file-export-report", "导出报告");
         exportButton.Click += async (_, _) => await ExportReportAsync();
         var toolbar = new WrapPanel
         {
@@ -1220,7 +1221,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
 
     private static string FormatRadius(double radius) =>
         !double.IsFinite(radius) || Math.Abs(radius) < 1e-12
-            ? "无限"
+            ? NumericDisplayFormatter.Format(double.PositiveInfinity)
             : FormatNumber(radius);
 
     private static string FormatConicTolerance(IReadOnlyList<ToleranceOperandDto> operands, int surfaceNumber)

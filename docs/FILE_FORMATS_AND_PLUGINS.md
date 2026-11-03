@@ -1,5 +1,7 @@
 # 文件格式与插件
 
+渲染后的分析/布局/镀膜/探测器及SFR图片统一保存为无损PNG，包含完整外框；PNG物理密度元数据记录捕获时的打印DPI。“设置 → 格式与字体”的可调整草案独立保存画布宽高、原图比例锁定和DPI，默认1920×1080、锁定比例、150DPI；完整源图居中放入画布，留白位于图框外。报告仍使用原图比例和原纸面图尺寸。图像模拟原始结果允许PNG及真正的24位无压缩BMP，拒绝JPEG等输出扩展名且不替换已有文件。导入JPEG以及实验包保留原始输入文件的行为保持；保存原始像素结果不会套用绘图缩放。
+
 更新：2026-11-02。本页说明文件入口、导出边界和插件接口。STAROPT 的二进制布局、版本与迁移只在 [格式契约](STAROPT_FILE_FORMAT.md) 维护；操作数逐项参数和历史验证只在 [支持规范](ZEMAX_OPERAND_SUPPORT.md) 维护。
 
 ZMX 配置先应用 GLSS/THIC/CRVT/PRAM/EDVA，再求解同列曲率、厚度、玻璃与参数拾取依赖；GLSS 可将镜面切换为空气或玻璃。支持坐标断点主光线 X/Y 偏心求解，非零厚度断点保留透明参考面，入射参考法线作为可选平面元数据随快照保持；它只定义断点报告角度，不改变交点法线。厚度/曲率本地拾取随 STAROPT 保存，参数与材料配置按各配置求值保存。未声明任意跨列拾取及全部外部求解支持；旧导入工程须从原 ZMX 重新导入才取得修正后的配置。范围与MM/CM回归见[光学检测修复](OPTICAL_TESTING_PROPAGATION_REPAIR_2026-11-01.md)。
@@ -12,7 +14,7 @@ CODE V / OSLO 顺序文本导入保留有限厚度的正负号，不再将负厚
 
 ## 设计报告导出
 
-相机原始数据交换与报告截图分开：`.scene-linear.zip` 保存冻结镜头/源谱、逐节点和逐任务 float64 功率、W/m² 图、文件摘要与共用物理标尺的 Gray16 PNG；完整尺寸、面积和行序由清单定义，打开时检查求和/单位与编码一致性。它不经过显示 Gamma、QE 或 ISP，不等同于 `.scene-sfr.zip` 单 ROI 记录或 2404×1804 曲线 PNG。操作与预算范围见[场景线性数据](SCENE_SLANTED_EDGE_SFR.md)。
+相机原始数据交换与报告截图分开：`.scene-linear.zip` 保存冻结镜头/源谱、逐节点和逐任务 float64 功率、W/m² 图、文件摘要与共用物理标尺的 Gray16 PNG；完整尺寸、面积和行序由清单定义，打开时检查求和/单位与编码一致性。`.scene-sfr-rois.json` 是对应批次的多 ROI 伴随记录，保留任务、方向、坐标、窗口、逐项曲线/质量和源清单/辐照度摘要；打开时需要原批次并重测原始像元，不重复保存像元。二者不经过显示 Gamma、QE 或 ISP，也不等同于 `.scene-sfr.zip` 单 ROI 实验或按导出画布设置生成的曲线 PNG。操作与预算范围见[场景线性数据](SCENE_SLANTED_EDGE_SFR.md)。
 
 HTML、PDF、Word、Markdown 使用共享的工程报告结构与完整原图。前三者采用统一的钢蓝/浅灰配色、正式 Logo、封面、目录及编号图表；Markdown 保留相同语义结构与 SVG 标志资源，外观由阅读器决定。Zernike 三类系数表均带实际公式与 n/m；Word 使用原生可编辑公式。Word/PDF 的详细采样记录是可选附录，HTML/Markdown 可以展开查看。图像、处方过滤、快照、原子发布与资源上限见[设计报告导出](MARKDOWN_REPORT_EXPORT.md)。
 
@@ -61,6 +63,8 @@ HTML、PDF、Word、Markdown 使用共享的工程报告结构与完整原图。
 物理厚度仍是唯一保存的层数值。OT/QW/FW由参考波长的真实n换算，历史与界面多选不进入文件。双面候选增加`BackLayers`，`Run.Duplex`记录优化对象、初始两面、独立变量数与实际指导光谱点数，设计路径身份为`duplex-target-constraints/1`。正式导出保留正面`layers.csv`并增加`back-layers.csv`、`evaluation.json`；双面公差的`BackThicknessNm`与CSV背面列保存实际误差，不把设计对称当成误差相关。详见[双面与编辑契约](COATING_EDITOR_DUPLEX_2026-11-02.md)。
 
 参考单位元数据新增可选`ReferenceWavelengthNm`，缺项以目标中心初始化，null不写出；该字段不进入物理指纹，不隐式缩放d。双面数据合同`Duplex.Version=1`保持，新增可选`OptimizationVersion=2`选择`duplex-analytic-restoration-quality/2`，缺项维持原双面v1。新路径成本存`Run.Duplex.Analytic`，普通功率点、灵敏度点和密集复验分别计数，不混称等价调用。
+
+膜层编辑器按TFStudio截图从基底侧显示和编号；该视图不改变文件、CSV、富剪贴板及Core的外侧→基板数组顺序。逐行操作与保存通过视图映射，单纯打开/关闭、浮窗或显示重排不能倒转处方。见[显示与物理顺序](COATING_EDITOR_LAYOUT_2026-11-03.md#保留的产品语义)。
 
 膜层剪贴板富数据`OpticalSystemDesign.CoatingLayers.v1`含完整材料/物理厚度/变量/源参考波长，接收方按完整材料身份合并且保留自己的λ₀，另有物理nm的TSV退路。恢复目录独立于实验，版本1草稿含会话GUID、时间、原始编辑JSON及SHA-256，以独占锁及有界原子文件保护；不写入原实验或储存结果。公式边界、数据上限和损坏恢复规则见[工程操作契约](COATING_WORKFLOW_ANALYTIC_2026-11-02.md)。
 

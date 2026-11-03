@@ -39,7 +39,7 @@ public sealed partial class MainWindow
             category.Classes.Add("ribbon-menu-item");
             foreach (var example in group.Examples)
             {
-                var header = new LocalIconLabel("aperture", example.Name, 20);
+                var header = new LocalIconLabel("optical-examples", example.Name, 20);
                 var item = new MenuItem { Header = header, MinWidth = 230, Padding = new Thickness(10, 8) };
                 AutomationProperties.SetName(item, example.Name);
                 AutomationProperties.SetAutomationId(item, $"ribbon-{example.ActionId}");
@@ -52,7 +52,7 @@ public sealed partial class MainWindow
             flyout.Items.Add(category);
         }
 
-        var content = RibbonDropDownCommandContent("aperture", "示例");
+        var content = RibbonDropDownCommandContent("optical-examples", "示例");
         var button = new DropDownButton
         {
             HorizontalContentAlignment = HorizontalAlignment.Center,

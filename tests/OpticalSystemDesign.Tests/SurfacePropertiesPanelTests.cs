@@ -90,7 +90,7 @@ public sealed class SurfacePropertiesPanelTests
 
                 EditRadiusAndApply("∞");
                 Assert.Equal(0, application.Prescription.GetSurfaces()[1].Radius);
-                Assert.Equal("无限", Assert.IsType<SurfaceEditorRow>(grid.SelectedItem).RadiusDisplay);
+                Assert.Equal("∞", Assert.IsType<SurfaceEditorRow>(grid.SelectedItem).RadiusDisplay);
                 Capture(window, "standard-surface-infinite-radius.png");
                 EditRadiusAndApply("25.5");
                 Assert.Equal(25.5, application.Prescription.GetSurfaces()[1].Radius);
@@ -266,7 +266,7 @@ public sealed class SurfacePropertiesPanelTests
                 Capture(window, $"surface-properties-header-{width}.png");
                 MouseClick(window, toggle);
                 Assert.True(body.IsVisible);
-                Assert.Equal("chevron-up", Assert.IsType<LocalIcon>(toggle.Content).IconName);
+                Assert.Equal("disclosure-collapse", Assert.IsType<LocalIcon>(toggle.Content).IconName);
                 MouseClick(window, next);
                 Assert.Equal("表面 1 属性", title.Text);
                 Assert.Equal(1, selection.SelectedSurfaceNumber);
@@ -282,7 +282,7 @@ public sealed class SurfacePropertiesPanelTests
                 Assert.True(next.IsEnabled);
                 MouseClick(window, toggle);
                 Assert.False(body.IsVisible);
-                Assert.Equal("chevron-down", Assert.IsType<LocalIcon>(toggle.Content).IconName);
+                Assert.Equal("disclosure-expand", Assert.IsType<LocalIcon>(toggle.Content).IconName);
                 Assert.Equal(revision, application.Events.Revision);
             }
             finally { window.Close(); }

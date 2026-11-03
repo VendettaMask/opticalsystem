@@ -1,6 +1,6 @@
 # Ansys 场景成像与斜边 SFR 实现计划
 
-日期：2026-11-02。状态：实施中；M1 场景最小闭环、M2 预算内全幅与逐源谱交换已接入，原例全分辨率及完整验收尚未完成。目标读者：产品、光学计算与桌面开发人员。
+日期：2026-11-02；更新：2026-11-03。状态：实施中；M1、M2 预算内全幅与逐源谱交换、M3 本机多 ROI/两类方向及回放已接入，原例全分辨率、独立工具及完整验收尚未完成。目标读者：产品、光学计算与桌面开发人员。
 
 首批入口、冻结数据和适用边界见[物方棋盘说明](SCENE_SLANTED_EDGE_SFR.md)。已取得真实 Lens 710 处方与原包，但原例二进制 ROM、完整 5000×3000 预算及几何适用性仍未解决，不据当前小幅面控制图关闭原例目标。
 
@@ -69,12 +69,12 @@
 | --- | --- | --- |
 | 物理场景与逆向几何成像 | [DirectCameraScene](../src/OpticalSystemDesign.Core/Analysis/Imaging/DirectCameraScene.cs)、[DirectCameraRenderer](../src/OpticalSystemDesign.Core/Analysis/Imaging/DirectCameraRenderer.cs) | 接入标准靶标、相机姿态和批量实验；补齐适用范围检查 |
 | 棋盘与发光面 | [EmissiveCheckerboard](../src/OpticalSystemDesign.Core/Analysis/Imaging/EmissiveCheckerboard.cs) 已在一张实际表面上分区发光，旧反射棋盘保持身份 | 原例姿态、源光谱/单位与相机条件的完整核对及验收继续开放，不能再把分区发光列为未实现 |
-| 逐波段功率 | [SpectralDetectorPower](../src/OpticalSystemDesign.Core/Analysis/Imaging/SpectralDetectorPower.cs) 与新场景线性出口保留 W/pixel 和 W/m²，不经过电子/显示处理 | 原分辨率流式处理及标准线性交换仍待 M2 |
-| 场景服务 | [SceneSfr](../src/OpticalSystemDesign.Application/Services/CameraImagingService.SceneSfr.cs) 已有独立请求、1–16 显式波段、冻结镜头和线性场景帧；旧 Scene3D 传感器链仍按原协议 | 本批界面限单波段任务；多波段/源光谱任务编排、原例完整幅面及 M2 继续开放 |
+| 逐波段功率 | [SpectralDetectorPower](../src/OpticalSystemDesign.Core/Analysis/Imaging/SpectralDetectorPower.cs) 与 M2 出口保留完整 W/pixel、W/m²、共用标尺 Gray16，不经过电子/显示处理 | 原例完整幅面的预算继续开放 |
+| 场景服务 | [SceneSfr](../src/OpticalSystemDesign.Application/Services/CameraImagingService.SceneSfr.cs) 与独立全幅批次支持冻结镜头、逐波长/有限源谱、全局预算及回放；旧 Scene3D 链保持原协议 | 原例完整幅面、原场景/源单位与几何适用性仍开放 |
 | 场景衍射 | [DiffractionCameraRenderer](../src/OpticalSystemDesign.Core/Analysis/Imaging/DiffractionCameraRenderer.cs) | 独立完成衍射模式验证，不能当作原文几何基线的替代 |
-| SFR 计算 | 原估计器已有实际线性图像适配，单 ROI 可声明近竖直/近水平，不使用靶标角度或光学参考拟合图像 | 多 ROI、外部工具、畸变/边缘质量与原文测量验收未完成 |
+| SFR 计算 | 原始浮点全幅图上的本机多 ROI、近竖直/近水平、独立质量结果及实测法线已接入，不用靶标或参考拟合图像 | 独立工具逐 ROI 比较、曲边扩展与原文测量验收仍开放 |
 | 光学参考 | 正式几何、FFT、Huygens MTF 分析 | 建立 ROI 像面位置到视场和实际测量方向的对应 |
-| 保存与重放 | 首批 `.scene-sfr.zip` 已冻结靶标、镜头、原始功率、单 ROI 或失败并支持独立重放；旧相机/局部斜边协议不升级 | 完整原例相机、ROM、全部逐带任务、多 ROI 和独立比较记录仍待后续 |
+| 保存与重放 | `.scene-sfr.zip`、`.scene-linear.zip` 与伴随 `.scene-sfr-rois.json` 分别保留单 ROI、逐源谱完整像元、多 ROI 成功/失败与原图重测；旧协议不升级 | 完整原例相机、ROM 和独立比较记录仍待后续 |
 | ROM 与黑盒 | 本条相机路径未形成相应交付 | 新增生成、加载、适用域和误差验证；单列 Ansys 格式兼容 |
 | 全幅与资源 | 现有图像、光线和变换有明确上限 | 原例完整传感器必须先核算；局部诊断 API 不能冒充全幅渲染 |
 
@@ -135,6 +135,8 @@ flowchart LR
 交付：原分辨率全幅图、逐波段数据、外部交换文件、进度／取消和计算量记录。
 
 ### M3 实际图像上的多 ROI 测量
+
+本机选框、像素坐标编辑、逐任务多 ROI、近水平/近竖直、ESF/LSF/SFR 与质量、法线和伴随记录回放已实现，见[操作与边界](SCENE_SLANTED_EDGE_SFR.md#全幅图上的多-roi-sfr)及[定向验证](../validation/rechecks/2026-11-03/scene-multi-roi-sfr/README.md)。独立工具读回及同 ROI 数值比较尚未完成，M3 的完整交付仍保持开放。
 
 SFR 输入接口只接收线性图像、像元元数据和用户 ROI。增加手动选边、多 ROI 管理、近水平与近竖直边支持，保留 ESF、LSF、拟合残差、有效样本、SFR、MTF50 和质量原因。
 
@@ -219,11 +221,11 @@ M0 固定新增指标与频段后再实施，禁止看到结果后放宽公差�
 - [ ] 原文资源、参数、比较指标和资源预算已冻结。
 - [ ] 物方发光棋盘经当前镜头生成全幅逐波段线性图。
 - [ ] 像元、姿态、波长、辐射单位和传输因子均有明确归属。
-- [ ] 支持实际图像多 ROI、两类边缘方向及质量判定。
+- [x] 预算内原生完整图像支持多 ROI、近水平/近竖直与质量判定；原文独立对照另行验收。
 - [ ] 同一图像通过独立 SFR 工具验证，正式 MTF 对照条件匹配。
 - [ ] 成像端、测量端和相机模型收敛均有证据。
 - [ ] 原生 ROM 与无处方黑盒重放已验证。
 - [ ] Ansys 原例 ROM 已在声明版本读取并通过数值对照，其他版本的支持范围明确。
 - [ ] 原例、当前镜头、浮点数据、实验重放和用户指南共同验收。
 
-上述清单是完整交付条件，首批 M0/M1 实现没有使其全部成立。现有局部八视场结果只证明其已记录的局部协议，不勾选本清单。每个阶段更新[当前状态](CURRENT_STATUS.md)和对应证据，保留未完成、失败和不适用的真实结论。
+上述清单是完整交付条件；已勾项只证明标明范围的场景能力，其余仍开放。现有局部八视场结果只证明其局部协议，不替代本清单的原例、正式对照和收敛证据。每个阶段更新[当前状态](CURRENT_STATUS.md)和对应证据，保留未完成、失败和不适用的真实结论。

@@ -104,7 +104,16 @@ public sealed partial class DesktopTests
                     Click(window, "保存光谱 PNG"); await window.PendingOperation;
                     Assert.True(File.Exists(Path.Combine(directory, "coating-spectrum.png")));
                     using (var stream = File.OpenRead(Path.Combine(directory, "coating-spectrum.png")))
-                    using (var bitmap = new Bitmap(stream)) Assert.Equal((int)Math.Ceiling(plot.Bounds.Width * 2), bitmap.PixelSize.Width);
+                    using (var bitmap = new Bitmap(stream))
+                    {
+                        Assert.Equal(1080, bitmap.PixelSize.Height);
+                        Assert.Equal(1920, bitmap.PixelSize.Width);
+                        // Avalonia's decoder reports its render DPI, not PNG pHYs print metadata.
+                        var png = File.ReadAllBytes(Path.Combine(directory, "coating-spectrum.png"));
+                        Assert.Equal("pHYs", System.Text.Encoding.ASCII.GetString(png, 37, 4));
+                        var pixelsPerMetre = System.Buffers.Binary.BinaryPrimitives.ReadUInt32BigEndian(png.AsSpan(41, 4));
+                        Assert.InRange(Math.Abs(pixelsPerMetre * .0254 - 150), 0, .013);
+                    }
                     var center = plot.TranslatePoint(new Point(plot.Bounds.Width / 2, plot.Bounds.Height / 2), window)!.Value;
                     window.MouseMove(center); Tick(window);
                     var tooltip = Assert.IsType<StackPanel>(ToolTip.GetTip(plot));

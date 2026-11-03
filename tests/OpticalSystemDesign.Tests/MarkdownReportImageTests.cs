@@ -199,7 +199,7 @@ public sealed class MarkdownReportImageTests
                                 // including the company mark in the right-hand region beneath the scene.
                                 using var bitmap = SkiaSharp.SKBitmap.Decode(bytes);
                                 var sceneHeight = (int)(UniformDiagramPage.PlotHeight * UniformDiagramPage.ExportScale);
-                                Assert.Equal(new PixelSize(2404, 1804), new PixelSize(bitmap.Width, bitmap.Height));
+                                Assert.Equal(new PixelSize(1440, 1080), new PixelSize(bitmap.Width, bitmap.Height));
                                 Assert.True(Enumerable.Range(sceneHeight + 10, 60).SelectMany(y => Enumerable.Range((int)(bitmap.Width * .7), (int)(bitmap.Width * .27)).Select(x => bitmap.GetPixel(x, y)))
                                     .Count(color => color.Alpha > 0 && (color.Red < 180 || color.Green < 180 || color.Blue < 180)) > 100);
                             }

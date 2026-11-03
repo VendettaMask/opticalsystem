@@ -64,8 +64,13 @@ public sealed partial class DesktopTests
                     plot.SetGrid(false); plot.SetTargets(false); Tick(window);
                     Point PointAt(double wavelength) => new(plot.PlotRect.Left + (wavelength - plot.Range.MinimumNm)
                         / (plot.Range.MaximumNm - plot.Range.MinimumNm) * plot.PlotRect.Width, plot.PlotRect.Top + .43 * plot.PlotRect.Height);
-                    SKColor PixelAt(SKBitmap bitmap, Point point) => bitmap.GetPixel((int)(point.X * bitmap.Width / plot.Bounds.Width),
-                        (int)(point.Y * bitmap.Height / plot.Bounds.Height));
+                    SKColor PixelAt(SKBitmap bitmap, Point point)
+                    {
+                        var frame = OpticalSystemDesign.App.Services.ImageExportResolution.FitFrame(plot.Bounds.Size,
+                            new PixelSize(bitmap.Width, bitmap.Height), true);
+                        return bitmap.GetPixel(frame.X + (int)((point.X + 1) * frame.Width / (plot.Bounds.Width + 2)),
+                            frame.Y + (int)((point.Y + 1) * frame.Height / (plot.Bounds.Height + 2)));
+                    }
                     void AssertDarker()
                     {
                         Tick(window);

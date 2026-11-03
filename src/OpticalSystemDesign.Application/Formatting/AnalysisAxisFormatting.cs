@@ -40,6 +40,8 @@ public static class AnalysisAxisFormatting
         AnalysisAxisUnit.CyclesPerMilliradian => "cycles/mrad",
         AnalysisAxisUnit.Diopter => "D",
         AnalysisAxisUnit.WattsPerSquareMeterPerNanometer => "W/m²/nm",
+        AnalysisAxisUnit.WattsPerSquareMeter => "W/m²",
+        AnalysisAxisUnit.WattsPerSquareMeterPerPixel => "W/m²/pixel",
         _ => string.Empty
     };
 
@@ -149,6 +151,7 @@ public static class AnalysisAxisFormatting
         AnalysisAxisQuantity.Modulation => "调制度",
         AnalysisAxisQuantity.EnergyFraction => "能量分数",
         AnalysisAxisQuantity.Irradiance => "辐照度",
+        AnalysisAxisQuantity.IrradianceGradient => "辐照度梯度",
         AnalysisAxisQuantity.Distortion => "畸变",
         AnalysisAxisQuantity.RayHeight => "光线高度",
         AnalysisAxisQuantity.IncidentAngle => "入射角",

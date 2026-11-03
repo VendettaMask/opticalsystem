@@ -53,7 +53,7 @@ public sealed class CameraSfrWindowTests
                 var thick = menu.Items.OfType<MenuItem>().Single(c => c.Header?.ToString() == "粗");
                 thick.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
                 Assert.Equal(AnalysisCurveWidth.Thick, plot.GetValue(AnalysisPlotControl.CurveWidthProperty));
-                using var bitmap = window.CaptureSfrImage(); Assert.Equal(new PixelSize(2404, 1804), bitmap.PixelSize);
+                using var bitmap = window.CaptureSfrImage(); Assert.Equal(new PixelSize(1920, 1080), bitmap.PixelSize);
                 var evidence = Environment.GetEnvironmentVariable("OPTICAL_SFR_EVIDENCE_DIR");
                 if (!string.IsNullOrWhiteSpace(evidence))
                 {

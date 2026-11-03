@@ -120,7 +120,7 @@ public sealed class ReferenceWorkbenchLayoutTests
                     Assert.Equal(6, sections.Spacing);
                     Assert.All(sections.Children.Cast<Border>(), card => Assert.Equal(new CornerRadius(6), card.CornerRadius));
                     Assert.Same(BlueThemeTokens.StatusBarGradient, status.Background);
-                    Assert.Same(BlueThemeTokens.RibbonPageGradient, ((ScrollViewer)page).Background);
+                    Assert.Same(BlueThemeTokens.RibbonSurface, ((ScrollViewer)page).Background);
                     var selected = Assert.Single(window.GetVisualDescendants().OfType<DocumentTabStripItem>(), tab => tab.IsSelected);
                     Assert.Equal(BlueThemeTokens.Surface, Assert.IsAssignableFrom<ISolidColorBrush>(selected.Background).Color);
                     var body = Assert.Single(selected.GetVisualDescendants().OfType<Border>(), border => border.Name == "PART_TabBody");
@@ -149,7 +149,7 @@ public sealed class ReferenceWorkbenchLayoutTests
                     var frame = Assert.Single(document.GetVisualDescendants().OfType<Border>(),
                         border => border.TemplatedParent == document && border.Name == "PART_Border");
                     Assert.Equal(1, frame.BorderThickness.Top);
-                    Assert.Equal(BlueThemeTokens.Divider, Assert.IsAssignableFrom<ISolidColorBrush>(frame.BorderBrush).Color);
+                    Assert.Same(LightGlassMaterial.Rim, frame.BorderBrush);
                     Capture(window, $"workbench-{theme}-{width:0}-{fontSize:0}-active");
                 }
             }

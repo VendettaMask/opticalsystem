@@ -298,12 +298,27 @@ internal sealed class BlueThemeStyles : Styles
 
     private void Shell()
     {
+        Rule(s => Light<MainWindowTitleBar>(s), new Setter(Border.BoxShadowProperty, LightGlassMaterial.FrameShadow));
         // Bind to live bounds: resizing, restored layouts and newly docked panels
         // get the same curve without replacing Dock's templates or hit targets.
         Rule(s => Light<ToolDockControl>(s), RoundedDockClip());
         Rule(s => Light<DocumentDockControl>(s), RoundedDockClip());
+        // Dock paints both a tool-content border and its enclosing chrome body.
+        // Reveal the single window backdrop around the sidebar's white cards;
+        // scope this to the main workspace so other docked editors keep their fill.
+        Rule(s => Light<DockControl>(s).Class("optical-workspace").Descendant().OfType<ToolControl>()
+                .Template().OfType<Border>().Name("PART_Border"),
+            new Setter(Border.BackgroundProperty, Brushes.Transparent),
+            new Setter(Border.BorderBrushProperty, LightGlassMaterial.Rim),
+            new Setter(Border.BoxShadowProperty, LightGlassMaterial.FrameShadow));
+        Rule(s => Light<DockControl>(s).Class("optical-workspace").Descendant().OfType<ToolChromeControl>(),
+            new Setter(TemplatedControl.BackgroundProperty, Brushes.Transparent));
+        Rule(s => Light<DockControl>(s).Class("optical-workspace").Descendant().OfType<ToolChromeControl>()
+                .Template().OfType<Border>().Name("PART_Border"),
+            new Setter(Border.BackgroundProperty, LightGlassMaterial.SectionSurface));
         Rule(s => Light<DocumentControl>(s).Template().OfType<Border>().Name("PART_Border"),
             new Setter(Border.CornerRadiusProperty, ThemeChromeResources.StandardDockCornerRadius),
+            new Setter(Border.BorderBrushProperty, LightGlassMaterial.Rim),
             new Setter(Visual.ClipToBoundsProperty, true), RoundedDockClip());
         // Round the actual Dock header surface, not only the cards below it.
         // Clipping keeps the grip's active/background fill inside the same arc.
@@ -321,7 +336,7 @@ internal sealed class BlueThemeStyles : Styles
         Rule(s => Light<TextBox>(s).Class("caption-search").Class(":focus").Template().OfType<Border>().Name("PART_BorderElement"),
             new Setter(Border.BorderBrushProperty, B(TitleText)), new Setter(Border.BorderThicknessProperty, new Thickness(2)));
         Rule(s => Light<TabControl>(s).Class("ribbon-tabs").Template().OfType<ItemsPresenter>().Name("PART_ItemsPresenter"),
-            new Setter(Panel.BackgroundProperty, HeaderGradient),
+            new Setter(Panel.BackgroundProperty, Brushes.Transparent),
             new Setter(Control.HorizontalAlignmentProperty, HorizontalAlignment.Stretch));
         Rule(s => Light<TabItem>(s).Class("ribbon-tab"),
             new Setter(TemplatedControl.ForegroundProperty, B(HeaderMenuText)), new Setter(TemplatedControl.BackgroundProperty, Brushes.Transparent));
@@ -350,10 +365,15 @@ internal sealed class BlueThemeStyles : Styles
             new Setter(ContentPresenter.ForegroundProperty, B(HeaderMuted)));
         Rule(s => Light<Border>(s).Class("system-property-card"),
             new Setter(Border.BorderBrushProperty, B(SidebarInputBorder)));
-        // Separate white sections on the mist-blue sidebar; nested editor cards
-        // retain their own outline and the shared surface-card corner token.
+        // Translucent white sections reveal the shared backdrop. Nested editor
+        // cards and inputs keep their opaque surface and existing outline.
         Rule(s => Light<Border>(s).Class("system-property-section"),
-            new Setter(Border.BorderThicknessProperty, new Thickness(0)));
+            new Setter(Border.BorderThicknessProperty, new Thickness(0)),
+            new Setter(Border.BoxShadowProperty, LightGlassMaterial.SectionShadow));
+        Rule(s => Light<Button>(s).Class("system-section-header")
+                .Not(s => s.Class(":pointerover")).Not(s => s.Class(":pressed")).Not(s => s.Class(":disabled"))
+                .Template().OfType<ContentPresenter>(),
+            new Setter(ContentPresenter.BackgroundProperty, Brushes.Transparent));
         Rule(s => Light<Button>(s).Class("system-section-header").Template().OfType<ContentPresenter>(),
             new Setter(ContentPresenter.CornerRadiusProperty, ThemeChromeResources.StandardSectionHeaderCornerRadius),
             new Setter(Control.MarginProperty, new Thickness(0)),

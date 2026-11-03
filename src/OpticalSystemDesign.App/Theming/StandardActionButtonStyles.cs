@@ -30,6 +30,7 @@ internal sealed class StandardActionButtonStyles : Styles
         .Not(s => s.Class(":disabled"))
         .Not(s => s.Class("accent"))
         .Not(s => s.Class("ribbon-command"))
+        .Not(s => s.Class("dock-document-close"))
         .Not(s => s.Class("system-property-card-header"));
 
     private void AddState(string state, Color color) => Add(new Style(selector => ActionButton(selector)

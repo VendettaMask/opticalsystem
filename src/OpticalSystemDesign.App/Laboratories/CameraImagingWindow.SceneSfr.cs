@@ -114,7 +114,8 @@ public sealed partial class CameraImagingWindow
         return new TabControl { Name = "SceneImagingModes", ItemsSource = new[]
         {
             new TabItem { Header = "单 ROI 诊断", Content = roiPage },
-            new TabItem { Header = "全幅逐波段", Name = "scene-linear-batch-tab", Content = BuildSceneBatchPage() }
+            new TabItem { Header = "全幅逐波段", Name = "scene-linear-batch-tab", Content = BuildSceneBatchPage() },
+            new TabItem { Header = "多 ROI SFR", Name = "scene-roi-sfr-tab", Content = BuildSceneRoiPage() }
         } };
     }
 
@@ -218,7 +219,7 @@ public sealed partial class CameraImagingWindow
         var page = _sceneEdgeGraph.Content as ResponsiveAnalysisPlotHost ?? throw new InvalidOperationException("先显示场景 SFR 曲线。");
         page.UpdateLayout(); var content = page.Child ?? throw new InvalidOperationException("曲线尚未显示。");
         if (content is UniformDiagramPage source) source.ValidateForExport();
-        return ExportImageFrame.Capture(content, UniformDiagramPage.ExportScale, this);
+        return ExportImageFrame.CaptureConfigured(content, this);
     }
 
     internal async Task<bool> OpenSceneEdgeFromPathAsync(string path)

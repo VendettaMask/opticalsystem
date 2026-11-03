@@ -28,8 +28,9 @@
 - [镀膜计算契约](COATING_DESIGN_LAB.md)、[膜系编辑/光谱/堆栈/停靠操作](../labs/CoatingDesign/README.md)
 - [镀膜OT/QW/FW、历史与双面设计](COATING_EDITOR_DUPLEX_2026-11-02.md)、[该批实施计划](COATING_EDITOR_DUPLEX_PLAN_2026-11-02.md)
 - [镀膜独立λ₀、公式、剪贴板、异常恢复与双面解析优化](COATING_WORKFLOW_ANALYTIC_2026-11-02.md)、[实施计划](COATING_WORKFLOW_ANALYTIC_PLAN_2026-11-02.md)
+- [膜系编辑器：按TFStudio重排](COATING_EDITOR_LAYOUT_2026-11-03.md)
 - [相机与 NSC→RAW/ISP](CAMERA_IMAGING_LAB.md)、[单色/多波长局部斜边 SFR](MONOCHROME_SLANTED_EDGE_SFR.md)
-- [物方棋盘：单 ROI 与预算内全幅逐源谱、线性数据交换](SCENE_SLANTED_EDGE_SFR.md)，原例 5000×3000/ROM 尚未验收
+- [物方棋盘：预算内全幅逐源谱、线性交换与多 ROI 双方向 SFR](SCENE_SLANTED_EDGE_SFR.md)，原例 5000×3000/ROM 与独立对照尚未验收
 - [非序列工作流](NON_SEQUENTIAL_TRACING.md)、[会话/数据库与杂散光](NONSEQUENTIAL_PHASE2_STRAY_LIGHT.md)、[光源](NONSEQUENTIAL_SOURCES.md)
 - [光学装调](OPTICAL_ASSEMBLY_LAB.md)、[后续非序列路线图](NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md)
 
@@ -64,6 +65,8 @@
 - [打包镜头库](LENS_LIBRARY.md)
 - [界面语言](LOCALIZATION.md)
 - [本地矢量图标库](LOCAL_ICONS.md)
+- [按功能名称设计图标：语义与五主题造型规范](ICON_SEMANTIC_DESIGN.md)
+- [图标风格规范 Word 版](assets/icons/图标风格规范.docx)
 - [Mac OTA](MAC_OTA.md)
 - [可制造性审查与光学制图](MANUFACTURING_DRAWINGS.md)
 - [光学设计报告导出](MARKDOWN_REPORT_EXPORT.md)

@@ -7,6 +7,7 @@ using Avalonia.Layout;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.CoatingDesign.Engine;
 
 namespace OpticalSystemDesign.App.Laboratories.CoatingDesign;
@@ -19,7 +20,7 @@ public sealed partial class MainWindow
         var panel = new StackPanel { Width = 420, Spacing = 10 };
         var initializing = false; Button? resetToFactory = null;
         var angles = new WrapPanel(); var angleBoxes = new List<TextBox>(); var angleSequence = 0;
-        var add = new Button { Content = "+", Width = 28, Padding = new Thickness(2) };
+        var add = new Button { Content = new LocalIcon { IconName = "action-add", Width = 16, Height = 16 }, Width = 28, Padding = new Thickness(2) };
         var minimum = new TextBox { MinWidth = 82 }; var maximum = new TextBox { MinWidth = 82 }; var step = new TextBox { MinWidth = 82 };
         var yMinimum = new TextBox { MinWidth = 68 }; var yMaximum = new TextBox { MinWidth = 68 };
         var waveUnit = new ComboBox { ItemsSource = new[] { "nm", "µm" }, SelectedIndex = 0, MinWidth = 75 };
@@ -52,7 +53,8 @@ public sealed partial class MainWindow
             var entry = new StackPanel { Orientation = Orientation.Horizontal, Children = { box, new TextBlock { Text = "°", VerticalAlignment = VerticalAlignment.Center } } };
             if (angleBoxes.Count > 1)
             {
-                var remove = new Button { Content = "×", Padding = new Thickness(4), Margin = new Thickness(2, 0, 4, 0) };
+                var remove = new Button { Content = new LocalIcon { IconName = "action-remove", Width = 16, Height = 16 }, Padding = new Thickness(4), Margin = new Thickness(2, 0, 4, 0) };
+                AutomationProperties.SetName(remove, "删除评估角度");
                 remove.Click += (_, _) => { angleBoxes.Remove(box); angles.Children.Remove(entry); add.IsEnabled = angleBoxes.Count < 16; Edited(); };
                 entry.Children.Add(remove);
             }

@@ -36,7 +36,7 @@ public sealed partial class MainWindow
         });
         _officialExampleNotes.FontSize = Services.DisplayTypography.CompactBody;
         ToolTip.SetTip(_officialExample, "AutoLens 官方目标预设");
-        return Section("从预设开始", "sparkles", _officialExample, _loadOfficialExample,
+        return Section("从预设开始", "optical-examples", _officialExample, _loadOfficialExample,
             Hint("仅载入目标参数，不自动开始搜索。"),
             Disclosure("来源与适配说明", "OfficialExampleSource", _officialExampleNotes,
                 Hint("原版默认流程和 README 目标分别保留来源；运行预算见当前参数，不代表设计已经达标。"),

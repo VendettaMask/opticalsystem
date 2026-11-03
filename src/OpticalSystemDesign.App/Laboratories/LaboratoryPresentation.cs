@@ -106,7 +106,7 @@ internal static class LaboratoryPresentation
     {
         text.FontSize = DisplayTypography.BodySmall;
         var panel = new Grid { ColumnDefinitions = new("Auto,*"), ColumnSpacing = 8, Margin = new Thickness(12, 9) };
-        var glyph = new LocalIcon { IconName = "info", Width = 15, Height = 15, VerticalAlignment = VerticalAlignment.Top };
+        var glyph = new LocalIcon { IconName = "information-note", Width = 15, Height = 15, VerticalAlignment = VerticalAlignment.Top };
         glyph.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextMuted);
         panel.Children.Add(glyph); Grid.SetColumn(text, 1); panel.Children.Add(text);
         return Card(panel, "LaboratoryStatus");

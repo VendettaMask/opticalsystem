@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="50f2efcd-5bd3-421c-940f-36641641c6d9" name="optics@LAPTOP-G4BBBCS0 2026-11-03 09:52:44" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T09:52:44.7359380+08:00" queuing="2026-11-03T09:52:44.7359383+08:00" start="2026-11-03T09:52:40.4840728+08:00" finish="2026-11-03T09:52:55.9387567+08:00" />
+  <TestSettings name="default" id="a5eee3c9-b5a8-4e97-9193-13a86b955f40">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_09_52_44" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b338d13a-599b-497f-b9cf-483b0464a549" testId="cee10f12-649d-d483-08fe-fe8c49afad28" testName="OpticalSystemDesign.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 0.01, expected: &quot;0.01&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000016" startTime="2026-11-03T09:52:55.8147247+08:00" endTime="2026-11-03T09:52:55.8147680+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b338d13a-599b-497f-b9cf-483b0464a549" />
+    <UnitTestResult executionId="ba89b21f-1646-4f5e-be9e-d6bdd59894db" testId="9027f67a-fc35-6eaf-fd50-072d5d88d7e1" testName="OpticalSystemDesign.Tests.SurfaceEditorRowTests.ImageSurfaceThicknessDisplaysDashAndCannotBeEdited" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000952" startTime="2026-11-03T09:52:43.2261128+08:00" endTime="2026-11-03T09:52:43.2261790+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba89b21f-1646-4f5e-be9e-d6bdd59894db" />
+    <UnitTestResult executionId="b79d1146-d1c6-46b5-af5f-537228b475f4" testId="8f8e4353-4b64-0a11-6ac7-391cb31d0e5f" testName="OpticalSystemDesign.Tests.SurfaceEditorRowTests.PlaneRadiusDisplaysAsInfinityAndAcceptsInfinityText" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0005107" startTime="2026-11-03T09:52:43.2258828+08:00" endTime="2026-11-03T09:52:43.2259385+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b79d1146-d1c6-46b5-af5f-537228b475f4" />
+    <UnitTestResult executionId="06333e53-3300-4054-9cc6-e511a134eb8b" testId="fc795d34-45e0-0653-9c11-eccf49425d87" testName="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload" computerName="LAPTOP-G4BBBCS0" duration="00:00:12.5974176" startTime="2026-11-03T09:52:43.2280896+08:00" endTime="2026-11-03T09:52:55.8105225+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="06333e53-3300-4054-9cc6-e511a134eb8b" />
+    <UnitTestResult executionId="d60606d5-cd2d-4b70-9bd2-de6bc992d7e5" testId="0dc74c76-d5f2-8e14-d035-c44267e279e2" testName="OpticalSystemDesign.Tests.SurfaceEditorRowTests.InvalidNumbersRejectWithoutChangingTheRow(text: &quot;NaN&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0002217" startTime="2026-11-03T09:52:43.2234645+08:00" endTime="2026-11-03T09:52:43.2235802+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d60606d5-cd2d-4b70-9bd2-de6bc992d7e5" />
+    <UnitTestResult executionId="0625b0be-db82-475a-a5e4-adda2293397b" testId="5b805d46-16d0-bae8-a518-317b980f21c7" testName="OpticalSystemDesign.Tests.SurfaceEditorRowTests.InvalidNumbersRejectWithoutChangingTheRow(text: &quot;1e999&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0115306" startTime="2026-11-03T09:52:43.2114922+08:00" endTime="2026-11-03T09:52:43.2137294+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0625b0be-db82-475a-a5e4-adda2293397b" />
+    <UnitTestResult executionId="6bd1f751-2efa-42b7-bac2-b8adf6039617" testId="c6a65a82-91e7-4548-a4e8-cc7ce63477d6" testName="OpticalSystemDesign.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 9999, expected: &quot;9999&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000083" startTime="2026-11-03T09:52:55.8144222+08:00" endTime="2026-11-03T09:52:55.8144809+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6bd1f751-2efa-42b7-bac2-b8adf6039617" />
+    <UnitTestResult executionId="fbf8dc73-da75-4704-af10-11e4db70b93d" testId="ae758b3f-2f13-33dd-6cd1-23dd71e1cbd2" testName="OpticalSystemDesign.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 10000, expected: &quot;1E+4&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0002572" startTime="2026-11-03T09:52:55.8140233+08:00" endTime="2026-11-03T09:52:55.8141382+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fbf8dc73-da75-4704-af10-11e4db70b93d" />
+    <UnitTestResult executionId="b24862ef-db2d-4c28-989f-bad5a144b1f9" testId="b4ad482f-78bf-7e29-75d8-26d8738bfce7" testName="OpticalSystemDesign.Tests.SurfaceEditorRowTests.ThicknessInfinityIsExplicitAndOnlyAllowedForTheObject" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0034747" startTime="2026-11-03T09:52:43.2256434+08:00" endTime="2026-11-03T09:52:43.2257199+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b24862ef-db2d-4c28-989f-bad5a144b1f9" />
+    <UnitTestResult executionId="a402ed6c-71c8-40d1-ad31-7f47bce51b73" testId="e595480a-9391-ed76-3daa-c230a019431b" testName="OpticalSystemDesign.Tests.SurfaceEditorRowTests.SemiDiameterBelowTheExistingMinimumIsRejectedInsteadOfSilentlyClamped" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0002351" startTime="2026-11-03T09:52:43.2263141+08:00" endTime="2026-11-03T09:52:43.2263618+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a402ed6c-71c8-40d1-ad31-7f47bce51b73" />
+    <UnitTestResult executionId="576816df-7b44-4eab-88f3-a272f37e066c" testId="3d3f01ca-cb43-28c7-a9a7-a99d1dec3ffd" testName="OpticalSystemDesign.Tests.SurfaceEditorRowTests.InvalidNumbersRejectWithoutChangingTheRow(text: &quot;abc&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000410" startTime="2026-11-03T09:52:43.2242778+08:00" endTime="2026-11-03T09:52:43.2243610+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="576816df-7b44-4eab-88f3-a272f37e066c" />
+    <UnitTestResult executionId="cb8a394d-4eba-4b58-9d84-4f924212e68e" testId="bdc94f4a-f9cb-2dc4-f6c7-622334e8aba7" testName="OpticalSystemDesign.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 12.345000000000001, expected: &quot;12.35&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000022" startTime="2026-11-03T09:52:55.8145799+08:00" endTime="2026-11-03T09:52:55.8146448+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb8a394d-4eba-4b58-9d84-4f924212e68e" />
+    <UnitTestResult executionId="c11fa601-7989-486c-a0b3-ae99b7e01403" testId="b62abf7e-db4e-70df-2d13-40115c33b91a" testName="OpticalSystemDesign.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 0.001, expected: &quot;1E-3&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0002759" startTime="2026-11-03T09:52:55.8142611+08:00" endTime="2026-11-03T09:52:55.8143171+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c11fa601-7989-486c-a0b3-ae99b7e01403" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceEditorRowTests.SemiDiameterBelowTheExistingMinimumIsRejectedInsteadOfSilentlyClamped" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e595480a-9391-ed76-3daa-c230a019431b">
+      <Execution id="a402ed6c-71c8-40d1-ad31-7f47bce51b73" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceEditorRowTests" name="SemiDiameterBelowTheExistingMinimumIsRejectedInsteadOfSilentlyClamped" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceEditorRowTests.ThicknessInfinityIsExplicitAndOnlyAllowedForTheObject" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b4ad482f-78bf-7e29-75d8-26d8738bfce7">
+      <Execution id="b24862ef-db2d-4c28-989f-bad5a144b1f9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceEditorRowTests" name="ThicknessInfinityIsExplicitAndOnlyAllowedForTheObject" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 0.01, expected: &quot;0.01&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="cee10f12-649d-d483-08fe-fe8c49afad28">
+      <Execution id="b338d13a-599b-497f-b9cf-483b0464a549" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisGuiContractTests" name="NumericDisplayFormatterHonorsPrecisionAndExponentThresholds" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceEditorRowTests.InvalidNumbersRejectWithoutChangingTheRow(text: &quot;NaN&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0dc74c76-d5f2-8e14-d035-c44267e279e2">
+      <Execution id="d60606d5-cd2d-4b70-9bd2-de6bc992d7e5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceEditorRowTests" name="InvalidNumbersRejectWithoutChangingTheRow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 10000, expected: &quot;1E+4&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ae758b3f-2f13-33dd-6cd1-23dd71e1cbd2">
+      <Execution id="fbf8dc73-da75-4704-af10-11e4db70b93d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisGuiContractTests" name="NumericDisplayFormatterHonorsPrecisionAndExponentThresholds" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceEditorRowTests.ImageSurfaceThicknessDisplaysDashAndCannotBeEdited" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9027f67a-fc35-6eaf-fd50-072d5d88d7e1">
+      <Execution id="ba89b21f-1646-4f5e-be9e-d6bdd59894db" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceEditorRowTests" name="ImageSurfaceThicknessDisplaysDashAndCannotBeEdited" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 12.345000000000001, expected: &quot;12.35&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="bdc94f4a-f9cb-2dc4-f6c7-622334e8aba7">
+      <Execution id="cb8a394d-4eba-4b58-9d84-4f924212e68e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisGuiContractTests" name="NumericDisplayFormatterHonorsPrecisionAndExponentThresholds" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceEditorRowTests.InvalidNumbersRejectWithoutChangingTheRow(text: &quot;1e999&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5b805d46-16d0-bae8-a518-317b980f21c7">
+      <Execution id="0625b0be-db82-475a-a5e4-adda2293397b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceEditorRowTests" name="InvalidNumbersRejectWithoutChangingTheRow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 0.001, expected: &quot;1E-3&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b62abf7e-db4e-70df-2d13-40115c33b91a">
+      <Execution id="c11fa601-7989-486c-a0b3-ae99b7e01403" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisGuiContractTests" name="NumericDisplayFormatterHonorsPrecisionAndExponentThresholds" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceEditorRowTests.InvalidNumbersRejectWithoutChangingTheRow(text: &quot;abc&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3d3f01ca-cb43-28c7-a9a7-a99d1dec3ffd">
+      <Execution id="576816df-7b44-4eab-88f3-a272f37e066c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceEditorRowTests" name="InvalidNumbersRejectWithoutChangingTheRow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests.StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fc795d34-45e0-0653-9c11-eccf49425d87">
+      <Execution id="06333e53-3300-4054-9cc6-e511a134eb8b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfacePropertiesPanelTests" name="StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SurfaceEditorRowTests.PlaneRadiusDisplaysAsInfinityAndAcceptsInfinityText" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8f8e4353-4b64-0a11-6ac7-391cb31d0e5f">
+      <Execution id="b79d1146-d1c6-46b5-af5f-537228b475f4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SurfaceEditorRowTests" name="PlaneRadiusDisplaysAsInfinityAndAcceptsInfinityText" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisGuiContractTests.NumericDisplayFormatterHonorsPrecisionAndExponentThresholds(value: 9999, expected: &quot;9999&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c6a65a82-91e7-4548-a4e8-cc7ce63477d6">
+      <Execution id="6bd1f751-2efa-42b7-bac2-b8adf6039617" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisGuiContractTests" name="NumericDisplayFormatterHonorsPrecisionAndExponentThresholds" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="cee10f12-649d-d483-08fe-fe8c49afad28" executionId="b338d13a-599b-497f-b9cf-483b0464a549" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9027f67a-fc35-6eaf-fd50-072d5d88d7e1" executionId="ba89b21f-1646-4f5e-be9e-d6bdd59894db" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8f8e4353-4b64-0a11-6ac7-391cb31d0e5f" executionId="b79d1146-d1c6-46b5-af5f-537228b475f4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc795d34-45e0-0653-9c11-eccf49425d87" executionId="06333e53-3300-4054-9cc6-e511a134eb8b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0dc74c76-d5f2-8e14-d035-c44267e279e2" executionId="d60606d5-cd2d-4b70-9bd2-de6bc992d7e5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5b805d46-16d0-bae8-a518-317b980f21c7" executionId="0625b0be-db82-475a-a5e4-adda2293397b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c6a65a82-91e7-4548-a4e8-cc7ce63477d6" executionId="6bd1f751-2efa-42b7-bac2-b8adf6039617" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ae758b3f-2f13-33dd-6cd1-23dd71e1cbd2" executionId="fbf8dc73-da75-4704-af10-11e4db70b93d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b4ad482f-78bf-7e29-75d8-26d8738bfce7" executionId="b24862ef-db2d-4c28-989f-bad5a144b1f9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e595480a-9391-ed76-3daa-c230a019431b" executionId="a402ed6c-71c8-40d1-ad31-7f47bce51b73" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d3f01ca-cb43-28c7-a9a7-a99d1dec3ffd" executionId="576816df-7b44-4eab-88f3-a272f37e066c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bdc94f4a-f9cb-2dc4-f6c7-622334e8aba7" executionId="cb8a394d-4eba-4b58-9d84-4f924212e68e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b62abf7e-db4e-70df-2d13-40115c33b91a" executionId="c11fa601-7989-486c-a0b3-ae99b7e01403" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="13" executed="13" passed="13" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.59]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.11]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.16]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:14.81]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

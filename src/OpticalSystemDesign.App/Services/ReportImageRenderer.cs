@@ -101,8 +101,7 @@ internal sealed class ReportImageRenderer(Border host)
                     || (long)pixels.Width * pixels.Height > 33_554_432)
                     throw new InvalidOperationException("截图尺寸超过上限，请减少分析中同时显示的子图数量。");
                 if (control is UniformDiagramPage source) source.ValidateForExport();
-                using var bitmap = ExportImageFrame.Capture(control,
-                    control is UniformDiagramPage ? UniformDiagramPage.ExportScale : 1);
+                using var bitmap = ExportImageFrame.CaptureForReport(control);
                 var file = Path.Combine(directory, fileName);
                 AnalysisPanel.SavePlotImage(bitmap, file);
                 files.Add(fileName);

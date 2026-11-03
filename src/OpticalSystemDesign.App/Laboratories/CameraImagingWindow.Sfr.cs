@@ -248,7 +248,7 @@ public sealed partial class CameraImagingWindow
         var page = _sfrGraph.Content as ResponsiveAnalysisPlotHost ?? throw new InvalidOperationException("先显示斜边曲线。");
         page.UpdateLayout(); var content = page.Child ?? throw new InvalidOperationException("曲线尚未显示。");
         if (content is UniformDiagramPage source) source.ValidateForExport();
-        return ExportImageFrame.Capture(content, UniformDiagramPage.ExportScale, this);
+        return ExportImageFrame.CaptureConfigured(content, this);
     }
     private async Task SaveSfrPngAsync()
     {

@@ -78,14 +78,14 @@ public sealed partial class MainWindow
             {
                 var material = _session.Current.Materials.FirstOrDefault(m => m.Id == layer.MaterialId) ?? _materials.Select(layer.MaterialId);
                 var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;
-                return new CoatingStackLayer(i + 1, layer.MaterialId, material.Name, layer.ThicknessNm, color);
+                return new CoatingStackLayer(i + 1, layer.MaterialId, material.Name, layer.ThicknessNm, color) { FaceNumber = layers.Length - i };
             }).ToArray();
             var rear = backLayers.Select((layer, i) =>
             {
                 var material = _session.Current.Materials.FirstOrDefault(m => m.Id == layer.MaterialId) ?? _materials.Select(layer.MaterialId);
                 var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;
                 return new CoatingStackLayer(layers.Length + backLayers.Length - i, layer.MaterialId, material.Name, layer.ThicknessNm, color)
-                { Side = "背面", FaceNumber = i + 1 };
+                { Side = "背面", FaceNumber = backLayers.Length - i };
             }).ToArray();
             _stackAnalysisView.SetSnapshot(new(_name.Text ?? "", incident.Name, substrate.Name, exit.Name,
                 thickness, wavelength, angle, Array.AsReadOnly(films), _uiRevision) { BackLayers = Array.AsReadOnly(rear) });

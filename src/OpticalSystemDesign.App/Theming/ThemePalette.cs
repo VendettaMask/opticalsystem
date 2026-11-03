@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
+using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Theming;
@@ -170,7 +171,11 @@ internal sealed record ThemePalette(
             [ThemeResourceBindings.SettingsSurface] = Brush(SettingsSurface),
             [ThemeResourceBindings.SettingsOverlaySurface] = Brush(SettingsOverlaySurface),
             [ThemeResourceBindings.Workspace] = Brush(Workspace),
+            [ThemeResourceBindings.WorkbenchBackdrop] = Brush(Workspace),
+            [ThemeResourceBindings.ShellBackground] = Brush(Workspace),
             [ThemeResourceBindings.Sidebar] = Brush(Workspace),
+            [ThemeResourceBindings.SidebarSectionSurface] = Brush(Surface),
+            [ThemeResourceBindings.SidebarSectionContent] = Brush(Surface),
             [ThemeResourceBindings.HeaderBackground] = Brush(Surface),
             [ThemeResourceBindings.TableHeader] = Brush(Surface),
             [ThemeResourceBindings.LensEditorHeaderBackground] = Brush(SubtleSurface),
@@ -233,7 +238,7 @@ internal sealed record ThemePalette(
             [ThemeLayoutResources.RibbonCommandContentMinHeight] = 18d,
             [ThemeLayoutResources.RibbonCommandContentSpacing] = 6d,
             [ThemeLayoutResources.RibbonCommandIconSize] = 18d,
-            [ThemeLayoutResources.RibbonCommandStrokeWidth] = 1.8d,
+            [ThemeLayoutResources.RibbonCommandStrokeWidth] = ScientificSvgArtwork.SourceStrokeWidth,
             [ThemeLayoutResources.RibbonCommandTextMaxWidth] = double.PositiveInfinity,
             [ThemeResourceBindings.SectionHeaderBackground] = Brush(Surface),
             [ThemeResourceBindings.SectionHeaderForeground] = Brush(TextPrimary),

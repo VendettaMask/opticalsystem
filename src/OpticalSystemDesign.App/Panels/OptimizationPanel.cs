@@ -70,19 +70,19 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         _optimizerPicker.ItemsSource = optimization.OptimizerNames;
         _grid = CreateGrid();
 
-        var addButton = CommandButton("plus", "添加");
+        var addButton = CommandButton("action-add", "添加");
         addButton.Click += (_, _) => AddOperand();
-        var removeButton = CommandButton("trash-2", "删除");
+        var removeButton = CommandButton("action-delete", "删除");
         removeButton.Click += (_, _) => RemoveSelected();
-        var upButton = CommandButton("arrow-up", "上移");
+        var upButton = CommandButton("action-move-up", "上移");
         upButton.Click += (_, _) => MoveSelected(-1);
-        var downButton = CommandButton("arrow-down", "下移");
+        var downButton = CommandButton("action-move-down", "下移");
         downButton.Click += (_, _) => MoveSelected(1);
-        var wizardButton = CommandButton("sparkles", "优化向导");
+        var wizardButton = CommandButton("optimization-wizard", "优化向导");
         wizardButton.Click += async (_, _) => await ShowWizardAsync();
-        var refreshButton = CommandButton("refresh-cw", "重新计算");
+        var refreshButton = CommandButton("action-recalculate", "重新计算");
         refreshButton.Click += (_, _) => Refresh();
-        var runButton = CommandButton("play", "执行优化");
+        var runButton = CommandButton("action-run", "执行优化");
         runButton.Classes.Add("accent");
         runButton.Click += async (_, _) => await RunAsync();
 

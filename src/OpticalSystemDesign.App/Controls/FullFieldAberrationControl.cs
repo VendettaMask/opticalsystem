@@ -14,6 +14,7 @@ public sealed class FullFieldAberrationControl : Control, IReadOnlyChartAutomati
 {
     public FullFieldAberrationControl()
     {
+        ScientificColorMaps.Track(this);
         ClipToBounds = true;
         AutomationProperties.SetName(this, "全视场像差图");
         AutomationProperties.SetHelpText(this, "只读图表；可在分析结果的数据页查看完整数据。");
@@ -135,7 +136,7 @@ public sealed class FullFieldAberrationControl : Control, IReadOnlyChartAutomati
                 var colorFraction = Math.Abs(maximum - minimum) <= 1e-15
                     ? 0.5
                     : (value - minimum) / (maximum - minimum);
-                var color = HeatColor(colorFraction);
+                var color = ScientificColorMaps.ColorFor(ScientificColorMaps.Current, colorFraction);
                 context.DrawEllipse(new SolidColorBrush(color), axisPen, center, radius, radius);
             }
             else
@@ -159,20 +160,6 @@ public sealed class FullFieldAberrationControl : Control, IReadOnlyChartAutomati
                 .DefaultIfEmpty(fallbackWidth)
                 .Min()
             : fallbackWidth;
-    }
-
-    private static Color HeatColor(double value)
-    {
-        value = Math.Clamp(value, 0, 1);
-        return value < 0.5
-            ? Color.FromRgb(
-                (byte)(40 + (value * 2 * 190)),
-                (byte)(90 + (value * 2 * 130)),
-                235)
-            : Color.FromRgb(
-                235,
-                (byte)(220 - ((value - 0.5) * 2 * 170)),
-                (byte)(235 - ((value - 0.5) * 2 * 200)));
     }
 
     private static string FormatTick(double value)

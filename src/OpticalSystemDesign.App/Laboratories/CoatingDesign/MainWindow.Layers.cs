@@ -5,11 +5,13 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Shapes;
 using Avalonia.Controls.Templates;
 using Avalonia.Data;
+using Avalonia.Data.Converters;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Styling;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.Core.Materials;
 
 namespace OpticalSystemDesign.App.Laboratories.CoatingDesign;
@@ -48,7 +50,7 @@ public sealed partial class MainWindow
         var table = new DataGrid
         {
             Name = "CoatingLayerTable",
-            ItemsSource = _rows,
+            ItemsSource = _displayRows,
             AutoGenerateColumns = false,
             CanUserSortColumns = false,
             CanUserReorderColumns = false,
@@ -64,7 +66,8 @@ public sealed partial class MainWindow
         headers.Setters.Add(new Setter(ForegroundProperty, new DynamicResourceExtension(ThemeResourceBindings.TextSecondary)));
         headers.Setters.Add(new Setter(BorderBrushProperty, new DynamicResourceExtension("DataGridGridLinesBrush")));
         headers.Setters.Add(new Setter(BorderThicknessProperty, new Thickness(0, 1, 0, 1)));
-        headers.Setters.Add(new Setter(PaddingProperty, new Thickness(12, 0)));
+        headers.Setters.Add(new Setter(PaddingProperty, new Thickness(10, 2, 10, Math.Max(24, table.FontSize * 1.5) + 2)));
+        headers.Setters.Add(new Setter(FontSizeProperty, new Binding(nameof(DataGrid.FontSize)) { Source = table }));
         headers.Setters.Add(new Setter(HorizontalContentAlignmentProperty, HorizontalAlignment.Stretch));
         table.Styles.Add(headers);
 
@@ -72,98 +75,107 @@ public sealed partial class MainWindow
         numberTheme.Setters.Add(new Setter(NameProperty, "CoatingLayerNumberCell"));
         table.Columns.Add(new DataGridTextColumn
         {
-            Header = LayerHeader("层序", TextAlignment.Center), Binding = new Binding(nameof(LayerRow.Number)), IsReadOnly = true,
+            Header = LayerHeader("#", TextAlignment.Center), Binding = new Binding(nameof(LayerRow.Number)), IsReadOnly = true,
             Width = new DataGridLength(52), CellTheme = numberTheme
         });
         table.Columns.Add(new DataGridTemplateColumn
         {
-            Header = "材料", IsReadOnly = true, MinWidth = 120,
+            Header = "材料", IsReadOnly = true, MinWidth = 220,
             ClipboardContentBinding = new Binding(nameof(LayerRow.MaterialName)),
             Width = new DataGridLength(1, DataGridLengthUnitType.Star),
             CellTheme = LayerCellTheme(HorizontalAlignment.Stretch),
             CellTemplate = new FuncDataTemplate<LayerRow>((_, _) =>
             {
-                var row = new Grid { ColumnDefinitions = new("Auto,Auto,*"), ColumnSpacing = 9, ClipToBounds = true };
-                var marker = new Ellipse
+                var picker = new ComboBox { Name = "CoatingRowMaterial", ItemsSource = _rowMaterialIds, HorizontalAlignment = HorizontalAlignment.Stretch,
+                    HorizontalContentAlignment = HorizontalAlignment.Stretch, MinWidth = 0, Margin = new(0, 2), Padding = new(5, 1) };
+                picker.Bind(FontSizeProperty, new Binding(nameof(DataGrid.FontSize)) { Source = table });
+                picker.ItemTemplate = new FuncDataTemplate<string>((id, _) =>
                 {
-                    Name = "CoatingMaterialMarker", Width = 9, Height = 9,
-                    VerticalAlignment = VerticalAlignment.Center, IsHitTestVisible = false
-                };
-                marker.Bind(Shape.FillProperty, new Binding(nameof(LayerRow.MaterialBrush)));
-                var name = new TextBlock
+                    var material = _session.Current.Materials.Concat(_materials.Films).FirstOrDefault(m => m.Id == id);
+                    var content = new Grid { ColumnDefinitions = new("Auto,*"), ColumnSpacing = 8, ClipToBounds = true };
+                    var marker = new Ellipse { Name = "CoatingMaterialMarker", Width = 13, Height = 13, Fill = MaterialBrushFor(id ?? ""), VerticalAlignment = VerticalAlignment.Center };
+                    var label = new TextBlock { Name = "CoatingMaterialLabel", Text = material?.Name ?? id, TextTrimming = TextTrimming.CharacterEllipsis, VerticalAlignment = VerticalAlignment.Center };
+                    label.Bind(TextBlock.FontSizeProperty, new Binding(nameof(DataGrid.FontSize)) { Source = table });
+                    ToolTip.SetTip(content, material?.Name ?? id); content.Children.Add(marker); Grid.SetColumn(label, 1); content.Children.Add(label); return content;
+                });
+                picker.Bind(ComboBox.SelectedItemProperty, new Binding(nameof(LayerRow.MaterialId)) { Mode = BindingMode.OneWay });
+                picker.SelectionChanged += (_, _) =>
                 {
-                    Name = "CoatingMaterialLabel", VerticalAlignment = VerticalAlignment.Center, FontWeight = FontWeight.Medium,
-                    TextTrimming = TextTrimming.CharacterEllipsis, MaxWidth = 220
+                    if (!_loading && picker.DataContext is LayerRow row && picker.SelectedItem is string id && id != row.MaterialId)
+                        TrackOperation(() => ChangeInlineMaterialAsync(row, id));
                 };
-                name.Bind(TextBlock.TextProperty, new Binding(nameof(LayerRow.MaterialLabel)));
-                var annotation = new TextBlock
-                {
-                    Name = "CoatingMaterialAnnotation", VerticalAlignment = VerticalAlignment.Center,
-                    TextTrimming = TextTrimming.CharacterEllipsis
-                };
-                annotation.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextMuted);
-                annotation.Bind(TextBlock.TextProperty, new Binding(nameof(LayerRow.MaterialAnnotation)));
-                row.Bind(ToolTip.TipProperty, new Binding(nameof(LayerRow.MaterialName)));
-                row.Children.Add(marker); Grid.SetColumn(name, 1); row.Children.Add(name);
-                Grid.SetColumn(annotation, 2); row.Children.Add(annotation);
-                row.SizeChanged += (_, _) => name.MaxWidth = Math.Max(16, row.Bounds.Width - 27);
-                return row;
-            }, supportsRecycling: true)
+                return picker;
+            })
         });
         table.Columns.Add(new DataGridTextColumn
         {
-            Header = LayerHeader("物理厚度 (nm)", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.ThicknessText)) { Mode = BindingMode.TwoWay },
-            Width = new DataGridLength(148), CellTheme = LayerCellTheme(HorizontalAlignment.Right, numeric: true)
+            Header = LayerHeader("d (nm)", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.ThicknessText)) { Mode = BindingMode.TwoWay },
+            Width = new DataGridLength(148), FontWeight = FontWeight.SemiBold, CellTheme = LayerCellTheme(HorizontalAlignment.Right, numeric: true)
         });
         var opticalTheme = LayerCellTheme(HorizontalAlignment.Right, numeric: true);
         opticalTheme.Setters.Add(new Setter(ToolTip.TipProperty, new Binding(nameof(LayerRow.OpticalThicknessHelp))));
         table.Columns.Add(new DataGridTextColumn
         {
-            Header = LayerHeader("光学厚度 (nm)", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.OpticalThicknessText)) { Mode = BindingMode.TwoWay },
+            Header = LayerHeader("OT", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.OpticalThicknessText)) { Mode = BindingMode.TwoWay },
             Width = new DataGridLength(148), CellTheme = opticalTheme
         });
         table.Columns.Add(new DataGridTextColumn
         { Header = LayerHeader("QW", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.QuarterWaveText)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(100), CellTheme = opticalTheme });
         table.Columns.Add(new DataGridTextColumn
         { Header = LayerHeader("FW", TextAlignment.Right), Binding = new Binding(nameof(LayerRow.FullWaveText)) { Mode = BindingMode.TwoWay }, Width = new DataGridLength(100), CellTheme = opticalTheme });
+        var rowToolsTheme = LayerCellTheme(HorizontalAlignment.Stretch, inset: false);
         table.Columns.Add(new DataGridTemplateColumn
         {
-            Header = LayerHeader("变量", TextAlignment.Center), Width = new DataGridLength(68),
+            Header = "", Width = new DataGridLength(136),
             ClipboardContentBinding = new Binding(nameof(LayerRow.Variable)),
-            CellTheme = LayerCellTheme(HorizontalAlignment.Stretch),
+            CellTheme = rowToolsTheme,
             CellTemplate = new FuncDataTemplate<LayerRow>((_, _) =>
             {
-                var check = new CheckBox
+                var actions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 2, VerticalAlignment = VerticalAlignment.Center };
+                var glyph = new LocalIcon { Width = 16, Height = 16 };
+                glyph.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextSecondary);
+                glyph.Bind(LocalIcon.IconNameProperty, new Binding(nameof(LayerRow.Locked)) { Converter = new FuncValueConverter<bool, string>(locked => locked ? "coating-layer-lock" : "coating-layer-unlock") });
+                var check = new ToggleButton { Name = "CoatingLayerLock", Content = glyph, Width = 30, Height = 32, Padding = new(4), MinHeight = 0, Background = Brushes.Transparent, BorderThickness = new(0) };
+                check.Bind(ToggleButton.IsCheckedProperty, new Binding(nameof(LayerRow.Locked)) { Mode = BindingMode.TwoWay });
+                AutomationProperties.SetName(check, "锁定膜层"); ToolTip.SetTip(check, "锁定：固定优化膜厚；仍允许手动编辑。"); actions.Children.Add(check);
+                foreach (var (name, icon, action) in new[] { ("膜层上移", "action-move-up", "up"), ("膜层下移", "action-move-down", "down"), ("删除膜层", "action-delete", "remove") })
                 {
-                    Name = "CoatingLayerVariable", HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center, HorizontalContentAlignment = HorizontalAlignment.Center,
-                    Width = 32, Height = 32, MinWidth = 32, MinHeight = 32, Padding = new Thickness(0)
-                };
-                check.Bind(ToggleButton.IsCheckedProperty, new Binding(nameof(LayerRow.Variable)) { Mode = BindingMode.TwoWay });
-                AutomationProperties.SetName(check, "参与膜厚优化");
-                ToolTip.SetTip(check, "勾选：优化膜厚；取消：固定膜厚");
-                return check;
+                    var rowIcon = new LocalIcon { IconName = icon, Width = 16, Height = 16 };
+                    rowIcon.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextSecondary);
+                    var button = new Button { Content = rowIcon, Width = 30, Height = 32, MinHeight = 0, Padding = new(4), Background = Brushes.Transparent, BorderThickness = new(0) };
+                    AutomationProperties.SetName(button, name); ToolTip.SetTip(button, name);
+                    if (action != "remove") button.Bind(IsEnabledProperty, new Binding(nameof(LayerRow.Number)) { Converter = new FuncValueConverter<int, bool>(number => action == "up" ? number > 1 : number < _rows.Count) });
+                    button.Click += (_, _) => { if (button.DataContext is LayerRow row) TrackOperation(() => RowCommandAsync(row, action)); }; actions.Children.Add(button);
+                }
+                return actions;
             }, supportsRecycling: true)
         });
         void UpdateDensity()
         {
             // Leave the user's font size intact, including larger accessibility settings.
             var scale = Math.Max(1, table.FontSize / 13);
-            table.RowHeight = 38 * scale;
-            table.ColumnHeaderHeight = 42 * scale;
-            table.Columns[0].Width = new DataGridLength(52 * scale);
-            table.Columns[2].Width = new DataGridLength(148 * scale);
-            table.Columns[3].Width = new DataGridLength(148 * scale);
-            table.Columns[4].Width = new DataGridLength(100 * scale);
-            table.Columns[5].Width = new DataGridLength(100 * scale);
-            table.Columns[6].Width = new DataGridLength(68 * scale);
+            foreach (var column in table.Columns.OfType<DataGridTextColumn>()) column.FontSize = table.FontSize;
+            foreach (var header in table.Columns.Select(c => c.Header).OfType<TextBlock>()) header.FontSize = table.FontSize;
+            var boundaryHeight = Math.Max(24, table.FontSize * 1.5); var headerHeight = Math.Max(34, table.FontSize * 1.7);
+            table.RowHeight = Math.Max(36, table.FontSize * 2);
+            table.ColumnHeaderHeight = headerHeight + boundaryHeight;
+            _substrateBand.Margin = new(0, headerHeight, 0, 0); _substrateBand.Height = boundaryHeight;
+            table.Columns[0].Width = new DataGridLength(40 * scale);
+            table.Columns[2].Width = new DataGridLength(84 * scale);
+            table.Columns[3].Width = new DataGridLength(84 * scale);
+            table.Columns[4].Width = new DataGridLength(84 * scale);
+            table.Columns[5].Width = new DataGridLength(84 * scale);
+            table.Columns[6].Width = new DataGridLength(136);
         }
         table.PropertyChanged += (_, e) => { if (e.Property == FontSizeProperty) UpdateDensity(); };
         UpdateDensity();
+        ToolTip.SetTip((Control)table.Columns[0].Header!, "从基底侧编号；保存及计算按外侧到基底的物理顺序。");
+        ToolTip.SetTip((Control)table.Columns[2].Header!, "物理厚度，单位nm。内部保留完整精度。");
+        ToolTip.SetTip((Control)table.Columns[3].Header!, "光学厚度n(λ₀)d，单位nm。");
         return table;
     }
 
-    private static ControlTheme LayerCellTheme(HorizontalAlignment alignment, bool numeric = false)
+    private static ControlTheme LayerCellTheme(HorizontalAlignment alignment, bool numeric = false, bool inset = true)
     {
         var theme = new ControlTheme(typeof(DataGridCell))
         {
@@ -173,7 +185,7 @@ public sealed partial class MainWindow
                 new Setter(DataGridCell.HorizontalContentAlignmentProperty, alignment),
                 new Setter(DataGridCell.VerticalContentAlignmentProperty, VerticalAlignment.Center),
                 // Text columns already give their display/editor a native horizontal inset.
-                new Setter(DataGridCell.PaddingProperty, numeric ? new Thickness(0) : new Thickness(12, 0))
+                new Setter(DataGridCell.PaddingProperty, numeric || !inset ? new Thickness(0) : new Thickness(12, 0))
             }
         };
         if (numeric) theme.Setters.Add(new Setter(FontFamilyProperty, new DynamicResourceExtension(ProductFonts.NumericResource)));

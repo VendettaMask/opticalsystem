@@ -30,9 +30,9 @@ public sealed partial class MainWindow
         var apply = ActionButton("采用候选", SelectCandidateAsync);
         Grid.SetColumn(apply, 1); candidates.Children.Add(apply);
         var content = new Grid { RowDefinitions = new("Auto,Auto,Auto,*"), RowSpacing = 10, Margin = new Thickness(16) };
-        content.Children.Add(LaboratoryPresentation.Heading("候选", "layers"));
+        content.Children.Add(LaboratoryPresentation.Heading("候选", "design-candidates"));
         Put(content, candidates, 1);
-        Put(content, LaboratoryPresentation.Heading("指标与公差", "chart-line"), 2);
+        Put(content, LaboratoryPresentation.Heading("指标与公差", "coating-tolerance-metrics"), 2);
         Put(content, new ScrollViewer
         {
             Name = "CoatingResultDetails",
@@ -61,7 +61,7 @@ public sealed partial class MainWindow
             GridLinesVisibility = DataGridGridLinesVisibility.Horizontal
         };
         _resultHeading = new TextBlock { Text = "结果 · 0 行", VerticalAlignment = VerticalAlignment.Center };
-        var disclosure = new OpticalSystemDesign.App.Controls.LocalIcon { IconName = "chevron-right", Width = 14, Height = 14, VerticalAlignment = VerticalAlignment.Center };
+        var disclosure = new OpticalSystemDesign.App.Controls.LocalIcon { IconName = "disclosure-closed", Width = 14, Height = 14, VerticalAlignment = VerticalAlignment.Center };
         disclosure.BindThemeResource(OpticalSystemDesign.App.Controls.LocalIcon.StrokeProperty, ThemeResourceBindings.TextSecondary);
         var heading = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 6, Children = { disclosure, _resultHeading } };
         _resultExpander = new Expander
@@ -72,8 +72,8 @@ public sealed partial class MainWindow
             HorizontalContentAlignment = HorizontalAlignment.Stretch
         };
         _resultExpander.Expanding += (_, _) => RefreshResultTable();
-        _resultExpander.Expanded += (_, _) => disclosure.IconName = "chevron-down";
-        _resultExpander.Collapsed += (_, _) => disclosure.IconName = "chevron-right";
+        _resultExpander.Expanded += (_, _) => disclosure.IconName = "disclosure-expand";
+        _resultExpander.Collapsed += (_, _) => disclosure.IconName = "disclosure-closed";
         var menu = new MenuFlyout();
         foreach (var (label, delimiter) in new[] { ("CSV", ','), ("TSV", '\t') })
         {
@@ -89,7 +89,7 @@ public sealed partial class MainWindow
         }); menu.Items.Add(copy);
         _resultExport = new DropDownButton
         {
-            Content = ToolContent("download", "导出"),
+            Content = ToolContent("file-export", "导出"),
             Flyout = menu,
             HorizontalAlignment = HorizontalAlignment.Right,
             Margin = new Thickness(0, 4, 6, 0),

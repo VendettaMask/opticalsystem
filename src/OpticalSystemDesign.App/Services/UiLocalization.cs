@@ -413,6 +413,33 @@ internal static partial class UiLocalization
         void Add(string source, string english, string japanese) =>
             values[source] = new Translation(english, japanese);
 
+        Add("分析图配色", "Analysis colormap", "解析カラーマップ");
+        Add("数值色图", "Scalar colormap", "数値カラーマップ");
+        Add("用于二维伪彩色与三维曲面；保留灰度显示。", "For 2D false-color maps and 3D surfaces; grayscale modes are retained.", "2D 疑似カラーと 3D 曲面に適用。グレースケール表示は維持します。");
+        Add("Viridis（紫—绿—黄）", "Viridis (purple–green–yellow)", "Viridis（紫・緑・黄）");
+        Add("红蓝（蓝—白—红）", "Red/blue (blue–white–red)", "赤青（青・白・赤）");
+        Add("Rainbow（Jet 彩虹）", "Rainbow (Jet)", "Rainbow（Jet）");
+        Add("Inferno（黑—红—黄）", "Inferno (black–red–yellow)", "Inferno（黒・赤・黄）");
+        Add("Gray（灰度）", "Gray (grayscale)", "Gray（グレースケール）");
+        Add("全局配色", "Global colormap", "共通カラーマップ");
+        Add("图像导出", "Image export", "画像の書き出し");
+        Add("分辨率预设", "Resolution preset", "解像度プリセット");
+        Add("导出 DPI", "Export DPI", "書き出し DPI");
+        Add("自定义 DPI", "Custom DPI", "カスタム DPI");
+        Add("自定义尺寸", "Custom size", "カスタムサイズ");
+        Add("2K（1440 高）", "2K (1440 high)", "2K（高さ 1440）");
+        Add("4K（2160 高）", "4K (2160 high)", "4K（高さ 2160）");
+        Add("像素高度", "Pixel height", "ピクセル高さ");
+        Add("像素宽度", "Pixel width", "ピクセル幅");
+        Add("原图比例", "Source aspect", "原図の比率");
+        Add("锁定原图长宽比", "Lock source aspect ratio", "原図の縦横比を固定");
+        Add("锁定时完整图框等比居中，不足处留白。", "When locked, center the complete frame at its original aspect ratio and pad the canvas.", "固定時は図枠全体の比率を維持して中央に配置し、余白を追加します。");
+        Add("DPI 预设", "DPI preset", "DPI プリセット");
+        Add("完整图框保留原比例，宽度自动计算。", "The complete frame keeps its aspect ratio; width is calculated automatically.", "図枠全体の縦横比を維持し、幅を自動計算します。");
+        Add("DPI 用于打印尺寸，不改变所选像素数。", "DPI controls print size; the selected pixel count is unchanged.", "DPI は印刷サイズを指定し、選択したピクセル数は変わりません。");
+        Add("选择输出 PNG 或 BMP 无损图片", "Choose a lossless PNG or BMP output image", "出力する可逆 PNG または BMP 画像を選択");
+        Add("预设按像素高度分档，完整图框保留原比例。", "Presets specify pixel height; the complete frame keeps its aspect ratio.", "プリセットはピクセル高さです。図枠全体の縦横比を維持します。");
+
         Add("取消更新", "Cancel update", "更新をキャンセル");
         Add("发现新版本，点击“下载更新”开始 OTA。", "An update is available. Select Download update to continue.", "更新があります。「更新をダウンロード」を選択してください。");
         Add("正在校验并准备更新…", "Verifying and preparing the update…", "更新を検証して準備中…");
@@ -433,6 +460,8 @@ internal static partial class UiLocalization
         // Initial-structure presentation; numeric values and search identities are not localized.
         Add("自动初始结构", "Automatic Initial Structure", "初期構造の自動生成");
         Add("自动初始结构工作区", "Initial Structure Workspace", "初期構造ワークスペース");
+        Add("实验记录", "Run records", "実行記録");
+        Add("设计工具", "Design tools", "設計ツール");
         Add("从预设开始", "Start from a Preset", "プリセットから開始");
         Add("仅载入目标参数，不自动开始搜索。", "Loads target parameters only; search starts separately.", "目標パラメータのみ読み込み、探索は別途開始します。");
         Add("来源与适配说明", "Source and Adaptations", "出典と調整内容");
@@ -668,6 +697,21 @@ internal static partial class UiLocalization
         Add("坐标与模拟说明", "Coordinates and Simulation Notes", "座標とシミュレーションの説明");
         Add("观察方向", "Viewing Direction", "観察方向");
         Add("表面共轭位置", "Surface Conjugate Positions", "面の共役位置");
+        Add("位置排序", "Sort by position", "位置順");
+        Add("计算共轭", "Calculate conjugates", "共役を計算");
+        Add("更新图像", "Update image", "画像を更新");
+        Add("暂无共轭结果", "No conjugate results", "共役結果はありません");
+        Add("尚无叉丝图像", "No reticle image", "レチクル像はありません");
+        Add("计算共轭位置后，选择顶点像或球心像。", "Calculate conjugates, then select a vertex or center image.", "共役位置を計算し、頂点像または曲率中心像を選択してください。");
+        Add("图像信息", "Image details", "画像情報");
+        Add("阶段总览", "Stage overview", "全段階");
+        Add("结果指标", "Result metrics", "結果指標");
+        Add("对照信息", "Comparison details", "比較情報");
+        Add("响应与噪声", "Response and noise", "応答とノイズ");
+        Add("固定 A", "Pin A", "Aに固定");
+        Add("输入说明", "Input details", "入力説明");
+        Add("适合窗口", "Fit to window", "ウィンドウに合わせる");
+        Add("并排对照", "Side by side", "並べて比較");
         Add("返回叉丝像", "Returned Reticle Image", "戻りレチクル像");
         Add("探测面物理尺寸 · 固定毫米刻度", "Physical detector dimensions · Fixed millimeter scale", "検出面の実寸 · 固定ミリメートル目盛");
         Add("设计目标", "Design Targets", "設計目標");

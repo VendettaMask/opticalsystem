@@ -1,0 +1,128 @@
+{
+  "date": "2026-11-03",
+  "style": "Optical Scientific Outline 1.2",
+  "usedSemanticDrawings": 221,
+  "newlyAuthored": 196,
+  "preservedApproved": 25,
+  "uiReferencesAndStates": 332,
+  "themedSvgs": 1105,
+  "allAfterBindingSourcesResolve": true,
+  "all221AreActuallyUsed": true,
+  "all72AnalysisCommandNamesLabelsAndGroupsPreserved": true,
+  "allNineMtfMethodsAndVariablesDistinct": true,
+  "allMasterFilesMatchSource": true,
+  "allThemeVariantsPreserveGeometry": true,
+  "nativeTestsPassed": 57,
+  "nativeTestsFailed": 0,
+  "nativeTestReports": [
+    {
+      "report": "semantic-native-final.trx",
+      "counters": {
+        "total": "42",
+        "executed": "42",
+        "passed": "42",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "c86f3a50d1bcbd61fe105a953770c34c0f7e7ed66b6f8522ff136815ed5205b4"
+    },
+    {
+      "report": "semantic-surface-final.trx",
+      "counters": {
+        "total": "8",
+        "executed": "8",
+        "passed": "8",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "ac62e16807cf48cfe85dcc5b82b88296f7ed6b2db389ece953ae7901c19ca3e1"
+    },
+    {
+      "report": "semantic-export-final.trx",
+      "counters": {
+        "total": "7",
+        "executed": "7",
+        "passed": "7",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "31b49a2e765e57987af9293daaf5c05eff95697348e40c751f6bc8cf800270e8"
+    }
+  ],
+  "galleryChecks": [
+    {
+      "name": "All 1105 themed SVGs visibly render with transparent backgrounds",
+      "result": "passed"
+    },
+    {
+      "name": "Nine MTF semantic drawings remain different in all themes at 18/24/32 pixels",
+      "result": "passed"
+    },
+    {
+      "name": "Complete gallery contains precisely 221 semantic drawings",
+      "result": "passed"
+    },
+    {
+      "name": "Function view preserves all 332 UI references and states",
+      "result": "passed"
+    },
+    {
+      "name": "MTF menu has nine independent drawings, no shared generic chart/scan placeholders",
+      "result": "passed"
+    },
+    {
+      "name": "Function search and detail describe the actual object/method/independent variable",
+      "result": "passed"
+    },
+    {
+      "name": "Single-icon downloads exactly match five-theme standalone exports",
+      "result": "passed"
+    },
+    {
+      "name": "Former question-mark fallbacks now have their own semantic drawings",
+      "result": "passed"
+    },
+    {
+      "name": "Mobile-width layout and JavaScript checks pass",
+      "result": "passed"
+    }
+  ],
+  "masterCombinedSha256": "c1115ad8d7f12c3fbb3b51859fc6005cfe505a85c62b3a06a84ebb7f200737cb",
+  "manifestSha256": "e0d1e9a4ab605d101bd0aa951de19dc3e75d4d275169aea61052f2ceb2bd8e95",
+  "currentUiScanSha256": "65ee96fc07de2db463f0187f9778ca495e70e0005dbc10ac5dc4d845e0707480",
+  "defaultBuild": "Release App, built-in dependencies and tests built in their standard output directories, 0 warnings / 0 errors.",
+  "scope": "Functional SVG/source/menu/pointer/export checks, all off-screen. No numerical engine changes, no foreground app restart, no precision-matrix certification claim."
+}

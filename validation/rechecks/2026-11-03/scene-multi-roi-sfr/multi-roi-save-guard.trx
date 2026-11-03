@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5cb18d54-7fe2-4bdb-a660-db8f096baf9b" name="optics@LAPTOP-G4BBBCS0 2026-11-03 16:31:29" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T16:31:29.2198020+08:00" queuing="2026-11-03T16:31:29.2198024+08:00" start="2026-11-03T16:31:15.3252266+08:00" finish="2026-11-03T16:32:14.0270105+08:00" />
+  <TestSettings name="default" id="6ba8de8d-ca01-40dc-95a6-f938c0ec5751">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_16_31_29" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="ac27906d-4e39-4c6f-a8cd-8f51f642dc26" testId="c3b07819-efcb-ae3a-d88d-237fe62abfbf" testName="OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.FullImageRoiManagementBothDirectionsProfilesAndFrozenRecordsRemainUsable(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:22.3860235" startTime="2026-11-03T16:31:30.0107381+08:00" endTime="2026-11-03T16:31:52.3973076+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ac27906d-4e39-4c6f-a8cd-8f51f642dc26" />
+    <UnitTestResult executionId="f3386171-0a3d-45f8-8ec1-fc5c1265eb72" testId="7590d119-29b9-7a2c-3226-24a1d8e22150" testName="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.RealFullFrameMultiTaskMeasurementRoundTripsWithoutRetracingAndRejectsWrongSourceOrEditedCurves" computerName="LAPTOP-G4BBBCS0" duration="00:00:10.3585345" startTime="2026-11-03T16:31:18.8432120+08:00" endTime="2026-11-03T16:31:29.1861394+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f3386171-0a3d-45f8-8ec1-fc5c1265eb72" />
+    <UnitTestResult executionId="cc7d39cc-bc05-4423-a7ea-13990bfa9f9a" testId="1de88bd5-da93-7bfd-3863-5cd9af84cd5f" testName="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.BadRoisStayIndependentAndNeverGetFabricatedCurves" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0146590" startTime="2026-11-03T16:31:29.2580430+08:00" endTime="2026-11-03T16:31:29.2723920+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc7d39cc-bc05-4423-a7ea-13990bfa9f9a" />
+    <UnitTestResult executionId="6cab0356-6076-4ea0-a557-1a6f411e63c9" testId="0eae5215-075f-2f30-597b-94f505fde8aa" testName="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: -0.123, reverse: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0107700" startTime="2026-11-03T16:31:29.2342431+08:00" endTime="2026-11-03T16:31:29.2448370+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6cab0356-6076-4ea0-a557-1a6f411e63c9" />
+    <UnitTestResult executionId="943ccc11-dd54-4013-9aa4-6cf1baa423e2" testId="46aceb35-1019-4110-0d1b-3a3a16f480ff" testName="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: 0.086999999999999994, reverse: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0112970" startTime="2026-11-03T16:31:29.2235256+08:00" endTime="2026-11-03T16:31:29.2339269+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="943ccc11-dd54-4013-9aa4-6cf1baa423e2" />
+    <UnitTestResult executionId="084f21d3-a5ed-48c0-ad40-6116c97fcd55" testId="8c31d309-fe13-ddfc-58ef-6a6da3bc59b1" testName="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: -0.123, reverse: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0348551" startTime="2026-11-03T16:31:29.2043137+08:00" endTime="2026-11-03T16:31:29.2226643+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="084f21d3-a5ed-48c0-ad40-6116c97fcd55" />
+    <UnitTestResult executionId="2ce07f87-f60a-4ea5-9693-cab4febc7819" testId="49ef2f4e-4f23-1849-ed00-653a8d128dbe" testName="OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.DragOnLetterboxedRasterKeepsOriginalPixelCoordinatesAfterResize" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7328025" startTime="2026-11-03T16:31:29.2774463+08:00" endTime="2026-11-03T16:31:30.0105203+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ce07f87-f60a-4ea5-9693-cab4febc7819" />
+    <UnitTestResult executionId="7b1cd60d-cb65-4aa4-993d-1309fa98d7cd" testId="4f377e34-273f-0c77-af04-88091d919ba1" testName="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: 0.086999999999999994, reverse: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0112885" startTime="2026-11-03T16:31:29.2451280+08:00" endTime="2026-11-03T16:31:29.2562825+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7b1cd60d-cb65-4aa4-993d-1309fa98d7cd" />
+    <UnitTestResult executionId="ffeaebcc-2d2a-44c5-a643-8457cba712cd" testId="7feb32fa-a932-cdf5-b985-755290d320ea" testName="OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.FullImageRoiManagementBothDirectionsProfilesAndFrozenRecordsRemainUsable(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:21.4713284" startTime="2026-11-03T16:31:52.3979848+08:00" endTime="2026-11-03T16:32:13.8691585+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ffeaebcc-2d2a-44c5-a643-8457cba712cd" />
+    <UnitTestResult executionId="7723a60a-f679-43da-a8e7-89f1f1e199fd" testId="d91509a9-4e90-055f-958b-c3f4807f804c" testName="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.BoundsUniqueNamesAndCancellationRemainExplicit" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0013300" startTime="2026-11-03T16:31:29.2568003+08:00" endTime="2026-11-03T16:31:29.2576538+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7723a60a-f679-43da-a8e7-89f1f1e199fd" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: 0.086999999999999994, reverse: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4f377e34-273f-0c77-af04-88091d919ba1">
+      <Execution id="7b1cd60d-cb65-4aa4-993d-1309fa98d7cd" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests" name="NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.FullImageRoiManagementBothDirectionsProfilesAndFrozenRecordsRemainUsable(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7feb32fa-a932-cdf5-b985-755290d320ea">
+      <Execution id="ffeaebcc-2d2a-44c5-a643-8457cba712cd" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests" name="FullImageRoiManagementBothDirectionsProfilesAndFrozenRecordsRemainUsable" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: -0.123, reverse: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0eae5215-075f-2f30-597b-94f505fde8aa">
+      <Execution id="6cab0356-6076-4ea0-a557-1a6f411e63c9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests" name="NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.BadRoisStayIndependentAndNeverGetFabricatedCurves" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1de88bd5-da93-7bfd-3863-5cd9af84cd5f">
+      <Execution id="cc7d39cc-bc05-4423-a7ea-13990bfa9f9a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests" name="BadRoisStayIndependentAndNeverGetFabricatedCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.FullImageRoiManagementBothDirectionsProfilesAndFrozenRecordsRemainUsable(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c3b07819-efcb-ae3a-d88d-237fe62abfbf">
+      <Execution id="ac27906d-4e39-4c6f-a8cd-8f51f642dc26" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests" name="FullImageRoiManagementBothDirectionsProfilesAndFrozenRecordsRemainUsable" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests.DragOnLetterboxedRasterKeepsOriginalPixelCoordinatesAfterResize" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="49ef2f4e-4f23-1849-ed00-653a8d128dbe">
+      <Execution id="2ce07f87-f60a-4ea5-9693-cab4febc7819" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SceneMultiRoiSfrWindowTests" name="DragOnLetterboxedRasterKeepsOriginalPixelCoordinatesAfterResize" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: 0.086999999999999994, reverse: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="46aceb35-1019-4110-0d1b-3a3a16f480ff">
+      <Execution id="943ccc11-dd54-4013-9aa4-6cf1baa423e2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests" name="NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(slope: -0.123, reverse: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8c31d309-fe13-ddfc-58ef-6a6da3bc59b1">
+      <Execution id="084f21d3-a5ed-48c0-ad40-6116c97fcd55" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests" name="NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.RealFullFrameMultiTaskMeasurementRoundTripsWithoutRetracingAndRejectsWrongSourceOrEditedCurves" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7590d119-29b9-7a2c-3226-24a1d8e22150">
+      <Execution id="f3386171-0a3d-45f8-8ec1-fc5c1265eb72" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests" name="RealFullFrameMultiTaskMeasurementRoundTripsWithoutRetracingAndRejectsWrongSourceOrEditedCurves" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests.BoundsUniqueNamesAndCancellationRemainExplicit" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d91509a9-4e90-055f-958b-c3f4807f804c">
+      <Execution id="7723a60a-f679-43da-a8e7-89f1f1e199fd" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SceneMultiRoiSfrTests" name="BoundsUniqueNamesAndCancellationRemainExplicit" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c3b07819-efcb-ae3a-d88d-237fe62abfbf" executionId="ac27906d-4e39-4c6f-a8cd-8f51f642dc26" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7590d119-29b9-7a2c-3226-24a1d8e22150" executionId="f3386171-0a3d-45f8-8ec1-fc5c1265eb72" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1de88bd5-da93-7bfd-3863-5cd9af84cd5f" executionId="cc7d39cc-bc05-4423-a7ea-13990bfa9f9a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0eae5215-075f-2f30-597b-94f505fde8aa" executionId="6cab0356-6076-4ea0-a557-1a6f411e63c9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="46aceb35-1019-4110-0d1b-3a3a16f480ff" executionId="943ccc11-dd54-4013-9aa4-6cf1baa423e2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c31d309-fe13-ddfc-58ef-6a6da3bc59b1" executionId="084f21d3-a5ed-48c0-ad40-6116c97fcd55" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49ef2f4e-4f23-1849-ed00-653a8d128dbe" executionId="2ce07f87-f60a-4ea5-9693-cab4febc7819" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4f377e34-273f-0c77-af04-88091d919ba1" executionId="7b1cd60d-cb65-4aa4-993d-1309fa98d7cd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7feb32fa-a932-cdf5-b985-755290d320ea" executionId="ffeaebcc-2d2a-44c5-a643-8457cba712cd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d91509a9-4e90-055f-958b-c3f4807f804c" executionId="7723a60a-f679-43da-a8e7-89f1f1e199fd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="10" executed="10" passed="10" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.31]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.91]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.95]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:58.04]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

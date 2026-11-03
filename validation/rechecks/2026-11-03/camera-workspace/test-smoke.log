@@ -1,0 +1,45 @@
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:09.38]     OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: "camera", theme: "Light", language: "ja-JP", width: 760, height: 680, fontSize: 18) [FAIL]
+  失败 OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(module: "camera", theme: "Light", language: "ja-JP", width: 760, height: 680, fontSize: 18) [7 s]
+  错误消息:
+   Assert.InRange() Failure: Value not in range
+Range:  (0 - 760.10000000000002)
+Actual: 788
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LaboratoryPresentationTests.<>c__DisplayClass1_0.<LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LaboratoryPresentationTests.cs:line 62
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.LaboratoryPresentationTests.LaboratoryCardsKeepCommandsAndEditorsReachableAcrossLanguagesAndSizes(String module, String theme, String language, Int32 width, Int32 height, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LaboratoryPresentationTests.cs:line 36
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:45.60]     OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: "Dark") [FAIL]
+  失败 OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: "Dark") [4 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.CameraImagingWindowTests.<>c__DisplayClass2_0.<<StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs:line 103
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs:line 81
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:49.51]     OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: "Light") [FAIL]
+  失败 OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(theme: "Light") [3 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.CameraImagingWindowTests.<>c__DisplayClass2_0.<<StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs:line 103
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CameraImagingWindowTests.StageAndABControlsAreFunctionalAndClearResultsOnDocumentChange(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CameraImagingWindowTests.cs:line 81
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-03\camera-workspace\smoke\camera-smoke.trx
+
+失败!  - 失败:     3，通过:     2，已跳过:     0，总计:     5，持续时间: 47 s - OpticalSystemDesign.Tests.dll (net10.0)

@@ -25,7 +25,8 @@ public sealed class LumenThemeTests
         Assert.Equal("光域", theme.DisplayName);
         Assert.Equal(LumenTheme.Variant, theme.RequestedVariant);
         Assert.True(theme.IsDarkLike);
-        Assert.Same(StandardThemeIconPack.Instance, theme.IconPack);
+        Assert.IsType<ScientificThemeIconPack>(theme.IconPack);
+        Assert.Equal(LumenTheme.Accent, theme.IconPalette.Signal);
         Assert.Same(NoThemeDecorationRenderer.Instance, theme.DecorationRenderer);
         var settings = new AppSettings { Theme = "Lumen" }; settings.NormalizeDisplaySettings();
         Assert.Equal("Lumen", settings.Theme);
@@ -118,7 +119,7 @@ public sealed class LumenThemeTests
                 Assert.Equal(LumenTheme.Palette.TextDisabled, Colour(presenter.Foreground));
                 primary.IsEnabled = true;
                 ThemeApplicationService.Apply(app, "Dark"); Tick(window);
-                Assert.False(app.Resources.ContainsKey("TextControlBackground"));
+                Assert.Equal(BlackHoleDarkTheme.ControlBackground, Colour(app.Resources["TextControlBackground"]));
                 Assert.Equal(new CornerRadius(5), input.CornerRadius);
                 ThemeApplicationService.Apply(app, "Light"); Tick(window);
                 Assert.Equal(Colors.White, Colour(input.Background));

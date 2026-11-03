@@ -1,0 +1,219 @@
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:51.27]     OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport [FAIL]
+  失败 OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport [1 s]
+  错误消息:
+   The last legend color must be rendered below the on-screen legend viewport.
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ViewerImageExportTests.<>c.<<ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport>b__10_0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 383
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 358
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:53.52]     OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Through Focus") [FAIL]
+  失败 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Through Focus") [1 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 192, 192
+Actual:   114.94456762749445, 114.94456762749445
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.UniformDiagramExportTests.<>c__DisplayClass1_0.<<OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 73
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(String key) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 34
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:56.78]     OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Incoherent Irradiance") [FAIL]
+  失败 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Incoherent Irradiance") [3 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 192, 192
+Actual:   114.94456762749445, 114.94456762749445
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.UniformDiagramExportTests.<>c__DisplayClass1_0.<<OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 73
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(String key) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 34
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:57.77]     OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Spot Diagram") [FAIL]
+  失败 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Spot Diagram") [991 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 192, 192
+Actual:   114.94456762749445, 114.94456762749445
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.UniformDiagramExportTests.<>c__DisplayClass1_0.<<OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 73
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(String key) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 34
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:59.73]     OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Field Curvature and Distortion") [FAIL]
+  失败 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Field Curvature and Distortion") [1 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 192, 192
+Actual:   114.94456762749445, 114.94456762749445
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.UniformDiagramExportTests.<>c__DisplayClass1_0.<<OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 73
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(String key) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 34
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:01.70]     OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Wavefront Map") [FAIL]
+  失败 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Wavefront Map") [1 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 192, 192
+Actual:   114.94456762749445, 114.94456762749445
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.UniformDiagramExportTests.<>c__DisplayClass1_0.<<OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 73
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(String key) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 34
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:04.48]     OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "MTF") [FAIL]
+  失败 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "MTF") [2 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 192, 192
+Actual:   114.94456762749445, 114.94456762749445
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.UniformDiagramExportTests.<>c__DisplayClass1_0.<<OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 73
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(String key) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 34
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:05.70]     OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Ray Fan") [FAIL]
+  失败 OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: "Ray Fan") [1 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 192, 192
+Actual:   114.94456762749445, 114.94456762749445
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.UniformDiagramExportTests.<>c__DisplayClass1_0.<<OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 73
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(String key) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\UniformDiagramExportTests.cs:line 34
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:39.22]     OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 840, height: 620) [FAIL]
+[xUnit.net 00:01:39.80]     OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: SpotDiagram, width: 840, height: 620) [FAIL]
+[xUnit.net 00:01:40.13]     OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: FftPsf, width: 840, height: 620) [FAIL]
+  失败 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 840, height: 620) [674 ms]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "camera"
+Actual:   "file-export-image"
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass4_0.<ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 104
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(AnalysisPresentationKind kind, Int32 width, Int32 height) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 90
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: SpotDiagram, width: 840, height: 620) [580 ms]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "camera"
+Actual:   "file-export-image"
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass4_0.<ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 104
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(AnalysisPresentationKind kind, Int32 width, Int32 height) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 90
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: FftPsf, width: 840, height: 620) [328 ms]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "camera"
+Actual:   "file-export-image"
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass4_0.<ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 104
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(AnalysisPresentationKind kind, Int32 width, Int32 height) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 90
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:40.66]     OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 840, height: 620) [FAIL]
+[xUnit.net 00:01:41.17]     OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 420, height: 280) [FAIL]
+[xUnit.net 00:01:41.84]     OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 420, height: 280) [FAIL]
+  失败 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 840, height: 620) [531 ms]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "camera"
+Actual:   "file-export-image"
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass4_0.<ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 104
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(AnalysisPresentationKind kind, Int32 width, Int32 height) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 90
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: Standard, width: 420, height: 280) [505 ms]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "camera"
+Actual:   "file-export-image"
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass4_0.<ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 104
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(AnalysisPresentationKind kind, Int32 width, Int32 height) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 90
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(kind: WavefrontMap, width: 420, height: 280) [670 ms]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "camera"
+Actual:   "file-export-image"
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.AnalysisImageExportTests.<>c__DisplayClass4_0.<ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 104
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.AnalysisImageExportTests.ExportSavesTheCompleteVisiblePlotPageWithoutToolbarOrSettings(AnalysisPresentationKind kind, Int32 width, Int32 height) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisImageExportTests.cs:line 90
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-03\analysis-frame-dpi\checked\frame-export.trx
+
+失败!  - 失败:    14，通过:   115，已跳过:     0，总计:   129，持续时间: 1 m 51 s - OpticalSystemDesign.Tests.dll (net10.0)

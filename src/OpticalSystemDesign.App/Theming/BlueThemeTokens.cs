@@ -9,32 +9,37 @@ internal static class BlueThemeTokens
     public static readonly Color AppBackground = Color.Parse("#F0F5FC");
     public static readonly Color Surface = Color.Parse("#FFFFFF");
     public static readonly Color Sidebar = Color.Parse("#F5F8FE");
-    public static readonly Color HeaderBackground = Color.Parse("#2F6FD1");
-    public static readonly Color HeaderGradientStart = Color.Parse("#1876E9");
-    public static readonly Color HeaderGradientEnd = Color.Parse("#1455B8");
-    public static readonly Color CaptionSearchBackground = Color.Parse("#1CFFFFFF");
-    public static readonly Color CaptionSearchHover = Color.Parse("#26FFFFFF");
-    public static readonly Color CaptionSearchBorder = Color.Parse("#28FFFFFF");
-    public static readonly Color CaptionSearchPlaceholder = Color.Parse("#E1EBFF");
-    public static readonly Color CaptionButtonPressed = Color.Parse("#40FFFFFF");
-    public static IBrush HeaderGradient { get; } = new LinearGradientBrush
+    public static readonly Color HeaderBackground = Color.Parse("#9ACBFA");
+    public static readonly Color CaptionSearchBackground = Color.Parse("#80FFFFFF");
+    public static readonly Color CaptionSearchHover = Color.Parse("#B0FFFFFF");
+    public static readonly Color CaptionSearchBorder = Color.Parse("#8AAED5");
+    public static readonly Color CaptionSearchPlaceholder = Color.Parse("#405C7B");
+    public static readonly Color CaptionButtonPressed = Color.Parse("#A8C8EE");
+    public const double BackdropFadeFraction = .48;
+    public static IBrush WorkbenchGradient { get; } = new LinearGradientBrush
     {
         StartPoint = new RelativePoint(0, 0, RelativeUnit.Relative),
-        EndPoint = new RelativePoint(1, 0, RelativeUnit.Relative),
+        EndPoint = new RelativePoint(0, 1, RelativeUnit.Relative),
         GradientStops = new GradientStops
         {
-            new(HeaderGradientStart, 0),
-            new(HeaderGradientEnd, 1)
+            new(HeaderBackground, 0),
+            new(Color.Parse("#CDE6FC"), .23),
+            new(Color.Parse("#F1F8FF"), BackdropFadeFraction),
+            new(Surface, .62),
+            new(Surface, 1)
         }
     }.ToImmutable();
-    public static readonly Color HeaderHoverBackground = Color.Parse("#2864C3");
-    public static readonly Color HeaderPressedBackground = Color.Parse("#235AB3");
-    public static readonly Color TitleText = Color.Parse("#FFFFFF");
-    public static readonly Color HeaderMenuText = Color.Parse("#F5F8FF");
-    public static readonly Color HeaderMuted = Color.Parse("#D1DDF0");
-    public static readonly Color HeaderDivider = Color.Parse("#4A82D8");
-    public static readonly Color TableHeader = Color.Parse("#EEF4FC");
-    public static readonly Color LensEditorHeaderBackground = Color.Parse("#B8CCE4");
+    // These layers reveal the single window-sized gradient instead of restarting it.
+    public static IBrush HeaderSurface => LightGlassMaterial.Sheen;
+    public static IBrush RibbonSurface => Brushes.Transparent;
+    public static readonly Color HeaderHoverBackground = Color.Parse("#C4DCF7");
+    public static readonly Color HeaderPressedBackground = Color.Parse("#A8C9F0");
+    public static readonly Color TitleText = Color.Parse("#16324F");
+    public static readonly Color HeaderMenuText = Color.Parse("#16324F");
+    public static readonly Color HeaderMuted = Color.Parse("#50657D");
+    public static readonly Color HeaderDivider = Color.Parse("#B7D0EC");
+    public static readonly Color TableHeader = Color.Parse("#EAF3FD");
+    public static readonly Color LensEditorHeaderBackground = Color.Parse("#CCE3FA");
     public static readonly Color TextPrimary = Color.Parse("#22334C");
     public static readonly Color TextSecondary = Color.Parse("#5C6F8A");
     public static readonly Color TextDisabled = Color.Parse("#9BA9BF");
@@ -43,7 +48,6 @@ internal static class BlueThemeTokens
     public static readonly Color EmphasisTextPressed = Color.Parse("#1734BB");
     public static readonly Color Divider = Color.Parse("#DCE5F2");
     public static readonly Color SidebarInputBorder = Color.Parse("#C6D5EB");
-    public static IBrush RibbonPageGradient { get; } = VerticalGradient(Surface, Color.Parse("#F8FBFF"));
     public static IBrush StatusBarGradient { get; } = VerticalGradient(Color.Parse("#FCFDFF"), Color.Parse("#F0F5FD"));
 
     private static IBrush VerticalGradient(Color top, Color bottom) => new LinearGradientBrush

@@ -907,7 +907,7 @@ public sealed partial class AnalysisPanel
             AnalysisParameterKind.Text => new TextBox { Text = value, MinWidth = 120 },
             AnalysisParameterKind.Boolean => BooleanInput(value),
             AnalysisParameterKind.File when descriptor.Key == "OutputFile" =>
-                new FilePathInput(value, SelectImageOutputFileAsync, "选择输出 BMP、PNG 或 JPEG 文件"),
+                new FilePathInput(value, SelectImageOutputFileAsync, "选择输出 PNG 或 BMP 无损图片"),
             AnalysisParameterKind.File => FileInput(value),
             _ => NumericInput(descriptor, value)
         };
@@ -1041,7 +1041,7 @@ public sealed partial class AnalysisPanel
             {
                 new FilePickerFileType("位图图像")
                 {
-                    Patterns = new[] { "*.png", "*.bmp", "*.jpg", "*.jpeg" }
+                    Patterns = new[] { "*.png", "*.bmp" }
                 }
             }
         });

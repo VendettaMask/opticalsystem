@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="8a074490-4561-47d9-a483-2adffd8d8bdd" name="optics@LAPTOP-G4BBBCS0 2026-11-03 09:17:17" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T09:17:17.7306831+08:00" queuing="2026-11-03T09:17:17.7306838+08:00" start="2026-11-03T09:17:00.5364893+08:00" finish="2026-11-03T09:17:29.5909423+08:00" />
+  <TestSettings name="default" id="590ea7ec-11b4-476a-a270-2a9c016c134a">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_09_17_17" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="2f82c5c8-8618-4481-8747-aa3f0152e147" testId="f2247540-03a3-20b0-38b2-8d2852674e5d" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts(theme: &quot;Light&quot;, width: 1440, fontSize: 22)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.0631701" startTime="2026-11-03T09:17:17.5741294+08:00" endTime="2026-11-03T09:17:22.6117552+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2f82c5c8-8618-4481-8747-aa3f0152e147" />
+    <UnitTestResult executionId="63cf6a6a-ff5d-4513-aba6-8cb8aedef89a" testId="84eefd20-1dae-be7e-3a79-a60b0aa661d4" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts(theme: &quot;Light&quot;, width: 1200, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.7992086" startTime="2026-11-03T09:17:24.6733227+08:00" endTime="2026-11-03T09:17:29.4651895+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="63cf6a6a-ff5d-4513-aba6-8cb8aedef89a" />
+    <UnitTestResult executionId="3b9a5c01-71dd-4eaf-ae42-73cdff7cbad8" testId="fc148ba2-da3a-cac3-3692-23ed4541de25" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts(theme: &quot;Light&quot;, width: 820, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.0458105" startTime="2026-11-03T09:17:22.6154909+08:00" endTime="2026-11-03T09:17:24.6660341+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3b9a5c01-71dd-4eaf-ae42-73cdff7cbad8">
+      <Output>
+        <ErrorInfo>
+          <Message>0, 0, 396, 150</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts&gt;b__1&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 41&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 360&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts(String theme, Int32 width, Double fontSize) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 27&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c873c960-4d86-4c4e-ae4c-6b80131ceac3" testId="8ebfb93b-64bd-8f70-44ce-b46df3d89fe0" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts(theme: &quot;Dark&quot;, width: 1440, fontSize: 22)" computerName="LAPTOP-G4BBBCS0" duration="00:00:12.1114532" startTime="2026-11-03T09:17:05.4770687+08:00" endTime="2026-11-03T09:17:17.5472261+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c873c960-4d86-4c4e-ae4c-6b80131ceac3" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts(theme: &quot;Light&quot;, width: 1200, fontSize: 13)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="84eefd20-1dae-be7e-3a79-a60b0aa661d4">
+      <Execution id="63cf6a6a-ff5d-4513-aba6-8cb8aedef89a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts(theme: &quot;Dark&quot;, width: 1440, fontSize: 22)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="8ebfb93b-64bd-8f70-44ce-b46df3d89fe0">
+      <Execution id="c873c960-4d86-4c4e-ae4c-6b80131ceac3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts(theme: &quot;Light&quot;, width: 820, fontSize: 18)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="fc148ba2-da3a-cac3-3692-23ed4541de25">
+      <Execution id="3b9a5c01-71dd-4eaf-ae42-73cdff7cbad8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts(theme: &quot;Light&quot;, width: 1440, fontSize: 22)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="f2247540-03a3-20b0-38b2-8d2852674e5d">
+      <Execution id="2f82c5c8-8618-4481-8747-aa3f0152e147" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f2247540-03a3-20b0-38b2-8d2852674e5d" executionId="2f82c5c8-8618-4481-8747-aa3f0152e147" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="84eefd20-1dae-be7e-3a79-a60b0aa661d4" executionId="63cf6a6a-ff5d-4513-aba6-8cb8aedef89a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc148ba2-da3a-cac3-3692-23ed4541de25" executionId="3b9a5c01-71dd-4eaf-ae42-73cdff7cbad8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8ebfb93b-64bd-8f70-44ce-b46df3d89fe0" executionId="c873c960-4d86-4c4e-ae4c-6b80131ceac3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="3" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:02.32]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:02.43]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:02.45]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:21.72]       0, 0, 396, 150&#xD;
+[xUnit.net 00:00:21.72]       Stack Trace:&#xD;
+[xUnit.net 00:00:21.72]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(41,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass0_0.&lt;&lt;CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts&gt;b__1&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:21.72]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.72]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(360,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:21.72]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.72]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:21.72]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:21.72]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(27,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts(String theme, Int32 width, Double fontSize)&#xD;
+[xUnit.net 00:00:21.72]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:26.53]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T09:17:24.6683420+08:00">
+        <Text>[xUnit.net 00:00:21.72]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.CompactEditorKeepsTablePrimaryAndToolsAccessibleAtLargeFonts(theme: "Light", width: 820, fontSize: 18) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-03T09:17:29.5504446+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

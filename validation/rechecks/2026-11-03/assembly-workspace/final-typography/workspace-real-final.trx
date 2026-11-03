@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d6a8a728-7f3e-4868-a6cf-5fdd06f87c1a" name="optics@LAPTOP-G4BBBCS0 2026-11-03 11:07:44" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T11:07:44.1269260+08:00" queuing="2026-11-03T11:07:44.1269265+08:00" start="2026-11-03T11:07:25.6359401+08:00" finish="2026-11-03T11:07:54.7736811+08:00" />
+  <TestSettings name="default" id="c0359de8-4e36-4acf-ac23-2087ea8fec0c">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_11_07_44" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="916bf7a7-c1a9-4b67-9f24-1aef7197d79b" testId="d97a4105-05ee-9a1f-bcbc-2a31cd36be28" testName="OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:10.5537296" startTime="2026-11-03T11:07:44.0851584+08:00" endTime="2026-11-03T11:07:54.6135275+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="916bf7a7-c1a9-4b67-9f24-1aef7197d79b" />
+    <UnitTestResult executionId="5bd137b3-b995-4ae5-93e2-320d7951a288" testId="ac775231-a826-d698-3c85-36680d6f40aa" testName="OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:16.3398144" startTime="2026-11-03T11:07:27.7283417+08:00" endTime="2026-11-03T11:07:44.0556346+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5bd137b3-b995-4ae5-93e2-320d7951a288" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d97a4105-05ee-9a1f-bcbc-2a31cd36be28">
+      <Execution id="916bf7a7-c1a9-4b67-9f24-1aef7197d79b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AssemblyWorkspaceTests" name="RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AssemblyWorkspaceTests.RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ac775231-a826-d698-3c85-36680d6f40aa">
+      <Execution id="5bd137b3-b995-4ae5-93e2-320d7951a288" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AssemblyWorkspaceTests" name="RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="d97a4105-05ee-9a1f-bcbc-2a31cd36be28" executionId="916bf7a7-c1a9-4b67-9f24-1aef7197d79b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ac775231-a826-d698-3c85-36680d6f40aa" executionId="5bd137b3-b995-4ae5-93e2-320d7951a288" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.20]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.53]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.56]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:28.51]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

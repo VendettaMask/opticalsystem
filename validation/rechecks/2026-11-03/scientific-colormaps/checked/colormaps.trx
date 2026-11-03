@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ab0d9d15-760f-4d97-b981-4860369166bc" name="optics@LAPTOP-G4BBBCS0 2026-11-03 12:42:10" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T12:42:10.5696333+08:00" queuing="2026-11-03T12:42:10.5696335+08:00" start="2026-11-03T12:42:06.2954322+08:00" finish="2026-11-03T12:42:26.1548091+08:00" />
+  <TestSettings name="default" id="26e2c5be-3383-47a6-85c1-64283ea07717">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_12_42_10" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="72657a03-32c0-463d-a4f2-d77359a354a5" testId="b8ca03d6-7ac2-dd43-07db-11e9af57df88" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: &quot;en-US&quot;, theme: &quot;Dark&quot;, size: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3851754" startTime="2026-11-03T12:42:20.8113302+08:00" endTime="2026-11-03T12:42:22.1963639+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="72657a03-32c0-463d-a4f2-d77359a354a5">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Could not find parent name scope.</Message>
+          <StackTrace>   at Avalonia.Controls.ControlExtensions.FindControl[T](Control control, String name)&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass4_0.&lt;SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 93&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(String language, String theme, Double size) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 78&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b39b7378-6fd2-4d68-afc9-348c70582e71" testId="0c2198ef-b66c-142d-0dd6-a0d95439ca74" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: &quot;zh-CN&quot;, theme: &quot;Light&quot;, size: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5361018" startTime="2026-11-03T12:42:19.2718058+08:00" endTime="2026-11-03T12:42:20.8102940+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b39b7378-6fd2-4d68-afc9-348c70582e71">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Could not find parent name scope.</Message>
+          <StackTrace>   at Avalonia.Controls.ControlExtensions.FindControl[T](Control control, String name)&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass4_0.&lt;SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 93&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(String language, String theme, Double size) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 78&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="31c91261-67df-4630-8045-feec34ffb57c" testId="fb63b2e0-923f-39c0-bd33-930c4f014561" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: &quot;Inferno&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1310878" startTime="2026-11-03T12:42:09.0470448+08:00" endTime="2026-11-03T12:42:09.1597915+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31c91261-67df-4630-8045-feec34ffb57c" />
+    <UnitTestResult executionId="3604f1a7-d8a1-4e56-8cf7-32d0706d7d2d" testId="992841f0-64e4-69b7-a561-d25853177c94" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.PaletteEndpointsInterpolationAndInvalidValuesAreDefined" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0021741" startTime="2026-11-03T12:42:25.9935904+08:00" endTime="2026-11-03T12:42:25.9957153+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3604f1a7-d8a1-4e56-8cf7-32d0706d7d2d" />
+    <UnitTestResult executionId="b5b0f2a2-bb8d-40c8-aaed-75f4ef1c485a" testId="d432085f-2a3f-a9bb-618e-684b6ce00dfc" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;二维热力图&quot;, map: Rainbow)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.8353149" startTime="2026-11-03T12:42:13.6601619+08:00" endTime="2026-11-03T12:42:15.4890720+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5b0f2a2-bb8d-40c8-aaed-75f4ef1c485a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+                      ↓ (pos 51)&#xD;
+Expected: [···, 0, 0, 32, 0, 73, ···]&#xD;
+Actual:   [···, 0, 0, 0, 1, 115, ···]&#xD;
+                      ↑ (pos 51)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 243&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 215&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="828ebb61-2c6b-4e10-abff-6db3e43fc043" testId="a043e4e1-6942-06bb-5ecb-df17af3d80b8" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: RedBlue)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6164648" startTime="2026-11-03T12:42:18.6546172+08:00" endTime="2026-11-03T12:42:19.2715200+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="828ebb61-2c6b-4e10-abff-6db3e43fc043" />
+    <UnitTestResult executionId="d420ac6d-a4e2-4d13-95e9-2a82f13837ba" testId="915c975b-1755-5245-f236-4e905c37ab43" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: &quot;ja-JP&quot;, theme: &quot;Light&quot;, size: 22)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.7941798" startTime="2026-11-03T12:42:22.1975231+08:00" endTime="2026-11-03T12:42:24.9914802+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d420ac6d-a4e2-4d13-95e9-2a82f13837ba">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Could not find parent name scope.</Message>
+          <StackTrace>   at Avalonia.Controls.ControlExtensions.FindControl[T](Control control, String name)&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass4_0.&lt;SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 93&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(String language, String theme, Double size) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 78&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a1b5f00e-2885-4498-888c-b6e3640f87a6" testId="5daa8326-41b9-467d-4d5f-c85a21c030a5" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: Rainbow)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6321247" startTime="2026-11-03T12:42:18.0221027+08:00" endTime="2026-11-03T12:42:18.6544690+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a1b5f00e-2885-4498-888c-b6e3640f87a6" />
+    <UnitTestResult executionId="de74cdd3-765a-4c4d-ac38-84086d7d0529" testId="02ea0264-c01e-9901-4ab6-4dcf303c0721" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: Viridis)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6816630" startTime="2026-11-03T12:42:17.3404897+08:00" endTime="2026-11-03T12:42:18.0219549+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="de74cdd3-765a-4c4d-ac38-84086d7d0529" />
+    <UnitTestResult executionId="32db3c43-f163-4d12-8dc1-761849d77ca4" testId="022ac5e6-5503-7989-a277-ff83cf77f9fa" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;表面&quot;, map: Viridis)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.4260903" startTime="2026-11-03T12:42:09.2155166+08:00" endTime="2026-11-03T12:42:13.6531871+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="32db3c43-f163-4d12-8dc1-761849d77ca4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+                      ↓ (pos 51)&#xD;
+Expected: [···, 0, 0, 32, 0, 73, ···]&#xD;
+Actual:   [···, 0, 0, 0, 1, 115, ···]&#xD;
+                      ↑ (pos 51)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 243&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 215&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0b10447b-b16c-4736-a8c1-945ff4a48ca5" testId="60b9a894-75f1-905e-fade-9ef916dc45e7" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.LinesScatterColoredLinesAndRgbRasterRemainPixelIdentical" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.0013259" startTime="2026-11-03T12:42:24.9923944+08:00" endTime="2026-11-03T12:42:25.9934229+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0b10447b-b16c-4736-a8c1-945ff4a48ca5" />
+    <UnitTestResult executionId="c23c4a4c-f649-4ac7-a869-48640f7c60ea" testId="353f813f-003d-d495-de89-11f2275572aa" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: &quot;Rainbow&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0149735" startTime="2026-11-03T12:42:09.1690184+08:00" endTime="2026-11-03T12:42:09.1748775+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c23c4a4c-f649-4ac7-a869-48640f7c60ea" />
+    <UnitTestResult executionId="84932fb2-db5c-4449-9ac8-f873ab07363c" testId="1e8c0e50-b27a-ab33-7da7-cf730fd2740c" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;二维热力图&quot;, map: RedBlue)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.8479785" startTime="2026-11-03T12:42:15.4905497+08:00" endTime="2026-11-03T12:42:17.3379908+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="84932fb2-db5c-4449-9ac8-f873ab07363c">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+                      ↓ (pos 51)&#xD;
+Expected: [···, 0, 0, 32, 0, 73, ···]&#xD;
+Actual:   [···, 0, 0, 0, 1, 115, ···]&#xD;
+                      ↑ (pos 51)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 243&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs:line 215&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="22809f0a-6c33-4627-bca9-8b28d4c3b5e1" testId="72f556aa-1793-ee2c-0383-775de9637a41" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: &quot;Viridis&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0148105" startTime="2026-11-03T12:42:09.1995780+08:00" endTime="2026-11-03T12:42:09.2143211+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="22809f0a-6c33-4627-bca9-8b28d4c3b5e1" />
+    <UnitTestResult executionId="b5216b59-8a41-4bd4-bbf1-52d503e888ff" testId="971f60ba-0325-3970-ce1e-460c28011104" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: &quot;RedBlue&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0112383" startTime="2026-11-03T12:42:09.1757142+08:00" endTime="2026-11-03T12:42:09.1862539+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5216b59-8a41-4bd4-bbf1-52d503e888ff" />
+    <UnitTestResult executionId="4c5617da-75f5-41a4-9179-aca29c90600f" testId="5cc2ae71-270a-a1d0-2c25-11b4cc16fa3a" testName="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: &quot;Gray&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0131194" startTime="2026-11-03T12:42:09.1864141+08:00" endTime="2026-11-03T12:42:09.1994216+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c5617da-75f5-41a4-9179-aca29c90600f" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: Rainbow)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5daa8326-41b9-467d-4d5f-c85a21c030a5">
+      <Execution id="a1b5f00e-2885-4498-888c-b6e3640f87a6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: &quot;Rainbow&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="353f813f-003d-d495-de89-11f2275572aa">
+      <Execution id="c23c4a4c-f649-4ac7-a869-48640f7c60ea" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="SettingsPersistAndOldOrUnknownSettingsUseViridis" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: RedBlue)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a043e4e1-6942-06bb-5ecb-df17af3d80b8">
+      <Execution id="828ebb61-2c6b-4e10-abff-6db3e43fc043" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: &quot;ja-JP&quot;, theme: &quot;Light&quot;, size: 22)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="915c975b-1755-5245-f236-4e905c37ab43">
+      <Execution id="d420ac6d-a4e2-4d13-95e9-2a82f13837ba" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.PaletteEndpointsInterpolationAndInvalidValuesAreDefined" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="992841f0-64e4-69b7-a561-d25853177c94">
+      <Execution id="3604f1a7-d8a1-4e56-8cf7-32d0706d7d2d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="PaletteEndpointsInterpolationAndInvalidValuesAreDefined" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: &quot;Inferno&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fb63b2e0-923f-39c0-bd33-930c4f014561">
+      <Execution id="31c91261-67df-4630-8045-feec34ffb57c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="SettingsPersistAndOldOrUnknownSettingsUseViridis" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.LinesScatterColoredLinesAndRgbRasterRemainPixelIdentical" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="60b9a894-75f1-905e-fade-9ef916dc45e7">
+      <Execution id="0b10447b-b16c-4736-a8c1-945ff4a48ca5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="LinesScatterColoredLinesAndRgbRasterRemainPixelIdentical" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: &quot;en-US&quot;, theme: &quot;Dark&quot;, size: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b8ca03d6-7ac2-dd43-07db-11e9af57df88">
+      <Execution id="72657a03-32c0-463d-a4f2-d77359a354a5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;二维热力图&quot;, map: RedBlue)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1e8c0e50-b27a-ab33-7da7-cf730fd2740c">
+      <Execution id="84932fb2-db5c-4449-9ac8-f873ab07363c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="RealWavefrontLivePngAndReportShareOnePaletteAndSource" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;表面&quot;, map: Viridis)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="022ac5e6-5503-7989-a277-ff83cf77f9fa">
+      <Execution id="32db3c43-f163-4d12-8dc1-761849d77ca4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="RealWavefrontLivePngAndReportShareOnePaletteAndSource" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: &quot;RedBlue&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="971f60ba-0325-3970-ce1e-460c28011104">
+      <Execution id="b5216b59-8a41-4bd4-bbf1-52d503e888ff" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="SettingsPersistAndOldOrUnknownSettingsUseViridis" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: &quot;Gray&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5cc2ae71-270a-a1d0-2c25-11b4cc16fa3a">
+      <Execution id="4c5617da-75f5-41a4-9179-aca29c90600f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="SettingsPersistAndOldOrUnknownSettingsUseViridis" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: &quot;二维热力图&quot;, map: Rainbow)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d432085f-2a3f-a9bb-618e-684b6ce00dfc">
+      <Execution id="b5b0f2a2-bb8d-40c8-aaed-75f4ef1c485a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="RealWavefrontLivePngAndReportShareOnePaletteAndSource" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsPersistAndOldOrUnknownSettingsUseViridis(map: &quot;Viridis&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="72f556aa-1793-ee2c-0383-775de9637a41">
+      <Execution id="22809f0a-6c33-4627-bca9-8b28d4c3b5e1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="SettingsPersistAndOldOrUnknownSettingsUseViridis" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView(selected: Viridis)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="02ea0264-c01e-9901-4ab6-4dcf303c0721">
+      <Execution id="de74cdd3-765a-4c4d-ac38-84086d7d0529" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="Existing2DAnd3DPlotsRepaintTogetherAndRetainDataAndView" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: &quot;zh-CN&quot;, theme: &quot;Light&quot;, size: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0c2198ef-b66c-142d-0dd6-a0d95439ca74">
+      <Execution id="b39b7378-6fd2-4d68-afc9-348c70582e71" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificColorMapTests" name="SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b8ca03d6-7ac2-dd43-07db-11e9af57df88" executionId="72657a03-32c0-463d-a4f2-d77359a354a5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0c2198ef-b66c-142d-0dd6-a0d95439ca74" executionId="b39b7378-6fd2-4d68-afc9-348c70582e71" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fb63b2e0-923f-39c0-bd33-930c4f014561" executionId="31c91261-67df-4630-8045-feec34ffb57c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="992841f0-64e4-69b7-a561-d25853177c94" executionId="3604f1a7-d8a1-4e56-8cf7-32d0706d7d2d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d432085f-2a3f-a9bb-618e-684b6ce00dfc" executionId="b5b0f2a2-bb8d-40c8-aaed-75f4ef1c485a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a043e4e1-6942-06bb-5ecb-df17af3d80b8" executionId="828ebb61-2c6b-4e10-abff-6db3e43fc043" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="915c975b-1755-5245-f236-4e905c37ab43" executionId="d420ac6d-a4e2-4d13-95e9-2a82f13837ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5daa8326-41b9-467d-4d5f-c85a21c030a5" executionId="a1b5f00e-2885-4498-888c-b6e3640f87a6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="02ea0264-c01e-9901-4ab6-4dcf303c0721" executionId="de74cdd3-765a-4c4d-ac38-84086d7d0529" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="022ac5e6-5503-7989-a277-ff83cf77f9fa" executionId="32db3c43-f163-4d12-8dc1-761849d77ca4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="60b9a894-75f1-905e-fade-9ef916dc45e7" executionId="0b10447b-b16c-4736-a8c1-945ff4a48ca5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="353f813f-003d-d495-de89-11f2275572aa" executionId="c23c4a4c-f649-4ac7-a869-48640f7c60ea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1e8c0e50-b27a-ab33-7da7-cf730fd2740c" executionId="84932fb2-db5c-4449-9ac8-f873ab07363c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="72f556aa-1793-ee2c-0383-775de9637a41" executionId="22809f0a-6c33-4627-bca9-8b28d4c3b5e1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="971f60ba-0325-3970-ce1e-460c28011104" executionId="b5216b59-8a41-4bd4-bbf1-52d503e888ff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5cc2ae71-270a-a1d0-2c25-11b4cc16fa3a" executionId="4c5617da-75f5-41a4-9179-aca29c90600f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="16" executed="16" passed="10" failed="6" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.62]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.18]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.22]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:06.88]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:06.88]                             ↓ (pos 51)&#xD;
+[xUnit.net 00:00:06.88]       Expected: [···, 0, 0, 32, 0, 73, ···]&#xD;
+[xUnit.net 00:00:06.88]       Actual:   [···, 0, 0, 0, 1, 115, ···]&#xD;
+[xUnit.net 00:00:06.88]                             ↑ (pos 51)&#xD;
+[xUnit.net 00:00:06.88]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.88]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(243,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.88]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.88]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.88]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.88]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:06.88]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.88]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(215,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map)&#xD;
+[xUnit.net 00:00:06.88]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.72]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:08.72]                             ↓ (pos 51)&#xD;
+[xUnit.net 00:00:08.72]       Expected: [···, 0, 0, 32, 0, 73, ···]&#xD;
+[xUnit.net 00:00:08.72]       Actual:   [···, 0, 0, 0, 1, 115, ···]&#xD;
+[xUnit.net 00:00:08.72]                             ↑ (pos 51)&#xD;
+[xUnit.net 00:00:08.72]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.72]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(243,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:08.72]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.72]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:08.72]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.72]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.72]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.72]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(215,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map)&#xD;
+[xUnit.net 00:00:08.72]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.56]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:10.56]                             ↓ (pos 51)&#xD;
+[xUnit.net 00:00:10.56]       Expected: [···, 0, 0, 32, 0, 73, ···]&#xD;
+[xUnit.net 00:00:10.56]       Actual:   [···, 0, 0, 0, 1, 115, ···]&#xD;
+[xUnit.net 00:00:10.57]                             ↑ (pos 51)&#xD;
+[xUnit.net 00:00:10.57]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.57]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(243,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass7_0.&lt;&lt;RealWavefrontLivePngAndReportShareOnePaletteAndSource&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:10.57]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.57]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:10.57]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.57]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:10.57]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.57]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(215,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(String display, ScientificColorMap map)&#xD;
+[xUnit.net 00:00:10.57]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.04]       System.InvalidOperationException : Could not find parent name scope.&#xD;
+[xUnit.net 00:00:14.04]       Stack Trace:&#xD;
+[xUnit.net 00:00:14.04]            at Avalonia.Controls.ControlExtensions.FindControl[T](Control control, String name)&#xD;
+[xUnit.net 00:00:14.04]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(93,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass4_0.&lt;SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences&gt;b__0()&#xD;
+[xUnit.net 00:00:14.04]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:14.04]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:14.04]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:14.04]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.04]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(78,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(String language, String theme, Double size)&#xD;
+[xUnit.net 00:00:14.04]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.42]       System.InvalidOperationException : Could not find parent name scope.&#xD;
+[xUnit.net 00:00:15.42]       Stack Trace:&#xD;
+[xUnit.net 00:00:15.42]            at Avalonia.Controls.ControlExtensions.FindControl[T](Control control, String name)&#xD;
+[xUnit.net 00:00:15.42]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(93,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass4_0.&lt;SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences&gt;b__0()&#xD;
+[xUnit.net 00:00:15.42]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:15.42]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:15.42]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:15.42]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.42]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(78,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(String language, String theme, Double size)&#xD;
+[xUnit.net 00:00:15.42]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:18.22]       System.InvalidOperationException : Could not find parent name scope.&#xD;
+[xUnit.net 00:00:18.22]       Stack Trace:&#xD;
+[xUnit.net 00:00:18.22]            at Avalonia.Controls.ControlExtensions.FindControl[T](Control control, String name)&#xD;
+[xUnit.net 00:00:18.22]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(93,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.&lt;&gt;c__DisplayClass4_0.&lt;SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences&gt;b__0()&#xD;
+[xUnit.net 00:00:18.22]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:18.22]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:18.22]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:18.22]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:18.22]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ScientificColorMapTests.cs(78,0): at OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(String language, String theme, Double size)&#xD;
+[xUnit.net 00:00:18.22]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:19.23]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:42:13.6556279+08:00">
+        <Text>[xUnit.net 00:00:06.88]     OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "表面", map: Viridis) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:42:15.4898521+08:00">
+        <Text>[xUnit.net 00:00:08.72]     OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "二维热力图", map: Rainbow) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:42:17.3385157+08:00">
+        <Text>[xUnit.net 00:00:10.56]     OpticalSystemDesign.Tests.ScientificColorMapTests.RealWavefrontLivePngAndReportShareOnePaletteAndSource(display: "二维热力图", map: RedBlue) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:42:20.8106152+08:00">
+        <Text>[xUnit.net 00:00:14.04]     OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: "zh-CN", theme: "Light", size: 13) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:42:22.1967759+08:00">
+        <Text>[xUnit.net 00:00:15.42]     OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: "en-US", theme: "Dark", size: 18) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T12:42:24.9918842+08:00">
+        <Text>[xUnit.net 00:00:18.22]     OpticalSystemDesign.Tests.ScientificColorMapTests.SettingsOfferPreviewSaveRollbackAndResetWithoutChangingOtherPreferences(language: "ja-JP", theme: "Light", size: 22) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

@@ -40,7 +40,7 @@ public sealed partial class ManufacturabilityPanel
         var evaluate = new Button
         {
             Name = "ReevaluateManufacturing",
-            Content = new LocalIconLabel("clipboard-check", "重新评估"),
+            Content = new LocalIconLabel("manufacturability-review", "重新评估"),
             MinHeight = 36,
             MinWidth = 120,
             Margin = new Thickness(16, 0, 0, 0),

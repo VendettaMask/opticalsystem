@@ -202,10 +202,10 @@ public sealed class MaterialLibraryPanel : UserControl
 
     private Control BuildCommandBar()
     {
-        var reload = CommandButton("refresh-cw", "重载玻璃库");
-        var copyName = CommandButton("copy", "复制玻璃");
-        var copyReport = CommandButton("file-text", "复制玻璃报告");
-        var calculate = CommandButton("calculator", "计算 Nd/Vd");
+        var reload = CommandButton("action-recalculate", "重载玻璃库");
+        var copyName = CommandButton("material-copy-glass", "复制玻璃");
+        var copyReport = CommandButton("material-glass-report", "复制玻璃报告");
+        var calculate = CommandButton("material-nd-vd", "计算 Nd/Vd");
         reload.Click += (_, _) => ReloadCatalogs();
         copyName.Click += async (_, _) => await CopySelectedNameAsync();
         copyReport.Click += async (_, _) => await CopySelectedReportAsync();
@@ -662,7 +662,7 @@ internal sealed class LensLibraryPanel : UserControl
         };
         header.Children.Add(new LocalIcon
         {
-            IconName = "search",
+            IconName = "action-search",
             Width = 18,
             Height = 18,
             Margin = new Thickness(0, 8, 8, 8),

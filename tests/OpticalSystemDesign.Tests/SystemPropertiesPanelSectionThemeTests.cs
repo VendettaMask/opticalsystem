@@ -88,7 +88,7 @@ public sealed class SystemPropertiesPanelSectionThemeTests
                         Assert.True(card.ClipToBounds);
                         Assert.Equal(expected.CornerRadius, card.CornerRadius);
                         Assert.Equal(theme == "Light" ? new Thickness(0) : new Thickness(1), card.BorderThickness);
-                        Assert.Equal(default, card.BoxShadow);
+                        Assert.Equal(theme == "Light" ? LightGlassMaterial.SectionShadow : default, card.BoxShadow);
                         Assert.Equal(expected.CornerRadius, Header(card).CornerRadius);
                         Assert.Equal(new Thickness(0), Header(card).Margin);
                         Assert.Equal(new Thickness(0), Header(card).BorderThickness);

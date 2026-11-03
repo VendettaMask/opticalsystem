@@ -18,8 +18,10 @@ public sealed partial class MainWindow : Window
     private readonly LabDesktopSettings _settings;
     private readonly FlatStartRunLibrary _library;
     private readonly ObservableCollection<CandidateRow> _rows = [];
-    private readonly Grid _main = new() { ColumnSpacing = 14, RowSpacing = 12 };
-    private readonly Grid _workspace = new() { RowDefinitions = new("228,*"), RowSpacing = 12 };
+    private readonly Grid _main = new() { Name = "InitialStructurePanes", RowSpacing = 8 };
+    private readonly Grid _workspace = new() { Name = "CandidateWorkspace", RowDefinitions = new("228,5,*") };
+    private readonly GridSplitter _parameterSplitter = new() { Name = "ParameterSplitter", Width = 5, HorizontalAlignment = HorizontalAlignment.Stretch, Background = Brushes.Transparent };
+    private GridLength _parameterWidth = new(356);
     private readonly ScrollViewer _mainScroll = new();
     private readonly ScrollViewer _form = new();
     private readonly CandidatePreviewControl _preview = Named(new CandidatePreviewControl(), "Preview", "候选镜头实际光线比较图");
@@ -104,16 +106,10 @@ public sealed partial class MainWindow : Window
 
     private Control BuildContent()
     {
-        var root = Named(new Grid { RowDefinitions = new("Auto,Auto,*,Auto"), RowSpacing = 12, Background = Brushes.Transparent }, "InitialStructureDesign", "自动初始结构工作区");
+        var root = Named(new Grid { RowDefinitions = new("Auto,*,Auto"), Background = Brushes.Transparent }, "InitialStructureDesign", "自动初始结构工作区");
         root.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.Workspace);
         ApplyPresentationStyles(root);
-        var header = new StackPanel { Spacing = 5, Margin = new Thickness(18, 16, 18, 0) };
-        header.Children.Add(SectionHeading("自动初始结构", "scan-line", DisplayTypography.PageTitle));
-        header.Children.Add(Hint("定义系统与目标 → 正负形式搜索 → 比较候选 → 继续优化"));
-        root.Children.Add(header);
-        var commands = Buttons(_runButton, _validateButton, _cancelButton, _resumeButton, _openButton, _autonomousButton);
-        commands.Margin = new Thickness(18, 0, 12, 0);
-        Grid.SetRow(commands, 1); root.Children.Add(commands);
+        root.Children.Add(BuildCommandBar());
 
         _form.Content = BuildInputs();
         _form.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
@@ -121,14 +117,14 @@ public sealed partial class MainWindow : Window
         _main.Children.Add(Frame(_form));
         var candidates = new Grid { RowDefinitions = new("Auto,*,Auto"), RowSpacing = 8, Margin = new Thickness(12) };
         var candidateHeading = new WrapPanel();
-        candidateHeading.Children.Add(SectionHeading("候选方案", "list-filter"));
+        candidateHeading.Children.Add(SectionHeading("候选方案", "design-candidates"));
         var resultActions = Buttons(_refineButton, _exportButton);
         resultActions.Margin = new Thickness(16, 0, 0, 0);
         candidateHeading.Children.Add(resultActions);
         candidates.Children.Add(candidateHeading);
         var candidateBody = new Grid();
         candidateBody.Children.Add(_candidateGrid);
-        _candidateEmpty = EmptyState("CandidateEmpty", "等待生成候选", "完成左侧设置后，先预检查，再开始形式搜索。", "layers");
+        _candidateEmpty = EmptyState("CandidateEmpty", "等待生成候选", "完成左侧设置后，先预检查，再开始形式搜索。", "design-candidates");
         _candidateEmpty.Margin = new Thickness(0, 34, 0, 0);
         candidateBody.Children.Add(_candidateEmpty);
         Grid.SetRow(candidateBody, 1); candidates.Children.Add(candidateBody);
@@ -136,12 +132,16 @@ public sealed partial class MainWindow : Window
         _summary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
         Grid.SetRow(_summary, 2); candidates.Children.Add(_summary);
         _workspace.Children.Add(Frame(candidates));
+        var detailsSplitter = new GridSplitter { Name = "CandidateDetailsSplitter", Height = 5, HorizontalAlignment = HorizontalAlignment.Stretch, Background = Brushes.Transparent };
+        Grid.SetRow(detailsSplitter, 1); _workspace.Children.Add(detailsSplitter);
+        _workspace.RowDefinitions[0].MinHeight = 130;
+        _workspace.RowDefinitions[2].MinHeight = 180;
         var tabs = Named(CompactTabs(), "DetailsTabs", "候选详情");
         var drawing = new Grid { RowDefinitions = new("Auto,*,Auto,Auto"), RowSpacing = 6, Margin = new Thickness(12, 8, 12, 10) };
         drawing.Children.Add(Buttons(_compareAButton, _compareBButton, _clearComparisonButton));
         var previewBody = new Grid();
         previewBody.Children.Add(_preview);
-        _previewEmpty = EmptyState("PreviewEmpty", "在这里查看实际光线", "选择候选方案查看结构；设置 A / B 可在同一比例下比较。", "scan-line");
+        _previewEmpty = EmptyState("PreviewEmpty", "在这里查看实际光线", "选择候选方案查看结构；设置 A / B 可在同一比例下比较。", "layout-2d");
         previewBody.Children.Add(_previewEmpty);
         Grid.SetRow(previewBody, 1); drawing.Children.Add(previewBody);
         foreach (var caption in new[] { _previewCaption, _comparisonDetails })
@@ -162,21 +162,28 @@ public sealed partial class MainWindow : Window
         Grid.SetRow(_searchHistory, 1); search.Children.Add(_searchHistory);
         tabs.Items.Add(DetailTab("搜索计划与过程", search));
         var details = Frame(tabs);
-        Grid.SetRow(details, 1); _workspace.Children.Add(details);
+        Grid.SetRow(details, 2); _workspace.Children.Add(details);
+        Grid.SetColumn(_parameterSplitter, 1); _main.Children.Add(_parameterSplitter);
         _main.Children.Add(_workspace);
-        _main.Margin = new Thickness(16, 0);
+        _main.Margin = new Thickness(8);
         _mainScroll.Content = _main;
         _mainScroll.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
-        Grid.SetRow(_mainScroll, 2); root.Children.Add(_mainScroll);
-        var footer = new StackPanel { Spacing = 3, Margin = new Thickness(18, 0, 18, 10) };
+        Grid.SetRow(_mainScroll, 1); root.Children.Add(_mainScroll);
+        var footer = new StackPanel { Spacing = 3, Margin = new Thickness(10, 5) };
         _status.FontSize = DisplayTypography.BodySmall;
+        _status.TextWrapping = TextWrapping.NoWrap; _status.TextTrimming = TextTrimming.CharacterEllipsis;
+        _status.Bind(ToolTip.TipProperty, new Binding(nameof(TextBlock.Text)) { Source = _status });
         _messages.FontSize = DisplayTypography.CompactBody;
         _messages.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextWarning);
         _operationStatus.IsVisible = false;
         footer.Children.Add(_status);
-        footer.Children.Add(new ScrollViewer { Content = _messages, MaxHeight = 70, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled });
+        var messages = new ScrollViewer { Content = _messages, MaxHeight = 70, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, IsVisible = false };
+        _messages.PropertyChanged += (_, e) => { if (e.Property == TextBlock.TextProperty) messages.IsVisible = !string.IsNullOrWhiteSpace(_messages.Text); };
+        footer.Children.Add(messages);
         footer.Children.Add(_operationStatus);
-        Grid.SetRow(footer, 3); root.Children.Add(footer);
+        var statusBar = ChromeBand(footer); statusBar.BorderThickness = new(0, 1, 0, 0);
+        statusBar.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.StatusBarBackground);
+        Grid.SetRow(statusBar, 2); root.Children.Add(statusBar);
         return root;
     }
 
@@ -189,9 +196,12 @@ public sealed partial class MainWindow : Window
     private void ApplyResponsiveLayout(double width)
     {
         var narrow = width < 820;
-        _main.ColumnDefinitions = new(narrow ? "*" : width < 1100 ? "328,*" : "356,*");
+        if (_main.ColumnDefinitions.Count == 3) _parameterWidth = _main.ColumnDefinitions[0].Width;
+        _main.ColumnDefinitions = new(narrow ? "*" : "356,5,*");
+        if (!narrow) { _main.ColumnDefinitions[0].Width = _parameterWidth; _main.ColumnDefinitions[0].MinWidth = 280; _main.ColumnDefinitions[0].MaxWidth = 520; }
+        _parameterSplitter.IsVisible = !narrow;
         _main.RowDefinitions = new(narrow ? "Auto,Auto" : "*");
-        Grid.SetColumn(_workspace, narrow ? 0 : 1);
+        Grid.SetColumn(_workspace, narrow ? 0 : 2);
         Grid.SetRow(_workspace, narrow ? 1 : 0);
         // The frame, not the inner tab page, owns the available height.
         if (_form.Parent is Control frame) frame.Height = narrow ? 380 : double.NaN;

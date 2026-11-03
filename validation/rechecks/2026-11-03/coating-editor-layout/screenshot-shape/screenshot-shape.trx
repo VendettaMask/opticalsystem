@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ec72e20d-3ccb-4993-aa80-f7993d4e999b" name="optics@LAPTOP-G4BBBCS0 2026-11-03 09:56:42" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T09:56:42.8451910+08:00" queuing="2026-11-03T09:56:42.8451913+08:00" start="2026-11-03T09:56:36.0804326+08:00" finish="2026-11-03T09:56:52.7057727+08:00" />
+  <TestSettings name="default" id="bdb24a0b-221b-4e41-b10c-cb8ed267e37f">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_09_56_42" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d284d74e-91e6-41e6-92a7-45f2e01e20dc" testId="0b02ca93-7f7e-4839-cdc7-b737200cdb76" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Dark&quot;, width: 1440, fontSize: 22)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.2971544" startTime="2026-11-03T09:56:47.5469536+08:00" endTime="2026-11-03T09:56:49.8406745+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d284d74e-91e6-41e6-92a7-45f2e01e20dc">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+                                                                                                                         ↓ (pos 1)&#xD;
+Expected: FilmLayer[]                              [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, ···]&#xD;
+Actual:   ArraySelectIterator&lt;LayerRow, FilmLayer&gt; [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }]</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 47&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 373&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(String theme, Int32 width, Double fontSize) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 31&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="64328008-9023-4374-9b80-3773c5c763df" testId="becdd0f9-ede8-2617-f936-dcf9ce57e938" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 1440, fontSize: 22)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.7297075" startTime="2026-11-03T09:56:49.8437832+08:00" endTime="2026-11-03T09:56:52.5712399+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="64328008-9023-4374-9b80-3773c5c763df">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+                                                                                                                         ↓ (pos 1)&#xD;
+Expected: FilmLayer[]                              [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, ···]&#xD;
+Actual:   ArraySelectIterator&lt;LayerRow, FilmLayer&gt; [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }]</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 47&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 373&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(String theme, Int32 width, Double fontSize) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 31&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cce8f7c3-2d42-4697-9b28-eda5e66468bc" testId="cd8b8e16-2922-590d-9ac6-ed4c497ca61a" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 820, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.3937082" startTime="2026-11-03T09:56:45.1543093+08:00" endTime="2026-11-03T09:56:47.5429448+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cce8f7c3-2d42-4697-9b28-eda5e66468bc">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+                                                                                                                         ↓ (pos 1)&#xD;
+Expected: FilmLayer[]                              [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, ···]&#xD;
+Actual:   ArraySelectIterator&lt;LayerRow, FilmLayer&gt; [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }]</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 47&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 373&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(String theme, Int32 width, Double fontSize) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 31&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b83aee70-d080-4611-915e-a387593d33cc" testId="3bf22ca0-73d2-021c-67c1-5edcb67f50ab" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.2183573" startTime="2026-11-03T09:56:37.5495498+08:00" endTime="2026-11-03T09:56:42.7717870+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b83aee70-d080-4611-915e-a387593d33cc">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Duplicate setter encountered for property 'Padding' in 'DataGridCell'.</Message>
+          <StackTrace>   at Avalonia.Styling.StyleInstance.Add(ISetterInstance instance)&#xD;
+   at Avalonia.Styling.StyleBase.Attach(StyledElement target, IStyleActivator activator, FrameType type, Boolean canShareInstance)&#xD;
+   at Avalonia.Styling.ControlTheme.TryAttach(StyledElement target, FrameType type)&#xD;
+   at Avalonia.StyledElement.ApplyControlTheme(ControlTheme theme, FrameType type)&#xD;
+   at Avalonia.StyledElement.ApplyControlTheme()&#xD;
+   at Avalonia.StyledElement.ApplyStyling()&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.Avalonia.LogicalTree.ILogical.NotifyAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.Controls.Primitives.TemplatedControl.OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.Avalonia.LogicalTree.ILogical.NotifyAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.Controls.Primitives.TemplatedControl.OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.StyledElement.Avalonia.Controls.ISetLogicalParent.SetParent(ILogical parent)&#xD;
+   at Avalonia.StyledElement.SetLogicalParent(IList children)&#xD;
+   at Avalonia.StyledElement.LogicalChildrenCollectionChanged(Object sender, NotifyCollectionChangedEventArgs e)&#xD;
+   at Avalonia.Visual.LogicalChildrenCollectionChanged(Object sender, NotifyCollectionChangedEventArgs e)&#xD;
+   at Avalonia.Collections.AvaloniaList`1.NotifyAdd(T item, Int32 index)&#xD;
+   at Avalonia.Collections.AvaloniaList`1.Add(T item)&#xD;
+   at Avalonia.Controls.ContentControl.ContentChanged(AvaloniaPropertyChangedEventArgs e)&#xD;
+   at Avalonia.Controls.ContentControl.OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)&#xD;
+   at Avalonia.AvaloniaObject.OnPropertyChangedCore(AvaloniaPropertyChangedEventArgs change)&#xD;
+   at Avalonia.Animation.Animatable.OnPropertyChangedCore(AvaloniaPropertyChangedEventArgs change)&#xD;
+   at Avalonia.AvaloniaObject.RaisePropertyChanged[T](AvaloniaProperty`1 property, Optional`1 oldValue, BindingValue`1 newValue, BindingPriority priority, Boolean isEffectiveValue)&#xD;
+   at Avalonia.PropertyStore.EffectiveValue`1.NotifyValueChanged(ValueStore owner, StyledProperty`1 property, T oldValue)&#xD;
+   at Avalonia.PropertyStore.EffectiveValue`1.SetAndRaiseCore(ValueStore owner, StyledProperty`1 property, T value, BindingPriority priority, Boolean isOverriddenCurrentValue, Boolean isCoercedDefaultValue)&#xD;
+   at Avalonia.PropertyStore.EffectiveValue`1.SetLocalValueAndRaise(ValueStore owner, StyledProperty`1 property, T value)&#xD;
+   at Avalonia.PropertyStore.ValueStore.SetLocalValue[T](StyledProperty`1 property, T value)&#xD;
+   at Avalonia.PropertyStore.ValueStore.SetValue[T](StyledProperty`1 property, T value, BindingPriority priority)&#xD;
+   at Avalonia.AvaloniaObject.SetValue[T](StyledProperty`1 property, T value, BindingPriority priority)&#xD;
+   at Avalonia.Controls.ContentControl.set_Content(Object value)&#xD;
+   at OpticalSystemDesign.App.Services.WorkspaceContentHost.UpdatePresentation() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceViewLocator.cs:line 71&#xD;
+   at OpticalSystemDesign.App.Services.WorkspaceContentHost.OnAttachedToVisualTree(Object sender, VisualTreeAttachmentEventArgs args) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceViewLocator.cs:line 46&#xD;
+   at Avalonia.Visual.OnAttachedToVisualTreeCore(VisualTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.Layout.Layoutable.OnAttachedToVisualTreeCore(VisualTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.Input.InputElement.OnAttachedToVisualTreeCore(VisualTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.Controls.Control.OnAttachedToVisualTreeCore(VisualTreeAttachmentEventArgs e)&#xD;
+   at Avalonia.Visual.SetVisualParent(Visual value)&#xD;
+   at Avalonia.Visual.SetVisualParent(IList children, Visual parent)&#xD;
+   at Avalonia.Visual.VisualChildrenChanged(Object sender, NotifyCollectionChangedEventArgs e)&#xD;
+   at Avalonia.Collections.AvaloniaList`1.NotifyAdd(T item, Int32 index)&#xD;
+   at Avalonia.Collections.AvaloniaList`1.Add(T item)&#xD;
+   at Avalonia.Controls.Presenters.ContentPresenter.UpdateChild(Object content)&#xD;
+   at Avalonia.Controls.Presenters.ContentPresenter.UpdateChild()&#xD;
+   at Dock.Controls.DeferredContentControl.DeferredContentPresenter.UpdatePresentedChild()&#xD;
+   at Dock.Controls.DeferredContentControl.DeferredContentPresenter.ApplyDeferredState(Object content, IDataTemplate contentTemplate, TimeSpan revealDuration)&#xD;
+   at Dock.Controls.DeferredContentControl.DeferredContentControl.ApplyDeferredState(ContentPresenter presenter, Object content, IDataTemplate contentTemplate, TimeSpan revealDuration)&#xD;
+   at Dock.Controls.DeferredContentControl.DeferredContentControl.ApplyDeferredPresentation(Boolean animateReveal)&#xD;
+   at Dock.Controls.DeferredContentControl.DeferredContentControl.ApplyDeferredPresentation()&#xD;
+   at Dock.Controls.DeferredContentControl.DeferredContentControl.Dock.Controls.DeferredContentControl.IDeferredContentPresentationTarget.ApplyDeferredPresentation()&#xD;
+   at Dock.Controls.DeferredContentControl.DeferredContentPresentationTimelineQueue.FlushScheduledBatch(Int64 scheduledVersion)&#xD;
+   at Dock.Controls.DeferredContentControl.DeferredContentPresentationTimelineQueue.&lt;&gt;c__DisplayClass22_0.&lt;ScheduleFlush&gt;b__0()&#xD;
+   at Avalonia.Threading.DispatcherOperation.InvokeCore()&#xD;
+   at Avalonia.Threading.DispatcherOperation.&lt;&gt;c.&lt;Execute&gt;b__56_0(Object s)&#xD;
+   at Avalonia.Threading.CulturePreservingExecutionContext.CallbackWrapper(Object obj)&#xD;
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+   at Avalonia.Threading.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+   at Avalonia.Threading.DispatcherOperation.Execute()&#xD;
+   at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)&#xD;
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)&#xD;
+   at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Tick(Window window) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 290&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 92&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 373&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 82&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f927bc8a-7f12-42bf-bf7d-ea830004af45" testId="08521b46-5517-d997-bbe3-50b7d9a19741" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 1200, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.3721363" startTime="2026-11-03T09:56:42.8330291+08:00" endTime="2026-11-03T09:56:45.1484441+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f927bc8a-7f12-42bf-bf7d-ea830004af45">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+                                                                                                                         ↓ (pos 1)&#xD;
+Expected: FilmLayer[]                              [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, ···]&#xD;
+Actual:   ArraySelectIterator&lt;LayerRow, FilmLayer&gt; [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }]</Message>
+          <StackTrace>   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 47&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 373&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(String theme, Int32 width, Double fontSize) in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 31&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 820, fontSize: 18)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="cd8b8e16-2922-590d-9ac6-ed4c497ca61a">
+      <Execution id="cce8f7c3-2d42-4697-9b28-eda5e66468bc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 1200, fontSize: 13)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="08521b46-5517-d997-bbe3-50b7d9a19741">
+      <Execution id="f927bc8a-7f12-42bf-bf7d-ea830004af45" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Dark&quot;, width: 1440, fontSize: 22)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="0b02ca93-7f7e-4839-cdc7-b737200cdb76">
+      <Execution id="d284d74e-91e6-41e6-92a7-45f2e01e20dc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="3bf22ca0-73d2-021c-67c1-5edcb67f50ab">
+      <Execution id="b83aee70-d080-4611-915e-a387593d33cc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: &quot;Light&quot;, width: 1440, fontSize: 22)" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="becdd0f9-ede8-2617-f936-dcf9ce57e938">
+      <Execution id="64328008-9023-4374-9b80-3773c5c763df" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="0b02ca93-7f7e-4839-cdc7-b737200cdb76" executionId="d284d74e-91e6-41e6-92a7-45f2e01e20dc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="becdd0f9-ede8-2617-f936-dcf9ce57e938" executionId="64328008-9023-4374-9b80-3773c5c763df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cd8b8e16-2922-590d-9ac6-ed4c497ca61a" executionId="cce8f7c3-2d42-4697-9b28-eda5e66468bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3bf22ca0-73d2-021c-67c1-5edcb67f50ab" executionId="b83aee70-d080-4611-915e-a387593d33cc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="08521b46-5517-d997-bbe3-50b7d9a19741" executionId="f927bc8a-7f12-42bf-bf7d-ea830004af45" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="0" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.53]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.63]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.66]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:05.94]       System.InvalidOperationException : Duplicate setter encountered for property 'Padding' in 'DataGridCell'.&#xD;
+[xUnit.net 00:00:05.94]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Styling.StyleInstance.Add(ISetterInstance instance)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Styling.StyleBase.Attach(StyledElement target, IStyleActivator activator, FrameType type, Boolean canShareInstance)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Styling.ControlTheme.TryAttach(StyledElement target, FrameType type)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.ApplyControlTheme(ControlTheme theme, FrameType type)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.ApplyControlTheme()&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.ApplyStyling()&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.Avalonia.LogicalTree.ILogical.NotifyAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Controls.Primitives.TemplatedControl.OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.Avalonia.LogicalTree.ILogical.NotifyAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Controls.Primitives.TemplatedControl.OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.OnAttachedToLogicalTreeCore(LogicalTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.Avalonia.Controls.ISetLogicalParent.SetParent(ILogical parent)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.SetLogicalParent(IList children)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.StyledElement.LogicalChildrenCollectionChanged(Object sender, NotifyCollectionChangedEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Visual.LogicalChildrenCollectionChanged(Object sender, NotifyCollectionChangedEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Collections.AvaloniaList`1.NotifyAdd(T item, Int32 index)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Collections.AvaloniaList`1.Add(T item)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Controls.ContentControl.ContentChanged(AvaloniaPropertyChangedEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Controls.ContentControl.OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.AvaloniaObject.OnPropertyChangedCore(AvaloniaPropertyChangedEventArgs change)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Animation.Animatable.OnPropertyChangedCore(AvaloniaPropertyChangedEventArgs change)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.AvaloniaObject.RaisePropertyChanged[T](AvaloniaProperty`1 property, Optional`1 oldValue, BindingValue`1 newValue, BindingPriority priority, Boolean isEffectiveValue)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.PropertyStore.EffectiveValue`1.NotifyValueChanged(ValueStore owner, StyledProperty`1 property, T oldValue)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.PropertyStore.EffectiveValue`1.SetAndRaiseCore(ValueStore owner, StyledProperty`1 property, T value, BindingPriority priority, Boolean isOverriddenCurrentValue, Boolean isCoercedDefaultValue)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.PropertyStore.EffectiveValue`1.SetLocalValueAndRaise(ValueStore owner, StyledProperty`1 property, T value)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.PropertyStore.ValueStore.SetLocalValue[T](StyledProperty`1 property, T value)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.PropertyStore.ValueStore.SetValue[T](StyledProperty`1 property, T value, BindingPriority priority)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.AvaloniaObject.SetValue[T](StyledProperty`1 property, T value, BindingPriority priority)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Controls.ContentControl.set_Content(Object value)&#xD;
+[xUnit.net 00:00:05.94]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceViewLocator.cs(71,0): at OpticalSystemDesign.App.Services.WorkspaceContentHost.UpdatePresentation()&#xD;
+[xUnit.net 00:00:05.94]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Services\WorkspaceViewLocator.cs(46,0): at OpticalSystemDesign.App.Services.WorkspaceContentHost.OnAttachedToVisualTree(Object sender, VisualTreeAttachmentEventArgs args)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Visual.OnAttachedToVisualTreeCore(VisualTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Layout.Layoutable.OnAttachedToVisualTreeCore(VisualTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Input.InputElement.OnAttachedToVisualTreeCore(VisualTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Controls.Control.OnAttachedToVisualTreeCore(VisualTreeAttachmentEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Visual.SetVisualParent(Visual value)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Visual.SetVisualParent(IList children, Visual parent)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Visual.VisualChildrenChanged(Object sender, NotifyCollectionChangedEventArgs e)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Collections.AvaloniaList`1.NotifyAdd(T item, Int32 index)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Collections.AvaloniaList`1.Add(T item)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Controls.Presenters.ContentPresenter.UpdateChild(Object content)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Controls.Presenters.ContentPresenter.UpdateChild()&#xD;
+[xUnit.net 00:00:05.94]            at Dock.Controls.DeferredContentControl.DeferredContentPresenter.UpdatePresentedChild()&#xD;
+[xUnit.net 00:00:05.94]            at Dock.Controls.DeferredContentControl.DeferredContentPresenter.ApplyDeferredState(Object content, IDataTemplate contentTemplate, TimeSpan revealDuration)&#xD;
+[xUnit.net 00:00:05.94]            at Dock.Controls.DeferredContentControl.DeferredContentControl.ApplyDeferredState(ContentPresenter presenter, Object content, IDataTemplate contentTemplate, TimeSpan revealDuration)&#xD;
+[xUnit.net 00:00:05.94]            at Dock.Controls.DeferredContentControl.DeferredContentControl.ApplyDeferredPresentation(Boolean animateReveal)&#xD;
+[xUnit.net 00:00:05.94]            at Dock.Controls.DeferredContentControl.DeferredContentControl.ApplyDeferredPresentation()&#xD;
+[xUnit.net 00:00:05.94]            at Dock.Controls.DeferredContentControl.DeferredContentControl.Dock.Controls.DeferredContentControl.IDeferredContentPresentationTarget.ApplyDeferredPresentation()&#xD;
+[xUnit.net 00:00:05.94]            at Dock.Controls.DeferredContentControl.DeferredContentPresentationTimelineQueue.FlushScheduledBatch(Int64 scheduledVersion)&#xD;
+[xUnit.net 00:00:05.94]            at Dock.Controls.DeferredContentControl.DeferredContentPresentationTimelineQueue.&lt;&gt;c__DisplayClass22_0.&lt;ScheduleFlush&gt;b__0()&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.DispatcherOperation.InvokeCore()&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.DispatcherOperation.&lt;&gt;c.&lt;Execute&gt;b__56_0(Object s)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.CulturePreservingExecutionContext.CallbackWrapper(Object obj)&#xD;
+[xUnit.net 00:00:05.94]            at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:05.94]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.94]            at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.CulturePreservingExecutionContext.Run(CulturePreservingExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.DispatcherOperation.Execute()&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.Dispatcher.ExecuteJob(DispatcherOperation job)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Threading.Dispatcher.RunJobs(Nullable`1 priority)&#xD;
+[xUnit.net 00:00:05.94]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(290,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Tick(Window window)&#xD;
+[xUnit.net 00:00:05.94]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(92,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:05.94]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.94]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(373,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:05.94]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.94]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:05.94]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.94]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(82,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory()&#xD;
+[xUnit.net 00:00:05.94]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.31]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:08.31]                                                                                                                                ↓ (pos 1)&#xD;
+[xUnit.net 00:00:08.31]       Expected: FilmLayer[]                              [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, ···]&#xD;
+[xUnit.net 00:00:08.31]       Actual:   ArraySelectIterator&lt;LayerRow, FilmLayer&gt; [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }]&#xD;
+[xUnit.net 00:00:08.31]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.31]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(47,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:08.31]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.31]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(373,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:08.31]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.31]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.31]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.31]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(31,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(String theme, Int32 width, Double fontSize)&#xD;
+[xUnit.net 00:00:08.31]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.70]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:10.70]                                                                                                                                ↓ (pos 1)&#xD;
+[xUnit.net 00:00:10.70]       Expected: FilmLayer[]                              [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, ···]&#xD;
+[xUnit.net 00:00:10.70]       Actual:   ArraySelectIterator&lt;LayerRow, FilmLayer&gt; [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }]&#xD;
+[xUnit.net 00:00:10.71]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.71]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(47,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:10.71]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.71]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(373,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:10.71]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.71]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:10.71]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.71]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(31,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(String theme, Int32 width, Double fontSize)&#xD;
+[xUnit.net 00:00:10.71]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.00]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:13.00]                                                                                                                                ↓ (pos 1)&#xD;
+[xUnit.net 00:00:13.00]       Expected: FilmLayer[]                              [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, ···]&#xD;
+[xUnit.net 00:00:13.00]       Actual:   ArraySelectIterator&lt;LayerRow, FilmLayer&gt; [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }]&#xD;
+[xUnit.net 00:00:13.00]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.00]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(47,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.00]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.00]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(373,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.00]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.00]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:13.00]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.00]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(31,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(String theme, Int32 width, Double fontSize)&#xD;
+[xUnit.net 00:00:13.00]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.73]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:15.73]                                                                                                                                ↓ (pos 1)&#xD;
+[xUnit.net 00:00:15.73]       Expected: FilmLayer[]                              [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, FilmLayer { MaterialId = SiO2, ThicknessNm = 94.2, Variable = True }, FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }, ···]&#xD;
+[xUnit.net 00:00:15.73]       Actual:   ArraySelectIterator&lt;LayerRow, FilmLayer&gt; [FilmLayer { MaterialId = Ta2O5, ThicknessNm = 64, Variable = True }]&#xD;
+[xUnit.net 00:00:15.73]       Stack Trace:&#xD;
+[xUnit.net 00:00:15.73]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(47,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:15.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.73]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs(373,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.&lt;&gt;c__DisplayClass3_0.&lt;&lt;Run&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:15.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.73]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:15.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.73]         D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs(31,0): at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(String theme, Int32 width, Double fontSize)&#xD;
+[xUnit.net 00:00:15.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.74]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T09:56:42.7752037+08:00">
+        <Text>[xUnit.net 00:00:05.94]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T09:56:45.1491664+08:00">
+        <Text>[xUnit.net 00:00:08.31]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: "Light", width: 1200, fontSize: 13) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T09:56:47.5433014+08:00">
+        <Text>[xUnit.net 00:00:10.70]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: "Light", width: 820, fontSize: 18) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T09:56:49.8410055+08:00">
+        <Text>[xUnit.net 00:00:13.00]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: "Dark", width: 1440, fontSize: 22) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-03T09:56:52.5715315+08:00">
+        <Text>[xUnit.net 00:00:15.73]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceEditorKeepsInlineMaterialsRowToolsAndPhysicalPrescription(theme: "Light", width: 1440, fontSize: 22) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-03T09:56:52.6655665+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

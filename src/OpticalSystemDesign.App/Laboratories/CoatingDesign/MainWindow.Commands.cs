@@ -17,10 +17,10 @@ public sealed partial class MainWindow
     private Border BuildCommandBar()
     {
         var commands = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 2 };
-        commands.Children.Add(ToolCommand("打开", "打开实验", "folder-open", OpenAsync, "O"));
-        commands.Children.Add(ToolCommand("保存", "保存实验", "save", SaveAsync, "S"));
-        commands.Children.Add(ToolCommand("导出", "导出结果", "download", ExportAsync));
-        commands.Children.Add(ToolCommand("恢复草稿", "检查恢复草稿", "history", OfferRecoveryAsync));
+        commands.Children.Add(ToolCommand("打开", "打开实验", "file-open", OpenAsync, "O"));
+        commands.Children.Add(ToolCommand("保存", "保存实验", "file-save", SaveAsync, "S"));
+        commands.Children.Add(ToolCommand("导出", "导出结果", "file-export", ExportAsync));
+        commands.Children.Add(ToolCommand("恢复草稿", "检查恢复草稿", "recover-unsaved-project", OfferRecoveryAsync));
         commands.Children.Add(CommandDivider());
 
         var examples = new MenuFlyout();
@@ -52,17 +52,17 @@ public sealed partial class MainWindow
             foreach (var item in examples.Items.OfType<MenuItem>())
                 item.Header = UiLocalization.Text((string)item.Tag!);
         };
-        var exampleButton = new DropDownButton { Content = ToolContent("layers", "示例"), Flyout = examples };
+        var exampleButton = new DropDownButton { Content = ToolContent("optical-examples", "示例"), Flyout = examples };
         exampleButton.Classes.Add("coating-tool");
         AutomationProperties.SetName(exampleButton, "镀膜示例");
         CommandTip(exampleButton, "选择镀膜示例");
         commands.Children.Add(exampleButton);
-        commands.Children.Add(SettingsMenu("设计", "设计选项", "sliders-horizontal", [("设计目标设置", 0), ("介质与膜料设置", 1)]));
-        commands.Children.Add(SettingsMenu("优化", "优化选项", "settings-2", [("优化设置", 2), ("公差设置", 3)]));
+        commands.Children.Add(SettingsMenu("设计", "设计选项", "settings-general", [("设计目标设置", 0), ("介质与膜料设置", 1)]));
+        commands.Children.Add(SettingsMenu("优化", "优化选项", "optimization-wizard", [("优化设置", 2), ("公差设置", 3)]));
         commands.Children.Add(CommandDivider());
-        commands.Children.Add(ToolCommand("材料", "材料管理", "database", ManageMaterialsAsync));
-        commands.Children.Add(ToolCommand("堆栈几何", "堆栈几何分析", "layers", ShowStackGeometryAsync));
-        commands.Children.Add(ToolCommand("结果", "查看镀膜结果", "chart-line", ShowDesignResultsAsync));
+        commands.Children.Add(ToolCommand("材料", "材料管理", "materials-library", ManageMaterialsAsync));
+        commands.Children.Add(ToolCommand("堆栈几何", "堆栈几何分析", "coating-stack", ShowStackGeometryAsync));
+        commands.Children.Add(ToolCommand("结果", "查看镀膜结果", "coating-spectrum", ShowDesignResultsAsync));
         commands.Children.Add(BuildWindowMenu());
 
         var row = new ScrollViewer

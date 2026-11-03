@@ -1,0 +1,20 @@
+D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:51.43]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView [FAIL]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView [4 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 1452
+Actual:   1269
+  堆栈跟踪:
+     at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.<>c__DisplayClass23_1.<<SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView>b__0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopSpectrumTests.cs:line 107
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 374
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.SpectrumSwitchesAreRealIndependentReadOnlyAndExportTheCurrentView() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopSpectrumTests.cs:line 32
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-03\analysis-frame-dpi\coating-checked\coating-frame-checked.trx
+
+失败!  - 失败:     1，通过:     6，已跳过:     0，总计:     7，持续时间: 51 s - OpticalSystemDesign.CoatingDesign.Tests.dll (net10.0)

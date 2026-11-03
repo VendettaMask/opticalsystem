@@ -213,11 +213,13 @@ public sealed class SpectrumPlot : Control, IDisposable
     internal byte[] CapturePng()
     {
         if (!HasData) throw new InvalidOperationException("请先计算光谱。");
-        var width = checked((int)Math.Ceiling(Bounds.Width * 2)); var height = checked((int)Math.Ceiling(Bounds.Height * 2));
-        if (width < 1 || height < 1 || (long)width * height > 32_000_000) throw new InvalidOperationException("图像尺寸超过导出上限。");
-        using var bitmap = new RenderTargetBitmap(new PixelSize(width, height), new Vector(192, 192));
-        _exporting = true; try { bitmap.Render(this); } finally { _exporting = false; }
-        using var stream = new MemoryStream(); bitmap.Save(stream, PngBitmapEncoderOptions.Default); return stream.ToArray();
+        _exporting = true;
+        try
+        {
+            using var bitmap = ExportImageFrame.CaptureConfigured(this);
+            using var stream = new MemoryStream(); PngImageWriter.Write(bitmap, stream); return stream.ToArray();
+        }
+        finally { _exporting = false; }
     }
     public override void Render(DrawingContext context)
     {

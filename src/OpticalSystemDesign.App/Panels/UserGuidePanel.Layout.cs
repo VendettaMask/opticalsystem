@@ -169,7 +169,8 @@ public sealed partial class UserGuidePanel
         _tocHeading.Text = Current(T("本章内容", "ON THIS PAGE", "この章の内容"));
         _inlineContents.Header = Current(T("本章内容", "On this page", "この章の内容"));
         _navigationToggle.Content = Current(T("目录", "Contents", "目次"));
-        _pdfExport.Content = "⋯";
+        _pdfExport.Content = new OpticalSystemDesign.App.Controls.LocalIcon
+            { IconName = "action-more", Width = 20, Height = 20 };
         AutomationProperties.SetName(_pdfExport, Current(T("更多操作：导出", "More actions: export", "その他の操作：出力")));
         ToolTip.SetTip(_pdfExport, Current(T("更多操作", "More actions", "その他の操作")));
         _pdfCancel.Content = Current(T("取消", "Cancel", "取消"));

@@ -35,6 +35,18 @@ public sealed class AppSettings
 
     public double FontSize { get; set; } = DefaultFontSize;
 
+    public string AnalysisColorMap { get; set; } = nameof(ScientificColorMap.Viridis);
+
+    public double ImageExportDpi { get; set; } = ImageExportResolution.DefaultDpi;
+    public int ImageExportPixelHeight { get; set; } = ImageExportResolution.DefaultPixelHeight;
+    private int? _imageExportPixelWidth;
+    public int ImageExportPixelWidth
+    {
+        get => _imageExportPixelWidth ?? ImageExportResolution.WidthForHeight(ImageExportPixelHeight);
+        set => _imageExportPixelWidth = value;
+    }
+    public bool ImageExportPreserveAspectRatio { get; set; } = true;
+
     public double WindowWidth { get; set; } = 1280;
 
     public double WindowHeight { get; set; } = 820;
@@ -67,6 +79,10 @@ public sealed class AppSettings
         LeftPaneWidth = Math.Clamp(double.IsFinite(LeftPaneWidth) ? LeftPaneWidth : UiDensity.SystemOptionsPreferredWidth,
             UiDensity.SystemOptionsMinimumWidth, UiDensity.SystemOptionsMaximumWidth);
         Theme = ThemeRegistry.NormalizeSettingsValue(Theme);
+        AnalysisColorMap = ScientificColorMaps.Parse(AnalysisColorMap).ToString();
+        ImageExportDpi = ImageExportResolution.Normalize(ImageExportDpi);
+        ImageExportPixelHeight = ImageExportResolution.NormalizeHeight(ImageExportPixelHeight);
+        ImageExportPixelWidth = ImageExportResolution.NormalizeWidth(ImageExportPixelWidth);
         Language = UiLocalization.NormalizeLanguage(Language);
         DecimalPlaces = Math.Clamp(DecimalPlaces, 0, 15);
         UpperScientificExponent = Math.Clamp(UpperScientificExponent, 1, 15);
@@ -96,6 +112,11 @@ public sealed class AppSettings
         FontFamily = string.Empty;
         FontShape = "Regular";
         FontSize = DefaultFontSize;
+        AnalysisColorMap = nameof(ScientificColorMap.Viridis);
+        ImageExportDpi = ImageExportResolution.DefaultDpi;
+        ImageExportPixelHeight = ImageExportResolution.DefaultPixelHeight;
+        ImageExportPixelWidth = ImageExportResolution.DefaultPixelWidth;
+        ImageExportPreserveAspectRatio = true;
     }
 
     public void ApplyLayout(WorkspaceLayoutState layout)

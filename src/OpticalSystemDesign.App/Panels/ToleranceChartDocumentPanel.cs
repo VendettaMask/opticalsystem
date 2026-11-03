@@ -248,9 +248,9 @@ public sealed class ToleranceChartDocumentPanel : UserControl
         _summary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
         _emptyMessage.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
 
-        var refresh = CommandButton("refresh-cw", "刷新");
+        var refresh = CommandButton("action-recalculate", "刷新");
         refresh.Click += (_, _) => Refresh();
-        var reset = CommandButton("rotate-ccw", "重置视图");
+        var reset = CommandButton("action-reset-view", "重置视图");
         reset.Click += (_, _) => _plot.ResetView();
 
         var toolbar = new Border

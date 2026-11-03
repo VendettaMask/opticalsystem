@@ -37,7 +37,7 @@ public sealed partial class DesktopTests
                 {
                     window.Show(); Tick(window); Click(window, "打开实验"); await window.PendingOperation; Tick(window);
                     var table = WindowControls(window).OfType<DataGrid>().Single(g => g.Name == "CoatingLayerTable");
-                    var rows = ((IEnumerable<LayerRow>)table.ItemsSource).ToArray();
+                    var rows = PhysicalRows(table);
                     Assert.Equal(160.246913578, rows[0].OpticalThicknessNm!.Value, 10);
                     Assert.Equal(154.385, rows[1].OpticalThicknessNm!.Value, 10);
                     Assert.Equal(experiment.Layers, rows.Select(r => r.ToLayer()));

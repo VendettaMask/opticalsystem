@@ -1,0 +1,340 @@
+{
+  "date": "2026-11-03",
+  "scope": "Light sidebar backdrop: actual margin, gap, section body, input pixels; resize, scroll, theme return and adjacent control/layout checks",
+  "head": "d303a6936be6da610a0d88284a383e467633e8ce",
+  "distinctFinalCases": 37,
+  "runs": [
+    {
+      "file": "final-gradient.trx",
+      "counters": "<Counters total=\"4\" executed=\"4\" passed=\"4\" failed=\"0\" error=\"0\" timeout=\"0\" aborted=\"0\" inconclusive=\"0\" passedButRunAborted=\"0\" notRunnable=\"0\" notExecuted=\"0\" disconnected=\"0\" warning=\"0\" completed=\"0\" inProgress=\"0\" pending=\"0\" xmlns=\"http://microsoft.com/schemas/VisualStudio/TeamTest/2010\" />",
+      "cases": [
+        {
+          "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.BackdropIsRelativeAndHeaderInkReadableWhileDataSurfacesStayWhite",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "file": "adjacent.trx",
+      "counters": "<Counters total=\"33\" executed=\"33\" passed=\"33\" failed=\"0\" error=\"0\" timeout=\"0\" aborted=\"0\" inconclusive=\"0\" passedButRunAborted=\"0\" notRunnable=\"0\" notExecuted=\"0\" disconnected=\"0\" warning=\"0\" completed=\"0\" inProgress=\"0\" pending=\"0\" xmlns=\"http://microsoft.com/schemas/VisualStudio/TeamTest/2010\" />",
+      "cases": [
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.ReferenceWorkbenchResourcesStayInsideTheLightTheme",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.ThemeRegistryOwnsSelectionResourcesIconsAndChrome",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.ScrollThumbAndTooltipKeepTheirPaletteDuringInteraction",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.TableSelectionCurrentCellEditCancelAndRefocusKeepBlueStates",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.BlueTextAndKeyboardFocusHaveReadableContrast",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.PixelThemeUsesScientificVectorsAndItsOwnPaletteWithSquaredChrome",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.TextSelectionErrorFocusAndDisabledUseDistinctVisuals",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.SectionAndFieldEmphasisRestoresTransientColorsWithoutChangingChrome",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.TopMenuSeparatesHoverPressAndOpenWithoutChangingLightTabText",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.StandardThemesShareScientificGeometryWithTheirOwnPaletteAndKeepChromeMetrics",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.DarkThemeKeepsRenderingPaletteDarkerThanLightTheme",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.PrimaryAndOrdinaryButtonsRestoreHoverAndDoNotLatchPressed",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.ComboKeyboardSelectionEscapeAndDisabledSelectedOptionAreThemed",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.PopupMenusAndLateWindowsResolveBlueResourcesAcrossThemeSwitches",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.CustomThemesDefineAnalysisAndSceneRenderingResources",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.AThemePackageCanBeBuiltWithoutAddingResolverBranches",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Light\", width: 1024, fontSize: 18)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.ThemeIconPacksOwnImportedAssetsAndFallbackPolicy",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.NarrowWorkspaceKeepsSystemEditorsUsableAndTableScrollable",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.IsekaiUsesScientificThemeColoursAndRetainsArchivedArtworkAttributionAndChrome",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Isekai\", width: 1280, fontSize: 13)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Light\", width: 640, fontSize: 13)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.IsekaiChromeKeepsStructuralThicknessLayoutCompatible",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.SystemPropertiesPanelSectionThemeTests.SectionsKeepTheirCardOutlineAcrossPointerExpansionAndThemeChanges",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Dark\", width: 1280, fontSize: 13)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Light\", width: 1280, fontSize: 13)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.PixelThemeOverridesFluentControlsWithEightBitColorRoles",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.TabsAndRadioButtonsRetainTheirOwnSelectionSemantics",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ReferenceWorkbenchLayoutTests.RealWorkspaceKeepsReferenceChromeWithoutReplacingProductData(theme: \"Pixel\", width: 1280, fontSize: 13)",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.ToggleAndCheckBoxKeepSelectionButDisabledWins",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.IsekaiIconMappingsKeepReviewedOperationsSemanticallyDistinct",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.DockAndMenuHeadersUseEmphasisWithoutRecoloringOtherContent",
+          "outcome": "Passed"
+        },
+        {
+          "name": "OpticalSystemDesign.Tests.ThemeResourceTests.ThemeChromeOverlayIsInputTransparentAndDoesNotRequestLayoutSpace",
+          "outcome": "Passed"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Services/PanelManager.cs",
+      "sha256": "5ec083f8045a0a09ed5513eec1904aac2d61ec1beec1e14b459aca46062897c8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs",
+      "sha256": "cc55cad54da27cdc7ad9e10a315f8d43a2f3396b8374d4bf231f634da04f99ca"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/ThemeResourceBindings.cs",
+      "sha256": "79d78be05f42c98596cbe273fcc04f9d3ee7871087b360e36fe67681be7bc184"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/ThemePalette.cs",
+      "sha256": "3c094225cc253abfc726ab8e67f4a90ac5ad524eb6d6f15edbb10ef227d56a6e"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/BlueThemeTokens.cs",
+      "sha256": "461717b46d73128b332416e0d13a02f0470320f94b7b5dee6548928ce26727fd"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/LightTheme.cs",
+      "sha256": "b0334650d17d02a1b9367fdfddf56f8a12ca612bf30105d7cc7608191a9f3f40"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/BlueThemeStyles.cs",
+      "sha256": "67343290a5f2db8469f9b209c88b26e7f50c9d47b492c840af97672b1cbdf718"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/LightGradientThemeTests.cs",
+      "sha256": "9c8a187a006650952df967a7ae0845ffc410d1692261b730e6f3cf73e41a8780"
+    }
+  ],
+  "compiledSourceAudit": [
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs",
+      "compiledSha256": "cc55cad54da27cdc7ad9e10a315f8d43a2f3396b8374d4bf231f634da04f99ca",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/PanelManager.cs",
+      "compiledSha256": "5ec083f8045a0a09ed5513eec1904aac2d61ec1beec1e14b459aca46062897c8",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/ThemeResourceBindings.cs",
+      "compiledSha256": "79d78be05f42c98596cbe273fcc04f9d3ee7871087b360e36fe67681be7bc184",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/BlueThemeStyles.cs",
+      "compiledSha256": "67343290a5f2db8469f9b209c88b26e7f50c9d47b492c840af97672b1cbdf718",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/BlueThemeTokens.cs",
+      "compiledSha256": "461717b46d73128b332416e0d13a02f0470320f94b7b5dee6548928ce26727fd",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/LightTheme.cs",
+      "compiledSha256": "b0334650d17d02a1b9367fdfddf56f8a12ca612bf30105d7cc7608191a9f3f40",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/ThemePalette.cs",
+      "compiledSha256": "3c094225cc253abfc726ab8e67f4a90ac5ad524eb6d6f15edbb10ef227d56a6e",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs",
+      "compiledSha256": "cc55cad54da27cdc7ad9e10a315f8d43a2f3396b8374d4bf231f634da04f99ca",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/PanelManager.cs",
+      "compiledSha256": "5ec083f8045a0a09ed5513eec1904aac2d61ec1beec1e14b459aca46062897c8",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Services/ThemeResourceBindings.cs",
+      "compiledSha256": "79d78be05f42c98596cbe273fcc04f9d3ee7871087b360e36fe67681be7bc184",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/BlueThemeStyles.cs",
+      "compiledSha256": "67343290a5f2db8469f9b209c88b26e7f50c9d47b492c840af97672b1cbdf718",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/BlueThemeTokens.cs",
+      "compiledSha256": "461717b46d73128b332416e0d13a02f0470320f94b7b5dee6548928ce26727fd",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/LightTheme.cs",
+      "compiledSha256": "b0334650d17d02a1b9367fdfddf56f8a12ca612bf30105d7cc7608191a9f3f40",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/ThemePalette.cs",
+      "compiledSha256": "3c094225cc253abfc726ab8e67f4a90ac5ad524eb6d6f15edbb10ef227d56a6e",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.pdb",
+      "path": "tests/OpticalSystemDesign.Tests/LightGradientThemeTests.cs",
+      "compiledSha256": "9c8a187a006650952df967a7ae0845ffc410d1692261b730e6f3cf73e41a8780",
+      "matchesCurrent": true
+    }
+  ],
+  "files": [
+    {
+      "path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "f7a62daac1e2f0c26ae57c7b018b9e367186657fb4cd11879f47ead64716f2f3"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "sha256": "f7a62daac1e2f0c26ae57c7b018b9e367186657fb4cd11879f47ead64716f2f3"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll",
+      "sha256": "b2090cebd2a5a180a579e0fc35dd9d59ff5b7ffcbaacd1167494932a69606f29"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Double Gauss 28 degree field.zmx",
+      "sha256": "f994005d633d4af742402469c9e4e2e0c289a57aed3ae876fb3231d1d3f95460"
+    }
+  ],
+  "previews": [
+    {
+      "path": "previews/workbench-1600x1000-13.png",
+      "sha256": "99556da50320b7661919365153ecc16b7087c7a472f2b721e07086b7def8bdee"
+    },
+    {
+      "path": "previews/workbench-640x500-13-scrolled.png",
+      "sha256": "3f648971461cdff3f5d50bb5b261027901ae79453af9cbd793c8e101d72fc6cb"
+    },
+    {
+      "path": "previews/workbench-640x500-13.png",
+      "sha256": "b6bbf4272240bc71e7b94d89c10d7a61c0bd3bc01e5ad3f0b6c40c1ce2c6deab"
+    },
+    {
+      "path": "previews/workbench-900x700-18-scrolled.png",
+      "sha256": "495a175fff024701d8fb02078496039b6ed2347bf1f7e210c19e4b6f603938d7"
+    },
+    {
+      "path": "previews/workbench-900x700-18.png",
+      "sha256": "8ea84f9647a86e93ef3288ba9ed076c25f08438deb434fb9ff4e49b29010f4ba"
+    }
+  ],
+  "limitations": [
+    "Off-screen only; no user-window interaction or restart",
+    "No full optical accuracy matrix or complete repository test run",
+    "Before failures and host-only intermediate runs are retained separately and excluded from final passing count",
+    "Shared checkout contains unrelated concurrent changes; audit is scoped to the changed sidebar sources"
+  ]
+}

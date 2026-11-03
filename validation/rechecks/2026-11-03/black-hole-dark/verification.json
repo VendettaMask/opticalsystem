@@ -1,0 +1,146 @@
+{
+  "date": "2026-11-03",
+  "sourceBase": "d303a6936be6da610a0d88284a383e467633e8ce",
+  "includesUncommittedWork": true,
+  "themeSetting": "Dark",
+  "reference": "Existing black-hole icon and splash artwork",
+  "tests": {
+    "total": "26",
+    "executed": "26",
+    "passed": "26",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "build": "Default Release App and built-in module dependencies",
+  "runtimeBindings": [
+    {
+      "product": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "testCopy": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "productSha256": "b8094ed2c7c25411cff7ed52020b49229739d2f73886a54e72109e97f86c17a1",
+      "testSha256": "45fd58f19d64967cc365a79600fec139129e26c185bf98eaa972c9bd3bdda63b",
+      "equalAtReceipt": false
+    },
+    {
+      "product": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "testCopy": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "productSha256": "aea0da211c3692bbf22043537e3f767c8765cdb89e917c1b36008898ece032fd",
+      "testSha256": "aea0da211c3692bbf22043537e3f767c8765cdb89e917c1b36008898ece032fd",
+      "equalAtReceipt": true
+    }
+  ],
+  "themeSourceChecks": {
+    "matches": 8,
+    "mismatches": 0,
+    "audit": "compiled-source-audit.json"
+  },
+  "files": [
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/BlackHoleDarkTheme.cs",
+      "sha256": "ed415565e9fba081fc6f2dae547747ae0935e39b78201e002e62c03106923f5b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/BlackHoleDarkThemeStyles.cs",
+      "sha256": "1fa1e7e93a916981eb44919d653a6cb4bc54c6626ba1671b5ffeefa94e3ba1b4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/ThemeRegistry.cs",
+      "sha256": "85f81ccff55a9c89b8ee677c3c18f42fd7d656815ef3943da2e4d7573674c45f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/App.cs",
+      "sha256": "48c4923f9ca11f9f2922340415d9a5aaa02b1654510987ce1b58dfa2441bd9a1"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/BlackHoleDarkThemeTests.cs",
+      "sha256": "5e5d018cffe82c3d1bb45be4f39df063fbea32a90dae37acfbda38272cf9ef39"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/LumenThemeTests.cs",
+      "sha256": "0420bc6230f9f71c8ef8d31139ac45274ca7839342764fd334e565975955f20e"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ThemeResourceTests.cs",
+      "sha256": "c2e64532dc0b18b20c72fb4e96b738dd42f9a905473babbd4a58496263f0779b"
+    },
+    {
+      "path": "docs/UI_DESIGN_SPEC.md",
+      "sha256": "dd05bd9f1bc53c7789825d0f6036130c772da95abd535dfe7958f8d3b1c38596"
+    },
+    {
+      "path": "docs/BRANDING.md",
+      "sha256": "7885a8c6ad4001f72b923d6df344d1b1d730389933beefd66dcc65fdaaa9d223"
+    },
+    {
+      "path": "docs/CURRENT_STATUS.md",
+      "sha256": "71d347fada045a7afd7de179d5b424f5aff7b0c5b96a12514eacc4068a62c0d7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Brand/AppIconArtwork.png",
+      "sha256": "f210536d54b4e421684ce00e974ab83a2774efbd9e367131b05dddae682d2e96"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Brand/Splash.png",
+      "sha256": "80483401ce0ca8d8c29b83df1a44f0d3d45765f64349e181ab05d23b3b42d9ad"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/black-hole-dark/README.md",
+      "sha256": "439862ce65e6e45d4631ef9823e72b272af40ab6c9652e2828e769fd811c3e35"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/black-hole-dark/final-tests.log",
+      "sha256": "9d58688cbfc5bd1b49c78d3661caec5b33ba8da1a1d24770260e653562894540"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/black-hole-dark/final-26.trx",
+      "sha256": "7ff05ed1fc5f2e8156423187dbb79213357ed18229ec42de13c2f20badbc4720"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/black-hole-dark/compiled-source-audit.json",
+      "sha256": "46603aa5138c11df838aac1fd081197e672925408c63941307897b71e4f2b06e"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/black-hole-dark/previews/controls-en-US-18.png",
+      "sha256": "72f727b514c7d224fa07fae76fa6f81286da3c8eccafef71ad5faaf9059b8f1f"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/black-hole-dark/previews/controls-ja-JP-13.png",
+      "sha256": "f49aaa5a00cc17623f172f99059f70254ab36198de5e811a7b79519e2cb1b045"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/black-hole-dark/previews/controls-zh-CN-13.png",
+      "sha256": "68652c83c79c85a58b19e9b032eefcd193c150f722ca8d075319e9fdcfa91e41"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/black-hole-dark/previews/workbench-1120x800-18.png",
+      "sha256": "d18a887a5d176933c1d86ecf256f92b5eb36758b999f2fc6200db578333c43dd"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/black-hole-dark/previews/workbench-1500x950-13.png",
+      "sha256": "5246d8eb1f76d95ab45099c82ec0acf50ef4433c9c9ea84c0676c31634c318ef"
+    }
+  ],
+  "scope": [
+    "Registered Dark palette and exact Dark native template styles",
+    "Six new scoped cases plus existing theme/button/material checks; final 26 distinct cases",
+    "Actual isolated MainWindow, two sizes; Chinese/English/Japanese controls",
+    "Actual pointer hover/press/disable; Light/Lumen/Pixel round trips",
+    "Readable text and unchanged lens recovery state"
+  ],
+  "limitations": [
+    "Off-screen only; no user-desktop interaction or settings changes",
+    "Working-tree trial, no user confirmation of final visual design",
+    "App output rebuilt concurrently; full App/test-copy equivalence is not claimed. All four theme product sources match both Portable PDBs.",
+    "No full optical matrix, installer, publish or push"
+  ]
+}

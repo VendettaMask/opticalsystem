@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-03",
+  "scope": "Light backdrop brightness preview; original gradient proportions and checks retained",
+  "head": "d303a6936be6da610a0d88284a383e467633e8ce",
+  "cases": [
+    {
+      "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.BackdropIsRelativeAndHeaderInkReadableWhileDataSurfacesStayWhite",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.BlueThemeInteractionTests.BlueTextAndKeyboardFocusHaveReadableContrast",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13)",
+      "outcome": "Passed"
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/BlueThemeTokens.cs",
+      "sha256": "457791230567324b6d34f8659944144f2358d86e5284eaf983e01f08583f39cf"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/BlueThemeInteractionTests.cs",
+      "sha256": "75236e0a25dcae17e5842c1f03e9b441cd5f77f548538b6ca437285588c1147b"
+    }
+  ],
+  "compiledSourceAudit": [
+    {
+      "pdb": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/BlueThemeTokens.cs",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.App.pdb",
+      "path": "src/OpticalSystemDesign.App/Theming/BlueThemeTokens.cs",
+      "matchesCurrent": true
+    },
+    {
+      "pdb": "tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.pdb",
+      "path": "tests/OpticalSystemDesign.Tests/BlueThemeInteractionTests.cs",
+      "matchesCurrent": true
+    }
+  ],
+  "previews": [
+    {
+      "path": "previews/workbench-1600x1000-13.png",
+      "sha256": "121e839a1aa9f01c85209f08995f6e060591ec73c934e63c4d46885552f78f54"
+    },
+    {
+      "path": "previews/workbench-640x500-13-scrolled.png",
+      "sha256": "27cdc7df22355cf776157f65b239ccb681e4e7c3a13fb642164de6fe4a123531"
+    },
+    {
+      "path": "previews/workbench-640x500-13.png",
+      "sha256": "23dcc809e49b68cafd62744cebb541884aba01f9eabd0650fb40d7a5b78a04b3"
+    },
+    {
+      "path": "previews/workbench-900x700-18-scrolled.png",
+      "sha256": "5c5965f466a404dc2959c698fcb9ef8beccca15746aa606e2ba9760e28053f1a"
+    },
+    {
+      "path": "previews/workbench-900x700-18.png",
+      "sha256": "95c595448ff3b753512ddab1e22c4c2c7cb7f0c5caf7e44c6be3f798243559db"
+    }
+  ],
+  "limitations": [
+    "Off-screen only; user desktop untouched",
+    "No complete repository test suite or optical accuracy matrix",
+    "Historical checks are not added to this scoped result"
+  ]
+}

@@ -282,6 +282,9 @@ public sealed class AnalysisLegendLayoutTests
                 ["Frequency5"] = "0",
                 ["Frequency6"] = "0"
             }));
+            view = view with { PresentationKind = WorkbenchAnalysisCatalog.PresentationKind(
+                WorkbenchAnalysisCatalog.CanonicalKey(analysis)) };
+            Assert.Equal(AnalysisPresentationKind.Mtf, view.PresentationKind);
             Assert.Equal(AnalysisOutcome.Success, view.Outcome);
             Assert.True(view.PlotOptions.ShowLegend);
             Assert.All(view.Series, item => Assert.True(string.IsNullOrEmpty(item.LegendKey)));
@@ -293,6 +296,7 @@ public sealed class AnalysisLegendLayoutTests
                 var legend = Legend(tabs);
                 var plot = Assert.Single(tabs.GetVisualDescendants().OfType<AnalysisPlotControl>());
                 var original = view.Series;
+                Assert.Empty(plot.PlotOptions.Title);
                 Assert.Equal(original.Count, legend.Children.Count);
                 Assert.True(original.Count >= 2);
                 Assert.False(plot.PlotOptions.ShowLegend);
@@ -317,6 +321,7 @@ public sealed class AnalysisLegendLayoutTests
                 Render(window);
                 Assert.Equal(original, plot.Series);
                 Assert.Equal(revision, app.Documents.GetSnapshot().Revision);
+                Assert.Empty(plot.PlotOptions.Title);
             }
             finally { window.Close(); }
         }, CancellationToken.None);

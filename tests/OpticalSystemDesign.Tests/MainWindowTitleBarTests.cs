@@ -155,9 +155,9 @@ public sealed class MainWindowTitleBarTests
                 Assert.True(window.CanMinimize && window.CanMaximize && window.CanResize);
                 Assert.Equal(WindowDecorationsElementRole.TitleBar, WindowDecorationProperties.GetElementRole(caption));
                 Assert.False(title.IsHitTestVisible);
-                Assert.Same(BlueThemeTokens.HeaderGradient, caption.Background);
+                Assert.Same(BlueThemeTokens.HeaderSurface, caption.Background);
                 Assert.Equal(new Thickness(0), caption.BorderThickness);
-                Assert.Equal(Color.Parse("#FFFFFF"), ((ISolidColorBrush)title.Foreground!).Color);
+                Assert.Equal(BlueThemeTokens.TitleText, ((ISolidColorBrush)title.Foreground!).Color);
                 if (OperatingSystem.IsWindows())
                 {
                     Assert.Equal(Color.Parse("#FFBD2E"), MainWindowTitleBar.MinimizeButtonColor);

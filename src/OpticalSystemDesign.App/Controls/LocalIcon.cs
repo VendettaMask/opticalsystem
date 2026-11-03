@@ -2,15 +2,18 @@ using System.Globalization;
 using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Controls;
 
 public sealed class LocalIcon : Control
 {
+    private TemplatedControl? _colourHost;
     public static readonly StyledProperty<string> IconNameProperty =
         AvaloniaProperty.Register<LocalIcon, string>(nameof(IconName), "circle-question-mark");
 
@@ -18,7 +21,7 @@ public sealed class LocalIcon : Control
         AvaloniaProperty.Register<LocalIcon, IBrush?>(nameof(Stroke), Brushes.Black);
 
     public static readonly StyledProperty<double> StrokeWidthProperty =
-        AvaloniaProperty.Register<LocalIcon, double>(nameof(StrokeWidth), 2);
+        AvaloniaProperty.Register<LocalIcon, double>(nameof(StrokeWidth), ScientificSvgArtwork.SourceStrokeWidth);
 
     public static readonly StyledProperty<IBrush?> AccentStrokeProperty =
         AvaloniaProperty.Register<LocalIcon, IBrush?>(nameof(AccentStroke));
@@ -61,6 +64,26 @@ public sealed class LocalIcon : Control
         ActualThemeVariantChanged += (_, _) => InvalidateVisual();
     }
 
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        _colourHost = this.GetVisualAncestors().OfType<TemplatedControl>().FirstOrDefault();
+        if (_colourHost is not null) _colourHost.PropertyChanged += HostColourChanged;
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        if (_colourHost is not null) _colourHost.PropertyChanged -= HostColourChanged;
+        _colourHost = null;
+        base.OnDetachedFromVisualTree(e);
+    }
+
+    private void HostColourChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+    {
+        if (e.Property == TemplatedControl.BackgroundProperty || e.Property == TemplatedControl.ForegroundProperty ||
+            e.Property == IsEnabledProperty) InvalidateVisual();
+    }
+
     protected override Size MeasureOverride(Size availableSize) => new(24, 24);
 
     public override void Render(DrawingContext context)
@@ -73,6 +96,23 @@ public sealed class LocalIcon : Control
 
         if (!ThemeIconResolver.TryResolve(ActualThemeVariant, IconName, out var definition))
         {
+            return;
+        }
+
+        if (definition.Artwork is { } artwork)
+        {
+            var theme = ThemeRegistry.FromActualVariant(ActualThemeVariant);
+            var palette = OnSurfacePalette(theme);
+            if (theme.Palette is { } colours)
+            {
+                if (!IsEffectivelyEnabled || Stroke is ISolidColorBrush disabled && disabled.Color == colours.TextDisabled)
+                    palette = ScientificIconPalette.Monochrome(colours.TextDisabled);
+                else if (Stroke is ISolidColorBrush foreground &&
+                    (foreground.Color == Colors.White || foreground.Color == colours.TextOnAccent ||
+                     foreground.Color == colours.TextError || foreground.Color == colours.TextWarning || foreground.Color == colours.TextSuccess))
+                    palette = ScientificIconPalette.Monochrome(foreground.Color);
+            }
+            artwork.Draw(context, Bounds, palette, StrokeWidth);
             return;
         }
 
@@ -130,6 +170,36 @@ public sealed class LocalIcon : Control
             }
         }
     }
+
+    private ScientificIconPalette OnSurfacePalette(ThemeDefinition theme)
+    {
+        var palette = theme.IconPalette;
+        foreach (var host in this.GetVisualAncestors().OfType<Control>())
+        {
+            var brush = host switch
+            {
+                TemplatedControl control => control.Background,
+                Border border => border.Background,
+                Panel panel => panel.Background,
+                _ => null
+            };
+            var point = this.TranslatePoint(new Point(Bounds.Width / 2, Bounds.Height / 2), host) ?? default;
+            if (!IconBackgroundSampling.TrySample(brush, point, host.Bounds.Size, out var background)) continue;
+            if (ScientificIconPalette.Contrast(palette.Signal, background) >= 3) return palette;
+            var candidates = new List<Color>();
+            if (host is TemplatedControl templated && templated.Foreground is ISolidColorBrush foreground) candidates.Add(foreground.Color);
+            if (Stroke is ISolidColorBrush stroke) candidates.Add(stroke.Color);
+            if (theme.Palette is { } colours)
+                candidates.AddRange(new[] { colours.TextPrimary, colours.TextOnAccent, colours.Surface });
+            if (host.Classes.Contains("theme-emphasized") && this.TryFindResource(
+                Services.ThemeResourceBindings.SectionHeaderEmphasizedForeground, ActualThemeVariant, out var emphasis)
+                && emphasis is ISolidColorBrush emphasisInk) candidates.Insert(0, emphasisInk.Color);
+            var readable = candidates.FirstOrDefault(colour => ScientificIconPalette.Contrast(colour, background) >= 3);
+            return ScientificIconPalette.Contrast(readable, background) >= 3
+                ? ScientificIconPalette.Monochrome(readable) : palette;
+        }
+        return palette;
+    }
 }
 
 public sealed class LocalIconLabel : StackPanel
@@ -161,7 +231,7 @@ public static class LocalIconLibrary
 
     public static IReadOnlyCollection<string> Names => Definitions.Value.Keys.ToArray();
 
-    public static bool Contains(string iconName) => Definitions.Value.ContainsKey(iconName);
+    public static bool Contains(string iconName) => Definitions.Value.ContainsKey(iconName) || ScientificIconLibrary.Contains(iconName);
 
     internal static bool TryGetStandard(string iconName, out IconDefinition definition) =>
         Definitions.Value.TryGetValue(iconName, out definition!);
@@ -297,7 +367,8 @@ internal sealed record IconDefinition(
     PenLineJoin LineJoin,
     double StrokeWidthScale,
     bool UseAliasedEdges,
-    Lazy<IImage>? Image = null)
+    Lazy<IImage>? Image = null,
+    ScientificSvgArtwork? Artwork = null)
 {
     public static IconDefinition Standard(IReadOnlyList<IconPrimitive> primitives) => new(
         primitives,

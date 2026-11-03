@@ -52,7 +52,7 @@ internal sealed class CommandSearchControl : Grid
         Children.Add(SearchBox);
         _icon = new LocalIcon
         {
-            IconName = "search",
+            IconName = "action-search",
             Width = 14,
             Height = 14,
             HorizontalAlignment = HorizontalAlignment.Left,

@@ -196,7 +196,7 @@ public sealed partial class OpticalAssemblyWindow : Window
         if (Dispatcher.UIThread.CheckAccess()) { if (!_closed) action(); }
         else Dispatcher.UIThread.Post(() => { if (!_closed) action(); });
     }
-    private void UpdateSource() => _source.Text = $"光学装调 · {_application.Documents.GetSnapshot().Name}";
+    private void UpdateSource() => _source.Text = _application.Documents.GetSnapshot().Name;
     private void InvalidatePrescription(string message)
     {
         CancelOperation(); _result = null; BindRows(); ClearImage(); _status.Text = message; UpdateAvailability();
@@ -227,6 +227,7 @@ public sealed partial class OpticalAssemblyWindow : Window
             !sequential ? "请切换到顺序模式并打开镜头" : _busy ? "正在计算；可先取消"
                 : selected is null ? "请先计算并选择一个表面共轭" : UnavailableReason(selected));
         ControlAvailability.Set(_cancel, _busy, "当前没有进行中的计算");
+        RefreshAssemblyPresentation();
     }
     private AssemblyMeasurementMode MeasurementMode => (_probeMode.SelectedItem as ModeOption)?.Mode ?? AssemblyMeasurementMode.Focused;
     private bool CanPreview(OpticalAssemblyRow row) => row.Status == AssemblyConjugateStatus.Finite

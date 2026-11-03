@@ -1,0 +1,22 @@
+D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:07.17]     OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory [FAIL]
+  失败 OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory [6 s]
+  错误消息:
+   System.InvalidOperationException : Sequence contains more than one matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowMoreThanOneMatchException()
+   at System.Linq.Enumerable.TryGetSingle[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.<>c__DisplayClass2_0.<<ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory>b__0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 95
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.Host.<>c__DisplayClass3_0.<<Run>b__0>d.MoveNext() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopTests.cs:line 373
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory() in D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\DesktopCompactEditorTests.cs:line 82
+--- End of stack trace from previous location ---
+数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-03\coating-editor-layout\screenshot-fixed\screenshot-fixed.trx
+
+失败!  - 失败:     1，通过:     4，已跳过:     0，总计:     5，持续时间: 29 s - OpticalSystemDesign.CoatingDesign.Tests.dll (net10.0)

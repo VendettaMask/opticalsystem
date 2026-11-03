@@ -207,8 +207,6 @@ public sealed class ImageFileRepairTests
 
     [Theory]
     [InlineData("png", "89504E47")]
-    [InlineData("jpg", "FFD8FFE0")]
-    [InlineData("jpeg", "FFD8FFE0")]
     [InlineData("bmp", "424D")]
     public void RuntimeExportsRealSupportedFormatsThatCanBeReadBack(string extension, string magic)
     {
@@ -228,6 +226,22 @@ public sealed class ImageFileRepairTests
             var point = data.PlotPanes![0].Series[0].Points[0];
             Assert.Equal(Math.Round(point.Red!.Value * 255) / 255d, imported[0, 0, 0], 12);
         }
+        Assert.Single(Directory.GetFiles(files.DirectoryPath));
+    }
+
+    [Theory]
+    [InlineData("jpg")]
+    [InlineData("jpeg")]
+    [InlineData("webp")]
+    public void LossyOutputIsRejectedWithoutReplacingAnyExistingFile(string extension)
+    {
+        using var files = new ImageFileTestDirectory();
+        var path = files.PathFor("existing." + extension);
+        var original = new byte[] { 1, 2, 3, 4 }; File.WriteAllBytes(path, original);
+        Assert.Throws<InvalidDataException>(() => ImageFileLoader.SaveAnalysisRaster(Raster(2, 3), path));
+        var settings = Settings(); settings["OutputFile"] = path;
+        Assert.Throws<InvalidDataException>(() => new WorkbenchRuntime(Cone()).BuildAnalysisData("Image Simulation", settings));
+        Assert.Equal(original, File.ReadAllBytes(path));
         Assert.Single(Directory.GetFiles(files.DirectoryPath));
     }
 

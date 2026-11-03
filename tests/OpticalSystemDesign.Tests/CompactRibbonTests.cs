@@ -158,7 +158,7 @@ public sealed class CompactRibbonTests
                     window.Width = window.Width == 736 ? 480 : 736;
                     Tick(window);
                     AssertFrame(ribbon, workspace, window, theme);
-                    Assert.Equal(ThemeRegistry.FromSettings(theme).Palette!.Workspace,
+                    Assert.Equal(theme == "Light" ? Colors.Transparent : ThemeRegistry.FromSettings(theme).Palette!.Workspace,
                         Assert.IsAssignableFrom<ISolidColorBrush>(layout.Background).Color);
                     Assert.Equal(window.ClientSize.Width, ribbon.Bounds.Width);
                     Assert.True(workspace.Bounds.Height > 0);

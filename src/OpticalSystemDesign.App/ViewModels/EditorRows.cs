@@ -63,7 +63,7 @@ public sealed class SurfaceEditorRow
     public string RadiusDisplay
     {
         get => !double.IsFinite(Radius) || Math.Abs(Radius) <= 1e-15
-            ? "无限"
+            ? NumericDisplayFormatter.Format(double.PositiveInfinity)
             : NumericDisplayFormatter.Format(Radius);
         set
         {
@@ -78,7 +78,7 @@ public sealed class SurfaceEditorRow
                 return;
             }
 
-            var current = ParseNumber(text, "曲率半径请输入有限数值；平面可输入“无限”或 ∞。");
+            var current = ParseNumber(text, "曲率半径请输入有限数值；平面可输入 ∞。");
             Radius = Math.Abs(current) <= 1e-15 ? 0 : current;
         }
     }

@@ -56,7 +56,7 @@ public sealed class SceneSlantedEdgeWindowTests
                 Assert.True(width.IsVisible);
                 Assert.IsType<MenuFlyout>(width.Flyout).Items.OfType<MenuItem>().Single(c => c.Header?.ToString() == "粗").RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
                 Assert.Equal(AnalysisCurveWidth.Thick, plot.GetValue(AnalysisPlotControl.CurveWidthProperty));
-                using (var bitmap = window.CaptureSceneEdgeImage()) { Assert.Equal(2404, bitmap.PixelSize.Width); Assert.Equal(1804, bitmap.PixelSize.Height); }
+                using (var bitmap = window.CaptureSceneEdgeImage()) { Assert.Equal(1920, bitmap.PixelSize.Width); Assert.Equal(1080, bitmap.PixelSize.Height); }
                 await app.CameraImaging.ExportSceneSlantedEdgeAsync(result, path);
                 await app.Documents.OpenAsync(SlantedEdgeSfrTests.ReferenceLens); Dispatcher.UIThread.RunJobs();
                 Assert.Null(window.SceneEdgeResult);

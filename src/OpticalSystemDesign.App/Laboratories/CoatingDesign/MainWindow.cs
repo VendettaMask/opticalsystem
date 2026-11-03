@@ -28,6 +28,7 @@ public sealed partial class MainWindow : Window
     private readonly ExperimentSession _session = new(WorkspaceExample(Examples.Create(DesignKind.Antireflection)));
     private readonly Dictionary<string, TextBox> _numbers = new();
     private readonly ObservableCollection<LayerRow> _rows = [];
+    private readonly ObservableCollection<LayerRow> _displayRows = [];
     private readonly ComboBox _kind = new() { ItemsSource = new[] { "减反膜", "高反膜", "窄带滤光片" }, HorizontalAlignment = HorizontalAlignment.Stretch };
     private readonly ComboBox _polarization = new() { ItemsSource = new[] { "S 偏振", "P 偏振", "非偏振（S/P 等权）" }, HorizontalAlignment = HorizontalAlignment.Stretch };
     private static readonly string[] AlgorithmNames = ["Damped Least Squares", "Nelder-Mead", "Coordinate Pattern Search"];
@@ -74,23 +75,13 @@ public sealed partial class MainWindow : Window
         this.BindThemeResource(ForegroundProperty, ThemeResourceBindings.TextPrimary);
         _incident = MaterialPicker(); _substrate = MaterialPicker(); _low = MaterialPicker(); _high = MaterialPicker(); _layerMaterial = MaterialPicker();
         _table = BuildLayerTable();
+        _rows.CollectionChanged += (_, _) => Renumber();
         _table.SelectionChanged += (_, _) => { if (_table.SelectedItem is LayerRow row) _layerMaterial.Text = row.MaterialId; };
         _table.CellEditEnded += (_, _) => Changed();
         _table.KeyDown += (_, e) => { if (e.Key == Key.Delete && e.Source is not TextBox) { TrackOperation(() => EditLayer("remove")); e.Handled = true; } };
 
         var commandBar = BuildCommandBar();
         _settingsContent = BuildInputs();
-        var layerTools = new WrapPanel { Orientation = Orientation.Horizontal };
-        _layerMaterial.Width = 160;
-        _layerMaterial.Margin = new Thickness(0, 0, 8, 4);
-        layerTools.Children.Add(_layerMaterial);
-        layerTools.Children.Add(ActionButton("添加层", () => EditLayer("add")));
-        layerTools.Children.Add(ActionButton("替换材料", () => EditLayer("material")));
-        layerTools.Children.Add(LayerTool("复制", "copy", () => EditLayer("copy")));
-        layerTools.Children.Add(LayerTool("删除", "trash-2", () => EditLayer("remove")));
-        layerTools.Children.Add(LayerTool("上移", "arrow-up", () => EditLayer("up")));
-        layerTools.Children.Add(LayerTool("下移", "arrow-down", () => EditLayer("down")));
-        AddEditorTools(layerTools);
         var actions = new WrapPanel();
         AddCompute("1 生成膜系", () => RunAsync("generate"), actions);
         AddCompute("2 优化", () => RunAsync("optimize"), actions);
@@ -98,29 +89,31 @@ public sealed partial class MainWindow : Window
         AddCompute("计算 / 复验", () => RunAsync("evaluate"), actions);
         _cancel = ActionButton("取消", () => { _uiRevision++; _session.Cancel(); _plot.CancelPendingEvaluation(); _status.Text = "已请求取消；当前已完成结果保留。"; return Task.CompletedTask; });
         actions.Children.Add(_cancel);
-        var layerPanel = new Grid { RowDefinitions = new("Auto,*") };
-        var layerTitle = new Grid { ColumnDefinitions = new("Auto,*"), ColumnSpacing = 12 };
-        var layerHint = LaboratoryPresentation.Hint("入射侧 → 基板");
-        layerHint.HorizontalAlignment = HorizontalAlignment.Right;
-        layerHint.VerticalAlignment = VerticalAlignment.Center;
-        Grid.SetColumn(layerHint, 1); layerTitle.Children.Add(layerHint);
-        var layerHeading = new StackPanel
-        {
-            Margin = new Thickness(8),
-            Spacing = 6,
-            Children =
-            { BuildDuplexControls(), layerTitle, layerTools }
-        };
+        var layerPanel = new Grid { RowDefinitions = new("Auto,*,Auto") };
+        var layerHeading = BuildCompactEditorHeader();
         var editorControls = new ScrollViewer
         {
-            Name = "CoatingEditorControlsScroll", MaxHeight = 360,
+            Name = "CoatingEditorControlsScroll", MaxHeight = 200,
             HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-            Content = new StackPanel { Children = { layerHeading, BuildStackGeometryPanel() } }
+            Content = layerHeading
         };
-        layerPanel.SizeChanged += (_, _) => editorControls.MaxHeight = Math.Max(64, Math.Min(360, layerPanel.Bounds.Height - 180));
+        var geometryFooter = new ScrollViewer
+        {
+            Name = "CoatingEditorGeometryFooter", MaxHeight = 220, Content = BuildStackGeometryPanel(),
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Auto
+        };
+        void SizeEditorControls()
+        {
+            var height = layerPanel.Bounds.Height;
+            geometryFooter.MaxHeight = Math.Max(44, Math.Min(220, height * .3));
+            editorControls.MaxHeight = Math.Max(44, Math.Min(200, height - Math.Max(44, geometryFooter.Bounds.Height) - 120));
+        }
+        layerPanel.SizeChanged += (_, _) => SizeEditorControls();
+        geometryFooter.SizeChanged += (_, _) => SizeEditorControls();
         layerPanel.Children.Add(editorControls);
         _table.BorderThickness = new Thickness(0);
-        Put(layerPanel, _table, 1);
+        Put(layerPanel, BuildLayerViewport(), 1);
+        Put(layerPanel, geometryFooter, 2);
         var plotPanel = new Grid { RowDefinitions = new("Auto,*") };
         plotPanel.Children.Add(new StackPanel
         {
@@ -129,7 +122,7 @@ public sealed partial class MainWindow : Window
             Children =
             { BuildSpectrumToolbar() }
         });
-        _plot.Margin = new Thickness(4, 0, 4, 8); Put(plotPanel, _plot, 1);
+        Put(plotPanel, new AnalysisImageFrame { Margin = new Thickness(4, 0, 4, 8), Child = _plot }, 1);
         _summary.FontSize = DisplayTypography.BodySmall;
         _designResultsContent = BuildDesignResultsContent();
         var evaluation = new Grid { RowDefinitions = new("*,Auto,Auto") };
@@ -237,6 +230,7 @@ public sealed partial class MainWindow : Window
         _narrowProtocol.SelectionChanged += (_, _) => Changed();
         AddCompute("公差复验", () => RunAsync("tolerance"), tolerances);
         Page("优化与采样", advanced); Page("公差", tolerances);
+        Page("表面与评价", BuildDuplexControls());
         Watch(_name, TextBox.TextProperty); Watch(_stopBands, TextBox.TextProperty);
         foreach (var picker in new[] { _incident, _substrate, _low, _high }) Watch(picker, AutoCompleteBox.TextProperty);
         _kind.SelectionChanged += (_, _) =>
@@ -314,6 +308,7 @@ public sealed partial class MainWindow : Window
         _candidates.ItemsSource = null; _status.Text = "输入已修改，旧结果已失效。";
         RefreshStackGeometry();
         RefreshLayerOpticalThickness();
+        RefreshLayerEditorPresentation();
         RecordEditorHistory(historyKey);
     }
     private void Visibility()
@@ -428,6 +423,7 @@ public sealed partial class MainWindow : Window
             _summary.Text = Summary(d);
             RefreshStackGeometry();
             RefreshLayerOpticalThickness();
+            RefreshLayerEditorPresentation();
             Visibility(); _status.Text = d.Result is null ? "示例 / 实验已打开，请生成膜系或计算。" : "计算已完成，请查看逐项指标。";
         }
         finally { _loading = false; _hasUnsavedChanges = markDirty; }
@@ -488,7 +484,19 @@ public sealed partial class MainWindow : Window
         row.InputChanged += key => Changed($"row:{row.GetHashCode()}:{key}");
         return row;
     }
-    private void Renumber() { for (var i = 0; i < _rows.Count; i++) _rows[i].Number = i + 1; }
+    private void Renumber()
+    {
+        var wanted = _rows.Reverse().ToArray();
+        for (var i = 0; i < wanted.Length; i++)
+        {
+            wanted[i].Number = i + 1;
+            if (i < _displayRows.Count && ReferenceEquals(_displayRows[i], wanted[i])) continue;
+            var old = _displayRows.IndexOf(wanted[i]);
+            if (old >= 0) _displayRows.Move(old, i); else _displayRows.Insert(i, wanted[i]);
+        }
+        while (_displayRows.Count > wanted.Length) _displayRows.RemoveAt(_displayRows.Count - 1);
+        RefreshLayerEditorPresentation();
+    }
     private Task EditLayer(string action)
     {
         EditSelectedLayers(action); return Task.CompletedTask;

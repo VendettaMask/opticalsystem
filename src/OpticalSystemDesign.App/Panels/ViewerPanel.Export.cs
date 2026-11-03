@@ -14,7 +14,7 @@ namespace OpticalSystemDesign.App.Panels;
 
 public sealed partial class ViewerPanel
 {
-    private readonly Button _exportImageButton = CompactButton("camera", "导出图片（PNG）");
+    private readonly Button _exportImageButton = CompactButton("file-export-image", "导出图片（PNG）");
     private readonly TextBlock _imageExportFeedback = new()
     {
         Name = "ViewerImageExportFeedback",
@@ -62,9 +62,9 @@ public sealed partial class ViewerPanel
         if (ImageExportUnavailableReason() is { } reason)
             throw new InvalidOperationException(UiLocalization.Text(reason));
         _scene.UpdateLayout();
-        if (_diagramPage is not null) return CaptureUniformViewerImage(renderScale ?? UniformDiagramPage.ExportScale);
+        if (_diagramPage is not null) return CaptureUniformViewerImage(renderScale);
         var size = _scene.Bounds.Size;
-        var scale = renderScale ?? TopLevel.GetTopLevel(this)?.RenderScaling ?? 1;
+        var scale = renderScale ?? ImageExportResolution.Scale;
         if (!double.IsFinite(scale) || scale <= 0) throw new ArgumentOutOfRangeException(nameof(renderScale));
         if (!double.IsFinite(size.Width) || !double.IsFinite(size.Height) || size.Width <= 0 || size.Height <= 0)
             throw new InvalidOperationException(UiLocalization.Text("视图尚未显示"));
@@ -141,10 +141,11 @@ public sealed partial class ViewerPanel
         page.Measure(new Size(size.Width, double.PositiveInfinity));
         page.Arrange(new Rect(page.DesiredSize));
         page.UpdateLayout();
-        return ExportImageFrame.Capture(page, scale, this);
+        return renderScale.HasValue ? ExportImageFrame.Capture(page, scale, this)
+            : ExportImageFrame.CaptureConfigured(page, this);
     }
 
-    private RenderTargetBitmap CaptureUniformViewerImage(double scale)
+    private RenderTargetBitmap CaptureUniformViewerImage(double? scale)
     {
         _diagramPage!.ValidateForExport();
         var page = new Grid
@@ -174,7 +175,8 @@ public sealed partial class ViewerPanel
         // reparent, resize or replace the live drawing and its camera here.
         page.Measure(new Size(UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight));
         page.Arrange(new Rect(0, 0, UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight));
-        return ExportImageFrame.Capture(page, scale, this);
+        return scale.HasValue ? ExportImageFrame.Capture(page, scale.Value, this)
+            : ExportImageFrame.CaptureConfigured(page, this);
     }
 
     private static TextBlock CopyImageLabel(TextBlock source) => new()
@@ -202,9 +204,12 @@ public sealed partial class ViewerPanel
             { Stretch = Stretch.None, AlignmentX = AlignmentX.Left, AlignmentY = AlignmentY.Top }, null, new Rect(Bounds.Size));
     }
 
-    internal static void SaveViewerImage(RenderTargetBitmap bitmap, string path) =>
+    internal static void SaveViewerImage(RenderTargetBitmap bitmap, string path)
+    {
+        LosslessImageOutput.RequirePng(path);
         BoundedApplicationFile.WriteAtomic(path, BoundedApplicationFile.MaximumImageDataBytes,
-            "Viewer image export", stream => bitmap.Save(stream, PngBitmapEncoderOptions.Default));
+            "Viewer image export", stream => PngImageWriter.Write(bitmap, stream));
+    }
 
     private string SuggestedImageName()
     {

@@ -1,0 +1,58 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:45.63]     OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: "Light", width: 1024, fontSize: 13) [FAIL]
+[xUnit.net 00:00:46.13]     OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: "Light", width: 640, fontSize: 18) [FAIL]
+  失败 OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: "Light", width: 1024, fontSize: 13) [442 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: White
+Actual:   #ff16324f
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.CommandSearchTests.<>c__DisplayClass1_0.<CaptionKeepsSearchBesideTitleAndOutsideNativeButtons>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CommandSearchTests.cs:line 82
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(String theme, Double width, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CommandSearchTests.cs:line 39
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: "Light", width: 640, fontSize: 18) [505 ms]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: White
+Actual:   #ff16324f
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.CommandSearchTests.<>c__DisplayClass1_0.<CaptionKeepsSearchBesideTitleAndOutsideNativeButtons>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CommandSearchTests.cs:line 82
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(String theme, Double width, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CommandSearchTests.cs:line 39
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:49.01]     OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: "Light", width: 640, fontSize: 13) [FAIL]
+  失败 OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(theme: "Light", width: 640, fontSize: 13) [1 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: White
+Actual:   #ff16324f
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.CommandSearchTests.<>c__DisplayClass1_0.<CaptionKeepsSearchBesideTitleAndOutsideNativeButtons>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CommandSearchTests.cs:line 82
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.CommandSearchTests.CaptionKeepsSearchBesideTitleAndOutsideNativeButtons(String theme, Double width, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CommandSearchTests.cs:line 39
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-03\light-gradient\light-gradient.trx
+
+失败!  - 失败:     3，通过:    31，已跳过:     0，总计:    34，持续时间: 47 s - OpticalSystemDesign.Tests.dll (net10.0)

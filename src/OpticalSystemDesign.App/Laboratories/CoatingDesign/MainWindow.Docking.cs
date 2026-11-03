@@ -47,7 +47,7 @@ public sealed partial class MainWindow
         {
             foreach (var item in menu.Items.OfType<MenuItem>()) item.Header = UiLocalization.Text((string)item.Tag!);
         };
-        var button = new DropDownButton { Content = ToolContent("panels-top-left", "窗口"), Flyout = menu };
+        var button = new DropDownButton { Content = ToolContent("configuration-matrix", "窗口"), Flyout = menu };
         button.Classes.Add("coating-tool"); AutomationProperties.SetName(button, "镀膜窗口"); ToolTip.SetTip(button, "窗口");
         return button;
     }

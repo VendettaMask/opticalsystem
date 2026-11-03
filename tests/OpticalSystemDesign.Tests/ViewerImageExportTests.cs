@@ -98,9 +98,10 @@ public sealed class ViewerImageExportTests
             var axes = scene.OrientationAxesForRendering();
             using var image = fixture.Viewer.CaptureViewerImage();
             var expected = Pixels(image);
-            Assert.Equal(mode == ViewerPresentationMode.OpticalLayout ? 2404 : (int)Math.Ceiling((scene.Bounds.Width + 2) * fixture.Window.RenderScaling), image.PixelSize.Width);
+            if (mode == ViewerPresentationMode.OpticalLayout) Assert.Equal(1920, image.PixelSize.Width);
+            Assert.Equal(1080, image.PixelSize.Height);
             ExportImageAssertions.HasCompleteBorder(image);
-            Assert.True(image.PixelSize.Height > scene.Bounds.Height * fixture.Window.RenderScaling);
+            Assert.Equal(1080, image.PixelSize.Height); // Export height is independent of the display's scale.
             AssertHasInk(image, image.PixelSize.Height - 30, image.PixelSize.Height);
             scene.Focus(); Tick(fixture.Window);
             using (var focused = fixture.Viewer.CaptureViewerImage()) Assert.Equal(expected, Pixels(focused));
@@ -371,14 +372,29 @@ public sealed class ViewerImageExportTests
             using var image = fixture.Viewer.CaptureViewerImage();
             Save(image, "solid-complete-24-material-legend.png");
             Assert.True(image.PixelSize.Height > fixture.Window.Height);
-            var color = fixture.Scene.GlassMaterials[^1].Color;
+            var items = (WrapPanel)typeof(ViewerPanel).GetField("_glassLegendItems", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(fixture.Viewer)!;
+            var legend = (Border)typeof(ViewerPanel).GetField("_glassLegend", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(fixture.Viewer)!;
+            var swatch = (Border)items.Children.OfType<StackPanel>().Last().Children[0];
+            var reference = new Border
+            {
+                Width = swatch.Width, Height = swatch.Height, Background = legend.Background,
+                Child = new Border { Background = swatch.Background, BorderBrush = swatch.BorderBrush,
+                    BorderThickness = swatch.BorderThickness, CornerRadius = swatch.CornerRadius }
+            };
+            reference.Measure(new Size(swatch.Width, swatch.Height));
+            reference.Arrange(new Rect(0, 0, swatch.Width, swatch.Height));
+            using var sample = new RenderTargetBitmap(new PixelSize((int)swatch.Width, (int)swatch.Height), new Vector(96, 96));
+            sample.Render(reference);
+            using var samplePng = new MemoryStream(); sample.Save(samplePng, PngBitmapEncoderOptions.Default);
+            using var samplePixels = SkiaSharp.SKBitmap.Decode(samplePng.ToArray());
+            var expectedColor = samplePixels.GetPixel(samplePixels.Width / 2, samplePixels.Height / 2);
             using var png = new MemoryStream();
             image.Save(png, PngBitmapEncoderOptions.Default);
             using var decoded = SkiaSharp.SKBitmap.Decode(png.ToArray());
-            var start = (int)Math.Ceiling(fixture.Scene.Bounds.Height) + 96;
+            var start = image.PixelSize.Height / 2;
             var found = Enumerable.Range(start * image.PixelSize.Width, (image.PixelSize.Height - start) * image.PixelSize.Width)
                 .Count(index => decoded.GetPixel(index % image.PixelSize.Width, index / image.PixelSize.Width)
-                    == new SkiaSharp.SKColor(color.R, color.G, color.B, color.A));
+                    == expectedColor);
             Assert.True(found > 4, "The last legend color must be rendered below the on-screen legend viewport.");
         }, CancellationToken.None);
     }

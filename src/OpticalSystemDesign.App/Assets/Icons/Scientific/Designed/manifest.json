@@ -1,0 +1,1638 @@
+{
+  "style": "Optical Scientific Outline",
+  "version": "1.2",
+  "grid": [
+    32,
+    32
+  ],
+  "strokeWidth": 1.65,
+  "sourceUiReferences": 332,
+  "uniqueSemanticDrawings": 221,
+  "preservedApproved": [
+    "about",
+    "analysis-aberration",
+    "analysis-encircled-energy",
+    "analysis-engineering-report",
+    "analysis-image-analysis",
+    "analysis-mtf-transfer",
+    "analysis-point-spread",
+    "analysis-ray-spots",
+    "analysis-rms-curve",
+    "analysis-wavefront",
+    "clone-analysis",
+    "close-other-pages",
+    "load-default-layout",
+    "operand-help",
+    "recover-unsaved-project",
+    "save-default-layout",
+    "toggle-page-lock",
+    "tolerance-analysis",
+    "tolerance-data-editor",
+    "tolerance-data-viewer",
+    "tolerance-histogram",
+    "tolerance-report",
+    "tolerance-yield",
+    "user-guide",
+    "window-layout"
+  ],
+  "newlyAuthored": [
+    "aberration-axial",
+    "aberration-color-focus",
+    "aberration-field-curvature",
+    "aberration-full-field",
+    "aberration-grid-distortion",
+    "aberration-lateral-color",
+    "aberration-pupil",
+    "aberration-ray-fan",
+    "action-accept",
+    "action-add",
+    "action-delete",
+    "action-fit-view",
+    "action-more",
+    "action-move-down",
+    "action-move-up",
+    "action-next",
+    "action-open-link",
+    "action-pin",
+    "action-previous",
+    "action-recalculate",
+    "action-redo",
+    "action-remove",
+    "action-reset-view",
+    "action-run",
+    "action-search",
+    "action-stop",
+    "action-undo",
+    "action-zoom-in",
+    "action-zoom-out",
+    "alignment-compute",
+    "alignment-conjugates",
+    "alignment-measurement-head",
+    "alignment-reticle",
+    "analysis-warning",
+    "camera-imaging",
+    "catalog-add-active",
+    "catalog-data-sheet",
+    "catalog-remove-active",
+    "clipboard-copy-text",
+    "coating-design",
+    "coating-layer-add",
+    "coating-layer-lock",
+    "coating-layer-reverse",
+    "coating-layer-unlock",
+    "coating-materials",
+    "coating-spectrum",
+    "coating-stack",
+    "coating-target",
+    "coating-tolerance-metrics",
+    "configuration-matrix",
+    "contrast-loss",
+    "design-candidates",
+    "detector-clear",
+    "detector-view",
+    "disclosure-closed",
+    "disclosure-collapse",
+    "disclosure-expand",
+    "edit-target",
+    "encircled-energy-extended",
+    "encircled-energy-geometric",
+    "encircled-energy-huygens",
+    "environment-settings",
+    "field-add",
+    "field-delete",
+    "field-settings",
+    "file-export",
+    "file-export-cad",
+    "file-export-image",
+    "file-export-report",
+    "file-export-text",
+    "file-import",
+    "file-import-image",
+    "file-new",
+    "file-open",
+    "file-save",
+    "format-font",
+    "glass-replacement",
+    "help-topic",
+    "image-extended-diffraction",
+    "image-geometric",
+    "image-geometric-bitmap",
+    "image-partial-coherence",
+    "image-quality-acceptance",
+    "image-simulation",
+    "incidence-vs-height",
+    "information-note",
+    "initial-structure-design",
+    "layout-2d",
+    "layout-3d",
+    "layout-cascade",
+    "layout-dock",
+    "layout-float",
+    "layout-merge",
+    "layout-tile",
+    "lens-library",
+    "lens-prescription",
+    "manufacturability-review",
+    "material-athermal-map",
+    "material-copy-glass",
+    "material-dispersion-chart",
+    "material-dispersion-wavelength",
+    "material-glass-map",
+    "material-glass-report",
+    "material-nd-vd",
+    "material-transmission",
+    "materials-library",
+    "merit-function-editor",
+    "merit-function-wizard",
+    "mtf-fourier-field",
+    "mtf-fourier-focus",
+    "mtf-fourier-frequency",
+    "mtf-geometric-field",
+    "mtf-geometric-focus",
+    "mtf-geometric-frequency",
+    "mtf-huygens-field",
+    "mtf-huygens-focus",
+    "mtf-huygens-frequency",
+    "nonsequential-mode",
+    "nonsequential-objects",
+    "optical-alignment",
+    "optical-drawing",
+    "optical-examples",
+    "optical-system",
+    "optimization-adjust",
+    "optimization-focus",
+    "optimization-random-search",
+    "optimization-variables-clear",
+    "optimization-visual",
+    "optimization-wizard",
+    "polarization-settings",
+    "psf-fourier",
+    "psf-fourier-section",
+    "psf-huygens",
+    "psf-huygens-section",
+    "radius-variables",
+    "ray-database",
+    "ray-footprint",
+    "ray-path-analysis",
+    "ray-single-trace",
+    "relative-illumination",
+    "report-cardinal-points",
+    "report-classified-data",
+    "report-surface-data",
+    "report-system-data",
+    "report-system-summary",
+    "rms-field",
+    "rms-field-map",
+    "rms-focus",
+    "rms-wavelength",
+    "run-budget",
+    "search-strategy",
+    "seidel-coefficients",
+    "seidel-diagram",
+    "sequential-mode",
+    "settings-general",
+    "settings-language",
+    "solid-model",
+    "source-analysis",
+    "spot-configuration-matrix",
+    "spot-field-matrix",
+    "spot-full-field",
+    "spot-standard",
+    "spot-through-focus",
+    "spread-fourier",
+    "spread-geometric",
+    "stock-lens-catalog",
+    "stock-lens-match",
+    "structure-size",
+    "system-aperture",
+    "system-settings",
+    "thickness-variables",
+    "tolerance-wizard",
+    "trace-control",
+    "view-back",
+    "view-bottom",
+    "view-front",
+    "view-isometric",
+    "view-left",
+    "view-right",
+    "view-top",
+    "viewer-bitmap",
+    "viewer-ima-bim",
+    "vignetting",
+    "wavefront-foucault",
+    "wavefront-interferogram",
+    "wavefront-map",
+    "wavefront-opd",
+    "wavelength-add",
+    "wavelength-delete",
+    "wavelength-settings",
+    "wavelength-weights",
+    "y-ybar",
+    "zernike-annular",
+    "zernike-fringe",
+    "zernike-standard",
+    "zernike-vs-field"
+  ],
+  "usedDrawings": [
+    {
+      "id": "aberration-axial",
+      "label": "轴向像差",
+      "meaning": "不同孔径高度光线沿光轴落在不同交点，表示轴向像差。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "aberration-color-focus",
+      "label": "色焦移",
+      "meaning": "两种波形的轴向聚焦位置偏移表示色焦移。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "aberration-field-curvature",
+      "label": "场曲 / 畸变",
+      "meaning": "成对弯曲焦面与场点标记表示场曲和畸变。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "aberration-full-field",
+      "label": "全视场像差",
+      "meaning": "多个场点上的局部像差扇表示全视场分析。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "aberration-grid-distortion",
+      "label": "网格畸变",
+      "meaning": "弯曲的正交格线表示成像网格畸变。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "aberration-lateral-color",
+      "label": "垂轴色差",
+      "meaning": "同一像面上分离的两个像点表示垂轴色差。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "aberration-pupil",
+      "label": "光瞳像差",
+      "meaning": "光瞳圆上的参考节点与偏离节点表示瞳像差。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "aberration-ray-fan",
+      "label": "光线像差图",
+      "meaning": "横向光瞳坐标与异号像差扇曲线表示光线像差。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "about",
+      "label": "关于",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "action-accept",
+      "label": "应用 / 验证",
+      "meaning": "连贯勾线表示应用或验证通过。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-add",
+      "label": "添加",
+      "meaning": "交叉的水平与垂直笔画，表示添加项目。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-delete",
+      "label": "删除",
+      "meaning": "容器、提手和两根内容线表示删除项目。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-fit-view",
+      "label": "适配窗口",
+      "meaning": "四角框与向外定位短线表示完整内容适配窗口。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-more",
+      "label": "更多操作",
+      "meaning": "三个等距实心点表示更多操作菜单。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-move-down",
+      "label": "下移",
+      "meaning": "行条目与向下箭头表示将项目向下调整。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-move-up",
+      "label": "上移",
+      "meaning": "行条目与向上箭头表示将项目向上调整。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-next",
+      "label": "下一项",
+      "meaning": "向右的方向尖角表示顺序前进。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-open-link",
+      "label": "厂商页面",
+      "meaning": "页面角框与向外箭头表示前往外部页面。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-pin",
+      "label": "固定面板",
+      "meaning": "固定针的头部、横肩与针尖表示固定面板。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-previous",
+      "label": "上一项",
+      "meaning": "向左的方向尖角表示顺序后退。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-recalculate",
+      "label": "重新计算 / 刷新",
+      "meaning": "首尾衔接的环形箭头表示更新计算或刷新。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-redo",
+      "label": "重做",
+      "meaning": "向右回转箭头表示重做下一步。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-remove",
+      "label": "移除",
+      "meaning": "水平减号表示从当前集合移除。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-reset-view",
+      "label": "重置视图",
+      "meaning": "回转箭头围绕中心定位点，表示恢复视图位置。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-run",
+      "label": "开始运行",
+      "meaning": "向前的播放三角表示开始运行。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-search",
+      "label": "搜索",
+      "meaning": "放大镜圆框与延伸柄表示查找。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-stop",
+      "label": "停止运行",
+      "meaning": "独立方形表示停止运行。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-undo",
+      "label": "撤销",
+      "meaning": "向左回转箭头表示恢复上一步。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-zoom-in",
+      "label": "放大",
+      "meaning": "放大镜与加号表示放大视图。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "action-zoom-out",
+      "label": "缩小",
+      "meaning": "放大镜与减号表示缩小视图。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "alignment-compute",
+      "label": "计算共轭",
+      "meaning": "由物面经过透镜得到像面的光路及求解箭头表示计算共轭。",
+      "category": "实验室"
+    },
+    {
+      "id": "alignment-conjugates",
+      "label": "表面共轭位置",
+      "meaning": "两侧物像平面经光学面共轭表示共轭位置表。",
+      "category": "实验室"
+    },
+    {
+      "id": "alignment-measurement-head",
+      "label": "测量头参数",
+      "meaning": "测量镜头与定位标尺表示装调测量头。",
+      "category": "实验室"
+    },
+    {
+      "id": "alignment-reticle",
+      "label": "叉丝与探测面",
+      "meaning": "像面框中的横纵叉丝表示装调检测图像。",
+      "category": "实验室"
+    },
+    {
+      "id": "analysis-aberration",
+      "label": "像差分析",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "analysis-encircled-energy",
+      "label": "圈入能量",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "analysis-engineering-report",
+      "label": "报告",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "analysis-image-analysis",
+      "label": "扩展图像分析",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "analysis-mtf-transfer",
+      "label": "MTF 曲线",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "analysis-point-spread",
+      "label": "点扩散函数",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "analysis-ray-spots",
+      "label": "光线迹点",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "analysis-rms-curve",
+      "label": "RMS",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "analysis-warning",
+      "label": "分析异常",
+      "meaning": "带感叹号的分析图框表示结果异常提示。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "analysis-wavefront",
+      "label": "波前",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "camera-imaging",
+      "label": "相机成像仿真",
+      "meaning": "前置镜头、像素传感器和相机外壳表示物理成像。",
+      "category": "实验室"
+    },
+    {
+      "id": "catalog-add-active",
+      "label": "加入当前",
+      "meaning": "条目进入当前列表与加号表示启用材料库条目。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "catalog-data-sheet",
+      "label": "数据表",
+      "meaning": "文档中的表格和参数行表示厂商数据表。",
+      "category": "报告与数据"
+    },
+    {
+      "id": "catalog-remove-active",
+      "label": "移出当前",
+      "meaning": "从当前列表移出的箭头与减号表示停用条目。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "clipboard-copy-text",
+      "label": "复制文本",
+      "meaning": "剪贴板与文本横线表示复制文本。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "clone-analysis",
+      "label": "克隆分析",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "close-other-pages",
+      "label": "关闭其他页",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "coating-design",
+      "label": "光学镀膜设计",
+      "meaning": "基底上的多层薄膜截面表示光学镀膜。",
+      "category": "实验室"
+    },
+    {
+      "id": "coating-layer-add",
+      "label": "添加膜层",
+      "meaning": "膜层截面和顶端加号表示新增一层薄膜。",
+      "category": "实验室"
+    },
+    {
+      "id": "coating-layer-lock",
+      "label": "锁定膜层",
+      "meaning": "薄膜条带与闭合锁梁表示膜层厚度的优化锁定状态。",
+      "category": "实验室"
+    },
+    {
+      "id": "coating-layer-reverse",
+      "label": "反转膜层",
+      "meaning": "厚薄不同的层条及上下对向箭头表示层序反转。",
+      "category": "实验室"
+    },
+    {
+      "id": "coating-layer-unlock",
+      "label": "解锁膜层",
+      "meaning": "薄膜条带与打开锁梁表示膜层厚度的优化锁定状态。",
+      "category": "实验室"
+    },
+    {
+      "id": "coating-materials",
+      "label": "实验材料管理",
+      "meaning": "折射介质层及可编辑材料条目表示膜系材料管理。",
+      "category": "实验室"
+    },
+    {
+      "id": "coating-spectrum",
+      "label": "光谱结果",
+      "meaning": "高反射带及透射谷表示膜系光谱分析结果。",
+      "category": "实验室"
+    },
+    {
+      "id": "coating-stack",
+      "label": "堆栈几何",
+      "meaning": "相邻薄膜条带及厚度尺寸表示实际层堆栈。",
+      "category": "实验室"
+    },
+    {
+      "id": "coating-target",
+      "label": "膜系设计目标",
+      "meaning": "目标光谱的范围带与可调节点表示膜系目标。",
+      "category": "实验室"
+    },
+    {
+      "id": "coating-tolerance-metrics",
+      "label": "指标与公差",
+      "meaning": "目标曲线与上下允许边界表示指标和公差。",
+      "category": "实验室"
+    },
+    {
+      "id": "configuration-matrix",
+      "label": "多重结构",
+      "meaning": "表格列头与两组处方列表示多重结构矩阵。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "contrast-loss",
+      "label": "对比度损失图",
+      "meaning": "两组幅度不同的周期信号表示对比度下降。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "design-candidates",
+      "label": "候选方案",
+      "meaning": "多个光学结构卡片和选择勾表示候选设计集合。",
+      "category": "实验室"
+    },
+    {
+      "id": "detector-clear",
+      "label": "清空探测器",
+      "meaning": "探测器像素阵列与清除斜线表示清空记录。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "detector-view",
+      "label": "探测器查看器",
+      "meaning": "像素阵列和选定探测点表示探测器数据。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "disclosure-closed",
+      "label": "展开分组",
+      "meaning": "向右的短尖角表示折叠分组可展开。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "disclosure-collapse",
+      "label": "收起",
+      "meaning": "向上的短尖角表示收起内容。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "disclosure-expand",
+      "label": "展开",
+      "meaning": "向下的短尖角表示展开内容。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "edit-target",
+      "label": "编辑设计目标",
+      "meaning": "目标曲线与铅笔表示编辑目标值。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "encircled-energy-extended",
+      "label": "扩展光源圈入能量",
+      "meaning": "扩展面源及其包围圈表示扩展光源的能量累积。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "encircled-energy-geometric",
+      "label": "几何圈入能量",
+      "meaning": "能量包围圈与随半径累积上升的曲线表示圈入能量。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "encircled-energy-huygens",
+      "label": "衍射圈入能量",
+      "meaning": "能量包围圈与随半径累积上升的曲线表示圈入能量。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "environment-settings",
+      "label": "环境",
+      "meaning": "温度计与压力刻度表示光学环境参数。",
+      "category": "光学对象"
+    },
+    {
+      "id": "field-add",
+      "label": "添加视场",
+      "meaning": "视场扇配加号表示添加场点。",
+      "category": "光学对象"
+    },
+    {
+      "id": "field-delete",
+      "label": "删除视场",
+      "meaning": "视场扇配减号表示删除场点。",
+      "category": "光学对象"
+    },
+    {
+      "id": "field-settings",
+      "label": "视场",
+      "meaning": "三个场点及其指向光轴的光束扇表示视场。",
+      "category": "光学对象"
+    },
+    {
+      "id": "file-export",
+      "label": "导出",
+      "meaning": "箭头从文档内部向外离开，表示导出数据。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "file-export-cad",
+      "label": "CAD（STEP）",
+      "meaning": "机械边界和立体模型旁的向外箭头表示导出 STEP 实体。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "file-export-image",
+      "label": "导出 PNG",
+      "meaning": "图像框中的景物与离开边框的箭头表示导出图像。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "file-export-report",
+      "label": "导出报告 / PDF",
+      "meaning": "带标题、文本和小图表的文档及向外箭头表示报告导出。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "file-export-text",
+      "label": "导出文本",
+      "meaning": "带文本行的页面及向外箭头，表示文本数据导出。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "file-import",
+      "label": "导入",
+      "meaning": "箭头从页外进入文档内，表示导入数据。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "file-import-image",
+      "label": "导入 PNG",
+      "meaning": "图像框与进入画框的箭头表示导入位图。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "file-new",
+      "label": "新建工程",
+      "meaning": "空白工程页和加号表示建立新工程。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "file-open",
+      "label": "打开 / 载入",
+      "meaning": "文件夹与进入的箭头表示打开已有文件。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "file-save",
+      "label": "保存",
+      "meaning": "存储外壳、顶端记录槽及底部标签区表示保存。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "format-font",
+      "label": "格式与字体",
+      "meaning": "大小字形骨架和基线表示字体与排版格式。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "glass-replacement",
+      "label": "玻璃替换模板",
+      "meaning": "两个材料块和双向替换箭头表示玻璃替换。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "help-topic",
+      "label": "帮助",
+      "meaning": "问号与信息圆框表示查看当前功能帮助。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "image-extended-diffraction",
+      "label": "扩展图像分析",
+      "meaning": "多点扩展对象和传播到像面的波纹表示扩展衍射成像。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "image-geometric",
+      "label": "几何图像分析",
+      "meaning": "对象点通过几何光线在像面形成离散像点。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "image-geometric-bitmap",
+      "label": "几何位图图像分析",
+      "meaning": "输入像素格及像面上的离散光斑表示位图追迹。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "image-partial-coherence",
+      "label": "部分相干图像分析",
+      "meaning": "两组部分重叠的次波轮廓及不同相位表示部分相干叠加。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "image-quality-acceptance",
+      "label": "像质与验收",
+      "meaning": "像面点斑和验收勾表示像质目标检查。",
+      "category": "实验室"
+    },
+    {
+      "id": "image-simulation",
+      "label": "图像模拟",
+      "meaning": "物方图形经透镜投影到像面，表示光学图像模拟。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "incidence-vs-height",
+      "label": "入射角 vs. 像高",
+      "meaning": "曲线与入射方向夹角标记表示入射角随像高变化。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "information-note",
+      "label": "信息说明",
+      "meaning": "信息圆框与独立信息符号表示说明。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "initial-structure-design",
+      "label": "AI 初始结构",
+      "meaning": "由目标指标生成两片透镜结构，表示初始结构生成。",
+      "category": "实验室"
+    },
+    {
+      "id": "layout-2d",
+      "label": "2D 视图",
+      "meaning": "侧视透镜截面与折射光线表示二维布局。",
+      "category": "光学对象"
+    },
+    {
+      "id": "layout-3d",
+      "label": "3D 视图",
+      "meaning": "透镜的立体椭圆边缘与空间光束表示三维布局。",
+      "category": "光学对象"
+    },
+    {
+      "id": "layout-cascade",
+      "label": "层叠全部",
+      "meaning": "三个有序错位窗口表示层叠排列。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "layout-dock",
+      "label": "保留分栏停靠",
+      "meaning": "相邻分栏和共同外框表示保留停靠布局。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "layout-float",
+      "label": "全部独立浮动",
+      "meaning": "分离窗口和斜向移出箭头表示浮动。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "layout-merge",
+      "label": "合并单窗格",
+      "meaning": "两个窗格的指向箭头汇入单一中央窗格。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "layout-tile",
+      "label": "平铺全部",
+      "meaning": "四个并列且互不覆盖的窗格表示平铺。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "lens-library",
+      "label": "镜头库",
+      "meaning": "多片透镜装在分格柜中，表示镜头设计库。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "lens-prescription",
+      "label": "镜头数据",
+      "meaning": "透镜形状所在的数据表表示镜头处方编辑。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "load-default-layout",
+      "label": "载入默认",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "manufacturability-review",
+      "label": "可加工性评估",
+      "meaning": "机械边界、尺寸和检查勾表示制造适用性评估。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "material-athermal-map",
+      "label": "无热化玻璃图",
+      "meaning": "温度计与不同热响应材料轨迹表示无热化选材。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "material-copy-glass",
+      "label": "复制玻璃",
+      "meaning": "玻璃块及重叠副本表示复制材料条目。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "material-dispersion-chart",
+      "label": "色散图 / 材料分析",
+      "meaning": "材料坐标上的离散玻璃样本表示材料色散分析。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "material-dispersion-wavelength",
+      "label": "色散 vs. 波长",
+      "meaning": "折射率随波长逐渐下降的色散曲线配光谱标记。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "material-glass-map",
+      "label": "玻璃图",
+      "meaning": "玻璃样本分区中的多组材料点表示玻璃图。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "material-glass-report",
+      "label": "复制玻璃报告",
+      "meaning": "报告页面中的玻璃截面和数据行表示材料报告。",
+      "category": "报告与数据"
+    },
+    {
+      "id": "material-nd-vd",
+      "label": "计算 Nd / Vd",
+      "meaning": "透镜两侧的光谱采样与数据求取标记表示折射率和阿贝数计算。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "material-transmission",
+      "label": "内部透过率 vs. 波长",
+      "meaning": "透过率平台与吸收谷表示材料光谱透过率。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "materials-library",
+      "label": "材料库",
+      "meaning": "材料层片与玻璃棱块表示光学材料库。",
+      "category": "光学对象"
+    },
+    {
+      "id": "merit-function-editor",
+      "label": "评价函数编辑器",
+      "meaning": "多项加权条目与目标值列表示评价函数编辑。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "merit-function-wizard",
+      "label": "生成评价函数",
+      "meaning": "由目标生成评价条目，箭头连接目标与函数表。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "mtf-fourier-field",
+      "label": "傅里叶MTF VS 视场",
+      "meaning": "离散场点和向边缘变化的传递曲线表示随视场扫描；采样频谱短线标识傅里叶方法。",
+      "category": "MTF 分析"
+    },
+    {
+      "id": "mtf-fourier-focus",
+      "label": "傅里叶离焦 MTF",
+      "meaning": "具有最大值的穿焦曲线及焦面参考线表示离焦扫描；采样频谱短线标识傅里叶方法。",
+      "category": "MTF 分析"
+    },
+    {
+      "id": "mtf-fourier-frequency",
+      "label": "傅里叶MTF",
+      "meaning": "下降的调制传递曲线表示频率响应；采样频谱短线标识傅里叶方法。",
+      "category": "MTF 分析"
+    },
+    {
+      "id": "mtf-geometric-field",
+      "label": "几何MTF VS 视场",
+      "meaning": "离散场点和向边缘变化的传递曲线表示随视场扫描；会聚几何光线标识几何方法。",
+      "category": "MTF 分析"
+    },
+    {
+      "id": "mtf-geometric-focus",
+      "label": "几何离焦 MTF",
+      "meaning": "具有最大值的穿焦曲线及焦面参考线表示离焦扫描；会聚几何光线标识几何方法。",
+      "category": "MTF 分析"
+    },
+    {
+      "id": "mtf-geometric-frequency",
+      "label": "几何MTF",
+      "meaning": "下降的调制传递曲线表示频率响应；会聚几何光线标识几何方法。",
+      "category": "MTF 分析"
+    },
+    {
+      "id": "mtf-huygens-field",
+      "label": "惠更斯MTF VS 视场",
+      "meaning": "离散场点和向边缘变化的传递曲线表示随视场扫描；次波圆弧标识惠更斯传播。",
+      "category": "MTF 分析"
+    },
+    {
+      "id": "mtf-huygens-focus",
+      "label": "惠更斯离焦 MTF",
+      "meaning": "具有最大值的穿焦曲线及焦面参考线表示离焦扫描；次波圆弧标识惠更斯传播。",
+      "category": "MTF 分析"
+    },
+    {
+      "id": "mtf-huygens-frequency",
+      "label": "惠更斯MTF",
+      "meaning": "下降的调制传递曲线表示频率响应；次波圆弧标识惠更斯传播。",
+      "category": "MTF 分析"
+    },
+    {
+      "id": "nonsequential-mode",
+      "label": "非序列模式",
+      "meaning": "分支光线及反射边界表示非序列传播。",
+      "category": "光学对象"
+    },
+    {
+      "id": "nonsequential-objects",
+      "label": "对象数据",
+      "meaning": "球、柱及倾斜面所在表格表示非序列对象编辑。",
+      "category": "光学对象"
+    },
+    {
+      "id": "operand-help",
+      "label": "操作数帮助",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "optical-alignment",
+      "label": "光学装调",
+      "meaning": "透镜轴线与对中十字表示光学对准。",
+      "category": "实验室"
+    },
+    {
+      "id": "optical-drawing",
+      "label": "光学制图",
+      "meaning": "透镜剖面与双向尺寸线表示光学工程制图。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "optical-examples",
+      "label": "示例系统",
+      "meaning": "包含光学截面的文件夹表示可载入的示例设计。",
+      "category": "实验室"
+    },
+    {
+      "id": "optical-system",
+      "label": "光学系统",
+      "meaning": "共轴的两组透镜与光轴表示光学系统。",
+      "category": "光学对象"
+    },
+    {
+      "id": "optimization-adjust",
+      "label": "快速调整",
+      "meaning": "共轴光学面与侧边调节杆表示快速调整光学参数。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "optimization-focus",
+      "label": "快速聚焦",
+      "meaning": "收敛光束和可移动像面表示自动聚焦。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "optimization-random-search",
+      "label": "随机扰动搜索",
+      "meaning": "多个参数节点与不同探索分支表示随机扰动搜索。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "optimization-variables-clear",
+      "label": "移除所有变量",
+      "meaning": "参数表上的变量点与清除叉表示移除变量而保留条目。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "optimization-visual",
+      "label": "可视化优化器",
+      "meaning": "由高到低的目标值轨迹与迭代节点表示可视化优化。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "optimization-wizard",
+      "label": "优化向导",
+      "meaning": "目标、调整步骤和收敛结果组成向导流程。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "polarization-settings",
+      "label": "偏振",
+      "meaning": "传播轴、正交电场和椭圆轨迹表示偏振。",
+      "category": "光学对象"
+    },
+    {
+      "id": "psf-fourier",
+      "label": "FFT PSF",
+      "meaning": "中央点峰与同心衍射环表示二维点扩散函数；方法标记区分计算族。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "psf-fourier-section",
+      "label": "FFT PSF 截面图",
+      "meaning": "窄主峰与较弱旁瓣表示点扩散函数的截面。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "psf-huygens",
+      "label": "惠更斯 PSF",
+      "meaning": "中央点峰与同心衍射环表示二维点扩散函数；方法标记区分计算族。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "psf-huygens-section",
+      "label": "惠更斯 PSF 截面图",
+      "meaning": "窄主峰与较弱旁瓣表示点扩散函数的截面。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "radius-variables",
+      "label": "设全部半径变量",
+      "meaning": "弧形表面、曲率半径连线与控制点表示半径变量。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "ray-database",
+      "label": "光线数据库",
+      "meaning": "分层存储和定向光线表示光线数据库。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "ray-footprint",
+      "label": "光迹图",
+      "meaning": "倾斜入射光束在圆形表面上的足迹表示光线覆盖。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "ray-path-analysis",
+      "label": "路径分析",
+      "meaning": "有方向的分支传播及交互节点表示路径分析。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "ray-single-trace",
+      "label": "单光线追迹",
+      "meaning": "穿过两面并折转的单根光线表示逐面追迹。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "recover-unsaved-project",
+      "label": "恢复未保存工程",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "relative-illumination",
+      "label": "相对照度",
+      "meaning": "随视场边缘逐渐下降的照度和环形场点标记表示相对照度。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "report-cardinal-points",
+      "label": "基面数据",
+      "meaning": "光轴、主面及两侧基点表示光学基面数据。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "report-classified-data",
+      "label": "分类数据报告",
+      "meaning": "树状分支和三类条目表示分类数据。",
+      "category": "报告与数据"
+    },
+    {
+      "id": "report-surface-data",
+      "label": "表面数据报告",
+      "meaning": "文档中的光学面列和处方表表示逐面数据。",
+      "category": "报告与数据"
+    },
+    {
+      "id": "report-system-data",
+      "label": "系统数据报告",
+      "meaning": "文档中的共轴透镜及汇总行表示系统参数报告。",
+      "category": "报告与数据"
+    },
+    {
+      "id": "report-system-summary",
+      "label": "系统数据摘要",
+      "meaning": "少量关键指标与分隔线表示系统摘要。",
+      "category": "报告与数据"
+    },
+    {
+      "id": "rms-field",
+      "label": "RMS vs. 视场",
+      "meaning": "底部有最小值的 RMS 曲线与视场扇表示对应自变量。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "rms-field-map",
+      "label": "二维视场 RMS 图",
+      "meaning": "视场坐标框内的等值环和采样点表示二维 RMS 分布。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "rms-focus",
+      "label": "RMS vs. 离焦",
+      "meaning": "底部有最小值的 RMS 曲线与焦面跨度表示对应自变量。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "rms-wavelength",
+      "label": "RMS vs. 波长",
+      "meaning": "底部有最小值的 RMS 曲线与光谱波形表示对应自变量。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "run-budget",
+      "label": "运行预算",
+      "meaning": "时钟和预算刻度表示运行时间与成本限制。",
+      "category": "实验室"
+    },
+    {
+      "id": "save-default-layout",
+      "label": "保存默认",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "search-strategy",
+      "label": "搜索策略",
+      "meaning": "分支参数路径和目标点表示设计搜索策略。",
+      "category": "实验室"
+    },
+    {
+      "id": "seidel-coefficients",
+      "label": "赛德尔系数",
+      "meaning": "系数表的五个独立条目表示五项初级像差系数。",
+      "category": "报告与数据"
+    },
+    {
+      "id": "seidel-diagram",
+      "label": "赛德尔图",
+      "meaning": "跨越零线的不同高度柱表示有符号的赛德尔像差贡献。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "sequential-mode",
+      "label": "顺序模式",
+      "meaning": "按顺序穿过三个光学面的连续光线表示顺序模式。",
+      "category": "光学对象"
+    },
+    {
+      "id": "settings-general",
+      "label": "设置",
+      "meaning": "三个独立调节通道表示可调整设置。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "settings-language",
+      "label": "语言",
+      "meaning": "经纬网球与对话框表示界面语言切换。",
+      "category": "操作与导航"
+    },
+    {
+      "id": "solid-model",
+      "label": "实体模型",
+      "meaning": "透镜机械厚度、端面及剖面表示实体模型。",
+      "category": "光学对象"
+    },
+    {
+      "id": "source-analysis",
+      "label": "光源分析",
+      "meaning": "发光面及不同角度射出的光束表示光源分布。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "spot-configuration-matrix",
+      "label": "结构矩阵点列图",
+      "meaning": "双层列头与点斑网格表示按结构和视场排列的矩阵。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "spot-field-matrix",
+      "label": "矩阵点列图",
+      "meaning": "九格中各自独立的点斑表示视场矩阵点列。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "spot-full-field",
+      "label": "全视场点列图",
+      "meaning": "场点扇和多个位置的点簇表示全视场点列。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "spot-standard",
+      "label": "标准点列图",
+      "meaning": "统一像面框内的聚焦点簇表示点列分布。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "spot-through-focus",
+      "label": "离焦点列图",
+      "meaning": "三个轴向像面上的大、小、大点斑表示离焦变化。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "spread-fourier",
+      "label": "FFT 线 / 边缘扩散",
+      "meaning": "峰形线扩散与阶跃边缘扩散共用坐标，表示线/边缘响应。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "spread-geometric",
+      "label": "几何线 / 边缘扩散",
+      "meaning": "峰形线扩散与阶跃边缘扩散共用坐标，表示线/边缘响应。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "stock-lens-catalog",
+      "label": "库存镜头查看",
+      "meaning": "装盒镜片与浏览放大镜表示库存镜头目录。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "stock-lens-match",
+      "label": "库存镜头匹配",
+      "meaning": "目标镜片与库内镜片之间的匹配勾表示镜头匹配。",
+      "category": "材料与制造"
+    },
+    {
+      "id": "structure-size",
+      "label": "结构规模",
+      "meaning": "多组有序光学面及计数短线表示镜片和结构规模。",
+      "category": "实验室"
+    },
+    {
+      "id": "system-aperture",
+      "label": "系统孔径",
+      "meaning": "受光阑约束的开口与两侧边界表示系统孔径。",
+      "category": "光学对象"
+    },
+    {
+      "id": "system-settings",
+      "label": "系统选项",
+      "meaning": "共轴透镜和可调节通道表示系统级设置。",
+      "category": "光学对象"
+    },
+    {
+      "id": "thickness-variables",
+      "label": "设全部厚度变量",
+      "meaning": "两光学面间的双向尺寸标记表示厚度变量。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "toggle-page-lock",
+      "label": "切换锁定",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "tolerance-analysis",
+      "label": "公差分析",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "tolerance-data-editor",
+      "label": "公差数据编辑器",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "tolerance-data-viewer",
+      "label": "公差数据查看器",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "tolerance-histogram",
+      "label": "直方图",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "tolerance-report",
+      "label": "公差报告",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "tolerance-wizard",
+      "label": "公差分析向导",
+      "meaning": "名义区间、扰动箭头与通过标记表示公差向导。",
+      "category": "优化与公差"
+    },
+    {
+      "id": "tolerance-yield",
+      "label": "良率",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "trace-control",
+      "label": "追迹控制",
+      "meaning": "发射光线旁的播放控制表示启动非序列追迹。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "user-guide",
+      "label": "用户指南",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "view-back",
+      "label": "后视图",
+      "meaning": "着色目标面表示后视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。",
+      "category": "视图方向"
+    },
+    {
+      "id": "view-bottom",
+      "label": "仰视图",
+      "meaning": "着色目标面表示仰视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。",
+      "category": "视图方向"
+    },
+    {
+      "id": "view-front",
+      "label": "前视图",
+      "meaning": "着色目标面表示前视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。",
+      "category": "视图方向"
+    },
+    {
+      "id": "view-isometric",
+      "label": "等轴测视图",
+      "meaning": "着色目标面表示等轴测视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。",
+      "category": "视图方向"
+    },
+    {
+      "id": "view-left",
+      "label": "左视图",
+      "meaning": "着色目标面表示左视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。",
+      "category": "视图方向"
+    },
+    {
+      "id": "view-right",
+      "label": "右视图",
+      "meaning": "着色目标面表示右视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。",
+      "category": "视图方向"
+    },
+    {
+      "id": "view-top",
+      "label": "俯视图",
+      "meaning": "着色目标面表示俯视图；后侧或下方面用虚线区别于近侧可见面，方向命令保持原语义。",
+      "category": "视图方向"
+    },
+    {
+      "id": "viewer-bitmap",
+      "label": "位图文件查看器",
+      "meaning": "边框中的离散像素与景物表示位图查看。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "viewer-ima-bim",
+      "label": "IMA / BIM 图片浏览器",
+      "meaning": "图像页与像素小格表示光学 IMA/BIM 图像数据。",
+      "category": "文件与工作区"
+    },
+    {
+      "id": "vignetting",
+      "label": "渐晕图",
+      "meaning": "边缘光束被孔径截断，表示渐晕。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "wavefront-foucault",
+      "label": "傅科分析",
+      "meaning": "刀口遮挡半瞳与收敛光束表示傅科刀口检验。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "wavefront-interferogram",
+      "label": "干涉图",
+      "meaning": "光瞳内相邻亮暗条带的轮廓表示干涉条纹。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "wavefront-map",
+      "label": "波前图",
+      "meaning": "光瞳边界和偏心等程差轮廓表示波前分布。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "wavefront-opd",
+      "label": "光程差图",
+      "meaning": "两个传播路径相对参考线的程差表示 OPD。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "wavelength-add",
+      "label": "添加波长",
+      "meaning": "光谱波形配加号表示添加波长采样。",
+      "category": "光学对象"
+    },
+    {
+      "id": "wavelength-delete",
+      "label": "删除波长",
+      "meaning": "光谱波形配减号表示删除波长采样。",
+      "category": "光学对象"
+    },
+    {
+      "id": "wavelength-settings",
+      "label": "波长",
+      "meaning": "完整正弦波与一个周期的跨度标记表示波长。",
+      "category": "光学对象"
+    },
+    {
+      "id": "wavelength-weights",
+      "label": "波长与权重",
+      "meaning": "波形和高低权重柱表示光谱采样及权重。",
+      "category": "光学对象"
+    },
+    {
+      "id": "window-layout",
+      "label": "窗口布局",
+      "meaning": "保留用户先前确认的专用矢量稿。",
+      "category": "确认稿"
+    },
+    {
+      "id": "y-ybar",
+      "label": "Y-Ybar",
+      "meaning": "两条光线高度轨迹及交点表示 Y–Ybar 关系。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "zernike-annular",
+      "label": "Zernike Annular 系数",
+      "meaning": "系数表配合带中心遮拦的环形瞳表示 Annular 基底。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "zernike-fringe",
+      "label": "Zernike Fringe 系数",
+      "meaning": "系数表配合径向十字瞳标记表示 Fringe 约定。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "zernike-standard",
+      "label": "Zernike Standard 系数",
+      "meaning": "系数表配合对角模态标记表示 Standard 约定。",
+      "category": "分析与科学"
+    },
+    {
+      "id": "zernike-vs-field",
+      "label": "Zernike 系数 vs. 视场",
+      "meaning": "不同模态系数随场点变化的有符号曲线表示视场系数扫描。",
+      "category": "分析与科学"
+    }
+  ],
+  "commandIcons": {
+    "analysis-single-ray-trace": "ray-single-trace",
+    "analysis-surface-data-report": "report-surface-data",
+    "analysis-system-data-report": "report-system-data",
+    "analysis-classified-data-report": "report-classified-data",
+    "analysis-first-order": "report-system-summary",
+    "analysis-ray-fan": "aberration-ray-fan",
+    "analysis-spot": "spot-standard",
+    "analysis-footprint": "ray-footprint",
+    "analysis-through-focus": "spot-through-focus",
+    "analysis-full-field-spot": "spot-full-field",
+    "analysis-matrix-spot": "spot-field-matrix",
+    "analysis-configuration-matrix-spot": "spot-configuration-matrix",
+    "analysis-cardinal-points": "report-cardinal-points",
+    "analysis-vignetting": "vignetting",
+    "analysis-grid-distortion": "aberration-grid-distortion",
+    "analysis-field-curvature": "aberration-field-curvature",
+    "analysis-axial-aberration": "aberration-axial",
+    "analysis-lateral-color": "aberration-lateral-color",
+    "analysis-color-focus": "aberration-color-focus",
+    "analysis-seidel": "seidel-coefficients",
+    "analysis-seidel-diagram": "seidel-diagram",
+    "analysis-diffraction-encircled-energy": "encircled-energy-huygens",
+    "analysis-encircled-energy": "encircled-energy-geometric",
+    "analysis-geometric-line-edge-spread": "spread-geometric",
+    "analysis-extended-source-encircled-energy": "encircled-energy-extended",
+    "analysis-pupil-aberration": "aberration-pupil",
+    "analysis-full-field-aberration": "aberration-full-field",
+    "analysis-rms-field": "rms-field",
+    "analysis-rms-wavelength": "rms-wavelength",
+    "analysis-rms-focus": "rms-focus",
+    "analysis-rms-field-map": "rms-field-map",
+    "analysis-angle-height": "incidence-vs-height",
+    "analysis-psf": "psf-fourier",
+    "analysis-psf-cross-section": "psf-fourier-section",
+    "analysis-line-edge-spread": "spread-fourier",
+    "analysis-huygens-psf": "psf-huygens",
+    "analysis-huygens-psf-cross-section": "psf-huygens-section",
+    "analysis-mtf": "mtf-fourier-frequency",
+    "analysis-fourier-through-focus-mtf": "mtf-fourier-focus",
+    "analysis-fourier-mtf-field": "mtf-fourier-field",
+    "analysis-huygens-mtf": "mtf-huygens-frequency",
+    "analysis-huygens-through-focus-mtf": "mtf-huygens-focus",
+    "analysis-huygens-mtf-field": "mtf-huygens-field",
+    "analysis-geometric-mtf": "mtf-geometric-frequency",
+    "analysis-geometric-through-focus-mtf": "mtf-geometric-focus",
+    "analysis-geometric-mtf-field": "mtf-geometric-field",
+    "analysis-wavefront": "wavefront-opd",
+    "analysis-wavefront-map": "wavefront-map",
+    "analysis-interferogram": "wavefront-interferogram",
+    "analysis-foucault": "wavefront-foucault",
+    "analysis-contrast-loss": "contrast-loss",
+    "analysis-zernike-fringe": "zernike-fringe",
+    "analysis-zernike-standard": "zernike-standard",
+    "analysis-zernike-annular": "zernike-annular",
+    "analysis-zernike-field": "zernike-vs-field",
+    "analysis-image-simulation": "image-simulation",
+    "analysis-geometric-image": "image-geometric",
+    "analysis-geometric-bitmap-image": "image-geometric-bitmap",
+    "analysis-light-source": "source-analysis",
+    "analysis-partially-coherent-image": "image-partial-coherence",
+    "analysis-extended-diffraction-image": "image-extended-diffraction",
+    "analysis-relative-illumination": "relative-illumination",
+    "viewer-ima-bim": "viewer-ima-bim",
+    "viewer-bitmap": "viewer-bitmap",
+    "analysis-y-ybar": "y-ybar",
+    "non-sequential-trace-control": "trace-control",
+    "analysis-non-sequential-ray-trace": "ray-single-trace",
+    "analysis-non-sequential-detector-viewer": "detector-view",
+    "non-sequential-clear-detectors": "detector-clear",
+    "non-sequential-ray-database-viewer": "ray-database",
+    "non-sequential-path-analysis": "ray-path-analysis",
+    "non-sequential-3d-layout": "layout-3d"
+  }
+}

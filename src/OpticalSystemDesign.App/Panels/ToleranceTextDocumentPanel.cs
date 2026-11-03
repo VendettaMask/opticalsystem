@@ -34,11 +34,11 @@ public sealed class ToleranceTextDocumentPanel : UserControl
         _text.BindThemeResource(TextBox.BackgroundProperty, ThemeResourceBindings.Surface);
         _text.BindThemeResource(TextBox.ForegroundProperty, ThemeResourceBindings.TextPrimary);
 
-        var refresh = CommandButton("refresh-cw", "刷新");
+        var refresh = CommandButton("action-recalculate", "刷新");
         refresh.Click += (_, _) => Refresh();
-        var copy = CommandButton("copy", "复制文本");
+        var copy = CommandButton("clipboard-copy-text", "复制文本");
         copy.Click += async (_, _) => await CopyAsync();
-        var export = CommandButton("download", "导出文本");
+        var export = CommandButton("file-export-text", "导出文本");
         export.Click += async (_, _) => await ExportAsync();
 
         var toolbar = new Border

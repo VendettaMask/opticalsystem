@@ -1,0 +1,85 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:05.21]     OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Lumen") [FAIL]
+  失败 OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Lumen") [3 s]
+  错误消息:
+   Assert.Single() Failure: The collection did not contain any matching items
+Expected:   (predicate expression)
+Collection: []
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.DocumentCloseButtonTests.<>c__DisplayClass1_0.<ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 66
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 39
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:06.64]     OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Light") [FAIL]
+  失败 OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Light") [1 s]
+  错误消息:
+   Close button covers the tab with White.
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.DocumentCloseButtonTests.AssertTransparent(IBrush brush) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 125
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.<>c__DisplayClass1_0.<ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 65
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 39
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:08.10]     OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Isekai") [FAIL]
+  失败 OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Isekai") [1 s]
+  错误消息:
+   Assert.Single() Failure: The collection did not contain any matching items
+Expected:   (predicate expression)
+Collection: []
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.DocumentCloseButtonTests.<>c__DisplayClass1_0.<ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 66
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 39
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:09.63]     OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Pixel") [FAIL]
+  失败 OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Pixel") [1 s]
+  错误消息:
+   Assert.Single() Failure: The collection did not contain any matching items
+Expected:   (predicate expression)
+Collection: []
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.DocumentCloseButtonTests.<>c__DisplayClass1_0.<ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 66
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 39
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:11.24]     OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Dark") [FAIL]
+  失败 OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(theme: "Dark") [1 s]
+  错误消息:
+   Assert.Single() Failure: The collection did not contain any matching items
+Expected:   (predicate expression)
+Collection: []
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.DocumentCloseButtonTests.<>c__DisplayClass1_0.<ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 66
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.DocumentCloseButtonTests.ActualClosePresentersUseRedStatesAndStillCloseOnlyTheirDocument(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\DocumentCloseButtonTests.cs:line 39
+--- End of stack trace from previous location ---
+结果文件: D:\optical system design\opticalsystem\validation\rechecks\2026-11-03\document-close-blend\before.trx
+
+失败!  - 失败:     5，通过:     0，已跳过:     0，总计:     5，持续时间: 9 s - OpticalSystemDesign.Tests.dll (net10.0)

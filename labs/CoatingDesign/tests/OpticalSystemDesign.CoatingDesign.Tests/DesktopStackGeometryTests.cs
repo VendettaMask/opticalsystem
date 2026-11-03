@@ -64,18 +64,18 @@ public sealed partial class DesktopTests
                     Assert.Equal(count, analysis.Plot.SelectedLayer);
                     using (var png = analysis.CaptureImage())
                     {
-                        Assert.Equal(new PixelSize(2404, 1804), png.PixelSize);
+                        Assert.Equal(new PixelSize(1920, 1080), png.PixelSize);
                         var evidence = Environment.GetEnvironmentVariable("COATING_UI_EVIDENCE");
                         if (!string.IsNullOrWhiteSpace(evidence)) { Directory.CreateDirectory(evidence); png.Save(Path.Combine(evidence, $"vertical-stack-{theme}-{count}.png"), PngBitmapEncoderOptions.Default); }
                     }
                     analysisHost.Width = 820; analysisHost.Height = 650; Tick(analysisHost);
-                    using (var png = analysis.CaptureImage()) Assert.Equal(new PixelSize(2404, 1804), png.PixelSize);
+                    using (var png = analysis.CaptureImage()) Assert.Equal(new PixelSize(1920, 1080), png.PixelSize);
                     Capture(analysisHost, $"vertical-stack-window-{theme}-{count}");
                     window.DockWorkspace.Close(CoatingDockWorkspace.StackId); Tick(window);
                     Assert.False(window.DockWorkspace.IsPageOpen(CoatingDockWorkspace.StackId));
                     Click(window, "堆栈几何分析"); await window.PendingOperation;
                     analysis = Assert.IsType<CoatingStackAnalysisView>(window.DockWorkspace.DockFactory.Pages[CoatingDockWorkspace.StackId].Context); Tick(window);
-                    var rows = ((IEnumerable<LayerRow>)WindowControls(window).OfType<DataGrid>().Single(g => g.Name == "CoatingLayerTable").ItemsSource).ToArray();
+                    var rows = PhysicalRows(WindowControls(window).OfType<DataGrid>().Single(g => g.Name == "CoatingLayerTable"));
                     rows[0].ThicknessText = "123.456789"; Tick(window);
                     Assert.Equal(123.456789, analysis.Snapshot!.Layers[0].ThicknessNm);
                     Find<TextBox>(window, "基板厚度 (mm)").Text = "invalid"; Tick(window);
@@ -83,7 +83,7 @@ public sealed partial class DesktopTests
                     Assert.Throws<InvalidOperationException>(() => analysis.CaptureImage());
                     Find<TextBox>(window, "基板厚度 (mm)").Text = "2.25"; Tick(window);
                     Assert.Equal(2.25, analysis.Snapshot!.SubstrateThicknessMm); Assert.Equal(count, analysis.Plot.Bands.Count);
-                    using (var png = analysis.CaptureImage()) Assert.Equal(new PixelSize(2404, 1804), png.PixelSize);
+                    using (var png = analysis.CaptureImage()) Assert.Equal(new PixelSize(1920, 1080), png.PixelSize);
                     Assert.Equal(experiment.Layers.Skip(1).Select(l => l.ThicknessNm), analysis.Snapshot.Layers.Skip(1).Select(l => l.ThicknessNm));
                     return;
                 }
@@ -107,7 +107,7 @@ public sealed partial class DesktopTests
                 var analysis = Assert.IsType<CoatingStackAnalysisView>(window.DockWorkspace.DockFactory.Pages[CoatingDockWorkspace.StackId].Context); Tick(window);
                 var original = analysis.Snapshot!; var before = window.CurrentExperiment.Fingerprint();
                 analysis.SetSnapshot(original with { Layers = [] }); Tick(window); Assert.Empty(analysis.Plot.Bands);
-                using (var png = analysis.CaptureImage()) Assert.Equal(new PixelSize(2404, 1804), png.PixelSize);
+                using (var png = analysis.CaptureImage()) Assert.Equal(new PixelSize(1920, 1080), png.PixelSize);
                 UiLocalization.Apply(UiLocalization.English); Tick(window);
                 Assert.Equal("Stack Geometry", UiLocalization.Text("堆栈几何")); Assert.Equal(before, window.CurrentExperiment.Fingerprint());
                 Assert.Empty(analysis.Plot.Bands); UiLocalization.Apply(UiLocalization.Chinese);

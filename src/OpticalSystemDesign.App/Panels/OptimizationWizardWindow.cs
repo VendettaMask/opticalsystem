@@ -31,7 +31,7 @@ public sealed class OptimizationWizardWindow : Window
     private readonly CheckBox _replaceExisting = new() { Content = "替换当前评价函数", IsChecked = true };
     private readonly Button _generate = new()
     {
-        Content = new LocalIconLabel("sparkles", "生成评价函数"),
+        Content = new LocalIconLabel("merit-function-wizard", "生成评价函数"),
         MinWidth = 142,
         HorizontalContentAlignment = HorizontalAlignment.Center
     };

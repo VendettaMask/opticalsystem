@@ -132,15 +132,15 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         });
         _elementPicker.SelectionChanged += (_, _) => OnElementChanged();
 
-        var update = CommandButton("refresh-cw", "更新预览", 104);
+        var update = CommandButton("action-recalculate", "更新预览", 104);
         update.Click += (_, _) => UpdatePreview();
-        var export = CommandButton("file-down", "导出 PDF", 104);
+        var export = CommandButton("file-export-report", "导出 PDF", 104);
         export.Click += async (_, _) => await ExportPdfAsync();
-        var zoomOut = IconButton("zoom-out", "缩小");
+        var zoomOut = IconButton("action-zoom-out", "缩小");
         zoomOut.Click += (_, _) => _preview.ZoomOut();
-        var resetView = IconButton("maximize-2", "适合窗口");
+        var resetView = IconButton("action-fit-view", "适合窗口");
         resetView.Click += (_, _) => _preview.ResetView();
-        var zoomIn = IconButton("zoom-in", "放大");
+        var zoomIn = IconButton("action-zoom-in", "放大");
         zoomIn.Click += (_, _) => _preview.ZoomIn();
         _preview.ViewChanged += (_, _) =>
             _zoomStatus.Text = $"{Math.Round(_preview.Zoom * 100):0}%";
@@ -261,9 +261,9 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         AddRow("设计", _designer, ref row);
         AddRow("审核", _reviewer, ref row);
         AddRow("版本", _revision, ref row);
-        var importLogo = CommandButton("image-up", "导入 PNG", 92);
+        var importLogo = CommandButton("file-import-image", "导入 PNG", 92);
         importLogo.Click += async (_, _) => await ImportLogoAsync();
-        var resetLogo = CommandButton("rotate-ccw", "恢复默认", 92);
+        var resetLogo = CommandButton("action-reset-view", "恢复默认", 92);
         resetLogo.Click += (_, _) => ResetLogo();
         AddRow("公司 Logo", new StackPanel
         {

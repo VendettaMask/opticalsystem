@@ -36,12 +36,12 @@ public sealed partial class LensEditorPanel
         FontWeight = FontWeight.SemiBold,
         VerticalAlignment = VerticalAlignment.Center
     };
-    private readonly Button _previousPropertySurface = PropertyHeaderButton("PreviousPropertySurface", "chevron-left", "上一面");
-    private readonly Button _nextPropertySurface = PropertyHeaderButton("NextPropertySurface", "chevron-right", "下一面");
+    private readonly Button _previousPropertySurface = PropertyHeaderButton("PreviousPropertySurface", "action-previous", "上一面");
+    private readonly Button _nextPropertySurface = PropertyHeaderButton("NextPropertySurface", "action-next", "下一面");
 
     private Control BuildSurfacePropertiesSection()
     {
-        var toggle = PropertyHeaderButton("SurfacePropertiesToggle", "chevron-down", "展开表面属性");
+        var toggle = PropertyHeaderButton("SurfacePropertiesToggle", "disclosure-expand", "展开表面属性");
         var icon = (LocalIcon)toggle.Content!;
         var editorBorder = new Border
         {
@@ -54,7 +54,7 @@ public sealed partial class LensEditorPanel
         toggle.Click += (_, _) =>
         {
             editorBorder.IsVisible = !editorBorder.IsVisible;
-            icon.IconName = editorBorder.IsVisible ? "chevron-up" : "chevron-down";
+            icon.IconName = editorBorder.IsVisible ? "disclosure-collapse" : "disclosure-expand";
             var action = editorBorder.IsVisible ? "收起表面属性" : "展开表面属性";
             ToolTip.SetTip(toggle, action);
             Avalonia.Automation.AutomationProperties.SetName(toggle, action);
@@ -290,7 +290,7 @@ public sealed partial class LensEditorPanel
         _componentSummary.TextWrapping = TextWrapping.NoWrap;
         _componentSummary.TextTrimming = TextTrimming.CharacterEllipsis;
         var footer = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto,Auto"), Margin = new Thickness(14, 4, 14, 6) };
-        var revert = CommandButton("refresh-cw", "还原", 72);
+        var revert = CommandButton("action-recalculate", "还原", 72);
         revert.Name = "RevertSurfaceProperties";
         revert.Margin = new Thickness(8, 0, 0, 0);
         revert.Click += (_, _) => LoadComponentSelection();

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7c8a68c9-6e19-4887-8801-2ac9b49dbb56" name="optics@LAPTOP-G4BBBCS0 2026-11-03 10:03:35" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-03T10:03:35.7678786+08:00" queuing="2026-11-03T10:03:35.7678791+08:00" start="2026-11-03T10:03:19.0499315+08:00" finish="2026-11-03T10:03:35.7814119+08:00" />
+  <TestSettings name="default" id="8670f7d5-6a2d-4d8f-9ffa-c0875e99dbe1">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-03_10_03_35" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0a0d0535-f0fc-4c06-bff5-32f157da7e6b" testId="3bf22ca0-73d2-021c-67c1-5edcb67f50ab" testName="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory" computerName="LAPTOP-G4BBBCS0" duration="00:00:15.0068345" startTime="2026-11-03T10:03:20.5478539+08:00" endTime="2026-11-03T10:03:35.5353404+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0a0d0535-f0fc-4c06-bff5-32f157da7e6b" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests.ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory" storage="d:\optical system design\opticalsystem\labs\coatingdesign\tests\opticalsystemdesign.coatingdesign.tests\bin\release\net10.0\opticalsystemdesign.coatingdesign.tests.dll" id="3bf22ca0-73d2-021c-67c1-5edcb67f50ab">
+      <Execution id="0a0d0535-f0fc-4c06-bff5-32f157da7e6b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\labs\CoatingDesign\tests\OpticalSystemDesign.CoatingDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.CoatingDesign.Tests.DesktopTests" name="ReferenceFloatingEditorUsesRealInlineMaterialLockMoveDeleteAndMenuHistory" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="3bf22ca0-73d2-021c-67c1-5edcb67f50ab" executionId="0a0d0535-f0fc-4c06-bff5-32f157da7e6b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="1" executed="1" passed="1" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.55]   Discovering: OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.66]   Discovered:  OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:00.68]   Starting:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+[xUnit.net 00:00:15.77]   Finished:    OpticalSystemDesign.CoatingDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Warning" timestamp="2026-11-03T10:03:35.6941875+08:00">
+        <Text>数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

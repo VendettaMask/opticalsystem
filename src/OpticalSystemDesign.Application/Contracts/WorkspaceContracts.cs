@@ -1001,7 +1001,8 @@ public enum AnalysisAxisQuantity
     Power,
     Count,
     NormalizedField,
-    Probability
+    Probability,
+    IrradianceGradient
 }
 
 public enum AnalysisAxisUnit
@@ -1027,7 +1028,9 @@ public enum AnalysisAxisUnit
     CyclesPerMilliradian,
     Diopter,
     WattsPerSquareMeterPerNanometer,
-    CyclesPerPixel
+    CyclesPerPixel,
+    WattsPerSquareMeter,
+    WattsPerSquareMeterPerPixel
 }
 
 public sealed record AnalysisPointDto(
@@ -1148,7 +1151,8 @@ public enum AnalysisPresentationKind
     FieldCurvatureAndDistortion,
     FieldCurvature,
     AngleVsImageHeight,
-    Interferogram
+    Interferogram,
+    Mtf
 }
 
 public sealed record InterferogramSummaryDto(

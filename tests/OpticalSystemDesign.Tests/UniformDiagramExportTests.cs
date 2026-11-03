@@ -69,8 +69,9 @@ public sealed class UniformDiagramExportTests
                     Assert.Equal(original, Geometry(sheet));
                     Assert.Equal(curves, sheet.GetVisualDescendants().OfType<AnalysisPlotControl>().Select(plot => plot.Series).ToArray());
                     using var image = panel.CapturePlotImage();
-                    Assert.Equal(new PixelSize(2404, 1804), image.PixelSize);
-                    Assert.Equal(new Vector(192, 192), image.Dpi);
+                    Assert.Equal(new PixelSize(1920, 1080), image.PixelSize);
+                    Assert.Equal(96, image.Dpi.X);
+                    Assert.Equal(image.Dpi.X, image.Dpi.Y);
                     ExportImageAssertions.HasCompleteBorder(image);
                     Assert.Equal(original, Geometry(sheet));
                     if (Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_UNIFORM_DIAGRAM_CAPTURE_DIR") is { } directory)
@@ -119,7 +120,7 @@ public sealed class UniformDiagramExportTests
                     window.Width = size.Item1; window.Height = size.Item2;
                     await Settle(window);
                     using var image = panel.CaptureViewerImage();
-                    Assert.Equal(new PixelSize(2404, 1804), image.PixelSize);
+                    Assert.Equal(new PixelSize(1920, 1080), image.PixelSize);
                     Assert.Equal(new Size(1200, 900), sheet.Bounds.Size);
                     Assert.Equal(original, Geometry(sheet));
                     Assert.Equal(axes, scene.OrientationAxesForRendering());
@@ -158,7 +159,7 @@ public sealed class UniformDiagramExportTests
                 panel.PresentResult(result.View, app.Documents.GetSnapshot(), DateTimeOffset.Now);
                 await Settle(window);
                 using var recovered = panel.CapturePlotImage();
-                Assert.Equal(new PixelSize(2404, 1804), recovered.PixelSize);
+                Assert.Equal(new PixelSize(1920, 1080), recovered.PixelSize);
             }
             finally { window.Close(); }
         }, CancellationToken.None);

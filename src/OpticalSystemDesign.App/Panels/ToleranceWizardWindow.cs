@@ -369,12 +369,12 @@ public sealed class ToleranceWizardWindow : Window
                 LineSpacing = 6,
                 Children =
                 {
-                    ToolButton("save", "保存", enabled: false),
-                    ToolButton("folder-open", "载入", enabled: false),
-                    ToolButton("check", "验证", enabled: false),
-                    ToolButton("sparkles", "公差分析向导"),
-                    ToolButton("rotate-ccw", "重置", enabled: false),
-                    ToolButton("help-circle", "帮助", enabled: false)
+                    ToolButton("file-save", "保存", enabled: false),
+                    ToolButton("file-open", "载入", enabled: false),
+                    ToolButton("action-accept", "验证", enabled: false),
+                    ToolButton("tolerance-wizard", "公差分析向导"),
+                    ToolButton("action-reset-view", "重置", enabled: false),
+                    ToolButton("help-topic", "帮助", enabled: false)
                 }
             }
         };
@@ -571,7 +571,8 @@ public sealed class ToleranceWizardWindow : Window
 
     private static Button HelpButton()
     {
-        var button = new Button { Content = "?", Width = 30, Height = 28 };
+        var button = new Button { Content = new OpticalSystemDesign.App.Controls.LocalIcon
+            { IconName = "help-topic", Width = 18, Height = 18 }, Width = 30, Height = 28 };
         ControlAvailability.Set(button, false, "此向导暂不提供独立帮助窗口。");
         return button;
     }

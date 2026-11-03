@@ -18,11 +18,11 @@ public sealed partial class MultiConfigurationPanel
 {
     private Control BuildMatrixHeader()
     {
-        var toggle = MatrixButton("ToggleMultiConfigurationProperties", "chevron-down", "展开操作数属性", () => ToggleOperandProperties());
-        _previousMatrixOperand = MatrixButton("PreviousMultiConfigurationOperand", "chevron-left", "上一个操作数", () => NavigateOperand(-1));
-        _nextMatrixOperand = MatrixButton("NextMultiConfigurationOperand", "chevron-right", "下一个操作数", () => NavigateOperand(1));
-        _previousMatrixConfiguration = MatrixButton("PreviousMatrixConfiguration", "chevron-left", "上一个结构", () => ActivateMatrixConfiguration(-1));
-        _nextMatrixConfiguration = MatrixButton("NextMatrixConfiguration", "chevron-right", "下一个结构", () => ActivateMatrixConfiguration(1));
+        var toggle = MatrixButton("ToggleMultiConfigurationProperties", "disclosure-expand", "展开操作数属性", () => ToggleOperandProperties());
+        _previousMatrixOperand = MatrixButton("PreviousMultiConfigurationOperand", "action-previous", "上一个操作数", () => NavigateOperand(-1));
+        _nextMatrixOperand = MatrixButton("NextMultiConfigurationOperand", "action-next", "下一个操作数", () => NavigateOperand(1));
+        _previousMatrixConfiguration = MatrixButton("PreviousMatrixConfiguration", "action-previous", "上一个结构", () => ActivateMatrixConfiguration(-1));
+        _nextMatrixConfiguration = MatrixButton("NextMatrixConfiguration", "action-next", "下一个结构", () => ActivateMatrixConfiguration(1));
         var properties = new StackPanel
         {
             Orientation = Orientation.Horizontal,
@@ -66,7 +66,7 @@ public sealed partial class MultiConfigurationPanel
     {
         _operandProperties.IsVisible = expanded ?? !_operandProperties.IsVisible;
         var toggle = this.GetLogicalDescendants().OfType<Button>().Single(b => b.Name == "ToggleMultiConfigurationProperties");
-        ((LocalIcon)toggle.Content!).IconName = _operandProperties.IsVisible ? "chevron-up" : "chevron-down";
+        ((LocalIcon)toggle.Content!).IconName = _operandProperties.IsVisible ? "disclosure-collapse" : "disclosure-expand";
         var caption = _operandProperties.IsVisible ? "收起操作数属性" : "展开操作数属性";
         ToolTip.SetTip(toggle, caption);
         AutomationProperties.SetName(toggle, caption);

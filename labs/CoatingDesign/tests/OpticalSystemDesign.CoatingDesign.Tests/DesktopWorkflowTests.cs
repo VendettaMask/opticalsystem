@@ -47,7 +47,7 @@ public sealed partial class DesktopTests
                 {
                     window.Show(); Tick(window); Click(window, "打开实验"); await window.PendingOperation; Tick(window);
                     var table = WindowControls(window).OfType<DataGrid>().Single(t => t.Name == "CoatingLayerTable");
-                    LayerRow[] Rows() => ((IEnumerable<LayerRow>)table.ItemsSource).ToArray();
+                    LayerRow[] Rows() => PhysicalRows(table);
                     Find<TextBox>(window, "参考波长 (nm)").Text = "625"; Tick(window);
                     Assert.Equal(550, window.CurrentExperiment.Target.CenterNm); Assert.Equal(625, window.CurrentExperiment.ReferenceWavelengthNm);
                     Assert.Equal(original.Layers, Rows().Select(r => r.ToLayer()));
