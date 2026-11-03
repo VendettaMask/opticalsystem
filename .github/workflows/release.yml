@@ -17,7 +17,7 @@ on:
         type: boolean
         default: false
       validation_only:
-        description: Run all selected platform checks without packaging or publishing
+        description: Run essential release checks without packaging or publishing
         type: boolean
         default: false
   push:
@@ -83,71 +83,14 @@ jobs:
         shell: pwsh
         run: |
           ./scripts/test-ota-key-crypto.ps1
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~AboutUpdateTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~MacOtaPanelTests|FullyQualifiedName~OtaHelperRuntimeTests|FullyQualifiedName~WindowsInstallationGateTests|FullyQualifiedName~WindowsInstallationLifetimeTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests|FullyQualifiedName~WindowsPackagingTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests' --logger 'trx;LogFileName=release.trx' --results-directory artifacts/cloud-verification
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~FlatStartDesktopTests|FullyQualifiedName~AutoLensOfficialExampleTests' --logger 'trx;LogFileName=initial-structure.trx' --results-directory artifacts/cloud-verification
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~ReleaseUpdateTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~OtaHelperRuntimeTests|FullyQualifiedName~WindowsInstallationGateTests|FullyQualifiedName~WindowsInstallationLifetimeTests|FullyQualifiedName~OtaShutdownGuardTests|FullyQualifiedName~WindowsPackagingTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~BuiltInModuleDeliveryTests|FullyQualifiedName~ProductDependencyArchitectureTests' --logger 'trx;LogFileName=release.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
       - name: Verify Apple Silicon packaging and shared product boundaries
         if: matrix.runtime == 'osx-arm64'
         shell: pwsh
         run: |
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~MacPackagingTests|FullyQualifiedName~MacOtaPanelTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~OtaUpdatePanelTests|FullyQualifiedName~OtaShutdownGuardTests|FullyQualifiedName~InitialStructureLabLauncherTests|FullyQualifiedName~ProductDependencyArchitectureTests|FullyQualifiedName~WorkspaceSessionTests' --logger 'trx;LogFileName=macos-release.trx' --results-directory artifacts/cloud-verification
+          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~ProductVersionInfoTests|FullyQualifiedName~CloudReleaseTests|FullyQualifiedName~MacPackagingTests|FullyQualifiedName~OtaClientTests|FullyQualifiedName~OtaShutdownGuardTests|FullyQualifiedName~BuiltInModuleDeliveryTests|FullyQualifiedName~ProductDependencyArchitectureTests' --logger 'trx;LogFileName=macos-release.trx' --results-directory artifacts/cloud-verification
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          dotnet test labs/InitialStructure/tests/OpticalSystemDesign.InitialStructure.Tests/OpticalSystemDesign.InitialStructure.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~FlatStartDesktopTests|FullyQualifiedName~AutoLensOfficialExampleTests' --logger 'trx;LogFileName=initial-structure.trx' --results-directory artifacts/cloud-verification
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-      - name: Verify lens headers and 2D/3D viewers
-        shell: pwsh
-        run: |
-          # Real Skia navigation and drawing stubs must not share glyph caches.
-          if ($IsMacOS) {
-            $reports = [IO.Path]::GetFullPath('artifacts/cloud-verification/native-crash')
-            [void][IO.Directory]::CreateDirectory($reports)
-            # .NET's report-only flag prevents any process-memory dump.
-            $env:DOTNET_DbgEnableMiniDump = '1'
-            $env:DOTNET_EnableCrashReportOnly = '1'
-            $env:DOTNET_DbgMiniDumpName = Join-Path $reports 'navigation.%p'
-            $env:OPTICAL_SYSTEM_DESIGN_NAVIGATION_TRACE = Join-Path $reports 'navigation-stages.txt'
-          }
-          if ($IsMacOS -and '${{ inputs.validation_only }}' -eq 'true') {
-            python3 scripts/test-macos-navigation-backtrace.py --results-directory artifacts/cloud-verification
-          } else {
-            ./scripts/test-lens-navigation-release.ps1 -ResultsDirectory artifacts/cloud-verification
-          }
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~LensEditorLayoutTests|FullyQualifiedName~LensHeaderTypographyTests|FullyQualifiedName~LensMaterialRowThemeTests|FullyQualifiedName~ViewerSettingsInputThemeTests|FullyQualifiedName~ViewerConfigurationTests|FullyQualifiedName~Viewer3DGeometryTests' --logger 'trx;LogFileName=lens-viewers.trx' --results-directory artifacts/cloud-verification
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-      - name: Render update check feedback in three languages
-        shell: pwsh
-        env:
-          OPTICAL_SYSTEM_DESIGN_UPDATE_CAPTURE_DIR: ${{ github.workspace }}/artifacts/cloud-verification/update-feedback
-        run: |
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AboutUpdateTests.CheckButtonShowsBusyProgressAndPersistentLocalizedResults' --logger 'trx;LogFileName=update-feedback-render.trx' --results-directory artifacts/cloud-verification
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-      - name: Verify readable analysis pages and captions
-        shell: pwsh
-        run: |
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AnalysisResponsivePlotTests|FullyQualifiedName~AnalysisGuiContractTests|FullyQualifiedName~AccessibilityAndResponsiveLayoutTests|FullyQualifiedName~AnalysisLegendLayoutTests|FullyQualifiedName~FieldCurvatureFooterTests|FullyQualifiedName~InterferogramFooterTests|FullyQualifiedName~RayFanFooterTests|FullyQualifiedName~SpotTitleLayoutTests|FullyQualifiedName~RayFanLayoutRepairTests|FullyQualifiedName~ConfigurationMatrixAnalysisGuiTests|FullyQualifiedName~AnalysisConfigurationSelectionGuiTests|FullyQualifiedName~SeidelReportPresentationTests|FullyQualifiedName~WavefrontSurfaceRenderTests|FullyQualifiedName~ProductTypographyTests|FullyQualifiedName~PupilShapeAndFoucaultPanelTests|FullyQualifiedName~PupilFoucaultExtensionPanelTests' --logger 'trx;LogFileName=analysis-contracts.trx' --results-directory artifacts/cloud-verification
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-      - name: Render complete analysis pages in an isolated Skia process
-        shell: pwsh
-        env:
-          OPTICAL_SYSTEM_DESIGN_ANALYSIS_FIT_CAPTURE_DIR: ${{ github.workspace }}/artifacts/cloud-verification/analysis-pages
-        run: |
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AnalysisResponsivePlotTests' --logger 'trx;LogFileName=analysis-render.trx' --results-directory artifacts/cloud-verification
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-      - name: Verify complete PNG export in an isolated Skia process
-        shell: pwsh
-        env:
-          OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR: ${{ github.workspace }}/artifacts/cloud-verification/analysis-export
-        run: |
-          dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-build --no-restore --filter 'FullyQualifiedName~AnalysisImageExportTests' --logger 'trx;LogFileName=analysis-export.trx' --results-directory artifacts/cloud-verification
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-      - name: Verify frozen evidence and documentation
-        shell: pwsh
-        run: |
-          ./tools/validation/GitFrozenIntegrity.ps1 -RepositoryRoot . -ManifestPath ./artifacts/validation/n02-layer-diagnosis-20261009/frozen-after.json -ExpectedAggregateSha256 3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10 -RelocationMapPath tools/validation/frozen-evidence-relocations.json -ExpectedRelocationMapSha256 6eefb25cbb1c35a120f73e8bbb761aac16759e7b8491b4606475caec8dfd4f6e -OutputPath artifacts/cloud-verification/frozen.json
-          if ($LASTEXITCODE) { exit $LASTEXITCODE }
-          ./scripts/verify-documentation.ps1 -Strict -OutputPath artifacts/cloud-verification/documentation.json
       - name: Build the complete self-contained EXE installer
         if: ${{ matrix.runtime != 'osx-arm64' && !inputs.validation_only }}
         shell: pwsh
@@ -201,24 +144,6 @@ jobs:
           path: distribution/*
           if-no-files-found: error
           retention-days: 30
-      - name: Retain authorized bounded cloud Mac test crash reports
-        if: ${{ failure() && matrix.runtime == 'osx-arm64' }}
-        shell: bash
-        run: |
-          # User authorized temporary GitHub Mac test reports on 2026-10-27.
-          # No reports or files from the maintainer's own computer are read.
-          mkdir -p artifacts/cloud-verification/native-crash
-          count=0
-          sleep 2
-          for directory in "$HOME/Library/Logs/DiagnosticReports" "$HOME/Library/Logs/DiagnosticReports/Retired"; do
-            for report in "$directory"/{testhost,dotnet}*.{ips,crash}; do
-              [[ -f "$report" ]] || continue
-              if [[ $(stat -f%z "$report") -le 20971520 && $count -lt 5 ]]; then
-                cp "$report" artifacts/cloud-verification/native-crash/
-                count=$((count+1))
-              fi
-            done
-          done
       - name: Retain validation records inside Actions, not release attachments
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

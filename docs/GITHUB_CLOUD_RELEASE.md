@@ -50,21 +50,27 @@ Windows 正式版与测试版在修改 Release 前都必须验证 RSA-4096 签�
 
 分析页脚布局回归按实际页面组合 `UniformDiagramPage` 与显示宿主：1200×900 原图及 160 DIP 图签保持固定，窄窗仅检查整体缩放；右侧品牌/文档区仍须占原图签三分之一，文字、样式及无溢出断言保留。不要把单独页脚直接限制为窄视口宽度，再用原图分栏比例判定其旧响应式回退布局。反射调用内部绘图工厂的测试须提供完整参数列表，包括可选布局参数。
 
-Windows 在 `windows-latest`、Mac 在 Apple Silicon `macos-15` runner 构建完整解决方案，但只运行与交付、安装、界面和原生预设相关的定向测试，不把它称为全仓库测试。分析页可读排布/图注、图例、字体和报告契约为发布门禁，完整页面渲染与 PNG 导出分别在独立 Skia 进程执行，避免与绘图桩共享字形缓存；相关图片和 TRX 留在 Actions 验证产物中。冻结证据与文档校验保留，Windows x64 包执行内置模块完整性检查，Windows ARM64 仍仅交叉打包；Mac ARM64 在原生 runner 执行包内程序与磁盘映像复查。AutoLens 目标预设的存在和界面通过不等于设计达标；此前 24 次固定 CPU 运行仍为 0/24 达标。
+发布流程只保留交付必需的检查：版本/标签/架构、完整解决方案的锁定还原及 Release 编译、安装与更新保护、OTA 身份校验、内置模块和产品依赖边界，以及实际安装包检查。`BuiltInModuleDeliveryTests` 检查两个模块同进程交付和随包授权文件；初始结构搜索、预设和界面回归由普通 CI 的模块测试负责。发布仍要求全部所选平台成功，再签名、上传并核对公开附件，失败保护、旧包备份和未选平台保留规则不变。
+
+Windows x64 对实际载荷执行隔离的完整性/内置模块及 OTA 辅助进程检查；Windows ARM64 在 x64 runner 交叉打包。Mac ARM64 在原生 runner 验证自包含 bundle、架构、模块、字体与许可、DMG，以及云端自有副本的更新替换和重启。此范围不等于全仓测试或人工桌面验收。
+
+界面、布局、字体、图例、图注、工作区和报告契约归入[普通 CI](../.github/workflows/ci.yml)的完整主测试。三语言更新反馈、完整分析绘图和 PNG 导出另以独立 Skia 测试进程执行，图片与 TRX 放在 `desktop-ui-linux/macos/windows` Actions 产物，保留 30 天。文档严格校验和冻结证据完整性继续由 CI 原有独立任务执行；这些检查不再阻塞独立发布流程，也不把尚未完成的普通 CI 宣称为通过。
 
 流程源码见[工作流](../.github/workflows/release.yml)与[安全替换脚本](../scripts/publish-github-exe.ps1)，实际执行和交付结果以[当前状态](CURRENT_STATUS.md)为准。
 
-镜头结构导航由 [test-lens-navigation-release.ps1](../scripts/test-lens-navigation-release.ps1) 动态发现全部用例，再按测试方法启动独立测试进程，避免完整 Dock 工作区与其他方法共用原生 Skia 状态。每组必须与发现的用例数相同、全部通过且运行完整结束，失败、漏跑或跳过直接拒绝；TRX 与 `lens-navigation-isolation.json` 随平台检查产物保留。图表页脚构建测试也须在独立真实绘图会话中创建矢量品牌控件，不能依赖其他测试留下的渲染平台。
+普通 CI 使用 [test-lens-navigation-release.ps1](../scripts/test-lens-navigation-release.ps1) 动态发现全部镜头导航用例，再按测试方法启动独立测试进程，避免完整 Dock 工作区与其他方法共用原生 Skia 状态。脚本保留原文件名；每组必须与发现的用例数相同、全部通过且运行完整结束，失败、漏跑或跳过直接拒绝；TRX 与 `lens-navigation-isolation.json` 随 CI 的 `desktop-ui-*` 产物保留。图表页脚构建测试也须在独立真实绘图会话中创建矢量品牌控件，不能依赖其他测试留下的渲染平台。
 
 固定图纸的窄窗口门禁保留1200×900原始尺寸；屏幕默认完整适应窗口，100%模式仍可滚动。视角工具条保持正常界面字号，检查实际视口边界、真实鼠标点击及键盘切换；必要时将原生工具条内的控件滚动到可见处并有界等待命中几何就绪。等待不会重试错位点击，也不直接触发 Click 事件；目标一直被遮挡仍须失败。设置表单的紧凑排布直接约束表单宽度，不能以缩小窗口来要求整张图纸重排。文字超出固定图框时，门禁验证可见提示及导出拒绝；另用可读字号检查完整交互，不绕过提示层或缩小产品字体。
 
-手动输入 `validation_only=true` 时仍执行所选平台全部验证，但不生成安装包、不上传 `cloud-package-*`、不执行发布任务；默认值为 false，正常交付流程不变。经用户于 2026-10-27 明确授权，失败的 Mac 云任务仅保留临时构建机上 `testhost` / `dotnet` 的系统崩溃报告，最多五份、每份不超过 20 MiB，随已有检查工件按 30 天保留；不读取维护者本机报告，不采集进程内存转储。导航步骤同时启用 .NET `DOTNET_EnableCrashReportOnly=1`，只生成 JSON 线程/调用栈报告，不生成 dump，并保留不含处方数据的测试阶段标记。该开关的无转储语义依据 [.NET runtime 实现](https://github.com/dotnet/runtime/blob/v10.0.0/src/coreclr/debug/createdump/createdumpmain.cpp)。
+手动输入 `validation_only=true` 时执行所选平台的必要发布测试与构建，跳过安装包生成、成品包检查、`cloud-package-*` 上传及发布；默认值为 false。该模式不再附带界面或文档检查，不能当作成品包验收。完整构建和定向检查记录仍在 `cloud-checks-*` 产物中。
 
-仅验证的 Mac 任务还可通过 [后台原生栈观察器](../scripts/test-macos-navigation-backtrace.py) 在已知导航阶段附加 LLDB。目标 PID 必须由该测试写入且进程命令包含 `testhost.dll`，仅输出线程调用栈和栈指针寄存器，完成后分离调试器；不保存内存、不改测试断言，常规发布不附加调试器。该脚本拒绝在用户本机运行。
+经用户于 2026-10-27 明确授权，普通 CI 的 Mac 界面检查失败时仅保留临时构建机上 `testhost` / `dotnet` 的系统崩溃报告，最多五份、每份不超过 20 MiB，随 `desktop-ui-macos` 按 30 天保留；不读取维护者本机报告，不采集进程内存转储。导航步骤启用 .NET `DOTNET_EnableCrashReportOnly=1`，只生成 JSON 线程/调用栈报告，并保留不含处方数据的测试阶段标记。该开关的无转储语义依据 [.NET runtime 实现](https://github.com/dotnet/runtime/blob/v10.0.0/src/coreclr/debug/createdump/createdumpmain.cpp)。
+
+[后台原生栈观察器](../scripts/test-macos-navigation-backtrace.py) 保留为专项云端诊断工具，普通 CI 和发布均不自动附加 LLDB。目标 PID 必须由该测试写入且进程命令包含 `testhost.dll`，仅输出线程调用栈和栈指针寄存器，完成后分离调试器；不保存内存、不改测试断言。该脚本拒绝在用户本机运行。
 
 LLDB 使用官方 `-k` 故障后命令打印栈，避免普通 `-o` 命令在异常处停止而漏记；临时 runner 单独安装固定版本 `dotnet-sos` 10.0.750501，仅执行不含参数/局部变量的 `clrstack`。诊断工具不进入产品依赖或安装包，也不在本机安装。依据 [LLDB 命令行说明](https://lldb.llvm.org/man/lldb.html)和 [Microsoft SOS 说明](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/dotnet-sos)。
 
-Mac 工作区路径散列已改用固定参数的 UTF-8 `realpath`，保留实际文件系统大小写与不存在路径的后备行为。旧声明将可变参数 `fcntl(F_GETPATH)` 当作固定参数调用，在 Darwin ARM64 上不符合调用约定，有写坏调用栈的风险。约定见 [Apple ARM64 说明](https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms)，实际文件名恢复见 [Apple libc realpath 实现](https://github.com/apple-oss-distributions/Libc/blob/main/stdlib/FreeBSD/realpath.c)。Mac 云门禁增加全部 `WorkspaceSessionTests`，包括真实 Unicode 文件连续保存/读取及原有文件系统大小写语义检查；原生回归结果以状态页为准。
+Mac 工作区路径散列已改用固定参数的 UTF-8 `realpath`，保留实际文件系统大小写与不存在路径的后备行为。旧声明将可变参数 `fcntl(F_GETPATH)` 当作固定参数调用，在 Darwin ARM64 上不符合调用约定，有写坏调用栈的风险。约定见 [Apple ARM64 说明](https://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms)，实际文件名恢复见 [Apple libc realpath 实现](https://github.com/apple-oss-distributions/Libc/blob/main/stdlib/FreeBSD/realpath.c)。全部 `WorkspaceSessionTests` 由普通 CI 主测试覆盖，包括真实 Unicode 文件连续保存/读取及原有文件系统大小写语义检查；原生回归结果以状态页为准。
 
 2026-10-26 已从 `45cce15b` 完成 Windows x64 云端重建与安全替换，EXE 末尾为 `-Setup-45cce15b.exe`。首次带码任务的依赖误报与旧界面夹具已修复，随后全部发布步骤通过；公开附件的源码、文件哈希、更新签名和下载均已核对。Mac 附件及来源、原测试标签保持，Windows 新名称使用新的下载地址；旧客户端需手动覆盖安装一次。实际运行、跳过范围与载荷证据见[本轮交付账目](validation/WINDOWS_CODED_EXE_RELEASE_2026-10-26.json)，没有替换用户本机安装。
 

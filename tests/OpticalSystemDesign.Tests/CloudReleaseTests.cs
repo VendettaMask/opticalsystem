@@ -13,29 +13,54 @@ public sealed class CloudReleaseTests
         Assert.Contains("tags: ['v*']", text);
         Assert.Contains("cancel-in-progress: false", text);
         Assert.Contains("needs: [plan, package]", text);
-        Assert.Contains("CloudReleaseTests", text);
-        Assert.Contains("test-lens-navigation-release.ps1", text);
-        Assert.Contains("FullyQualifiedName~WorkspaceSessionTests", text);
-        foreach (var name in new[] { "LensEditorLayoutTests", "LensHeaderTypographyTests",
-            "LensMaterialRowThemeTests", "ViewerSettingsInputThemeTests", "ViewerConfigurationTests", "Viewer3DGeometryTests" })
+        foreach (var name in new[] { "ProductVersionInfoTests", "CloudReleaseTests", "WindowsPackagingTests",
+            "MacPackagingTests", "OtaClientTests", "OtaShutdownGuardTests", "BuiltInModuleDeliveryTests",
+            "ProductDependencyArchitectureTests", "WindowsInstallationGateTests", "WindowsInstallationLifetimeTests" })
             Assert.Contains("FullyQualifiedName~" + name, text);
-        Assert.Contains("LogFileName=lens-viewers.trx", text);
-        foreach (var name in new[] { "AnalysisResponsivePlotTests", "AnalysisImageExportTests", "SpotTitleLayoutTests",
-            "AnalysisLegendLayoutTests", "FieldCurvatureFooterTests", "ConfigurationMatrixAnalysisGuiTests" })
-            Assert.Contains("FullyQualifiedName~" + name, text);
-        Assert.Contains("OPTICAL_SYSTEM_DESIGN_ANALYSIS_FIT_CAPTURE_DIR", text);
-        Assert.Contains("OPTICAL_SYSTEM_DESIGN_ANALYSIS_EXPORT_CAPTURE_DIR", text);
-        Assert.Contains("LogFileName=analysis-contracts.trx", text);
-        Assert.Contains("LogFileName=analysis-render.trx", text);
-        Assert.Contains("LogFileName=analysis-export.trx", text);
-        Assert.Contains("AboutUpdateTests.CheckButtonShowsBusyProgressAndPersistentLocalizedResults", text);
-        Assert.Contains("OPTICAL_SYSTEM_DESIGN_UPDATE_CAPTURE_DIR", text);
+        Assert.Contains("dotnet restore OpticalSystemDesign.slnx --locked-mode", text);
+        foreach (var name in new[] { "LensEditorLayoutTests", "Viewer3DGeometryTests", "AnalysisResponsivePlotTests",
+            "AnalysisImageExportTests", "AboutUpdateTests", "OtaUpdatePanelTests", "MacOtaPanelTests",
+            "WorkspaceSessionTests", "FlatStartDesktopTests", "AutoLensOfficialExampleTests" })
+            Assert.DoesNotContain("FullyQualifiedName~" + name, text);
+        Assert.DoesNotContain("test-lens-navigation-release.ps1", text);
+        Assert.DoesNotContain("GitFrozenIntegrity.ps1", text);
+        Assert.DoesNotContain("verify-documentation.ps1", text);
+
+        var ci = File.ReadAllText(Path.Combine(RepositoryRoot(), ".github", "workflows", "ci.yml"));
+        var mainStart = ci.IndexOf("  test-main:", StringComparison.Ordinal);
+        var mainEnd = ci.IndexOf("  test-lab:", mainStart, StringComparison.Ordinal);
+        Assert.True(mainStart >= 0 && mainEnd > mainStart);
+        var main = ci[mainStart..mainEnd];
+        var testStart = main.IndexOf("      - name: Test main solution", StringComparison.Ordinal);
+        Assert.True(testStart >= 0);
+        var testEnd = main.IndexOf("      - name:", testStart + 1, StringComparison.Ordinal);
+        Assert.True(testEnd > testStart);
+        var mainTests = main[testStart..testEnd];
+        // The complete assembly retains every UI contract; don't silently filter
+        // it down to the smaller set of release checks.
+        Assert.Contains("${{ env.MAIN_TEST_PROJECT }}", mainTests);
+        Assert.DoesNotContain("--filter", mainTests);
+        Assert.Contains("test-lens-navigation-release.ps1", main);
+        Assert.Contains("steps.build.outcome == 'success'", main);
+        foreach (var name in new[] { "ANALYSIS_FIT_CAPTURE_DIR", "ANALYSIS_EXPORT_CAPTURE_DIR", "UPDATE_CAPTURE_DIR" })
+        {
+            Assert.Contains("OPTICAL_SYSTEM_DESIGN_" + name, main);
+            Assert.DoesNotContain("OPTICAL_SYSTEM_DESIGN_" + name, text);
+        }
+        foreach (var log in new[] { "analysis-render.trx", "analysis-export.trx", "update-feedback-render.trx" })
+            Assert.Contains("LogFileName=" + log, main);
+        Assert.Contains("AboutUpdateTests.CheckButtonShowsBusyProgressAndPersistentLocalizedResults", main);
+        Assert.Contains("name: desktop-ui-${{ matrix.label }}", main);
+        Assert.Contains("DOTNET_EnableCrashReportOnly", main);
+        Assert.Contains("GitFrozenIntegrity.ps1", ci);
+        Assert.Contains("verify-documentation.ps1 -Strict", ci);
+
         Assert.Contains("verify-built-in-package.ps1", text);
         Assert.Contains("FullyQualifiedName~OtaHelperRuntimeTests", text);
         Assert.Contains("OPTICAL_SYSTEM_DESIGN_OTA_RUNTIME_SOURCE = $payload", text);
         Assert.Contains("LogFileName=ota-runtime-package.trx", text);
-        Assert.Contains("GitFrozenIntegrity.ps1", text);
-        Assert.Contains("verify-documentation.ps1 -Strict", text);
+        Assert.Contains("verify-macos-package.sh", File.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "build-macos.sh")));
+        Assert.Contains("test-macos-ota-install.py", text);
         Assert.Contains("publish-github-exe.ps1", text);
         Assert.Contains("GH_TOKEN: ${{ github.token }}", text);
         var publishStart = text.IndexOf("  publish:", StringComparison.Ordinal);
