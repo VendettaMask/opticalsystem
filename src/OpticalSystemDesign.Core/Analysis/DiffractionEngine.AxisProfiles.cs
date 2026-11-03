@@ -67,9 +67,10 @@ public static partial class DiffractionEngine
         // The ordinary shared preparation retains the same coordinates, chief
         // reference, accepted mask, apodization and phase/amplitude interpolation.
         // Its two-pixel readout is discarded, and supplies no profile intensity.
-        ComputeFftPsfCore(optic, field, wave, compact.SampleCount, CompactPupilTransformSize(compact.SampleCount),
+        var metadata = ComputeFftPsfCore(optic, field, wave, compact.SampleCount, CompactPupilTransformSize(compact.SampleCount),
             false, true, 0, null, null, true, false, aiming, reference, 0, true, out var pupil,
             explicitPupilGrid: compact, interpolateScalarPupilAmplitude: true, croppedOutputSize: 2);
+        metadata.PupilPhaseSampling?.EnforceForCurrentRequest("FFT PSF Cross Section");
         var (horizontal, vertical) = FourierAxisProfiles(pupil, transformSize);
         var amplitude = pupil.Cast<Complex>().Sum(v => v.Magnitude);
         if (!(amplitude > 0)) throw new AnalysisDataUnavailableException("FFT PSF Cross Section", "no illuminated pupil");

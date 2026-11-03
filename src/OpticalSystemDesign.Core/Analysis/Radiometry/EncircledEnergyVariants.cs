@@ -269,6 +269,7 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
         var size = 2 * _pupilSampling;
         var results = DiffractionEngine.ComputeFftCumulativeEnergySpectrum(
             Optic, field, wavelengths, _pupilSampling, ignoreOpd);
+        foreach (var item in results) item.Result.PupilPhaseSampling?.EnforceForCurrentRequest(Name);
         var pitch = results[0].Result.SampleSpacingMicrometers;
         var weightScale = wavelengths.Max(w => w.Weight);
         // FFT PSF display values use the monochromatic ideal peak. Convert

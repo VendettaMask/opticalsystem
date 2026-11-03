@@ -91,7 +91,17 @@ public partial class WorkbenchRuntime
         if (canonicalName == "Image Simulation" && settings.TryGetValue("OutputFile", out var destination)
             && !string.IsNullOrWhiteSpace(destination)) LosslessImageOutput.RequirePngOrBmp(destination);
         var analysis = CreateAnalysis(canonicalName, settings);
-        var data = analysis.GenerateData(cancellationToken);
+        using var fftSamplingScope = FftPupilSampling.RequireResolvedResults();
+        AnalysisData data;
+        try { data = analysis.GenerateData(cancellationToken); }
+        catch (FftPupilSamplingException error)
+        {
+            data = new AnalysisData(canonicalName, new Dictionary<string, object>
+            {
+                ["Status"] = error.Message,
+                ["PupilPhaseSampling"] = error.Diagnostics
+            }, Outcome: AnalysisOutcome.Unavailable, OutcomeReason: error.Message);
+        }
         if (string.Equals(canonicalName, "Image Simulation", StringComparison.Ordinal)
             && data.Outcome == AnalysisOutcome.Success
             && settings.TryGetValue("OutputFile", out var outputFile)

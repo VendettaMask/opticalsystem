@@ -1,0 +1,15 @@
+# 95-example full replay, 2026-11-03
+
+Current-Core full replay of all 95 menu ZMX sources in 14 categories. 94 imports / 114 configurations; the 320-degree object-cone aperture remains unsupported. All 3,024 original rows are settled, 2,904 executable requests recomputed: **2,149 Pass / 39 Close / 175 Difference / 455 Incomparable / 206 Error**. Comparison finished at 19:21:58 UTC+08:00.
+
+Read [the report](../../../../docs/ALL_EXAMPLE_ACCURACY_2026-11-03.md), [all 95 lenses](BY_LENS.md), [summary](summary.json), [request causes](request-results.csv), [Pass audit](prior-pass-audit.json), [regression diagnostics](regression-probe.json) and [same-Core scope checks](scoped-consistency.json).
+
+The independent original afocal snapshots/requests are separately replayed using the same Core: 170 cases, 163 Pass / 7 Incomparable, 314,478 aligned values, zero violations. Main fixed-ray controls: 251 groups, 141 Pass / 1 Difference / 109 Incomparable. Do not add overlapping or differently defined scopes. Current original-request differences do not establish convergence or invalidate a separately certified higher-sampling identity.
+
+Compared with the previous full audit, 955 cases newly Pass and 10 previous Pass are not retained. Nine are Toroid / annular-pupil cases; one is the previously documented low-sampling Flat-field Schmidt energy case. Three crystal-prism systems account for 142 execution failures involving their entrance frame or explicit interface context. Missing/invalid references and applicability are separately classified; Close and Incomparable are not Pass.
+
+Core SHA256: `15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f`. 15,783 original source/native-reference payloads verified against the immutable OpticStudio 2026 R1 archive. All physical settings and per-analysis gates are preserved; only implicit image-endpoint surface counts follow the freshly imported snapshot. Both original and effective request identities are retained. No new native capture, full convergence matrix, foreground control or new product algorithm is claimed.
+
+`archive-index.json` maps logical run files to a sole hash-verified authority. Resolve `archive` relative to this directory; a non-null `entry` is a ZIP member, null means a directly retained file. `archive-verification.json` records complete readback of new and reused bytes before retiring redundant expanded outputs. Existing archives and current report files are reused; unchanged dependencies are not repackaged. Owned binaries, compiled-source bindings, requests, numerical arrays, completion records, comparison metrics and unique failed attempts remain reconstructable. Generated presentation images are omitted.
+
+Source and commands: `tools/diagnostics/ExampleAccuracy20261031`, `ExampleAccuracy20261103`, `FinalAfocalRecheck20261029`. The first build lacked restored assets; the initial afocal audit lacked root-level native Skia binding. Restore/binding were corrected, failed attempts retained, and only the final complete results enter these totals. No optical recomputation was needed for the afocal plot dependency correction.

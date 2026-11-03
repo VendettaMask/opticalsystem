@@ -49,6 +49,10 @@ public static class ResultNormalizer
         var result = new NumericResult { Semantics = Semantics(entry) };
         if (entry.ZemaxSettingsMapper == "first-order")
         {
+            if (request.Reference == FirstOrderAnalysis.ReferenceConvention
+                && (!data.Values.TryGetValue("FirstOrderReferenceConvention", out var convention)
+                    || convention.ToString() != request.Reference))
+                throw new InvalidDataException("Core first-order convention does not match the declared reference");
             foreach (var key in new[] { "EffectiveFocalLength", "FNumber" })
                 result.Scalars.Add(new(key, ((JsonElement)data.Values[key]).GetDouble(), key == "FNumber" ? "Dimensionless" : "Millimeter"));
             return result;
@@ -142,6 +146,12 @@ public static class ResultNormalizer
         var result = new NumericResult { Semantics = Semantics(entry) };
         if (entry.ZemaxSettingsMapper == "first-order")
         {
+            if (request.Reference == FirstOrderAnalysis.ReferenceConvention
+                && (!root.TryGetProperty("firstOrderReference", out var reference)
+                    || reference.GetProperty("convention").GetString() != request.Reference
+                    || reference.GetProperty("savedInput").GetBoolean()
+                    || reference.GetProperty("realRayModeChanged").GetBoolean()))
+                throw new InvalidDataException("Native first-order reference lacks the declared centered ordinary-index convention");
             foreach (var p in root.GetProperty("scalars").EnumerateObject())
                 result.Scalars.Add(new(p.Name, p.Value.GetDouble(), p.Name == "FNumber" ? "Dimensionless" : "Millimeter"));
             return result;

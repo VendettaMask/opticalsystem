@@ -1,0 +1,97 @@
+{
+  "referenceConvergenceFullyChecked": false,
+  "previousFullPassLost": 10,
+  "rayCounts": {
+    "Pass": 141,
+    "Close": 0,
+    "Difference": 1,
+    "Incomparable": 109,
+    "Error": 0
+  },
+  "originalPassRetained": 1093,
+  "physicalSurfaceComparisons": 257595.0,
+  "productExamples": 95,
+  "imported": 94,
+  "afocal": {
+    "requests": 170,
+    "alignedValues": 314478.0,
+    "counts": {
+      "Pass": 163,
+      "Close": 0,
+      "Difference": 0,
+      "Incomparable": 7,
+      "Error": 0
+    },
+    "inputs": "Original independent afocal snapshots and requests",
+    "freshImport": false,
+    "coreSha256": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f",
+    "components": 495,
+    "violations": 0.0
+  },
+  "mainCounts": {
+    "Pass": 2149,
+    "Close": 39,
+    "Difference": 175,
+    "Incomparable": 455,
+    "Error": 206
+  },
+  "newPassSincePreviousFull": 955,
+  "desktopControlled": false,
+  "coreSha256": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f",
+  "previousFullPassRetained": 1194,
+  "completedLocal": "2026-11-03T19:23:14.3802500+08:00",
+  "lensStatusCounts": [
+    {
+      "status": "本轮既定请求全部通过",
+      "count": 6
+    },
+    {
+      "status": "导入阻断",
+      "count": 1
+    },
+    {
+      "status": "计算或参考求值失败",
+      "count": 19
+    },
+    {
+      "status": "接近但未通过",
+      "count": 5
+    },
+    {
+      "status": "可比项通过，覆盖待补",
+      "count": 46
+    },
+    {
+      "status": "有数值差异",
+      "count": 18
+    }
+  ],
+  "comparisonCompletedUtc": "2026-11-03T19:21:58.3627497+08:00",
+  "configurations": 114.0,
+  "categories": 14,
+  "unexecutableRequests": 120,
+  "allRequestPassLenses": 6,
+  "rayGroups": 251,
+  "originalPassLost": 9,
+  "freshNativeCapture": false,
+  "nativePayloadsVerified": 15783,
+  "policyChanged": false,
+  "date": "2026-11-03",
+  "scopedConsistency": [
+    {
+      "classificationDifferences": [],
+      "sha256": "24e8aad42ed039d2fafa4f216fe885728294cdebe4e4acb0975c9e421662a569",
+      "requests": 420,
+      "reference": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\results-final.json"
+    },
+    {
+      "classificationDifferences": [],
+      "sha256": "51db8a0b98a9a7e99dc9a5874167e79888928f33139c7e01f678ec3fbb885cd3",
+      "requests": 426,
+      "reference": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\categories-results-final.json"
+    }
+  ],
+  "allExamplesCertified": false,
+  "executedRequests": 2904,
+  "mainRequests": 3024
+}

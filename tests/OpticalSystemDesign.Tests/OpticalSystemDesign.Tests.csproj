@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="Fixtures/field-curvature-coupled-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Birefringent prisms/Birefringent cube.zmx" Link="Fixtures/reference-closure/crystal-cube.zmx" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Optical testing/Twyman Green Interferometer.zmx" Link="Fixtures/optical-testing/Twyman Green Interferometer.zmx" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/grid-gradient-phase-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/fft-profile-physical-range-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/grid-gradient-pupil-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
@@ -20,6 +23,9 @@
     <None Update="Fixtures/dual-zone-native-v2.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/paraxial-xy-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/birefringent-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/toroidal-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Miscellaneous/Toroid.zmx" Link="Fixtures/reference-closure/Toroid.zmx" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Gaussian Quadrature over Annular Pupils.zmx" Link="Fixtures/reference-closure/annular.zmx" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/grid-gradient-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/paraxial-collimated-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/special-sag-native-v1.json" CopyToOutputDirectory="PreserveNewest" />

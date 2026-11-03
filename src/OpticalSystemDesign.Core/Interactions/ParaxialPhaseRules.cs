@@ -11,7 +11,7 @@ internal static class ParaxialPhaseRules
     internal static bool IsPlaneWavePrefix(IReadOnlyList<OpticalSurface> prefix) => prefix.Count > 0
         && ObjectConjugate.IsInfinite(prefix[0])
         && prefix.Skip(1).All(s => s.Geometry is PlaneGeometry or TiltedPlaneGeometry
-            && s.InteractionModel is RefractiveReflectiveInteractionModel or RuledGratingInteractionModel or BirefringentInteractionModel
+            && s.InteractionModel is RefractiveReflectiveInteractionModel or RuledGratingInteractionModel or BirefringentInteractionModel or CoordinateReferenceInteractionModel
             && s.MaterialBefore.PropagationModel is HomogeneousPropagationModel
             && s.MaterialAfter.PropagationModel is HomogeneousPropagationModel);
 }

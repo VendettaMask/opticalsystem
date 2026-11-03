@@ -69,6 +69,7 @@ public static partial class DiffractionEngine
         var metadata = ComputeFftPsfCore(optic, field, wave, grid.SampleCount, CompactPupilTransformSize(grid.SampleCount),
             false, true, 0, null, null, true, ignoreOpd, optic.RayAimingEnabled,
             reference, 0, true, out var pupil, sphere, grid, croppedOutputSize: 2);
+        metadata.PupilPhaseSampling?.EnforceForCurrentRequest("Diffraction Encircled Energy");
         var moments = FourierImageMoments(pupil, logical);
         var center = referenceKind.Equals("centroid", StringComparison.OrdinalIgnoreCase)
             ? (X: moments.X * pitch, Y: moments.Y * pitch) : (X: 0d, Y: 0d);

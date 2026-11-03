@@ -8,6 +8,7 @@ internal static class EnergyPlotSampling
     internal static IReadOnlyList<AnalysisPoint> Geometric(
         IReadOnlyList<AnalysisPoint> cumulativeKnots)
     {
+        if (cumulativeKnots.Count < 2) return cumulativeKnots.ToArray();
         var x = cumulativeKnots.Select(p => p.X).ToArray();
         var y = cumulativeKnots.Select(p => p.Y).ToArray();
         var count = 4 * (x.Length - 1);

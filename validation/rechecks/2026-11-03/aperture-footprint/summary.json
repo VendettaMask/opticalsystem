@@ -1,0 +1,721 @@
+{
+  "freshImport": true,
+  "unchangedRequestsAndTolerances": true,
+  "coreBefore": "07db76dd3a0cebcee8642bd8bce820f56bfaa042d1eaf62517699cc2c2529abb",
+  "convergenceChecks": 27,
+  "before": {
+    "Close": 1,
+    "Difference": 45,
+    "Error": 173,
+    "Incomparable": 47,
+    "Pass": 154
+  },
+  "convergencePassed": 21,
+  "categoriesAfter": {
+    "Close": 18,
+    "Difference": 15,
+    "Error": 1,
+    "Incomparable": 85,
+    "Pass": 307
+  },
+  "testsFailed": 0,
+  "openConvergence": [
+    {
+      "index": 2602,
+      "sampling": 64,
+      "kind": "core-convergence",
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.06902450619195266,
+          "meanAbsolute": 0.030223501238624405,
+          "rmse": 0.037834894796322266,
+          "nrmse": 0.07404311242521823,
+          "maxRelative": 0.6618003066318694,
+          "p50": 0.027876920904505692,
+          "p90": 0.06078919152863538,
+          "p95": 0.06507965775661273,
+          "pearson": 0.9997523429555123,
+          "worstX": 4.9,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.06902450618861233,
+          "meanAbsolute": 0.030223501237949167,
+          "rmse": 0.03783489479566642,
+          "nrmse": 0.07404311242395276,
+          "maxRelative": 0.6618003067440842,
+          "p50": 0.027876920906342167,
+          "p90": 0.06078919152826451,
+          "p95": 0.06507965775857433,
+          "pearson": 0.9997523429556926,
+          "worstX": 4.9,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "a": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\convergence\\2602\\32\\core",
+      "b": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\convergence\\2602\\64\\core",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    },
+    {
+      "index": 2602,
+      "sampling": 64,
+      "kind": "native-convergence",
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.06902387212936578,
+          "meanAbsolute": 0.030226218109505685,
+          "rmse": 0.03783784459116417,
+          "nrmse": 0.07404339002448668,
+          "maxRelative": 0.6617992257278873,
+          "p50": 0.02787917052125341,
+          "p90": 0.060789707313017305,
+          "p95": 0.06509051670144511,
+          "pearson": 0.9997522801398683,
+          "worstX": 4.900000000000036,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.06902387211396399,
+          "meanAbsolute": 0.030226218108899083,
+          "rmse": 0.03783784459132677,
+          "nrmse": 0.07404339002464681,
+          "maxRelative": 0.6617992256890141,
+          "p50": 0.027879170525102304,
+          "p90": 0.06078970732239569,
+          "p95": 0.06509051672630395,
+          "pearson": 0.9997522801408446,
+          "worstX": 4.900000000000036,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "a": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses/2602-086-oap-using-chebyshev-polynomial-surface-c1-primary-f1-w1-diffraction-encircled-energy\\native",
+      "b": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\convergence\\2602\\64\\native",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    },
+    {
+      "index": 2602,
+      "sampling": 128,
+      "kind": "core-convergence",
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.0261200402314698,
+          "meanAbsolute": 0.011781518030601512,
+          "rmse": 0.01420452546666164,
+          "nrmse": 0.02929350423337853,
+          "maxRelative": 0.9551230116124245,
+          "p50": 0.010969005714571711,
+          "p90": 0.022376803810334356,
+          "p95": 0.023375642518734085,
+          "pearson": 0.999948220863174,
+          "worstX": 4.975,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.026120040231148556,
+          "meanAbsolute": 0.01178151803043752,
+          "rmse": 0.014204525466457788,
+          "nrmse": 0.0292935042329268,
+          "maxRelative": 0.9551230119835504,
+          "p50": 0.010969005715856683,
+          "p90": 0.022376803809969203,
+          "p95": 0.02337564251697155,
+          "pearson": 0.9999482208632099,
+          "worstX": 4.975,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "a": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\convergence\\2602\\64\\core",
+      "b": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\convergence\\2602\\128\\core",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    },
+    {
+      "index": 2602,
+      "sampling": 128,
+      "kind": "native-convergence",
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.026046544105936542,
+          "meanAbsolute": 0.011744913549321721,
+          "rmse": 0.014159374116341232,
+          "nrmse": 0.029193390047648194,
+          "maxRelative": 0.9550162906904363,
+          "p50": 0.010935754831052552,
+          "p90": 0.02228438514413411,
+          "p95": 0.023309183909678455,
+          "pearson": 0.999948388399582,
+          "worstX": 4.975000000000037,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.026046544106343994,
+          "meanAbsolute": 0.011744913548883667,
+          "rmse": 0.014159374115976665,
+          "nrmse": 0.02919339004672729,
+          "maxRelative": 0.9550162904231762,
+          "p50": 0.010935754851514184,
+          "p90": 0.022284385146351338,
+          "p95": 0.023309183892874952,
+          "pearson": 0.9999483883999618,
+          "worstX": 4.975000000000037,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "a": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\convergence\\2602\\64\\native",
+      "b": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\convergence\\2602\\128\\native",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    },
+    {
+      "index": 2602,
+      "sampling": 256,
+      "kind": "core-convergence",
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.05384382479420918,
+          "meanAbsolute": 0.02507730251781788,
+          "rmse": 0.030990951526160285,
+          "nrmse": 0.05752408360270685,
+          "maxRelative": 0.6462745397821521,
+          "p50": 0.024665175722013294,
+          "p90": 0.04975292760224409,
+          "p95": 0.0512868822543171,
+          "pearson": 0.9998376396345967,
+          "worstX": 5,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.05384382479216393,
+          "meanAbsolute": 0.025077302517804528,
+          "rmse": 0.030990951526156944,
+          "nrmse": 0.05752408360286366,
+          "maxRelative": 0.646274539458765,
+          "p50": 0.024665175722458355,
+          "p90": 0.04975292760411271,
+          "p95": 0.05128688225414757,
+          "pearson": 0.99983763963463,
+          "worstX": 5,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "a": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\convergence\\2602\\128\\core",
+      "b": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\convergence\\2602\\256\\core",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    },
+    {
+      "index": 2602,
+      "sampling": 256,
+      "kind": "native-convergence",
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.0537889389146432,
+          "meanAbsolute": 0.025051684856529127,
+          "rmse": 0.03095882989471326,
+          "nrmse": 0.057457913896794416,
+          "maxRelative": 0.6462632418890315,
+          "p50": 0.024622970548850487,
+          "p90": 0.049707294542856106,
+          "p95": 0.05121623676600923,
+          "pearson": 0.9998379989717097,
+          "worstX": 5,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 401,
+          "maxAbsolute": 0.05378893891511394,
+          "meanAbsolute": 0.0250516848563797,
+          "rmse": 0.030958829895027153,
+          "nrmse": 0.057457913897026924,
+          "maxRelative": 0.6462632439202483,
+          "p50": 0.024622970552059115,
+          "p90": 0.049707294549428904,
+          "p95": 0.05121623676639614,
+          "pearson": 0.999837998971878,
+          "worstX": 5,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "a": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\convergence\\2602\\128\\native",
+      "b": "D:\\Projects\\opticalsystem\\validation\\rechecks\\2026-11-03\\aperture-footprint\\convergence\\2602\\256\\native",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    }
+  ],
+  "defaultAppBuild": {
+    "warnings": 0,
+    "builtInModules": 2,
+    "errors": 0,
+    "passed": true
+  },
+  "after": {
+    "Close": 3,
+    "Difference": 41,
+    "Error": 170,
+    "Incomparable": 41,
+    "Pass": 165
+  },
+  "priorPassLost": [],
+  "fixedIndexes": [
+    1327,
+    2494,
+    2508,
+    2511,
+    2594,
+    2596,
+    2597,
+    2599,
+    2600,
+    2602,
+    2603
+  ],
+  "byLens": [
+    {
+      "lens": "Birefringent prisms/Rochon prism.zmx",
+      "counts": {
+        "Error": 58,
+        "Pass": 2
+      }
+    },
+    {
+      "lens": "Birefringent prisms/Senarmont prism.zmx",
+      "counts": {
+        "Error": 42,
+        "Pass": 2
+      }
+    },
+    {
+      "lens": "Birefringent prisms/Wollaston prism.zmx",
+      "counts": {
+        "Error": 42,
+        "Pass": 2
+      }
+    },
+    {
+      "lens": "Diffractive components/Sample Spectrometer.ZMX",
+      "counts": {
+        "Close": 1,
+        "Difference": 15,
+        "Error": 1,
+        "Incomparable": 12,
+        "Pass": 1
+      }
+    },
+    {
+      "lens": "Miscellaneous/Beam splitter.zmx",
+      "counts": {
+        "Incomparable": 6,
+        "Pass": 38
+      }
+    },
+    {
+      "lens": "Miscellaneous/Cylinder.zmx",
+      "counts": {
+        "Difference": 1,
+        "Error": 3,
+        "Incomparable": 2,
+        "Pass": 16
+      }
+    },
+    {
+      "lens": "Miscellaneous/MEMS DLL Sample.ZMX",
+      "counts": {
+        "Difference": 6,
+        "Error": 4,
+        "Incomparable": 2,
+        "Pass": 10
+      }
+    },
+    {
+      "lens": "Miscellaneous/Parabolas at 90 degrees.zmx",
+      "counts": {
+        "Difference": 2,
+        "Error": 15,
+        "Incomparable": 2,
+        "Pass": 3
+      }
+    },
+    {
+      "lens": "Miscellaneous/vacuum cell.zmx",
+      "counts": {
+        "Difference": 4,
+        "Incomparable": 1,
+        "Pass": 17
+      }
+    },
+    {
+      "lens": "Telescopes/Unobscured Gregorian.zmx",
+      "counts": {
+        "Close": 2,
+        "Difference": 6,
+        "Error": 1,
+        "Incomparable": 5,
+        "Pass": 8
+      }
+    },
+    {
+      "lens": "Tilted systems & prisms/Beamsplitter cube.zmx",
+      "counts": {
+        "Difference": 6,
+        "Error": 3,
+        "Incomparable": 2,
+        "Pass": 11
+      }
+    },
+    {
+      "lens": "Tilted systems & prisms/OAP using Chebyshev Polynomial surface.zmx",
+      "counts": {
+        "Error": 1,
+        "Incomparable": 6,
+        "Pass": 15
+      }
+    },
+    {
+      "lens": "Tilted systems & prisms/Prism using total internal reflection.zmx",
+      "counts": {
+        "Incomparable": 3,
+        "Pass": 19
+      }
+    },
+    {
+      "lens": "Tilted systems & prisms/Prisms using coordinate breaks.ZMX",
+      "counts": {
+        "Difference": 1,
+        "Pass": 21
+      }
+    }
+  ],
+  "completedUtc": "2026-11-03T10:53:20.5739827+00:00",
+  "categoryPriorPassLost": [],
+  "convergedAnalysisIndexes": [
+    2596,
+    2597
+  ],
+  "beforeFixedRayControls": [
+    {
+      "lens": 0,
+      "source": "Telescopes/Unobscured Gregorian.zmx",
+      "rays": 18,
+      "surfacePairs": 44,
+      "acceptanceDifferences": 16,
+      "firstClipDifferences": 16,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 5.915268275202834E-12,
+      "maximumDirectionDifference": 3.064215547965432E-14,
+      "generationFailures": 0,
+      "conclusion": "Difference",
+      "coreHash": "07db76dd3a0cebcee8642bd8bce820f56bfaa042d1eaf62517699cc2c2529abb"
+    },
+    {
+      "lens": 1,
+      "source": "Miscellaneous/Parabolas at 90 degrees.zmx",
+      "rays": 9,
+      "surfacePairs": 9,
+      "acceptanceDifferences": 6,
+      "firstClipDifferences": 6,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 3.303739504190162E-10,
+      "maximumDirectionDifference": 8.953808805500785E-10,
+      "generationFailures": 3,
+      "conclusion": "Difference",
+      "coreHash": "07db76dd3a0cebcee8642bd8bce820f56bfaa042d1eaf62517699cc2c2529abb"
+    },
+    {
+      "lens": 2,
+      "source": "Tilted systems & prisms/OAP using Chebyshev Polynomial surface.zmx",
+      "rays": 9,
+      "surfacePairs": 19,
+      "acceptanceDifferences": 3,
+      "firstClipDifferences": 3,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 2.6423307986078726E-14,
+      "maximumDirectionDifference": 2.220446049250313E-16,
+      "generationFailures": 0,
+      "conclusion": "Difference",
+      "coreHash": "07db76dd3a0cebcee8642bd8bce820f56bfaa042d1eaf62517699cc2c2529abb"
+    },
+    {
+      "lens": 3,
+      "source": "Miscellaneous/Beam splitter.zmx",
+      "rays": 18,
+      "surfacePairs": 198,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 3.690103778097864E-14,
+      "maximumDirectionDifference": 5.551115123125783E-16,
+      "generationFailures": 0,
+      "conclusion": "Pass",
+      "coreHash": "07db76dd3a0cebcee8642bd8bce820f56bfaa042d1eaf62517699cc2c2529abb"
+    },
+    {
+      "lens": 4,
+      "source": "Tilted systems & prisms/Prisms using coordinate breaks.ZMX",
+      "rays": 9,
+      "surfacePairs": 99,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 1.0658141036401503E-14,
+      "maximumDirectionDifference": 4.440892098500626E-16,
+      "generationFailures": 0,
+      "conclusion": "Pass",
+      "coreHash": "07db76dd3a0cebcee8642bd8bce820f56bfaa042d1eaf62517699cc2c2529abb"
+    },
+    {
+      "lens": 5,
+      "source": "Miscellaneous/Apochromat_prism.zmx",
+      "rays": 9,
+      "surfacePairs": 99,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 4.440892098500626E-15,
+      "maximumDirectionDifference": 7.771561172376096E-16,
+      "generationFailures": 0,
+      "conclusion": "Pass",
+      "coreHash": "07db76dd3a0cebcee8642bd8bce820f56bfaa042d1eaf62517699cc2c2529abb"
+    }
+  ],
+  "coreAfter": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f",
+  "notAll95": true,
+  "categoriesBefore": {
+    "Close": 16,
+    "Difference": 16,
+    "Error": 3,
+    "Incomparable": 87,
+    "Pass": 304
+  },
+  "inputs": [
+    {
+      "lens": "Birefringent prisms/Rochon prism.zmx",
+      "sha256": "4ed8318a47f9f8fee3934d0bdc55f4c37b1ccc2b5445b8f2f1bb33268f239401"
+    },
+    {
+      "lens": "Birefringent prisms/Senarmont prism.zmx",
+      "sha256": "5c7162e88e15ed5e18f3b52f9fcda84f879b55a3f52e842332bf397c90bc3032"
+    },
+    {
+      "lens": "Birefringent prisms/Wollaston prism.zmx",
+      "sha256": "2f7445de8dc5683fd4752193aedfc4f387af10bbb8332ae84bedc51805a7fd0b"
+    },
+    {
+      "lens": "Diffractive components/Sample Spectrometer.ZMX",
+      "sha256": "2f85aa23896797969b375d24a4d5e43a103aa39e498b07dca22d8c6adc247b0f"
+    },
+    {
+      "lens": "Miscellaneous/Beam splitter.zmx",
+      "sha256": "6531e67cfdc292d68ad4c5bd23fef5912f69ad9a69879047ec52e818a8b399a2"
+    },
+    {
+      "lens": "Miscellaneous/Cylinder.zmx",
+      "sha256": "adc9e96bd53e9356794b2b9d29608dd304774755a3c15a7873cbc24f4b42e4c8"
+    },
+    {
+      "lens": "Miscellaneous/MEMS DLL Sample.ZMX",
+      "sha256": "de9dad5c977a8dde3598ca4247b6e5300587af54b302eca6898bf84bf228caf5"
+    },
+    {
+      "lens": "Miscellaneous/Parabolas at 90 degrees.zmx",
+      "sha256": "9f21c558f410b9482d0883758400db1e9e1ac8b486da0190ab143ca3da4e1b25"
+    },
+    {
+      "lens": "Miscellaneous/vacuum cell.zmx",
+      "sha256": "fd2a3063b4ed4aab4f50aee4786faa4b498f5731fb6746985b81066aae869911"
+    },
+    {
+      "lens": "Telescopes/Unobscured Gregorian.zmx",
+      "sha256": "2f826fada9a0f05cc105101172c858d5fdbe1ee87000f1ebd44b5e79597ee398"
+    },
+    {
+      "lens": "Tilted systems & prisms/Beamsplitter cube.zmx",
+      "sha256": "b7a37c131d5d2b9cbdf91a8363dbf9e9447facecf2cbcfeb3553938c50e5d1a4"
+    },
+    {
+      "lens": "Tilted systems & prisms/OAP using Chebyshev Polynomial surface.zmx",
+      "sha256": "1e0db932a67d31dcae4f3633811e65081401e0b0cdf8136789ac0ea76b6fa8c7"
+    },
+    {
+      "lens": "Tilted systems & prisms/Prism using total internal reflection.zmx",
+      "sha256": "8a74f066e49a037aa0307c5f8a2be7f95d1940777edbe99523b74dad3f57de8d"
+    },
+    {
+      "lens": "Tilted systems & prisms/Prisms using coordinate breaks.ZMX",
+      "sha256": "93b3a79d35c097f82df84b68bb4703b4621d0731903d094a771a50b00bd8677b"
+    }
+  ],
+  "affectedLenses": 14,
+  "fixedRayControls": [
+    {
+      "lens": 0,
+      "source": "Telescopes/Unobscured Gregorian.zmx",
+      "rays": 18,
+      "surfacePairs": 90,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 3.2862601528904634E-13,
+      "maximumDirectionDifference": 1.762479051592436E-15,
+      "generationFailures": 0,
+      "conclusion": "Pass",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    },
+    {
+      "lens": 1,
+      "source": "Miscellaneous/Parabolas at 90 degrees.zmx",
+      "rays": 9,
+      "surfacePairs": 36,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 2.3186444764178304E-07,
+      "maximumDirectionDifference": 1.223021933727253E-09,
+      "generationFailures": 3,
+      "conclusion": "Difference",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    },
+    {
+      "lens": 2,
+      "source": "Tilted systems & prisms/OAP using Chebyshev Polynomial surface.zmx",
+      "rays": 9,
+      "surfacePairs": 19,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 2.6423307986078726E-14,
+      "maximumDirectionDifference": 2.220446049250313E-16,
+      "generationFailures": 0,
+      "conclusion": "Pass",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    },
+    {
+      "lens": 3,
+      "source": "Miscellaneous/Beam splitter.zmx",
+      "rays": 18,
+      "surfacePairs": 198,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 3.690103778097864E-14,
+      "maximumDirectionDifference": 5.551115123125783E-16,
+      "generationFailures": 0,
+      "conclusion": "Pass",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    },
+    {
+      "lens": 4,
+      "source": "Tilted systems & prisms/Prisms using coordinate breaks.ZMX",
+      "rays": 9,
+      "surfacePairs": 99,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 1.0658141036401503E-14,
+      "maximumDirectionDifference": 4.440892098500626E-16,
+      "generationFailures": 0,
+      "conclusion": "Pass",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    },
+    {
+      "lens": 5,
+      "source": "Miscellaneous/Apochromat_prism.zmx",
+      "rays": 9,
+      "surfacePairs": 99,
+      "acceptanceDifferences": 0,
+      "firstClipDifferences": 0,
+      "coordinateFailures": 0,
+      "directionFailures": 0,
+      "maximumPositionDifference": 4.440892098500626E-15,
+      "maximumDirectionDifference": 7.771561172376096E-16,
+      "generationFailures": 0,
+      "conclusion": "Pass",
+      "coreHash": "15cc79d4582d0c6b1f244e4ecd51396b955143ed3ae181297172c4c5ee0b185f"
+    }
+  ],
+  "testsPassed": 446,
+  "newNativeCapture": true
+}

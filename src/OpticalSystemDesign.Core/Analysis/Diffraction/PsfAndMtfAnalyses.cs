@@ -105,6 +105,7 @@ public sealed class PsfAnalysis : BaseAnalysis
             ignoreScalarTransmission: _zemaxCompatible,
             interpolateScalarPupilAmplitude: _zemaxCompatible && !_usePolarization,
             croppedOutputSize: croppedReadout ? displaySize : null);
+        foreach (var item in results) item.Result.PupilPhaseSampling?.EnforceForCurrentRequest(Name);
         var primary = results.FirstOrDefault(item => item.Wavelength.IsPrimary);
         if (primary.Wavelength is null)
         {
@@ -407,7 +408,8 @@ public sealed class MtfAnalysis : BaseAnalysis
                     return (wavelength, DiffractionEngine.ComputeFftMtfFromPupil(
                         analysisOptic, field, wavelength, pupilSampling, gridSize, _usePolarization,
                         cellCenteredPupil: _zemaxCompatible, zemaxFftSampling: _zemaxCompatible,
-                        referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]));
+                        referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0],
+                        requireResolvedPupilPhase: FftPupilSampling.IsRequired));
                 var psf = DiffractionEngine.ComputeFftPsf(
                     analysisOptic,
                     field,
@@ -419,6 +421,7 @@ public sealed class MtfAnalysis : BaseAnalysis
                     zemaxFftSampling: _zemaxCompatible,
                     imageDelta: _zemaxCompatible ? -1 : 0,
                     referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]);
+                psf.PupilPhaseSampling?.EnforceForCurrentRequest(Name);
                 if (_zemaxCompatible) psf = psf with { FrequencySampleCount = pupilSampling - 1 };
                 return (wavelength, DiffractionEngine.ComputeFftMtf(psf, analysisOptic, wavelength));
             }).ToArray();

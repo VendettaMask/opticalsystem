@@ -1699,10 +1699,15 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
-    public void Frozen058ZemaxFixtureImportsSystemAndPrescription()
+    public void Historical058ToroidSlotIsRejectedAndNativeSlotImportsTheIntendedPrescription()
     {
         var source = File.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx"));
-        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        // Preserve the historical bytes. That auxiliary export put the rotation
+        // radius in the native aspheric-coefficient slot, not native PARM 1.
+        Assert.Throws<NotSupportedException>(() => OpticalFormatCatalog.Import(source, ".zmx"));
+        var nativeSource = source.Replace("  PARM 2 80.0", "  PARM 1 80.0", StringComparison.Ordinal);
+        Assert.NotEqual(source, nativeSource);
+        var optic = OpticalFormatCatalog.Import(nativeSource, ".zmx");
 
         Assert.Equal($"{RetiredProductFixture.Brand} 0.5.8 Zemax Import Reference", optic.Name);
         Assert.Equal(ApertureKind.EntrancePupilDiameter, optic.Aperture.Kind);
@@ -1748,7 +1753,7 @@ public sealed class ZemaxImportTests
         var exported = OpticalFormatCatalog.Export(optic, ".zmx");
         Assert.Contains("UNIT MM", exported, StringComparison.Ordinal);
         Assert.Contains("  CURV 0.01", exported, StringComparison.Ordinal);
-        Assert.Contains("  PARM 2 80", exported, StringComparison.Ordinal);
+        Assert.Contains("  PARM 1 80", exported, StringComparison.Ordinal);
         var restoredToroidal = Assert.IsType<ToroidalGeometry>(
             OpticalFormatCatalog.Import(exported, ".zmx").SurfaceGroup.Items[3].Geometry);
         Assert.Equal(100, restoredToroidal.TangentialRadius, precision: 12);

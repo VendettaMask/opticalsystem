@@ -1,0 +1,9 @@
+# Medium/reference repair controls
+
+Build this project against the final shared Core using the pinned `SourceRevisionId` from the dated evidence directory. Invoke `MediumReference20261103.dll <psf|rays|toroid-native> <repository> <fresh-output>`.
+
+- `psf`: verify and reuse the six accepted 2026-11-01 native PSF captures at 256/512 pupil sampling; reimport original sources and run current Core 256/512, preserving the complete image window, pitch and existing gates. Check both same-domain comparisons and each side's convergence. Original invalid requests are not promoted.
+- `rays`: reuse the immutable original Toroid/annular fixed normalized input rays. Require exact semantic inputs and explicit surface-count correspondence, original direction-sign conversion, coordinate/direction gates, acceptance and first clipping. No fitted or nearest-point mapping.
+- `toroid-native`: own one independent background OpticStudio lane with the shared exclusive lease; seven bounded generated prescriptions cover signed, single-axis and nearly cylindrical geometry. Explicitly declare every plane's CURV, verify native direction validity, keep source hashes and capture native sag/ray/path values. Never save or close the user's system. The resulting compact fixture becomes an active regression input only after all controls pass.
+
+`ObscuredReference20261101` supplies the `crystals`, `toroid-annular`, `categories` and `apertures` original-request replays. `Write-Report.ps1` checks exact case identities, overlap consistency, same-Core cohorts and old-Pass preservation against the 2026-11-03 full audit. `Seal-Evidence.ps1` verifies final compiled-source bindings and all payloads, reuses existing archives by SHA-256, excludes active seal logs and third-party dependencies, then retires only owned expanded run directories. Do not run into an already sealed evidence directory.

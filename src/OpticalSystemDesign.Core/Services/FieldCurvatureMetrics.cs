@@ -123,45 +123,46 @@ public static class FieldCurvatureMetrics
         return double.IsFinite(value) ? value : throw new InvalidOperationException("场曲焦点不是有限数值。");
     }
 
-    // Native-facing generalized Cartesian components. The chief and the two
-    // positive parabasal rays supply the complete coupled response. The additive
-    // cross terms are part of this compatibility convention; this is not a
-    // closest-approach focus or an eigenfocus of a rotated sagittal/tangential frame.
-    // No reference values, fitted gain or lens-specific correction enter tracing.
+    // Each positive Cartesian pupil perturbation supplies a differential ray.
+    // Its focus minimizes the squared transverse separation from the chief:
+    // |p + z a|^2, hence z = -(p dot a)/(a dot a). Retain both output
+    // coordinates of that one pupil perturbation, including rotated/coupled
+    // systems. Mixing rows of the two responses gives an unrelated focus.
     internal static (double Sagittal, double Tangential) GeneralizedImagePlaneDeltas(
         Optic optic, double hx, double hy, double wavelength, double pupilDelta, bool requireUnvignetted = false)
     {
         var chief = AnalysisTrace.FinalSample(optic, hx, hy, 0, 0, wavelength, requireUnvignetted);
         var xRay = AnalysisTrace.FinalSample(optic, hx, hy, pupilDelta, 0, wavelength, requireUnvignetted);
         var yRay = AnalysisTrace.FinalSample(optic, hx, hy, 0, pupilDelta, wavelength, requireUnvignetted);
-        var frame = optic.SurfaceGroup.Items[^1].CoordinateSystem;
-        var xAxis = frame.ToLocalDirection(new Vector3D(1, 0, 0));
-        var yAxis = frame.ToLocalDirection(new Vector3D(0, 1, 0));
-        static double Project(Vector3D value, Vector3D axis) => value.X * axis.X + value.Y * axis.Y;
-        var xSlopeX = Project(xRay.Direction, xAxis) / xRay.Direction.Z;
-        var xSlopeY = Project(xRay.Direction, yAxis) / xRay.Direction.Z;
-        var ySlopeX = Project(yRay.Direction, xAxis) / yRay.Direction.Z;
-        var ySlopeY = Project(yRay.Direction, yAxis) / yRay.Direction.Z;
-        var axx = xSlopeX - Project(chief.Direction, xAxis) / chief.Direction.Z;
-        var ayx = xSlopeY - Project(chief.Direction, yAxis) / chief.Direction.Z;
-        var axy = ySlopeX - Project(chief.Direction, xAxis) / chief.Direction.Z;
-        var ayy = ySlopeY - Project(chief.Direction, yAxis) / chief.Direction.Z;
+        // FinalSample already uses the image's orthonormal local frame. The
+        // transverse norm is invariant to a roll of that frame; projecting
+        // world X/Y again loses an axis when a folded image is perpendicular
+        // to either world axis.
+        var xSlopeX = xRay.Direction.X / xRay.Direction.Z;
+        var xSlopeY = xRay.Direction.Y / xRay.Direction.Z;
+        var ySlopeX = yRay.Direction.X / yRay.Direction.Z;
+        var ySlopeY = yRay.Direction.Y / yRay.Direction.Z;
+        var axx = xSlopeX - chief.Direction.X / chief.Direction.Z;
+        var ayx = xSlopeY - chief.Direction.Y / chief.Direction.Z;
+        var axy = ySlopeX - chief.Direction.X / chief.Direction.Z;
+        var ayy = ySlopeY - chief.Direction.Y / chief.Direction.Z;
         var xPosition = xRay.Position - chief.Position;
         var yPosition = yRay.Position - chief.Position;
         // Bring both intercepts to the chief's image-Z plane before forming the
         // response, retaining the established treatment of nonzero local sag.
-        var pxx = Project(xPosition, xAxis) - xSlopeX * xPosition.Z;
-        var pyx = Project(xPosition, yAxis) - xSlopeY * xPosition.Z;
-        var pxy = Project(yPosition, xAxis) - ySlopeX * yPosition.Z;
-        var pyy = Project(yPosition, yAxis) - ySlopeY * yPosition.Z;
-        var denominator = axx * ayy + axy * ayx;
-        if (Math.Abs(denominator) <= 1e-30)
+        var pxx = xPosition.X - xSlopeX * xPosition.Z;
+        var pyx = xPosition.Y - xSlopeY * xPosition.Z;
+        var pxy = yPosition.X - ySlopeX * yPosition.Z;
+        var pyy = yPosition.Y - ySlopeY * yPosition.Z;
+        var sagittalPower = axx * axx + ayx * ayx;
+        var tangentialPower = axy * axy + ayy * ayy;
+        if (sagittalPower <= 1e-30 || tangentialPower <= 1e-30)
         {
             if (requireUnvignetted) throw new InvalidOperationException("傍轴光线平行，没有有限场曲焦点。");
             return (0, 0);
         }
-        var sagittal = -(pxx * ayy + pxy * ayx) / denominator;
-        var tangential = -(pyy * axx + pyx * axy) / denominator;
+        var sagittal = -(pxx * axx + pyx * ayx) / sagittalPower;
+        var tangential = -(pxy * axy + pyy * ayy) / tangentialPower;
         if (!double.IsFinite(sagittal) || !double.IsFinite(tangential))
             throw new InvalidOperationException("场曲焦点不是有限数值。");
         return (sagittal, tangential);

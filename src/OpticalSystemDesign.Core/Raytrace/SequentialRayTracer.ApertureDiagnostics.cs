@@ -82,6 +82,22 @@ public sealed partial class SequentialRayTracer
         bool usePolarization = false,
         bool allowHomogeneousAbsorbingPower = false,
         bool ignoreScalarTransmission = false)
+        => DiagnoseAperturesCore(sourceRay, cancellationToken, stopAtIncidentImage, usePolarization,
+            allowHomogeneousAbsorbingPower, ignoreScalarTransmission, null);
+
+    // Full geometric report only. Original apertures are checked at every
+    // intercept; samples after the first clip remain marked as vignetted.
+    // This observer does not publish physical trace/cache or surface data.
+    internal (ApertureRayDiagnostic Diagnostic, IReadOnlyList<RayTraceSample> History) TraceApertureDiagnosticHistory(RealRay sourceRay)
+    {
+        var history = new List<RayTraceSample>(_optic.SurfaceGroup.Items.Count);
+        var diagnostic = DiagnoseAperturesCore(sourceRay, default, false, false, false, false, history.Add);
+        return (diagnostic, history);
+    }
+
+    private ApertureRayDiagnostic DiagnoseAperturesCore(RealRay sourceRay, CancellationToken cancellationToken,
+        bool stopAtIncidentImage, bool usePolarization, bool allowHomogeneousAbsorbingPower,
+        bool ignoreScalarTransmission, Action<RayTraceSample>? observe)
     {
         ArgumentNullException.ThrowIfNull(sourceRay);
         if (ignoreScalarTransmission && usePolarization)
@@ -128,6 +144,7 @@ public sealed partial class SequentialRayTracer
                 && surface.PhysicalAperture is { } aperture
                 && !aperture.Contains(surface.CoordinateSystem.ToLocalPoint(result.Sample.Position)))
                 firstBlocked ??= index;
+            observe?.Invoke(result.Sample.ToRayTraceSample() with { Vignetted = firstBlocked is not null });
             if (polarization is not null && !incidentImage && result.Sample.InteractionKind is { } kind)
                 ApplyPolarization(polarization, surface, result.Sample, material, sourceRay.WavelengthNanometers, kind,
                     positiveTime: coherentInput is not null, allowHomogeneousAbsorbingPower: allowHomogeneousAbsorbingPower);

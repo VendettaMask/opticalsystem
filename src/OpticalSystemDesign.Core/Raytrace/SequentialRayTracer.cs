@@ -205,7 +205,7 @@ public sealed partial class SequentialRayTracer
         if (index <= 1) return false;
         var previous = surfaces[index - 1];
         if (previous.IsReflective
-            || previous.InteractionModel is not RefractiveReflectiveInteractionModel { IsReflective: false }
+            || previous.InteractionModel is not (RefractiveReflectiveInteractionModel { IsReflective: false } or CoordinateReferenceInteractionModel)
             || previous.CoatingModel is not NoneCoatingModel || previous.ScatteringModel is not null
             || previous.MaterialBefore.PropagationModel is not HomogeneousPropagationModel
             || previous.MaterialAfter.PropagationModel is not HomogeneousPropagationModel) return false;

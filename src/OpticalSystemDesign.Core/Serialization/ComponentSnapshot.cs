@@ -487,6 +487,7 @@ public static partial class ComponentSnapshotFactory
     {
         return interaction switch
         {
+            CoordinateReferenceInteractionModel reference => ComponentSnapshot.Empty(reference.Kind),
             RefractiveReflectiveInteractionModel model => new ComponentSnapshot(model.IsReflective ? "reflective" : "refractive", new Dictionary<string, double>(), new Dictionary<string, string>()),
             BirefringentInteractionModel crystal => new ComponentSnapshot(crystal.Kind, new()
                 { ["isExit"] = crystal.IsExit ? 1 : 0, ["axisDisplayLength"] = crystal.AxisDisplayLength }, new()),
@@ -527,6 +528,7 @@ public static partial class ComponentSnapshotFactory
     {
         return snapshot?.Kind switch
         {
+            "coordinate_reference" => new CoordinateReferenceInteractionModel(),
             "reflective" => new RefractiveReflectiveInteractionModel(true),
             "refractive" => new RefractiveReflectiveInteractionModel(false),
             "birefringent_interface" => new BirefringentInteractionModel(snapshot.Numbers["isExit"] == 1, snapshot.Numbers["axisDisplayLength"]),

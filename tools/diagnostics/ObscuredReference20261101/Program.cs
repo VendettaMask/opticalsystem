@@ -27,6 +27,15 @@ if (args[0] == "energy-convergence") { await EnergyConvergence.Run(repository, o
 if (args[0] == "rays") { await ObscuredRayControls.Run(repository, output, coreHash); return; }
 var baseline = Path.Combine(repository, "artifacts/validation/all-example-accuracy-20261031");
 var rows = JsonFiles.Read<ReplayRow[]>(Path.Combine(baseline, "rows.json"));
+var apertureLenses = rows.Select(r => r.Lens).Distinct().Where(lens =>
+    File.ReadLines(Path.Combine(repository, "src/OpticalSystemDesign.App/Assets/SequentialExamples", lens)).Any(line =>
+    {
+        var tokens = line.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries);
+        return tokens.Length >= 3 && (tokens[0] == "SQAP" || tokens[0] == "OBDC"
+            && (double.Parse(tokens[1], System.Globalization.CultureInfo.InvariantCulture) != 0
+                || double.Parse(tokens[2], System.Globalization.CultureInfo.InvariantCulture) != 0));
+    })).ToHashSet();
+bool HasApertureRecords(string lens) => apertureLenses.Contains(lens);
 var audit = JsonFiles.Read<JsonElement>(Path.Combine(repository,
     "validation/rechecks/2026-10-31/all-example-accuracy/prior-pass-audit.json"));
 var regressionIds = audit.GetProperty("cases").EnumerateArray().Select(r => r.GetProperty("index").GetInt32()).ToHashSet();
@@ -34,6 +43,9 @@ var selected = rows.Where(r => r.Run.Request is not null && (args[0] == "regress
     ? regressionIds.Contains(r.Index)
     : args[0] == "categories" ? r.Lens.StartsWith("Telescopes/") || r.Lens.StartsWith("Optical testing/")
     : args[0] == "testing-three" ? TestingPropagationProbe.Lenses.Contains(r.Lens)
+    : args[0] == "apertures" ? HasApertureRecords(r.Lens)
+    : args[0] == "crystals" ? r.Lens.StartsWith("Birefringent prisms/")
+    : args[0] == "toroid-annular" ? r.Lens is "Miscellaneous/Toroid.zmx" or "Objectives/Gaussian Quadrature over Annular Pupils.zmx"
     : throw new ArgumentException("Unknown selection"))).ToArray();
 var snapshots = new Dictionary<(string, int), string>();
 var results = new List<object>();

@@ -645,6 +645,7 @@ internal static class MtfMethodEvaluator
                     cellCenteredPupil: settings.ZemaxCompatible,
                     defocusMillimeters: defocusMillimeters,
                     referenceWavelength: wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0]);
+                psf.PupilPhaseSampling?.EnforceForCurrentRequest("Fourier MTF");
                 return (wavelength, DiffractionEngine.ComputeFftMtf(psf, optic, wavelength));
             }).ToArray();
             var combined = CombinePolychromatic(results);
@@ -897,6 +898,7 @@ internal static class MtfMethodEvaluator
             gridSize,
             settings.UsePolarization,
             cellCenteredPupil: settings.ZemaxCompatible);
+        psf.PupilPhaseSampling?.EnforceForCurrentRequest("Fourier MTF");
         return AtFrequency(DiffractionEngine.ComputeFftMtf(psf, optic, wavelength), spatialFrequency);
     }
 

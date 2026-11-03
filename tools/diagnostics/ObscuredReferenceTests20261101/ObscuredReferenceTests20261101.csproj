@@ -21,6 +21,19 @@
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/ParaxialImageHeightWavefrontTests.cs" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/MaximumSemiDiameterTests.cs" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/GeometricPupilAndFrequencyTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ZemaxClearApertureTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/CoordinateReferenceMediumTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ApertureReferenceClosureTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/CoupledFieldCurvatureNativeTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/FirstOrderAndFftDefinitionTests.cs" />
+    <None Include="../../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Birefringent prisms/Birefringent cube.zmx" Link="Fixtures/reference-closure/crystal-cube.zmx" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Miscellaneous/Toroid.zmx" Link="Fixtures/reference-closure/Toroid.zmx" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Gaussian Quadrature over Annular Pupils.zmx" Link="Fixtures/reference-closure/annular.zmx" CopyToOutputDirectory="PreserveNewest" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/ParaxialLensModelTests.cs" />
+    <None Include="../../../tests/OpticalSystemDesign.Tests/Fixtures/*native-v*.json" Link="Fixtures/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/PsfWorkingFNumberRegressionTests.cs" />
+    <None Include="../../../validation/zemax/2026-r1/energy-repair-2026-09-06/ms-l7.ZMX" Link="Fixtures/zemax-ms-l7-high-na.ZMX" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Tilted systems &amp; prisms/OAP using Chebyshev Polynomial surface.zmx" Link="Fixtures/clear-aperture/oap.zmx" CopyToOutputDirectory="PreserveNewest" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/FftSamplingReferenceRepairTests.cs" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/SurfaceSolveTests.cs" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/ZemaxLayoutApertureTests.cs" />

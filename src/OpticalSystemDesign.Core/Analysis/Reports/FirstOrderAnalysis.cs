@@ -1,6 +1,7 @@
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Services;
 
@@ -8,6 +9,8 @@ namespace OpticalSystemDesign.Core.Analysis;
 
 public sealed class FirstOrderAnalysis : BaseAnalysis
 {
+    /// <summary>Vertex powers and ordinary scalar indices; excludes affine chief-ray walk-off.</summary>
+    public const string ReferenceConvention = "CenteredVertexOrdinaryIndexV1";
     public FirstOrderAnalysis(Optic optic) : base(optic)
     {
     }
@@ -39,6 +42,10 @@ public sealed class FirstOrderAnalysis : BaseAnalysis
             ["OpticalPowerInverseMillimeters"] = power,
             ["EffectiveFocalLengthStatus"] = zeroPower ? "Infinite" : "Finite",
             ["CardinalParametersApplicable"] = true,
+            ["FirstOrderReferenceConvention"] = ReferenceConvention,
+            ["IncludesChiefRayWalkOff"] = false,
+            ["DirectionalMediumUsesOrdinaryIndex"] = Optic.SurfaceGroup.Items.Any(s =>
+                s.MaterialAfter is UniaxialMaterial { TraceExtraordinary: true, ParaxialIgnore: false }),
             ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal,
             ["TotalTrack"] = Optic.SurfaceGroup.TotalTrack
         });

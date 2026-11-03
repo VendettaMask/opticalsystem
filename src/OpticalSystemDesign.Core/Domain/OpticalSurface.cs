@@ -106,7 +106,10 @@ public sealed partial class OpticalSurface : NotifyObject
             if (!double.IsFinite(normalized + ChipZone)) throw new ArgumentOutOfRangeException(nameof(SemiDiameter));
             if (SetProperty(ref _semiDiameter, normalized))
             {
-                if (SemiDiameterDefinesPhysicalAperture) PhysicalAperture = new CircularAperture(normalized);
+                if (SemiDiameterDefinesPhysicalAperture)
+                    PhysicalAperture = PhysicalAperture is OffsetRadialAperture offset
+                        ? new OffsetRadialAperture(normalized, offset.InnerRadius, offset.OffsetX, offset.OffsetY)
+                        : new CircularAperture(normalized);
                 if (Geometry is IrregularGeometry irregular) Geometry = irregular.WithNormalizationRadius(normalized);
             }
         }

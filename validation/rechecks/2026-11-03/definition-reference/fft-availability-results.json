@@ -1,0 +1,62 @@
+[
+  {
+    "index": 1365,
+    "key": "PSF",
+    "outcome": "Unavailable",
+    "outcomeReason": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 560.991 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+    "diagnostics": {
+      "Status": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 560.991 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "PupilPhaseSampling": {
+        "status": "UndersampledPhase",
+        "connectedEdges": 156,
+        "maximumStepWaves": 560.9910016320327
+      }
+    },
+    "coreSha256": "1ce484a713e50d89ccb534fc5ed3f7c19f9a3d471d94c7800d0fce4aae41ed20"
+  },
+  {
+    "index": 1367,
+    "key": "MTF",
+    "outcome": "Unavailable",
+    "outcomeReason": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 106.33 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+    "diagnostics": {
+      "Status": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 106.33 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "PupilPhaseSampling": {
+        "status": "UndersampledPhase",
+        "connectedEdges": 5876,
+        "maximumStepWaves": 106.32967601628707
+      }
+    },
+    "coreSha256": "1ce484a713e50d89ccb534fc5ed3f7c19f9a3d471d94c7800d0fce4aae41ed20"
+  },
+  {
+    "index": 1369,
+    "key": "FFT PSF Cross Section",
+    "outcome": "Unavailable",
+    "outcomeReason": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 219.092 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+    "diagnostics": {
+      "Status": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 219.092 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "PupilPhaseSampling": {
+        "status": "UndersampledPhase",
+        "connectedEdges": 1356,
+        "maximumStepWaves": 219.09236737468518
+      }
+    },
+    "coreSha256": "1ce484a713e50d89ccb534fc5ed3f7c19f9a3d471d94c7800d0fce4aae41ed20"
+  },
+  {
+    "index": 1372,
+    "key": "Diffraction Encircled Energy",
+    "outcome": "Unavailable",
+    "outcomeReason": "Diffraction Encircled Energy: 光瞳相位采样不足或无法验证，相邻节点最大相位差 565.493 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+    "diagnostics": {
+      "Status": "Diffraction Encircled Energy: 光瞳相位采样不足或无法验证，相邻节点最大相位差 565.493 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "PupilPhaseSampling": {
+        "status": "UndersampledPhase",
+        "connectedEdges": 180,
+        "maximumStepWaves": 565.492576051156
+      }
+    },
+    "coreSha256": "1ce484a713e50d89ccb534fc5ed3f7c19f9a3d471d94c7800d0fce4aae41ed20"
+  }
+]

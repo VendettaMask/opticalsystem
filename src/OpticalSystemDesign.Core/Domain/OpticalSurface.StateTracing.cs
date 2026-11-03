@@ -29,6 +29,7 @@ public sealed partial class OpticalSurface
     {
         OpticCapabilityPreflight.EnsureSurfaceSupported(this, OpticCapabilityOperation.RayTrace);
         var ray = inputRay.Normalize();
+        var continuesMedium = InteractionModel is CoordinateReferenceInteractionModel;
         if (Geometry is OpticalSystemDesign.Core.Geometries.PolygonGroupGeometry group)
             return group.Trace(this, ray, materialBefore, cumulativePathLength, cumulativeOpticalPathLength, ignoreMaterialAbsorption);
         if (materialBefore is GradientIndexMaterial unlocated)
@@ -43,7 +44,7 @@ public sealed partial class OpticalSurface
             materialBefore = unlocatedCrystal.At(materialBeforeCoordinates, ray.Direction);
         }
         if (!stopBeforeInteraction && (materialBefore is LocatedUniaxialMaterial || materialAfter is UniaxialMaterial)
-            && (InteractionModel is not BirefringentInteractionModel || IsReflective))
+            && !continuesMedium && (InteractionModel is not BirefringentInteractionModel || IsReflective))
             throw new NotSupportedException("A crystal medium requires an explicit birefringent entry/exit interface.");
         if (!stopBeforeInteraction && InteractionModel is BirefringentInteractionModel crystalInterface
             && (crystalInterface.IsExit ? materialBefore is not LocatedUniaxialMaterial : materialAfter is not UniaxialMaterial))
@@ -105,7 +106,12 @@ public sealed partial class OpticalSurface
             localHit = intersection.Point;
             incidenceCosineSquared = intersection.IncidenceCosineSquared;
         }
-        var refractiveIndexAfter = materialAfter is GradientIndexMaterial afterGradient
+        if (continuesMedium)
+            materialAfter = materialBefore is LocatedGradientIndexMaterial gradientBefore
+                ? new LocatedGradientIndexMaterial(gradientBefore.Material, gradientBefore.Coordinates, profileHit)
+                : materialBefore;
+        var refractiveIndexAfter = continuesMedium ? refractiveIndexBefore
+            : materialAfter is GradientIndexMaterial afterGradient
             ? afterGradient.InterfaceRefractiveIndex(localHit, ray.WavelengthNanometers)
             : materialAfter.RefractiveIndex(ray.WavelengthNanometers);
         var nextCumulativePathLength = cumulativePathLength + segmentLength;

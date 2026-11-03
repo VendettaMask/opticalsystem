@@ -135,11 +135,10 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             }
             if (ZemaxCompatibleOutput)
             {
-                // The captured angular plot begins at the open zero-radius
-                // boundary even when a chief ray has exactly zero error.
+                // Native geometric plots anchor the open zero-radius boundary,
+                // including a perfectly focused finite-conjugate ray bundle.
                 // Preserve the closed empirical CDF in the physical mode.
-                if (nativeAngularReference)
-                    points = points.Select((point, index) => index == 0 ? point with { Y = 0 } : point).ToArray();
+                points = points.Select((point, index) => index == 0 ? point with { Y = 0 } : point).ToArray();
                 points = EnergyPlotSampling.Geometric(points);
             }
             return new AnalysisSeries(
@@ -173,7 +172,7 @@ public sealed class EncircledEnergyAnalysis : BaseAnalysis
             ["Reference"] = _reference,
             ["ReferenceConvention"] = nativeAngularReference ? "Native2026R1AfocalReferenceRay" : "PhysicalCoordinates",
             ["EffectiveAngularReference"] = Optic.ImageSpaceAfocal ? nativeAngularReference ? "chief" : _reference : "NotApplicable",
-            ["ZeroRadiusPlotConvention"] = nativeAngularReference && ZemaxCompatibleOutput ? "OpenBoundary" : "ClosedCumulative",
+            ["ZeroRadiusPlotConvention"] = ZemaxCompatibleOutput ? "OpenBoundary" : "ClosedCumulative",
             ["MaximumAngularReferenceShiftMilliradians"] = Optic.ImageSpaceAfocal
                 ? curves.Max(c => double.Hypot(c.RequestedCenter.X - c.Center.X, c.RequestedCenter.Y - c.Center.Y)) : 0,
             ["MultiplyByDiffractionLimit"] = _multiplyByDiffractionLimit,

@@ -51,6 +51,7 @@ public sealed record PsfResult(
     public double PupilGridStretchY { get; init; } = 1;
     /// <summary>Zero-phase peak of this FFT pupil, relative to the engine's unit-amplitude reference.</summary>
     public double UnaberratedPeakRatio { get; init; } = 1;
+    public FftPupilSampling? PupilPhaseSampling { get; init; }
     /// <summary>Explicit zero-frequency index for a nonperiodic, cropped Fourier readout.</summary>
     public int? CroppedImageCenterIndex { get; init; }
     public double StrehlRatio => Values[CroppedImageCenterIndex ?? GridSize / 2, CroppedImageCenterIndex ?? GridSize / 2] / 100;
@@ -239,18 +240,36 @@ public static partial class DiffractionEngine
         var workingAxes = (Tangential: double.PositiveInfinity, Sagittal: double.PositiveInfinity);
         if (!optic.ImageSpaceAfocal && !TryWorkingFNumbersAtPupilZone(optic, field, wavelength, pupilAimAtStop, false, 1, out workingAxes))
         {
-            // A paraxial entrance-pupil launch can miss the real stop in high-NA systems.
-            // Retry the entire pupil convention, not just the F-number used to scale its FFT.
-            if ((preparedWavefront is not null && preparedWavefront.UseRayAiming != true)
-                || (usePolarization && preparedPolarization is not null && preparedPolarization.UseRayAiming != true))
+            // A finite sag domain can miss a full-zone probe even when the
+            // requested chief is transmitted. Do not replace that real pupil
+            // with an aimed chief outside a decentered physical aperture.
+            var retainTransmittedChief = !pupilAimAtStop && TransmittedChief(false) && !TransmittedChief(true)
+                && TryWorkingFNumbers(optic, field, wavelength, false, false, out workingAxes);
+            if (!retainTransmittedChief)
             {
-                throw new InvalidOperationException(
-                    "FFT PSF requires stop aiming. Regenerate the prepared wavefront and polarization with stop aiming and pass aimAtStop: true.");
-            }
+                // A paraxial entrance-pupil launch can miss the real stop in high-NA systems.
+                // Retry the entire pupil convention, not just the F-number used to scale its FFT.
+                if ((preparedWavefront is not null && preparedWavefront.UseRayAiming != true)
+                    || (usePolarization && preparedPolarization is not null && preparedPolarization.UseRayAiming != true))
+                {
+                    throw new InvalidOperationException(
+                        "FFT PSF requires stop aiming. Regenerate the prepared wavefront and polarization with stop aiming and pass aimAtStop: true.");
+                }
 
-            workingAxes = WorkingFNumbers(optic, field, wavelength, aimAtStop: true);
-            fallbackUsed = !pupilAimAtStop;
-            pupilAimAtStop = true;
+                workingAxes = WorkingFNumbers(optic, field, wavelength, aimAtStop: true);
+                fallbackUsed = !pupilAimAtStop;
+                pupilAimAtStop = true;
+            }
+        }
+
+        bool TransmittedChief(bool aiming)
+        {
+            try
+            {
+                var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy, 0, 0, wavelength.Micrometers, aiming);
+                return optic.SequentialRayTracer.TraceFinalSamples(bundle).Single() is { Vignetted: false, Intensity: > 0 };
+            }
+            catch (OpticalSystemDesign.Core.Raytrace.RayAimingException) { return false; }
         }
 
         var fNumber = optic.ImageSpaceAfocal ? double.PositiveInfinity : CombineWorkingFNumbers(workingAxes);
@@ -381,6 +400,8 @@ public static partial class DiffractionEngine
             ignoreOpd,
             zemaxCentered: zemaxFftSampling);
         complexPupil = pupil;
+        var phaseSampling = FftPupilSampling.Assess(wavefront, grid, pupil, sample =>
+            (ignoreOpd ? 0 : sample.OpdWaves) + DefocusOpdWaves(sample, wavelength, defocusMillimeters, wavefront));
 
         var nonzeroCount = pupil.Cast<Complex>().Count(value => value.Magnitude > 0);
         if (nonzeroCount == 0)
@@ -448,6 +469,7 @@ public static partial class DiffractionEngine
             optic.ImageSpaceAfocal ? AnalysisAxisUnit.Milliradian : AnalysisAxisUnit.Micrometer)
         {
             UseRayAiming = pupilAimAtStop,
+            PupilPhaseSampling = phaseSampling,
             StopAimingFallbackUsed = fallbackUsed,
             TangentialFourierFNumber = fourierAxes?.Tangential,
             SagittalFourierFNumber = fourierAxes?.Sagittal,

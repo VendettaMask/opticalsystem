@@ -1,6 +1,6 @@
-param([string]$RepositoryRoot=(Resolve-Path "$PSScriptRoot/../../..").Path)
+param([string]$RepositoryRoot=(Resolve-Path "$PSScriptRoot/../../..").Path,[string]$StudyRoot)
 $ErrorActionPreference='Stop'
-$root=Join-Path $RepositoryRoot 'artifacts/validation/all-example-accuracy-20261031'
+$root=if($StudyRoot){[IO.Path]::GetFullPath($StudyRoot)}else{Join-Path $RepositoryRoot 'artifacts/validation/all-example-accuracy-20261031'}
 $prior=Join-Path $RepositoryRoot 'artifacts/zemax-sequential-corpus/20261021/full-v1'
 $archive=Join-Path $RepositoryRoot 'validation/repairs/2026-10-21/sequential-corpus-full-evidence.zip'
 $expectedArchive='1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad'

@@ -8,7 +8,7 @@ internal static class LightGlassMaterial
 {
     public static IBrush Sheen { get; } = Gradient(new RelativePoint(1, 1, RelativeUnit.Relative),
         (0, "#48FFFFFF"), (.38, "#0CFFFFFF"), (.7, "#28FFFFFF"), (1, "#12FFFFFF"));
-    public static IBrush Rim { get; } = Gradient(new RelativePoint(.3, 1, RelativeUnit.Relative),
+    public static IBrush Rim { get; } = Gradient(new RelativePoint(0, 1, RelativeUnit.Relative),
         (0, "#F0FFFFFF"), (.4, "#B0FFFFFF"), (1, "#80A9CEF2"));
     public static IBrush SectionSurface { get; } = Gradient(new RelativePoint(.65, 1, RelativeUnit.Relative),
         (0, "#94FFFFFF"), (.5, "#54FFFFFF"), (1, "#80FFFFFF"));
@@ -17,7 +17,7 @@ internal static class LightGlassMaterial
     public static BoxShadows SectionShadow { get; } = BoxShadows.Parse(
         "0 1 3 0 #08396EA8, inset 0 1 0 0 #D8FFFFFF, inset 0 -1 0 0 #6078B5E8");
     public static BoxShadows FrameShadow { get; } = BoxShadows.Parse(
-        "inset 0 1 0 0 #D8FFFFFF, inset 1 0 0 0 #90FFFFFF");
+        "inset 0 1 0 0 #D8FFFFFF, inset 1 0 0 0 #90FFFFFF, inset -1 0 0 0 #90FFFFFF");
 
     private static IBrush Gradient(RelativePoint end, params (double Offset, string Color)[] stops)
     {

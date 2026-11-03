@@ -1,0 +1,196 @@
+[
+  {
+    "index": 107,
+    "lens": "Birefringent prisms/Birefringent cube.zmx",
+    "analysis": "Encircled Energy",
+    "before": "Difference",
+    "after": "Pass",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 630,
+        "maxAbsolute": 1.1102230246251565E-16,
+        "meanAbsolute": 7.049035076985121E-19,
+        "rmse": 8.275113844157577E-18,
+        "nrmse": 8.275113844157577E-18,
+        "maxRelative": 1.8488896773043573E-16,
+        "p50": 0,
+        "p90": 0,
+        "p95": 0,
+        "pearson": 0.9999999999999998,
+        "worstX": 0.025252525252525252,
+        "worstY": null,
+        "coverage": 0.9999999999999998,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    ]
+  },
+  {
+    "index": 108,
+    "lens": "Birefringent prisms/Birefringent cube.zmx",
+    "analysis": "Diffraction Encircled Energy",
+    "before": "Close",
+    "after": "Close",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 786,
+        "maxAbsolute": 0.013214823240686013,
+        "meanAbsolute": 0.005191947212743936,
+        "rmse": 0.006919266421163406,
+        "nrmse": 0.007879521696270946,
+        "maxRelative": 0.039523844418589686,
+        "p50": 0.003432108187012728,
+        "p90": 0.012700232907223524,
+        "p95": 0.012965657562848176,
+        "pearson": 0.9998800522800175,
+        "worstX": 1.7999999999999956,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Close",
+        "extra": {}
+      },
+      {
+        "id": "curve:1",
+        "unit": "Dimensionless",
+        "count": 786,
+        "maxAbsolute": 0.013214823240686457,
+        "meanAbsolute": 0.00519194721274408,
+        "rmse": 0.0069192664211635765,
+        "nrmse": 0.00787952169627114,
+        "maxRelative": 0.03952384441858922,
+        "p50": 0.0034321081870134496,
+        "p90": 0.012700232907223913,
+        "p95": 0.012965657562848315,
+        "pearson": 0.9998800522800173,
+        "worstX": 1.7999999999999956,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Close",
+        "extra": {}
+      }
+    ]
+  },
+  {
+    "index": 125,
+    "lens": "Birefringent prisms/Birefringent cube.zmx",
+    "analysis": "First Order",
+    "before": "Difference",
+    "after": "Difference",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 100.03666264701822,
+        "meanAbsolute": 100.03666264701822,
+        "rmse": 100.03666264701822,
+        "nrmse": 2728.571742169099,
+        "maxRelative": 2728.571742169099,
+        "p50": 100.03666264701822,
+        "p90": 100.03666264701822,
+        "p95": 100.03666264701822,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Difference",
+        "extra": {
+          "workbench": 100,
+          "zemax": -0.036662647018213756
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 4.998166867649089,
+        "meanAbsolute": 4.998166867649089,
+        "rmse": 4.998166867649089,
+        "nrmse": 2726.5717421690983,
+        "maxRelative": 2726.5717421690983,
+        "p50": 4.998166867649089,
+        "p90": 4.998166867649089,
+        "p95": 4.998166867649089,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Difference",
+        "extra": {
+          "workbench": 5,
+          "zemax": 0.0018331323509106878
+        }
+      }
+    ]
+  },
+  {
+    "index": 1376,
+    "lens": "Miscellaneous/Toroid.zmx",
+    "analysis": "Field Curvature and Distortion",
+    "before": "Difference",
+    "after": "Pass",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Millimeter",
+        "count": 125,
+        "maxAbsolute": 0.002616570879570901,
+        "meanAbsolute": 0.0013033011519755816,
+        "rmse": 0.0015073631822178507,
+        "nrmse": 0.0002118607831911259,
+        "maxRelative": 0.00039021183926185674,
+        "p50": 0.0012879679524697707,
+        "p90": 0.0023724106093947488,
+        "p95": 0.002481551742869037,
+        "pearson": 0.999998776522326,
+        "worstX": 1,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      },
+      {
+        "id": "sagittal",
+        "unit": "Millimeter",
+        "count": 125,
+        "maxAbsolute": 0.0020796180213178417,
+        "meanAbsolute": 0.0010325940016144201,
+        "rmse": 0.0011967885781493657,
+        "nrmse": 0.00016820933964159548,
+        "maxRelative": 0.0003352608460613701,
+        "p50": 0.0010212201984094449,
+        "p90": 0.0018858516135345838,
+        "p95": 0.0019725139352633645,
+        "pearson": 0.9999998416810719,
+        "worstX": 1,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      },
+      {
+        "id": "distortion",
+        "unit": "Percent",
+        "count": 125,
+        "maxAbsolute": 2.445641475792848E-11,
+        "meanAbsolute": 1.0366925023431176E-11,
+        "rmse": 1.1199262507141629E-11,
+        "nrmse": 2.670191065155739E-09,
+        "maxRelative": 1.9212492379977273E-05,
+        "p50": 8.153357763246438E-12,
+        "p90": 1.6550139210480546E-11,
+        "p95": 2.0764339379863993E-11,
+        "pearson": 0.9999999999999996,
+        "worstX": 0.69,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    ]
+  }
+]

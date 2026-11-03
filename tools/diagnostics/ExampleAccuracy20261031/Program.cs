@@ -49,6 +49,7 @@ if(mode=="prepare")
  }
  JsonFiles.Write(Path.Combine(root,"models.json"),models);
  var old=JsonFiles.Read<LegacyItem[]>(Path.Combine(prior,"items.json"));var rows=new List<Row>();
+ var mappings=new List<object>();
  for(var i=0;i<old.Length;i++)
  {
   var item=old[i];var model=models.Single(m=>string.Equals(m.Lens,item.Lens,StringComparison.OrdinalIgnoreCase));
@@ -56,10 +57,21 @@ if(mode=="prepare")
   var snapshot=item.Configuration<=model.Snapshots.Length?model.Snapshots[item.Configuration-1]:null;
   var eligible=item.WorkbenchJob!=null&&item.Run.Request!=null&&snapshot!=null;
   var job=eligible?Path.Combine(folder,"request.json"):null;
-  if(job!=null)JsonFiles.Write(job,new WorkbenchJob(snapshot!,folder,item.Run.Request!));
+  if(job!=null)
+  {
+   var request=item.Run.Request!;
+   var surfaceCount=JsonFiles.Read<JsonElement>(snapshot!).GetProperty("surfaces").GetArrayLength();
+   if(request.Surface>=0&&surfaceCount!=request.SurfaceCount)
+    throw new InvalidDataException("An explicit historical surface needs an independent source mapping: "+(i+1));
+   var effective=request with {SurfaceCount=surfaceCount};
+   JsonFiles.Write(job,new WorkbenchJob(snapshot!,folder,effective));
+   mappings.Add(new{index=i+1,originalFingerprint=request.Fingerprint,effectiveFingerprint=effective.Fingerprint,
+    originalSurfaceCount=request.SurfaceCount,effectiveSurfaceCount=surfaceCount,explicitSurface=request.Surface});
+  }
   rows.Add(new(i+1,model.Index,item.Lens,item.Configuration,item.Scope,item.Run.Key,item.Path,snapshot,job,item.Settings,item.Run));
  }
  JsonFiles.Write(Path.Combine(root,"rows.json"),rows);
+ JsonFiles.Write(Path.Combine(root,"request-mapping.json"),mappings);
  JsonFiles.Write(Path.Combine(root,"identity.json"),new{coreSha256=coreHash,repository,prior,policy,policySha256=Hash(policy),
   indexSha256=Hash(Path.Combine(repository,"src/OpticalSystemDesign.App/Assets/SequentialExamples/index.json")),
   baselineItemsSha256=Hash(Path.Combine(prior,"items.json")),baselineResultsSha256=Hash(Path.Combine(prior,"analysis-results.json")),
@@ -111,7 +123,8 @@ var results=new List<object>();
 foreach(var row in all)
 {
  var output=Path.Combine(root,"analyses",$"{row.Index:D4}");
- var run=new AnalysisRun{Key=row.Key,Directory=row.Run.Directory,Request=row.Run.Request,Support=row.Run.Support,Tolerances=row.Run.Tolerances};
+ var effectiveRequest=row.Job is null?row.Run.Request:JsonFiles.Read<WorkbenchJob>(row.Job).Request;
+ var run=new AnalysisRun{Key=row.Key,Directory=row.Run.Directory,Request=effectiveRequest,Support=row.Run.Support,Tolerances=row.Run.Tolerances};
  string? error=null;
  if(row.Job==null){run.Conclusion=Conclusion.Incomparable;run.Reason=row.Snapshot==null?"Current source import/configuration unavailable":"Original matrix has no executable canonical request; see the original blocker and later scoped controls";}
  else
@@ -134,7 +147,7 @@ foreach(var row in all)
    {
     run.ZemaxStatus=run.WorkbenchStatus=CaptureStatus.Captured;
     var entry=AnalysisComparisonRegistry.Get(row.Key);
-    var z=ResultNormalizer.Zemax(Path.Combine(native,"data.json"),entry,row.Run.Request!);
+    var z=ResultNormalizer.Zemax(Path.Combine(native,"data.json"),entry,effectiveRequest!);
     var raw=JsonFiles.Read<JsonElement>(Path.Combine(output,"data.json"));
     if(raw.TryGetProperty("outcome",out var outcome)&&outcome.GetString() is "Unavailable" or "NotApplicable")
     {
@@ -145,7 +158,7 @@ foreach(var row in all)
     }
     else
     {
-     var w=ResultNormalizer.Workbench(Path.Combine(output,"data.json"),entry,row.Run.Request!);
+     var w=ResultNormalizer.Workbench(Path.Combine(output,"data.json"),entry,effectiveRequest!);
      ComparisonRunner.Compare(run,entry,row.Settings,w,z,output);
     }
    }
@@ -155,7 +168,9 @@ foreach(var row in all)
  }
  JsonFiles.Write(Path.Combine(output,"comparison.json"),run);
  results.Add(new{row.Index,row.LensIndex,row.Lens,row.Configuration,row.Scope,row.Key,run.Conclusion,run.Reason,error,run.Metrics,
-  requestFingerprint=row.Run.Request?.Fingerprint,nativeReference=Path.Combine(row.LegacyPath,"native"),coreSha256=coreHash,
+  requestFingerprint=effectiveRequest?.Fingerprint,originalRequestFingerprint=row.Run.Request?.Fingerprint,
+  originalSurfaceCount=row.Run.Request?.SurfaceCount,effectiveSurfaceCount=effectiveRequest?.SurfaceCount,
+  nativeReference=Path.Combine(row.LegacyPath,"native"),coreSha256=coreHash,
   referenceConvergence="NotEstablishedByThisReplay"});
  if(results.Count%100==0)Console.WriteLine($"COMPARE {results.Count}/{all.Length}");
 }

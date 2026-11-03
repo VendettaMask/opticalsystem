@@ -308,6 +308,8 @@ internal static partial class ZemaxZmxReader
                     var circular = RequireSurface(current, command);
                     circular.CircularAperture = true;
                     circular.CircularObscuration = false;
+                    circular.RectangularAperture = false;
+                    circular.FloatingAperture = false;
                     circular.MinimumAperture = Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
                     circular.MaximumAperture = Math.Abs(ScaleLength(document, RequiredDouble(tokens, 2, command)));
                     break;
@@ -315,8 +317,19 @@ internal static partial class ZemaxZmxReader
                     var obscuration = RequireSurface(current, command);
                     obscuration.CircularObscuration = true;
                     obscuration.CircularAperture = false;
+                    obscuration.RectangularAperture = false;
+                    obscuration.FloatingAperture = false;
                     obscuration.MinimumAperture = ScaleLength(document, RequiredDouble(tokens, 1, command));
                     obscuration.MaximumAperture = ScaleLength(document, RequiredDouble(tokens, 2, command));
+                    break;
+                case "SQAP":
+                    var rectangular = RequireSurface(current, command);
+                    rectangular.RectangularAperture = true;
+                    rectangular.CircularAperture = false;
+                    rectangular.CircularObscuration = false;
+                    rectangular.FloatingAperture = false;
+                    rectangular.MinimumAperture = ScaleLength(document, RequiredDouble(tokens, 1, command));
+                    rectangular.MaximumAperture = ScaleLength(document, RequiredDouble(tokens, 2, command));
                     break;
                 case "OBDC":
                     var apertureOffset = RequireSurface(current, command);
@@ -594,6 +607,8 @@ internal static partial class ZemaxZmxReader
                 case "APER":
                 case "APMN":
                 case "APMX":
+                case "APDX":
+                case "APDY":
                 case "XFIE":
                 case "YFIE":
                 case "WAVE":
@@ -723,7 +738,11 @@ internal static partial class ZemaxZmxReader
                     ReadSemiDiameter(document, RequireSurface(current, command), tokens);
                     break;
                 case "FLAP":
-                    RequireSurface(current, command).FloatingAperture = true;
+                    var floating = RequireSurface(current, command);
+                    floating.FloatingAperture = true;
+                    floating.CircularAperture = false;
+                    floating.CircularObscuration = false;
+                    floating.RectangularAperture = false;
                     break;
                 case "MEMA":
                     ReadMechanicalSemiDiameter(document, RequireSurface(current, command), tokens);
@@ -795,7 +814,8 @@ internal static partial class ZemaxZmxReader
                 PolygonPose = source.PolygonPose,
                 PolygonMaterial = source.PolygonMaterial,
                 PolygonScale = source.PolygonScale,
-                RetainReferencePlane = source.Type == "COORDBRK" && (ScaleConfiguredDistance(document,
+                RetainReferencePlane = source.Type == "COORDBRK" && ((configuredStop.HasValue
+                    ? source.Number == (int)configuredStop.Value : source.IsStop) || ScaleConfiguredDistance(document,
                     document.ConfigurationDouble("THIC", source.Number, configurationIndex), source.Thickness) != 0
                     || document.MeritOperands.Any(operand =>
                     !operand.CompatibilityOnly && operand.Surface == source.Number
@@ -825,6 +845,7 @@ internal static partial class ZemaxZmxReader
                     source.SemiDiameter) : source.SemiDiameter,
                 CircularAperture = source.CircularAperture,
                 CircularObscuration = source.CircularObscuration,
+                RectangularAperture = source.RectangularAperture,
                 ApertureOffsetX = ScaleConfiguredLength(document, document.ConfigurationDouble("APDX", source.Number, configurationIndex), source.ApertureOffsetX) ?? 0,
                 ApertureOffsetY = ScaleConfiguredLength(document, document.ConfigurationDouble("APDY", source.Number, configurationIndex), source.ApertureOffsetY) ?? 0,
                 MaximumAperture = ScaleConfiguredOptionalLength(document,
@@ -1085,7 +1106,8 @@ internal static partial class ZemaxZmxReader
                 ? CreatePolygonGroup(source, optic, glassCatalogs)
                 : referencePlane ? new PlaneGeometry(rotation.Transpose().Transform(incomingRotation.Transform(new Vector3D(0, 0, 1)))) : CreateGeometry(source);
             var isReflective = !referencePlane && (source.IsMirror || source.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase));
-            IInteractionModel interaction = geometry is PlaneGeometry && IsComputableParaxial(source)
+            IInteractionModel interaction = referencePlane ? new CoordinateReferenceInteractionModel()
+                : geometry is PlaneGeometry && IsComputableParaxial(source)
                 ? new ParaxialLensInteractionModel(source.Parameter(0) == 0 ? 0 : 1 / source.Parameter(0),
                     source.Parameter(0) == 0 ? 0 : 1 / source.Parameter(0), (int)source.Parameter(1))
                 : geometry is PlaneGeometry && IsComputableParaxialXY(source)
@@ -1153,7 +1175,7 @@ internal static partial class ZemaxZmxReader
                 MaterialAfter = materialAfter.Clone(),
                 InteractionModel = interaction,
                 PhysicalAperture = physicalAperture,
-                SemiDiameterDefinesPhysicalAperture = physicalAperture is CircularAperture && !source.CircularAperture
+                SemiDiameterDefinesPhysicalAperture = (physicalAperture is CircularAperture or OffsetRadialAperture) && !source.CircularAperture
                     && ((!source.IsStop && source.SemiDiameterFixed && HasSurfacePower(source))
                         || source.SemiDiameterSolveCode == 3 && source.FloatingAperture),
                 CoordinateSystem = coordinate
@@ -1187,6 +1209,14 @@ internal static partial class ZemaxZmxReader
     private static IPhysicalAperture? CreatePhysicalAperture(
         ZemaxSurface source, double semiDiameter, bool hasImplicitFloatingAperture)
     {
+        if (source.RectangularAperture)
+        {
+            var halfWidth = source.MinimumAperture ?? throw new NotSupportedException("Missing rectangular aperture X half-width.");
+            var halfHeight = source.MaximumAperture ?? throw new NotSupportedException("Missing rectangular aperture Y half-width.");
+            if (!double.IsFinite(halfWidth) || !double.IsFinite(halfHeight) || halfWidth <= 0 || halfHeight <= 0)
+                throw new NotSupportedException("Rectangular aperture half-widths must be finite and positive.");
+            return new RectangularAperture(halfWidth, halfHeight, source.ApertureOffsetX, source.ApertureOffsetY);
+        }
         if (source.CircularObscuration)
         {
             var inner = source.MinimumAperture ?? 0;
@@ -1202,6 +1232,8 @@ internal static partial class ZemaxZmxReader
             var outer = source.MaximumAperture ?? semiDiameter;
             if (!double.IsFinite(inner) || !double.IsFinite(outer) || inner < 0 || outer <= 0 || inner > outer)
                 throw new NotSupportedException("Invalid explicit Zemax circular aperture bounds.");
+            if (source.ApertureOffsetX != 0 || source.ApertureOffsetY != 0)
+                return new OffsetRadialAperture(outer, inner, source.ApertureOffsetX, source.ApertureOffsetY);
             return inner > 0 ? new AnnularAperture(outer, inner) : new CircularAperture(outer);
         }
 
@@ -1213,7 +1245,9 @@ internal static partial class ZemaxZmxReader
         // MEMA only describes the part edge and is deliberately excluded.
         if (source.FloatingAperture || source.SemiDiameterFixed && hasImplicitFloatingAperture)
         {
-            return new CircularAperture(semiDiameter);
+            return source.ApertureOffsetX != 0 || source.ApertureOffsetY != 0
+                ? new OffsetRadialAperture(semiDiameter, 0, source.ApertureOffsetX, source.ApertureOffsetY)
+                : new CircularAperture(semiDiameter);
         }
 
         return null;
@@ -1223,8 +1257,8 @@ internal static partial class ZemaxZmxReader
         (surface.Type == "PARAXIAL" && surface.Parameter(0) != 0)
         || (double.IsFinite(surface.Radius) && Math.Abs(surface.Radius) > 1e-12)
         || (surface.Type.Equals("TOROIDAL", StringComparison.OrdinalIgnoreCase)
-            && double.IsFinite(surface.Parameter(1))
-            && Math.Abs(surface.Parameter(1)) > 1e-12);
+            && double.IsFinite(surface.Parameter(0))
+            && Math.Abs(surface.Parameter(0)) > 1e-12);
 
     private static void ApplyCoordinateBreak(
         ZemaxSurface source,
@@ -1486,16 +1520,17 @@ internal static partial class ZemaxZmxReader
     private static IGeometry CreateToroidalGeometry(ZemaxSurface surface)
     {
         if (Math.Abs(surface.Conic) > 1e-14
-            || Enumerable.Range(2, 6).Any(index => Math.Abs(surface.Parameter(index)) > 1e-14))
+            || surface.Parameters.Any(p => p.Key is not (0 or 13) && p.Value != 0)
+            || surface.ExtraData.Any(p => p.Key != 2 && p.Value != 0))
         {
             throw new NotSupportedException(
                 $"Zemax toroidal conic or polynomial terms are not supported (SURF {surface.Number}).");
         }
 
         var radiusY = double.IsInfinity(surface.Radius) ? 0 : surface.Radius;
-        var radiusX = Math.Abs(surface.Parameter(1)) < 1e-15
+        var radiusX = Math.Abs(surface.Parameter(0)) < 1e-15
             ? double.PositiveInfinity
-            : surface.Parameter(1);
+            : surface.Parameter(0);
         return new ToroidalGeometry(radiusY, radiusX);
     }
 
@@ -2259,7 +2294,7 @@ internal static partial class ZemaxZmxReader
             "GRINSU11" when zeroBasedIndex == 0 => value * scale,
             "USERSURF" when zeroBasedIndex is 2 or 3 && typeArguments.Equals("US_MEMS.DLL", StringComparison.OrdinalIgnoreCase) => value * scale,
             "ODDASPHE" => ScalePowerCoefficient(value, scale, zeroBasedIndex + 1),
-            "TOROIDAL" when zeroBasedIndex == 1 => value * scale,
+            "TOROIDAL" when zeroBasedIndex == 0 => value * scale,
             "COORDBRK" when zeroBasedIndex is 0 or 1 => value * scale,
             _ => value
         };
@@ -2487,6 +2522,7 @@ internal static partial class ZemaxZmxReader
         public double? MaximumAperture { get; set; }
         public bool CircularAperture { get; set; }
         public bool CircularObscuration { get; set; }
+        public bool RectangularAperture { get; set; }
         public double ApertureOffsetX { get; set; }
         public double ApertureOffsetY { get; set; }
         public bool SemiDiameterFixed { get; set; }

@@ -83,6 +83,8 @@ public sealed class CircularObscurationAperture : IPhysicalAperture
 
     public bool Contains(Vector3D localPoint)
     {
+        // A zero-radius obscuration is empty, including at its nominal center.
+        if (OuterRadius == 0) return true;
         var radius = Math.Sqrt(Math.Pow(localPoint.X - OffsetX, 2) + Math.Pow(localPoint.Y - OffsetY, 2));
         return radius < InnerRadius || radius > OuterRadius;
     }

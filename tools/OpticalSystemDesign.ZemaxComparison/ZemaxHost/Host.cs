@@ -188,6 +188,10 @@ internal static class Host
                 Write("diagnostic-apodization.json", Object("original", originalApodization,
                     "actual", Properties(system.SystemData.Aperture), "savedInput", false, "originalReferenceRequest", false));
             }
+            object firstOrderReference = null;
+            if (Request.ContainsKey("canonicalAnalysisKey") && (string)Request["canonicalAnalysisKey"] == "First Order"
+                && Request.ContainsKey("reference") && (string)Request["reference"] == NativeFirstOrderReference.Convention)
+                firstOrderReference = NativeFirstOrderReference.Apply(system);
             var fields = Enumerable.Range(1, system.SystemData.Fields.NumberOfFields)
                 .Select(i => Object("number", i, "data", Properties(system.SystemData.Fields.GetField(i)))).ToArray();
             var waves = Enumerable.Range(1, system.SystemData.Wavelengths.NumberOfWavelengths)
@@ -308,6 +312,7 @@ internal static class Host
                     return Object("errorCode", message.ErrorCode.ToString(), "text", message.Text);
                 }).ToArray()));
             var raw = Capture(results);
+            if (firstOrderReference != null) raw["firstOrderReference"] = firstOrderReference;
             adapter.Extra(system, results, raw);
             Write("data.json", raw);
             for (var i = 0; i < results.NumberOfMessages; i++)
@@ -451,7 +456,8 @@ internal sealed class FirstOrderAdapter : Adapter
     public override void Configure(IAS_ s) { }
     public override void Extra(IOpticalSystem system, IAR_ result, Dictionary<string, object> raw)
     {
-        double efl = system.MFE.GetOperandValue(MeritOperandType.EFFL, 0, 0, 0, 0, 0, 0, 0, 0);
+        int wave = Host.Request.ContainsKey("wavelength") ? Host.Int("wavelength") : 0;
+        double efl = system.MFE.GetOperandValue(MeritOperandType.EFFL, 0, wave, 0, 0, 0, 0, 0, 0);
         double epd = system.MFE.GetOperandValue(MeritOperandType.EPDI, 0, 0, 0, 0, 0, 0, 0, 0);
         raw["operands"] = Host.Object("EFFL", Host.Finite(efl), "EPDI", Host.Finite(epd));
         raw["scalars"] = Host.Object("EffectiveFocalLength", Host.Finite(efl), "FNumber", Host.Finite(Math.Abs(efl) / epd));

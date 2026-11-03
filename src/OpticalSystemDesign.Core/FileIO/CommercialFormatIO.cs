@@ -471,6 +471,8 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         null => surface.SemiDiameter,
         CircularAperture circular => circular.Radius,
         AnnularAperture annular => annular.OuterRadius,
+        OffsetRadialAperture offset => surface.SemiDiameterDefinesPhysicalAperture ? offset.OuterRadius : surface.SemiDiameter,
+        RectangularAperture => surface.SemiDiameter,
         CircularObscurationAperture => surface.SemiDiameter,
         _ => throw new NotSupportedException(
             $"Zemax ZMX export cannot losslessly map physical aperture '{surface.PhysicalAperture.Kind}'.")
@@ -478,6 +480,19 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 
     private static void WriteSurfaceAperture(List<string> lines, OpticalSurface surface)
     {
+        if (surface.PhysicalAperture is OffsetRadialAperture offset)
+        {
+            lines.Add(surface.SemiDiameterDefinesPhysicalAperture && offset.InnerRadius == 0
+                ? $"  FLAP 0 {FormatDouble(offset.OuterRadius)} 0"
+                : $"  CLAP {FormatDouble(offset.InnerRadius)} {FormatDouble(offset.OuterRadius)} 0");
+            lines.Add($"  OBDC {FormatDouble(offset.OffsetX)} {FormatDouble(offset.OffsetY)}");
+        }
+        if (surface.PhysicalAperture is RectangularAperture rectangle)
+        {
+            lines.Add($"  SQAP {FormatDouble(rectangle.HalfWidth)} {FormatDouble(rectangle.HalfHeight)} 0");
+            if (rectangle.CenterX != 0 || rectangle.CenterY != 0)
+                lines.Add($"  OBDC {FormatDouble(rectangle.CenterX)} {FormatDouble(rectangle.CenterY)}");
+        }
         if (surface.PhysicalAperture is CircularObscurationAperture obscuration)
         {
             lines.Add($"  OBSC {FormatDouble(obscuration.InnerRadius)} {FormatDouble(obscuration.OuterRadius)} 0");
@@ -551,7 +566,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
                 WriteCoefficients(lines, oddAsphere.Coefficients, startIndex: 1);
                 break;
             case Geometries.ToroidalGeometry toroidal:
-                lines.Add($"  PARM 2 {FormatDouble(double.IsInfinity(toroidal.SagittalRadius) ? 0 : toroidal.SagittalRadius)}");
+                lines.Add($"  PARM 1 {FormatDouble(double.IsInfinity(toroidal.SagittalRadius) ? 0 : toroidal.SagittalRadius)}");
                 break;
         }
     }

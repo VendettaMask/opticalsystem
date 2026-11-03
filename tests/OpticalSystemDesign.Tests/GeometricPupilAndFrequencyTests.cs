@@ -44,6 +44,9 @@ public sealed class GeometricPupilAndFrequencyTests
     {
         var optic = (await new ZemaxZmxImporter().ImportConfigurationSetFileAsync(
             Path.Combine(AppContext.BaseDirectory, "Fixtures", "biocular", "Unobscured Gregorian.zmx"))).Configurations[0];
+        // Deliberately mask the axis: the real imported mirror's decentered clear
+        // aperture transmits it. This synthetic mask tests reference-only opt-in.
+        optic.SurfaceGroup.Items[3].PhysicalAperture = new CircularAperture(55);
         var wave = optic.Wavelengths.First(w => w.IsPrimary);
         var launch = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0, 0, 0, 0, wave.Micrometers, optic.RayAimingEnabled);
         Assert.Null(optic.SequentialRayTracer.TraceFinalSamples(launch).Single());

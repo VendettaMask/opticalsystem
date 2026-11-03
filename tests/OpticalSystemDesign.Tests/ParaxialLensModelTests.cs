@@ -46,9 +46,18 @@ public sealed class ParaxialLensModelTests
     [InlineData("irregular-1", 10)] [InlineData("irregular-1", 25.4)]
     [InlineData("grid-random", 1)] [InlineData("grid-smooth", 1)]
     [InlineData("grid-linear", 1)] [InlineData("grid-estimated", 1)]
+    [InlineData("toroid-50-80", 1)] [InlineData("toroid-50--80", 1)]
+    [InlineData("toroid--50-80", 1)] [InlineData("toroid--50--80", 1)]
+    [InlineData("toroid-0-80", 1)] [InlineData("toroid-50-0", 1)] [InlineData("toroid-50-100000", 1)]
+    [InlineData("toroid-50-80", 10)] [InlineData("toroid-50--80", 10)]
+    [InlineData("toroid--50-80", 10)] [InlineData("toroid--50--80", 10)]
+    [InlineData("toroid-0-80", 10)] [InlineData("toroid-50-0", 10)] [InlineData("toroid-50-100000", 10)]
+    [InlineData("toroid-50-80", 25.4)] [InlineData("toroid-50--80", 25.4)]
+    [InlineData("toroid--50-80", 25.4)] [InlineData("toroid--50--80", 25.4)]
+    [InlineData("toroid-0-80", 25.4)] [InlineData("toroid-50-0", 25.4)] [InlineData("toroid-50-100000", 25.4)]
     public void RaysAndPhaseMatchIndependentNativeControlsIncludingMediaAndFiniteConjugates(string id, double scale)
     {
-        var fixtureName = id.StartsWith("bire-") ? "birefringent-native-v1.json" : id.StartsWith("xy-") ? "paraxial-xy-native-v1.json" : id.StartsWith("dual-") ? "dual-zone-native-v2.json" : id == "infinite-mode0" ? "paraxial-collimated-native-v1.json" : id.Contains("mode") ? "paraxial-phase-native-v1.json"
+        var fixtureName = id.StartsWith("toroid-") ? "toroidal-native-v1.json" : id.StartsWith("bire-") ? "birefringent-native-v1.json" : id.StartsWith("xy-") ? "paraxial-xy-native-v1.json" : id.StartsWith("dual-") ? "dual-zone-native-v2.json" : id == "infinite-mode0" ? "paraxial-collimated-native-v1.json" : id.Contains("mode") ? "paraxial-phase-native-v1.json"
             : id.StartsWith("grid") ? "grid-sag-native-v1.json"
             : id.StartsWith("irregular") ? "irregular-native-v1.json"
             : id.StartsWith("binary") || id.StartsWith("hologram") ? "diffractive-phase-native-v1.json" : "grating-phase-native-v1.json";
@@ -62,7 +71,7 @@ public sealed class ParaxialLensModelTests
         {
             Assert.Empty(OpticCapabilityPreflight.Inspect(optic));
             Assert.True(optic.SurfaceGroup.Items[2].InteractionModel is ParaxialLensInteractionModel or RuledGratingInteractionModel or DiffractivePhaseInteractionModel or BirefringentInteractionModel
-                || optic.SurfaceGroup.Items[2].Geometry is IrregularGeometry or GridSagGeometry);
+                || optic.SurfaceGroup.Items[2].Geometry is IrregularGeometry or GridSagGeometry or ToroidalGeometry);
             foreach (var row in rows.Where(r => r.GetProperty("input").GetProperty("code").GetString() == "SSAG"))
             {
                 var p = row.GetProperty("input");
@@ -142,7 +151,7 @@ public sealed class ParaxialLensModelTests
             if (command == "PARM")
             {
                 var number = int.Parse(tokens[1], CultureInfo.InvariantCulture);
-                if (type == "PARAXIAL" && number == 1 || type == "HOLOGRM2" && number is >= 1 and <= 6) Change(2, 1 / scale);
+                if (type is "PARAXIAL" or "TOROIDAL" && number == 1 || type == "HOLOGRM2" && number is >= 1 and <= 6) Change(2, 1 / scale);
                 if (type == "PARAX_XY" && number is 1 or 2) Change(2, scale);
                 if (type == "BIRE__IN" && number == 0) Change(2, 1 / scale);
                 if (type == "BINARY_2" && number is >= 1 and <= 8) Change(2, Math.Pow(scale, 2 * number - 1));

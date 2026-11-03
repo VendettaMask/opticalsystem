@@ -73,6 +73,7 @@ public static class OpticSnapshotValidator
 
     private static readonly IReadOnlySet<string> InteractionKinds = Kinds(
         "birefringent_interface",
+        "coordinate_reference",
         "reflective",
         "refractive",
         "thin_lens",

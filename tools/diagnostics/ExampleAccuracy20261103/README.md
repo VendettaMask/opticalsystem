@@ -1,0 +1,9 @@
+# 2026-11-03 full example replay
+
+Run `ExampleAccuracy20261031` prepare/compute/compare/rays against the fresh root `artifacts/validation/all-example-accuracy-20261103`, using a separately built current-Core runtime. Verify references with `ExampleAccuracy20261031/Verify-References.ps1 -StudyRoot <root>`. Preserve the original 3,024 row identities, 2,904 executable requests, captured settings and gates. The adapter records only the implicit image endpoint's current surface count; explicit surface references require an independent mapping if counts differ.
+
+Build `FinalAfocalRecheck20261029` with `FrozenBinaryRoot` pointing to that same runtime, place its runner at `artifacts/validation/all-example-afocal-20261103/runner`, and run prepare-current/compute/audit. This independent 170-request scope uses its original saved snapshots and requests, rather than the main matrix's fresh imports. Keep the two totals separate.
+
+`Write-Report.ps1` rejects incomplete or mixed-Core runs, creates all 95 per-lens rows, categories, failure causes, old-Pass audits and consistency checks against the latest same-Core aperture replays. `Seal-Evidence.ps1` verifies compiled source bindings, reuses existing content-addressed authorities, reads back every new/reused payload and only then retires redundant expanded outputs. Current runner dependencies stay available. Do not seal into an existing archive.
+
+Archive lookup: resolve `archive-index.json`'s `archive` relative to the report directory. A non-null `entry` is a ZIP member; a null entry means a directly retained file. Validate SHA-256 and length before use. The two `study` trees and owned assemblies can be reconstructed from this mapping; third-party dependencies are restored from the recorded project/package identities and existing runtime dependencies. Numerical arrays are retained; generated presentation images are omitted.

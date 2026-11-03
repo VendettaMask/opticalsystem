@@ -402,7 +402,8 @@ public sealed class ToroidalGeometry : IGeometry
         if (!double.IsInfinity(TangentialRadius) && Math.Abs(TangentialRadius) > epsilon)
         {
             var curvature = 1.0 / TangentialRadius;
-            var root = Math.Max(0, 1.0 - (curvature * curvature * y * y));
+            var root = 1.0 - (curvature * curvature * y * y);
+            if (root < 0) return double.NaN;
             yzSag = (curvature * y * y) / (1.0 + Math.Sqrt(root));
         }
 
@@ -418,7 +419,10 @@ public sealed class ToroidalGeometry : IGeometry
             return double.NaN;
         }
 
-        return yzSag + offset - (Math.Sign(offset) * Math.Sqrt(radicand));
+        if (x == 0) return yzSag;
+        // Rationalize the radius subtraction: a nearly cylindrical toroid may
+        // have a rotation radius many orders larger than its actual sag.
+        return yzSag + x * x / (offset + Math.CopySign(Math.Sqrt(radicand), offset));
     }
 
     public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
@@ -426,7 +430,21 @@ public sealed class ToroidalGeometry : IGeometry
         return StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
     }
 
-    public Vector3D SurfaceNormal(Vector3D localPoint) => GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
+    public Vector3D SurfaceNormal(Vector3D localPoint)
+    {
+        var curvature = double.IsInfinity(TangentialRadius) || Math.Abs(TangentialRadius) <= 1e-14
+            ? 0 : 1 / TangentialRadius;
+        var ySlopeNumerator = curvature * localPoint.Y;
+        var profileRoot = Math.Sqrt(1 - ySlopeNumerator * ySlopeNumerator);
+        if (double.IsInfinity(SagittalRadius) || Math.Abs(SagittalRadius) <= 1e-14)
+            return new Vector3D(0, -ySlopeNumerator, profileRoot);
+        var profileSag = curvature * localPoint.Y * localPoint.Y / (1 + profileRoot);
+        var offset = SagittalRadius - profileSag;
+        var rotationRoot = Math.Sqrt(offset * offset - localPoint.X * localPoint.X);
+        var normal = new Vector3D(-Math.CopySign(1, offset) * localPoint.X * profileRoot,
+            -Math.Abs(offset) * ySlopeNumerator, rotationRoot * profileRoot);
+        return normal / normal.Length;
+    }
 
     public IGeometry Clone() => new ToroidalGeometry(TangentialRadius, SagittalRadius);
 }

@@ -77,7 +77,18 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
             allowOutsideUnitPupil: true);
         var sourceRay = bundle.Rays.Single();
         var history = Optic.SequentialRayTracer.Trace(bundle).RayHistories.Single();
-        var realRows = BuildRealRows(sourceRay, history);
+        var reportHistory = history;
+        var apertureContinuation = false;
+        if (history.Any(sample => sample.Vignetted))
+        {
+            var diagnostic = Optic.SequentialRayTracer.TraceApertureDiagnosticHistory(sourceRay);
+            if (diagnostic.Diagnostic.FirstBlockedSurfaceIndex is not null && diagnostic.History.Count > history.Count)
+            {
+                reportHistory = diagnostic.History;
+                apertureContinuation = true;
+            }
+        }
+        var realRows = BuildRealRows(sourceRay, reportHistory);
         var paraxialRows = BuildParaxialRows(field, wavelength);
         var rows = realRows.Concat(paraxialRows).ToArray();
         var table = IsTangentAngleType()
@@ -87,7 +98,7 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
         string? layoutUnavailableReason = null;
         try
         {
-            pane = BuildLayoutPane(realRows, paraxialRows);
+            pane = BuildLayoutPane(apertureContinuation ? BuildRealRows(sourceRay, history) : realRows, paraxialRows);
         }
         catch (OpticCapabilityException exception) when (exception.Operation == OpticCapabilityOperation.Visualization)
         {
@@ -97,7 +108,7 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
             layoutUnavailableReason = exception.Message;
         }
         var vignettedSurface = history.FirstOrDefault(sample => sample.Vignetted)?.SurfaceNumber ?? 0;
-        var lastSurface = history.LastOrDefault()?.SurfaceNumber ?? -1;
+        var lastSurface = reportHistory.LastOrDefault()?.SurfaceNumber ?? -1;
 
         return new AnalysisData(
             Name,
@@ -114,6 +125,9 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
                 ["TraceType"] = IsTangentAngleType() ? "Tangent Angles" : "Direction Cosines",
                 ["RayAiming"] = _useRayAiming ? "Paraxial" : "Off",
                 ["LastSurface"] = lastSurface,
+                ["PhysicalLastSurface"] = history.LastOrDefault()?.SurfaceNumber ?? -1,
+                ["ApertureContinuationUsed"] = apertureContinuation,
+                ["ApertureContinuationMeaning"] = apertureContinuation ? "Blocked and later rows are diagnostic geometric continuation; they are not transmitted ray power." : string.Empty,
                 ["RealRayData"] = realRows.Where(row => !row.IsObjectSurface).Select(row => new[]
                 {
                     (double)row.SurfaceNumber, row.Position.X, row.Position.Y, row.Position.Z,
@@ -135,7 +149,8 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
             pane is null ? Array.Empty<AnalysisPlotPane>() : new[] { pane },
             PlotPaneColumns: 1,
             Table: table,
-            ReportText: BuildZemaxDirectionCosineReport(field, realRows, paraxialRows));
+            ReportText: (apertureContinuation ? "被孔径阻挡后的数值为几何延长，不计入实际通光。\n\n" : string.Empty)
+                + BuildZemaxDirectionCosineReport(field, realRows, paraxialRows));
     }
 
     private AnalysisData GenerateMarginalChief(

@@ -9,7 +9,8 @@ public static partial class DiffractionEngine
     public static MtfResult ComputeFftMtfFromPupil(Optic optic, (double Hx, double Hy) field,
         Domain.Wavelength wavelength, int pupilSampling, int transformSize,
         bool usePolarization = false, bool cellCenteredPupil = false,
-        bool zemaxFftSampling = false, Domain.Wavelength? referenceWavelength = null)
+        bool zemaxFftSampling = false, Domain.Wavelength? referenceWavelength = null,
+        bool requireResolvedPupilPhase = false)
     {
         if (transformSize < 2 * pupilSampling)
             throw new ArgumentOutOfRangeException(nameof(transformSize), "Linear pupil correlation requires at least double padding.");
@@ -19,6 +20,7 @@ public static partial class DiffractionEngine
         var metadata = ComputeFftPsfCore(optic, field, wavelength, pupilSampling, transformSize,
             usePolarization, cellCenteredPupil, 0, null, null, zemaxFftSampling, false, null,
             referenceWavelength, zemaxFftSampling ? -1 : 0, false, out var pupil, croppedOutputSize: 2);
+        if (requireResolvedPupilPhase) metadata.PupilPhaseSampling?.RequireResolved("FFT MTF");
         if (zemaxFftSampling) metadata = metadata with { FrequencySampleCount = pupilSampling - 1 };
         var (tangential, sagittal) = FourierPupilAutocorrelation(pupil, transformSize);
         return CreateFftMtfResult(metadata, optic, wavelength, tangential, sagittal);

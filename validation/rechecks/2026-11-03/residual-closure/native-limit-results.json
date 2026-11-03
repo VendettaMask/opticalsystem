@@ -1,0 +1,52 @@
+[
+  {
+    "index": 1365,
+    "key": "PSF",
+    "sampling": 2048,
+    "kind": "native-validity",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+    "nativeFolder": "D:\\Projects\\opticalsystem\\artifacts\\validation\\residual-closure-native3-20261103\\1365-2048\\native",
+    "sourceSha256": "eb5b15894ed4861de0db6052b0e3c6ec646694d5701f8673c45e33b43a597ea2",
+    "coreSha256": "e614df094c88b9aaf06df149bb6cbbe092ccbf00ccd83590852125e96170ea66"
+  },
+  {
+    "index": 1367,
+    "key": "MTF",
+    "sampling": 2048,
+    "kind": "native-validity",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+    "nativeFolder": "D:\\Projects\\opticalsystem\\artifacts\\validation\\residual-closure-native3-20261103\\1367-2048\\native",
+    "sourceSha256": "eb5b15894ed4861de0db6052b0e3c6ec646694d5701f8673c45e33b43a597ea2",
+    "coreSha256": "e614df094c88b9aaf06df149bb6cbbe092ccbf00ccd83590852125e96170ea66"
+  },
+  {
+    "index": 1369,
+    "key": "FFT PSF Cross Section",
+    "sampling": 2048,
+    "kind": "native-capture",
+    "conclusion": "Incomparable",
+    "execution": {
+      "exitCode": 2,
+      "timedOut": false,
+      "cancelled": false,
+      "standardOutput": "",
+      "standardError": "CaptureFailure: OpticStudio returned a null data-series buffer; no numerical reference is available.\r\n   �� Host.<>c__DisplayClass27.<Capture>b__24(Int32 i)\r\n   �� System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()\r\n   �� System.Linq.Buffer`1..ctor(IEnumerable`1 source)\r\n   �� System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)\r\n   �� Host.Capture(IAR_ r)\r\n   �� Host.Run(String api)\r\n   �� Host.Main(String[] args)\r\n"
+    },
+    "nativeFolder": "D:\\Projects\\opticalsystem\\artifacts\\validation\\residual-closure-native3-20261103\\1369-2048\\native",
+    "sourceSha256": "eb5b15894ed4861de0db6052b0e3c6ec646694d5701f8673c45e33b43a597ea2",
+    "coreSha256": "e614df094c88b9aaf06df149bb6cbbe092ccbf00ccd83590852125e96170ea66"
+  },
+  {
+    "index": 1372,
+    "key": "Diffraction Encircled Energy",
+    "sampling": 2048,
+    "kind": "native-validity",
+    "conclusion": "Incomparable",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+    "nativeFolder": "D:\\Projects\\opticalsystem\\artifacts\\validation\\residual-closure-native3-20261103\\1372-2048\\native",
+    "sourceSha256": "eb5b15894ed4861de0db6052b0e3c6ec646694d5701f8673c45e33b43a597ea2",
+    "coreSha256": "e614df094c88b9aaf06df149bb6cbbe092ccbf00ccd83590852125e96170ea66"
+  }
+]

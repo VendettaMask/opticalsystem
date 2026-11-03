@@ -58,8 +58,8 @@ public sealed class ZemaxImportParameterAndSurfaceMappingTests
               TYPE TOROIDAL
               CURV 0.1
               PARM 0 0
-              PARM 1 0
-              PARM 2 20
+              PARM 1 20
+              PARM 2 0
             SURF 2
             """;
         var withZero = Import(source).ToSnapshot();

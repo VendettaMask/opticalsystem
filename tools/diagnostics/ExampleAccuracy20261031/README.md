@@ -6,7 +6,7 @@ This diagnostic uses the product's shared Core/Application and existing comparis
 
 Build to a fresh directory, then invoke `ExampleAccuracy20261031.dll <mode> <repository> <fresh-study-root>`:
 
-- `prepare`: verify every source against the product index and native corpus, import all configurations, write fresh snapshots and original requests.
+- `prepare`: verify every source against the product index and native corpus, import all configurations, write fresh snapshots and original requests. Since the 2026-11-03 rerun, implicit image endpoints use the fresh snapshot's surface count; `request-mapping.json` retains both original/effective counts and fingerprints. An explicit historical surface with a changed count is rejected for independent mapping. Physical settings and gates remain unchanged.
 - `compute`: two owned worker processes at a time, grouped by lens; each analysis has a 900-second cooperative cancellation budget. `worker` is internal. Per-request failures remain failures; successful worker completion does not mean numerical Pass.
 - `compare`: existing registry, normalizers, comparison runner and original per-request policy. No completed worker may be absent. `Close` and unavailable Core results with numeric native references do not become Pass. Original non-executable requests are coverage gaps.
 - `rays`: fixed recorded normalized input rays through the shared ray generator/tracer, exact semantic input identity, explicit native signed-index direction conversion, original coordinate/direction/acceptance/first-clip limits. Folded surface mapping and missing native reference remain incomparable.
@@ -17,3 +17,5 @@ Build to a fresh directory, then invoke `ExampleAccuracy20261031.dll <mode> <rep
 A zero/one-point domain, incomplete native field range or unsupported model cannot be certified by an empty comparison. Result-level agreement is the acceptance goal; private sample-node equality is not. Fixed-ray controls use their recorded explicit input coordinates, independently of current analysis quadrature nodes. Reference convergence is not established merely by replaying a fixed-sampling capture.
 
 See `docs/ALL_EXAMPLE_ACCURACY_2026-10-31.md` and `validation/rechecks/2026-10-31/all-example-accuracy/`. Early compiler, ray-identity and native-library failures are retained and excluded from final totals.
+
+The 2026-11-03 full rerun uses a separate study root and the report/seal scripts in `../ExampleAccuracy20261103/`. `Verify-References.ps1 -StudyRoot <fresh-study-root>` verifies that run without overwriting the historical report. The original dated report and its native identities remain unchanged.
