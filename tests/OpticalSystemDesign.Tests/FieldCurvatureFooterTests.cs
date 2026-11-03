@@ -5,7 +5,9 @@ using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
+using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
@@ -121,7 +123,11 @@ public sealed class FieldCurvatureFooterTests
         await session.Dispatch(() =>
         {
             ThemeApplicationService.Apply(global::Avalonia.Application.Current!, theme);
-            var window = new Window { Width = width, Height = 160 };
+            var window = new Window
+            {
+                Width = width,
+                Height = width * UniformDiagramPage.SheetHeight / UniformDiagramPage.SheetWidth
+            };
             Rect? expectedBounds = null;
             Size? expectedLogoSize = null;
             (string?, double, FontFamily, FontWeight, IBrush?)[]? expectedTextStyle = null;
@@ -141,8 +147,17 @@ public sealed class FieldCurvatureFooterTests
                 })
                 {
                     var footer = BuildFooter(view with { PresentationKind = kind });
-                    window.Content = new OpticalSystemDesign.App.Controls.ResponsiveAnalysisPlotHost { Child = footer };
+                    var page = new UniformDiagramPage(new Border(), footer);
+                    var host = new ResponsiveAnalysisPlotHost { Child = page };
+                    window.Content = host;
+                    Dispatcher.UIThread.RunJobs();
                     window.UpdateLayout();
+                    Assert.Equal(new Size(UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight), page.Bounds.Size);
+                    Assert.Equal(UniformDiagramPage.SheetWidth, footer.Bounds.Width);
+                    Assert.Equal(UniformDiagramPage.CaptionHeight, footer.Bounds.Height);
+                    Assert.False(page.HasOverflow);
+                    if (width < UniformDiagramPage.SheetWidth)
+                        Assert.InRange(host.ContentScale, double.Epsilon, width / UniformDiagramPage.SheetWidth);
                     var grid = Assert.IsAssignableFrom<Grid>(footer.Child);
                     var right = grid.Children.OfType<Border>().Single(child =>
                         Grid.GetColumn(child) == grid.ColumnDefinitions.Count - 1

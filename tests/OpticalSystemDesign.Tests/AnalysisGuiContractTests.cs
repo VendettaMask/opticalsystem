@@ -843,7 +843,7 @@ public sealed class AnalysisGuiContractTests
         Assert.NotNull(method);
         var layout = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(method.Invoke(
             null,
-            new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns, false }));
+            new object[] { viewDto.PlotPanes, viewDto.PlotPaneColumns, false, false }));
         var paneGrid = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(layout.Children[0]);
         var hosts = paneGrid.Children.OfType<OptionalSquarePlotHost>().ToArray();
         Assert.Equal(viewDto.PlotPanes.Count, hosts.Length);

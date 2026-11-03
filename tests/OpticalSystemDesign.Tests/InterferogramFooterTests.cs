@@ -4,7 +4,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
+using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
@@ -75,12 +77,26 @@ public sealed class InterferogramFooterTests
         {
             ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
             var footer = BuildFooter(view);
-            var window = new Window { Width = width, Height = 160, Content = new OpticalSystemDesign.App.Controls.ResponsiveAnalysisPlotHost { Child = footer } };
+            var page = new UniformDiagramPage(new Border(), footer);
+            var host = new ResponsiveAnalysisPlotHost { Child = page };
+            var window = new Window
+            {
+                Width = width,
+                Height = width * UniformDiagramPage.SheetHeight / UniformDiagramPage.SheetWidth,
+                Content = host
+            };
             try
             {
                 window.Show();
+                Dispatcher.UIThread.RunJobs();
                 window.UpdateLayout();
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+                Assert.Equal(new Size(UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight), page.Bounds.Size);
+                Assert.Equal(UniformDiagramPage.SheetWidth, footer.Bounds.Width);
+                Assert.Equal(UniformDiagramPage.CaptionHeight, footer.Bounds.Height);
+                Assert.False(page.HasOverflow);
+                if (width < UniformDiagramPage.SheetWidth)
+                    Assert.InRange(host.ContentScale, double.Epsilon, width / UniformDiagramPage.SheetWidth);
                 var grid = Assert.IsAssignableFrom<Grid>(footer.Child);
                 Assert.Equal(132, grid.MinHeight);
                 var left = Assert.IsType<StackPanel>(grid.Children[0]);
