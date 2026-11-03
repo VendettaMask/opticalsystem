@@ -172,7 +172,7 @@ public sealed class ViewerConfigurationTests
                 Assert.True(picker.IsVisible);
                 Assert.Equal(new[] { "1 / 3", "2 / 3", "3 / 3" }, picker.Items.Cast<object>().Select(item => item.ToString()));
                 var refresh = viewer.GetVisualDescendants().OfType<Button>()
-                    .Single(button => button.Content is LocalIcon { IconName: "refresh-cw" });
+                    .Single(button => button.Name == "ViewerSynchronizeButton");
                 Assert.Same(refresh.Parent, picker.Parent);
                 var pickerBounds = InWindow(picker, window);
                 var refreshBounds = InWindow(refresh, window);

@@ -51,7 +51,7 @@ public sealed class ViewerSettingsInputThemeTests
                 window.Show();
                 window.UpdateLayout();
                 var refresh = viewer.GetVisualDescendants().OfType<Button>()
-                    .Single(button => button.Content is LocalIcon { IconName: "refresh-cw" });
+                    .Single(button => button.Name == "ViewerSynchronizeButton");
                 var toggle = Assert.IsType<Button>(Assert.IsType<StackPanel>(refresh.Parent).Children[0]);
                 toggle.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 window.UpdateLayout();

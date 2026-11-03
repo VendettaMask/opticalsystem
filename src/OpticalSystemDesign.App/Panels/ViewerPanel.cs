@@ -454,6 +454,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         toggle.Click += (_, _) => settingsContent.IsVisible = !settingsContent.IsVisible;
 
         var synchronize = CompactButton("action-recalculate", "同步并重新生成视图");
+        synchronize.Name = "ViewerSynchronizeButton";
         synchronize.BindThemeResource(Button.BackgroundProperty, ThemeResourceBindings.SettingsSurface);
         synchronize.Click += (_, _) =>
         {

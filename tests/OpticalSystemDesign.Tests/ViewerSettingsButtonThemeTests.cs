@@ -57,7 +57,7 @@ public sealed class ViewerSettingsButtonThemeTests
                 window.Show();
                 window.UpdateLayout();
                 var refresh = viewer.GetVisualDescendants().OfType<Button>()
-                    .Single(button => button.Content is LocalIcon { IconName: "refresh-cw" });
+                    .Single(button => button.Name == "ViewerSynchronizeButton");
                 var settings = Assert.IsType<Button>(Assert.IsType<StackPanel>(refresh.Parent).Children[0]);
                 var presenter = refresh.GetVisualDescendants().OfType<ContentPresenter>()
                     .Single(control => control.Name == "PART_ContentPresenter");
