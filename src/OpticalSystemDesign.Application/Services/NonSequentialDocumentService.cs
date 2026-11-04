@@ -35,7 +35,7 @@ using CoreWavelength = OpticalSystemDesign.Core.NonSequential.NonSequentialWavel
 
 namespace OpticalSystemDesign.Application.Services;
 
-internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonSequentialDocumentService
+internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBase, INonSequentialDocumentService
 {
     private readonly INonSequentialAnalysisService _analysisService;
 
@@ -373,7 +373,7 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         value.MaximumActiveBranches,
         value.MinimumRelativeIntensity,
         value.RandomSeed,
-        value.SplitFresnelRays);
+        value.SplitFresnelRays, value.UsePolarization, value.CoherentDetection);
 
     private static NonSequentialObjectKind ToDto(CoreObjectKind value) =>
         (NonSequentialObjectKind)(int)value;
@@ -393,7 +393,13 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
     private static OpticalSystemDesign.Core.Backend.Vector3D ToCore(NonSequentialVector3 value) =>
         new(value.X, value.Y, value.Z);
 
-    private static NonSequentialObjectParameters ToDto(CoreObjectParameters value, CoreDocument? document = null) => value switch
+    private static NonSequentialObjectParameters ToDto(CoreObjectParameters value, CoreDocument? document = null)
+    {
+        var mapped = MapToDto(value, document);
+        return mapped is SourceParameters source && value is CoreSourceParameters original ? source with { Physics = original.Physics } : mapped;
+    }
+
+    private static NonSequentialObjectParameters MapToDto(CoreObjectParameters value, CoreDocument? document) => value switch
     {
         CoreSourceRayParameters source => new SourceRayParameters(
             source.PowerWatts, source.WavelengthNumber, ToDto(source.Origin), ToDto(source.Direction)),
@@ -455,11 +461,17 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
         CoreMeshObjectParameters mesh when document is not null => ToMeshDto(document.FindMeshAsset(mesh.MeshAssetId), mesh),
         CoreDetectorRectangleParameters detector => new DetectorRectangleParameters(
             detector.WidthMillimeters, detector.HeightMillimeters, detector.PixelsX, detector.PixelsY,
-            detector.FrontOnly, detector.Absorb,detector.IncidentSurface),
+            detector.FrontOnly, detector.Absorb,detector.IncidentSurface, detector.NormalizeCoherentPower),
         _ => throw new InvalidDataException($"Unsupported non-sequential parameter type '{value.GetType().Name}'.")
     };
 
-    private static CoreObjectParameters ToCore(NonSequentialObjectParameters value) => value switch
+    private static CoreObjectParameters ToCore(NonSequentialObjectParameters value)
+    {
+        var mapped = MapToCore(value);
+        return mapped is CoreSourceParameters source && value is SourceParameters original ? source with { Physics = original.Physics } : mapped;
+    }
+
+    private static CoreObjectParameters MapToCore(NonSequentialObjectParameters value) => value switch
     {
         SourceRayParameters source => new CoreSourceRayParameters(
             source.PowerWatts, source.WavelengthNumber, ToCore(source.Origin), ToCore(source.Direction)),
@@ -522,7 +534,7 @@ internal sealed class NonSequentialDocumentService : WorkbenchServiceBase, INonS
             mesh.MeshAssetId, ToCore(mesh.Behavior), mesh.Material, mesh.TwoSided),
         DetectorRectangleParameters detector => new CoreDetectorRectangleParameters(
             detector.WidthMillimeters, detector.HeightMillimeters, detector.PixelsX, detector.PixelsY,
-            detector.FrontOnly, detector.Absorb,detector.IncidentSurface),
+            detector.FrontOnly, detector.Absorb,detector.IncidentSurface, detector.NormalizeCoherentPower),
         _ => throw new InvalidDataException($"Unsupported non-sequential parameter DTO '{value.GetType().Name}'.")
     };
 

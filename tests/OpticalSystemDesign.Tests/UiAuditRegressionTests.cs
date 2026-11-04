@@ -61,7 +61,7 @@ public sealed class UiAuditRegressionTests
                     var oldView = Field<AnalysisViewDto>(panel, "_view");
                     Assert.Equal("4.5", oldView.Rows.Single(row => row.Metric == "F 数").Value);
                     var host = Field<ContentControl>(panel, "_resultHost");
-                    Assert.Equal(1, Assert.IsType<TabControl>(host.Content).SelectedIndex);
+                    Assert.Equal(1, Assert.IsAssignableFrom<TabControl>(host.Content).SelectedIndex);
                     Capture(window, "first-order-default-data.png");
                     panel.IsLocked = true;
                     panel.IsLocked = false;
@@ -272,7 +272,7 @@ public sealed class UiAuditRegressionTests
     }
 
     private static TabControl BuildResult(AnalysisViewDto view, WorkbenchApplication app) =>
-        Assert.IsType<TabControl>(typeof(AnalysisPanel).GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
+        Assert.IsAssignableFrom<TabControl>(typeof(AnalysisPanel).GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
             .Invoke(null, new object?[] { view, app.Documents.GetSnapshot(), DateTimeOffset.Now, null }));
 
     private static T Field<T>(AnalysisPanel panel, string name) =>

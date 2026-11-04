@@ -1,0 +1,34 @@
+{
+  "Date": "2026-11-04",
+  "Runs": [
+    {
+      "File": "final-scoped.trx",
+      "Passed": 147,
+      "Failed": 3,
+      "NotExecuted": 6
+    },
+    {
+      "File": "exports-final.trx",
+      "Passed": 23,
+      "Failed": 0,
+      "NotExecuted": 0
+    },
+    {
+      "File": "caption-recheck.trx",
+      "Passed": 9,
+      "Failed": 0,
+      "NotExecuted": 0
+    }
+  ],
+  "LatestUniquePassed": 169,
+  "LatestUniqueFailed": 0,
+  "SkippedPlaceholderNames": 5,
+  "MaterialScopePassed": 30,
+  "OtherThemeSourceComparisons": 8,
+  "Notes": [
+    "Broader run captured three native caption theme-switch failures during concurrent title-bar work; the updated workspace source was rebuilt and all nine caption tests passed in caption-recheck.trx.",
+    "Six export placeholders were skipped in the ordinary process; all 23 actual image-export cases ran in the separate enabled Skia process. Placeholders are not counted as passes.",
+    "This is a scoped UI/material validation, not a full repository or optical accuracy certification."
+  ],
+  "FinalFailedNames": []
+}

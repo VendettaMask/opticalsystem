@@ -103,6 +103,13 @@ public sealed class MaterialRegistry
         Changed?.Invoke(this, EventArgs.Empty);
     }
 
+    /// <summary>Register an explicit alias without changing the material's stored model identity.</summary>
+    public void Register(string alias, IMaterial material)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(alias); ArgumentNullException.ThrowIfNull(material);
+        RegisterAlias(alias, material); Changed?.Invoke(this, EventArgs.Empty);
+    }
+
     public IMaterial Resolve(string name)
     {
         return Resolve(name, preferredManufacturers: null);

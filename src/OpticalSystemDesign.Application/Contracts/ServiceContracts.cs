@@ -44,6 +44,36 @@ public interface INonSequentialDocumentService
 
     void UpdateWavelengths(IReadOnlyList<NonSequentialWavelengthDto> wavelengths);
 
+    void UpdatePhysicsSettings(bool usePolarization, bool coherentDetection);
+
+    Task<Core.NonSequential.NonSequentialDesignResult> OptimizeAsync(
+        IReadOnlyList<Core.NonSequential.NonSequentialDesignVariable> variables,
+        IReadOnlyList<Core.NonSequential.NonSequentialDesignTarget> targets,
+        Core.NonSequential.NonSequentialDesignSettings settings,
+        IProgress<Core.NonSequential.NonSequentialDesignProgress>? progress = null, CancellationToken cancellationToken = default);
+
+    Task<Core.NonSequential.NonSequentialToleranceResult> ToleranceAsync(
+        IReadOnlyList<Core.NonSequential.NonSequentialToleranceVariable> tolerances,
+        IReadOnlyList<Core.NonSequential.NonSequentialDesignTarget> targets,
+        Core.NonSequential.NonSequentialToleranceSettings settings,
+        IReadOnlyList<Core.NonSequential.NonSequentialDesignVariable>? compensators = null,
+        IProgress<Core.NonSequential.NonSequentialDesignProgress>? progress = null, CancellationToken cancellationToken = default);
+
+    void ApplyDesignResult(Core.NonSequential.NonSequentialDesignResult result);
+
+    string GetDesignSceneIdentity();
+
+    Task SaveDesignExperimentAsync(string path, Core.NonSequential.NonSequentialDesignExperiment plan,
+        Core.NonSequential.NonSequentialDesignResult? optimization = null, Core.NonSequential.NonSequentialToleranceResult? tolerance = null,
+        CancellationToken cancellationToken = default);
+
+    Task<Core.NonSequential.NonSequentialDesignReplayResult> ReplayDesignExperimentAsync(string path,
+        IProgress<Core.NonSequential.NonSequentialDesignProgress>? progress = null, CancellationToken cancellationToken = default);
+
+    Task<Core.FileIO.ZemaxNscImportResult> InspectZemaxNscAsync(string path, CancellationToken cancellationToken = default);
+
+    void ApplyZemaxNscImport(Core.FileIO.ZemaxNscImportResult result, string expectedSceneIdentity);
+
     NonSequentialConversionResultDto ConvertFromSequential();
 
     Task<NonSequentialMeshImportResultDto> ImportStlAsync(

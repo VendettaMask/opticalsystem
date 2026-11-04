@@ -59,8 +59,8 @@ internal sealed class IsekaiDrawingMaterial : IThemeDrawingMaterial
         var plot = scene ? bounds : new Rect(bounds.Position,
             new Size(bounds.Width, Math.Min(bounds.Height, UniformDiagramPage.PlotHeight)));
         DrawInnerRules(context, plot);
-        using (context.PushOpacity(scene ? .9 : .22))
-            DrawFlourishes(context, plot, Art.Value!, .72);
+        using (context.PushOpacity(scene ? .9 : .32))
+            DrawFlourishes(context, plot, Art.Value!, .72, crafted: !scene);
         if (!scene && plot.Width > 100 && plot.Height > 360)
         {
             // Keep stronger pen foliage within the narrow paper margins. The
@@ -75,72 +75,117 @@ internal sealed class IsekaiDrawingMaterial : IThemeDrawingMaterial
     {
         if (bounds.Width <= 0 || bounds.Height <= 0) return;
         var inset = Math.Min(FrameInset, Math.Min(bounds.Width, bounds.Height) / 2);
-        using var clip = context.PushClip(new RoundedRect(bounds, inset));
-        using var interpolation = context.PushRenderOptions(new RenderOptions { BitmapInterpolationMode = BitmapInterpolationMode.HighQuality });
-        var bitmap = Art.Value!.Frame;
-        var source = bitmap.Size;
-        // Separate the narrow binding's corner caps and central crest so they
-        // are not stretched into the broad floral mat used by the first draft.
-        double[] sx = [0, 72, source.Width / 2 - 64, source.Width / 2 + 64, source.Width - 72, source.Width];
-        double[] sy = [0, 80, source.Height - 80, source.Height];
-        double[] dx = [bounds.Left, bounds.Left + inset, bounds.Center.X - inset, bounds.Center.X + inset, bounds.Right - inset, bounds.Right];
-        double[] dy = [bounds.Top, bounds.Top + inset, bounds.Bottom - inset, bounds.Bottom];
-        for (var row = 0; row < 3; row++)
-            for (var column = 0; column < 5; column++)
-            {
-                if (row == 1 && column is > 0 and < 4) continue;
-                var destination = new Rect(dx[column], dy[row], Math.Max(0, dx[column + 1] - dx[column]), Math.Max(0, dy[row + 1] - dy[row]));
-                context.FillRectangle(Leather, destination);
-                context.DrawImage(bitmap,
-                    new Rect(sx[column], sy[row], sx[column + 1] - sx[column], sy[row + 1] - sy[row]), destination);
-            }
+        using var clip = context.PushClip(bounds);
+        IsekaiCraftsmanship.DrawBinding(context, bounds, inset);
     }
 
     private static IImmutableBrush Brush(string color) => new ImmutableSolidColorBrush(Color.Parse(color));
 
-    public void DrawLegendOrnament(DrawingContext context, Rect bounds)
+    public void DrawLegendOrnament(DrawingContext context, Rect bounds, AnalysisArtworkKind kind)
     {
-        var bitmap = Art.Value!.Armillary;
-        var scale = Math.Min(bounds.Width / bitmap.Size.Width, bounds.Height / bitmap.Size.Height);
+        DrawSprite(context, Art.Value!.Accessories, AccessoryRegions[(int)kind], bounds);
+    }
+
+    public void DrawCaptionOrnament(DrawingContext context, Rect bounds, AnalysisArtworkKind kind) =>
+        DrawSprite(context, Art.Value!.Folios, FolioRegions[(int)kind], bounds);
+
+    // Tight source bounds measured from the bundled alpha channel, never from optical data.
+    private static readonly Rect[] AccessoryRegions = [new(62, 20, 402, 711), new(567, 31, 395, 700),
+        new(49, 781, 415, 709), new(530, 788, 451, 704)];
+    private static readonly Rect[] FolioRegions = [new(46, 155, 640, 299), new(732, 242, 669, 209),
+        new(44, 672, 621, 230), new(732, 633, 667, 268)];
+    private static readonly Rect NavigationRegion = new(21, 160, 2132, 365);
+
+    private static void DrawSprite(DrawingContext context, Bitmap bitmap, Rect source, Rect bounds)
+    {
+        var scale = Math.Min(bounds.Width / source.Width, bounds.Height / source.Height);
         if (scale <= 0) return;
-        var size = new Size(bitmap.Size.Width * scale, bitmap.Size.Height * scale);
+        var size = new Size(source.Width * scale, source.Height * scale);
         using var clip = context.PushClip(bounds);
         using var interpolation = context.PushRenderOptions(new RenderOptions { BitmapInterpolationMode = BitmapInterpolationMode.HighQuality });
-        context.DrawImage(bitmap, new Rect(bounds.Center.X - size.Width / 2, bounds.Bottom - size.Height, size.Width, size.Height));
+        context.DrawImage(bitmap, source, new Rect(bounds.Center.X - size.Width / 2, bounds.Bottom - size.Height, size.Width, size.Height));
     }
+
+    internal void DrawNavigation(DrawingContext context, Rect bounds, double usedWidth)
+    {
+        DrawManuscriptBand(context, bounds, footer: true);
+        var freeWidth = Math.Max(0, bounds.Width - usedWidth - 24);
+        var width = Math.Min(190, freeWidth);
+        var height = Math.Min(24, Math.Max(0, bounds.Height - 18));
+        if (width > 100 && height > 0)
+            using (context.PushOpacity(.42))
+                DrawSprite(context, Art.Value!.Navigation, NavigationRegion,
+                    new Rect(bounds.Right - width - 18, bounds.Center.Y - height / 2, width, height));
+    }
+
+    internal void DrawManuscriptBand(DrawingContext context, Rect bounds, bool footer)
+    {
+        // Live controls read as a manuscript's header/index on the same paper,
+        // rather than independent leather straps pasted over the drawing.
+        context.FillRectangle(Art.Value!.PaperBrush, bounds);
+        var y = footer ? bounds.Top + 3 : bounds.Bottom - 3;
+        using var opacity = context.PushOpacity(.6);
+        context.DrawLine(InnerRule, new Point(bounds.Left + 16, y), new Point(bounds.Right - 16, y));
+        context.DrawEllipse(MutedInk, null, new Point(bounds.Left + 16, y), 1.2, 1.2);
+        context.DrawEllipse(MutedInk, null, new Point(bounds.Right - 16, y), 1.2, 1.2);
+    }
+
+    internal static ResourceDictionary ManuscriptCommandResources() => new()
+    {
+        [ThemeResourceBindings.TextMuted] = Brush("#806344"),
+        [ThemeResourceBindings.TextAccent] = Brush("#83561F"),
+        [ThemeResourceBindings.TextSuccess] = Brush("#49683A"),
+        [ThemeResourceBindings.TextWarning] = Brush("#85531F"),
+        [ThemeResourceBindings.TextError] = Brush("#A03E2E")
+    };
 
     private static void DrawInnerRules(DrawingContext context, Rect bounds)
     {
         if (bounds.Width <= 20 || bounds.Height <= 20) return;
-        context.DrawRectangle(null, InnerRule, bounds.Deflate(4), 6, 6);
-        context.DrawRectangle(null, InnerRule, bounds.Deflate(8), 3, 3);
+        using var opacity = context.PushOpacity(.35);
+        context.DrawLine(InnerRule, new Point(bounds.Left + 8, bounds.Bottom - 4), new Point(bounds.Right - 8, bounds.Bottom - 4));
     }
 
-    private static void DrawFlourishes(DrawingContext context, Rect bounds, Artwork artwork, double relativeScale)
+    private static void DrawFlourishes(DrawingContext context, Rect bounds, Artwork artwork, double relativeScale, bool crafted = true)
     {
         if (bounds.Width <= 0 || bounds.Height <= 0) return;
-        var bitmap = artwork.Botanical;
-        var scale = Math.Min(bounds.Width / bitmap.Size.Width, bounds.Height / bitmap.Size.Height) * relativeScale;
-        var half = new Size(bitmap.Size.Width / 2, bitmap.Size.Height / 2);
-        var size = new Size(half.Width * scale, half.Height * scale);
-        // Each complete corner drawing grows inward on the paper. Scaling is
-        // uniform, and moving a camera never moves these decorative elements.
+        if (!crafted)
+        {
+            // Preserve the approved astronomical/alchemical corner compositions
+            // inside 2D/3D scenes; the new botanical atlas belongs to analysis paper.
+            var scale = Math.Min(bounds.Width / artwork.Botanical.Size.Width, bounds.Height / artwork.Botanical.Size.Height) * relativeScale;
+            var size = new Size(artwork.Botanical.Size.Width / 2 * scale, artwork.Botanical.Size.Height / 2 * scale);
+            for (var row = 0; row < 2; row++) for (var col = 0; col < 2; col++)
+                context.FillRectangle(artwork.CornerBrushes[row * 2 + col], new Rect(
+                    col == 0 ? bounds.Left : bounds.Right - size.Width,
+                    row == 0 ? bounds.Top : bounds.Bottom - size.Height, size.Width, size.Height));
+            return;
+        }
+        var width = Math.Min(bounds.Width * .19, bounds.Height * .34) * relativeScale;
+        // Use complete alpha-bounded drawings. The old half-atlas crop left
+        // disconnected petal fragments floating inside the chart.
         for (var row = 0; row < 2; row++)
             for (var column = 0; column < 2; column++)
-                context.FillRectangle(artwork.CornerBrushes[row * 2 + column],
-                    new Rect(column == 0 ? bounds.Left : bounds.Right - size.Width,
-                        row == 0 ? bounds.Top : bounds.Bottom - size.Height, size.Width, size.Height));
+            {
+                var index = row * 2 + column;
+                var source = IsekaiCraftsmanship.PaperCorners[index];
+                var height = width * source.Height / source.Width;
+                IsekaiCraftsmanship.DrawPaperCorner(context, index,
+                    new Rect(column == 0 ? bounds.Left + 8 : bounds.Right - width - 8,
+                        row == 0 ? bounds.Top + 8 : bounds.Bottom - height - 8, width, height));
+            }
     }
 
     private sealed class Artwork
     {
-        internal Bitmap Paper { get; } = Load("vellum.png");
-        internal Bitmap Frame { get; } = Load("rounded-gold-binding.png");
+        internal Bitmap Paper { get; } = Load("frayed-vellum.png");
         internal Bitmap Botanical { get; } = Load("inner-botanical.png");
-        internal Bitmap Armillary { get; } = Load("armillary.png");
+        internal Bitmap Accessories { get; } = Load("analysis-accessory-atlas.png");
+        internal Bitmap Folios { get; } = Load("analysis-folio-atlas.png");
+        internal Bitmap Navigation { get; } = Load("book-navigation-ornament.png");
         internal DrawingImage SideVine { get; } = CreateSideVine();
         internal DrawingImage CompanyLogo { get; } = BrandAssets.LoadCompanyLogoImage(Color.Parse("#513723"));
-        internal ImageBrush PaperBrush { get; }
+        internal IBrush PaperBrush { get; }
         internal DrawingBrush CaptionBrush { get; }
         internal ImageBrush[] CornerBrushes { get; }
 
@@ -151,13 +196,23 @@ internal sealed class IsekaiDrawingMaterial : IThemeDrawingMaterial
                 SourceRect = new RelativeRect(index % 2 * .5, index / 2 * .5, .5, .5, RelativeUnit.Relative),
                 Stretch = Stretch.Fill
             }).ToArray();
-            PaperBrush = new ImageBrush(Paper)
+            var paperTexture = new ImageBrush(Paper)
             {
                 Stretch = Stretch.Fill,
-                // The lightly mottled centre is the reading surface. Strong
-                // foxing and darkened edges stay in the external decorative mat.
-                SourceRect = new RelativeRect(.12, .12, .76, .76, RelativeUnit.Relative)
+                // Keep the original generated fibres and pressed folds visible;
+                // the outer 28-DIP material uses this same sheet's frayed edges.
+                SourceRect = new RelativeRect(.055, .07, .89, .86, RelativeUnit.Relative)
             };
+            var paper = new DrawingGroup();
+            using (var context = paper.Open())
+            {
+                var page = new Rect(0, 0, UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight);
+                context.FillRectangle(Brush("#F5E8CE"), page);
+                context.FillRectangle(paperTexture, page);
+            }
+            // Preserve fibre/fold proportions in the very wide caption band;
+            // stretching the whole sheet there makes parchment resemble wood grain.
+            PaperBrush = new DrawingBrush(paper) { Stretch = Stretch.UniformToFill };
             var drawing = new DrawingGroup();
             using (var context = drawing.Open())
             {

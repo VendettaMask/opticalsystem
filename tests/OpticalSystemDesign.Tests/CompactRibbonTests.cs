@@ -68,6 +68,12 @@ public sealed class CompactRibbonTests
             try
             {
                 Tick(window);
+                // Resolve the shell's resource binding before replacing the
+                // fixture backdrop, so glass and cutouts remain distinguishable.
+                layout.ClearValue(Panel.BackgroundProperty);
+                layout.Background = new SolidColorBrush(Color.Parse("#9ACBFA"));
+                Tick(window);
+                Assert.Equal(Color.Parse("#9ACBFA"), Assert.IsAssignableFrom<ISolidColorBrush>(layout.Background).Color);
                 AssertFrame(ribbon, workspace, window, theme);
                 Assert.Equal(8, buttons.Length);
                 Assert.Equal(2, groups.SelectMany(g => g.GetVisualDescendants()).OfType<Border>().Count(b => b.Name == "RibbonGroupDivider"));

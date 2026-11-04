@@ -44,9 +44,9 @@ dotnet run --project tools/previews/FuiThemePreview/FuiThemePreview.csproj -c Re
 
 | 设置值 | 显示名称 | 基础外观 | 图标包 | Chrome/装饰 |
 | --- | --- | --- | --- | --- |
-| `Light` | 普通模式 | Avalonia Light | `ScientificThemeIconPack` | 窗口级浅蓝渐变、玻璃反光及细亮边、半透明侧栏分组、白色数据区、12 DIP 圆角停靠区 |
+| `Light` | 普通模式 | Avalonia Light | `ScientificThemeIconPack` | 窗口级浅蓝渐变、玻璃柔光、半透明侧栏及细边、白色数据区、12 DIP 圆角停靠区 |
 | `Dark` | 暗夜模式 | Avalonia Dark | `ScientificThemeIconPack` | 现有圆角、边框和阴影 |
-| `Isekai` | 异世界 | Dark 派生，图纸局部羊皮纸 | `ScientificThemeIconPack` | 皮革剑刃 Ribbon、旧金操作框；图纸内角钢笔百合/藤蔓、天体星盘、炼金瓶与晶簇，外侧窄皮革金边 |
+| `Isekai` | 异世界 | Dark 派生，图纸局部羊皮纸 | `ScientificThemeIconPack` | 皮革剑刃 Ribbon、旧金操作框；磨毛羊皮图纸与同纸分析两栏，纸内淡印花叶、天体/炼金小配饰 |
 | `Pixel` | 像素风格 | Light 派生 | `ScientificThemeIconPack` | 明亮 8-bit 色板、中文像素字、主题色科学轮廓图标、方角硬边与紧凑点阵 Ribbon |
 | `Lumen` | 光域 | Dark 派生 | `ScientificThemeIconPack` | 灰青暗场、暖金主操作、灰蓝选择态、蓝色材料行、方角细边框，无装饰圆环或阴影 |
 | `System` | 跟随系统 | 由系统决定 Light/Dark | 对应实际明暗主题 | 对应实际明暗主题 |
@@ -55,11 +55,13 @@ dotnet run --project tools/previews/FuiThemePreview/FuiThemePreview.csproj -c Re
 
 异世界采用旧铜/浅金/灰绿的魔导器具风格，像素保留原科学轮廓及海军蓝/红/绿角色色。异世界的旧金 Chrome 与装饰层、像素主题的中文像素字体及方角色板保持独立；像素字仍由 OFL 授权的 `Fusion Pixel 10px Mono zh_hans` 提供。旧 GameIconsFantasy/FarmFresh32 目录属于历史来源，当前运行图标以注册表和[本地图标说明](LOCAL_ICONS.md)为准；不改变命令 ID、文案或布局。
 
-异世界绘图材质通过注册表的可选 `DrawingMaterial` 接入，具体实现为 `IsekaiDrawingMaterial`。根据用户两张附图，现嵌入圆角旧金窄框、羊皮纸、透明内角花饰和分析用黄铜星盘四张素材。花叶保留在纸内，上角百合/藤蔓/天体星盘与下角炼金瓶/晶簇沿用；第二张参考补充圆角包角、顶部星芒、双层细线内框及分析页纸内侧边花饰。图例下方仅在实际剩余空间足够时出现黄铜星盘，不增加图例占位。解码和角部画刷按 UI 线程缓存，装饰局部高质量插值，不改变科学数据采样。完整提示词、尺寸与哈希见[素材记录](../src/OpticalSystemDesign.App/Assets/Themes/Isekai/README.md)。菜单、参数和数据页仍使用原深色资源，功能图标保持独立 SVG。
+异世界绘图材质通过注册表的可选`DrawingMaterial`接入。用户随后否决网上质感、正式金属画框及过于整齐的卷边，现行采用自有生成的中世纪磨毛图纸：粗纤维、自然毛边/缺口、压痕和旧折痕，恢复先前生成的压纹棕皮，暖象牙/棕/旧金配色保持。`IsekaiCraftsmanship`缓存完整羊皮图纸、缝线皮革/软纸四状态底板及原花叶/小配饰；材质alpha定义28 DIP外沿，取消原生整齐矩形描边和连续珠边。纸面纹理按比例裁切，不能把整页纹理压成图签里的横向条纹。正式雕金框、网络皮革及其来源文件保留历史，不再嵌入/加载；整齐卷边候选也未嵌入。金色留作小配饰，不为不同分析创建不同色系。功能图标继续独立SVG，配饰只使用类型元数据与实测留白。提示词、来源、哈希及透明边界见[当前素材规范](../src/OpticalSystemDesign.App/Assets/Themes/Isekai/README.md)。
 
-外框分片绘制并独立保留中心徽记，28 DIP 窄边只增加源图外围尺寸；实时及 PNG 外轮廓均为圆角，透明角外不补成矩形。普通源图仍为 1200×900 与 160 DIP 图签，内部花饰绘制在数据后方；2D/3D 使用较清晰墨色，分析和图签降低浓度，不挪动坐标、文字或曲线。实时适应窗口、100% 滚动及 PNG 包含完整窄框；默认 PNG 仍为 1920×1080。报告复用含内部花饰和双细框的原源图及物理文字大小，不纳入外部皮革边，原强制亮色打印选项有效。装饰不接收指针、不随相机移动，不充当镜片/光线/数据。原字体、品牌矢量、其他主题及实体模型紧凑信息栏保留。见[当前验证](../validation/rechecks/2026-11-03/isekai-rounded-border/README.md)；[图内花饰阶段](../validation/rechecks/2026-11-03/isekai-inner-ornament/README.md)、[宽花框阶段](../validation/rechecks/2026-11-03/isekai-rich-frame/README.md)与[首版](../validation/rechecks/2026-11-03/isekai-parchment/README.md)保留历史范围。
+`AnalysisBookWorkspace`以固定控件树包含真实设置/同步/复制/文本导出/PNG/线宽/适应窗口、设置弹层、结果与原生绘图/数据/文本，按实际换行高度适配，内层源图不重复加框。用户已确认同纸页眉/手稿页脚：取消皮革底板与独立纸牌，功能文字/原造型图标用深褐墨色，细笔分隔，底部原生索引用短墨线与点标记当前页，保留原栏端淡印配饰。后续灰色/羽毛笔误解改版已被撤回，候选素材归档在产品资源之外，未嵌入或加载。命令文字样式限定在按钮自身内容/呈现器，不跨入逻辑归属于按钮的深色飞出菜单；禁用、焦点、悬停与状态语义继续保留。原生选择/键盘/两个呈现器保持，换主题不重建绘图内容。程序主标题/菜单/Ribbon、文档页签、纸面本体、字体及科学数据不随本轮变化。暂不考虑16:9，源图1200×900、160 DIP图签、28 DIP材质边和原物理字高保持。见[确认版收尾验收](../validation/rechecks/2026-11-04/isekai-approved-final/README.md)及[原确认画面](../validation/rechecks/2026-11-04/isekai-manuscript-bands/README.md)；[上一轮皮革带](../validation/rechecks/2026-11-04/isekai-folio-rails/README.md)、[羊皮纸本体阶段](../validation/rechecks/2026-11-04/isekai-frayed-vellum/README.md)等历史记录各自保留验证边界。
 
 Ribbon 下沿通过 `ThemeChromeRole.Ribbon` 提供主题圆角，Light/Dark 为仅底部 8 DIP，Isekai/Pixel 保留锐角/方角。`ThemeLayoutResources.RibbonWorkspaceMargin` 在所有主题提供下方 8 DIP 间隔；外露区域绑定工作区背景，内容随圆角裁切。业务布局不判断主题名称，顺序和非序列模式共用框架。
+
+按 2026-11-04 用户对白线的反馈，Light Ribbon 使用 `NoThemeDecorationRenderer`，移除额外的全周白色描边，避免在菜单上沿形成贯穿白线和错误的顶部圆角。`LightGlassMaterial.FrameShadow` 的锐利白色内侧线改为低透明度宽柔光，仅影响背景材质；原窗口渐变、反光面、布局和侧栏细边保持。验证与实际截图见[本次修正记录](../validation/rechecks/2026-11-04/light-glass-ribbon/README.md)。
 
 普通 Light 的文档区全宽分隔保留原内容框顶部 1 DIP 细线，玻璃样式使用柔和亮边画刷，不使用 Dock 的额外蓝色激活色带；`BlueThemeStyles` 将该原生色带宿主限制为零高并裁切，不依赖会被 Dock 自行更新的可见性，也不增加覆盖层或修改全局强调色资源。页签右侧蓝色选中边及其他主题的激活反馈保持独立。
 

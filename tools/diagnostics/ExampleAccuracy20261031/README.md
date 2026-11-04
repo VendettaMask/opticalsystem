@@ -4,6 +4,8 @@ The scope is `src/OpticalSystemDesign.App/Assets/SequentialExamples/index.json`:
 
 This diagnostic uses the product's shared Core/Application and existing comparison normalizers/gates. It reimports all sources, replays the exact executable canonical requests from the frozen 2026-10-21 corpus, and preserves missing requests, unsupported models and invalid references. No product optical formulas, Python, UI interaction, tolerance changes or new native captures are introduced.
 
+For another checkout, preparation rebases the original corpus storage prefix while preserving native payload bytes. A newline-only difference in the repository policy selects the original archived policy bytes; any other policy edit is rejected. The 2026-11-04 replay and input restoration are documented in `../ExampleAccuracy20261104/`.
+
 Build to a fresh directory, then invoke `ExampleAccuracy20261031.dll <mode> <repository> <fresh-study-root>`:
 
 - `prepare`: verify every source against the product index and native corpus, import all configurations, write fresh snapshots and original requests. Since the 2026-11-03 rerun, implicit image endpoints use the fresh snapshot's surface count; `request-mapping.json` retains both original/effective counts and fingerprints. An explicit historical surface with a changed count is rejected for independent mapping. Physical settings and gates remain unchanged.

@@ -1,0 +1,21 @@
+{
+  "PreviousCases": 170,
+  "CurrentCases": 170,
+  "PreviousPass": 163,
+  "Changes": [
+    {
+      "Id": "0009-001-afocal-riflescope-c1-primary-f0-w0-mtf",
+      "Lens": "Afocal/Afocal Riflescope.ZMX",
+      "Analysis": "MTF",
+      "Previous": "Pass",
+      "Current": "Incomparable",
+      "Reason": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 1.51815 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。"
+    }
+  ],
+  "OriginalRequestsUnchanged": true,
+  "PreviousAuthority": {
+    "Entry": "payloads/52250bd1a69984a99de7fac964ad244cf3a63ae200d6ff6590aef10d1a87d9f2",
+    "Sha256": "52250bd1a69984a99de7fac964ad244cf3a63ae200d6ff6590aef10d1a87d9f2",
+    "Archive": "evidence.zip"
+  }
+}

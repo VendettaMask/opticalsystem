@@ -1,0 +1,241 @@
+{
+  "Scope": "Current scoped implementation; not repository-wide or native Zemax certification",
+  "Utc": "2026-11-04T04:19:00.3665563Z",
+  "GitHead": "b7d16f8104aaa04dc061bd773efa650b4b087e16",
+  "Counters": {
+    "Failed": "0",
+    "Total": "249",
+    "Passed": "249"
+  },
+  "TestReceiptSha256": "C87ECA486DC7BBCA433E251B616205DE73841AB77CB7D79B08F69DB066D7CADE",
+  "Sources": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.NonSequential.cs",
+      "Sha256": "CC3773BB38634F79FD0B2E8279260CB0214170614FADCADBE9AE95F2903C9668"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/NonSequentialDesignWindow.cs",
+      "Sha256": "487905D81E9C8AF9C93209271AD2D659E01C44B2579F9862E21012579673B383"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs",
+      "Sha256": "BB499C111F806F7A0801BAB2EA57A3E179D6AA36556DB687A48C08A4038BFFBF"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/NonSequentialStrayLightWindows.cs",
+      "Sha256": "66C16B44E2956E4604DA76F3D0D2FA7BA796594B57C393E5B1104D8E870ACB3B"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/NonSequentialZemaxImportWindow.cs",
+      "Sha256": "4B8E469F45D099A2C69DFC86091B5B4CE02BD5AEAB6891421A68B4E269338DD9"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/ServiceContracts.cs",
+      "Sha256": "0DAB1073BBCB46462DA0A81B04BD1D720392E32DA9875AAD284D1B9187E2555E"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "Sha256": "0327D55BB59678BB0BD47F9B6D87CD06A57F334D39720D1FED7106C9798492B4"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialAnalysisService.cs",
+      "Sha256": "637EFC90A8F6166AA6D1C2FBA5FA96BA908EA5016F87B1ABFDDB68C11F2A0D34"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.cs",
+      "Sha256": "CE8FE166F77543B66BC014354BD5B39D1692044B20828A9289B2EDD68F3495C1"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.Design.cs",
+      "Sha256": "780D5DEE7F89CF7526225A2DCE934313367AD3BA0F7B390D0D364E48E30E7627"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialDocumentService.Zemax.cs",
+      "Sha256": "E6638099B135022B00D51758D443E79E992B9F6A258DEA1D1EA301F9950B1A59"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/FileIO/ZemaxNonSequentialReader.cs",
+      "Sha256": "43ED66C51901BEFB918F82705814C6D34E38AA116889C72448C2696A8ED84A85"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialCameraSensor.cs",
+      "Sha256": "E020400BE5D0BC5B4A90C5E8B555819DDD54F1DE991E4ED3030F9AC75F654B77"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDesignContracts.cs",
+      "Sha256": "45B3C8B1B029F73E2BB9F23983789A223C205967C38D7237F222A7323D1E6531"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDesignEngine.cs",
+      "Sha256": "6D09587A17E141D728F7C56D0130CE044D61B5331F8532BB00C1CA1756C48B2A"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDesignMetrics.cs",
+      "Sha256": "B0B011C66A48D7A835F4CABBE51D61AA86045ECF9D3F2E8533C373E3D3BEC56A"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDesignParameters.cs",
+      "Sha256": "D5C382F530AA6B2189A556BEADDC16975DB33C33CE23A69A362F2029F4BE8AAA"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorAccumulator.cs",
+      "Sha256": "8E1E87E57B58483225DDEBE451C42615F821D59133FA515E18F46403F4D0414C"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorAccumulator.Fields.cs",
+      "Sha256": "E3711AEB04C22FB837C6ACA44F121273E8335382463E3B51DB8FB804B2C2457F"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorCollector.cs",
+      "Sha256": "B6CD30D29D1ED810F5651FB6E3545446AE9C63FF7772649DA7345BFEDC7E6489"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorMoments.cs",
+      "Sha256": "2DAA1E4C0B8C2CB4F72C9EC4323F62FB979CB645789B324CFB6B9A4110C6E8A7"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorPixels.cs",
+      "Sha256": "9F9FE2E29F6811DB6EF5DCDF3D6299D6B64A202B1C9FE8D8903018AB2F90D7EE"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDetectorReconstruction.cs",
+      "Sha256": "BFC621DDBAA6C8D786894122D5033E08DF191F175745AEE6BAB3F82624927771"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDocument.cs",
+      "Sha256": "6F34223407EEEF2993D6C0FA5EFAA92F65C398D7A4419B863E9316EAA14ACD17"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialFieldBudget.cs",
+      "Sha256": "6710912C02DC6AEA55198B9D657C018F2F1FCDB148A63596C016FEE11F38AC6C"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialFieldValidation.cs",
+      "Sha256": "7602AD532D54B8A6E80C8F3F1C397E60FFD36B4846932CFFC9928805451E567B"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialIntersectionScene.cs",
+      "Sha256": "50D054F5F4ED97BDCB5CD00A5B0DAB9FC797C4B66605BDE3183A5428C2EC5C97"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialMesh.cs",
+      "Sha256": "36CE43C19E9468D34950F8F94E1F27BB49DF9FE7E89C43F51BDFCA4BBCEDB287"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialOpticalAssembly.cs",
+      "Sha256": "E51CE67DDB1C010F9EF00B5053C95E25F397613068D8F39801AE0FC3F8279782"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialPathFilter.cs",
+      "Sha256": "CCC4C06DCF4C6850A0644A5BC48938711D505C0D2A9AA2F2B2B24E1FC8EADFE8"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialPolarization.cs",
+      "Sha256": "D821079680D779ABA9085012A437E72AEB17B293F0A1B62FD23B8162786214D1"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialRayDatabase.cs",
+      "Sha256": "65FBC11350C6D7FD5DA01EFDFC8725E9F952405BDE40326AE7D1F6170B49A12C"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialSurfaceBsdf.cs",
+      "Sha256": "A85375C17D4734243484BAFDE20DCB93316DB8FE3F363577D5D65D944F2D3BBB"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialToleranceEngine.cs",
+      "Sha256": "31903405226B9812ED413FABCAD32E0C526A8A95CE6BCFFDCBCB25904D6E4DE7"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.cs",
+      "Sha256": "5309A46B8334FBCA4F921107D2B4EA54EB74C199463C516D76C4ECBCABD9B059"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.OpticalAssembly.cs",
+      "Sha256": "455C525B95F13AA2243FDBD2CAD5CFCCAD00790EF1C1340C59445603ADD2191F"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.Polarization.cs",
+      "Sha256": "FCAFC9BB005BA14727C651F06C89BDB781825817209C25D4BD8F19F69AFBCE25"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialWavelengthIndex.cs",
+      "Sha256": "CD03DC1BD4A5A9BCB1B60936067C9DA001B0A02032C7FA2B29B5FB7201196BF4"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/OpticalAssemblyBoundaryModel.cs",
+      "Sha256": "69268F30072E0B8A4C039094CB8F85E5212833807736D65FA8FE347FED834FB8"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/OpticalAssemblySurfaceDefinition.cs",
+      "Sha256": "E02A7B5727F736D8B5F22E94D594DDDB30471AD24169315FBCD8C7947A32748B"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/SequentialOpticalAssemblyConverter.cs",
+      "Sha256": "B160856060F627B498D3DE2FC9FAE9D638820B912EBA887DCA1A78C70F470750"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/Serialization/StarOptProjectStore.cs",
+      "Sha256": "1533255A49BDE3CAD29C4B416611BD3B791B6D2807F0B9050107C29686E4BE35"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CameraNonSequentialWindowTests.cs",
+      "Sha256": "B5817A3FAE0D871B5C39A1B4E34B0DA4F96CE98FECCAC3106DB005AB3D4F2623"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/NonSequentialDesignTests.cs",
+      "Sha256": "F77EC983AAB96A1B19B0768102FDD81A44FB4E8A0EEBF5ECD1607FAAD6EC93B4"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/NonSequentialDesignWindowTests.cs",
+      "Sha256": "D2924C8AC9B74C4056945B8FFC752CDBBB145C3996309863569FA8131D7E463C"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/NonSequentialIntegrationTests.cs",
+      "Sha256": "231D7CA85DCCA1F796758687DDA68AF596ABC9DD4FA1B79A30DEF4E77F81D554"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/NonSequentialPolarizationTests.cs",
+      "Sha256": "2F68425F5566D94DFE982F21C66576E90F448AA73695A444CD78AC5B5E8D8B13"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.NscValidation/OpticalSystemDesign.NscValidation.csproj",
+      "Sha256": "228C2AE172C7B192DE07FAA52386387BFD71CAE6F47561F66A6BDE28F6618E72"
+    },
+    {
+      "Path": "tools/OpticalSystemDesign.NscValidation/Program.cs",
+      "Sha256": "B7AD902EEFD64A046F02383A07AB7F3B333E81AC1718C0A63EEBCCA92D653055"
+    }
+  ],
+  "Binaries": [
+    {
+      "Path": "src/OpticalSystemDesign.Core/bin/Release/net10.0/OpticalSystemDesign.Core.dll",
+      "Sha256": "CAE8F80D753E674BDB1A8A23766FE29ECB269C5894F92081DE311CCC9F851FC7"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/bin/Release/net10.0/OpticalSystemDesign.Application.dll",
+      "Sha256": "353F995A30C66A1F1A945767358749D6327A35B82DA8887E0396009656B637D7"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+      "Sha256": "216E4E0FAEA3B755F0E58472B7DF46DBE16B45BDAECB18F689C3348FF5BC873E"
+    }
+  ],
+  "IsolatedTestAssemblies": [
+    {
+      "Name": "OpticalSystemDesign.Core.dll",
+      "Sha256": "CAE8F80D753E674BDB1A8A23766FE29ECB269C5894F92081DE311CCC9F851FC7"
+    },
+    {
+      "Name": "OpticalSystemDesign.Application.dll",
+      "Sha256": "353F995A30C66A1F1A945767358749D6327A35B82DA8887E0396009656B637D7"
+    },
+    {
+      "Name": "OpticalSystemDesign.App.dll",
+      "Sha256": "216E4E0FAEA3B755F0E58472B7DF46DBE16B45BDAECB18F689C3348FF5BC873E"
+    },
+    {
+      "Name": "OpticalSystemDesign.Tests.dll",
+      "Sha256": "52E095370419D2CCB900E2977AA537EB2C14E6B6CB70E7B020A33E5C78168DF9"
+    }
+  ]
+}

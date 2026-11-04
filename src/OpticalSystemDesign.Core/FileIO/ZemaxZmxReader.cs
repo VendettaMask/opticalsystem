@@ -912,9 +912,9 @@ internal static partial class ZemaxZmxReader
 
             return configured;
         }).ToArray();
-        ApplyParameterPickups(document, configuredSurfaces);
         ApplyCurvaturePickups(configuredSurfaces);
         ApplyThicknessAndMaterialPickups(configuredSurfaces);
+        ApplyParameterPickups(document, configuredSurfaces);
         return configuredSurfaces;
     }
 
@@ -973,9 +973,22 @@ internal static partial class ZemaxZmxReader
                 return Get(target, parameter);
             if (!active.Add(key)) throw new InvalidDataException("Cyclic Zemax parameter pickup.");
             if (!byNumber.TryGetValue(pickup.SourceSurface, out var source)) throw new InvalidDataException("Missing Zemax parameter pickup source.");
-            var sourceParameter = pickup.SourceParameter == 0 ? parameter : pickup.SourceParameter - 1;
-            var sourceScale = Scale(source, sourceParameter, 1);
-            var raw = Resolve(pickup.SourceSurface, sourceParameter) / sourceScale;
+            // PPAR's final integer is a source COLUMN, not a parameter number:
+            // 0=current, 1=radius, 2=thickness, 3=conic, 4=semi-diameter,
+            // 5..17=parameter 0..12. Convert the source back to file units before
+            // applying scale/offset and the target parameter's dimensional rule.
+            var raw = pickup.SourceColumn switch
+            {
+                0 => Resolve(pickup.SourceSurface, parameter) / Scale(source, parameter, 1),
+                1 => double.IsInfinity(source.Radius) ? 0 : source.Radius / document.LengthScaleToMillimeters,
+                2 => source.Thickness / document.LengthScaleToMillimeters,
+                3 => source.Conic,
+                4 => source.SemiDiameter is { } semiDiameter ? semiDiameter / document.LengthScaleToMillimeters
+                    : throw new NotSupportedException("Zemax参数跨列拾取需要已解析的源半口径。"),
+                >= 5 and <= 17 => Resolve(pickup.SourceSurface, pickup.SourceColumn - 6)
+                    / Scale(source, pickup.SourceColumn - 6, 1),
+                _ => throw new NotSupportedException($"Unsupported Zemax parameter pickup column: {pickup.SourceColumn}.")
+            };
             var value = Scale(target, parameter, raw * pickup.Scale + pickup.Offset);
             if (!double.IsFinite(value)) throw new InvalidDataException("Nonfinite Zemax parameter pickup.");
             if (Extra(target, parameter)) target.ExtraData[parameter - 11] = value;
@@ -2559,7 +2572,7 @@ internal static partial class ZemaxZmxReader
     }
 
     private sealed record ZemaxAperture(string Key, ApertureKind Kind, double Value);
-    private sealed record ZemaxParameterPickup(int SourceSurface, double Scale, double Offset, int SourceParameter);
+    private sealed record ZemaxParameterPickup(int SourceSurface, double Scale, double Offset, int SourceColumn);
     private sealed record ZemaxCurvaturePickup(int SourceSurface, double Scale);
     private sealed record ZemaxThicknessPickup(int SourceSurface, double Scale, double Offset);
     private sealed record ZemaxMarginalRayHeightSolve(double Height, double PupilZone);

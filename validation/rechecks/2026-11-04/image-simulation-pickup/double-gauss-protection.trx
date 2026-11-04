@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="3e08a1b4-b4cc-4628-9c91-716b225ab148" name="optics@LAPTOP-G4BBBCS0 2026-11-04 15:15:13" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T15:15:13.0804408+08:00" queuing="2026-11-04T15:15:13.0804413+08:00" start="2026-11-04T15:14:54.4975888+08:00" finish="2026-11-04T15:15:26.1591643+08:00" />
+  <TestSettings name="default" id="a41c9807-a265-48ca-947a-761b8a833554">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-04_15_15_13" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="e306fbb1-bbcd-4466-bda6-efe5a0dcb1c0" testId="e26f4c81-b8d1-1113-a932-10860e31b354" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512(file: &quot;Double Gauss 28 degree field_2.zmx&quot;, objectDistance: 500)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.9850075" startTime="2026-11-04T15:15:13.0765682+08:00" endTime="2026-11-04T15:15:14.0616997+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e306fbb1-bbcd-4466-bda6-efe5a0dcb1c0" />
+    <UnitTestResult executionId="d6d2172e-ba12-4740-8d6a-13fb83548c85" testId="aad22c3b-ab46-a337-81a1-51d4474dac8b" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: 10)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0122393" startTime="2026-11-04T15:15:13.0572555+08:00" endTime="2026-11-04T15:15:13.0627541+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d6d2172e-ba12-4740-8d6a-13fb83548c85" />
+    <UnitTestResult executionId="67ea592a-53b8-4d0c-b5ce-bc8db8961017" testId="b8f1c017-bfcb-8a35-bfe3-e2c5b709fe6f" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: 2)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0432001" startTime="2026-11-04T15:15:13.0542883+08:00" endTime="2026-11-04T15:15:13.0545515+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67ea592a-53b8-4d0c-b5ce-bc8db8961017" />
+    <UnitTestResult executionId="90a19f4f-1721-41ac-9718-40cee18cbfc1" testId="3d35c08a-6453-31ce-aaff-84d0597831e7" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: -5)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0131913" startTime="2026-11-04T15:15:13.0632028+08:00" endTime="2026-11-04T15:15:13.0760669+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="90a19f4f-1721-41ac-9718-40cee18cbfc1" />
+    <UnitTestResult executionId="477730e6-d48a-41df-945e-6a46c6e8f890" testId="6be53e1f-0e8d-f94e-81ba-c80f6938b59b" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ApplicationExportsConvergedStandardDoubleGaussAndPreservesLegacyViewOnlyIdentity" computerName="LAPTOP-G4BBBCS0" duration="00:00:16.2896218" startTime="2026-11-04T15:14:56.7253959+08:00" endTime="2026-11-04T15:15:13.0031483+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="477730e6-d48a-41df-945e-6a46c6e8f890" />
+    <UnitTestResult executionId="105f92ca-493d-4a70-b443-e67ab087427f" testId="2133b852-ff8c-87f1-9ef0-2aa9072f5e4e" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.StandardDoubleGaussWindowExpansionConvergesWithoutChangingItsInfiniteConjugate" computerName="LAPTOP-G4BBBCS0" duration="00:00:11.1518333" startTime="2026-11-04T15:15:14.8263545+08:00" endTime="2026-11-04T15:15:25.9780827+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="105f92ca-493d-4a70-b443-e67ab087427f" />
+    <UnitTestResult executionId="3bb47187-17ab-4361-8416-06affeddcaf1" testId="70f54e1a-99ec-00af-ee3f-62e03760a268" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512(file: &quot;double-gauss-50mm.zmx&quot;, objectDistance: ∞)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7642425" startTime="2026-11-04T15:15:14.0619817+08:00" endTime="2026-11-04T15:15:14.8260783+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3bb47187-17ab-4361-8416-06affeddcaf1" />
+    <UnitTestResult executionId="b3f5d99b-66a3-4f8e-85d8-3b76c4f78d4c" testId="e7e52396-f7f1-1a2f-e762-b79b93a64f4b" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.UnwrappedPhaseRejectsAliasingRatherThanJudgingWrappedComplexPhase" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0013823" startTime="2026-11-04T15:15:25.9788941+08:00" endTime="2026-11-04T15:15:25.9795482+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b3f5d99b-66a3-4f8e-85d8-3b76c4f78d4c" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: -5)" storage="d:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\opticalsystemdesign.tests.dll" id="3d35c08a-6453-31ce-aaff-84d0597831e7">
+      <Execution id="90a19f4f-1721-41ac-9718-40cee18cbfc1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: 2)" storage="d:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\opticalsystemdesign.tests.dll" id="b8f1c017-bfcb-8a35-bfe3-e2c5b709fe6f">
+      <Execution id="67ea592a-53b8-4d0c-b5ce-bc8db8961017" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.StandardDoubleGaussWindowExpansionConvergesWithoutChangingItsInfiniteConjugate" storage="d:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\opticalsystemdesign.tests.dll" id="2133b852-ff8c-87f1-9ef0-2aa9072f5e4e">
+      <Execution id="105f92ca-493d-4a70-b443-e67ab087427f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="StandardDoubleGaussWindowExpansionConvergesWithoutChangingItsInfiniteConjugate" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: 10)" storage="d:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\opticalsystemdesign.tests.dll" id="aad22c3b-ab46-a337-81a1-51d4474dac8b">
+      <Execution id="d6d2172e-ba12-4740-8d6a-13fb83548c85" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.UnwrappedPhaseRejectsAliasingRatherThanJudgingWrappedComplexPhase" storage="d:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\opticalsystemdesign.tests.dll" id="e7e52396-f7f1-1a2f-e762-b79b93a64f4b">
+      <Execution id="b3f5d99b-66a3-4f8e-85d8-3b76c4f78d4c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="UnwrappedPhaseRejectsAliasingRatherThanJudgingWrappedComplexPhase" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ApplicationExportsConvergedStandardDoubleGaussAndPreservesLegacyViewOnlyIdentity" storage="d:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\opticalsystemdesign.tests.dll" id="6be53e1f-0e8d-f94e-81ba-c80f6938b59b">
+      <Execution id="477730e6-d48a-41df-945e-6a46c6e8f890" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="ApplicationExportsConvergedStandardDoubleGaussAndPreservesLegacyViewOnlyIdentity" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512(file: &quot;double-gauss-50mm.zmx&quot;, objectDistance: ∞)" storage="d:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\opticalsystemdesign.tests.dll" id="70f54e1a-99ec-00af-ee3f-62e03760a268">
+      <Execution id="3bb47187-17ab-4361-8416-06affeddcaf1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512(file: &quot;Double Gauss 28 degree field_2.zmx&quot;, objectDistance: 500)" storage="d:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\opticalsystemdesign.tests.dll" id="e26f4c81-b8d1-1113-a932-10860e31b354">
+      <Execution id="e306fbb1-bbcd-4466-bda6-efe5a0dcb1c0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="e26f4c81-b8d1-1113-a932-10860e31b354" executionId="e306fbb1-bbcd-4466-bda6-efe5a0dcb1c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aad22c3b-ab46-a337-81a1-51d4474dac8b" executionId="d6d2172e-ba12-4740-8d6a-13fb83548c85" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8f1c017-bfcb-8a35-bfe3-e2c5b709fe6f" executionId="67ea592a-53b8-4d0c-b5ce-bc8db8961017" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d35c08a-6453-31ce-aaff-84d0597831e7" executionId="90a19f4f-1721-41ac-9718-40cee18cbfc1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6be53e1f-0e8d-f94e-81ba-c80f6938b59b" executionId="477730e6-d48a-41df-945e-6a46c6e8f890" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2133b852-ff8c-87f1-9ef0-2aa9072f5e4e" executionId="105f92ca-493d-4a70-b443-e67ab087427f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="70f54e1a-99ec-00af-ee3f-62e03760a268" executionId="3bb47187-17ab-4361-8416-06affeddcaf1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7e52396-f7f1-1a2f-e762-b79b93a64f4b" executionId="b3f5d99b-66a3-4f8e-85d8-3b76c4f78d4c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="8" executed="8" passed="8" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.19]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.66]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.70]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:31.01]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

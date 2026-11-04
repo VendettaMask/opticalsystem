@@ -85,6 +85,7 @@ public sealed class LightGradientThemeTests
                     using var pixels = SKBitmap.Decode(stream);
                     if (size == (width, height)) Capture(image, $"workbench-{width}x{height}-{fontSize}.png");
                     AssertSidebarBackdrop(window, root, pixels);
+                    AssertNoBrightHeaderSeams(window, pixels);
                     var upper = Sample(.2); var lower = Sample(.72);
                     Assert.True(upper.Blue > upper.Red + 10, $"Expected blue upper backdrop, got {upper}.");
                     Assert.True(lower.Red >= 245 && lower.Green >= 245 && lower.Blue >= 245,
@@ -113,6 +114,7 @@ public sealed class LightGradientThemeTests
                     using var data = new MemoryStream(); frame.Save(data, PngBitmapEncoderOptions.Default); data.Position = 0;
                     using var pixels = SKBitmap.Decode(data);
                     AssertSidebarBackdrop(window, root, pixels);
+                    AssertNoBrightHeaderSeams(window, pixels);
                     Assert.Equal(original, workbench.Documents.GetRecoveryState());
                     if (offset > 0) Capture(frame, $"workbench-{width}x{height}-{fontSize}-scrolled.png");
                 }
@@ -124,6 +126,26 @@ public sealed class LightGradientThemeTests
             }
             finally { window.Close(); DisplayTypography.Configure(new AppSettings()); }
         }, CancellationToken.None);
+    }
+
+    private static void AssertNoBrightHeaderSeams(Window window, SKBitmap pixels)
+    {
+        var tabs = Assert.Single(window.GetVisualDescendants().OfType<TabControl>(),
+            control => control.Classes.Contains("ribbon-tabs"));
+        var ribbon = tabs.GetVisualAncestors().OfType<Border>().First();
+        var title = Assert.Single(window.GetVisualDescendants().OfType<MainWindowTitleBar>());
+        foreach (var surface in new[] { ribbon, title })
+        foreach (var fraction in new[] { .25, .55, .85 })
+        {
+            // Compare actual rendered rows above the text/icons. A hard white
+            // stroke makes the first row much brighter than the glass below it.
+            var top = surface.TranslatePoint(new Point(surface.Bounds.Width * fraction, .5), window)!.Value;
+            var below = surface.TranslatePoint(new Point(surface.Bounds.Width * fraction, 3.5), window)!.Value;
+            var edge = pixels.GetPixel((int)top.X, (int)top.Y);
+            var fill = pixels.GetPixel((int)below.X, (int)below.Y);
+            Assert.True(edge.Red - fill.Red <= 8 && edge.Green - fill.Green <= 8 && edge.Blue - fill.Blue <= 8,
+                $"Bright header seam on {surface.GetType().Name} at {top}: {edge} over {fill}.");
+        }
     }
 
     private static void AssertSidebarBackdrop(Window window, DockPanel root, SKBitmap pixels)

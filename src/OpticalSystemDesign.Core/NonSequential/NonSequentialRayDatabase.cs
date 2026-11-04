@@ -35,7 +35,7 @@ public sealed record NonSequentialRayDatabaseHeader(
         long sourceRevision = 0,
         string? pathFilterExpression = null,
         MaterialRegistry? materials = null) => new(
-            1,
+            document.TraceSettings.UsePolarization || document.TraceSettings.CoherentDetection ? 2 : 1,
             NonSequentialSceneHasher.Compute(document, materials),
             sourceRevision,
             DateTimeOffset.UtcNow,
@@ -57,7 +57,7 @@ public sealed record NonSequentialRayDatabaseHeader(
 
 public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, IDisposable
 {
-    public const int CurrentVersion = 1;
+    public const int CurrentVersion = 2;
     public const int MaximumHeaderUncompressedBytes = 64 * 1024 * 1024;
     public const int MaximumChunkUncompressedBytes = 256 * 1024 * 1024;
     public static readonly int MaximumHeaderCompressedBytes = BrotliEncoder.GetMaxCompressedLength(MaximumHeaderUncompressedBytes);
@@ -77,6 +77,8 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
     };
 
     private readonly Stream _stream;
+    private readonly int _version;
+    private readonly bool _fieldsExpected;
     private readonly bool _leaveOpen;
     private readonly List<NonSequentialRayBranch> _pending = new(BranchesPerChunk);
     private readonly List<ChunkIndex> _index = new();
@@ -95,11 +97,14 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
         {
             throw new ArgumentException("光线数据库输出流必须可写且可定位。", nameof(stream));
         }
-        if (header.FormatVersion != CurrentVersion)
+        if (header.FormatVersion is < 1 or > CurrentVersion
+            || header.FormatVersion == 1 && (header.TraceSettings.UsePolarization || header.TraceSettings.CoherentDetection))
         {
             throw new ArgumentOutOfRangeException(nameof(header), "光线数据库文件头版本无效。");
         }
 
+        _version = header.FormatVersion;
+        _fieldsExpected = header.TraceSettings.UsePolarization || header.TraceSettings.CoherentDetection;
         _stream = stream;
         _leaveOpen = leaveOpen;
         WriteHeader(header);
@@ -113,6 +118,15 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
         ObjectDisposedException.ThrowIf(_disposed, this);
         if (_completed) throw new InvalidOperationException("光线数据库已完成，不能继续写入。");
         ArgumentNullException.ThrowIfNull(branch);
+        if (branch.Segments is null || branch.Segments.Count > NonSequentialDocument.MaximumSegmentsPerRay)
+            throw new InvalidDataException("单个光线分支的分段数量无效或超过既有限额。");
+        foreach (var segment in branch.Segments)
+        {
+            if (segment is null) throw new InvalidDataException("光线分支包含空分段。");
+            if (_fieldsExpected != (segment.IncidentField is not null) || _version == 1 && segment.IncidentField is not null)
+                throw new InvalidDataException("偏振光线不能写入不匹配的数据库协议。");
+            if (segment.IncidentField is { } field) NonSequentialFieldValidation.Validate(field);
+        }
         if (branch.Segments.Count > NonSequentialDocument.MaximumSegmentsPerRay)
         {
             throw new InvalidDataException(
@@ -182,7 +196,7 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
         var compressed = Compress(json);
         var fixedHeader = new byte[FileHeaderLength];
         Magic.CopyTo(fixedHeader, 0);
-        BinaryPrimitives.WriteUInt16LittleEndian(fixedHeader.AsSpan(8, 2), CurrentVersion);
+        BinaryPrimitives.WriteUInt16LittleEndian(fixedHeader.AsSpan(8, 2), checked((ushort)header.FormatVersion));
         BinaryPrimitives.WriteUInt16LittleEndian(fixedHeader.AsSpan(10, 2), 1);
         BinaryPrimitives.WriteInt32LittleEndian(fixedHeader.AsSpan(12, 4), json.Length);
         BinaryPrimitives.WriteInt32LittleEndian(fixedHeader.AsSpan(16, 4), compressed.Length);
@@ -403,7 +417,7 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         var version = BinaryPrimitives.ReadUInt16LittleEndian(fixedHeader.Slice(8, 2));
         var uncompressedLength = BinaryPrimitives.ReadInt32LittleEndian(fixedHeader.Slice(12, 4));
         var compressedLength = BinaryPrimitives.ReadInt32LittleEndian(fixedHeader.Slice(16, 4));
-        if (version != NonSequentialRayDatabaseWriter.CurrentVersion
+        if (version is < 1 or > NonSequentialRayDatabaseWriter.CurrentVersion
             || uncompressedLength <= 0
             || uncompressedLength > NonSequentialRayDatabaseWriter.MaximumHeaderUncompressedBytes
             || compressedLength <= 0
@@ -422,6 +436,7 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         var header = JsonSerializer.Deserialize<NonSequentialRayDatabaseHeader>(json, JsonOptions)
             ?? throw new InvalidDataException("光线数据库文件头为空。");
         ValidateHeader(header);
+        if (header.FormatVersion != version) throw new InvalidDataException("光线数据库头部版本不一致。");
         header = header with
         {
             Wavelengths = Array.AsReadOnly(header.Wavelengths.ToArray()),
@@ -504,13 +519,23 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         var branches = JsonSerializer.Deserialize<List<NonSequentialRayBranch>>(json, JsonOptions)
             ?? throw new InvalidDataException("光线数据库分块为空。");
         if (branches.Count != entry.BranchCount) throw new InvalidDataException("光线数据库分块数量不一致。");
-        foreach (var branch in branches) ValidateBranch(branch, _objectIds, Header.SurfaceBsdfProtocol);
+        foreach (var branch in branches)
+        {
+            ValidateBranch(branch, _objectIds, Header.SurfaceBsdfProtocol);
+            foreach (var segment in branch.Segments)
+            {
+                var expected = Header.TraceSettings.UsePolarization || Header.TraceSettings.CoherentDetection;
+                if (expected != (segment.IncidentField is not null)) throw new InvalidDataException("光线数据库偏振状态与协议不一致。");
+                if (segment.IncidentField is { } field) NonSequentialFieldValidation.Validate(field);
+            }
+        }
         return branches;
     }
 
     private static void ValidateHeader(NonSequentialRayDatabaseHeader header)
     {
-        if (header.FormatVersion != NonSequentialRayDatabaseWriter.CurrentVersion
+        if (header.FormatVersion is < 1 or > NonSequentialRayDatabaseWriter.CurrentVersion
+            || header.FormatVersion == 1 && (header.TraceSettings.UsePolarization || header.TraceSettings.CoherentDetection)
             || header.SceneHash is not { Length: 64 } || !header.SceneHash.All(Uri.IsHexDigit)
             || header.SourceRevision < 0 || header.LengthUnit != "mm" || header.TraceSettings is null
             || header.Wavelengths is null || header.Wavelengths.Any(w => w is null)
@@ -623,6 +648,15 @@ public static class NonSequentialSceneHasher
 {
     private static readonly Lazy<MaterialRegistry> DefaultMaterials = new(() => new MaterialRegistry());
 
+    public static IReadOnlyList<string> ReferencedMaterialNames(NonSequentialDocument document) =>
+        Array.AsReadOnly(document.Objects.SelectMany(item => item.Parameters switch
+        {
+            PlaneRectangleParameters p => new[] { p.MaterialBefore, p.MaterialAfter },
+            SphereParameters p => new[] { p.Material }, CylinderParameters p => new[] { p.Material },
+            BoxParameters p => new[] { p.Material }, StandardLensParameters p => new[] { p.Material },
+            MeshObjectParameters p => new[] { p.Material }, _ => Array.Empty<string>()
+        }).Append(document.AmbientMaterial).Distinct(StringComparer.OrdinalIgnoreCase).Order(StringComparer.OrdinalIgnoreCase).ToArray());
+
     public static string Compute(NonSequentialDocument document, MaterialRegistry? materials = null)
     {
         ArgumentNullException.ThrowIfNull(document);
@@ -639,17 +673,7 @@ public static class NonSequentialSceneHasher
         Add(document.Name);
         Add(document.AmbientMaterial);
         materials ??= DefaultMaterials.Value;
-        var materialNames = document.Objects.SelectMany(item => item.Parameters switch
-        {
-            PlaneRectangleParameters p => new[] { p.MaterialBefore, p.MaterialAfter },
-            SphereParameters p => new[] { p.Material },
-            CylinderParameters p => new[] { p.Material },
-            BoxParameters p => new[] { p.Material },
-            StandardLensParameters p => new[] { p.Material },
-            MeshObjectParameters p => new[] { p.Material },
-            _ => Array.Empty<string>()
-        }).Append(document.AmbientMaterial).Distinct(StringComparer.OrdinalIgnoreCase)
-            .Order(StringComparer.OrdinalIgnoreCase);
+        var materialNames = ReferencedMaterialNames(document);
         foreach (var name in materialNames)
         {
             Add(name);

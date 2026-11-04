@@ -20,9 +20,16 @@ if(mode=="prepare")
  var repository=Path.GetFullPath(args[1]);
  if(Directory.Exists(root)&&Directory.EnumerateFileSystemEntries(root).Any())throw new IOException("Fresh study required");
  Directory.CreateDirectory(root);
- var prior=Path.Combine(repository,"artifacts/zemax-sequential-corpus/20261021/full-v1");
+ var prior=Path.GetFullPath(Path.Combine(repository,"artifacts/zemax-sequential-corpus/20261021/full-v1"));
  var policy=Path.Combine(repository,"tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json");
- if(Hash(policy)!=Hash(Path.Combine(prior,"comparison-settings.json")))throw new InvalidDataException("Policy changed");
+ var repositoryPolicySha256=Hash(policy);
+ var originalPolicy=Path.Combine(prior,"comparison-settings.json");
+ if(Hash(policy)!=Hash(originalPolicy))
+ {
+  if(File.ReadAllText(policy).Replace("\r\n","\n")!=File.ReadAllText(originalPolicy).Replace("\r\n","\n"))
+   throw new InvalidDataException("Policy changed");
+  policy=originalPolicy; // Preserve the original bytes across Git newline conversion.
+ }
  var index=JsonFiles.Read<JsonElement>(Path.Combine(repository,"src/OpticalSystemDesign.App/Assets/SequentialExamples/index.json"));
  var sources=index.GetProperty("Files").EnumerateArray().ToArray();
  if(sources.Length!=95)throw new InvalidDataException("95 product examples required");
@@ -68,11 +75,20 @@ if(mode=="prepare")
    mappings.Add(new{index=i+1,originalFingerprint=request.Fingerprint,effectiveFingerprint=effective.Fingerprint,
     originalSurfaceCount=request.SurfaceCount,effectiveSurfaceCount=surfaceCount,explicitSurface=request.Surface});
   }
-  rows.Add(new(i+1,model.Index,item.Lens,item.Configuration,item.Scope,item.Run.Key,item.Path,snapshot,job,item.Settings,item.Run));
+  // Rebase only storage location: the immutable corpus may have been captured
+  // in another checkout. Numeric requests and native payload bytes stay intact.
+  const string corpusMarker="artifacts/zemax-sequential-corpus/20261021/full-v1/";
+  var recordedPath=item.Path.Replace('\\','/');
+  var markerIndex=recordedPath.IndexOf(corpusMarker,StringComparison.OrdinalIgnoreCase);
+  if(markerIndex<0)throw new InvalidDataException("Unrecognized native corpus storage path: "+item.Path);
+  var legacyPath=Path.GetFullPath(Path.Combine(prior,recordedPath[(markerIndex+corpusMarker.Length)..]));
+  if(!legacyPath.StartsWith(prior+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))
+   throw new InvalidDataException("Native corpus storage path escaped its root");
+  rows.Add(new(i+1,model.Index,item.Lens,item.Configuration,item.Scope,item.Run.Key,legacyPath,snapshot,job,item.Settings,item.Run));
  }
  JsonFiles.Write(Path.Combine(root,"rows.json"),rows);
  JsonFiles.Write(Path.Combine(root,"request-mapping.json"),mappings);
- JsonFiles.Write(Path.Combine(root,"identity.json"),new{coreSha256=coreHash,repository,prior,policy,policySha256=Hash(policy),
+ JsonFiles.Write(Path.Combine(root,"identity.json"),new{coreSha256=coreHash,repository,prior,policy,policySha256=Hash(policy),repositoryPolicySha256,
   indexSha256=Hash(Path.Combine(repository,"src/OpticalSystemDesign.App/Assets/SequentialExamples/index.json")),
   baselineItemsSha256=Hash(Path.Combine(prior,"items.json")),baselineResultsSha256=Hash(Path.Combine(prior,"analysis-results.json")),
   nativeReference="FrozenOpticStudio2026R1_20261021",freshNativeCapture=false,freshSourceImport=true,

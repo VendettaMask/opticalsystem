@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-04",
+  "scope": "Windows managed decorations mirrored over Avalonia.Headless; real controls/Skia; no native desktop windows",
+  "defaultAppBuild": "Release; mandatory built-in modules; zero warnings and errors",
+  "defaultTestBuild": "blocked by pre-existing testhost PID 63336; no process stopped",
+  "focusedTestCompilation": "MSBuild Compile target, Release, exit 0",
+  "finalTestRun": {
+    "total": 30,
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0,
+    "classes": [
+      {
+        "Class": "OpticalSystemDesign.Tests.CommandSearchTests",
+        "Count": 9
+      },
+      {
+        "Class": "OpticalSystemDesign.Tests.LocalizedCommandSearchTests",
+        "Count": 3
+      },
+      {
+        "Class": "OpticalSystemDesign.Tests.MainWindowTitleBarTests",
+        "Count": 9
+      },
+      {
+        "Class": "OpticalSystemDesign.Tests.ThemeRuntimeTests",
+        "Count": 9
+      }
+    ]
+  },
+  "beforeMatrix": {
+    "transitions": 30,
+    "disappeared": 30,
+    "resizeRecovered": 30
+  },
+  "afterMatrix": {
+    "transitions": 30,
+    "disappeared": 0,
+    "manualRecovery": 0
+  },
+  "regressionCoverage": {
+    "normalOrderedTransitions": 30,
+    "maximizedOrderedTransitions": 30,
+    "rapidThemeChanges": 240,
+    "fullscreenRestore": true,
+    "closeWhileRefreshQueued": true,
+    "captionCommandBindingsUnchanged": true
+  },
+  "testedAppSha256": "CE636E672856100EDF2B3340AA2B7E1C1A969750F8B04C063740D8F55A5C63F2",
+  "avaloniaControlsSha256": "61532FDC20B2B0B0CEB277182D9E7DD126215315F7383238AB46F9525A448682",
+  "nativeWindowsCreated": 0,
+  "userProcessesStopped": 0
+}

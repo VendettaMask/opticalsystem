@@ -55,7 +55,7 @@ internal static class ThemeRegistry
         ProductFonts.Interface,
         TextRenderingMode.Unspecified,
         ThemeChromeProfile.CreateStandard(ThemePalette.Light.Border, shadows: false, cardRadius: 6),
-        LightGlassDecorationRenderer.Instance,
+        NoThemeDecorationRenderer.Instance,
         LightTheme.ApplyResources,
         IsDarkLike: false);
 

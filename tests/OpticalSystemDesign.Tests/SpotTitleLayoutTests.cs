@@ -54,7 +54,7 @@ public sealed class SpotTitleLayoutTests
                     var view = new AnalysisViewDto("Spot Diagram", [], "Layout fixture", [series],
                         new AnalysisPlotOptionsDto(), panes, 3, PresentationKind: AnalysisPresentationKind.SpotDiagram);
                     var originalData = JsonSerializer.Serialize(view);
-                    var tabs = Assert.IsType<TabControl>(typeof(AnalysisPanel)
+                    var tabs = Assert.IsAssignableFrom<TabControl>(typeof(AnalysisPanel)
                         .GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
                         .Invoke(null, [view, application.Documents.GetSnapshot(), DateTimeOffset.Now, null]));
                     window.Content = tabs;

@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="45307d05-4eab-4c42-8322-06f5b507361c" name="optics@LAPTOP-G4BBBCS0 2026-11-04 13:38:37" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T13:38:37.6378523+08:00" queuing="2026-11-04T13:38:37.6378525+08:00" start="2026-11-04T13:38:28.1348175+08:00" finish="2026-11-04T13:38:38.7723877+08:00" />
+  <TestSettings name="default" id="3e4cdeb5-033b-4c4a-8fd0-0b8aff39b48c">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-04_13_38_37" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="a671eb55-7afb-48ee-a931-e13476068bc9" testId="22c5f375-65ce-44b7-f884-f764ff93cff5" testName="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1427014" startTime="2026-11-04T13:38:37.9125329+08:00" endTime="2026-11-04T13:38:38.0531921+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a671eb55-7afb-48ee-a931-e13476068bc9">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 95&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 118&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 114&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 12&#xD;
+   at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 68&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs:line 20&#xD;
+   at OpticalSystemDesign.App.App.Initialize() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs:line 461&#xD;
+   at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs:line 117&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6a266170-c4f0-48d2-9817-74e942ef19f7" testId="51d8eb3d-8c89-e563-c732-a4ceea6534c4" testName="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1778230" startTime="2026-11-04T13:38:37.7361872+08:00" endTime="2026-11-04T13:38:37.9094749+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6a266170-c4f0-48d2-9817-74e942ef19f7">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 95&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 118&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 114&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 12&#xD;
+   at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 68&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs:line 20&#xD;
+   at OpticalSystemDesign.App.App.Initialize() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs:line 461&#xD;
+   at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs:line 117&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="68f066b8-be0b-4245-9793-e9d621aa42bb" testId="9db7ef15-a31e-88cd-a8aa-0ec16b97895f" testName="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: &quot;Huygens PSF&quot;, artwork: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1422288" startTime="2026-11-04T13:38:38.2002905+08:00" endTime="2026-11-04T13:38:38.3416444+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="68f066b8-be0b-4245-9793-e9d621aa42bb">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 95&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 118&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 114&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 12&#xD;
+   at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 68&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs:line 20&#xD;
+   at OpticalSystemDesign.App.App.Initialize() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs:line 461&#xD;
+   at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(String key, Int32 artwork) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs:line 36&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="67c28efe-f513-4222-9a78-dc8c20ff23ba" testId="7481d5fe-5d99-b588-9979-ed2c4fb7076b" testName="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.4364531" startTime="2026-11-04T13:38:35.1437792+08:00" endTime="2026-11-04T13:38:37.5798496+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67c28efe-f513-4222-9a78-dc8c20ff23ba">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 95&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 118&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 114&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 12&#xD;
+   at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 68&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs:line 20&#xD;
+   at OpticalSystemDesign.App.App.Initialize() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs:line 461&#xD;
+   at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs:line 117&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c1e597a4-0dde-40cb-9335-9e941bc5b1c0" testId="65673732-edea-03eb-da29-c1f2684ed24b" testName="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: &quot;Wavefront Map&quot;, artwork: 2)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1424696" startTime="2026-11-04T13:38:38.3437051+08:00" endTime="2026-11-04T13:38:38.4849782+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c1e597a4-0dde-40cb-9335-9e941bc5b1c0">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 95&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 118&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 114&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 12&#xD;
+   at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 68&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs:line 20&#xD;
+   at OpticalSystemDesign.App.App.Initialize() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs:line 461&#xD;
+   at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(String key, Int32 artwork) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs:line 36&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a427c395-f50f-4e5c-88c1-9a39fb45311e" testId="ed9b5f50-9158-0640-3688-917a3ae5efba" testName="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: &quot;Huygens MTF&quot;, artwork: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1411634" startTime="2026-11-04T13:38:38.0572075+08:00" endTime="2026-11-04T13:38:38.1985315+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a427c395-f50f-4e5c-88c1-9a39fb45311e">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 95&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 118&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 114&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 12&#xD;
+   at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 68&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs:line 20&#xD;
+   at OpticalSystemDesign.App.App.Initialize() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs:line 461&#xD;
+   at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(String key, Int32 artwork) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs:line 36&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d043c848-b368-4ac2-b8da-85a7fa3352a1" testId="a5cc1835-759a-17cf-5141-af8c6d172e8e" testName="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: &quot;Spot Diagram&quot;, artwork: 3)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1419803" startTime="2026-11-04T13:38:38.4868763+08:00" endTime="2026-11-04T13:38:38.6287216+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d043c848-b368-4ac2-b8da-85a7fa3352a1">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 95&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 118&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 114&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 12&#xD;
+   at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 68&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs:line 20&#xD;
+   at OpticalSystemDesign.App.App.Initialize() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs:line 461&#xD;
+   at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(String key, Int32 artwork) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs:line 36&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f727f13b-1885-4ec2-ae0e-58dd276182ed" testId="c069a894-3982-3f5f-95ae-2d9b2cd447ca" testName="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1484864" startTime="2026-11-04T13:38:37.6141971+08:00" endTime="2026-11-04T13:38:37.7307901+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f727f13b-1885-4ec2-ae0e-58dd276182ed">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotImplementedException : The method or operation is not implemented.</Message>
+          <StackTrace>   at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+   at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 95&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 118&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 114&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 12&#xD;
+   at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs:line 68&#xD;
+   at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs:line 20&#xD;
+   at OpticalSystemDesign.App.App.Initialize() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs:line 461&#xD;
+   at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs:line 117&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="51d8eb3d-8c89-e563-c732-a4ceea6534c4">
+      <Execution id="6a266170-c4f0-48d2-9817-74e942ef19f7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests" name="OtherThemesKeepNativePixelsThroughBookThemeRoundTrips" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c069a894-3982-3f5f-95ae-2d9b2cd447ca">
+      <Execution id="f727f13b-1885-4ec2-ae0e-58dd276182ed" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests" name="OtherThemesKeepNativePixelsThroughBookThemeRoundTrips" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: &quot;Huygens PSF&quot;, artwork: 1)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9db7ef15-a31e-88cd-a8aa-0ec16b97895f">
+      <Execution id="68f066b8-be0b-4245-9793-e9d621aa42bb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests" name="BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: &quot;Spot Diagram&quot;, artwork: 3)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a5cc1835-759a-17cf-5141-af8c6d172e8e">
+      <Execution id="d043c848-b368-4ac2-b8da-85a7fa3352a1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests" name="BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="22c5f375-65ce-44b7-f884-f764ff93cff5">
+      <Execution id="a671eb55-7afb-48ee-a931-e13476068bc9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests" name="OtherThemesKeepNativePixelsThroughBookThemeRoundTrips" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: &quot;Wavefront Map&quot;, artwork: 2)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="65673732-edea-03eb-da29-c1f2684ed24b">
+      <Execution id="c1e597a4-0dde-40cb-9335-9e941bc5b1c0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests" name="BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7481d5fe-5d99-b588-9979-ed2c4fb7076b">
+      <Execution id="67c28efe-f513-4222-9a78-dc8c20ff23ba" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests" name="OtherThemesKeepNativePixelsThroughBookThemeRoundTrips" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: &quot;Huygens MTF&quot;, artwork: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ed9b5f50-9158-0640-3688-917a3ae5efba">
+      <Execution id="a427c395-f50f-4e5c-88c1-9a39fb45311e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests" name="BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="22c5f375-65ce-44b7-f884-f764ff93cff5" executionId="a671eb55-7afb-48ee-a931-e13476068bc9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="51d8eb3d-8c89-e563-c732-a4ceea6534c4" executionId="6a266170-c4f0-48d2-9817-74e942ef19f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9db7ef15-a31e-88cd-a8aa-0ec16b97895f" executionId="68f066b8-be0b-4245-9793-e9d621aa42bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7481d5fe-5d99-b588-9979-ed2c4fb7076b" executionId="67c28efe-f513-4222-9a78-dc8c20ff23ba" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="65673732-edea-03eb-da29-c1f2684ed24b" executionId="c1e597a4-0dde-40cb-9335-9e941bc5b1c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ed9b5f50-9158-0640-3688-917a3ae5efba" executionId="a427c395-f50f-4e5c-88c1-9a39fb45311e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a5cc1835-759a-17cf-5141-af8c6d172e8e" executionId="d043c848-b368-4ac2-b8da-85a7fa3352a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c069a894-3982-3f5f-95ae-2d9b2cd447ca" executionId="f727f13b-1885-4ec2-ae0e-58dd276182ed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="8" executed="8" passed="0" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:02.00]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:04.80]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:04.86]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:07.38]       System.NotImplementedException : The method or operation is not implemented.&#xD;
+[xUnit.net 00:00:07.38]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.38]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.38]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.38]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.38]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(95,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre)&#xD;
+[xUnit.net 00:00:07.38]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(118,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state)&#xD;
+[xUnit.net 00:00:07.38]            at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+[xUnit.net 00:00:07.38]            at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+[xUnit.net 00:00:07.38]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(114,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor()&#xD;
+[xUnit.net 00:00:07.38]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(12,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0()&#xD;
+[xUnit.net 00:00:07.38]            at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+[xUnit.net 00:00:07.38]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(68,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state)&#xD;
+[xUnit.net 00:00:07.38]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs(20,0): at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor()&#xD;
+[xUnit.net 00:00:07.38]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs(461,0): at OpticalSystemDesign.App.App.Initialize()&#xD;
+[xUnit.net 00:00:07.38]            at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+[xUnit.net 00:00:07.38]            at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+[xUnit.net 00:00:07.38]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:07.38]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.38]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs(117,0): at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(String theme)&#xD;
+[xUnit.net 00:00:07.38]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.53]       System.NotImplementedException : The method or operation is not implemented.&#xD;
+[xUnit.net 00:00:07.53]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.53]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.53]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.53]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.53]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(95,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre)&#xD;
+[xUnit.net 00:00:07.53]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(118,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state)&#xD;
+[xUnit.net 00:00:07.53]            at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+[xUnit.net 00:00:07.53]            at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+[xUnit.net 00:00:07.53]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(114,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor()&#xD;
+[xUnit.net 00:00:07.53]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(12,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0()&#xD;
+[xUnit.net 00:00:07.53]            at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+[xUnit.net 00:00:07.53]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(68,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state)&#xD;
+[xUnit.net 00:00:07.53]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs(20,0): at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor()&#xD;
+[xUnit.net 00:00:07.53]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs(461,0): at OpticalSystemDesign.App.App.Initialize()&#xD;
+[xUnit.net 00:00:07.53]            at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+[xUnit.net 00:00:07.53]            at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+[xUnit.net 00:00:07.53]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:07.53]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.53]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs(117,0): at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(String theme)&#xD;
+[xUnit.net 00:00:07.53]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.70]       System.NotImplementedException : The method or operation is not implemented.&#xD;
+[xUnit.net 00:00:07.70]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.70]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.70]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.70]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.70]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(95,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre)&#xD;
+[xUnit.net 00:00:07.70]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(118,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state)&#xD;
+[xUnit.net 00:00:07.70]            at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+[xUnit.net 00:00:07.70]            at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+[xUnit.net 00:00:07.70]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(114,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor()&#xD;
+[xUnit.net 00:00:07.70]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(12,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0()&#xD;
+[xUnit.net 00:00:07.70]            at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+[xUnit.net 00:00:07.70]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(68,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state)&#xD;
+[xUnit.net 00:00:07.70]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs(20,0): at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor()&#xD;
+[xUnit.net 00:00:07.71]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs(461,0): at OpticalSystemDesign.App.App.Initialize()&#xD;
+[xUnit.net 00:00:07.71]            at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+[xUnit.net 00:00:07.71]            at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+[xUnit.net 00:00:07.71]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:07.71]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.71]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs(117,0): at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(String theme)&#xD;
+[xUnit.net 00:00:07.71]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.85]       System.NotImplementedException : The method or operation is not implemented.&#xD;
+[xUnit.net 00:00:07.85]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.85]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.85]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.85]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.85]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(95,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre)&#xD;
+[xUnit.net 00:00:07.85]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(118,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state)&#xD;
+[xUnit.net 00:00:07.85]            at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+[xUnit.net 00:00:07.85]            at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+[xUnit.net 00:00:07.85]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(114,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor()&#xD;
+[xUnit.net 00:00:07.85]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(12,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0()&#xD;
+[xUnit.net 00:00:07.85]            at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+[xUnit.net 00:00:07.85]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(68,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state)&#xD;
+[xUnit.net 00:00:07.85]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs(20,0): at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor()&#xD;
+[xUnit.net 00:00:07.85]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs(461,0): at OpticalSystemDesign.App.App.Initialize()&#xD;
+[xUnit.net 00:00:07.85]            at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+[xUnit.net 00:00:07.85]            at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+[xUnit.net 00:00:07.85]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:07.85]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.85]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs(117,0): at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(String theme)&#xD;
+[xUnit.net 00:00:07.85]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.99]       System.NotImplementedException : The method or operation is not implemented.&#xD;
+[xUnit.net 00:00:07.99]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.99]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.99]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.99]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:07.99]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(95,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre)&#xD;
+[xUnit.net 00:00:07.99]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(118,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state)&#xD;
+[xUnit.net 00:00:07.99]            at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+[xUnit.net 00:00:07.99]            at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+[xUnit.net 00:00:07.99]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(114,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor()&#xD;
+[xUnit.net 00:00:07.99]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(12,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0()&#xD;
+[xUnit.net 00:00:07.99]            at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+[xUnit.net 00:00:07.99]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(68,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state)&#xD;
+[xUnit.net 00:00:07.99]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs(20,0): at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor()&#xD;
+[xUnit.net 00:00:07.99]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs(461,0): at OpticalSystemDesign.App.App.Initialize()&#xD;
+[xUnit.net 00:00:07.99]            at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+[xUnit.net 00:00:07.99]            at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+[xUnit.net 00:00:07.99]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:07.99]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.99]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs(36,0): at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(String key, Int32 artwork)&#xD;
+[xUnit.net 00:00:07.99]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.14]       System.NotImplementedException : The method or operation is not implemented.&#xD;
+[xUnit.net 00:00:08.14]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.14]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:08.14]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:08.14]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:08.14]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(95,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre)&#xD;
+[xUnit.net 00:00:08.14]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(118,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state)&#xD;
+[xUnit.net 00:00:08.14]            at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+[xUnit.net 00:00:08.14]            at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+[xUnit.net 00:00:08.14]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(114,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor()&#xD;
+[xUnit.net 00:00:08.14]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(12,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0()&#xD;
+[xUnit.net 00:00:08.14]            at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+[xUnit.net 00:00:08.14]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(68,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state)&#xD;
+[xUnit.net 00:00:08.14]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs(20,0): at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor()&#xD;
+[xUnit.net 00:00:08.14]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs(461,0): at OpticalSystemDesign.App.App.Initialize()&#xD;
+[xUnit.net 00:00:08.14]            at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+[xUnit.net 00:00:08.14]            at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+[xUnit.net 00:00:08.14]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.14]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.14]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs(36,0): at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(String key, Int32 artwork)&#xD;
+[xUnit.net 00:00:08.14]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.28]       System.NotImplementedException : The method or operation is not implemented.&#xD;
+[xUnit.net 00:00:08.28]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.28]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:08.28]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:08.28]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:08.28]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(95,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre)&#xD;
+[xUnit.net 00:00:08.28]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(118,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state)&#xD;
+[xUnit.net 00:00:08.28]            at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+[xUnit.net 00:00:08.28]            at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+[xUnit.net 00:00:08.28]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(114,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor()&#xD;
+[xUnit.net 00:00:08.28]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(12,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0()&#xD;
+[xUnit.net 00:00:08.28]            at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+[xUnit.net 00:00:08.28]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(68,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state)&#xD;
+[xUnit.net 00:00:08.28]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs(20,0): at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor()&#xD;
+[xUnit.net 00:00:08.28]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs(461,0): at OpticalSystemDesign.App.App.Initialize()&#xD;
+[xUnit.net 00:00:08.28]            at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+[xUnit.net 00:00:08.28]            at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+[xUnit.net 00:00:08.28]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.28]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.28]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs(36,0): at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(String key, Int32 artwork)&#xD;
+[xUnit.net 00:00:08.28]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.42]       System.NotImplementedException : The method or operation is not implemented.&#xD;
+[xUnit.net 00:00:08.42]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.42]            at Avalonia.Media.DrawingGroup.DrawingGroupDrawingContext.DrawBitmap(IRef`1 source, Double opacity, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:08.42]            at Avalonia.Media.Imaging.Bitmap.Avalonia.Media.IImage.Draw(DrawingContext context, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:08.42]            at Avalonia.Media.DrawingContext.DrawImage(IImage source, Rect sourceRect, Rect destRect)&#xD;
+[xUnit.net 00:00:08.42]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(95,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d, Double sx, Double sy, Double dx, Double dy, Boolean omitCentre)&#xD;
+[xUnit.net 00:00:08.42]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(118,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork.&lt;.ctor&gt;b__7_0(Int32 state)&#xD;
+[xUnit.net 00:00:08.42]            at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+[xUnit.net 00:00:08.42]            at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+[xUnit.net 00:00:08.42]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(114,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.Artwork..ctor()&#xD;
+[xUnit.net 00:00:08.42]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(12,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.&lt;&gt;c.&lt;.cctor&gt;b__22_0()&#xD;
+[xUnit.net 00:00:08.42]            at System.Threading.ThreadLocal`1.GetValueSlow()&#xD;
+[xUnit.net 00:00:08.42]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiCraftsmanship.cs(68,0): at OpticalSystemDesign.App.Theming.IsekaiCraftsmanship.PlaqueBrush(Int32 state)&#xD;
+[xUnit.net 00:00:08.42]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\Theming\IsekaiThemeStyles.cs(20,0): at OpticalSystemDesign.App.Theming.IsekaiThemeStyles..ctor()&#xD;
+[xUnit.net 00:00:08.42]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.App\App.cs(461,0): at OpticalSystemDesign.App.App.Initialize()&#xD;
+[xUnit.net 00:00:08.42]            at Avalonia.AppBuilder.SetupUnsafe()&#xD;
+[xUnit.net 00:00:08.42]            at Avalonia.Headless.HeadlessUnitTestSession.EnsureIsolatedApplication()&#xD;
+[xUnit.net 00:00:08.42]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.42]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.42]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs(36,0): at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(String key, Int32 artwork)&#xD;
+[xUnit.net 00:00:08.42]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.44]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T13:38:37.5847649+08:00">
+        <Text>[xUnit.net 00:00:07.38]     OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: "Lumen") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T13:38:37.7314304+08:00">
+        <Text>[xUnit.net 00:00:07.53]     OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: "Pixel") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T13:38:37.9100660+08:00">
+        <Text>[xUnit.net 00:00:07.70]     OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: "Light") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T13:38:38.0539954+08:00">
+        <Text>[xUnit.net 00:00:07.85]     OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: "Dark") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T13:38:38.1990125+08:00">
+        <Text>[xUnit.net 00:00:07.99]     OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: "Huygens MTF", artwork: 0) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T13:38:38.3420802+08:00">
+        <Text>[xUnit.net 00:00:08.14]     OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: "Huygens PSF", artwork: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T13:38:38.4854795+08:00">
+        <Text>[xUnit.net 00:00:08.28]     OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: "Wavefront Map", artwork: 2) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T13:38:38.6292130+08:00">
+        <Text>[xUnit.net 00:00:08.42]     OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: "Spot Diagram", artwork: 3) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

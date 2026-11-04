@@ -4,6 +4,7 @@ using Avalonia.Headless;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using Avalonia.LogicalTree;
 using OpticalSystemDesign.App.Laboratories;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
@@ -30,7 +31,13 @@ public sealed class CameraNonSequentialWindowTests
             try
             {
                 window.Show(); window.UpdateLayout();
-                T Find<T>(string name) where T : Control => window.GetVisualDescendants().OfType<T>().Single(c => c.Name == "camera-" + name);
+                T Find<T>(string name) where T : Control
+                {
+                    var control = window.GetLogicalDescendants().OfType<T>().Single(c => c.Name == "camera-" + name);
+                    foreach (var section in control.GetLogicalAncestors().OfType<Expander>()) section.IsExpanded = true;
+                    window.UpdateLayout(); Assert.True(control.IsEffectivelyVisible);
+                    return control;
+                }
                 Find<ComboBox>("optics").SelectedIndex = (int)CameraOptics.DetectorInput;
                 Assert.False(Find<Button>("run").IsEnabled);
                 Find<ComboBox>("optics").SelectedIndex = (int)CameraOptics.Ideal;

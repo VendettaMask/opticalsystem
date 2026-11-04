@@ -22,7 +22,7 @@ public static class StarOptProjectStore
 {
     public const string Extension = ".staropt";
     public const ushort ContainerVersion = 2;
-    public const int ProjectFormatVersion = 21;
+    public const int ProjectFormatVersion = 22;
     public const int MaximumConfigurationCount = 4096;
     public const int MaximumPayloadLength = 256 * 1024 * 1024;
 
@@ -54,7 +54,8 @@ public static class StarOptProjectStore
         }
 
         var project = new StarOptProjectSnapshot(
-            document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true}) == true ? 21
+            RequiresNonSequentialPhysics(document.NonSequentialDocument) ? 22
+                : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true}) == true ? 21
                 : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters {IncidentSurface:not null}) == true ? 20
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.AbsoluteRbfXyzProtocol) == true ? 19
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.LogInterpolationProtocol) == true ? 18
@@ -285,6 +286,8 @@ public static class StarOptProjectStore
             throw new InvalidDataException("Optical assemblies require project version 20.");
         if (project.FormatVersion < 21 && nonSequentialDocument.Objects.Any(o=>o.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true}))
             throw new InvalidDataException("Aspheric/per-surface optical frames require project version 21.");
+        if (project.FormatVersion < 22 && RequiresNonSequentialPhysics(nonSequentialDocument))
+            throw new InvalidDataException("NSC polarization/coherent data require project version 22.");
         if (project.FormatVersion < 18 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.LogInterpolationProtocol))
             throw new InvalidDataException("Logarithmic measured BSDF requires STAROPT project version 18.");
         if (project.FormatVersion < 19 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.AbsoluteRbfXyzProtocol))
@@ -306,6 +309,10 @@ public static class StarOptProjectStore
             project.BrokenLinks,
             nonSequentialDocument, project.OperandRows, project.OperandVariables, project.OperandPickups);
     }
+
+    private static bool RequiresNonSequentialPhysics(NonSequentialDocument? document) => document is not null &&
+        (document.TraceSettings.UsePolarization || document.TraceSettings.CoherentDetection
+        || document.Objects.Any(o => o.Parameters is SourceParameters { Physics: not null } or SourceParameters { WavelengthNumber: 0 } or DetectorRectangleParameters { NormalizeCoherentPower: true }));
 
     private static byte[] BuildHeader(ReadOnlySpan<byte> json, int compressedLength, ushort containerVersion)
     {

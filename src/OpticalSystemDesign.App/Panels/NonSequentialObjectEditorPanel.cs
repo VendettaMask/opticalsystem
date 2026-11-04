@@ -78,6 +78,18 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
     private Control BuildCommands()
     {
         var import = CommandButton("导入 STL");
+        var zemax = CommandButton("导入 Zemax NSC");
+        zemax.Click += async (_, _) =>
+        {
+            if (TopLevel.GetTopLevel(this) is Window owner)
+                await new NonSequentialZemaxImportWindow(_service).ShowDialog(owner);
+        };
+        var design = CommandButton("优化与公差");
+        design.Click += async (_, _) =>
+        {
+            if (TopLevel.GetTopLevel(this) is Window owner)
+                await new NonSequentialDesignWindow(_service).ShowDialog(owner);
+        };
         import.Click += async (_, _) => await ImportStlAsync();
         var add = CommandButton("添加");
         add.Click += (_, _) =>
@@ -118,7 +130,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         {
             Orientation = Orientation.Horizontal,
             Margin = new Avalonia.Thickness(10, 6),
-            Children = { _addKind, add, import, remove, copy, paste, up, down, convert, _summary }
+            Children = { _addKind, add, import, zemax, design, remove, copy, paste, up, down, convert, _summary }
         };
         var border = new Border { BorderThickness = new Avalonia.Thickness(0, 0, 0, 1), Child = content };
         border.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
@@ -365,16 +377,25 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             case DetectorRectangleParameters p:
                 Field("width", "宽度 (mm)", p.WidthMillimeters); Field("height", "高度 (mm)", p.HeightMillimeters);
                 Field("pixelsX", "X 像素", p.PixelsX); Field("pixelsY", "Y 像素", p.PixelsY);
-                Field("frontOnly", "仅接收正面", p.FrontOnly); Field("absorb", "吸收终止", p.Absorb); break;
+                Field("frontOnly", "仅接收正面", p.FrontOnly); Field("absorb", "吸收终止", p.Absorb);
+                Field("normalizeCoherent", "相干功率按总功率归一", p.NormalizeCoherentPower); break;
         }
     }
 
     private void Source(SourceParameters p)
     {
         Field("power", "功率 (W)", p.PowerWatts);
-        Field("wavelength", "波长编号", p.WavelengthNumber);
+        Field("wavelength", "波长编号（0=按权重抽样）", p.WavelengthNumber);
         Field("layout", "布局射线数", p.LayoutRayCount);
         Field("analysis", "分析射线数", p.AnalysisRayCount);
+        var physics = p.Physics ?? new();
+        var polarization = physics.Polarization ?? new();
+        Field("unpolarized", "非偏振光", polarization.Unpolarized);
+        Field("jx", "Jones X 幅值", polarization.Jx); Field("jy", "Jones Y 幅值", polarization.Jy);
+        Field("px", "X 相位 (°)", polarization.XPhaseDegrees); Field("py", "Y 相位 (°)", polarization.YPhaseDegrees);
+        Field("polAxis", "偏振参考轴（局部）", polarization.ReferenceAxis);
+        Field("coherenceGroup", "相干组（留空为独立光源）", physics.CoherenceGroup ?? "");
+        Field("sourcePhase", "初始相位 (°)", physics.PhaseDegrees);
     }
 
     private void SurfaceSourceDistribution(SourceRectangleParameters p) => SurfaceSourceDistribution(
@@ -419,6 +440,14 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         {
             var kind = _kind.SelectedItem is NonSequentialObjectKind selected ? selected : row.Kind;
             var parameters = kind == row.Kind ? ReadParameters(row.Parameters) : _service.GetDefaultParameters(kind);
+            if (parameters is SourceParameters source && kind == row.Kind)
+            {
+                var group = S("coherenceGroup").Trim();
+                parameters = source with { Physics = new(
+                    new OpticalSystemDesign.Core.Rays.SystemPolarization(B("unpolarized"), D("jx"), D("jy"), D("px"), D("py"),
+                        E<OpticalSystemDesign.Core.Rays.PolarizationReferenceAxis>("polAxis")),
+                    group.Length == 0 ? null : group, D("sourcePhase")) };
+            }
             _service.UpdateObject(row.ToUpdate() with
             {
                 Kind = kind,
@@ -461,7 +490,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         BoxParameters p => p with { WidthMillimeters = D("width"), HeightMillimeters = D("height"), LengthMillimeters = D("length"), Material = S("material"), Behavior = E<NonSequentialSurfaceBehavior>("behavior") },
         StandardLensParameters p => p with { FrontRadiusMillimeters = D("frontRadius"), BackRadiusMillimeters = D("backRadius"), FrontConic = D("frontConic"), BackConic = D("backConic"), CenterThicknessMillimeters = D("thickness"), SemiDiameterMillimeters = D("semiDiameter"), Material = S("material") },
         MeshObjectParameters p => p with { Behavior = E<NonSequentialSurfaceBehavior>("behavior"), Material = S("material"), TwoSided = B("twoSided") },
-        DetectorRectangleParameters p => p with { WidthMillimeters = D("width"), HeightMillimeters = D("height"), PixelsX = I("pixelsX"), PixelsY = I("pixelsY"), FrontOnly = B("frontOnly"), Absorb = B("absorb") },
+        DetectorRectangleParameters p => p with { WidthMillimeters = D("width"), HeightMillimeters = D("height"), PixelsX = I("pixelsX"), PixelsY = I("pixelsY"), FrontOnly = B("frontOnly"), Absorb = B("absorb"), NormalizeCoherentPower = B("normalizeCoherent") },
         OpticalAssemblyParameters p => p,
         _ => throw new InvalidOperationException("未知非序列对象参数。")
     };

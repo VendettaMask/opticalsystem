@@ -642,7 +642,33 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
         }
         var frame = frames
             .Single(item => item.DetectorId == request.DetectorId);
-        var values = BuildDetectorValues(frame, detector, request, cancellationToken);
+        NonSequentialFieldView? fieldView = null;
+        double[] values;
+        if (request.DataType is NonSequentialDetectorDataType.FieldReal or NonSequentialDetectorDataType.FieldImaginary
+            or NonSequentialDetectorDataType.FieldMagnitude or NonSequentialDetectorDataType.FieldPhase)
+        {
+            if (!document.TraceSettings.CoherentDetection || request.Space != NonSequentialDetectorSpace.Position)
+                throw new InvalidOperationException("复振幅/相位需要相干追迹数据库和位置空间。");
+            if (request.WavelengthNumber < 1 || request.WavelengthNumber > document.Wavelengths.Count)
+                throw new ArgumentException("复振幅/相位必须选择单个波长。");
+            var groups = document.Objects.Where(o => o.Enabled && o.Parameters is CoreSourceParameters)
+                .Select(o => ((CoreSourceParameters)o.Parameters).Physics?.CoherenceGroup ?? o.Id.ToString("N")).Distinct(StringComparer.Ordinal).ToArray();
+            if (request.CoherenceGroup is { } explicitGroup && !groups.Contains(explicitGroup, StringComparer.Ordinal))
+                throw new ArgumentException("选择的相干组不存在或已禁用。");
+            var group = request.CoherenceGroup ?? (groups.Length == 1 ? groups[0] : null);
+            var kind = request.DataType switch
+            {
+                NonSequentialDetectorDataType.FieldReal => NonSequentialFieldViewKind.Real,
+                NonSequentialDetectorDataType.FieldImaginary => NonSequentialFieldViewKind.Imaginary,
+                NonSequentialDetectorDataType.FieldMagnitude => NonSequentialFieldViewKind.Magnitude,
+                _ => NonSequentialFieldViewKind.PhaseDegrees
+            };
+            fieldView = NonSequentialFieldViewBuilder.Extract(frame, request.WavelengthNumber, group,
+                request.CoherentMode, request.FieldComponent, kind, cancellationToken);
+            values = fieldView.Values.ToArray();
+        }
+        else values = BuildDetectorValues(frame, detector, request, cancellationToken,
+            document.TraceSettings.UsePolarization || document.TraceSettings.CoherentDetection, document.TraceSettings.CoherentDetection);
         var xMin = request.Space == NonSequentialDetectorSpace.Position ? -detector.WidthMillimeters / 2 : -90;
         var xMax = request.Space == NonSequentialDetectorSpace.Position ? detector.WidthMillimeters / 2 : 90;
         var yMin = request.Space == NonSequentialDetectorSpace.Position ? -detector.HeightMillimeters / 2 : -90;
@@ -656,17 +682,18 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
             for (var x = 0; x < frame.PixelsX; x++)
             {
                 var value = values[y * frame.PixelsX + x];
-                xProfile[x] += value;
-                yProfile[y] += value;
+                xProfile[x] += fieldView is null ? value : double.NaN;
+                yProfile[y] += fieldView is null ? value : double.NaN;
             }
         }
-        var valueUnit = request.DataType switch
+        var valueUnit = fieldView?.Unit ?? (request.DataType switch
         {
             NonSequentialDetectorDataType.PixelPower => "W",
             NonSequentialDetectorDataType.IncoherentIrradiance => "W/mm²",
             NonSequentialDetectorDataType.HitCount => "count",
+            >= NonSequentialDetectorDataType.CoherentPower => "W",
             _ => "W/sr"
-        };
+        });
         var selectedSession = _analysisSession.Snapshot(document, revision, materials);
         var selectedSessionIsStale = selectedSession is not null
             && Path.GetFullPath(path).Equals(selectedSession.RayDatabasePath, StringComparison.OrdinalIgnoreCase)
@@ -678,7 +705,7 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
             request.Space == NonSequentialDetectorSpace.Position ? "mm" : "deg",
             valueUnit, values, xProfile, yProfile, statistics,
             reader.IsStale(document, materials) || selectedSessionIsStale,
-            Path.GetFullPath(path));
+            Path.GetFullPath(path)) { DataType = request.DataType, Space = request.Space, FieldSelection = fieldView?.Selection, ValidPixels = fieldView?.Valid };
     }
 
     private static string CreateTraceConfigurationFingerprint(
@@ -816,8 +843,14 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
         NonSequentialDetectorFrame frame,
         CoreDetectorRectangleParameters detector,
         NonSequentialDetectorViewRequestDto request,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken, bool polarized, bool coherentEnabled)
     {
+        if ((request.DataType is NonSequentialDetectorDataType.CoherentPower or NonSequentialDetectorDataType.RawCoherentPower) && !coherentEnabled)
+            throw new InvalidOperationException("当前数据库未计算相干场，请启用相干探测并重新追迹。");
+        if (request.DataType >= NonSequentialDetectorDataType.StokesI && !polarized)
+            throw new InvalidOperationException("当前数据库未计算偏振场，请启用偏振并重新追迹。");
+        if (request.Space == NonSequentialDetectorSpace.Angle && (int)request.DataType >= (int)NonSequentialDetectorDataType.CoherentPower)
+            throw new ArgumentException("相干和 Stokes 数据使用位置像素，请选择位置空间。", nameof(request));
         var length = frame.PixelsX * frame.PixelsY;
         var selectedWavelengths = request.WavelengthNumber > 0
             ? new[] { request.WavelengthNumber }
@@ -826,6 +859,24 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
         foreach (var wavelength in selectedWavelengths)
         {
             cancellationToken.ThrowIfCancellationRequested();
+            if ((int)request.DataType >= (int)NonSequentialDetectorDataType.CoherentPower)
+            {
+                IReadOnlyList<double>? fieldPixels = null;
+                if (request.DataType is NonSequentialDetectorDataType.CoherentPower or NonSequentialDetectorDataType.RawCoherentPower)
+                {
+                    if (frame.CoherentByWavelength?.TryGetValue(wavelength, out var coherent) == true)
+                        fieldPixels = request.DataType == NonSequentialDetectorDataType.CoherentPower ? coherent.PowerWatts : coherent.RawPowerWatts;
+                }
+                else if (frame.StokesByWavelength?.TryGetValue(wavelength, out var stokes) == true)
+                    fieldPixels = request.DataType switch
+                    {
+                        NonSequentialDetectorDataType.StokesI => stokes.I, NonSequentialDetectorDataType.StokesQ => stokes.Q,
+                        NonSequentialDetectorDataType.StokesU => stokes.U, NonSequentialDetectorDataType.StokesV => stokes.V,
+                        NonSequentialDetectorDataType.LongitudinalPower => stokes.LongitudinalPowerWatts, _ => null
+                    };
+                if (fieldPixels is not null) for (var index = 0; index < length; index++) values[index] += fieldPixels[index];
+                continue;
+            }
             if (request.DataType == NonSequentialDetectorDataType.HitCount)
             {
                 var hitMap = request.Space == NonSequentialDetectorSpace.Angle
@@ -889,7 +940,19 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
         double yMax,
         CancellationToken cancellationToken)
     {
-        var total = values.Sum();
+        var selectedWavelengths = request.WavelengthNumber > 0
+            ? new[] { request.WavelengthNumber }
+            : frame.PowerByWavelength.Keys.ToArray();
+        IReadOnlyList<double> weights = values;
+        if (request.DataType >= NonSequentialDetectorDataType.CoherentPower)
+        {
+            var physicalWeights = new double[values.Count];
+            foreach (var w in selectedWavelengths)
+                if (frame.PowerByWavelength.TryGetValue(w, out var pixels))
+                    for (var i = 0; i < physicalWeights.Length; i++) physicalWeights[i] += pixels[i];
+            weights = physicalWeights;
+        }
+        var total = weights.Sum();
         var centroidX = 0.0;
         var centroidY = 0.0;
         if (total > 0)
@@ -899,7 +962,7 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
                 cancellationToken.ThrowIfCancellationRequested();
                 for (var x = 0; x < frame.PixelsX; x++)
                 {
-                    var weight = values[y * frame.PixelsX + x];
+                    var weight = weights[y * frame.PixelsX + x];
                     centroidX += (xMin + (x + 0.5) * (xMax - xMin) / frame.PixelsX) * weight;
                     centroidY += (yMin + (y + 0.5) * (yMax - yMin) / frame.PixelsY) * weight;
                 }
@@ -916,7 +979,7 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
                 cancellationToken.ThrowIfCancellationRequested();
                 for (var x = 0; x < frame.PixelsX; x++)
                 {
-                    var weight = values[y * frame.PixelsX + x];
+                    var weight = weights[y * frame.PixelsX + x];
                     var px = xMin + (x + 0.5) * (xMax - xMin) / frame.PixelsX;
                     var py = yMin + (y + 0.5) * (yMax - yMin) / frame.PixelsY;
                     varianceX += (px - centroidX) * (px - centroidX) * weight;
@@ -924,12 +987,10 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
                 }
             }
         }
-        var maximum = values.Count == 0 ? 0 : values.Max();
-        var minimum = values.Count == 0 ? 0 : values.Min();
-        var uniformity = maximum + minimum <= 0 ? 0 : 1 - (maximum - minimum) / (maximum + minimum);
-        var selectedWavelengths = request.WavelengthNumber > 0
-            ? new[] { request.WavelengthNumber }
-            : frame.PowerByWavelength.Keys;
+        var maximum = values.Where(double.IsFinite).DefaultIfEmpty(0).Max();
+        var weightMaximum = weights.Count == 0 ? 0 : weights.Max();
+        var weightMinimum = weights.Count == 0 ? 0 : weights.Min();
+        var uniformity = weightMaximum + weightMinimum <= 0 ? 0 : 1 - (weightMaximum - weightMinimum) / (weightMaximum + weightMinimum);
         var totalPower = selectedWavelengths.Sum(wavelength =>
             frame.PowerByWavelength.TryGetValue(wavelength, out var pixels) ? pixels.Sum() : 0);
         var hitMap = request.Space == NonSequentialDetectorSpace.Angle

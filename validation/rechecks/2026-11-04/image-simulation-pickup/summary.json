@@ -1,0 +1,57 @@
+{
+  "requests": 60,
+  "before": {
+    "Pass": 0,
+    "Close": 0,
+    "Difference": 52,
+    "Incomparable": 2,
+    "Error": 6
+  },
+  "after": {
+    "Pass": 52,
+    "Close": 4,
+    "Difference": 2,
+    "Incomparable": 2,
+    "Error": 0
+  },
+  "newPasses": 52,
+  "retainedNativeInvalidReferences": 2,
+  "remainingClose": 4,
+  "remainingDifference": 2,
+  "remainingError": 0,
+  "coreSha256": "1af8b46ae62b581a85b05b3954f0d8dd1a1414e989d1c826feaed272836036a3",
+  "importedSources": 95,
+  "importedConfigurations": 114,
+  "unchangedConfigurations": 112,
+  "correctedConfigurations": 2,
+  "unchangedImportErrors": 1,
+  "uniqueFocusedTests": 164,
+  "latestRoundtripSubset": 11,
+  "testFailures": 0,
+  "testSkipped": 0,
+  "firstFixtureFailurePreserved": true,
+  "sourcePrescriptionsUnchanged": true,
+  "originalSamplingUnchanged": true,
+  "originalReferencesUnchanged": true,
+  "tolerancesUnchanged": true,
+  "phaseGateUnchanged": true,
+  "full3024Rerun": false,
+  "nativeCaptured": false,
+  "referenceConvergence": "Original captures only; not newly certified",
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.cs",
+      "sha256": "149482e0fe7f8a96049bc4b647bc3af083d430ca6d2eb980a78f2dd877ed570f"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ZemaxCrossColumnPickupTests.cs",
+      "sha256": "1729117e1521237aa899350c74f660ce00dd2d04b00a1d3fe3c0436f9972f4ff"
+    },
+    {
+      "path": "tools/diagnostics/ImageSimulationPropagation20261104/Program.cs",
+      "sha256": "dec653574d6fda99ab4e0a2eb5451ce06c0b9362837de80f0af309d2a74dd88a"
+    }
+  ],
+  "primaryFocusedTests": 156,
+  "independentCameraProtectionTests": 8
+}

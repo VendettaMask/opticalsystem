@@ -4,7 +4,7 @@ namespace OpticalSystemDesign.Core.NonSequential;
 
 // Shared spatial/angular accumulation. Callers supply their established normalized
 // direction, or null to retain a spatial hit without an angular sample.
-internal sealed class NonSequentialDetectorAccumulator
+internal sealed partial class NonSequentialDetectorAccumulator
 {
     private readonly NonSequentialObjectDefinition _item;
     private readonly DetectorRectangleParameters _parameters;
@@ -12,17 +12,22 @@ internal sealed class NonSequentialDetectorAccumulator
     private readonly Dictionary<int, long[]> _hits = new();
     private readonly Dictionary<int, double[]> _angularPixels = new();
     private readonly Dictionary<int, long[]> _angularHits = new();
+    private readonly bool _collectMoments;
+    private readonly Dictionary<int, NonSequentialMomentAccumulator> _moments = [];
 
-    public NonSequentialDetectorAccumulator(NonSequentialObjectDefinition item)
+    public NonSequentialDetectorAccumulator(NonSequentialObjectDefinition item, bool collectMoments = false)
     {
         _item = item;
         _parameters = (DetectorRectangleParameters)item.Parameters;
+        _collectMoments = collectMoments;
     }
 
     public bool Accepts(Vector3D direction) =>
         !_parameters.FrontOnly || direction.Z > 0;
 
-    public void Add(Vector3D point, Vector3D? normalizedDirection, int wavelength, double power)
+    public void Add(Vector3D point, Vector3D? normalizedDirection, int wavelength, double power,
+        NonSequentialIncidentField? field = null, NonSequentialDocument? document = null, Vector3D? worldDirection = null,
+        double wavelengthNanometers = 0, bool coherent = false)
     {
         if (!NonSequentialDetectorPixels.TryIndex(point.X, _parameters.WidthMillimeters, _parameters.PixelsX, out var x)
             || !NonSequentialDetectorPixels.TryIndex(point.Y, _parameters.HeightMillimeters, _parameters.PixelsY, out var y)) return;
@@ -32,6 +37,14 @@ internal sealed class NonSequentialDetectorAccumulator
             _pixels[wavelength] = values;
         }
         values[y * _parameters.PixelsX + x] += power;
+        if (_collectMoments)
+        {
+            if (!_moments.TryGetValue(wavelength, out var moments)) _moments.Add(wavelength, moments = new());
+            moments.Add(point.X, point.Y, power);
+        }
+        if (field is not null)
+            AddField(x, y, point, normalizedDirection, wavelength, power, field,
+                document ?? throw new ArgumentNullException(nameof(document)), wavelengthNanometers, coherent);
         if (!_hits.TryGetValue(wavelength, out var hitValues))
         {
             hitValues = new long[_parameters.PixelsX * _parameters.PixelsY];
@@ -70,7 +83,10 @@ internal sealed class NonSequentialDetectorAccumulator
             values.Values.Sum(pixels => pixels.Sum()),
             Snapshot(_hits),
             Snapshot(_angularPixels),
-            Snapshot(_angularHits));
+            Snapshot(_angularHits))
+        { StokesByWavelength = StokesSnapshot(), CoherentByWavelength = CoherentSnapshot(),
+            MomentsByWavelength = _collectMoments ? new System.Collections.ObjectModel.ReadOnlyDictionary<int, NonSequentialDetectorMoments>(
+                _moments.ToDictionary(p => p.Key, p => p.Value.Snapshot())) : null };
     }
 
     private static IReadOnlyDictionary<int, IReadOnlyList<double>> Snapshot(Dictionary<int, double[]> source) =>

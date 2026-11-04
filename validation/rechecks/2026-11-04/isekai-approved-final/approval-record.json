@@ -1,0 +1,80 @@
+{
+  "Date": "2026-11-04",
+  "RecordedAt": "2026-11-04T16:15:13.4136339+08:00",
+  "Scope": "Finalize user-approved same-parchment manuscript toolbar/footer; preserve original ornaments; gray/quill interpretation withdrawn.",
+  "ReferenceScreenshot": {
+    "Path": "validation/rechecks/2026-11-04/isekai-manuscript-bands/workbench/analysis-workbench-1600-13.png",
+    "Sha256": "acab60c2090c9c99536bac7cc363e243701b2b3db19e31c92f05800500141025"
+  },
+  "ApprovedImplementationUnchanged": true,
+  "ApprovedSourceComparisons": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/AnalysisBookWorkspace.cs",
+      "ApprovedSha256": "cf394a5f9c46b2ce185cc894c3782a1003db9744a8e8ed44b893deaf2b9e8dbd",
+      "CurrentSha256": "cf394a5f9c46b2ce185cc894c3782a1003db9744a8e8ed44b893deaf2b9e8dbd",
+      "Same": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Controls/AnalysisResultTabs.cs",
+      "ApprovedSha256": "8c548ee1b3f394a5e7230813953b57f1cdffb18af0d41083afa6c144f4617124",
+      "CurrentSha256": "8c548ee1b3f394a5e7230813953b57f1cdffb18af0d41083afa6c144f4617124",
+      "Same": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs",
+      "ApprovedSha256": "fcfb68495ac15390c67685f04b42fa33ed5853542f801a212f73ece636f15e6d",
+      "CurrentSha256": "fcfb68495ac15390c67685f04b42fa33ed5853542f801a212f73ece636f15e6d",
+      "Same": true
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/IsekaiThemeStyles.cs",
+      "ApprovedSha256": "fc01f97a8c65fe5e7f08013c98a3fe88152fce29a3dc05296d7df6230dc25fb8",
+      "CurrentSha256": "fc01f97a8c65fe5e7f08013c98a3fe88152fce29a3dc05296d7df6230dc25fb8",
+      "Same": true
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/IsekaiCraftedWorkbenchTests.cs",
+      "ApprovedSha256": "a59f18f5e06219f0cbcddce8c64af80861b528bab8a11e92ec4afb7a989710a3",
+      "CurrentSha256": "a59f18f5e06219f0cbcddce8c64af80861b528bab8a11e92ec4afb7a989710a3",
+      "Same": true
+    }
+  ],
+  "ReleaseAssembly": {
+    "Path": "src/OpticalSystemDesign.App/bin/Release/net10.0/OpticalSystemDesign.App.dll",
+    "Sha256": "4179c48bd6a163c1c202349b0302b2b8364fdd6abb1ac0975ce4f9733880a29a",
+    "IsekaiEmbeddedResourceCount": 9,
+    "IsekaiEmbeddedResources": [
+      "OpticalSystemDesign.App.Assets.Themes.Isekai.analysis-accessory-atlas.png",
+      "OpticalSystemDesign.App.Assets.Themes.Isekai.analysis-folio-atlas.png",
+      "OpticalSystemDesign.App.Assets.Themes.Isekai.book-navigation-ornament.png",
+      "OpticalSystemDesign.App.Assets.Themes.Isekai.crafted-crest-trims.png",
+      "OpticalSystemDesign.App.Assets.Themes.Isekai.crafted-leather.png",
+      "OpticalSystemDesign.App.Assets.Themes.Isekai.crafted-paper-corners.png",
+      "OpticalSystemDesign.App.Assets.Themes.Isekai.frayed-vellum.png",
+      "OpticalSystemDesign.App.Assets.Themes.Isekai.inner-botanical.png",
+      "OpticalSystemDesign.App.Assets.Themes.Isekai.scroll-control-skins.png"
+    ]
+  },
+  "WithdrawnCandidates": {
+    "Directory": "artifacts/design-candidates/2026-11-04/isekai-gray-not-applied",
+    "RuntimeReferences": [],
+    "EmbeddedOrLoaded": false
+  },
+  "Validation": {
+    "Trx": "approved-final.trx",
+    "Total": 17,
+    "Passed": 17,
+    "Failed": 0,
+    "Skipped": 0,
+    "SourcePixelComparisons": 12,
+    "AllSourcePixelComparisonsSame": true
+  },
+  "Delivery": {
+    "LocalReleaseBuild": true,
+    "RunningUserAppRestarted": false,
+    "Committed": false,
+    "Pushed": false,
+    "Packaged": false,
+    "Published": false
+  }
+}

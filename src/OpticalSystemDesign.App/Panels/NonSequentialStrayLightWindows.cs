@@ -72,6 +72,9 @@ internal sealed class NonSequentialStlImportWindow : Window
 internal sealed class NonSequentialTraceControlWindow : Window
 {
     private readonly INonSequentialAnalysisService _service;
+    private readonly INonSequentialDocumentService _documentService;
+    private readonly CheckBox _polarization = new() { Content = "偏振追迹（Jones / Stokes）" };
+    private readonly CheckBox _coherent = new() { Content = "相干探测（同波长、同相干组）" };
     private readonly ComboBox _source = new();
     private readonly CheckBox _analysis = new() { Content = "使用分析射线数量", IsChecked = true };
     private readonly ComboBox _splitting = new()
@@ -95,9 +98,12 @@ internal sealed class NonSequentialTraceControlWindow : Window
         INonSequentialAnalysisService service)
     {
         _service = service;
+        _documentService = documentService;
+        var physics = documentService.GetDocument().TraceSettings;
+        _polarization.IsChecked = physics.UsePolarization; _coherent.IsChecked = physics.CoherentDetection;
         Title = "非序列追迹控制";
         Width = 600;
-        Height = 650;
+        Height = 750;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         var sources = documentService.GetDocument().Objects
             .Where(item => item.Enabled && item.Parameters is SourceParameters)
@@ -130,6 +136,7 @@ internal sealed class NonSequentialTraceControlWindow : Window
                 new TextBlock { Text = "追迹结果自动保存到受管理的临时数据库，探测器、路径分析和3D布局将读取同一批光线。数据库路径留空即可。", TextWrapping = Avalonia.Media.TextWrapping.Wrap },
                 Row("光源", _source),
                 _analysis,
+                _polarization, _coherent,
                 Row("分裂模式", _splitting),
                 Row("临时覆盖射线数", _rayCount),
                 Row("随机种子", _seed),
@@ -197,6 +204,17 @@ internal sealed class NonSequentialTraceControlWindow : Window
         _cancellation = cancellation;
         try
         {
+            if (command != NonSequentialTraceCommand.ClearOnly)
+            {
+                var current = _documentService.GetDocument().TraceSettings;
+                var polarized = _polarization.IsChecked == true; var coherent = _coherent.IsChecked == true;
+                if (current.UsePolarization != polarized || current.CoherentDetection != coherent)
+                {
+                    if (command == NonSequentialTraceCommand.TraceOnly)
+                        throw new InvalidOperationException("偏振/相干设置改变后，请使用“清空并追迹”。");
+                    _documentService.UpdatePhysicsSettings(polarized, coherent);
+                }
+            }
             var result = await _service.TraceAsync(new NonSequentialTraceRunRequestDto(
                 NonSequentialTraceOutputMode.RayDatabase,
                 SourceObjectId: (_source.SelectedItem as SourceChoice)?.Id,
@@ -483,6 +501,13 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         SelectedItem = NonSequentialDetectorDataType.IncoherentIrradiance
     };
     private readonly ComboBox _wavelength = new();
+    private readonly ComboBox _coherenceGroup = new();
+    private readonly ComboBox _coherentMode = new() { ItemsSource = new[] { "模态 1", "模态 2" }, SelectedIndex = 0 };
+    private readonly ComboBox _fieldComponent = new()
+    {
+        ItemsSource = Enum.GetValues<Core.NonSequential.NonSequentialFieldComponent>(),
+        SelectedItem = Core.NonSequential.NonSequentialFieldComponent.X
+    };
     private readonly TextBox _filter = new() { PlaceholderText = "可选路径筛选" };
     private readonly CheckBox _logarithmic = new() { Content = "对数显示" };
     private readonly ComboBox _colorMap = new()
@@ -522,6 +547,8 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
     private NonSequentialDetectorViewDto? _lastView;
     private CancellationTokenSource? _refreshCancellation;
     private bool _disposed;
+    private bool _reloadingChoices;
+    private long _selectionVersion;
 
     public NonSequentialDetectorViewerPanel(
         INonSequentialDocumentService documentService,
@@ -532,7 +559,15 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         SetAutomationNames();
         ReloadChoices();
         UpdateDataTypeChoices();
-        _space.SelectionChanged += (_, _) => UpdateDataTypeChoices();
+        _space.SelectionChanged += (_, _) => { UpdateDataTypeChoices(); InvalidateSelection(); };
+        _dataType.SelectionChanged += (_, _) => InvalidateSelection();
+        _detector.SelectionChanged += (_, _) => InvalidateSelection();
+        _wavelength.SelectionChanged += (_, _) => InvalidateSelection();
+        _coherenceGroup.SelectionChanged += (_, _) => InvalidateSelection();
+        _coherentMode.SelectionChanged += (_, _) => InvalidateSelection();
+        _fieldComponent.SelectionChanged += (_, _) => InvalidateSelection();
+        _filter.TextChanged += (_, _) => InvalidateSelection();
+        UpdateFieldControls();
         var refresh = new Button { Content = "刷新结果", MinWidth = 90 };
         refresh.Click += async (_, _) => await RefreshViewAsync();
         var export = new Button { Content = "导出 CSV", MinWidth = 90 };
@@ -549,6 +584,9 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
                 Label("空间"), _space,
                 Label("数据"), _dataType,
                 Label("波长"), _wavelength,
+                Label("相干组"), _coherenceGroup,
+                Label("偏振模态"), _coherentMode,
+                Label("复场分量"), _fieldComponent,
                 Label("色表"), _colorMap,
                 Label("归一化"), _normalization,
                 Label("平滑半径"), _smoothing,
@@ -643,6 +681,9 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
 
     private void ReloadChoices()
     {
+        _reloadingChoices = true;
+        try
+        {
         var selectedDetector = (_detector.SelectedItem as DetectorChoice)?.Id;
         var selectedWavelength = (_wavelength.SelectedItem as WavelengthChoice)?.Number ?? 0;
         var document = _documentService.GetDocument();
@@ -660,6 +701,46 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         _wavelength.ItemsSource = wavelengths;
         _wavelength.SelectedItem = wavelengths.FirstOrDefault(item => item.Number == selectedWavelength)
             ?? wavelengths[0];
+        var selectedGroup = (_coherenceGroup.SelectedItem as CoherenceChoice)?.Id;
+        var groups = document.Objects.Where(o => o.Enabled && o.Parameters is SourceParameters)
+            .GroupBy(o => ((SourceParameters)o.Parameters).Physics?.CoherenceGroup ?? o.Id.ToString("N"), StringComparer.Ordinal)
+            .Select(g => new CoherenceChoice(g.Key, ((SourceParameters)g.First().Parameters).Physics?.CoherenceGroup ?? $"{g.First().ObjectNumber} {g.First().Name}（独立）"))
+            .Prepend(new CoherenceChoice(null, "自动（仅单组）")).ToArray();
+        _coherenceGroup.ItemsSource = groups;
+        _coherenceGroup.SelectedItem = groups.FirstOrDefault(g => g.Id == selectedGroup) ?? groups[0];
+        }
+        finally { _reloadingChoices = false; }
+    }
+
+    private void InvalidateSelection()
+    {
+        if (_reloadingChoices || _disposed) return;
+        _selectionVersion++; _refreshCancellation?.Cancel();
+        _lastView = null; _displayFrame = null;
+        _plot.Series = Array.Empty<AnalysisSeriesDto>(); _profilePlot.Series = Array.Empty<AnalysisSeriesDto>();
+        _statistics.Text = "选择已改变，请刷新结果。";
+        UpdateFieldControls();
+    }
+    private void UpdateFieldControls()
+    {
+        var type = _dataType.SelectedItem is NonSequentialDetectorDataType t ? t : NonSequentialDetectorDataType.IncoherentIrradiance;
+        var field = type is NonSequentialDetectorDataType.FieldReal or NonSequentialDetectorDataType.FieldImaginary
+            or NonSequentialDetectorDataType.FieldMagnitude or NonSequentialDetectorDataType.FieldPhase;
+        ControlAvailability.Set(_coherenceGroup, field, "复振幅/相位需要选择一个相干组。");
+        ControlAvailability.Set(_coherentMode, field, "两个互不相干的 Jones 模态不能相加为一个相位。");
+        ControlAvailability.Set(_fieldComponent, field, "分量使用探测器的局部 X/Y/Z 轴。");
+        if (field && (_wavelength.SelectedItem as WavelengthChoice)?.Number == 0 && _wavelength.ItemCount > 1) _wavelength.SelectedIndex = 1;
+        var domain = NonSequentialDetectorDisplay.Domain(type);
+        var choices = domain == DetectorDisplayDomain.Phase ? new[] { DetectorDisplayNormalization.Absolute }
+            : domain == DetectorDisplayDomain.Signed ? new[] { DetectorDisplayNormalization.Absolute, DetectorDisplayNormalization.Peak }
+            : Enum.GetValues<DetectorDisplayNormalization>();
+        var selected = _normalization.SelectedItem is DetectorDisplayNormalization n && choices.Contains(n) ? n : DetectorDisplayNormalization.Absolute;
+        _normalization.ItemsSource = choices; _normalization.SelectedItem = selected;
+        ControlAvailability.Set(_normalization, domain != DetectorDisplayDomain.Phase, "相位保留原始角度，不进行强度归一化。");
+        ControlAvailability.Set(_smoothing, domain != DetectorDisplayDomain.Phase, "包裹相位不能跨越 ±180° 做线性平滑。");
+        ControlAvailability.Set(_logarithmic, domain == DetectorDisplayDomain.Scalar, "相位和有符号分量不使用对数显示。");
+        if (domain != DetectorDisplayDomain.Scalar) _logarithmic.IsChecked = false;
+        if (domain == DetectorDisplayDomain.Phase) _smoothing.Value = 0;
     }
 
     private void UpdateDataTypeChoices()
@@ -677,7 +758,16 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
             {
                 NonSequentialDetectorDataType.PixelPower,
                 NonSequentialDetectorDataType.IncoherentIrradiance,
-                NonSequentialDetectorDataType.HitCount
+                NonSequentialDetectorDataType.HitCount,
+                NonSequentialDetectorDataType.CoherentPower,
+                NonSequentialDetectorDataType.RawCoherentPower,
+                NonSequentialDetectorDataType.StokesI,
+                NonSequentialDetectorDataType.StokesQ,
+                NonSequentialDetectorDataType.StokesU,
+                NonSequentialDetectorDataType.StokesV,
+                NonSequentialDetectorDataType.LongitudinalPower,
+                NonSequentialDetectorDataType.FieldReal, NonSequentialDetectorDataType.FieldImaginary,
+                NonSequentialDetectorDataType.FieldMagnitude, NonSequentialDetectorDataType.FieldPhase
             };
         _dataType.ItemsSource = choices;
         _dataType.SelectedItem = selected is { } current && choices.Contains(current)
@@ -687,7 +777,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
                 : NonSequentialDetectorDataType.IncoherentIrradiance;
     }
 
-    private async Task RefreshViewAsync()
+    internal async Task RefreshViewAsync()
     {
         try
         {
@@ -702,17 +792,22 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
             _refreshCancellation?.Dispose();
             _refreshCancellation = new CancellationTokenSource();
             var cancellationToken = _refreshCancellation.Token;
+            var selectionVersion = _selectionVersion;
+            _lastView = null; _displayFrame = null;
             _statistics.Text = "正在重建探测器结果…";
             var request = new NonSequentialDetectorViewRequestDto(
                 detector.Id,
                 (NonSequentialDetectorSpace)(_space.SelectedItem ?? NonSequentialDetectorSpace.Position),
                 (NonSequentialDetectorDataType)(_dataType.SelectedItem ?? NonSequentialDetectorDataType.IncoherentIrradiance),
                 (_wavelength.SelectedItem as WavelengthChoice)?.Number ?? 0,
-                string.IsNullOrWhiteSpace(_filter.Text) ? null : _filter.Text);
+                string.IsNullOrWhiteSpace(_filter.Text) ? null : _filter.Text,
+                CoherenceGroup: (_coherenceGroup.SelectedItem as CoherenceChoice)?.Id,
+                CoherentMode: _coherentMode.SelectedIndex,
+                FieldComponent: (Core.NonSequential.NonSequentialFieldComponent)(_fieldComponent.SelectedItem ?? Core.NonSequential.NonSequentialFieldComponent.X));
             var view = await Task.Run(
                 () => _service.GetDetectorView(request, cancellationToken),
                 cancellationToken);
-            if (_disposed || cancellationToken.IsCancellationRequested) return;
+            if (_disposed || cancellationToken.IsCancellationRequested || selectionVersion != _selectionVersion) return;
             _lastView = view;
             UpdateInspectionBounds();
             RenderView(view);
@@ -723,7 +818,9 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         catch (Exception exception)
         {
             _statistics.Text = $"探测器结果不可用：{exception.Message}";
+            _lastView = null; _displayFrame = null;
             _plot.Series = Array.Empty<AnalysisSeriesDto>();
+            _profilePlot.Series = Array.Empty<AnalysisSeriesDto>();
         }
     }
 
@@ -764,7 +861,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
             _smoothing.Value is { } smoothing ? decimal.ToInt32(smoothing) : 0,
             _logarithmic.IsChecked == true,
             manualMinimum,
-            manualMaximum);
+            manualMaximum, NonSequentialDetectorDisplay.Domain(view.DataType));
         _displayFrame = display;
 
         var points = new AnalysisPointDto[view.PixelsX * view.PixelsY];
@@ -780,12 +877,13 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
             }
         }
 
-        var angle = view.XUnit == "deg";
-        var dataType = (NonSequentialDetectorDataType)(
-            _dataType.SelectedItem ?? NonSequentialDetectorDataType.IncoherentIrradiance);
+        var angle = view.Space == NonSequentialDetectorSpace.Angle;
+        var dataType = view.DataType;
         var transformed = normalization != DetectorDisplayNormalization.Absolute
             || _logarithmic.IsChecked == true;
         var (valueQuantity, valueUnit) = NonSequentialDetectorDisplay.ValueAxis(dataType, transformed);
+        var dataLabel = dataType >= NonSequentialDetectorDataType.CoherentPower ? NonSequentialDetectorDisplay.DataLabel(dataType) : "";
+        var valueLabel = dataLabel.Length > 0 ? dataLabel + (transformed ? $"（{display.ValueUnit}）" : "") : display.ValueUnit;
         var axisQuantity = angle ? AnalysisAxisQuantity.IncidentAngle : AnalysisAxisQuantity.Coordinate;
         var axisUnit = angle ? AnalysisAxisUnit.Degree : AnalysisAxisUnit.Millimeter;
         _plot.UseSeriesColorMap = _colorMap.SelectedItem is AnalysisColorMap;
@@ -795,7 +893,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
             points,
             AnalysisSeriesKind.Heatmap,
             view.DetectorName,
-            ValueLabel: display.ValueUnit,
+            ValueLabel: valueLabel,
             ColorMap: _colorMap.SelectedItem is AnalysisColorMap colorMap
                 ? colorMap
                 : AnalysisColorMap.Inferno,
@@ -807,8 +905,9 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
             YUnit: axisUnit,
             ValueQuantity: valueQuantity,
             ValueUnit: valueUnit);
+        var fieldLabel = view.FieldSelection is { } f ? $" · λ{f.WavelengthNumber} / {f.CoherenceGroup} / 模态 {f.Mode + 1} / {f.Component}" : "";
         _plot.PlotOptions = new AnalysisPlotOptionsDto(
-            $"探测器：{view.DetectorName}",
+            $"探测器：{view.DetectorName}{(dataLabel.Length > 0 ? " · " + dataLabel : "")}{fieldLabel}",
             EqualAspect: true,
             XMinimum: view.XMinimum,
             XMaximum: view.XMaximum,
@@ -840,7 +939,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         {
             new AnalysisSeriesDto(
                 profileAxis == DetectorProfileAxis.X ? $"X ({view.XUnit})" : $"Y ({view.YUnit})",
-                display.ValueUnit,
+                valueLabel,
                 profile,
                 AnalysisSeriesKind.Line,
                 "剖面",
@@ -851,7 +950,14 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         };
 
         var stats = view.Statistics;
-        _statistics.Text = $"原始物理统计：总功率 {stats.TotalPowerWatts:G6} W · 命中 {stats.TotalHits:N0} · 峰值 {stats.PeakValue:G6} {view.ValueUnit} · "
+        var validLabel = view.ValidPixels is { } valid ? $" · 有效像素 {valid.Count(v => v)}/{valid.Count}" : "";
+        var fieldNote = view.FieldSelection is { Kind: Core.NonSequential.NonSequentialFieldViewKind.PhaseDegrees }
+            ? "包裹相位（−180°…180°）；零幅值/数值抵消处留空。"
+            : view.FieldSelection is not null ? "原始射线复幅和（√W，随采样变化），不是 V/m 电场。" : "";
+        var peak = view.ValidPixels is { } mask && !mask.Any(v => v) ? "数据峰值无定义"
+            : $"数据峰值 {stats.PeakValue:G6} {view.ValueUnit}";
+        _statistics.Text = fieldNote + fieldLabel + validLabel + (fieldNote.Length > 0 ? "\n全部匹配路径的非相干统计：" : "原始物理统计：")
+            + $"总功率 {stats.TotalPowerWatts:G6} W · 命中 {stats.TotalHits:N0} · {peak} · "
             + $"质心 ({stats.CentroidX:G5}, {stats.CentroidY:G5}) {view.XUnit} · RMS ({stats.RmsX:G5}, {stats.RmsY:G5}) {view.XUnit} · 均匀度 {stats.Uniformity:P2}"
             + (view.IsStale ? " · 结果已过期" : string.Empty);
         UpdateCursorValue();
@@ -909,17 +1015,9 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
             FileTypeChoices = new[] { new FilePickerFileType("CSV 数据") { Patterns = new[] { "*.csv" } } }
         });
         if (file is null) return;
-        var lines = new List<string> { "x,y,value" };
-        for (var y = 0; y < _lastView.PixelsY; y++)
-            for (var x = 0; x < _lastView.PixelsX; x++)
-            {
-                var px = _lastView.XMinimum + (x + 0.5) * (_lastView.XMaximum - _lastView.XMinimum) / _lastView.PixelsX;
-                var py = _lastView.YMinimum + (y + 0.5) * (_lastView.YMaximum - _lastView.YMinimum) / _lastView.PixelsY;
-                lines.Add($"{px.ToString("G17", CultureInfo.InvariantCulture)},{py.ToString("G17", CultureInfo.InvariantCulture)},{_lastView.Values[y * _lastView.PixelsX + x].ToString("G17", CultureInfo.InvariantCulture)}");
-            }
         await BoundedApplicationFile.WriteAllTextAtomicAsync(
             file.Path.LocalPath,
-            string.Join(Environment.NewLine, lines) + Environment.NewLine,
+            NonSequentialDetectorDisplay.ExportCsv(_lastView),
             BoundedApplicationFile.MaximumExportBytes,
             "Non-sequential ray database export");
     }
@@ -972,6 +1070,9 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         AutomationProperties.SetName(_space, "探测器坐标空间");
         AutomationProperties.SetName(_dataType, "探测器数据类型");
         AutomationProperties.SetName(_wavelength, "探测器波长");
+        AutomationProperties.SetName(_coherenceGroup, "探测器相干组");
+        AutomationProperties.SetName(_coherentMode, "探测器偏振模态");
+        AutomationProperties.SetName(_fieldComponent, "探测器复场分量");
         AutomationProperties.SetName(_filter, "探测器路径筛选");
         AutomationProperties.SetName(_logarithmic, "对数显示");
         AutomationProperties.SetName(_colorMap, "热图颜色表");
@@ -987,6 +1088,7 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         AutomationProperties.SetName(_plot, "非序列探测器热图");
         AutomationProperties.SetName(_profilePlot, "非序列探测器剖面图");
     }
+    private sealed record CoherenceChoice(string? Id, string Label) { public override string ToString() => Label; }
 
     private static Control Dock(Control control, Avalonia.Controls.Dock side)
     {

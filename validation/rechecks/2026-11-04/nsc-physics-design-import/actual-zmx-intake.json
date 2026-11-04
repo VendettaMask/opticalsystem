@@ -1,0 +1,111 @@
+{
+  "Scope": "Real original ZMX intake; not native numerical parity or complete executable NSC import",
+  "FileName": "sc_int1.zmx",
+  "SourceSha256": "FE03019648D4D0FF4DDE5CD659713FA5D58541038FD05175E74AF75DBA91B76D",
+  "OriginalBytes": 50824,
+  "Mode": "NSC",
+  "Records": 1081,
+  "Objects": [
+    {
+      "Number": 1,
+      "Surface": 1,
+      "Type": "NSC_SRCR",
+      "ReferenceObject": 0,
+      "InsideObject": 0,
+      "Records": 143,
+      "BasicGeometryMapped": true
+    },
+    {
+      "Number": 2,
+      "Surface": 1,
+      "Type": "NSC_RBLK",
+      "ReferenceObject": 0,
+      "InsideObject": 0,
+      "Records": 148,
+      "BasicGeometryMapped": false
+    },
+    {
+      "Number": 3,
+      "Surface": 1,
+      "Type": "NSC_RECT",
+      "ReferenceObject": 0,
+      "InsideObject": 0,
+      "Records": 128,
+      "BasicGeometryMapped": true
+    },
+    {
+      "Number": 4,
+      "Surface": 1,
+      "Type": "NSC_RECT",
+      "ReferenceObject": 0,
+      "InsideObject": 0,
+      "Records": 128,
+      "BasicGeometryMapped": true
+    },
+    {
+      "Number": 5,
+      "Surface": 1,
+      "Type": "NSC_RBLK",
+      "ReferenceObject": 0,
+      "InsideObject": 0,
+      "Records": 148,
+      "BasicGeometryMapped": false
+    },
+    {
+      "Number": 6,
+      "Surface": 1,
+      "Type": "NSC_DETE",
+      "ReferenceObject": 0,
+      "InsideObject": 0,
+      "Records": 143,
+      "BasicGeometryMapped": true
+    },
+    {
+      "Number": 7,
+      "Surface": 1,
+      "Type": "NSC_DETE",
+      "ReferenceObject": 0,
+      "InsideObject": 0,
+      "Records": 143,
+      "BasicGeometryMapped": true
+    }
+  ],
+  "Assets": [
+    {
+      "Reference": "PROFILE.GRD",
+      "Exists": false
+    },
+    {
+      "Reference": "sample spectrum 1.spc",
+      "Exists": false
+    }
+  ],
+  "CanApply": false,
+  "Diagnostics": [
+    {
+      "Code": "UnmappedGlobalRecord",
+      "Count": 20
+    },
+    {
+      "Code": "UnmappedGlobalPhysics",
+      "Count": 2
+    },
+    {
+      "Code": "UnmappedObjectRecord",
+      "Count": 898
+    },
+    {
+      "Code": "ObjectType",
+      "Count": 2
+    },
+    {
+      "Code": "ExternalDesignDefinition",
+      "Count": 3
+    },
+    {
+      "Code": "MissingAsset",
+      "Count": 2
+    }
+  ],
+  "NativeOpticStudioComparison": "Unavailable: installation/API runtime and licensed archive extraction not present"
+}

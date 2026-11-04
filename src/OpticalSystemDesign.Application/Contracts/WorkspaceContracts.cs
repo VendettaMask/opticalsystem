@@ -62,7 +62,9 @@ public sealed record NonSequentialTraceSettings(
     int MaximumActiveBranches,
     double MinimumRelativeIntensity,
     int RandomSeed,
-    bool SplitFresnelRays);
+    bool SplitFresnelRays,
+    bool UsePolarization = false,
+    bool CoherentDetection = false);
 
 public abstract record NonSequentialObjectParameters;
 
@@ -72,7 +74,11 @@ public abstract record SourceParameters(
     double PowerWatts,
     int WavelengthNumber,
     int LayoutRayCount,
-    int AnalysisRayCount) : NonSequentialObjectParameters;
+    int AnalysisRayCount) : NonSequentialObjectParameters
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public Core.NonSequential.NonSequentialSourcePhysics? Physics { get; init; }
+}
 
 public sealed record SourceRayParameters(
     double PowerWatts,
@@ -242,7 +248,8 @@ public sealed record DetectorRectangleParameters(
     bool FrontOnly,
     bool Absorb,
     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
-    Core.NonSequential.NonSequentialOpticalInterface? IncidentSurface = null) : NonSequentialObjectParameters;
+    Core.NonSequential.NonSequentialOpticalInterface? IncidentSurface = null,
+    bool NormalizeCoherentPower = false) : NonSequentialObjectParameters;
 
 public enum OpticalWorkbenchMode
 {
@@ -487,7 +494,18 @@ public enum NonSequentialDetectorDataType
     PixelPower,
     IncoherentIrradiance,
     HitCount,
-    RadiantIntensity
+    RadiantIntensity,
+    CoherentPower,
+    RawCoherentPower,
+    StokesI,
+    StokesQ,
+    StokesU,
+    StokesV,
+    LongitudinalPower,
+    FieldReal,
+    FieldImaginary,
+    FieldMagnitude,
+    FieldPhase
 }
 
 public sealed record NonSequentialDetectorViewRequestDto(
@@ -496,7 +514,10 @@ public sealed record NonSequentialDetectorViewRequestDto(
     NonSequentialDetectorDataType DataType = NonSequentialDetectorDataType.IncoherentIrradiance,
     int WavelengthNumber = 0,
     string? PathFilterExpression = null,
-    string? RayDatabasePath = null);
+    string? RayDatabasePath = null,
+    string? CoherenceGroup = null,
+    int CoherentMode = 0,
+    Core.NonSequential.NonSequentialFieldComponent FieldComponent = Core.NonSequential.NonSequentialFieldComponent.X);
 
 public sealed record NonSequentialDetectorStatisticsDto(
     double TotalPowerWatts,
@@ -525,7 +546,13 @@ public sealed record NonSequentialDetectorViewDto(
     IReadOnlyList<double> YProfile,
     NonSequentialDetectorStatisticsDto Statistics,
     bool IsStale,
-    string ResultSource);
+    string ResultSource)
+{
+    public NonSequentialDetectorDataType DataType { get; init; }
+    public NonSequentialDetectorSpace Space { get; init; }
+    public Core.NonSequential.NonSequentialFieldSelection? FieldSelection { get; init; }
+    public IReadOnlyList<bool>? ValidPixels { get; init; }
+}
 
 public sealed record NonSequentialRaySegmentDto(
     long BranchId,
@@ -1002,7 +1029,8 @@ public enum AnalysisAxisQuantity
     Count,
     NormalizedField,
     Probability,
-    IrradianceGradient
+    IrradianceGradient,
+    FieldAmplitude
 }
 
 public enum AnalysisAxisUnit
@@ -1030,7 +1058,8 @@ public enum AnalysisAxisUnit
     WattsPerSquareMeterPerNanometer,
     CyclesPerPixel,
     WattsPerSquareMeter,
-    WattsPerSquareMeterPerPixel
+    WattsPerSquareMeterPerPixel,
+    SquareRootWatt
 }
 
 public sealed record AnalysisPointDto(

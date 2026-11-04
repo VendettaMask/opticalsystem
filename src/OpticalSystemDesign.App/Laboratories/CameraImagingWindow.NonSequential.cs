@@ -10,6 +10,7 @@ public sealed partial class CameraImagingWindow
 {
     private CameraNscDetectorInput? _nscInput;
     private bool _nscWasActive;
+    private bool _nscPanelWasActive;
     private Control? _nscCard;
     private readonly ComboBox _nscDetector = Choice("camera-nsc-detector");
     private readonly TextBox _nscFilter = new() { Name = "camera-nsc-filter", PlaceholderText = "留空读取全部已保存路径" };
@@ -88,6 +89,8 @@ public sealed partial class CameraImagingWindow
     {
         if (_nscCard is null) return;
         _nscCard.IsVisible = IsNsc;
+        if (IsNsc && !_nscPanelWasActive && _nscCard is Expander expander) expander.IsExpanded = true;
+        _nscPanelWasActive = IsNsc;
         if (IsNsc && !UsingExperimentInputs)
         {
             var choices = _application.NonSequential.GetDocument().Objects.Where(o => o.Enabled && o.Kind == NonSequentialObjectKind.DetectorRectangle).ToArray();

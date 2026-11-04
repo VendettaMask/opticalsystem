@@ -31,8 +31,12 @@ public sealed class ThemeResourceTests
             }
             else
             {
-                Assert.Equal(theme.Palette!.Surface, ColorOf(resources, ThemeResourceBindings.RibbonPageBackground));
-                Assert.Equal(theme.Palette.SubtleSurface, ColorOf(resources, ThemeResourceBindings.StatusBarBackground));
+                // Isekai reveals its registered generated leather material beneath native commands.
+                Assert.Equal(theme.SettingsValue == "Isekai" ? Colors.Transparent : theme.Palette!.Surface,
+                    ColorOf(resources, ThemeResourceBindings.RibbonPageBackground));
+                if (theme.SettingsValue == "Isekai") Assert.Equal(Colors.Transparent,
+                    ColorOf(resources, ThemeResourceBindings.RibbonGroupBackground));
+                Assert.Equal(theme.Palette!.SubtleSurface, ColorOf(resources, ThemeResourceBindings.StatusBarBackground));
             }
         }
     }

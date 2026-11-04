@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="452e3bd3-2c04-4388-8991-a9949aad0dff" name="optics@LAPTOP-G4BBBCS0 2026-11-04 13:42:46" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T13:42:46.2798186+08:00" queuing="2026-11-04T13:42:46.2798189+08:00" start="2026-11-04T13:42:35.2761999+08:00" finish="2026-11-04T13:44:05.5645932+08:00" />
+  <TestSettings name="default" id="c87bab3c-ba63-42b9-843f-19d3c6a7ee84">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-04_13_42_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="041ecabc-c896-4c3b-bd25-377dc393a49a" testId="12dc5b93-5e08-5c3d-a45a-81e9c3a38ee0" testName="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:20.6756626" startTime="2026-11-04T13:42:46.2653709+08:00" endTime="2026-11-04T13:43:06.9233695+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="041ecabc-c896-4c3b-bd25-377dc393a49a" />
+    <UnitTestResult executionId="479bb4c2-7fda-4296-bad1-47524f00f76d" testId="64d56afc-bade-ff29-c658-6844029721c8" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Dark&quot;, width: 736, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6694312" startTime="2026-11-04T13:44:00.1852454+08:00" endTime="2026-11-04T13:44:00.8552154+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="479bb4c2-7fda-4296-bad1-47524f00f76d" />
+    <UnitTestResult executionId="16e91f1c-9152-4abc-9322-f70f8a4a0b3a" testId="1082dcd2-04d6-f6b5-7a15-ecfb07634580" testName="OpticalSystemDesign.Tests.CompactRibbonTests.HistoryAvailabilityExplainsDisabledCommandsAndClearsStaleReasons" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1466025" startTime="2026-11-04T13:44:03.6337594+08:00" endTime="2026-11-04T13:44:03.7798729+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="16e91f1c-9152-4abc-9322-f70f8a4a0b3a" />
+    <UnitTestResult executionId="f2babee1-2306-48ae-819e-1c860d467d3b" testId="fbd96edd-b919-6540-4c7a-76d8197adce3" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 640, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6858969" startTime="2026-11-04T13:44:00.8555977+08:00" endTime="2026-11-04T13:44:01.5565340+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f2babee1-2306-48ae-819e-1c860d467d3b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotEqual() Failure: Values are equal&#xD;
+Expected: Not #ffffffff&#xD;
+Actual:       #ffffffff</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.CompactRibbonTests.AssertRenderedCorners(String path, Border ribbon, DockPanel layout) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 197&#xD;
+   at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass1_0.&lt;CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 119&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(String theme, Double width, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 41&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="636e46c4-0d5c-4c2b-9aae-06b8d34dc6aa" testId="f908ef86-9da3-4e17-83fb-4ff4a20db351" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 640, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5854065" startTime="2026-11-04T13:44:03.0457671+08:00" endTime="2026-11-04T13:44:03.6322017+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="636e46c4-0d5c-4c2b-9aae-06b8d34dc6aa">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotEqual() Failure: Values are equal&#xD;
+Expected: Not #ffffffff&#xD;
+Actual:       #ffffffff</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.CompactRibbonTests.AssertRenderedCorners(String path, Border ribbon, DockPanel layout) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 197&#xD;
+   at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass1_0.&lt;CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 119&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(String theme, Double width, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 41&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ee303d8d-a0c0-4f05-80af-02394d02fe23" testId="2ddc5b20-59af-6e40-fb19-750600c71e6c" testName="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:25.3812565" startTime="2026-11-04T13:43:06.9263341+08:00" endTime="2026-11-04T13:43:32.3052121+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee303d8d-a0c0-4f05-80af-02394d02fe23" />
+    <UnitTestResult executionId="4a16ea00-b1c4-4644-ac23-8576a13506c7" testId="f32791d1-485d-020d-f331-ca18a79597e8" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Isekai&quot;, width: 736, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6607026" startTime="2026-11-04T13:44:01.5648675+08:00" endTime="2026-11-04T13:44:02.2173391+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4a16ea00-b1c4-4644-ac23-8576a13506c7" />
+    <UnitTestResult executionId="a1fa6f4d-1099-45dc-bc24-e013c1d2aa21" testId="68854b77-52b0-729a-8eeb-76bec5be5b82" testName="OpticalSystemDesign.Tests.SystemPropertiesPanelSectionThemeTests.SectionsKeepTheirCardOutlineAcrossPointerExpansionAndThemeChanges" computerName="LAPTOP-G4BBBCS0" duration="00:00:08.4482813" startTime="2026-11-04T13:42:37.8108898+08:00" endTime="2026-11-04T13:42:46.2432266+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a1fa6f4d-1099-45dc-bc24-e013c1d2aa21" />
+    <UnitTestResult executionId="71a9f6a5-7b6e-4f42-907a-8b91202ada10" testId="de9f32a2-0d92-255d-4bf3-88eaed5a5dae" testName="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4175651" startTime="2026-11-04T13:44:04.1579499+08:00" endTime="2026-11-04T13:44:04.5759928+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="71a9f6a5-7b6e-4f42-907a-8b91202ada10" />
+    <UnitTestResult executionId="5496718b-5921-4222-9282-0b96e78a7288" testId="34ecab71-fde9-86d0-f88e-350675d1bc21" testName="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3946753" startTime="2026-11-04T13:44:04.9936687+08:00" endTime="2026-11-04T13:44:05.3888705+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5496718b-5921-4222-9282-0b96e78a7288" />
+    <UnitTestResult executionId="ebe55fa6-7ae6-4eb5-aa76-cd137ed36998" testId="01d0d54c-4a4f-f9c6-4193-86339f31708b" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Pixel&quot;, width: 736, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2046423" startTime="2026-11-04T13:44:02.8663237+08:00" endTime="2026-11-04T13:44:03.0455281+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ebe55fa6-7ae6-4eb5-aa76-cd137ed36998" />
+    <UnitTestResult executionId="4acf0679-12aa-482e-9993-c5a6a4094824" testId="8daf048d-e7ae-57cc-b6fa-4fd2345661f0" testName="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4169209" startTime="2026-11-04T13:44:04.5761962+08:00" endTime="2026-11-04T13:44:04.9934635+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4acf0679-12aa-482e-9993-c5a6a4094824" />
+    <UnitTestResult executionId="e2b7a03d-2235-4ae1-8afa-a12d4c4633d5" testId="48d05091-1ead-aa4a-13a3-8d505f2720d1" testName="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3772291" startTime="2026-11-04T13:44:03.7801289+08:00" endTime="2026-11-04T13:44:04.1577443+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e2b7a03d-2235-4ae1-8afa-a12d4c4633d5" />
+    <UnitTestResult executionId="ec8d59b1-6428-4f89-95a5-0f021c7bc54a" testId="37e9d007-5caa-6237-c226-b009e144732c" testName="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 736, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6218887" startTime="2026-11-04T13:44:02.2176037+08:00" endTime="2026-11-04T13:44:02.8405210+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec8d59b1-6428-4f89-95a5-0f021c7bc54a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.NotEqual() Failure: Values are equal&#xD;
+Expected: Not #ffffffff&#xD;
+Actual:       #ffffffff</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.CompactRibbonTests.AssertRenderedCorners(String path, Border ribbon, DockPanel layout) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 197&#xD;
+   at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass1_0.&lt;CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow&gt;b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 119&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(String theme, Double width, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs:line 41&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a029c523-de02-49e5-93ba-4a478997e38f" testId="ae1b474b-db36-019e-401b-4ed05aaa197a" testName="OpticalSystemDesign.Tests.LightGradientThemeTests.BackdropIsRelativeAndHeaderInkReadableWhileDataSurfacesStayWhite" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0213032" startTime="2026-11-04T13:44:00.1637692+08:00" endTime="2026-11-04T13:44:00.1847174+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a029c523-de02-49e5-93ba-4a478997e38f" />
+    <UnitTestResult executionId="9cd7cfeb-4646-4d07-82c2-b5001844dec5" testId="ad4c3a58-7387-3909-8b55-d7efd4f0b45a" testName="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:27.8569376" startTime="2026-11-04T13:43:32.3059288+08:00" endTime="2026-11-04T13:44:00.1629081+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9cd7cfeb-4646-4d07-82c2-b5001844dec5" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="de9f32a2-0d92-255d-4bf3-88eaed5a5dae">
+      <Execution id="71a9f6a5-7b6e-4f42-907a-8b91202ada10" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="FrameResourcesSurviveThemePageAndSizeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 640, fontSize: 18)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="f908ef86-9da3-4e17-83fb-4ff4a20db351">
+      <Execution id="636e46c4-0d5c-4c2b-9aae-06b8d34dc6aa" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LightGradientThemeTests.BackdropIsRelativeAndHeaderInkReadableWhileDataSurfacesStayWhite" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="ae1b474b-db36-019e-401b-4ed05aaa197a">
+      <Execution id="a029c523-de02-49e5-93ba-4a478997e38f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LightGradientThemeTests" name="BackdropIsRelativeAndHeaderInkReadableWhileDataSurfacesStayWhite" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Pixel&quot;, width: 736, fontSize: 13)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="01d0d54c-4a4f-f9c6-4193-86339f31708b">
+      <Execution id="ebe55fa6-7ae6-4eb5-aa76-cd137ed36998" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="ad4c3a58-7387-3909-8b55-d7efd4f0b45a">
+      <Execution id="9cd7cfeb-4646-4d07-82c2-b5001844dec5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LightGradientThemeTests" name="RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="12dc5b93-5e08-5c3d-a45a-81e9c3a38ee0">
+      <Execution id="041ecabc-c896-4c3b-bd25-377dc393a49a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LightGradientThemeTests" name="RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="48d05091-1ead-aa4a-13a3-8d505f2720d1">
+      <Execution id="e2b7a03d-2235-4ae1-8afa-a12d4c4633d5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="FrameResourcesSurviveThemePageAndSizeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 736, fontSize: 13)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="37e9d007-5caa-6237-c226-b009e144732c">
+      <Execution id="ec8d59b1-6428-4f89-95a5-0f021c7bc54a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.HistoryAvailabilityExplainsDisabledCommandsAndClearsStaleReasons" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="1082dcd2-04d6-f6b5-7a15-ecfb07634580">
+      <Execution id="16e91f1c-9152-4abc-9322-f70f8a4a0b3a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="HistoryAvailabilityExplainsDisabledCommandsAndClearsStaleReasons" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="2ddc5b20-59af-6e40-fb19-750600c71e6c">
+      <Execution id="ee303d8d-a0c0-4f05-80af-02394d02fe23" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LightGradientThemeTests" name="RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Isekai&quot;, width: 736, fontSize: 13)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="f32791d1-485d-020d-f331-ca18a79597e8">
+      <Execution id="4a16ea00-b1c4-4644-ac23-8576a13506c7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Light&quot;, width: 640, fontSize: 13)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="fbd96edd-b919-6540-4c7a-76d8197adce3">
+      <Execution id="f2babee1-2306-48ae-819e-1c860d467d3b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: &quot;Dark&quot;, width: 736, fontSize: 13)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="64d56afc-bade-ff29-c658-6844029721c8">
+      <Execution id="479bb4c2-7fda-4296-bad1-47524f00f76d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SystemPropertiesPanelSectionThemeTests.SectionsKeepTheirCardOutlineAcrossPointerExpansionAndThemeChanges" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="68854b77-52b0-729a-8eeb-76bec5be5b82">
+      <Execution id="a1fa6f4d-1099-45dc-bc24-e013c1d2aa21" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SystemPropertiesPanelSectionThemeTests" name="SectionsKeepTheirCardOutlineAcrossPointerExpansionAndThemeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="8daf048d-e7ae-57cc-b6fa-4fd2345661f0">
+      <Execution id="4acf0679-12aa-482e-9993-c5a6a4094824" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="FrameResourcesSurviveThemePageAndSizeChanges" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\local-data\light-glass-bin\opticalsystemdesign.tests.dll" id="34ecab71-fde9-86d0-f88e-350675d1bc21">
+      <Execution id="5496718b-5921-4222-9282-0b96e78a7288" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\local-data\light-glass-bin\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CompactRibbonTests" name="FrameResourcesSurviveThemePageAndSizeChanges" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="12dc5b93-5e08-5c3d-a45a-81e9c3a38ee0" executionId="041ecabc-c896-4c3b-bd25-377dc393a49a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="64d56afc-bade-ff29-c658-6844029721c8" executionId="479bb4c2-7fda-4296-bad1-47524f00f76d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1082dcd2-04d6-f6b5-7a15-ecfb07634580" executionId="16e91f1c-9152-4abc-9322-f70f8a4a0b3a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fbd96edd-b919-6540-4c7a-76d8197adce3" executionId="f2babee1-2306-48ae-819e-1c860d467d3b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f908ef86-9da3-4e17-83fb-4ff4a20db351" executionId="636e46c4-0d5c-4c2b-9aae-06b8d34dc6aa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2ddc5b20-59af-6e40-fb19-750600c71e6c" executionId="ee303d8d-a0c0-4f05-80af-02394d02fe23" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f32791d1-485d-020d-f331-ca18a79597e8" executionId="4a16ea00-b1c4-4644-ac23-8576a13506c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="68854b77-52b0-729a-8eeb-76bec5be5b82" executionId="a1fa6f4d-1099-45dc-bc24-e013c1d2aa21" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="de9f32a2-0d92-255d-4bf3-88eaed5a5dae" executionId="71a9f6a5-7b6e-4f42-907a-8b91202ada10" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="34ecab71-fde9-86d0-f88e-350675d1bc21" executionId="5496718b-5921-4222-9282-0b96e78a7288" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="01d0d54c-4a4f-f9c6-4193-86339f31708b" executionId="ebe55fa6-7ae6-4eb5-aa76-cd137ed36998" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8daf048d-e7ae-57cc-b6fa-4fd2345661f0" executionId="4acf0679-12aa-482e-9993-c5a6a4094824" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="48d05091-1ead-aa4a-13a3-8d505f2720d1" executionId="e2b7a03d-2235-4ae1-8afa-a12d4c4633d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="37e9d007-5caa-6237-c226-b009e144732c" executionId="ec8d59b1-6428-4f89-95a5-0f021c7bc54a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ae1b474b-db36-019e-401b-4ed05aaa197a" executionId="a029c523-de02-49e5-93ba-4a478997e38f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ad4c3a58-7387-3909-8b55-d7efd4f0b45a" executionId="9cd7cfeb-4646-4d07-82c2-b5001844dec5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="16" executed="16" passed="13" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.21]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.77]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.81]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:01:25.61]       Assert.NotEqual() Failure: Values are equal&#xD;
+[xUnit.net 00:01:25.62]       Expected: Not #ffffffff&#xD;
+[xUnit.net 00:01:25.62]       Actual:       #ffffffff&#xD;
+[xUnit.net 00:01:25.62]       Stack Trace:&#xD;
+[xUnit.net 00:01:25.62]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(197,0): at OpticalSystemDesign.Tests.CompactRibbonTests.AssertRenderedCorners(String path, Border ribbon, DockPanel layout)&#xD;
+[xUnit.net 00:01:25.62]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(119,0): at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass1_0.&lt;CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow&gt;b__0()&#xD;
+[xUnit.net 00:01:25.62]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:25.62]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:25.62]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:01:25.62]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:25.62]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(41,0): at OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(String theme, Double width, Double fontSize)&#xD;
+[xUnit.net 00:01:25.62]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:26.89]       Assert.NotEqual() Failure: Values are equal&#xD;
+[xUnit.net 00:01:26.89]       Expected: Not #ffffffff&#xD;
+[xUnit.net 00:01:26.89]       Actual:       #ffffffff&#xD;
+[xUnit.net 00:01:26.89]       Stack Trace:&#xD;
+[xUnit.net 00:01:26.89]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(197,0): at OpticalSystemDesign.Tests.CompactRibbonTests.AssertRenderedCorners(String path, Border ribbon, DockPanel layout)&#xD;
+[xUnit.net 00:01:26.89]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(119,0): at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass1_0.&lt;CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow&gt;b__0()&#xD;
+[xUnit.net 00:01:26.89]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:26.89]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:26.89]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:01:26.89]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:26.89]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(41,0): at OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(String theme, Double width, Double fontSize)&#xD;
+[xUnit.net 00:01:26.89]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:27.69]       Assert.NotEqual() Failure: Values are equal&#xD;
+[xUnit.net 00:01:27.69]       Expected: Not #ffffffff&#xD;
+[xUnit.net 00:01:27.69]       Actual:       #ffffffff&#xD;
+[xUnit.net 00:01:27.69]       Stack Trace:&#xD;
+[xUnit.net 00:01:27.69]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(197,0): at OpticalSystemDesign.Tests.CompactRibbonTests.AssertRenderedCorners(String path, Border ribbon, DockPanel layout)&#xD;
+[xUnit.net 00:01:27.69]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(119,0): at OpticalSystemDesign.Tests.CompactRibbonTests.&lt;&gt;c__DisplayClass1_0.&lt;CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow&gt;b__0()&#xD;
+[xUnit.net 00:01:27.69]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:27.69]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:01:27.69]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:01:27.69]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:27.69]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CompactRibbonTests.cs(41,0): at OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(String theme, Double width, Double fontSize)&#xD;
+[xUnit.net 00:01:27.69]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:29.45]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T13:44:01.5605354+08:00">
+        <Text>[xUnit.net 00:01:25.61]     OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: "Light", width: 640, fontSize: 13) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T13:44:02.8410458+08:00">
+        <Text>[xUnit.net 00:01:26.89]     OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: "Light", width: 736, fontSize: 13) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T13:44:03.6328572+08:00">
+        <Text>[xUnit.net 00:01:27.69]     OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: "Light", width: 640, fontSize: 18) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

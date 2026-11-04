@@ -71,7 +71,7 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
             VerticalAlignment = VerticalAlignment.Center
         };
         private Control? _source;
-        private readonly AnalysisImageFrame _frame = new();
+        private readonly AnalysisImageFrame _frame = new() { IntegrateWithResultBinding = true };
         internal Control? Source
         {
             get => _source;
@@ -112,7 +112,7 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
             if (Child is null) return default;
             if (Source is UniformDiagramPage)
             {
-                var inset = ThemeDrawingSurface.FrameInset(_frame);
+                var inset = _frame.DrawingInset;
                 _fit.Measure(FitToViewport ? _viewport : new Size(UniformDiagramPage.SheetWidth + 2 * inset, UniformDiagramPage.SheetHeight + 2 * inset));
                 return _fit.DesiredSize;
             }

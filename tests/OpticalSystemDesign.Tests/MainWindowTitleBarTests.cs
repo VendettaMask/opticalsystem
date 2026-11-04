@@ -132,6 +132,124 @@ public sealed class MainWindowTitleBarTests
         AvaloniaHeadlessPlatform.ForceRenderTimerTick();
     }
 
+    [Theory]
+    [InlineData(WindowState.Normal)]
+    [InlineData(WindowState.Maximized)]
+    public async Task ThemeSwitchesKeepManagedCaptionButtonsLaidOutWithoutResizing(WindowState state)
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MainWindowTitleBarTests));
+        await session.Dispatch(() =>
+        {
+            var app = Avalonia.Application.Current!;
+            ThemeApplicationService.Apply(app, "Light");
+            var window = ManagedDecorationHeadlessWindow.Create();
+            window.Width = 920;
+            window.Height = 300;
+            window.WindowState = state;
+            window.Content = MainWindowTitleBar.Wrap(window, new Border());
+            window.Show();
+            try
+            {
+                Tick(window);
+                var host = Assert.Single(window.GetVisualAncestors().OfType<Control>());
+                AssertManagedCaptionButtons(host, "initial");
+                var initialSize = window.Bounds.Size;
+                var themes = new[] { "Light", "Dark", "Lumen", "Isekai", "Pixel", "System" };
+                foreach (var from in themes)
+                foreach (var to in themes.Where(theme => theme != from))
+                {
+                    ThemeApplicationService.Apply(app, from);
+                    Tick(window);
+                    AssertManagedCaptionButtons(host, $"before {from} -> {to}");
+                    ThemeApplicationService.Apply(app, to);
+                    Tick(window);
+                    AssertManagedCaptionButtons(host, $"{state}: {from} -> {to}");
+                    Assert.Equal(initialSize, window.Bounds.Size);
+                    Assert.Equal(state, window.WindowState);
+                    if (state == WindowState.Normal && (from is "Light" or "Dark") && (to is "Light" or "Dark"))
+                        Capture(host, $"theme-switch-{from}-to-{to}");
+                }
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task RapidThemeChangesAndFullscreenRestoreKeepManagedCaptionButtons()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MainWindowTitleBarTests));
+        await session.Dispatch(() =>
+        {
+            var app = Avalonia.Application.Current!;
+            ThemeApplicationService.Apply(app, "Light");
+            var window = ManagedDecorationHeadlessWindow.Create();
+            window.Width = 920;
+            window.Height = 300;
+            window.Content = MainWindowTitleBar.Wrap(window, new Border());
+            window.Show();
+            try
+            {
+                Tick(window);
+                var host = Assert.Single(window.GetVisualAncestors().OfType<Control>());
+                for (var burst = 0; burst < 40; burst++)
+                {
+                    foreach (var theme in new[] { "Dark", "Lumen", "Isekai", "Pixel", "System", "Light" })
+                        ThemeApplicationService.Apply(app, theme);
+                    Tick(window);
+                    AssertManagedCaptionButtons(host, $"rapid burst {burst}");
+                }
+                window.WindowState = WindowState.FullScreen;
+                ThemeApplicationService.Apply(app, "Dark");
+                Tick(window);
+                Assert.False(Assert.Single(host.GetVisualDescendants().OfType<MainWindowTitleBar>()).IsVisible);
+                window.WindowState = WindowState.Normal;
+                Tick(window);
+                AssertManagedCaptionButtons(host, "fullscreen restore");
+                Assert.Equal(new Size(920, 300), window.Bounds.Size);
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task ClosingDuringAQueuedThemeRefreshDoesNotAccessTheClosedWindow()
+    {
+        if (!OperatingSystem.IsWindows()) return;
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MainWindowTitleBarTests));
+        await session.Dispatch(() =>
+        {
+            var app = Avalonia.Application.Current!;
+            ThemeApplicationService.Apply(app, "Light");
+            var window = ManagedDecorationHeadlessWindow.Create();
+            window.Content = MainWindowTitleBar.Wrap(window, new Border());
+            window.Show();
+            Tick(window);
+            ThemeApplicationService.Apply(app, "Dark");
+            window.Close();
+            Dispatcher.UIThread.RunJobs();
+        }, CancellationToken.None);
+    }
+
+    private static void AssertManagedCaptionButtons(Control host, string stage)
+    {
+        foreach (var name in new[] { "PART_MinimizeButton", "PART_MaximizeButton", "PART_CloseButton" })
+        {
+            var button = Assert.Single(host.GetVisualDescendants().OfType<Button>(), candidate => candidate.Name == name);
+            Assert.True(button.IsEffectivelyVisible && button.Bounds.Width > 0 && button.Bounds.Height > 0,
+                $"{stage}: {name} visible={button.IsEffectivelyVisible}, bounds={button.Bounds}");
+            var glyph = Assert.Single(button.GetVisualDescendants().OfType<Avalonia.Controls.Shapes.Path>());
+            Assert.NotNull(glyph.Data);
+            Assert.True(glyph.Data.Bounds.Width > 0 && glyph.Data.Bounds.Height > 0, $"{stage}: {name} has an empty glyph");
+            var disc = Assert.Single(button.GetVisualDescendants().OfType<Border>(), candidate => candidate.Name == "PART_TrafficLightDisc");
+            Assert.Equal(new Size(22, 22), disc.Bounds.Size);
+            var point = button.TranslatePoint(new Point(1, button.Bounds.Height / 2), host)!.Value;
+            var hit = Assert.IsAssignableFrom<Visual>(host.InputHitTest(point));
+            Assert.Contains(button, hit.GetVisualAncestors().Prepend(hit));
+        }
+    }
+
     [Fact]
     public async Task CaptionTracksDocumentTitleAndThemeWithoutReplacingNativeWindowActions()
     {

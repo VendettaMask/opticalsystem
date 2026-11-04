@@ -130,6 +130,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 _operationStatus
             }
         };
+        commands.Classes.Add("analysis-actions");
         _syncButton.Margin = new Thickness(2, 0, 0, 0);
         copyButton.Margin = new Thickness(2, 0, 0, 0);
         exportButton.Margin = new Thickness(2, 0, 2, 0);
@@ -150,11 +151,7 @@ public sealed partial class AnalysisPanel : UserControl, IDisposable, IDisplaySe
                 _settingsHost
             }
         };
-        var root = new DockPanel();
-        DockPanel.SetDock(toolbar, Avalonia.Controls.Dock.Top);
-        root.Children.Add(toolbar);
-        root.Children.Add(overlay);
-        Content = root;
+        Content = new AnalysisBookWorkspace(toolbar, overlay);
 
         RebuildParameterPanel();
         _events.Changed += OnWorkspaceChanged;

@@ -1,5 +1,9 @@
 # STAROPT 工程格式
 
+非序列设计自有实验包 v1 将完整源场景作为单份 `source.staropt` 内嵌，另存实际引用材料模型/别名、冻结方案、数值结果与条目哈希；它不改变 STAROPT v22 或 STARRDB v2。重放不借用当前项目的材料目录/网格/设置，不自动发布场景，规范与预算见[独立实验说明](NONSEQUENTIAL_PHYSICS_DESIGN_IMPORT_2026-11-04.md#已交付的本机链路)。
+
+2026-11-04：新增按需载荷 v22（容器 v2 不变），保存 NSC `UsePolarization`/`CoherentDetection`、源 `Physics`（Jones、相干组、初相位）、探测器 `NormalizeCoherentPower`，以及源 `WavelengthNumber=0` 按系统权重抽样。新字段省略时保持旧默认并继续选择既有 v7–21；旧版本负载若带这些新语义则拒绝。光线复场使用独立 STARRDB v2，旧标量仍写 v1，详见[新契约与边界](NONSEQUENTIAL_PHYSICS_DESIGN_IMPORT_2026-11-04.md)。
+
 2026-11-01 坐标断点补充：保留的透明参考平面沿用 `plane` 几何组件，可选 `referenceIncidenceNormalX/Y/Z` 记录原入射框架的局部法线，仅用于断点光线表格入射角；交点法线仍为本地Z轴，缺省保持普通平面语义。复用现有 numbers 表和快照版本；曲率/厚度本地拾取继续用现有拾取列表保存。实际ZMX配置依赖、JSON快照和STAROPT保持验证见[光学检测第二批](OPTICAL_TESTING_PROPAGATION_REPAIR_2026-11-01.md)。
 
 2026-11-01 遮挡补充：顺序快照支持孔径组件 `circular_obscuration`，以有限、有序的 `innerRadius/outerRadius` 和有限 `offsetX/offsetY` 保存圆形/环带的补集。沿用现有组件表、容器和工程版本选择，不覆盖旧快照；未知孔径类型按既有校验拒绝。对应 ZMX 为 OBSC/OBDC，保存往返和物理接受验证见[专题](OBSCURED_REFERENCE_REPAIR_2026-11-01.md)。

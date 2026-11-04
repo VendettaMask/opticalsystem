@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="78a9628a-8042-4662-bd47-6a20e3289795" name="optics@LAPTOP-G4BBBCS0 2026-11-04 12:08:52" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T12:08:52.7757917+08:00" queuing="2026-11-04T12:08:52.7757920+08:00" start="2026-11-04T12:08:42.1114616+08:00" finish="2026-11-04T12:08:52.7822692+08:00" />
+  <TestSettings name="default" id="377b829c-079a-4369-af2e-d2548c1dedbd">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-04_12_08_52" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="afe8f770-b2c1-4f4d-8396-2a31df37d4a1" testId="6720d1bd-ccac-720b-a160-4292482d7fd8" testName="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips" computerName="LAPTOP-G4BBBCS0" duration="00:00:08.4401341" startTime="2026-11-04T12:08:44.2019642+08:00" endTime="2026-11-04T12:08:52.6349707+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="afe8f770-b2c1-4f4d-8396-2a31df37d4a1">
+      <Output>
+        <ErrorInfo>
+          <Message>Dark live pixels changed after returning from Isekai</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.&lt;&gt;c.&lt;&lt;OtherThemesKeepNativePixelsThroughBookThemeRoundTrips&gt;b__2_0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs:line 126&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs:line 95&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6720d1bd-ccac-720b-a160-4292482d7fd8">
+      <Execution id="afe8f770-b2c1-4f4d-8396-2a31df37d4a1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisResultBookTabsTests" name="OtherThemesKeepNativePixelsThroughBookThemeRoundTrips" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="6720d1bd-ccac-720b-a160-4292482d7fd8" executionId="afe8f770-b2c1-4f4d-8396-2a31df37d4a1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.20]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.54]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.57]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:10.05]       Dark live pixels changed after returning from Isekai&#xD;
+[xUnit.net 00:00:10.06]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.06]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs(126,0): at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.&lt;&gt;c.&lt;&lt;OtherThemesKeepNativePixelsThroughBookThemeRoundTrips&gt;b__2_0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:10.06]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.06]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:10.06]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.06]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:10.06]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.06]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisResultBookTabsTests.cs(95,0): at OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips()&#xD;
+[xUnit.net 00:00:10.06]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.07]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T12:08:52.6387274+08:00">
+        <Text>[xUnit.net 00:00:10.05]     OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

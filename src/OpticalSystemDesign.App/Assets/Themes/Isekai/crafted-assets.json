@@ -1,0 +1,282 @@
+{
+  "date": "2026-11-04",
+  "assets": [
+    {
+      "file": "crafted-control-skins.png",
+      "width": 1448,
+      "height": 1086,
+      "centerAlpha": 0,
+      "transparentFraction": 0.3353930740819877,
+      "visibleFraction": 0.6302189849719687,
+      "sha256": "a8450d43b656be782691ec6395221aa80a6d234bc936b90609b04285283ac4e9",
+      "regions": [
+        {
+          "rect": [
+            38,
+            121,
+            668,
+            377
+          ],
+          "count": 247687
+        },
+        {
+          "rect": [
+            741,
+            121,
+            670,
+            377
+          ],
+          "count": 248369
+        },
+        {
+          "rect": [
+            37,
+            591,
+            669,
+            376
+          ],
+          "count": 247153
+        },
+        {
+          "rect": [
+            741,
+            591,
+            669,
+            377
+          ],
+          "count": 247828
+        }
+      ]
+    },
+    {
+      "file": "crafted-crest-trims.png",
+      "width": 1448,
+      "height": 1086,
+      "centerAlpha": 0,
+      "transparentFraction": 0.7932431091847013,
+      "visibleFraction": 0.1162332244640477,
+      "sha256": "dbf0cddf0a3d47bfb1a8967a217be0d29a5b6506529984d8f54ffa1c66b921b2",
+      "regions": [
+        {
+          "rect": [
+            52,
+            105,
+            622,
+            438
+          ],
+          "count": 67272
+        },
+        {
+          "rect": [
+            759,
+            186,
+            643,
+            84
+          ],
+          "count": 24116
+        },
+        {
+          "rect": [
+            303,
+            543,
+            125,
+            480
+          ],
+          "count": 26981
+        },
+        {
+          "rect": [
+            926,
+            591,
+            317,
+            280
+          ],
+          "count": 64411
+        }
+      ]
+    },
+    {
+      "file": "crafted-gold-binding.png",
+      "width": 1448,
+      "height": 1086,
+      "centerAlpha": 0,
+      "transparentFraction": 0.7662121119623944,
+      "visibleFraction": 0.20909071253421244,
+      "sha256": "c4a4f3050adfc1e3b20961515dd9bf21766290c3c3d5af5469f4f9d0b3175135",
+      "regions": [
+        {
+          "rect": [
+            10,
+            14,
+            714,
+            529
+          ],
+          "count": 82368
+        },
+        {
+          "rect": [
+            724,
+            14,
+            714,
+            529
+          ],
+          "count": 82524
+        },
+        {
+          "rect": [
+            10,
+            543,
+            714,
+            529
+          ],
+          "count": 81933
+        },
+        {
+          "rect": [
+            724,
+            543,
+            714,
+            529
+          ],
+          "count": 81976
+        }
+      ]
+    },
+    {
+      "file": "crafted-paper-corners.png",
+      "width": 1448,
+      "height": 1086,
+      "centerAlpha": 0,
+      "transparentFraction": 0.5465772310572531,
+      "visibleFraction": 0.1729419126400293,
+      "sha256": "87a2bdeca12b0d78350882730f2a4f683410e35875f35406b27b97cdcef715a6",
+      "regions": [
+        {
+          "rect": [
+            96,
+            33,
+            542,
+            474
+          ],
+          "count": 67013
+        },
+        {
+          "rect": [
+            812,
+            33,
+            541,
+            474
+          ],
+          "count": 66530
+        },
+        {
+          "rect": [
+            82,
+            571,
+            556,
+            475
+          ],
+          "count": 69272
+        },
+        {
+          "rect": [
+            811,
+            571,
+            556,
+            475
+          ],
+          "count": 69141
+        }
+      ]
+    },
+    {
+      "file": "brown-leather-cc0.jpg",
+      "width": 1024,
+      "height": 1024,
+      "sha256": "7e9e1d6566d1fd91d4ceb4966c4820361e85d53a7a828b6bab3b2a093a876cd1",
+      "author": "Rob Tuytel / Poly Haven",
+      "license": "CC0-1.0",
+      "source": "https://polyhaven.com/a/brown_leather",
+      "download": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brown_leather/brown_leather_albedo_1k.jpg",
+      "originalBytesUnchanged": true
+    }
+  ],
+  "alphaThreshold": 24,
+  "notes": [
+    "Quadrant bounds are diagnostic only. Runtime uses manually separated complete sprite rectangles for the crest and vine whose alpha crosses the quadrant boundary.",
+    "Source sheet remains 1200x900. UI commands and navigation are not part of exports.",
+    "Generated leather candidate is retained only at its original generation path; the product uses the downloaded CC0 leather."
+  ],
+  "renderRegions": {
+    "crest": [
+      52,
+      105,
+      622,
+      245
+    ],
+    "divider": [
+      759,
+      186,
+      643,
+      84
+    ],
+    "rosette": [
+      926,
+      591,
+      317,
+      280
+    ],
+    "paperCorners": [
+      [
+        96,
+        33,
+        542,
+        474
+      ],
+      [
+        812,
+        33,
+        541,
+        474
+      ],
+      [
+        82,
+        571,
+        556,
+        475
+      ],
+      [
+        811,
+        571,
+        556,
+        475
+      ]
+    ],
+    "controlStates": [
+      [
+        38,
+        121,
+        668,
+        377
+      ],
+      [
+        741,
+        121,
+        670,
+        377
+      ],
+      [
+        37,
+        591,
+        669,
+        376
+      ],
+      [
+        741,
+        591,
+        669,
+        377
+      ]
+    ]
+  }
+}

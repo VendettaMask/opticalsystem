@@ -1,0 +1,32 @@
+{
+  "CapturedUtc": "2026-11-04T05:50:27.1418738Z",
+  "BaseCommit": "b7d16f8104aaa04dc061bd773efa650b4b087e16",
+  "Scope": "Light glass header seam UI correction in shared dirty checkout",
+  "SourceFiles": [
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/LightGlassMaterial.cs",
+      "SHA256": "A0BDC98E9ACF2B282DAD63C7D3AE27D9D620751F780B5D6A8A8862A32B317A7F"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Theming/ThemeRegistry.cs",
+      "SHA256": "707E47EBFBBE20DBEE1E7F449632E9A952AF6EF3081B01D5E452168CE9069FFE"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/LightGradientThemeTests.cs",
+      "SHA256": "E97DDA1A8FB36F35E4B826588207EB4DE469E6C50178B5A2B0C97B1D367A5A64"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CompactRibbonTests.cs",
+      "SHA256": "01325F851056D899DC24AF338E64FB1B50D6213987D1C42CB037510323732238"
+    }
+  ],
+  "DefaultAppSHA256": "FFB826FA35E8DC021006A57EA194435C0C0EE245BA9775DB01F44FCCE74E8CC3",
+  "TestAppSHA256": "FFB826FA35E8DC021006A57EA194435C0C0EE245BA9775DB01F44FCCE74E8CC3",
+  "IdenticalAppAssemblies": true,
+  "TestAssemblySHA256": "8CB8D41E1149FDA8B4A0C32F3380C43357392CB9B73F9487EA4005E5B4AA291D",
+  "LaterDefaultOutputObservation": {
+    "ObservedUtc": "2026-11-04T05:51:39.0895917Z",
+    "SHA256": "F2CBCEB3DFDA4F90C977A21E26C14474C7990725F8A35EB45FD76CE614184904",
+    "Note": "A later shared-workspace build replaced the default App output. The recorded default/test hashes matched at build verification; all four scoped source files still match."
+  }
+}

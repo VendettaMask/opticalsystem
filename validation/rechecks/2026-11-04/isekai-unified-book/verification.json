@@ -1,0 +1,123 @@
+{
+  "date": "2026-11-04",
+  "baseCommit": "b7d16f8104aaa04dc061bd773efa650b4b087e16",
+  "scope": "Isekai unified gold/brown book binding and typed decorative accessories; no optical accuracy certification",
+  "build": "Default Release App and built-in dependencies/test assembly built successfully",
+  "finalRuns": [
+    {
+      "file": "final-scoped.trx",
+      "passed": 112,
+      "failed": 0,
+      "skipped": 6
+    },
+    {
+      "file": "exports-final.trx",
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "file": "folio-presence-final.trx",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "uniquePassed": 131,
+  "historicalPixelComparisons": [
+    {
+      "key": "Light/png",
+      "before": "D4AB27C06B173F49296EDE00B04DBC9DD3687C72497D4C0AB339CCE94354F1BD",
+      "after": "D4AB27C06B173F49296EDE00B04DBC9DD3687C72497D4C0AB339CCE94354F1BD",
+      "equal": true
+    },
+    {
+      "key": "Light/report",
+      "before": "4ED7185913179E132C7EC162745A9CC538A8874333A989BC0DB93F7D682CD34E",
+      "after": "4ED7185913179E132C7EC162745A9CC538A8874333A989BC0DB93F7D682CD34E",
+      "equal": true
+    },
+    {
+      "key": "Dark/png",
+      "before": "39BC60A290874F764EB473CD67AFB93326EABD34340A1CCA08294BBEF5F00BC0",
+      "after": "39BC60A290874F764EB473CD67AFB93326EABD34340A1CCA08294BBEF5F00BC0",
+      "equal": true
+    },
+    {
+      "key": "Dark/report",
+      "before": "6D2987A925079EF709C3BAA6C2DFD1A219F2F5F534C825CC6FDA68EDC416CFE8",
+      "after": "6D2987A925079EF709C3BAA6C2DFD1A219F2F5F534C825CC6FDA68EDC416CFE8",
+      "equal": true
+    },
+    {
+      "key": "Lumen/png",
+      "before": "698E3886C955E93EB8D0C02E35B2A92629869A79DCD5C5C9380E273E2E78CD78",
+      "after": "698E3886C955E93EB8D0C02E35B2A92629869A79DCD5C5C9380E273E2E78CD78",
+      "equal": true
+    },
+    {
+      "key": "Lumen/report",
+      "before": "E4028673BEEF954E0DF0FABB17DC0D1FF4F2DA02E8346F1D65BB4E28DBEE20AA",
+      "after": "E4028673BEEF954E0DF0FABB17DC0D1FF4F2DA02E8346F1D65BB4E28DBEE20AA",
+      "equal": true
+    },
+    {
+      "key": "Pixel/png",
+      "before": "0390B8C9DEC55C1921D8361E70F9BF415465E0BAAC11A913E555D4A67D937365",
+      "after": "0390B8C9DEC55C1921D8361E70F9BF415465E0BAAC11A913E555D4A67D937365",
+      "equal": true
+    },
+    {
+      "key": "Pixel/report",
+      "before": "B7C5EB35A363E44A341F639F061CDAB959D919D6DCBF2259952E4B41A272BB81",
+      "after": "B7C5EB35A363E44A341F639F061CDAB959D919D6DCBF2259952E4B41A272BB81",
+      "equal": true
+    }
+  ],
+  "baselineReceiptSha256": "8c0c50350b9d50837188d71fdbff42293380b7ea08a9b31ecda6ff4a5a48f717",
+  "sourceFingerprints": [
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/AnalysisResultTabs.cs",
+      "sha256": "f47754e480868599f1f26ca400d4444e7ba332305769552bc6e9b957f7226f30"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/AnalysisImageFrame.cs",
+      "sha256": "d9465828590878865f014cb658ad4f93574f08211916a58bdb6b272ca0541f07"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/ResponsiveAnalysisPlotHost.cs",
+      "sha256": "0751b5755dbe801b90d2b261a28a63a9dfe8eec4a8ccda9d867efa7532c9aab8"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/PlotCaption.cs",
+      "sha256": "55ccec4993db1aab98446a5c2ed41c34e7a5ee0abb969c3fcbb47fbe4116f54d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/AnalysisArtwork.cs",
+      "sha256": "4dcf26dfc3a6a8ab803843fedede9a59cb3b7c35b130fdaca348e2df962632a9"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/ThemeDrawingMaterial.cs",
+      "sha256": "63a215bc8479fcd50991f5890b728dff0e156a721640aaf82d161785032c9e43"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Theming/IsekaiDrawingMaterial.cs",
+      "sha256": "15bae27a5a5c752665ee8b85ed27a239c10cd0df5ef0e76e4825d23aecf58819"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs",
+      "sha256": "6e99227e49f8a8560ba86bbcf3f7d35c82236eea8e45fc1cd5d5c67a964aa867"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj",
+      "sha256": "a3ef7bea90455f988db4dd15dfd30ba8a27dcbd10509fe4b3de1fdff5719f299"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/AnalysisResultBookTabsTests.cs",
+      "sha256": "2fceb38b5bc651cc7bda36ccb3dd0bca7ac827a37c13b49d9cfbd3d271b416fa"
+    }
+  ],
+  "appAssemblySha256": "216e4e0faea3b755f0e58472b7df46dbe16b45bdaecb18f689c3348ff5bc873e",
+  "nativeInteraction": "Headless/Skia only; user app not restarted",
+  "delivery": "Local source/build and actual screenshots; no push/package/release"
+}

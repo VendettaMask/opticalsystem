@@ -11,7 +11,8 @@ internal interface IThemeDrawingMaterial
     ResourceDictionary CreateResources(bool transparentPlot);
     void DrawPaper(DrawingContext context, Rect bounds, bool scene);
     void DrawFrame(DrawingContext context, Rect bounds);
-    void DrawLegendOrnament(DrawingContext context, Rect bounds);
+    void DrawLegendOrnament(DrawingContext context, Rect bounds, AnalysisArtworkKind kind);
+    void DrawCaptionOrnament(DrawingContext context, Rect bounds, AnalysisArtworkKind kind);
     double FrameInset { get; }
     IBrush Ink { get; }
     IBrush CaptionBackground { get; }
@@ -100,7 +101,60 @@ internal static class ThemeDrawingSurface
             var top = Math.Max(0, _legend.Bounds.Bottom + 28);
             var free = new Rect(14, top, Math.Max(0, Bounds.Width - 28), Math.Max(0, Bounds.Height - top - 24));
             if (free.Width >= 70 && free.Height >= 150)
-                Material(this)?.DrawLegendOrnament(context, free);
+                Material(this)?.DrawLegendOrnament(context, free, AnalysisArtwork.GetKind(this));
+        }
+    }
+
+    internal static Control CaptionOrnament(Control summary) => new CaptionMargin(summary)
+    { IsHitTestVisible = false, ClipToBounds = true, ZIndex = -1 };
+
+    /// <summary>Uses actual laid-out text lines; decoration is omitted when no safe blank rectangle exists.</summary>
+    internal sealed class CaptionMargin(Control summary) : Control
+    {
+        internal Rect? OrnamentBounds { get; private set; }
+        internal IReadOnlyList<Rect> OccupiedTextBounds()
+        {
+            var occupied = new List<Rect>();
+            foreach (var text in summary.GetVisualDescendants().OfType<TextBlock>().Prepend(summary as TextBlock).OfType<TextBlock>())
+            {
+                if (!text.IsVisible || text.TranslatePoint(default, this) is not { } origin) continue;
+                var y = origin.Y;
+                foreach (var line in text.TextLayout.TextLines)
+                {
+                    var width = line.WidthIncludingTrailingWhitespace;
+                    var x = origin.X + (text.TextAlignment switch
+                    {
+                        TextAlignment.Right => Math.Max(0, text.Bounds.Width - width),
+                        TextAlignment.Center => Math.Max(0, (text.Bounds.Width - width) / 2),
+                        _ => 0
+                    });
+                    occupied.Add(new Rect(x, y, width, line.Height).Inflate(5)); y += line.Height;
+                }
+            }
+            return occupied;
+        }
+        public override void Render(DrawingContext context)
+        {
+            OrnamentBounds = null;
+            if (!GetValue(AnalysisArtwork.EnabledProperty) || Material(this) is not { } material) return;
+            var occupied = OccupiedTextBounds();
+            var best = default(Rect);
+            foreach (var top in occupied.Select(rect => rect.Bottom + 4).Prepend(8).Distinct())
+            {
+                var bottom = Bounds.Height - 8;
+                if (bottom - top < 64) continue;
+                var left = occupied.Where(rect => rect.Top < bottom && rect.Bottom > top)
+                    .Select(rect => rect.Right + 8).DefaultIfEmpty(8).Max();
+                var width = Math.Min(320, Bounds.Width - left - 8);
+                var height = Math.Min(132, bottom - top);
+                if (width < 150) continue;
+                var candidate = new Rect(Bounds.Width - width - 8, bottom - height, width, height);
+                if (occupied.Any(rect => rect.Intersects(candidate))) continue;
+                if (candidate.Width * candidate.Height > best.Width * best.Height) best = candidate;
+            }
+            if (best.Width <= 0) return;
+            OrnamentBounds = best;
+            material.DrawCaptionOrnament(context, best, AnalysisArtwork.GetKind(this));
         }
     }
 }

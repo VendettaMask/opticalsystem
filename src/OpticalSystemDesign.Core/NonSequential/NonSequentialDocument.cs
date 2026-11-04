@@ -63,7 +63,9 @@ public sealed record NonSequentialTraceSettings(
     int MaximumActiveBranches = 1_000_000,
     double MinimumRelativeIntensity = 1e-9,
     int RandomSeed = 1,
-    bool SplitFresnelRays = true);
+    bool SplitFresnelRays = true,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)] bool UsePolarization = false,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)] bool CoherentDetection = false);
 
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type")]
 [JsonDerivedType(typeof(SourceRayParameters), "source-ray")]
@@ -90,7 +92,11 @@ public abstract record SourceParameters(
     double PowerWatts,
     int WavelengthNumber,
     int LayoutRayCount,
-    int AnalysisRayCount) : NonSequentialObjectParameters;
+    int AnalysisRayCount) : NonSequentialObjectParameters
+{
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public NonSequentialSourcePhysics? Physics { get; init; }
+}
 
 public sealed record SourceRayParameters(
     double PowerWatts = 1,
@@ -275,7 +281,8 @@ public sealed record DetectorRectangleParameters(
     int PixelsY = 100,
     bool FrontOnly = true,
     bool Absorb = true,
-    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] NonSequentialOpticalInterface? IncidentSurface = null) : NonSequentialObjectParameters;
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] NonSequentialOpticalInterface? IncidentSurface = null,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)] bool NormalizeCoherentPower = false) : NonSequentialObjectParameters;
 
 public sealed record NonSequentialObjectDefinition(
     Guid Id,
@@ -644,6 +651,7 @@ public sealed class NonSequentialDocument
         }
 
         ValidateTraceSettings(TraceSettings);
+        NonSequentialFieldBudget.Validate(this);
         _objectLookup = byId;
         _meshAssetLookup = meshAssetsById;
     }
@@ -933,7 +941,8 @@ public sealed class NonSequentialDocument
     private void ValidateSource(string name, SourceParameters source)
     {
         if (!double.IsFinite(source.PowerWatts) || source.PowerWatts <= 0
-            || source.WavelengthNumber <= 0 || source.WavelengthNumber > _wavelengths.Count
+            || source.WavelengthNumber < 0 || source.WavelengthNumber > _wavelengths.Count
+            || source.WavelengthNumber == 0 && !_wavelengths.Any(w => w.Weight > 0)
             || source.LayoutRayCount <= 0 || source.LayoutRayCount > 10_000
             || source.AnalysisRayCount <= 0 || source.AnalysisRayCount > 1_000_000)
         {

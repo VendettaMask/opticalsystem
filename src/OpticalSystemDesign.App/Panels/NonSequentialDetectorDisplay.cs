@@ -14,6 +14,7 @@ internal enum DetectorProfileAxis
     X,
     Y
 }
+internal enum DetectorDisplayDomain { Scalar, Signed, Phase }
 
 internal sealed record DetectorDisplayFrame(
     IReadOnlyList<double> Values,
@@ -34,7 +35,7 @@ internal static class NonSequentialDetectorDisplay
         int smoothingRadius,
         bool logarithmic,
         double? manualMinimum,
-        double? manualMaximum)
+        double? manualMaximum, DetectorDisplayDomain domain = DetectorDisplayDomain.Scalar)
     {
         ArgumentNullException.ThrowIfNull(source);
         if (width <= 0 || height <= 0 || source.Count != checked(width * height))
@@ -45,6 +46,11 @@ internal static class NonSequentialDetectorDisplay
         {
             throw new ArgumentOutOfRangeException(nameof(smoothingRadius));
         }
+        if (!Enum.IsDefined(domain)) throw new ArgumentOutOfRangeException(nameof(domain));
+        if (domain == DetectorDisplayDomain.Phase && (normalization != DetectorDisplayNormalization.Absolute || logarithmic || smoothingRadius != 0))
+            throw new ArgumentException("相位使用原始角度与有效像素掩码，不能按强度求和归一、取对数或跨越 ±180° 线性平滑。");
+        if (domain == DetectorDisplayDomain.Signed && (normalization == DetectorDisplayNormalization.Sum || logarithmic))
+            throw new ArgumentException("有符号分量不支持求和归一或对数显示。");
         if (manualMinimum.HasValue != manualMaximum.HasValue
             || manualMinimum is { } minimum && (!double.IsFinite(minimum)
                 || manualMaximum is not { } maximum
@@ -54,7 +60,7 @@ internal static class NonSequentialDetectorDisplay
             throw new ArgumentOutOfRangeException(nameof(manualMinimum));
         }
 
-        var values = source.Select(value => double.IsFinite(value) ? value : 0).ToArray();
+        var values = domain == DetectorDisplayDomain.Phase ? source.ToArray() : source.Select(value => double.IsFinite(value) ? value : 0).ToArray();
         if (smoothingRadius > 0)
         {
             values = BoxSmooth(values, width, height, smoothingRadius);
@@ -62,7 +68,7 @@ internal static class NonSequentialDetectorDisplay
 
         var scale = normalization switch
         {
-            DetectorDisplayNormalization.Peak => values.Max(),
+            DetectorDisplayNormalization.Peak => domain == DetectorDisplayDomain.Signed ? values.Max(v => Math.Abs(v)) : values.Max(),
             DetectorDisplayNormalization.Sum => values.Sum(),
             _ => 1
         };
@@ -91,8 +97,8 @@ internal static class NonSequentialDetectorDisplay
         return new DetectorDisplayFrame(
             values,
             valueUnit,
-            manualMinimum,
-            manualMaximum);
+            manualMinimum ?? (domain == DetectorDisplayDomain.Phase ? -180 : null),
+            manualMaximum ?? (domain == DetectorDisplayDomain.Phase ? 180 : null));
     }
 
     public static IReadOnlyList<AnalysisPointDto> Profile(
@@ -140,8 +146,68 @@ internal static class NonSequentialDetectorDisplay
                 (AnalysisAxisQuantity.Count, AnalysisAxisUnit.Dimensionless),
             NonSequentialDetectorDataType.RadiantIntensity =>
                 (AnalysisAxisQuantity.Intensity, AnalysisAxisUnit.WattsPerSteradian),
+            NonSequentialDetectorDataType.CoherentPower or NonSequentialDetectorDataType.RawCoherentPower
+                or NonSequentialDetectorDataType.StokesI or NonSequentialDetectorDataType.StokesQ
+                or NonSequentialDetectorDataType.StokesU or NonSequentialDetectorDataType.StokesV
+                or NonSequentialDetectorDataType.LongitudinalPower => (AnalysisAxisQuantity.Power, AnalysisAxisUnit.Watt),
+            NonSequentialDetectorDataType.FieldReal or NonSequentialDetectorDataType.FieldImaginary or NonSequentialDetectorDataType.FieldMagnitude
+                => (AnalysisAxisQuantity.FieldAmplitude, AnalysisAxisUnit.SquareRootWatt),
+            NonSequentialDetectorDataType.FieldPhase => (AnalysisAxisQuantity.Angle, AnalysisAxisUnit.Degree),
             _ => throw new ArgumentOutOfRangeException(nameof(dataType))
         };
+
+    public static DetectorDisplayDomain Domain(NonSequentialDetectorDataType type) => type switch
+    {
+        NonSequentialDetectorDataType.FieldPhase => DetectorDisplayDomain.Phase,
+        NonSequentialDetectorDataType.FieldReal or NonSequentialDetectorDataType.FieldImaginary
+            or NonSequentialDetectorDataType.StokesQ or NonSequentialDetectorDataType.StokesU or NonSequentialDetectorDataType.StokesV => DetectorDisplayDomain.Signed,
+        _ => DetectorDisplayDomain.Scalar
+    };
+
+    public static string DataLabel(NonSequentialDetectorDataType type) => type switch
+    {
+        NonSequentialDetectorDataType.CoherentPower => "相干功率", NonSequentialDetectorDataType.RawCoherentPower => "未归一幅平方",
+        NonSequentialDetectorDataType.StokesI => "Stokes I", NonSequentialDetectorDataType.StokesQ => "Stokes Q",
+        NonSequentialDetectorDataType.StokesU => "Stokes U", NonSequentialDetectorDataType.StokesV => "Stokes V",
+        NonSequentialDetectorDataType.LongitudinalPower => "纵向功率",
+        NonSequentialDetectorDataType.FieldReal => "复场实部", NonSequentialDetectorDataType.FieldImaginary => "复场虚部",
+        NonSequentialDetectorDataType.FieldMagnitude => "复场幅值", NonSequentialDetectorDataType.FieldPhase => "相位",
+        _ => type.ToString()
+    };
+
+    public static string ExportCsv(NonSequentialDetectorViewDto view)
+    {
+        var text = new System.Text.StringBuilder();
+        var field = view.FieldSelection;
+        if (field is not null)
+        {
+            static string Csv(string value) => "\"" + value.Replace("\"", "\"\"") + "\"";
+            text.AppendLine("#DataType," + view.DataType);
+            text.AppendLine("#WavelengthNumber," + field.WavelengthNumber);
+            text.AppendLine("#CoherenceGroup," + Csv(field.CoherenceGroup));
+            text.AppendLine("#JonesMode," + (field.Mode + 1));
+            text.AppendLine("#DetectorLocalComponent," + field.Component);
+            text.AppendLine("#ValueUnit," + Csv(view.ValueUnit));
+            text.AppendLine("#Scope,raw ray amplitude sum; wrapped phase; invalid phase cells are empty");
+        }
+        text.AppendLine(field is null ? "x,y,value" : "x_mm,y_mm,value,valid");
+        for (var y = 0; y < view.PixelsY; y++)
+            for (var x = 0; x < view.PixelsX; x++)
+            {
+                var px = view.XMinimum + (x + .5) * (view.XMaximum - view.XMinimum) / view.PixelsX;
+                var py = view.YMinimum + (y + .5) * (view.YMaximum - view.YMinimum) / view.PixelsY;
+                var index = y * view.PixelsX + x; var value = view.Values[index];
+                var valid = view.ValidPixels?[index] ?? double.IsFinite(value);
+                text.Append(px.ToString("G17", System.Globalization.CultureInfo.InvariantCulture)).Append(',')
+                    .Append(py.ToString("G17", System.Globalization.CultureInfo.InvariantCulture)).Append(',');
+                if (field is null || valid) text.Append(value.ToString("G17", System.Globalization.CultureInfo.InvariantCulture));
+                if (field is not null) text.Append(valid ? ",1" : ",0");
+                text.AppendLine();
+                if (text.Length > Application.Services.BoundedApplicationFile.MaximumExportBytes)
+                    throw new InvalidOperationException("探测器 CSV 超出既有导出限额。");
+            }
+        return text.ToString();
+    }
 
     private static double[] BoxSmooth(
         IReadOnlyList<double> source,

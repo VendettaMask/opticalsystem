@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-04",
+  "source": "Built-in image_gen; generated leather restored from earlier original output. No web material is embedded/loaded.",
+  "assets": [
+    {
+      "file": "frayed-vellum.png",
+      "sha256": "9e8380b7764db0c02b68387e525634e8e201e9023c982aee57b3b47893b99914",
+      "bytes": 3231033,
+      "width": 1448,
+      "height": 1086,
+      "transparentFraction": 0.05221337871249351,
+      "partialAlphaFraction": 0.9477071314469441,
+      "originalBytesPreserved": true
+    },
+    {
+      "file": "crafted-leather.png",
+      "sha256": "b244f6a80754cd70cb5863f21971f1aafa92ac75df7d5c77d9355855224cfe31",
+      "bytes": 3083407,
+      "width": 1254,
+      "height": 1254,
+      "transparentFraction": 0,
+      "partialAlphaFraction": 0,
+      "originalBytesPreserved": true
+    },
+    {
+      "file": "scroll-control-skins.png",
+      "sha256": "39f67d92fbc2ae725a0c6d9b68a419c078db06eaf20728bd7932cc562d7ce220",
+      "bytes": 1754951,
+      "width": 1448,
+      "height": 1086,
+      "transparentFraction": 0.5441524729607359,
+      "partialAlphaFraction": 0.4554144663878799,
+      "originalBytesPreserved": true
+    }
+  ],
+  "frame": {
+    "asset": "frayed-vellum.png",
+    "source": [
+      0,
+      0,
+      1448,
+      1086
+    ],
+    "sourceMargins": [
+      100,
+      100
+    ],
+    "destinationInset": 28,
+    "omitCentre": true,
+    "rectangularBackfill": false
+  },
+  "paper": {
+    "sourceRelative": [
+      0.055,
+      0.07,
+      0.89,
+      0.86
+    ],
+    "stretch": "UniformToFill",
+    "textureOpacity": 1
+  },
+  "controls": {
+    "asset": "scroll-control-skins.png",
+    "regions": [
+      [
+        23,
+        226,
+        688,
+        261
+      ],
+      [
+        734,
+        217,
+        683,
+        273
+      ],
+      [
+        21,
+        571,
+        683,
+        258
+      ],
+      [
+        732,
+        568,
+        697,
+        258
+      ]
+    ],
+    "states": [
+      "dark leather",
+      "warm paper selected",
+      "light paper",
+      "warm leather hover"
+    ]
+  },
+  "rejected": [
+    "brown-leather-cc0.jpg",
+    "crafted-gold-binding.png",
+    "crafted-control-skins.png",
+    "scroll-vellum-binding.png"
+  ]
+}

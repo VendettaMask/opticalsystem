@@ -1,0 +1,86 @@
+{
+  "UniquePassed": 16,
+  "Scope": "5 window/sidebar checks and 11 toolbar checks from separate runs; not a full-suite result",
+  "Tests": [
+    {
+      "Test": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 1600, height: 1000, fontSize: 13)",
+      "Outcome": "Passed",
+      "Run": "corner-fixture-retry.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.LightGradientThemeTests.BackdropIsRelativeAndHeaderInkReadableWhileDataSurfacesStayWhite",
+      "Outcome": "Passed",
+      "Run": "corner-fixture-retry.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 640, height: 500, fontSize: 13)",
+      "Outcome": "Passed",
+      "Run": "corner-fixture-retry.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.LightGradientThemeTests.RealWindowKeepsOneContinuousBackdropAcrossResizeAndThemeChanges(width: 900, height: 700, fontSize: 18)",
+      "Outcome": "Passed",
+      "Run": "corner-fixture-retry.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.SystemPropertiesPanelSectionThemeTests.SectionsKeepTheirCardOutlineAcrossPointerExpansionAndThemeChanges",
+      "Outcome": "Passed",
+      "Run": "corner-fixture-retry.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: \"Light\", width: 640, fontSize: 13)",
+      "Outcome": "Passed",
+      "Run": "toolbar-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: \"Isekai\")",
+      "Outcome": "Passed",
+      "Run": "toolbar-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: \"Dark\", width: 736, fontSize: 13)",
+      "Outcome": "Passed",
+      "Run": "toolbar-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: \"Light\", width: 640, fontSize: 18)",
+      "Outcome": "Passed",
+      "Run": "toolbar-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CompactRibbonTests.HistoryAvailabilityExplainsDisabledCommandsAndClearsStaleReasons",
+      "Outcome": "Passed",
+      "Run": "toolbar-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: \"Light\", width: 736, fontSize: 13)",
+      "Outcome": "Passed",
+      "Run": "toolbar-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: \"Light\")",
+      "Outcome": "Passed",
+      "Run": "toolbar-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: \"Pixel\")",
+      "Outcome": "Passed",
+      "Run": "toolbar-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: \"Pixel\", width: 736, fontSize: 13)",
+      "Outcome": "Passed",
+      "Run": "toolbar-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CompactRibbonTests.FrameResourcesSurviveThemePageAndSizeChanges(initialTheme: \"Dark\")",
+      "Outcome": "Passed",
+      "Run": "toolbar-final.trx"
+    },
+    {
+      "Test": "OpticalSystemDesign.Tests.CompactRibbonTests.CommandsStayHorizontalWithShortSeparatorsAndNativeOverflow(theme: \"Isekai\", width: 736, fontSize: 13)",
+      "Outcome": "Passed",
+      "Run": "toolbar-final.trx"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ab2a52a7-3b15-46ec-9195-08f9461ed554" name="optics@LAPTOP-G4BBBCS0 2026-11-04 11:25:28" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T11:25:28.1271323+08:00" queuing="2026-11-04T11:25:28.1271325+08:00" start="2026-11-04T11:25:23.8248064+08:00" finish="2026-11-04T11:25:28.1343651+08:00" />
+  <TestSettings name="default" id="de13c98f-738c-422d-b740-bffd252d4307">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-04_11_25_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1bbc7185-2008-4f0d-88d2-2ec8872efac9" testId="8b32bba5-b3a7-604d-e02d-e55b90d0b9e3" testName="OpticalSystemDesign.Tests.NonSequentialDesignTests.UniformManufacturingDistributionGivesAnalyticSensitivityAndDeterministicYieldWithoutClipping" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0913938" startTime="2026-11-04T11:25:27.8681016+08:00" endTime="2026-11-04T11:25:27.9587125+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1bbc7185-2008-4f0d-88d2-2ec8872efac9" />
+    <UnitTestResult executionId="e75a1e76-c976-4a23-8aa9-1e9d2f3a0d1a" testId="f8cc6a91-2bea-9405-cdb7-a06b7e044d84" testName="OpticalSystemDesign.Tests.NonSequentialDesignTests.CompensatorUsesSharedDesignWithOnePreflightedAggregateBudget" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0091071" startTime="2026-11-04T11:25:28.0008465+08:00" endTime="2026-11-04T11:25:28.0099122+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e75a1e76-c976-4a23-8aa9-1e9d2f3a0d1a" />
+    <UnitTestResult executionId="5bf42e35-f6e5-48d7-9b34-3e341b23de3f" testId="81192eb8-3601-3078-dc56-c89accd3ace4" testName="OpticalSystemDesign.Tests.NonSequentialDesignTests.GaussianPhysicallyInvalidSamplesRemainInYieldDenominatorAndSourcePowerIsNotMutated" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0106806" startTime="2026-11-04T11:25:27.9589334+08:00" endTime="2026-11-04T11:25:27.9884806+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5bf42e35-f6e5-48d7-9b34-3e341b23de3f">
+      <Output>
+        <ErrorInfo>
+          <Message>System.IO.InvalidDataException : 光源“单射线光源”的功率、波长或射线数量无效。</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocument.ValidateSource(String name, SourceParameters source) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDocument.cs:line 948&#xD;
+   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocument.ValidateParameters(String name, NonSequentialObjectParameters parameters, IReadOnlyDictionary`2 meshAssetsById) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDocument.cs:line 761&#xD;
+   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocument.ValidateObject(NonSequentialObjectDefinition item, IReadOnlyDictionary`2 objectsById, IReadOnlyDictionary`2 meshAssetsById) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDocument.cs:line 680&#xD;
+   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocument.Validate() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDocument.cs:line 623&#xD;
+   at OpticalSystemDesign.Core.NonSequential.NonSequentialDocument..ctor(String name, IReadOnlyList`1 wavelengths, IReadOnlyList`1 objects, String ambientMaterial, NonSequentialTraceSettings traceSettings, IReadOnlyList`1 meshAssets) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDocument.cs:line 401&#xD;
+   at OpticalSystemDesign.Core.NonSequential.NonSequentialDesignParameters.Apply(NonSequentialDocument source, IReadOnlyList`1 variables, IReadOnlyList`1 values, Boolean requireBounds) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDesignParameters.cs:line 49&#xD;
+   at OpticalSystemDesign.Core.NonSequential.NonSequentialToleranceEngine.Run(NonSequentialDocument document, MaterialRegistry materials, IReadOnlyList`1 tolerances, IReadOnlyList`1 targets, Int32 samples, Int32 manufacturingSeed, NonSequentialDesignSettings settings, IReadOnlyList`1 compensators, Int32 compensationTraceEvaluations, IProgress`1 progress, CancellationToken cancellationToken) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialToleranceEngine.cs:line 37&#xD;
+   at OpticalSystemDesign.Tests.NonSequentialDesignTests.GaussianPhysicallyInvalidSamplesRemainInYieldDenominatorAndSourcePowerIsNotMutated() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialDesignTests.cs:line 67&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="28c125e2-45d0-44fc-aa35-6c09ad853048" testId="c1f34e7c-532d-e61c-d227-17d947c86605" testName="OpticalSystemDesign.Tests.NonSequentialDesignTests.SourceAndPathTargetsUseTheActualFilteredHitStream" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0127266" startTime="2026-11-04T11:25:27.9960012+08:00" endTime="2026-11-04T11:25:28.0006768+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="28c125e2-45d0-44fc-aa35-6c09ad853048" />
+    <UnitTestResult executionId="435002cb-f475-45fe-a5af-dfc332410467" testId="f1ff4cbb-f0a4-d7a3-b1c1-6486e608a787" testName="OpticalSystemDesign.Tests.NonSequentialDesignTests.SharedOptimizersCentreTheActualRayInsideOneCoarsePixelAndLeaveSourceUntouched(optimizer: &quot;Coordinate Pattern Search&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0166794" startTime="2026-11-04T11:25:27.8509242+08:00" endTime="2026-11-04T11:25:27.8669839+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="435002cb-f475-45fe-a5af-dfc332410467" />
+    <UnitTestResult executionId="4642ddc0-82b6-4c10-9a9e-e4d3580971f7" testId="2fe53e6d-b9fe-838f-369f-c0519d3bae0b" testName="OpticalSystemDesign.Tests.NonSequentialDesignTests.SharedOptimizersCentreTheActualRayInsideOneCoarsePixelAndLeaveSourceUntouched(optimizer: &quot;Damped Least Squares&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7454153" startTime="2026-11-04T11:25:27.1088699+08:00" endTime="2026-11-04T11:25:27.8367101+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4642ddc0-82b6-4c10-9a9e-e4d3580971f7" />
+    <UnitTestResult executionId="67d9ca29-4600-46cb-9bb1-e802825ca277" testId="96ba4bfe-704f-45f2-8238-d0c81b114b81" testName="OpticalSystemDesign.Tests.NonSequentialDesignTests.SharedOptimizersCentreTheActualRayInsideOneCoarsePixelAndLeaveSourceUntouched(optimizer: &quot;Nelder-Mead&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0135241" startTime="2026-11-04T11:25:27.8465310+08:00" endTime="2026-11-04T11:25:27.8502070+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67d9ca29-4600-46cb-9bb1-e802825ca277" />
+    <UnitTestResult executionId="2c731d82-e635-48af-889a-3fec9104688e" testId="299faa97-e890-022b-90b3-c2af5a381685" testName="OpticalSystemDesign.Tests.NonSequentialDesignTests.WholeJobBudgetRetainsOnlyMeasuredCandidateAndReservesIndependentValidation" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0015464" startTime="2026-11-04T11:25:28.0100705+08:00" endTime="2026-11-04T11:25:28.0115785+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2c731d82-e635-48af-889a-3fec9104688e" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialDesignTests.GaussianPhysicallyInvalidSamplesRemainInYieldDenominatorAndSourcePowerIsNotMutated" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="81192eb8-3601-3078-dc56-c89accd3ace4">
+      <Execution id="5bf42e35-f6e5-48d7-9b34-3e341b23de3f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialDesignTests" name="GaussianPhysicallyInvalidSamplesRemainInYieldDenominatorAndSourcePowerIsNotMutated" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialDesignTests.SharedOptimizersCentreTheActualRayInsideOneCoarsePixelAndLeaveSourceUntouched(optimizer: &quot;Damped Least Squares&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2fe53e6d-b9fe-838f-369f-c0519d3bae0b">
+      <Execution id="4642ddc0-82b6-4c10-9a9e-e4d3580971f7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialDesignTests" name="SharedOptimizersCentreTheActualRayInsideOneCoarsePixelAndLeaveSourceUntouched" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialDesignTests.UniformManufacturingDistributionGivesAnalyticSensitivityAndDeterministicYieldWithoutClipping" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8b32bba5-b3a7-604d-e02d-e55b90d0b9e3">
+      <Execution id="1bbc7185-2008-4f0d-88d2-2ec8872efac9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialDesignTests" name="UniformManufacturingDistributionGivesAnalyticSensitivityAndDeterministicYieldWithoutClipping" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialDesignTests.SharedOptimizersCentreTheActualRayInsideOneCoarsePixelAndLeaveSourceUntouched(optimizer: &quot;Nelder-Mead&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="96ba4bfe-704f-45f2-8238-d0c81b114b81">
+      <Execution id="67d9ca29-4600-46cb-9bb1-e802825ca277" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialDesignTests" name="SharedOptimizersCentreTheActualRayInsideOneCoarsePixelAndLeaveSourceUntouched" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialDesignTests.SharedOptimizersCentreTheActualRayInsideOneCoarsePixelAndLeaveSourceUntouched(optimizer: &quot;Coordinate Pattern Search&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f1ff4cbb-f0a4-d7a3-b1c1-6486e608a787">
+      <Execution id="435002cb-f475-45fe-a5af-dfc332410467" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialDesignTests" name="SharedOptimizersCentreTheActualRayInsideOneCoarsePixelAndLeaveSourceUntouched" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialDesignTests.WholeJobBudgetRetainsOnlyMeasuredCandidateAndReservesIndependentValidation" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="299faa97-e890-022b-90b3-c2af5a381685">
+      <Execution id="2c731d82-e635-48af-889a-3fec9104688e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialDesignTests" name="WholeJobBudgetRetainsOnlyMeasuredCandidateAndReservesIndependentValidation" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialDesignTests.CompensatorUsesSharedDesignWithOnePreflightedAggregateBudget" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f8cc6a91-2bea-9405-cdb7-a06b7e044d84">
+      <Execution id="e75a1e76-c976-4a23-8aa9-1e9d2f3a0d1a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialDesignTests" name="CompensatorUsesSharedDesignWithOnePreflightedAggregateBudget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.NonSequentialDesignTests.SourceAndPathTargetsUseTheActualFilteredHitStream" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c1f34e7c-532d-e61c-d227-17d947c86605">
+      <Execution id="28c125e2-45d0-44fc-aa35-6c09ad853048" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.NonSequentialDesignTests" name="SourceAndPathTargetsUseTheActualFilteredHitStream" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8b32bba5-b3a7-604d-e02d-e55b90d0b9e3" executionId="1bbc7185-2008-4f0d-88d2-2ec8872efac9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f8cc6a91-2bea-9405-cdb7-a06b7e044d84" executionId="e75a1e76-c976-4a23-8aa9-1e9d2f3a0d1a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="81192eb8-3601-3078-dc56-c89accd3ace4" executionId="5bf42e35-f6e5-48d7-9b34-3e341b23de3f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c1f34e7c-532d-e61c-d227-17d947c86605" executionId="28c125e2-45d0-44fc-aa35-6c09ad853048" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f1ff4cbb-f0a4-d7a3-b1c1-6486e608a787" executionId="435002cb-f475-45fe-a5af-dfc332410467" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2fe53e6d-b9fe-838f-369f-c0519d3bae0b" executionId="4642ddc0-82b6-4c10-9a9e-e4d3580971f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="96ba4bfe-704f-45f2-8238-d0c81b114b81" executionId="67d9ca29-4600-46cb-9bb1-e802825ca277" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="299faa97-e890-022b-90b3-c2af5a381685" executionId="2c731d82-e635-48af-889a-3fec9104688e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="8" executed="8" passed="7" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.08]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.68]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.72]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.65]       System.IO.InvalidDataException : 光源“单射线光源”的功率、波长或射线数量无效。&#xD;
+[xUnit.net 00:00:03.65]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDocument.cs(948,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocument.ValidateSource(String name, SourceParameters source)&#xD;
+[xUnit.net 00:00:03.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDocument.cs(761,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocument.ValidateParameters(String name, NonSequentialObjectParameters parameters, IReadOnlyDictionary`2 meshAssetsById)&#xD;
+[xUnit.net 00:00:03.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDocument.cs(680,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocument.ValidateObject(NonSequentialObjectDefinition item, IReadOnlyDictionary`2 objectsById, IReadOnlyDictionary`2 meshAssetsById)&#xD;
+[xUnit.net 00:00:03.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDocument.cs(623,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocument.Validate()&#xD;
+[xUnit.net 00:00:03.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDocument.cs(401,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDocument..ctor(String name, IReadOnlyList`1 wavelengths, IReadOnlyList`1 objects, String ambientMaterial, NonSequentialTraceSettings traceSettings, IReadOnlyList`1 meshAssets)&#xD;
+[xUnit.net 00:00:03.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialDesignParameters.cs(49,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialDesignParameters.Apply(NonSequentialDocument source, IReadOnlyList`1 variables, IReadOnlyList`1 values, Boolean requireBounds)&#xD;
+[xUnit.net 00:00:03.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\NonSequential\NonSequentialToleranceEngine.cs(37,0): at OpticalSystemDesign.Core.NonSequential.NonSequentialToleranceEngine.Run(NonSequentialDocument document, MaterialRegistry materials, IReadOnlyList`1 tolerances, IReadOnlyList`1 targets, Int32 samples, Int32 manufacturingSeed, NonSequentialDesignSettings settings, IReadOnlyList`1 compensators, Int32 compensationTraceEvaluations, IProgress`1 progress, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:03.65]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\NonSequentialDesignTests.cs(67,0): at OpticalSystemDesign.Tests.NonSequentialDesignTests.GaussianPhysicallyInvalidSamplesRemainInYieldDenominatorAndSourcePowerIsNotMutated()&#xD;
+[xUnit.net 00:00:03.65]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.65]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.68]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T11:25:27.9913436+08:00">
+        <Text>[xUnit.net 00:00:03.65]     OpticalSystemDesign.Tests.NonSequentialDesignTests.GaussianPhysicallyInvalidSamplesRemainInYieldDenominatorAndSourcePowerIsNotMutated [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

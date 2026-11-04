@@ -64,6 +64,11 @@ public sealed class IsekaiDrawingMaterialTests
                     Assert.Equal(originalSeries, sheet.GetVisualDescendants().OfType<AnalysisPlotControl>().Select(p => p.Series).ToArray());
                     Apply(theme, window);
                     using var after = panel.CapturePlotImage(1);
+                    if (Hash(before) != Hash(after))
+                    {
+                        Save(before, key.Replace(' ', '-') + "-" + theme + "-before-failure.png");
+                        Save(after, key.Replace(' ', '-') + "-" + theme + "-after-failure.png");
+                    }
                     Assert.Equal(Hash(before), Hash(after));
                 }
                 Apply("Isekai", window);
@@ -101,7 +106,8 @@ public sealed class IsekaiDrawingMaterialTests
                 }
                 host.FitToViewport = false; Settle(window);
                 Assert.Equal(1, host.ContentScale);
-                Assert.True(host.Extent.Width >= full.PixelSize.Width && host.Extent.Height >= full.PixelSize.Height);
+                var sourceExtent = frame.IsIntegrated ? sheet.Bounds.Size : new Size(full.PixelSize.Width, full.PixelSize.Height);
+                Assert.True(host.Extent.Width >= sourceExtent.Width && host.Extent.Height >= sourceExtent.Height);
                 host.FitToViewport = true; Settle(window);
             }
             finally { window.Close(); }
@@ -206,7 +212,11 @@ public sealed class IsekaiDrawingMaterialTests
                 foreach (var (x, y) in new[] { (0, 0), (image.PixelSize.Width - 1, 0),
                     (0, image.PixelSize.Height - 1), (image.PixelSize.Width - 1, image.PixelSize.Height - 1) })
                     Assert.Equal(0, pixels[(y * image.PixelSize.Width + x) * 4 + 3]);
-                Assert.Equal(255, pixels[(14 * image.PixelSize.Width + image.PixelSize.Width / 2) * 4 + 3]);
+                // Frayed fibres have partial alpha, unlike the former solid metal rail.
+                // Scientific edge markers and one-pixel details remain byte-for-byte above.
+                Assert.InRange(pixels[(14 * image.PixelSize.Width + image.PixelSize.Width / 2) * 4 + 3], (byte)220, (byte)255);
+                Assert.True(Enumerable.Range(0, image.PixelSize.Width)
+                    .Select(x => pixels[(14 * image.PixelSize.Width + x) * 4 + 3]).Distinct().Count() > 3);
             }
             finally { window.Close(); }
         }, CancellationToken.None);

@@ -11,7 +11,7 @@ $lookup=@{};foreach($entry in $manifest){$lookup[$entry.path]=$entry}
 $paths=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
 foreach($name in @('items.json','analysis-results.json','comparison-settings.json','inventory.json','models.json','sources.json')){[void]$paths.Add((Join-Path $prior $name))}
 $rows=Get-Content "$root/rows.json" -Raw|ConvertFrom-Json
-foreach($row in $rows){foreach($name in @('data.json','model.json','captured-settings.json','request.json','batch-result.json','error.json')){$p=Join-Path $row.legacyPath "native/$name";if(Test-Path -LiteralPath $p){[void]$paths.Add($p)}}}
+foreach($row in $rows){$native=Join-Path $row.legacyPath 'native';if(Test-Path -LiteralPath $native){foreach($file in Get-ChildItem -LiteralPath $native -Recurse -File|Where-Object Extension -notin @('.png','.jpg','.jpeg','.bmp','.svg','.pdf')){[void]$paths.Add($file.FullName)}}}
 foreach($dir in Get-ChildItem "$prior/rays" -Directory){foreach($name in @('job.json','inputs.json','native/ray-audit.json','native/model.json','native/request.json','native/batch-result.json','native/error.json')){$p=Join-Path $dir.FullName $name;if(Test-Path -LiteralPath $p){[void]$paths.Add($p)}}}
 $models=Get-Content "$root/models.json" -Raw|ConvertFrom-Json
 foreach($m in $models){[void]$paths.Add((Join-Path $prior "sources/$($m.lens)"));if((Get-FileHash -LiteralPath $m.source).Hash.ToLowerInvariant() -ne $m.sourceSha256){throw 'Product example changed'}}

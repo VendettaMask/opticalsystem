@@ -1,0 +1,168 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.InitialStructure.Persistence.dll
+C:\Program Files\dotnet\sdk\10.0.300\Microsoft.Common.CurrentVersion.targets(5096,5): warning MSB3026: 无法将“C:\Users\19851\.nuget\packages\skiasharp.nativeassets.win32\3.119.4\runtimes\win-arm64\native\libSkiaSharp.pdb”复制到“D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\runtimes\win-arm64\native\libSkiaSharp.pdb”。1000 毫秒后将开始第 1 次重试。The process cannot access the file 'D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\runtimes\win-arm64\native\libSkiaSharp.pdb' because it is being used by another process.  [D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\OpticalSystemDesign.LensLibraryBuilder.csproj]
+C:\Program Files\dotnet\sdk\10.0.300\Microsoft.Common.CurrentVersion.targets(5096,5): warning MSB3026: 无法将“C:\Users\19851\.nuget\packages\skiasharp.nativeassets.win32\3.119.4\runtimes\win-x86\native\libSkiaSharp.pdb”复制到“D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\runtimes\win-x86\native\libSkiaSharp.pdb”。1000 毫秒后将开始第 1 次重试。The process cannot access the file 'D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\runtimes\win-x86\native\libSkiaSharp.pdb' because it is being used by another process.  [D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\OpticalSystemDesign.LensLibraryBuilder.csproj]
+C:\Program Files\dotnet\sdk\10.0.300\Microsoft.Common.CurrentVersion.targets(5096,5): warning MSB3026: 无法将“C:\Users\19851\.nuget\packages\skiasharp.nativeassets.win32\3.119.4\runtimes\win-x64\native\libSkiaSharp.pdb”复制到“D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\runtimes\win-x64\native\libSkiaSharp.pdb”。1000 毫秒后将开始第 1 次重试。The process cannot access the file 'D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\runtimes\win-x64\native\libSkiaSharp.pdb' because it is being used by another process.  [D:\optical system design\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\OpticalSystemDesign.LensLibraryBuilder.csproj]
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Tests.dll
+D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\tests\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+  失败 OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupOfAnUnsupportedColumnIsRejectedInsteadOfSilentlyReadingZero [52 ms]
+  错误消息:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(System.NotSupportedException)
+Actual:   typeof(System.IO.InvalidDataException)
+---- System.IO.InvalidDataException : The Zemax document does not declare MODE SEQ.
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupOfAnUnsupportedColumnIsRejectedInsteadOfSilentlyReadingZero() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 98
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace -----
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Validate(ZemaxDocument document) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 774
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 28
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126
+   at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.<>c__DisplayClass2_0.<PickupOfAnUnsupportedColumnIsRejectedInsteadOfSilentlyReadingZero>b__0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 98
+  失败 OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(column: 7, sourceValue: 1) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : The Zemax document does not declare MODE SEQ.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Validate(ZemaxDocument document) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 774
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 28
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126
+   at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Int32 column, Double sourceValue) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 89
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(column: 4, sourceValue: 2.5) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : The Zemax document does not declare MODE SEQ.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Validate(ZemaxDocument document) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 774
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 28
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126
+   at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Int32 column, Double sourceValue) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 89
+   at InvokeStub_ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(column: 1, sourceValue: 4) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : The Zemax document does not declare MODE SEQ.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Validate(ZemaxDocument document) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 774
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 28
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126
+   at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Int32 column, Double sourceValue) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 89
+   at InvokeStub_ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(column: 0, sourceValue: 30) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : The Zemax document does not declare MODE SEQ.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Validate(ZemaxDocument document) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 774
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 28
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126
+   at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Int32 column, Double sourceValue) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 89
+   at InvokeStub_ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(column: 6, sourceValue: 30) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : The Zemax document does not declare MODE SEQ.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Validate(ZemaxDocument document) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 774
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 28
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126
+   at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Int32 column, Double sourceValue) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 89
+   at InvokeStub_ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(column: 2, sourceValue: 20) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : The Zemax document does not declare MODE SEQ.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Validate(ZemaxDocument document) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 774
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 28
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126
+   at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Int32 column, Double sourceValue) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 89
+   at InvokeStub_ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(column: 3, sourceValue: -3) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : The Zemax document does not declare MODE SEQ.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Validate(ZemaxDocument document) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 774
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 28
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126
+   at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Int32 column, Double sourceValue) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 89
+   at InvokeStub_ZemaxCrossColumnPickupTests.PickupColumnUsesOfficialNumericColumnIdentityAndFileUnits(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.ObjectThicknessPickupProducesTheSamePhysicalCollimatorAsExplicitFocalLength(unit: "IN", scale: 25.399999999999999) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : Zemax FTYP is missing operand 4.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.RequiredToken(IReadOnlyList`1 tokens, Int32 index, String command) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 2213
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.RequiredInt(IReadOnlyList`1 tokens, Int32 index, String command) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 2220
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ReadConfiguration(ZemaxDocument document, IReadOnlyList`1 tokens) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 2100
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Parse(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 244
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 27
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126
+   at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.ObjectThicknessPickupProducesTheSamePhysicalCollimatorAsExplicitFocalLength(String unit, Double scale) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 38
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.ObjectThicknessPickupProducesTheSamePhysicalCollimatorAsExplicitFocalLength(unit: "MM", scale: 1) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : Zemax FTYP is missing operand 4.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.RequiredToken(IReadOnlyList`1 tokens, Int32 index, String command) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 2213
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.RequiredInt(IReadOnlyList`1 tokens, Int32 index, String command) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 2220
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ReadConfiguration(ZemaxDocument document, IReadOnlyList`1 tokens) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 2100
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Parse(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 244
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 27
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126
+   at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.ObjectThicknessPickupProducesTheSamePhysicalCollimatorAsExplicitFocalLength(String unit, Double scale) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 38
+   at InvokeStub_ZemaxCrossColumnPickupTests.ObjectThicknessPickupProducesTheSamePhysicalCollimatorAsExplicitFocalLength(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  失败 OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.ObjectThicknessPickupProducesTheSamePhysicalCollimatorAsExplicitFocalLength(unit: "CM", scale: 10) [< 1 ms]
+  错误消息:
+   System.IO.InvalidDataException : Zemax FTYP is missing operand 4.
+  堆栈跟踪:
+     at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.RequiredToken(IReadOnlyList`1 tokens, Int32 index, String command) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 2213
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.RequiredInt(IReadOnlyList`1 tokens, Int32 index, String command) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 2220
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ReadConfiguration(ZemaxDocument document, IReadOnlyList`1 tokens) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 2100
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Parse(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 244
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 27
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126
+   at OpticalSystemDesign.Tests.ZemaxCrossColumnPickupTests.ObjectThicknessPickupProducesTheSamePhysicalCollimatorAsExplicitFocalLength(String unit, Double scale) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxCrossColumnPickupTests.cs:line 38
+   at InvokeStub_ZemaxCrossColumnPickupTests.ObjectThicknessPickupProducesTheSamePhysicalCollimatorAsExplicitFocalLength(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\optical system design\opticalsystem\artifacts\validation\image-simulation-propagation-20261104\pickup-regression.trx
+
+失败!  - 失败:    11，通过:   145，已跳过:     0，总计:   156，持续时间: 5 s - OpticalSystemDesign.Tests.dll (net10.0)

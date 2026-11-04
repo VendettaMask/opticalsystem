@@ -109,7 +109,7 @@ public sealed class AnalysisResponsivePlotTests
                 foreach (var index in new[] { 1, 2 })
                 {
                     tabs.SelectedIndex = index; Render(window);
-                    var content = Assert.IsAssignableFrom<Control>(Assert.IsType<TabItem>(tabs.Items[index]).Content);
+                    var content = Assert.IsAssignableFrom<Control>(Assert.IsAssignableFrom<TabItem>(tabs.Items[index]).Content);
                     Assert.InRange(VisualBounds(content, window).Bottom, 0, window.Height);
                     Assert.InRange(content.MinHeight, 0, 64); // Preserve the theme's normal editor minimum.
                     if (content is TextBox report)
@@ -153,7 +153,7 @@ public sealed class AnalysisResponsivePlotTests
                         };
                     var document = application.Documents.GetSnapshot() with
                     { Name = "A long optical document description 复杂镜头结构与波长分析.staropt" };
-                    var tabs = Assert.IsType<TabControl>(typeof(AnalysisPanel)
+                    var tabs = Assert.IsAssignableFrom<TabControl>(typeof(AnalysisPanel)
                         .GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
                         .Invoke(null, [view, document, DateTimeOffset.Now, null]));
                     window.Content = tabs; window.Show();
@@ -292,7 +292,7 @@ public sealed class AnalysisResponsivePlotTests
         {
             using var application = WorkbenchApplication.Create();
             var tabs = Build(View(AnalysisPresentationKind.ColorFocusShift), application);
-            var host = Assert.IsType<ResponsiveAnalysisPlotHost>(Assert.IsType<TabItem>(tabs.Items[0]).Content);
+            var host = Assert.IsType<ResponsiveAnalysisPlotHost>(Assert.IsAssignableFrom<TabItem>(tabs.Items[0]).Content);
             host.FitToViewport = false;
             var window = new Window { Width = 360, Height = 240, Content = tabs };
             try
@@ -319,7 +319,7 @@ public sealed class AnalysisResponsivePlotTests
         {
             using var application = WorkbenchApplication.Create();
             var tabs = Build(View(AnalysisPresentationKind.ColorFocusShift), application);
-            var plotTab = Assert.IsType<TabItem>(tabs.Items[0]);
+            var plotTab = Assert.IsAssignableFrom<TabItem>(tabs.Items[0]);
             var host = Assert.IsType<ResponsiveAnalysisPlotHost>(plotTab.Content);
             var page = Assert.IsType<UniformDiagramPage>(host.Child);
             host.Child = null;
@@ -386,7 +386,7 @@ public sealed class AnalysisResponsivePlotTests
 
     private static void AssertFits(TabControl tabs, Window window)
     {
-        var host = Assert.IsType<ResponsiveAnalysisPlotHost>(Assert.IsType<TabItem>(tabs.Items[0]).Content);
+        var host = Assert.IsType<ResponsiveAnalysisPlotHost>(Assert.IsAssignableFrom<TabItem>(tabs.Items[0]).Content);
         var page = host.Child!;
         var grid = Assert.IsAssignableFrom<Grid>(page);
         var plotRoot = grid.Children[0];
@@ -419,7 +419,7 @@ public sealed class AnalysisResponsivePlotTests
     private static Rect VisualBounds(Control control, Visual relativeTo) => new Rect(control.Bounds.Size)
         .TransformToAABB(control.TransformToVisual(relativeTo)!.Value);
 
-    private static TabControl Build(AnalysisViewDto view, WorkbenchApplication application) => Assert.IsType<TabControl>(
+    private static TabControl Build(AnalysisViewDto view, WorkbenchApplication application) => Assert.IsAssignableFrom<TabControl>(
         typeof(AnalysisPanel).GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
             .Invoke(null, [view, application.Documents.GetSnapshot(), DateTimeOffset.Now, null]));
 

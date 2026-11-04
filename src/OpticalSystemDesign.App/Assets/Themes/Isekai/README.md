@@ -1,22 +1,67 @@
 # Isekai 绘图材质素材
 
-本次使用的三张[参考原稿及来源/哈希](../../../../../docs/assets/themes/isekai/references/README.md)已随仓库保存，包含用户上传的二维/分析参考和最初确认的生成概念稿；参考原稿不参与运行资源嵌入。
+## 现行：中世纪磨毛羊皮图纸
 
-当前版本按用户 2026-11-03 两张附图修订：花饰位于羊皮纸**内部**，窄皮革边采用圆角旧金包角与星芒，另有双层细线内框和图例留白黄铜星盘。素材由内置 `image_gen` 生成，保留原 PNG/透明通道并嵌入 App。未使用 CLI/API 回退或第三方图库。新圆角框提示词见 [rounded-frame-prompt.json](rounded-frame-prompt.json)，内角素材见 [inner-prompts.json](inner-prompts.json)，纸纹/黄铜星盘及历史稿见 [prompts.json](prompts.json)。
+分析两栏已确认使用同纸页眉/手稿页脚：直接复用原纸面材质，以深褐文字和原造型图标承载功能，细笔分隔，底部原生页索引用墨线与点标记当前页；保留原栏端淡印花纹。用户撤回后续灰色/羽毛笔误解改版，两张候选从未被代码/资源清单引用，现已移出产品素材目录至[未采用候选档案](../../../../../artifacts/design-candidates/2026-11-04/isekai-gray-not-applied/README.md)。悬停/禁用/焦点、状态语义及原生深色菜单保持可读；纸张PNG、纸面绘制和导出源图不变。[确认版收尾验收](../../../../../validation/rechecks/2026-11-04/isekai-approved-final/README.md)与[原确认画面](../../../../../validation/rechecks/2026-11-04/isekai-manuscript-bands/README.md)记录当前版本；[上一轮皮革带](../../../../../validation/rechecks/2026-11-04/isekai-folio-rails/README.md)保留历史范围，下列羊皮图纸本体仍有效。
 
-| 当前资源 | 原始像素 | 用途 | SHA-256 |
+用户先否决网上素材和过于正式的画框，再明确整齐卷边也不足，要有“中世纪磨毛边的图纸”感觉。现行以自有生成的粗纤维羊皮图纸为主：不规则毛边、磨损缺口、半透明散纤维、压痕与旧折痕。恢复此前生成的压纹棕皮，暖象牙/棕/旧金配色保持。金色仅作小配饰；正式雕金画框、珠边和硬铭牌不再运行加载。
+
+| 现行材质 | 来源 | 用途 |
+| --- | --- | --- |
+| [frayed-vellum.png](frayed-vellum.png) | 内置image_gen；原羊皮纸作配色参考 | 完整粗纤维纸；外部28 DIP取真实透明磨毛边，纸面取中心区域，纤维/折痕保持比例 |
+| [crafted-leather.png](crafted-leather.png) | 恢复此前自有生成原PNG | 主程序标题/菜单的压纹棕皮；分析两栏当前改用纸面 |
+| [scroll-control-skins.png](scroll-control-skins.png) | 内置image_gen | 保留程序文档页签等四状态底板；分析两栏不再贴皮革/纸牌 |
+
+完整提示词、输入角色与原生成位置见[frayed-generation.json](frayed-generation.json)、[scroll-generation.json](scroll-generation.json)及[crafter原始生成记录](crafted-generation.json)。其中`scroll-vellum-binding.png`为被用户继续否决的整齐卷边候选，未嵌入；`scroll-control-skins.png`仍作原生底板。精确字节哈希、尺寸和透明数据见[frayed-assets.json](frayed-assets.json)。素材由内置工具生成，无CLI/API回退，原PNG字节与alpha保留。
+
+完整框住真实设置/同步/文本复制与导出/PNG/线宽/适应窗口、设置弹层、结果和底部绘图/数据/文本。实际文字、选择、焦点、关闭叉、键盘与命令不烘焙到素材中。仅Isekai更换材质，其他主题沿用原布局/像素。文档选中页签用深褐文字，避免浅纸上白字。生成素材只画背景，所有曲线/数据仍来自真实C#共享Core。
+
+源图1200×900、图签160 DIP、28 DIP外部边距和原源图比例保持，暂不做16:9。纸面背景`UniformToFill`，避免将整页纹理压成图签里的横向木纹；图签文字不改变。完整透明毛边替代规整矩形边线，外部alpha不强制全不透明。原2D/3D内部角饰组合保留；分析小配饰仍按类型元数据选择并避让真实文字。PNG不导出程序操作栏/页签，报告保留原源图比例及物理字高。[当前真实截图及验证](../../../../../validation/rechecks/2026-11-04/isekai-frayed-vellum/README.md)。
+
+运行嵌入共9张：上述3张，加原`inner-botanical.png`、`analysis-accessory-atlas.png`、`analysis-folio-atlas.png`、`book-navigation-ornament.png`、`crafted-paper-corners.png`和`crafted-crest-trims.png`。网络皮革及其授权、正式边框/铭牌、原羊皮纸和较早窄框保留来源，但不嵌入或加载。先前输出目录中可能有历史许可证，不表示现行包使用该材质。
+
+## 历史：网络皮革和正式雕金方案
+
+以下为前一阶段素材记录，阶段性“当前”措辞仅属于当时版本；现行以上节为准。
+
+当前版本按用户 2026-11-04 确认的[统一棕金母版](../../../../../docs/assets/themes/isekai/references/04-approved-gold-master-20261104.png)实现：暖象牙纸、棕色皮革、旧金及深褐墨色共用，不建立绿色、紫色或酒红色子主题，只按分析类型更换小配饰。此前[三张原稿与来源](../../../../../docs/assets/themes/isekai/references/README.md)继续保留，花饰位于纸内、28 DIP 窄边使用圆角包角、星芒与双层细线。
+
+当前连续书封包含真实设置/同步/复制/导出文本/PNG/线宽/适应窗口操作、设置弹层、结果和绘图/数据/文本原生页签。标题/菜单/Ribbon、文档页签使用同套棕皮和雕金材质。用户随后明确暂不考虑16:9，本轮不改源图比例。文字、命令、关闭叉、箭头、焦点和键盘行为继续来自真实控件，素材不包含这些内容。
+
+本轮先准备完整素材后接入。棕皮采用 **Rob Tuytel / Poly Haven 的 CC0 Brown Leather**；[来源和原字节校验](POLY-HAVEN-NOTICE.txt)、[完整CC0授权](POLY-HAVEN-CC0-1.0.txt)随构建/发布输出。官方原JPEG保持不变，棕色叠层在程序绘制时处理。未调用运行时网络/API。网上另筛选[Kenney Fantasy UI Borders](https://kenney.nl/assets/fantasy-ui-borders)、[Buch Golden UI原版](https://opengameart.org/content/golden-ui)和[Karen Arnold金色角花](https://www.publicdomainpictures.net/en/view-image.php?image=233048&picture=corner-ornament-golden)；未将这些候选混入产品。雕金、花叶及铭牌由内置image_gen按批准母版生成，保留透明PNG原字节；没有使用CLI/API图像生成回退。生成的皮革候选未接入，改用真实扫描皮革。
+
+| 本轮运行材质 | 原始像素 | 绘制用途 |
+| --- | --- | --- |
+| [brown-leather-cc0.jpg](brown-leather-cc0.jpg) | 1024×1024 JPEG | 原始皮革底纹，320 DIP平铺加棕色叠层 |
+| [crafted-gold-binding.png](crafted-gold-binding.png) | 1448×1086 RGBA | 28 DIP金框、分离包角、细珠边及标题/菜单/操作栏边轨 |
+| [crafted-paper-corners.png](crafted-paper-corners.png) | 1448×1086 RGBA | 四个完整分析纸内花角，按实际透明边界取图，替代旧半图碎片 |
+| [crafted-control-skins.png](crafted-control-skins.png) | 1448×1086 RGBA | 棕皮、金色、象牙纸、悬停棕四种空铭牌，作用于真实控件底板 |
+| [crafted-crest-trims.png](crafted-crest-trims.png) | 1448×1086 RGBA | 中央罗盘星芒和花铆钉；图集中另保留分隔饰和藤条供后续使用 |
+
+完整提示词及输入身份见[crafted-generation.json](crafted-generation.json)，尺寸、SHA-256、透明比例、精确源矩形见[crafted-assets.json](crafted-assets.json)。原配饰完整提示词见[accessory-prompts.json](accessory-prompts.json)，元数据见[accessory-assets.json](accessory-assets.json)。更早窄框/内角提示词见[rounded-frame-prompt.json](rounded-frame-prompt.json)、[inner-prompts.json](inner-prompts.json)，纸纹与历史生成见[prompts.json](prompts.json)。程序保持一个固定控件树，主题切换只更换材质和边距，不重建结果页。绘制和解码按UI线程缓存；底板使用ImageBrush源矩形记录，避免Avalonia 12的DrawingGroup不支持DrawBitmap的问题。
+
+| 沿用/保留资源 | 原始像素 | 用途 | SHA-256 |
 | --- | --- | --- | --- |
-| [rounded-gold-binding.png](rounded-gold-binding.png) | 1448×1086 RGBA | 圆角旧金包角、双金线和顶部星芒；窄皮革边不含花叶 | `d17f4ce78488777400f29734a6c0c07dfea3485feb74afe7bf99d7078c6e615c` |
-| [inner-botanical.png](inner-botanical.png) | 1598×984 RGBA | 四角百合/藤蔓、天体星盘、炼金瓶、晶簇；等比画在纸内 | `62502bc8626eb9b1070fb1a6c31f6ab6e4e092bfda38cf8d1a2031f1629cd7ae` |
-| [vellum.png](vellum.png) | 1448×1086 RGB | 羊皮纸，轻色中心区域作为阅读底纹 | `4a8b61331cb9e1c2a19bd92bc9fdff96b11355c7d1e721fe417d84c704fd5f5b` |
-| [armillary.png](armillary.png) | 1086×1448 RGBA | 仅在分析图例实际留白中绘制的黄铜星盘 | `7e6658e0614bfa66f3813ce547b99c1c898e7bc95a11f2fce6ee6b3ae14dabf0` |
+| [rounded-gold-binding.png](rounded-gold-binding.png) | 1448×1086 RGBA | 前一版圆角窄框，保留历史来源；现行外框使用crafted-gold-binding | `d17f4ce78488777400f29734a6c0c07dfea3485feb74afe7bf99d7078c6e615c` |
+| [inner-botanical.png](inner-botanical.png) | 1598×984 RGBA | 纸内百合/藤蔓、天体星盘、炼金瓶、晶簇 | `62502bc8626eb9b1070fb1a6c31f6ab6e4e092bfda38cf8d1a2031f1629cd7ae` |
+| [vellum.png](vellum.png) | 1448×1086 RGB | 轻色中心纸纹，渲染时降低纹理浓度 | `4a8b61331cb9e1c2a19bd92bc9fdff96b11355c7d1e721fe417d84c704fd5f5b` |
+| [analysis-accessory-atlas.png](analysis-accessory-atlas.png) | 1024×1536 RGBA | 2×2 配饰：天球仪、蒸馏器、符文水晶、卷轴羽笔 | `b40c461b0bb8e321ae148abd9ae5e74d1b8c1ad1730e57b513c418324ac3e656` |
+| [analysis-folio-atlas.png](analysis-folio-atlas.png) | 1448×1086 RGBA | 2×2 书册：星图、草药、法阵、镜片图册及对应小物件 | `ce632cf8514675fe047adfa7fdf28455159f7a0f27d7891e0a72c505b08be2c5` |
+| [book-navigation-ornament.png](book-navigation-ornament.png) | 2172×724 RGBA | 底栏留白的太阳测角盘、花叶、地球仪，无按钮/文字 | `fffa75a9922fe358ef27ea6fd2be953922ed012193acaa8e745da129cd6c4b98` |
 
-用户参考为 `codex-clipboard-f76f0cfc-29c7-4083-b6cc-283f05eb2d46.png`，仅用于风格和装饰位置，不取用其中镜头/光线/数值。新工具输出 ID 为 `exec-80f06fa6-4b4b-4f76-9675-2e851d1677e7.png`（窄框）、`exec-d80d9e5a-3332-488d-98f1-536d5b0b5536.png`（内角花饰）。纸纹输出为 `exec-565feee3-2809-45a0-94fa-840cf7eb9018.png`。产品只依赖本目录嵌入资源，不依赖个人生成缓存。
+配饰由 AnalysisArtwork 使用类型化元数据选择，界面名称/译文不参与判断：
 
-第二张参考为 `codex-clipboard-00a16ecf-835f-4a2c-9fd9-eab969fea1b3.png`；圆角框原始输出为 `exec-40cd07b3-6212-44bd-ba1d-ad1fd2ad440f.png`。同样只参考装饰，不使用示意图中的任何曲线、读数或控件。
+| 分析族 | 小配饰 |
+| --- | --- |
+| MTF、RMS 等普通曲线 | 星盘、星图书册与羽毛笔 |
+| FFT/Huygens PSF、Foucault、EnergyFraction 纵轴的能量结果 | 蒸馏器、草药书册、药瓶与研钵 |
+| 波前、光程差、干涉图 | 符文水晶、法阵书册与法杖 |
+| 点列、光扇、像差、场曲 | 卷轴羽笔、镜片图册、放大镜与分规 |
 
-实现入口为 `Theming/IsekaiDrawingMaterial.cs`。素材只作装饰，不包含科学数据、图表、公司标志或产品控件。实际曲线/光线/镜片仍由原 C# 绘制；公司标志仍使用 `Assets/Brand/CompanyLogo.svg` 轮廓。解码、四角画刷和图签背景按 UI 线程复用；局部高质量插值不改变科学数据栅格采样。
+图例配饰仅在实际图例下方的留白中绘制；没有这种空位的画面仍可在摘要空位使用对应书册。书册按各行真实文本边界找空白矩形，放不下就省略，不为装饰扩张图例或压缩科学绘图。素材只包含装饰，不包含真实曲线、读数、产品控件或公司标志。科学内容继续由 C# 与共享 Core 绘制，公司标志保留 Assets/Brand/CompanyLogo.svg 原轮廓；解码和画刷按 UI 线程缓存。
 
-2D/3D 中花饰按 0.9 不透明度绘于数据下方；分析和图签使用 0.22，分析两侧 18 DIP 纸内窄边补充 0.55 的细线花饰。双层内框使用主题自有细墨线；黄铜星盘避开实际图例，无足够留白时不画。窄皮革边在原源图外增加 28 DIP，1× 普通图纸完整尺寸为 1256×956；报告复用内部图纸，保持原比例/物理字高，不加入外部皮革边。详见[当前实际截图与验证](../../../../../validation/rechecks/2026-11-03/isekai-rounded-border/README.md)。
+纸纹以 0.3 浓度叠在暖象牙底色上。2D/3D 内角花饰保持 0.9，分析为 0.32，图签背景角饰为 0.22；两侧纸内窄边仍为 0.55。源图 1200×900、160 DIP 图签和配置字体不重排。1× 无损 PNG 仍为含 28 DIP 窄框的 1256×956，默认配置画布为 1920×1080；程序页签和工具栏不导出。报告保留原源图比例与物理字高。实时程序中内层源图只绘一次，由外层书封同时包住图像和页签；100% 滚动范围对应原源图。
 
-历史资源 [grimoire-frame.png](grimoire-frame.png) 和 [leather-binding.png](leather-binding.png) 保留为之前已交付稿件的来源，但**不再嵌入或运行加载**。此前来源、用途与验证见[宽花框阶段](../../../../../validation/rechecks/2026-11-03/isekai-rich-frame/README.md)和[图内花饰阶段](../../../../../validation/rechecks/2026-11-03/isekai-inner-ornament/README.md)；不是当前外框。
+当前入口为Theming/IsekaiCraftsmanship.cs、IsekaiDrawingMaterial.cs、IsekaiThemeStyles.cs、AnalysisArtwork.cs及Controls/AnalysisBookWorkspace.cs、AnalysisResultTabs.cs。2D/3D内部角饰继续使用原组合；分析花角使用新完整图集。[当前实际截图与验证](../../../../../validation/rechecks/2026-11-04/isekai-crafted-workbench/README.md)记录真实产品行为，[前一版验证](../../../../../validation/rechecks/2026-11-04/isekai-unified-book/README.md)保留历史范围；生成参考图不作为产品完成或光学精度证据。
+
+历史资源 [armillary.png](armillary.png)、[grimoire-frame.png](grimoire-frame.png) 和 [leather-binding.png](leather-binding.png) 保留来源，均不再嵌入或运行加载。此前[圆角框](../../../../../validation/rechecks/2026-11-03/isekai-rounded-border/README.md)、[图内花饰](../../../../../validation/rechecks/2026-11-03/isekai-inner-ornament/README.md)及[宽花框阶段](../../../../../validation/rechecks/2026-11-03/isekai-rich-frame/README.md)保留当时的验证范围。

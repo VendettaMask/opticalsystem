@@ -1,0 +1,103 @@
+{
+  "originalPassRetained": 1095,
+  "afocal": {
+    "freshImport": false,
+    "violations": 0.0,
+    "coreSha256": "fae07619a969cd1fa8a0153c5b61f6a9304091b8425ec6c0dc8d6588ec3eb3b4",
+    "inputs": "Original independent afocal snapshots and requests",
+    "requests": 170,
+    "components": 489,
+    "alignedValues": 312102.0,
+    "counts": {
+      "Pass": 162,
+      "Close": 0,
+      "Difference": 0,
+      "Incomparable": 8,
+      "Error": 0
+    }
+  },
+  "comparisonCompletedUtc": "2026-11-04T13:40:29.0582014+08:00",
+  "physicalSurfaceComparisons": 259395.0,
+  "desktopControlled": false,
+  "lensStatusCounts": [
+    {
+      "status": "本轮既定请求全部通过",
+      "count": 6
+    },
+    {
+      "status": "导入阻断",
+      "count": 1
+    },
+    {
+      "status": "计算或参考求值失败",
+      "count": 29
+    },
+    {
+      "status": "接近但未通过",
+      "count": 4
+    },
+    {
+      "status": "可比项通过，覆盖待补",
+      "count": 45
+    },
+    {
+      "status": "有数值差异",
+      "count": 10
+    }
+  ],
+  "date": "2026-11-04",
+  "rayCounts": {
+    "Pass": 142,
+    "Close": 0,
+    "Difference": 1,
+    "Incomparable": 108,
+    "Error": 0
+  },
+  "previousFullPassRetained": 2130,
+  "newPassSincePreviousFull": 164,
+  "previousFullPassLost": 19,
+  "scopedConsistency": [
+    {
+      "requests": 208,
+      "sha256": "d001f0b6c1800d4dd36904e0738bd76e659cff810533dc4143176c314745e3e4",
+      "reference": "D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-11-03\\definition-reference\\crystals-results.json",
+      "classificationDifferences": []
+    },
+    {
+      "requests": 44,
+      "sha256": "8b52a58960c85ac06c692658cdabd92a2360019235c0c6fff1cfa6a8e5885460",
+      "reference": "D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-11-03\\definition-reference\\toroid-results.json",
+      "classificationDifferences": []
+    },
+    {
+      "requests": 156,
+      "sha256": "5a68c799238712190a6f2971c0b08242524ae212331db172a097725fd1f2f26d",
+      "reference": "D:\\optical system design\\opticalsystem\\validation\\rechecks\\2026-11-03\\definition-reference\\cross-analysis-results.json",
+      "classificationDifferences": []
+    }
+  ],
+  "categories": 14,
+  "unexecutableRequests": 120,
+  "allExamplesCertified": false,
+  "policyChanged": false,
+  "mainCounts": {
+    "Pass": 2294,
+    "Close": 38,
+    "Difference": 158,
+    "Incomparable": 450,
+    "Error": 84
+  },
+  "nativePayloadsVerified": 30700,
+  "referenceConvergenceFullyChecked": false,
+  "executedRequests": 2904,
+  "productExamples": 95,
+  "mainRequests": 3024,
+  "rayGroups": 251,
+  "allRequestPassLenses": 6,
+  "freshNativeCapture": false,
+  "imported": 94,
+  "originalPassLost": 7,
+  "coreSha256": "fae07619a969cd1fa8a0153c5b61f6a9304091b8425ec6c0dc8d6588ec3eb3b4",
+  "configurations": 114.0,
+  "completedLocal": "2026-11-04T13:41:54.2694512+08:00"
+}

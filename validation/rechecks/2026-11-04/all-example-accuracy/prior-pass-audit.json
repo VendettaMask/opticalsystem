@@ -1,0 +1,2026 @@
+{
+  "original": {
+    "pass": 1102,
+    "newPass": 1199,
+    "lost": [
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.96365 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 789,
+        "lens": "Interconnects/Ball coupling.ZMX"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 1.25152 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "PSF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 1115,
+        "lens": "Miscellaneous/Doubly telecentric system.zmx"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.768793 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "FFT PSF Cross Section",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 1119,
+        "lens": "Miscellaneous/Doubly telecentric system.zmx"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.969804 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "FFT PSF Cross Section",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 1767,
+        "lens": "Objectives/Even Asphere.zmx"
+      },
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.63569 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 1989,
+        "lens": "Objectives/Wide angle lens 200 degree field.zmx"
+      },
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.593241 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 2567,
+        "lens": "Tilted systems & prisms/Lens pivoted about a point.zmx"
+      },
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.958206 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 2679,
+        "lens": "Tilted systems & prisms/Prism using total internal reflection.zmx"
+      }
+    ],
+    "retained": 1095
+  },
+  "previousFull": {
+    "date": "2026-11-03",
+    "newPass": 164,
+    "lost": [
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.649037 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "FFT PSF Cross Section",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 313,
+        "lens": "Diffractive components/Achromatic singlet.zmx"
+      },
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.96365 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 789,
+        "lens": "Interconnects/Ball coupling.ZMX"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 1.79509 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "FFT PSF Cross Section",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 791,
+        "lens": "Interconnects/Ball coupling.ZMX"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.537036 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "PSF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 831,
+        "lens": "Interconnects/GRIN interconnect.ZMX"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.508199 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "FFT PSF Cross Section",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 835,
+        "lens": "Interconnects/GRIN interconnect.ZMX"
+      },
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.834379 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 969,
+        "lens": "Miscellaneous/Beam splitter.zmx"
+      },
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 1.3014 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 991,
+        "lens": "Miscellaneous/Beam splitter.zmx"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 1.25152 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "PSF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 1115,
+        "lens": "Miscellaneous/Doubly telecentric system.zmx"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.768793 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "FFT PSF Cross Section",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 1119,
+        "lens": "Miscellaneous/Doubly telecentric system.zmx"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.969804 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "FFT PSF Cross Section",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 1767,
+        "lens": "Objectives/Even Asphere.zmx"
+      },
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.63569 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 1989,
+        "lens": "Objectives/Wide angle lens 200 degree field.zmx"
+      },
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.89553 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 2229,
+        "lens": "Polarization/Fabry-Perot.ZMX"
+      },
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.593241 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 2567,
+        "lens": "Tilted systems & prisms/Lens pivoted about a point.zmx"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 1.14553 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "FFT PSF Cross Section",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 2569,
+        "lens": "Tilted systems & prisms/Lens pivoted about a point.zmx"
+      },
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.958206 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 2679,
+        "lens": "Tilted systems & prisms/Prism using total internal reflection.zmx"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.549012 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "FFT PSF Cross Section",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 2813,
+        "lens": "Zoom systems/Mirror zoom.zmx"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.658442 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "FFT PSF Cross Section",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 2835,
+        "lens": "Zoom systems/Mirror zoom.zmx"
+      },
+      {
+        "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.565445 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "PSF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 2853,
+        "lens": "Zoom systems/Mirror zoom.zmx"
+      },
+      {
+        "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.79618 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+        "analysis": "MTF",
+        "current": "Error",
+        "previous": "Pass",
+        "reason": "Core returned Unavailable with numeric native reference",
+        "index": 2877,
+        "lens": "Zoom systems/Scanning mirror.zmx"
+      }
+    ],
+    "retained": 2130,
+    "pass": 2149
+  },
+  "changes": [
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "",
+      "index": 107,
+      "lens": "Birefringent prisms/Birefringent cube.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 156,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 157,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 158,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 159,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Wavefront",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 160,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 139\r\n   at Program.<Main>$(String[] args) in D:\\optical system design\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+      "analysis": "PSF",
+      "current": "Incomparable",
+      "previous": "Error",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]",
+      "index": 161,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 162,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 163,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 164,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "FFT PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 165,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 166,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 167,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Diffraction Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 168,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens Through Focus MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 169,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Relative Illumination",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 170,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "RMS vs Field",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 171,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Field Curvature and Distortion",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+      "index": 172,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 173,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 174,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 175,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 176,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 177,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 178,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 179,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 180,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 181,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 182,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 183,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 184,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 186,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 187,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 188,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 189,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Wavefront",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 190,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 139\r\n   at Program.<Main>$(String[] args) in D:\\optical system design\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+      "analysis": "PSF",
+      "current": "Incomparable",
+      "previous": "Error",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]",
+      "index": 191,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 192,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 193,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 194,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "FFT PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 195,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 196,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 197,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Diffraction Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 198,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens Through Focus MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 199,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Relative Illumination",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 200,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "RMS vs Field",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 201,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Field Curvature and Distortion",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+      "index": 202,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 203,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 204,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 205,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 206,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 207,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 208,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 209,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 210,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 211,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 212,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 213,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 214,
+      "lens": "Birefringent prisms/Rochon prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 216,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 217,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 218,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 219,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Wavefront",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 220,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 139\r\n   at Program.<Main>$(String[] args) in D:\\optical system design\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+      "analysis": "PSF",
+      "current": "Incomparable",
+      "previous": "Error",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]",
+      "index": 221,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 222,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 223,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 224,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "FFT PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 225,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 226,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 227,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Diffraction Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 228,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens Through Focus MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 229,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Relative Illumination",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 230,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "RMS vs Field",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 231,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Field Curvature and Distortion",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+      "index": 232,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 233,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 234,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 235,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 236,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 238,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 239,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 240,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 241,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Wavefront",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 242,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 139\r\n   at Program.<Main>$(String[] args) in D:\\optical system design\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+      "analysis": "PSF",
+      "current": "Incomparable",
+      "previous": "Error",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]",
+      "index": 243,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 244,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 245,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 246,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "FFT PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 247,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 248,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 249,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Diffraction Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 250,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens Through Focus MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 251,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Relative Illumination",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 252,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "RMS vs Field",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 253,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Field Curvature and Distortion",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+      "index": 254,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 255,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 256,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 257,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 258,
+      "lens": "Birefringent prisms/Senarmont prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 260,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 261,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 262,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 263,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Wavefront",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 264,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 139\r\n   at Program.<Main>$(String[] args) in D:\\optical system design\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+      "analysis": "PSF",
+      "current": "Incomparable",
+      "previous": "Error",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]",
+      "index": 265,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 266,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 267,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 268,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "FFT PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 269,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 270,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 271,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Diffraction Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 272,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens Through Focus MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 273,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Relative Illumination",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 274,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "RMS vs Field",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 275,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Field Curvature and Distortion",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+      "index": 276,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 277,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 278,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 279,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 280,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 282,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 283,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 284,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 285,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Wavefront",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 286,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 139\r\n   at Program.<Main>$(String[] args) in D:\\optical system design\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+      "analysis": "PSF",
+      "current": "Incomparable",
+      "previous": "Error",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]",
+      "index": 287,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 288,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 289,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 290,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "FFT PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 291,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF Cross Section",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 292,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 293,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Diffraction Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 294,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens Through Focus MTF",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 295,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Relative Illumination",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 296,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "RMS vs Field",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 297,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Field Curvature and Distortion",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+      "index": 298,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 299,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 300,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 301,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 302,
+      "lens": "Birefringent prisms/Wollaston prism.zmx"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.649037 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "FFT PSF Cross Section",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 313,
+      "lens": "Diffractive components/Achromatic singlet.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "",
+      "index": 427,
+      "lens": "Diffractive components/Reflection hologram.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "",
+      "index": 479,
+      "lens": "Diffractive components/Transmission hologram.zmx"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.527761 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "FFT PSF Cross Section",
+      "current": "Error",
+      "previous": "Incomparable",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 559,
+      "lens": "Image Simulation/Example 1, A singlet eyepiece.ZMX"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 563.369 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "PSF",
+      "current": "Error",
+      "previous": "Difference",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 585,
+      "lens": "Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX"
+    },
+    {
+      "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 95.6032 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "MTF",
+      "current": "Error",
+      "previous": "Difference",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 587,
+      "lens": "Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 190.087 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "FFT PSF Cross Section",
+      "current": "Error",
+      "previous": "Incomparable",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 589,
+      "lens": "Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "",
+      "index": 621,
+      "lens": "Image Simulation/Example 3, A blue notch filter.ZMX"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 563.369 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "PSF",
+      "current": "Error",
+      "previous": "Difference",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 675,
+      "lens": "Image Simulation/Example 5, spatially varying resolution.ZMX"
+    },
+    {
+      "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 95.6032 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "MTF",
+      "current": "Error",
+      "previous": "Difference",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 677,
+      "lens": "Image Simulation/Example 5, spatially varying resolution.ZMX"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 190.087 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "FFT PSF Cross Section",
+      "current": "Error",
+      "previous": "Incomparable",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 679,
+      "lens": "Image Simulation/Example 5, spatially varying resolution.ZMX"
+    },
+    {
+      "error": "System.IO.InvalidDataException: A curve requires at least two finite coordinate/value pairs\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.PhysicalNormalization.Sort(Double[] x, Double[] y) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\PhysicalNormalization.cs:line 50\r\n   at OpticalSystemDesign.ZemaxComparison.Metrics.ComparisonMetrics.Align(Series1DResult w, Series1DResult z, List`1 log) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Metrics\\ComparisonMetrics.cs:line 22\r\n   at OpticalSystemDesign.ZemaxComparison.ComparisonRunner.Compare(AnalysisRun run, AnalysisComparisonEntry entry, AnalysisConfiguration config, NumericResult w, NumericResult z, String output) in D:\\optical system design\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\ComparisonRunner.cs:line 355\r\n   at Program.<Main>$(String[] args) in D:\\optical system design\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 178",
+      "analysis": "Encircled Energy",
+      "current": "Incomparable",
+      "previous": "Error",
+      "reason": "A curve requires at least two finite coordinate/value pairs",
+      "index": 741,
+      "lens": "Image Simulation/Example 6, tilted image plane.ZMX"
+    },
+    {
+      "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.96365 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "MTF",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 789,
+      "lens": "Interconnects/Ball coupling.ZMX"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 1.79509 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "FFT PSF Cross Section",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 791,
+      "lens": "Interconnects/Ball coupling.ZMX"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.537036 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "PSF",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 831,
+      "lens": "Interconnects/GRIN interconnect.ZMX"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.508199 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "FFT PSF Cross Section",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 835,
+      "lens": "Interconnects/GRIN interconnect.ZMX"
+    },
+    {
+      "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.834379 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "MTF",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 969,
+      "lens": "Miscellaneous/Beam splitter.zmx"
+    },
+    {
+      "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 1.3014 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "MTF",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 991,
+      "lens": "Miscellaneous/Beam splitter.zmx"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 1.25152 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "PSF",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 1115,
+      "lens": "Miscellaneous/Doubly telecentric system.zmx"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.768793 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "FFT PSF Cross Section",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 1119,
+      "lens": "Miscellaneous/Doubly telecentric system.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "",
+      "index": 1275,
+      "lens": "Miscellaneous/Optimization demo 1.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "",
+      "index": 1349,
+      "lens": "Miscellaneous/Telecentric system.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 1360,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "",
+      "index": 1363,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Wavefront",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "",
+      "index": 1364,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF",
+      "current": "Pass",
+      "previous": "Incomparable",
+      "reason": "",
+      "index": 1366,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens MTF",
+      "current": "Pass",
+      "previous": "Incomparable",
+      "reason": "",
+      "index": 1368,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens PSF Cross Section",
+      "current": "Pass",
+      "previous": "Incomparable",
+      "reason": "",
+      "index": 1370,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 1371,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Huygens Through Focus MTF",
+      "current": "Pass",
+      "previous": "Incomparable",
+      "reason": "",
+      "index": 1373,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Relative Illumination",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 1374,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "RMS vs Field",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 1375,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Field Curvature and Distortion",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+      "index": 1376,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Single Ray Trace",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "index": 1377,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Spot Diagram",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "index": 1378,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Incomparable",
+      "reason": "",
+      "index": 1379,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Error",
+      "reason": "",
+      "index": 1380,
+      "lens": "Miscellaneous/Toroid.zmx"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.969804 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "FFT PSF Cross Section",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 1767,
+      "lens": "Objectives/Even Asphere.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Incomparable",
+      "reason": "",
+      "index": 1782,
+      "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Incomparable",
+      "reason": "",
+      "index": 1783,
+      "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Diffraction Encircled Energy",
+      "current": "Pass",
+      "previous": "Close",
+      "reason": "",
+      "index": 1792,
+      "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Ray Fan",
+      "current": "Pass",
+      "previous": "Incomparable",
+      "reason": "",
+      "index": 1799,
+      "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Optical Path Difference",
+      "current": "Pass",
+      "previous": "Incomparable",
+      "reason": "",
+      "index": 1800,
+      "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx"
+    },
+    {
+      "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.63569 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "MTF",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 1989,
+      "lens": "Objectives/Wide angle lens 200 degree field.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "",
+      "index": 2207,
+      "lens": "Polarization/Etalon.ZMX"
+    },
+    {
+      "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.89553 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "MTF",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 2229,
+      "lens": "Polarization/Fabry-Perot.ZMX"
+    },
+    {
+      "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.593241 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "MTF",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 2567,
+      "lens": "Tilted systems & prisms/Lens pivoted about a point.zmx"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 1.14553 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "FFT PSF Cross Section",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 2569,
+      "lens": "Tilted systems & prisms/Lens pivoted about a point.zmx"
+    },
+    {
+      "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.958206 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "MTF",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 2679,
+      "lens": "Tilted systems & prisms/Prism using total internal reflection.zmx"
+    },
+    {
+      "error": null,
+      "analysis": "Encircled Energy",
+      "current": "Pass",
+      "previous": "Difference",
+      "reason": "",
+      "index": 2705,
+      "lens": "Tilted systems & prisms/Prisms using coordinate breaks.ZMX"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.549012 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "FFT PSF Cross Section",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 2813,
+      "lens": "Zoom systems/Mirror zoom.zmx"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.658442 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "FFT PSF Cross Section",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 2835,
+      "lens": "Zoom systems/Mirror zoom.zmx"
+    },
+    {
+      "error": "PSF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.565445 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "PSF",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 2853,
+      "lens": "Zoom systems/Mirror zoom.zmx"
+    },
+    {
+      "error": "MTF: 光瞳相位采样不足或无法验证，相邻节点最大相位差 0.79618 波（Nyquist 上限 0.5 波）。请增加实际光瞳采样，或选择适用的 Huygens 分析；当前 FFT 数据不可用。",
+      "analysis": "MTF",
+      "current": "Error",
+      "previous": "Pass",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "index": 2877,
+      "lens": "Zoom systems/Scanning mirror.zmx"
+    }
+  ]
+}

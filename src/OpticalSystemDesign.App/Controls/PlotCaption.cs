@@ -125,7 +125,8 @@ internal static class PlotCaption
         right.Children.Add(documentBorder);
         var rightBorder = new Border { BorderThickness = new Thickness(1, 0, 0, 0), Child = right };
         rightBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
-        var grid = new ResponsiveAnalysisFooterGrid(summary, rightBorder) { MinHeight = MinimumHeight };
+        var summaryHost = new Grid { Children = { summary, ThemeDrawingSurface.CaptionOrnament(summary) } };
+        var grid = new ResponsiveAnalysisFooterGrid(summaryHost, rightBorder) { MinHeight = MinimumHeight };
         var frame = new Border { BorderThickness = new Thickness(0, 1, 0, 1), Child = grid };
         frame.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         frame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);

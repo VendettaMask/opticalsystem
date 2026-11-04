@@ -1,0 +1,39 @@
+{
+  "scope": "Documentation review and independent diagnostic controls; not native numerical certification",
+  "workbenchRequests": 20,
+  "sharedWavefrontProbeGroups": 4,
+  "focalReferenceModeCurveVariants": 1,
+  "requestedReferenceModes": 4,
+  "absoluteProbeMaximumDefinitionMismatchWaves": 18.767840373531232,
+  "opdAndWavefrontIgnoreSurfaceSelection": true,
+  "nonexistentSurface999ReportedSuccess": true,
+  "psfAndMtfIntermediatePreparation": "Truncation without documented temporary focal plane; before-stop selection loses stop",
+  "originalExamples": 95,
+  "originalExamplesUsingExitPupil": 95,
+  "productCodeChanged": false,
+  "nativeCaptured": false,
+  "existingSixOpdResidualCauseEstablished": false,
+  "coreSha256": "1af8b46ae62b581a85b05b3954f0d8dd1a1414e989d1c826feaed272836036a3",
+  "sourceHashes": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/WavefrontEngine.cs",
+      "sha256": "24ff0b72a8a9f2ab221ed0babb9d5ebf880be5d7195bd2a984f1253be3d9c47f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Wavefront/OpticalPathDifferenceAnalysis.cs",
+      "sha256": "bca55cb36c0561939883dc32f8c68cc3999ac44de76609643a54dd57a6385f93"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Wavefront/WavefrontAnalyses.cs",
+      "sha256": "70697bf93b0b7956cc749dd5fdc4169ff6854dba92f77ea2dc0b52dd913eaf23"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs",
+      "sha256": "0e7b6447497fec3bf1cd54e1a479d09f5c816b25a2e70de2701ab022b222031b"
+    },
+    {
+      "path": "tools/diagnostics/ZemaxDefinitionReview20261104/Program.cs",
+      "sha256": "a9264b5af65a0f81d1a0a35519445f39fd2f84a4d6b11642a7dc42e8a0ac316e"
+    }
+  ]
+}

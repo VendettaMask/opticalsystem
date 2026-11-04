@@ -403,7 +403,7 @@ public sealed class AnalysisLegendLayoutTests
     private static StackPanel Legend(Control root) => Assert.Single(root.GetVisualDescendants()
         .OfType<StackPanel>(), panel => panel.Children.Count > 0 && panel.Children.All(child => child is CheckBox));
 
-    private static TabControl Build(AnalysisViewDto view, WorkbenchApplication app) => Assert.IsType<TabControl>(
+    private static TabControl Build(AnalysisViewDto view, WorkbenchApplication app) => Assert.IsAssignableFrom<TabControl>(
         typeof(AnalysisPanel).GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
             .Invoke(null, [view, app.Documents.GetSnapshot(), new DateTimeOffset(2026, 10, 24, 12, 0, 0, TimeSpan.FromHours(8)), null]));
 

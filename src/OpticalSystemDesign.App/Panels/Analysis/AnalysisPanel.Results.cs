@@ -11,6 +11,7 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
 
@@ -95,6 +96,7 @@ public sealed partial class AnalysisPanel
                 : BuildSinglePlot(view);
         var titleBlock = BuildAnalysisTitleBlock(view, document, generatedAt);
         var plotPage = new UniformDiagramPage(plotRoot, titleBlock);
+        AnalysisArtwork.SetKind(plotPage, AnalysisArtwork.For(view));
         var resultsGrid = BuildResultsGrid(view);
         var report = new TextBox
         {
@@ -106,7 +108,7 @@ public sealed partial class AnalysisPanel
         };
         report.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
         report.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
-        var resultTabs = new TabControl
+        var resultTabs = new AnalysisResultTabs
         {
             TabStripPlacement = Avalonia.Controls.Dock.Bottom,
             ItemsSource = new object[]
@@ -134,7 +136,7 @@ public sealed partial class AnalysisPanel
 
     private static TabItem AnalysisResultTab(string header, Control content)
     {
-        return new TabItem
+        return new AnalysisResultTab
         {
             Header = header,
             Content = content,

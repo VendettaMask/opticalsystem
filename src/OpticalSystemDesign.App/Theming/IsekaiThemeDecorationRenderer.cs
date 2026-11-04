@@ -113,14 +113,11 @@ internal sealed class IsekaiThemeDecorationRenderer : IThemeDecorationRenderer
 
     private void DrawRibbon(DrawingContext context, Rect bounds)
     {
+        IsekaiCraftsmanship.DrawBar(context, bounds);
         var headerHeight = Math.Min(42, bounds.Height);
         var header = new Rect(0, 0, bounds.Width, headerHeight);
-        context.DrawRectangle(LeatherBrush, null, header);
-
-        DrawLeatherTexture(context, header);
-        DrawTabBays(context, header);
+        // Handmade generated leather spans menu and ribbon; no rigid bay grid.
         DrawSword(context, header);
-        DrawFrame(context, header);
     }
 
     private static void DrawWorkspaceFrame(DrawingContext context, Rect bounds)

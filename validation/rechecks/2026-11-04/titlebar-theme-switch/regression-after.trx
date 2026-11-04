@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="3c5d9f8a-81b6-47a8-acc6-bd66c216851b" name="optics@LAPTOP-G4BBBCS0 2026-11-04 14:21:28" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T14:21:28.0137852+08:00" queuing="2026-11-04T14:21:28.0137855+08:00" start="2026-11-04T14:21:24.2561475+08:00" finish="2026-11-04T14:22:06.6395250+08:00" />
+  <TestSettings name="default" id="2bb78096-814c-4ea7-a2b0-6e53abf7e81e">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-04_14_21_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="bf3dcae2-7aea-41bd-925e-94411e173a58" testId="832ba7ae-6716-9400-59aa-bff5c9f1866a" testName="OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.4454736" startTime="2026-11-04T14:21:27.8883396+08:00" endTime="2026-11-04T14:21:28.3195733+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf3dcae2-7aea-41bd-925e-94411e173a58" />
+    <UnitTestResult executionId="30792773-402d-48d6-ac92-9dc7050879ea" testId="13914404-ff18-ebd0-8941-2a3119ab805e" testName="OpticalSystemDesign.Tests.MainWindowTitleBarTests.ThemeSwitchesKeepManagedCaptionButtonsLaidOutWithoutResizing(state: Maximized)" computerName="LAPTOP-G4BBBCS0" duration="00:00:10.1537221" startTime="2026-11-04T14:21:29.8067643+08:00" endTime="2026-11-04T14:21:39.9610706+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="30792773-402d-48d6-ac92-9dc7050879ea" />
+    <UnitTestResult executionId="512f8938-c062-4518-8d99-672ef00ed49a" testId="aa3879fc-f535-4299-cd6d-f2bcce003728" testName="OpticalSystemDesign.Tests.MainWindowTitleBarTests.RapidThemeChangesAndFullscreenRestoreKeepManagedCaptionButtons" computerName="LAPTOP-G4BBBCS0" duration="00:00:21.6251423" startTime="2026-11-04T14:21:44.8763484+08:00" endTime="2026-11-04T14:22:06.5062511+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="512f8938-c062-4518-8d99-672ef00ed49a">
+      <Output>
+        <ErrorInfo>
+          <Message>fullscreen restore: PART_MinimizeButton visible=False, bounds=0, 0, 0, 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.MainWindowTitleBarTests.AssertManagedCaptionButtons(Control host, String stage) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MainWindowTitleBarTests.cs:line 240&#xD;
+   at OpticalSystemDesign.Tests.MainWindowTitleBarTests.&lt;&gt;c.&lt;RapidThemeChangesAndFullscreenRestoreKeepManagedCaptionButtons&gt;b__5_0() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MainWindowTitleBarTests.cs:line 209&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.MainWindowTitleBarTests.RapidThemeChangesAndFullscreenRestoreKeepManagedCaptionButtons() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MainWindowTitleBarTests.cs:line 183&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6932488a-b8b5-405e-84c4-db5df4290be4" testId="301589d2-8f27-ea77-407a-c5b7ed94cde2" testName="OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5568676" startTime="2026-11-04T14:21:28.3209972+08:00" endTime="2026-11-04T14:21:28.8773098+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6932488a-b8b5-405e-84c4-db5df4290be4" />
+    <UnitTestResult executionId="2bc90e3e-2e2b-41c6-8952-fe9d6d6e0f70" testId="80a492b7-c6bd-38f8-4e17-59bd78cd65e5" testName="OpticalSystemDesign.Tests.MainWindowTitleBarTests.ClosingDuringAQueuedThemeRefreshDoesNotAccessTheClosedWindow" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2432465" startTime="2026-11-04T14:21:44.6330314+08:00" endTime="2026-11-04T14:21:44.8760348+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2bc90e3e-2e2b-41c6-8952-fe9d6d6e0f70" />
+    <UnitTestResult executionId="2e2b9e78-ac84-451c-9948-a8aae2e73cfe" testId="bbbaffea-52d6-554d-bec3-ec1d87ecc8b0" testName="OpticalSystemDesign.Tests.MainWindowTitleBarTests.ThemeSwitchesKeepManagedCaptionButtonsLaidOutWithoutResizing(state: Normal)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.6707427" startTime="2026-11-04T14:21:39.9626979+08:00" endTime="2026-11-04T14:21:44.6324376+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2e2b9e78-ac84-451c-9948-a8aae2e73cfe" />
+    <UnitTestResult executionId="87e93d3d-fb41-4a51-891d-5abbbf10ea2b" testId="aff9a1d0-6c1e-c9e8-1671-bccfdd63fe5d" testName="OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4087760" startTime="2026-11-04T14:21:26.4757444+08:00" endTime="2026-11-04T14:21:27.8718194+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="87e93d3d-fb41-4a51-891d-5abbbf10ea2b" />
+    <UnitTestResult executionId="24a101e4-355c-4376-be97-8ffc53de86fd" testId="ef649be4-5e2f-61f3-097c-e403d9cab9d2" testName="OpticalSystemDesign.Tests.MainWindowTitleBarTests.CaptionTracksDocumentTitleAndThemeWithoutReplacingNativeWindowActions" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6578716" startTime="2026-11-04T14:21:29.1488552+08:00" endTime="2026-11-04T14:21:29.8062531+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="24a101e4-355c-4376-be97-8ffc53de86fd" />
+    <UnitTestResult executionId="188fb62c-5b15-4735-b06a-6f868c2fd967" testId="99d7a2aa-9f4a-0f5b-6c43-6575ed1620a0" testName="OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2677101" startTime="2026-11-04T14:21:28.8777702+08:00" endTime="2026-11-04T14:21:29.1455271+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="188fb62c-5b15-4735-b06a-6f868c2fd967" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.MainWindowTitleBarTests.ClosingDuringAQueuedThemeRefreshDoesNotAccessTheClosedWindow" storage="d:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\opticalsystemdesign.tests.dll" id="80a492b7-c6bd-38f8-4e17-59bd78cd65e5">
+      <Execution id="2bc90e3e-2e2b-41c6-8952-fe9d6d6e0f70" />
+      <TestMethod codeBase="D:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MainWindowTitleBarTests" name="ClosingDuringAQueuedThemeRefreshDoesNotAccessTheClosedWindow" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: &quot;Isekai&quot;)" storage="d:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\opticalsystemdesign.tests.dll" id="301589d2-8f27-ea77-407a-c5b7ed94cde2">
+      <Execution id="6932488a-b8b5-405e-84c4-db5df4290be4" />
+      <TestMethod codeBase="D:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MainWindowTitleBarTests" name="RealCaptionButtonsKeepEffectsContentAndFullHitAreas" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MainWindowTitleBarTests.ThemeSwitchesKeepManagedCaptionButtonsLaidOutWithoutResizing(state: Normal)" storage="d:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\opticalsystemdesign.tests.dll" id="bbbaffea-52d6-554d-bec3-ec1d87ecc8b0">
+      <Execution id="2e2b9e78-ac84-451c-9948-a8aae2e73cfe" />
+      <TestMethod codeBase="D:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MainWindowTitleBarTests" name="ThemeSwitchesKeepManagedCaptionButtonsLaidOutWithoutResizing" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MainWindowTitleBarTests.RapidThemeChangesAndFullscreenRestoreKeepManagedCaptionButtons" storage="d:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\opticalsystemdesign.tests.dll" id="aa3879fc-f535-4299-cd6d-f2bcce003728">
+      <Execution id="512f8938-c062-4518-8d99-672ef00ed49a" />
+      <TestMethod codeBase="D:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MainWindowTitleBarTests" name="RapidThemeChangesAndFullscreenRestoreKeepManagedCaptionButtons" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MainWindowTitleBarTests.ThemeSwitchesKeepManagedCaptionButtonsLaidOutWithoutResizing(state: Maximized)" storage="d:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\opticalsystemdesign.tests.dll" id="13914404-ff18-ebd0-8941-2a3119ab805e">
+      <Execution id="30792773-402d-48d6-ac92-9dc7050879ea" />
+      <TestMethod codeBase="D:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MainWindowTitleBarTests" name="ThemeSwitchesKeepManagedCaptionButtonsLaidOutWithoutResizing" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: &quot;Dark&quot;)" storage="d:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\opticalsystemdesign.tests.dll" id="99d7a2aa-9f4a-0f5b-6c43-6575ed1620a0">
+      <Execution id="188fb62c-5b15-4735-b06a-6f868c2fd967" />
+      <TestMethod codeBase="D:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MainWindowTitleBarTests" name="RealCaptionButtonsKeepEffectsContentAndFullHitAreas" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: &quot;Pixel&quot;)" storage="d:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\opticalsystemdesign.tests.dll" id="aff9a1d0-6c1e-c9e8-1671-bccfdd63fe5d">
+      <Execution id="87e93d3d-fb41-4a51-891d-5abbbf10ea2b" />
+      <TestMethod codeBase="D:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MainWindowTitleBarTests" name="RealCaptionButtonsKeepEffectsContentAndFullHitAreas" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MainWindowTitleBarTests.CaptionTracksDocumentTitleAndThemeWithoutReplacingNativeWindowActions" storage="d:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\opticalsystemdesign.tests.dll" id="ef649be4-5e2f-61f3-097c-e403d9cab9d2">
+      <Execution id="24a101e4-355c-4376-be97-8ffc53de86fd" />
+      <TestMethod codeBase="D:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MainWindowTitleBarTests" name="CaptionTracksDocumentTitleAndThemeWithoutReplacingNativeWindowActions" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MainWindowTitleBarTests.RealCaptionButtonsKeepEffectsContentAndFullHitAreas(theme: &quot;Light&quot;)" storage="d:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\opticalsystemdesign.tests.dll" id="832ba7ae-6716-9400-59aa-bff5c9f1866a">
+      <Execution id="bf3dcae2-7aea-41bd-925e-94411e173a58" />
+      <TestMethod codeBase="D:\optical system design\output\titlebar-theme-repro-20261104\focused-runtime\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MainWindowTitleBarTests" name="RealCaptionButtonsKeepEffectsContentAndFullHitAreas" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="832ba7ae-6716-9400-59aa-bff5c9f1866a" executionId="bf3dcae2-7aea-41bd-925e-94411e173a58" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="13914404-ff18-ebd0-8941-2a3119ab805e" executionId="30792773-402d-48d6-ac92-9dc7050879ea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aa3879fc-f535-4299-cd6d-f2bcce003728" executionId="512f8938-c062-4518-8d99-672ef00ed49a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="301589d2-8f27-ea77-407a-c5b7ed94cde2" executionId="6932488a-b8b5-405e-84c4-db5df4290be4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="80a492b7-c6bd-38f8-4e17-59bd78cd65e5" executionId="2bc90e3e-2e2b-41c6-8952-fe9d6d6e0f70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bbbaffea-52d6-554d-bec3-ec1d87ecc8b0" executionId="2e2b9e78-ac84-451c-9948-a8aae2e73cfe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aff9a1d0-6c1e-c9e8-1671-bccfdd63fe5d" executionId="87e93d3d-fb41-4a51-891d-5abbbf10ea2b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ef649be4-5e2f-61f3-097c-e403d9cab9d2" executionId="24a101e4-355c-4376-be97-8ffc53de86fd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="99d7a2aa-9f4a-0f5b-6c43-6575ed1620a0" executionId="188fb62c-5b15-4735-b06a-6f868c2fd967" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="9" executed="9" passed="8" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.66]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.72]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.76]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:41.84]       fullscreen restore: PART_MinimizeButton visible=False, bounds=0, 0, 0, 0&#xD;
+[xUnit.net 00:00:41.84]       Stack Trace:&#xD;
+[xUnit.net 00:00:41.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MainWindowTitleBarTests.cs(240,0): at OpticalSystemDesign.Tests.MainWindowTitleBarTests.AssertManagedCaptionButtons(Control host, String stage)&#xD;
+[xUnit.net 00:00:41.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MainWindowTitleBarTests.cs(209,0): at OpticalSystemDesign.Tests.MainWindowTitleBarTests.&lt;&gt;c.&lt;RapidThemeChangesAndFullscreenRestoreKeepManagedCaptionButtons&gt;b__5_0()&#xD;
+[xUnit.net 00:00:41.84]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:41.84]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:41.84]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:41.84]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:41.84]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\MainWindowTitleBarTests.cs(183,0): at OpticalSystemDesign.Tests.MainWindowTitleBarTests.RapidThemeChangesAndFullscreenRestoreKeepManagedCaptionButtons()&#xD;
+[xUnit.net 00:00:41.84]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:41.85]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-04T14:22:06.5103915+08:00">
+        <Text>[xUnit.net 00:00:41.84]     OpticalSystemDesign.Tests.MainWindowTitleBarTests.RapidThemeChangesAndFullscreenRestoreKeepManagedCaptionButtons [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

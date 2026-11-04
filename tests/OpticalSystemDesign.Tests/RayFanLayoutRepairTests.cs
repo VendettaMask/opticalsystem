@@ -55,7 +55,7 @@ public sealed class RayFanLayoutRepairTests
         {
             ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
             using var application = WorkbenchApplication.Create();
-            var tabs = Assert.IsType<TabControl>(typeof(AnalysisPanel).GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
+            var tabs = Assert.IsAssignableFrom<TabControl>(typeof(AnalysisPanel).GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
                 .Invoke(null, [view, application.Documents.GetSnapshot(), DateTimeOffset.Now, null]));
             var window = new Window { Width = 1000, Height = 460, Content = tabs };
             try
@@ -93,7 +93,7 @@ public sealed class RayFanLayoutRepairTests
                     ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
                     DisplayTypography.Configure(new AppSettings { Theme = theme, FontSize = fontSize });
                     window.FontSize = fontSize;
-                    var singleTabs = Assert.IsType<TabControl>(typeof(AnalysisPanel).GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
+                    var singleTabs = Assert.IsAssignableFrom<TabControl>(typeof(AnalysisPanel).GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
                         .Invoke(null, [single, application.Documents.GetSnapshot(), DateTimeOffset.Now, null]));
                     window.Content = singleTabs; window.Width = 840; window.Height = 460; Render(window);
                     var plots = singleTabs.GetVisualDescendants().OfType<AnalysisPlotControl>().ToArray();

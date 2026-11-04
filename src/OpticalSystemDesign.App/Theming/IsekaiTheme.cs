@@ -95,5 +95,8 @@ internal static class IsekaiTheme
         resources["DockTabActiveForegroundBrush"] = selectedForeground;
         resources["DockDocumentTabSelectedForegroundBrush"] = selectedForeground;
         resources["DockDocumentTabCloseSelectedForegroundBrush"] = selectedForeground;
+        // The registered Isekai renderer owns the leather beneath these native groups.
+        resources[ThemeResourceBindings.RibbonPageBackground] = Brushes.Transparent;
+        resources[ThemeResourceBindings.RibbonGroupBackground] = Brushes.Transparent;
     }
 }

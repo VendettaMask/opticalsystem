@@ -1,0 +1,72 @@
+{
+  "originalRequests": 31,
+  "mainPhaseRejections": 26,
+  "nativeInvalidControls": 4,
+  "independentAfocal": 1,
+  "originalOutcomes": {
+    "Unavailable": 31
+  },
+  "restoredPasses": 0,
+  "selfRefinementCounts": {
+    "Pass": 2,
+    "Close": 3,
+    "Difference": 26,
+    "Incomparable": 0,
+    "Error": 0
+  },
+  "prior19SelfRefinementCounts": {
+    "Pass": 1,
+    "Close": 3,
+    "Difference": 15,
+    "Incomparable": 0,
+    "Error": 0
+  },
+  "byteIdenticalPreliminaryAndFinalArrays": 119,
+  "preliminaryAndFinalArraysWithinOriginalPointTolerance": 120,
+  "nonByteIdenticalComparisons": [
+    {
+      "index": 2229,
+      "scale": 2,
+      "maxAbsoluteDifference": 0.000000000000134791049849481,
+      "alignedValues": 600,
+      "withinOriginalPointTolerance": true
+    }
+  ],
+  "coreSha256": "a052ac75b497c5f1ecf254141fbef1cb61b915db5d8ef1898eeda672527f75a0",
+  "originalPolicySha256": "f1491c60159235876a2c0e82b15ddc2a9ef9ad3181ca001ed1c81c304639f460",
+  "focusedTests": {
+    "passed": 29,
+    "failed": 0,
+    "skipped": 0
+  },
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Analysis/FftPupilSampling.cs",
+      "sha256": "8827f8be32e67c741332a132d2d5c3702633a35f9aed99a05e8f395c159262c4"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/FirstOrderAndFftDefinitionTests.cs",
+      "sha256": "abfdaa5c41675fab0b2583e48ae61eb035264d207803305d35beb639605ba3a7"
+    },
+    {
+      "path": "tools/diagnostics/FftSamplingPolicy20261104/Program.cs",
+      "sha256": "44589d8b1fd6f2839aee7731995e12f29c34e25b70f9798380f4fc6c8b077496"
+    },
+    {
+      "path": "tools/diagnostics/FftSamplingPolicy20261104/ConvergenceProbe.cs",
+      "sha256": "a1aac33a6c0842a23d681df0486bfb00dbe49bf3037eee85e85cdf55d06f2cfd"
+    },
+    {
+      "path": "tools/diagnostics/FftSamplingPolicy20261104/FftSamplingPolicy20261104.csproj",
+      "sha256": "5bbd615c20e6f8c5559f29dd59a54a3c97037e6e259da679dfdda43fbbc5dbee"
+    }
+  ],
+  "originalSamplingChanged": false,
+  "prescriptionsChanged": false,
+  "referencesChanged": false,
+  "tolerancesChanged": false,
+  "nativeCaptured": false,
+  "full3024Rerun": false,
+  "nativeRejectionAlgorithmReproduced": false,
+  "samplingIssueClosed": false
+}

@@ -9,6 +9,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
@@ -37,6 +38,8 @@ internal sealed class MainWindowTitleBar : Border
     private readonly Bitmap _iconBitmap;
     private ThemeVariant? _decorationVariant;
     private readonly Control? _search;
+    private bool _decorationLayoutRefreshPending;
+    private bool _isClosed;
 
     private MainWindowTitleBar(Window window, Control? search)
     {
@@ -85,12 +88,14 @@ internal sealed class MainWindowTitleBar : Border
             WindowDecorationProperties.SetElementRole(search, WindowDecorationsElementRole.User);
             layout.Children.Add(search);
         }
-        Child = layout;
+        Child = new Grid { Children = { new IsekaiTitleMaterial(), layout } };
         WindowDecorationProperties.SetElementRole(this, WindowDecorationsElementRole.TitleBar);
         window.ActualThemeVariantChanged += OnThemeChanged;
         window.PropertyChanged += OnWindowChanged;
+        window.Opened += OnWindowOpened;
         window.Closed += OnWindowClosed;
         PropertyChanged += OnCaptionChanged;
+        ResourcesChanged += OnCaptionResourcesChanged;
         UpdateChrome();
     }
 
@@ -158,6 +163,24 @@ internal sealed class MainWindowTitleBar : Border
             _window.WindowDecorationsTheme = theme;
             _decorationVariant = _window.ActualThemeVariant;
         }
+        QueueDecorationLayoutRefresh();
+    }
+
+    private void QueueDecorationLayoutRefresh()
+    {
+        if (!OperatingSystem.IsWindows() || _isClosed || _decorationLayoutRefreshPending) return;
+        _decorationLayoutRefreshPending = true;
+        // Avalonia 12.1 can replace decoration template content while its visual
+        // layer wrappers still consider their layout valid. Wait until the theme
+        // transaction has finished, then invalidate the layers themselves: merely
+        // invalidating Window or its host leaves zero-sized caption buttons cached.
+        Dispatcher.UIThread.Post(() =>
+        {
+            _decorationLayoutRefreshPending = false;
+            if (_isClosed || _window.GetVisualParent() is not Control host) return;
+            foreach (var layer in host.GetVisualChildren().OfType<Control>())
+                if (!ReferenceEquals(layer, _window)) layer.InvalidateMeasure();
+        }, DispatcherPriority.Loaded);
     }
 
     private static void AddTrafficLightButtonStyle(
@@ -245,6 +268,10 @@ internal sealed class MainWindowTitleBar : Border
 
     private void OnThemeChanged(object? sender, EventArgs args) => UpdateChrome();
 
+    private void OnWindowOpened(object? sender, EventArgs args) => QueueDecorationLayoutRefresh();
+
+    private void OnCaptionResourcesChanged(object? sender, ResourcesChangedEventArgs args) => QueueDecorationLayoutRefresh();
+
     private void OnWindowChanged(object? sender, AvaloniaPropertyChangedEventArgs args)
     {
         if (args.Property == Window.WindowStateProperty) UpdateChrome();
@@ -257,10 +284,13 @@ internal sealed class MainWindowTitleBar : Border
 
     private void OnWindowClosed(object? sender, EventArgs args)
     {
+        _isClosed = true;
         _window.ActualThemeVariantChanged -= OnThemeChanged;
         _window.PropertyChanged -= OnWindowChanged;
+        _window.Opened -= OnWindowOpened;
         _window.Closed -= OnWindowClosed;
         PropertyChanged -= OnCaptionChanged;
+        ResourcesChanged -= OnCaptionResourcesChanged;
         _iconBitmap.Dispose();
     }
 }
