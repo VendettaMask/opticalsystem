@@ -95,7 +95,8 @@ public sealed partial class AnalysisPanel
                     ? BuildFullFieldAberrationPlot(view)
                 : BuildSinglePlot(view);
         var titleBlock = BuildAnalysisTitleBlock(view, document, generatedAt);
-        var plotPage = new UniformDiagramPage(plotRoot, titleBlock);
+        var plotPage = new UniformDiagramPage(plotRoot, titleBlock,
+            preservePlotGeometry: view.PlotOptions.EqualAspect || view.PlotPanes.Any(pane => pane.PlotOptions.EqualAspect));
         AnalysisArtwork.SetKind(plotPage, AnalysisArtwork.For(view));
         var resultsGrid = BuildResultsGrid(view);
         var report = new TextBox

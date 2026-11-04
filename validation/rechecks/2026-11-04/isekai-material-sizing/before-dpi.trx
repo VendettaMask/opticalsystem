@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="871f4f66-2e55-453e-9825-0f98a2dba0dd" name="allen@DESKTOP-SET3SNR 2026-11-04 19:31:59" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T19:31:59.2913985+08:00" queuing="2026-11-04T19:31:59.2913989+08:00" start="2026-11-04T19:31:55.4524575+08:00" finish="2026-11-04T19:32:06.3345141+08:00" />
+  <TestSettings name="default" id="73c250a4-abb3-4ea7-b42a-c866c8dec35d">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-04_19_31_59" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d530ea3d-f8f2-4fc1-a43f-ab56e1f719a6" testId="f49877b5-47c2-66ad-fe58-19a44b09abad" testName="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 18, scaling: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:00.3823507" startTime="2026-11-04T19:32:05.8597496+08:00" endTime="2026-11-04T19:32:06.2421482+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d530ea3d-f8f2-4fc1-a43f-ab56e1f719a6">
+      <Output>
+        <ErrorInfo>
+          <Message>Unreadable native tab (selected=False): #ffe2cd9e on #fdebc790 at 0.3,0.3</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 157&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0() in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 66&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 34&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c81682ee-cb91-4948-8473-073dfc3597e9" testId="382a8e88-ef54-4f07-314a-1387077b5e29" testName="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 13, scaling: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:00.6250165" startTime="2026-11-04T19:32:03.9359051+08:00" endTime="2026-11-04T19:32:04.5485781+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c81682ee-cb91-4948-8473-073dfc3597e9">
+      <Output>
+        <ErrorInfo>
+          <Message>Unreadable native tab (selected=False): #ffe2cd9e on #fdebc790 at 0.3,0.3</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 157&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0() in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 66&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 34&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0fb4cdeb-95e0-47a1-9b77-2170b0b13fc5" testId="6810adc9-b191-155f-b47d-98ffab939a01" testName="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 13, scaling: 1.5)" computerName="DESKTOP-SET3SNR" duration="00:00:00.3580757" startTime="2026-11-04T19:32:04.5492193+08:00" endTime="2026-11-04T19:32:04.9071051+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0fb4cdeb-95e0-47a1-9b77-2170b0b13fc5">
+      <Output>
+        <ErrorInfo>
+          <Message>Unreadable native tab (selected=False): #ffe2cd9e on #fdeecc9b at 0.3,0.7</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 157&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0() in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 66&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 34&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="41e7ff9b-0dd5-4616-8671-8b26b5b47bbe" testId="94ab70ad-d8cf-deb7-77e1-b188f6455f10" testName="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 18, scaling: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:00.2930361" startTime="2026-11-04T19:32:05.5664337+08:00" endTime="2026-11-04T19:32:05.8592572+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="41e7ff9b-0dd5-4616-8671-8b26b5b47bbe">
+      <Output>
+        <ErrorInfo>
+          <Message>Unreadable native tab (selected=False): #ffe2cd9e on #fd9a5027 at 0.3,0.5</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 157&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0() in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 69&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 34&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="207001f4-73db-46eb-8aef-06e3747d1392" testId="31b2f4a2-001b-d80a-ad89-3a0cead99a58" testName="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(width: 1200, height: 740, scaling: 1.5)" computerName="DESKTOP-SET3SNR" duration="00:00:02.2649380" startTime="2026-11-04T19:31:56.9898023+08:00" endTime="2026-11-04T19:31:59.2631279+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="207001f4-73db-46eb-8aef-06e3747d1392">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.All() Failure: 2 out of 4 items in the collection did not pass.&#xD;
+[1]: Item:  0&#xD;
+     Error: Missing edge-anchored corner artwork: 13560,0,2445,0&#xD;
+[3]: Item:  0&#xD;
+     Error: Missing edge-anchored corner artwork: 13560,0,2445,0</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass1_0.&lt;SceneCornerArtworkFollowsAllFourEdgesWhenResized&gt;b__0() in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 132&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(Double width, Double height, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 96&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4c77390d-12be-4fb2-9010-961354a17237" testId="4755ecfd-a80c-31e8-1e71-04e1507b5354" testName="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 13, scaling: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:00.2887874" startTime="2026-11-04T19:32:04.9075731+08:00" endTime="2026-11-04T19:32:05.1964431+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c77390d-12be-4fb2-9010-961354a17237">
+      <Output>
+        <ErrorInfo>
+          <Message>Unreadable native tab (selected=False): #ffe2cd9e on #fd914b23 at 0.3,0.5</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 157&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0() in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 69&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 34&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b6646500-3519-4eba-a172-199e5827ccb8" testId="a72cd88c-5d21-9a4a-c347-6593e5d1543d" testName="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(width: 1740, height: 1000, scaling: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:04.0741405" startTime="2026-11-04T19:31:59.2785429+08:00" endTime="2026-11-04T19:32:03.3381197+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6646500-3519-4eba-a172-199e5827ccb8">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.All() Failure: 3 out of 4 items in the collection did not pass.&#xD;
+[1]: Item:  0&#xD;
+     Error: Missing edge-anchored corner artwork: 44038,0,0,0&#xD;
+[2]: Item:  0&#xD;
+     Error: Missing edge-anchored corner artwork: 44038,0,0,0&#xD;
+[3]: Item:  0&#xD;
+     Error: Missing edge-anchored corner artwork: 44038,0,0,0</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass1_0.&lt;SceneCornerArtworkFollowsAllFourEdgesWhenResized&gt;b__0() in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 132&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(Double width, Double height, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 96&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ac745a96-c59c-4c01-9f09-98dcc1f32851" testId="d56498eb-ae50-7c21-54f2-3ab940c02842" testName="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(width: 600, height: 360, scaling: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5837037" startTime="2026-11-04T19:32:03.3416564+08:00" endTime="2026-11-04T19:32:03.9223383+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ac745a96-c59c-4c01-9f09-98dcc1f32851" />
+    <UnitTestResult executionId="a70effbd-8a2b-4283-9614-1311158eae0b" testId="673a847a-e683-6312-6309-dd129d41fa0f" testName="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 18, scaling: 1.5)" computerName="DESKTOP-SET3SNR" duration="00:00:00.3683187" startTime="2026-11-04T19:32:05.1969266+08:00" endTime="2026-11-04T19:32:05.5655695+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a70effbd-8a2b-4283-9614-1311158eae0b">
+      <Output>
+        <ErrorInfo>
+          <Message>Unreadable native tab (selected=False): #ffe2cd9e on #fdf3d19c at 0.3,0.7</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 157&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0() in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 66&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in /_/tests/Shared/SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling) in /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs:line 34&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 18, scaling: 2)" storage="d:\projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f49877b5-47c2-66ad-fe58-19a44b09abad">
+      <Execution id="d530ea3d-f8f2-4fc1-a43f-ab56e1f719a6" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests" name="NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(width: 1740, height: 1000, scaling: 2)" storage="d:\projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a72cd88c-5d21-9a4a-c347-6593e5d1543d">
+      <Execution id="b6646500-3519-4eba-a172-199e5827ccb8" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests" name="SceneCornerArtworkFollowsAllFourEdgesWhenResized" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 18, scaling: 1.5)" storage="d:\projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="673a847a-e683-6312-6309-dd129d41fa0f">
+      <Execution id="a70effbd-8a2b-4283-9614-1311158eae0b" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests" name="NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 13, scaling: 1.5)" storage="d:\projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6810adc9-b191-155f-b47d-98ffab939a01">
+      <Execution id="0fb4cdeb-95e0-47a1-9b77-2170b0b13fc5" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests" name="NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 13, scaling: 1)" storage="d:\projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4755ecfd-a80c-31e8-1e71-04e1507b5354">
+      <Execution id="4c77390d-12be-4fb2-9010-961354a17237" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests" name="NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(width: 1200, height: 740, scaling: 1.5)" storage="d:\projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="31b2f4a2-001b-d80a-ad89-3a0cead99a58">
+      <Execution id="207001f4-73db-46eb-8aef-06e3747d1392" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests" name="SceneCornerArtworkFollowsAllFourEdgesWhenResized" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(width: 600, height: 360, scaling: 1)" storage="d:\projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d56498eb-ae50-7c21-54f2-3ab940c02842">
+      <Execution id="ac745a96-c59c-4c01-9f09-98dcc1f32851" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests" name="SceneCornerArtworkFollowsAllFourEdgesWhenResized" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 18, scaling: 1)" storage="d:\projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="94ab70ad-d8cf-deb7-77e1-b188f6455f10">
+      <Execution id="41e7ff9b-0dd5-4616-8671-8b26b5b47bbe" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests" name="NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 13, scaling: 2)" storage="d:\projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="382a8e88-ef54-4f07-314a-1387077b5e29">
+      <Execution id="c81682ee-cb91-4948-8473-073dfc3597e9" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\isekai-document-tabs-20261104\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiMaterialSizingTests" name="NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f49877b5-47c2-66ad-fe58-19a44b09abad" executionId="d530ea3d-f8f2-4fc1-a43f-ab56e1f719a6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="382a8e88-ef54-4f07-314a-1387077b5e29" executionId="c81682ee-cb91-4948-8473-073dfc3597e9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6810adc9-b191-155f-b47d-98ffab939a01" executionId="0fb4cdeb-95e0-47a1-9b77-2170b0b13fc5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="94ab70ad-d8cf-deb7-77e1-b188f6455f10" executionId="41e7ff9b-0dd5-4616-8671-8b26b5b47bbe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="31b2f4a2-001b-d80a-ad89-3a0cead99a58" executionId="207001f4-73db-46eb-8aef-06e3747d1392" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4755ecfd-a80c-31e8-1e71-04e1507b5354" executionId="4c77390d-12be-4fb2-9010-961354a17237" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a72cd88c-5d21-9a4a-c347-6593e5d1543d" executionId="b6646500-3519-4eba-a172-199e5827ccb8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d56498eb-ae50-7c21-54f2-3ab940c02842" executionId="ac745a96-c59c-4c01-9f09-98dcc1f32851" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="673a847a-e683-6312-6309-dd129d41fa0f" executionId="a70effbd-8a2b-4283-9614-1311158eae0b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="9" executed="9" passed="1" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.14]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.16]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.18]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.48]       Assert.All() Failure: 2 out of 4 items in the collection did not pass.&#xD;
+[xUnit.net 00:00:03.48]       [1]: Item:  0&#xD;
+[xUnit.net 00:00:03.48]            Error: Missing edge-anchored corner artwork: 13560,0,2445,0&#xD;
+[xUnit.net 00:00:03.48]       [3]: Item:  0&#xD;
+[xUnit.net 00:00:03.48]            Error: Missing edge-anchored corner artwork: 13560,0,2445,0&#xD;
+[xUnit.net 00:00:03.48]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.48]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(132,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass1_0.&lt;SceneCornerArtworkFollowsAllFourEdgesWhenResized&gt;b__0()&#xD;
+[xUnit.net 00:00:03.48]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:03.48]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:03.48]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:03.48]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.48]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(96,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(Double width, Double height, Double scaling)&#xD;
+[xUnit.net 00:00:03.48]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.55]       Assert.All() Failure: 3 out of 4 items in the collection did not pass.&#xD;
+[xUnit.net 00:00:07.55]       [1]: Item:  0&#xD;
+[xUnit.net 00:00:07.55]            Error: Missing edge-anchored corner artwork: 44038,0,0,0&#xD;
+[xUnit.net 00:00:07.55]       [2]: Item:  0&#xD;
+[xUnit.net 00:00:07.55]            Error: Missing edge-anchored corner artwork: 44038,0,0,0&#xD;
+[xUnit.net 00:00:07.55]       [3]: Item:  0&#xD;
+[xUnit.net 00:00:07.55]            Error: Missing edge-anchored corner artwork: 44038,0,0,0&#xD;
+[xUnit.net 00:00:07.55]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.55]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(132,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass1_0.&lt;SceneCornerArtworkFollowsAllFourEdgesWhenResized&gt;b__0()&#xD;
+[xUnit.net 00:00:07.55]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:07.55]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:07.55]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:07.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.55]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(96,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(Double width, Double height, Double scaling)&#xD;
+[xUnit.net 00:00:07.55]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.76]       Unreadable native tab (selected=False): #ffe2cd9e on #fdebc790 at 0.3,0.3&#xD;
+[xUnit.net 00:00:08.76]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.76]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(157,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling)&#xD;
+[xUnit.net 00:00:08.76]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(66,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0()&#xD;
+[xUnit.net 00:00:08.76]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:08.76]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:08.76]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.76]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.76]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling)&#xD;
+[xUnit.net 00:00:08.76]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.12]       Unreadable native tab (selected=False): #ffe2cd9e on #fdeecc9b at 0.3,0.7&#xD;
+[xUnit.net 00:00:09.12]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.12]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(157,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling)&#xD;
+[xUnit.net 00:00:09.12]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(66,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0()&#xD;
+[xUnit.net 00:00:09.12]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:09.12]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:09.12]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:09.12]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.12]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling)&#xD;
+[xUnit.net 00:00:09.12]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.41]       Unreadable native tab (selected=False): #ffe2cd9e on #fd914b23 at 0.3,0.5&#xD;
+[xUnit.net 00:00:09.41]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.41]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(157,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling)&#xD;
+[xUnit.net 00:00:09.41]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(69,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0()&#xD;
+[xUnit.net 00:00:09.41]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:09.41]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:09.41]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:09.41]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.41]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling)&#xD;
+[xUnit.net 00:00:09.41]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.78]       Unreadable native tab (selected=False): #ffe2cd9e on #fdf3d19c at 0.3,0.7&#xD;
+[xUnit.net 00:00:09.78]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.78]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(157,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling)&#xD;
+[xUnit.net 00:00:09.78]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(66,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0()&#xD;
+[xUnit.net 00:00:09.78]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:09.78]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:09.78]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:09.78]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.78]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling)&#xD;
+[xUnit.net 00:00:09.78]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.07]       Unreadable native tab (selected=False): #ffe2cd9e on #fd9a5027 at 0.3,0.5&#xD;
+[xUnit.net 00:00:10.07]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.07]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(157,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling)&#xD;
+[xUnit.net 00:00:10.07]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(69,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0()&#xD;
+[xUnit.net 00:00:10.07]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:10.07]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:10.07]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:10.07]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.07]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling)&#xD;
+[xUnit.net 00:00:10.07]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.45]       Unreadable native tab (selected=False): #ffe2cd9e on #fdebc790 at 0.3,0.3&#xD;
+[xUnit.net 00:00:10.45]       Stack Trace:&#xD;
+[xUnit.net 00:00:10.45]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(157,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.CheckTabs(DocumentTabStripItem[] tabs, Double scaling)&#xD;
+[xUnit.net 00:00:10.45]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(66,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.&lt;&gt;c__DisplayClass0_0.&lt;NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips&gt;b__0()&#xD;
+[xUnit.net 00:00:10.45]         /_/tests/Shared/SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:10.45]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:10.45]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:10.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.45]         /_/tests/OpticalSystemDesign.Tests/IsekaiMaterialSizingTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(Double fontSize, Double scaling)&#xD;
+[xUnit.net 00:00:10.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:10.46]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T19:31:59.2651286+08:00">
+        <Text>[xUnit.net 00:00:03.48]     OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(width: 1200, height: 740, scaling: 1.5) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T19:32:03.3385425+08:00">
+        <Text>[xUnit.net 00:00:07.55]     OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.SceneCornerArtworkFollowsAllFourEdgesWhenResized(width: 1740, height: 1000, scaling: 2) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T19:32:04.5491562+08:00">
+        <Text>[xUnit.net 00:00:08.76]     OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 13, scaling: 2) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T19:32:04.9074156+08:00">
+        <Text>[xUnit.net 00:00:09.12]     OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 13, scaling: 1.5) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T19:32:05.1966960+08:00">
+        <Text>[xUnit.net 00:00:09.41]     OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 13, scaling: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T19:32:05.5658709+08:00">
+        <Text>[xUnit.net 00:00:09.78]     OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 18, scaling: 1.5) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T19:32:05.8596328+08:00">
+        <Text>[xUnit.net 00:00:10.07]     OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 18, scaling: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T19:32:06.2424159+08:00">
+        <Text>[xUnit.net 00:00:10.45]     OpticalSystemDesign.Tests.IsekaiMaterialSizingTests.NativeDocumentTabsKeepReadableMaterialsAcrossStatesAndThemeRoundTrips(fontSize: 18, scaling: 2) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

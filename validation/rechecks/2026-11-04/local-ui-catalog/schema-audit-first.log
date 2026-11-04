@@ -1,0 +1,125 @@
+sync: 2853 local translations, 2825 UI occurrences, 207 missing, 88 errors.
+en-US: numeric literal mismatch: 用于二维伪彩色与三维曲面；保留灰度显示。
+ja-JP: numeric literal mismatch: 用于二维伪彩色与三维曲面；保留灰度显示。
+en-US: numeric literal mismatch: 选择二维图显示的结构
+ja-JP: numeric literal mismatch: 选择二维图显示的结构
+en-US: numeric literal mismatch: 仅切换此二维图显示的结构，不改变活动结构。
+ja-JP: numeric literal mismatch: 仅切换此二维图显示的结构，不改变活动结构。
+en-US: numeric literal mismatch: 选择三维图显示的结构
+ja-JP: numeric literal mismatch: 选择三维图显示的结构
+en-US: numeric literal mismatch: 仅切换此三维图显示的结构，不改变活动结构。
+ja-JP: numeric literal mismatch: 仅切换此三维图显示的结构，不改变活动结构。
+en-US: numeric literal mismatch: 按原版执行 0 到设定值（含末次）的更新；两阶段计划不随预算缩短，预算不足则保存进度。
+ja-JP: numeric literal mismatch: 起始半径 mm（0 = 10 倍目标焦距）
+ja-JP: numeric literal mismatch: 评价和时间预算始终优先；自动分配两阶段步数，不代表每次都会完成上述步数。
+ja-JP: numeric literal mismatch: 官方仅明确相机 F/1.2；本地补充 50 mm 和 43.3 mm 对角线，其余约束为适配。官方极端规格图未公布八组完整处方，不能宣称逐幅复现。
+ja-JP: numeric literal mismatch: 边缘滤光片（四分之一波堆栈）
+ja-JP: numeric literal mismatch: 三波段模型
+ja-JP: numeric literal mismatch: 三材质样例
+en-US: numeric literal mismatch: 二维视场RMS图
+ja-JP: numeric literal mismatch: 二维视场RMS图
+en-US: numeric literal mismatch: 二维热力图
+ja-JP: numeric literal mismatch: 二维热力图
+en-US: numeric literal mismatch: 二维视图
+ja-JP: numeric literal mismatch: 二维视图
+en-US: numeric literal mismatch: 三维视图
+ja-JP: numeric literal mismatch: 三维视图
+en-US: numeric literal mismatch: 二维图
+ja-JP: numeric literal mismatch: 二维图
+en-US: numeric literal mismatch: 三维布局
+ja-JP: numeric literal mismatch: 三维布局
+ja-JP: numeric literal mismatch: 四阶稀疏补偿
+ja-JP: numeric literal mismatch: 四阶补偿
+ja-JP: numeric literal mismatch: 六阶补偿
+en-US: unit symbol mismatch: 区域宽度 (像元)
+en-US: unit symbol mismatch: 区域高度 (像元)
+en-US: numeric literal mismatch: 三维场景与照明
+ja-JP: numeric literal mismatch: 三维场景与照明
+en-US: numeric literal mismatch: 打开三维场景
+ja-JP: numeric literal mismatch: 打开三维场景
+en-US: numeric literal mismatch: 保存三维场景
+ja-JP: numeric literal mismatch: 保存三维场景
+en-US: unit symbol mismatch: 衍射窗口半径 (像元)
+en-US: unit symbol mismatch: 源保护带 (像元)
+ja-JP: numeric literal mismatch: 像面辐照度 · 满白每波段 0.02 W/m²
+ja-JP: numeric literal mismatch: 保留原物理 PSF 范围和计算预算时，当前镜头使用 2×2；4×4 用于理想光学对照。
+en-US: numeric literal mismatch: 标定导入固定温度、已知增益的线性 RAW：两组暗曝光（各至少 2 帧）及长曝光平场（至少 2 帧），估计黑电平、读噪、暗电流、DSNU/PRNU。保留原始帧与条件；不估计 QE/满阱，不做逐像元校正。导入来源不代表已核实测量。
+ja-JP: numeric literal mismatch: 标定导入固定温度、已知增益的线性 RAW：两组暗曝光（各至少 2 帧）及长曝光平场（至少 2 帧），估计黑电平、读噪、暗电流、DSNU/PRNU。保留原始帧与条件；不估计 QE/满阱，不做逐像元校正。导入来源不代表已核实测量。
+en-US: numeric literal mismatch: 生成条件：空间频率必须大于 0，且 X/Y 权重至少一项大于 0。
+ja-JP: numeric literal mismatch: 生成条件：空间频率必须大于 0，且 X/Y 权重至少一项大于 0。
+en-US: numeric literal mismatch: 已实现：sRGB 输入解码、650/550/450 nm 三窄带、当前镜头共享 Core 成像或理想对照、光电子转换、Poisson 散粒噪声、读出噪声、暗电流、PRNU/DSNU、满阱、ADC、Bayer、双线性去马赛克、RGB 增益、方框降噪、非锐化掩模和 Gamma。
+
+支持 JSON 传感器参数和 CSV 绝对 QE 曲线。导入响应后，每类 CFA 像元对 650/550/450 nm 三输入波段分别响应并累加光电子；曲线替代固定 QE，不重复相乘。无曲线时沿用原三波段独立响应。
+
+连续光谱：导入光源 W/m²/nm、材质反射率和 QE；支持单材质或最多 16 类源平面标签分区。每波长先施加各材质反射率，再调用共享光学，使模糊可跨材质边界传播。合并全部折点作分段三点 Gauss-Legendre 积分。图片转线性灰度空间图样，不从 RGB 反演光谱。
+
+支持完整实验保存/打开及冻结镜头、输入、光源、材质、传感器、ISP 和 A/B 复算；支持已知增益 RAW 暗场/平场的标量参数估计，保留测量条件和原始帧。尚无逐像元校正或内置实测传感器库。
+
+三维场景：不透明矩形/球体/长方体、点光源、Lambertian 直接反射、遮挡和不同物深，支持几何或有限单元标量 Huygens 衍射。衍射使用实际物点和镜头光程，同点同波长先叠加复场，不同点/波长再叠加强度，接入感光面积、RAW/ISP。实际感光区可作 2×2/4×4 Gauss 积分；源、瞳面、像元和有限窗口需分别检查收敛。V5/V6/V7 保留原规则复算。尚无一般 BSDF/多次反射、矢量偏振衍射、角度 QE、微透镜、动态快门、杂散光耦合或厂商 ISP。导入来源不代表已核实测量。
+
+对照：无噪声结果使用相同光学像、曝光、ADC 与 ISP，仅关闭随机噪声及固定非均匀性；A/B 保存各自参数与镜头修订。同种子可重复。电子图/RAW 不做逐图峰值归一化。
+
+公开功能参考（非数值认证）：
+DeepO Sensor & ISP — https://www.ai4optics.com/deepo/manual/image-simulation/sensor/
+Keysight ImSym — https://www.keysight.com/us/en/products/software/optical-solutions-software/optical-design-solutions/imsym-imaging-system-simulator.html
+Speos sensor examples — https://optics.ansys.com/hc/en-us/articles/20419350770067
+EMVA 1288 — https://www.emva.org/standards-technology/emva-1288/
+
+验收依据：独立光子/电子数公式、曝光与增益控制、暗场/平场统计、Bayer 已知色块及无噪声/A-B 对照。未宣称 EMVA 合规或与商业软件结果一致。
+ja-JP: numeric literal mismatch: 已实现：sRGB 输入解码、650/550/450 nm 三窄带、当前镜头共享 Core 成像或理想对照、光电子转换、Poisson 散粒噪声、读出噪声、暗电流、PRNU/DSNU、满阱、ADC、Bayer、双线性去马赛克、RGB 增益、方框降噪、非锐化掩模和 Gamma。
+
+支持 JSON 传感器参数和 CSV 绝对 QE 曲线。导入响应后，每类 CFA 像元对 650/550/450 nm 三输入波段分别响应并累加光电子；曲线替代固定 QE，不重复相乘。无曲线时沿用原三波段独立响应。
+
+连续光谱：导入光源 W/m²/nm、材质反射率和 QE；支持单材质或最多 16 类源平面标签分区。每波长先施加各材质反射率，再调用共享光学，使模糊可跨材质边界传播。合并全部折点作分段三点 Gauss-Legendre 积分。图片转线性灰度空间图样，不从 RGB 反演光谱。
+
+支持完整实验保存/打开及冻结镜头、输入、光源、材质、传感器、ISP 和 A/B 复算；支持已知增益 RAW 暗场/平场的标量参数估计，保留测量条件和原始帧。尚无逐像元校正或内置实测传感器库。
+
+三维场景：不透明矩形/球体/长方体、点光源、Lambertian 直接反射、遮挡和不同物深，支持几何或有限单元标量 Huygens 衍射。衍射使用实际物点和镜头光程，同点同波长先叠加复场，不同点/波长再叠加强度，接入感光面积、RAW/ISP。实际感光区可作 2×2/4×4 Gauss 积分；源、瞳面、像元和有限窗口需分别检查收敛。V5/V6/V7 保留原规则复算。尚无一般 BSDF/多次反射、矢量偏振衍射、角度 QE、微透镜、动态快门、杂散光耦合或厂商 ISP。导入来源不代表已核实测量。
+
+对照：无噪声结果使用相同光学像、曝光、ADC 与 ISP，仅关闭随机噪声及固定非均匀性；A/B 保存各自参数与镜头修订。同种子可重复。电子图/RAW 不做逐图峰值归一化。
+
+公开功能参考（非数值认证）：
+DeepO Sensor & ISP — https://www.ai4optics.com/deepo/manual/image-simulation/sensor/
+Keysight ImSym — https://www.keysight.com/us/en/products/software/optical-solutions-software/optical-design-solutions/imsym-imaging-system-simulator.html
+Speos sensor examples — https://optics.ansys.com/hc/en-us/articles/20419350770067
+EMVA 1288 — https://www.emva.org/standards-technology/emva-1288/
+
+验收依据：独立光子/电子数公式、曝光与增益控制、暗场/平场统计、Bayer 已知色块及无噪声/A-B 对照。未宣称 EMVA 合规或与商业软件结果一致。
+en-US: numeric literal mismatch: 三维场景已保存。
+ja-JP: numeric literal mismatch: 三维场景已保存。
+en-US: numeric literal mismatch: 二维布局
+ja-JP: numeric literal mismatch: 二维布局
+en-US: numeric literal mismatch: 保存三维相机场景
+ja-JP: numeric literal mismatch: 保存三维相机场景
+ja-JP: numeric literal mismatch: 保存布局到槽位 1
+ja-JP: numeric literal mismatch: 保存布局到槽位 2
+en-US: numeric literal mismatch: 像素（从0起）
+ja-JP: numeric literal mismatch: 像素（从0起）
+ja-JP: numeric literal mismatch: 加载布局槽位 1
+ja-JP: numeric literal mismatch: 加载布局槽位 2
+en-US: numeric literal mismatch: 完成三维衍射 B 后，选择原传感器中的区域，逐项检查采样差异。
+ja-JP: numeric literal mismatch: 完成三维衍射 B 后，选择原传感器中的区域，逐项检查采样差异。
+en-US: numeric literal mismatch: 恢复二维视图的缩放与平移
+ja-JP: numeric literal mismatch: 恢复二维视图的缩放与平移
+en-US: numeric literal mismatch: 显示三维布局
+ja-JP: numeric literal mismatch: 显示三维布局
+en-US: numeric literal mismatch: 显示二维布局
+ja-JP: numeric literal mismatch: 显示二维布局
+ja-JP: numeric literal mismatch: 补偿器范围必须包含 0，且最小偏差小于最大偏差。
+ja-JP: numeric literal mismatch: 这是像面线性值 1 对应的每波段标定量，非场景 lux 或实测光谱。
+ja-JP: numeric literal mismatch: RMS 按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。
+en-US: numeric literal mismatch: 使用加号或减号缩放，按 Home 重置。二维视图用方向键平移；三维视图用方向键旋转，按住 Shift 平移。
+ja-JP: numeric literal mismatch: 使用加号或减号缩放，按 Home 重置。二维视图用方向键平移；三维视图用方向键旋转，按住 Shift 平移。
+ja-JP: numeric literal mismatch: 倍率调整基础厚度；n / k 偏移叠加到材料色散值。勾选“变量”后参与优化。倍率范围 0–10，调整后 n > 0、k ≥ 0。
+ja-JP: numeric literal mismatch: 同一冻结镜头、场景与完整传感器，分别生成各源谱的图像。浮点数据直接保存为功率和辐照度，附带同一标尺的 16 位线性 PNG。默认采样用于流程检查；正式 MTF 与收敛另行验证。
+ja-JP: numeric literal mismatch: 当前镜头 · 无噪声 · 单个 ROI。多波长使用镜头波长表及其权重，单色可手动设置。96 × 96 满填充方形像元，暗/亮 0.2/0.8。瞳面、像面和 PSF 窗口分别翻倍检查，差值门限 0.01。
+en-US: numeric literal mismatch: 当前：三维场景绝对波段 650/550/450 nm。点光源功率为 W/波段，材质为各波段反射率；二维光源 CSV 与灰度材质分区不参与计算。实际输入见三维场景卡及导出 JSON。
+ja-JP: numeric literal mismatch: 当前：三维场景绝对波段 650/550/450 nm。点光源功率为 W/波段，材质为各波段反射率；二维光源 CSV 与灰度材质分区不参与计算。实际输入见三维场景卡及导出 JSON。
+ja-JP: numeric literal mismatch: 此页沿用镜片与保存像面，不自动调焦。初始参数是 100 m 远靶控制；有限共轭请填写实际物距。浮点功率和辐照度用于测量；两张预览仅用于取景。当前阶段尚未提供正式 MTF 对照、ROM 或收敛判定。
+ja-JP: numeric literal mismatch: 每次试验同时施加全部启用公差。Zemax 默认正态模型的最小值到最大值覆盖 4σ，即中心到极限为 ±2σ。次数为 0 时不执行 Monte Carlo。
+ja-JP: numeric literal mismatch: 每行按 n_ref 的升幂输入 1～8 个系数，以空格分隔。K 三行长度相同，L 三行长度相同；L 采用 μm² 约定。
+en-US: numeric literal mismatch: 追迹结果自动保存到受管理的临时数据库，探测器、路径分析和3D布局将读取同一批光线。数据库路径留空即可。
+ja-JP: numeric literal mismatch: 追迹结果自动保存到受管理的临时数据库，探测器、路径分析和3D布局将读取同一批光线。数据库路径留空即可。
+ja-JP: numeric literal mismatch: 通用贡献：除说明、控制行和 EQUA 外，贡献 = |Weight| × (Value − Target)²。边界操作数满足约束时会把 Value 钳到 Target，因此贡献为 0；EQUA 使用 Target 作为相等容差，贡献 = |Weight| × Value²。
+ja-JP: numeric literal mismatch: 模态 1
+ja-JP: numeric literal mismatch: 模态 2

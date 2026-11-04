@@ -1,0 +1,182 @@
+{
+  "date": "2026-11-04",
+  "scope": "drawing presentation only; no new optical certification",
+  "distinct_passing_cases": 39,
+  "cases": {
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Ray Fan\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramViewportFitTests.AnalysisFitsBothWindowSizesAndModeSurvivesRefreshWithoutChangingExport": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"MTF\")": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: TwoDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.LayoutExportUsesSelectedWidthAndKeepsSceneAndCamera(dimension: TwoDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.DiagramViewportFitTests.LayoutUsesTheSameFitHostAndKeepsCameraAndExportAcrossResize(dimension: TwoDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.RealPsfSwitchKeepsResultControlsZoomAndPixelsOnReturn(theme: \"Lumen\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramViewportFitTests.LayoutUsesTheSameFitHostAndKeepsCameraAndExportAcrossResize(dimension: ThreeDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Incoherent Irradiance\")": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Spot Diagram\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: \"Wavefront Map\", artwork: 2)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: \"Spot Diagram\", artwork: 3)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.OldSettingsDefaultTo1080AndIndependent150DpiAndRoundTrip": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: \"Light\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PrintDpiChangesOnlyMetadataAndJpegPathsCannotOverwriteFiles": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OversizedSourceIsExplicitlyRejectedWithoutClippingShrinkingOrChangingTheResult": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"zh-CN\", theme: \"Light\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: \"Huygens MTF\", artwork: 0)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"en-US\", theme: \"Dark\")": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: ThreeDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Field Curvature and Distortion\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: \"Lumen\")": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Through Focus\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 2160, width: 3840, dpi: 600)": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.SquarePlotsAndLegendVisibilitySurviveBothLayouts": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.RealPsfSwitchKeepsResultControlsZoomAndPixelsOnReturn(theme: \"Light\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.LayoutExportUsesSelectedWidthAndKeepsSceneAndCamera(dimension: ThreeDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: \"Dark\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1440, width: 2560, dpi: 300)": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Wavefront Map\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.RealPsfSwitchKeepsResultControlsZoomAndPixelsOnReturn(theme: \"Isekai\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: \"Huygens PSF\", artwork: 1)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"ja-JP\", theme: \"Light\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.FixedCanvasPadsCenteredOrFillsOnlyWhenTheUserUnlocksIt": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.SettingsPreviewDoesNotApplyUntilSaveAndFailedSaveRestoresPreference": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.PreferenceDefaultsAndRoundTripsWithoutChangingOpticalSettings": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1080, width: 1920, dpi: 96)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: \"Pixel\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.ReportBuildersUseSelectedAspectForAnalysisAndLayoutWithoutChangingInputs": "Passed"
+  },
+  "sources": {
+    "AGENTS.md": "19401b5b0dbd26537b32c9e7ebe8d25dfa0609e7133d81c2c5c587cd865683a7",
+    "docs/CURRENT_STATUS.md": "36541dffc4c6f2fdd1f7f7d4a0cd95824e062a60632a38a74f0be428c411726a",
+    "docs/UI_DESIGN_SPEC.md": "d31913c3166a815609e18bbe72041b73b0095799aeb648eae4954b4bb5a0f3d5",
+    "docs/USER_GUIDE.md": "0f3b625f7c309efefabd9e7a5d7ce2d00532d66bece99e15eb0a16a544410160",
+    "docs/MARKDOWN_REPORT_EXPORT.md": "3d88a24ba53490de2a49bc475e11c8216812dc6445291a2396d6c8eabea53220",
+    "src/OpticalSystemDesign.App/Assets/Themes/Isekai/README.md": "15b75752079a6e788213d20b94a8ea404b15f5b406f35fe0dd314ac55b51cd0f",
+    "src/OpticalSystemDesign.App/Services/DiagramSheetLayout.cs": "4a2a6b293861413a1e5648fd734ffd11bdc52560b2579b97ecbc6b3778af10b0",
+    "src/OpticalSystemDesign.App/Services/AppSettings.cs": "0409968c37f71a88b0ca7dd970a0da550b6f9f329fa4f0a6fd50a71f1b3ad6f8",
+    "src/OpticalSystemDesign.App/Services/ImageExportResolution.cs": "1016d8d15be152d9a6f90d6a5e1e0a92fb15569d670e3fb5fc82f1737dcc68e9",
+    "src/OpticalSystemDesign.App/Services/ReportImageRenderer.cs": "05fda0922eff11847a771d5a9a395c376732738cdf1c925b73589fe404f467aa",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.cs": "8d14d280df45b8527c2df2e7a4ace5deea1f0c28162aef92604fc4a21f12e412",
+    "src/OpticalSystemDesign.App/DisplaySettingsWindow.cs": "da237b167960fa6c07bcb68a6bc0f714bc992a37ce72a1bdd545e78bab82a00d",
+    "src/OpticalSystemDesign.App/Controls/UniformDiagramPage.cs": "42907030e5218a9d0e6226480a9c0791445eed2065c565b93f7c73dfc9fae0b0",
+    "src/OpticalSystemDesign.App/Controls/ResponsiveAnalysisPlotHost.cs": "950747cefedca32f42598df1e6ed6290478c001707eda217b1433607f78d0234",
+    "src/OpticalSystemDesign.App/Controls/AnalysisBookWorkspace.cs": "59282479fa29be609159668e44f5a643dfe2989bc5f0c30bf891c1e2f067b8a6",
+    "src/OpticalSystemDesign.App/Controls/AnalysisResultTabs.cs": "296083a50a3a14be2edc3aac25dfc4f187789202dede927c470e230d438e9b61",
+    "src/OpticalSystemDesign.App/Controls/ExportCanvasPreview.cs": "a3fdfc7655817e83570a39e4a8a6d2897288ba67218895d04a5bb1917d5c9806",
+    "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs": "a145ab836c09dc132c374a9d520b32a9269128ef35dd1146af1360a2d88f4704",
+    "tests/OpticalSystemDesign.Tests/DiagramAspectRatioTests.cs": "d87d85346712380675d5302782fe7d798fa79ceb0d1c362c9f236e3ba127ad45",
+    "tests/OpticalSystemDesign.Tests/AnalysisFrameDpiTests.cs": "a7fa1d416d37e19122a889801746e53bb74bbb49181cd2cada4dae4ce39d0626"
+  },
+  "captures": {
+    "builder-layout-16-9.png": {
+      "bytes": 113725,
+      "sha256": "cc536fba13974b12fda2787a9ba48d85303cb6db62ab1c8deb921378e85fc6f7"
+    },
+    "builder-layout-4-3.png": {
+      "bytes": 106315,
+      "sha256": "fa9df3f03a14109ca6539591e017bf83e198f9659313ff80920cf0100ff0f4ee"
+    },
+    "builder-wavefront-16-9.png": {
+      "bytes": 221353,
+      "sha256": "24a12529f8707a02fde91c8a955ad6c010d6dd23c6a23dd57e1a5a0a8046cdde"
+    },
+    "builder-wavefront-4-3.png": {
+      "bytes": 215276,
+      "sha256": "c47ee26b82c38978aa9e67490ff7db69f993bef740fe43faa2e027da26a5b496"
+    },
+    "layout-ThreeDimensional-16-9.png": {
+      "bytes": 91597,
+      "sha256": "4105b77eae279ec06387479d87ca5bef9df06fbbba9a00ebb9dc38261149dbb8"
+    },
+    "layout-ThreeDimensional-4-3.png": {
+      "bytes": 88664,
+      "sha256": "543a2353b4f441eb1e281dd92585f30047d2f9cd96a8a3e3451f8617274c856c"
+    },
+    "layout-TwoDimensional-16-9.png": {
+      "bytes": 148010,
+      "sha256": "0dca2412b8c59a0b92bab6c63f63020c4ba709b70c09d47d90d73ce2d95e124f"
+    },
+    "layout-TwoDimensional-4-3.png": {
+      "bytes": 144902,
+      "sha256": "d5d0774e3d643075faa8df9e362f01087f67925823ea1f2cac344c2d9ff72e82"
+    },
+    "psf-Isekai-16-9-overview.png": {
+      "bytes": 1990314,
+      "sha256": "1ba8a1337a26fa9ab6418b65545cadf9b4c16cac656373bbf321368add595bf1"
+    },
+    "psf-Isekai-16-9-report.png": {
+      "bytes": 2249757,
+      "sha256": "a6eb7dde384bfc211c050a8e8571ffd4c86c89aa4e9f83eec4fd4e052ca9dc06"
+    },
+    "psf-Isekai-16-9.png": {
+      "bytes": 1986591,
+      "sha256": "ad6c297a4910ee8bf714490a87825ca4ce57001663ac8ce60b1938641311485c"
+    },
+    "psf-Isekai-4-3-overview.png": {
+      "bytes": 1999469,
+      "sha256": "51b77a0480beb97654be759b014bab3760d0f4855215d769678e7872339b1184"
+    },
+    "psf-Isekai-4-3-report.png": {
+      "bytes": 2381597,
+      "sha256": "79c2e305ea538a2cb399e418405f6bb55f58a8ee3aa5251d9ec7e58119cea9df"
+    },
+    "psf-Isekai-4-3.png": {
+      "bytes": 1998222,
+      "sha256": "6a0f645e6bba4654dff10d3cf4e9a96a76a53648e6259e93bf5bdf45e6454131"
+    },
+    "psf-Light-16-9-overview.png": {
+      "bytes": 49535,
+      "sha256": "6c9f0dbf7b1111290b25c1a8119632b5c1d34466b008dccd8cc24c3a2bcb217a"
+    },
+    "psf-Light-16-9-report.png": {
+      "bytes": 59618,
+      "sha256": "6e676dfd3aca6b5e4c4e80cfa26d81453d903e20e56822377b06e338d1ad0d9e"
+    },
+    "psf-Light-16-9.png": {
+      "bytes": 45870,
+      "sha256": "b8c9dc11a5e84cbdb3d259b75d6d7f318e6e992c5e81ebe90042e295f8694500"
+    },
+    "psf-Light-4-3-overview.png": {
+      "bytes": 46098,
+      "sha256": "4cb1bf4404ae075d545f21bcfccad8340d055d8587dbdb6515828071170bb1d0"
+    },
+    "psf-Light-4-3-report.png": {
+      "bytes": 56317,
+      "sha256": "f074ed7adc72e7a02e58ccf30d4a1ff9682c540754494db527cc38002ece0251"
+    },
+    "psf-Light-4-3.png": {
+      "bytes": 43119,
+      "sha256": "cbfc54eadfe3ce6d91e21051bd1ee3ae7eb4f067122f56489091df97b5905fb5"
+    },
+    "psf-Lumen-16-9-overview.png": {
+      "bytes": 50819,
+      "sha256": "5d6c1accc095770a0957dd490831e4a788fe4bdb468abe63746786db543d0ee4"
+    },
+    "psf-Lumen-16-9-report.png": {
+      "bytes": 60725,
+      "sha256": "752eeb3137e8c734fdc7a52cc20c3bf55be8788ed23c7c40267385c3edf038be"
+    },
+    "psf-Lumen-16-9.png": {
+      "bytes": 47534,
+      "sha256": "6f1651e4cfd7f7d26f3b1ce3378c4cf76a1e7918e35d15f039607b65bb118558"
+    },
+    "psf-Lumen-4-3-overview.png": {
+      "bytes": 47526,
+      "sha256": "216f049b8f0233c55d4dec1e5d42012fb11599d0c8cad16a9913584c916ab0ce"
+    },
+    "psf-Lumen-4-3-report.png": {
+      "bytes": 57349,
+      "sha256": "d1a0882ef1f300fbd870e114209db5c797cb16f8f40a82eab8cf00b9ce8985d0"
+    },
+    "psf-Lumen-4-3.png": {
+      "bytes": 44617,
+      "sha256": "c9e218f06e0c234dbfd368cd9bd521e1680950c3c805a89ff68fbccaec3342a7"
+    },
+    "square-hidden-16-9.png": {
+      "bytes": 31075,
+      "sha256": "21a122c1a6d07286839285defbb2880a56f83e62df17d3c761e695681380a1e7"
+    },
+    "square-hidden-4-3.png": {
+      "bytes": 28898,
+      "sha256": "1c988bda26e313ca7ce3b2ef3146cb8089a209f9bb75c420de24a3fc54bfdb22"
+    }
+  }
+}

@@ -566,12 +566,12 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .OrderBy(item => item, StringComparer.OrdinalIgnoreCase)
                 .ToArray();
-            editor = new ComboBox
+            editor = UiLocalization.Preserve(new ComboBox
             {
                 ItemsSource = materials,
                 SelectedItem = materials.FirstOrDefault(item => item.Equals(selected, StringComparison.OrdinalIgnoreCase)),
                 MinWidth = 160
-            };
+            });
         }
         else
         {

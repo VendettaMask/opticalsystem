@@ -4,7 +4,7 @@ using Avalonia.Media.Immutable;
 
 namespace OpticalSystemDesign.App.Theming;
 
-internal sealed class IsekaiThemeDecorationRenderer : IThemeDecorationRenderer
+internal sealed class IsekaiThemeDecorationRenderer : IThemeDecorationRenderer, ILayoutAwareRibbonDecoration
 {
     public static IsekaiThemeDecorationRenderer Instance { get; } = new();
 
@@ -71,10 +71,17 @@ internal sealed class IsekaiThemeDecorationRenderer : IThemeDecorationRenderer
     private static readonly ImmutablePen HeaderBottomHighlightPen = Pen(GoldHighlightBrush, 0.7);
     private static readonly ImmutablePen RivetPen = Pen(GoldHighlightBrush, 0.55);
 
-    private double _bladeRight = double.NaN;
-    private double _bladeHiltX = double.NaN;
-    private double _bladeCenterY = double.NaN;
-    private StreamGeometry? _bladeGeometry;
+    private readonly ThreadLocal<BladeCache> _bladeCache = new(() => new BladeCache());
+    private static readonly ThreadLocal<Geometry> GuardGeometry = new(() => Geometry.Parse(
+        "M0,-4C-1,-4 -3,-2 -3,0C-3,2 -1,4 0,4M0,-4C2,-3 3,-3 4,-3M0,4C2,3 3,3 4,3"));
+    private static readonly ImmutablePen SlimHiltPen = Pen(HiltBrush, 4.4);
+    private static readonly ImmutablePen SlimGuardPen = Pen(GoldBrush, 1.6, PenLineCap.Round, PenLineJoin.Round);
+    private static readonly ImmutablePen BladeFoldPen = Pen(Brush(Color.FromArgb(110, 95, 91, 80)), .4);
+    private sealed class BladeCache
+    {
+        internal double Right = double.NaN, RootX = double.NaN, CenterY = double.NaN, HalfHeight = double.NaN;
+        internal StreamGeometry? Geometry;
+    }
     private int _bladeGeometryBuildCount;
 
     private IsekaiThemeDecorationRenderer()
@@ -114,10 +121,20 @@ internal sealed class IsekaiThemeDecorationRenderer : IThemeDecorationRenderer
     private void DrawRibbon(DrawingContext context, Rect bounds)
     {
         IsekaiCraftsmanship.DrawBar(context, bounds);
+        // Standalone theme galleries have no native header. Real Ribbons use the measured overload below.
         var headerHeight = Math.Min(42, bounds.Height);
-        var header = new Rect(0, 0, bounds.Width, headerHeight);
-        // Handmade generated leather spans menu and ribbon; no rigid bay grid.
-        DrawSword(context, header);
+        DrawSword(context, new Rect(bounds.Left + 6, Math.Max(bounds.Top, headerHeight - 9),
+            Math.Max(0, bounds.Width - 12), Math.Min(8, bounds.Height)));
+    }
+
+    public void RenderRibbon(DrawingContext context, Rect bounds, RibbonDecorationLayout layout, bool foreground)
+    {
+        if (!foreground)
+        {
+            IsekaiCraftsmanship.DrawBar(context, bounds);
+            if (layout.IsReady) DrawSword(context, layout.SwordBand);
+        }
+        else if (layout.IsReady) IsekaiRibbonAccents.Draw(context, bounds, layout);
     }
 
     private static void DrawWorkspaceFrame(DrawingContext context, Rect bounds)
@@ -182,61 +199,54 @@ internal sealed class IsekaiThemeDecorationRenderer : IThemeDecorationRenderer
         }
     }
 
-    private void DrawSword(DrawingContext context, Rect header)
+    private void DrawSword(DrawingContext context, Rect band)
     {
-        var centerY = header.Bottom - 7.5;
-        var hiltX = Math.Min(102, Math.Max(58, header.Width * 0.075));
-
-        context.DrawEllipse(GoldShadowBrush, PommelPen, new Point(10, centerY), 7, 7);
-        context.DrawLine(HiltPen, new Point(16, centerY), new Point(hiltX - 13, centerY));
-        context.DrawLine(HiltHighlightPen, new Point(18, centerY - 2), new Point(hiltX - 15, centerY - 2));
-        for (var x = 22d; x < hiltX - 15; x += 10)
+        if (band.Width < 120 || band.Height < 3) return;
+        var scale = Math.Min(1, band.Height / 10);
+        var centerY = band.Center.Y;
+        using var clip = context.PushClip(band);
+        // Grip and swept guard retain their proportions; only the separator blade changes length.
+        using (context.PushTransform(Matrix.CreateScale(scale, scale) * Matrix.CreateTranslation(band.Left, centerY)))
         {
-            context.DrawLine(HiltWrapPen, new Point(x, centerY - 4), new Point(x + 5, centerY + 4));
+            context.DrawEllipse(GoldShadowBrush, PommelPen, new Point(5, 0), 3, 2.5);
+            context.DrawLine(SlimHiltPen, new Point(10, 0), new Point(35, 0));
+            context.DrawLine(HiltHighlightPen, new Point(11, -1.6), new Point(34, -1.6));
+            for (var x = 14d; x < 34; x += 4.5)
+                context.DrawLine(HiltWrapPen, new Point(x, -1.9), new Point(x + 2.8, 1.9));
+            using (context.PushTransform(Matrix.CreateTranslation(39, 0)))
+                context.DrawGeometry(null, SlimGuardPen, GuardGeometry.Value!);
+            context.DrawEllipse(GemBrush, GemPen, new Point(39, 0), 1.35, 1.35);
         }
-
-        context.DrawLine(GuardPen, new Point(hiltX - 8, centerY + 9), new Point(hiltX + 7, centerY - 16));
-        context.DrawLine(GuardHighlightPen, new Point(hiltX - 7, centerY + 8), new Point(hiltX + 8, centerY - 15));
-        context.DrawEllipse(
-            GemBrush,
-            GemPen,
-            new Point(hiltX, centerY - 4),
-            3.4,
-            3.4);
-
-        var blade = CachedBladeGeometry(header.Right, hiltX, centerY);
+        var rootX = band.Left + 43 * scale;
+        var right = band.Right - 4;
+        var blade = CachedBladeGeometry(right, rootX, centerY, 1.9 * scale);
         context.DrawGeometry(BladeBrush, BladeOutlinePen, blade);
-        context.DrawLine(
-            BladeHighlightPen,
-            new Point(hiltX + 9, centerY - 1),
-            new Point(header.Right - 18, centerY - 0.4));
+        context.DrawLine(BladeHighlightPen, new Point(rootX + 3, centerY - .5 * scale), new Point(right - 14, centerY - .2 * scale));
+        context.DrawLine(BladeFoldPen, new Point(rootX + 3, centerY + .35 * scale), new Point(right - 14, centerY + .15 * scale));
     }
 
-    private StreamGeometry CachedBladeGeometry(double right, double hiltX, double centerY)
+    private StreamGeometry CachedBladeGeometry(double right, double rootX, double centerY, double halfHeight)
     {
-        if (_bladeGeometry is not null
-            && _bladeRight.Equals(right)
-            && _bladeHiltX.Equals(hiltX)
-            && _bladeCenterY.Equals(centerY))
+        var cache = _bladeCache.Value!;
+        if (cache.Geometry is not null && cache.Right.Equals(right) && cache.RootX.Equals(rootX)
+            && cache.CenterY.Equals(centerY) && cache.HalfHeight.Equals(halfHeight))
         {
-            return _bladeGeometry;
+            return cache.Geometry;
         }
 
         var blade = new StreamGeometry();
         using (var path = blade.Open())
         {
-            path.BeginFigure(new Point(hiltX + 5, centerY - 3.2), true);
-            path.LineTo(new Point(right - 17, centerY - 2.1));
-            path.LineTo(new Point(right - 4, centerY));
-            path.LineTo(new Point(right - 17, centerY + 2.1));
-            path.LineTo(new Point(hiltX + 5, centerY + 3.2));
+            path.BeginFigure(new Point(rootX, centerY - halfHeight), true);
+            path.LineTo(new Point(right - 14, centerY - halfHeight * .45));
+            path.LineTo(new Point(right, centerY));
+            path.LineTo(new Point(right - 14, centerY + halfHeight * .45));
+            path.LineTo(new Point(rootX, centerY + halfHeight));
             path.EndFigure(true);
         }
 
-        _bladeRight = right;
-        _bladeHiltX = hiltX;
-        _bladeCenterY = centerY;
-        _bladeGeometry = blade;
+        cache.Right = right; cache.RootX = rootX; cache.CenterY = centerY; cache.HalfHeight = halfHeight;
+        cache.Geometry = blade;
         _bladeGeometryBuildCount++;
         return blade;
     }

@@ -22,6 +22,11 @@ internal sealed class GlassCatalogDatabase
                 : $"{definition.Manufacturer}:{definition.Name}";
         }
 
+        // CDGM is maintained from the current official AGF bundle. Do not let
+        // the older auxiliary catalog override it or resurrect retired types.
+        // Calculate other manufacturers' resolved names before this filter.
+        definitions = definitions.Where(definition => !definition.Manufacturer.Equals("CDGM", StringComparison.OrdinalIgnoreCase)).ToArray();
+
         _qualified = definitions.ToDictionary(
             definition => QualifiedKey(definition.Manufacturer, definition.Name),
             StringComparer.OrdinalIgnoreCase);

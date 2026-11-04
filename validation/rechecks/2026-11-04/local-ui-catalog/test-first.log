@@ -1,0 +1,28 @@
+VSTest 版本 18.6.0 (x64)
+
+正在启动测试执行，请稍候...
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:56.49]     OpticalSystemDesign.Tests.LocalUiCatalogTests.DynamicValuesRemainOpaqueIncludingNamesThatAreTranslatedUiWords(language: "ja-JP", prefix: "保存完了：", save: "保存") [FAIL]
+[xUnit.net 00:00:56.53]     OpticalSystemDesign.Tests.LocalUiCatalogTests.DynamicValuesRemainOpaqueIncludingNamesThatAreTranslatedUiWords(language: "en-US", prefix: "Saved: ", save: "Save") [FAIL]
+  失败 OpticalSystemDesign.Tests.LocalUiCatalogTests.DynamicValuesRemainOpaqueIncludingNamesThatAreTranslatedUiWords(language: "ja-JP", prefix: "保存完了：", save: "保存") [27 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LocalUiCatalogTests.DynamicValuesRemainOpaqueIncludingNamesThatAreTranslatedUiWords(String language, String prefix, String save) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\LocalUiCatalogTests.cs:line 92
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  失败 OpticalSystemDesign.Tests.LocalUiCatalogTests.DynamicValuesRemainOpaqueIncludingNamesThatAreTranslatedUiWords(language: "en-US", prefix: "Saved: ", save: "Save") [36 ms]
+  错误消息:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LocalUiCatalogTests.DynamicValuesRemainOpaqueIncludingNamesThatAreTranslatedUiWords(String language, String prefix, String save) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\LocalUiCatalogTests.cs:line 92
+   at InvokeStub_LocalUiCatalogTests.DynamicValuesRemainOpaqueIncludingNamesThatAreTranslatedUiWords(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-04\local-ui-catalog\language-first.trx
+
+失败!  - 失败:     2，通过:    43，已跳过:     0，总计:    45，持续时间: 1 m 43 s - OpticalSystemDesign.Tests.dll (net10.0)

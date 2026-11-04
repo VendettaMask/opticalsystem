@@ -94,7 +94,7 @@ internal static class IsekaiCraftsmanship
     }
 
     private static void NineSlice(DrawingContext context, Bitmap image, Rect s, Rect d,
-        double sx, double sy, double dx, double dy, bool omitCentre, bool recordAsBrush = false)
+        double sx, double sy, double dx, double dy, bool omitCentre)
     {
         dx = Math.Min(dx, d.Width / 2); dy = Math.Min(dy, d.Height / 2);
         double[] xs = [s.Left, s.Left + sx, s.Right - sx, s.Right];
@@ -108,11 +108,7 @@ internal static class IsekaiCraftsmanship
             if (target.Width > 0 && target.Height > 0)
             {
                 var source = new Rect(xs[col], ys[row], xs[col + 1] - xs[col], ys[row + 1] - ys[row]);
-                // DrawingGroup does not record DrawBitmap in Avalonia 12. ImageBrush
-                // records the identical source rectangle without rasterizing a copy.
-                if (recordAsBrush) context.FillRectangle(new ImageBrush(image)
-                    { SourceRect = new RelativeRect(source, RelativeUnit.Absolute), Stretch = Stretch.Fill }, target);
-                else context.DrawImage(image, source, target);
+                context.DrawImage(image, source, target);
             }
         }
     }
@@ -137,9 +133,16 @@ internal static class IsekaiCraftsmanship
             // A brush for the native Dock/Fluent bodies; no text or hit targets are in the bitmap.
             PlaqueBrushes = Enumerable.Range(0, 4).Select(state =>
             {
+                // Cache four small 3x skins, never a per-DPI/per-frame cache.
+                // DrawingGroup cannot record DrawImage in Avalonia 12, while
+                // separate ImageBrush source slices clip in logical coordinates
+                // at high DPI. A complete zero-origin texture avoids both paths.
+                var skin = new RenderTargetBitmap(new PixelSize(660, 108), new Vector(288, 288));
+                using (var context = skin.CreateDrawingContext())
+                    NineSlice(context, Controls, Plaques[state], new Rect(0, 0, 220, 36), 95, 55, 14, 7, false);
                 var drawing = new DrawingGroup();
                 using (var context = drawing.Open())
-                    NineSlice(context, Controls, Plaques[state], new Rect(0, 0, 220, 36), 95, 55, 14, 7, false, true);
+                    context.FillRectangle(new ImageBrush(skin) { Stretch = Stretch.Fill }, new Rect(0, 0, 220, 36));
                 return (IBrush)new DrawingBrush(drawing) { Stretch = Stretch.Fill };
             }).ToArray();
         }

@@ -34,7 +34,8 @@ public sealed class IsekaiDrawingMaterialTests
         await session.Dispatch(async () =>
         {
             DisplayTypography.Configure(new AppSettings());
-            ImageExportResolution.Configure(new AppSettings());
+            // This fixture asserts the original 1200x900 sheet and its report pixels.
+            ImageExportResolution.Configure(new AppSettings { DiagramAspectRatio = DiagramSheetLayout.Standard });
             using var app = WorkbenchApplication.Create("cooke");
             var result = await app.Analyses.RunAsync(new(Guid.NewGuid(), 1, key, new Dictionary<string, string>()));
             Assert.Equal(AnalysisOutcome.Success, result.View.Outcome);
@@ -115,10 +116,10 @@ public sealed class IsekaiDrawingMaterialTests
     }
 
     [Theory]
-    [InlineData(SceneDimension.TwoDimensional, ViewerPresentationMode.OpticalLayout)]
-    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.OpticalLayout)]
-    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel)]
-    public async Task SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(SceneDimension dimension, ViewerPresentationMode mode)
+    [InlineData(SceneDimension.TwoDimensional, ViewerPresentationMode.OpticalLayout, 1.5)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.OpticalLayout, 1.5)]
+    [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel, 2)]
+    public async Task SceneAndExportSharePaperAndPreserveCameraAndMaterialColours(SceneDimension dimension, ViewerPresentationMode mode, double scaling)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(IsekaiDrawingMaterialTests));
         await session.Dispatch(async () =>
@@ -130,6 +131,7 @@ public sealed class IsekaiDrawingMaterialTests
             try
             {
                 window.Show();
+                window.SetRenderScaling(scaling);
                 for (var i = 0; i < 200; i++)
                 {
                     await Task.Delay(10); Settle(window);
@@ -162,7 +164,8 @@ public sealed class IsekaiDrawingMaterialTests
                 {
                     Assert.NotNull(composed);
                     var p = scene.TranslatePoint(new Point(scene.Bounds.Width / 2, 80), window)!.Value;
-                    AssertPaper(composed, (int)p.X, (int)p.Y);
+                    AssertPaper(composed, (int)(p.X * scaling), (int)(p.Y * scaling));
+                    Save(composed, $"{dimension}-{mode}-dpi-{scaling}.png");
                 }
                 using var live = new RenderTargetBitmap(new PixelSize(1200, 960));
                 live.Render(window); Save(live, $"{dimension}-{mode}-live.png");

@@ -40,11 +40,13 @@ internal sealed class AnalysisBookWorkspace : Decorator
         if (!UsesBookFrame || !double.IsFinite(availableSize.Height) || !double.IsFinite(availableSize.Width))
             return Child?.DesiredSize ?? default;
         var navigation = this.GetVisualDescendants().OfType<AnalysisResultTabs>().FirstOrDefault()?.BookNavigationHeight ?? 66;
-        // Fit the unchanged 4:3 sheet after the actual wrapped command row and native tabs.
+        var sheet = this.GetVisualDescendants().OfType<UniformDiagramPage>().FirstOrDefault();
+        var aspect = (sheet?.Width ?? Services.DiagramSheetLayout.Width) / UniformDiagramPage.SheetHeight;
+        // Fit the selected sheet after the actual wrapped command row and native tabs.
         for (var pass = 0; pass < 3; pass++)
         {
             _bookWidth = Math.Min(availableSize.Width, Math.Max(Math.Min(350, availableSize.Width),
-                Math.Max(0, availableSize.Height - _bar.DesiredSize.Height - navigation - 56) * 1200 / 900 + 56));
+                Math.Max(0, availableSize.Height - _bar.DesiredSize.Height - navigation - 56) * aspect + 56));
             Child?.Measure(new Size(_bookWidth, availableSize.Height));
         }
         return Child?.DesiredSize ?? default;

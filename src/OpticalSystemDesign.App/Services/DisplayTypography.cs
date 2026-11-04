@@ -14,6 +14,7 @@ public static class DisplayTypography
     private static string _fontFamily = string.Empty;
     private static string _fontShape = "Regular";
     private static double _fontSize = AppSettings.DefaultFontSize;
+    private static ThemeDefinition _appliedTheme = ThemeRegistry.FromSettings(AppSettings.DefaultTheme);
 
     public static double FontSize => _fontSize;
     public static double SplashTitle => Scale(29);
@@ -43,8 +44,11 @@ public static class DisplayTypography
 
     public static void Apply(TemplatedControl control)
     {
-        var theme = ThemeRegistry.FromActualVariant(control.ActualThemeVariant);
-        control.FontFamily = FontFamily(theme.UiFontFamily);
+        // Newly created panel roots have no inherited variant until they enter
+        // the workspace; use the applied application theme during construction.
+        var theme = ThemeRegistry.FromActualVariant(TopLevel.GetTopLevel(control) is null
+            ? global::Avalonia.Application.Current?.ActualThemeVariant : control.ActualThemeVariant);
+        control.FontFamily = FontFamily(theme);
         control.FontSize = _fontSize;
         control.FontStyle = FontStyle();
         control.FontWeight = FontWeight();
@@ -107,29 +111,59 @@ public static class DisplayTypography
         state.LastAppliedSize = target;
     }
 
-    internal static void PublishFontResources(global::Avalonia.Application application, FontFamily? themeFamily = null)
+    internal static void PublishFontResources(global::Avalonia.Application application, ThemeDefinition? theme = null)
     {
-        themeFamily ??= ThemeRegistry.FromActualVariant(application.ActualThemeVariant).UiFontFamily;
-        application.Resources[ProductFonts.InterfaceResource] = FontFamily(themeFamily);
-        application.Resources[ProductFonts.NumericResource] = string.IsNullOrWhiteSpace(_fontFamily)
-            ? themeFamily == ProductFonts.Interface ? ProductFonts.Numeric : themeFamily
-            : new FontFamily(_fontFamily);
+        theme ??= ThemeRegistry.FromActualVariant(application.ActualThemeVariant);
+        Volatile.Write(ref _appliedTheme, theme);
+        application.Resources[ProductFonts.InterfaceResource] = ResolveFontFamily(_fontFamily, theme);
+        application.Resources[ProductFonts.NumericResource] = ResolveFontFamily(_fontFamily, theme, numeric: true);
     }
 
     public static FontFamily ResolveFontFamily(string? family, string? theme, bool numeric = false)
     {
-        if (!string.IsNullOrWhiteSpace(family)) return new FontFamily(family);
-        var themeFamily = ThemeRegistry.FromSettings(theme).ResolveVisual(
-            global::Avalonia.Application.Current?.ActualThemeVariant).UiFontFamily;
-        return numeric && themeFamily == ProductFonts.Interface ? ProductFonts.Numeric : themeFamily;
+        var visual = ThemeRegistry.FromSettings(theme).ResolveVisual(
+            global::Avalonia.Application.Current?.ActualThemeVariant);
+        return ResolveFontFamily(family, visual, numeric);
     }
 
-    private static FontFamily FontFamily(FontFamily? themeDefault = null)
+    private static FontFamily ResolveFontFamily(string? family, ThemeDefinition theme, bool numeric = false)
     {
-        return string.IsNullOrWhiteSpace(_fontFamily)
-            ? themeDefault ?? ThemeRegistry.FromActualVariant(global::Avalonia.Application.Current?.ActualThemeVariant).UiFontFamily
-            : new FontFamily(_fontFamily);
+        if (theme.LocksFontFamily) return theme.UiFontFamily;
+        if (!string.IsNullOrWhiteSpace(family)) return new FontFamily(family);
+        return numeric && theme.UiFontFamily == ProductFonts.Interface ? ProductFonts.Numeric : theme.UiFontFamily;
     }
+
+    internal static string[] FontNames(ProductFontRole role)
+    {
+        var theme = global::Avalonia.Application.Current is null ? ThemeRegistry.FromSettings(AppSettings.DefaultTheme) : Volatile.Read(ref _appliedTheme);
+        return FontNames(role, theme, _fontFamily);
+    }
+
+    internal static Dictionary<ProductFontRole, string[]> CaptureDocumentFonts()
+    {
+        var theme = global::Avalonia.Application.Current is null ? ThemeRegistry.FromSettings(AppSettings.DefaultTheme) : Volatile.Read(ref _appliedTheme);
+        var custom = _fontFamily;
+        return Enum.GetValues<ProductFontRole>().ToDictionary(role => role, role => FontNames(role, theme, custom));
+    }
+
+    private static string[] FontNames(ProductFontRole role, ThemeDefinition theme, string custom)
+    {
+        if (role == ProductFontRole.Math) return [ProductFonts.MathFamilyName, ProductFonts.DocumentFamilyName];
+        var portable = role is ProductFontRole.Engineering or ProductFontRole.Document or ProductFontRole.Code;
+        var selected = theme.LocksFontFamily || !string.IsNullOrWhiteSpace(custom) || !portable
+            ? ProductFonts.FamilyNames(ResolveFontFamily(custom, theme, role is ProductFontRole.Numeric or ProductFontRole.Code))
+            : role == ProductFontRole.Code ? ["JetBrains Mono"] : [ProductFonts.DocumentFamilyName];
+        // Portable exports use registered bytes; unavailable/custom machine fonts
+        // have a deterministic bundled replacement selected here for every writer.
+        var registered = selected.Where(name => ProductFonts.Faces(name).Count != 0).ToList();
+        if (registered.Count == 0) registered.Add("DM Sans");
+        if (portable && registered.Count > 1) registered.RemoveAll(name => name == "Source Han Sans SC");
+        registered.Add(ProductFonts.MathFamilyName); registered.Add(ProductFonts.DocumentFamilyName);
+        return registered.Distinct(StringComparer.Ordinal).ToArray();
+    }
+
+    private static FontFamily FontFamily(ThemeDefinition? theme = null) => ResolveFontFamily(_fontFamily,
+        theme ?? ThemeRegistry.FromActualVariant(global::Avalonia.Application.Current?.ActualThemeVariant));
 
     private static FontStyle FontStyle()
     {

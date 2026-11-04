@@ -664,7 +664,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
                 return;
             }
 
-            var hint = CreateText("滚轮缩放 · 拖动平移 · 双击复位 · 悬停读数", PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotHint, new SolidColorBrush(Color.FromRgb(110, 110, 115))));
+            var hint = CreateText(UiLocalization.Text("滚轮缩放 · 拖动平移 · 双击复位 · 悬停读数"), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotHint, new SolidColorBrush(Color.FromRgb(110, 110, 115))));
             hint.MaxTextWidth = Math.Max(1, plot.Width - 16);
             context.DrawText(hint, new Point(plot.Right - hint.Width - 8, plot.Bottom - hint.Height - 6));
             return;

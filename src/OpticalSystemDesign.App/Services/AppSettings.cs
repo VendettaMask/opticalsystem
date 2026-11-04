@@ -37,6 +37,8 @@ public sealed class AppSettings
 
     public string AnalysisColorMap { get; set; } = nameof(ScientificColorMap.Viridis);
 
+    public string DiagramAspectRatio { get; set; } = DiagramSheetLayout.Automatic;
+
     public double ImageExportDpi { get; set; } = ImageExportResolution.DefaultDpi;
     public int ImageExportPixelHeight { get; set; } = ImageExportResolution.DefaultPixelHeight;
     private int? _imageExportPixelWidth;
@@ -80,6 +82,7 @@ public sealed class AppSettings
             UiDensity.SystemOptionsMinimumWidth, UiDensity.SystemOptionsMaximumWidth);
         Theme = ThemeRegistry.NormalizeSettingsValue(Theme);
         AnalysisColorMap = ScientificColorMaps.Parse(AnalysisColorMap).ToString();
+        DiagramAspectRatio = DiagramSheetLayout.Normalize(DiagramAspectRatio);
         ImageExportDpi = ImageExportResolution.Normalize(ImageExportDpi);
         ImageExportPixelHeight = ImageExportResolution.NormalizeHeight(ImageExportPixelHeight);
         ImageExportPixelWidth = ImageExportResolution.NormalizeWidth(ImageExportPixelWidth);
@@ -113,6 +116,7 @@ public sealed class AppSettings
         FontShape = "Regular";
         FontSize = DefaultFontSize;
         AnalysisColorMap = nameof(ScientificColorMap.Viridis);
+        DiagramAspectRatio = DiagramSheetLayout.Automatic;
         ImageExportDpi = ImageExportResolution.DefaultDpi;
         ImageExportPixelHeight = ImageExportResolution.DefaultPixelHeight;
         ImageExportPixelWidth = ImageExportResolution.DefaultPixelWidth;

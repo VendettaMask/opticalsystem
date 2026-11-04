@@ -345,6 +345,7 @@ public partial class WorkbenchRuntime
         ["XFieldSamples"] = "X 视场采样",
         ["YFieldSamples"] = "Y 视场采样",
         ["PupilSampling"] = "光瞳采样",
+        ["FourierSamplingValidation"] = "傅里叶采样验证",
         ["DisplayAs"] = "显示为",
         ["DisplayMode"] = "显示",
         ["MeanAberrationWaves"] = "平均",

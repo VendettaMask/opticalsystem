@@ -57,7 +57,9 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
         foreach (var field in fields)
         {
             var waves = new List<OpdWave>(wavelengths.Length);
-            var wavelengthReferenceSpheres = analysisOptic.ImageSpaceAfocal
+            var sphericalReference = !analysisOptic.ImageSpaceAfocal
+                && analysisOptic.ReferenceOpd == ReferenceOpdMode.ExitPupil;
+            var wavelengthReferenceSpheres = !sphericalReference
                 ? Array.Empty<WavefrontReferenceSphere>()
                 : wavelengths.Select(wavelength =>
                     WavefrontEngine.CreateChiefRayReferenceSphere(
@@ -67,7 +69,7 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
                         aimAtStop: analysisOptic.RayAimingEnabled, allowGeometricReference: true)).ToArray();
             var primaryWavelength = allWavelengths.FirstOrDefault(wavelength => wavelength.IsPrimary)
                 ?? allWavelengths.FirstOrDefault();
-            var primaryReferenceSphere = !analysisOptic.ImageSpaceAfocal
+            var primaryReferenceSphere = sphericalReference
                 && _wavelengthNumber == 0
                 && wavelengths.Length > 1
                 && primaryWavelength is not null
@@ -147,7 +149,10 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
             ["FieldNumber"] = _fieldNumber,
             ["SurfaceNumber"] = targetSurface,
             ["ImageSpaceAfocal"] = analysisOptic.ImageSpaceAfocal,
-            ["ReferenceGeometry"] = analysisOptic.ImageSpaceAfocal
+            ["ReferenceOpdMode"] = analysisOptic.ReferenceOpd.ToString(),
+            ["ReferenceGeometry"] = !analysisOptic.ImageSpaceAfocal
+                && analysisOptic.ReferenceOpd is ReferenceOpdMode.Absolute or ReferenceOpdMode.Absolute2
+                ? "image plane" : analysisOptic.ImageSpaceAfocal
                 ? "chief-ray plane"
                 : "reference sphere",
             ["UseDashes"] = _useDashes,
@@ -205,12 +210,13 @@ public sealed class OpticalPathDifferenceAnalysis : BaseAnalysis
 
     private Optic ResolveAnalysisOptic()
     {
+        var prepared = AnalysisSurfacePreparation.Prepare(Optic, _surfaceNumber);
         if (_checkApertures)
         {
-            return Optic;
+            return prepared;
         }
 
-        var clone = Optic.FromSnapshot(Optic.ToSnapshot());
+        var clone = ReferenceEquals(prepared, Optic) ? Optic.CreateMeritEvaluationCopy() : prepared;
         foreach (var surface in clone.SurfaceGroup.Items)
         {
             surface.PhysicalAperture = null;

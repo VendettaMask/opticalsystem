@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ab26dbe2-854f-418e-97f7-37282b6f7ebe" name="allen@DESKTOP-SET3SNR 2026-11-04 22:15:23" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T22:15:23.2568849+08:00" queuing="2026-11-04T22:15:23.2568850+08:00" start="2026-11-04T22:15:20.8905518+08:00" finish="2026-11-04T22:15:23.2629338+08:00" />
+  <TestSettings name="default" id="03521fd7-f35f-4f0a-be06-de46060dbf27">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-04_22_15_23" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c1787f69-99ef-426b-9241-bfffa94d7c92" testId="92f7b964-980a-66e7-28a3-71587e1b7b1f" testName="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:00.4756853" startTime="2026-11-04T22:15:22.4680132+08:00" endTime="2026-11-04T22:15:22.9575085+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c1787f69-99ef-426b-9241-bfffa94d7c92">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.&lt;&gt;c__DisplayClass4_0.&lt;SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 241&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(Double scaling) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 233&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="885b0adc-a84c-4727-9586-f1c5bf4dafaf" testId="40baca2e-08bb-0006-162c-5ad72fd386ec" testName="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 1.5)" computerName="DESKTOP-SET3SNR" duration="00:00:00.1021954" startTime="2026-11-04T22:15:23.0682161+08:00" endTime="2026-11-04T22:15:23.1693467+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="885b0adc-a84c-4727-9586-f1c5bf4dafaf">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.&lt;&gt;c__DisplayClass4_0.&lt;SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 241&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(Double scaling) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 233&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="63ea0b80-73db-4d33-a190-20d485f89c8c" testId="55c7dd4a-28ad-7026-a9e6-cd21c4d10e07" testName="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 1)" computerName="DESKTOP-SET3SNR" duration="00:00:00.1083777" startTime="2026-11-04T22:15:22.9684296+08:00" endTime="2026-11-04T22:15:23.0667635+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="63ea0b80-73db-4d33-a190-20d485f89c8c">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.&lt;&gt;c__DisplayClass4_0.&lt;SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 241&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(Double scaling) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 233&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 1)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="55c7dd4a-28ad-7026-a9e6-cd21c4d10e07">
+      <Execution id="63ea0b80-73db-4d33-a190-20d485f89c8c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests" name="SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 1.5)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="40baca2e-08bb-0006-162c-5ad72fd386ec">
+      <Execution id="885b0adc-a84c-4727-9586-f1c5bf4dafaf" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests" name="SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 2)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="92f7b964-980a-66e7-28a3-71587e1b7b1f">
+      <Execution id="c1787f69-99ef-426b-9241-bfffa94d7c92" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests" name="SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="92f7b964-980a-66e7-28a3-71587e1b7b1f" executionId="c1787f69-99ef-426b-9241-bfffa94d7c92" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="40baca2e-08bb-0006-162c-5ad72fd386ec" executionId="885b0adc-a84c-4727-9586-f1c5bf4dafaf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="55c7dd4a-28ad-7026-a9e6-cd21c4d10e07" executionId="63ea0b80-73db-4d33-a190-20d485f89c8c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="0" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.15]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.20]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.22]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.73]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:01.73]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.73]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:01.73]            at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:01.73]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs(241,0): at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.&lt;&gt;c__DisplayClass4_0.&lt;SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels&gt;b__0()&#xD;
+[xUnit.net 00:00:01.73]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:01.73]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:01.73]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:01.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.73]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs(233,0): at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(Double scaling)&#xD;
+[xUnit.net 00:00:01.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.84]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:01.84]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.84]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:01.84]            at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:01.84]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs(241,0): at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.&lt;&gt;c__DisplayClass4_0.&lt;SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels&gt;b__0()&#xD;
+[xUnit.net 00:00:01.84]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:01.84]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:01.84]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:01.84]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.84]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs(233,0): at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(Double scaling)&#xD;
+[xUnit.net 00:00:01.84]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.94]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:01.94]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.94]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:01.94]            at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:01.94]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs(241,0): at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.&lt;&gt;c__DisplayClass4_0.&lt;SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels&gt;b__0()&#xD;
+[xUnit.net 00:00:01.94]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:01.94]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:01.94]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:01.94]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.94]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs(233,0): at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(Double scaling)&#xD;
+[xUnit.net 00:00:01.94]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:01.95]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T22:15:22.9597176+08:00">
+        <Text>[xUnit.net 00:00:01.73]     OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 2) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T22:15:23.0671390+08:00">
+        <Text>[xUnit.net 00:00:01.84]     OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T22:15:23.1699117+08:00">
+        <Text>[xUnit.net 00:00:01.94]     OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 1.5) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

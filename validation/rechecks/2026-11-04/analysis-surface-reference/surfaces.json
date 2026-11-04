@@ -1,0 +1,122 @@
+[
+  {
+    "analysis": "Optical Path Difference",
+    "surface": -1,
+    "outcome": "Success",
+    "outcomeReason": null,
+    "numericHash": "216b0a15b2d31cfc05d6ff29cb3b74548d72b5e2e446f334be918428576038f2",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "Optical Path Difference",
+    "surface": 2,
+    "outcome": "Rejected",
+    "error": "Intermediate surfaces before the stop with ray aiming require a physical intermediate pupil model.",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "Optical Path Difference",
+    "surface": 12,
+    "outcome": "Success",
+    "outcomeReason": null,
+    "numericHash": "5d60163849fc6522f8da87dea5a223cbf9800f7fbb82c522de1c7f413633b0de",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "Optical Path Difference",
+    "surface": 999,
+    "outcome": "Rejected",
+    "error": "Select a physical or image surface. (Parameter 'number')",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "Wavefront",
+    "surface": -1,
+    "outcome": "Success",
+    "outcomeReason": null,
+    "numericHash": "196d3e50c1e39e03e9d7f91eab3f6d165dd5b5feb3f7672786e55d36b79f2d20",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "Wavefront",
+    "surface": 2,
+    "outcome": "Rejected",
+    "error": "Intermediate surfaces before the stop with ray aiming require a physical intermediate pupil model.",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "Wavefront",
+    "surface": 12,
+    "outcome": "Success",
+    "outcomeReason": null,
+    "numericHash": "fffebb18d1358667217a82bc510cc7511234ae9fe142df180a25ce3c09fca7c2",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "Wavefront",
+    "surface": 999,
+    "outcome": "Rejected",
+    "error": "Select a physical or image surface. (Parameter 'number')",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "PSF",
+    "surface": -1,
+    "outcome": "Success",
+    "outcomeReason": null,
+    "numericHash": "085367e3c833cca345e6d74394d81b1fa5f7c45c8da56e5f74272db28f977069",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "PSF",
+    "surface": 2,
+    "outcome": "Rejected",
+    "error": "Intermediate surfaces before the stop with ray aiming require a physical intermediate pupil model.",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "PSF",
+    "surface": 12,
+    "outcome": "Unavailable",
+    "outcomeReason": "PSF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 0.892565 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+    "numericHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "PSF",
+    "surface": 999,
+    "outcome": "Rejected",
+    "error": "Select a physical or image surface. (Parameter 'number')",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "MTF",
+    "surface": -1,
+    "outcome": "Success",
+    "outcomeReason": null,
+    "numericHash": "2d3426b261cb77de621f697b62c621e6d76d7ea38de370ae09cbbf905ebb53b1",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "MTF",
+    "surface": 2,
+    "outcome": "Rejected",
+    "error": "Intermediate surfaces before the stop with ray aiming require a physical intermediate pupil model.",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "MTF",
+    "surface": 12,
+    "outcome": "Unavailable",
+    "outcomeReason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 0.892565 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+    "numericHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  },
+  {
+    "analysis": "MTF",
+    "surface": 999,
+    "outcome": "Rejected",
+    "error": "Select a physical or image surface. (Parameter 'number')",
+    "coreSha256": "8821d3a2e315641238275f0343832f19e1dd337bcdf36b4a0cad136801136920"
+  }
+]

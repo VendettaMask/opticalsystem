@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "baseline-sync",
+    "ExitCode": 0,
+    "ExpectedSuccess": true,
+    "Passed": true
+  },
+  {
+    "Name": "baseline-check",
+    "ExitCode": 0,
+    "ExpectedSuccess": true,
+    "Passed": true
+  },
+  {
+    "Name": "missing-label",
+    "ExitCode": 1,
+    "ExpectedSuccess": false,
+    "Passed": true
+  },
+  {
+    "Name": "missing-label-sync",
+    "ExitCode": 1,
+    "ExpectedSuccess": false,
+    "Passed": true
+  },
+  {
+    "Name": "stale-catalog",
+    "ExitCode": 1,
+    "ExpectedSuccess": false,
+    "Passed": true
+  },
+  {
+    "Name": "changed-unit",
+    "ExitCode": 1,
+    "ExpectedSuccess": false,
+    "Passed": true
+  },
+  {
+    "Name": "conflicting-term",
+    "ExitCode": 1,
+    "ExpectedSuccess": false,
+    "Passed": true
+  },
+  {
+    "Name": "restored-check",
+    "ExitCode": 0,
+    "ExpectedSuccess": true,
+    "Passed": true
+  }
+]

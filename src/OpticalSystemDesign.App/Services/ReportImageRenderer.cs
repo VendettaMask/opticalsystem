@@ -25,7 +25,7 @@ internal sealed class ReportImageRenderer(Border host)
             {
                 if (request.Scene is { } scene)
                 {
-                    var width = UniformDiagramPage.SheetWidth;
+                    var width = DiagramSheetLayout.Width;
                     var height = UniformDiagramPage.PlotHeight;
                     var canvas = new OpticSceneControl
                     {
@@ -50,7 +50,7 @@ internal sealed class ReportImageRenderer(Border host)
                     var plot = AnalysisPanel.CreateReportPlot(analysis, request.Document, request.CapturedAt);
                     if (plot is not null)
                     {
-                        Attach(plot, UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight, request.ForPrint);
+                        Attach(plot, DiagramSheetLayout.Width, UniformDiagramPage.SheetHeight, request.ForPrint);
                         await Dispatcher.UIThread.InvokeAsync(() => { }, DispatcherPriority.Render);
                         plot.UpdateLayout();
                         Save(plot.Child!, stem + ".png");

@@ -72,12 +72,16 @@ public sealed class AnalysisFrameDpiTests
                 var dpiPreset = window.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "ImageExportDpiPreset");
                 Assert.Equal(0, preset.SelectedIndex); Assert.Equal(150, dpi.Value); Assert.Equal(1080, height.Value);
                 Assert.Equal(1920, width.Value); Assert.True(aspect.IsChecked); Assert.Equal(1, dpiPreset.SelectedIndex);
-                ((Control)typeof(DisplaySettingsWindow).GetField("_exportCanvasPreview", Private)!.GetValue(window)!).BringIntoView(); Tick(window);
+                var summary = (TextBlock)typeof(DisplaySettingsWindow).GetField("_imageExportPixels", Private)!.GetValue(window)!;
+                Assert.Equal("1920 × 1080 px · 150 DPI", summary.Text);
+                Assert.Same(summary, Assert.IsType<StackPanel>(summary.Parent).Children.Last());
+                var scroll = summary.GetVisualAncestors().OfType<ScrollViewer>().First();
+                scroll.Offset = new Vector(0, scroll.Extent.Height); Tick(window);
                 using (var defaultImage = window.CaptureRenderedFrame()!) Capture(defaultImage, $"settings-default-{language}-{theme}.png");
                 dpi.Value = 300; Assert.Equal(0, preset.SelectedIndex); Assert.Equal(1080, height.Value);
                 preset.SelectedIndex = 2; Assert.Equal(2160, height.Value); Assert.Equal(300, dpi.Value);
                 Assert.Equal(3840, width.Value);
-                height.Value = 1200; Assert.Equal(3, preset.SelectedIndex); Assert.Equal(300, dpi.Value);
+                height.Value = 1200; Assert.Equal(preset.ItemCount - 1, preset.SelectedIndex); Assert.Equal(300, dpi.Value);
                 preset.SelectedIndex = 1; Assert.Equal(1440, height.Value);
                 Assert.Equal(2560, width.Value);
                 dpiPreset.SelectedIndex = 3; Assert.Equal(600, dpi.Value); Assert.Equal(1, preset.SelectedIndex);
@@ -120,7 +124,7 @@ public sealed class AnalysisFrameDpiTests
             using var directory = new ReportTestDirectory();
             try
             {
-                ImageExportResolution.Configure(new() { ImageExportPixelHeight = height, ImageExportDpi = dpi });
+                ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard, ImageExportPixelHeight = height, ImageExportDpi = dpi });
                 window.Show(); Tick(window);
                 var sheet = Assert.Single(panel.GetVisualDescendants().OfType<UniformDiagramPage>());
                 Assert.IsType<AnalysisImageFrame>(sheet.Parent);
@@ -172,9 +176,9 @@ public sealed class AnalysisFrameDpiTests
                 var encoded = new List<byte[]>();
                 foreach (var dpi in new[] { 96, 150, 300, 600 })
                 {
-                    ImageExportResolution.Configure(new() { ImageExportDpi = dpi });
+                    ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard, ImageExportDpi = dpi });
                     using var bitmap = ExportImageFrame.CaptureConfigured(content);
-                    ImageExportResolution.Configure(new() { ImageExportDpi = dpi == 600 ? 96 : 600 });
+                    ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard, ImageExportDpi = dpi == 600 ? 96 : 600 });
                     using var stream = new MemoryStream(); PngImageWriter.Write(bitmap, stream);
                     var png = stream.ToArray(); AssertPngDpi(png, dpi);
                     using var decoded = SKBitmap.Decode(png); encoded.Add(decoded.GetPixelSpan().ToArray());
@@ -184,7 +188,7 @@ public sealed class AnalysisFrameDpiTests
                     Assert.Equal(new byte[] { 1, 2, 3 }, File.ReadAllBytes(path));
                 }
                 Assert.All(encoded.Skip(1), bytes => Assert.Equal(encoded[0], bytes));
-                ImageExportResolution.Configure(new() { ImageExportPixelHeight = 8192, ImageExportPixelWidth = 8192 });
+                ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard, ImageExportPixelHeight = 8192, ImageExportPixelWidth = 8192 });
                 Assert.Throws<InvalidOperationException>(() => ExportImageFrame.CaptureConfigured(content));
             }
             finally { window.Close(); ImageExportResolution.Configure(new()); }
@@ -207,10 +211,10 @@ public sealed class AnalysisFrameDpiTests
                 Assert.Equal(new PixelSize(1920, 1080), padded.PixelSize);
                 Assert.Equal(new PixelRect(240, 0, 1440, 1080), ExportImageAssertions.FrameBounds(padded));
                 ExportImageAssertions.HasCompleteBorder(padded);
-                ImageExportResolution.Configure(new() { ImageExportPreserveAspectRatio = false });
+                ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard, ImageExportPreserveAspectRatio = false });
                 using var filled = ExportImageFrame.CaptureConfigured(source);
                 Assert.Equal(new PixelRect(0, 0, 1920, 1080), ExportImageAssertions.FrameBounds(filled));
-                ImageExportResolution.Configure(new() { ImageExportPixelWidth = 1080, ImageExportPixelHeight = 1920 });
+                ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard, ImageExportPixelWidth = 1080, ImageExportPixelHeight = 1920 });
                 using var portrait = ExportImageFrame.CaptureConfigured(source);
                 Assert.Equal(new PixelSize(1080, 1920), portrait.PixelSize);
                 Assert.Equal(new PixelRect(0, 554, 1080, 811), ExportImageAssertions.FrameBounds(portrait));

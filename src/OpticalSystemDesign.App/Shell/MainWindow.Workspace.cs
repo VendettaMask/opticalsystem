@@ -155,6 +155,8 @@ public sealed partial class MainWindow
     private void ApplyTheme(bool save = true)
     {
         ((App)Avalonia.Application.Current!).ApplyTheme(_settings.Theme);
+        UiLocalization.Apply(_settings.Language);
+        RefreshLanguageMenu();
         if (save && !_settings.TrySave(out var errorMessage))
         {
             _statusText.Text = $"主题已应用；设置未保存：{errorMessage}";

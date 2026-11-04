@@ -499,6 +499,9 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
             role.Bind(IsVisibleProperty, new Binding(nameof(SurfaceEditorRow.ShowSurfaceRole)));
             type.Bind(TextBlock.TextProperty, new Binding(nameof(SurfaceEditorRow.SurfaceType)));
             type.Bind(ToolTip.TipProperty, new Binding(nameof(SurfaceEditorRow.SurfaceType)));
+            // These are canonical UI classifications, unlike the user's comment/name cells.
+            UiLocalization.LocalizeChoiceLabel(role);
+            UiLocalization.LocalizeChoiceLabel(type);
             Grid.SetColumn(type, 1);
             content.Children.Add(indicator);
             content.Children.Add(role);

@@ -106,6 +106,8 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
         {
             ["Method"] = "FFT", ["PupilSampling"] = _sampling, ["GridSize"] = transform,
             ["StoredPupilSize"] = results.Select(r => r.Profile.StoredPupilSize).ToArray(),
+            ["WorkingFNumber"] = results.Average(r => r.Profile.WorkingFNumber),
+            ["UnaberratedPeakRatio"] = totalReference / results.Sum(r => weighted ? r.Wave.Weight : 1),
             ["AxisFourierReadout"] = true, ["StrehlRatio"] = horizontal[center].Y,
             ["PeakStrehlRatio"] = "Not evaluated outside the requested axes",
             ["WavelengthNumber"] = _wavelengthNumber, ["FieldNumber"] = _fieldNumber,

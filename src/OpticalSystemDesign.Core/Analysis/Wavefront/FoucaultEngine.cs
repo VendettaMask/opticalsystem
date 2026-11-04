@@ -45,7 +45,7 @@ public static partial class FoucaultEngine
         if (optic.ImageSpaceAfocal)
             throw new NotSupportedException("Foucault 的 µm 刀口位于有焦像面；无焦系统须先定义聚焦/再成像光学系统。");
         var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength,
-            sampling, cellCentered: true, aimAtStop: optic.RayAimingEnabled);
+            sampling, cellCentered: true, aimAtStop: optic.RayAimingEnabled, useSystemFocalReference: false);
         var axes = DiffractionEngine.WorkingFNumbers(optic, field, wavelength, optic.RayAimingEnabled);
         var gridSize = AnalysisResourceLimits.RoundUpPowerOfTwo(checked(4 * sampling), nameof(sampling));
         // Pupil pitch is 2/N; padding changes image pitch, not pupil density.

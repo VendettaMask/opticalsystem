@@ -27,6 +27,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
     private readonly double _displayScale;
     private readonly string _apodization;
     private readonly bool _referenceChiefRay;
+    private readonly bool _referenceToPrimary;
     private readonly bool _useExitPupilShape;
     private readonly int _surfaceNumber;
     private readonly string _displayAs;
@@ -59,7 +60,8 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         string name = "Wavefront",
         bool defaultSquareViewport = false,
         ExitPupilGeometryMode exitPupilGeometry = ExitPupilGeometryMode.WorkingFNumber,
-        bool sampleProjectedExitPupil = false) : base(optic)
+        bool sampleProjectedExitPupil = false,
+        bool referenceToPrimary = false) : base(optic)
     {
         if (numRings is < 2 or > Raytrace.ApertureSampler.MaximumHexapolarRings)
         {
@@ -80,6 +82,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
         _displayScale = double.IsFinite(displayScale) ? Math.Max(0.01, displayScale) : 1;
         _apodization = apodization;
         _referenceChiefRay = referenceChiefRay;
+        _referenceToPrimary = referenceToPrimary;
         _useExitPupilShape = useExitPupilShape;
         _surfaceNumber = surfaceNumber;
         _displayAs = displayAs;
@@ -97,7 +100,8 @@ public sealed class WavefrontAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
-        var wavelengths = Optic.Wavelengths.ToArray();
+        var analysisOptic = AnalysisSurfacePreparation.Prepare(Optic, _surfaceNumber);
+        var wavelengths = analysisOptic.Wavelengths.ToArray();
         var wavelength = _wavelengthNumber > 0
             ? wavelengths.ElementAtOrDefault(Math.Clamp(_wavelengthNumber - 1, 0, Math.Max(0, wavelengths.Length - 1)))
             : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths.FirstOrDefault();
@@ -106,25 +110,34 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             return AnalysisData.Unavailable(Name, "No wavelengths");
         }
 
-        var fields = SpotAnalysisEngine.DefinedFields(Optic);
+        var fields = SpotAnalysisEngine.DefinedFields(analysisOptic);
         var field = _fieldNumber > 0
             ? fields[Math.Clamp(_fieldNumber - 1, 0, Math.Max(0, fields.Count - 1))]
             : fields.LastOrDefault();
         var geometricShape = _useExitPupilShape && _exitPupilGeometry == ExitPupilGeometryMode.GeometricStopImage;
-        var displayAxes = _useExitPupilShape && !geometricShape && !Optic.ImageSpaceAfocal
-            ? DiffractionEngine.WorkingFNumbers(Optic, field, wavelength, Optic.RayAimingEnabled)
+        var displayAxes = _useExitPupilShape && !geometricShape && !analysisOptic.ImageSpaceAfocal
+            ? DiffractionEngine.WorkingFNumbers(analysisOptic, field, wavelength, analysisOptic.RayAimingEnabled)
             : (Tangential: 1d, Sagittal: 1d);
         var displayScaleX = Math.Min(displayAxes.Tangential, displayAxes.Sagittal) / displayAxes.Sagittal;
         var displayScaleY = Math.Min(displayAxes.Tangential, displayAxes.Sagittal) / displayAxes.Tangential;
         var projectedGrid = _sampleProjectedExitPupil && _pupilSampling.HasValue
-            && _useExitPupilShape && !geometricShape && !Optic.ImageSpaceAfocal;
+            && _useExitPupilShape && !geometricShape && !analysisOptic.ImageSpaceAfocal;
+        var referenceWavelength = _referenceToPrimary
+            ? wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0] : wavelength;
+        var referenceSphere = _referenceToPrimary && !analysisOptic.ImageSpaceAfocal
+            && analysisOptic.ReferenceOpd == ReferenceOpdMode.ExitPupil
+            ? WavefrontEngine.CreateChiefRayReferenceSphere(analysisOptic, field, referenceWavelength,
+                analysisOptic.RayAimingEnabled, allowGeometricReference: true) : null;
         var wavefront = _pupilSampling.HasValue
-            ? WavefrontEngine.GenerateChiefRayGrid(Optic, field, wavelength,
+            ? WavefrontEngine.GenerateChiefRayGrid(analysisOptic, field, wavelength,
                 new PupilGridSpecification(_pupilSampling.Value, false, true, projectedGrid ? 1 / displayScaleX : 1)
                 { StretchY = projectedGrid ? 1 / displayScaleY : 1 },
-                Optic.RayAimingEnabled, null, null, allowGeometricReference: true)
-            : WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings,
-                aimAtStop: Optic.RayAimingEnabled, allowGeometricReference: true);
+                analysisOptic.RayAimingEnabled, _referenceToPrimary ? referenceWavelength : null,
+                referenceSphere, allowGeometricReference: true)
+            : WavefrontEngine.GenerateChiefRay(analysisOptic, field, wavelength, _numRings,
+                aimAtStop: analysisOptic.RayAimingEnabled, allowGeometricReference: true,
+                referenceWavelength: _referenceToPrimary ? referenceWavelength : null,
+                referenceSphere: referenceSphere);
         var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
         if (_removeTilt)
         {
@@ -149,7 +162,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
                 Value = (point.Value ?? 0) - displayOffset
             })
             .ToArray();
-        var geometry = geometricShape ? ExitPupilGeometryEngine.Compute(Optic, field, wavelength,
+        var geometry = geometricShape ? ExitPupilGeometryEngine.Compute(analysisOptic, field, wavelength,
             mapPoints.Select(p => ((p.X - _pupilSx) / _pupilSr, (p.Y - _pupilSy) / _pupilSr)).ToArray()) : null;
         var spatial = geometry?.Points.Select((p, i) => p with
         { SourceX = mapPoints[i].X, SourceY = mapPoints[i].Y }).ToArray();
@@ -177,17 +190,20 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             ["RmsWaves"] = Rms(valid, removePiston: _pupilSampling.HasValue),
             ["PeakToValleyWaves"] = maximum - minimum,
             ["ReferenceSphereRadius"] = wavefront.ImageSpaceAfocal ? 0 : wavefront.Radius,
-            ["ReferenceGeometry"] = wavefront.ImageSpaceAfocal
+            ["ReferenceGeometry"] = wavefront.ReferenceOpd is ReferenceOpdMode.Absolute or ReferenceOpdMode.Absolute2 && !wavefront.ImageSpaceAfocal
+                ? "image plane" : wavefront.ImageSpaceAfocal
                 ? "chief-ray plane"
                 : "reference sphere",
             ["ImageSpaceAfocal"] = wavefront.ImageSpaceAfocal,
             ["PupilDiameterMillimeters"] = wavefront.ImageSpaceAfocal
                 ? wavefront.AfocalPupilDiameterMillimeters
-                : Math.Abs(Optic.Paraxial.EstimateExitPupilDiameter(wavelength.Micrometers)),
+                : Math.Abs(analysisOptic.Paraxial.EstimateExitPupilDiameter(wavelength.Micrometers)),
             ["FieldHx"] = field.Hx,
             ["FieldHy"] = field.Hy,
             ["WavelengthMicrometers"] = wavelength.Micrometers,
-            ["Reference"] = wavefront.ImageSpaceAfocal
+            ["Reference"] = !wavefront.ImageSpaceAfocal
+                && wavefront.ReferenceOpd is ReferenceOpdMode.Absolute or ReferenceOpdMode.Absolute2
+                ? "image_plane" : wavefront.ImageSpaceAfocal
                 ? "chief_ray_plane"
                 : _referenceChiefRay ? "chief_ray" : "reference_sphere",
             ["Sampling"] = $"{sampling} x {sampling}",
@@ -195,6 +211,9 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             ["DisplayScale"] = _displayScale,
             ["Apodization"] = _apodization,
             ["ReferenceChiefRay"] = _referenceChiefRay,
+            ["ReferenceToPrimary"] = _referenceToPrimary,
+            ["ReferenceWavelengthMicrometers"] = referenceWavelength.Micrometers,
+            ["ReferenceOpdMode"] = analysisOptic.ReferenceOpd.ToString(),
             ["UseExitPupilShape"] = _useExitPupilShape,
             ["ExitPupilGeometryMode"] = _exitPupilGeometry.ToString(),
             ["ExitPupilGeometryRadiusMillimeters"] = geometry?.DisplayRadiusMillimeters ?? 0,
@@ -209,7 +228,7 @@ public sealed class WavefrontAnalysis : BaseAnalysis
                 : "Approximate X/Y working-F-number projection; display only",
             ["ExitPupilWorkingFNumberX"] = _useExitPupilShape && !geometricShape && !wavefront.ImageSpaceAfocal ? displayAxes.Sagittal : "Not evaluated",
             ["ExitPupilWorkingFNumberY"] = _useExitPupilShape && !geometricShape && !wavefront.ImageSpaceAfocal ? displayAxes.Tangential : "Not evaluated",
-            ["UseRayAiming"] = Optic.RayAimingEnabled,
+            ["UseRayAiming"] = analysisOptic.RayAimingEnabled,
             ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
             ["FieldNumber"] = _fieldNumber <= 0 ? fields.Count : _fieldNumber,
             ["SurfaceNumber"] = _surfaceNumber < 0

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="80431279-0492-4190-a8ed-e17d8357d5fc" name="allen@DESKTOP-SET3SNR 2026-11-04 22:20:41" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T22:20:41.6689586+08:00" queuing="2026-11-04T22:20:41.6689589+08:00" start="2026-11-04T22:20:38.3189606+08:00" finish="2026-11-04T22:20:43.0597077+08:00" />
+  <TestSettings name="default" id="80b407f1-26fe-454f-aaa1-c5e24d639896">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-04_22_20_41" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1faab203-34d0-4333-a66f-31c770128915" testId="ceb571f2-9001-e3f4-3c23-04c80acdbee3" testName="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts(kind: &quot;tooltip&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.3965318" startTime="2026-11-04T22:20:41.7343385+08:00" endTime="2026-11-04T22:20:42.1305059+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1faab203-34d0-4333-a66f-31c770128915" />
+    <UnitTestResult executionId="f3a00a08-57c0-431c-9543-dc9efc219a7c" testId="3b8edd01-c938-78f8-6088-7cfa28d585d2" testName="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts(kind: &quot;combo&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.2193047" startTime="2026-11-04T22:20:39.9271727+08:00" endTime="2026-11-04T22:20:41.1530298+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f3a00a08-57c0-431c-9543-dc9efc219a7c" />
+    <UnitTestResult executionId="d453d58e-62b3-426b-967c-4bce50aa913f" testId="86c87ea0-f1f6-9f49-253e-325da2dd3091" testName="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts(kind: &quot;context&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.5800114" startTime="2026-11-04T22:20:41.1603561+08:00" endTime="2026-11-04T22:20:41.7337095+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d453d58e-62b3-426b-967c-4bce50aa913f" />
+    <UnitTestResult executionId="1cc99716-4916-44ad-80f2-5daed611a4fa" testId="129762b2-a106-288b-1987-1aecda9ef2ab" testName="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts(kind: &quot;flyout&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:00.8493480" startTime="2026-11-04T22:20:42.1307709+08:00" endTime="2026-11-04T22:20:42.9803397+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1cc99716-4916-44ad-80f2-5daed611a4fa" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts(kind: &quot;context&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="86c87ea0-f1f6-9f49-253e-325da2dd3091">
+      <Execution id="d453d58e-62b3-426b-967c-4bce50aa913f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests" name="OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts(kind: &quot;flyout&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="129762b2-a106-288b-1987-1aecda9ef2ab">
+      <Execution id="1cc99716-4916-44ad-80f2-5daed611a4fa" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests" name="OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts(kind: &quot;tooltip&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ceb571f2-9001-e3f4-3c23-04c80acdbee3">
+      <Execution id="1faab203-34d0-4333-a66f-31c770128915" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests" name="OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts(kind: &quot;combo&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3b8edd01-c938-78f8-6088-7cfa28d585d2">
+      <Execution id="f3a00a08-57c0-431c-9543-dc9efc219a7c" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests" name="OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="ceb571f2-9001-e3f4-3c23-04c80acdbee3" executionId="1faab203-34d0-4333-a66f-31c770128915" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3b8edd01-c938-78f8-6088-7cfa28d585d2" executionId="f3a00a08-57c0-431c-9543-dc9efc219a7c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="86c87ea0-f1f6-9f49-253e-325da2dd3091" executionId="d453d58e-62b3-426b-967c-4bce50aa913f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="129762b2-a106-288b-1987-1aecda9ef2ab" executionId="1cc99716-4916-44ad-80f2-5daed611a4fa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.14]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.21]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.24]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:04.31]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

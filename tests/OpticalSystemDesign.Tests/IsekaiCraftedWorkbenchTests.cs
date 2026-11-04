@@ -26,9 +26,9 @@ public sealed class IsekaiCraftedWorkbenchTests
         .UseSkia().UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = false });
 
     [Theory]
-    [InlineData(1600, 1100, 13)]
-    [InlineData(1120, 850, 18)]
-    public async Task RealWorkbenchKeepsNativeDockAndCommandsInsideCraftedMaterials(double width, double height, double fontSize)
+    [InlineData(1600, 1100, 13, 1.5)]
+    [InlineData(1120, 850, 18, 2)]
+    public async Task RealWorkbenchKeepsNativeDockAndCommandsInsideCraftedMaterials(double width, double height, double fontSize, double scaling)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(IsekaiCraftedWorkbenchTests));
         await session.Dispatch(async () =>
@@ -43,6 +43,7 @@ public sealed class IsekaiCraftedWorkbenchTests
             try
             {
                 window.Show();
+                window.SetRenderScaling(scaling);
                 for (var n = 0; n < 250 && !ready; n++) { await Task.Delay(10); Tick(window); }
                 Assert.True(ready);
                 var panels = (PanelManager)typeof(MainWindow).GetField("_panels", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(window)!;
@@ -51,7 +52,7 @@ public sealed class IsekaiCraftedWorkbenchTests
                 var analysis = window.GetVisualDescendants().OfType<AnalysisPanel>().Single(p => p.IsEffectivelyVisible);
                 Assert.True(await analysis.RunForGuiCaptureAsync().WaitAsync(TimeSpan.FromSeconds(40)));
                 var ribbon = window.GetVisualDescendants().OfType<TabControl>().Single(c => c.Classes.Contains("ribbon-tabs"));
-                ribbon.SelectedItem = ribbon.Items.Cast<TabItem>().Single(t => AutomationProperties.GetName(t) == "分析");
+                ribbon.SelectedItem = ribbon.Items.Cast<TabItem>().Single(t => AutomationProperties.GetName(t) == UiLocalization.Text("分析"));
                 for (var n = 0; n < 12; n++) { await Task.Delay(20); Tick(window); }
                 Assert.Equal(original, workbench.Documents.GetRecoveryState());
                 var docTabs = window.GetVisualDescendants().OfType<DocumentTabStripItem>().Where(t => t.IsEffectivelyVisible).ToArray();
@@ -70,7 +71,7 @@ public sealed class IsekaiCraftedWorkbenchTests
                     Assert.True(ScientificIconPalette.Contrast(Assert.IsAssignableFrom<ISolidColorBrush>(icon.Stroke).Color,
                         Color.Parse("#E4C295")) >= 4.5);
                 var copy = Assert.IsType<Button>(commands.Children[2]);
-                var copyText = copy.GetVisualDescendants().OfType<TextBlock>().Single(t => t.Text == "复制文本");
+                var copyText = copy.GetVisualDescendants().OfType<TextBlock>().Single(t => t.Text == UiLocalization.Text("复制文本"));
                 var enabledInk = Assert.IsAssignableFrom<ISolidColorBrush>(copyText.Foreground).Color;
                 copy.IsEnabled = false; Tick(window);
                 Assert.NotEqual(enabledInk, Assert.IsAssignableFrom<ISolidColorBrush>(copyText.Foreground).Color);

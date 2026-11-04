@@ -1,0 +1,105 @@
+D:\Projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.85]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.37]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:02.43]   Starting:    OpticalSystemDesign.Tests
+[xUnit.net 00:00:11.84]     OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: "Spot Diagram") [FAIL]
+[xUnit.net 00:00:11.84]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:11.84]       Expected: 1919, 1080
+[xUnit.net 00:00:11.84]       Actual:   1440, 1080
+[xUnit.net 00:00:11.84]       Stack Trace:
+[xUnit.net 00:00:11.85]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs(82,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.<>c__DisplayClass1_0.<<PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes>b__0>d.MoveNext()
+[xUnit.net 00:00:11.85]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:11.85]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:11.85]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:11.85]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:11.85]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:11.85]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key)
+[xUnit.net 00:00:11.85]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: "Spot Diagram") [9 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 1919, 1080
+Actual:   1440, 1080
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.<>c__DisplayClass1_0.<<PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs:line 82
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs:line 34
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:18.92]     OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: "Wavefront Map") [FAIL]
+[xUnit.net 00:00:18.92]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:18.93]       Expected: 1919, 1080
+[xUnit.net 00:00:18.93]       Actual:   1440, 1080
+[xUnit.net 00:00:18.93]       Stack Trace:
+[xUnit.net 00:00:18.93]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs(82,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.<>c__DisplayClass1_0.<<PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes>b__0>d.MoveNext()
+[xUnit.net 00:00:18.93]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:18.93]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:18.93]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:18.93]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:18.93]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:18.93]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key)
+[xUnit.net 00:00:18.93]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: "Wavefront Map") [7 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 1919, 1080
+Actual:   1440, 1080
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.<>c__DisplayClass1_0.<<PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs:line 82
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs:line 34
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:25.55]     OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: "Huygens MTF") [FAIL]
+[xUnit.net 00:00:25.55]       Assert.Equal() Failure: Values differ
+[xUnit.net 00:00:25.55]       Expected: 1919, 1080
+[xUnit.net 00:00:25.55]       Actual:   1440, 1080
+[xUnit.net 00:00:25.55]       Stack Trace:
+[xUnit.net 00:00:25.55]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs(82,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.<>c__DisplayClass1_0.<<PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes>b__0>d.MoveNext()
+[xUnit.net 00:00:25.55]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:25.55]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext()
+[xUnit.net 00:00:25.55]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:25.55]            at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+[xUnit.net 00:00:25.55]         --- End of stack trace from previous location ---
+[xUnit.net 00:00:25.55]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs(34,0): at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key)
+[xUnit.net 00:00:25.55]         --- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: "Huygens MTF") [6 s]
+  错误消息:
+   Assert.Equal() Failure: Values differ
+Expected: 1919, 1080
+Actual:   1440, 1080
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.<>c__DisplayClass1_0.<<PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs:line 82
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass9_0.<<Dispatch>b__0>d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87
+--- End of stack trace from previous location ---
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(String key) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiDrawingMaterialTests.cs:line 34
+--- End of stack trace from previous location ---
+  已通过 OpticalSystemDesign.Tests.IsekaiCraftedWorkbenchTests.RealWorkbenchKeepsNativeDockAndCommandsInsideCraftedMaterials(width: 1120, height: 850, fontSize: 18, scaling: 2) [25 s]
+  已通过 OpticalSystemDesign.Tests.IsekaiCraftedWorkbenchTests.RealWorkbenchKeepsNativeDockAndCommandsInsideCraftedMaterials(width: 1600, height: 1100, fontSize: 13, scaling: 1.5) [19 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: "Lumen") [3 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: "Pixel") [3 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: "Light") [3 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: "Dark") [3 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: "Huygens MTF", artwork: 0) [6 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: "Huygens PSF", artwork: 1) [4 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: "Wavefront Map", artwork: 2) [4 s]
+[xUnit.net 00:01:44.83]   Finished:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: "Spot Diagram", artwork: 3) [3 s]
+
+测试运行失败。
+测试总数: 13
+     通过数: 10
+     失败数: 3
+总时间: 1.7617 分钟
+结果文件: D:\Projects\opticalsystem\artifacts\isekai-paper-gaps-20261104\results\paper-gaps.trx

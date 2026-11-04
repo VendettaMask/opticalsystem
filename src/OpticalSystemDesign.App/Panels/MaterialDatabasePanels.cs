@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Input;
@@ -20,9 +21,9 @@ public sealed class MaterialLibraryPanel : UserControl
     private IReadOnlyList<MaterialCatalogDto> _catalogs = Array.Empty<MaterialCatalogDto>();
     private IReadOnlyList<GlassMaterialDto> _glasses = Array.Empty<GlassMaterialDto>();
     private IReadOnlyList<GlassMaterialDto> _visibleGlasses = Array.Empty<GlassMaterialDto>();
-    private readonly ComboBox _catalog = new() { MinHeight = 34 };
+    private readonly ComboBox _catalog = new() { Name = "MaterialCatalogFamily", MinHeight = 34 };
     private readonly TextBox _search = new() { MinHeight = 34, PlaceholderText = "输入玻璃名称" };
-    private readonly ListBox _glassList = new();
+    private readonly ListBox _glassList = new() { Name = "MaterialGlassList" };
     private readonly TextBox _name = ReadOnlyField();
     private readonly TextBox _formula = ReadOnlyField();
     private readonly TextBox _state = ReadOnlyField();
@@ -35,10 +36,13 @@ public sealed class MaterialLibraryPanel : UserControl
     private readonly TextBlock[] _coefficientLabels = new TextBlock[10];
     private readonly TextBox[] _coefficientValues = new TextBox[10];
     private readonly Dictionary<string, TextBox> _properties = new(StringComparer.Ordinal);
+    private static readonly string[] CatalogPropertyNames = ["熔融频率", "标注", "参考成本", "CR", "FR", "SR", "AR", "PR"];
 
     public MaterialLibraryPanel(IMaterialCatalogService materials)
     {
         _materials = materials;
+        UiLocalization.Preserve(_catalog);
+        UiLocalization.Preserve(_glassList);
         _selectionSummary.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         for (var index = 0; index < _coefficientLabels.Length; index++)
         {
@@ -167,6 +171,37 @@ public sealed class MaterialLibraryPanel : UserControl
             coefficientFields.Children.Add(field);
         }
         coefficients.Children.Add(coefficientFields);
+        coefficients.Children.Add(SectionTitle("目录资料"));
+        var catalogFields = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,*"),
+            RowDefinitions = new RowDefinitions("Auto,Auto,Auto,Auto,Auto"),
+            ColumnSpacing = 16,
+            RowSpacing = 8
+        };
+        // Keep the original catalog comment selectable and wrapped, without
+        // translating or interpreting the manufacturer's text.
+        var positions = new[] { (0, 0), (1, 0), (0, 1), (2, 0), (2, 1), (3, 0), (3, 1), (4, 0) };
+        for (var index = 0; index < CatalogPropertyNames.Length; index++)
+        {
+            var name = CatalogPropertyNames[index];
+            var field = ReadOnlyField();
+            _properties[name] = field;
+            if (name == "标注")
+            {
+                field.TextWrapping = TextWrapping.Wrap;
+                field.MaxHeight = 104;
+            }
+            var row = LabeledControl($"{name}：", field);
+            Grid.SetRow(row, positions[index].Item1);
+            Grid.SetColumn(row, positions[index].Item2);
+            if (name == "标注") Grid.SetColumnSpan(row, 2);
+            catalogFields.Children.Add(row);
+        }
+        ToolTip.SetTip(_properties["参考成本"], "相对于 BK7 的目录参考成本，不是实时报价。");
+        foreach (var name in new[] { "参考成本", "CR", "FR", "SR", "AR", "PR" })
+            AutomationProperties.SetHelpText(_properties[name], UiLocalization.Text("问号表示原目录未提供该参数。"));
+        coefficients.Children.Add(catalogFields);
 
         var properties = new StackPanel { Spacing = 8 };
         properties.Children.Add(SectionTitle("材料参数"));
@@ -285,6 +320,7 @@ public sealed class MaterialLibraryPanel : UserControl
         _state.Text = glass.Status;
         _nd.Text = FormatNumber(glass.RefractiveIndexD, "0.000000");
         _vd.Text = FormatNumber(glass.AbbeNumber, "0.000");
+        foreach (var (name, value) in CatalogProperties(glass)) SetProperty(name, value);
 
         var coefficients = DisplayCoefficients(glass);
         for (var index = 0; index < _coefficientValues.Length; index++)
@@ -371,6 +407,12 @@ public sealed class MaterialLibraryPanel : UserControl
             return;
         }
 
+        await clipboard.SetTextAsync(BuildGlassReport(glass));
+        _selectionSummary.Text = "玻璃报告已复制";
+    }
+
+    internal static string BuildGlassReport(GlassMaterialDto glass)
+    {
         var report = new StringBuilder()
             .AppendLine($"材料库：{glass.Manufacturer}")
             .AppendLine($"玻璃：{glass.Name}")
@@ -382,9 +424,22 @@ public sealed class MaterialLibraryPanel : UserControl
         {
             report.AppendLine($"{coefficient.Label}：{NumericDisplayFormatter.Format(coefficient.Value, CultureInfo.InvariantCulture)}");
         }
+        foreach (var (name, value) in CatalogProperties(glass)) report.AppendLine($"{name}：{value}");
+        return report.ToString();
+    }
 
-        await clipboard.SetTextAsync(report.ToString());
-        _selectionSummary.Text = "玻璃报告已复制";
+    private static IEnumerable<(string Name, string Value)> CatalogProperties(GlassMaterialDto glass)
+    {
+        yield return ("熔融频率", glass.MeltFrequency.ToString(CultureInfo.InvariantCulture));
+        yield return ("标注", string.IsNullOrWhiteSpace(glass.Comment) ? "—" : glass.Comment);
+        for (var index = 0; index < 6; index++)
+        {
+            var value = index < glass.OtherData.Count ? glass.OtherData[index] : double.NaN;
+            // AGF OD uses -1 for unavailable cost/resistance data. A real zero
+            // remains zero, and manufacturer durability classes stay numerical.
+            yield return (CatalogPropertyNames[index + 2], double.IsFinite(value) && value >= 0
+                ? NumericDisplayFormatter.Format(value, CultureInfo.InvariantCulture) : "?");
+        }
     }
 
     private static IReadOnlyList<(string Label, double Value)> DisplayCoefficients(GlassMaterialDto glass)
@@ -948,13 +1003,13 @@ internal sealed class LensLibraryPanel : UserControl
 
     private static TextBlock DetailValue(
         double fontSize = 14,
-        FontWeight? fontWeight = null) => new()
+        FontWeight? fontWeight = null) => UiLocalization.Preserve(new TextBlock
         {
             FontSize = fontSize,
             FontWeight = fontWeight ?? FontWeight.Normal,
             VerticalAlignment = VerticalAlignment.Center,
             TextWrapping = TextWrapping.Wrap
-        };
+        });
 
     private static Button CommandButton(string iconName, string text) => new()
     {

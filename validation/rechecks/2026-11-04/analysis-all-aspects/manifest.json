@@ -1,0 +1,594 @@
+{
+  "date": "2026-11-04",
+  "scope": "All 25 graphical analysis presentations; outer layout only; no numerical certification",
+  "passed": 139,
+  "failed": 0,
+  "skipped": 0,
+  "groups": {
+    "AnalysisAutomaticAspectCoverageTests": 51,
+    "DiagramAspectRatioTests": 9,
+    "DiagramAutomaticAspectTests": 6,
+    "AnalysisResponsivePlotTests": 43,
+    "AnalysisResultBookTabsTests": 8,
+    "UniformDiagramExportTests": 10,
+    "DiagramViewportFitTests": 3,
+    "AnalysisFrameDpiTests": 9
+  },
+  "graphical_presentation_kinds": [
+    "AngleVsImageHeight",
+    "AxialAberration",
+    "CardinalPoints",
+    "ColorFocusShift",
+    "ConfigurationMatrixSpot",
+    "FftPsf",
+    "FieldCurvature",
+    "FieldCurvatureAndDistortion",
+    "FootprintDiagram",
+    "Foucault",
+    "FullFieldAberration",
+    "FullFieldSpot",
+    "HuygensPsf",
+    "Interferogram",
+    "LateralColor",
+    "MatrixSpot",
+    "Mtf",
+    "OpticalPathDifference",
+    "PupilAberration",
+    "RayFan",
+    "SeidelDiagram",
+    "SpotDiagram",
+    "Standard",
+    "ThroughFocusSpot",
+    "WavefrontMap"
+  ],
+  "cases": {
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: AxialAberration, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.SettingsPreviewDoesNotApplyUntilSaveAndFailedSaveRestoresPreference": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: ColorFocusShift, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: SpotDiagram, theme: \"Isekai\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAutomaticAspectTests.OneRealPsfKeepsAxesDataAndZoomAcrossAutomaticAndManualLayouts(theme: \"Isekai\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: LateralColor, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Field Curvature and Distortion\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAutomaticAspectTests.OneRealPsfKeepsAxesDataAndZoomAcrossAutomaticAndManualLayouts(theme: \"Lumen\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: AngleVsImageHeight, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Through Focus\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Geometric MTF\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Ray Fan\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Spot Diagram\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: FullFieldSpot, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: WavefrontMap, theme: \"Lumen\", variant: \"伪彩色\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: CardinalPoints, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.LayoutExportUsesSelectedWidthAndKeepsSceneAndCamera(dimension: TwoDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: Mtf, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAutomaticAspectTests.LayoutCameraAndSceneSurviveAutomaticAspectChanges(dimension: ThreeDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Huygens Through Focus MTF\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: SpotDiagram, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.LayoutExportUsesSelectedWidthAndKeepsSceneAndCamera(dimension: ThreeDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAutomaticAspectTests.SquarePlotAndHiddenLegendKeepTheirAxesWhileItsOuterPageChanges": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAutomaticAspectTests.LayoutCameraAndSceneSurviveAutomaticAspectChanges(dimension: TwoDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: Mtf, theme: \"Isekai\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: FootprintDiagram, theme: \"Lumen\", variant: \"equal-aspect\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.RealPsfSwitchKeepsResultControlsZoomAndPixelsOnReturn(theme: \"Lumen\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: FieldCurvature, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Footprint Diagram\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Incoherent Irradiance\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Huygens MTF\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: ThroughFocusSpot, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.RealPsfSwitchKeepsResultControlsZoomAndPixelsOnReturn(theme: \"Isekai\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: ConfigurationMatrixSpot, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: SeidelDiagram, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAutomaticAspectTests.TwoPanesSelectIndependentlyAndSmallDividerJitterDoesNotToggleTheSheet": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Geometric Through Focus MTF\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: OpticalPathDifference, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: Interferogram, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: FftPsf, theme: \"Lumen\", variant: \"表面\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: WavefrontMap, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: PupilAberration, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: HuygensPsf, theme: \"Lumen\", variant: \"表面\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.PreferenceDefaultsAndRoundTripsWithoutChangingOpticalSettings": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: WavefrontMap, theme: \"Lumen\", variant: \"等高线\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: FieldCurvatureAndDistortion, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Fourier Through Focus MTF\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: MatrixSpot, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: FootprintDiagram, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: Foucault, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: HuygensPsf, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Sampled MTF\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: WavefrontMap, theme: \"Isekai\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Wavefront Map\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Geometric MTF vs Field\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: Standard, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"MTF\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Huygens MTF vs Field\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.ReportBuildersUseSelectedAspectForAnalysisAndLayoutWithoutChangingInputs": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.SquarePlotsAndLegendVisibilitySurviveBothLayouts": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: FftPsf, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramAspectRatioTests.RealPsfSwitchKeepsResultControlsZoomAndPixelsOnReturn(theme: \"Light\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: RayFan, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.RealAnalysisResultIsReusedWithoutChangingItsAxesAndZoom(analysis: \"Fourier MTF vs Field\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: FullFieldAberration, theme: \"Lumen\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisAutomaticAspectCoverageTests.EveryDrawingKeepsItsDataAxesAndInteractionThroughAutomaticAndManualSwitching(kind: ConfigurationMatrixSpot, theme: \"Isekai\", variant: \"default\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FootprintDiagram)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: \"Huygens MTF\", artwork: 0)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FullFieldSpot)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: \"Spot Diagram\", artwork: 3)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: WavefrontMap)": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Ray Fan\")": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"MTF\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramViewportFitTests.LayoutUsesTheSameFitHostAndKeepsCameraAndExportAcrossResize(dimension: TwoDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: AngleVsImageHeight)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: \"Lumen\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: \"Huygens PSF\", artwork: 1)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.FitHostPreservesTheOriginalSheetAndShowsItsFullFooter": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OversizedSourceIsExplicitlyRejectedWithoutClippingShrinkingOrChangingTheResult": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: \"Light\", fontSize: 32)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: AxialAberration)": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: ThreeDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FftPsf)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: Interferogram)": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Field Curvature and Distortion\")": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Incoherent Irradiance\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: \"Isekai\", language: \"zh-CN\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: SpotDiagram)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: \"Pixel\", language: \"ja-JP\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 1200, height: 360)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: \"Light\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1080, width: 1920, dpi: 96)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FullFieldAberration)": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.LayoutViewAndCameraExportShareTheSameSheetAndKeepCurrentCamera(dimension: TwoDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: Foucault)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PrintDpiChangesOnlyMetadataAndJpegPathsCannotOverwriteFiles": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FieldCurvature)": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Spot Diagram\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.FittedPlotsRetainInteractiveZoomAcrossResize": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: HuygensPsf)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.FixedCanvasPadsCenteredOrFillsOnlyWhenTheUserUnlocksIt": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: \"Dark\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 640, height: 320)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: Standard)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.OtherThemesKeepNativePixelsThroughBookThemeRoundTrips(theme: \"Pixel\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: ZernikeStandard)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: ConfigurationMatrixSpot)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: ColorFocusShift)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: PupilAberration)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: \"Dark\", fontSize: 20)": "Passed",
+    "OpticalSystemDesign.Tests.DiagramViewportFitTests.LayoutUsesTheSameFitHostAndKeepsCameraAndExportAcrossResize(dimension: ThreeDimensional)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResultBookTabsTests.BookContainsWorkingNativeTabsAndOnlySafeTypedAccessories(key: \"Wavefront Map\", artwork: 2)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: OpticalPathDifference)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"en-US\", theme: \"Dark\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 420, height: 260)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.EveryPlotFamilyKeepsItsSourceCaptionOrExplicitlyRejectsOversizeAcrossResize(theme: \"Light\", fontSize: 13)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: \"Dark\", language: \"en-US\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: FieldCurvatureAndDistortion)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: ZernikeAnnular)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: RayFan)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: ThroughFocusSpot)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: MatrixSpot)": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Wavefront Map\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: SeidelCoefficients)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: Mtf)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"zh-CN\", theme: \"Light\")": "Passed",
+    "OpticalSystemDesign.Tests.DiagramViewportFitTests.AnalysisFitsBothWindowSizesAndModeSurvivesRefreshWithoutChangingExport": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 2160, width: 3840, dpi: 600)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.StackedPlotsAndTheirLegendsRemainUsableAcrossThemes(theme: \"Light\", language: \"zh-CN\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.OldSettingsDefaultTo1080AndIndependent150DpiAndRoundTrip": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1440, width: 2560, dpi: 300)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.PlotAndFooterStayInsideTheirPageWithoutOverlap(width: 900, height: 700)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CoefficientReportsKeepFullTextAndScrollInSmallPanes(kind: ZernikeFringe)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: SeidelDiagram)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.ActualSizeModeScrollsAtReadableSizeAndCanReachTheFullFooter": "Passed",
+    "OpticalSystemDesign.Tests.UniformDiagramExportTests.OriginalSheetGeometryFontsAndPixelsStayStableAcrossWindowResizing(key: \"Through Focus\")": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.DataAndReportTabsScrollWithinTheAvailableHeight": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisResponsivePlotTests.CommonAndSpecializedPlotPresentationsFitSmallPanes(kind: LateralColor)": "Passed",
+    "OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: \"ja-JP\", theme: \"Light\")": "Passed"
+  },
+  "sources": {
+    "AGENTS.md": "94deb9b08595738613940a7c996604e595ee178deb110db4a8bea3bdebdf1beb",
+    "docs/CURRENT_STATUS.md": "7dcdb4a8d26ce623bed02a459f9fee1061199fcc299aaeaf6e82ae8daa09f51e",
+    "docs/UI_DESIGN_SPEC.md": "5df2aeece937d1ab5422137fbc1e13027835995ec0f0704c7ce9cd32db84b348",
+    "docs/USER_GUIDE.md": "a9bb072b38879d516a347517e0fe65974436c4821a248c921cc3df6fb4eb2202",
+    "docs/MARKDOWN_REPORT_EXPORT.md": "7e8a688a118f0c3bfc5ff9c7b26b8e689d307511116442b029798d9774edca8b",
+    "src/OpticalSystemDesign.App/Controls/UniformDiagramPage.cs": "bcbc65591ec9cf119817f6e05cd3c918acd45a81ac75d12cff0db26784577335",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs": "ffc529b0c39e4d1dbe7d0f326233f760e5468eba119e92fd6df6cc6b83616b0b",
+    "tests/OpticalSystemDesign.Tests/AnalysisAutomaticAspectCoverageTests.cs": "1bd71797f1cc60fcc526efd889045786ed666ffc73b335409dabda592c6201fa",
+    "tests/OpticalSystemDesign.Tests/AnalysisResponsivePlotTests.cs": "35bc81d86489232bd4c3ba8110f447cb59f110687300a8ca46f1ade9d16f6dd6"
+  },
+  "unchanged_renderers": {
+    "AnalysisPlotControl.cs": "a2f2829410192ebb1996aa70c1ed69dfdc8cd0756efabf38576a22227308b1c2",
+    "WavefrontSurfaceControl.cs": "9b5593cda2b67e11d283d484e6f1dab257dde94a5bdb03625589362962ea83be",
+    "FoucaultPlotControl.cs": "d49b0c9b9837d47a5e644c5bb8022785aeca950ef081da98aabb2e872db6d0c1",
+    "FullFieldAberrationControl.cs": "a098e8762e4783a2f2abb3baf9b476cb01d00249ef551db8fea8c03bfb3bd34e",
+    "SeidelDiagramControl.cs": "20c44e21c9f7d992df1b670b06d708f0759861ac5a0e66e54b664bad7678ab1b",
+    "OpticSceneControl.cs": "ef440e8f77deb325028bc96192b013bd3d59e69293dba760f802c00e4225a9a9"
+  },
+  "captures": {
+    "AngleVsImageHeight-Lumen-default-narrow-zoomed.png": {
+      "bytes": 43212,
+      "sha256": "74bab577205832f35f4eed515379469bdf9bf1d6458f2f48c5b3deb8e7818ad6"
+    },
+    "AngleVsImageHeight-Lumen-default-wide.png": {
+      "bytes": 55277,
+      "sha256": "8dd86fac8df83286fd6ca4fbe3c968abf58f29d118a20b854c540ad041c344de"
+    },
+    "AxialAberration-Lumen-default-narrow-zoomed.png": {
+      "bytes": 45875,
+      "sha256": "e6b553667d32ebcdbcc4799fb726ebb838ae507405023706be098b0fd28a9582"
+    },
+    "AxialAberration-Lumen-default-wide.png": {
+      "bytes": 57801,
+      "sha256": "34aa3e21dca48f3a77a9dfecdeeaf3f9de57778f72830bff5d3c40c7fb74d197"
+    },
+    "CardinalPoints-Lumen-default-narrow-zoomed.png": {
+      "bytes": 84585,
+      "sha256": "56cf450f412e9cfbd18ec39eb3b9deffca0fcac6517c27b42ab5bbc147a773d4"
+    },
+    "CardinalPoints-Lumen-default-wide.png": {
+      "bytes": 91444,
+      "sha256": "1652faab10db0c707b75c3295859ebbcd64717369c7bdac8c4ae12da1e4ebe66"
+    },
+    "ColorFocusShift-Lumen-default-narrow-zoomed.png": {
+      "bytes": 47672,
+      "sha256": "2e5769c329fa954c8d6a1974476f4124f880f34893adf8e1ae04f05e2e336bdf"
+    },
+    "ColorFocusShift-Lumen-default-wide.png": {
+      "bytes": 60079,
+      "sha256": "224f9dac698a3fcc04b93d1bdcffd32fb494ba07dc3959f134ce17bf90979a5b"
+    },
+    "ConfigurationMatrixSpot-Isekai-default-narrow-zoomed.png": {
+      "bytes": 2020653,
+      "sha256": "20a4751007f64d468510dea473360308151d58bd302fd9d8a19816a1660815fd"
+    },
+    "ConfigurationMatrixSpot-Isekai-default-wide.png": {
+      "bytes": 2023092,
+      "sha256": "4a014ff658f60bfa03de16e779d4369d3032de11b65957b49bf3a5f0c5ba1da8"
+    },
+    "ConfigurationMatrixSpot-Lumen-default-narrow-zoomed.png": {
+      "bytes": 54900,
+      "sha256": "002a10e4b6dc9e77e929c6e14fc75478b237fd61599fb6cc68b58cfa582ad834"
+    },
+    "ConfigurationMatrixSpot-Lumen-default-wide.png": {
+      "bytes": 57852,
+      "sha256": "5ff07ce703bc856df3d996f2d742aeb8a0173acb2e640bb803e909d1929bf17e"
+    },
+    "FftPsf-Lumen-default-narrow-zoomed.png": {
+      "bytes": 34522,
+      "sha256": "26d23ae0df0bb72db624bd1d350f307870b87c7acb758200c6275b3de2b99844"
+    },
+    "FftPsf-Lumen-default-wide.png": {
+      "bytes": 36710,
+      "sha256": "a1a277e7302e244e2e0b78b51a2b6d17b1ed6390e4fc5aa2d814d965d6ec7424"
+    },
+    "FftPsf-Lumen-表面-narrow-zoomed.png": {
+      "bytes": 80653,
+      "sha256": "230880e8a48ed6182ca87ef27710e29dea9a9ef832a41994e964a62046c7fc03"
+    },
+    "FieldCurvature-Lumen-default-narrow-zoomed.png": {
+      "bytes": 43590,
+      "sha256": "f31ea7f838269e5ce43890528a1a754d2637a3a82f09ebdf4a52bf4765c73c67"
+    },
+    "FieldCurvature-Lumen-default-wide.png": {
+      "bytes": 55628,
+      "sha256": "8e9c9fc92a207d09fff0daee2732413d98057acee963b176b94747358664ebf0"
+    },
+    "FieldCurvatureAndDistortion-Lumen-default-narrow-zoomed.png": {
+      "bytes": 74710,
+      "sha256": "716aabe3468abff325507c12d8ae3cd8b0244e6691759d43540bfdb0fa5d7dc3"
+    },
+    "FieldCurvatureAndDistortion-Lumen-default-wide.png": {
+      "bytes": 75367,
+      "sha256": "ebfc2bc41075468e660cdaf8ba4968f6e0c0416e466fd37a8de765b1ee596394"
+    },
+    "FootprintDiagram-Lumen-default-narrow-zoomed.png": {
+      "bytes": 51696,
+      "sha256": "cf6d3e3013ba4ec6a0b3e14f860868ad03028a833e215cc3b79c2d90ec20fb2b"
+    },
+    "FootprintDiagram-Lumen-default-wide.png": {
+      "bytes": 64075,
+      "sha256": "cad3ff5c33de98fae2a6d5d9d967e9a8a31b7009307995089d29f46ab2f5d79a"
+    },
+    "FootprintDiagram-Lumen-equal-aspect-narrow-zoomed.png": {
+      "bytes": 46548,
+      "sha256": "40ab7b4ce0b83ea3bbc44e4e2b501f7eced6307b813469a15e855c3f00e9e571"
+    },
+    "Foucault-Lumen-default-narrow-zoomed.png": {
+      "bytes": 34430,
+      "sha256": "cccee6e8de8257a314bd986a3335a40edd510e03a49e02cbc9799ed3ecf57674"
+    },
+    "Foucault-Lumen-default-wide.png": {
+      "bytes": 36823,
+      "sha256": "89ae9aa08f7c03dedcc210062b05e07879c8259bf749e855c901ff6cb7472fba"
+    },
+    "FullFieldAberration-Lumen-default-narrow-zoomed.png": {
+      "bytes": 96435,
+      "sha256": "f4dcdf36356d8abb57185dc9e6f118a3954160536b4e32bba6a0bb870d676612"
+    },
+    "FullFieldAberration-Lumen-default-wide.png": {
+      "bytes": 111499,
+      "sha256": "743c6c39538991092677f6c064222f1bb924a1349e42b680153b314dc9cb01b5"
+    },
+    "FullFieldSpot-Lumen-default-narrow-zoomed.png": {
+      "bytes": 49950,
+      "sha256": "ed2a2011d9c846e61937dc7fb25acb232796201a7332854c0bdbadfe5105167a"
+    },
+    "FullFieldSpot-Lumen-default-wide.png": {
+      "bytes": 62258,
+      "sha256": "8b9b72166fad3399648afeab553019c5c1505dd97b69d5e4d223013a78fd53b6"
+    },
+    "HuygensPsf-Lumen-default-narrow-zoomed.png": {
+      "bytes": 34348,
+      "sha256": "cc5d8f6f71d81dab90799dbb026582d1eafa0afffee166cd22aea5841ca025bc"
+    },
+    "HuygensPsf-Lumen-default-wide.png": {
+      "bytes": 36493,
+      "sha256": "3fd84c1fa00fd3eabbee1a3bca8d528ddf57f87183599ccef839a1ed63cdc1f2"
+    },
+    "HuygensPsf-Lumen-表面-narrow-zoomed.png": {
+      "bytes": 79396,
+      "sha256": "0f87c482c0c52e0edc0a9f7b15e31a1ba35d512d5a0387f577daa59fb7123352"
+    },
+    "Interferogram-Lumen-default-narrow-zoomed.png": {
+      "bytes": 38368,
+      "sha256": "cf50c4d6cba32225aea0e3b557d8bf022352cc72d8af38255c6a3491490a22bf"
+    },
+    "Interferogram-Lumen-default-wide.png": {
+      "bytes": 40393,
+      "sha256": "7f5c23529cc7ac5a66e12844c4ddd844828572199830fe818295472901c8338b"
+    },
+    "LateralColor-Lumen-default-narrow-zoomed.png": {
+      "bytes": 46284,
+      "sha256": "bcd613fa6e28e5a0bd21a770043f77b2ce5f6c740c2061d79d5d50a741bf7851"
+    },
+    "LateralColor-Lumen-default-wide.png": {
+      "bytes": 58154,
+      "sha256": "5c4b108437a3ca081f3541fd632c324fb26503bf17f78abbbab80ce503941b75"
+    },
+    "MatrixSpot-Lumen-default-narrow-zoomed.png": {
+      "bytes": 45993,
+      "sha256": "abf74624aa9f580d88d96c771b7860e6ebe76586420c0e38354f5e181565024d"
+    },
+    "MatrixSpot-Lumen-default-wide.png": {
+      "bytes": 47920,
+      "sha256": "c554451432763ebcd2955afaea68dbc37548d888b2147b2967c153d13f0bb8b4"
+    },
+    "Mtf-Isekai-default-narrow-zoomed.png": {
+      "bytes": 2017723,
+      "sha256": "415d332d8ca843bfc22a01d89e65fd611d55f457fcac4a623adbb711c14305c7"
+    },
+    "Mtf-Isekai-default-wide.png": {
+      "bytes": 2009209,
+      "sha256": "6905e677173fbaf0b7ebbd85db7fbf150ad60b1a45429c73d9e1846230f5ff92"
+    },
+    "Mtf-Lumen-default-narrow-zoomed.png": {
+      "bytes": 47162,
+      "sha256": "aa90e2bfea72c65846f0604c18966f5cba04b9a8268b94020c6daf7d581d5794"
+    },
+    "Mtf-Lumen-default-wide.png": {
+      "bytes": 59520,
+      "sha256": "363c5b88dfc578312934e28305d632b73d7f444804fb495848748fb7d1eef3e4"
+    },
+    "OpticalPathDifference-Lumen-default-narrow-zoomed.png": {
+      "bytes": 76163,
+      "sha256": "36c398533c09c600129740772a9d0c9f13322997b14913790661911e6e7d4810"
+    },
+    "OpticalPathDifference-Lumen-default-wide.png": {
+      "bytes": 77159,
+      "sha256": "18d264c4c0643051ee8be80e6c1f6fe0454c8b67d296f75d6ad1e2fe6c128086"
+    },
+    "PupilAberration-Lumen-default-narrow-zoomed.png": {
+      "bytes": 62293,
+      "sha256": "10ac695a7f271ff79b2c68d9e5c789dc968d597a00b431d71a7e1c562ec847a5"
+    },
+    "PupilAberration-Lumen-default-wide.png": {
+      "bytes": 63850,
+      "sha256": "b88ec2077b16c49d7440c163f0714aa42bfab852d92d0c40702d56e288e9182a"
+    },
+    "RayFan-Lumen-default-narrow-zoomed.png": {
+      "bytes": 69222,
+      "sha256": "08b41daf9e786fb377b3a99f1e2723277c92f70baeba4c865603d1d9e81a8fe3"
+    },
+    "RayFan-Lumen-default-wide.png": {
+      "bytes": 71196,
+      "sha256": "de2f2418741b1528a4f73eb38959c35510b457e2f218b794ead3f91e41dbc488"
+    },
+    "real-Field-Curvature-and-Distortion-narrow.png": {
+      "bytes": 76230,
+      "sha256": "02fecad19807833ef9a139893e77c4bb73c033f9e3687a4b314226e1b422517d"
+    },
+    "real-Field-Curvature-and-Distortion-wide.png": {
+      "bytes": 83858,
+      "sha256": "519535e85bfcfedb4dce90030a77964a0711e3741750c16bbd1652ac65300070"
+    },
+    "real-Footprint-Diagram-narrow.png": {
+      "bytes": 63299,
+      "sha256": "ebf514409cf08d9c55f3003240c1f518432cd62f868bc73c9ebbef0212296ec3"
+    },
+    "real-Footprint-Diagram-wide.png": {
+      "bytes": 66148,
+      "sha256": "fbe0497ccda9486191c643e13342439fdf5a2c2a1362c27a3fbdc4c61d9f25cb"
+    },
+    "real-Fourier-MTF-vs-Field-narrow.png": {
+      "bytes": 76449,
+      "sha256": "e288b50810635c894af219e8a102a6ae3d3260dfaafadb4e6f998e6ce43f654a"
+    },
+    "real-Fourier-MTF-vs-Field-wide.png": {
+      "bytes": 82377,
+      "sha256": "31cb2b9c1a7b97a17bac68b301114b8b9a1c3bd8d43c17f5b3e9c16af0beca02"
+    },
+    "real-Fourier-Through-Focus-MTF-narrow.png": {
+      "bytes": 95766,
+      "sha256": "294d1eff4b1e4c842ccb3c2f3f41857ba456a7a1c9880b5ca0b6c20b6f80a94d"
+    },
+    "real-Fourier-Through-Focus-MTF-wide.png": {
+      "bytes": 102524,
+      "sha256": "76db30386a1ae6b44ca51aa6029c6dbd30bd4928ac92d8a96181797ab5ce0908"
+    },
+    "real-Geometric-MTF-narrow.png": {
+      "bytes": 112609,
+      "sha256": "67bfdc779b727c9ee636a77b341d27140062880d31a0686dadd27ca089ecab78"
+    },
+    "real-Geometric-MTF-vs-Field-narrow.png": {
+      "bytes": 76499,
+      "sha256": "a487e70935838bd533952a21d50adf850c6b7d8266ac243762387a9a41673c7a"
+    },
+    "real-Geometric-MTF-vs-Field-wide.png": {
+      "bytes": 83264,
+      "sha256": "b38fb69cb3ae1ab11cc6ca799646aefbfb1f2c26b7d71152d30976079ea6663c"
+    },
+    "real-Geometric-MTF-wide.png": {
+      "bytes": 128835,
+      "sha256": "00b3fe05d84a664e244b2e8b1f554e204d636166001acc83f6af8ef84d3b51c3"
+    },
+    "real-Geometric-Through-Focus-MTF-narrow.png": {
+      "bytes": 97086,
+      "sha256": "dfab79a697c3bd57fccd70317ce1946b9a567b8cf1be7e79c126f966f713007f"
+    },
+    "real-Geometric-Through-Focus-MTF-wide.png": {
+      "bytes": 105263,
+      "sha256": "6b71d030fad380d37aaa52ab021a5a4f81a8566f3a3b0b6078cd3136e116c35d"
+    },
+    "real-Huygens-MTF-narrow.png": {
+      "bytes": 115333,
+      "sha256": "c898027356bbdcb76ee4093ee1e25e5d46675cab3e5d2da4b5e7e0c905bfaf74"
+    },
+    "real-Huygens-MTF-vs-Field-narrow.png": {
+      "bytes": 109704,
+      "sha256": "7db12a75dbe11456e134af07ce087ab8c42f4eae047f9388c2d9122df5cf835b"
+    },
+    "real-Huygens-MTF-vs-Field-wide.png": {
+      "bytes": 118063,
+      "sha256": "16372d45c83862d04f14c2e36b6e2275189dddc6f0a101fdfcb3aedc7231f8ae"
+    },
+    "real-Huygens-MTF-wide.png": {
+      "bytes": 135062,
+      "sha256": "eac4999404f46d3ffc224dbcd9476805f61c7bfbc3a00ffaf8a098a900297ceb"
+    },
+    "real-Huygens-Through-Focus-MTF-narrow.png": {
+      "bytes": 71964,
+      "sha256": "06127a8dff7adae13fb3b57221d040230c5725ea50d725348b3fdf211d0dd448"
+    },
+    "real-Huygens-Through-Focus-MTF-wide.png": {
+      "bytes": 79207,
+      "sha256": "d4d3d2dd8708398d137b570fdd96f2f64e6072a668b816eb9c5f061dcc558508"
+    },
+    "real-Incoherent-Irradiance-narrow.png": {
+      "bytes": 135341,
+      "sha256": "ba92a847995875ad23f9aeb15010727a56cbb34455b31652bbfe0ff312bf398c"
+    },
+    "real-Incoherent-Irradiance-wide.png": {
+      "bytes": 140423,
+      "sha256": "8da6a3e178714820aa900d8cde1a18b8fd20bb6485e6fcc86dec947ab3222e7f"
+    },
+    "real-MTF-narrow.png": {
+      "bytes": 113016,
+      "sha256": "89ebcf06ae1df718cf2330cf1f452fc09a7bf43f1d6be9a947e9299ba5feaa3b"
+    },
+    "real-MTF-wide.png": {
+      "bytes": 129573,
+      "sha256": "22747366f6f30cfdfcc5dbbc0ebeb9924e7e58f3593b9e17d1ec0e318205714e"
+    },
+    "real-Ray-Fan-narrow.png": {
+      "bytes": 58496,
+      "sha256": "cc6b1ff67a7a95f0b9c9e313167cc6814e5df412472804b4198884643a8c585c"
+    },
+    "real-Ray-Fan-wide.png": {
+      "bytes": 66134,
+      "sha256": "16b4ccccf39dd4293445b8bbf29185a9050119ee411056117c0e69a37c669188"
+    },
+    "real-Sampled-MTF-narrow.png": {
+      "bytes": 112787,
+      "sha256": "3d7cb005b6918d3c0a5901df1255e606983447064084b81eada958441572c86a"
+    },
+    "real-Sampled-MTF-wide.png": {
+      "bytes": 126853,
+      "sha256": "ebaacd3f0c587defd27e97028813339a4243771b803797b1fbdefbeeca8cbea0"
+    },
+    "real-Spot-Diagram-narrow.png": {
+      "bytes": 57008,
+      "sha256": "430bc51026b2b7d0e9823cea10478bca82ec5b94b9d7e4faaaf7fe96889a70bc"
+    },
+    "real-Spot-Diagram-wide.png": {
+      "bytes": 58819,
+      "sha256": "95890bdfa7707d95537a8b038e340695645ee4545c749dae2ac65fe40837e149"
+    },
+    "real-Through-Focus-narrow.png": {
+      "bytes": 103980,
+      "sha256": "6b814d7f6c4ead5cb8c9e09bd49b44fc1d603c86d384c8c0f4d51086504e4117"
+    },
+    "real-Through-Focus-wide.png": {
+      "bytes": 106960,
+      "sha256": "af4ebf0ffad352f0a3ab1f2ce9a92fbbbc0e3abf5cd9d055ee4300e632552401"
+    },
+    "real-Wavefront-Map-narrow.png": {
+      "bytes": 246781,
+      "sha256": "35f643cb13e6e1a3ad8e06b178b92c3d07cac15fdb8e606d867c5d3a0ea81c67"
+    },
+    "real-Wavefront-Map-wide.png": {
+      "bytes": 251463,
+      "sha256": "91c72bfadb832a4049479218bfe813f7d1efbff23e5367ab7a2bb729b1d1f46b"
+    },
+    "SeidelDiagram-Lumen-default-narrow-zoomed.png": {
+      "bytes": 29935,
+      "sha256": "6e5adf8792f08f48effdaced0198f45d31af6f17159c3a9b81e051f518d8439a"
+    },
+    "SeidelDiagram-Lumen-default-wide.png": {
+      "bytes": 33855,
+      "sha256": "1bfd3a5164de5ca456b756dd64a36a25c6afebe213ca7551aba767b360d82ef0"
+    },
+    "SpotDiagram-Isekai-default-narrow-zoomed.png": {
+      "bytes": 2016473,
+      "sha256": "4020317bec87059866363a1dd873fbfbaaf61d0ed8250fed3aad0106defe1a68"
+    },
+    "SpotDiagram-Isekai-default-wide.png": {
+      "bytes": 2015264,
+      "sha256": "e9999440a2f0d7352bc67e5ff77bd7f3230c0bbc9b281b4fd08ffb835d1c84dd"
+    },
+    "SpotDiagram-Lumen-default-narrow-zoomed.png": {
+      "bytes": 51133,
+      "sha256": "765b240d2365ce32d1bcb395e0fb140a97c4dc897d7e4a00e4fc58e9af1489fa"
+    },
+    "SpotDiagram-Lumen-default-wide.png": {
+      "bytes": 53410,
+      "sha256": "46f91cbb118b2eedf97fb8f4d9a1881c25a6e34bad681e1e52963d7b2d29c26f"
+    },
+    "Standard-Lumen-default-narrow-zoomed.png": {
+      "bytes": 47162,
+      "sha256": "aa90e2bfea72c65846f0604c18966f5cba04b9a8268b94020c6daf7d581d5794"
+    },
+    "Standard-Lumen-default-wide.png": {
+      "bytes": 59520,
+      "sha256": "363c5b88dfc578312934e28305d632b73d7f444804fb495848748fb7d1eef3e4"
+    },
+    "ThroughFocusSpot-Lumen-default-narrow-zoomed.png": {
+      "bytes": 50243,
+      "sha256": "220eb8747ca04e019120bfdd6961797fcf2d394a91ea36956eb354a241705cb1"
+    },
+    "ThroughFocusSpot-Lumen-default-wide.png": {
+      "bytes": 52556,
+      "sha256": "02b9fd7c6b23d70e119370d05185a2526b0d646343565fdf01dcb91830454f9b"
+    },
+    "WavefrontMap-Isekai-default-narrow-zoomed.png": {
+      "bytes": 1902991,
+      "sha256": "7c72617a29fcde9236da6059f86a5af35aa22385aaedfe411d3fd2a2f6745a61"
+    },
+    "WavefrontMap-Isekai-default-wide.png": {
+      "bytes": 1949531,
+      "sha256": "bc78696391fb352be8b710bdca3f69d4406016094a503f29719f13dcd6d26e7d"
+    },
+    "WavefrontMap-Lumen-default-narrow-zoomed.png": {
+      "bytes": 72581,
+      "sha256": "b7688c2618db6a68e966f799d78d235c8b4b0f4d4d5501b835928e683cce4dba"
+    },
+    "WavefrontMap-Lumen-default-wide.png": {
+      "bytes": 74274,
+      "sha256": "f398c8aeacc65e104c64cf04cdc50c9ffcf85764e0de423246af68c1e53e0c0c"
+    },
+    "WavefrontMap-Lumen-伪彩色-narrow-zoomed.png": {
+      "bytes": 36986,
+      "sha256": "1047f69b73a76f47ac866b49494cbc51adab95ec8b147d8f5c759927010fbd65"
+    },
+    "WavefrontMap-Lumen-等高线-narrow-zoomed.png": {
+      "bytes": 56170,
+      "sha256": "66a502641c3df343e5f94f6a646401ab37876fd578dc7eef324cc56754631dd8"
+    }
+  }
+}

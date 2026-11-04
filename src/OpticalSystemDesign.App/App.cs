@@ -41,6 +41,12 @@ public sealed class App : Avalonia.Application
         {
             Setters = { new Setter(TextElement.FontFamilyProperty, new DynamicResourceExtension(ProductFonts.InterfaceResource)) }
         });
+        foreach (var type in new[] { typeof(MenuFlyoutPresenter), typeof(FlyoutPresenter), typeof(MenuItem),
+            typeof(ContextMenu), typeof(ToolTip), typeof(ComboBoxItem) })
+            Styles.Add(new Style(selector => selector.OfType(type))
+            {
+                Setters = { new Setter(TextElement.FontFamilyProperty, new DynamicResourceExtension(ProductFonts.InterfaceResource)) }
+            });
         Styles.Add(new Style(selector => selector.Is<Control>().Class(ProductFonts.NumericClass))
         {
             Setters = { new Setter(TextElement.FontFamilyProperty, new DynamicResourceExtension(ProductFonts.NumericResource)) }

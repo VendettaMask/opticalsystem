@@ -1,0 +1,250 @@
+{
+  "date": "2026-11-04",
+  "scope": "Official CDGM September 2026 direct consolidation and material-library details; no whole-repository or new optical certification",
+  "authoritative_run": "material-final-with-catalog-extensions.trx",
+  "passed": 39,
+  "failed": 0,
+  "skipped": 0,
+  "source": "https://www.cdgmgd.com/downloadFile.htm?uid=vkYlfwDmuNtvITOp4NV",
+  "current_cdgm_names": 352,
+  "other_catalogs_unchanged": 59,
+  "groups": {
+    "MaterialLibraryPanelTests": 9,
+    "CdgmOfficialCatalogTests": 7,
+    "GlassCatalogTests": 13,
+    "MaterialAnalysisTests": 9,
+    "AccessibilityAndResponsiveLayoutTests": 1
+  },
+  "update_receipt": "catalog-update-receipt.json",
+  "hashes": {
+    "src/OpticalSystemDesign.App/Panels/MaterialDatabasePanels.cs": "13d6502f2e6dd1a4097679a81131519015febd82ff35a013994eeec9f79870e6",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.MaterialLibrary.cs": "7f5137d3f0325fe90f64407018ffa5913f84abe3fba080ab906fa3ac186f7a83",
+    "src/OpticalSystemDesign.Core/Materials/GlassCatalogDatabase.cs": "bd1604b353657abd7495bac81cdbac47888d9c350d622b6c22b626937bc1c4b0",
+    "src/OpticalSystemDesign.Core/Materials/MaterialRegistry.cs": "19b6fdf3c9ccd301b87b6b2e76221f3cbc21088a7ffecf02d53d12be7725f430",
+    "src/OpticalSystemDesign.Core/Materials/ZemaxGlassCatalog.cs": "e0ca0a2112b504a4865458e06ada7cceb3d65acf1d883f4196cffda3be843464",
+    "src/OpticalSystemDesign.Core/Materials/Data/zemax-glass-catalogs.ogdb": "ea8e19e06ddf81a5049874d8a81d88cba44fd464c6e4419525ce8a3f70deb7dd",
+    "tools/OpticalSystemDesign.GlassCatalogConverter/Program.cs": "bf7541510c36773fbf52cf6b39d78ceb26c126a3a5b0a3091f7b25ac1f458eba",
+    "tests/OpticalSystemDesign.Tests/CdgmOfficialCatalogTests.cs": "c044cebab83d8067260776a12dbbb9dfed58aa233420cce08ed0333c878ba982",
+    "tests/OpticalSystemDesign.Tests/MaterialLibraryPanelTests.cs": "47c3f88990d25932d827d5d62072d0d3a944446c19b13f7fd5b2f0b87950ad74",
+    "tests/OpticalSystemDesign.Tests/GlassCatalogTests.cs": "f79e0d9b0a5a41c565725a3ea264ff7f8063e9c2300f5c6c480790cef707ee02",
+    "third_party/material-catalogs/cdgm/CDGM-ZEMAX202609.AGF": "e0933fe14749919b2b7c5170f814765af570ef53b78171dc98dae6b542f8e9ce",
+    "src/OpticalSystemDesign.Core/Materials/Data/glass-catalog.json": "5ae4ab3373fb5899e11122ecd25b5707a62f8f304b362c19025c6358e27c3360"
+  },
+  "tests": [
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.ImportedZemaxGlassUsesAgfFormulaAndResolvesDuringZmxImport",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.ZemaxAgfRoundTripsAllSupportedRecordsIntoOpticalSystemDesignCatalog",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CdgmOfficialCatalogTests.ExplicitlySavedMaterialValuesSurviveTheCurrentCatalogUpdate",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.MaterialRegistrySnapshotKeepsIndependentCatalogResolutionCache",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CdgmUsesOneCurrentCatalogAndBrowsingDoesNotEditTheExistingProject",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CdgmOfficialCatalogTests.OldCatalogKeysResolveTheSingleCurrentDefinition(catalog: \"CDGM20113-P\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CdgmOfficialCatalogTests.TypesAbsentFromTheOfficialReleaseDoNotReappearFromTheAuxiliaryCatalog",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialAnalysisTests.GlassLookupUsesQualifiedNamesAndCurrentProjectCatalogOrder",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: \"Light\", language: \"zh-CN\", width: 1280, height: 960)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialAnalysisTests.InternalTransmissionNormalizesCatalogDataToRequestedThickness",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: \"Lumen\", language: \"ja-JP\", width: 1280, height: 960)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialAnalysisTests.GlassLookupDoesNotSubstituteAnotherCatalogWhenResolutionFails",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.EmbeddedCatalogExposesManufacturerGlassLibrary",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.CatalogIndicesAndExtinctionMatchFrozenReference",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.ZemaxGcatDisambiguatesSameNamedManufacturerGlass",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialAnalysisTests.CatalogMapsExposeFiniteGlassPoints(kind: AthermalGlassMap)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialAnalysisTests.DispersionVsWavelengthPlotsIndexDerivative",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialAnalysisTests.MaterialAnalysisPanelTitlesCoverAllSupportedCommands",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: \"Isekai\", language: \"en-US\", width: 1280, height: 960)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CostAndResistanceKeepTheirPositionsAndDistinguishMissingFromZero(kind: \"valid\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialAnalysisTests.CatalogMapsExposeFiniteGlassPoints(kind: GlassMap)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.BundledZemaxDatabaseResolvesHzlaf96WithoutImport",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: \"Dark\", language: \"en-US\", width: 1280, height: 960)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.ZemaxGcatRoundTripPreservesTheConfiguredCatalogOrder",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.ZemaxAgfPreservesLegacyMissingValuesAndUsesLastDuplicate",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.SystemGlassCatalogPriorityControlsResolutionAndSurvivesSnapshot",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.UnqualifiedLegacyGlassUsesCatalogPriorityAndUnknownNamesDoNotFallback",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CdgmOfficialCatalogTests.All352MaterialsKeepEveryRecordFromTheOfficialSeptember2026Download",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CdgmOfficialCatalogTests.OldCatalogKeysResolveTheSingleCurrentDefinition(catalog: \"CDGM-ZEMAX202309\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialAnalysisTests.DispersionCurveUsesSelectedGlassAndValidCatalogRange",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.MaterialRegistryAllowsConcurrentLazyCatalogResolution",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CostAndResistanceKeepTheirPositionsAndDistinguishMissingFromZero(kind: \"nonfinite\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CdgmOfficialCatalogTests.OldCatalogKeysResolveTheSingleCurrentDefinition(catalog: \"CDGM\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialAnalysisTests.GlassMapUsesConventionalReversedAbbeAxisAndLabels",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.CdgmOfficialCatalogTests.OldCatalogKeysResolveTheSingleCurrentDefinition(catalog: \"CDGM-H\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.GlassCatalogTests.ZemaxExportPreservesCatalogIdentityForRoundTrip",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.AccessibilityAndResponsiveLayoutTests.MasterDetailDataPagesPlaceResponsiveBodyDirectlyInFiniteRootRow",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialLibraryPanelTests.RealCatalogDetailsShowTheRequestedSourceValuesAndRemainReachable(theme: \"Light\", language: \"zh-CN\", width: 720, height: 1100)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.MaterialLibraryPanelTests.CostAndResistanceKeepTheirPositionsAndDistinguishMissingFromZero(kind: \"missing\")",
+      "outcome": "Passed"
+    }
+  ],
+  "captures": [
+    {
+      "path": "captures/material-Dark-en-US-1280.png",
+      "sha256": "3d23d73c8e8bd79c6483fb138b783485f8f38f34243a88ac0e385561365c593b"
+    },
+    {
+      "path": "captures/material-Isekai-en-US-1280.png",
+      "sha256": "32d3541b3592198b552d06912fe797b95993ec111ed01a23ca9bd88a9b536050"
+    },
+    {
+      "path": "captures/material-Light-zh-CN-1280.png",
+      "sha256": "3f24451709fd756706768c9b8518c4f628bcfee7c002dc1333a343531f00fc78"
+    },
+    {
+      "path": "captures/material-Light-zh-CN-720.png",
+      "sha256": "f255889ac3fc69451c1aa6214382f3710551972c3514f733140301fa80641909"
+    },
+    {
+      "path": "captures/material-Lumen-ja-JP-1280.png",
+      "sha256": "83de64f63793ca81e6ad45bf86f20226f51a3492b9a5a1c0e02a5f3a02435388"
+    }
+  ],
+  "history": [
+    {
+      "path": "material-final-with-catalog-extensions.trx",
+      "total": 39,
+      "passed": 39,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "material-final.trx",
+      "total": 39,
+      "passed": 39,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "material-initial.trx",
+      "total": 9,
+      "passed": 8,
+      "failed": 1,
+      "skipped": 0
+    },
+    {
+      "path": "material-official.trx",
+      "total": 36,
+      "passed": 35,
+      "failed": 1,
+      "skipped": 0
+    },
+    {
+      "path": "material-verified.trx",
+      "total": 36,
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0
+    }
+  ]
+}

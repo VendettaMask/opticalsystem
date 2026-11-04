@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OpticalSystemDesign.App.Controls;
@@ -172,8 +173,14 @@ public sealed class OptimizationWizardWindow : Window
         _spatialFrequency.ValueChanged += (_, _) => UpdateModeAndPreview();
         _xWeight.ValueChanged += (_, _) => UpdateModeAndPreview();
         _yWeight.ValueChanged += (_, _) => UpdateModeAndPreview();
+        Opened += (_, _) => UiLocalization.LanguageChanged += OnLanguageChanged;
+        Closed += (_, _) => UiLocalization.LanguageChanged -= OnLanguageChanged;
+        DisplayTypography.Apply(this);
+        UiLocalization.Attach(this);
         UpdateModeAndPreview();
     }
+
+    private void OnLanguageChanged(object? sender, EventArgs args) => UpdatePreview();
 
     private void Generate()
     {
@@ -280,10 +287,10 @@ public sealed class OptimizationWizardWindow : Window
             _ => string.Empty
         };
         var estimate = _quality.SelectedIndex == 1 ? "最多 " : string.Empty;
-        _preview.Text = $"当前优化变量：{variables}。\n预计生成 {operands} 行评价函数。\n" +
-                        $"当前组合：{QualityName()} · RMS · {ReferenceName()}。\n" +
-                        $"操作数：{operandNames}。\n" +
-                        $"每个视场/波长使用{estimate}{samplesByField.Min()}–{samplesByField.Max()} 个光瞳采样点。";
+        _preview.Text = string.Format(System.Globalization.CultureInfo.CurrentCulture,
+            UiLocalization.Text(UiLocalization.OptimizationWizardSummary), variables, operands,
+            UiLocalization.Text(QualityName()), UiLocalization.Text(ReferenceName()),
+            UiLocalization.Text(operandNames), UiLocalization.Text(estimate), samplesByField.Min(), samplesByField.Max());
         if (!_generate.IsEnabled)
         {
             _preview.Text += $"\n{ToolTip.GetTip(_generate)}";
@@ -379,6 +386,12 @@ public sealed class OptimizationWizardWindow : Window
     private static ComboBox Picker(int selectedIndex, params string[] values) => new()
     {
         ItemsSource = values,
+        ItemTemplate = new FuncDataTemplate<string>((value, _) =>
+        {
+            var label = new TextBlock { Text = value };
+            UiLocalization.LocalizeChoiceLabel(label);
+            return label;
+        }),
         SelectedIndex = selectedIndex,
         HorizontalAlignment = HorizontalAlignment.Stretch
     };

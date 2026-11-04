@@ -11,6 +11,7 @@ internal static class NativeSurfaceModelControls
 {
     internal static void Run(IOpticalSystem system)
     {
+        NativePupilLaunchControls.Apply(system);
         if (system.SystemData.Units.LensUnits.ToString() != "Millimeters")
             throw new InvalidOperationException("Explicit millimeter controls required.");
         var inputs = ((IEnumerable)Host.Request["modelOperands"]).Cast<Dictionary<string, object>>().ToArray();

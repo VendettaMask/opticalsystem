@@ -31,8 +31,13 @@ internal static partial class OpticalDrawingRendererCore
         0.02d,
         0.01d
     };
-    private static readonly Lazy<SKTypeface> ChineseTypeface = new(ResolveChineseTypeface);
-    private static readonly ConcurrentDictionary<int, SKTypeface> FallbackTypefaces = new();
+    private static readonly AsyncLocal<OpticalSystemDesign.App.Services.DocumentTypography?> ActiveTypography = new();
+    private sealed class DrawingTypographyScope : IDisposable
+    {
+        private readonly OpticalSystemDesign.App.Services.DocumentTypography? _previous = ActiveTypography.Value;
+        internal DrawingTypographyScope() => ActiveTypography.Value = new();
+        public void Dispose() => ActiveTypography.Value = _previous;
+    }
 
     internal static (float Width, float Height) PageDimensions(OpticalDrawingPageSize pageSize) =>
         pageSize == OpticalDrawingPageSize.A3

@@ -5,6 +5,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.LogicalTree;
+using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Services;
 
@@ -40,9 +41,19 @@ internal static partial class UiLocalization
     private static readonly List<WeakReference<Control>> TrackedControls = new();
     private static bool _installed;
 
-    private static readonly IReadOnlyDictionary<string, Translation> Texts = BuildTexts();
+    private static readonly LocalUiCatalog LocalCatalog = LocalUiCatalog.Load();
+    private static readonly IReadOnlyDictionary<string, Translation> Texts = LocalCatalog.Entries
+        .ToDictionary(entry => entry.Source, entry => new Translation(entry.English, entry.Japanese), StringComparer.Ordinal);
 
     public static string CurrentLanguage { get; private set; } = Chinese;
+    private static string _preferredLanguage = Chinese;
+
+    internal static void ApplyThemeLanguage()
+    {
+        var language = ThemeRegistry.FromActualVariant(global::Avalonia.Application.Current?.ActualThemeVariant).FixedLanguage
+            ?? _preferredLanguage;
+        if (CurrentLanguage != language) Apply(_preferredLanguage);
+    }
 
     public static IReadOnlyList<(string Code, string DisplayName)> SupportedLanguages { get; } =
     [
@@ -87,7 +98,9 @@ internal static partial class UiLocalization
 
     public static void Apply(string? language)
     {
-        var normalized = NormalizeLanguage(language);
+        var fixedLanguage = ThemeRegistry.FromActualVariant(global::Avalonia.Application.Current?.ActualThemeVariant).FixedLanguage;
+        var normalized = fixedLanguage ?? NormalizeLanguage(language);
+        if (fixedLanguage is null) _preferredLanguage = normalized;
         CurrentLanguage = normalized;
         var culture = CultureInfo.GetCultureInfo(normalized);
         CultureInfo.CurrentUICulture = culture;
@@ -119,6 +132,7 @@ internal static partial class UiLocalization
     // loading the original item. Track its label before it enters a popup.
     internal static void LocalizeChoiceLabel(TextBlock label)
     {
+        label.SetValue(TranslateBoundTextProperty, true);
         Track(label);
         LocalizeControl(label);
     }
@@ -126,15 +140,31 @@ internal static partial class UiLocalization
     public static string Text(string source, string language)
     {
         language = NormalizeLanguage(language);
-        if (language == Chinese || string.IsNullOrEmpty(source))
+        if (string.IsNullOrEmpty(source))
         {
             return source;
         }
+
+        if (LocalCatalog.TryGet(source, language, out var local)) return local;
+        if (LocalCatalog.TryTemplate(source, language, out local)) return local;
+        if (language == Chinese) return source;
 
         if (Texts.TryGetValue(source, out var translation))
         {
             return language == Japanese ? translation.Japanese : translation.English;
         }
+
+        // Captions combine canonical metric labels and unchanged result values.
+        if (source.Contains('\n'))
+            return string.Join(Environment.NewLine, source.Replace("\r\n", "\n", StringComparison.Ordinal)
+                .Split('\n').Select(line => Text(line, language)));
+        var metricSeparator = source.IndexOf(": ", StringComparison.Ordinal);
+        if (metricSeparator > 0 && Texts.TryGetValue(source[..metricSeparator], out translation))
+            return (language == Japanese ? translation.Japanese : translation.English) + source[metricSeparator..];
+        const string remainingSuffix = " 项见“数据”页";
+        if (source.StartsWith("其余 ", StringComparison.Ordinal) && source.EndsWith(remainingSuffix, StringComparison.Ordinal)
+            && int.TryParse(source[3..^remainingSuffix.Length], NumberStyles.None, CultureInfo.InvariantCulture, out var remaining))
+            return language == Japanese ? $"残り {remaining} 項目は「データ」ページを参照" : $"See Data for {remaining} additional items";
 
         if (source.StartsWith("行：视场    列：结构（各格叠加波长）", StringComparison.Ordinal))
         {
@@ -372,7 +402,7 @@ internal static partial class UiLocalization
     private static void LocalizeProperty(Control control, AvaloniaProperty property)
     {
         var state = States.GetOrCreateValue(control);
-        if (state.Applying || control.GetValue(property) is not string current)
+        if (state.Applying || IsDataText(control, property) || control.GetValue(property) is not string current)
         {
             return;
         }
@@ -423,6 +453,10 @@ internal static partial class UiLocalization
         Add("Gray（灰度）", "Gray (grayscale)", "Gray（グレースケール）");
         Add("全局配色", "Global colormap", "共通カラーマップ");
         Add("图像导出", "Image export", "画像の書き出し");
+        Add("绘图版式", "Drawing aspect", "図面の縦横比");
+        Add("自动（按绘图区）", "Automatic (drawing area)", "自動（描画領域に合わせる）");
+        Add("自动按绘图区可用空间选择；仅调整版式，不重新计算数据。", "Automatically fits the available drawing area; changes layout without recalculating data.", "描画領域に合わせて自動選択。データを再計算せず配置だけを変更します。");
+        Add("用于绘图、PNG 和报告；仅调整布局，不重新计算数据。", "Applies to drawings, PNG and reports; changes layout without recalculating data.", "図面・PNG・レポートに適用。データを再計算せず配置だけを変更します。");
         Add("分辨率预设", "Resolution preset", "解像度プリセット");
         Add("导出 DPI", "Export DPI", "書き出し DPI");
         Add("自定义 DPI", "Custom DPI", "カスタム DPI");
@@ -1325,6 +1359,40 @@ internal static partial class UiLocalization
         Add("主题", "Theme", "テーマ");
         Add("从主题列表选择外观，下方可预览配色", "Choose a theme; preview its colours below", "テーマを選択し、下で配色をプレビューできます");
         Add("字体", "Font", "フォント");
+        Add("复制文本", "Copy Text", "テキストをコピー");
+        Add("导出文本", "Export Text", "テキストを書き出す");
+        Add("已同步", "Synced", "同期済み");
+        Add("绘图", "Plot", "プロット");
+        Add("文本", "Text", "テキスト");
+        Add("方法", "Method", "方法");
+        Add("像面平面", "Image Plane", "像面平面");
+        Add("光线数", "Ray Count", "光線数");
+        Add("滚轮缩放 · 拖动平移 · 双击复位 · 悬停读数", "Scroll to zoom · Drag to pan · Double-click to reset · Hover for values", "ホイールで拡大縮小 · ドラッグで移動 · ダブルクリックでリセット · ホバーで値表示");
+        Add("界面主题", "Interface Theme", "インターフェーステーマ");
+        Add("界面字体", "Interface Font", "インターフェースフォント");
+        Add("字形", "Font Style", "書体");
+        Add("粗体", "Bold", "太字");
+        Add("斜体", "Italic", "斜体");
+        Add("粗斜体", "Bold Italic", "太字斜体");
+        Add("数字格式", "Number Format", "数値書式");
+        Add("显示格式设置", "Display Format Settings", "表示書式設定");
+        Add("大小", "Size", "サイズ");
+        Add("以上指数", "Upper Exponent", "上限指数");
+        Add("以下指数", "Lower Exponent", "下限指数");
+        Add("普通与科学计数法尾数最多保留的位数", "Maximum decimal places for ordinary and scientific notation", "通常表記と科学表記で保持する最大小数桁数");
+        Add("数量级达到此指数时使用科学计数法", "Use scientific notation at or above this exponent", "この指数以上で科学表記を使用");
+        Add("非零数量级低于或等于此指数时使用科学计数法", "Use scientific notation at or below this exponent for nonzero values", "ゼロ以外の値がこの指数以下で科学表記を使用");
+        Add("主题预览", "Theme Preview", "テーマプレビュー");
+        Add("强调状态", "Accent State", "強調状態");
+        Add("异世界", "Isekai", "異世界");
+        Add("普通模式", "Light", "ライト");
+        Add("暗夜模式", "Dark", "ダーク");
+        Add("像素风格", "Pixel", "ピクセル");
+        Add("光域", "Lumen", "ルーメン");
+        Add("跟随系统", "System", "システムに従う");
+        Add("二维视图", "2D Layout", "2D レイアウト");
+        Add("三维视图", "3D Layout", "3D レイアウト");
+        Add("光阑", "Stop", "絞り");
         Add("产品默认（推荐）", "Product default (recommended)", "製品の既定（推奨）");
         Add("单位：DIP", "Unit: DIP", "単位：DIP");
         Add("字号", "Font Size", "フォントサイズ");
@@ -1374,7 +1442,7 @@ internal static partial class UiLocalization
         Add("保存设置失败：", "Could not save settings: ", "設定を保存できませんでした: ");
         Add("光学设计报告导出", "Optical Design Report Export", "光学設計レポートの書き出し");
         Add("设计报告", "Design Report", "設計レポート");
-        Add("导出设计报告…", "Export Design Report…", "設計レポートを書き出す…");
+        Add("导出报告", "Export Report", "レポート出力");
         Add("保存导出设置", "Save Export Settings", "書き出し設定を保存");
         Add("自动写入报告附件", "Saved automatically with report assets", "レポートの添付先に自動保存");
         Add("导出设置已保存", "Export Settings Saved", "書き出し設定を保存しました");
@@ -1420,6 +1488,8 @@ internal static partial class UiLocalization
         AddCameraExperimentTexts(Add);
         AddCameraNonSequentialTexts(Add);
         AddManufacturabilityTexts(Add);
+        AddMaterialLibraryTexts(Add);
+        AddOptimizationWizardTexts(Add);
         return values;
     }
 }

@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c3adc758-f8ba-4278-8976-6031a1db5882" name="allen@DESKTOP-SET3SNR 2026-11-04 21:22:42" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T21:22:42.4534958+08:00" queuing="2026-11-04T21:22:42.4534962+08:00" start="2026-11-04T21:22:29.2773645+08:00" finish="2026-11-04T21:23:04.0472646+08:00" />
+  <TestSettings name="default" id="d45aaec6-9fce-472d-adaa-4bfe4303af77">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-04_21_22_42" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="deaed560-cabe-49e4-9b24-7d5ba4a70e98" testId="45cf420c-b92a-85ff-2693-e6c1fea6f8cd" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Isekai&quot;, renderMode: Transparent, cutaway: True, raysVisible: True)" computerName="DESKTOP-SET3SNR" duration="00:00:04.0242829" startTime="2026-11-04T21:22:53.7446073+08:00" endTime="2026-11-04T21:22:57.7680206+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="deaed560-cabe-49e4-9b24-7d5ba4a70e98">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [206, 49, 130, 42, 185, ···]&#xD;
+Actual:   [28, 232, 154, 81, 193, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 105&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 40&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ec7f1d57-a0fb-40eb-8184-086d485263ca" testId="6be46c3c-6103-ee51-13a1-5ac5c9f844f0" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" computerName="DESKTOP-SET3SNR" duration="00:00:02.7384061" startTime="2026-11-04T21:22:51.0048596+08:00" endTime="2026-11-04T21:22:53.7429149+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec7f1d57-a0fb-40eb-8184-086d485263ca">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [49, 239, 224, 237, 192, ···]&#xD;
+Actual:   [240, 15, 26, 153, 2, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 105&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 40&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ab96e219-5638-4279-bd7f-752fc7ec7060" testId="2c400885-0db5-32ad-a3f4-86d7394379a7" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: True, raysVisible: False)" computerName="DESKTOP-SET3SNR" duration="00:00:02.4405743" startTime="2026-11-04T21:22:42.4376132+08:00" endTime="2026-11-04T21:22:44.8602734+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ab96e219-5638-4279-bd7f-752fc7ec7060">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [206, 128, 177, 12, 14, ···]&#xD;
+Actual:   [98, 199, 78, 202, 80, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 105&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 40&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="91975e4b-9915-4506-a40d-8557f4ee1dd4" testId="866219fe-7756-ff26-01c0-0c62572c00da" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Lumen&quot;, renderMode: Wireframe, cutaway: False, raysVisible: True)" computerName="DESKTOP-SET3SNR" duration="00:00:02.0201157" startTime="2026-11-04T21:22:44.8641131+08:00" endTime="2026-11-04T21:22:46.8811770+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="91975e4b-9915-4506-a40d-8557f4ee1dd4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [203, 191, 157, 50, 186, ···]&#xD;
+Actual:   [69, 42, 185, 181, 26, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 105&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 40&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f8072aff-8242-4de5-a862-0bfc1d8d775d" testId="1ab650c6-d289-d689-a175-9abcdae9ad5b" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.NativeControlsStayReadableAndExportsExcludeSettingsAndFocus" computerName="DESKTOP-SET3SNR" duration="00:00:03.2615882" startTime="2026-11-04T21:23:00.6194516+08:00" endTime="2026-11-04T21:23:03.8814183+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8072aff-8242-4de5-a862-0bfc1d8d775d" />
+    <UnitTestResult executionId="956c73b3-0b36-4edd-8758-911b4cbb1ecf" testId="f96fff30-8edb-f563-4813-bd6e1e23eede" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Isekai&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" computerName="DESKTOP-SET3SNR" duration="00:00:04.1209882" startTime="2026-11-04T21:22:46.8830196+08:00" endTime="2026-11-04T21:22:51.0033673+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="956c73b3-0b36-4edd-8758-911b4cbb1ecf">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [10, 136, 219, 121, 102, ···]&#xD;
+Actual:   [94, 237, 18, 85, 142, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 105&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 40&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a0642705-80b6-4b67-a018-19e26be9308f" testId="a964aa99-8faf-5d2c-0844-e2b120c0b511" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Light&quot;, renderMode: Transparent, cutaway: False, raysVisible: True)" computerName="DESKTOP-SET3SNR" duration="00:00:07.7433418" startTime="2026-11-04T21:22:34.6818219+08:00" endTime="2026-11-04T21:22:42.4179874+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a0642705-80b6-4b67-a018-19e26be9308f">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [105, 241, 86, 101, 169, ···]&#xD;
+Actual:   [104, 86, 52, 93, 193, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 105&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 40&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d32207fb-3a1b-45d6-8e7f-06fa1c54b2bb" testId="48bb908a-d9c2-049a-2917-45b2b1dcf5c3" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Lumen&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" computerName="DESKTOP-SET3SNR" duration="00:00:02.8454358" startTime="2026-11-04T21:22:57.7696372+08:00" endTime="2026-11-04T21:23:00.6154030+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d32207fb-3a1b-45d6-8e7f-06fa1c54b2bb">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [101, 111, 66, 218, 1, ···]&#xD;
+Actual:   [1, 22, 47, 77, 57, ···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 105&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 40&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Lumen&quot;, renderMode: Wireframe, cutaway: False, raysVisible: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="866219fe-7756-ff26-01c0-0c62572c00da">
+      <Execution id="91975e4b-9915-4506-a40d-8557f4ee1dd4" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Light&quot;, renderMode: Transparent, cutaway: False, raysVisible: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a964aa99-8faf-5d2c-0844-e2b120c0b511">
+      <Execution id="a0642705-80b6-4b67-a018-19e26be9308f" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: True, raysVisible: False)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2c400885-0db5-32ad-a3f4-86d7394379a7">
+      <Execution id="ab96e219-5638-4279-bd7f-752fc7ec7060" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Isekai&quot;, renderMode: Transparent, cutaway: True, raysVisible: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="45cf420c-b92a-85ff-2693-e6c1fea6f8cd">
+      <Execution id="deaed560-cabe-49e4-9b24-7d5ba4a70e98" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.NativeControlsStayReadableAndExportsExcludeSettingsAndFocus" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1ab650c6-d289-d689-a175-9abcdae9ad5b">
+      <Execution id="f8072aff-8242-4de5-a862-0bfc1d8d775d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="NativeControlsStayReadableAndExportsExcludeSettingsAndFocus" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Light&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6be46c3c-6103-ee51-13a1-5ac5c9f844f0">
+      <Execution id="ec7f1d57-a0fb-40eb-8184-086d485263ca" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Isekai&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f96fff30-8edb-f563-4813-bd6e1e23eede">
+      <Execution id="956c73b3-0b36-4edd-8758-911b4cbb1ecf" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: &quot;Lumen&quot;, renderMode: Solid, cutaway: False, raysVisible: True)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="48bb908a-d9c2-049a-2917-45b2b1dcf5c3">
+      <Execution id="d32207fb-3a1b-45d6-8e7f-06fa1c54b2bb" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="45cf420c-b92a-85ff-2693-e6c1fea6f8cd" executionId="deaed560-cabe-49e4-9b24-7d5ba4a70e98" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6be46c3c-6103-ee51-13a1-5ac5c9f844f0" executionId="ec7f1d57-a0fb-40eb-8184-086d485263ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2c400885-0db5-32ad-a3f4-86d7394379a7" executionId="ab96e219-5638-4279-bd7f-752fc7ec7060" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="866219fe-7756-ff26-01c0-0c62572c00da" executionId="91975e4b-9915-4506-a40d-8557f4ee1dd4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1ab650c6-d289-d689-a175-9abcdae9ad5b" executionId="f8072aff-8242-4de5-a862-0bfc1d8d775d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f96fff30-8edb-f563-4813-bd6e1e23eede" executionId="956c73b3-0b36-4edd-8758-911b4cbb1ecf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a964aa99-8faf-5d2c-0844-e2b120c0b511" executionId="a0642705-80b6-4b67-a018-19e26be9308f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="48bb908a-d9c2-049a-2917-45b2b1dcf5c3" executionId="d32207fb-3a1b-45d6-8e7f-06fa1c54b2bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="8" executed="8" passed="1" failed="7" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.73]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.43]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.48]   Starting:    OpticalSystemDesign.Tests&#xD;
+Light/Transparent: scene 0, 0, 1200, 836.192, source 1200, 837, image 1602, 904, model 201, 1, 1200, 837&#xD;
+[xUnit.net 00:00:11.27]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:11.27]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:11.27]       Expected: [105, 241, 86, 101, 169, ···]&#xD;
+[xUnit.net 00:00:11.27]       Actual:   [104, 86, 52, 93, 193, ···]&#xD;
+[xUnit.net 00:00:11.27]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:11.27]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.27]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(105,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:11.27]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.27]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:11.27]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.27]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:11.27]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.27]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(40,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:11.27]         --- End of stack trace from previous location ---&#xD;
+Light/Solid: scene 0, 0, 1200, 836.192, source 1200, 837, image 1602, 904, model 201, 1, 1200, 837&#xD;
+[xUnit.net 00:00:13.71]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:13.71]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:13.71]       Expected: [206, 128, 177, 12, 14, ···]&#xD;
+[xUnit.net 00:00:13.71]       Actual:   [98, 199, 78, 202, 80, ···]&#xD;
+[xUnit.net 00:00:13.71]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:13.71]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.71]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(105,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.71]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.71]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.71]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.71]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:13.71]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.71]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(40,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:13.71]         --- End of stack trace from previous location ---&#xD;
+Lumen/Wireframe: scene 0, 0, 1200, 836.192, source 1200, 837, image 1602, 904, model 201, 1, 1200, 837&#xD;
+[xUnit.net 00:00:15.73]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:15.73]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:15.73]       Expected: [203, 191, 157, 50, 186, ···]&#xD;
+[xUnit.net 00:00:15.73]       Actual:   [69, 42, 185, 181, 26, ···]&#xD;
+[xUnit.net 00:00:15.73]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:15.73]       Stack Trace:&#xD;
+[xUnit.net 00:00:15.73]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(105,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:15.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.73]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:15.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.73]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:15.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.73]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(40,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:15.73]         --- End of stack trace from previous location ---&#xD;
+Isekai/Solid: scene 0, 0, 1200, 836.192, source 1200, 837, image 1656, 958, model 228, 28, 1200, 837&#xD;
+[xUnit.net 00:00:19.85]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:19.85]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:19.85]       Expected: [10, 136, 219, 121, 102, ···]&#xD;
+[xUnit.net 00:00:19.85]       Actual:   [94, 237, 18, 85, 142, ···]&#xD;
+[xUnit.net 00:00:19.85]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:19.85]       Stack Trace:&#xD;
+[xUnit.net 00:00:19.85]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(105,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:19.85]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:19.85]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:19.85]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:19.85]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:19.85]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:19.85]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(40,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:19.85]         --- End of stack trace from previous location ---&#xD;
+Light/Solid: scene 0, 0, 1200, 836.192, source 1200, 837, image 1602, 904, model 201, 1, 1200, 837&#xD;
+[xUnit.net 00:00:22.59]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:22.59]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:22.59]       Expected: [49, 239, 224, 237, 192, ···]&#xD;
+[xUnit.net 00:00:22.59]       Actual:   [240, 15, 26, 153, 2, ···]&#xD;
+[xUnit.net 00:00:22.59]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:22.59]       Stack Trace:&#xD;
+[xUnit.net 00:00:22.59]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(105,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:22.59]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.59]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:22.59]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.59]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:22.59]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:22.59]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(40,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:22.59]         --- End of stack trace from previous location ---&#xD;
+Isekai/Transparent: scene 0, 0, 1200, 836.192, source 1200, 837, image 1656, 958, model 228, 28, 1200, 837&#xD;
+[xUnit.net 00:00:26.62]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:26.62]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:26.62]       Expected: [206, 49, 130, 42, 185, ···]&#xD;
+[xUnit.net 00:00:26.62]       Actual:   [28, 232, 154, 81, 193, ···]&#xD;
+[xUnit.net 00:00:26.62]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:26.62]       Stack Trace:&#xD;
+[xUnit.net 00:00:26.62]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(105,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:26.62]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:26.62]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:26.62]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:26.62]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:26.62]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:26.62]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(40,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:26.62]         --- End of stack trace from previous location ---&#xD;
+Lumen/Solid: scene 0, 0, 1200, 836.192, source 1200, 837, image 1602, 904, model 201, 1, 1200, 837&#xD;
+[xUnit.net 00:00:29.46]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:29.46]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:29.46]       Expected: [101, 111, 66, 218, 1, ···]&#xD;
+[xUnit.net 00:00:29.46]       Actual:   [1, 22, 47, 77, 57, ···]&#xD;
+[xUnit.net 00:00:29.46]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:29.46]       Stack Trace:&#xD;
+[xUnit.net 00:00:29.46]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(105,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:29.46]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:29.46]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:29.46]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:29.46]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:29.46]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:29.46]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(40,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(String theme, OpticSceneRenderMode renderMode, Boolean cutaway, Boolean raysVisible)&#xD;
+[xUnit.net 00:00:29.46]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:32.74]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T21:22:42.4209298+08:00">
+        <Text>[xUnit.net 00:00:11.27]     OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: "Light", renderMode: Transparent, cutaway: False, raysVisible: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T21:22:44.8614495+08:00">
+        <Text>[xUnit.net 00:00:13.71]     OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: "Light", renderMode: Solid, cutaway: True, raysVisible: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T21:22:46.8820243+08:00">
+        <Text>[xUnit.net 00:00:15.73]     OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: "Lumen", renderMode: Wireframe, cutaway: False, raysVisible: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T21:22:51.0038171+08:00">
+        <Text>[xUnit.net 00:00:19.85]     OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: "Isekai", renderMode: Solid, cutaway: False, raysVisible: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T21:22:53.7432666+08:00">
+        <Text>[xUnit.net 00:00:22.59]     OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: "Light", renderMode: Solid, cutaway: False, raysVisible: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T21:22:57.7685869+08:00">
+        <Text>[xUnit.net 00:00:26.62]     OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: "Isekai", renderMode: Transparent, cutaway: True, raysVisible: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T21:23:00.6161134+08:00">
+        <Text>[xUnit.net 00:00:29.46]     OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: "Lumen", renderMode: Solid, cutaway: False, raysVisible: True) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

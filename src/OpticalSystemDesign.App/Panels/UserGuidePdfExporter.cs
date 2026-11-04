@@ -23,9 +23,8 @@ internal static class UserGuidePdfExporter
             using var document = SKDocument.CreatePdf(stream, new SKDocumentPdfMetadata
             { Title = L("Optical System Design 用户指南", "Optical System Design User Guide", "Optical System Design ユーザーガイド"), Author = "S.T.A.R.Labs" })
                 ?? throw new InvalidOperationException("Unable to create PDF.");
-            using var fontStream = typeof(UserGuidePdfExporter).Assembly.GetManifestResourceStream("OpticalSystemDesign.App.Assets.Fonts.NotoSansCJKsc-Regular.otf");
-            using var typeface = SKTypeface.FromStream(fontStream!) ?? throw new InvalidOperationException("Guide font unavailable.");
-            using var renderer = new Writer(document, typeface, language, cancellationToken, pageProgress);
+            var typography = new DocumentTypography();
+            using var renderer = new Writer(document, typography, language, cancellationToken, pageProgress);
             renderer.StartPage();
             renderer.Text(L("用户指南", "User Guide", "ユーザーガイド"), 25, true, 16);
             renderer.Text("Optical System Design", 15, false, 12);
@@ -63,7 +62,7 @@ internal static class UserGuidePdfExporter
         string L(string zh, string en, string ja) => language switch { UiLocalization.English => en, UiLocalization.Japanese => ja, _ => zh };
     }
 
-    private sealed class Writer(SKDocument document, SKTypeface typeface, string language, CancellationToken cancellationToken, Action<int>? pageProgress) : IDisposable
+    private sealed class Writer(SKDocument document, DocumentTypography typography, string language, CancellationToken cancellationToken, Action<int>? pageProgress) : IDisposable
     {
         private const float Width = 595.28f, Height = 841.89f, Margin = 44, Bottom = Height - 48;
         private const float ContentWidth = Width - 2 * Margin;
@@ -79,11 +78,11 @@ internal static class UserGuidePdfExporter
             if (++PageCount > 1000) throw new InvalidOperationException("Guide PDF exceeds the page budget.");
             _canvas = document.BeginPage(Width, Height);
             _canvas.Clear(SKColors.White);
-            using var font = new SKFont(typeface, 8);
+            using var font = typography.Font(ProductFontRole.Document, 8);
             using var paint = new SKPaint { Color = new SKColor(80, 92, 110), IsAntialias = true };
-            _canvas.DrawText("Optical System Design", Margin, 25, SKTextAlign.Left, font, paint);
+            typography.Draw(_canvas, "Optical System Design", Margin, 25, font, paint);
             BrandAssets.DrawCompanyLogo(_canvas, new SKRect(Width - Margin - 82, 14, Width - Margin, 26), new SKColor(60, 75, 95));
-            _canvas.DrawText(PageCount.ToString(CultureInfo.InvariantCulture), Width / 2, Height - 22, SKTextAlign.Center, font, paint);
+            typography.Draw(_canvas, PageCount.ToString(CultureInfo.InvariantCulture), Width / 2, Height - 22, font, paint, alignment: SKTextAlign.Center);
             _y = 57;
             pageProgress?.Invoke(PageCount);
         }
@@ -95,7 +94,7 @@ internal static class UserGuidePdfExporter
         }
         internal void Text(string text, float size, bool bold, float after)
         {
-            using var font = new SKFont(typeface, size) { Embolden = bold };
+            using var font = typography.Font(ProductFontRole.Document, size, bold);
             using var paint = new SKPaint { Color = new SKColor(28, 43, 62), IsAntialias = true };
             var lineHeight = size * 1.65f;
             foreach (var paragraph in text.Replace("\r", "", StringComparison.Ordinal).Split('\n'))
@@ -103,7 +102,7 @@ internal static class UserGuidePdfExporter
                 foreach (var line in Wrap(paragraph, font))
                 {
                     Reserve(lineHeight);
-                    _canvas!.DrawText(line, Margin, _y + size * 1.12f, SKTextAlign.Left, font, paint);
+                    typography.Draw(_canvas!, line, Margin, _y + size * 1.12f, font, paint);
                     _y += lineHeight;
                 }
             }
@@ -112,8 +111,8 @@ internal static class UserGuidePdfExporter
         internal void ReserveSection(string title, string body, string? formula)
         {
             if (formula is null) { Reserve(65); return; }
-            using var titleFont = new SKFont(typeface, 13) { Embolden = true };
-            using var bodyFont = new SKFont(typeface, 10.5f);
+            using var titleFont = typography.Font(ProductFontRole.Document, 13, bold: true);
+            using var bodyFont = typography.Font(ProductFontRole.Document, 10.5f);
             var height = Wrap(title, titleFont).Count() * 13 * 1.65f + 8;
             height += body.Replace("\r", "", StringComparison.Ordinal).Split('\n').Sum(p => Wrap(p, bodyFont).Count()) * 10.5f * 1.65f + 10;
             var art = UserGuideMath.Load(formula);
@@ -121,7 +120,7 @@ internal static class UserGuidePdfExporter
             height += art.Height * em / 1000 + 26;
             Reserve(Math.Min(height, Bottom - 57));
         }
-        private static IEnumerable<string> Wrap(string text, SKFont font)
+        private IEnumerable<string> Wrap(string text, SKFont font)
         {
             if (text.Length == 0) { yield return ""; yield break; }
             var start = 0;
@@ -133,7 +132,7 @@ internal static class UserGuidePdfExporter
                 while (end < text.Length)
                 {
                     var count = char.IsHighSurrogate(text[end]) && end + 1 < text.Length ? 2 : 1;
-                    var nextWidth = font.MeasureText(text.AsSpan(end, count));
+                    var nextWidth = typography.Measure(text.Substring(end, count), font);
                     if (width + nextWidth > ContentWidth && end > start) break;
                     width += nextWidth;
                     if (char.IsWhiteSpace(text[end])) lastSpace = end;

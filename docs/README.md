@@ -1,15 +1,17 @@
 # 项目文档索引
 
-核对：2026-11-02。先按现行指南操作；历史通过数、旧独立模块命令及内部对齐目标不作为当前验收。各阶段实际结果见[当前状态](CURRENT_STATUS.md)，旧记录见[历史索引](history/README.md)。
+索引更新：2026-11-04，本轮补齐材料库与CDGM官网目录入口。先按现行指南操作；历史通过数、旧独立模块命令及内部对齐目标不作为当前验收。各阶段实际结果见[当前状态](CURRENT_STATUS.md)，旧记录见[历史索引](history/README.md)。
 
 ## 从这里开始
 
 | 任务 | 入口 |
 | --- | --- |
 | 使用产品 | [用户指南](USER_GUIDE.md)、[桌面工作流](GUI_QUICKSTART_REFACTOR.md)、[能力矩阵](PARITY_MATRIX.md) |
+| 查看材料库与CDGM数据来源 | [材料库操作](USER_GUIDE.md#材料库目录与参数)、[内置数据说明](../src/OpticalSystemDesign.Core/Materials/Data/README.md)、[CDGM官方原件](../third_party/material-catalogs/cdgm/README.md) |
 | 构建、测试与安装 | [构建发布](BUILD_AND_RELEASE.md)、[Windows 安装/恢复](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)、[云发布](GITHUB_CLOUD_RELEASE.md)、[Mac OTA](MAC_OTA.md) |
 | 核对精度与未关闭问题 | [数值验收规则](NUMERICAL_PARITY.md)、[问题清单](OPEN_ISSUES_2026-10-08.md)、[95 示例分类交接](EXAMPLE_ACCURACY_HANDOFF_2026-11-01.md) |
 | 维护实现 | [架构](ARCHITECTURE.md)、[代码地图](CODE_READING_MAP.md)、[UI 规范](UI_DESIGN_SPEC.md)、[协作约束](../AGENTS.md) |
+| 设计与改进界面 | [全项目设计语言与工作方法](UI_DESIGN_SPEC.md#全项目设计语言与工作方法)、[走查与确认记录](UI_DESIGN_REVIEW.md)、[主题包规范](THEME_PACKAGES.md)、[图标语义](ICON_SEMANTIC_DESIGN.md) |
 | 维护文档 | [文档生命周期与检查](DOCUMENTATION_MAINTENANCE.md)、[历史报告索引](history/README.md) |
 
 ## 当前指南与功能契约
@@ -18,6 +20,7 @@
 
 - [计算指南](COMPUTATION_GUIDE.md)、[数学附录](COMPUTATION_FORMULAS.md)、[目录覆盖](COMPUTATION_COVERAGE.md)
 - [格式和插件](FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 版本](STAROPT_FILE_FORMAT.md)、[操作数支持](ZEMAX_OPERAND_SUPPORT.md)
+- [CDGM官网2026年9月目录：合并、字段与39项验证](../validation/rechecks/2026-11-04/material-library-details/README.md)，仅对应这一批材料库更新，不代替全仓或全部镜头精度认证。
 - [优化算法](OPTIMIZATION_ALGORITHMS.md)、[公差](TOLERANCING.md)、[制造图纸](MANUFACTURING_DRAWINGS.md)
 - [设计报告](MARKDOWN_REPORT_EXPORT.md)、[内置模块交付](BUILT_IN_MODULES_2026-10-13.md)
 - [分析及二维/三维窗口适配与重复限制审计](DIAGRAM_VIEWPORT_FIT_2026-11-02.md)
@@ -88,6 +91,7 @@
 - [主题包开发规范](THEME_PACKAGES.md)
 - [公差分析](TOLERANCING.md)
 - [产品字体](TYPOGRAPHY.md)
+- [界面语言、本地词库与漏译检查](LOCALIZATION.md)
 - [UI 设计规范](UI_DESIGN_SPEC.md)
 - [用户指南](USER_GUIDE.md)
 - [Windows 未签名交付与升级保护（2026-10-12）](WINDOWS_INSTALLATION_UPGRADE_2026-10-12.md)

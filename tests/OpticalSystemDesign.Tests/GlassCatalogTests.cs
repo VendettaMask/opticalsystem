@@ -12,7 +12,7 @@ public sealed class GlassCatalogTests
     {
         var registry = new MaterialRegistry();
 
-        Assert.Equal(1740, registry.CatalogGlassCount);
+        Assert.Equal(1426, registry.CatalogGlassCount); // CDGM now comes only from the official AGF.
         Assert.Contains("SCHOTT", registry.GlassManufacturers);
         Assert.Contains("OHARA", registry.GlassManufacturers);
         Assert.Contains("HOYA", registry.GlassManufacturers);
@@ -60,7 +60,7 @@ public sealed class GlassCatalogTests
         var material = Assert.IsType<CatalogGlassMaterial>(
             registry.Resolve("CDGM-ZEMAX202309:H-ZLAF96"));
 
-        Assert.Equal("CDGM-ZEMAX202309", material.Manufacturer);
+        Assert.Equal("CDGM", material.Manufacturer);
         Assert.Equal("H-ZLAF96", material.CatalogName);
         Assert.Equal(2, material.ZemaxData!.DispersionFormulaNumber);
         Assert.Equal(2.0509, material.ZemaxData.ReferenceIndexD, precision: 7);
@@ -80,7 +80,10 @@ public sealed class GlassCatalogTests
         {
             var manufacturer = entry.GetProperty("manufacturer").GetString()!;
             var name = entry.GetProperty("name").GetString()!;
-            var material = Assert.IsType<CatalogGlassMaterial>(registry.Resolve($"{manufacturer}:{name}"));
+            // Keep the historical CDGM fixture tied to its original auxiliary
+            // data, rather than relabelling the 2026 official catalog as a match.
+            var material = manufacturer == "CDGM" ? HistoricalCdgm(name)
+                : Assert.IsType<CatalogGlassMaterial>(registry.Resolve($"{manufacturer}:{name}"));
 
             Assert.Equal(manufacturer, material.Manufacturer);
             Assert.Equal(name, material.CatalogName);
@@ -97,6 +100,20 @@ public sealed class GlassCatalogTests
                     precision: 13);
             }
         }
+    }
+
+    private static CatalogGlassMaterial HistoricalCdgm(string name)
+    {
+        using var stream = typeof(MaterialRegistry).Assembly.GetManifestResourceStream("OpticalSystemDesign.Core.Materials.Data.glass-catalog.json")!;
+        using var json = JsonDocument.Parse(stream);
+        var entry = json.RootElement.GetProperty("entries").EnumerateArray()
+            .Single(item => item.GetProperty("manufacturer").GetString() == "CDGM" && item.GetProperty("name").GetString() == name);
+        double[] Values(string key) => entry.TryGetProperty(key, out var values)
+            ? values.EnumerateArray().Select(item => item.GetDouble()).ToArray() : [];
+        return new CatalogGlassMaterial(name, "CDGM", entry.GetProperty("formula").GetString()!,
+            entry.GetProperty("min_um").GetDouble() * 1000, entry.GetProperty("max_um").GetDouble() * 1000,
+            Values("coefficients"), Values("n_um").Select(v => v * 1000).ToArray(), Values("n"),
+            Values("k_um").Select(v => v * 1000).ToArray(), Values("k"));
     }
 
     [Fact]

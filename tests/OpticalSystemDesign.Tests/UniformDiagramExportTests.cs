@@ -33,6 +33,7 @@ public sealed class UniformDiagramExportTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(UniformDiagramExportTests));
         await session.Dispatch(async () =>
         {
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             DisplayTypography.Configure(new AppSettings());
             ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
             using var app = WorkbenchApplication.Create("cooke");
@@ -98,6 +99,7 @@ public sealed class UniformDiagramExportTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(UniformDiagramExportTests));
         await session.Dispatch(async () =>
         {
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             DisplayTypography.Configure(new AppSettings());
             using var app = WorkbenchApplication.Create("cooke");
             using var panel = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(), dimension);

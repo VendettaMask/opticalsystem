@@ -1,0 +1,795 @@
+{
+  "date": "2026-11-04",
+  "scope": "Solid Model outer Auto / 16:9 / 4:3, state and PNG; headless only; no numerical certification",
+  "authoritative_run": "solid-verified.trx",
+  "passed": 54,
+  "failed": 0,
+  "skipped": 0,
+  "groups": {
+    "SolidModelAspectTests": 8,
+    "ViewerImageExportTests": 37,
+    "Viewer3DGeometryTests_ViewButtons": 7,
+    "DiagramAutomaticAspectTests_LayoutCamera": 2
+  },
+  "inner_layout_dip": [
+    1200,
+    900
+  ],
+  "sheet_sizes_dip": [
+    [
+      1200,
+      900
+    ],
+    [
+      1600,
+      900
+    ]
+  ],
+  "pixel_comparison": "Exact live source and exported complete viewport rows at 1x; final fractional-alpha row excluded",
+  "default_output_release_compiled": true,
+  "source_hashes": {
+    "src/OpticalSystemDesign.App/Controls/UniformDiagramPage.cs": "357dde72efb7575227699b1fdd5dbe9cc7416f014e2c51fd7309f3ec4be76723",
+    "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs": "dbcebafd1dbe920f6e0fd630c8d70c5aea5b93c69c9206e4a05bc681cd34e4d1",
+    "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs": "f9b050a4ab6858a69dbf3bd8173964bfe92810e23ba51d1293c8aea262d7ade0",
+    "tests/OpticalSystemDesign.Tests/SolidModelAspectTests.cs": "568dad314a9495714198e9180231b8b20d83ac0b9cc4aca19b83876ac4ff576c",
+    "tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs": "cc104574bf29726de51289dd38ea4f2386ddee186ad940f2c01d62f78282fb0b"
+  },
+  "unchanged_renderers": {
+    "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs": "ef440e8f77deb325028bc96192b013bd3d59e69293dba760f802c00e4225a9a9",
+    "src/OpticalSystemDesign.App/Controls/SceneViewport.cs": "3662211b71f8176c10879d466ddcf71836acbf885f9b267cad3422412b330fdc"
+  },
+  "scene_renderer_matches_prior_evidence": "drawing-aspect-auto/manifest.json",
+  "tests": [
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: TwoDimensional)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: \"Lumen\", renderMode: Solid, cutaway: False, raysVisible: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: \"Light\", renderMode: Transparent, cutaway: False, raysVisible: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramAutomaticAspectTests.LayoutCameraAndSceneSurviveAutomaticAspectChanges(dimension: ThreeDimensional)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: \"Light\", language: \"ja-JP\", width: 400, fontSize: 18)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: \"Isekai\", renderMode: Solid, cutaway: False, raysVisible: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: False, stale: False, loaded: False, expectedState: \"尚未准备布局光线\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: \"Light\", renderMode: Solid, cutaway: True, raysVisible: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: \"Light\", language: \"ja-JP\", width: 400, fontSize: 18)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.SolidModelAspectTests.NativeControlsStayReadableAndExportsExcludeSettingsAndFocus",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: \"Light\", language: \"ja-JP\", width: 400, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.DiagramAutomaticAspectTests.LayoutCameraAndSceneSurviveAutomaticAspectChanges(dimension: TwoDimensional)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: \"Isekai\", renderMode: Transparent, cutaway: True, raysVisible: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: \"Dark\", language: \"en-US\", width: 400, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.SaveFailureShowsFeedbackAndKeepsSceneMetadata",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: \"Light\", renderMode: Solid, cutaway: False, raysVisible: True)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LongDocumentCaptionGrowsAndOversizedExportsAreRejectedBeforeAllocation(dimension: ThreeDimensional)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: \"Light\", language: \"zh-CN\", width: 1100, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.EmptyRefreshingAndOutdatedLockedViewsCannotExport(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"ja-JP\", width: 360, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: \"Dark\", language: \"en-US\", width: 400, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: \"Light\", language: \"zh-CN\", width: 1100, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: False, expectedState: \"布局结果已过期并隐藏\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: TwoDimensional, theme: \"Light\", language: \"zh-CN\", width: 840, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.PendingSaveUsesTheClickedSnapshotAfterALockedFileSwitch(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: ThreeDimensional, mode: OpticalLayout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Dark\", language: \"en-US\", width: 420, fontSize: 13)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.LayoutCaptionKeepsFixedSourceMetricsAndRejectsOverflowWithoutReflow(dimension: ThreeDimensional, theme: \"Light\", language: \"en-US\", width: 420, fontSize: 24)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportIncludesTheCompleteMaterialLegendBeyondTheVisibleScrollViewport",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.DoubleScaleExportRetainsLogicalLayoutAndDoublesPixelDimensions(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.FractionalScaleExportKeepsAllFourBordersAndTheCurrentCamera(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: False, loaded: True, expectedState: \"布局结果与当前场景一致\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: ThreeDimensional, mode: SolidModel)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.ImageButtonSavesPngAndCancellationPreservesTheExistingFile(dimension: TwoDimensional, mode: OpticalLayout)",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.ViewerImageExportTests.NonSequentialLayoutCaptionPreservesObjectRayExtentAndResultState(hasResult: True, stale: True, loaded: True, expectedState: \"警告：正在查看过期结果\")",
+      "outcome": "Passed"
+    },
+    {
+      "name": "OpticalSystemDesign.Tests.SolidModelAspectTests.AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(theme: \"Lumen\", renderMode: Wireframe, cutaway: False, raysVisible: True)",
+      "outcome": "Passed"
+    }
+  ],
+  "run_history": [
+    {
+      "path": "solid-expanded.trx",
+      "sha256": "318c2cf1d6349712e0c65d879a6132532770901fb4c96cd06aa2d6837e3e8683",
+      "total": 54,
+      "passed": 52,
+      "failed": 2,
+      "skipped": 0
+    },
+    {
+      "path": "solid-final.trx",
+      "sha256": "0fa284a1db03458c377f6eed34e3b901ae9634b53808dff8b5e6306378f58f9c",
+      "total": 54,
+      "passed": 47,
+      "failed": 7,
+      "skipped": 0
+    },
+    {
+      "path": "solid-frozen-composition.trx",
+      "sha256": "40500ab566249bb3a0f04cf58ea73678a454b1f73a38b308471d051f8d6714a7",
+      "total": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "solid-initial.trx",
+      "sha256": "05744083d4880c055667db69bff53c457230d921472d5b4bc70ea638e3e71c55",
+      "total": 8,
+      "passed": 7,
+      "failed": 1,
+      "skipped": 0
+    },
+    {
+      "path": "solid-pixel-aligned.trx",
+      "sha256": "aad192687fdede45eabaf7c7b0b5ed64bca32f73cc88b6b3d0764e0999742046",
+      "total": 8,
+      "passed": 1,
+      "failed": 7,
+      "skipped": 0
+    },
+    {
+      "path": "solid-pixel-diagnostic.trx",
+      "sha256": "f0bea80d4315d99fee58f661de74f3afb0fe32572dd8006cf89bf1c275ac2a8c",
+      "total": 8,
+      "passed": 1,
+      "failed": 7,
+      "skipped": 0
+    },
+    {
+      "path": "solid-verified.trx",
+      "sha256": "e50d9c3345cb50279acb95396910e720143faaef71bad1446b8cf1cf4bdf00c3",
+      "total": 54,
+      "passed": 54,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "captures": [
+    {
+      "path": "captures/failure-Isekai-Solid-False-True-export.png",
+      "sha256": "32825fed7406ed9d3ce0b56fcee147a35dffd28047becb40aeae70065e962114",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Isekai-Solid-False-True-source.png",
+      "sha256": "0f2b193542a7fa903921a8fe80dd63cb7bb1c7f213bac6b295323c925837750b",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Isekai-Transparent-True-True-export.png",
+      "sha256": "443fb3df16c661cf7eb2989e9ae7596875aa7d4b63169fd44cdcd732acc5233a",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Isekai-Transparent-True-True-source.png",
+      "sha256": "04705edbc6da9c0d2c53fca3e9dcfe1610fa527407b5940c9e6caabffc60ba8d",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Light-Solid-False-True-export.png",
+      "sha256": "c1ef40e3d450802d1832f6c1c5e8a9028d62a05bab1995ec690448da37da33ad",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Light-Solid-False-True-source.png",
+      "sha256": "5f334b29e603b5ad18df7d1ba4a96f41decea52e850e0e7243b8b84b92aceb7d",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Light-Solid-True-False-export.png",
+      "sha256": "4ff7ca2ac64add94b825bc5ed5c05da422df801d8b33210e272c0cbb821c009c",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Light-Solid-True-False-source.png",
+      "sha256": "3147d30232f2fffc6824adc2d24389acb9e32b5a4f1c6f86a85dc61162d06614",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Light-Transparent-False-True-export.png",
+      "sha256": "5dc3e125ae1fcbb112092e9565063d362dbb2a03f565d7f2a0976a0899f04879",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Light-Transparent-False-True-source.png",
+      "sha256": "c7052307b166ecb1e3ba0e24a24b4ee089c5408a31162263d29cacdf375624bd",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Lumen-Solid-False-True-export.png",
+      "sha256": "f005b16144d302f7a144ffb0597134ab96698bf34541c4d33f81027a2b4bfc12",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Lumen-Solid-False-True-source.png",
+      "sha256": "178d61249bee581c4e36f7f19dac83f0596b29c8a168b6b7f2fb4e18c4bd27cc",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Lumen-Wireframe-False-True-export.png",
+      "sha256": "a4775c765983ab76b92de4590c761bd8ae17eb3976648cd34dd831d970ec89df",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/failure-Lumen-Wireframe-False-True-source.png",
+      "sha256": "f713b120b4f2406d323b4c03dff22cdbdec8be20d06840e979bec93293bff3f2",
+      "classification": "historical-pixel-mismatch-diagnostic"
+    },
+    {
+      "path": "captures/model-Isekai-Solid-False-True-narrow-window.png",
+      "sha256": "e3762f1ba03c88c79fc5fd62ffafb4f6458b20fb0b7bcce8caa20d3d5a9ef063",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Isekai-Solid-False-True-narrow.png",
+      "sha256": "3f079ad0e91a6bce47c59278091d73e82e665ff72237d9a74a3af4bdfbfd25b1",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Isekai-Solid-False-True-wide-window.png",
+      "sha256": "28c1b8b58c7d14d3d554768af329991eeb3e0a4514c92783b13eadc87e29ae87",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Isekai-Solid-False-True-wide.png",
+      "sha256": "267e6a9b9cc0a87dc12247caee6bf1c97135d06f90217220d9f6d0a090cd8e4b",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Isekai-Transparent-True-True-narrow-window.png",
+      "sha256": "566e8f6876c5cc175f9aa26a25f2765c59aec060adbbc76ba7910de8aba23fef",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Isekai-Transparent-True-True-narrow.png",
+      "sha256": "a9271e34988be570f06d04cd60a2d4b2de99e65229e2271822ff9f8edd9ffda4",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Isekai-Transparent-True-True-wide-window.png",
+      "sha256": "562722ebe7af21e5ed3f58e505dcd8cf31845960f3f5ee66bafd8ffe10c9c79b",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Isekai-Transparent-True-True-wide.png",
+      "sha256": "9a2381ee6fcd8da0044da2446050cfe5f84a4f50135463c67b88c82f87e7e80f",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Solid-False-True-narrow-window.png",
+      "sha256": "7ac31a55b191ddc3afd9f6c4ded667ea6e235eea236e2aab52715e0508ac3b77",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Solid-False-True-narrow.png",
+      "sha256": "0b891f9d30d046db267561a40525a04e0069dbc1902ce77b7a56906b578d9f47",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Solid-False-True-wide-window.png",
+      "sha256": "2acb9efdd811bc9615b6b1b980ccd688b50170d610a8aad0190e0bb9ef7cf401",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Solid-False-True-wide.png",
+      "sha256": "f9e0364f7539e7201a9c14375dc2422088cbdaa54bedd2e9e80e6b9684464d44",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Solid-True-False-narrow-window.png",
+      "sha256": "b38f3c8bb66c2402c11371f944cbe7079578f897d5c58a0dcc6dd1242ef97968",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Solid-True-False-narrow.png",
+      "sha256": "bfcb12851ee09bf610e5b3c9dec196403a98bbf6e25506ace8e70df54917ac84",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Solid-True-False-wide-window.png",
+      "sha256": "be0b68f010a3e56b341cecb4b63d87c9e2644d3cc98e1d6bc1f6043c97b90efa",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Solid-True-False-wide.png",
+      "sha256": "538f26fd3abfbcd1b8c5607da66487e2d68277af9b55ce320e9b053b5c85ba56",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Transparent-False-True-narrow-window.png",
+      "sha256": "c3624ffa49ad75e212daf14824a0e3a4a348d58962443c311ae88e6fae411746",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Transparent-False-True-narrow.png",
+      "sha256": "66e54f4b9fda9fb3b3f55474462a3c160adbd87ed140e8bf80b172f78eecb88c",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Transparent-False-True-wide-window.png",
+      "sha256": "dac4b747c8fb6ea7f0f640109a8bedd24c641f68d1a28cb70b77e4d4f2246842",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Light-Transparent-False-True-wide.png",
+      "sha256": "976ecdaf9e0a6ac6bb42d6218dce017e77eafa1837fe26946a58d986cd2f4c0e",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Lumen-Solid-False-True-narrow-window.png",
+      "sha256": "642df57a11076b75e08be8c972c4bf4515acd89699e04bdbc490c42b9ce8bc57",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Lumen-Solid-False-True-narrow.png",
+      "sha256": "46cc0d283247545a6ac30cb8c48e8db288ff73a4575b832e6c052200968fb43b",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Lumen-Solid-False-True-wide-window.png",
+      "sha256": "b3dbc0e95b4af9462c2de6700f7fbbda7ab75db6a3c3d8a371bc00e1e9eee456",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Lumen-Solid-False-True-wide.png",
+      "sha256": "357c188f4c82a48cd817c01b57bdf92138b4e5061586f8919f01539a648bcefc",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Lumen-Wireframe-False-True-narrow-window.png",
+      "sha256": "761acd1a7e4a3e35ff142c6f30457fd9a7d518f518d1495a2ba412e8ca5b26df",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Lumen-Wireframe-False-True-narrow.png",
+      "sha256": "f95245b465b609d1a4afeb1218ec8f96169d7f755d8c48400dd4723f40e4c383",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Lumen-Wireframe-False-True-wide-window.png",
+      "sha256": "cfd22a250aaf9a941ffd90a411ce4417e442a9f93ac5bc2281602e963d0de765",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "captures/model-Lumen-Wireframe-False-True-wide.png",
+      "sha256": "9c9c9eb67d9b0503a80856d7d89b49887eb40eb1f0e14120a51959d0f581f77d",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/2d-caption-Dark-en-US-420-font13.png",
+      "sha256": "c29d32364dd23e0ea04f66793e324791c8b777ecd565cbf6b28c7fc8f62da9a0",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/2d-caption-Light-ja-JP-360-font13.png",
+      "sha256": "fe45547d5d6d85dd4ef3d15235dc8c083929fba1f7a0d54157a8b73f5f76d240",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/2d-caption-Light-zh-CN-840-font13.png",
+      "sha256": "0945814eaa4089f93f03bb5812426839fe4b92205a5c84ae4c5b90f20ae82f76",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/2d-window-420x420.png",
+      "sha256": "b445f962b5ab4795a148d2f0a3bf2b6851f720164a0231bdf1cbaa181ee20f04",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/2d-window-840x620.png",
+      "sha256": "971e37595f173f5c05f4f38515bffb0d28ae556bbd4e8dd447cc97eb7a943be3",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/2d-window-Dark-en-US-420-font13.png",
+      "sha256": "e560e864d52188eb3693a304245e2d94ca4b2a19c2f3131fa4490c81a2d3bbde",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/2d-window-Light-ja-JP-360-font13.png",
+      "sha256": "3c6aeb60116528d2f50acbccc8a1231ea235a53e44c8889a4d13b22c0002cbff",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/2d-window-Light-zh-CN-840-font13.png",
+      "sha256": "c4660b14a4636ca2b7808e6e8c3623fceb06771b35f31b97f2b6155cc2afb116",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/3d-caption-Dark-en-US-420-font13.png",
+      "sha256": "764dbb891f7d91f37b9c9b5300876f832696cdca3708f2735a6a9c380e724d7f",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/3d-caption-Light-ja-JP-360-font13.png",
+      "sha256": "ada81882f157ed018aec8f359b8927bb021304281c3c071607cb539de8145043",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/3d-caption-Light-zh-CN-840-font13.png",
+      "sha256": "5567d30e072ac270bd127bfc939da9e67150959964e2a2d39c0b49f42b70cfcd",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/3d-window-420x420.png",
+      "sha256": "7aea3f6c48416241baf90f22af66482ab1dee976734b7caa6b3e7b4fce5c3eb9",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/3d-window-840x620.png",
+      "sha256": "2449fd78ca5926c792f9ed95b5c93c961448f5c7ad2dfa9b4884d9fafa81150e",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/3d-window-Dark-en-US-420-font13.png",
+      "sha256": "a17f5a8b2f969a47f2bc6447e8b64f90ca8909dffb466f017793738f403289c6",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/3d-window-Light-ja-JP-360-font13.png",
+      "sha256": "d497b067f74d144c5f9eddeee8826f7f5c957edeca78559a1f4c065298a95e92",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/3d-window-Light-zh-CN-840-font13.png",
+      "sha256": "cec120d598351674e206f398382308d2c7c5f3f585f6ed5ce93960211658c6ba",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/solid-complete-24-material-legend.png",
+      "sha256": "41ce3742ba7e431698fc924c348ad23c6f21ce7054859999e078692e3776f1a1",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/ThreeDimensional-OpticalLayout-125percent.png",
+      "sha256": "1880b03fc796e152aefc900b53a90fd0a5cf67ea5aa5ffb91f9f44ce72dd5bd2",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/ThreeDimensional-OpticalLayout-2x.png",
+      "sha256": "43a708d3652c99000773a26e61f60ef7a5a87799c344faa1c04f4420aefbc6ab",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/ThreeDimensional-OpticalLayout-420x420.png",
+      "sha256": "f98b01fb0385dc3914ed56ef02ffa4f3cd640f073a7dba403fffeb5fda4b34b6",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/ThreeDimensional-OpticalLayout-840x620.png",
+      "sha256": "41204869720c5b557094002c5fdbb81991f60234a4ea5582981f347262b15433",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/ThreeDimensional-SolidModel-125percent.png",
+      "sha256": "960d508ddaf6145d962d9e951ff3959ce53ff4e0833fa475d97180b3cb547af5",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/ThreeDimensional-SolidModel-2x.png",
+      "sha256": "1bc3df4ed076ec9415001e08d6703998640da0524993380e9ef5541f788b5941",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/ThreeDimensional-SolidModel-420x620.png",
+      "sha256": "37a2739c5145ea3c05b9739efef715253bc6ace9100877abe8fa688396bc4c75",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/ThreeDimensional-SolidModel-840x720.png",
+      "sha256": "ea5db94a70bbbccda9c129893481f6f395686debbf085c4ec5182c778a1382a8",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/TwoDimensional-OpticalLayout-125percent.png",
+      "sha256": "3948457d6aef431c1620bcf10910fd72dbd90ce6bb9c846d460ea59533506e19",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/TwoDimensional-OpticalLayout-2x.png",
+      "sha256": "5c9601b1ba6531128f45b0ba8154b90fd5a8abc5e21e9dc63ab63dc347dfc1f8",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/TwoDimensional-OpticalLayout-420x420.png",
+      "sha256": "45374ace49a0e418fa7933110aedad5adbac9a50e08324d2c0aefa497ac946b5",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "export-captures/TwoDimensional-OpticalLayout-840x620.png",
+      "sha256": "85890b562c55aaba55b7db032ee7c9f6a868856fddd7e90691fe35a32d9d817c",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Dark-en-US-400-free-rotation.png",
+      "sha256": "871621bf989802a586bf1ba94414a4b3bd243e221e2b151552c671085e2ad825",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Dark-en-US-400-initial.png",
+      "sha256": "c7b486f5cc53fd175f441df442937725da62270bf3cbd504e0adf11ddd395819",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Dark-en-US-400-reset.png",
+      "sha256": "1579aae61131508d5acf5c9ec80c06b4fda31e414f6f4ea52975bb6e54e31fb6",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Dark-en-US-400-toolbar.png",
+      "sha256": "8d698f0683337e3b6fee0f23f2791bab97d649da69dc952530bf3074703fade4",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Light-ja-JP-400-free-rotation.png",
+      "sha256": "ba5ea2b685f4dd6f9bcfbf8fa5ea9c7ff79b33b0a7792694bf2b38d93f71f387",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Light-ja-JP-400-initial.png",
+      "sha256": "703fa579c3befe07481e3d863d31fb9c5b9827215142f261489d429e42b8850b",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Light-ja-JP-400-reset.png",
+      "sha256": "c55c183f73129d8725d64e47cbadd726d6094ad40b511904e7953efe64332144",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Light-ja-JP-400-toolbar.png",
+      "sha256": "0c3cab2b14bc72ef7be0f136f507fe910a1506fca94d3dc8e9d8cfa70ed4bcd4",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Light-zh-CN-1100-free-rotation.png",
+      "sha256": "b3b22141ba7db0de9ad1a154a1525a078f891855df5c6eb3f71e4652dbc6f7ef",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Light-zh-CN-1100-initial.png",
+      "sha256": "e9badb2eea664326cc3e6c3a1d5151ffb9e62a8af8bd09c4e8318bb495ea57cc",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Light-zh-CN-1100-reset.png",
+      "sha256": "5390e8acfe35d5845f9694c02512ed8060239bf2bc25ea3920f6f246e92eedf0",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-OpticalLayout-Light-zh-CN-1100-toolbar.png",
+      "sha256": "bab2febfe323539f82f208b6f551adac74c6d5e366479b8bc0f0320fa845d228",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Dark-en-US-400-free-rotation.png",
+      "sha256": "2bfbc129db8c933d175ca492e351cd2053a85fb23dcf01785b0497bc70d5794e",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Dark-en-US-400-initial.png",
+      "sha256": "184a11687c1b07979503b1e74b3dfcf39fac44439a371a0759f26cb6b56dd411",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Dark-en-US-400-reset.png",
+      "sha256": "93edd9c5ef28e90e1821baf6717dcf73f50eac8e330547819c7e97908fc0ca8b",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Dark-en-US-400-toolbar.png",
+      "sha256": "b316b2495e03321fe378d636a86074608ec5ef4452e9d706f527aa01afb95338",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Light-ja-JP-400-free-rotation.png",
+      "sha256": "690cc031a481288c9179a72ae4a9698eedd37b8478fe8ba94c61db8aead92ead",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Light-ja-JP-400-initial.png",
+      "sha256": "42c0bb2b0f56845b1a12322a6edd67f2c95410219ba30b2d1cfd7b792ab488e8",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Light-ja-JP-400-reset.png",
+      "sha256": "04d63cf7be7ae4c3649f8e2342c0d8a8dfffe49663ff09b9e2027053f523a208",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Light-ja-JP-400-toolbar.png",
+      "sha256": "0b2446b44e9996212b06db9df276e122e5177d6dc04dbe28d141ab2bb29a8133",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Light-zh-CN-1100-free-rotation.png",
+      "sha256": "b5d3e564514749eee4b34d0ce28bb43e8b0dee32cda0c9f66dc66d640292f860",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Light-zh-CN-1100-initial.png",
+      "sha256": "07b5bba4fe3190cc43e185ed129dd9b934365fd294bc5bbd52a117d62fd493da",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Light-zh-CN-1100-reset.png",
+      "sha256": "786152cf5ffe37f538691cb417320fd755ac36f4ac2d0132b35e8224ff048933",
+      "classification": "accepted-scoped-capture"
+    },
+    {
+      "path": "geometry-captures/view-buttons-SolidModel-Light-zh-CN-1100-toolbar.png",
+      "sha256": "bab2febfe323539f82f208b6f551adac74c6d5e366479b8bc0f0320fa845d228",
+      "classification": "accepted-scoped-capture"
+    }
+  ]
+}

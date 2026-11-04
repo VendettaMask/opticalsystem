@@ -98,5 +98,6 @@ internal static class IsekaiTheme
         // The registered Isekai renderer owns the leather beneath these native groups.
         resources[ThemeResourceBindings.RibbonPageBackground] = Brushes.Transparent;
         resources[ThemeResourceBindings.RibbonGroupBackground] = Brushes.Transparent;
+        resources[ThemeResourceBindings.LockedSettingForeground] = new SolidColorBrush(IsekaiThemeStyles.LockedSettingInk);
     }
 }

@@ -36,6 +36,7 @@ internal static class ThemeApplicationService
         if (selection.FollowsSystem) application.RequestedThemeVariant = selection.RequestedVariant;
         ApplyResources(application, state, selection.ResolveVisual(application.ActualThemeVariant));
         application.RequestedThemeVariant = selection.RequestedVariant;
+        Services.UiLocalization.ApplyThemeLanguage();
         return selection;
     }
 
@@ -62,7 +63,7 @@ internal static class ThemeApplicationService
             }
             application.Resources[key] = value;
         }
-        Services.DisplayTypography.PublishFontResources(application, visual.UiFontFamily);
+        Services.DisplayTypography.PublishFontResources(application, visual);
     }
 
     private sealed class AppliedResources

@@ -24,7 +24,7 @@ public sealed class MaterialEditorWindow : Window
         FontSize = LaboratoryTypography.Body;
         this.BindThemeResource(BackgroundProperty, ThemeResourceBindings.Surface);
         this.BindThemeResource(ForegroundProperty, ThemeResourceBindings.TextPrimary);
-        var selector = new ComboBox { ItemsSource = materials.Select(m => m.Name).ToArray(), HorizontalAlignment = HorizontalAlignment.Stretch };
+        var selector = UiLocalization.Preserve(new ComboBox { ItemsSource = materials.Select(m => m.Name).ToArray(), HorizontalAlignment = HorizontalAlignment.Stretch });
         selector.SelectionChanged += (_, _) => { if (selector.SelectedIndex >= 0) Populate(materials[selector.SelectedIndex]); };
         var tools = new WrapPanel();
         Button Button(string text, Func<Task> action, bool primary = false)

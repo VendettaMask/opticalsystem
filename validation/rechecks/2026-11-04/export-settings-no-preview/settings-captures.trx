@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="88a6acd8-913b-42ac-a7fb-202f65d528d6" name="allen@DESKTOP-SET3SNR 2026-11-04 22:04:02" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T22:04:02.8815616+08:00" queuing="2026-11-04T22:04:02.8815623+08:00" start="2026-11-04T22:03:59.0384388+08:00" finish="2026-11-04T22:04:07.8476177+08:00" />
+  <TestSettings name="default" id="ee5db973-daad-4499-ad0c-1ffcbcdda987">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-04_22_04_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="9873bf8a-3e3e-49bf-af82-efbcd55ffc2d" testId="d66a2d99-d7f9-56d3-0468-e8a9bece3f16" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;en-US&quot;, theme: &quot;Dark&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.3024688" startTime="2026-11-04T22:04:01.3581359+08:00" endTime="2026-11-04T22:04:02.6548197+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9873bf8a-3e3e-49bf-af82-efbcd55ffc2d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.IsType() Failure: Value is not the exact type&#xD;
+Expected: typeof(Avalonia.Controls.ScrollViewer)&#xD;
+Actual:   typeof(OpticalSystemDesign.App.Theming.ThemeChromeLayer)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass3_0.&lt;SettingsKeepPresetsAndDpiIndependentAndSaveAtomically&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 78&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(String language, String theme) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 56&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="336693e1-3883-4f0c-879a-bf7d90f33f8a" testId="7a44cec7-69ab-d717-eee3-f7133baae015" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;zh-CN&quot;, theme: &quot;Light&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:02.0965151" startTime="2026-11-04T22:04:02.6646702+08:00" endTime="2026-11-04T22:04:04.7525893+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="336693e1-3883-4f0c-879a-bf7d90f33f8a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.IsType() Failure: Value is not the exact type&#xD;
+Expected: typeof(Avalonia.Controls.ScrollViewer)&#xD;
+Actual:   typeof(OpticalSystemDesign.App.Theming.ThemeChromeLayer)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass3_0.&lt;SettingsKeepPresetsAndDpiIndependentAndSaveAtomically&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 78&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(String language, String theme) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 56&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="127301cb-ef0e-462b-844e-ab9d66454b80" testId="25d71579-3db9-620d-eb24-654c7e163e99" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;ja-JP&quot;, theme: &quot;Light&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:02.9865349" startTime="2026-11-04T22:04:04.7565509+08:00" endTime="2026-11-04T22:04:07.7396004+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="127301cb-ef0e-462b-844e-ab9d66454b80">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.IsType() Failure: Value is not the exact type&#xD;
+Expected: typeof(Avalonia.Controls.ScrollViewer)&#xD;
+Actual:   typeof(OpticalSystemDesign.App.Theming.ThemeChromeLayer)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass3_0.&lt;SettingsKeepPresetsAndDpiIndependentAndSaveAtomically&gt;b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 78&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(String language, String theme) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs:line 56&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;ja-JP&quot;, theme: &quot;Light&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="25d71579-3db9-620d-eb24-654c7e163e99">
+      <Execution id="127301cb-ef0e-462b-844e-ab9d66454b80" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="SettingsKeepPresetsAndDpiIndependentAndSaveAtomically" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;en-US&quot;, theme: &quot;Dark&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d66a2d99-d7f9-56d3-0468-e8a9bece3f16">
+      <Execution id="9873bf8a-3e3e-49bf-af82-efbcd55ffc2d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="SettingsKeepPresetsAndDpiIndependentAndSaveAtomically" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;zh-CN&quot;, theme: &quot;Light&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7a44cec7-69ab-d717-eee3-f7133baae015">
+      <Execution id="336693e1-3883-4f0c-879a-bf7d90f33f8a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="SettingsKeepPresetsAndDpiIndependentAndSaveAtomically" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="d66a2d99-d7f9-56d3-0468-e8a9bece3f16" executionId="9873bf8a-3e3e-49bf-af82-efbcd55ffc2d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7a44cec7-69ab-d717-eee3-f7133baae015" executionId="336693e1-3883-4f0c-879a-bf7d90f33f8a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25d71579-3db9-620d-eb24-654c7e163e99" executionId="127301cb-ef0e-462b-844e-ab9d66454b80" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="0" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.90]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.94]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.96]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.29]       Assert.IsType() Failure: Value is not the exact type&#xD;
+[xUnit.net 00:00:03.29]       Expected: typeof(Avalonia.Controls.ScrollViewer)&#xD;
+[xUnit.net 00:00:03.29]       Actual:   typeof(OpticalSystemDesign.App.Theming.ThemeChromeLayer)&#xD;
+[xUnit.net 00:00:03.29]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.29]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(78,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass3_0.&lt;SettingsKeepPresetsAndDpiIndependentAndSaveAtomically&gt;b__0()&#xD;
+[xUnit.net 00:00:03.29]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:03.29]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:03.29]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:03.29]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.29]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(56,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(String language, String theme)&#xD;
+[xUnit.net 00:00:03.29]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.39]       Assert.IsType() Failure: Value is not the exact type&#xD;
+[xUnit.net 00:00:05.39]       Expected: typeof(Avalonia.Controls.ScrollViewer)&#xD;
+[xUnit.net 00:00:05.39]       Actual:   typeof(OpticalSystemDesign.App.Theming.ThemeChromeLayer)&#xD;
+[xUnit.net 00:00:05.39]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.39]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(78,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass3_0.&lt;SettingsKeepPresetsAndDpiIndependentAndSaveAtomically&gt;b__0()&#xD;
+[xUnit.net 00:00:05.39]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.39]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:05.39]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:05.39]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.39]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(56,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(String language, String theme)&#xD;
+[xUnit.net 00:00:05.39]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.37]       Assert.IsType() Failure: Value is not the exact type&#xD;
+[xUnit.net 00:00:08.38]       Expected: typeof(Avalonia.Controls.ScrollViewer)&#xD;
+[xUnit.net 00:00:08.38]       Actual:   typeof(OpticalSystemDesign.App.Theming.ThemeChromeLayer)&#xD;
+[xUnit.net 00:00:08.38]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.38]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(78,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.&lt;&gt;c__DisplayClass3_0.&lt;SettingsKeepPresetsAndDpiIndependentAndSaveAtomically&gt;b__0()&#xD;
+[xUnit.net 00:00:08.38]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(84,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass8_0.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:08.38]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass10_0`1.&lt;Dispatch&gt;b__0()&#xD;
+[xUnit.net 00:00:08.38]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.38]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.38]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\AnalysisFrameDpiTests.cs(56,0): at OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(String language, String theme)&#xD;
+[xUnit.net 00:00:08.38]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.38]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T22:04:02.6568604+08:00">
+        <Text>[xUnit.net 00:00:03.29]     OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: "en-US", theme: "Dark") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T22:04:04.7532083+08:00">
+        <Text>[xUnit.net 00:00:05.39]     OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: "zh-CN", theme: "Light") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T22:04:07.7402367+08:00">
+        <Text>[xUnit.net 00:00:08.37]     OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: "ja-JP", theme: "Light") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

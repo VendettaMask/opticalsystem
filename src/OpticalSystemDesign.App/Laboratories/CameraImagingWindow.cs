@@ -53,6 +53,7 @@ public sealed partial class CameraImagingWindow : Window
     public CameraImagingWindow(IWorkbenchApplication application)
     {
         _application = application;
+        UiLocalization.Preserve(_materialChoice);
         Title = "相机成像仿真 · 实验室";
         Width = 1280; Height = 900; MinWidth = 760; MinHeight = 540;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;

@@ -219,9 +219,9 @@ public sealed class InterferogramAnalysis : BaseAnalysis
     private Optic PrepareSurface(Optic source, Wavelength wavelength)
     {
         var number = _settings.SurfaceNumber;
-        if (number < 0 || number == source.SurfaceGroup.Items[^1].Number) return source;
+        if (number == -1 || number == source.SurfaceGroup.Items[^1].Number) return source;
         if (!_prepared.TryGetValue(source, out var prepared))
-            _prepared[source] = prepared = InterferogramSurfacePreparation.Create(source, number, wavelength);
+            _prepared[source] = prepared = AnalysisSurfacePreparation.Prepare(source, number);
         return prepared;
     }
 }

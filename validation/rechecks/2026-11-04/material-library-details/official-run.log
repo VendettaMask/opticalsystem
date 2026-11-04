@@ -1,0 +1,34 @@
+  OpticalSystemDesign.Core -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\Projects\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\Projects\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\Projects\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MaterialLibraryPanelTests.cs(196,64): warning CS0618: “Bitmap.Save(string, int?)”已过时:“Use the overload accepting BitmapEncoderOptions instead.” [D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj]
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MaterialLibraryPanelTests.cs(97,17): warning xUnit2031: Do not use a Where clause to filter before calling Assert.Single. Use the overload of Assert.Single that accepts a filtering function. (https://xunit.net/xunit.analyzers/rules/xUnit2031) [D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj]
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\MaterialLibraryPanelTests.cs(110,36): warning xUnit2031: Do not use a Where clause to filter before calling Assert.Single. Use the overload of Assert.Single that accepts a filtering function. (https://xunit.net/xunit.analyzers/rules/xUnit2031) [D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj]
+C:\Program Files\dotnet\sdk\10.0.300\Microsoft.Common.CurrentVersion.targets(5096,5): warning MSB3026: 无法将“D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll”复制到“bin\Release\net10.0\OpticalSystemDesign.Core.dll”。1000 毫秒后将开始第 1 次重试。The process cannot access the file 'D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Core.dll' because it is being used by another process. 文件被“testhost (20220)”锁定。 [D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj]
+C:\Program Files\dotnet\sdk\10.0.300\Microsoft.Common.CurrentVersion.targets(5096,5): warning MSB3026: 无法将“D:\Projects\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll”复制到“bin\Release\net10.0\ZemaxLibraryImporter.dll”。1000 毫秒后将开始第 1 次重试。The process cannot access the file 'D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\ZemaxLibraryImporter.dll' because it is being used by another process. 文件被“testhost (20220)”锁定。 [D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj]
+C:\Program Files\dotnet\sdk\10.0.300\Microsoft.Common.CurrentVersion.targets(5096,5): warning MSB3026: 无法将“D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll”复制到“bin\Release\net10.0\OpticalSystemDesign.Application.dll”。1000 毫秒后将开始第 1 次重试。The process cannot access the file 'D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Application.dll' because it is being used by another process. 文件被“testhost (20220)”锁定。 [D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj]
+  OpticalSystemDesign.Tests -> D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:02.81]     OpticalSystemDesign.Tests.GlassCatalogTests.SystemGlassCatalogPriorityControlsResolutionAndSurvivesSnapshot [FAIL]
+  失败 OpticalSystemDesign.Tests.GlassCatalogTests.SystemGlassCatalogPriorityControlsResolutionAndSurvivesSnapshot [2 ms]
+  错误消息:
+   Assert.Equal() Failure: Strings differ
+           ↓ (pos 0)
+Expected: "CDGM"
+Actual:   "SCHOTT"
+           ↑ (pos 0)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.GlassCatalogTests.SystemGlassCatalogPriorityControlsResolutionAndSurvivesSnapshot() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\GlassCatalogTests.cs:line 146
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+
+失败!  - 失败:     1，通过:    35，已跳过:     0，总计:    36，持续时间: 14 s - OpticalSystemDesign.Tests.dll (net10.0)
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-04\material-library-details\material-official.trx

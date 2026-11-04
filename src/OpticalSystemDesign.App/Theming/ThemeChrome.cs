@@ -203,6 +203,10 @@ internal sealed class NoThemeDecorationRenderer : IThemeDecorationRenderer
 
 internal sealed class ThemeChromeOverlay : Control
 {
+    internal TabControl? RibbonTabs { get; init; }
+    internal bool ForegroundDecoration { get; init; }
+    internal RibbonDecorationLayout RibbonLayout { get; private set; }
+
     public static readonly StyledProperty<ThemeChromeRole> RoleProperty =
         AvaloniaProperty.Register<ThemeChromeOverlay, ThemeChromeRole>(nameof(Role));
 
@@ -232,8 +236,38 @@ internal sealed class ThemeChromeOverlay : Control
             return;
         }
 
-        ThemeRegistry.FromActualVariant(ActualThemeVariant)
-            .DecorationRenderer
-            .Render(Role, context, new Rect(Bounds.Size));
+        var renderer = ThemeRegistry.FromActualVariant(ActualThemeVariant).DecorationRenderer;
+        if (Role == ThemeChromeRole.Ribbon && RibbonTabs is not null && renderer is ILayoutAwareRibbonDecoration adaptive)
+        {
+            RibbonLayout = RibbonDecorationLayout.Measure(RibbonTabs, this);
+            adaptive.RenderRibbon(context, new Rect(Bounds.Size), RibbonLayout, ForegroundDecoration);
+        }
+        else if (!ForegroundDecoration) renderer.Render(Role, context, new Rect(Bounds.Size));
+    }
+
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+        if (RibbonTabs is null) return;
+        LayoutUpdated += UpdateRibbonLayout;
+        RibbonTabs.SelectionChanged += OnRibbonSelectionChanged;
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        LayoutUpdated -= UpdateRibbonLayout;
+        if (RibbonTabs is not null) RibbonTabs.SelectionChanged -= OnRibbonSelectionChanged;
+        base.OnDetachedFromVisualTree(e);
+    }
+
+    private void OnRibbonSelectionChanged(object? sender, SelectionChangedEventArgs e) => RefreshRibbonLayout();
+    private void UpdateRibbonLayout(object? sender, EventArgs e) => RefreshRibbonLayout();
+    private void RefreshRibbonLayout()
+    {
+        if (RibbonTabs is null) return;
+        var next = RibbonDecorationLayout.Measure(RibbonTabs, this);
+        if (next == RibbonLayout) return;
+        RibbonLayout = next;
+        InvalidateVisual();
     }
 }

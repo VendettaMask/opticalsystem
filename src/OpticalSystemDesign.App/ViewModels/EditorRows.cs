@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Globalization;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
@@ -220,9 +221,12 @@ public sealed class SurfaceEditorRow
     public override string ToString() => $"{Number}: {Label}";
 }
 
-public sealed class MeritOperandEditorRow
+public sealed class MeritOperandEditorRow : INotifyPropertyChanged
 {
     private MeritOperandTypeDto? _typeMetadata;
+    private string _type = string.Empty;
+    private string _error = string.Empty;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public MeritOperandEditorRow(MeritOperandRowDto source, MeritOperandTypeDto? typeMetadata = null)
     {
@@ -279,7 +283,11 @@ public sealed class MeritOperandEditorRow
 
     public int Index { get; set; }
     public bool Enabled { get; set; }
-    public string Type { get; set; }
+    public string Type
+    {
+        get => _type;
+        set { if (_type == value) return; _type = value; PropertyChanged?.Invoke(this, new(nameof(Type))); }
+    }
     public int Surface { get; set; }
     public int Field { get; set; }
     public int Wavelength { get; set; }
@@ -292,7 +300,11 @@ public sealed class MeritOperandEditorRow
     public double Value { get; set; }
     public double Contribution { get; set; }
     public string Comment { get; set; }
-    public string Error { get; set; }
+    public string Error
+    {
+        get => _error;
+        set { if (_error == value) return; _error = value; PropertyChanged?.Invoke(this, new(nameof(Error))); }
+    }
     public int PupilRings { get; set; }
     public int PupilArms { get; set; }
     public double PupilObscuration { get; set; }

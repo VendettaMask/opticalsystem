@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5dee26ef-6f92-47a1-a551-0f3cbb2666d9" name="allen@DESKTOP-SET3SNR 2026-11-04 22:58:50" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T22:58:50.7504244+08:00" queuing="2026-11-04T22:58:50.7504245+08:00" start="2026-11-04T22:58:43.4705008+08:00" finish="2026-11-04T22:58:53.6987949+08:00" />
+  <TestSettings name="default" id="81c887da-d69f-4ac0-9a89-c18fedbe75ec">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-04_22_58_50" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="d08fcde6-7864-42d7-910d-328cd877c6e8" testId="bef9110e-c337-1b14-8515-a644fa191d9d" testName="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand(preferredLanguage: &quot;zh-CN&quot;, fontSize: 13, scaling: 1.5)" computerName="DESKTOP-SET3SNR" duration="00:00:02.8722622" startTime="2026-11-04T22:58:50.7393712+08:00" endTime="2026-11-04T22:58:53.5964721+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d08fcde6-7864-42d7-910d-328cd877c6e8">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected surface type: Standard; visible labels: OpticalSystemDesign Cooke Triplet - Sequential Mode - Optical System Design | Search commands (Ctrl+Q) | File(_F) | Settings(_S) | View(_V) | Analysis(_A) | Optimize(_O) | Tolerance(_T) | Manufacturing &amp; Drawings(_M) | Database(_D) | Laboratory(_L) | Window(_W) | Help(_H) | New | Open | Save | Import | Export | Samples | Undo | Redo | Sequential Mode   |   Ready   |   8 Surfaces   |   3 Fields   |   3 Wavelengths | EFFL: 50 | F/#: 5 | APER: 10 | TOTR: 60.177 | System Aperture | Aperture Type | Entrance Pupil Diameter | Aperture Value | Pupil Apodization | 均匀 |  | Field | Field Type | Angle | Object-Space Telecentric | Image-Space Afocal | Field Data | Add Field | Field 1 | X 0 · Y 0 · Weight 1 | Field 2 | X 0 · Y 14 · Weight 1 | Field 3 | X 0 · Y 20 · Weight 1 | Wavelength | Polarization | Material Library | Environment | Advanced | 系统选项 | 镜头数据 | 二维视图 | Surface 1 Properties | Configuration 1/1 | # | Surface Type | Comment | Radius of Curvature | Thickness | Material | Coating | Clear Semi-Diameter | Extension Zone | Mechanical Semi-Diameter | Conic | TCE x 1E-6 | 0 | 物面 | 标准面 | Object |  |  |  | None |  | 0 | 9.85 | 0 | 1 | 标准面 | Crown front |  |  | SK16 | None |  | 0 | 9.85 | 0 | 2 | 标准面 | Crown back |  |  |  | None |  | 0 | 9.85 | 0 | 3 | 标准面 | Flint front |  |  | SCHOTT:F2 | None |  | 0 | 4.6 | 0 | 4 | 光阑 | 标准面 | Flint back / stop |  |  |  | None |  | 0 | 4.6 | 0 | 5 | 标准面 | Rear crown front |  |  | SK16 | None |  | 0 | 8.4 | 0 | 6 | 标准面 | Rear crown back |  |  |  | None |  | 0 | 8.4 | 0 | 7 | 像面 | 标准面 | Image |  | - |  | None |  | 0 | 20.9 | 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.&lt;&gt;c__DisplayClass3_0.&lt;&lt;SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 171&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand(String preferredLanguage, Double fontSize, Double scaling) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 146&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5fa51910-2f28-4799-b590-d9deb5feec85" testId="2591ffa5-b526-5410-123f-49ea85d7ec2c" testName="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand(preferredLanguage: &quot;ja-JP&quot;, fontSize: 18, scaling: 2)" computerName="DESKTOP-SET3SNR" duration="00:00:05.7302419" startTime="2026-11-04T22:58:44.9814718+08:00" endTime="2026-11-04T22:58:50.7232788+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5fa51910-2f28-4799-b590-d9deb5feec85">
+      <Output>
+        <ErrorInfo>
+          <Message>Expected surface type: Standard; visible labels: OpticalSystemDesign Cooke Triplet - Sequential Mode - Optical System Design | Search commands (Ctrl+Q) | File(_F) | Settings(_S) | View(_V) | Analysis(_A) | Optimize(_O) | Tolerance(_T) | Manufacturing &amp; Drawings(_M) | Database(_D) | Laboratory(_L) | Window(_W) | Help(_H) | New | Open | Save | Import | Export | Samples | Undo | Redo | Sequential Mode   |   Ready   |   8 Surfaces   |   3 Fields   |   3 Wavelengths | EFFL: 50 | F/#: 5 | APER: 10 | TOTR: 60.177 | System Aperture | Aperture Type | Entrance Pupil Diameter | Aperture Value | Pupil Apodization | 均匀 |  | Field | Field Type | Angle | Object-Space Telecentric | Image-Space Afocal | Field Data | Add Field | Field 1 | X 0 · Y 0 · Weight 1 | Field 2 | X 0 · Y 14 · Weight 1 | Field 3 | X 0 · Y 20 · Weight 1 | Wavelength | Polarization | Material Library | Environment | Advanced | 系统选项 | 镜头数据 | 二维视图 | Surface 1 Properties | Configuration 1/1 | # | Surface Type | Comment | Radius of Curvature | Thickness | Material | Coating | Clear Semi-Diameter | Extension Zone | Mechanical Semi-Diameter | Conic | TCE x 1E-6 | 0 | 物面 | 标准面 | Object |  |  |  | None |  | 0 | 9.85 | 0 | 1 | 标准面 | Crown front |  |  | SK16 | None |  | 0 | 9.85 | 0 | 2 | 标准面 | Crown back |  |  |  | None |  | 0 | 9.85 | 0 | 3 | 标准面 | Flint front |  |  | SCHOTT:F2 | None |  | 0 | 4.6 | 0 | 4 | 光阑 | 标准面 | Flint back / stop |  |  |  | None |  | 0 | 4.6 | 0 | 5 | 标准面 | Rear crown front |  |  | SK16 | None |  | 0 | 8.4 | 0 | 6 | 标准面 | Rear crown back |  |  |  | None |  | 0 | 8.4 | 0 | 7 | 像面 | 标准面 | Image |  | - |  | None |  | 0 | 20.9 | 0</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.&lt;&gt;c__DisplayClass3_0.&lt;&lt;SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 171&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand(String preferredLanguage, Double fontSize, Double scaling) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 146&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand(preferredLanguage: &quot;zh-CN&quot;, fontSize: 13, scaling: 1.5)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="bef9110e-c337-1b14-8515-a644fa191d9d">
+      <Execution id="d08fcde6-7864-42d7-910d-328cd877c6e8" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests" name="SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand(preferredLanguage: &quot;ja-JP&quot;, fontSize: 18, scaling: 2)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2591ffa5-b526-5410-123f-49ea85d7ec2c">
+      <Execution id="5fa51910-2f28-4799-b590-d9deb5feec85" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests" name="SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="bef9110e-c337-1b14-8515-a644fa191d9d" executionId="d08fcde6-7864-42d7-910d-328cd877c6e8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2591ffa5-b526-5410-123f-49ea85d7ec2c" executionId="5fa51910-2f28-4799-b590-d9deb5feec85" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="2" executed="2" passed="0" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.14]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.15]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.17]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:06.93]       Expected surface type: Standard; visible labels: OpticalSystemDesign Cooke Triplet - Sequential Mode - Optical System Design | Search commands (Ctrl+Q) | File(_F) | Settings(_S) | View(_V) | Analysis(_A) | Optimize(_O) | Tolerance(_T) | Manufacturing &amp; Drawings(_M) | Database(_D) | Laboratory(_L) | Window(_W) | Help(_H) | New | Open | Save | Import | Export | Samples | Undo | Redo | Sequential Mode   |   Ready   |   8 Surfaces   |   3 Fields   |   3 Wavelengths | EFFL: 50 | F/#: 5 | APER: 10 | TOTR: 60.177 | System Aperture | Aperture Type | Entrance Pupil Diameter | Aperture Value | Pupil Apodization | 均匀 |  | Field | Field Type | Angle | Object-Space Telecentric | Image-Space Afocal | Field Data | Add Field | Field 1 | X 0 · Y 0 · Weight 1 | Field 2 | X 0 · Y 14 · Weight 1 | Field 3 | X 0 · Y 20 · Weight 1 | Wavelength | Polarization | Material Library | Environment | Advanced | 系统选项 | 镜头数据 | 二维视图 | Surface 1 Properties | Configuration 1/1 | # | Surface Type | Comment | Radius of Curvature | Thickness | Material | Coating | Clear Semi-Diameter | Extension Zone | Mechanical Semi-Diameter | Conic | TCE x 1E-6 | 0 | 物面 | 标准面 | Object |  |  |  | None |  | 0 | 9.85 | 0 | 1 | 标准面 | Crown front |  |  | SK16 | None |  | 0 | 9.85 | 0 | 2 | 标准面 | Crown back |  |  |  | None |  | 0 | 9.85 | 0 | 3 | 标准面 | Flint front |  |  | SCHOTT:F2 | None |  | 0 | 4.6 | 0 | 4 | 光阑 | 标准面 | Flint back / stop |  |  |  | None |  | 0 | 4.6 | 0 | 5 | 标准面 | Rear crown front |  |  | SK16 | None |  | 0 | 8.4 | 0 | 6 | 标准面 | Rear crown back |  |  |  | None |  | 0 | 8.4 | 0 | 7 | 像面 | 标准面 | Image |  | - |  | None |  | 0 | 20.9 | 0&#xD;
+[xUnit.net 00:00:06.93]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.93]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs(171,0): at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.&lt;&gt;c__DisplayClass3_0.&lt;&lt;SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.93]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.93]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.93]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.93]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:06.93]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.93]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs(146,0): at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand(String preferredLanguage, Double fontSize, Double scaling)&#xD;
+[xUnit.net 00:00:06.93]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.80]       Expected surface type: Standard; visible labels: OpticalSystemDesign Cooke Triplet - Sequential Mode - Optical System Design | Search commands (Ctrl+Q) | File(_F) | Settings(_S) | View(_V) | Analysis(_A) | Optimize(_O) | Tolerance(_T) | Manufacturing &amp; Drawings(_M) | Database(_D) | Laboratory(_L) | Window(_W) | Help(_H) | New | Open | Save | Import | Export | Samples | Undo | Redo | Sequential Mode   |   Ready   |   8 Surfaces   |   3 Fields   |   3 Wavelengths | EFFL: 50 | F/#: 5 | APER: 10 | TOTR: 60.177 | System Aperture | Aperture Type | Entrance Pupil Diameter | Aperture Value | Pupil Apodization | 均匀 |  | Field | Field Type | Angle | Object-Space Telecentric | Image-Space Afocal | Field Data | Add Field | Field 1 | X 0 · Y 0 · Weight 1 | Field 2 | X 0 · Y 14 · Weight 1 | Field 3 | X 0 · Y 20 · Weight 1 | Wavelength | Polarization | Material Library | Environment | Advanced | 系统选项 | 镜头数据 | 二维视图 | Surface 1 Properties | Configuration 1/1 | # | Surface Type | Comment | Radius of Curvature | Thickness | Material | Coating | Clear Semi-Diameter | Extension Zone | Mechanical Semi-Diameter | Conic | TCE x 1E-6 | 0 | 物面 | 标准面 | Object |  |  |  | None |  | 0 | 9.85 | 0 | 1 | 标准面 | Crown front |  |  | SK16 | None |  | 0 | 9.85 | 0 | 2 | 标准面 | Crown back |  |  |  | None |  | 0 | 9.85 | 0 | 3 | 标准面 | Flint front |  |  | SCHOTT:F2 | None |  | 0 | 4.6 | 0 | 4 | 光阑 | 标准面 | Flint back / stop |  |  |  | None |  | 0 | 4.6 | 0 | 5 | 标准面 | Rear crown front |  |  | SK16 | None |  | 0 | 8.4 | 0 | 6 | 标准面 | Rear crown back |  |  |  | None |  | 0 | 8.4 | 0 | 7 | 像面 | 标准面 | Image |  | - |  | None |  | 0 | 20.9 | 0&#xD;
+[xUnit.net 00:00:09.80]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.80]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs(171,0): at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.&lt;&gt;c__DisplayClass3_0.&lt;&lt;SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:09.80]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.80]         D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:09.80]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.80]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:09.80]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.80]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs(146,0): at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand(String preferredLanguage, Double fontSize, Double scaling)&#xD;
+[xUnit.net 00:00:09.80]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.81]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T22:58:50.7251839+08:00">
+        <Text>[xUnit.net 00:00:06.93]     OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand(preferredLanguage: "ja-JP", fontSize: 18, scaling: 2) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-04T22:58:53.5967901+08:00">
+        <Text>[xUnit.net 00:00:09.80]     OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SavedIsekaiStartsInEnglishAndGuardsTheActualRibbonLanguageCommand(preferredLanguage: "zh-CN", fontSize: 13, scaling: 1.5) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

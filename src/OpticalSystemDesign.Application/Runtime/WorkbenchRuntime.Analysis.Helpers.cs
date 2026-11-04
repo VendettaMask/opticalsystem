@@ -223,6 +223,10 @@ public partial class WorkbenchRuntime
     {
         return value switch
         {
+            FourierValidationReport report => $"{(report.Mode == FourierSamplingMode.ValidateRequested ? "验证原采样" : "自适应精度")}："
+                + $"请求 {report.RequestedPupilSampling}，返回 {report.ReturnedPupilSampling}，"
+                + $"实际最高 {report.Steps.LastOrDefault()?.PupilSampling ?? 0}，"
+                + $"相对RMS目标 {report.RelativeRmsAccuracy:P2}；{(report.Validated ? "验证通过" : "未通过验证")}",
             double number => NumericDisplayFormatter.Format(number),
             float number => NumericDisplayFormatter.Format(number),
             string text when text == "linear-height" => "线性高度",

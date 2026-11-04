@@ -8,6 +8,14 @@
     <AssemblyName>OpticalSystemDesign.Tests</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/FourierResultValidationTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/OffAxisCollimationReferenceTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/AnalysisSurfaceAndReferenceTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/MtfMaximumFrequencyTests.cs" />
+    <Compile Include="../../../tests/OpticalSystemDesign.Tests/InterferogramAnalysisTests.cs" />
+    <None Include="../../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX" Link="Fixtures/definition-settings/example2.zmx" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/054-interferogram/data.json" Link="Fixtures/zemax-123456-interferogram.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../../artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/054-interferogram/data.txt" Link="Fixtures/zemax-123456-interferogram.txt" CopyToOutputDirectory="PreserveNewest" />
     <ProjectReference Include="../../../src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/ObscuredReferenceTests.cs" />
     <Compile Include="../../../tests/OpticalSystemDesign.Tests/HuygensFourierSumTests.cs" />

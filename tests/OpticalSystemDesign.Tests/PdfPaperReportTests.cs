@@ -97,7 +97,7 @@ public sealed class PdfPaperReportTests
             Assert.InRange(width, 523.27f, 523.29f);
             Assert.InRange(height, 392.66f, 392.69f);
         }
-        Assert.Contains("/Width 1440", Encoding.Latin1.GetString(pdf));
+        Assert.Contains("/Width 2404", Encoding.Latin1.GetString(pdf));
         Assert.Contains("/Width 1202", Encoding.Latin1.GetString(pdf));
         Assert.DoesNotContain("/DCTDecode", Encoding.Latin1.GetString(pdf));
     }

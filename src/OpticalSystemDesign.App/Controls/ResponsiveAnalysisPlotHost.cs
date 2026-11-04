@@ -8,7 +8,7 @@ using OpticalSystemDesign.App.Theming;
 namespace OpticalSystemDesign.App.Controls;
 
 /// <summary>
-/// Fits an original drawing into its current viewport without changing the sheet.
+/// Selects the outer sheet aspect when automatic, then fits it into the viewport.
 /// Actual-size mode uses native scrolling; non-drawing reports keep their readable layout.
 /// </summary>
 internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
@@ -110,10 +110,11 @@ internal sealed class ResponsiveAnalysisPlotHost : ScrollViewer
         protected override Size MeasureOverride(Size availableSize)
         {
             if (Child is null) return default;
-            if (Source is UniformDiagramPage)
+            if (Source is UniformDiagramPage sheet)
             {
                 var inset = _frame.DrawingInset;
-                _fit.Measure(FitToViewport ? _viewport : new Size(UniformDiagramPage.SheetWidth + 2 * inset, UniformDiagramPage.SheetHeight + 2 * inset));
+                sheet.SetViewport(new Size(Math.Max(0, _viewport.Width - 2 * inset), Math.Max(0, _viewport.Height - 2 * inset)));
+                _fit.Measure(FitToViewport ? _viewport : new Size(sheet.Width + 2 * inset, sheet.Height + 2 * inset));
                 return _fit.DesiredSize;
             }
             var width = Math.Max(Math.Max(320, _viewport.Width), MinimumReadableWidth(Child));

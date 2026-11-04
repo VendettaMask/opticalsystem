@@ -49,8 +49,8 @@ public sealed class CommandSearchTests
                 ItemsSource = new[]
             {
                 MakeTab("文件(_F)"), MakeTab("设置(_S)"), MakeTab("视图(_V)"), MakeTab("分析(_A)"),
-                MakeTab("优化(_O)"), MakeTab("公差(_T)"), MakeTab("加工与图纸"), MakeTab("数据库"),
-                MakeTab("实验室"), MakeTab("窗口(_W)"), MakeTab("帮助(_H)")
+                MakeTab("优化(_O)"), MakeTab("公差(_T)"), MakeTab("加工与图纸(_M)"), MakeTab("数据库(_D)"),
+                MakeTab("实验室(_L)"), MakeTab("窗口(_W)"), MakeTab("帮助(_H)")
             }
             };
             tabs.Classes.Add("ribbon-tabs");

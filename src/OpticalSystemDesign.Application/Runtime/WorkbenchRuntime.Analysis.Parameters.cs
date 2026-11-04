@@ -745,6 +745,9 @@ public partial class WorkbenchRuntime
             },
             "PSF" => new[]
             {
+                ChoiceParameter("FourierSamplingMode", "采样策略", "固定采样", new[] { "固定采样", "验证原采样", "自适应精度" }),
+                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", "1024", new[] { "128", "256", "512", "1024", "2048" }),
+                DoubleParameter("FourierRelativeAccuracy", "验证/自适应相对RMS目标", "0.001", 0.000001, 0.01, 0.001),
                 ChoiceParameter(
                     "Sampling",
                     "采样",
@@ -801,6 +804,9 @@ public partial class WorkbenchRuntime
             },
             "FFT PSF Cross Section" => new[]
             {
+                ChoiceParameter("FourierSamplingMode", "采样策略", "固定采样", new[] { "固定采样", "验证原采样", "自适应精度" }),
+                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", "1024", new[] { "128", "256", "512", "1024", "2048", "4096" }),
+                DoubleParameter("FourierRelativeAccuracy", "验证/自适应相对RMS目标", "0.001", 0.000001, 0.01, 0.001),
                 ChoiceParameter(
                     "Sampling",
                     "采样",
@@ -870,6 +876,9 @@ public partial class WorkbenchRuntime
             },
             "MTF" => new[]
             {
+                ChoiceParameter("FourierSamplingMode", "采样策略", "固定采样", new[] { "固定采样", "验证原采样", "自适应精度" }),
+                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", "1024", new[] { "128", "256", "512", "1024", "2048" }),
+                DoubleParameter("FourierRelativeAccuracy", "验证/自适应相对RMS目标", "0.001", 0.000001, 0.01, 0.001),
                 ChoiceParameter("Sampling", "采样", "64", fftSamplingChoices.Concat(new[] { "1024", "2048" }).Distinct().ToArray()),
                 DoubleParameter("MaximumFrequency", "最大频率 (cycles/mm，0 为默认)", "0", 0, 10000, 10),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
@@ -1032,6 +1041,7 @@ public partial class WorkbenchRuntime
                 DoubleParameter("DisplayScale", "缩放", "1", 0.01, 1_000, 0.1),
                 ChoiceParameter("Apodization", "偏振", "无", new[] { "无", "高斯" }),
                 BoolParameter("ReferenceChiefRay", "参考主光线", "false"),
+                BoolParameter("ReferenceToPrimary", "参考主波长", "false"),
                 BoolParameter("UseExitPupilShape", "使用出瞳形状", "true"),
                 ChoiceParameter("ExitPupilGeometry", "出瞳模型", "F 数近似", new[] { "F 数近似", "三维光阑像" }),
                 ChoiceParameter(

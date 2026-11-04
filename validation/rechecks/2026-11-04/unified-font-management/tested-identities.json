@@ -1,0 +1,361 @@
+{
+  "captured_utc": "2026-11-04T15:12:23.730593+00:00",
+  "scope": "Font management and portable-output regression; no full product certification",
+  "passed_distinct_cases": 113,
+  "runs": {
+    "unified-font-accepted.trx": {
+      "total": 112,
+      "passed": 112,
+      "failed": 0,
+      "notExecuted": 0
+    },
+    "unified-popup-accepted.trx": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "notExecuted": 0
+    }
+  },
+  "accepted_112_test_assembly_sha256_before_extra_popup_test": "12afd34ac49a53805ad35db79c5a1dff825801f1be04370f42b1aefa6eeb756a",
+  "extra_popup_test_assembly": "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.Tests.dll",
+  "scoped_sources": {
+    "src\\OpticalSystemDesign.App\\App.cs": {
+      "bytes": 35747,
+      "sha256": "ddfcc7396ec92c0c373df02f14ccc950236d8ee3fc381cba40b03765866fe516"
+    },
+    "src\\OpticalSystemDesign.App\\OpticalSystemDesign.App.csproj": {
+      "bytes": 9936,
+      "sha256": "b437c60943a377335753c32925c3fea71ce5f57f907614e81e4ee9a73e8069ba"
+    },
+    "src\\OpticalSystemDesign.App\\Services\\ProductFonts.cs": {
+      "bytes": 1869,
+      "sha256": "f4ddf8809e8ec927c1e80e7fefa33aeb72e6e1749997704883781433e7e3e9a4"
+    },
+    "src\\OpticalSystemDesign.App\\Services\\ProductFonts.Registry.cs": {
+      "bytes": 7363,
+      "sha256": "bee3af4d6674827792c3eb427ea884e10e396d094c9c11b8913b27113f0dac73"
+    },
+    "src\\OpticalSystemDesign.App\\Services\\DisplayTypography.cs": {
+      "bytes": 8153,
+      "sha256": "bcdb7e2bd4012d104722dab0a6e555682b191e803e40f2ed0e2ae52d34e26f87"
+    },
+    "src\\OpticalSystemDesign.App\\Services\\DocumentTypography.cs": {
+      "bytes": 5270,
+      "sha256": "6f830425d798ca6a61c3cd70206bb0dd6231e09b46c1c0e963ac121c5f5291e0"
+    },
+    "src\\OpticalSystemDesign.App\\Services\\DesignReportPdfWriter.cs": {
+      "bytes": 15957,
+      "sha256": "1b8ad2b52030dcf1e566b21074d9f0d98789f6aa08040db7cdcfdd989fe21bf2"
+    },
+    "src\\OpticalSystemDesign.App\\Services\\DesignReportPdfWriter.Paper.cs": {
+      "bytes": 6436,
+      "sha256": "0911e03c476096d91c2780d5ddf75b9e1e6a28f785625d2b7e7a63b20d39c140"
+    },
+    "src\\OpticalSystemDesign.App\\Services\\DesignReportHtmlWriter.cs": {
+      "bytes": 11122,
+      "sha256": "f87e49123dd8386612065a008a8a7a9b7fbc067853205a02d45964b514eed2b4"
+    },
+    "src\\OpticalSystemDesign.App\\Services\\DesignReportHtmlWriter.Paper.cs": {
+      "bytes": 9761,
+      "sha256": "6c8b8ec11573412b4fd7f4be6eaa1967b58a33cba69c738ea3d890c56d574efa"
+    },
+    "src\\OpticalSystemDesign.App\\Services\\DesignReportWordWriter.cs": {
+      "bytes": 21350,
+      "sha256": "cf9d46465669236278b92bd4caf4acf4b698a386a099d87f42bb0b29b31ec8ea"
+    },
+    "src\\OpticalSystemDesign.App\\Services\\DesignReportWordWriter.Fonts.cs": {
+      "bytes": 2228,
+      "sha256": "84a6f4d096ee5993dc5aae18fa9f22cea524fa8407f26ad7e18bc31afa424a59"
+    },
+    "src\\OpticalSystemDesign.App\\Services\\DesignReportWordWriter.Math.cs": {
+      "bytes": 4535,
+      "sha256": "cf40e91145ba302f3608f6e11284f85c584f7339fcb72a88f2449081927a3d41"
+    },
+    "src\\OpticalSystemDesign.App\\Panels\\UserGuidePdfExporter.cs": {
+      "bytes": 10426,
+      "sha256": "e818340db26487b25cd452ccf9bbfd3bf5295f769604571e7668b6c6234e5131"
+    },
+    "src\\OpticalSystemDesign.App\\Panels\\LensEditorPanel.cs": {
+      "bytes": 22920,
+      "sha256": "ca2bc5eefc3c8e7654096e6a617d98aa90651cc11d3f4877c05e51db4b3face5"
+    },
+    "src\\OpticalSystemDesign.App\\Theming\\ThemeRegistry.cs": {
+      "bytes": 8465,
+      "sha256": "e5566e980e5dee32bf898f65bf54093bd194a7e21b6e5ca160d35bd29e10ff6f"
+    },
+    "src\\OpticalSystemDesign.App\\Theming\\IsekaiThemeStyles.cs": {
+      "bytes": 8739,
+      "sha256": "a7e2ca0f01572e898ef6227b58b9e74a9d8f8f85f8ee6bfa9676833e5b0eae65"
+    },
+    "src\\OpticalSystemDesign.App\\Manufacturing\\Rendering\\OpticalDrawingRenderer.Element.cs": {
+      "bytes": 9482,
+      "sha256": "54697b33c19b300bff2bafbf2dd6aa4c20467d04613db55856fbdbaea85c6998"
+    },
+    "src\\OpticalSystemDesign.App\\Manufacturing\\Rendering\\OpticalDrawingRenderer.System.cs": {
+      "bytes": 6762,
+      "sha256": "0e6fb6792bc1c456c46ef88611c6390fdb64c700629e70ef9a247d3c959e183e"
+    },
+    "src\\OpticalSystemDesign.App\\Manufacturing\\Rendering\\OpticalDrawingRenderer.Text.cs": {
+      "bytes": 3117,
+      "sha256": "b650bc8bccc493abe71f8421eb032eb7e4a45d50316224a7083debdda6bdc6a0"
+    },
+    "src\\OpticalSystemDesign.App\\Manufacturing\\Rendering\\OpticalDrawingRendererCore.State.cs": {
+      "bytes": 2134,
+      "sha256": "c7ebf767c857eb08797e97ea0c68ab01a59520f02a12ffbf1f935fa943874b7d"
+    },
+    "src\\OpticalSystemDesign.App\\Assets\\Reports\\EngineeringReport.html": {
+      "bytes": 28343,
+      "sha256": "0be339f36e0962daffdb2b2a4c3b4b374b5639ecec7087b84abb71041382f65e"
+    },
+    "src\\OpticalSystemDesign.App\\Assets\\Fonts\\Typography\\manifest.json": {
+      "bytes": 4240,
+      "sha256": "cf944793042bfeae91cea4575e4888abcb712c5d0f94934bde960e0a3e074550"
+    },
+    "tests\\OpticalSystemDesign.Tests\\UnifiedFontManagementTests.cs": {
+      "bytes": 14508,
+      "sha256": "df8088514e68f7f2f046e733d44a76e14f0e7ecb2e845e8a0b56216faa766bc0"
+    },
+    "tests\\OpticalSystemDesign.Tests\\IsekaiTypographyPolicyTests.cs": {
+      "bytes": 24791,
+      "sha256": "6f8187c285e8562f1976313111edc035aca719479627b12556cd8d4b0c3a9368"
+    },
+    "tests\\OpticalSystemDesign.Tests\\MarkdownReportImageTests.cs": {
+      "bytes": 20128,
+      "sha256": "84e160b2723d15e569ad086924a70a8d87da1eb0b7df8e4bca3905cdefb49024"
+    },
+    "tests\\OpticalSystemDesign.Tests\\PdfPaperReportTests.cs": {
+      "bytes": 13572,
+      "sha256": "9800844c0dedf7c4a6677de6869178b3d1e09a47843e209bf56b333d5b1bf35d"
+    }
+  },
+  "manifest_assets": {
+    "Latin/DMSans.ttf": {
+      "bytes": 240164,
+      "sha256": "8cd08d97e89c24d0aa92edd2f0f4c8ee6195eee9b7c9f154865a58b02f0c1c0d",
+      "computed_git_blob": "c672f98060af9b2c85fca704ebd5ad9a8717c1df"
+    },
+    "Numeric/JetBrainsMono-Regular.ttf": {
+      "bytes": 270224,
+      "sha256": "e6fd0d7e91550b3ed2b735d4312474362c4716edc4fc0577a0f61ed782d5aed1",
+      "computed_git_blob": "711830ede02a366f8b99f88e52f3148405e67eaf"
+    },
+    "Numeric/JetBrainsMono-Bold.ttf": {
+      "bytes": 274096,
+      "sha256": "d22c4f3821d725eb01210d278d95dfcfcaadc34699a06658d47c8a5cc5830ada",
+      "computed_git_blob": "cd1bee0704e05a899cd70f0640a801f1afe046b2"
+    },
+    "Cjk/SourceHanSansSC-Medium.otf": {
+      "bytes": 16546328,
+      "sha256": "1df61d31687d04fd2f928a3bb6ca6cd61f0e988cc267cf317f32406edbb49f70",
+      "computed_git_blob": "304b3e6cc2eb1b0c694d53fba21107fe83116cea"
+    },
+    "Cjk/SourceHanSansSC-Bold.otf": {
+      "bytes": 16963428,
+      "sha256": "df2b90f5bcc6d01dfc964cec5f6d535d6b6aebd26ed7fd79a9c1b3f2112fcb6b",
+      "computed_git_blob": "3b33e77fce75424e20c90eb2feaa489e38ebe9d7"
+    },
+    "Almendra/Almendra-Regular.ttf": {
+      "bytes": 68684,
+      "sha256": "b127a6121209353b53da9ce73bf9d350f74190d8384c28ede179e4fb9440f946",
+      "computed_git_blob": "a43c1da6b11f5b8967b9cfef6596d0a052633757"
+    },
+    "Almendra/Almendra-Bold.ttf": {
+      "bytes": 36624,
+      "sha256": "5895ef04d0d56c60083ec302e72db99b952b044ab2b440ee12283649b5edc971",
+      "computed_git_blob": "56552add5a2a398044295b14c472b283cb79b195"
+    },
+    "Almendra/Almendra-Italic.ttf": {
+      "bytes": 35216,
+      "sha256": "972eb95dd030592755064c35e8e394b75423973d0b7dbfd759c7e36ef80bb7cb",
+      "computed_git_blob": "cd643b3a1e696b385c8f12fdfc982074c223a655"
+    },
+    "Almendra/Almendra-BoldItalic.ttf": {
+      "bytes": 35380,
+      "sha256": "10e0a7dd4b9f5ad7d51be7f8ee42d76919c322dcbb7733dbad48f4ac751cb105",
+      "computed_git_blob": "628ec11ada66639554959432f372022ab8961e6a"
+    },
+    "Math/STIXTwoMath-Regular.ttf": {
+      "bytes": 1517976,
+      "sha256": "562551b15b836e6e01d1b7350909baf3c8c8d83260c1190fbf4544333e6936de",
+      "computed_git_blob": "351bfabef1444deb578b2e7c3257257962970f82"
+    }
+  },
+  "output_licenses": {
+    "Assets\\Fonts\\Typography\\Almendra-OFL.txt": {
+      "bytes": 4400,
+      "sha256": "b7eae5e3c3447f70caa14e0c43f5e0d953f54ee59df406f6362863bcee1a0a95"
+    },
+    "Assets\\Fonts\\Typography\\DM-Sans-OFL.txt": {
+      "bytes": 4482,
+      "sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1"
+    },
+    "Assets\\Fonts\\Typography\\JetBrains-Mono-OFL.txt": {
+      "bytes": 4399,
+      "sha256": "a76abf002c49097d146e86740a3105a5d00450b1592e820a1109a8c5680cd697"
+    },
+    "Assets\\Fonts\\Typography\\Source-Han-Sans-OFL.txt": {
+      "bytes": 4463,
+      "sha256": "fcac737e761ec63dbfbdce11030a1780161920d80315edba9c8beff1c2bac5a2"
+    },
+    "Assets\\Fonts\\Typography\\STIX-Two-Math-OFL.txt": {
+      "bytes": 4519,
+      "sha256": "0c8825913b60d858aacdb33c4ca6660a7d64b0d6464702efbb19313f5765861a"
+    },
+    "Assets\\Fonts\\OFL-LICENSE.txt": {
+      "bytes": 4301,
+      "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2"
+    },
+    "Assets\\Fonts\\FUSION-PIXEL-FONT-OFL.txt": {
+      "bytes": 4418,
+      "sha256": "bc518cf64b8032c07690f33cc270c35c179255a6ac8efa7c165ebae7e8f76a63"
+    }
+  },
+  "assemblies": {
+    "src\\OpticalSystemDesign.App\\bin\\Release\\net10.0\\OpticalSystemDesign.App.dll": {
+      "bytes": 94222848,
+      "sha256": "dc18da8cf05cafeee7e650f5eef4c2524bb9bdaf828b069c359b653b9c1bfdb9"
+    },
+    "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.App.dll": {
+      "bytes": 94222848,
+      "sha256": "dc18da8cf05cafeee7e650f5eef4c2524bb9bdaf828b069c359b653b9c1bfdb9"
+    },
+    "tests\\OpticalSystemDesign.Tests\\bin\\Release\\net10.0\\OpticalSystemDesign.Tests.dll": {
+      "bytes": 5705728,
+      "sha256": "2eac2cb8eba77b80178fbc6a8065218316ed7c39ecb6050fd2c84e0cc5f323eb"
+    }
+  },
+  "artifacts": {
+    "artifacts\\Dark-glyphs.png": {
+      "bytes": 4416,
+      "sha256": "8e1c022b5e296a89be26b3d1434659484b75eb22cae419c02bc5f7e5cbe409f0"
+    },
+    "artifacts\\Isekai-engineering-pdf-page.png": {
+      "bytes": 52478,
+      "sha256": "c06e9d8dc7a62ea7109caa33379c223db7ba0434af9904cc656fc5cd593cad4a"
+    },
+    "artifacts\\Isekai-engineering.pdf": {
+      "bytes": 946440,
+      "sha256": "c37fddbdface29bd9a3d7800ba345f1204240803c2c2e780d79c45535f4a6da7"
+    },
+    "artifacts\\Isekai-engineering.png": {
+      "bytes": 62358,
+      "sha256": "2e89630b723b79b3ea35bc9396ae8ed139ec73d7cdef1f74229eb4f1b1266c8a"
+    },
+    "artifacts\\Isekai-engineering.txt": {
+      "bytes": 645,
+      "sha256": "7b8bc7c820c3930d19ee8ff6f3ccb240d40d833f42e723c4d117c3accfdcf79a"
+    },
+    "artifacts\\Isekai-glyphs.png": {
+      "bytes": 4155,
+      "sha256": "d51728c889f39adbde77bb6842436badb678f597993bbbf12667d4cf2e92ecb4"
+    },
+    "artifacts\\Isekai-guide-page.png": {
+      "bytes": 211279,
+      "sha256": "79e033db63367ea92f6c4c0c49f18e8b990c187de473a3ea519a3be4056e59be"
+    },
+    "artifacts\\Isekai-guide-pdf-page.png": {
+      "bytes": 141780,
+      "sha256": "4f1503251699fa83838819c130fe77632e198c44f683e67bd9b2d9e0a20f2fae"
+    },
+    "artifacts\\Isekai-guide.pdf": {
+      "bytes": 66735,
+      "sha256": "d8717f4966f37c8967557636d1d5952acef6f204967aa26eb71406394ce7946b"
+    },
+    "artifacts\\Isekai-guide.txt": {
+      "bytes": 939,
+      "sha256": "2af7028d2606b2ea457a6d644d31e847088d76f81de93a8c2590321956075e47"
+    },
+    "artifacts\\Isekai-pdf-page.png": {
+      "bytes": 37442,
+      "sha256": "b8fcb28a5e76c3a7e003d000a8d7fbe206f9308fc0cc94f0da6f59013cf66da6"
+    },
+    "artifacts\\Isekai-report-page.png": {
+      "bytes": 50406,
+      "sha256": "4647f7a3fb1be26ba8a6bdeccec1aeb5a5728bb487add6912a3e8b2cac150f9d"
+    },
+    "artifacts\\Isekai.docx": {
+      "bytes": 14573946,
+      "sha256": "113966a419a620fdf9a12125e3ab108051cc225d1fb7607808b9e1fd9a85b155"
+    },
+    "artifacts\\Isekai.html": {
+      "bytes": 24199621,
+      "sha256": "58643d260909321ef04d328e9b1a765accf1fd5461908ef9fbdea485aad52d0d"
+    },
+    "artifacts\\Isekai.pdf": {
+      "bytes": 878604,
+      "sha256": "44a3b9573fe5467a19ea6d4a8dfebf9516e0fdeddb546a1f8a0b330227947518"
+    },
+    "artifacts\\Isekai.txt": {
+      "bytes": 259,
+      "sha256": "365b53084caed0c8ec5aa495105d5f717ba5940efd97ba1f82c558cfb716395c"
+    },
+    "artifacts\\Light-engineering-pdf-page.png": {
+      "bytes": 47299,
+      "sha256": "87bc91f0d0cb9ca7f5ae178dca3be398219684a928d6effcd93c7183ea8bebc1"
+    },
+    "artifacts\\Light-engineering.pdf": {
+      "bytes": 977762,
+      "sha256": "79cbedc77a12b77dbaf89a3ec02ae29e594742e63b7435868b4a6e3e09e75f21"
+    },
+    "artifacts\\Light-engineering.png": {
+      "bytes": 67296,
+      "sha256": "2a72113df5c4bb1f263f0285df53b603b2f025025151fb8557618525b2dbf41e"
+    },
+    "artifacts\\Light-engineering.txt": {
+      "bytes": 664,
+      "sha256": "d3fff1c7d2791756f2976a2323d7df08a3fce0916ea340a79c3cb668bee51ede"
+    },
+    "artifacts\\Light-glyphs.png": {
+      "bytes": 4416,
+      "sha256": "8e1c022b5e296a89be26b3d1434659484b75eb22cae419c02bc5f7e5cbe409f0"
+    },
+    "artifacts\\Light-guide-pdf-page.png": {
+      "bytes": 102118,
+      "sha256": "4cdacc108cadbdc874d81ad83939b8b06de19853cbc45d17bd1912f73030fa39"
+    },
+    "artifacts\\Light-guide.pdf": {
+      "bytes": 77676,
+      "sha256": "192e320e9bce82a1b299da3baa21c1adb61bfabd5d1e586ebd0cbd463e88ee6f"
+    },
+    "artifacts\\Light-guide.txt": {
+      "bytes": 970,
+      "sha256": "7843944539fd1a58c9c56132d592b2436dfcc1436f372b0d8a9f5811d974534f"
+    },
+    "artifacts\\Light-pdf-page.png": {
+      "bytes": 29756,
+      "sha256": "260d5f3920346082d488060c153537ca627d3a70a013154e800c0d83f804bf7b"
+    },
+    "artifacts\\Light-report-page.png": {
+      "bytes": 41740,
+      "sha256": "59ba96ea2803f4f40bf559a111e466f76a6c4d7d5290b9f251f60c32cec9f849"
+    },
+    "artifacts\\Light.docx": {
+      "bytes": 14755595,
+      "sha256": "909ecbe177dd4a90dd4cbcb736d15cf18849431a4b670a1a81897bf6debe80d1"
+    },
+    "artifacts\\Light.html": {
+      "bytes": 24690615,
+      "sha256": "462144ecda1c11acc9b7ed28d526567855bf1cb0443b64deb5e24661faf9acc3"
+    },
+    "artifacts\\Light.pdf": {
+      "bytes": 1009909,
+      "sha256": "beca0c0ca6957ea41538bcc9d21bc2c4a016730578fd2c7346c32ce090b27062"
+    },
+    "artifacts\\Light.txt": {
+      "bytes": 271,
+      "sha256": "4c4a96d39857f44c8862ce37e25f3fed4fb99fb7099f5a9e777f496e81e58964"
+    },
+    "artifacts\\Lumen-glyphs.png": {
+      "bytes": 4416,
+      "sha256": "8e1c022b5e296a89be26b3d1434659484b75eb22cae419c02bc5f7e5cbe409f0"
+    },
+    "artifacts\\Pixel-glyphs.png": {
+      "bytes": 4416,
+      "sha256": "8e1c022b5e296a89be26b3d1434659484b75eb22cae419c02bc5f7e5cbe409f0"
+    }
+  },
+  "pdf_audit": {
+    "bytes": 3540,
+    "sha256": "0cd943e25563716258a3b47f2813442f2575dfacce300e53636853f301982509"
+  }
+}

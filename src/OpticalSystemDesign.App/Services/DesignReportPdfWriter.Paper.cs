@@ -64,7 +64,7 @@ internal static partial class DesignReportPdfWriter
 
         private void DirectoryEntry(ReportDirectoryEntry entry)
         {
-            using var font = new SKFont(typeface, 9.5f);
+            using var font = typography.Font(ProductFontRole.Document, 9.5f);
             using var ink = new SKPaint { Color = new SKColor(61, 84, 101), IsAntialias = true };
             using var rule = new SKPaint { Color = new SKColor(218, 225, 231), StrokeWidth = .4f };
             var title = $"{entry.SectionNumber:D2}　{entry.Title}";
@@ -75,7 +75,7 @@ internal static partial class DesignReportPdfWriter
             var appendix = context is not null && entry.SectionNumber > context.Sections.Count;
             var page = appendix ? appendixPage ?? 0 : contentsPages?.ElementAtOrDefault(entry.SectionNumber - 1) ?? entry.Page;
             var label = page.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            Draw(label, Margin + Width - font.MeasureText(label), _y, lineHeight, font, ink);
+            Draw(label, Margin + Width - typography.Measure(label, font), _y, lineHeight, font, ink);
             _canvas!.DrawLine(Margin, _y + height - 2, Margin + Width, _y + height - 2, rule);
             _canvas.DrawLinkDestinationAnnotation(new SKRect(Margin, _y, Margin + Width, _y + height), appendix ? "report-appendix" : $"report-section-{entry.SectionNumber}");
             _y += height;
@@ -86,7 +86,7 @@ internal static partial class DesignReportPdfWriter
             // Move the complete frame to the next page when necessary. Metadata
             // and metrics must never determine the figure's scale or arrangement.
             if (PageWidth > PageHeight) StartPage(false);
-            using var font = new SKFont(typeface, 9);
+            using var font = typography.Font(ProductFontRole.Document, 9);
             var captionHeight = Math.Min(2, Wrap(caption, font, FigureWidth).Count) * LineHeight(font) + 18;
             if (Math.Max(FigureTop, _y) + FigureHeight + captionHeight > Bottom) StartPage(false);
             _y = Math.Max(FigureTop, _y);

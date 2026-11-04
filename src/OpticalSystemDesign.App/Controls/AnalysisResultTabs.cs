@@ -54,7 +54,9 @@ internal sealed class AnalysisResultTabs : TabControl
             {
                 foreach (var presenter in content.Children.OfType<ContentPresenter>())
                     presenter.Margin = tabs.UsesBookFrame ? default : tabs.Padding;
-                grid.Background = tabs.UsesBookFrame ? new ImmutableSolidColorBrush(Color.Parse("#F4EBDD")) : tabs.Background;
+                // Fitted sheets can leave exposed space above/below or at the sides.
+                // Continue the existing parchment there rather than a flat light strip.
+                grid.Background = tabs.UsesBookFrame ? IsekaiDrawingMaterial.Instance.PaperBackground : tabs.Background;
                 navigation.InvalidateMeasure(); navigation.InvalidateVisual(); layout.InvalidateMeasure();
             }
             tabs.ActualThemeVariantChanged += (_, _) => Refresh();
@@ -71,9 +73,10 @@ internal sealed class AnalysisResultTabs : TabControl
             Child?.Measure(availableSize);
             if (!tabs.UsesBookFrame || tabs.UsesEnclosingBook) { _width = availableSize.Width; return Child?.DesiredSize ?? default; }
             var inset = IsekaiDrawingMaterial.Instance.FrameInset;
+            var sheet = tabs.GetVisualDescendants().OfType<UniformDiagramPage>().FirstOrDefault();
             _width = double.IsFinite(availableSize.Height)
                 ? Math.Min(availableSize.Width, Math.Max(0, availableSize.Height - navigation.DesiredSize.Height - 2 * inset)
-                    * UniformDiagramPage.SheetWidth / UniformDiagramPage.SheetHeight + 2 * inset)
+                    * (sheet?.Width ?? Services.DiagramSheetLayout.Width) / UniformDiagramPage.SheetHeight + 2 * inset)
                 : availableSize.Width;
             Child?.Measure(new Size(_width, availableSize.Height));
             return Child?.DesiredSize ?? default;

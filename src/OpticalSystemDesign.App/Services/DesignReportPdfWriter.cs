@@ -11,15 +11,13 @@ internal static partial class DesignReportPdfWriter
     internal static void Write(Stream output, DesignReportContent content, string images, CancellationToken token,
         DesignReportPdfModel? paper = null, DesignReportContent? details = null)
     {
-        using var fontStream = typeof(DesignReportPdfWriter).Assembly.GetManifestResourceStream("OpticalSystemDesign.App.Assets.Fonts.NotoSansCJKsc-Regular.otf")
-            ?? throw new InvalidOperationException("报告字体不可用。");
-        using var typeface = SKTypeface.FromStream(fontStream) ?? throw new InvalidOperationException("报告字体不可用。");
-        using var pagination = paper is null ? null : new Writer(null, typeface, token, context: paper);
+        var typography = new DocumentTypography();
+        using var pagination = paper is null ? null : new Writer(null, typography, token, context: paper);
         if (pagination is not null) Render(pagination, content, images, token, paper, details);
         using var document = SKDocument.CreatePdf(output, new SKDocumentPdfMetadata(144f, 101)
         { Title = content.Blocks.OfType<ReportHeading>().FirstOrDefault()?.Text ?? "光学设计报告", Author = "S.T.A.R.Labs" })
             ?? throw new InvalidOperationException("无法创建 PDF 报告。");
-        using var writer = new Writer(document, typeface, token, pagination?.SectionStartPages, pagination?.AppendixPage, paper, pagination?.TotalPages);
+        using var writer = new Writer(document, typography, token, pagination?.SectionStartPages, pagination?.AppendixPage, paper, pagination?.TotalPages);
         Render(writer, content, images, token, paper, details);
         if (pagination is not null && (!pagination.SectionStartPages.SequenceEqual(writer.SectionStartPages)
             || pagination.AppendixPage != writer.AppendixPage))
@@ -69,7 +67,7 @@ internal static partial class DesignReportPdfWriter
                     foreach (var entry in contents.Entries) writer.Text(entry.Text, 10.5f, false, 4, color: new SKColor(35, 92, 150));
                     break;
                 case ReportCode code:
-                    writer.Text(code.Text, 8, false, 10);
+                    writer.Text(code.Text, 8, false, 10, role: ProductFontRole.Code);
                     break;
                 case ReportTable table:
                     writer.Table(table);
@@ -89,7 +87,7 @@ internal static partial class DesignReportPdfWriter
         writer.End();
     }
 
-    private sealed partial class Writer(SKDocument? document, SKTypeface typeface, CancellationToken token,
+    private sealed partial class Writer(SKDocument? document, DocumentTypography typography, CancellationToken token,
         IReadOnlyList<int>? contentsPages = null, int? appendixPage = null, DesignReportPdfModel? context = null, int? totalPages = null) : IDisposable
     {
         private const float Margin = 36, Top = 52;
@@ -117,13 +115,13 @@ internal static partial class DesignReportPdfWriter
             _canvas = document is null ? _pagination!.BeginRecording(new SKRect(0, 0, PageWidth, PageHeight))
                 : document.BeginPage(PageWidth, PageHeight);
             _canvas.Clear(SKColors.White);
-            using var font = new SKFont(typeface, 8);
+            using var font = typography.Font(ProductFontRole.Document, 8);
             using var paint = new SKPaint { Color = new SKColor(99, 113, 134), IsAntialias = true };
             BrandAssets.DrawCompanyLogo(_canvas, new SKRect(Margin, 18, Margin + 100, 30), new SKColor(50, 90, 119));
-            _canvas.DrawText(context?.Name ?? "Optical System Design", PageWidth - Margin, 22, SKTextAlign.Right, font, paint);
-            _canvas.DrawText("光学设计分析报告", PageWidth - Margin, 33, SKTextAlign.Right, font, paint);
-            _canvas.DrawText("Optical System Design" + (context is null ? "" : $"　·　计算快照 {context.CapturedAt:yyyy.MM.dd}"), Margin, PageHeight - 22, SKTextAlign.Left, font, paint);
-            _canvas.DrawText(_pages.ToString("D2", CultureInfo.InvariantCulture) + (totalPages is null ? "" : $" / {totalPages:00}"), PageWidth - Margin, PageHeight - 22, SKTextAlign.Right, font, paint);
+            typography.Draw(_canvas, context?.Name ?? "Optical System Design", PageWidth - Margin, 22, font, paint, alignment: SKTextAlign.Right);
+            typography.Draw(_canvas, "光学设计分析报告", PageWidth - Margin, 33, font, paint, alignment: SKTextAlign.Right);
+            typography.Draw(_canvas, "Optical System Design" + (context is null ? "" : $"　·　计算快照 {context.CapturedAt:yyyy.MM.dd}"), Margin, PageHeight - 22, font, paint);
+            typography.Draw(_canvas, _pages.ToString("D2", CultureInfo.InvariantCulture) + (totalPages is null ? "" : $" / {totalPages:00}"), PageWidth - Margin, PageHeight - 22, font, paint, alignment: SKTextAlign.Right);
             using var line = new SKPaint { Color = new SKColor(217, 225, 234), StrokeWidth = 0.5f };
             _canvas.DrawLine(Margin, 37, PageWidth - Margin, 37, line);
             _canvas.DrawLine(Margin, PageHeight - 38, PageWidth - Margin, PageHeight - 38, line);
@@ -142,17 +140,17 @@ internal static partial class DesignReportPdfWriter
             Reserve(FigureHeight + 74);
         }
 
-        internal void Text(string text, float size, bool bold, float after, bool keepNext = false, SKColor? color = null, bool centered = false)
+        internal void Text(string text, float size, bool bold, float after, bool keepNext = false, SKColor? color = null, bool centered = false, ProductFontRole role = ProductFontRole.Document)
         {
-            using var font = new SKFont(typeface, size) { Embolden = bold };
+            using var font = typography.Font(role, size, bold);
             var lineHeight = LineHeight(font);
-            var lines = Wrap(text, font, Width);
+            var lines = Wrap(text, font, Width, role);
             if (keepNext) Reserve(Math.Min(Bottom - Top, lines.Count * lineHeight + 35));
             using var paint = new SKPaint { Color = color ?? SKColors.Black, IsAntialias = true };
             foreach (var line in lines)
             {
                 Reserve(lineHeight);
-                Draw(line, centered ? Margin + (Width - font.MeasureText(line)) / 2 : Margin, _y, lineHeight, font, paint);
+                Draw(line, centered ? Margin + (Width - typography.Measure(line, font, role)) / 2 : Margin, _y, lineHeight, font, paint, role);
                 _y += lineHeight;
             }
             _y += after;
@@ -167,8 +165,8 @@ internal static partial class DesignReportPdfWriter
         {
             if (table.Columns.Length == 0) return;
             var widths = DesignReportImage.ColumnWeights(table).Select(weight => (float)weight * Width).ToArray();
-            using var bodyFont = new SKFont(typeface, 8.5f);
-            using var headerFont = new SKFont(typeface, 8.5f) { Embolden = true };
+            using var bodyFont = typography.Font(ProductFontRole.Document, 8.5f);
+            using var headerFont = typography.Font(ProductFontRole.Document, 8.5f, bold: true);
             var lineHeight = Math.Max(LineHeight(bodyFont), LineHeight(headerFont));
             var header = Cells(table.Columns, headerFont);
             var headerHeight = header.Max(lines => lines.Count) * lineHeight + 10;
@@ -218,7 +216,7 @@ internal static partial class DesignReportPdfWriter
                         var value = cells[column][offset + line];
                         var right = column != table.FormulaColumn && double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out _);
                         if (!isHeader && column == table.FormulaColumn) DrawMath(value, x + 5, _y + 5 + line * lineHeight, lineHeight, font, textPaint);
-                        else Draw(value, right ? x + widths[column] - 5 - font.MeasureText(value) : x + 5, _y + 5 + line * lineHeight, lineHeight, font, textPaint);
+                        else Draw(value, right ? x + widths[column] - 5 - typography.Measure(value, font) : x + 5, _y + 5 + line * lineHeight, lineHeight, font, textPaint);
                     }
                     x += widths[column];
                 }
@@ -226,7 +224,7 @@ internal static partial class DesignReportPdfWriter
             }
         }
 
-        private List<string> Wrap(string text, SKFont font, float width)
+        private List<string> Wrap(string text, SKFont font, float width, ProductFontRole role = ProductFontRole.Document)
         {
             var lines = new List<string>();
             foreach (var paragraph in text.Replace("\r", "", StringComparison.Ordinal).Split('\n'))
@@ -240,7 +238,7 @@ internal static partial class DesignReportPdfWriter
                     while (end < paragraph.Length)
                     {
                         var element = StringInfo.GetNextTextElement(paragraph, end);
-                        var advance = font.MeasureText(element);
+                        var advance = typography.Measure(element, font, role);
                         if (end > start && measured + advance > width) break;
                         measured += advance;
                         if (char.IsWhiteSpace(paragraph[end])) lastSpace = end;
@@ -257,33 +255,19 @@ internal static partial class DesignReportPdfWriter
         private static float LineHeight(SKFont font) => Math.Max(font.Size * 1.5f, font.Spacing * 1.15f);
         private void DrawMath(string expression, float x, float top, float height, SKFont font, SKPaint paint)
         {
-            using var exponentFont = new SKFont(typeface, font.Size * .7f);
+            using var mathFont = typography.Font(ProductFontRole.Math, font.Size);
+            using var exponentFont = typography.Font(ProductFontRole.Math, font.Size * .7f);
             foreach (var run in DesignReportPresentation.MathRuns(expression))
             {
-                var selected = run.Superscript ? exponentFont : font;
-                Draw(run.Text, x, run.Superscript ? top - font.Size * .4f : top, height, selected, paint);
-                x += selected.MeasureText(run.Text);
+                var selected = run.Superscript ? exponentFont : mathFont;
+                Draw(run.Text, x, run.Superscript ? top - font.Size * .4f : top, height, selected, paint, ProductFontRole.Math);
+                x += typography.Measure(run.Text, selected, ProductFontRole.Math);
             }
         }
-        private void Draw(string text, float x, float top, float height, SKFont font, SKPaint paint)
+        private void Draw(string text, float x, float top, float height, SKFont font, SKPaint paint, ProductFontRole role = ProductFontRole.Document)
         {
             if (text.Length == 0) return;
-            // Retain source UTF-8 clusters so PDF text uses the actual characters,
-            // rather than reverse-mapping shared CJK glyphs to compatibility radicals.
-            var glyphs = font.GetGlyphs(text);
-            var bytes = Encoding.UTF8.GetBytes(text);
-            using var builder = new SKTextBlobBuilder();
-            var run = builder.AllocateTextRun(font, glyphs.Length, 0, 0, bytes.Length);
-            run.SetGlyphs(glyphs);
-            run.SetText(bytes);
-            var index = 0; var offset = 0;
-            foreach (var rune in text.EnumerateRunes())
-            {
-                run.Clusters[index++] = (uint)offset;
-                offset += rune.Utf8SequenceLength;
-            }
-            using var blob = builder.Build();
-            _canvas!.DrawText(blob, x, top + (height - font.Metrics.Descent - font.Metrics.Ascent) / 2, paint);
+            typography.Draw(_canvas!, text, x, top + (height - font.Metrics.Descent - font.Metrics.Ascent) / 2, font, paint, role);
         }
         internal void MarkAppendix()
         {

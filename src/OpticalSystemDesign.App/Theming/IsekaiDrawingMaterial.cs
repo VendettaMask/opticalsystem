@@ -21,6 +21,7 @@ internal sealed class IsekaiDrawingMaterial : IThemeDrawingMaterial
 
     public IBrush Ink => InkBrush;
     public double FrameInset => 28;
+    internal IBrush PaperBackground => Art.Value!.PaperBrush;
     public IBrush CaptionBackground => Art.Value!.CaptionBrush;
 
     public ResourceDictionary CreateResources(bool transparentPlot) => new()
@@ -156,7 +157,9 @@ internal sealed class IsekaiDrawingMaterial : IThemeDrawingMaterial
             var scale = Math.Min(bounds.Width / artwork.Botanical.Size.Width, bounds.Height / artwork.Botanical.Size.Height) * relativeScale;
             var size = new Size(artwork.Botanical.Size.Width / 2 * scale, artwork.Botanical.Size.Height / 2 * scale);
             for (var row = 0; row < 2; row++) for (var col = 0; col < 2; col++)
-                context.FillRectangle(artwork.CornerBrushes[row * 2 + col], new Rect(
+                context.DrawImage(artwork.Botanical,
+                    new Rect(col * artwork.Botanical.Size.Width / 2, row * artwork.Botanical.Size.Height / 2,
+                        artwork.Botanical.Size.Width / 2, artwork.Botanical.Size.Height / 2), new Rect(
                     col == 0 ? bounds.Left : bounds.Right - size.Width,
                     row == 0 ? bounds.Top : bounds.Bottom - size.Height, size.Width, size.Height));
             return;
@@ -187,15 +190,9 @@ internal sealed class IsekaiDrawingMaterial : IThemeDrawingMaterial
         internal DrawingImage CompanyLogo { get; } = BrandAssets.LoadCompanyLogoImage(Color.Parse("#513723"));
         internal IBrush PaperBrush { get; }
         internal DrawingBrush CaptionBrush { get; }
-        internal ImageBrush[] CornerBrushes { get; }
 
         internal Artwork()
         {
-            CornerBrushes = Enumerable.Range(0, 4).Select(index => new ImageBrush(Botanical)
-            {
-                SourceRect = new RelativeRect(index % 2 * .5, index / 2 * .5, .5, .5, RelativeUnit.Relative),
-                Stretch = Stretch.Fill
-            }).ToArray();
             var paperTexture = new ImageBrush(Paper)
             {
                 Stretch = Stretch.Fill,

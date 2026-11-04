@@ -147,6 +147,7 @@ public sealed partial class MainWindow : Window
         _settings = settings ?? AppSettings.Load();
         UiLocalization.Apply(_settings.Language);
         ConfigureDisplaySettings();
+        ApplyTheme(save: false);
         _application = application ?? WorkbenchApplication.Create(
             startup.Sample,
             UserGlassCatalogDirectory(),
@@ -174,7 +175,6 @@ public sealed partial class MainWindow : Window
         Height = Math.Clamp(_settings.WindowHeight, 480, 2160);
         MinWidth = 640;
         MinHeight = 480;
-        ApplyTheme(save: false);
         Content = MainWindowTitleBar.Wrap(this, BuildShell(), _commandSearch);
         UiLocalization.Attach(this);
         DisplayTypography.Apply(this);

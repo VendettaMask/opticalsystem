@@ -1,29 +1,44 @@
 using OpticalSystemDesign.Core.Materials;
 
-if (args.Length != 2)
+var replace = args.Length == 6 && args[0] == "--replace";
+if (args.Length != 2 && !replace)
 {
     Console.Error.WriteLine("Usage: OpticalSystemDesign.GlassCatalogConverter <Glasscat directory> <output.ogdb>");
+    Console.Error.WriteLine("   or: --replace <input.ogdb> <source.agf> <catalog name> <replaced catalog names,comma-separated> <output.ogdb>");
     return 2;
 }
 
-var sourceDirectory = Path.GetFullPath(args[0]);
-var outputPath = Path.GetFullPath(args[1]);
-var sourcePaths = Directory
-    .EnumerateFiles(sourceDirectory, "*.agf", SearchOption.TopDirectoryOnly)
-    .OrderBy(path => path, StringComparer.OrdinalIgnoreCase)
-    .ToArray();
-if (sourcePaths.Length == 0)
+var outputPath = Path.GetFullPath(replace ? args[5] : args[1]);
+List<OpticalGlassCatalogDocument> catalogs;
+string sourceDescription;
+if (replace)
 {
-    throw new InvalidDataException($"No Zemax AGF files were found in '{sourceDirectory}'.");
+    var original = OpticalSystemDesignGlassCatalogStore.LoadBundle(args[1]);
+    var replacement = await ZemaxAgfCatalogReader.ImportFileAsync(args[2]);
+    replacement.CatalogName = args[3].Trim().ToUpperInvariant();
+    var retired = args[4].Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+        .Append(replacement.CatalogName).ToHashSet(StringComparer.OrdinalIgnoreCase);
+    if (replacement.Glasses.Select(glass => glass.Name).Distinct(StringComparer.OrdinalIgnoreCase).Count() != replacement.Glasses.Count)
+        throw new InvalidDataException("The replacement catalog contains duplicate glass names.");
+    if (!original.Catalogs.Any(catalog => retired.Contains(catalog.CatalogName)))
+        throw new InvalidDataException("No replaced catalog was found in the input bundle.");
+    catalogs = original.Catalogs.Where(catalog => !retired.Contains(catalog.CatalogName)).ToList();
+    var retained = catalogs.Count;
+    catalogs.Add(replacement);
+    catalogs = catalogs.OrderBy(catalog => catalog.CatalogName, StringComparer.OrdinalIgnoreCase).ToList();
+    sourceDescription = $"Zemax Glasscat: {retained} retained AGF catalogs; {replacement.CatalogName} from {Path.GetFileName(args[2])} ({replacement.Comment})";
 }
-
-var catalogs = new List<OpticalGlassCatalogDocument>(sourcePaths.Length);
-foreach (var sourcePath in sourcePaths)
+else
 {
-    var catalog = await ZemaxAgfCatalogReader.ImportFileAsync(sourcePath);
-    catalogs.Add(catalog);
-    ExternalGlassCatalogDatabase.Register(catalog);
+    var sourceDirectory = Path.GetFullPath(args[0]);
+    var sourcePaths = Directory.EnumerateFiles(sourceDirectory, "*.agf", SearchOption.TopDirectoryOnly)
+        .OrderBy(path => path, StringComparer.OrdinalIgnoreCase).ToArray();
+    if (sourcePaths.Length == 0) throw new InvalidDataException($"No Zemax AGF files were found in '{sourceDirectory}'.");
+    catalogs = new List<OpticalGlassCatalogDocument>(sourcePaths.Length);
+    foreach (var sourcePath in sourcePaths) catalogs.Add(await ZemaxAgfCatalogReader.ImportFileAsync(sourcePath));
+    sourceDescription = $"Zemax Glasscat ({sourcePaths.Length} AGF catalogs)";
 }
+foreach (var catalog in catalogs) ExternalGlassCatalogDatabase.Register(catalog);
 
 var invalidMaterials = new List<string>();
 var registry = new MaterialRegistry();
@@ -70,7 +85,7 @@ if (!string.IsNullOrEmpty(outputDirectory))
 await OpticalSystemDesignGlassCatalogStore.SaveBundleAsync(
     new OpticalGlassCatalogBundle
     {
-        SourceDescription = $"Zemax Glasscat ({sourcePaths.Length} AGF catalogs)",
+        SourceDescription = sourceDescription,
         Catalogs = catalogs
     },
     outputPath);

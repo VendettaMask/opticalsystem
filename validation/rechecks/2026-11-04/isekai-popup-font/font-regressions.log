@@ -1,0 +1,32 @@
+  OpticalSystemDesign.Core -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.Application -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\Projects\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\Projects\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.Modules -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\Projects\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.Tests -> D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:30.06]     OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts(kind: "combo") [FAIL]
+  失败 OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts(kind: "combo") [186 ms]
+  错误消息:
+   Assert.Equal() Failure: Collections differ
+                                                                                                                                            ↓ (pos 1)
+Expected: [TextBlock { ActualThemeVariant = Isekai, Background = null, BaselineOffset = 0, Bounds = 0, 2, 101, 17, CacheMode = null, ··· }, TextBlock { ActualThemeVariant = null, Background = null, BaselineOffset = 0, Bounds = 28, 6, 111, 15, CacheMode = null, ··· }]
+Actual:   [TextBlock { ActualThemeVariant = Isekai, Background = null, BaselineOffset = 0, Bounds = 0, 2, 101, 17, CacheMode = null, ··· }, TextBlock { ActualThemeVariant = Isekai, Background = null, BaselineOffset = 0, Bounds = 11, 5, 121, 17, CacheMode = null, ··· }]
+                                                                                                                                            ↑ (pos 1)
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.<>c__DisplayClass5_0.<OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts>b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 338
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.OpenPopupSurfacesUseAlmendraAndRestoreTheirPreviousFonts(String kind) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 312
+--- End of stack trace from previous location ---
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-04\isekai-popup-font\font-regressions.trx
+
+失败!  - 失败:     1，通过:    14，已跳过:     0，总计:    15，持续时间: 30 s - OpticalSystemDesign.Tests.dll (net10.0)

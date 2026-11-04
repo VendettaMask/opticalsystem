@@ -86,15 +86,15 @@ public sealed partial class MainWindow
             CellTheme = LayerCellTheme(HorizontalAlignment.Stretch),
             CellTemplate = new FuncDataTemplate<LayerRow>((_, _) =>
             {
-                var picker = new ComboBox { Name = "CoatingRowMaterial", ItemsSource = _rowMaterialIds, HorizontalAlignment = HorizontalAlignment.Stretch,
-                    HorizontalContentAlignment = HorizontalAlignment.Stretch, MinWidth = 0, Margin = new(0, 2), Padding = new(5, 1) };
+                var picker = UiLocalization.Preserve(new ComboBox { Name = "CoatingRowMaterial", ItemsSource = _rowMaterialIds, HorizontalAlignment = HorizontalAlignment.Stretch,
+                    HorizontalContentAlignment = HorizontalAlignment.Stretch, MinWidth = 0, Margin = new(0, 2), Padding = new(5, 1) });
                 picker.Bind(FontSizeProperty, new Binding(nameof(DataGrid.FontSize)) { Source = table });
                 picker.ItemTemplate = new FuncDataTemplate<string>((id, _) =>
                 {
                     var material = _session.Current.Materials.Concat(_materials.Films).FirstOrDefault(m => m.Id == id);
                     var content = new Grid { ColumnDefinitions = new("Auto,*"), ColumnSpacing = 8, ClipToBounds = true };
                     var marker = new Ellipse { Name = "CoatingMaterialMarker", Width = 13, Height = 13, Fill = MaterialBrushFor(id ?? ""), VerticalAlignment = VerticalAlignment.Center };
-                    var label = new TextBlock { Name = "CoatingMaterialLabel", Text = material?.Name ?? id, TextTrimming = TextTrimming.CharacterEllipsis, VerticalAlignment = VerticalAlignment.Center };
+                    var label = UiLocalization.Preserve(new TextBlock { Name = "CoatingMaterialLabel", Text = material?.Name ?? id, TextTrimming = TextTrimming.CharacterEllipsis, VerticalAlignment = VerticalAlignment.Center });
                     label.Bind(TextBlock.FontSizeProperty, new Binding(nameof(DataGrid.FontSize)) { Source = table });
                     ToolTip.SetTip(content, material?.Name ?? id); content.Children.Add(marker); Grid.SetColumn(label, 1); content.Children.Add(label); return content;
                 });

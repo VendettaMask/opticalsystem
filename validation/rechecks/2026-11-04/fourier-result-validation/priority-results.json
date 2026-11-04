@@ -1,0 +1,716 @@
+[
+  {
+    "index": 789,
+    "key": "MTF",
+    "algorithm": "Adaptive",
+    "protocol": "native-8x",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Dimensionless",
+        "count": 300,
+        "maxAbsolute": 0.001540616003272044,
+        "meanAbsolute": 0.000198048513786264,
+        "rmse": 0.0002429847098233545,
+        "nrmse": 0.0002429847098233545,
+        "maxRelative": 0.0015494582323069559,
+        "p50": 0.00017891927805877006,
+        "p90": 0.0002696115517473619,
+        "p95": 0.0003216423088095777,
+        "pearson": 0.9999996481597477,
+        "worstX": 0.5016722408026756,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench.dc": 1,
+          "workbench.frequency10": 0.5955860717821778,
+          "workbench.frequency20": 0.4684258958181478,
+          "workbench.frequency30": 0.40456812587758156,
+          "workbench.frequency50": 0.33511658302652636,
+          "workbench.firstCrossing50": 16.252103842586582,
+          "workbench.firstCrossing10": null,
+          "zemax.dc": 1,
+          "zemax.frequency10": 0.5953937941895332,
+          "zemax.frequency20": 0.4682906583525657,
+          "zemax.frequency30": 0.4044221714593648,
+          "zemax.frequency50": 0.3350087218238174,
+          "zemax.firstCrossing50": 16.23175366577674,
+          "zemax.firstCrossing10": null
+        }
+      },
+      {
+        "id": "sagittal",
+        "unit": "Dimensionless",
+        "count": 300,
+        "maxAbsolute": 0.001540616003271933,
+        "meanAbsolute": 0.00019804851378625162,
+        "rmse": 0.00024298470982334175,
+        "nrmse": 0.00024298470982334175,
+        "maxRelative": 0.0015494582323068442,
+        "p50": 0.00017891927805882557,
+        "p90": 0.000269611551747373,
+        "p95": 0.0003216423088095777,
+        "pearson": 0.9999996481597473,
+        "worstX": 0.5016722408026756,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench.dc": 1,
+          "workbench.frequency10": 0.5955860717821779,
+          "workbench.frequency20": 0.4684258958181478,
+          "workbench.frequency30": 0.40456812587758156,
+          "workbench.frequency50": 0.33511658302652647,
+          "workbench.firstCrossing50": 16.252103842586582,
+          "workbench.firstCrossing10": null,
+          "zemax.dc": 1,
+          "zemax.frequency10": 0.5953937941895332,
+          "zemax.frequency20": 0.4682906583525657,
+          "zemax.frequency30": 0.4044221714593648,
+          "zemax.frequency50": 0.3350087218238174,
+          "zemax.firstCrossing50": 16.23175366577674,
+          "zemax.firstCrossing10": null
+        }
+      }
+    ],
+    "validation": {
+      "protocol": "FourierPhysicalDomainConvergence/v1",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 64,
+      "returnedPupilSampling": 1024,
+      "maximumPupilSampling": 2048,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1E-07,
+      "validated": true,
+      "steps": [
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.00817370910454978,
+          "maximumAbsoluteChange": 0.022223853261730153
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0072929605160299265,
+          "maximumAbsoluteChange": 0.03299127644624478
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0010041310888332208,
+          "maximumAbsoluteChange": 0.0067722250748067925
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.00024283117876689977,
+          "maximumAbsoluteChange": 0.0015406106528758068
+        }
+      ],
+      "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+      "evaluatedNominalPupilCells": 2793472,
+      "maximumNominalPupilCells": 100000000,
+      "requestedRelativeRmsDeviation": 0.013185495275882371,
+      "requestedMaximumAbsoluteDeviation": 0.04781385177317965
+    },
+    "coreSha256": "c00a8e2ea2185bba0872b580e0220839168f526bddcff964d79c002f06612a90"
+  },
+  {
+    "index": 831,
+    "key": "PSF",
+    "algorithm": "ValidateRequested",
+    "outcome": "Unavailable",
+    "outcomeReason": "The requested finite sum differs from the resolved reference beyond the declared accuracy.",
+    "values": {
+      "Status": "The requested finite sum differs from the resolved reference beyond the declared accuracy.",
+      "FourierSamplingValidation": {
+        "protocol": "FourierPhysicalDomainConvergence/v1",
+        "mode": "ValidateRequested",
+        "requestedPupilSampling": 64,
+        "returnedPupilSampling": 0,
+        "maximumPupilSampling": 2048,
+        "relativeRmsAccuracy": 0.005,
+        "absoluteAccuracy": 1E-07,
+        "validated": false,
+        "steps": [
+          {
+            "pupilSampling": 64,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.04027589197016386,
+            "maximumAbsoluteChange": 0.009094875972476796
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.009127007734470538,
+            "maximumAbsoluteChange": 0.0020799938025953535
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.002221845566781455,
+            "maximumAbsoluteChange": 0.0005074736541883229
+          }
+        ],
+        "reason": "The requested finite sum differs from the resolved reference beyond the declared accuracy.",
+        "evaluatedNominalPupilCells": 696320,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": 0.02849104902786368,
+        "requestedMaximumAbsoluteDeviation": 0.006507408515693119
+      }
+    }
+  },
+  {
+    "index": 831,
+    "key": "PSF",
+    "algorithm": "Adaptive",
+    "protocol": "native-8x",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "grid",
+        "unit": "Dimensionless",
+        "count": 16384,
+        "maxAbsolute": 0.00010975671629762096,
+        "meanAbsolute": 5.290042361548915E-06,
+        "rmse": 1.0904681485232382E-05,
+        "nrmse": 4.7739347333231334E-05,
+        "maxRelative": 0.05492349596472221,
+        "p50": 2.7144591957122856E-06,
+        "p90": 1.1161500510990167E-05,
+        "p95": 1.5893565159788202E-05,
+        "pearson": 0.999999772887433,
+        "worstX": 0,
+        "worstY": 0,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "grid.workbench.peak": 0.22853100866838785,
+          "grid.workbench.pv": 0.22847556415877224,
+          "grid.workbench.rmsAboutZero": 0.013436660720848929,
+          "grid.workbench.rmsAfterPiston": 0.013241577418636135,
+          "grid.workbench.sampleSum": 37.37735461702047,
+          "grid.workbench.integratedEnergy": 2.3360846635637795,
+          "grid.workbench.centroidX": 0.010992748312115889,
+          "grid.workbench.centroidY": 0.010992748312115216,
+          "grid.workbench.marginalFwhmX": 2.49185352114049,
+          "grid.workbench.marginalFwhmY": 2.49185352114049,
+          "grid.workbench.encircledEnergyRadius50": 1.6820317486596625,
+          "grid.workbench.encircledEnergyRadius80": 7.841067271294986,
+          "grid.workbench.encircledEnergyRadius90": 11.815794614638946,
+          "grid.zemax.peak": 0.22842125195209023,
+          "grid.zemax.pv": 0.22836642065417495,
+          "grid.zemax.rmsAboutZero": 0.013430424455419577,
+          "grid.zemax.rmsAfterPiston": 0.013235322311825993,
+          "grid.zemax.sampleSum": 37.3704076274749,
+          "grid.zemax.integratedEnergy": 2.335650476717181,
+          "grid.zemax.centroidX": 0.011004094417041907,
+          "grid.zemax.centroidY": 0.011004094417042073,
+          "grid.zemax.marginalFwhmX": 2.4937076837754852,
+          "grid.zemax.marginalFwhmY": 2.4937076837754857,
+          "grid.zemax.encircledEnergyRadius50": 1.6820369561378374,
+          "grid.zemax.encircledEnergyRadius80": 7.843935365702614,
+          "grid.zemax.encircledEnergyRadius90": 11.832384114475245
+        }
+      }
+    ],
+    "validation": {
+      "protocol": "FourierPhysicalDomainConvergence/v1",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 64,
+      "returnedPupilSampling": 1024,
+      "maximumPupilSampling": 2048,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1E-07,
+      "validated": true,
+      "steps": [
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.04027589197016386,
+          "maximumAbsoluteChange": 0.009094875972476796
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.009127007734470538,
+          "maximumAbsoluteChange": 0.0020799938025953535
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.002221845566781455,
+          "maximumAbsoluteChange": 0.0005074736541883229
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0005651369736751318,
+          "maximumAbsoluteChange": 0.00012915132262977802
+        }
+      ],
+      "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+      "evaluatedNominalPupilCells": 2793472,
+      "maximumNominalPupilCells": 100000000,
+      "requestedRelativeRmsDeviation": 0.02790981070896411,
+      "requestedMaximumAbsoluteDeviation": 0.006378257193063341
+    },
+    "coreSha256": "c00a8e2ea2185bba0872b580e0220839168f526bddcff964d79c002f06612a90"
+  },
+  {
+    "index": 835,
+    "key": "FFT PSF Cross Section",
+    "algorithm": "Adaptive",
+    "protocol": "native-8x",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 201,
+        "maxAbsolute": 0.0006032140136724706,
+        "meanAbsolute": 5.2318316183413005E-05,
+        "rmse": 0.00010611336358254881,
+        "nrmse": 0.0004655381249316645,
+        "maxRelative": 0.2294013437595733,
+        "p50": 2.803495647109972E-05,
+        "p90": 9.818243641626016E-05,
+        "p95": 0.00021495587039283004,
+        "pearson": 0.9999982103121738,
+        "worstX": 0.20046147105847467,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    ],
+    "validation": {
+      "protocol": "FourierPhysicalDomainConvergence/v1",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 32,
+      "returnedPupilSampling": 1024,
+      "maximumPupilSampling": 4096,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1E-07,
+      "validated": true,
+      "steps": [
+        {
+          "pupilSampling": 32,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null
+        },
+        {
+          "pupilSampling": 64,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.004707059472725793,
+          "maximumAbsoluteChange": 0.00434453545693049
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.002657508469178784,
+          "maximumAbsoluteChange": 0.0026447862557921475
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.007585094859903803,
+          "maximumAbsoluteChange": 0.0018584289856566072
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0012440191000580398,
+          "maximumAbsoluteChange": 0.00034789995061115797
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0009424165244827749,
+          "maximumAbsoluteChange": 0.00027353032752883144
+        }
+      ],
+      "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+      "evaluatedNominalPupilCells": 2795520,
+      "maximumNominalPupilCells": 100000000,
+      "requestedRelativeRmsDeviation": 0.010319937850861605,
+      "requestedMaximumAbsoluteDeviation": 0.002863909255070296
+    },
+    "coreSha256": "c00a8e2ea2185bba0872b580e0220839168f526bddcff964d79c002f06612a90"
+  },
+  {
+    "index": 1989,
+    "key": "MTF",
+    "algorithm": "Adaptive",
+    "protocol": "native-8x",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Dimensionless",
+        "count": 300,
+        "maxAbsolute": 0.0015847828138203512,
+        "meanAbsolute": 0.0006200232150809126,
+        "rmse": 0.0006899110648144135,
+        "nrmse": 0.0006899110648144135,
+        "maxRelative": 1.4536486326655929,
+        "p50": 0.0006857888372198973,
+        "p90": 0.0009281753460355774,
+        "p95": 0.0009419484132394849,
+        "pearson": 0.9999976036597474,
+        "worstX": 0.8361204013377926,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench.dc": 1,
+          "workbench.frequency10": 0.5463014490677028,
+          "workbench.frequency20": 0.022698158122096055,
+          "workbench.frequency30": 0.23698535905465962,
+          "workbench.frequency50": 0.07583086479311055,
+          "workbench.firstCrossing50": 10.686443562933011,
+          "workbench.firstCrossing10": 17.291172695376098,
+          "zemax.dc": 1,
+          "zemax.frequency10": 0.5456168029145462,
+          "zemax.frequency20": 0.02355072633125252,
+          "zemax.frequency30": 0.2371259026499941,
+          "zemax.frequency50": 0.07667107755881562,
+          "zemax.firstCrossing50": 10.675582812519577,
+          "zemax.firstCrossing10": 17.27283155791692
+        }
+      },
+      {
+        "id": "sagittal",
+        "unit": "Dimensionless",
+        "count": 300,
+        "maxAbsolute": 0.0015847828138205733,
+        "meanAbsolute": 0.0006200232150813872,
+        "rmse": 0.0006899110648147663,
+        "nrmse": 0.0006899110648147663,
+        "maxRelative": 1.453648632669355,
+        "p50": 0.0006857888372202303,
+        "p90": 0.0009281753460369486,
+        "p95": 0.0009419484132413369,
+        "pearson": 0.9999976036597473,
+        "worstX": 0.8361204013377926,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench.dc": 1,
+          "workbench.frequency10": 0.5463014490677027,
+          "workbench.frequency20": 0.0226981581220967,
+          "workbench.frequency30": 0.23698535905465784,
+          "workbench.frequency50": 0.07583086479310922,
+          "workbench.firstCrossing50": 10.686443562933006,
+          "workbench.firstCrossing10": 17.291172695376066,
+          "zemax.dc": 1,
+          "zemax.frequency10": 0.5456168029145462,
+          "zemax.frequency20": 0.02355072633125252,
+          "zemax.frequency30": 0.2371259026499941,
+          "zemax.frequency50": 0.07667107755881562,
+          "zemax.firstCrossing50": 10.675582812519577,
+          "zemax.firstCrossing10": 17.27283155791692
+        }
+      }
+    ],
+    "validation": {
+      "protocol": "FourierPhysicalDomainConvergence/v1",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 64,
+      "returnedPupilSampling": 1024,
+      "maximumPupilSampling": 2048,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1E-07,
+      "validated": true,
+      "steps": [
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.03963093659878042,
+          "maximumAbsoluteChange": 0.10768224273104066
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.008176925059554349,
+          "maximumAbsoluteChange": 0.029670034539697965
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0017583921729270413,
+          "maximumAbsoluteChange": 0.006557541231878572
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0007199031662919536,
+          "maximumAbsoluteChange": 0.0015870195004399346
+        }
+      ],
+      "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+      "evaluatedNominalPupilCells": 2793472,
+      "maximumNominalPupilCells": 100000000,
+      "requestedRelativeRmsDeviation": 0.04409219390189982,
+      "requestedMaximumAbsoluteDeviation": 0.11732820655743015
+    },
+    "coreSha256": "c00a8e2ea2185bba0872b580e0220839168f526bddcff964d79c002f06612a90"
+  },
+  {
+    "index": 2567,
+    "key": "MTF",
+    "algorithm": "Adaptive",
+    "protocol": "native-8x",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "tangential",
+        "unit": "Dimensionless",
+        "count": 300,
+        "maxAbsolute": 3.8209926495835767E-05,
+        "meanAbsolute": 2.912737515477252E-05,
+        "rmse": 3.063528756900457E-05,
+        "nrmse": 3.063528756900457E-05,
+        "maxRelative": 0.00010311936220280695,
+        "p50": 3.194945246684511E-05,
+        "p90": 3.724400133335304E-05,
+        "p95": 3.796035909832129E-05,
+        "pearson": 0.9999999995870551,
+        "worstX": 16.387959866220736,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench.dc": 1,
+          "workbench.frequency10": 0.7089805895293207,
+          "workbench.frequency20": 0.4835159741254741,
+          "workbench.frequency30": 0.403035265726196,
+          "workbench.frequency50": 0.2877061605879915,
+          "workbench.firstCrossing50": 18.629434389366352,
+          "workbench.firstCrossing10": null,
+          "zemax.dc": 1,
+          "zemax.frequency10": 0.7090099771567387,
+          "zemax.frequency20": 0.48355273545908795,
+          "zemax.frequency30": 0.40306764330957995,
+          "zemax.frequency50": 0.2877358317234417,
+          "zemax.firstCrossing50": 18.632294341317166,
+          "zemax.firstCrossing10": null
+        }
+      },
+      {
+        "id": "sagittal",
+        "unit": "Dimensionless",
+        "count": 300,
+        "maxAbsolute": 0.00018474871655906213,
+        "meanAbsolute": 6.754652146157561E-06,
+        "rmse": 1.6509786513221627E-05,
+        "nrmse": 1.6509786513221627E-05,
+        "maxRelative": 0.5101551349369308,
+        "p50": 1.068249543451777E-06,
+        "p90": 2.5332460428586734E-05,
+        "p95": 3.3835681770427735E-05,
+        "pearson": 0.9999999976337818,
+        "worstX": 16.220735785953178,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench.dc": 1,
+          "workbench.frequency10": 0.0240472496818255,
+          "workbench.frequency20": 0.007524789375793629,
+          "workbench.frequency30": 0.009090106058269697,
+          "workbench.frequency50": 0.0038561833513100032,
+          "workbench.firstCrossing50": 3.811124733703762,
+          "workbench.firstCrossing10": 6.592078463304727,
+          "zemax.dc": 1,
+          "zemax.frequency10": 0.02405754992980926,
+          "zemax.frequency20": 0.007524033351990304,
+          "zemax.frequency30": 0.009089212236238278,
+          "zemax.frequency50": 0.0038556204063929112,
+          "zemax.firstCrossing50": 3.8112779479961874,
+          "zemax.firstCrossing10": 6.592493197991869
+        }
+      }
+    ],
+    "validation": {
+      "protocol": "FourierPhysicalDomainConvergence/v1",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 64,
+      "returnedPupilSampling": 512,
+      "maximumPupilSampling": 2048,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1E-07,
+      "validated": true,
+      "steps": [
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.03661848526042138,
+          "maximumAbsoluteChange": 0.14936742363401778
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.006182855002725115,
+          "maximumAbsoluteChange": 0.037335830068278675
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0009478702666414039,
+          "maximumAbsoluteChange": 0.007879738689552607
+        }
+      ],
+      "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+      "evaluatedNominalPupilCells": 696320,
+      "maximumNominalPupilCells": 100000000,
+      "requestedRelativeRmsDeviation": 0.03960366949520995,
+      "requestedMaximumAbsoluteDeviation": 0.16081691339571713
+    },
+    "coreSha256": "c00a8e2ea2185bba0872b580e0220839168f526bddcff964d79c002f06612a90"
+  },
+  {
+    "index": 2853,
+    "key": "PSF",
+    "algorithm": "Adaptive",
+    "protocol": "native-8x",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "grid",
+        "unit": "Dimensionless",
+        "count": 16384,
+        "maxAbsolute": 0.0006402409561691302,
+        "meanAbsolute": 4.5401914816018864E-05,
+        "rmse": 6.903393169289622E-05,
+        "nrmse": 0.0003580363316750722,
+        "maxRelative": 0.06549050195739578,
+        "p50": 3.1461694748493316E-05,
+        "p90": 9.218383712642991E-05,
+        "p95": 0.0001417487339791735,
+        "pearson": 0.9999898051116513,
+        "worstX": 0,
+        "worstY": 0,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "grid.workbench.peak": 0.19217240286106893,
+          "grid.workbench.pv": 0.1915598888524586,
+          "grid.workbench.rmsAboutZero": 0.01611325885964478,
+          "grid.workbench.rmsAfterPiston": 0.01478740957819599,
+          "grid.workbench.sampleSum": 104.86992445280684,
+          "grid.workbench.integratedEnergy": 6.554370278300428,
+          "grid.workbench.centroidX": 0.027771047670329306,
+          "grid.workbench.centroidY": 0.0277710476703291,
+          "grid.workbench.marginalFwhmX": 3.872432461110992,
+          "grid.workbench.marginalFwhmY": 3.872432461110992,
+          "grid.workbench.encircledEnergyRadius50": 6.060019140685458,
+          "grid.workbench.encircledEnergyRadius80": 11.886971707183255,
+          "grid.workbench.encircledEnergyRadius90": 14.853744052097483,
+          "grid.zemax.peak": 0.19281264381723806,
+          "grid.zemax.pv": 0.19219268069589787,
+          "grid.zemax.rmsAboutZero": 0.01611905008361854,
+          "grid.zemax.rmsAfterPiston": 0.014799244953801922,
+          "grid.zemax.sampleSum": 104.66045389600826,
+          "grid.zemax.integratedEnergy": 6.5412783685005165,
+          "grid.zemax.centroidX": 0.028161634083410717,
+          "grid.zemax.centroidY": 0.028161634083799073,
+          "grid.zemax.marginalFwhmX": 3.8647173456558064,
+          "grid.zemax.marginalFwhmY": 3.864717345649079,
+          "grid.zemax.encircledEnergyRadius50": 6.070656793102248,
+          "grid.zemax.encircledEnergyRadius80": 11.915675303976647,
+          "grid.zemax.encircledEnergyRadius90": 14.867019957813033
+        }
+      }
+    ],
+    "validation": {
+      "protocol": "FourierPhysicalDomainConvergence/v1",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 64,
+      "returnedPupilSampling": 2048,
+      "maximumPupilSampling": 2048,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1E-07,
+      "validated": true,
+      "steps": [
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.12932108846973794,
+          "maximumAbsoluteChange": 0.02411525536204659
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.032529948570111634,
+          "maximumAbsoluteChange": 0.006270011832185035
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0011984157280985081,
+          "maximumAbsoluteChange": 0.0012257351432801988
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0035196097498964864,
+          "maximumAbsoluteChange": 0.0006762451422387961
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0001873533466316813,
+          "maximumAbsoluteChange": 0.00016462578217055907
+        }
+      ],
+      "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+      "evaluatedNominalPupilCells": 11182080,
+      "maximumNominalPupilCells": 100000000,
+      "requestedRelativeRmsDeviation": 0.1551307202994526,
+      "requestedMaximumAbsoluteDeviation": 0.02981184327751421
+    },
+    "coreSha256": "c00a8e2ea2185bba0872b580e0220839168f526bddcff964d79c002f06612a90"
+  }
+]

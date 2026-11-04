@@ -14,7 +14,7 @@ public static class SampledMtfEngine
         double defocus = 0)
     {
         var wavefront = WavefrontEngine.GenerateChiefRayUniform(optic, field, wavelength, pupilSampling,
-            aimAtStop: optic.RayAimingEnabled);
+            aimAtStop: optic.RayAimingEnabled, useSystemFocalReference: false);
         var pupilDiameter = optic.ImageSpaceAfocal
             ? ImageSpaceAnalysisSupport.AfocalDiffractionPupilDiameterMillimeters(optic)
             : optic.Paraxial.EstimateExitPupilDiameter();

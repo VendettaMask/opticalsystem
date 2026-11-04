@@ -2,13 +2,19 @@
 
 共享卡片角色、窗口标题字号和圆角令牌按 [UI 规范](UI_DESIGN_SPEC.md) 使用；主题页不重复各功能批次的实现与测试摘要。
 
+全项目设计流程与视觉自检统一采用[设计语言与工作方法](UI_DESIGN_SPEC.md#全项目设计语言与工作方法)：明确任务、光学语汇、主题身份与阅读主次，复用已有令牌/原生控件并核对实际渲染。候选与确认放在[走查记录](UI_DESIGN_REVIEW.md)，不另起互相竞争的规范；通用方法不统一各主题的配色、字体或材质。
+
 状态：已实现架构规范。
 
 应用主题由 `ThemeRegistry` 统一注册。业务窗口、Ribbon、分析页面和面板只声明颜色、图标和边框的语义，不得根据 `Light`、`Dark`、`Isekai`、`Pixel` 等主题名编写显示分支。
 
+Ribbon装饰可实现内部可选的`ILayoutAwareRibbonDecoration`：通用宿主传入原生菜单、选中项、命令区域及真实空白槽位，分别在控件后绘制背景/剑和在控件前绘制淡印细节。两层均不接收输入、不参与尺寸请求，选择、滚动、字体和布局变化只更新绘制。当前仅Isekai实现；其他注册主题继续原渲染路径，通用宿主不识别具体主题名称。用户确认的SVG与材质约定见[素材说明](../src/OpticalSystemDesign.App/Assets/Themes/Isekai/README.md)。
+
 ## 当前主题包
 
 ### 光域（Lumen）
+
+用户2026-11-04澄清的后续目标是钢铁侠式纯投影HUD，排除金属、实体舱板和写实环境，强调光学配图、通透叠层与有主次的光感。多张效果候选已被否决，尚无已确认的新版整套母版；下文描述仍是现行实现，不表示本次文档同步已重绘1.3图标或接入候选图。后续接入遵守上述设计流程和原生/科学内容边界。
 
 “光域”现已作为独立主题包注册，设置值为 `Lumen`，可从“设置 → 显示格式设置 → 界面主题”选择；默认仍为普通模式，不自动改写用户选择。实现集中在 [LumenTheme](../src/OpticalSystemDesign.App/Theming/LumenTheme.cs)、[状态样式](../src/OpticalSystemDesign.App/Theming/LumenThemeStyles.cs)及注册表，不在业务面板中增加主题分支。
 
@@ -42,6 +48,8 @@ dotnet run --project tools/previews/FuiThemePreview/FuiThemePreview.csproj -c Re
 
 ### 正式注册的主题
 
+异世界按2026-11-04确认固定内嵌 **Almendra + English**。字体家族、语言入口不可更改，实际资源解析和语言服务同样强制执行；字号与同家族字形可调整。此前保存的字体/语言偏好保留，切出主题后恢复。启动先应用主题，再创建工作区面板，避免未附加控件继承启动时的旧字体。中文用户名称和缺失科学符号通过补字显示，不更改工程内容。详见[字体方案](TYPOGRAPHY.md)。
+
 | 设置值 | 显示名称 | 基础外观 | 图标包 | Chrome/装饰 |
 | --- | --- | --- | --- | --- |
 | `Light` | 普通模式 | Avalonia Light | `ScientificThemeIconPack` | 窗口级浅蓝渐变、玻璃柔光、半透明侧栏及细边、白色数据区、12 DIP 圆角停靠区 |
@@ -58,6 +66,10 @@ dotnet run --project tools/previews/FuiThemePreview/FuiThemePreview.csproj -c Re
 异世界绘图材质通过注册表的可选`DrawingMaterial`接入。用户随后否决网上质感、正式金属画框及过于整齐的卷边，现行采用自有生成的中世纪磨毛图纸：粗纤维、自然毛边/缺口、压痕和旧折痕，恢复先前生成的压纹棕皮，暖象牙/棕/旧金配色保持。`IsekaiCraftsmanship`缓存完整羊皮图纸、缝线皮革/软纸四状态底板及原花叶/小配饰；材质alpha定义28 DIP外沿，取消原生整齐矩形描边和连续珠边。纸面纹理按比例裁切，不能把整页纹理压成图签里的横向条纹。正式雕金框、网络皮革及其来源文件保留历史，不再嵌入/加载；整齐卷边候选也未嵌入。金色留作小配饰，不为不同分析创建不同色系。功能图标继续独立SVG，配饰只使用类型元数据与实测留白。提示词、来源、哈希及透明边界见[当前素材规范](../src/OpticalSystemDesign.App/Assets/Themes/Isekai/README.md)。
 
 `AnalysisBookWorkspace`以固定控件树包含真实设置/同步/复制/文本导出/PNG/线宽/适应窗口、设置弹层、结果与原生绘图/数据/文本，按实际换行高度适配，内层源图不重复加框。用户已确认同纸页眉/手稿页脚：取消皮革底板与独立纸牌，功能文字/原造型图标用深褐墨色，细笔分隔，底部原生索引用短墨线与点标记当前页，保留原栏端淡印配饰。后续灰色/羽毛笔误解改版已被撤回，候选素材归档在产品资源之外，未嵌入或加载。命令文字样式限定在按钮自身内容/呈现器，不跨入逻辑归属于按钮的深色飞出菜单；禁用、焦点、悬停与状态语义继续保留。原生选择/键盘/两个呈现器保持，换主题不重建绘图内容。程序主标题/菜单/Ribbon、文档页签、纸面本体、字体及科学数据不随本轮变化。暂不考虑16:9，源图1200×900、160 DIP图签、28 DIP材质边和原物理字高保持。见[确认版收尾验收](../validation/rechecks/2026-11-04/isekai-approved-final/README.md)及[原确认画面](../validation/rechecks/2026-11-04/isekai-manuscript-bands/README.md)；[上一轮皮革带](../validation/rechecks/2026-11-04/isekai-folio-rails/README.md)、[羊皮纸本体阶段](../validation/rechecks/2026-11-04/isekai-frayed-vellum/README.md)等历史记录各自保留验证边界。
+
+异世界文档页签沿用原生模板，底图由四个固定的高分辨率皮肤缓存供给，避免将带偏移的多块`ImageBrush.SourceRect`直接交给高DPI组合器；不按窗口尺寸或DPI不断生成缓存。非选中页用象牙白字，浅纸选中页用深褐字，禁用状态单独适配。二维/三维/实体画布按原素材源矩形直接绘制四角，定位依据实际画布边界，保持配饰组合与比例。检查覆盖100%/150%/200%显示缩放的真实组合像素、调整窗口、两种字号与主题往返；材质不改变光学数据、相机或导出源图布局。范围和复现见[材质尺寸修复](../validation/rechecks/2026-11-04/isekai-material-sizing/README.md)。
+
+`IsekaiThemeStyles`仅在实际异世界主题的`DocumentControl`上设置`DeferredContentScheduling.Timeline`，使用独立的`RevealDuration=0`时间线。保留Dock原延迟创建和原生内容回收，取消整页85%透明度的淡入阶段；全局默认时间线及其他主题不修改。不能通过提高纸纹亮度、改科学曲线色值或关闭整个控件来补偿此呈现问题。验证见[亮度核查与修复](../validation/rechecks/2026-11-04/isekai-brightness-check/README.md)。
 
 Ribbon 下沿通过 `ThemeChromeRole.Ribbon` 提供主题圆角，Light/Dark 为仅底部 8 DIP，Isekai/Pixel 保留锐角/方角。`ThemeLayoutResources.RibbonWorkspaceMargin` 在所有主题提供下方 8 DIP 间隔；外露区域绑定工作区背景，内容随圆角裁切。业务布局不判断主题名称，顺序和非序列模式共用框架。
 
@@ -80,6 +92,9 @@ Ribbon 下沿通过 `ThemeChromeRole.Ribbon` 提供主题圆角，Light/Dark 为
 - 具体主题的完整 `ThemePalette`；
 - 强调色应用器；
 - 实际 `IThemeIconPack`；
+- 界面字体，以及可选 `LocksFontFamily`、`FixedLanguage` 约束；当前异世界固定内嵌 Almendra 和 English，其他主题保留自选字体与三语切换；
+- 被异世界锁定的字体家族框和语言按钮以专属策略标记呈现中性灰禁用态（含图标和箭头），切出主题清除标记；不调整其他控件或其他主题的禁用色；
+- 所有主题的菜单/多级子菜单、Flyout/右键菜单/提示和下拉选项共用动态界面字体资源，覆盖Fluent弹层默认Inter；异世界为Almendra，其他主题采用各自默认/用户自选字体。工程图及PDF/Word/HTML/指南正文同样走共享角色策略，公式使用内嵌STIX数学角色，详见[字体方案](TYPOGRAPHY.md)；
 - `ThemeChromeProfile`；
 - 可选的 `IThemeDecorationRenderer` 以及绘图用 `IThemeDrawingMaterial`。
 

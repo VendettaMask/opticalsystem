@@ -61,7 +61,7 @@ public static class ContrastMetrics
         (double X, double Y)[] points = center.HasValue ? [pair.First, pair.Second, center.Value] : [pair.First, pair.Second];
         if (points.Any(p => !double.IsFinite(p.X) || !double.IsFinite(p.Y) || p.X * p.X + p.Y * p.Y > 1 + 1e-12))
             throw new ArgumentOutOfRangeException(nameof(pair), "移位光线必须位于归一化单位瞳孔内。");
-        var wavefront = WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength, points, aimAtStop: optic.RayAimingEnabled);
+        var wavefront = WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength, points, aimAtStop: optic.RayAimingEnabled, useSystemFocalReference: false);
         if (wavefront.Samples.Count != points.Length || wavefront.Samples.Take(2).Any(s => !double.IsFinite(s.Intensity) || s.Intensity <= 0 || !double.IsFinite(s.OpdWaves)))
             throw new InvalidOperationException("Moore–Elliott 光线对未得到有效波前。");
         var first = wavefront.Samples[0].OpdWaves; var second = wavefront.Samples[1].OpdWaves;

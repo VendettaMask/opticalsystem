@@ -139,7 +139,7 @@ public sealed partial class MainWindow
                         RibbonButton("show-stock-lens-catalog", "stock-lens-catalog", "库存镜头查看"),
                         RibbonButton("show-stock-lens-matching", "stock-lens-match", "库存镜头匹配")),
                     RibbonGroup("设计报告",
-                        RibbonButton("export-markdown-report", "file-export-report", "导出设计报告…")))),
+                        RibbonButton("export-markdown-report", "file-export-report", "导出报告")))),
                 BuildLaboratoryRibbonTab(),
                 RibbonTab("窗口", BuildRibbonPage(
                     RibbonGroup("页面窗口布局",
@@ -210,8 +210,10 @@ public sealed partial class MainWindow
         tabs.Padding = new Thickness(0);
         tabs.Classes.Add("ribbon-tabs");
         var ribbonLayer = new Grid();
-        ribbonLayer.Children.Add(new ThemeChromeOverlay { Role = ThemeChromeRole.Ribbon });
+        ribbonLayer.Children.Add(new ThemeChromeOverlay { Role = ThemeChromeRole.Ribbon, RibbonTabs = tabs });
         ribbonLayer.Children.Add(tabs);
+        ribbonLayer.Children.Add(new ThemeChromeOverlay
+            { Role = ThemeChromeRole.Ribbon, RibbonTabs = tabs, ForegroundDecoration = true });
         var ribbon = new Border
         {
             Child = ribbonLayer,
@@ -291,6 +293,9 @@ public sealed partial class MainWindow
                     "分析" => "分析(_A)",
                     "优化" => "优化(_O)",
                     "公差" => "公差(_T)",
+                    "加工与图纸" => "加工与图纸(_M)",
+                    "数据库" => "数据库(_D)",
+                    "实验室" => "实验室(_L)",
                     "窗口" => "窗口(_W)",
                     "帮助" => "帮助(_H)",
                     _ => title
@@ -466,6 +471,8 @@ public sealed partial class MainWindow
         ("show-material-transmission", "material-transmission", "内部透过率 vs. 波长"),
         ("show-material-dispersion-wavelength", "material-dispersion-wavelength", "色散 vs. 波长"));
 
+    private DropDownButton? _languageMenuButton;
+
     private DropDownButton RibbonLanguageMenuButton()
     {
         var flyout = new MenuFlyout();
@@ -476,7 +483,7 @@ public sealed partial class MainWindow
             {
                 Header = displayName,
                 ToggleType = MenuItemToggleType.Radio,
-                IsChecked = string.Equals(_settings.Language, code, StringComparison.Ordinal),
+                IsChecked = string.Equals(UiLocalization.CurrentLanguage, code, StringComparison.Ordinal),
                 MinWidth = 150,
                 Padding = new Thickness(10, 8)
             };
@@ -503,11 +510,37 @@ public sealed partial class MainWindow
         button.Classes.Add("ribbon-command");
         button.Classes.Add("ribbon-dropdown");
         AttachRibbonCommandHover(button, content);
+        _languageMenuButton = button;
+        RefreshLanguageMenu();
         return button;
+    }
+
+    private void RefreshLanguageMenu()
+    {
+        var locked = ThemeRegistry.FromSettings(_settings.Theme).FixedLanguage is not null;
+        if (_languageMenuButton is { } button)
+        {
+            button.IsEnabled = !locked;
+            button.Classes.Set(ThemeRegistry.LockedSettingClass, locked);
+            if (button.Content is Grid content)
+                foreach (var arrow in content.Children.OfType<Polygon>())
+                    arrow.Bind(Shape.FillProperty, new DynamicResourceExtension(locked
+                        ? ThemeResourceBindings.LockedSettingForeground : ThemeResourceBindings.MutedText));
+            ToolTip.SetTip(button, locked
+                ? "Isekai uses English. Change the theme to choose another language."
+                : UiLocalization.Text("选择界面语言"));
+        }
+        foreach (var item in _languageMenuItems)
+        {
+            item.IsEnabled = !locked;
+            item.IsChecked = string.Equals(AutomationProperties.GetAutomationId(item),
+                $"language-{UiLocalization.CurrentLanguage}", StringComparison.Ordinal);
+        }
     }
 
     private void ChangeLanguage(string language)
     {
+        if (ThemeRegistry.FromSettings(_settings.Theme).FixedLanguage is not null) return;
         var normalized = UiLocalization.NormalizeLanguage(language);
         if (string.Equals(_settings.Language, normalized, StringComparison.Ordinal))
         {
@@ -517,11 +550,7 @@ public sealed partial class MainWindow
         _settings.Language = normalized;
         UiLocalization.Apply(normalized);
         RefreshStatus();
-        foreach (var item in _languageMenuItems)
-        {
-            var automationId = AutomationProperties.GetAutomationId(item);
-            item.IsChecked = string.Equals(automationId, $"language-{normalized}", StringComparison.Ordinal);
-        }
+        RefreshLanguageMenu();
 
         if (!_settings.TrySave(out var errorMessage))
         {

@@ -713,7 +713,7 @@ internal static class MtfMethodEvaluator
                 pupilSampling,
                 cellCentered: true,
                 aimAtStop: optic.RayAimingEnabled,
-                referenceWavelength: referenceWavelength);
+                referenceWavelength: referenceWavelength, useSystemFocalReference: false);
             var polarization = settings.UsePolarization
                 ? JonesPupilEngine.Generate(
                     optic,

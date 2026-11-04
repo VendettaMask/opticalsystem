@@ -91,6 +91,32 @@ public partial class WorkbenchRuntime
         if (canonicalName == "Image Simulation" && settings.TryGetValue("OutputFile", out var destination)
             && !string.IsNullOrWhiteSpace(destination)) LosslessImageOutput.RequirePngOrBmp(destination);
         var analysis = CreateAnalysis(canonicalName, settings);
+        if (settings.TryGetValue("FourierSamplingMode", out var samplingMode)
+            && samplingMode is not ("Fixed" or "固定采样"))
+        {
+            var mode = samplingMode switch
+            {
+                "ValidateRequested" or "验证原采样" => FourierSamplingMode.ValidateRequested,
+                "Adaptive" or "自适应精度" => FourierSamplingMode.Adaptive,
+                _ => throw new ArgumentException("Unknown Fourier sampling mode.", nameof(settings))
+            };
+            if (canonicalName is not ("PSF" or "MTF" or "FFT PSF Cross Section"))
+                throw new NotSupportedException("Result-level Fourier validation is available for FFT PSF, its cross section and FFT MTF.");
+            int SettingInt(string key, int fallback) => settings.TryGetValue(key, out var text)
+                && int.TryParse(text.Split(' ', 'x', '×')[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : fallback;
+            double SettingDouble(string key, double fallback) => settings.TryGetValue(key, out var text)
+                && double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var value) ? value : fallback;
+            var requested = SettingInt("Sampling", SettingInt("NumRays", 64));
+            if (!FourierResultValidationAnalysis.CanValidateSource(CurrentOptic))
+                return AnalysisData.Unavailable(canonicalName, "This optical source cannot be identified losslessly for Fourier validation.");
+            var validationOptic = CurrentOptic.Clone();
+            var validationRuntime = new WorkbenchRuntime(validationOptic);
+            analysis = new FourierResultValidationAnalysis(validationOptic, canonicalName, requested, n =>
+            {
+                var refined = new Dictionary<string, string>(settings) { ["Sampling"] = n.ToString(CultureInfo.InvariantCulture) };
+                return validationRuntime.CreateAnalysis(canonicalName, refined);
+            }, new(mode, SettingInt("FourierMaximumSampling", 1024), SettingDouble("FourierRelativeAccuracy", .001)));
+        }
         using var fftSamplingScope = FftPupilSampling.RequireResolvedResults();
         AnalysisData data;
         try { data = analysis.GenerateData(cancellationToken); }
@@ -846,6 +872,7 @@ public partial class WorkbenchRuntime
                 displayScale: Double("DisplayScale", 1),
                 apodization: Text("Apodization", "无"),
                 referenceChiefRay: Bool("ReferenceChiefRay", false),
+                referenceToPrimary: Bool("ReferenceToPrimary", false),
                 useExitPupilShape: Bool("UseExitPupilShape", true),
                 surfaceNumber: LeadingInt("SurfaceNumber", -1),
                 displayAs: Text("DisplayAs", "表面"),

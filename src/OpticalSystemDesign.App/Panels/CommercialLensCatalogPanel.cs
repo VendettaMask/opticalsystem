@@ -65,6 +65,7 @@ internal sealed class CommercialLensCatalogPanel : UserControl
     {
         _lenses = lenses;
         _openLensProject = openLensProject;
+        UiLocalization.Preserve(_title);
         ConfigureSelectors();
         ConfigureGrid();
         WireFilters();

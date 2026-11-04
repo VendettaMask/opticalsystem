@@ -12,6 +12,7 @@ internal static partial class OpticalDrawingRendererCore
         float pageWidth,
         float pageHeight)
     {
+        using var typographyScope = new DrawingTypographyScope();
         var template = OpticalDrawingTemplateCatalog.For(sheet.Standard);
         canvas.Clear(SKColors.White);
         canvas.Save();

@@ -1,0 +1,68 @@
+{
+  "completedLocal": "2026-11-04T21:53:56.2975332+08:00",
+  "coreBefore": "71a0baa02fda4ae04e8fcb7ad100be4437e73395660ef8fb07482f3f3f7508e4",
+  "coreAfter": "c00a8e2ea2185bba0872b580e0220839168f526bddcff964d79c002f06612a90",
+  "priorityPass": 6,
+  "priorityEffectiveSampling": [
+    {
+      "index": 789,
+      "sampling": 1024
+    },
+    {
+      "index": 831,
+      "sampling": 1024
+    },
+    {
+      "index": 835,
+      "sampling": 1024
+    },
+    {
+      "index": 1989,
+      "sampling": 1024
+    },
+    {
+      "index": 2567,
+      "sampling": 512
+    },
+    {
+      "index": 2853,
+      "sampling": 2048
+    }
+  ],
+  "original831Validation": "Unavailable; plot agreement does not certify the reported central Strehl",
+  "referencesConverged": 13,
+  "nativeSamplingCaptures": 33,
+  "nativeConverged512To1024": 9,
+  "nativeConverged1024To2048": 1,
+  "nativeConverged2048To4096": 3,
+  "samplingRequestsAudited": 19,
+  "originalFixedUnavailable": 19,
+  "additionalCorePass": 6,
+  "additionalCoreUnavailable": 7,
+  "remainingCoreIndices": [
+    313,
+    1115,
+    1119,
+    1767,
+    2569,
+    2813,
+    2835
+  ],
+  "totalAdaptivePass": 12,
+  "totalAdaptiveUnavailable": 7,
+  "defaultNumericalArraysIdentical": 4,
+  "distinctTests": 707,
+  "newTests": 16,
+  "failedTests": 0,
+  "skippedTests": 0,
+  "defaultDualModuleAppBuildPassed": true,
+  "defaultMode": "Fixed",
+  "newProtocol": "FourierPhysicalDomainConvergence/v1",
+  "originalTolerancePolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "originalToleranceChanges": 0,
+  "originalReferenceReplacement": false,
+  "newFull95Run": false,
+  "remoteSynchronizationPerformed": false,
+  "compiledSourceScope": "Validated c00a8e2e snapshot; subsequent concurrent material changes and default-output rebuild are outside scope",
+  "currentCombinedWorkspaceCertified": false
+}

@@ -592,6 +592,9 @@ public sealed class Viewer3DGeometryTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
         await session.Dispatch(async () =>
         {
+            // This existing native-control geometry contract uses the original
+            // sheet; automatic/manual aspect behavior has independent tests.
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             var previousLanguage = UiLocalization.CurrentLanguage;
             UiLocalization.Apply(language);
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);

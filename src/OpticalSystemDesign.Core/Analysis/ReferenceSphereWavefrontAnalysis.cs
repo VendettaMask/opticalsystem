@@ -128,7 +128,7 @@ public sealed class ReferenceSphereWavefrontAnalysis : BaseAnalysis
         IReadOnlyList<(double Hx, double Hy)> fields,
         (double Hx, double Hy) field)
     {
-        var wavefront = WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings, Optic.RayAimingEnabled);
+        var wavefront = WavefrontEngine.GenerateChiefRay(Optic, field, wavelength, _numRings, Optic.RayAimingEnabled, useSystemFocalReference: false);
         var valid = wavefront.Samples.Where(sample => sample.Intensity > 0).ToArray();
         var mean = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Average();
         var minimum = valid.Select(sample => sample.OpdWaves).DefaultIfEmpty(0).Min();

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f1a8521d-6b4a-407c-9fdf-03327836de5e" name="allen@DESKTOP-SET3SNR 2026-11-04 21:36:29" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T21:36:29.5021969+08:00" queuing="2026-11-04T21:36:29.5021970+08:00" start="2026-11-04T21:36:21.4909728+08:00" finish="2026-11-04T21:36:40.7319437+08:00" />
+  <TestSettings name="default" id="0ea8b942-283a-441e-857d-ace5ecf9c6b6">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-04_21_36_29" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5277c212-92ec-44ca-acab-2a981b528324" testId="7b904617-5845-b068-f1a7-b9b3e28b4919" testName="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Spot Diagram&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:06.4731827" startTime="2026-11-04T21:36:22.9987126+08:00" endTime="2026-11-04T21:36:29.4781280+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5277c212-92ec-44ca-acab-2a981b528324" />
+    <UnitTestResult executionId="f70853ae-ac01-4d25-ab3a-7359a371c22a" testId="7b17255b-58a5-902d-ff38-e3a5f2f356fb" testName="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Wavefront Map&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:05.4596614" startTime="2026-11-04T21:36:29.4899654+08:00" endTime="2026-11-04T21:36:34.9384688+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f70853ae-ac01-4d25-ab3a-7359a371c22a" />
+    <UnitTestResult executionId="3da62136-3760-4d89-8b61-60f380a7adca" testId="ac23c494-18c9-6d93-1be3-b5a25859b07c" testName="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Huygens MTF&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:05.6787143" startTime="2026-11-04T21:36:34.9396220+08:00" endTime="2026-11-04T21:36:40.6174301+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3da62136-3760-4d89-8b61-60f380a7adca" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Wavefront Map&quot;)" storage="d:\projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="7b17255b-58a5-902d-ff38-e3a5f2f356fb">
+      <Execution id="f70853ae-ac01-4d25-ab3a-7359a371c22a" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests" name="PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Spot Diagram&quot;)" storage="d:\projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="7b904617-5845-b068-f1a7-b9b3e28b4919">
+      <Execution id="5277c212-92ec-44ca-acab-2a981b528324" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests" name="PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests.PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes(key: &quot;Huygens MTF&quot;)" storage="d:\projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="ac23c494-18c9-6d93-1be3-b5a25859b07c">
+      <Execution id="3da62136-3760-4d89-8b61-60f380a7adca" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IsekaiDrawingMaterialTests" name="PaperRendersActualAnalysesWithoutChangingGeometryResultsOrOtherThemes" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7b904617-5845-b068-f1a7-b9b3e28b4919" executionId="5277c212-92ec-44ca-acab-2a981b528324" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b17255b-58a5-902d-ff38-e3a5f2f356fb" executionId="f70853ae-ac01-4d25-ab3a-7359a371c22a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ac23c494-18c9-6d93-1be3-b5a25859b07c" executionId="3da62136-3760-4d89-8b61-60f380a7adca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.13]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.14]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.16]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:18.80]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

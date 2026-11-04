@@ -163,7 +163,7 @@ ZMX 导入边界包括编码检测、顺序模式验证、`UNIT` 长度单位缩
 
 `GCAT` 和 `GLAS` 先解析打包 Zemax 数据，再解析 独立的 refractiveindex.info 静态材料目录。无厂商同名玻璃按有序 `GCAT` 消歧。未匹配玻璃不会终止导入：保留原名称和其余处方数据，以 `UnresolvedMaterial` 标识，底部状态栏持续提示材料名与表面号；禁止用 GLAS 的 nd/Vd 参数或空气替代。STAROPT 保存/重开保留该状态。几何布局正常显示，但不生成依赖缺失材料的光线或分析结果；补选有效材料后恢复计算。缺失材料时保留文件中的厚度值，不执行依赖光线的 MAZH 厚度求解。`CORNING3` 中的 `C7980` 显式匹配本地目录的 `C79-80`，使用目录色散数据，不是参数近似。验证与示例见 [ZMX 切趾与布局修复记录](ZEMAX_APODIZATION_LAYOUT_FIX.md)。
 
-63 个 AGF 目录转换为一个版本化压缩 `zemax-glass-catalogs.ogdb`，包含 5,502 条记录。解析器支持公式 1–13 以及真实 Glasscat 文件中的 UTF-16、缺失值、旧式短记录和重复名称。用户补充目录转换为用户目录中的 `.ogcat`，成为可复用材料目录。
+当前60个AGF目录转换为版本化压缩 `zemax-glass-catalogs.ogdb`，包含5,047条源记录。CDGM/CDGM-H/CDGM-ZEMAX202309/CDGM20113-P已直接替换为官网2026年9月单一CDGM（352种材料）；旧查询键指向当前CDGM，不保留旧版选择入口。辅助目录旧CDGM不参与回退，官网已移除的牌号维持未解析；显式STAROPT材料快照仍保留原存储数值。其他59家AGF记录保持。解析器支持公式1–13、UTF-16、缺失值、旧式短记录和重复名称。用户补充目录转换为用户目录中的 `.ogcat`，成为可复用材料目录。见[官网原件与更新验证](../validation/rechecks/2026-11-04/material-library-details/README.md)。
 
 ZMX 导出写入 `UNIT MM`、系统孔径、视场、像方无焦标志、波长、主波长和有序 `GCAT`。导出只对可无损表达为 Zemax `STANDARD`、`EVENASPH`、`ODDASPHE` 和基础 `TOROIDAL` 的几何写出 `TYPE`；环形物理孔径写为 `APMN`，其它 Workbench 特有或尚未映射到 Zemax 的几何/孔径会明确失败，不再静默降级为 `TYPE STANDARD`。像方无焦按 Zemax 风格作为像空间角度坐标处理：点列图、光线扇形、RMS Spot、FFT/MMDFT/Huygens PSF、MTF 和波前/OPD 会在最终像面使用相对主光线的角度坐标（mrad）、角频率（cycles/mrad）和屈光度离焦（D）；波前参考由参考球切换为垂直主光线的平面。CODE V、OSLO 和通用顺序文本只覆盖公共表面字段。完整状态应使用 STAROPT。
 

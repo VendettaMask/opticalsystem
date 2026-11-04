@@ -19,9 +19,18 @@ public sealed class DisplaySettingsWindow : Window
     private readonly NumericUpDown _lowerExponent = Number(-15, -1, 1);
     private readonly ComboBox _theme = new() { MinWidth = 230 };
     private readonly ComboBox _fontFamily = new() { MinWidth = 230 };
+    private string? _unlockedFontSelection;
+    private bool _fontFamilyLocked;
+    private readonly TextBlock _fontLockHint = new()
+    {
+        Text = "Isekai uses Almendra and English. Change the theme to choose another font or language.",
+        TextWrapping = TextWrapping.Wrap,
+        IsVisible = false
+    };
     private readonly ComboBox _fontShape = new() { MinWidth = 150 };
     private readonly NumericUpDown _fontSize = Number(9, 32, 1);
     private readonly ComboBox _analysisColorMap = new() { Name = "AnalysisColorMap", MinWidth = 230 };
+    private readonly ComboBox _diagramAspect = new() { Name = "DiagramAspectRatio", MinWidth = 230 };
     private readonly Border _colorMapPreview = new() { Height = 18, Margin = new Thickness(130, 0, 0, 0) };
     private readonly ComboBox _imageExportPreset = new() { Name = "ImageExportPreset", MinWidth = 230 };
     private readonly NumericUpDown _imageExportDpi = Number((decimal)ImageExportResolution.MinimumDpi,
@@ -30,10 +39,9 @@ public sealed class DisplaySettingsWindow : Window
     private readonly NumericUpDown _imageExportWidth = Number(128, 8192, 1);
     private readonly CheckBox _imageExportAspect = new() { Name = "ImageExportPreserveAspectRatio", Content = "锁定原图长宽比", IsChecked = true };
     private readonly ComboBox _imageExportDpiPreset = new() { Name = "ImageExportDpiPreset", MinWidth = 230 };
-    private readonly ExportCanvasPreview _exportCanvasPreview = new() { Height = 118, Margin = new Thickness(130, 0, 0, 0) };
     private readonly TextBlock _imageExportPixels = new() { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(130, 0, 0, 0) };
     private bool _changingExportPreset;
-    private static readonly ExportPreset[] ExportPresets = [new(1920, 1080, "1080P（1920×1080）"), new(2560, 1440, "2560×1440"), new(3840, 2160, "4K（3840×2160）"), new(0, 0, "自定义尺寸")];
+    private static readonly ExportPreset[] ExportPresets = [new(1920, 1080, "1080P（1920×1080）"), new(2560, 1440, "2560×1440"), new(3840, 2160, "4K（3840×2160）"), new(1440, 1080, "4:3（1440×1080）"), new(0, 0, "自定义尺寸")];
     private static readonly DpiPreset[] DpiPresets = [new(96, "96 DPI"), new(150, "150 DPI"), new(300, "300 DPI"), new(600, "600 DPI"), new(0, "自定义 DPI")];
     private readonly TextBlock _preview = new()
     {
@@ -87,6 +95,23 @@ public sealed class DisplaySettingsWindow : Window
         });
         _analysisColorMap.SelectedItem = ScientificColorMaps.Parse(settings.AnalysisColorMap);
         _analysisColorMap.SelectionChanged += (_, _) => UpdateColorMapPreview();
+        _diagramAspect.ItemsSource = new[] { DiagramSheetLayout.Automatic, DiagramSheetLayout.Wide, DiagramSheetLayout.Standard };
+        _diagramAspect.ItemTemplate = new FuncDataTemplate<string>((aspect, _) =>
+        {
+            var text = new TextBlock { Text = aspect == DiagramSheetLayout.Automatic ? "自动（按绘图区）" : aspect };
+            UiLocalization.LocalizeChoiceLabel(text); return text;
+        });
+        _diagramAspect.SelectedItem = DiagramSheetLayout.Normalize(settings.DiagramAspectRatio);
+        _diagramAspect.SelectionChanged += (_, _) =>
+        {
+            if (_diagramAspect.SelectedItem as string != DiagramSheetLayout.Automatic)
+            {
+                var aspect = _diagramAspect.SelectedItem as string == DiagramSheetLayout.Wide ? 16d / 9 : 4d / 3;
+                var height = (int)(_imageExportHeight.Value ?? ImageExportResolution.DefaultPixelHeight);
+                _imageExportWidth.Value = Math.Clamp((int)Math.Round(height * aspect), 128, 8192);
+            }
+            UpdateExportPreview();
+        };
         _imageExportDpi.Name = "ImageExportDpi";
         _imageExportDpi.FormatString = "0.##";
         _imageExportDpi.Value = (decimal)ImageExportResolution.Normalize(settings.ImageExportDpi);
@@ -131,7 +156,7 @@ public sealed class DisplaySettingsWindow : Window
         var themes = ThemeRegistry.SelectableThemes;
         _theme.ItemsSource = themes;
         _theme.SelectedItem = ThemeRegistry.FromSettings(settings.Theme);
-        _theme.SelectionChanged += (_, _) => { UpdateThemeSample(); UpdatePreview(); };
+        _theme.SelectionChanged += (_, _) => { UpdateFontPolicy(); UpdateThemeSample(); UpdatePreview(); };
         ActualThemeVariantChanged += (_, _) => UpdateThemeSample();
 
         var fontFamilies = FontManager.Current.SystemFonts
@@ -203,19 +228,20 @@ public sealed class DisplaySettingsWindow : Window
                         "界面字体",
                         SettingRow("字体", _fontFamily),
                         SettingRow("字形", _fontShape),
-                        SettingRow("大小", _fontSize, "单位：DIP")), 2),
+                        SettingRow("大小", _fontSize, "单位：DIP"),
+                        _fontLockHint), 2),
                     At(Section("分析图配色",
                         SettingRow("数值色图", _analysisColorMap, "用于二维伪彩色与三维曲面；保留灰度显示。", wrapHint: true),
                         _colorMapPreview), 3),
                     At(Section("图像导出",
+                        SettingRow("绘图版式", _diagramAspect, "自动按绘图区可用空间选择；仅调整版式，不重新计算数据。", wrapHint: true),
                         SettingRow("分辨率预设", _imageExportPreset),
                         SettingRow("像素宽度", _imageExportWidth),
                         SettingRow("像素高度", _imageExportHeight),
                         SettingRow("原图比例", _imageExportAspect, "锁定时完整图框等比居中，不足处留白。", wrapHint: true),
                         SettingRow("DPI 预设", _imageExportDpiPreset),
                         SettingRow("导出 DPI", _imageExportDpi, "DPI 用于打印尺寸，不改变所选像素数。", wrapHint: true),
-                        _imageExportPixels,
-                        _exportCanvasPreview), 4),
+                        _imageExportPixels), 4),
                     At(PreviewBox(new Border
                     {
                         BorderThickness = new Thickness(1),
@@ -248,6 +274,7 @@ public sealed class DisplaySettingsWindow : Window
         };
 
         ThemeChrome.ApplyDialogDecoration(this);
+        UpdateFontPolicy();
         UpdateThemeSample();
         UpdateColorMapPreview();
         UpdatePreview();
@@ -269,6 +296,7 @@ public sealed class DisplaySettingsWindow : Window
             settings.FontShape,
             settings.FontSize,
             settings.AnalysisColorMap,
+            settings.DiagramAspectRatio,
             settings.ImageExportDpi,
             settings.ImageExportPixelHeight,
             settings.ImageExportPixelWidth,
@@ -281,6 +309,7 @@ public sealed class DisplaySettingsWindow : Window
         settings.FontShape = SelectedFontShape();
         settings.FontSize = (double)(_fontSize.Value ?? (decimal)AppSettings.DefaultFontSize);
         settings.AnalysisColorMap = SelectedColorMap().ToString();
+        settings.DiagramAspectRatio = DiagramSheetLayout.Normalize(_diagramAspect.SelectedItem as string);
         settings.ImageExportDpi = (double)(_imageExportDpi.Value ?? (decimal)ImageExportResolution.DefaultDpi);
         settings.ImageExportPixelHeight = (int)(_imageExportHeight.Value ?? ImageExportResolution.DefaultPixelHeight);
         settings.ImageExportPixelWidth = (int)(_imageExportWidth.Value ?? ImageExportResolution.DefaultPixelWidth);
@@ -305,6 +334,7 @@ public sealed class DisplaySettingsWindow : Window
         string FontShape,
         double FontSize,
         string AnalysisColorMap,
+        string DiagramAspectRatio,
         double ImageExportDpi,
         int ImageExportPixelHeight,
         int ImageExportPixelWidth,
@@ -320,6 +350,7 @@ public sealed class DisplaySettingsWindow : Window
             settings.FontShape = FontShape;
             settings.FontSize = FontSize;
             settings.AnalysisColorMap = AnalysisColorMap;
+            settings.DiagramAspectRatio = DiagramAspectRatio;
             settings.ImageExportDpi = ImageExportDpi;
             settings.ImageExportPixelHeight = ImageExportPixelHeight;
             settings.ImageExportPixelWidth = ImageExportPixelWidth;
@@ -337,6 +368,7 @@ public sealed class DisplaySettingsWindow : Window
         _fontShape.SelectedIndex = 0;
         _fontSize.Value = (decimal)AppSettings.DefaultFontSize;
         _analysisColorMap.SelectedItem = ScientificColorMap.Viridis;
+        _diagramAspect.SelectedItem = DiagramSheetLayout.Automatic;
         _imageExportDpi.Value = (decimal)ImageExportResolution.DefaultDpi;
         _imageExportHeight.Value = ImageExportResolution.DefaultPixelHeight;
         _imageExportWidth.Value = ImageExportResolution.DefaultPixelWidth;
@@ -354,7 +386,7 @@ public sealed class DisplaySettingsWindow : Window
         }
 
         _validation.Text = string.Empty;
-        _preview.Text = "光学系统 Optical System · FFT PSF / MTF";
+        _preview.Text = _fontFamilyLocked ? "Optical System · FFT PSF / MTF" : "光学系统 Optical System · FFT PSF / MTF";
         _numericPreview.Text = string.Join("   ", new[]
         {
             NumericDisplayFormatter.Format(1234.567891, options),
@@ -419,7 +451,6 @@ public sealed class DisplaySettingsWindow : Window
         }
         finally { _changingExportPreset = false; }
         _imageExportPixels.Text = $"{width} × {height} px · {dpi:0.##} DPI";
-        _exportCanvasPreview.SetCanvas(width, height, _imageExportAspect.IsChecked != false);
     }
 
     private sealed record ExportPreset(int Width, int Height, string Label);
@@ -442,9 +473,30 @@ public sealed class DisplaySettingsWindow : Window
 
     private string SelectedFontFamily()
     {
-        return _fontFamily.SelectedItem is string selected && selected != ProductDefaultFont
+        var selected = _fontFamilyLocked ? _unlockedFontSelection : _fontFamily.SelectedItem as string;
+        return selected is not null && selected != ProductDefaultFont
             ? selected
             : string.Empty;
+    }
+
+    private void UpdateFontPolicy()
+    {
+        var locked = (_theme.SelectedItem as ThemeDefinition)?.LocksFontFamily == true;
+        if (locked && !_fontFamilyLocked)
+        {
+            _unlockedFontSelection = _fontFamily.SelectedItem as string ?? ProductDefaultFont;
+            _fontFamilyLocked = true;
+            _fontFamily.SelectedItem = ProductFonts.AlmendraFamily;
+        }
+        else if (!locked && _fontFamilyLocked)
+        {
+            _fontFamilyLocked = false;
+            _fontFamily.SelectedItem = _unlockedFontSelection ?? ProductDefaultFont;
+        }
+        _fontFamily.IsEnabled = !locked;
+        _fontFamily.Classes.Set(ThemeRegistry.LockedSettingClass, locked);
+        _fontLockHint.IsVisible = locked;
+        ToolTip.SetTip(_fontFamily, locked ? _fontLockHint.Text : null);
     }
 
     private string SelectedTheme() =>

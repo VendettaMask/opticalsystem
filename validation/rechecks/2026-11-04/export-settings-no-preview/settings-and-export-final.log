@@ -1,0 +1,34 @@
+  OpticalSystemDesign.Core -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.Application -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\Projects\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\Projects\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.Modules -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\Projects\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.Tests -> D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.14]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:01.38]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:01.41]   Starting:    OpticalSystemDesign.Tests
+  已通过 OpticalSystemDesign.Tests.DiagramAspectRatioTests.SettingsPreviewDoesNotApplyUntilSaveAndFailedSaveRestoresPreference [3 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: "en-US", theme: "Dark") [686 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: "zh-CN", theme: "Light") [3 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: "ja-JP", theme: "Light") [5 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisFrameDpiTests.OldSettingsDefaultTo1080AndIndependent150DpiAndRoundTrip [28 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisFrameDpiTests.FixedCanvasPadsCenteredOrFillsOnlyWhenTheUserUnlocksIt [292 ms]
+  已通过 OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1440, width: 2560, dpi: 300) [3 s]
+  已通过 OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 2160, width: 3840, dpi: 600) [2 s]
+[xUnit.net 00:00:23.77]   Finished:    OpticalSystemDesign.Tests
+数据收集器“Blame”消息: 所有测试都已运行完毕，将不生成序列文件。
+  已通过 OpticalSystemDesign.Tests.AnalysisFrameDpiTests.PresetsPreserveCompleteSourceAndWriteRealLosslessPngDpi(height: 1080, width: 1920, dpi: 96) [1 s]
+
+测试运行成功。
+测试总数: 9
+     通过数: 9
+总时间: 24.4930 秒
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-04\export-settings-no-preview\settings-and-export-final.trx

@@ -12,7 +12,8 @@ internal static partial class DesignReportHtmlWriter
     private static void WritePaper(Stream output, DesignReportPdfModel report, string images, DesignReportContent? details, CancellationToken token)
     {
         var layout = DesignReportPresentation.Create(report);
-        var template = Resource("Assets.Reports.EngineeringReport.html");
+        var template = Resource("Assets.Reports.EngineeringReport.html").Replace("<style>",
+            "<style>" + new DocumentTypography().Css(), StringComparison.Ordinal);
         var logo = "<img class=\"brand-mark\" alt=\"S.T.A.R.Labs\" src=\"data:image/svg+xml;base64," + Convert.ToBase64String(Encoding.UTF8.GetBytes(Resource("Assets.Brand.CompanyLogo.svg"))) + "\">";
         var navigation = new StringBuilder(); var sheets = new StringBuilder();
         var embedded = new Dictionary<string, string>(StringComparer.Ordinal); long imageBytes = 0;

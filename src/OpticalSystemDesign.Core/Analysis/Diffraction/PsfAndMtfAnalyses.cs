@@ -261,32 +261,7 @@ public sealed class PsfAnalysis : BaseAnalysis
 
     private Optic ResolveAnalysisOptic()
     {
-        if (_surfaceNumber <= 0)
-        {
-            return Optic;
-        }
-
-        var surfaceIndex = Optic.SurfaceGroup.Items.ToList()
-            .FindIndex(surface => surface.Number == _surfaceNumber);
-        if (surfaceIndex < 1)
-        {
-            throw new ArgumentOutOfRangeException(
-                nameof(_surfaceNumber),
-                $"FFT PSF surface {_surfaceNumber} does not exist.");
-        }
-
-        if (surfaceIndex == Optic.SurfaceGroup.Items.Count - 1)
-        {
-            return Optic;
-        }
-
-        var clone = Optic.FromSnapshot(Optic.ToSnapshot());
-        var surfaces = clone.SurfaceGroup.Items
-            .Take(surfaceIndex + 1)
-            .Select(surface => surface.Clone())
-            .ToArray();
-        clone.SurfaceGroup.Replace(surfaces);
-        return clone;
+        return AnalysisSurfacePreparation.Prepare(Optic, _surfaceNumber, zeroMeansImage: true);
     }
 
     private double Coordinate(int index, int size, double spacing)
@@ -520,32 +495,7 @@ public sealed class MtfAnalysis : BaseAnalysis
 
     private Optic ResolveAnalysisOptic()
     {
-        if (_surfaceNumber <= 0)
-        {
-            return Optic;
-        }
-
-        var surfaceIndex = Optic.SurfaceGroup.Items.ToList()
-            .FindIndex(surface => surface.Number == _surfaceNumber);
-        if (surfaceIndex < 1)
-        {
-            throw new ArgumentOutOfRangeException(
-                nameof(_surfaceNumber),
-                $"FFT MTF surface {_surfaceNumber} does not exist.");
-        }
-
-        if (surfaceIndex == Optic.SurfaceGroup.Items.Count - 1)
-        {
-            return Optic;
-        }
-
-        var clone = Optic.FromSnapshot(Optic.ToSnapshot());
-        var surfaces = clone.SurfaceGroup.Items
-            .Take(surfaceIndex + 1)
-            .Select(surface => surface.Clone())
-            .ToArray();
-        clone.SurfaceGroup.Replace(surfaces);
-        return clone;
+        return AnalysisSurfacePreparation.Prepare(Optic, _surfaceNumber, zeroMeansImage: true);
     }
 
     private static MtfResult ResampleSpectrum(

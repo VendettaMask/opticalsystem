@@ -22,6 +22,26 @@ env:
   LAB_TEST_HANG_TIMEOUT: 35m
 
 jobs:
+  local-ui-catalog:
+    name: Local UI catalog (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Restore localization tool
+        run: dotnet restore tools/OpticalSystemDesign.Localization/OpticalSystemDesign.Localization.csproj --locked-mode
+      - name: Check extracted UI, local translations and protected data
+        run: dotnet run --project tools/OpticalSystemDesign.Localization -c Release --no-restore -- check .
+      - name: Verify missing-text and damaged-resource rejection
+        shell: pwsh
+        run: ./tools/OpticalSystemDesign.Localization/VerifyPipeline.ps1 -OutputDirectory '${{ runner.temp }}/localization-controls'
+
   frozen-evidence:
     name: Frozen evidence (${{ matrix.os }})
     runs-on: ${{ matrix.os }}

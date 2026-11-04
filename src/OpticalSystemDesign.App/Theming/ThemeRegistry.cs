@@ -23,6 +23,8 @@ internal sealed record ThemeDefinition(
 {
     public ScientificIconPalette IconPalette { get; init; } = ScientificIconPalette.Light;
     public IThemeDrawingMaterial? DrawingMaterial { get; init; }
+    public bool LocksFontFamily { get; init; }
+    public string? FixedLanguage { get; init; }
 
     public ResourceDictionary BuildResources()
     {
@@ -46,6 +48,7 @@ internal sealed record ThemeDefinition(
 
 internal static class ThemeRegistry
 {
+    internal const string LockedSettingClass = "theme-locked-setting";
     private static readonly ThemeDefinition Light = new(
         "Light",
         "普通模式",
@@ -82,7 +85,7 @@ internal static class ThemeRegistry
         IsekaiTheme.Variant,
         IsekaiTheme.Palette,
         new ScientificThemeIconPack("Isekai"),
-        ProductFonts.Interface,
+        ProductFonts.Isekai,
         TextRenderingMode.Unspecified,
         ThemeChromeProfile.CreateIsekai(),
         IsekaiThemeDecorationRenderer.Instance,
@@ -90,7 +93,9 @@ internal static class ThemeRegistry
         IsDarkLike: true)
     {
         IconPalette = ScientificIconPalette.IsekaiArcane,
-        DrawingMaterial = IsekaiDrawingMaterial.Instance
+        DrawingMaterial = IsekaiDrawingMaterial.Instance,
+        LocksFontFamily = true,
+        FixedLanguage = UiLocalization.English
     };
 
     private static readonly ThemeDefinition Pixel = new(
@@ -99,7 +104,7 @@ internal static class ThemeRegistry
         PixelTheme.Variant,
         PixelTheme.Palette,
         new ScientificThemeIconPack("Pixel"),
-        new FontFamily($"avares://{typeof(ThemeRegistry).Assembly.GetName().Name}/Assets/Fonts/fusion-pixel-10px-monospaced-zh_hans.ttf#Fusion Pixel 10px Mono zh_hans"),
+        ProductFonts.Pixel,
         TextRenderingMode.Alias,
         ThemeChromeProfile.CreatePixel(),
         PixelThemeDecorationRenderer.Instance,

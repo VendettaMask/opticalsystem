@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f211256a-9999-4895-8b4a-75705e3f253f" name="allen@DESKTOP-SET3SNR 2026-11-04 22:04:49" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-04T22:04:49.4658485+08:00" queuing="2026-11-04T22:04:49.4658489+08:00" start="2026-11-04T22:04:46.1248562+08:00" finish="2026-11-04T22:04:53.5705995+08:00" />
+  <TestSettings name="default" id="dd6b710d-956a-490b-b335-a326f9b5a5e3">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-04_22_04_49" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="c7b751e5-f590-48aa-9c16-e7e7b1c92152" testId="7a44cec7-69ab-d717-eee3-f7133baae015" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;zh-CN&quot;, theme: &quot;Light&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.9829157" startTime="2026-11-04T22:04:49.1361527+08:00" endTime="2026-11-04T22:04:51.1024930+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c7b751e5-f590-48aa-9c16-e7e7b1c92152" />
+    <UnitTestResult executionId="3796ad51-5e16-45da-b347-5c47b919ac36" testId="25d71579-3db9-620d-eb24-654c7e163e99" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;ja-JP&quot;, theme: &quot;Light&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:02.3851282" startTime="2026-11-04T22:04:51.1135186+08:00" endTime="2026-11-04T22:04:53.4878762+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3796ad51-5e16-45da-b347-5c47b919ac36" />
+    <UnitTestResult executionId="81f8300e-4e79-4d94-96e7-00106fd63517" testId="d66a2d99-d7f9-56d3-0468-e8a9bece3f16" testName="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;en-US&quot;, theme: &quot;Dark&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.4247388" startTime="2026-11-04T22:04:47.6873119+08:00" endTime="2026-11-04T22:04:49.1187598+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="81f8300e-4e79-4d94-96e7-00106fd63517" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;ja-JP&quot;, theme: &quot;Light&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="25d71579-3db9-620d-eb24-654c7e163e99">
+      <Execution id="3796ad51-5e16-45da-b347-5c47b919ac36" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="SettingsKeepPresetsAndDpiIndependentAndSaveAtomically" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;en-US&quot;, theme: &quot;Dark&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d66a2d99-d7f9-56d3-0468-e8a9bece3f16">
+      <Execution id="81f8300e-4e79-4d94-96e7-00106fd63517" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="SettingsKeepPresetsAndDpiIndependentAndSaveAtomically" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.AnalysisFrameDpiTests.SettingsKeepPresetsAndDpiIndependentAndSaveAtomically(language: &quot;zh-CN&quot;, theme: &quot;Light&quot;)" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7a44cec7-69ab-d717-eee3-f7133baae015">
+      <Execution id="c7b751e5-f590-48aa-9c16-e7e7b1c92152" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.AnalysisFrameDpiTests" name="SettingsKeepPresetsAndDpiIndependentAndSaveAtomically" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7a44cec7-69ab-d717-eee3-f7133baae015" executionId="c7b751e5-f590-48aa-9c16-e7e7b1c92152" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25d71579-3db9-620d-eb24-654c7e163e99" executionId="3796ad51-5e16-45da-b347-5c47b919ac36" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d66a2d99-d7f9-56d3-0468-e8a9bece3f16" executionId="81f8300e-4e79-4d94-96e7-00106fd63517" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="3" executed="3" passed="3" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.15]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.17]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.20]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:07.02]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

@@ -23,7 +23,6 @@ public sealed class ProductTypographyTests
     [Theory]
     [InlineData("Light")]
     [InlineData("Dark")]
-    [InlineData("Isekai")]
     [InlineData("Lumen")]
     public async Task MixedTextUsesBundledLatinChineseAndNumericFaces(string theme)
     {

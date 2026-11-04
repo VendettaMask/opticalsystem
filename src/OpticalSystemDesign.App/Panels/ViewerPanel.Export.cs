@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
@@ -63,7 +64,8 @@ public sealed partial class ViewerPanel
         if (ImageExportUnavailableReason() is { } reason)
             throw new InvalidOperationException(UiLocalization.Text(reason));
         _scene.UpdateLayout();
-        if (_diagramPage is not null) return CaptureUniformViewerImage(renderScale);
+        if (_diagramPage is not null && UsesLayoutCaption) return CaptureUniformViewerImage(renderScale);
+        _diagramPage?.ValidateForExport();
         var size = _scene.Bounds.Size;
         var scale = renderScale ?? ImageExportResolution.Scale;
         if (!double.IsFinite(scale) || scale <= 0) throw new ArgumentOutOfRangeException(nameof(renderScale));
@@ -75,12 +77,13 @@ public sealed partial class ViewerPanel
         var page = new StackPanel { Width = size.Width, FlowDirection = FlowDirection, Background = _summaryBar.Background };
         // Keep the footer origin on the output pixel grid so text is not resampled
         // when the current viewport has a fractional logical height.
-        page.Children.Add(new SceneImageCanvas(_scene)
+        var sceneImage = new SceneImageCanvas(_scene)
         {
             Width = size.Width,
             Height = Math.Ceiling(size.Height * scale) / scale,
             ClipToBounds = true
-        });
+        };
+        page.Children.Add(sceneImage);
         if (_glassLegend.IsVisible)
         {
             var entries = new WrapPanel { Orientation = Orientation.Horizontal };
@@ -142,6 +145,37 @@ public sealed partial class ViewerPanel
         page.Measure(new Size(size.Width, double.PositiveInfinity));
         page.Arrange(new Rect(page.DesiredSize));
         page.UpdateLayout();
+        if (_diagramPage is not null)
+        {
+            // Composite the unchanged model viewport and complete material list
+            // into the selected outer sheet; never remeasure the live model.
+            page.HorizontalAlignment = HorizontalAlignment.Center;
+            page.VerticalAlignment = VerticalAlignment.Top;
+            var sheet = new Grid
+            {
+                Width = _diagramPage.Width,
+                // Keep the outer sheet on whole logical units; add bottom
+                // padding without changing the live model viewport.
+                Height = Math.Ceiling(Math.Max(_diagramPage.Height, page.Bounds.Height)),
+                Background = _diagramPage.Background,
+                UseLayoutRounding = false
+            };
+            // Detached export trees have no compositor child-sorting pass.
+            // Record the paper before the image so it cannot cover the model.
+            ThemeDrawingSurface.AddPaper(sheet, _scene);
+            sheet.Children.Add(page);
+            sheet.Measure(new Size(sheet.Width, sheet.Height));
+            sheet.Arrange(new Rect(0, 0, sheet.Width, sheet.Height));
+            var border = ThemeDrawingSurface.FrameInset(this);
+            var captureScale = renderScale ?? Math.Min(ImageExportResolution.PixelWidth / (sheet.Width + 2 * border),
+                ImageExportResolution.PixelHeight / (sheet.Height + 2 * border));
+            // Freeze the existing scene once at the final raster scale. Moving
+            // these pixels into the outer sheet must not rerasterize the model.
+            using var pixels = CaptureScenePixels(captureScale);
+            sceneImage.Freeze(pixels, captureScale);
+            return renderScale.HasValue ? ExportImageFrame.Capture(sheet, scale, this)
+                : ExportImageFrame.CaptureConfigured(sheet, this);
+        }
         return renderScale.HasValue ? ExportImageFrame.Capture(page, scale, this)
             : ExportImageFrame.CaptureConfigured(page, this);
     }
@@ -151,7 +185,7 @@ public sealed partial class ViewerPanel
         _diagramPage!.ValidateForExport();
         var page = new Grid
         {
-            Width = UniformDiagramPage.SheetWidth,
+            Width = _diagramPage.Width,
             Height = UniformDiagramPage.SheetHeight,
             RowDefinitions = new RowDefinitions($"{UniformDiagramPage.PlotHeight},{UniformDiagramPage.CaptionHeight}"),
             Background = _summaryBar.Background
@@ -177,8 +211,8 @@ public sealed partial class ViewerPanel
         }
         // Only composite the already laid-out scene and caption. Never remeasure,
         // reparent, resize or replace the live drawing and its camera here.
-        page.Measure(new Size(UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight));
-        page.Arrange(new Rect(0, 0, UniformDiagramPage.SheetWidth, UniformDiagramPage.SheetHeight));
+        page.Measure(new Size(_diagramPage.Width, _diagramPage.Height));
+        page.Arrange(new Rect(0, 0, _diagramPage.Width, _diagramPage.Height));
         return scale.HasValue ? ExportImageFrame.Capture(page, scale.Value, this)
             : ExportImageFrame.CaptureConfigured(page, this);
     }
@@ -198,7 +232,39 @@ public sealed partial class ViewerPanel
 
     private sealed class SceneImageCanvas(OpticSceneControl scene) : Control
     {
-        public override void Render(DrawingContext context) => scene.RenderImageContent(context);
+        private Bitmap? _pixels;
+        private double _scale;
+        internal void Freeze(Bitmap pixels, double scale) { _pixels = pixels; _scale = scale; InvalidateVisual(); }
+        public override void Render(DrawingContext context)
+        {
+            if (_pixels is null) { scene.RenderImageContent(context); return; }
+            using var options = context.PushRenderOptions(new RenderOptions
+            { BitmapInterpolationMode = BitmapInterpolationMode.None, BitmapBlendingMode = BitmapBlendingMode.Source });
+            context.DrawImage(_pixels, new Rect(0, 0, _pixels.PixelSize.Width / _scale, _pixels.PixelSize.Height / _scale));
+        }
+    }
+
+    private WriteableBitmap CaptureScenePixels(double scale)
+    {
+        var width = Math.Ceiling(_scene.Bounds.Width * scale);
+        var height = Math.Ceiling(_scene.Bounds.Height * scale);
+        if (!double.IsFinite(width) || !double.IsFinite(height) || width <= 0 || height <= 0
+            || width > 32768 || height > 32768 || width * height > 33_554_432)
+            throw new InvalidOperationException(UiLocalization.Text("导出图片超过尺寸上限，请降低导出像素尺寸或减少同时显示的内容"));
+        var size = new PixelSize((int)width, (int)height);
+        var dpi = new Vector(96 * scale, 96 * scale);
+        var source = new SceneImageCanvas(_scene)
+        { Width = _scene.Bounds.Width, Height = _scene.Bounds.Height, UseLayoutRounding = false };
+        source.Measure(new Size(source.Width, source.Height));
+        source.Arrange(new Rect(0, 0, source.Width, source.Height));
+        using var bitmap = new RenderTargetBitmap(size, dpi);
+        bitmap.Render(source);
+        var pixels = new WriteableBitmap(size, dpi, PixelFormat.Bgra8888, AlphaFormat.Premul);
+        try
+        {
+            using var buffer = pixels.Lock(); bitmap.CopyPixels(buffer); return pixels;
+        }
+        catch { pixels.Dispose(); throw; }
     }
 
     private sealed class CaptionImageCanvas(Control caption) : Control

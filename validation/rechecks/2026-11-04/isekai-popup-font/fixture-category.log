@@ -1,0 +1,59 @@
+  OpticalSystemDesign.Core -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\bin\Release\net10.0\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Contracts\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.Application -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\bin\Release\net10.0\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\Projects\opticalsystem\tools\OpticalSystemDesign.LensLibraryBuilder\bin\Release\net10.0\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\Projects\opticalsystem\tools\OpticalSystemDesign.ZemaxLibraryImporter\bin\Release\net10.0\ZemaxLibraryImporter.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Engine\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\Projects\opticalsystem\labs\CoatingDesign\src\OpticalSystemDesign.CoatingDesign.Engine\bin\Release\net10.0\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\Projects\opticalsystem\labs\InitialStructure\src\OpticalSystemDesign.InitialStructure.Persistence\bin\Release\net10.0\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.Modules -> D:\Projects\opticalsystem\src\OpticalSystemDesign.Modules\bin\Release\net10.0\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.App -> D:\Projects\opticalsystem\src\OpticalSystemDesign.App\bin\Release\net10.0\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.Tests -> D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:01.73]     OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 2) [FAIL]
+[xUnit.net 00:00:01.84]     OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 1) [FAIL]
+[xUnit.net 00:00:01.94]     OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 1.5) [FAIL]
+  失败 OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 2) [475 ms]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.<>c__DisplayClass4_0.<SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels>b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 241
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(Double scaling) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 233
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 1) [108 ms]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.<>c__DisplayClass4_0.<SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels>b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 241
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(Double scaling) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 233
+--- End of stack trace from previous location ---
+  失败 OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(scaling: 1.5) [102 ms]
+  错误消息:
+   System.InvalidOperationException : Sequence contains no matching element
+  堆栈跟踪:
+     at System.Linq.ThrowHelper.ThrowNoMatchException()
+   at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source, Func`2 predicate)
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.<>c__DisplayClass4_0.<SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels>b__0() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 241
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.<>c__DisplayClass8_0.<Dispatch>b__0() in D:\Projects\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 84
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass10_0`1.<Dispatch>b__0()
+   at Avalonia.Headless.HeadlessUnitTestSession.<>c__DisplayClass12_0`1.<DispatchCore>b__0()
+--- End of stack trace from previous location ---
+   at OpticalSystemDesign.Tests.IsekaiTypographyPolicyTests.SequentialExamplesFlyoutsUseAlmendraInBothPopupLevels(Double scaling) in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\IsekaiTypographyPolicyTests.cs:line 233
+--- End of stack trace from previous location ---
+警告: 正在覆盖结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-04\isekai-popup-font\before.trx
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-04\isekai-popup-font\before.trx
+
+失败!  - 失败:     3，通过:     0，已跳过:     0，总计:     3，持续时间: 701 ms - OpticalSystemDesign.Tests.dll (net10.0)

@@ -12,6 +12,7 @@ internal static partial class OpticalDrawingRendererCore
         float pageWidth,
         float pageHeight)
     {
+        using var typographyScope = new DrawingTypographyScope();
         var validationErrors = sheet.Validate();
         if (validationErrors.Count > 0)
         {

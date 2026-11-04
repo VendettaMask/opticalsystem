@@ -1,0 +1,1 @@
+class UiLocalization { static object BuildTexts() { void Add(string source, string en, string ja) {} Add("保存", "Save", "保存"); Add("厚度 1.25 nm", "Thickness 1.25 nm", "膜厚 1.25 nm"); return new object(); } }

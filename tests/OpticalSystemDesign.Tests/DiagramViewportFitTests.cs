@@ -28,6 +28,7 @@ public sealed class DiagramViewportFitTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(DiagramViewportFitTests));
         await session.Dispatch(async () =>
         {
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             DisplayTypography.Configure(new AppSettings());
             using var app = WorkbenchApplication.Create("cooke");
             using var panel = new AnalysisPanel(app.Analyses, app.Visualization, app.Documents, app.Events, new AppSettings(), "FFT PSF Cross Section");
@@ -81,6 +82,7 @@ public sealed class DiagramViewportFitTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(DiagramViewportFitTests));
         await session.Dispatch(async () =>
         {
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             DisplayTypography.Configure(new AppSettings());
             using var app = WorkbenchApplication.Create("cooke");
             using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(), dimension);

@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets/Localization/ui.catalog.json" LogicalName="OpticalSystemDesign.App.Localization.ui.catalog.json" />
+    <EmbeddedResource Include="Assets/Localization/ui.invariants.json" LogicalName="OpticalSystemDesign.App.Localization.ui.invariants.json" />
     <AvaloniaResource Remove="Assets/Icons/lucide-icon-nodes.json" />
     <AvaloniaResource Remove="Assets/Icons/game-icons-isekai.json" />
     <AvaloniaResource Remove="Assets/Icons/farm-fresh-icons.json" />
@@ -51,6 +53,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Assets/Brand/CompanyLogo.svg"
                       LogicalName="OpticalSystemDesign.App.Assets.Brand.CompanyLogo.svg" />
+    <EmbeddedResource Include="Assets/Themes/Isekai/ribbon-small-accents.svg"
+                      LogicalName="OpticalSystemDesign.App.Assets.Themes.Isekai.ribbon-small-accents.svg" />
     <EmbeddedResource Include="Assets/UserGuideMath/*.json;Assets/UserGuideMath/*.svg">
       <LogicalName>OpticalSystemDesign.App.Assets.UserGuideMath.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
@@ -93,6 +97,7 @@
     <AvaloniaResource Include="Assets/Fonts/fusion-pixel-10px-monospaced-zh_hans.ttf" />
     <AvaloniaResource Include="Assets/Fonts/Typography/**/*.ttf" />
     <AvaloniaResource Include="Assets/Fonts/Typography/**/*.otf" />
+    <AvaloniaResource Include="Assets/Fonts/Typography/*-OFL.txt;Assets/Fonts/OFL-LICENSE.txt;Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt" />
     <Content Include="Assets/Fonts/Typography/*-OFL.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="Assets/Icons/GAME-ICONS-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets/Icons/LUCIDE-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />

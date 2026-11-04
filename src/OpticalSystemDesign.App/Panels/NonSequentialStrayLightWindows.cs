@@ -26,7 +26,7 @@ internal sealed class NonSequentialStlImportWindow : Window
         Height = 330;
         CanResize = false;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
-        _material = new ComboBox { ItemsSource = materialNames, SelectedItem = "Air", MinWidth = 210 };
+        _material = UiLocalization.Preserve(new ComboBox { ItemsSource = materialNames, SelectedItem = "Air", MinWidth = 210 });
         var ok = new Button { Content = "导入", MinWidth = 88 };
         ok.Click += (_, _) => Close(new NonSequentialMeshImportOptionsDto(
             (NonSequentialMeshUnit)(_unit.SelectedItem ?? NonSequentialMeshUnit.Millimeter),

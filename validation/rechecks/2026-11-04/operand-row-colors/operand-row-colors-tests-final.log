@@ -1,0 +1,44 @@
+D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll (.NETCoreApp,Version=v10.0)的测试运行
+总共 1 个测试文件与指定模式相匹配。
+[xUnit.net 00:00:01.61]     OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources [FAIL]
+  失败 OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources [79 ms]
+  错误消息:
+   Ordinary App UI colors must use ThemeResourceBindings or theme-derived brushes. Only engineering semantics such as drawings, wavelength colors, ray colors, analysis color maps and Zemax row palettes may use fixed colors:
+Controls/LinearRoiImageView.cs:99: base.Render(context); context.FillRectangle(Brushes.Black, new Rect(Bounds.Size));
+Controls/LinearRoiImageView.cs:109: var color = result is { Status: not LinearSfrRoiStatus.Measured } ? Brushes.OrangeRed : Brushes.Cyan;
+Controls/LinearRoiImageView.cs:119: context.DrawLine(new Pen(Brushes.Yellow, 1.5), Screen(P(u0)), Screen(P(u1)));
+Controls/LinearRoiImageView.cs:122: if (_draft is { } draft) context.DrawRectangle(null, new Pen(Brushes.White, 2), Box(draft));
+Panels/UserGuideMath.cs:104: public static readonly StyledProperty<IBrush> ForegroundProperty = AvaloniaProperty.Register<UserGuideMathView, IBrush>(nameof(Foreground), Brushes.Black);
+Services/ExportImageFrame.cs:28: && resource is IBrush brush ? brush : Brushes.White;
+Services/ExportImageFrame.cs:71: && resource is IBrush axis ? axis : new SolidColorBrush(Color.FromRgb(112, 128, 148));
+Services/ScientificColorMaps.cs:43: var low = value <= .5 ? Color.FromRgb(33, 102, 172) : Colors.White;
+Services/ScientificColorMaps.cs:44: var high = value <= .5 ? Colors.White : Color.FromRgb(178, 24, 43);
+Services/ScientificColorMaps.cs:47: return Color.FromRgb(Mix(low.R, high.R), Mix(low.G, high.G), Mix(low.B, high.B));
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:94: var background = ThemeBrush(ThemeResourceBindings.PlotBackground, Colors.White);
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:95: var text = ThemeBrush(ThemeResourceBindings.TextPrimary, Colors.Black);
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:96: var muted = ThemeBrush(ThemeResourceBindings.TextSecondary, Colors.DimGray);
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:97: var accent = ThemeBrush(ThemeResourceBindings.TextAccent, Colors.RoyalBlue);
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:98: var line = ThemeBrush(ThemeResourceBindings.Border, Colors.Gray);
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:115: context.DrawRectangle(new SolidColorBrush(Color.FromArgb(18, 50, 80, 105)), null, new Rect(300, bottom + 10, 390, 16), 8, 8);
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:121: Polygon(context, Mix(Bands[0].Layer.Color, Colors.White, .62), [first.TopLeft, first.TopRight,
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:158: Polygon(context, Mix(color, Colors.Black, substrate ? .12 : .25), side, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .3)), .6));
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:162: GradientStops = new GradientStops { new(Mix(color, Colors.White, .62), 0), new(Mix(color, Colors.White, .18), .15), new(color, .7), new(Mix(color, Colors.Black, .15), 1) }
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:164: context.DrawRectangle(fill, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .2)), .6), front);
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:165: context.DrawLine(new Pen(new SolidColorBrush(Color.FromArgb(125, 255, 255, 255)), .8), front.TopLeft, front.TopRight);
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:169: Polygon(context, Color.FromArgb(52, 255, 255, 255), [new(front.Left + 28, front.Top), new(front.Left + 66, front.Top),
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:199: private static Color Mix(Color a, Color b, double amount) => Color.FromRgb((byte)(a.R * (1 - amount) + b.R * amount),
+Laboratories/CoatingDesign/MainWindow.Geometry.cs:80: var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;
+Laboratories/CoatingDesign/MainWindow.Geometry.cs:86: var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;
+Laboratories/CoatingDesign/SpectrumPlot.cs:149: private IBrush PlotAreaBackgroundBrush => ThemeBrush(ThemeResourceBindings.SubtleSurface, Colors.WhiteSmoke);
+Laboratories/CoatingDesign/SpectrumPlot.cs:154: var color = (PlotAreaBackgroundBrush as ISolidColorBrush)?.Color ?? Colors.WhiteSmoke;
+Laboratories/CoatingDesign/SpectrumPlot.cs:156: return new ImmutableSolidColorBrush(Color.FromRgb((byte)Math.Round(color.R * factor),
+Laboratories/CoatingDesign/SpectrumPlot.cs:240: var grid = new Pen(ThemeBrush(ThemeResourceBindings.PlotGrid, Colors.LightGray), .6);
+Laboratories/InitialStructure/TopologyStructurePlot.cs:17: internal static readonly IBrush[] FieldBrushes = [Brushes.RoyalBlue, Brushes.ForestGreen, Brushes.Red, Brushes.DarkViolet, Brushes.DarkOrange, Brushes.Teal];
+Laboratories/InitialStructure/TopologyStructurePlot.cs:104: var pen = new Pen(surface.IsStop ? Brushes.DarkGoldenrod : ink, surface.IsStop ? 2 : 1.4,
+  堆栈跟踪:
+     at OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 331
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+结果文件: D:\Projects\opticalsystem\validation\rechecks\2026-11-04\operand-row-colors\operand-row-colors-final.trx
+
+失败!  - 失败:     1，通过:    18，已跳过:     0，总计:    19，持续时间: 12 s - OpticalSystemDesign.Tests.dll (net10.0)

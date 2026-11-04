@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="../../tools/OpticalSystemDesign.Localization/LocalizationExtractor.cs" Link="Localization/LocalizationExtractor.cs" />
+    <Compile Include="../../tools/OpticalSystemDesign.Localization/TranslationValidation.cs" Link="Localization/TranslationValidation.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../third_party/material-catalogs/cdgm/CDGM-ZEMAX202609.AGF" Link="Fixtures/CDGM-ZEMAX202609.AGF" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures/perfect-collimation-opd-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX" Link="Fixtures/definition-settings/example2.zmx" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/field-curvature-coupled-native-v1.json" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Birefringent prisms/Birefringent cube.zmx" Link="Fixtures/reference-closure/crystal-cube.zmx" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../src/OpticalSystemDesign.App/Assets/SequentialExamples/Optical testing/Twyman Green Interferometer.zmx" Link="Fixtures/optical-testing/Twyman Green Interferometer.zmx" CopyToOutputDirectory="PreserveNewest" />

@@ -35,7 +35,7 @@ public sealed class AnalysisResultBookTabsTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResultBookTabsTests));
         await session.Dispatch(async () =>
         {
-            DisplayTypography.Configure(new AppSettings()); ImageExportResolution.Configure(new AppSettings());
+            DisplayTypography.Configure(new AppSettings()); ImageExportResolution.Configure(new AppSettings { DiagramAspectRatio = DiagramSheetLayout.Standard });
             using var app = WorkbenchApplication.Create("cooke");
             var result = await app.Analyses.RunAsync(new(Guid.NewGuid(), 1, key, new Dictionary<string, string>()));
             Assert.Equal(AnalysisOutcome.Success, result.View.Outcome);
@@ -116,7 +116,7 @@ public sealed class AnalysisResultBookTabsTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResultBookTabsTests));
         await session.Dispatch(async () =>
         {
-            DisplayTypography.Configure(new AppSettings()); ImageExportResolution.Configure(new AppSettings());
+            DisplayTypography.Configure(new AppSettings()); ImageExportResolution.Configure(new AppSettings { DiagramAspectRatio = DiagramSheetLayout.Standard });
             // Start each theme from its own realized tree, avoiding a cached live
             // frame inherited from a different non-material theme in headless Skia.
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);

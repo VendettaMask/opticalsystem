@@ -50,6 +50,8 @@ public sealed record WavefrontResult(
     // Datum of the existing scalar Huygens weighting convention. This is not
     // a physical reference-sphere normal; keep that distinction explicit.
     public Vector3D HuygensCoordinateOrigin { get; init; }
+    /// <summary>Displayed focal OPD datum; diffraction explicitly retains the exit-pupil sphere.</summary>
+    public ReferenceOpdMode ReferenceOpd { get; init; } = ReferenceOpdMode.ExitPupil;
 
     public double Rms => Samples.Where(sample => sample.Intensity > 0)
         .Select(sample => sample.OpdWaves * sample.OpdWaves)
@@ -149,11 +151,15 @@ public static partial class WavefrontEngine
         Wavelength wavelength,
         int numRings,
         bool aimAtStop = false,
-        bool allowGeometricReference = false)
+        bool allowGeometricReference = false,
+        bool useSystemFocalReference = true,
+        Wavelength? referenceWavelength = null,
+        WavefrontReferenceSphere? referenceSphere = null)
     {
         var pupilSamples = ApertureSampler.GenerateHexapolarRings(numRings);
         return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop,
-            allowGeometricReference: allowGeometricReference);
+            allowGeometricReference: allowGeometricReference, useSystemFocalReference: useSystemFocalReference,
+            referenceWavelength: referenceWavelength, referenceSphere: referenceSphere);
     }
 
     public static WavefrontResult GenerateChiefRayUniform(
@@ -166,18 +172,20 @@ public static partial class WavefrontEngine
         double pupilGridStretch = 1,
         bool zemaxCentered = false,
         Wavelength? referenceWavelength = null,
-        bool allowGeometricReference = false)
+        bool allowGeometricReference = false,
+        bool useSystemFocalReference = true)
     {
         samplesAcrossPupil = Math.Max(2, samplesAcrossPupil);
         return GenerateChiefRayGrid(optic, field, wavelength,
             new(samplesAcrossPupil, cellCentered, zemaxCentered, pupilGridStretch),
-            aimAtStop, referenceWavelength, null, allowGeometricReference);
+            aimAtStop, referenceWavelength, null, allowGeometricReference, useSystemFocalReference);
     }
 
     internal static WavefrontResult GenerateChiefRayGrid(
         Optic optic, (double Hx, double Hy) field, Wavelength wavelength,
         PupilGridSpecification grid, bool aimAtStop, Wavelength? referenceWavelength,
-        WavefrontReferenceSphere? referenceSphere, bool allowGeometricReference = false)
+        WavefrontReferenceSphere? referenceSphere, bool allowGeometricReference = false,
+        bool useSystemFocalReference = true)
     {
         var pupilSamples = new List<PupilSample>();
         for (var row = 0; row < grid.SampleCount; row++)
@@ -196,7 +204,7 @@ public static partial class WavefrontEngine
         return GenerateChiefRay(optic, field, wavelength, pupilSamples, aimAtStop,
             referenceWavelength: referenceWavelength, referenceSphere: referenceSphere,
             useCachedFftStopMap: grid.UseCachedFftStopMap && grid.SampleCount >= 32,
-            allowGeometricReference: allowGeometricReference) with
+            allowGeometricReference: allowGeometricReference, useSystemFocalReference: useSystemFocalReference) with
         {
             PupilGrid = grid,
             SourceIdentity = PupilSourceIdentity.Capture(optic)
@@ -213,7 +221,8 @@ public static partial class WavefrontEngine
         WavefrontReferenceSphere? referenceSphere = null,
         bool usePolarization = false,
         Wavelength? referenceWavelength = null,
-        bool allowGeometricReference = false)
+        bool allowGeometricReference = false,
+        bool useSystemFocalReference = true)
     {
         return GenerateChiefRay(
             optic,
@@ -224,7 +233,8 @@ public static partial class WavefrontEngine
             resolvedRealImageLaunch,
             referenceSphere,
             usePolarization,
-            referenceWavelength, allowGeometricReference: allowGeometricReference);
+            referenceWavelength, allowGeometricReference: allowGeometricReference,
+            useSystemFocalReference: useSystemFocalReference);
     }
 
     public static WavefrontReferenceSphere CreateChiefRayReferenceSphere(
@@ -264,24 +274,21 @@ public static partial class WavefrontEngine
                 ?? optic.Wavelengths.FirstOrDefault() ?? wavelength,
                 allowGeometricReference: allowGeometricReference && !usePolarization).ImageAxialDistanceMillimeters
             : optic.Paraxial.EstimateExitPupilLocation(wavelength.Micrometers);
-        var pupilPosition = imageFrame.Origin + new Vector3D(0, 0, pupilDistance);
-        // A grid GRIN's pupil is the image of the actual central stop pencil.
-        // Its reference is an axial plane, not the world-axis point on that
-        // plane. Intersect the chosen chief with it before forming the sphere.
-        var radius = geometricPupil
-            ? Math.Abs(pupilDistance / imageFrame.ToLocalDirection(chief.Direction).Z)
-            : optic.Paraxial.HasGridGradientPupil
-            ? Math.Abs((pupilPosition.Z - imagePosition.Z) / chief.Direction.Z)
-            : (imagePosition - pupilPosition).Length;
+        // The pupil datum is an image-local plane. The sphere passes through
+        // the chosen chief's intersection with that plane, not its axial point;
+        // a real off-axis chief need not pass through the paraxial pupil center.
+        var axialDirection = imageFrame.ToLocalDirection(chief.Direction).Z;
+        if (Math.Abs(axialDirection) <= 1e-12)
+            throw new InvalidOperationException("The reference chief is parallel to the exit-pupil plane.");
+        var pupilPath = (pupilDistance - imageFrame.ToLocalPoint(imagePosition).Z) / axialDirection;
+        var radius = Math.Abs(pupilPath);
         return new WavefrontReferenceSphere(
             imagePosition.X,
             imagePosition.Y,
             imagePosition.Z,
             radius)
         {
-            IsVirtual = geometricPupil
-                ? pupilDistance / imageFrame.ToLocalDirection(chief.Direction).Z > 0
-                : Dot(pupilPosition - imagePosition, chief.Direction) > 0
+            IsVirtual = pupilPath > 0
         };
     }
 
@@ -309,7 +316,8 @@ public static partial class WavefrontEngine
         bool forceReferencePlane = false,
         bool useCachedFftStopMap = false,
         bool allowGeometricReference = false,
-        bool phaseInclusiveAfocalReference = true)
+        bool phaseInclusiveAfocalReference = true,
+        bool useSystemFocalReference = true)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -366,14 +374,18 @@ public static partial class WavefrontEngine
                 phaseInclusiveAfocalReference);
         }
 
-        var sphere = referenceSphere ?? CreateChiefRayReferenceSphere(
+        var mode = useSystemFocalReference ? optic.ReferenceOpd : ReferenceOpdMode.ExitPupil;
+        if (mode == ReferenceOpdMode.Infinity)
+            throw new NotSupportedException("Focal Infinity OPD requires its angular correction; ExitPupil is not an equivalent reference. Select ExitPupil, Absolute or Absolute2.");
+        var absolute = mode is ReferenceOpdMode.Absolute or ReferenceOpdMode.Absolute2;
+        var sphere = absolute ? null : referenceSphere ?? CreateChiefRayReferenceSphere(
             optic,
             field,
             wavelength,
             aimAtStop,
             resolvedRealImageLaunch,
             usePolarization, allowGeometricReference);
-        if (referenceSphere is null && referenceWavelength is not null)
+        if (sphere is not null && referenceSphere is null && referenceWavelength is not null)
         {
             sphere = sphere with
             {
@@ -382,14 +394,11 @@ public static partial class WavefrontEngine
                 CenterZ = referenceChief.Position.Z
             };
         }
-        var radius = sphere.Radius;
-        var chiefImagePath = ImageToReferenceSphere(
-            chief,
-            sphere.CenterX,
-            sphere.CenterY,
-            sphere.CenterZ,
-            sphere.IsVirtual ? -radius : radius,
-            imageIndex);
+        var radius = sphere?.Radius ?? 0;
+        double ImagePath(RayTraceSample ray) => sphere is null ? 0 : ImageToReferenceSphere(
+            ray, sphere.CenterX, sphere.CenterY, sphere.CenterZ,
+            sphere.IsVirtual ? -radius : radius, imageIndex);
+        var chiefImagePath = ImagePath(chief);
         var referenceOpticalPath = (chief.PhaseInclusiveOpticalPathLength ?? chief.CumulativeOpticalPathLength) - chiefImagePath;
 
         var generator = optic.SequentialRayTracer.RayGenerator;
@@ -424,13 +433,7 @@ public static partial class WavefrontEngine
                 continue;
             }
 
-            var imagePath = ImageToReferenceSphere(
-                ray,
-                sphere.CenterX,
-                sphere.CenterY,
-                sphere.CenterZ,
-                sphere.IsVirtual ? -radius : radius,
-                imageIndex);
+            var imagePath = ImagePath(ray);
             var tilt = EntrancePupilPhasePath((ux, uy), entrancePupilRadius,
                 vignetting.Transform(pupil.X, pupil.Y), chiefPupil);
             if (ObjectConjugate.IsInfinite(optic.SurfaceGroup.Items.FirstOrDefault())
@@ -479,6 +482,7 @@ public static partial class WavefrontEngine
             SourceWavelengthNanometers = wavelength.Nanometers,
             SourceReferenceWavelengthNanometers = referenceWavelength?.Nanometers ?? wavelength.Nanometers,
             ReferenceSphere = sphere,
+            ReferenceOpd = mode,
             GeometricChiefReferenceUsed = geometricReferenceUsed,
             HuygensCoordinateOrigin = optic.SurfaceGroup.Items.Count > 1
                 ? optic.SurfaceGroup.Items[1].CoordinateSystem.Origin : Vector3D.Zero

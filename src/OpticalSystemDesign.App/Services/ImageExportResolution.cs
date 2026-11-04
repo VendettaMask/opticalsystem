@@ -23,13 +23,14 @@ public static class ImageExportResolution
     internal static int WidthForHeight(int height) => (int)Math.Round(NormalizeHeight(height) * 16d / 9);
     public static void Configure(AppSettings settings)
     {
+        DiagramSheetLayout.Configure(settings);
         Dpi = Normalize(settings.ImageExportDpi);
         PixelHeight = NormalizeHeight(settings.ImageExportPixelHeight);
         PixelWidth = NormalizeWidth(settings.ImageExportPixelWidth);
         PreserveAspectRatio = settings.ImageExportPreserveAspectRatio;
     }
     internal static int Pixels(double logical, double scale) => checked((int)Math.Ceiling(logical * scale - 1e-8));
-    public static PixelSize SheetPixels(int pixelHeight) => new(Pixels(1202, NormalizeHeight(pixelHeight) / ReferenceHeight), NormalizeHeight(pixelHeight));
+    public static PixelSize SheetPixels(int pixelHeight) => new(Pixels(DiagramSheetLayout.Width + 2, NormalizeHeight(pixelHeight) / ReferenceHeight), NormalizeHeight(pixelHeight));
     public static PixelRect FitFrame(Size source, PixelSize canvas, bool preserveAspectRatio, double border = 1)
     {
         if (!preserveAspectRatio) return new PixelRect(canvas);

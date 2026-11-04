@@ -27,6 +27,7 @@ public static class ThemeResourceBindings
     public const string TextSecondary = "OpticalSystemDesignTextSecondaryBrush";
     public const string TextMuted = "OpticalSystemDesignTextMutedBrush";
     public const string TextDisabled = "OpticalSystemDesignTextDisabledBrush";
+    public const string LockedSettingForeground = "OpticalSystemDesignLockedSettingForegroundBrush";
     public const string TextAccent = "OpticalSystemDesignTextAccentBrush";
     public const string TextOnAccent = "OpticalSystemDesignTextOnAccentBrush";
     public const string TextWarning = "OpticalSystemDesignTextWarningBrush";

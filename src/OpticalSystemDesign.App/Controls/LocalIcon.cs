@@ -26,13 +26,17 @@ public sealed class LocalIcon : Control
     public static readonly StyledProperty<IBrush?> AccentStrokeProperty =
         AvaloniaProperty.Register<LocalIcon, IBrush?>(nameof(AccentStroke));
 
+    public static readonly StyledProperty<Color?> DisabledColorProperty =
+        AvaloniaProperty.Register<LocalIcon, Color?>(nameof(DisabledColor));
+
     static LocalIcon()
     {
         AffectsRender<LocalIcon>(
             IconNameProperty,
             StrokeProperty,
             StrokeWidthProperty,
-            AccentStrokeProperty);
+            AccentStrokeProperty,
+            DisabledColorProperty);
     }
 
     public string IconName
@@ -57,6 +61,12 @@ public sealed class LocalIcon : Control
     {
         get => GetValue(AccentStrokeProperty);
         set => SetValue(AccentStrokeProperty, value);
+    }
+
+    public Color? DisabledColor
+    {
+        get => GetValue(DisabledColorProperty);
+        set => SetValue(DisabledColorProperty, value);
     }
 
     public LocalIcon()
@@ -106,7 +116,8 @@ public sealed class LocalIcon : Control
             if (theme.Palette is { } colours)
             {
                 if (!IsEffectivelyEnabled || Stroke is ISolidColorBrush disabled && disabled.Color == colours.TextDisabled)
-                    palette = ScientificIconPalette.Monochrome(colours.TextDisabled);
+                    palette = ScientificIconPalette.Monochrome(!IsEffectivelyEnabled && DisabledColor is { } disabledColour
+                        ? disabledColour : colours.TextDisabled);
                 else if (Stroke is ISolidColorBrush foreground &&
                     (foreground.Color == Colors.White || foreground.Color == colours.TextOnAccent ||
                      foreground.Color == colours.TextError || foreground.Color == colours.TextWarning || foreground.Color == colours.TextSuccess))

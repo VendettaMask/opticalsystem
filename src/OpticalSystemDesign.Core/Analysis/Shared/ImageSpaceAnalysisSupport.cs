@@ -317,7 +317,7 @@ internal static class ImageSpaceAnalysisSupport
         var pencil = WavefrontEngine.GenerateChiefRaySamples(optic, field, wavelength,
             positivePencil ? new[] { (0d, 0d), (probe, 0d), (0d, probe) }
                 : new[] { (-probe, 0d), (probe, 0d), (0d, -probe), (0d, probe) },
-            aimAtStop: aimAtStop, referenceWavelength: wavelength);
+            aimAtStop: aimAtStop, referenceWavelength: wavelength, useSystemFocalReference: false);
         if (pencil.Samples.Any(sample => sample.Intensity <= 0))
             throw new AnalysisDataUnavailableException("FFT PSF", "exit-pupil aspect pencil is blocked");
         Vector3D Point(int index) => new(pencil.Samples[index].PupilX,

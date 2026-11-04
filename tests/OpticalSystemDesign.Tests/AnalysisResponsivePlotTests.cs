@@ -36,6 +36,8 @@ public sealed class AnalysisResponsivePlotTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
         {
+            // These existing source-layout contracts explicitly select manual 4:3.
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
             using var application = WorkbenchApplication.Create();
             var view = View(AnalysisPresentationKind.ColorFocusShift);
@@ -71,6 +73,8 @@ public sealed class AnalysisResponsivePlotTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
         {
+            // These existing source-layout contracts explicitly select manual 4:3.
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             using var application = WorkbenchApplication.Create();
             var view = View(kind);
             var originalSeries = view.Series;
@@ -95,6 +99,8 @@ public sealed class AnalysisResponsivePlotTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
         {
+            // These existing source-layout contracts explicitly select manual 4:3.
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             using var application = WorkbenchApplication.Create();
             var view = View(AnalysisPresentationKind.Standard) with
             {
@@ -134,6 +140,8 @@ public sealed class AnalysisResponsivePlotTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
         {
+            // These existing source-layout contracts explicitly select manual 4:3.
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             DisplayTypography.Configure(new AppSettings { Theme = theme, FontSize = fontSize });
             using var application = WorkbenchApplication.Create();
@@ -221,6 +229,8 @@ public sealed class AnalysisResponsivePlotTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
         {
+            // These existing source-layout contracts explicitly select manual 4:3.
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             using var application = WorkbenchApplication.Create();
             var view = View(kind) with
             {
@@ -253,6 +263,8 @@ public sealed class AnalysisResponsivePlotTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
         {
+            // These existing source-layout contracts explicitly select manual 4:3.
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             using var application = WorkbenchApplication.Create();
             var tabs = Build(View(AnalysisPresentationKind.ColorFocusShift), application);
             var window = new Window { Width = 1400, Height = 1000, Content = tabs };
@@ -290,6 +302,8 @@ public sealed class AnalysisResponsivePlotTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
         {
+            // These existing source-layout contracts explicitly select manual 4:3.
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             using var application = WorkbenchApplication.Create();
             var tabs = Build(View(AnalysisPresentationKind.ColorFocusShift), application);
             var host = Assert.IsType<ResponsiveAnalysisPlotHost>(Assert.IsAssignableFrom<TabItem>(tabs.Items[0]).Content);
@@ -317,6 +331,8 @@ public sealed class AnalysisResponsivePlotTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
         {
+            // These existing source-layout contracts explicitly select manual 4:3.
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             using var application = WorkbenchApplication.Create();
             var tabs = Build(View(AnalysisPresentationKind.ColorFocusShift), application);
             var plotTab = Assert.IsAssignableFrom<TabItem>(tabs.Items[0]);
@@ -356,6 +372,8 @@ public sealed class AnalysisResponsivePlotTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResponsivePlotTests));
         await session.Dispatch(() =>
         {
+            // These existing source-layout contracts explicitly select manual 4:3.
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
             var previousLanguage = UiLocalization.CurrentLanguage;
             UiLocalization.Apply(language);
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);

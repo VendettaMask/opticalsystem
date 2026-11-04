@@ -37,6 +37,7 @@ public sealed record FftPupilSampling(FftPhaseSamplingStatus Status, int Connect
     public string Criterion => "LocalUnwrappedPupilPhaseStep/v1";
     public bool CertifiesConvergence => false;
     private static readonly AsyncLocal<int> RequiredDepth = new();
+    private static readonly AsyncLocal<List<FftPupilSampling>?> Observations = new();
     public static bool IsRequired => RequiredDepth.Value > 0;
 
     /// <summary>Validate user-facing results in this asynchronous request; finite-sum APIs remain explicit.</summary>
@@ -56,8 +57,27 @@ public sealed record FftPupilSampling(FftPhaseSamplingStatus Status, int Connect
 
     public void RequireResolved(string analysis)
     {
+        if (Observations.Value is { } observations)
+        {
+            lock (observations) observations.Add(this);
+            return;
+        }
         if (Status != FftPhaseSamplingStatus.ResolvedAtNodes)
             throw new FftPupilSamplingException(analysis, this);
+    }
+
+    // Only the bounded result validator can defer rejection. It must validate
+    // two resolved references before publishing any finite-sum candidate.
+    internal static IDisposable ObserveForValidation(List<FftPupilSampling> observations)
+        => new ObservationScope(observations);
+
+    private sealed class ObservationScope(List<FftPupilSampling> observations) : IDisposable
+    {
+        private readonly List<FftPupilSampling>? previous = Set(observations);
+        private bool disposed;
+        public void Dispose() { if (!disposed) { Observations.Value = previous; disposed = true; } }
+        private static List<FftPupilSampling>? Set(List<FftPupilSampling> value)
+        { var old = Observations.Value; Observations.Value = value; return old; }
     }
 
     internal static FftPupilSampling Assess(WavefrontResult wavefront, PupilGridSpecification grid,

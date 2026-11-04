@@ -11,7 +11,6 @@ public sealed class MaterialRegistry
         "HIKARI",
         "NIKON-HIKARI",
         "SUMITA",
-        "CDGM-ZEMAX202309",
         "CDGM",
         "CHENGDU",
         "GBJ",
@@ -160,6 +159,20 @@ public sealed class MaterialRegistry
 
         if (Catalog.TryResolve(normalized, effectiveManufacturers, out var catalogMaterial))
         {
+            // The current CDGM AGF replaces its old auxiliary definitions, but
+            // must retain the project's existing manufacturer priority order.
+            var cdgmPriority = Array.FindIndex(effectiveManufacturers,
+                catalog => ExternalGlassCatalogDatabase.CanonicalCatalogName(catalog) == "CDGM");
+            var auxiliaryPriority = Array.FindIndex(effectiveManufacturers,
+                catalog => ExternalGlassCatalogDatabase.CanonicalCatalogName(catalog)
+                    .Equals(catalogMaterial.Manufacturer, StringComparison.OrdinalIgnoreCase));
+            if (cdgmPriority >= 0 && (auxiliaryPriority < 0 || cdgmPriority < auxiliaryPriority)
+                && TryResolveExternalGlass(normalized, ["CDGM"], out var currentCdgm)
+                && currentCdgm.Manufacturer == "CDGM")
+            {
+                material = currentCdgm.Clone();
+                return true;
+            }
             lock (_gate)
             {
                 _materials[catalogMaterial.Name] = catalogMaterial.Clone();

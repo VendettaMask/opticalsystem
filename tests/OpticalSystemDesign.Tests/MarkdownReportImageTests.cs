@@ -24,6 +24,7 @@ public sealed class MarkdownReportImageTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MarkdownReportImageTests));
         await session.Dispatch(async () =>
         {
+            using var fixedSheet = new FixedReportSheet();
             using var application = WorkbenchApplication.Create("cooke");
             var result = await application.Analyses.RunAsync(new(Guid.NewGuid(), 1, "Ray Fan", new Dictionary<string, string>()));
             var original = AnalysisPanel.CreateReportPlot(result, application.Documents.GetSnapshot(), DateTimeOffset.Now)!;
@@ -68,7 +69,7 @@ public sealed class MarkdownReportImageTests
                 main.UpdateLayout(); Dispatcher.UIThread.RunJobs();
                 var buttons = main.GetVisualDescendants().OfType<Button>().ToArray();
                 var entry = Assert.Single(buttons, item => AutomationProperties.GetAutomationId(item) == "ribbon-export-markdown-report");
-                Assert.Equal(UiLocalization.Text("导出设计报告…"), AutomationProperties.GetName(entry));
+                Assert.Equal(UiLocalization.Text("导出报告"), AutomationProperties.GetName(entry));
                 Assert.DoesNotContain(buttons, item => AutomationProperties.GetAutomationId(item) == "ribbon-configure-markdown-report");
 
                 entry.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
@@ -169,6 +170,7 @@ public sealed class MarkdownReportImageTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MarkdownReportImageTests));
         await session.Dispatch(async () =>
         {
+            using var fixedSheet = new FixedReportSheet();
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             using var application = WorkbenchApplication.Create("cooke");
             var host = new Border { Width = 1200, Height = 900, Opacity = 0 };
@@ -292,5 +294,17 @@ public sealed class MarkdownReportImageTests
             }
             finally { window.Close(); }
         }, CancellationToken.None);
+    }
+    private sealed class FixedReportSheet : IDisposable
+    {
+        private readonly string _previous = DiagramSheetLayout.AspectRatio;
+        internal FixedReportSheet() => Set(DiagramSheetLayout.Standard);
+        public void Dispose() => Set(_previous);
+        private static void Set(string aspect) => DiagramSheetLayout.Configure(new AppSettings
+        {
+            DiagramAspectRatio = aspect,
+            ImageExportPixelWidth = ImageExportResolution.PixelWidth,
+            ImageExportPixelHeight = ImageExportResolution.PixelHeight
+        });
     }
 }

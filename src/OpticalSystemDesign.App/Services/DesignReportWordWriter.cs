@@ -22,6 +22,7 @@ internal static partial class DesignReportWordWriter
     internal static void Write(Stream output, DesignReportContent content, string images, CancellationToken token,
         DesignReportPdfModel? paper = null, DesignReportContent? details = null)
     {
+        var typography = new DocumentTypography();
         if (paper is not null)
         {
             var presentation = DesignReportPresentation.Create(paper);
@@ -92,7 +93,7 @@ internal static partial class DesignReportWordWriter
                     }
                     break;
                 case ReportTable table:
-                    body.Add(Table(table, token));
+                    body.Add(Table(table, token, typography));
                     if (paper is null) body.Add(Paragraph(""));
                     break;
                 case ReportPicture picture:
@@ -125,7 +126,8 @@ internal static partial class DesignReportWordWriter
             new XElement(W + "pgMar", Attribute("top", 1020), Attribute("right", 720), Attribute("bottom", 1020), Attribute("left", 720), Attribute("header", 360), Attribute("footer", 360))));
         Save("word/document.xml", new XElement(W + "document", new XAttribute(XNamespace.Xmlns + "w", W),
             new XAttribute(XNamespace.Xmlns + "r", R), body));
-        Save("word/styles.xml", Styles());
+        Save("word/styles.xml", Styles(typography));
+        WriteFonts(zip, typography, Save);
         WriteBrandHeader(zip, paper, Save);
         Save("word/footer.xml", new XElement(W + "ftr", new XElement(W + "p",
             new XElement(W + "pPr", new XElement(W + "pStyle", Attribute("val", "Footer"))),
@@ -134,11 +136,15 @@ internal static partial class DesignReportWordWriter
             new XElement(W + "r", new XElement(W + "t", new XAttribute(XNamespace.Xml + "space", "preserve"), " / ")),
             new XElement(W + "fldSimple", Attribute("instr", "NUMPAGES"), new XElement(W + "r", new XElement(W + "t", "1"))))));
         relationships.Add(Relationship("settings", "settings", "settings.xml"));
+        relationships.Add(Relationship("fonts", "fontTable", "fontTable.xml"));
         Save("word/settings.xml", new XElement(W + "settings", new XElement(W + "doNotCompressPictures"), new XElement(W + "updateFields", Attribute("val", "true"))));
         Save("word/_rels/document.xml.rels", relationships);
         Save("_rels/.rels", new XElement(Rel + "Relationships", Relationship("document", "officeDocument", "word/document.xml")));
         XNamespace types = "http://schemas.openxmlformats.org/package/2006/content-types";
         Save("[Content_Types].xml", new XElement(types + "Types",
+            new XElement(types + "Default", new XAttribute("Extension", "txt"), new XAttribute("ContentType", "text/plain")),
+            new XElement(types + "Default", new XAttribute("Extension", "odttf"), new XAttribute("ContentType", "application/vnd.openxmlformats-officedocument.obfuscatedFont")),
+            new XElement(types + "Override", new XAttribute("PartName", "/word/fontTable.xml"), new XAttribute("ContentType", "application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml")),
             new XElement(types + "Default", new XAttribute("Extension", "rels"), new XAttribute("ContentType", "application/vnd.openxmlformats-package.relationships+xml")),
             new XElement(types + "Default", new XAttribute("Extension", "xml"), new XAttribute("ContentType", "application/xml")),
             new XElement(types + "Default", new XAttribute("Extension", "png"), new XAttribute("ContentType", "image/png")),
@@ -165,7 +171,7 @@ internal static partial class DesignReportWordWriter
             i == 0 ? null : new XElement(W + "br"),
             new XElement(W + "t", new XAttribute(XNamespace.Xml + "space", "preserve"), line))));
 
-    private static XElement Table(ReportTable table, CancellationToken token)
+    private static XElement Table(ReportTable table, CancellationToken token, DocumentTypography typography)
     {
         var widths = DesignReportImage.ColumnWeights(table).Select(weight => (int)Math.Floor(weight * ContentWidth)).ToArray();
         widths[^1] += ContentWidth - widths.Sum();
@@ -188,7 +194,7 @@ internal static partial class DesignReportWordWriter
                     new XElement(W + "tcPr", new XElement(W + "tcW", Attribute("w", widths[column]), Attribute("type", "dxa")),
                         new XElement(W + "shd", Attribute("fill", header ? "F0F3F6" : index % 2 == 0 ? "FFFFFF" : "FAFBFD")),
                         new XElement(W + "vAlign", Attribute("val", "center"))),
-                    !header && column == table.FormulaColumn ? FormulaParagraph(cell) : TableParagraph(cell, header, table.FormulaColumn >= 0 && column is 1 or 2 or 4)))));
+                    !header && column == table.FormulaColumn ? FormulaParagraph(cell, typography) : TableParagraph(cell, header, table.FormulaColumn >= 0 && column is 1 or 2 or 4)))));
         }
     }
 
@@ -219,11 +225,11 @@ internal static partial class DesignReportWordWriter
             new XElement(W + "r", new XElement(W + "drawing", inline)));
     }
 
-    private static XElement Styles()
+    private static XElement Styles(DocumentTypography typography)
     {
         var styles = new XElement(W + "styles",
             new XElement(W + "docDefaults", new XElement(W + "rPrDefault", new XElement(W + "rPr",
-                new XElement(W + "rFonts", Attribute("ascii", "Arial"), Attribute("hAnsi", "Arial"), Attribute("eastAsia", "Microsoft YaHei")),
+                new XElement(W + "rFonts", Attribute("ascii", typography.Primary(ProductFontRole.Document)), Attribute("hAnsi", typography.Primary(ProductFontRole.Document)), Attribute("eastAsia", typography.EastAsian)),
                 new XElement(W + "color", Attribute("val", "000000")), new XElement(W + "sz", Attribute("val", 21)))),
                 new XElement(W + "pPrDefault", new XElement(W + "pPr", new XElement(W + "spacing", Attribute("after", 120), Attribute("line", 300), Attribute("lineRule", "auto"))))));
         Style("Normal", 21);
@@ -252,7 +258,7 @@ internal static partial class DesignReportWordWriter
                     id is "Caption" or "Footer" ? new XElement(W + "jc", Attribute("val", "center")) : null,
                     id == "Heading1" || id == "Heading2" ? new XElement(W + "outlineLvl", Attribute("val", id == "Heading1" ? 0 : 1)) : null),
                 new XElement(W + "rPr", bold ? new XElement(W + "b") : null,
-                    id == "Code" ? new XElement(W + "rFonts", Attribute("ascii", "Courier New"), Attribute("hAnsi", "Courier New")) : null,
+                    id == "Code" ? new XElement(W + "rFonts", Attribute("ascii", typography.Primary(ProductFontRole.Code)), Attribute("hAnsi", typography.Primary(ProductFontRole.Code)), Attribute("eastAsia", typography.EastAsian)) : null,
                     new XElement(W + "sz", Attribute("val", size)), new XElement(W + "color", Attribute("val", id switch
                     { "TableHeader" => "435C70", "TableBody" => "3B5264", "Muted" or "Caption" or "Header" or "Footer" => "5C6D7C", "Warning" => "8D583D", "Code" => "38485B", _ => "202B36" })))));
         }

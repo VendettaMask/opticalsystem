@@ -571,7 +571,7 @@ public static class ExternalGlassCatalogDatabase
         out OpticalGlassCatalogDocument catalog,
         out OpticalGlassDefinition glass)
     {
-        var normalized = Path.GetFileNameWithoutExtension(catalogName.Trim());
+        var normalized = CanonicalCatalogName(catalogName);
         if (Catalogs.TryGetValue(normalized, out catalog!))
         {
             glass = catalog.Glasses.LastOrDefault(item =>
@@ -581,6 +581,18 @@ public static class ExternalGlassCatalogDatabase
 
         glass = null!;
         return false;
+    }
+
+    internal static string CanonicalCatalogName(string catalogName)
+    {
+        var normalized = Path.GetFileNameWithoutExtension(catalogName.Trim());
+        // Retired bundled CDGM identifiers select the current consolidated
+        // catalog; persisted material snapshots still restore their own data.
+        return normalized.ToUpperInvariant() switch
+        {
+            "CDGM-H" or "CDGM-ZEMAX202309" or "CDGM20113-P" => "CDGM",
+            _ => normalized
+        };
     }
 
     private static CatalogGlassMaterial CreateMaterial(

@@ -241,14 +241,14 @@ public sealed partial class MainWindow : Window
         return panel;
     }
 
-    private AutoCompleteBox MaterialPicker() => new()
+    private AutoCompleteBox MaterialPicker() => UiLocalization.Preserve(new AutoCompleteBox
     {
         ItemsSource = _materials.Names.ToArray(),
         FilterMode = AutoCompleteFilterMode.Contains,
         MinimumPrefixLength = 0,
         IsTextCompletionEnabled = true,
         HorizontalAlignment = HorizontalAlignment.Stretch
-    };
+    });
     private Control Number(string key, string label)
     {
         var box = new TextBox(); _numbers.Add(key, box); Watch(box, TextBox.TextProperty);

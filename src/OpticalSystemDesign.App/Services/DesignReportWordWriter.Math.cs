@@ -11,9 +11,12 @@ internal static partial class DesignReportWordWriter
 {
     private static readonly XNamespace M = "http://schemas.openxmlformats.org/officeDocument/2006/math";
 
-    private static XElement FormulaParagraph(string expression)
+    private static XElement FormulaParagraph(string expression, DocumentTypography typography)
     {
         var math = new XElement(M + "oMath");
+        XElement MathRun(string value) => new(M + "r", new XElement(W + "rPr",
+            new XElement(W + "rFonts", Attribute("ascii", typography.Primary(ProductFontRole.Math)), Attribute("hAnsi", typography.Primary(ProductFontRole.Math))),
+            new XElement(W + "sz", Attribute("val", 17))), new XElement(M + "t", new XAttribute(XNamespace.Xml + "space", "preserve"), value));
         foreach (Match token in Regex.Matches(expression, @"([ρu])\^(\d+)|√(\d+)|[^ρu√]+|[ρu]"))
         {
             if (token.Groups[1].Success)
@@ -24,10 +27,6 @@ internal static partial class DesignReportWordWriter
         }
         return new XElement(W + "p", new XElement(W + "pPr", new XElement(W + "pStyle", Attribute("val", "TableBody"))), math);
     }
-
-    private static XElement MathRun(string value) => new(M + "r", new XElement(W + "rPr",
-        new XElement(W + "rFonts", Attribute("ascii", "Cambria Math"), Attribute("hAnsi", "Cambria Math")), new XElement(W + "sz", Attribute("val", 17))),
-        new XElement(M + "t", new XAttribute(XNamespace.Xml + "space", "preserve"), value));
 
     private static XElement DirectoryEntry(ReportDirectoryEntry entry) => new(W + "p",
         new XElement(W + "pPr", new XElement(W + "pStyle", Attribute("val", "Contents")),

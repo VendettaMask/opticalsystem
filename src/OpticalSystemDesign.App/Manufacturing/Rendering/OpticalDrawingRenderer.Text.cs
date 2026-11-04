@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.App.Services;
 using SkiaSharp;
 
 namespace OpticalSystemDesign.App.Manufacturing;
@@ -55,8 +56,9 @@ internal static partial class OpticalDrawingRendererCore
         };
         for (var index = 0; index < text.Length; index++)
         {
-            using var font = new SKFont(TypefaceFor(text[index]), size) { Embolden = bold };
-            canvas.DrawText(text[index].ToString(), cursor, y, SKTextAlign.Left, font, paint);
+            var typography = ActiveTypography.Value ?? new DocumentTypography();
+            using var font = typography.Font(ProductFontRole.Engineering, size, bold);
+            typography.Draw(canvas, text[index].ToString(), cursor, y, font, paint, ProductFontRole.Engineering);
             cursor += widths[index];
         }
     }
@@ -66,21 +68,9 @@ internal static partial class OpticalDrawingRendererCore
 
     private static float CharacterWidth(char character, float size, bool bold)
     {
-        using var font = new SKFont(TypefaceFor(character), size) { Embolden = bold };
-        return font.MeasureText(character.ToString());
-    }
-
-    private static SKTypeface TypefaceFor(char character)
-    {
-        using var primary = new SKFont(ChineseTypeface.Value, 10);
-        if (primary.ContainsGlyphs(character.ToString()))
-        {
-            return ChineseTypeface.Value;
-        }
-
-        return FallbackTypefaces.GetOrAdd(
-            character,
-            static codepoint => SKFontManager.Default.MatchCharacter(codepoint) ?? SKTypeface.Default);
+        var typography = ActiveTypography.Value ?? new DocumentTypography();
+        using var font = typography.Font(ProductFontRole.Engineering, size, bold);
+        return typography.Measure(character.ToString(), font, ProductFontRole.Engineering);
     }
 
     private static SKPaint Stroke(SKColor color, float width) => new()
@@ -104,32 +94,4 @@ internal static partial class OpticalDrawingRendererCore
         _ => "ISO 10110-1:2019 表格式"
     };
 
-    private static SKTypeface ResolveChineseTypeface()
-    {
-        using var embedded = typeof(OpticalDrawingRenderer).Assembly.GetManifestResourceStream(
-            "OpticalSystemDesign.App.Assets.Fonts.NotoSansCJKsc-Regular.otf");
-        if (embedded is not null && SKTypeface.FromStream(embedded) is { } bundled)
-        {
-            return bundled;
-        }
-
-        var families = SKFontManager.Default.FontFamilies.ToHashSet(StringComparer.OrdinalIgnoreCase);
-        foreach (var family in new[]
-                 {
-                     "PingFang SC",
-                     "Microsoft YaHei",
-                     "Noto Sans CJK SC",
-                     "Source Han Sans SC",
-                     "WenQuanYi Micro Hei",
-                     "Arial Unicode MS"
-                 })
-        {
-            if (families.Contains(family))
-            {
-                return SKTypeface.FromFamilyName(family);
-            }
-        }
-
-        return SKTypeface.Default;
-    }
 }

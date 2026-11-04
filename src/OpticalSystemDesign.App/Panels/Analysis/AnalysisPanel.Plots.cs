@@ -590,6 +590,7 @@ public sealed partial class AnalysisPanel
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Center
             };
+            UiLocalization.Preserve(label);
             Grid.SetRow(label, row);
             matrix.Children.Add(label);
         }
