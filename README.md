@@ -124,15 +124,6 @@
 
 干涉图显示共享 Core 根据波前差计算的条纹强度，具体物理假设和设置见[干涉条纹说明](docs/INTERFEROGRAM_2026-10-26.md)。分析使用各自的采样、参考、量纲和适用范围，完整定义见[用户指南](docs/USER_GUIDE.md)与[能力矩阵](docs/PARITY_MATRIX.md)。
 
-### 一条常用工作流
-
-1. **打开或建立系统**：导入受支持的顺序文件，或从分类示例开始；正式工程保存为 `.staropt`。
-2. **检查处方与布局**：调整系统选项、材料和表面，切换多配置，查看二维/三维传播。
-3. **分析与改进**：配置实际视场、波长和采样，比较像质，再按需要设置变量、评价目标与公差。
-4. **保存与交付**：保存工程，或在“数据库 → 设计报告”选择 Word/PDF/Markdown/HTML 格式、分析及配置，点击“开始导出”生成报告；Word/PDF/HTML 内嵌图片，Markdown 需携带配套图片目录。需要机械交换时显式导出 STEP。
-
-AI 初始结构与镀膜设计从“实验室”打开，使用各自的实验和运行记录。初始结构候选需要独立达标验收，镀膜实验不会自动应用到当前镜头。[GPU 说明](docs/AUTOLENS_GPU.md)列出设备支持和回退范围；自主拓扑增删/搜索目前提供实验性 CPU 库接口，开发进度见[实施计划](docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)。
-
 ## 安装与启动
 
 ### 下载安装包
@@ -210,19 +201,6 @@ dotnet test OpticalSystemDesign.slnx -c Release --no-build --no-restore /m:1 /nr
 继续阅读：[系统架构](docs/ARCHITECTURE.md) · [代码地图](docs/CODE_READING_MAP.md) · [协作约束](AGENTS.md)。
 
 </details>
-
-## 文档与进展
-
-| 我想…… | 从这里开始 |
-| --- | --- |
-| 上手桌面工作流 | [使用指南](docs/GUI_QUICKSTART_REFACTOR.md) |
-| 查看分析、报告与成像实验室 | [用户指南](docs/USER_GUIDE.md) · [设计报告](docs/MARKDOWN_REPORT_EXPORT.md) · [相机成像](docs/CAMERA_IMAGING_LAB.md) |
-| 查阅全部文档 | [文档索引](docs/README.md) |
-| 了解当前验证、安装包与剩余工作 | [当前状态](docs/CURRENT_STATUS.md) · [问题清单](docs/OPEN_ISSUES_2026-10-08.md) |
-| 了解支持的模型和文件 | [能力矩阵](docs/PARITY_MATRIX.md) · [文件格式](docs/FILE_FORMATS_AND_PLUGINS.md) |
-| 查看数值依据与验证边界 | [数值验证](docs/NUMERICAL_PARITY.md) · [操作数支持](docs/ZEMAX_OPERAND_SUPPORT.md) |
-
-默认主要外部精度基准是已提交的 Zemax OpticStudio 2026 R1 `123456.ZMX` 捕获，结论仅覆盖所捕获的文件、设置与版本。导入、保留某个字段不代表对应计算已经实现，也不承诺与其它软件全面等价；未支持的能力应明确拒绝。
 
 ## 参与改进
 

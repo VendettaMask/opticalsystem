@@ -124,15 +124,6 @@ Optical System Design is a non-commercial optical-design project maintained by S
 
 Interferograms display fringe intensity computed by the shared Core from wavefront differences. See the [interference guide](docs/INTERFEROGRAM_2026-10-26.md) for settings and physical assumptions. Each analysis has its own sampling, reference, units, and applicable scope; see the [User Guide](docs/USER_GUIDE.md) and [capability matrix](docs/PARITY_MATRIX.md).
 
-### A typical workflow
-
-1. **Open or create a system:** import a supported sequential file or choose a categorized example, then save the complete project as `.staropt`.
-2. **Check the prescription and layout:** adjust system options, materials, and surfaces, switch configurations, and inspect 2D/3D propagation.
-3. **Analyze and improve:** choose the actual fields, wavelengths, and sampling, compare image quality, and set variables, merit targets, and tolerances as needed.
-4. **Save and deliver:** save the project, or use **Database → Design Report** to select Word, PDF, Markdown, or HTML, choose analyses and configurations, then click **Start Export**. Word/PDF/HTML embed images; Markdown needs its accompanying image folder. Explicitly export STEP for mechanical exchange.
-
-Open AI Initial Structure and Optical Coating Design from **Laboratory**; they maintain their own experiments and run records. Initial-structure candidates require independent acceptance against the design goals, and coating experiments do not automatically modify the current lens. The [GPU guide](docs/AUTOLENS_GPU.md) describes device support and fallback scope. Autonomous topology insertion/deletion and search currently provide experimental CPU library interfaces; progress is tracked in the [implementation plan](docs/AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md).
-
 ## Installation and startup
 
 ### Download a package
@@ -210,19 +201,6 @@ The first packaging run needs network access to prepare dependencies, target run
 Continue reading: [System Architecture](docs/ARCHITECTURE.md) · [Code Map](docs/CODE_READING_MAP.md) · [Collaboration Rules](AGENTS.md).
 
 </details>
-
-## Documentation and progress
-
-| I want to… | Start here |
-| --- | --- |
-| Learn the desktop workflow | [User guide](docs/GUI_QUICKSTART_REFACTOR.md) |
-| Explore analysis, reports, and imaging | [User Guide](docs/USER_GUIDE.md) · [Design reports](docs/MARKDOWN_REPORT_EXPORT.md) · [Camera imaging](docs/CAMERA_IMAGING_LAB.md) |
-| Browse all documentation | [Documentation index](docs/README.md) |
-| Understand the current validation, installer, and remaining work | [Current status](docs/CURRENT_STATUS.md) · [Open issues](docs/OPEN_ISSUES_2026-10-08.md) |
-| Review supported models and files | [Capability matrix](docs/PARITY_MATRIX.md) · [File formats](docs/FILE_FORMATS_AND_PLUGINS.md) |
-| Review numerical foundations and validation boundaries | [Numerical validation](docs/NUMERICAL_PARITY.md) · [Operand support](docs/ZEMAX_OPERAND_SUPPORT.md) |
-
-The default primary external accuracy reference is the committed Zemax OpticStudio 2026 R1 capture for `123456.ZMX`. Its conclusions cover only the captured file, settings, and software version. Importing or retaining a field does not mean its computation is implemented, and the project does not promise comprehensive equivalence with other software. Unsupported capabilities must be rejected explicitly.
 
 ## Contributing
 
