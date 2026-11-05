@@ -1,0 +1,10 @@
+export DOTNET_ROOT=/workspace/opticalsystem-cloud/dotnet
+export PATH="/workspace/opticalsystem-cloud/bin:$PATH"
+export DOTNET_CLI_HOME=/workspace/opticalsystem-cloud/dotnet-home
+export NUGET_PACKAGES=/workspace/opticalsystem-cloud/nuget
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export DOTNET_NOLOGO=1
+export POWERSHELL_TELEMETRY_OPTOUT=1
+export XDG_DATA_HOME=/workspace/opticalsystem-cloud/xdg/data
+export XDG_CONFIG_HOME=/workspace/opticalsystem-cloud/xdg/config
+export XDG_CACHE_HOME=/workspace/opticalsystem-cloud/xdg/cache
