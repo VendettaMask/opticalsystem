@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core;
@@ -22,11 +23,11 @@ public sealed class RectangularRmsParityTests
     public void RectangularSpotFieldScanMatchesIndependentNativeCaptures(string lens, int density)
     {
         var root = Path.Combine(AppContext.BaseDirectory, "Fixtures", "rms-field-sampling", $"{lens}-ra-{density}-remove");
-        var optic = Optic.FromSnapshot(JsonSerializer.Deserialize<OpticSnapshot>(File.ReadAllText(Path.Combine(root, "snapshot.json")),
+        var optic = Optic.FromSnapshot(JsonSerializer.Deserialize<OpticSnapshot>(EvidenceFiles.ReadAllText(Path.Combine(root, "snapshot.json")),
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true, NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals })!);
-        using var request = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "canonical-request.json")));
+        using var request = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root, "canonical-request.json")));
         var wavelength = request.RootElement.GetProperty("wavelength").GetInt32();
-        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "data.json")));
+        using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root, "data.json")));
         var curve = native.RootElement.GetProperty("dataSeries")[0];
         var current = new RmsVsFieldAnalysis(optic, fieldDensity: 15, numRings: density, method: "RA", data: "spot",
             reference: "centroid", wavelengthNumber: wavelength, removeVignetting: true).GenerateData().Series!;

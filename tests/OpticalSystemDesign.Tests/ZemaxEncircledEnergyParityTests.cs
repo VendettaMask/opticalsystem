@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
@@ -26,9 +27,9 @@ public sealed class ZemaxEncircledEnergyParityTests
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");
         var optic = OpticalFormatCatalog.Import(
-            File.ReadAllText(Path.Combine(fixtureDirectory, "zemax-123456.ZMX")),
+            EvidenceFiles.ReadAllText(Path.Combine(fixtureDirectory, "zemax-123456.ZMX")),
             ".zmx");
-        using var zemax = JsonDocument.Parse(File.ReadAllText(
+        using var zemax = JsonDocument.Parse(EvidenceFiles.ReadAllText(
             Path.Combine(fixtureDirectory, "zemax-123456-diffraction-encircled-energy.json")));
 
         var current = new DiffractionEncircledEnergyAnalysis(
@@ -79,11 +80,11 @@ public sealed class ZemaxEncircledEnergyParityTests
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");
         var optic = OpticalFormatCatalog.Import(
-            File.ReadAllText(Path.Combine(fixtureDirectory, "zemax-123456.ZMX")),
+            EvidenceFiles.ReadAllText(Path.Combine(fixtureDirectory, "zemax-123456.ZMX")),
             ".zmx");
         var source = ExtendedSourceImage.ParseZemaxTextIma(
-            File.ReadAllText(Path.Combine(fixtureDirectory, "LETTERF.IMA")));
-        using var zemax = JsonDocument.Parse(File.ReadAllText(
+            EvidenceFiles.ReadAllText(Path.Combine(fixtureDirectory, "LETTERF.IMA")));
+        using var zemax = JsonDocument.Parse(EvidenceFiles.ReadAllText(
             Path.Combine(fixtureDirectory, "zemax-123456-extended-source-encircled-energy.json")));
 
         var current = new ExtendedSourceEncircledEnergyAnalysis(
@@ -137,9 +138,9 @@ public sealed class ZemaxEncircledEnergyParityTests
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");
         var optic = OpticalFormatCatalog.Import(
-            File.ReadAllText(Path.Combine(fixtureDirectory, "zemax-123456.ZMX")),
+            EvidenceFiles.ReadAllText(Path.Combine(fixtureDirectory, "zemax-123456.ZMX")),
             ".zmx");
-        using var zemax = JsonDocument.Parse(File.ReadAllText(
+        using var zemax = JsonDocument.Parse(EvidenceFiles.ReadAllText(
             Path.Combine(fixtureDirectory, "zemax-123456-geometric-encircled-energy.json")));
 
         var current = new EncircledEnergyAnalysis(

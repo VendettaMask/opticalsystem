@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -17,19 +18,19 @@ public sealed class FlatStartZemaxReferenceTests
     public void GeneratedSphericalRepresentativeMatchesFrozenZemax2026R1DenseRays(int elements)
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
-        while (root is not null && !File.Exists(Path.Combine(root.FullName, "OpticalSystemDesign.slnx"))) root = root.Parent;
+        while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "OpticalSystemDesign.slnx"))) root = root.Parent;
         var evidence = Path.Combine(root!.FullName, "validation/zemax-2026-r1/initial-structure-20260907");
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(evidence, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(evidence, "manifest.json")));
         var folder = Path.Combine(evidence, $"{elements}-element");
         foreach (var name in new[] { "candidate.json", "candidate.ZMX", "native-rays.json" })
         {
-            var actual = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(folder, name)))).ToLowerInvariant();
+            var actual = Convert.ToHexString(SHA256.HashData(EvidenceFiles.ReadAllBytes(Path.Combine(folder, name)))).ToLowerInvariant();
             Assert.Equal(manifest.RootElement.GetProperty("Files").GetProperty($"{elements}-element/{name}").GetString(), actual);
         }
         var options = new JsonSerializerOptions { NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals };
-        var candidate = JsonSerializer.Deserialize<CandidateSnapshot>(File.ReadAllText(Path.Combine(folder, "candidate.json")), options)!;
+        var candidate = JsonSerializer.Deserialize<CandidateSnapshot>(EvidenceFiles.ReadAllText(Path.Combine(folder, "candidate.json")), options)!;
         var optic = Optic.FromSnapshot(candidate.Optic);
-        using var capture = JsonDocument.Parse(File.ReadAllText(Path.Combine(folder, "native-rays.json")));
+        using var capture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(folder, "native-rays.json")));
         var native = capture.RootElement;
         Assert.Equal(26, native.GetProperty("Major").GetInt32());
         Assert.Equal(1, native.GetProperty("Minor").GetInt32());

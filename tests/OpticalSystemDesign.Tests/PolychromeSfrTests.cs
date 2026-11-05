@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Numerics;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Analysis.Imaging;
@@ -43,7 +44,7 @@ public sealed class PolychromeSfrTests
     [Fact]
     public void LensWeightsKeepOriginalRowsIgnoreZeroAndRejectEmptyPower()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(DoubleGaussSfrTests.StandardLens), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(DoubleGaussSfrTests.StandardLens), ".zmx");
         optic.Wavelengths[0].Weight = 0; optic.Wavelengths[1].Weight = double.MaxValue; optic.Wavelengths[2].Weight = double.MaxValue / 2;
         var bands = MonochromeSlantedEdge.LensSpectrum(optic);
         Assert.Equal(new[] { 1, 2, 3 }, bands.Select(b => b.WavelengthNumber));
@@ -57,7 +58,7 @@ public sealed class PolychromeSfrTests
     [Fact]
     public void SingleBandAndZeroWeightBandReduceToOriginalMonochromeImage()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(DoubleGaussSfrTests.StandardLens), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(DoubleGaussSfrTests.StandardLens), ".zmx");
         optic.Wavelengths.Clear(); optic.Wavelengths.Add(new() { Nanometers = 550, Weight = 7, IsPrimary = true });
         var settings = new SlantedEdgeSettings(PupilSampling: 128, PsfRadiusPixels: 16);
         var mono = MonochromeSlantedEdge.Render(optic, settings);
@@ -71,7 +72,7 @@ public sealed class PolychromeSfrTests
     [Fact]
     public void PrimaryReferencePreservesOffAxisChromaticDisplacement()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(DoubleGaussSfrTests.StandardLens), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(DoubleGaussSfrTests.StandardLens), ".zmx");
         var field = optic.Fields[^1]; var normalized = FieldCoordinates.Normalize(optic.Fields, field.X, field.Y);
         var wave = optic.Wavelengths[0]; var reference = optic.Wavelengths.First(w => w.IsPrimary);
         var f = new[] { 0d, 30d, 70d };

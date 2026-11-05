@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Backend;
@@ -11,7 +12,7 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class GridGradientModelTests
 {
-    private static JsonDocument Fixture() => JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","grid-gradient-native-v1.json")));
+    private static JsonDocument Fixture() => JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","grid-gradient-native-v1.json")));
 
     [Fact]
     public void ConvergedSampleRaysUseTheOriginalExplicitRayBoundsAndPortableGrid()
@@ -81,7 +82,7 @@ public sealed class GridGradientModelTests
     [Theory] [InlineData(2)] [InlineData(3)]
     public void UnverifiedCrystalPolarizationModesStayOpaque(int mode)
     {
-        using var fixture=JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","birefringent-native-v1.json")));
+        using var fixture=JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","birefringent-native-v1.json")));
         var source=fixture.RootElement.GetProperty("cases")[0].GetProperty("source").GetString()!.Replace("PARM 1 0","PARM 1 "+mode);
         Assert.NotEmpty(OpticCapabilityPreflight.Inspect(OpticalFormatCatalog.Import(source,".zmx")));
     }

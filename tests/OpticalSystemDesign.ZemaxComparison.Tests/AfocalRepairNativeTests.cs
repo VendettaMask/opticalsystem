@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -21,7 +22,7 @@ public sealed class AfocalRepairNativeTests
     {
         var row = JsonFiles.Read<JsonElement>(Path.Combine(Root, "opd-manifest.json")).EnumerateArray().Single(r => r.GetProperty("id").GetString() == id);
         var file = Path.Combine(Root, "opd", id, "point-reference.json");
-        Assert.Equal(row.GetProperty("sha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(file))));
+        Assert.Equal(row.GetProperty("sha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(file))));
         var native = JsonFiles.Read<JsonElement>(file);
         Assert.Equal("CurrentAndChief", native.GetProperty("opdMode").GetString());
         var optic = (await WorkbenchExecutor.Import(Path.Combine(Root, "sources", row.GetProperty("lens").GetString()!))).Configurations[row.GetProperty("configuration").GetInt32() - 1];
@@ -62,7 +63,7 @@ public sealed class AfocalRepairNativeTests
             .Single(r => r.GetProperty("lens").GetString() == lens && r.GetProperty("configuration").GetInt32() == configuration && r.GetProperty("key").GetString() == key);
         var request = row.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
         var native = Path.Combine(Root, row.GetProperty("id").GetString()!, "data.json");
-        Assert.Equal(row.GetProperty("nativeSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(native))));
+        Assert.Equal(row.GetProperty("nativeSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(native))));
         var optic = (await WorkbenchExecutor.Import(Path.Combine(Root, "sources", lens))).Configurations[configuration - 1];
         var folder = Path.Combine(Path.GetTempPath(), "afocal-native-" + Guid.NewGuid().ToString("N")); Directory.CreateDirectory(folder);
         try

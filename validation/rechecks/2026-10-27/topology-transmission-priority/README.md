@@ -83,4 +83,4 @@
 - [70项测试](tests/transmission-final-scoped.trx)、[局部选参](tests/selection.json)、[直接固定拓扑验证](tests/priority.json)。
 - [仅剩边界失败的三片STAROPT](native-audit-signed/unqualified-reduced.staropt)、[完整回读](native-audit-signed/native-checks.json)、[逐光线诊断](diagnostic-signed/ray-diagnostics.json)。
 - [回溯版本失败三片STAROPT](native-audit-backtracking/unqualified-reduced.staropt)、[完整回读](native-audit-backtracking/native-checks.json)、[逐光线诊断](diagnostic-backtracking/ray-diagnostics.json)。
-- [继续保留的合格四片](native-audit-signed/qualified-source.staropt)。
+- [继续保留的合格四片](final-paired-runs/repr-qualified4-wide21-42-C-both/seed-0.staropt)。

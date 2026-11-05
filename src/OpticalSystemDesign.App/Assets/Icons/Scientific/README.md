@@ -8,7 +8,7 @@
 
 `Glyphs` 中的 1,748 个图标为保留的备用目录，来自固定 `lucide-static 1.25.0` 节点规范化，保留原功能几何、ISC 许可及 Feather 署名，不能标成原创或冒称全部为本轮重画。备用和专用图形合计 1,969 个资源名。
 
-保持 [Lucide 许可证](../LUCIDE-LICENSE.txt) 与软件一起分发。运行时不使用旧 Game-icons 或 Farm-Fresh 主题包，但其已有资源仍保留原许可证和来源记录。
+保持 [Lucide 许可证](../LUCIDE-LICENSE.txt) 与软件一起分发。旧Game-icons/Farm-Fresh实现、资源和导入器已删除；历史许可在`third_party/retired-icons`，不再进入产品。备用SVG的生成输入位于`scripts/data`，不在运行时加载旧JSON。
 
 `scripts/semantic_icon_designs.py` 保存新绘路径及每项含义，`build-semantic-icons.py` 默认重建专用 SVG 和清单，不再次改写已接入的命令；首次绑定计划及执行记录在本轮验证目录保留。`export-semantic-icons.py` 导出实际 221 款的五主题图包、图库和设计说明。运行 `build-scientific-icons.py` 只重建备用 `Glyphs` 及总目录，不修改确认稿或新绘路径。全部工具离线运行；产品运行时按需解析内嵌矢量并延迟建立原生几何。
 

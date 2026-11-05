@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Application.Runtime;
@@ -156,12 +157,12 @@ public sealed class AnalysisNumericalRepairTests
     }
 
     private static Optic Import(string name) => OpticalFormatCatalog.Import(
-        File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", name)), ".zmx");
+        EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", name)), ".zmx");
 
     [Fact]
     public void FftPsfMatchesCapturedHighNaGridWithoutCoordinateFitOrRenormalization()
     {
-        using var capture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,
+        using var capture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,
             "Validation", "Zemax", "NumericalRepair", "ms-l7-fft-psf-data.json")));
         var grid = capture.RootElement.GetProperty("dataGrids")[0];
         var data = new WorkbenchRuntime(Import("zemax-ms-l7-high-na.ZMX")).BuildAnalysisData("PSF", new Dictionary<string, string>

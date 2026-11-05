@@ -1,16 +1,18 @@
 # 冻结证据与准备输入验收
 
-## 无焦证据副本收敛
+## 验证载荷单一副本
 
-`validation/evidence-aliases.json`按原字节SHA-256保留一份内容和各历史逻辑路径。`EvidenceAliases.ps1`拒绝内容变化、路径越界/链接、重复映射及已删除副本重新出现；受管目录还检查新增的非空重复内容。原2668份冻结清单及旧归档不改动。比较测试构建自动在生成目录还原完整夹具，仓库不再保存这些物理副本。
+`validation/evidence-aliases.json`按原字节SHA-256保留一份权威载荷及各历史逻辑路径，现覆盖受管的`validation`、`artifacts`和`output`非空验证数据。每份重复文件删除前完整核对原字节；按上下文解释的源码、脚本及Markdown保留其各自角色。`EvidenceAliases.ps1`拒绝内容变化、路径越界/链接、链式映射及已删除副本重新出现；受管文件检查新增的非空重复载荷。
+
+原2668项冻结清单和聚合身份不改写。工作区/Git检查从显式映射读取同一份内容，Git检查还要求映射本身存在于被检查的HEAD或Index且字节一致。原始捕获报告保留原字节。测试构建根据项目声明只还原所需夹具到输出目录；当前测试与比较工具通过`EvidenceFiles.cs`读取原逻辑路径及枚举，工具不进入产品运行依赖。
 
 ```powershell
 pwsh -NoProfile -File tools/validation/EvidenceAliases.ps1
-pwsh -NoProfile -File tools/validation/EvidenceAliases.ps1 -Mode Materialize -DestinationRoot artifacts/restored-afocal-evidence
+pwsh -NoProfile -File tools/validation/EvidenceAliases.ps1 -Mode Materialize -DestinationRoot tmp/restored-evidence -PathPrefix validation/rechecks/2026-10-31/initial-loss-round2
 pwsh -NoProfile -File tools/validation/EvidenceAliases.Tests.ps1 -OutputDirectory artifacts/fresh-evidence-alias-tests
 ```
 
-第二条在独立目录生成原相对布局与保留上下文，供读取历史路径的诊断使用，不能指向仓库根或捕获目录。测试夹具布局可加`-FixtureLayout`；默认测试构建已执行该操作，`--no-build`要求此前已有成功构建。三平台CI已接入路径/内容守卫及脚本回归；本机Windows验证结果见[本次账目](../../validation/rechecks/2026-10-28/precision-check/deduplication.json)，不代表远端或其他系统已运行成功。
+第二条按指定前缀在忽略的`tmp`目录生成原相对布局和必要上下文，供旧诊断回放；不传前缀会还原整个历史视图，通常无需如此。禁止向仓库根或受管证据根写回副本。测试夹具布局使用`-FixtureLayout -ProjectPath <测试项目.csproj>`；默认测试构建已执行该操作，`--no-build`要求此前已有成功构建。新检出遇到LFS指针时可加`-FetchLfs`，只下载所需权威载荷，不能用指针代替实际字节校验。还原时继续验证每份实际字节，并保留历史可执行位。三平台CI接入路径/内容守卫和存储映射/冻结身份回归；原无焦阶段结果仍见[旧账目](../../validation/rechecks/2026-10-28/precision-check/deduplication.json)，不扩大为新光学或跨平台认证。
 
 ## 原冻结清单
 

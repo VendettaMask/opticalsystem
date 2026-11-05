@@ -163,6 +163,8 @@
 
 ## Evidence retention and storage
 
+- User retirement decision (2026-11-05): delete inactive legacy icon implementations/assets/importers and retain the current scientific SVG system; keep original third-party attribution in the historical notices. Identical validation payloads have one raw-SHA256-verified authority, with original logical roles in validation/evidence-aliases.json. Maintained validation consumers resolve that mapping or materialize only their required fixtures outside managed evidence roots. Preserve original reference bytes, frozen identities, unique failures and numerical gates; do not restore deleted physical duplicates in later snapshots.
+
 - User scope decision (2026-11-04, non-sequential work): skip steps requiring a new Zemax/OpticStudio installation, licensed archive extraction or fresh native numerical captures. Continue independent C# implementation, analytic controls and local regression; preserve existing references and unsupported-import diagnostics. Do not keep asking for the absent native environment/assets or label skipped native work as certified.
 
 - User direction (2026-11-01): a `frozen`, `baseline`, `before/after`, or historical label is not a permanent retention exemption. Check whether the material is still the current authority or a live regression input, has unique useful evidence, or has been superseded by a complete verified archive. Retire obsolete or duplicate copies after checking those relationships; do not keep renewing expired freezes.

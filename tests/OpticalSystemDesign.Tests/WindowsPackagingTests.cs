@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Diagnostics;
 using System.Xml.Linq;
 
@@ -25,7 +26,7 @@ public sealed class WindowsPackagingTests
     public void PackagingUsesPortableUntrimmedOutputWithoutOverwritingTrackedLocks()
     {
         var root = RepositoryRoot();
-        var script = File.ReadAllText(Path.Combine(root, "scripts", "publish-windows.ps1"));
+        var script = EvidenceFiles.ReadAllText(Path.Combine(root, "scripts", "publish-windows.ps1"));
         Assert.Contains("--self-contained true", script);
         Assert.Contains("-p:PublishSingleFile=false", script);
         Assert.Contains("-p:PublishTrimmed=false", script);
@@ -36,7 +37,7 @@ public sealed class WindowsPackagingTests
         var project = XDocument.Load(Path.Combine(root, "src", "OpticalSystemDesign.App", "OpticalSystemDesign.App.csproj"));
         Assert.Contains(project.Descendants("OutputType"), property =>
             property.Value == "WinExe" && (string?)property.Attribute("Condition") == "'$(WindowsPackage)' == 'true'");
-        Assert.Contains("%BUILD_EXIT_CODE%", File.ReadAllText(Path.Combine(root, "Build-Exe.cmd")));
+        Assert.Contains("%BUILD_EXIT_CODE%", EvidenceFiles.ReadAllText(Path.Combine(root, "Build-Exe.cmd")));
     }
 
     [Fact]
@@ -50,7 +51,7 @@ public sealed class WindowsPackagingTests
         var result = RunScript("-WhatIf", "-OutputRoot", destination);
         Assert.True(result.ExitCode == 0, result.Output);
         Assert.Contains(destination, result.Output);
-        Assert.False(Directory.Exists(destination));
+        Assert.False(EvidenceFiles.DirectoryExists(destination));
     }
 
     [Fact]
@@ -69,7 +70,7 @@ public sealed class WindowsPackagingTests
     public void InstallerUsesChineseWizardAndLoggedUninstallWithoutDeletingUserData()
     {
         var root = RepositoryRoot();
-        var installer = File.ReadAllText(Path.Combine(root, "packaging", "windows", "OpticalSystemDesign.iss"));
+        var installer = EvidenceFiles.ReadAllText(Path.Combine(root, "packaging", "windows", "OpticalSystemDesign.iss"));
         Assert.Contains("WizardStyle=modern", installer);
         Assert.Contains("DisableWelcomePage=no", installer);
         Assert.Contains("DisableDirPage=no", installer);
@@ -86,9 +87,9 @@ public sealed class WindowsPackagingTests
         Assert.DoesNotContain("[UninstallDelete]", installer);
         Assert.DoesNotContain("[InstallDelete]", installer);
         Assert.DoesNotContain("filesandordirs", installer);
-        Assert.Contains("build-installer.ps1", File.ReadAllText(Path.Combine(root, "Build-Exe.cmd")));
-        Assert.True(File.Exists(Path.Combine(root, "Build-Installer.cmd")));
-        var builder = File.ReadAllText(Path.Combine(root, "scripts", "build-installer.ps1"));
+        Assert.Contains("build-installer.ps1", EvidenceFiles.ReadAllText(Path.Combine(root, "Build-Exe.cmd")));
+        Assert.True(EvidenceFiles.Exists(Path.Combine(root, "Build-Installer.cmd")));
+        var builder = EvidenceFiles.ReadAllText(Path.Combine(root, "scripts", "build-installer.ps1"));
         Assert.Contains("-PassThru -CompactName", builder);
         Assert.Contains("Get-FileHash -LiteralPath $setupPath -Algorithm SHA256", builder);
         Assert.Contains("[IO.Directory]::Move($stagingDirectory, $buildDirectory)", builder);
@@ -98,8 +99,8 @@ public sealed class WindowsPackagingTests
     public void InstallerLocksRegisteredLocationAndShortcutsAndClassifiesRepairBeforeCopying()
     {
         var root = RepositoryRoot();
-        var installer = File.ReadAllText(Path.Combine(root, "packaging", "windows", "OpticalSystemDesign.iss"));
-        var policy = File.ReadAllText(Path.Combine(root, "packaging", "windows", "InstallationPolicy.iss"));
+        var installer = EvidenceFiles.ReadAllText(Path.Combine(root, "packaging", "windows", "OpticalSystemDesign.iss"));
+        var policy = EvidenceFiles.ReadAllText(Path.Combine(root, "packaging", "windows", "InstallationPolicy.iss"));
         Assert.Contains("#include \"InstallationPolicy.iss\"", installer);
         Assert.Contains("RegKeyExists(HKCU, Key)", policy);
         Assert.Contains("RegKeyExists(HKLM32, Key)", policy);
@@ -124,13 +125,13 @@ public sealed class WindowsPackagingTests
         Assert.True(prepare.IndexOf("EnforceInstallationIdentity;", StringComparison.Ordinal) < prepare.IndexOf("AcquireInstallationFileGate;", StringComparison.Ordinal));
         Assert.True(prepare.IndexOf("RecoverInterruptedTransaction;", StringComparison.Ordinal) < prepare.IndexOf("ValidateInstallationPolicy;", StringComparison.Ordinal));
         Assert.True(prepare.IndexOf("ValidateInstallationPolicy;", StringComparison.Ordinal) < prepare.IndexOf("CaptureDurableJournal;", StringComparison.Ordinal));
-        Assert.Contains("InstallationPolicyScriptSha256", File.ReadAllText(Path.Combine(root, "scripts", "build-installer.ps1")));
+        Assert.Contains("InstallationPolicyScriptSha256", EvidenceFiles.ReadAllText(Path.Combine(root, "scripts", "build-installer.ps1")));
     }
 
     [Fact]
     public void NativeInstallationPolicyRegressionUsesOnlyFreshIsolatedIdentityAndCrossDirectoryAttempts()
     {
-        var script = File.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "verify-windows-installation-policy.ps1"));
+        var script = EvidenceFiles.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "verify-windows-installation-policy.ps1"));
         Assert.Contains("OpticalSystemDesign-UpgradeValidation-", script);
         Assert.Contains("[Guid]::NewGuid()", script);
         Assert.Contains("Assert-OwnedPath", script);
@@ -150,13 +151,13 @@ public sealed class WindowsPackagingTests
         var result = RunScriptFile("build-installer.ps1", "-WhatIf", "-OutputRoot", destination,
             "-ProductAppId", new string('A', 57));
         Assert.NotEqual(0, result.ExitCode);
-        Assert.False(Directory.Exists(destination));
+        Assert.False(EvidenceFiles.DirectoryExists(destination));
     }
 
     [Fact]
     public void InstallerUsesVerifiedSideBySidePayloadAndRestoresActivationOnFailure()
     {
-        var installer = File.ReadAllText(Path.Combine(RepositoryRoot(), "packaging", "windows", "OpticalSystemDesign.iss"));
+        var installer = EvidenceFiles.ReadAllText(Path.Combine(RepositoryRoot(), "packaging", "windows", "OpticalSystemDesign.iss"));
         Assert.Contains("#define PayloadDir \"versions\\\" + ReleaseId", installer);
         Assert.Contains("AfterInstall: VerifyPayload", installer);
         Assert.Contains("GetSHA256OfFile", installer);
@@ -176,14 +177,14 @@ public sealed class WindowsPackagingTests
     [Fact]
     public void SigningRequiresExplicitPublisherAndTimestampAndSignsUninstall()
     {
-        var script = File.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "windows-signing.ps1"));
+        var script = EvidenceFiles.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "windows-signing.ps1"));
         Assert.Contains("/sha1", script);
         Assert.Contains("SHA256", script);
         Assert.Contains("/tr", script);
         Assert.Contains("/pa", script);
         Assert.Contains("TimeStamperCertificate", script);
         Assert.DoesNotContain("/f MyCert", script);
-        var installer = File.ReadAllText(Path.Combine(RepositoryRoot(), "packaging", "windows", "OpticalSystemDesign.iss"));
+        var installer = EvidenceFiles.ReadAllText(Path.Combine(RepositoryRoot(), "packaging", "windows", "OpticalSystemDesign.iss"));
         Assert.Contains("SignedUninstaller=yes", installer);
         Assert.Contains("SignTool=OpticalPublisher", installer);
     }
@@ -191,7 +192,7 @@ public sealed class WindowsPackagingTests
     [Fact]
     public void CompilerBootstrapChecksPinnedHashAndUsesProjectLocalPortableMode()
     {
-        var script = File.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "get-inno-setup.ps1"));
+        var script = EvidenceFiles.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "get-inno-setup.ps1"));
         Assert.Contains("https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/", script);
         Assert.Contains("9c73c3bae7ed48d44112a0f48e66742c00090bdb5bef71d9d3c056c66e97b732", script);
         Assert.Contains("Get-FileHash -LiteralPath $download -Algorithm SHA256", script);
@@ -212,7 +213,7 @@ public sealed class WindowsPackagingTests
             "-InnoSetupCompiler", "deliberately missing compiler.exe");
         Assert.True(result.ExitCode == 0, result.Output);
         Assert.Contains(destination, result.Output);
-        Assert.False(Directory.Exists(destination));
+        Assert.False(EvidenceFiles.DirectoryExists(destination));
     }
 
     [Fact]
@@ -224,7 +225,7 @@ public sealed class WindowsPackagingTests
             "-InnoSetupCompiler", "deliberately missing compiler.exe");
         Assert.NotEqual(0, result.ExitCode);
         Assert.Contains("Inno Setup compiler not found", result.Output);
-        Assert.False(Directory.Exists(destination));
+        Assert.False(EvidenceFiles.DirectoryExists(destination));
     }
 
     private static (int ExitCode, string Output) RunScript(params string[] arguments) =>
@@ -259,7 +260,7 @@ public sealed class WindowsPackagingTests
     private static string RepositoryRoot()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx")))
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx")))
         {
             directory = directory.Parent;
         }

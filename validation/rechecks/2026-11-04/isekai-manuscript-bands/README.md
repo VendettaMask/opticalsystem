@@ -20,13 +20,13 @@
 | 完整主窗口 | [13号字](workbench/workbench-1600-13.png)、[18号字](workbench/workbench-1120-18.png) |
 | 深色原生下拉菜单 | [13号字](workbench/menu-1600-13.png)、[18号字](workbench/menu-1120-18.png) |
 | 设置展开 | [13号字](workbench/settings-1600-13.png)、[18号字](workbench/settings-1120-18.png) |
-| 其他分析配饰 | [PSF](previews/Huygens-PSF-live.png)、[波前](previews/Wavefront-Map-live.png)、[点列](previews/Spot-Diagram-live.png) |
+| 其他分析配饰 | [PSF](../isekai-paper-gaps/tabs/Huygens-PSF-live.png)、[波前](../isekai-paper-gaps/tabs/Wavefront-Map-live.png)、[点列](../isekai-paper-gaps/tabs/Spot-Diagram-live.png) |
 
 ## 验证
 
 默认Release App含内置模块与测试构建完成，[final-scoped-ink.trx](final-scoped-ink.trx) **10/10通过，零失败/跳过**。包括真实设置/关闭、原生页签与键盘、600×440窄窗、fit/100%、13/18号字和其他四主题往返；增强检查验证浅纸命令及图标对比度≥4.5、禁用文字与启用状态可区分、实际打开的原生深色菜单所有有字标签对比度≥4.5。
 
-4类Isekai原源图与羊皮纸本体阶段逐像素相同，均为1256×956含框；其他四主题8项PNG/report历史哈希一致。[12项核对结果](source-pixel-comparisons.json)沿用原历史基线，没有重新生成预期图来掩盖差异。
+4类Isekai原源图与羊皮纸本体阶段逐像素相同，均为1256×956含框；其他四主题8项PNG/report历史哈希一致。[12项核对结果](../isekai-folio-rails/source-pixel-comparisons.json)沿用原历史基线，没有重新生成预期图来掩盖差异。
 
 中间结果保留：manuscript-initial.trx与final-manuscript.trx各10项通过；增强实际菜单文本检查后final-ink-and-menu.trx有2项失败。随后收紧命令墨色选择器，并排除没有文字的菜单占位；所有真正有字标签的4.5对比度断言保留，最终10项全部通过。不同阶段不重复累加为通过率。本轮没有扩大到全仓或重新认证光学精度。
 

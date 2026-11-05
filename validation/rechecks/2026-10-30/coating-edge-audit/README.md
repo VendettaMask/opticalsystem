@@ -18,9 +18,9 @@
 
 最终只以 `comparison-verified/` 为准：
 
-- [八份冻结处方重算及三组可行区优化对照](comparison-verified/summary.json)。全部八份指纹/验收状态保持，六份窄带 FWHM 差为零；真实高反/窄带失败仍在。
-- [390 个实际 Core 输出及完整 n/k/膜厚](comparison-verified/core-cases.json)。八份处方源自前轮 `coating-general-fixes/final-runtime/`，追加强吸收和全反射，均有 S/P/非偏振。
-- [固定 tmmcore 逐点结果](comparison-verified/tmmcore-comparison.json)：最大差 R `6.328271240363392e-15`、T `7.549516567451064e-15`、A `6.106226635438361e-15`，原阈值 `2e-11` 保持。强吸收/全反射控制未去除，绝对 T 下溢时仍保存 Core 原始 log(T)。
+- [八份冻结处方重算及三组可行区优化对照](comparison/summary.json)。全部八份指纹/验收状态保持，六份窄带 FWHM 差为零；真实高反/窄带失败仍在。
+- [390 个实际 Core 输出及完整 n/k/膜厚](comparison/core-cases.json)。八份处方源自前轮 `coating-general-fixes/final-runtime/`，追加强吸收和全反射，均有 S/P/非偏振。
+- [固定 tmmcore 逐点结果](comparison/tmmcore-comparison.json)：最大差 R `6.328271240363392e-15`、T `7.549516567451064e-15`、A `6.106226635438361e-15`，原阈值 `2e-11` 保持。强吸收/全反射控制未去除，绝对 T 下溢时仍保存 Core 原始 log(T)。
 - 各份 `.coating.json` 可直接重开；三个 `feasible-*-general.coating.json` 是标明来源的合成控制，不是实测工艺或新默认示例。
 
 可行区对照的三次协议 4 都保持原膜厚，而协议 2 的最差反射率继续降低。所有六次仍通过同一 10% 目标。实际迭代/评价成本不同，不声称等价总成本或提速；详细数值与保留原因见产品报告。

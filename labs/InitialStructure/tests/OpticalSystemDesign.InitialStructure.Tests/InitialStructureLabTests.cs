@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Serialization;
@@ -183,14 +184,14 @@ public sealed class InitialStructureLabTests
             Assert.All(
                 restored.Candidates,
                 candidate => Assert.True(double.IsPositiveInfinity(candidate.Optic.Surfaces[0].Thickness)));
-            Assert.True(File.Exists(Path.Combine(
+            Assert.True(EvidenceFiles.Exists(Path.Combine(
                 Path.GetDirectoryName(path)!,
                 "candidates",
                 manifest.Candidates[0].CandidateId + ".json")));
         }
         finally
         {
-            if (Directory.Exists(root))
+            if (EvidenceFiles.DirectoryExists(root))
             {
                 Directory.Delete(root, recursive: true);
             }
@@ -217,7 +218,7 @@ public sealed class InitialStructureLabTests
         }
         finally
         {
-            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+            if (EvidenceFiles.DirectoryExists(root)) Directory.Delete(root, recursive: true);
         }
     }
 
@@ -248,7 +249,7 @@ public sealed class InitialStructureLabTests
         }
         finally
         {
-            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+            if (EvidenceFiles.DirectoryExists(root)) Directory.Delete(root, recursive: true);
         }
     }
 
@@ -264,12 +265,12 @@ public sealed class InitialStructureLabTests
             await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
                 new RunDirectoryStore().SaveAsync(manifest, root, cancellation.Token));
 
-            Assert.True(Directory.Exists(root));
+            Assert.True(EvidenceFiles.DirectoryExists(root));
             Assert.Empty(Directory.GetFileSystemEntries(root));
         }
         finally
         {
-            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+            if (EvidenceFiles.DirectoryExists(root)) Directory.Delete(root, recursive: true);
         }
     }
 
@@ -398,7 +399,7 @@ public sealed class InitialStructureLabTests
         }
         finally
         {
-            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+            if (EvidenceFiles.DirectoryExists(root)) Directory.Delete(root, recursive: true);
         }
     }
 
@@ -420,7 +421,7 @@ public sealed class InitialStructureLabTests
         }
         finally
         {
-            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+            if (EvidenceFiles.DirectoryExists(root)) Directory.Delete(root, recursive: true);
         }
     }
 
@@ -450,7 +451,7 @@ public sealed class InitialStructureLabTests
         }
         finally
         {
-            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+            if (EvidenceFiles.DirectoryExists(root)) Directory.Delete(root, recursive: true);
         }
     }
 
@@ -475,12 +476,12 @@ public sealed class InitialStructureLabTests
             await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
                 new CandidateExportService().ExportStarOptAsync(candidate, target, cancellation.Token));
 
-            Assert.Equal("existing project content", await File.ReadAllTextAsync(target));
-            Assert.Empty(Directory.EnumerateFiles(root, ".*.tmp"));
+            Assert.Equal("existing project content", await EvidenceFiles.ReadAllTextAsync(target));
+            Assert.Empty(EvidenceFiles.EnumerateFiles(root, ".*.tmp"));
         }
         finally
         {
-            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+            if (EvidenceFiles.DirectoryExists(root)) Directory.Delete(root, recursive: true);
         }
     }
 
@@ -580,9 +581,9 @@ public sealed class InitialStructureLabTests
     public void ProductIncludesInitialStructureWithoutMovingSearchIntoTheCore()
     {
         var repositoryRoot = FindRepositoryRoot();
-        var formalSolution = File.ReadAllText(Path.Combine(repositoryRoot, "OpticalSystemDesign.slnx"));
+        var formalSolution = EvidenceFiles.ReadAllText(Path.Combine(repositoryRoot, "OpticalSystemDesign.slnx"));
         Assert.Contains("InitialStructure", formalSolution, StringComparison.Ordinal);
-        Assert.Contains("InitialStructure.Engine", File.ReadAllText(Path.Combine(repositoryRoot,
+        Assert.Contains("InitialStructure.Engine", EvidenceFiles.ReadAllText(Path.Combine(repositoryRoot,
             "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj")), StringComparison.Ordinal);
 
         var formalProjects = new[]
@@ -592,7 +593,7 @@ public sealed class InitialStructureLabTests
         };
         foreach (var project in formalProjects)
         {
-            var contents = File.ReadAllText(Path.Combine(repositoryRoot, project));
+            var contents = EvidenceFiles.ReadAllText(Path.Combine(repositoryRoot, project));
             Assert.DoesNotContain("InitialStructure", contents, StringComparison.Ordinal);
         }
     }
@@ -601,11 +602,11 @@ public sealed class InitialStructureLabTests
     public void BuiltInModuleKeepsTheSharedCoreWorkflow()
     {
         var repositoryRoot = FindRepositoryRoot();
-        var mainWindow = string.Join("\n", Directory.GetFiles(Path.Combine(
+        var mainWindow = string.Join("\n", EvidenceFiles.GetFiles(Path.Combine(
             repositoryRoot,
             "src",
             "OpticalSystemDesign.App", "Laboratories", "InitialStructure"), "MainWindow*.cs").Select(File.ReadAllText));
-        var preview = File.ReadAllText(Path.Combine(
+        var preview = EvidenceFiles.ReadAllText(Path.Combine(
             repositoryRoot,
             "src",
             "OpticalSystemDesign.App", "Laboratories", "InitialStructure",
@@ -621,7 +622,7 @@ public sealed class InitialStructureLabTests
         Assert.Contains("CandidateExportService", mainWindow, StringComparison.Ordinal);
         Assert.Contains("TryGetLocalPath", mainWindow, StringComparison.Ordinal);
         Assert.Contains("InitialStructurePresentation.BuildScene", preview, StringComparison.Ordinal);
-        var presentation = File.ReadAllText(Path.Combine(repositoryRoot, "src", "OpticalSystemDesign.Modules", "InitialStructurePresentation.cs"));
+        var presentation = EvidenceFiles.ReadAllText(Path.Combine(repositoryRoot, "src", "OpticalSystemDesign.Modules", "InitialStructurePresentation.cs"));
         Assert.Contains("Layout2DBuilder", presentation, StringComparison.Ordinal);
         Assert.Contains("WorkbenchMapper.ToScene2Dto", presentation, StringComparison.Ordinal);
         Assert.DoesNotContain("OpticalSystemDesign.Core", preview, StringComparison.Ordinal);
@@ -651,13 +652,13 @@ public sealed class InitialStructureLabTests
         LoadFrozenBenchmarkSpecifications()
     {
         var repositoryRoot = FindRepositoryRoot();
-        return Directory.GetFiles(
+        return EvidenceFiles.GetFiles(
                 Path.Combine(repositoryRoot, "labs", "InitialStructure", "benchmarks", "specs"),
                 "*.json")
             .Order(StringComparer.Ordinal)
             .Select(path => (
                 Path.GetFileNameWithoutExtension(path),
-                JsonSerializer.Deserialize<InitialStructureSpecification>(File.ReadAllText(path))
+                JsonSerializer.Deserialize<InitialStructureSpecification>(EvidenceFiles.ReadAllText(path))
                     ?? throw new InvalidDataException($"Benchmark '{path}' deserialized to null.")))
             .ToArray();
     }
@@ -671,7 +672,7 @@ public sealed class InitialStructureLabTests
             "benchmarks",
             "accepted-baselines",
             "flat-to-usable-hybrid-v1.json");
-        using var document = JsonDocument.Parse(File.ReadAllText(path));
+        using var document = JsonDocument.Parse(EvidenceFiles.ReadAllText(path));
         return document.RootElement
             .GetProperty("Results")
             .EnumerateArray()
@@ -687,7 +688,7 @@ public sealed class InitialStructureLabTests
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
         while (directory is not null)
         {
-            if (File.Exists(Path.Combine(directory.FullName, "AGENTS.md")))
+            if (EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md")))
             {
                 return directory.FullName;
             }

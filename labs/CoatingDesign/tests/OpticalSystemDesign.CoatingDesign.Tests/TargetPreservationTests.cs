@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 
@@ -10,7 +11,7 @@ public sealed class TargetPreservationTests
     [InlineData("new-oblique-single")]
     public void CompletedPeakAndBlockingTargetsKeepTheirFeasibleShapeRestorationPath(string name)
     {
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/target-feasible-20261030.json")));
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/target-feasible-20261030.json")));
         var d = fixture.RootElement.GetProperty("Cases").EnumerateArray().Single(c => c.GetProperty("Name").GetString() == name).Deserialize<Experiment>(Experiment.JsonOptions)!;
         var service = new DesignService(); var before = service.Evaluate(d); var after = service.Optimize(d);
         AssertTargetsPreserved(before, after); Assert.True(after.Result!.Passed);
@@ -25,7 +26,7 @@ public sealed class TargetPreservationTests
     [InlineData("ir-absorbing-s")]
     public void OptimizingOneTargetCannotIncreaseAnotherTargetsExistingViolation(string name)
     {
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/coating-infeasible-20261030.json")));
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/coating-infeasible-20261030.json")));
         var input = fixture.RootElement.GetProperty("Cases").EnumerateArray().Single(c => c.GetProperty("Input").GetProperty("Name").GetString() == name)
             .GetProperty("Input").Deserialize<Experiment>(Experiment.JsonOptions)!;
         var service = new DesignService(); var before = service.Evaluate(input); var after = service.Optimize(input);
@@ -51,7 +52,7 @@ public sealed class TargetPreservationTests
     [Fact]
     public async Task InfeasibleReflectanceUsesSharedInequalityStepsWithoutIncreasingTheBudget()
     {
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/coating-infeasible-20261030.json")));
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/coating-infeasible-20261030.json")));
         var d = fixture.RootElement.GetProperty("Cases").EnumerateArray().Single(c => c.GetProperty("Input").GetProperty("Name").GetString() == "real-hr-original-target")
             .GetProperty("Input").Deserialize<Experiment>(Experiment.JsonOptions)!;
         d = d with { Settings = d.Settings with { MaximumIterations = 96 } };

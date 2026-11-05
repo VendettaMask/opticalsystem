@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Coatings;
@@ -10,7 +11,7 @@ public sealed class ThinFilmSubstrateTests
     [Fact]
     public void CompletePlateMatchesIndependentMixedCoherenceReferenceWithRealSubstrateLoss()
     {
-        using var json = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/incoherent-substrate-20261102.json")));
+        using var json = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/incoherent-substrate-20261102.json")));
         foreach (var sample in json.RootElement.GetProperty("cases").EnumerateArray())
         {
             static IMaterial Material(JsonElement n) => new ConstantIndexMaterial("independent physical input", n[0].GetDouble(), n[1].GetDouble());

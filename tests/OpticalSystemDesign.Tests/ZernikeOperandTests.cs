@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Numerics;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Services;
@@ -319,7 +320,7 @@ public sealed class ZernikeOperandTests
     [Fact]
     public void UnverifiedNativeRowsStayReadOnlyAndPreserveOriginalParameters()
     {
-        var text = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         var optic = OpticalFormatCatalog.Import(text + "\nZERN 4 1 1 2 1 0 0 .25 2 0 0\n", ".zmx");
         var row = optic.MeritFunctionOperands.Last(); Assert.True(row.CompatibilityOnly); Assert.False(row.Enabled);
         var copy = Optic.FromSnapshot(optic.ToSnapshot()).MeritFunctionOperands.Last();

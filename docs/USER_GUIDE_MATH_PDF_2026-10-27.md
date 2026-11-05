@@ -18,7 +18,7 @@
 - [测试结果](../validation/rechecks/2026-10-27/user-guide/math-pdf-complete.trx)、[76 项对应证据](../validation/rechecks/2026-10-27/user-guide/pdf-audit/coverage.json)。
 - [三语 PDF 文字与逐页渲染检查](../validation/rechecks/2026-10-27/user-guide/pdf-review/inspection.json)、[实际三种范围结果](../validation/rechecks/2026-10-27/user-guide/pdf-audit/all-scopes.json)。
 - [公式界面预览](../validation/rechecks/2026-10-27/user-guide/math-reader/guide-calculation.png)、[公式源及哈希](../src/OpticalSystemDesign.App/Assets/UserGuideMath/manifest.json)。
-- [冻结参考完整性](../validation/rechecks/2026-10-27/user-guide/math-frozen-integrity.json)。未运行全仓、未启动原生窗口或操作桌面，未提交、推送或发布安装包。
+- [冻结参考完整性](../validation/rechecks/2026-10-27/user-guide/frozen-integrity.json)。未运行全仓、未启动原生窗口或操作桌面，未提交、推送或发布安装包。
 - [导航复验](../validation/rechecks/2026-10-27/user-guide/math-navigation-fixed.trx)、[文档检查](../validation/rechecks/2026-10-27/user-guide/math-documentation-fixed.json)、[检查器18/18回归](../validation/rechecks/2026-10-27/user-guide/documentation-regressions.json)。
 
 PDF 正文可选择；Skia 的嵌入 CJK 字体存在同字形偏旁和中点字符的文本映射，提取检查按 Unicode 兼容规范化及相同字形别名核对标题。数学部分保留矢量轮廓，普通 PDF 文本提取不会将轮廓还原成 LaTeX；源公式在[数学附录](COMPUTATION_FORMULAS.md)提供。

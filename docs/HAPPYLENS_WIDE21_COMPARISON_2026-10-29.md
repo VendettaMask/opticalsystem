@@ -4,7 +4,7 @@
 
 ## 冻结任务与对照口径
 
-输入是[既有合格三片任务计划](../validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/task.topology-plan.json)，源文件SHA-256为`57f7f14bea9c3a19ef801f6850f583938f02b6692dc91d3fc95722b981e2376d`。目标焦距**25.4629451915 mm**、F数**3.3415938572**，轴上/14°/21°定义视场，486.1327/587.5618/656.2725 nm三波长，材料SK4/SK4/LAK09。使用默认第一删除顺序；本轮不是从此前最佳失败两片终点继续训练，因此不与该接续的55.926 µm结果混作同一起点对照。
+输入是[既有合格三片任务计划](../validation/rechecks/2026-10-29/happylens-wide21/runs/original-task.topology-plan.json)，源文件SHA-256为`57f7f14bea9c3a19ef801f6850f583938f02b6692dc91d3fc95722b981e2376d`。目标焦距**25.4629451915 mm**、F数**3.3415938572**，轴上/14°/21°定义视场，486.1327/587.5618/656.2725 nm三波长，材料SK4/SK4/LAK09。使用默认第一删除顺序；本轮不是从此前最佳失败两片终点继续训练，因此不与该接续的55.926 µm结果混作同一起点对照。
 
 两臂共同总上限为6次决策、600函数评价、100光线梯度、2,000,000实际追迹、60秒。每训练阶段400,000追迹、终验预约800,000，Local4/Full99、原v4策略、4×16训练瞳、原逐行保护及恢复配置均不变。最终仍取原35场、每场三波长共960条积分与99条独立中心/边界检查，64径向制造采样；焦距/F数±2%、RMS≤50 µm、最大半径≤150 µm、畸变≤3%、积分有效比例≥98%，独立检查无失光及原制造限制同时满足才达标。
 
@@ -61,4 +61,4 @@
 
 本轮暴露的具体问题是：现有Delano实体化后的有限预算一阶修正尚未把内部光阑F数恢复到原范围；小候选池的全界重生缺少足够的曲率/锥常数几何可行性保护。它们是下一步可针对的改进点，本轮没有修复、追加搜索或改变接受规则。单种子单轮失败不证明物理无解，也不能推广成普遍成功率结论。
 
-所有工作均为后台CPU、两处理器、低优先级，没有启动原生窗口或注入输入。仅执行两臂研究和上述定向回归；未重跑完整套件、跨平台实机或发布。[汇总](../validation/rechecks/2026-10-29/happylens-wide21/runs/summary.json)、[规格与账目核验](../validation/rechecks/2026-10-29/happylens-wide21/verification.json)、[原三片保留处方](../validation/rechecks/2026-10-29/happylens-wide21/runs/original/best-retained.staropt)、[新流程失败两片](../validation/rechecks/2026-10-29/happylens-wide21/runs/delano-population/trial-1-unqualified.staropt)。
+所有工作均为后台CPU、两处理器、低优先级，没有启动原生窗口或注入输入。仅执行两臂研究和上述定向回归；未重跑完整套件、跨平台实机或发布。[汇总](../validation/rechecks/2026-10-29/happylens-wide21/runs/summary.json)、[规格与账目核验](../validation/rechecks/2026-10-29/happylens-wide21/verification.json)、[原三片保留处方](../validation/rechecks/2026-10-29/happylens-wide21/runs/original/best-retained.staropt)、[新流程失败两片](../validation/rechecks/2026-10-29/happylens-wide21/runs/original/trial-0-unqualified.staropt)。

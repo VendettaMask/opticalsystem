@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
@@ -16,7 +17,7 @@ public sealed class Gradient9MaterialTests
     [InlineData("gradient9-return-native-v1.json")]
     public void ImportedExampleMatchesFrozenAuthoritativeNativeStates(string fixture)
     {
-        using var data=JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures",fixture)));
+        using var data=JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures",fixture)));
         var optic=OpticalFormatCatalog.Import(data.RootElement.GetProperty("source").GetString()!,".zmx");
         var nonAuthority=0;
         foreach(var row in data.RootElement.GetProperty("rows").EnumerateArray())

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
@@ -67,7 +68,7 @@ public static class ReportWriter
             foreach (var n in r.Normalizations) md.AppendLine("- " + n);
             if (r.Metrics.Count > 0) md.AppendLine("\n```json\n" + System.Text.Json.JsonSerializer.Serialize(r.Metrics, JsonFiles.Options) + "\n```\n");
             var path = Path.Combine(directory, "comparisons", r.Directory);
-            if (Directory.Exists(path)) foreach (var png in Directory.EnumerateFiles(path, "*.png").Order())
+            if (EvidenceFiles.DirectoryExists(path)) foreach (var png in EvidenceFiles.EnumerateFiles(path, "*.png").Order())
                 md.AppendLine($"![{Path.GetFileNameWithoutExtension(png)}](comparisons/{r.Directory}/{Path.GetFileName(png)})\n");
         }
         md.AppendLine(zh

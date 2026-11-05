@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
@@ -59,7 +60,7 @@ public sealed class IncidentAngleVsImageHeightParityTests
     private static Optic LoadFixture(string fileName)
     {
         var path = Path.Combine(AppContext.BaseDirectory, "Fixtures", fileName);
-        return OpticalFormatCatalog.Import(File.ReadAllText(path), ".zmx");
+        return OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(path), ".zmx");
     }
 
     private static void AssertSeriesPoint(

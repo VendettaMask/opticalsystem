@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Differentiation;
@@ -104,7 +105,7 @@ public sealed class WideFieldGateRepairTests
 
     private static async Task<(AutonomousSearchCheckpoint State, CompiledTopology Source, BoundTopologyParameters Binding)> Fixture()
     {
-        var directory = new DirectoryInfo(AppContext.BaseDirectory); while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
+        var directory = new DirectoryInfo(AppContext.BaseDirectory); while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
         var state = await new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(directory!.FullName, "validation/rechecks/2026-10-27/topology-integrated-compensation/paired-runs/repr-new-wide4-3-42-C-axial/run.autonomous.json"));
         var endpoint = state.Candidates.OrderBy(candidate => candidate.Score).First();
         var source = TopologyCompiler.Compile(endpoint.Topology, state.Plan.Constraints);

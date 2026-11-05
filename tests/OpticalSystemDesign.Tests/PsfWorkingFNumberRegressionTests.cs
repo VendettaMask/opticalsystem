@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
@@ -180,5 +181,5 @@ public sealed class PsfWorkingFNumberRegressionTests
     }
 
     private static Optic Import(string name) => OpticalFormatCatalog.Import(
-        File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", name)), ".zmx");
+        EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", name)), ".zmx");
 }

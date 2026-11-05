@@ -64,6 +64,21 @@ $unmapped = Join-Path $fixture 'validation/sample/unmapped.bin'
 [IO.File]::WriteAllBytes($unmapped, $bytes)
 Reject 'New unregistered content duplicate rejected' { Test-EvidenceAliasPlan (Get-EvidenceAliasPlan $fixture) }
 Remove-Item -LiteralPath $unmapped
+$project = Join-Path $fixture 'fixture.csproj'
+[IO.File]::WriteAllText($project, '<Project><ItemGroup><None Include="validation/sample/captures/**/*" Link="Fixtures/project/%(RecursiveDir)%(Filename)%(Extension)" /></ItemGroup></Project>')
+$projectView = Join-Path $output 'project-view'
+$restored = Restore-EvidenceAliasPlan (Get-EvidenceAliasPlan $fixture -MetadataOnly) $projectView -AsFixtures -Project $project
+Require ($restored.materializedFiles -eq 1) 'Project mapping did not restore the logical alias'
+Require ((Get-FileHash -LiteralPath (Join-Path $projectView 'Fixtures/project/b.bin')).Hash.ToLowerInvariant() -ceq $hash) 'Project fixture bytes changed'
+$results.Add(@{name='Project fixture mapping restores only needed aliases';passed=$true})
+$selected = Join-Path $output 'selected-view'
+$restored = Restore-EvidenceAliasPlan (Get-EvidenceAliasPlan $fixture) $selected -SelectionPrefix 'validation/sample/captures'
+Require ($restored.materializedFiles -eq 2) 'Scoped historical view included unrelated entries'
+$results.Add(@{name='Scoped historical view retains the selected logical roles';passed=$true})
+Reject 'Historical selection traversal rejected' { Restore-EvidenceAliasPlan (Get-EvidenceAliasPlan $fixture) (Join-Path $output 'invalid-prefix') -SelectionPrefix '../escape' }
+[IO.File]::WriteAllBytes($canonical, [byte[]]@(1, 10, 13, 255, 42))
+Reject 'Deferred fixture materialization still verifies raw hashes' { Restore-EvidenceAliasPlan (Get-EvidenceAliasPlan $fixture -MetadataOnly) (Join-Path $output 'corrupt-project') -AsFixtures -Project $project }
+[IO.File]::WriteAllBytes($canonical, $bytes)
 $report = [ordered]@{passed=$results.Count;failed=0;opticalTests=$false;cases=$results.ToArray()}
 $report | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $output 'results.json') -Encoding utf8
 [pscustomobject]@{passed=$results.Count;failed=0} | ConvertTo-Json

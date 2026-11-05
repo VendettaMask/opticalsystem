@@ -61,7 +61,7 @@ dotnet run --project tools/previews/FuiThemePreview/FuiThemePreview.csproj -c Re
 
 各主题共用 Optical Scientific Outline 1.3 的功能语义与网格；普通/黑洞/像素保持基础图形，光域与异世界各有221款独立主题SVG。光域使用钢铁侠式科技 HUD，异世界属于剑与魔法，古典炼金器具是其中的功能语汇。图形来源与当前目录见[本地图标说明](LOCAL_ICONS.md)。普通亮模式采用确认的玻璃工作台：窗口级浅蓝渐变及反光顶栏、白色编辑区、半透明玻璃侧栏分组（圆角 6、间距 6、细亮边与浅阴影），选中文档页签白底蓝字，蓝色选中边从下沿移至右侧（2 DIP），保留原生模板与圆角。原连续白底内收分隔线已移除，嵌套视场/波长卡片恢复完整细轮廓；暗夜主题保留自己的 Chrome。`BlueThemeTokens` 集中底色与比例，`LightGlassMaterial` 集中不可变的玻璃反光、透明面及亮边，`LightTheme` 映射 Fluent/Dock 实际资源及当前布局资源，`BlueThemeStyles` 修复原模板的组合状态、焦点及禁用优先级；业务面板不判断主题名。顶部 Ribbon 仍为紧凑分类页签与横向工具栏，各主题共用最小高度 72、命令最小尺寸 56×36、18 DIP 图标、6 DIP 图文间距和 22 DIP 居中短分隔线。Light 标题与工具栏共用 `WorkbenchBackdrop` 的窗口级蓝色渐变，材质反光在原背景层叠加，工具页保持透明；状态栏使用 `StatusBarBackground`，其他主题回落到自身 Surface/SubtleSurface；背景渐变为不可变资源，避免跨界面线程共享可变画刷。布局细节见 [UI 规范](UI_DESIGN_SPEC.md)，历史记录见 [主题报告](BLUE_THEME_2026-09-27.md)。
 
-异世界采用旧铜/浅金/灰绿的魔导器具风格，像素保留原科学轮廓及海军蓝/红/绿角色色。异世界的旧金 Chrome 与装饰层、像素主题的中文像素字体及方角色板保持独立；像素字仍由 OFL 授权的 `Fusion Pixel 10px Mono zh_hans` 提供。旧 GameIconsFantasy/FarmFresh32 目录属于历史来源，当前运行图标以注册表和[本地图标说明](LOCAL_ICONS.md)为准；不改变命令 ID、文案或布局。
+异世界采用旧铜/浅金/灰绿的魔导器具风格，像素保留原科学轮廓及海军蓝/红/绿角色色。异世界的旧金 Chrome 与装饰层、像素主题的中文像素字体及方角色板保持独立；像素字仍由 OFL 授权的 `Fusion Pixel 10px Mono zh_hans` 提供。旧 GameIconsFantasy/FarmFresh32 图标目录和实现已删除，仅保留历史来源许可；当前运行图标以注册表和[本地图标说明](LOCAL_ICONS.md)为准；不改变命令 ID、文案或布局。
 
 异世界绘图材质通过注册表的可选`DrawingMaterial`接入。用户随后否决网上质感、正式金属画框及过于整齐的卷边，现行采用自有生成的中世纪磨毛图纸：粗纤维、自然毛边/缺口、压痕和旧折痕，恢复先前生成的压纹棕皮，暖象牙/棕/旧金配色保持。`IsekaiCraftsmanship`缓存完整羊皮图纸、缝线皮革/软纸四状态底板及原花叶/小配饰；材质alpha定义28 DIP外沿，取消原生整齐矩形描边和连续珠边。纸面纹理按比例裁切，不能把整页纹理压成图签里的横向条纹。正式雕金框、网络皮革及其来源文件保留历史，不再嵌入/加载；整齐卷边候选也未嵌入。金色留作小配饰，不为不同分析创建不同色系。功能图标继续独立SVG，配饰只使用类型元数据与实测留白。提示词、来源、哈希及透明边界见[当前素材规范](../src/OpticalSystemDesign.App/Assets/Themes/Isekai/README.md)。
 
@@ -110,7 +110,7 @@ Ribbon 下沿通过 `ThemeChromeRole.Ribbon` 提供主题圆角，Light/Dark 为
 - 普通、黑洞暗夜和像素采用基础图形，分别使用蓝青、暖灰橙砂金、海军蓝红绿角色色；像素字体及方角 Chrome 保持。
 - 光域使用独立 Lumen 图稿：枪灰钢色结构、冰蓝青光、切角面板、分段仪表环和精密刻线。局部钢色渐变、信号边光及高亮限于图标，禁用/强调单色状态关闭材质；不在界面中增加假读数或假进度。
 - 异世界使用独立 Isekai 图稿：以剑与魔法为世界观，魔导书表示指南，卷轴表示报告，账册羽笔表示编辑，法阵和符文刻线表现光瞳/波前等对象。古典炼金器具是这个世界中的专业器具，使用旧铜、浅金、灰绿角色色。各功能保持自己的识别特征，不能只给通用图换色或套相同徽章。
-- `StandardLucide`、`GameIconsFantasy` 与 `FarmFresh32` 已不作为活动功能图标包；原资源的来源、作者与许可证继续保留，不能转移为新原创稿的署名。
+- `StandardLucide`、`GameIconsFantasy` 与 `FarmFresh32` 的旧实现、JSON/PNG和导入器已按用户决定删除；历史来源许可保留在`third_party/retired-icons`，不再嵌入或随包复制。现行科学SVG的Lucide ISC来源继续分发，不能转移为原创稿署名。
 - 未知语义统一回退到 `circle-question-mark`，不得显示空白；主题切换使现有图标重绘，不要求重启。
 
 像素字体固定使用 Fusion Pixel Font `2026.07.20` 的 `fusion-pixel-font-10px-monospaced-ttf` 发布包，下载包 SHA256 为 `3d2719a7720d405167b494b7fa1c8e721bfbda59183cccc696ef5d43b0be5945`。应用内嵌 `zh_hans` 矢量 TTF，并以完整文件 URI 限定资源集合，防止新增普通主题字体进入像素字形的候选集合；用户显式选择显示字体时仍以用户设置优先。字体许可副本为 `Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt`。普通主题的内嵌字体及数值角色见[字体方案](TYPOGRAPHY.md)。

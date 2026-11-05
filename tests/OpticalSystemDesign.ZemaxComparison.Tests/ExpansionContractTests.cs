@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.ZemaxComparison;
 using OpticalSystemDesign.ZemaxComparison.Reporting;
@@ -19,7 +20,7 @@ public sealed class ExpansionContractTests
             var values = new OpticalSystemDesign.ZemaxComparison.Metrics.MatchedValues([0, 1], null, [0, 1], [0, 1], 1);
             ReportWriter.Values(Path.Combine(directory, slug + "-values.csv"), values);
             PlotWriter.Curves(directory, slug, values, "Pupil", "Phase sine");
-            var files = Directory.GetFiles(directory).Select(Path.GetFileName).ToArray();
+            var files = EvidenceFiles.GetFiles(directory).Select(Path.GetFileName).ToArray();
             Assert.Contains(slug + "-values.csv", files);
             Assert.Contains(files, f => f!.EndsWith(".png", StringComparison.Ordinal));
             Assert.All(files, f => Assert.True(new FileInfo(Path.Combine(directory, f!)).Length > 0));
@@ -59,13 +60,13 @@ public sealed class ExpansionContractTests
     public void NativeFixtureManifestDetectsAnyAlteredCapture()
     {
         var root = Path.Combine(AppContext.BaseDirectory, "Fixtures", "analysis-expansion");
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "manifest.json")));
-        Assert.Equal(manifest.RootElement.GetProperty("sourceSha256").GetString(), JsonFiles.Hash(File.ReadAllBytes(Path.Combine(root, "source.ZMX"))));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root, "manifest.json")));
+        Assert.Equal(manifest.RootElement.GetProperty("sourceSha256").GetString(), JsonFiles.Hash(EvidenceFiles.ReadAllBytes(Path.Combine(root, "source.ZMX"))));
         foreach (var item in manifest.RootElement.GetProperty("files").EnumerateArray())
         {
             var path = Path.GetFullPath(Path.Combine(root, item.GetProperty("path").GetString()!));
             Assert.StartsWith(Path.GetFullPath(root) + Path.DirectorySeparatorChar, path);
-            Assert.Equal(item.GetProperty("sha256").GetString(), JsonFiles.Hash(File.ReadAllBytes(path)));
+            Assert.Equal(item.GetProperty("sha256").GetString(), JsonFiles.Hash(EvidenceFiles.ReadAllBytes(path)));
         }
     }
 }

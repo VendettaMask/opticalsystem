@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Services;
@@ -167,7 +168,7 @@ public sealed class FieldModificationOperandTests
         var saved = Assert.Single(app.Optimization.GetMeritFunction());
         Assert.False(saved.CompatibilityOnly);
         if (code == "FDMO") { Assert.Equal(.35, saved.ZemaxData5); Assert.Equal(-.25, saved.ZemaxData6); }
-        var text = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         var imported = OpticalFormatCatalog.Import(text + $"\n{code} 2 0 .25 .5 .1 -.15 0 1 0 0 .2 .3\n", ".zmx");
         var native = imported.MeritFunctionOperands.Last();
         Assert.True(native.CompatibilityOnly); Assert.False(native.Enabled);

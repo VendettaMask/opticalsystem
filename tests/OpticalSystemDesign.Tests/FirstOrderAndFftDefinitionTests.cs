@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Numerics;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -135,5 +136,5 @@ public sealed class FirstOrderAndFftDefinitionTests
         }
     }
 
-    private static Optic Toroid()=>OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","reference-closure","Toroid.zmx")),".zmx");
+    private static Optic Toroid()=>OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","reference-closure","Toroid.zmx")),".zmx");
 }

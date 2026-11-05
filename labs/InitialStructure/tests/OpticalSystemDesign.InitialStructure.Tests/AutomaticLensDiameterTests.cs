@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
@@ -100,7 +101,7 @@ public sealed class AutomaticLensDiameterTests
             var restored = await StarOptProjectStore.LoadAsync(path);
             Assert.Equal(candidate.OpticFingerprint, ContentFingerprint.Compute(restored.Configurations[0].ToSnapshot()));
         }
-        finally { if (File.Exists(path)) File.Delete(path); }
+        finally { if (EvidenceFiles.Exists(path)) File.Delete(path); }
     }
 
     private static InitialStructureSpecification Specification() => new()

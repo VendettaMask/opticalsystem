@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
@@ -14,7 +15,7 @@ public sealed class OffAxisCollimationReferenceTests
     public void CompleteOffAxisOpdFansMatchIndependentConjugatePhaseControls(int wave, int mode)
     {
         var optic = Example();
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,
             "Fixtures", "perfect-collimation-opd-native-v1.json")));
         var reference = fixture.RootElement.GetProperty("cases").EnumerateArray().Single(c =>
             c.GetProperty("wave").GetInt32() == wave && c.GetProperty("nativeMode").GetInt32() == mode);
@@ -59,6 +60,6 @@ public sealed class OffAxisCollimationReferenceTests
         }
     }
 
-    private static Optic Example() => OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,
+    private static Optic Example() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,
         "Fixtures", "definition-settings", "example2.zmx")), ".zmx");
 }

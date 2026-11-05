@@ -23,7 +23,7 @@
 
 ## 预览与边界
 
-[双面编辑与整片曲线](previews/coating-duplex-spectrum-Light.png)、[暗色双面](previews/coating-duplex-Dark.png)、[最小窗口](previews/ar-820-640.png)、[原大字号层表](previews/layers-Light-820-18.png)。每个视图保留一份当前输出，解析控制的示意处方不是新的真实材料优化成功率。
+[双面编辑与整片曲线](previews/coating-duplex-spectrum-Dark.png)、[暗色双面](previews/coating-duplex-Dark.png)、[最小窗口](previews/ar-820-640.png)、[原大字号层表](previews/layers-Light-820-18.png)。每个视图保留一份当前输出，解析控制的示意处方不是新的真实材料优化成功率。
 
 测试使用独立临时设置与后台离屏窗口，真实指针/键盘事件在离屏宿主中派发。新旧保存、完整指纹、固定层、对称独立变量、制造相关性、逐项保护和原数值/像素/PNG/停靠断言保持。未进行用户前台操作、原生多屏/macOS交互、全仓测试、安装发布或远端同步；不以此宣称原真实材料高反/窄带所有目标已达标。
 

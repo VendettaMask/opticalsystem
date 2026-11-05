@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
@@ -28,7 +29,7 @@ public sealed class SeidelReportPresentationTests
     [Fact]
     public async Task FullReportReachesTheDesktopAndRemainsScrollableAndSelectable()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(
             AppContext.BaseDirectory, "Fixtures", "zemax-ms-l7-high-na.ZMX")), ".zmx");
         var raw = new WorkbenchRuntime(optic).BuildAnalysisView("Seidel Coefficients",
             new Dictionary<string, string> { ["WavelengthNumber"] = "2" });

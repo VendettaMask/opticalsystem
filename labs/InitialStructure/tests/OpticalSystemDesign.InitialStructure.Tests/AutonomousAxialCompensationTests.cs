@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -126,7 +127,7 @@ public sealed class AutonomousAxialCompensationTests
         return old.Plan with { Options = old.Plan.Options with { FixedTopologyOnly = true, MaximumTrials = 1, AxialCompensation = new() { ElementIds = ["element-002"] }, Local = stage with { ActiveParameterLimit = 2 }, Full = stage } };
     }
     private static async Task<AutonomousSearchCheckpoint> Recorded() => await new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/topology-transmission-priority/active-set-runs/repr-qualified4-wide21-42-C-both/run.autonomous.json"));
-    private static string Root() { var directory = new DirectoryInfo(AppContext.BaseDirectory); while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent; return directory!.FullName; }
+    private static string Root() { var directory = new DirectoryInfo(AppContext.BaseDirectory); while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent; return directory!.FullName; }
     private static string? EvidenceDirectory() => Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_AXIAL_INTEGRATION_EVIDENCE");
     private static void Evidence(string name, object value) { if (EvidenceDirectory() is not { } directory) return; Directory.CreateDirectory(directory); File.WriteAllText(Path.Combine(directory, name + ".json"), JsonSerializer.Serialize(value, Json)); }
     private static void AssertLedger(AutonomousSearchCheckpoint state)

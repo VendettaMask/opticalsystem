@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Core;
@@ -23,8 +24,8 @@ public sealed class BuiltInModuleDeliveryTests
     public void RootSolutionAndMainBuildIncludeEveryModule()
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
-        var solution = File.ReadAllText(Path.Combine(root, "OpticalSystemDesign.slnx"));
-        var project = File.ReadAllText(Path.Combine(root, "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj"));
+        var solution = EvidenceFiles.ReadAllText(Path.Combine(root, "OpticalSystemDesign.slnx"));
+        var project = EvidenceFiles.ReadAllText(Path.Combine(root, "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj"));
         foreach (var module in new[] { "InitialStructure.Engine", "InitialStructure.Persistence", "CoatingDesign.Engine" })
         {
             Assert.Contains("OpticalSystemDesign." + module, solution);
@@ -40,9 +41,9 @@ public sealed class BuiltInModuleDeliveryTests
     public void IndependentApplicationsAndExternalLaunchersAreRetired(string module)
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
-        Assert.False(File.Exists(Path.Combine(root, "labs", module, "src",
+        Assert.False(EvidenceFiles.Exists(Path.Combine(root, "labs", module, "src",
             "OpticalSystemDesign." + module + ".App", "OpticalSystemDesign." + module + ".App.csproj")));
-        Assert.False(File.Exists(Path.Combine(root, "src/OpticalSystemDesign.App/Services", module + "LabLauncher.cs")));
+        Assert.False(EvidenceFiles.Exists(Path.Combine(root, "src/OpticalSystemDesign.App/Services", module + "LabLauncher.cs")));
         Assert.DoesNotContain(typeof(MainWindow).Assembly.GetReferencedAssemblies(),
             reference => reference.Name == "OpticalSystemDesign." + module + ".App");
     }
@@ -51,11 +52,11 @@ public sealed class BuiltInModuleDeliveryTests
     public void PublishRejectsMissingModulesAndIncludesTheirNotices()
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
-        var publish = File.ReadAllText(Path.Combine(root, "scripts/publish-windows.ps1"));
+        var publish = EvidenceFiles.ReadAllText(Path.Combine(root, "scripts/publish-windows.ps1"));
         foreach (var library in ProductModules.Verify().Libraries) Assert.Contains(library + ".dll", publish);
         foreach (var notice in new[] { "TFStudio-LICENSE.txt", "tmmcore-LICENSE.txt", "MATERIAL-NOTICE.txt", "AutoLens-LICENSE.txt", "AutoLens-NOTICE.txt", "ILGPU-LICENSE.txt", "ILGPU-THIRD-PARTY-LICENSE.txt", "ILGPU-NOTICE.txt", "ILGPU-ALGORITHMS-LICENSE.txt", "ILGPU-ALGORITHMS-THIRD-PARTY-LICENSE.txt" })
             Assert.Contains(notice, publish);
-        var installer = File.ReadAllText(Path.Combine(root, "packaging/windows/OpticalSystemDesign.iss"));
+        var installer = EvidenceFiles.ReadAllText(Path.Combine(root, "packaging/windows/OpticalSystemDesign.iss"));
         Assert.DoesNotContain("[Components]", installer, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -64,13 +65,13 @@ public sealed class BuiltInModuleDeliveryTests
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
         foreach (var name in new[] { "AutoLens-LICENSE.txt", "AutoLens-NOTICE.txt" })
-            Assert.Equal(File.ReadAllBytes(Path.Combine(root, "third_party/autolens", name)),
-                File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Licenses", name)));
+            Assert.Equal(EvidenceFiles.ReadAllBytes(Path.Combine(root, "third_party/autolens", name)),
+                EvidenceFiles.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Licenses", name)));
         foreach (var name in new[] { "ILGPU-LICENSE.txt", "ILGPU-THIRD-PARTY-LICENSE.txt", "ILGPU-NOTICE.txt", "ILGPU-ALGORITHMS-LICENSE.txt", "ILGPU-ALGORITHMS-THIRD-PARTY-LICENSE.txt" })
-            Assert.Equal(File.ReadAllBytes(Path.Combine(root, "third_party/ilgpu", name)),
-                File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Licenses", name)));
-        Assert.True(File.Exists(Path.Combine(AppContext.BaseDirectory, "ILGPU.dll")));
-        Assert.True(File.Exists(Path.Combine(AppContext.BaseDirectory, "ILGPU.Algorithms.dll")));
+            Assert.Equal(EvidenceFiles.ReadAllBytes(Path.Combine(root, "third_party/ilgpu", name)),
+                EvidenceFiles.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Licenses", name)));
+        Assert.True(EvidenceFiles.Exists(Path.Combine(AppContext.BaseDirectory, "ILGPU.dll")));
+        Assert.True(EvidenceFiles.Exists(Path.Combine(AppContext.BaseDirectory, "ILGPU.Algorithms.dll")));
         var references = typeof(OpticalSystemDesign.InitialStructure.Engine.FlatStartSearchService).Assembly.GetReferencedAssemblies();
         Assert.DoesNotContain(references, reference => reference.Name!.Contains("Python", StringComparison.OrdinalIgnoreCase)
             || reference.Name.Contains("Torch", StringComparison.OrdinalIgnoreCase));

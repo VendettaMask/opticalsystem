@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.ZemaxComparison;
@@ -23,7 +24,7 @@ public sealed class DenseCircularEnergyTests
         var root = Path.Combine(AppContext.BaseDirectory, "Fixtures/dense-energy");
         var files = JsonFiles.Read<JsonElement>(Path.Combine(root, "manifest.json"));
         foreach (var file in files.EnumerateArray().Where(f => f.GetProperty("path").GetString()!.StartsWith(id + "/", StringComparison.Ordinal)))
-            Assert.Equal(file.GetProperty("sha256").GetString(), JsonFiles.Hash(File.ReadAllBytes(Path.Combine(root, file.GetProperty("path").GetString()!))));
+            Assert.Equal(file.GetProperty("sha256").GetString(), JsonFiles.Hash(EvidenceFiles.ReadAllBytes(Path.Combine(root, file.GetProperty("path").GetString()!))));
         var request = JsonFiles.Read<CanonicalAnalysisRequest>(Path.Combine(root, id, "request.json"));
         var optic = (await WorkbenchExecutor.Import(Path.Combine(root, id, "source.zmx"))).Configurations[0];
         var data = new WorkbenchRuntime(optic).BuildAnalysisData(request.CanonicalAnalysisKey, request.WorkbenchSettings);

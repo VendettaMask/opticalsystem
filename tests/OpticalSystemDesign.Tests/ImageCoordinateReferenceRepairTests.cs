@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Reflection;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
@@ -298,7 +299,7 @@ public sealed class ImageCoordinateReferenceRepairTests
             Config(mode: "Geometric", size: 64, rays: 95, columns: 4, wavelengths: [.55, .65]));
     }
 
-    private static Optic Primary() => OpticalFormatCatalog.Import(File.ReadAllText(
+    private static Optic Primary() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(
         Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
 
     private static Optic Cone()

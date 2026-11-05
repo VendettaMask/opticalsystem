@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -16,7 +17,7 @@ public sealed class WideSchmidtNativeRepairTests
         get
         {
             var dir = new DirectoryInfo(AppContext.BaseDirectory);
-            while (dir is not null && !File.Exists(Path.Combine(dir.FullName, "OpticalSystemDesign.slnx"))) dir = dir.Parent;
+            while (dir is not null && !EvidenceFiles.Exists(Path.Combine(dir.FullName, "OpticalSystemDesign.slnx"))) dir = dir.Parent;
             return dir?.FullName ?? throw new DirectoryNotFoundException("Repository root required.");
         }
     }
@@ -25,7 +26,7 @@ public sealed class WideSchmidtNativeRepairTests
 
     public static IEnumerable<object[]> Cases()
     {
-        using var cases = JsonDocument.Parse(File.ReadAllText(Path.Combine(Fixtures, "cases.json")));
+        using var cases = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Fixtures, "cases.json")));
         foreach (var item in cases.RootElement.GetProperty("cases").EnumerateArray())
             yield return [item.GetProperty("id").GetString()!, item.GetProperty("lens").GetString()!, item.GetProperty("sourceSha256").GetString()!];
     }
@@ -38,7 +39,7 @@ public sealed class WideSchmidtNativeRepairTests
         Assert.Equal(sourceSha256, Hash(source));
         var folder = Path.Combine(Fixtures, id);
         var request = JsonFiles.Read<CanonicalAnalysisRequest>(Path.Combine(folder, "request.json"));
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(source), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
         var data = new WorkbenchRuntime(optic).BuildAnalysisData(request.CanonicalAnalysisKey, request.WorkbenchSettings);
         var output = Path.Combine(Path.GetTempPath(), "wide-schmidt-native-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(output);
@@ -59,7 +60,7 @@ public sealed class WideSchmidtNativeRepairTests
     [Fact]
     public void ConicGaussianPupilContinuationPreservesThePreviouslyPassingGregorianRms()
     {
-        using var guard = JsonDocument.Parse(File.ReadAllText(Path.Combine(Fixtures, "gregorian-rms-guard/source.json")));
+        using var guard = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Fixtures, "gregorian-rms-guard/source.json")));
         All29PreviouslyPassingRequestsPassTheirUnchangedNativePolicy("gregorian-rms-guard",
             guard.RootElement.GetProperty("lens").GetString()!, guard.RootElement.GetProperty("sourceSha256").GetString()!);
     }
@@ -68,9 +69,9 @@ public sealed class WideSchmidtNativeRepairTests
     public void SchmidtAnalyticAsphereNormalsAndAllFourImageMarginalsMatchIndependentNativeRays()
     {
         var source = Path.Combine(Root, "src/OpticalSystemDesign.App/Assets/SequentialExamples/Telescopes/Flat-field Schmidt.zmx");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(source), ".zmx");
-        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(Fixtures, "schmidt-marginals/ray-audit.json")));
-        using var bits = JsonDocument.Parse(File.ReadAllText(Path.Combine(Fixtures, "schmidt-marginals/ray-audit.json.bits.json")));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+        using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Fixtures, "schmidt-marginals/ray-audit.json")));
+        using var bits = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Fixtures, "schmidt-marginals/ray-audit.json.bits.json")));
         var surfaces = native.RootElement.GetProperty("surfaces");
         var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(0, 0, optic.Wavelengths[1].Micrometers,
             new PupilSample[] { new(0, 1, 1), new(0, -1, 1), new(1, 0, 1), new(-1, 0, 1) }, aimAtStop: false);
@@ -102,7 +103,7 @@ public sealed class WideSchmidtNativeRepairTests
         Assert.Equal(15, cases.Count(c => ((string)c[1]).Contains("200 degree")));
         Assert.Equal(13, cases.Count(c => ((string)c[1]).Contains("210 degree")));
         Assert.Single(cases, c => ((string)c[1]).Contains("Schmidt"));
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(Fixtures, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Fixtures, "manifest.json")));
         foreach (var file in manifest.RootElement.GetProperty("files").EnumerateArray())
         {
             var path = Path.GetFullPath(Path.Combine(Fixtures, file.GetProperty("path").GetString()!));
@@ -111,5 +112,5 @@ public sealed class WideSchmidtNativeRepairTests
             Assert.Equal(file.GetProperty("sha256").GetString(), Hash(path));
         }
     }
-    private static string Hash(string path) => Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path)));
+    private static string Hash(string path) => Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(path)));
 }

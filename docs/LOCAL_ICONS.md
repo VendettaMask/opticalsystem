@@ -12,8 +12,8 @@
 
 仓库文件：
 
-- `Assets/Icons/lucide-icon-nodes.json`：完整节点目录；
-- `Assets/Icons/lucide-package.json`：固定上游元数据；
+- `scripts/data/lucide-icon-nodes.json`：仅离线重建备用SVG的节点输入，不嵌入产品；
+- `scripts/data/lucide-package.json`：固定上游元数据；
 - `Assets/Icons/LUCIDE-LICENSE.txt`：ISC 许可和 Feather 署名；
 - `Assets/Icons/Scientific/Approved/*.svg`：25 个确认的原创稿；
 - `Assets/Icons/Scientific/Designed/*.svg`：196 个按实际功能新绘的专用稿；
@@ -83,10 +83,6 @@ SVG 随标准 App 内嵌发布。解析器保留角色、组透明度和虚线�
 
 新功能专用稿在 `semantic_icon_designs.py` 中定义并输出到 `Scientific/Designed`，写明实际含义、保持角色类名及 32×32 坐标；`Approved` 保留已有确认稿，不把新稿冒称已确认。新增图元必须同步原生解析验证。备用通用稿使用 `python scripts/build-scientific-icons.py` 从固定节点目录重建；脚本正确处理 SVG 弧线的紧凑标志位，统一坐标和角色，不访问网络，不修改专用路径。
 
-以下 Game-icons 和 Farm-Fresh 文件保留原来源、许可与历史验证，已不再注册为活动功能图标包；不能将它们的署名转移到新原创稿。
+按用户2026-11-05决定，旧`StandardLucide`、Game-icons与Farm-Fresh运行实现已退役；删除旧JSON/PNG、导入脚本、嵌入项及仅验证旧包的测试。`LocalIconLibrary`直接查询现行科学SVG目录，未知名称仍使用同风格问号；现用221款及五主题图形保持。
 
-`Assets/Icons/game-icons-isekai.json` 记录每个语义的上游作者目录、SVG 文件、路径数据及固定提交号；`scripts/import-game-icons.ps1` 可从官方仓库重新导入。资源按 CC BY 3.0 分发，完整署名和许可位于 `Assets/Icons/GAME-ICONS-LICENSE.txt`。
-
-2026-08-30 语义复核后，网格、列表树、画中画分别使用 `divided-square.svg`、`checkbox-tree.svg`、`window.svg`；搜索、放大、缩小分别使用 `magnifying-glass.svg`、`expand.svg`、`contract.svg`；新建文件与文字输入分别使用 `scroll-quill.svg`、`quill-ink.svg`；包搜索与扫描搜索分别使用 `archive-research.svg`、`radar-sweep.svg`。这些易混淆操作必须保持不同上游来源，相关契约测试同时验证来源和实际渲染。
-
-更新上游目录必须使用明确固定版本，保留许可和来源元数据，并执行针对目录、实际绘制与运行时主题切换的检查。Farm-Fresh 3.92 的历史资源按 CC BY 3.0 US 分发，许可与署名副本为 `FARM-FRESH-ICONS-LICENSE.txt`；禁止使用浮动版本或运行时联网获取图标。
+旧图标的提交历史保留，必要署名与许可移至[历史来源说明](../third_party/retired-icons/README.md)，不再随现行安装包分发。Lucide来源的规范化科学SVG仍使用ISC许可，其离线生成输入移到`scripts/data`，产品不再携带旧JSON解析器或运行目录。不能把旧作者署名转移到原创稿。

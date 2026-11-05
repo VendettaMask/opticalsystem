@@ -29,7 +29,7 @@
 ## 保留的失败记录
 
 - [first-core-failed.trx](first-core-failed.trx)：最初测试假设小 OPD 场景必有强度低于 0.8，假设不成立；移除该截图亮度式断言，改以解析相位/强度与原生网格核对，没有修改物理模型迎合断言。
-- [interferogram-core.trx](interferogram-core.trx)、[native-orientation-failed.trx](native-orientation-failed.trx)、[native-grid-first.trx](native-grid-first.trx)：原生数组/打印网格方向排查的中间失败，未计为通过；最终方向关系由两份原生输出交叉核对，门槛没有放宽。
+- [interferogram-core.trx](interferogram-core.trx)、[native-orientation-failed.trx](interferogram-core.trx)、[native-grid-first.trx](native-grid-first.trx)：原生数组/打印网格方向排查的中间失败，未计为通过；最终方向关系由两份原生输出交叉核对，门槛没有放宽。
 - [intermediate-guard-first.trx](intermediate-guard-first.trx)：32 通过、1 失败。新边界测试发现“不支持的光阑前中间面 + Ray Aiming”检查晚于图像高度视场转换，先触发瞄准失败；将限制检查提前后最终 33 项全部通过，源处方仍不变。
 
 ## 复现命令

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using OpticalSystemDesign.Core.Raytrace;
@@ -116,7 +117,7 @@ public sealed class AutonomousDesignReviewTests
     public async Task RealF8ReductionTransitionRecordsKeepExploratoryPermissionsWithoutQualifyingOrExportingThem()
     {
         var directory = Path.Combine(Root, "validation/rechecks/2026-11-01/initial-product-m36/product-session-v2");
-        var main = await new AutonomousSearchCheckpointStore().LoadAsync(Directory.GetFiles(directory, "*.autonomous.json").Single());
+        var main = await new AutonomousSearchCheckpointStore().LoadAsync(EvidenceFiles.GetFiles(directory, "*.autonomous.json").Single());
         var before = ContentFingerprint.Compute(main);
         using var meter = SequentialTraceMeasurement.Begin();
         var review = AutonomousDesignReview.Build(AutonomousDesignStudy.Capture("F8 reduction history", main));
@@ -136,10 +137,10 @@ public sealed class AutonomousDesignReviewTests
         using var files = new TemporaryFiles(); var state = await new SeedPreparationCheckpointStore().LoadAsync(Original());
         var study = AutonomousDesignStudy.Capture("Original", preparation: state);
         var portfolio = new AutonomousDesignPortfolio { Entries = [study] }; var path = files.Path("portfolio.json");
-        await AutonomousDesignStudyFiles.SavePortfolioAsync(portfolio, path); var bytes = await File.ReadAllBytesAsync(path);
+        await AutonomousDesignStudyFiles.SavePortfolioAsync(portfolio, path); var bytes = await EvidenceFiles.ReadAllBytesAsync(path);
         await Assert.ThrowsAsync<InvalidDataException>(() => AutonomousDesignStudyFiles.SavePortfolioAsync(portfolio with { Entries = [study, study] }, path));
         await Assert.ThrowsAsync<InvalidDataException>(() => AutonomousDesignStudyFiles.SavePortfolioAsync(portfolio with { Version = 99 }, path));
-        Assert.Equal(bytes, await File.ReadAllBytesAsync(path));
+        Assert.Equal(bytes, await EvidenceFiles.ReadAllBytesAsync(path));
         var json = JsonNode.Parse(bytes)!; json["sha256"] = "wrong"; await File.WriteAllTextAsync(files.Path("tampered.json"), json.ToJsonString());
         await Assert.ThrowsAsync<InvalidDataException>(() => AutonomousDesignStudyFiles.LoadPortfolioAsync(files.Path("tampered.json")));
         var cold = state.Result!.ColdStart!;
@@ -158,6 +159,6 @@ public sealed class AutonomousDesignReviewTests
     {
         private readonly string _root = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "review-" + Guid.NewGuid().ToString("N"));
         public string Path(string name) { Directory.CreateDirectory(_root); return System.IO.Path.Combine(_root, name); }
-        public void Dispose() { if (Directory.Exists(_root)) Directory.Delete(_root, recursive: true); }
+        public void Dispose() { if (EvidenceFiles.DirectoryExists(_root)) Directory.Delete(_root, recursive: true); }
     }
 }

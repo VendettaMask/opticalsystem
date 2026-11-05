@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Runtime;
@@ -21,8 +22,8 @@ public sealed class IlluminationOperandTests(Xunit.Abstractions.ITestOutputHelpe
     public void CapturedFileReportsOperandDifferencesWithoutInventingAnAcceptanceGate()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(fixtures, "zemax-123456.ZMX")), ".zmx");
-        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(fixtures, "zemax-123456-relative-illumination.json")));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(fixtures, "zemax-123456.ZMX")), ".zmx");
+        using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(fixtures, "zemax-123456-relative-illumination.json")));
         var series = native.RootElement.GetProperty("dataSeries")[0];
         var indices = new[] { 0, 10, 20 };
         optic.Fields.Clear();

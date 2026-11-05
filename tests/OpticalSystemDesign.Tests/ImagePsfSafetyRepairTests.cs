@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Domain;
@@ -12,7 +13,7 @@ public sealed class ImagePsfSafetyRepairTests
     [Fact]
     public void SimulationNormalizesTheNonnegativePointResponseBeforeImageWarping()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(
             Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
         optic.FieldDefinition = FieldDefinitionKind.ParaxialImageHeight;
         var config = new ImageSimulationConfig

@@ -19,13 +19,13 @@
 | 主窗口 | [13号字](workbench/workbench-1600-13.png)、[18号字](workbench/workbench-1120-18.png) |
 | 设置展开 | [13号字](workbench/settings-1600-13.png)、[18号字](workbench/settings-1120-18.png) |
 | 实际深色下拉菜单 | [13号字](workbench/menu-1600-13.png)、[18号字](workbench/menu-1120-18.png) |
-| 其他分析页 | [PSF](previews/Huygens-PSF-live.png)、[波前](previews/Wavefront-Map-live.png)、[点列](previews/Spot-Diagram-live.png) |
+| 其他分析页 | [PSF](../isekai-paper-gaps/tabs/Huygens-PSF-live.png)、[波前](../isekai-paper-gaps/tabs/Wavefront-Map-live.png)、[点列](../isekai-paper-gaps/tabs/Spot-Diagram-live.png) |
 
 ## 验证结果
 
 默认Release构建包含App、内置模块及测试程序集。最终单次[approved-final.trx](approved-final.trx) **17/17通过，零失败/跳过**：AnalysisResultBookTabsTests 8项、IsekaiCraftedWorkbenchTests 2项、IsekaiDrawingMaterialTests 7项。包含实际设置/关闭/菜单、原生键盘页签、600×440窄窗、fit/100%、13/18号字、浅纸命令/图标及深色菜单文字对比度、禁用反馈、毛边透明边界、源图几何和主题往返。
 
-[12项源图核对](source-pixel-comparisons.json)全部一致：4类Isekai含框源图仍为1256×956，解码RGBA逐像素与羊皮纸本体阶段相同；其他四主题8项PNG/report哈希与原不可变基线一致。没有重新生成预期图以掩盖差异。
+[12项源图核对](../isekai-folio-rails/source-pixel-comparisons.json)全部一致：4类Isekai含框源图仍为1256×956，解码RGBA逐像素与羊皮纸本体阶段相同；其他四主题8项PNG/report哈希与原不可变基线一致。没有重新生成预期图以掩盖差异。
 
 [确认与资源核对](approval-record.json)记录原确认截图身份、五个文件的指纹一致性、最终测试结果和实际程序集Isekai资源名单；[本次源码指纹](source-fingerprints.json)标明范围。程序集仍为9项自有生成材质，没有灰色候选、网络皮革或已否决的正式金属画框。
 

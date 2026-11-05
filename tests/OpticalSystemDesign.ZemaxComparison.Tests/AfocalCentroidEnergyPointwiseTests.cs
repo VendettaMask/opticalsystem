@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.IO.Compression;
 using System.Security.Cryptography;
@@ -23,7 +24,7 @@ public sealed class AfocalCentroidEnergyPointwiseTests(ITestOutputHelper output)
         .Where(r => r.GetProperty("originalConclusion").GetString() == "Difference").Select(r => new object[] { r.GetProperty("id").GetString()! });
     private static readonly Lazy<bool> ArchiveVerified = new(() =>
     {
-        using var file = File.OpenRead(ArchivePath);
+        using var file = EvidenceFiles.OpenRead(ArchivePath);
         Assert.Equal(Manifest().GetProperty("sourceArchiveSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(file)));
         return true;
     });
@@ -56,7 +57,7 @@ public sealed class AfocalCentroidEnergyPointwiseTests(ITestOutputHelper output)
                 using var source = zip.GetEntry("artifacts/validation/afocal-recompare-20261026/expanded/" + id + "/native/" + name)!.Open();
                 using var destination = File.Create(Path.Combine(directory, name)); source.CopyTo(destination);
             }
-            using (var native = File.OpenRead(Path.Combine(directory, "data.json")))
+            using (var native = EvidenceFiles.OpenRead(Path.Combine(directory, "data.json")))
                 Assert.Equal(row.GetProperty("nativeDataSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(native)));
             var data = new WorkbenchRuntime(optic).BuildAnalysisData("Encircled Energy", request.WorkbenchSettings);
             Assert.Equal("centroid", data.Values["Reference"]);

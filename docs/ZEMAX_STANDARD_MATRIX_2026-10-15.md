@@ -58,6 +58,6 @@ Zemax 串行、逐请求重新加载只读副本，Workbench 两个隔离进程�
 
 比较工具完整 Release **201/201**，零失败、零跳过；诊断工具及其依赖构建零警告、零错误。本轮未重跑完整主测试或模块全量，不沿用历史全量计数冒充当前验收。工具说明见[批处理入口](../tools/diagnostics/StandardMatrix20261015/README.md)。
 
-旧 2668 份冻结清单按原路径核验为 **2664/2668**：上游产品更名迁移了四个路径，三份夹具在新路径字节完全一致；维护中的工具配置只改变 JSON 格式，值和容差完全相同，但字节哈希不同。原配置已[按原字节另存](../validation/zemax/2026-r1/standard-matrix-2026-10-15/original-comparison-settings.json)。[路径迁移审计](../validation/zemax/2026-r1/standard-matrix-2026-10-15/frozen-relocation-audit.json)保留失败的旧路径门禁，不把它写成通过，也不恢复退役的产品目录。
+旧 2668 份冻结清单按原路径核验为 **2664/2668**：上游产品更名迁移了四个路径，三份夹具在新路径字节完全一致；维护中的工具配置只改变 JSON 格式，值和容差完全相同，但字节哈希不同。原配置已[按原字节另存](../validation/zemax/2026-r1/energy-repair-2026-09-06/comparison-settings.json)。[路径迁移审计](../validation/zemax/2026-r1/standard-matrix-2026-10-15/frozen-relocation-audit.json)保留失败的旧路径门禁，不把它写成通过，也不恢复退役的产品目录。
 
 原始两侧数组、掩码、CFG、环境/请求、模型、源副本、失败日志、独立控制及 TRX 已保存于[完整压缩证据](../validation/zemax/2026-r1/standard-matrix-2026-10-15/native-and-core-evidence.zip)，附逐文件 SHA-256 且解压内容全部复核。没有专有 API 二进制、第二套光学引擎、拟合增益或修改原生数值。

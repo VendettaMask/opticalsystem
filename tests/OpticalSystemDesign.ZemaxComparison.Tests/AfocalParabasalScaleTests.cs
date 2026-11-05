@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Reflection;
 using System.Text.Json;
@@ -10,7 +11,7 @@ namespace OpticalSystemDesign.ZemaxComparison.Tests;
 
 public sealed class AfocalParabasalScaleTests(ITestOutputHelper output)
 {
-    private static JsonElement Controls() => JsonSerializer.Deserialize<JsonElement>(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-parabasal-controls.json")));
+    private static JsonElement Controls() => JsonSerializer.Deserialize<JsonElement>(EvidenceFiles.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-parabasal-controls.json")));
     public static IEnumerable<object[]> Cases() => Controls().GetProperty("cases").EnumerateArray().Select(p => new object[] { p.GetProperty("id").GetString()! });
     internal static OpticSnapshot Snapshot()
     {

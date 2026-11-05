@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Services;
@@ -262,7 +263,7 @@ public sealed class SystemStateOperandTests
     [MemberData(nameof(Codes))]
     public void UnverifiedNativeMappingsRemainReadOnlyAcrossSnapshots(string code)
     {
-        var text = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         var optic = OpticalFormatCatalog.Import(text + $"\n{code} 2 0 0 0 0 0 1.5 2.5 0 0\n", ".zmx");
         var row = optic.MeritFunctionOperands.Last();
         Assert.Equal(code != "CVIG", row.CompatibilityOnly); Assert.Equal(code == "CVIG", row.Enabled);

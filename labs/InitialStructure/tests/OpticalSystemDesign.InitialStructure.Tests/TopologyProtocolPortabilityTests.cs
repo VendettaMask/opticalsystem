@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
@@ -67,7 +68,7 @@ public sealed class TopologyProtocolPortabilityTests
     private static Task<AutonomousSearchCheckpoint> Fixture()
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
-        while (root is not null && !File.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
+        while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
         return new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(root!.FullName,
             "validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/run.autonomous.json"));
     }

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Scattering;
@@ -18,9 +19,9 @@ public sealed class CommercialBsdfRuntimeGapTests
     [Fact]
     public void FrozenGridFiveDiscrepancySeparatesEscapedAndFiniteSensorPower()
     {
-        using var json=JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","speos-native-v11-white-runtime-reference.json")));
+        using var json=JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","speos-native-v11-white-runtime-reference.json")));
         var reference=json.RootElement;
-        Assert.Equal(reference.GetProperty("SourceSha256").GetString(),Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Source))).ToLowerInvariant());
+        Assert.Equal(reference.GetProperty("SourceSha256").GetString(),Convert.ToHexString(SHA256.HashData(EvidenceFiles.ReadAllBytes(Source))).ToLowerInvariant());
         var model=Model(); Assert.Equal("MeasuredBsdfGrid/5",model.Data.ComputationProtocol);
         var source=reference.GetProperty("SourceWatts").GetDouble();
         var computed=model.Integrate(SpeosV11XyzTests.Context(0,400)).Reflection*source;

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Analysis;
@@ -57,9 +58,9 @@ public sealed class ExtendedAnalysisTests(ITestOutputHelper output)
     {
         var root = Path.Combine(AppContext.BaseDirectory, "Fixtures", "analysis-expansion");
         var native = Path.Combine(root, slug + "-c1");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(root, "source.ZMX")), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(root, "source.ZMX")), ".zmx");
         var entry = AnalysisComparisonRegistry.Get(key);
-        using var captured = JsonDocument.Parse(File.ReadAllText(Path.Combine(native, "captured-settings.json")));
+        using var captured = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(native, "captured-settings.json")));
         var request = captured.RootElement.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
         var runtime = new WorkbenchRuntime(optic);
         var data = runtime.BuildAnalysisData(key, AnalysisComparisonRegistry.MapWorkbench(entry, request));

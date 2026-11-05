@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Coatings;
@@ -10,7 +11,7 @@ public sealed class CoatingWorkspaceTests
     [Fact]
     public void ReusedRealMaterialWorkspaceMatchesIndependentSolversAtEveryThicknessAngleWavelengthAndPolarization()
     {
-        using var json = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/margin-refinement-20261031.json")));
+        using var json = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/margin-refinement-20261031.json")));
         var d = json.RootElement.GetProperty("Cases").EnumerateArray().Select(c => c.GetProperty("Input").Deserialize<Experiment>(Experiment.JsonOptions)!)
             .Single(d => d.Name == "real-nbf2-96");
         var mats = d.Materials.ToDictionary(m => m.Id, m => m.Resolve(new MaterialRegistry()));

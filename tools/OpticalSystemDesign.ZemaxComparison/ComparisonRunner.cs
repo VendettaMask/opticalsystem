@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
@@ -21,12 +22,12 @@ public sealed class ComparisonRunner
     {
         var name = Path.GetFileNameWithoutExtension(input) + "-" + JsonFiles.Slug(version) + "-" + DateTime.UtcNow.ToString("yyyyMMddTHHmmssfffffffZ", CultureInfo.InvariantCulture) + "-" + sourceHash[..12];
         var path = Path.GetFullPath(supplied ?? Path.Combine("artifacts", "zemax-comparisons", name));
-        if (Directory.Exists(path) && Directory.EnumerateFileSystemEntries(path).Any())
+        if (EvidenceFiles.DirectoryExists(path) && Directory.EnumerateFileSystemEntries(path).Any())
         {
             if (!overwrite) throw new IOException("Output is not empty; use a new directory: " + path);
             var manifestPath = Path.Combine(path, "manifest.json");
-            if (!File.Exists(manifestPath)) throw new IOException("--overwrite requires a previous tool manifest");
-            using var prior = JsonDocument.Parse(File.ReadAllText(manifestPath));
+            if (!EvidenceFiles.Exists(manifestPath)) throw new IOException("--overwrite requires a previous tool manifest");
+            using var prior = JsonDocument.Parse(EvidenceFiles.ReadAllText(manifestPath));
             if (prior.RootElement.GetProperty("sourceSha256").GetString() != sourceHash || prior.RootElement.GetProperty("configurationSha256").GetString() != configHash)
                 throw new IOException("A changed source or tolerance configuration must use a new output directory");
         }
@@ -45,7 +46,7 @@ public sealed class ComparisonRunner
     {
         // Called only after manifest/hash validation and acquisition of the exclusive run lock.
         // Keep the previous evidence together so a subset rerun cannot display stale plots or raw data.
-        if (!File.Exists(Path.Combine(output, "manifest.json"))) return;
+        if (!EvidenceFiles.Exists(Path.Combine(output, "manifest.json"))) return;
         var root = Path.GetFullPath(output).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
         var archive = Path.Combine(root, "previous-run-" + DateTime.UtcNow.ToString("yyyyMMddTHHmmssfffffffZ", CultureInfo.InvariantCulture));
         Directory.CreateDirectory(archive);
@@ -56,8 +57,8 @@ public sealed class ComparisonRunner
             var target = Path.GetFullPath(Path.Combine(archive, name));
             if (!source.StartsWith(root, StringComparison.OrdinalIgnoreCase) || !target.StartsWith(root, StringComparison.OrdinalIgnoreCase))
                 throw new IOException("Archive paths must remain inside the validated output directory");
-            if (Directory.Exists(source)) Directory.Move(source, target);
-            else if (File.Exists(source)) File.Move(source, target);
+            if (EvidenceFiles.DirectoryExists(source)) Directory.Move(source, target);
+            else if (EvidenceFiles.Exists(source)) File.Move(source, target);
         }
     }
     public async Task<int> Run(ComparisonOptions options, CancellationToken ct)
@@ -67,8 +68,8 @@ public sealed class ComparisonRunner
         var version = options.ZemaxVersion ?? config.ZemaxVersion;
         var input = Path.GetFullPath(options.Input);
         if (!Path.GetExtension(input).Equals(".zmx", StringComparison.OrdinalIgnoreCase)) throw new ArgumentException("--input must be a ZMX file");
-        var bytes = await File.ReadAllBytesAsync(input, ct); var sourceHash = JsonFiles.Hash(bytes);
-        var configHash = JsonFiles.Hash(File.ReadAllBytes(options.Config)); var stat = new FileInfo(input);
+        var bytes = await EvidenceFiles.ReadAllBytesAsync(input, ct); var sourceHash = JsonFiles.Hash(bytes);
+        var configHash = JsonFiles.Hash(EvidenceFiles.ReadAllBytes(options.Config)); var stat = new FileInfo(input);
         var output = PrepareOutput(options.Output, input, sourceHash, configHash, version, options.Overwrite);
         if (input.StartsWith(output + Path.DirectorySeparatorChar, OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal))
             throw new IOException("Output must not contain the source input file");
@@ -76,7 +77,7 @@ public sealed class ComparisonRunner
         if (options.Overwrite) ArchivePreviousRun(output);
         Console.WriteLine("Output: " + output);
         foreach (var d in new[] { "logs", "raw/zemax", "raw/workbench", "normalized/zemax", "normalized/workbench", "comparisons", "errors", "input" }) Directory.CreateDirectory(Path.Combine(output, d));
-        File.WriteAllBytes(Path.Combine(output, "comparison-settings.json"), File.ReadAllBytes(options.Config));
+        File.WriteAllBytes(Path.Combine(output, "comparison-settings.json"), EvidenceFiles.ReadAllBytes(options.Config));
         JsonFiles.Write(Path.Combine(output, "analysis-registry.json"), AnalysisComparisonRegistry.Entries);
         var snapshotInput = Path.Combine(output, "input", Path.GetFileName(input)); File.WriteAllBytes(snapshotInput, bytes);
         var runs = new List<AnalysisRun>();
@@ -94,7 +95,7 @@ public sealed class ComparisonRunner
             ["operatingSystem"] = RuntimeInformation.OSDescription,
             ["toolVersion"] = "1.0.0",
             ["expectedZemaxVersion"] = version,
-            ["toolAssemblySha256"] = JsonFiles.Hash(File.ReadAllBytes(Assembly.GetExecutingAssembly().Location)),
+            ["toolAssemblySha256"] = JsonFiles.Hash(EvidenceFiles.ReadAllBytes(Assembly.GetExecutingAssembly().Location)),
             ["settingsOrigin"] = "CapturedSettings",
             ["originalFileUnchanged"] = null
         };
@@ -108,7 +109,7 @@ public sealed class ComparisonRunner
             var imported = await WorkbenchExecutor.Import(snapshotInput);
             var configs = options.Configuration == "all" ? Enumerable.Range(1, imported.Configurations.Count).ToArray() : [int.Parse(options.Configuration, CultureInfo.InvariantCulture)];
             if (configs.Any(n => n > imported.Configurations.Count)) throw new ArgumentException("Configuration index exceeds imported configuration count");
-            var text = File.ReadAllText(snapshotInput);
+            var text = EvidenceFiles.ReadAllText(snapshotInput);
             var headers = text.Split('\n').Select(l => l.Trim()).Where(l => new[] { "VERS ", "MODE ", "UNIT ", "GCAT ", "RAIM ", "APOD ", "FTYP ", "AFCL " }.Any(prefix => l.StartsWith(prefix, StringComparison.Ordinal))).ToArray();
             manifest["zmxHeaderRecords"] = headers;
             manifest["zmxFileVersion"] = headers.FirstOrDefault(h => h.StartsWith("VERS ", StringComparison.Ordinal));
@@ -146,7 +147,7 @@ public sealed class ComparisonRunner
                 var probeDir = Path.Combine(output, "raw", "zemax", "probe");
                 var probe = await zemax.Capture(snapshotInput, probeDir, version, "probe", null, null, configs[0], options.Timeout, false, ct);
                 timedOut |= probe.TimedOut;
-                if (File.Exists(Path.Combine(probeDir, "environment.json")))
+                if (EvidenceFiles.Exists(Path.Combine(probeDir, "environment.json")))
                 {
                     var environment = JsonFiles.Read<JsonElement>(Path.Combine(probeDir, "environment.json")); manifest["zemaxEnvironment"] = environment;
                     foreach (var native in AnalysisComparisonRegistry.NativeOnly(environment.GetProperty("analysisIds").EnumerateArray().Select(v => v.GetString()!)))
@@ -158,7 +159,7 @@ public sealed class ComparisonRunner
                             Reason = native.Reason
                         });
                 }
-                if (File.Exists(Path.Combine(probeDir, "model.json"))) manifest["zemaxParsing"] = JsonFiles.Read<JsonElement>(Path.Combine(probeDir, "model.json"));
+                if (EvidenceFiles.Exists(Path.Combine(probeDir, "model.json"))) manifest["zemaxParsing"] = JsonFiles.Read<JsonElement>(Path.Combine(probeDir, "model.json"));
                 if (probe.ExitCode != 0) throw new InvalidOperationException("ZOS-API probe failed; see raw/zemax/probe: " + probe.StandardError);
             }
             catch (Exception e) when (e is not OperationCanceledException)
@@ -210,7 +211,7 @@ public sealed class ComparisonRunner
                         request = ExtendedAnalysisContracts.Configure(entry, request, Math.Max(1, snapshot.Wavelengths.FindIndex(w => w.IsPrimary) + 1));
                         if (request.SourceImagePath is { } sourceImage)
                         {
-                            var sourceBytes = File.ReadAllBytes(sourceImage);
+                            var sourceBytes = EvidenceFiles.ReadAllBytes(sourceImage);
                             if (JsonFiles.Hash(sourceBytes) != request.SourceImageSha256) throw new InvalidDataException("Source image changed before freezing");
                             var frozen = Path.Combine(output, "input", "source-" + request.SourceImageSha256 + Path.GetExtension(sourceImage));
                             File.WriteAllBytes(frozen, sourceBytes);
@@ -253,7 +254,7 @@ public sealed class ComparisonRunner
                         {
                             run.Conclusion = Conclusion.Error; run.Reason = z.Cancelled ? "Cancelled" : z.TimedOut ? "Zemax timeout" : z.StandardError;
                             var errorPath = Path.Combine(zDir, "error.json");
-                            if (File.Exists(errorPath))
+                            if (EvidenceFiles.Exists(errorPath))
                             {
                                 var error = JsonFiles.Read<JsonElement>(errorPath);
                                 var code = error.GetProperty("errorCode").GetString();
@@ -266,19 +267,19 @@ public sealed class ComparisonRunner
                             }
                             continue;
                         }
-                        if (File.Exists(Path.Combine(zDir, "capture.json"))) run.ScreenshotStatus = JsonFiles.Read<JsonElement>(Path.Combine(zDir, "capture.json")).GetProperty("screenshotStatus").GetString()!;
+                        if (EvidenceFiles.Exists(Path.Combine(zDir, "capture.json"))) run.ScreenshotStatus = JsonFiles.Read<JsonElement>(Path.Combine(zDir, "capture.json")).GetProperty("screenshotStatus").GetString()!;
                         if (options.CaptureScreenshots)
                             run.ScreenshotStatus = await ZemaxScreenshotExecutor.Capture((string)manifest["zosApiPath"]!, zDir, entry.ScreenshotCode, options.Timeout, ct);
                         if (entry.ZemaxSettingsMapper is "spot-layout" or "capability-audit")
                         {
-                            using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(zDir, "data.json")));
+                            using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(zDir, "data.json")));
                             var counts = NativeResultChannels.Count(native.RootElement);
                             var textSaved = JsonFiles.Read<JsonElement>(Path.Combine(zDir, "capture.json")).GetProperty("textSaved").GetBoolean();
                             JsonFiles.Write(Path.Combine(zDir, "result-channel-audit.json"), new
                             {
                                 counts,
                                 textSaved,
-                                bitmapSaved = File.Exists(Path.Combine(zDir, "native-image.bmp")),
+                                bitmapSaved = EvidenceFiles.Exists(Path.Combine(zDir, "native-image.bmp")),
                                 inspectionOnly = entry.ZemaxSettingsMapper == "capability-audit"
                             });
                             run.Conclusion = wb.ExitCode == 0 ? Conclusion.Incomparable : Conclusion.Error;
@@ -311,8 +312,8 @@ public sealed class ComparisonRunner
         finally
         {
             manifest["completedUtc"] = DateTimeOffset.UtcNow;
-            var unchanged = File.Exists(input) && JsonFiles.Hash(File.ReadAllBytes(input)) == sourceHash && File.GetLastWriteTimeUtc(input) == stat.LastWriteTimeUtc;
-            manifest["snapshotInputUnchanged"] = File.Exists(snapshotInput) && JsonFiles.Hash(File.ReadAllBytes(snapshotInput)) == sourceHash;
+            var unchanged = EvidenceFiles.Exists(input) && JsonFiles.Hash(EvidenceFiles.ReadAllBytes(input)) == sourceHash && File.GetLastWriteTimeUtc(input) == stat.LastWriteTimeUtc;
+            manifest["snapshotInputUnchanged"] = EvidenceFiles.Exists(snapshotInput) && JsonFiles.Hash(EvidenceFiles.ReadAllBytes(snapshotInput)) == sourceHash;
             manifest["originalFileUnchanged"] = unchanged;
             if (!unchanged) { internalError = true; fatal = "Original input changed during run; report cannot certify input integrity"; }
             manifest["fatalError"] = fatal; Flush();

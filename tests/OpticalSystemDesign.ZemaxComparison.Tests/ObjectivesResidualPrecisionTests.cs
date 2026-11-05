@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -14,7 +15,7 @@ public sealed class ObjectivesResidualPrecisionTests
         get
         {
             var directory = new DirectoryInfo(AppContext.BaseDirectory);
-            while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
+            while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
             return directory?.FullName ?? throw new DirectoryNotFoundException("Repository root required.");
         }
     }
@@ -23,7 +24,7 @@ public sealed class ObjectivesResidualPrecisionTests
     {
         yield return ["double-gauss5-psf32"];
         yield return ["double-gauss5-psf-cross32"];
-        using var acceptance = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root,
+        using var acceptance = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root,
             "validation/zemax/2026-r1/objectives-energy128-acceptance-2026-10-21/acceptance.json")));
         foreach (var item in acceptance.RootElement.GetProperty("cases").EnumerateArray())
             yield return [item.GetProperty("id").GetString()!];
@@ -34,10 +35,10 @@ public sealed class ObjectivesResidualPrecisionTests
     public void FormalDisplayMatchesIndependentNativeCaptureAtOriginalTolerances(string id)
     {
         var folder = Path.Combine(Root, "validation/zemax/2026-r1/objectives-residuals-2026-10-21");
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(folder, "cases.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(folder, "cases.json")));
         var selected = manifest.RootElement.GetProperty("cases").EnumerateArray().Single(c => c.GetProperty("id").GetString() == id);
         var source = Path.Combine(Root, "src/OpticalSystemDesign.App/Assets/SequentialExamples", selected.GetProperty("lens").GetString()!);
-        Assert.Equal(selected.GetProperty("sourceSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(source))));
+        Assert.Equal(selected.GetProperty("sourceSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(source))));
         var capture = Path.Combine(folder, id);
         var request = JsonFiles.Read<CanonicalAnalysisRequest>(Path.Combine(capture, "request.json"));
         if (request.CanonicalAnalysisKey == "Diffraction Encircled Energy")
@@ -50,7 +51,7 @@ public sealed class ObjectivesResidualPrecisionTests
         }
         var policy = ComparisonConfiguration.Load(Path.Combine(Root, "tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json"));
         var entry = AnalysisComparisonRegistry.Get(request.CanonicalAnalysisKey);
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(source), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
         var data = new WorkbenchRuntime(optic).BuildAnalysisData(request.CanonicalAnalysisKey, request.WorkbenchSettings);
         var output = Path.Combine(Path.GetTempPath(), "objectives-residual-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(output);
@@ -77,14 +78,14 @@ public sealed class ObjectivesResidualPrecisionTests
     [Fact]
     public void IndependentNativeCaptureBytesRetainTheirRecordedHashes()
     {
-        using var acceptance = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root,
+        using var acceptance = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root,
             "validation/zemax/2026-r1/objectives-energy128-acceptance-2026-10-21/acceptance.json")));
         Assert.Equal("新增 128 档验收，32 档继续记为未解决", acceptance.RootElement.GetProperty("userDecision").GetString());
         Assert.False(acceptance.RootElement.GetProperty("replacesOriginal32").GetBoolean());
         Assert.Equal(3, acceptance.RootElement.GetProperty("cases").GetArrayLength());
         var policy = Path.Combine(Root, "tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json");
         Assert.Equal(acceptance.RootElement.GetProperty("originalComparisonPolicySha256").GetString(),
-            Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(policy))));
+            Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(policy))));
         foreach (var item in acceptance.RootElement.GetProperty("cases").EnumerateArray())
         {
             Assert.Equal("Unresolved", item.GetProperty("original32Status").GetString());
@@ -92,14 +93,14 @@ public sealed class ObjectivesResidualPrecisionTests
         }
         var folder = Path.Combine(Root, "validation/zemax/2026-r1/objectives-residuals-2026-10-21");
         Assert.Equal(acceptance.RootElement.GetProperty("preservedCaptureManifestSha256").GetString(),
-            Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(Path.Combine(folder, "manifest.json")))));
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(folder, "manifest.json")));
+            Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(Path.Combine(folder, "manifest.json")))));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(folder, "manifest.json")));
         foreach (var file in manifest.RootElement.GetProperty("files").EnumerateArray())
         {
             var path = Path.GetFullPath(Path.Combine(folder, file.GetProperty("path").GetString()!));
             Assert.StartsWith(Path.GetFullPath(folder) + Path.DirectorySeparatorChar, path);
             Assert.Equal(file.GetProperty("bytes").GetInt64(), new FileInfo(path).Length);
-            Assert.Equal(file.GetProperty("sha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path))));
+            Assert.Equal(file.GetProperty("sha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(path))));
         }
     }
 }

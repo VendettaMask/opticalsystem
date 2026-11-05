@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.IO.Compression;
 using System.Text;
@@ -110,7 +111,7 @@ public sealed class BinaryZemaxBsdfTests
     [InlineData("lz4-offset")] [InlineData("enhancement")] [InlineData("white-specular")]
     public void UnsupportedBinaryPhysicsAndMalformedLz4AreNotSilentlyIgnored(string defect)
     {
-        var raw = File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Fixtures", "speos-r-test-v9.anisotropicbsdf"));
+        var raw = EvidenceFiles.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Fixtures", "speos-r-test-v9.anisotropicbsdf"));
         if (defect == "lz4-offset") raw[125] = 0; if (defect == "enhancement") raw[104] = 1; if (defect == "white-specular") raw[^9] = 1;
         using var files = new CameraSensorFileTests.TemporaryFiles(); var path = files.Path("bad.anisotropicbsdf"); File.WriteAllBytes(path, raw);
         Assert.Throws<InvalidDataException>(() => BsdfFileImporter.Read(path, new(BsdfImportSides.BothDeclaredIdentical)));

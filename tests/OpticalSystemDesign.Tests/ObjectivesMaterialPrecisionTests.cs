@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.FileIO;
@@ -15,10 +16,10 @@ public sealed class ObjectivesMaterialPrecisionTests
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
         var folder = Path.Combine(root, "validation/zemax/2026-r1/objectives-2026-10-20/materials");
         var material = Assert.IsType<TabulatedMaterial>(new MaterialRegistry().Resolve(code));
-        using var captured = JsonDocument.Parse(File.ReadAllText(Path.Combine(folder, "materials.json")));
+        using var captured = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(folder, "materials.json")));
         var reference = captured.RootElement.GetProperty("materials").EnumerateArray().Single(item => item.GetProperty("name").GetString() == code);
         AssertSamples(reference, material, 0);
-        using var heldOut = JsonDocument.Parse(File.ReadAllText(Path.Combine(folder, "held-out-indices.json")));
+        using var heldOut = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(folder, "held-out-indices.json")));
         AssertSamples(heldOut.RootElement.EnumerateArray().Single(item => item.GetProperty("name").GetString() == code), material, 1e-10);
         Assert.Throws<ArgumentOutOfRangeException>(() => material.RefractiveIndex(349));
         Assert.Throws<ArgumentOutOfRangeException>(() => material.RefractiveIndex(1051));
@@ -30,7 +31,7 @@ public sealed class ObjectivesMaterialPrecisionTests
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
         var path = Path.Combine(root, "src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Doublet using MIL number glasses.zmx");
-        var imported = OpticalFormatCatalog.Import(File.ReadAllText(path), ".zmx");
+        var imported = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(path), ".zmx");
         var restored = Optic.FromSnapshot(imported.ToSnapshot());
         foreach (var number in new[] { 1, 2 })
         {

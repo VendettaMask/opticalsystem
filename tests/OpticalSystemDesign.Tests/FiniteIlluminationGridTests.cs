@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
@@ -33,10 +34,10 @@ public sealed class FiniteIlluminationGridTests
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
         var folder = Path.Combine(root, "validation/zemax/2026-r1/illumination-finite-grid-2026-10-16");
-        using var control = JsonDocument.Parse(File.ReadAllText(Path.Combine(folder, "controls.json")));
+        using var control = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(folder, "controls.json")));
         var source = control.RootElement.GetProperty("source");
         Assert.Equal(source.GetProperty("sha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(
-            File.ReadAllBytes(Path.Combine(folder, source.GetProperty("file").GetString()!)))));
+            EvidenceFiles.ReadAllBytes(Path.Combine(folder, source.GetProperty("file").GetString()!)))));
         var native = control.RootElement.GetProperty("rows").EnumerateArray().Single(row =>
             row.GetProperty("halfWidth").GetDouble() == halfWidth && row.GetProperty("density").GetInt32() == density);
         var optic = Lens(1000);
@@ -63,7 +64,7 @@ public sealed class FiniteIlluminationGridTests
         const double focalLength = 1000;
         var optic = Lens(focalLength);
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
-        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(root,
+        using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root,
             "validation/zemax/2026-r1/illumination-inverse-2026-10-16/controls.json")));
         var expected = native.RootElement.GetProperty("circularGrid").EnumerateArray()
             .Single(row => row.GetProperty("density").GetInt32() == density).GetProperty("value").GetDouble();

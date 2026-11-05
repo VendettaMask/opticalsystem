@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
@@ -36,7 +37,7 @@ public sealed class ParabasalPupilTests
     [Fact]
     public void GridGrinProjectedWavefrontMeetsConvergedNativeTolerance()
     {
-        using var doc = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "grid-gradient-pupil-native-v1.json")));
+        using var doc = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "grid-gradient-pupil-native-v1.json")));
         var fixture = doc.RootElement;
         var optic = OpticalFormatCatalog.Import(fixture.GetProperty("source").GetString()!, ".zmx");
         var before = optic.RayAimingEnabled;

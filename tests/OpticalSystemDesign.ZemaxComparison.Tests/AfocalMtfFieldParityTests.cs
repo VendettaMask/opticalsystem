@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -59,21 +60,21 @@ public sealed class AfocalMtfFieldParityTests
     public void GeometricFieldCurvesMeetUnchangedCapturedAnalysisGates(string id)
     {
         var fixture = Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-mtf-field");
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(fixture, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(fixture, "manifest.json")));
         var archive = Path.Combine(fixture, "reference.zip");
         Assert.Equal(manifest.RootElement.GetProperty("sha256").GetString(),
-            Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(archive))));
+            Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(archive))));
         var temp = Path.Combine(Path.GetTempPath(), "afocal-mtf-field-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(temp);
         try
         {
             ZipFile.ExtractToDirectory(archive, temp);
-            using var cases = JsonDocument.Parse(File.ReadAllText(Path.Combine(temp, "cases.json")));
+            using var cases = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(temp, "cases.json")));
             var row = cases.RootElement.EnumerateArray().Single(r => r.GetProperty("id").GetString() == id);
             var request = row.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
             var snapshot = Path.Combine(temp, row.GetProperty("snapshot").GetString()!);
             Assert.Equal(row.GetProperty("snapshotSha256").GetString(),
-                Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(snapshot))));
+                Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(snapshot))));
             var optic = Optic.FromSnapshot(JsonFiles.Read<OpticSnapshot>(snapshot));
             var data = new WorkbenchRuntime(optic).BuildAnalysisData(request.CanonicalAnalysisKey, request.WorkbenchSettings);
             Assert.Equal(AnalysisOutcome.Success, data.Outcome);

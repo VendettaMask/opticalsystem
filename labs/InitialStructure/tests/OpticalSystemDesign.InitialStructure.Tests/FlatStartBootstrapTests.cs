@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core;
@@ -28,18 +29,18 @@ public sealed class FlatStartBootstrapTests(ITestOutputHelper output)
     public void FutureFullTargetSpecificationsAndProtocolAreFrozenSeparatelyFromBootstrap()
     {
         var directory = Path.Combine(RepositoryRoot(), "labs/InitialStructure/benchmarks/flat-start-v1");
-        var paths = Directory.GetFiles(Path.Combine(directory, "specs"), "*.json");
+        var paths = EvidenceFiles.GetFiles(Path.Combine(directory, "specs"), "*.json");
         Assert.Equal(12, paths.Length);
         foreach (var path in paths)
         {
-            var specification = JsonSerializer.Deserialize<InitialStructureSpecification>(File.ReadAllText(path))!;
+            var specification = JsonSerializer.Deserialize<InitialStructureSpecification>(EvidenceFiles.ReadAllText(path))!;
             SpecificationValidator.Validate(specification);
             Assert.Equal(0.05, specification.MaximumRmsSpotRadiusMillimeters);
             Assert.Equal(0.15, specification.MaximumSpotRadiusMillimeters);
             Assert.Equal(0.02, specification.FlatStart!.EffectiveFocalLengthRelativeTolerance);
             Assert.Equal(0.98, specification.FlatStart.MinimumValidRayFraction);
         }
-        using var protocol = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "protocol.json")));
+        using var protocol = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(directory, "protocol.json")));
         Assert.Equal(10, protocol.RootElement.GetProperty("RequiredSuccessfulSpecifications").GetInt32());
         Assert.Equal(5, protocol.RootElement.GetProperty("RandomSeeds").GetArrayLength());
     }
@@ -263,7 +264,7 @@ public sealed class FlatStartBootstrapTests(ITestOutputHelper output)
     private static string RepositoryRoot()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
         return directory?.FullName ?? throw new DirectoryNotFoundException();
     }
 }

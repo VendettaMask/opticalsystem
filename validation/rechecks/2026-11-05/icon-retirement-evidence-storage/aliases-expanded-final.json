@@ -1,0 +1,59 @@
+{
+  "passed": 13,
+  "failed": 0,
+  "opticalTests": false,
+  "cases": [
+    {
+      "passed": true,
+      "name": "Valid canonical and absent aliases"
+    },
+    {
+      "passed": true,
+      "name": "Fixture view retains exact binary bytes"
+    },
+    {
+      "passed": true,
+      "name": "Historical view restores both original logical roles"
+    },
+    {
+      "passed": true,
+      "name": "Canonical corruption rejected"
+    },
+    {
+      "passed": true,
+      "name": "Recreated physical alias rejected"
+    },
+    {
+      "passed": true,
+      "name": "Traversal rejected before materialization"
+    },
+    {
+      "passed": true,
+      "name": "Aliasing a canonical path rejected"
+    },
+    {
+      "passed": true,
+      "name": "Destination cannot be captured source"
+    },
+    {
+      "passed": true,
+      "name": "New unregistered content duplicate rejected"
+    },
+    {
+      "passed": true,
+      "name": "Project fixture mapping restores only needed aliases"
+    },
+    {
+      "passed": true,
+      "name": "Scoped historical view retains the selected logical roles"
+    },
+    {
+      "passed": true,
+      "name": "Historical selection traversal rejected"
+    },
+    {
+      "passed": true,
+      "name": "Deferred fixture materialization still verifies raw hashes"
+    }
+  ]
+}

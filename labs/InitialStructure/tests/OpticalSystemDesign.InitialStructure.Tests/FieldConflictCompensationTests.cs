@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Differentiation;
@@ -154,12 +155,12 @@ public sealed class FieldConflictCompensationTests
     public void BoundAxialCoordinatesPreserveProtectedPlanesAndSerializedContinuation(int version)
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
         var json = new JsonSerializerOptions { PropertyNameCaseInsensitive = true, NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals };
         json.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
         var root = Path.Combine(directory!.FullName, "validation/rechecks/2026-10-28/two-element-field-conflict/paired-runs/v5");
-        var endpoint = JsonSerializer.Deserialize<FixedTopologyResult>(File.ReadAllText(Path.Combine(root, "full.json")), json)!;
-        using var input = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "input.json")));
+        var endpoint = JsonSerializer.Deserialize<FixedTopologyResult>(EvidenceFiles.ReadAllText(Path.Combine(root, "full.json")), json)!;
+        using var input = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root, "input.json")));
         var options = JsonSerializer.Deserialize<FixedTopologyOptions>(input.RootElement.GetProperty("Full").GetRawText(), json)! with
         { TransmissionPolicyVersion = version, MaximumUpdates = 2, MaximumFunctionEvaluations = 3, MaximumGradientEvaluations = 3, PerformFinalAssessment = false };
         var source = TopologyCompiler.Compile(endpoint.Topology, endpoint.Constraints);
@@ -199,7 +200,7 @@ public sealed class FieldConflictCompensationTests
 
     private static async Task<(AutonomousSearchCheckpoint State, CompiledTopology Source, BoundTopologyParameters Binding, FixedTopologyObjective Objective)> Fixture()
     {
-        var directory = new DirectoryInfo(AppContext.BaseDirectory); while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
+        var directory = new DirectoryInfo(AppContext.BaseDirectory); while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
         var state = await new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(directory!.FullName,
             "validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/run.autonomous.json"));
         var candidate = state.Candidates.Single(c => c.Topology.Elements.Length == 2);

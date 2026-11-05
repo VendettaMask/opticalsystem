@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -71,7 +72,7 @@ public sealed class BinocularFourierRemainingTests
         fixture.VerifyDisplayProof();
     }
 
-    private static string Hash(string path) => Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path)));
+    private static string Hash(string path) => Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(path)));
 
     private sealed class Fixture : IDisposable
     {

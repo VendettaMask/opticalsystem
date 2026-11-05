@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -108,7 +109,7 @@ public sealed class DelanoMaterializationTests
     public async Task FrozenFailedStartsExposeSpacingAndFixedStopMismatchBeforeRestorationWithoutRays()
     {
         var (plan, options) = await Wide();
-        using var frozen = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(Root(),
+        using var frozen = JsonDocument.Parse(await EvidenceFiles.ReadAllBytesAsync(Path.Combine(Root(),
             "validation/rechecks/2026-10-29/bounded-initial-structure/runs/bounded-candidates/preparation.seed-search.json")));
         var old = frozen.RootElement.GetProperty("result").Deserialize<ParaxialSeedSearchResult>(Json)!;
         var random = new DeterministicRandom(plan.Options.Seed); var rows = new List<object>(); var requests = 0; long probes = 0;
@@ -192,7 +193,7 @@ public sealed class DelanoMaterializationTests
     {
         var plan = await AutonomousDesignFiles.LoadPlanAsync(Path.Combine(Root(),
             "validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/task.topology-plan.json"));
-        using var file = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(Root(),
+        using var file = JsonDocument.Parse(await EvidenceFiles.ReadAllBytesAsync(Path.Combine(Root(),
             "validation/rechecks/2026-10-29/bounded-initial-structure/protocol.json")));
         return (plan, file.RootElement.GetProperty("ImprovedPreparation").Deserialize<ParaxialSeedSearchOptions>(Json)!);
     }
@@ -207,11 +208,11 @@ public sealed class DelanoMaterializationTests
         if (Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_TEST_ROOT") is { } configured)
         {
             var root = Path.GetFullPath(configured);
-            if (!File.Exists(Path.Combine(root, "AGENTS.md"))) throw new InvalidOperationException("The configured test root is not a repository.");
+            if (!EvidenceFiles.Exists(Path.Combine(root, "AGENTS.md"))) throw new InvalidOperationException("The configured test root is not a repository.");
             return root;
         }
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
         return directory?.FullName ?? throw new InvalidOperationException("Set OPTICAL_SYSTEM_DESIGN_TEST_ROOT when executing tests outside the checkout.");
     }
     internal static readonly JsonSerializerOptions Json = new()

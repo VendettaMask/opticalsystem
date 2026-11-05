@@ -94,7 +94,7 @@ MS-L7 原处方 SHA-256 为 `8bcc937c2c2e02ba175f38875fd0def40db547f7eedab509cbf
 - [最终 Debug 专项](../artifacts/validation/n02-layer-diagnosis-20261009/targeted-debug-final/targeted-debug-final.trx)。
 - [完整比较工具](../artifacts/validation/n02-layer-diagnosis-20261009/comparison-release/comparison-release.trx)。
 - [最终二进制分层结果](../artifacts/validation/n02-layer-diagnosis-20261009/layers-final/layer-summary.json)。
-- [四份原生输入最终对照](../artifacts/validation/n02-layer-diagnosis-20261009/prepared-after-final-binary.json)。
+- [四份原生输入最终对照](../artifacts/validation/fft-energy-grid-integrity-20261010/prepared-native-final.json)。
 - [Huygens 原生双精度方法控制](../artifacts/validation/n02-layer-diagnosis-20261009/n01-method-grid-controls/method-comparison.json)。
 
 修复、新原生捕获与选定验收证据已提交并推送，见[本轮同步完成记录](PROJECT_SYNC_FFT_PUPIL_2026-10-09.md)。本报告机器账目的 Git 状态表示验收时快照，当前远端状态另行记账。

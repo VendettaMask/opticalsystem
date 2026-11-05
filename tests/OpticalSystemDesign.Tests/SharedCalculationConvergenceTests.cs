@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -103,7 +104,7 @@ public sealed class SharedCalculationConvergenceTests(ITestOutputHelper output)
         Assert.NotNull(surface.GeometryDefinition);
         var maximum = 0.0;
         var count = 0;
-        foreach (var line in File.ReadLines(Fixture("zemax-123456-sag-table.txt")))
+        foreach (var line in EvidenceFiles.ReadLines(Fixture("zemax-123456-sag-table.txt")))
         {
             var values = Regex.Matches(line, @"[-+]?\d+\.\d+E[-+]\d+");
             if (values.Count != 8) continue;
@@ -142,8 +143,8 @@ public sealed class SharedCalculationConvergenceTests(ITestOutputHelper output)
     [Fact]
     public void Captured123456FftThroughFocusIsComparedWithoutChangingItsReference()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Fixture("zemax-123456.ZMX")), ".zmx");
-        using var reference = JsonDocument.Parse(File.ReadAllText(Fixture("zemax-123456-fft-through-focus-mtf.json")));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Fixture("zemax-123456.ZMX")), ".zmx");
+        using var reference = JsonDocument.Parse(EvidenceFiles.ReadAllText(Fixture("zemax-123456-fft-through-focus-mtf.json")));
         var current = new MtfThroughFocusAnalysis(optic, MtfComputationMethod.Fourier,
             spatialFrequency: 50, deltaFocus: 0.1, focusPlaneCount: 5,
             settings: new MtfComputationSettings(PupilSampling: 64, ZemaxCompatible: true),

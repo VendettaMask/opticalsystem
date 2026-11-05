@@ -7,7 +7,7 @@ Ten completed runs: candidate **1/5**, control **0/5**. This is a new cold study
 - Each arm/seed cap: 600 functions, 600 gradients, 10,000,000 actual CPU rays, 600 seconds. Construction, screening, compensation and complete original acceptance are charged. No budget or schedule changes after the study started.
 - [All paired summaries](paired-summary.json); each arm/seed directory retains input, progress, result checksum, phase bounds and all original assessments. All ten runs are within budget.
 - [Frozen final audit](audit-final-v1/audit.json): 94 distinct complete assessment replays, plus repeated qualified-endpoint validation and native readback = **96**, zero errors. Each run retains the independently computed full replays.
-- [Current product audit](audit-current-product-v1/audit.json): another **96** exact replays/acceptance/readback checks, zero errors; post-search costs only, no added optimization. [Openable product export](audit-current-product-v1/candidate/seed44/qualified.staropt).
+- [Current product audit](audit-current-product-v1/audit.json): another **96** exact replays/acceptance/readback checks, zero errors; post-search costs only, no added optimization. [Openable product export](audit-final-v1/candidate/seed44/qualified.staropt).
 
 Seed44 is the sole qualified cold design: RMS 49.7601785755 µm, maximum 117.165252952 µm, all 21 fields fully transmitted, zero lost independent boundary/center checks; original image/manufacturing/physical gates pass. Cost 313 functions, 264 gradients, 1,436,330 rays, 540.289913 seconds. It retains eight lenses, 16 even-asphere faces and 32 original-permitted A4/A6 coordinates.
 

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Backend;
@@ -16,7 +17,7 @@ public sealed class SpecialSagSurfaceTests
     [InlineData("mems-rows","MM",1)] [InlineData("mems-rows","CM",10)] [InlineData("mems-rows","IN",25.4)]
     public void ImportedSagAndPhysicalRaysMatchFrozenNativeOperandsAcrossUnitsAndRoundtrips(string id,string unit,double scale)
     {
-        using var fixture=JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","special-sag-native-v1.json")));
+        using var fixture=JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","special-sag-native-v1.json")));
         var data=fixture.RootElement.GetProperty("cases").EnumerateArray().Single(c=>c.GetProperty("id").GetString()==id);
         var source=data.GetProperty("source").GetString()!.Replace("UNIT MM","UNIT "+unit);
         var optic=OpticalFormatCatalog.Import(source,".zmx");

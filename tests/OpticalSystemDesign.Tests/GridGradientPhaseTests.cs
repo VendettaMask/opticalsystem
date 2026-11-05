@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -14,7 +15,7 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class GridGradientPhaseTests
 {
-    private static JsonDocument Fixture() => JsonDocument.Parse(File.ReadAllText(Path.Combine(
+    private static JsonDocument Fixture() => JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(
         AppContext.BaseDirectory, "Fixtures", "grid-gradient-phase-native-v1.json")));
 
     private static GridGradientIndexProfile Grid(JsonElement fixture, string key)

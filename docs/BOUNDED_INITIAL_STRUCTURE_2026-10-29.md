@@ -24,7 +24,7 @@
 
 ## 原21°任务的冻结对照
 
-输入仍为[原任务](../validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/task.topology-plan.json)，SHA-256 `57f7f14bea9c3a19ef801f6850f583938f02b6692dc91d3fc95722b981e2376d`。目标25.462945192 mm、F3.341593857，原三波长、0/14°/21°视场、SK4/SK4/LAK09与逐面口径保持。正式验收仍35场，每场960积分及99独立检查，焦距/F数±2%、RMS≤50 µm、最大半径≤150 µm、畸变≤3%、积分有效比例≥98%、检查无失光及全部原制造门槛。
+输入仍为[原任务](../validation/rechecks/2026-10-29/happylens-wide21/runs/original-task.topology-plan.json)，SHA-256 `57f7f14bea9c3a19ef801f6850f583938f02b6692dc91d3fc95722b981e2376d`。目标25.462945192 mm、F3.341593857，原三波长、0/14°/21°视场、SK4/SK4/LAK09与逐面口径保持。正式验收仍35场，每场960积分及99独立检查，焦距/F数±2%、RMS≤50 µm、最大半径≤150 µm、畸变≤3%、积分有效比例≥98%、检查无失光及全部原制造门槛。
 
 每臂共同上限为6次决策、600函数、100光线梯度、200万实际追迹、60秒；阶段40万、终验预留80万。Local/Full、原v4保护、4×16训练采样、恢复和±0.25 mm轴向权限不变。两种Delano准备都为4起点×最多30评价、总120评价/15秒；准备成本从各臂总额扣除。开发检查先完成，再[冻结协议](../validation/rechecks/2026-10-29/bounded-initial-structure/protocol.json)，按原流程→上一版Delano/群体→本次有界筛检各运行一次，没有追加优化。
 
@@ -50,4 +50,4 @@
 
 最终后台定向 **30个不同用例通过**（主批28＋停止分支补充2），没有全仓重跑。Release默认App随测试构建及诊断项目构建通过，相关格式/文档核验见证据。所有产品计算保持纯C#与共享Core；Python核验脚本只读JSON/TRX和文件哈希，不执行光学或优化。三臂之后另作27次Core一阶只读量请求、0追迹；开发诊断和测试工作量单独存放，不归为同预算优化收益。
 
-执行全程为后台CPU、两处理器、低优先级和离屏界面测试，未操作桌面、启动完整旧训练、验证原生GUI/GPU或发布安装包。[汇总](../validation/rechecks/2026-10-29/bounded-initial-structure/runs/summary.json)、[规格/账目核验](../validation/rechecks/2026-10-29/bounded-initial-structure/verification.json)、[本次最佳保留处方](../validation/rechecks/2026-10-29/bounded-initial-structure/runs/bounded-candidates/best-retained.staropt)、[失败重生候选](../validation/rechecks/2026-10-29/bounded-initial-structure/runs/bounded-candidates/trial-0-unqualified.staropt)。此前两臂记录仍见[前次报告](HAPPYLENS_WIDE21_COMPARISON_2026-10-29.md)。
+执行全程为后台CPU、两处理器、低优先级和离屏界面测试，未操作桌面、启动完整旧训练、验证原生GUI/GPU或发布安装包。[汇总](../validation/rechecks/2026-10-29/bounded-initial-structure/runs/summary.json)、[规格/账目核验](../validation/rechecks/2026-10-29/bounded-initial-structure/verification.json)、[本次最佳保留处方](../validation/rechecks/2026-10-29/happylens-wide21/runs/original/best-retained.staropt)、[失败重生候选](../validation/rechecks/2026-10-29/bounded-initial-structure/runs/bounded-candidates/trial-0-unqualified.staropt)。此前两臂记录仍见[前次报告](HAPPYLENS_WIDE21_COMPARISON_2026-10-29.md)。

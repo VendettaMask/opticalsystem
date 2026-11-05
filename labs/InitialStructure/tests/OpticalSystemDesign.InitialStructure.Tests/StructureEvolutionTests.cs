@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -116,9 +117,9 @@ public sealed class StructureEvolutionTests
         try
         {
             await ParaxialSeedSearchFiles.SaveAsync(result, file); Assert.InRange(new FileInfo(file).Length, 1, InitialStructureLimits.MaximumManifestBytes);
-            using var saved = JsonDocument.Parse(await File.ReadAllBytesAsync(file)); Assert.Equal(ContentFingerprint.Compute(result), saved.RootElement.GetProperty("sha256").GetString());
+            using var saved = JsonDocument.Parse(await EvidenceFiles.ReadAllBytesAsync(file)); Assert.Equal(ContentFingerprint.Compute(result), saved.RootElement.GetProperty("sha256").GetString());
         }
-        finally { if (File.Exists(file)) File.Delete(file); }
+        finally { if (EvidenceFiles.Exists(file)) File.Delete(file); }
     }
 
     [Fact]
@@ -216,10 +217,10 @@ public sealed class StructureEvolutionTests
     public void FrozenLegacyPreparationEnvelopeStillHasItsOriginalContentHash()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "global.json"))) directory = directory.Parent;
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "global.json"))) directory = directory.Parent;
         Assert.NotNull(directory);
         var path = Path.Combine(directory.FullName, "validation/rechecks/2026-10-30/structure-competition-v1/acceptance/competition-3-F8-full10.seed-search.json");
-        using var saved = JsonDocument.Parse(File.ReadAllBytes(path));
+        using var saved = JsonDocument.Parse(EvidenceFiles.ReadAllBytes(path));
         var json = new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,

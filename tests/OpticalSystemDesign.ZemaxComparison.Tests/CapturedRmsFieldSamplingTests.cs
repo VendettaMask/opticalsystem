@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
@@ -13,7 +14,7 @@ public sealed class CapturedRmsFieldSamplingTests
 {
     public static IEnumerable<object[]> Captures()
     {
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, "manifest.json")));
         return manifest.RootElement.GetProperty("cases").EnumerateArray().Select(c => new object[] { c.GetProperty("name").GetString()! }).ToArray();
     }
     private static string Root => Path.Combine(AppContext.BaseDirectory, "Fixtures", "rms-field-sampling");
@@ -40,15 +41,15 @@ public sealed class CapturedRmsFieldSamplingTests
     [Fact]
     public void EveryCapturedFileAndOfficialSourceMatchesItsManifest()
     {
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, "manifest.json")));
         foreach (var item in manifest.RootElement.GetProperty("files").EnumerateArray())
         {
             var path = Path.GetFullPath(Path.Combine(Root, item.GetProperty("path").GetString()!));
             Assert.StartsWith(Path.GetFullPath(Root) + Path.DirectorySeparatorChar, path);
-            Assert.Equal(item.GetProperty("sha256").GetString(), JsonFiles.Hash(File.ReadAllBytes(path)));
+            Assert.Equal(item.GetProperty("sha256").GetString(), JsonFiles.Hash(EvidenceFiles.ReadAllBytes(path)));
         }
         foreach (var item in manifest.RootElement.GetProperty("cases").EnumerateArray())
-            Assert.Equal(item.GetProperty("sourceSha256").GetString(), JsonFiles.Hash(File.ReadAllBytes(
+            Assert.Equal(item.GetProperty("sourceSha256").GetString(), JsonFiles.Hash(EvidenceFiles.ReadAllBytes(
                 Path.Combine(Root, item.GetProperty("name").GetString()!, "source.zmx"))));
     }
 }

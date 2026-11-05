@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Materials;
@@ -9,7 +10,7 @@ public sealed class BalancedDesignTests
     [Fact]
     public void ConstantIndexCavityProposalsMatchTheActualPinnedTfStudioLayerBuilder()
     {
-        using var reference = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,
+        using var reference = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,
             "Fixtures/tfstudio-prototypes-8b942b3.json")));
         var input = Examples.Create(DesignKind.NarrowBand);
         var low = MaterialLibrary.Capture(new ConstantIndexMaterial("L", 1.45), "reference fixture", 300, 1000);

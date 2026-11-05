@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Reflection;
 using OpticalSystemDesign.App.Controls;
@@ -85,5 +86,5 @@ public sealed class SeidelDiagramAutoRangeTests
     }
 
     private static Optic LoadLens() => OpticalFormatCatalog.Import(
-        File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
+        EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
 }

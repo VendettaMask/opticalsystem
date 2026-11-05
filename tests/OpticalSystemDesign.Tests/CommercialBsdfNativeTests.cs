@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Services;
@@ -13,7 +14,7 @@ public sealed class CommercialBsdfNativeTests
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");
         var data = BsdfFileImporter.Read(Path.Combine(fixtures, "speos-native-v11-no-white.anisotropicbsdf"), new(BsdfImportSides.Front));
-        using var reference = JsonDocument.Parse(File.ReadAllText(Path.Combine(fixtures, "speos-native-v11-no-white-reference.json")));
+        using var reference = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(fixtures, "speos-native-v11-no-white-reference.json")));
         var identity = reference.RootElement.GetProperty("Identity").Deserialize<BsdfReferenceIdentity>()!;
         var tolerance = reference.RootElement.GetProperty("Tolerance").Deserialize<BsdfReferenceTolerance>()!;
         var points = reference.RootElement.GetProperty("Values").Deserialize<BsdfReferenceValue[]>()!;
@@ -26,7 +27,7 @@ public sealed class CommercialBsdfNativeTests
     {
         using var files = new CameraSensorFileTests.TemporaryFiles(); var path = files.Path("control.anisotropicbsdf");
         var source = SpeosV11BinaryTests.Binary(true, true); File.WriteAllBytes(path, source);
-        using var reference = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "speos-native-v11-energy.json")));
+        using var reference = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "speos-native-v11-energy.json")));
         var root = reference.RootElement;
         Assert.Equal("2026.1.0.37094", root.GetProperty("Version").GetString());
         Assert.Equal(Convert.ToHexString(SHA256.HashData(source)).ToLowerInvariant(), root.GetProperty("SourceSha256").GetString());

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
@@ -26,7 +27,7 @@ public sealed class ZemaxWavefrontMapParityTests
         Assert.Equal("64 x 64", current.Values["Sampling"]);
         Assert.InRange(Convert.ToDouble(current.Values["RmsWaves"]), 0.038, 0.040);
 
-        using var document = JsonDocument.Parse(await File.ReadAllTextAsync(
+        using var document = JsonDocument.Parse(await EvidenceFiles.ReadAllTextAsync(
             Path.Combine(fixtureDirectory, "zemax-123456-wavefront-map.json")));
         var referenceRows = document.RootElement
             .GetProperty("dataGrids")[0]

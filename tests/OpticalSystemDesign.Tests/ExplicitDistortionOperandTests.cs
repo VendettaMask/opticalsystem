@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Runtime;
@@ -63,8 +64,8 @@ public sealed class ExplicitDistortionOperandTests(Xunit.Abstractions.ITestOutpu
     public void Captured123456SurfaceW311AndTotalTransverseDistortionMatchAt440Nm()
     {
         var fixture = Path.Combine(AppContext.BaseDirectory, "Fixtures");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(fixture, "zemax-123456.ZMX")), ".zmx");
-        var lines = File.ReadAllText(Path.Combine(fixture, "zemax-123456-seidel-coefficients.txt")).Replace("\r", "").Split('\n');
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(fixture, "zemax-123456.ZMX")), ".zmx");
+        var lines = EvidenceFiles.ReadAllText(Path.Combine(fixture, "zemax-123456-seidel-coefficients.txt")).Replace("\r", "").Split('\n');
         string[][] Section(string heading)
         {
             var start = Array.FindIndex(lines, line => line.Trim().TrimEnd(':', '：') == heading);

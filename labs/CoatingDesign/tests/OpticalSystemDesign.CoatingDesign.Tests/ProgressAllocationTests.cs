@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 
@@ -7,7 +8,7 @@ public sealed class ProgressAllocationTests
 {
     private static JsonElement Fixture()
     {
-        using var json = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/progress-allocation-20261031.json")));
+        using var json = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/progress-allocation-20261031.json")));
         return json.RootElement.Clone();
     }
 

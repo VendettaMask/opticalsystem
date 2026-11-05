@@ -19,7 +19,7 @@
 | --- | --- |
 | 完整主窗口 | [13号字](workbench/workbench-1600-13.png)、[18号字](workbench/workbench-1120-18.png) |
 | 原生设置展开 | [13号字](workbench/settings-1600-13.png)、[18号字](workbench/settings-1120-18.png) |
-| 惠更斯MTF | [分析界面](previews/Huygens-MTF-live.png)、[原源图](previews/Huygens-MTF-source.png) |
+| 惠更斯MTF | [分析界面](previews/Huygens-MTF-live.png)、[原源图](../isekai-paper-gaps/tabs/Huygens-MTF-source.png) |
 | 惠更斯PSF | [分析界面](previews/Huygens-PSF-live.png) |
 | 波前 | [分析界面](previews/Wavefront-Map-live.png) |
 | 点列 | [分析界面](previews/Spot-Diagram-live.png) |

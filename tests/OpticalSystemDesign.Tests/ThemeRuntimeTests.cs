@@ -323,7 +323,7 @@ public sealed class ThemeRuntimeTests
         await session.Dispatch(() =>
         {
             var application = Assert.IsType<HeadlessTestApplication>(global::Avalonia.Application.Current);
-            var icons = IsekaiThemeIconPack.Names
+            var icons = LocalIconLibrary.Names
                 .Select(iconName => new LocalIcon
                 {
                     IconName = iconName,
@@ -351,7 +351,7 @@ public sealed class ThemeRuntimeTests
                 window.Show();
                 AvaloniaHeadlessPlatform.ForceRenderTimerTick();
 
-                Assert.Equal(IsekaiThemeIconPack.Names.Count, icons.Length);
+                Assert.Equal(LocalIconLibrary.Names.Count, icons.Length);
                 Assert.All(icons, icon => Assert.Equal(IsekaiTheme.Variant, icon.ActualThemeVariant));
             }
             finally

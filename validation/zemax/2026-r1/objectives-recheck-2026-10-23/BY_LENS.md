@@ -38,4 +38,4 @@
 - 不可比原因包括无足够有限曲线点、原生无效/低采样警告、原生 RMS 扫描方向范围不一致及空数据缓冲区；不是这些设置已达标的声明。
 - 此次为同目录既有请求的 CPU 比较，不是 GPU、任意采样/所有视场组合或全 95 支镜头认证。补充采样控制保留其原记录，本轮未扩展。
 
-[机器汇总](summary.json)、[逐项结果](analysis-matrix.csv)、[逐面光线](ray-results.json)、[请求及参考哈希](request-reference-manifest.json)、[源文件核对](source-integrity.json)。
+[机器汇总](summary.json)、[逐项结果](analysis-matrix.csv)、[逐面光线](../objectives-repair-2026-10-23/ray-results.json)、[请求及参考哈希](request-reference-manifest.json)、[源文件核对](source-integrity.json)。

@@ -1,11 +1,8 @@
-using System.Globalization;
-using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Theming;
 
@@ -236,138 +233,9 @@ public sealed class LocalIconLabel : StackPanel
 
 public static class LocalIconLibrary
 {
-    private const string CatalogResourceName =
-        "OpticalSystemDesign.App.Assets.Icons.lucide-icon-nodes.json";
-    private static readonly Lazy<IReadOnlyDictionary<string, IconDefinition>> Definitions = new(Load);
+    public static IReadOnlyCollection<string> Names => ScientificIconLibrary.Names;
 
-    public static IReadOnlyCollection<string> Names => Definitions.Value.Keys.ToArray();
-
-    public static bool Contains(string iconName) => Definitions.Value.ContainsKey(iconName) || ScientificIconLibrary.Contains(iconName);
-
-    internal static bool TryGetStandard(string iconName, out IconDefinition definition) =>
-        Definitions.Value.TryGetValue(iconName, out definition!);
-
-    private static IReadOnlyDictionary<string, IconDefinition> Load()
-    {
-        using var stream = OpenCatalog();
-        if (stream is null)
-        {
-            return new Dictionary<string, IconDefinition>(StringComparer.OrdinalIgnoreCase);
-        }
-
-        using var document = JsonDocument.Parse(stream);
-        var definitions = new Dictionary<string, IconDefinition>(StringComparer.OrdinalIgnoreCase);
-        foreach (var icon in document.RootElement.EnumerateObject())
-        {
-            var primitives = new List<IconPrimitive>();
-            foreach (var node in icon.Value.EnumerateArray())
-            {
-                var tag = node[0].GetString();
-                var attributes = node[1];
-                var primitive = tag switch
-                {
-                    "path" => Path(attributes),
-                    "circle" => Circle(attributes),
-                    "ellipse" => Ellipse(attributes),
-                    "line" => Line(attributes),
-                    "rect" => Rectangle(attributes),
-                    "polyline" => Polyline(attributes, close: false),
-                    "polygon" => Polyline(attributes, close: true),
-                    _ => null
-                };
-                if (primitive is not null)
-                {
-                    primitives.Add(primitive);
-                }
-            }
-
-            definitions[icon.Name] = IconDefinition.Standard(primitives);
-        }
-
-        return definitions;
-    }
-
-    private static Stream? OpenCatalog()
-    {
-        var assembly = typeof(LocalIconLibrary).Assembly;
-        var embedded = assembly.GetManifestResourceStream(CatalogResourceName);
-        if (embedded is not null)
-        {
-            return embedded;
-        }
-
-        var assetUri = new Uri("avares://OpticalSystemDesign.App/Assets/Icons/lucide-icon-nodes.json");
-        if (AssetLoader.Exists(assetUri))
-        {
-            return AssetLoader.Open(assetUri);
-        }
-
-        var candidates = new[]
-        {
-            System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "Icons", "lucide-icon-nodes.json"),
-            System.IO.Path.Combine(
-                Environment.CurrentDirectory,
-                "src",
-                "OpticalSystemDesign.App",
-                "Assets",
-                "Icons",
-                "lucide-icon-nodes.json")
-        };
-        var path = candidates.FirstOrDefault(File.Exists);
-        return path is null ? null : File.OpenRead(path);
-    }
-
-    private static IconPrimitive Path(JsonElement attributes) =>
-        new PathPrimitive(String(attributes, "d"));
-
-    private static IconPrimitive Circle(JsonElement attributes) => new EllipsePrimitive(
-        new Point(Number(attributes, "cx"), Number(attributes, "cy")),
-        Number(attributes, "r"),
-        Number(attributes, "r"));
-
-    private static IconPrimitive Ellipse(JsonElement attributes) => new EllipsePrimitive(
-        new Point(Number(attributes, "cx"), Number(attributes, "cy")),
-        Number(attributes, "rx"),
-        Number(attributes, "ry"));
-
-    private static IconPrimitive Line(JsonElement attributes) => new LinePrimitive(
-        new Point(Number(attributes, "x1"), Number(attributes, "y1")),
-        new Point(Number(attributes, "x2"), Number(attributes, "y2")));
-
-    private static IconPrimitive Rectangle(JsonElement attributes)
-    {
-        var width = Number(attributes, "width");
-        var height = Number(attributes, "height");
-        var radiusX = Number(attributes, "rx", 0);
-        var radiusY = Number(attributes, "ry", radiusX);
-        return new RectanglePrimitive(
-            new Rect(Number(attributes, "x"), Number(attributes, "y"), width, height),
-            radiusX,
-            radiusY);
-    }
-
-    private static IconPrimitive Polyline(JsonElement attributes, bool close)
-    {
-        var values = String(attributes, "points")
-            .Split(new[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries)
-            .Select(value => double.Parse(value, CultureInfo.InvariantCulture))
-            .ToArray();
-        var points = new List<Point>(values.Length / 2);
-        for (var index = 0; index + 1 < values.Length; index += 2)
-        {
-            points.Add(new Point(values[index], values[index + 1]));
-        }
-
-        return new PolylinePrimitive(points, close);
-    }
-
-    private static string String(JsonElement attributes, string name) =>
-        attributes.GetProperty(name).GetString() ?? string.Empty;
-
-    private static double Number(JsonElement attributes, string name, double fallback = 0) =>
-        attributes.TryGetProperty(name, out var value)
-            ? double.Parse(value.GetString() ?? fallback.ToString(CultureInfo.InvariantCulture), CultureInfo.InvariantCulture)
-            : fallback;
+    public static bool Contains(string iconName) => ScientificIconLibrary.Contains(iconName);
 }
 
 internal sealed record IconDefinition(
@@ -396,21 +264,6 @@ internal interface IThemeIconPack
     string Id { get; }
 
     bool TryResolve(string iconName, out IconDefinition definition);
-}
-
-internal sealed class StandardThemeIconPack : IThemeIconPack
-{
-    public static StandardThemeIconPack Instance { get; } = new();
-
-    public string Id => "StandardLucide";
-
-    private StandardThemeIconPack()
-    {
-    }
-
-    public bool TryResolve(string iconName, out IconDefinition definition) =>
-        LocalIconLibrary.TryGetStandard(iconName, out definition!) ||
-        LocalIconLibrary.TryGetStandard("circle-question-mark", out definition!);
 }
 
 internal static class ThemeIconResolver

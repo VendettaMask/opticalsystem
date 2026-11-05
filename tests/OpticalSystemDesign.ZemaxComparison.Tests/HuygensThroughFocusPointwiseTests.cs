@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -27,9 +28,9 @@ public sealed class HuygensThroughFocusPointwiseTests(ITestOutputHelper output)
     public async Task OriginalCapturedThroughFocusMeetsUnchangedPointwiseGate(string id, string lens, int configuration)
     {
         var fixture = Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-psf-contract");
-        using var manifest = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(fixture, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllBytes(Path.Combine(fixture, "manifest.json")));
         var archive = Path.Combine(fixture, "source-evidence.zip");
-        using (var file = File.OpenRead(archive))
+        using (var file = EvidenceFiles.OpenRead(archive))
             Assert.Equal(manifest.RootElement.GetProperty("sourceArchiveSha256").GetString(),
                 Convert.ToHexStringLower(SHA256.HashData(file)));
         using var zip = ZipFile.OpenRead(archive);
@@ -61,7 +62,7 @@ public sealed class HuygensThroughFocusPointwiseTests(ITestOutputHelper output)
             // These frozen afocal through-focus axes are explicitly diopters.
             var actual = new NumericResult();
             var expected = new NumericResult();
-            using var capture = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(directory, "data.json")));
+            using var capture = JsonDocument.Parse(EvidenceFiles.ReadAllBytes(Path.Combine(directory, "data.json")));
             var native = Assert.Single(capture.RootElement.GetProperty("dataSeries").EnumerateArray());
             var x = native.GetProperty("x").Deserialize<double[]>()!;
             Assert.Equal(2, data.PlotSeries.Count);

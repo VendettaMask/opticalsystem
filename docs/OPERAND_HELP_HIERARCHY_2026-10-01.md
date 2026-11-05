@@ -41,9 +41,9 @@
 
 默认 Debug/Release 输出重新构建，帮助交互、官方名称/支持标识及字号回归各 **19/19** 通过；沿用现有测试用例，增加逐级点击、叶节点隐藏下级目录、无结果清除层级以及切换后的滚动复位断言。检查 Light/Dark 默认目录、GRIN 分组、代码搜索及 680 DIP 窄窗口共 8 张实际 Avalonia/Skia 渲染。见[本次验证记录](../artifacts/validation/operand-help-levels-20261002/verification.json)。本次为帮助界面的定向验证，没有重新执行 2308 项光学与操作数合并回归，没有新增 Zemax 数值捕获。
 
-![当前一级与二级目录](../artifacts/validation/operand-help-levels-20261002/screenshots/operand-help-light-overview.png)
+![当前一级与二级目录](../artifacts/validation/grin-operands-20261003/screenshots/operand-help-light-overview.png)
 
-![当前二级与三级目录](../artifacts/validation/operand-help-levels-20261002/screenshots/operand-help-light-grin-family.png)
+![当前二级与三级目录](../artifacts/validation/operand-help-final-20261002/screenshots/operand-help-light-grin-family.png)
 
 此前仅复核、未修改代码的阶段证据保留在 [20261001 复核](../artifacts/validation/operand-help-hierarchy-recheck-20261001/verification.json)和 [20261002 复核](../artifacts/validation/operand-help-hierarchy-20261002/verification.json)，其截图属于本次改进前的界面。
 
@@ -51,7 +51,7 @@
 
 在第二十八批 Core 改动之后重新构建默认 Debug/Release 输出，帮助交互、名称标识与字号定向回归各 **19/19** 通过。重新检查 Light/Dark 概览、GRIN 功能组、搜索及 680 DIP 窄窗口共 8 张实际 Avalonia/Skia 渲染，确认三级目录、下级跳转与独立支持状态均保留。本次只复核已有层级实现，未修改帮助源码或新增测试，不替代第二十八批 2497 项合并回归，也不涉及 Zemax 数值等价。见[本次记录](../artifacts/validation/operand-help-current-20261002/verification.json)。
 
-![当前版本三级目录](../artifacts/validation/operand-help-current-20261002/screenshots/operand-help-light-grin-family.png)
+![当前版本三级目录](../artifacts/validation/operand-help-final-20261002/screenshots/operand-help-light-grin-family.png)
 
 ## 前次工作区复核（历史记录）
 

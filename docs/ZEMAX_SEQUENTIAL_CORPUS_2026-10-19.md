@@ -42,4 +42,4 @@ Apochromat2 有 1 项衍射包围能量差异，Even Asphere 有 1 项 MTF 差�
 
 执行期间保留了资源故障导致的 802 次原生 Remoting 失败和 3 次软件 CLR/分页文件启动失败；仅识别出的基础设施失败按原请求重试。原生重试每 50 项重开应用，全部最终任务有完成记录，真正计算/能力失败继续保留。4 项独立新实例点列控制与批量捕获的规范化输出哈希完全一致。两条准备中断后默认 Skipped 的占位行纠正为有原异常的 Error，旧 JSON 保留，数值数组与请求未改。
 
-原始逐任务捕获、失败尝试和执行日志位于工作区 `artifacts/zemax-sequential-corpus/20261019/full-v1` 与 `zos-variants-v1`；本次尚未打包原始大体积捕获或上传远端。可携带的矩阵、源完整性、格式控制、失败分类和汇总已保存于上述 validation 目录。完整性与独立控制见[冻结资产核验](../validation/zemax/2026-r1/sequential-corpus-2026-10-19/frozen-integrity.json)、[独立点列捕获](../validation/zemax/2026-r1/sequential-corpus-2026-10-19/isolated-controls.json)。
+原始逐任务捕获、失败尝试和执行日志位于工作区 `artifacts/zemax-sequential-corpus/20261019/full-v1` 与 `zos-variants-v1`；本次尚未打包原始大体积捕获或上传远端。可携带的矩阵、源完整性、格式控制、失败分类和汇总已保存于上述 validation 目录。完整性与独立控制见[冻结资产核验](../validation/zemax/2026-r1/afocal-riflescope-2026-10-19/frozen-integrity.json)、[独立点列捕获](../validation/zemax/2026-r1/sequential-corpus-2026-10-19/isolated-controls.json)。

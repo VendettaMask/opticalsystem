@@ -127,7 +127,7 @@ Double Gauss 28 degree field
 
 配置 1　·　
 
-![二维布局](<report_assets/item-001.png>)
+![二维布局](../capture/source-images/item-001.png)
 
 *图 1　二维布局*
 
@@ -140,7 +140,7 @@ Double Gauss 28 degree field
 
 配置 1　·　
 
-![三维布局](<report_assets/item-002.png>)
+![三维布局](../capture/source-images/item-002.png)
 
 *图 2　三维布局*
 
@@ -153,7 +153,7 @@ Double Gauss 28 degree field
 
 配置 1　·　视场序号：1 · 波长序号：1
 
-![单光线追迹](<report_assets/item-003.png>)
+![单光线追迹](../capture/source-images/item-003.png)
 
 *图 3　单光线追迹*
 
@@ -214,7 +214,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长序号：2
 
-![赛德尔图](<report_assets/item-006.png>)
+![赛德尔图](../capture/source-images/item-006.png)
 
 *图 4　赛德尔图*
 
@@ -231,7 +231,7 @@ Double Gauss 28 degree field
 
 配置 1　·　参照：主光线 · 波长：全部 · 视场：全部 · 表面：像面
 
-![标准点列图](<report_assets/item-007.png>)
+![标准点列图](../capture/source-images/item-007.png)
 
 *图 5　标准点列图*
 
@@ -248,7 +248,7 @@ Double Gauss 28 degree field
 
 配置 1　·　参照：主光线 · 波长：全部 · 视场：全部 · 表面：像面
 
-![全视场点列图](<report_assets/item-008.png>)
+![全视场点列图](../capture/source-images/item-008.png)
 
 *图 6　全视场点列图*
 
@@ -265,7 +265,7 @@ Double Gauss 28 degree field
 
 配置 1　·　参照：主光线 · 波长：全部 · 视场：全部 · 表面：像面
 
-![矩阵点列图](<report_assets/item-009.png>)
+![矩阵点列图](../capture/source-images/item-009.png)
 
 *图 7　矩阵点列图*
 
@@ -282,7 +282,7 @@ Double Gauss 28 degree field
 
 配置 1　·　参照：主光线 · 波长：全部 · 视场：全部 · 表面：像面
 
-![结构矩阵点列图](<report_assets/item-010.png>)
+![结构矩阵点列图](../capture/source-images/item-010.png)
 
 *图 8　结构矩阵点列图*
 
@@ -299,7 +299,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长：全部 · 视场：全部 · 表面：像面
 
-![光线像差图](<report_assets/item-011.png>)
+![光线像差图](../capture/source-images/item-011.png)
 
 *图 9　光线像差图*
 
@@ -316,7 +316,7 @@ Double Gauss 28 degree field
 
 配置 1　·　表面序号：-1 · 波长序号：全部 · 视场序号：全部
 
-![光迹图](<report_assets/item-012.png>)
+![光迹图](../capture/source-images/item-012.png)
 
 *图 10　光迹图*
 
@@ -333,7 +333,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长序号：1 · 参考视场：1 · 视场宽度：0
 
-![网格畸变](<report_assets/item-013.png>)
+![网格畸变](../capture/source-images/item-013.png)
 
 *图 11　网格畸变*
 
@@ -350,7 +350,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长：全部 · 参考视场：1
 
-![场曲/畸变](<report_assets/item-014.png>)
+![场曲/畸变](../capture/source-images/item-014.png)
 
 *图 12　场曲/畸变*
 
@@ -367,7 +367,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长：全部
 
-![场曲](<report_assets/item-015.png>)
+![场曲](../capture/source-images/item-015.png)
 
 *图 13　场曲*
 
@@ -384,7 +384,7 @@ Double Gauss 28 degree field
 
 配置 1　·　
 
-![色焦移](<report_assets/item-016.png>)
+![色焦移](../capture/source-images/item-016.png)
 
 *图 14　色焦移*
 
@@ -401,7 +401,7 @@ Double Gauss 28 degree field
 
 配置 1　·　所有波长：否
 
-![垂轴色差](<report_assets/item-017.png>)
+![垂轴色差](../capture/source-images/item-017.png)
 
 *图 15　垂轴色差*
 
@@ -418,7 +418,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长：全部
 
-![轴向像差](<report_assets/item-018.png>)
+![轴向像差](../capture/source-images/item-018.png)
 
 *图 16　轴向像差*
 
@@ -435,7 +435,7 @@ Double Gauss 28 degree field
 
 配置 1　·　视场形状：椭圆 · X 视场宽度：14 · Y 视场宽度：14 · 视场序号：1 - On axis · 波长序号：2
 
-![全视场像差](<report_assets/item-019.png>)
+![全视场像差](../capture/source-images/item-019.png)
 
 *图 17　全视场像差*
 
@@ -452,7 +452,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长：全部 · 参照：centroid
 
-![几何](<report_assets/item-020.png>)
+![几何](../capture/source-images/item-020.png)
 
 *图 18　几何*
 
@@ -469,7 +469,7 @@ Double Gauss 28 degree field
 
 配置 1　·　瞳面采样：64 x 64 · 像面采样：128 x 128 · 波长：全部 · 视场：全部 · 参照：centroid
 
-![衍射](<report_assets/item-021.png>)
+![衍射](../capture/source-images/item-021.png)
 
 *图 19　衍射*
 
@@ -486,7 +486,7 @@ Double Gauss 28 degree field
 
 配置 1　·　瞳面采样：32 x 32 · 波长：全部 · 视场序号：1
 
-![几何线/边缘扩散](<report_assets/item-022.png>)
+![几何线/边缘扩散](../capture/source-images/item-022.png)
 
 *图 20　几何线/边缘扩散*
 
@@ -503,7 +503,7 @@ Double Gauss 28 degree field
 
 配置 1　·　视场尺寸：0 · 光源采样：5 · 波长：全部 · 视场序号：1 · 参照：centroid
 
-![扩展光源](<report_assets/item-023.png>)
+![扩展光源](../capture/source-images/item-023.png)
 
 *图 21　扩展光源*
 
@@ -520,7 +520,7 @@ Double Gauss 28 degree field
 
 配置 1　·　
 
-![瞳孔像差](<report_assets/item-024.png>)
+![瞳孔像差](../capture/source-images/item-024.png)
 
 *图 22　瞳孔像差*
 
@@ -537,7 +537,7 @@ Double Gauss 28 degree field
 
 配置 1　·　视场间隔数：15 · GQ 角向点数：6 · 波长：全部 · 参照：chief
 
-![RMS vs. 视场](<report_assets/item-025.png>)
+![RMS vs. 视场](../capture/source-images/item-025.png)
 
 *图 23　RMS vs. 视场*
 
@@ -554,7 +554,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长密度：21 · GQ 角向点数：6 · 视场：全部 · 参照：centroid
 
-![RMS vs. 波长](<report_assets/item-026.png>)
+![RMS vs. 波长](../capture/source-images/item-026.png)
 
 *图 24　RMS vs. 波长*
 
@@ -571,7 +571,7 @@ Double Gauss 28 degree field
 
 配置 1　·　GQ 角向点数：6 · 波长：全部 · 参照：chief
 
-![RMS vs. 离焦](<report_assets/item-027.png>)
+![RMS vs. 离焦](../capture/source-images/item-027.png)
 
 *图 25　RMS vs. 离焦*
 
@@ -588,7 +588,7 @@ Double Gauss 28 degree field
 
 配置 1　·　X视场采样：11 · Y视场采样：11 · X视场大小：0 · Y视场大小：0 · GQ 角向点数：6
 
-![二维视场RMS图](<report_assets/item-028.png>)
+![二维视场RMS图](../capture/source-images/item-028.png)
 
 *图 26　二维视场RMS图*
 
@@ -605,7 +605,7 @@ Double Gauss 28 degree field
 
 配置 1　·　视场密度：15 · GQ 角向点数：6 · 参照：chief · 波长：全部
 
-![RMS 波前-视场](<report_assets/item-029.png>)
+![RMS 波前-视场](../capture/source-images/item-029.png)
 
 *图 27　RMS 波前-视场*
 
@@ -622,7 +622,7 @@ Double Gauss 28 degree field
 
 配置 1　·　视场密度：20 · 波长序号：2
 
-![Zernike系数 vs. 视场](<report_assets/item-030.png>)
+![Zernike系数 vs. 视场](../capture/source-images/item-030.png)
 
 *图 28　Zernike系数 vs. 视场*
 
@@ -639,7 +639,7 @@ Double Gauss 28 degree field
 
 配置 1　·　参照：主光线 · 波长：全部 · 视场：全部 · 表面：像面
 
-![离焦点列图](<report_assets/item-031.png>)
+![离焦点列图](../capture/source-images/item-031.png)
 
 *图 29　离焦点列图*
 
@@ -656,7 +656,7 @@ Double Gauss 28 degree field
 
 配置 1　·　采样：64 · 波长：全部 · 视场：全部
 
-![傅里叶离焦 MTF](<report_assets/item-032.png>)
+![傅里叶离焦 MTF](../capture/source-images/item-032.png)
 
 *图 30　傅里叶离焦 MTF*
 
@@ -673,7 +673,7 @@ Double Gauss 28 degree field
 
 配置 1　·　瞳面采样：64 · 图像采样：32 · 波长：全部 · 视场：全部
 
-![惠更斯离焦 MTF](<report_assets/item-033.png>)
+![惠更斯离焦 MTF](../capture/source-images/item-033.png)
 
 *图 31　惠更斯离焦 MTF*
 
@@ -690,7 +690,7 @@ Double Gauss 28 degree field
 
 配置 1　·　采样：64 · 波长：全部 · 视场：全部
 
-![几何离焦 MTF](<report_assets/item-034.png>)
+![几何离焦 MTF](../capture/source-images/item-034.png)
 
 *图 32　几何离焦 MTF*
 
@@ -707,7 +707,7 @@ Double Gauss 28 degree field
 
 配置 1　·　瞳面/光线采样数：32 · 波长：全部
 
-![傅里叶 MTF VS 视场](<report_assets/item-035.png>)
+![傅里叶 MTF VS 视场](../capture/source-images/item-035.png)
 
 *图 33　傅里叶 MTF VS 视场*
 
@@ -724,7 +724,7 @@ Double Gauss 28 degree field
 
 配置 1　·　瞳面采样：64 · 波长：全部 · 视场密度：10
 
-![惠更斯 MTF VS 视场](<report_assets/item-036.png>)
+![惠更斯 MTF VS 视场](../capture/source-images/item-036.png)
 
 *图 34　惠更斯 MTF VS 视场*
 
@@ -741,7 +741,7 @@ Double Gauss 28 degree field
 
 配置 1　·　瞳面/光线采样数：32 · 波长：全部
 
-![几何 MTF VS 视场](<report_assets/item-037.png>)
+![几何 MTF VS 视场](../capture/source-images/item-037.png)
 
 *图 35　几何 MTF VS 视场*
 
@@ -758,7 +758,7 @@ Double Gauss 28 degree field
 
 配置 1　·　视场密度：20 · 波长序号：2
 
-![入射角 vs. 像高](<report_assets/item-038.png>)
+![入射角 vs. 像高](../capture/source-images/item-038.png)
 
 *图 36　入射角 vs. 像高*
 
@@ -775,7 +775,7 @@ Double Gauss 28 degree field
 
 配置 1　·　测量表面序号：-1
 
-![入射角-像高（扫描瞳孔）](<report_assets/item-039.png>)
+![入射角-像高（扫描瞳孔）](../capture/source-images/item-039.png)
 
 *图 37　入射角-像高（扫描瞳孔）*
 
@@ -792,7 +792,7 @@ Double Gauss 28 degree field
 
 配置 1　·　测量表面序号：-1
 
-![入射角-像高（扫描视场）](<report_assets/item-040.png>)
+![入射角-像高（扫描视场）](../capture/source-images/item-040.png)
 
 *图 38　入射角-像高（扫描视场）*
 
@@ -809,7 +809,7 @@ Double Gauss 28 degree field
 
 配置 1　·　参考面：12
 
-![基面数据](<report_assets/item-041.png>)
+![基面数据](../capture/source-images/item-041.png)
 
 *图 39　基面数据*
 
@@ -826,7 +826,7 @@ Double Gauss 28 degree field
 
 配置 1　·　
 
-![渐晕图](<report_assets/item-042.png>)
+![渐晕图](../capture/source-images/item-042.png)
 
 *图 40　渐晕图*
 
@@ -843,7 +843,7 @@ Double Gauss 28 degree field
 
 配置 1　·　视场密度：21 · 波长序号：全部
 
-![相对照度](<report_assets/item-043.png>)
+![相对照度](../capture/source-images/item-043.png)
 
 *图 41　相对照度*
 
@@ -860,7 +860,7 @@ Double Gauss 28 degree field
 
 配置 1　·　探测器表面序号：-1 · 无物理孔径时按表面半口径采样：是
 
-![非相干照度](<report_assets/item-044.png>)
+![非相干照度](../capture/source-images/item-044.png)
 
 *图 42　非相干照度*
 
@@ -877,7 +877,7 @@ Double Gauss 28 degree field
 
 配置 1　·　参考表面序号：-1
 
-![辐射强度](<report_assets/item-045.png>)
+![辐射强度](../capture/source-images/item-045.png)
 
 *图 43　辐射强度*
 
@@ -894,7 +894,7 @@ Double Gauss 28 degree field
 
 配置 1　·　
 
-![Y-Ybar](<report_assets/item-046.png>)
+![Y-Ybar](../capture/source-images/item-046.png)
 
 *图 44　Y-Ybar*
 
@@ -911,7 +911,7 @@ Double Gauss 28 degree field
 
 配置 1　·　采样：64 x 64 · 波长：全部 · 视场序号：1 - 轴上视场 · 表面：像面
 
-![FFT PSF](<report_assets/item-047.png>)
+![FFT PSF](../capture/source-images/item-047.png)
 
 *图 45　FFT PSF*
 
@@ -928,7 +928,7 @@ Double Gauss 28 degree field
 
 配置 1　·　采样：64 x 64 · 波长：全部 · 视场序号：1 - 轴上视场
 
-![FFT PSF截面图](<report_assets/item-048.png>)
+![FFT PSF截面图](../capture/source-images/item-048.png)
 
 *图 46　FFT PSF截面图*
 
@@ -945,7 +945,7 @@ Double Gauss 28 degree field
 
 配置 1　·　采样：64 x 64 · 波长：全部 · 视场序号：1 - 轴上视场
 
-![FFT 线/边缘扩散](<report_assets/item-049.png>)
+![FFT 线/边缘扩散](../capture/source-images/item-049.png)
 
 *图 47　FFT 线/边缘扩散*
 
@@ -962,7 +962,7 @@ Double Gauss 28 degree field
 
 配置 1　·　光瞳采样：32 x 32 · 像面采样：32 x 32 · 波长：全部 · 视场序号：1 - 轴上视场
 
-![惠更斯PSF](<report_assets/item-050.png>)
+![惠更斯PSF](../capture/source-images/item-050.png)
 
 *图 48　惠更斯PSF*
 
@@ -979,7 +979,7 @@ Double Gauss 28 degree field
 
 配置 1　·　光瞳采样：32 · 像面采样：32 · 波长：全部 · 视场序号：1
 
-![惠更斯PSF截面图](<report_assets/item-051.png>)
+![惠更斯PSF截面图](../capture/source-images/item-051.png)
 
 *图 49　惠更斯PSF截面图*
 
@@ -996,7 +996,7 @@ Double Gauss 28 degree field
 
 配置 1　·　采样：64 · 波长：全部 · 视场：全部 · 表面：像面
 
-![傅里叶 MTF](<report_assets/item-052.png>)
+![傅里叶 MTF](../capture/source-images/item-052.png)
 
 *图 50　傅里叶 MTF*
 
@@ -1013,7 +1013,7 @@ Double Gauss 28 degree field
 
 配置 1　·　瞳面采样：32 · 图像采样：32 · 波长：全部 · 视场：全部
 
-![惠更斯 MTF](<report_assets/item-053.png>)
+![惠更斯 MTF](../capture/source-images/item-053.png)
 
 *图 51　惠更斯 MTF*
 
@@ -1030,7 +1030,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长：全部 · 视场：全部
 
-![几何 MTF](<report_assets/item-054.png>)
+![几何 MTF](../capture/source-images/item-054.png)
 
 *图 52　几何 MTF*
 
@@ -1047,7 +1047,7 @@ Double Gauss 28 degree field
 
 配置 1　·　瞳面采样数：32
 
-![采样 MTF](<report_assets/item-055.png>)
+![采样 MTF](../capture/source-images/item-055.png)
 
 *图 53　采样 MTF*
 
@@ -1064,7 +1064,7 @@ Double Gauss 28 degree field
 
 配置 1　·　采样：13 · 波长序号：2 · 视场序号：1
 
-![对比度损失图](<report_assets/item-056.png>)
+![对比度损失图](../capture/source-images/item-056.png)
 
 *图 54　对比度损失图*
 
@@ -1081,7 +1081,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长：全部 · 视场：全部 · 表面：像面
 
-![光程差图](<report_assets/item-057.png>)
+![光程差图](../capture/source-images/item-057.png)
 
 *图 55　光程差图*
 
@@ -1098,7 +1098,7 @@ Double Gauss 28 degree field
 
 配置 1　·　采样：32 x 32 · 波长序号：2 · 视场序号：1 - 轴上视场
 
-![傅科分析](<report_assets/item-058.png>)
+![傅科分析](../capture/source-images/item-058.png)
 
 *图 56　傅科分析*
 
@@ -1115,7 +1115,7 @@ Double Gauss 28 degree field
 
 配置 1　·　采样：64 x 64 · 参考主光线：否 · 波长序号：2 · 视场序号：1 - 轴上视场 · 表面：像面
 
-![波前图](<report_assets/item-059.png>)
+![波前图](../capture/source-images/item-059.png)
 
 *图 57　波前图*
 
@@ -1132,7 +1132,7 @@ Double Gauss 28 degree field
 
 配置 1　·　瞳面采样：64 x 64 · 分析面：-1 - 像面 · 波长序号：2 · 视场序号：1
 
-![干涉图](<report_assets/item-060.png>)
+![干涉图](../capture/source-images/item-060.png)
 
 *图 58　干涉图*
 
@@ -1149,7 +1149,7 @@ Double Gauss 28 degree field
 
 配置 1　·　采样：64 x 64 · 参考主光线：否 · 波长序号：2 · 视场序号：1 - 轴上视场 · 表面：像面
 
-![波前](<report_assets/item-061.png>)
+![波前](../capture/source-images/item-061.png)
 
 *图 59　波前*
 
@@ -1166,7 +1166,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长：全部 · 视场序号：1
 
-![质心参考球波前](<report_assets/item-062.png>)
+![质心参考球波前](../capture/source-images/item-062.png)
 
 *图 60　质心参考球波前*
 
@@ -1183,7 +1183,7 @@ Double Gauss 28 degree field
 
 配置 1　·　波长：全部 · 视场序号：1
 
-![最佳拟合球波前](<report_assets/item-063.png>)
+![最佳拟合球波前](../capture/source-images/item-063.png)
 
 *图 61　最佳拟合球波前*
 
@@ -1353,7 +1353,7 @@ W(ρ, θ) = Σ c_j Z_j(ρ, θ)。ρ 为归一化瞳孔半径，θ 为方位角�
 
 配置 1　·　
 
-![Jones 瞳](<report_assets/item-067.png>)
+![Jones 瞳](../capture/source-images/item-067.png)
 
 *图 62　Jones 瞳*
 

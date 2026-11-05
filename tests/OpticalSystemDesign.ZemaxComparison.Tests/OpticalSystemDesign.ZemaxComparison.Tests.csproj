@@ -50,6 +50,9 @@
     <None Include="../../validation/zemax/2026-r1/tessar-vignetting-2026-10-06/rotated30-axis-compressed/*-native.json" Link="Fixtures/tessar-vignetting/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <Target Name="MaterializeAfocalEvidence" AfterTargets="CopyFilesToOutputDirectory" Condition="'$(DesignTimeBuild)' != 'true'">
-    <Exec Command="pwsh -NoProfile -File &quot;$(MSBuildProjectDirectory)/../../tools/validation/EvidenceAliases.ps1&quot; -Mode Materialize -RepositoryRoot &quot;$(MSBuildProjectDirectory)/../..&quot; -DestinationRoot &quot;$(TargetDir).&quot; -FixtureLayout" />
+    <Exec Command="pwsh -NoProfile -File &quot;$(MSBuildProjectDirectory)/../../tools/validation/EvidenceAliases.ps1&quot; -Mode Materialize -RepositoryRoot &quot;$(MSBuildProjectDirectory)/../..&quot; -DestinationRoot &quot;$(TargetDir).&quot; -FixtureLayout -FetchLfs -ProjectPath &quot;$(MSBuildProjectFullPath)&quot;" />
   </Target>
+  <ItemGroup>
+    <Compile Include="../../tools/validation/EvidenceFiles.cs" Link="Shared/EvidenceFiles.cs" />
+  </ItemGroup>
 </Project>

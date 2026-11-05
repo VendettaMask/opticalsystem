@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -341,13 +342,13 @@ public sealed class TopologyExpansionTests(ITestOutputHelper output)
         MaximumDistortionFraction = 1,
         MinimumValidRayFraction = .1
     };
-    private static DesignTopology Source() => JsonSerializer.Deserialize<DesignTopology>(File.ReadAllText(Path.Combine(Root(),
+    private static DesignTopology Source() => JsonSerializer.Deserialize<DesignTopology>(EvidenceFiles.ReadAllText(Path.Combine(Root(),
         "labs/InitialStructure/benchmarks/autonomous-topology-v1/foundation-3.json")), Json)! with
     { Fields = [new("Axis", 0, 0)] };
     private static string Root()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
         return directory!.FullName;
     }
     private static void AssertLedger(AutonomousSearchCheckpoint result)

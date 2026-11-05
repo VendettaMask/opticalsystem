@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.InitialStructure.Engine.Optimization;
 
@@ -44,8 +45,8 @@ public sealed class BoundedProjectionTests
     public void SavedFullPhaseConeHasAFeasibleWitnessButPrimaryProjectionExhausts()
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
-        while (root is not null && !File.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
-        using var data = JsonDocument.Parse(File.ReadAllText(Path.Combine(root!.FullName,
+        while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
+        using var data = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root!.FullName,
             "validation/rechecks/2026-10-28/two-element-projection-path/full-feasible-cone.json")));
         var rows = data.RootElement.GetProperty("constraints").EnumerateArray().Select(r =>
             (Offset: r.GetProperty("offset").GetDouble(), Normal: r.GetProperty("normal").EnumerateArray().Select(v => v.GetDouble()).ToArray())).ToArray();
@@ -62,8 +63,8 @@ public sealed class BoundedProjectionTests
     public void SavedNarrowConeHasAFeasibleWitnessButLegacyProjectionExhausts()
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
-        while (root is not null && !File.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
-        using var data = JsonDocument.Parse(File.ReadAllText(Path.Combine(root!.FullName,
+        while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
+        using var data = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root!.FullName,
             "validation/rechecks/2026-10-28/two-element-selection-consistency/feasible-cone.json")));
         var rows = data.RootElement.GetProperty("constraints").EnumerateArray().Select(r =>
             (Offset: r.GetProperty("offset").GetDouble(), Normal: r.GetProperty("normal").EnumerateArray().Select(v => v.GetDouble()).ToArray())).ToArray();

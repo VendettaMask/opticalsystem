@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.App.ViewModels;
@@ -106,8 +107,8 @@ public sealed class BestFitSphereOperandTests(Xunit.Abstractions.ITestOutputHelp
     public void CommittedSphericalSagTableProvidesAFileSpecificReference()
     {
         var directory = Path.Combine(AppContext.BaseDirectory, "Fixtures");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(directory, "zemax-123456.ZMX")), ".zmx");
-        var text = File.ReadAllText(Path.Combine(directory, "zemax-123456-sag-table.txt"));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(directory, "zemax-123456.ZMX")), ".zmx");
+        var text = EvidenceFiles.ReadAllText(Path.Combine(directory, "zemax-123456-sag-table.txt"));
         double Read(string heading) => double.Parse(Regex.Match(text, Regex.Escape(heading) + @"\s*:\s*([-+]?\d+(?:\.\d+)?(?:E[-+]?\d+)?)").Groups[1].Value, CultureInfo.InvariantCulture);
         var nativeRadius = Read("最佳拟合球面半径");
         var nativeOffset = Read("最佳拟合球面顶点偏移");

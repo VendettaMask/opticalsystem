@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Reflection;
 using OpticalSystemDesign.App;
 using OpticalSystemDesign.Application.Contracts;
@@ -16,10 +17,10 @@ public sealed class LayeringArchitectureTests
         // Core compute devices. Keep the shell boundary at its maintained source
         // directories rather than rejecting the integrated module's reference.
         var appRoot = Path.Combine(FindRepositoryRoot(), "src", "OpticalSystemDesign.App");
-        var violations = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+        var violations = EvidenceFiles.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
             .Where(path => !Path.GetRelativePath(appRoot, path).Replace('\\', '/').StartsWith("Laboratories/", StringComparison.Ordinal))
             .Where(path => !path.Contains(Path.DirectorySeparatorChar + "obj" + Path.DirectorySeparatorChar))
-            .Where(path => System.Text.RegularExpressions.Regex.IsMatch(File.ReadAllText(path),
+            .Where(path => System.Text.RegularExpressions.Regex.IsMatch(EvidenceFiles.ReadAllText(path),
                 @"\b(?:using\s+(?:static\s+)?|global::)OpticalSystemDesign\.Core\b"))
             .Select(path => Path.GetRelativePath(appRoot, path)).ToArray();
         Assert.Empty(violations);
@@ -73,8 +74,8 @@ public sealed class LayeringArchitectureTests
             FindRepositoryRoot(),
             "src",
             "OpticalSystemDesign.Application");
-        var legacyFiles = Directory.EnumerateFiles(applicationRoot, "*.cs", SearchOption.AllDirectories)
-            .Where(path => File.ReadAllText(path).Contains(
+        var legacyFiles = EvidenceFiles.EnumerateFiles(applicationRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => EvidenceFiles.ReadAllText(path).Contains(
                 "namespace OpticalSystemDesign.Application.Legacy",
                 StringComparison.Ordinal))
             .ToArray();
@@ -88,7 +89,7 @@ public sealed class LayeringArchitectureTests
         var sourceRoot = Path.Combine(FindRepositoryRoot(), "src");
         var source = string.Join(
             '\n',
-            Directory.EnumerateFiles(sourceRoot, "*.cs", SearchOption.AllDirectories)
+            EvidenceFiles.EnumerateFiles(sourceRoot, "*.cs", SearchOption.AllDirectories)
                 .Select(File.ReadAllText));
 
         Assert.DoesNotContain("ZemaxStockCatalogReader", source, StringComparison.Ordinal);
@@ -100,8 +101,8 @@ public sealed class LayeringArchitectureTests
     public void DesktopLaunchersRestorePackagesBeforeCleaningBuildOutputs()
     {
         var repositoryRoot = FindRepositoryRoot();
-        var windowsLauncher = File.ReadAllText(Path.Combine(repositoryRoot, "Run-OpticalSystemDesign.cmd"));
-        var unixLauncher = File.ReadAllText(Path.Combine(repositoryRoot, "Run-OpticalSystemDesign.command"));
+        var windowsLauncher = EvidenceFiles.ReadAllText(Path.Combine(repositoryRoot, "Run-OpticalSystemDesign.cmd"));
+        var unixLauncher = EvidenceFiles.ReadAllText(Path.Combine(repositoryRoot, "Run-OpticalSystemDesign.command"));
 
         Assert.True(
             windowsLauncher.IndexOf("dotnet restore", StringComparison.Ordinal) <
@@ -116,7 +117,7 @@ public sealed class LayeringArchitectureTests
     [Fact]
     public void GlobalNumericInputStyleUsesTheAcceptedArrowFreeChrome()
     {
-        var appSource = File.ReadAllText(Path.Combine(
+        var appSource = EvidenceFiles.ReadAllText(Path.Combine(
             FindRepositoryRoot(),
             "src",
             "OpticalSystemDesign.App",
@@ -136,8 +137,8 @@ public sealed class LayeringArchitectureTests
             "src",
             "OpticalSystemDesign.Application",
             "Services");
-        var actual = Directory.EnumerateFiles(servicesRoot, "*.cs", SearchOption.AllDirectories)
-            .Where(path => File.ReadAllText(path).Contains(
+        var actual = EvidenceFiles.EnumerateFiles(servicesRoot, "*.cs", SearchOption.AllDirectories)
+            .Where(path => EvidenceFiles.ReadAllText(path).Contains(
                 "using OpticalSystemDesign.Application.Legacy;",
                 StringComparison.Ordinal))
             .Select(path => Path.GetRelativePath(servicesRoot, path).Replace('\\', '/'))
@@ -155,8 +156,8 @@ public sealed class LayeringArchitectureTests
             "OpticalSystemDesign.Application",
             "Services");
 
-        var legacyVocabulary = Directory.EnumerateFiles(servicesRoot, "*.cs", SearchOption.AllDirectories)
-            .SelectMany(path => File.ReadLines(path)
+        var legacyVocabulary = EvidenceFiles.EnumerateFiles(servicesRoot, "*.cs", SearchOption.AllDirectories)
+            .SelectMany(path => EvidenceFiles.ReadLines(path)
                 .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
             .Where(item => System.Text.RegularExpressions.Regex.IsMatch(
                 item.Line,
@@ -178,8 +179,8 @@ public sealed class LayeringArchitectureTests
             FindRepositoryRoot(),
             "src",
             "OpticalSystemDesign.App");
-        var literalFontSizes = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
-            .SelectMany(path => File.ReadLines(path)
+        var literalFontSizes = EvidenceFiles.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+            .SelectMany(path => EvidenceFiles.ReadLines(path)
                 .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
             .Where(item => System.Text.RegularExpressions.Regex.IsMatch(
                 item.Line,
@@ -206,15 +207,15 @@ public sealed class LayeringArchitectureTests
             "Controls/SettingsPanelChrome.cs",
             "Theming/ThemeChrome.cs"
         };
-        var scatteredShadows = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
-            .SelectMany(path => File.ReadLines(path)
+        var scatteredShadows = EvidenceFiles.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+            .SelectMany(path => EvidenceFiles.ReadLines(path)
                 .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
             .Where(item => item.Line.Contains("BoxShadows.Parse", StringComparison.Ordinal))
             .Where(item => !allowedShadowFiles.Contains(Path.GetRelativePath(appRoot, item.Path).Replace('\\', '/')))
             .Select(item => $"{Path.GetRelativePath(appRoot, item.Path).Replace('\\', '/')}:{item.LineNumber}: {item.Line.Trim()}")
             .ToArray();
-        var splitCardRadii = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
-            .SelectMany(path => File.ReadLines(path)
+        var splitCardRadii = EvidenceFiles.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+            .SelectMany(path => EvidenceFiles.ReadLines(path)
                 .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
             .Where(item => System.Text.RegularExpressions.Regex.IsMatch(
                 item.Line,
@@ -241,11 +242,11 @@ public sealed class LayeringArchitectureTests
             FindRepositoryRoot(),
             "src",
             "OpticalSystemDesign.App");
-        var violations = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+        var violations = EvidenceFiles.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
             .Where(path => !Path.GetRelativePath(appRoot, path)
                 .Replace('\\', '/')
                 .StartsWith("Theming/", StringComparison.Ordinal))
-            .SelectMany(path => File.ReadLines(path)
+            .SelectMany(path => EvidenceFiles.ReadLines(path)
                 .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
             .Where(item => item.Line.Contains("IsekaiTheme", StringComparison.Ordinal)
                 || item.Line.Contains("\"Isekai\"", StringComparison.Ordinal))
@@ -258,19 +259,19 @@ public sealed class LayeringArchitectureTests
             + Environment.NewLine
             + string.Join(Environment.NewLine, violations));
 
-        var settingsSource = File.ReadAllText(Path.Combine(appRoot, "DisplaySettingsWindow.cs"));
-        var workspaceSource = File.ReadAllText(Path.Combine(appRoot, "Shell", "MainWindow.Workspace.cs"));
-        var resolverSource = File.ReadAllText(Path.Combine(appRoot, "Controls", "LocalIcon.cs"));
+        var settingsSource = EvidenceFiles.ReadAllText(Path.Combine(appRoot, "DisplaySettingsWindow.cs"));
+        var workspaceSource = EvidenceFiles.ReadAllText(Path.Combine(appRoot, "Shell", "MainWindow.Workspace.cs"));
+        var resolverSource = EvidenceFiles.ReadAllText(Path.Combine(appRoot, "Controls", "LocalIcon.cs"));
         Assert.Contains("ThemeRegistry.SelectableThemes", settingsSource);
         Assert.Contains("ApplyTheme(_settings.Theme)", workspaceSource);
         Assert.DoesNotContain("Isekai", resolverSource, StringComparison.Ordinal);
 
-        var globalThemeMutations = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+        var globalThemeMutations = EvidenceFiles.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
             .Where(path => !string.Equals(
                 Path.GetRelativePath(appRoot, path).Replace('\\', '/'),
                 "Theming/ThemeApplicationService.cs",
                 StringComparison.Ordinal))
-            .SelectMany(path => File.ReadLines(path)
+            .SelectMany(path => EvidenceFiles.ReadLines(path)
                 .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
             .Where(item => item.Line.Contains(
                 "Application.Current.RequestedThemeVariant",
@@ -317,12 +318,12 @@ public sealed class LayeringArchitectureTests
         var directColorPattern = new System.Text.RegularExpressions.Regex(
             @"\bColor\.From(?:Rgb|Argb)\s*\(|\bBrushes\.(?!Transparent\b)|\bColors\.(?!Transparent\b)",
             System.Text.RegularExpressions.RegexOptions.Compiled);
-        var violations = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+        var violations = EvidenceFiles.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
             .Select(path => (Path: path, RelativePath: Path.GetRelativePath(appRoot, path).Replace('\\', '/')))
             .Where(item => !themeOwnedPrefixes.Any(prefix =>
                 item.RelativePath.StartsWith(prefix, StringComparison.Ordinal)))
             .Where(item => !engineeringOrThemeFiles.Contains(item.RelativePath))
-            .SelectMany(item => File.ReadLines(item.Path)
+            .SelectMany(item => EvidenceFiles.ReadLines(item.Path)
                 .Select((line, index) => (item.RelativePath, Line: line, LineNumber: index + 1)))
             .Where(item => directColorPattern.IsMatch(item.Line))
             .Select(item => $"{item.RelativePath}:{item.LineNumber}: {item.Line.Trim()}")
@@ -341,8 +342,8 @@ public sealed class LayeringArchitectureTests
     public void AppUiTableDensityUsesSharedTokens()
     {
         var appRoot = Path.Combine(FindRepositoryRoot(), "src", "OpticalSystemDesign.App");
-        var literalTableHeights = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
-            .SelectMany(path => File.ReadLines(path)
+        var literalTableHeights = EvidenceFiles.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+            .SelectMany(path => EvidenceFiles.ReadLines(path)
                 .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
             .Where(item => System.Text.RegularExpressions.Regex.IsMatch(
                 item.Line,
@@ -373,7 +374,7 @@ public sealed class LayeringArchitectureTests
             "Panels/ViewerPanel.cs"
         };
         var violations = responsiveDocuments
-            .SelectMany(relativePath => File.ReadLines(Path.Combine(
+            .SelectMany(relativePath => EvidenceFiles.ReadLines(Path.Combine(
                     appRoot,
                     relativePath.Replace('/', Path.DirectorySeparatorChar)))
                 .Select((line, index) => (RelativePath: relativePath, Line: line, LineNumber: index + 1)))
@@ -391,7 +392,7 @@ public sealed class LayeringArchitectureTests
             + Environment.NewLine
             + string.Join(Environment.NewLine, violations));
 
-        var mainWindow = File.ReadAllText(Path.Combine(appRoot, "MainWindow.cs"));
+        var mainWindow = EvidenceFiles.ReadAllText(Path.Combine(appRoot, "MainWindow.cs"));
         Assert.Contains("MinWidth = 640;", mainWindow);
         Assert.Contains("Math.Clamp(_settings.WindowWidth, 640, 4096)", mainWindow);
     }
@@ -403,7 +404,7 @@ public sealed class LayeringArchitectureTests
             FindRepositoryRoot(),
             "src",
             "OpticalSystemDesign.App");
-        var statusBarSource = File.ReadAllText(Path.Combine(appRoot, "Controls", "OperationStatusBar.cs"));
+        var statusBarSource = EvidenceFiles.ReadAllText(Path.Combine(appRoot, "Controls", "OperationStatusBar.cs"));
 
         Assert.Contains("ProgressBar", statusBarSource);
         Assert.Contains("TimeSpan.FromMilliseconds(500)", statusBarSource);
@@ -418,15 +419,15 @@ public sealed class LayeringArchitectureTests
         };
         foreach (var relativePath in requiredPanels)
         {
-            var source = File.ReadAllText(Path.Combine(appRoot, relativePath.Replace('/', Path.DirectorySeparatorChar)));
+            var source = EvidenceFiles.ReadAllText(Path.Combine(appRoot, relativePath.Replace('/', Path.DirectorySeparatorChar)));
             Assert.Contains("OperationStatusBar", source);
             Assert.Contains("_operationStatus.Start(", source);
             Assert.Contains("Cancel()", source);
             Assert.Contains("_operationStatus.MarkFailed(", source);
         }
 
-        var scatteredProgressBars = Directory.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
-            .SelectMany(path => File.ReadLines(path)
+        var scatteredProgressBars = EvidenceFiles.EnumerateFiles(appRoot, "*.cs", SearchOption.AllDirectories)
+            .SelectMany(path => EvidenceFiles.ReadLines(path)
                 .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
             .Where(item => item.Line.Contains("ProgressBar", StringComparison.Ordinal))
             .Where(item =>
@@ -457,7 +458,7 @@ public sealed class LayeringArchitectureTests
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
         while (directory is not null)
         {
-            if (File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx")))
+            if (EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx")))
             {
                 return directory.FullName;
             }

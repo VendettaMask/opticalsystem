@@ -1458,7 +1458,7 @@ public sealed class AnalysisGuiContractTests
             "circle-question-mark"
         };
 
-        Assert.Equal(1_748, LocalIconLibrary.Names.Count);
+        Assert.Equal(1_969, LocalIconLibrary.Names.Count);
         Assert.All(requiredIcons, iconName => Assert.True(
             LocalIconLibrary.Contains(iconName),
             $"Local Lucide catalog is missing '{iconName}'."));

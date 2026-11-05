@@ -57,7 +57,7 @@ imager3-21在已记录的短程中通过**增片**得到合格四片。使用固
 
 fixed四次保留了合格四片，但预算预约不足以再保证下一分支的完整验收，保存为BudgetExhausted，待恢复阶段为Recovery。实际约161万小于200万，因为剩余约39万不足既定80万验收预留，不能把这四次写成全部分支跑完。密集阶段复验在更大视场下成本明显增加，探索次数受到压缩；这项限制保留，不追加预算。
 
-合格四片和失败三片都已导出STAROPT，并重新导入后用原完整协议复算，合格/失败与唯一`field:34:check-lost`均复现；额外审计追迹825296单独记录，不混入搜索预算。可直接检查[合格四片](native-failure-audit/qualified-source.staropt)、[明确未达标三片](native-failure-audit/unqualified-reduced.staropt)及[逐视场结果](native-failure-audit/native-checks.json)。
+合格四片和失败三片都已导出STAROPT，并重新导入后用原完整协议复算，合格/失败与唯一`field:34:check-lost`均复现；额外审计追迹825296单独记录，不混入搜索预算。可直接检查[合格四片](../topology-transmission-priority/final-paired-runs/repr-qualified4-wide21-42-C-both/seed-0.staropt)、[明确未达标三片](native-failure-audit/unqualified-reduced.staropt)及[逐视场结果](native-failure-audit/native-checks.json)。
 
 ![逐视场RMS和边界失光](field-failure.png)
 

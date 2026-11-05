@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core;
@@ -139,8 +140,8 @@ public sealed class FlatStartQualityRegressionTests
     internal static QualityInput[] Inputs()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
-        return JsonSerializer.Deserialize<QualityInput[]>(File.ReadAllText(Path.Combine(directory!.FullName,
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
+        return JsonSerializer.Deserialize<QualityInput[]>(EvidenceFiles.ReadAllText(Path.Combine(directory!.FullName,
             "labs/InitialStructure/benchmarks/quality-audit-20260926/inputs.json")),
             new JsonSerializerOptions { NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals })!;
     }

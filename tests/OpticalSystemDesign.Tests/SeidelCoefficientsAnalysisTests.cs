@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
@@ -96,9 +97,9 @@ public sealed class SeidelCoefficientsAnalysisTests
     [Fact]
     public void Captured123456ReportMatchesAllFourCoefficientTablesAtCapturedWavelengthTwo()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Fixture("zemax-123456.ZMX")), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Fixture("zemax-123456.ZMX")), ".zmx");
         var data = new SeidelCoefficientsAnalysis(optic, wavelengthNumber: 2).GenerateData();
-        var reference = File.ReadAllText(Fixture("zemax-123456-seidel-coefficients.txt"));
+        var reference = EvidenceFiles.ReadAllText(Fixture("zemax-123456-seidel-coefficients.txt"));
         foreach (var title in new[] { "赛德尔像差系数", "赛德尔像差系数（波长）", "横向像差系数", "轴向像差系数" })
         {
             var actual = ReportRows(data.ReportText!, title);
@@ -123,7 +124,7 @@ public sealed class SeidelCoefficientsAnalysisTests
     {
         // This isolates the new conversion formulas, NOT lens-import/trace parity.
         // The baseline prints S coefficients to 6 places and u' to 4 places.
-        var reference = File.ReadAllText(Fixture("zemax-123456-seidel-coefficients.txt"));
+        var reference = EvidenceFiles.ReadAllText(Fixture("zemax-123456-seidel-coefficients.txt"));
         var seidel = ReportRows(reference, "赛德尔像差系数");
         const double lambda = 0.00044;
         const double u = -0.1844;
@@ -160,7 +161,7 @@ public sealed class SeidelCoefficientsAnalysisTests
     [Fact]
     public void MsL7SelectedRowsMatchTheUserProvidedScreenshots()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Fixture("zemax-ms-l7-high-na.ZMX")), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Fixture("zemax-ms-l7-high-na.ZMX")), ".zmx");
         var report = new SeidelCoefficientsAnalysis(optic, wavelengthNumber: 2).GenerateData().ReportText!;
         AssertRow("赛德尔像差系数", "1", new[] { 0.075930, 0.000533, 0.000004, 0.007243, 0.000051, -0.016594, -0.000117 });
         AssertRow("赛德尔像差系数", "累计", new[] { 0.024034, 0.004435, 0.001695, 0.004525, -0.005595, -0.001438, 0.001850 });

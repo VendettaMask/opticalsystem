@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Analysis;
@@ -12,7 +13,7 @@ namespace OpticalSystemDesign.ZemaxComparison.Tests;
 public sealed class AfocalComparisonTests
 {
     private static string Root => Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-riflescope");
-    private static string Source => File.ReadAllText(Path.Combine(Root, "source.ZMX"));
+    private static string Source => EvidenceFiles.ReadAllText(Path.Combine(Root, "source.ZMX"));
     private static string Data(string id, string side) => Path.Combine(Root, id, side, "data.json");
     private static CanonicalAnalysisRequest Request(string id) => AfocalAnalysisContracts.Configure(
         JsonFiles.Read<WorkbenchJob>(Path.Combine(Root, id, "workbench/request.json")).Request, true, Source);
@@ -21,7 +22,7 @@ public sealed class AfocalComparisonTests
     public void FocalRequestFingerprintAndDefaultPolicyRemainUnchanged()
     {
         var file = Path.Combine(Root, "ray-fan-axis-w1/workbench/request.json");
-        using var old = JsonDocument.Parse(File.ReadAllText(file));
+        using var old = JsonDocument.Parse(EvidenceFiles.ReadAllText(file));
         var request = JsonFiles.Read<WorkbenchJob>(file).Request;
         Assert.Equal(JsonFiles.CanonicalHash(old.RootElement.GetProperty("request")), request.Fingerprint);
         var json = JsonSerializer.Serialize(request, JsonFiles.RequestOptions);
@@ -143,6 +144,6 @@ public sealed class AfocalComparisonTests
             Assert.Equal("Diopter", actual.Series[1].YAxis.Unit);
             Assert.Equal("Percent", actual.Series[2].YAxis.Unit);
         }
-        finally { if (Directory.Exists(output)) Directory.Delete(output, true); }
+        finally { if (EvidenceFiles.DirectoryExists(output)) Directory.Delete(output, true); }
     }
 }

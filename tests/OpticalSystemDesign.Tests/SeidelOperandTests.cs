@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
@@ -122,8 +123,8 @@ public sealed class SeidelOperandTests
     public void Captured123456WaveTableMatchesEverySurfaceAndTotalAt440Nm(string code, int column)
     {
         var fixture = Path.Combine(AppContext.BaseDirectory, "Fixtures");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(fixture, "zemax-123456.ZMX")), ".zmx");
-        var lines = File.ReadAllText(Path.Combine(fixture, "zemax-123456-seidel-coefficients.txt")).Replace("\r", "").Split('\n');
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(fixture, "zemax-123456.ZMX")), ".zmx");
+        var lines = EvidenceFiles.ReadAllText(Path.Combine(fixture, "zemax-123456-seidel-coefficients.txt")).Replace("\r", "").Split('\n');
         var start = Array.FindIndex(lines, l => l.Trim().TrimEnd(':', '：') == "赛德尔像差系数（波长）");
         Assert.True(start >= 0);
         var rows = lines.Skip(start + 1).SkipWhile(string.IsNullOrWhiteSpace).Skip(1).TakeWhile(l => !string.IsNullOrWhiteSpace(l))

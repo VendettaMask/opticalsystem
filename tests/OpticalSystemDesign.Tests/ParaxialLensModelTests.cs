@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Globalization;
 using OpticalSystemDesign.Core;
@@ -61,7 +62,7 @@ public sealed class ParaxialLensModelTests
             : id.StartsWith("grid") ? "grid-sag-native-v1.json"
             : id.StartsWith("irregular") ? "irregular-native-v1.json"
             : id.StartsWith("binary") || id.StartsWith("hologram") ? "diffractive-phase-native-v1.json" : "grating-phase-native-v1.json";
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", fixtureName)));
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", fixtureName)));
         var data = fixture.RootElement.GetProperty("cases").EnumerateArray().Single(c => c.GetProperty("id").GetString() == id);
         var rows = data.GetProperty("rows").EnumerateArray().ToArray();
         var source = ConvertUnits(data.GetProperty("source").GetString()!, scale);
@@ -116,7 +117,7 @@ public sealed class ParaxialLensModelTests
     [Fact]
     public void BinaryFirstOrderTraceIncludesTheNativeWavelengthDependentPower()
     {
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "diffractive-firstorder-native-v1.json")));
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "diffractive-firstorder-native-v1.json")));
         foreach (var data in fixture.RootElement.GetProperty("cases").EnumerateArray())
         {
             var optic = OpticalFormatCatalog.Import(data.GetProperty("source").GetString()!, ".zmx");

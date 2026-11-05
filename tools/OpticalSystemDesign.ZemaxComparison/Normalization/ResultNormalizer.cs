@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.ZemaxComparison.Zemax;
@@ -135,7 +136,7 @@ public static class ResultNormalizer
     public static NumericResult Zemax(string path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request)
     {
         ValidateNumberedConfiguration(path, entry, request);
-        using var doc = JsonDocument.Parse(File.ReadAllText(path)); var root = doc.RootElement;
+        using var doc = JsonDocument.Parse(EvidenceFiles.ReadAllText(path)); var root = doc.RootElement;
         NativeReferenceDiagnostics.Validate(root);
         NativeLengthUnitContract.Validate(path, request);
         AfocalAnalysisContracts.ValidateNativeModel(path, request);
@@ -229,8 +230,8 @@ public static class ResultNormalizer
         if (request.Configuration <= 1 || !(entry.ZemaxSettingsMapper is "spot" or "huygens-psf" or "huygens-mtf"
             || request.ZemaxSettings.ContainsKey("Configuration"))) return;
         var settings = Path.Combine(Path.GetDirectoryName(path)!, "captured-settings.json");
-        if (!File.Exists(settings)) throw new InvalidDataException("Native multi-configuration selector readback is missing");
-        using var doc = JsonDocument.Parse(File.ReadAllText(settings));
+        if (!EvidenceFiles.Exists(settings)) throw new InvalidDataException("Native multi-configuration selector readback is missing");
+        using var doc = JsonDocument.Parse(EvidenceFiles.ReadAllText(settings));
         if (!doc.RootElement.GetProperty("properties").TryGetProperty("Configuration", out var selected)
             || selected.GetInt32() != NativeConfigurationSelector.Numbered(request.Configuration))
             throw new InvalidDataException("Native analysis configuration selector differs from the requested numbered configuration");

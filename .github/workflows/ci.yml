@@ -71,8 +71,9 @@ jobs:
       - name: Verify consolidated evidence and test alias guards
         shell: pwsh
         run: |
-          ./tools/validation/EvidenceAliases.ps1 -OutputPath (Join-Path '${{ runner.temp }}' 'frozen-evidence/aliases.json')
+          ./tools/validation/EvidenceAliases.ps1 -FetchLfs -OutputPath (Join-Path '${{ runner.temp }}' 'frozen-evidence/aliases.json')
           ./tools/validation/EvidenceAliases.Tests.ps1 -OutputDirectory (Join-Path '${{ runner.temp }}' 'evidence-alias-tests')
+          ./tools/validation/EvidenceStorage.Tests.ps1 -OutputDirectory (Join-Path '${{ runner.temp }}' 'evidence-storage-tests')
 
       - name: Upload frozen-byte results
         if: ${{ always() }}
@@ -84,6 +85,7 @@ jobs:
             ${{ runner.temp }}/frozen-working-tests/results.json
             ${{ runner.temp }}/frozen-evidence-tests/results.json
             ${{ runner.temp }}/evidence-alias-tests/results.json
+            ${{ runner.temp }}/evidence-storage-tests/results.json
           if-no-files-found: warn
 
   documentation:

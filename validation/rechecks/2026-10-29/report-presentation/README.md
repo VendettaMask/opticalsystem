@@ -34,7 +34,7 @@ dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c 
 
 Word 使用任务创建的独立不可见 Word 16.0 实例，只打开样例、禁用宏、不加入最近文档，完成后关闭该实例；没有操作用户已有窗口。长表格仍正常跨页，Word 原生页码显示为“当前页 / 总页数”。PDF 使用 Poppler 渲染、MuPDF 严格提取原文；没有用归一化放宽原字符检查。
 
-HTML 使用独立 headless Edge 检查 1440×1050 与 390×844 视口、A4 打印和资源加载，10 个内嵌图片（9 张报告图和 1 个公司标志）全部加载，零外部请求、目录断链或整页横向溢出。Markdown 经独立阅读器预览，目录目标完整；见[浏览器账目](browser-verified/browser-inspection.json)。
+HTML 使用独立 headless Edge 检查 1440×1050 与 390×844 视口、A4 打印和资源加载，10 个内嵌图片（9 张报告图和 1 个公司标志）全部加载，零外部请求、目录断链或整页横向溢出。Markdown 经独立阅读器预览，目录目标完整；见[浏览器账目](browser/browser-inspection.json)。
 
 预览：
 

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
@@ -10,7 +11,7 @@ public sealed class OperandAuthenticityTests
     [Fact]
     public void EveryRegisteredCodeExistsInIndependentOfficial2026R1ApiCatalog()
     {
-        using var source = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,
+        using var source = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,
             "Fixtures", "zemax-2026-r1-official-merit-operand-catalog.json")));
         var official = source.RootElement.GetProperty("codes").EnumerateArray().Select(v => v.GetString()!).ToHashSet(StringComparer.Ordinal);
         Assert.Equal(448, official.Count);

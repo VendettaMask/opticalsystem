@@ -14,7 +14,7 @@
 
 ## 可复核的二片
 
-[正式对照二片、当前产品 Core 再验工程](comparison-current-core/current-product-export-seed42/evolution-003.staropt)同时有处方及冷复算 JSON；共同冻结库的导出独立保存在 `qualified-export-seed42/`。RMS 49.996622 µm、最大半径 149.987024 µm，所有字段通光、独立边界及原制造条件通过。实际焦距 24.969958 mm、F/3.406314 均在原目标的 2% 公差内，物理口径未改变。
+[正式对照二片、当前产品 Core 再验工程](comparison-current-core/qualified-export-seed42/evolution-003.staropt)同时有处方及冷复算 JSON；共同冻结库的导出独立保存在 `qualified-export-seed42/`。RMS 49.996622 µm、最大半径 149.987024 µm，所有字段通光、独立边界及原制造条件通过。实际焦距 24.969958 mm、F/3.406314 均在原目标的 2% 公差内，物理口径未改变。
 
 该二片使用四个原许可范围内的非零锥面系数，其中一面达到 +2 原界；不是全球面二片。原三片像质更好且非球面更少，始终保留，不把减片当作全面制造复杂度下降。
 

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Coatings;
@@ -41,7 +42,7 @@ public sealed class DenseExtremaTests
     [InlineData("Role")]
     public async Task RealDispersionAndAbsorptionKeepStableVerdictsAndReplayMetadata(string key)
     {
-        using var json = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/dense-extrema-20261101.json")));
+        using var json = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/dense-extrema-20261101.json")));
         var input = json.RootElement.GetProperty(key).Deserialize<Experiment>(Experiment.JsonOptions)!;
         var results = new[] { 400, 1600, 3200 }.Select(n => new DesignService().Evaluate(input with { Settings = input.Settings with { PreviewIntervals = n } })).ToArray();
         Assert.Single(results.Select(x => x.Result!.Checks.Single(c => c.Name == "峰值位置 (nm)").Passed).Distinct());

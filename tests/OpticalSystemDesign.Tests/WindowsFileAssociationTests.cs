@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.Tests;
@@ -65,7 +66,7 @@ public sealed class WindowsFileAssociationTests
     [Fact]
     public void MacBundleDeclaresStarOptDocumentIcon()
     {
-        var plist = File.ReadAllText(
+        var plist = EvidenceFiles.ReadAllText(
             Path.Combine(AppContext.BaseDirectory, "Fixtures", "macos-Info.plist"));
 
         Assert.Contains("<string>com.starlabs.staropt</string>", plist, StringComparison.Ordinal);

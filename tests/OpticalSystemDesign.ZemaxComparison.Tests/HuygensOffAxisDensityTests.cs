@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Analysis;
@@ -14,11 +15,11 @@ public sealed class HuygensOffAxisDensityTests
     {
         var root = Path.Combine(AppContext.BaseDirectory, "Fixtures", "huygens-offaxis");
         var folder = Path.Combine(root, "mtf", "scan-three", "Auto");
-        using var captured = JsonDocument.Parse(File.ReadAllText(Path.Combine(folder, "captured-settings.json")));
+        using var captured = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(folder, "captured-settings.json")));
         Assert.Equal(3, captured.RootElement.GetProperty("properties").GetProperty("FieldDensity").GetInt32());
         var request = captured.RootElement.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
         var entry = AnalysisComparisonRegistry.Get("Huygens MTF vs Field");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(root, "source.ZMX")), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(root, "source.ZMX")), ".zmx");
         var data = new WorkbenchRuntime(optic).BuildAnalysisData("Huygens MTF vs Field", AnalysisComparisonRegistry.MapWorkbench(entry, request));
         data = JsonSerializer.Deserialize<AnalysisData>(JsonSerializer.Serialize(data, JsonFiles.Options), JsonFiles.Options)!;
         Assert.Equal(5, ((JsonElement)data.Values["FieldPointCount"]).GetInt32());

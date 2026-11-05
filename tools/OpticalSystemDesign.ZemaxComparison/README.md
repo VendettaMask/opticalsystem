@@ -1,6 +1,6 @@
 # C# Zemax / Workbench comparison
 
-Identical afocal evidence is stored once using [hash-checked logical paths](../../validation/evidence-aliases.json). Offline test builds materialize their original fixture layout automatically. For historical diagnostics that read the old repository paths directly, first create a separate restored view with [EvidenceAliases.ps1](../validation/README.md#无焦证据副本收敛); the original captured requests/manifests and bytes retain their historical identities.
+Identical evidence is stored once using [hash-checked logical paths](../../validation/evidence-aliases.json). Offline test builds materialize their original fixture layout automatically. For historical diagnostics that read the old repository paths directly, first create a separate restored view with [EvidenceAliases.ps1](../validation/README.md#验证载荷单一副本); the original captured requests/manifests and bytes retain their historical identities.
 
 The independent `NativeExplicitFanNormalizer` requires `NativeExplicitPointsV1`, millimeter units, the selected wavelength, a valid chief, complete ordered pupil axes and explicit error/vignette masks. It never fills or relabels a built-in plot. The [Objectives continuation](../../docs/OBJECTIVES_COMPLETION_2026-10-23.md) records matched source, primary wavelength and frozen-thickness readbacks, with separate every-surface physical gates. F-Theta full-field controls and higher-sampling energy controls retain different request identities from the original matrix.
 

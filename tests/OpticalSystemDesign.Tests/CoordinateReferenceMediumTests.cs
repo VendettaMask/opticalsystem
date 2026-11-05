@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Backend;
@@ -20,7 +21,7 @@ public sealed class CoordinateReferenceMediumTests
     [InlineData("bire-glass-1", false)] [InlineData("bire-glass-1", true)]
     public void RotatedReferencePlanesPreserveCrystalMomentumAndNativeOpticalPath(string id, bool batched)
     {
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "birefringent-native-v1.json")));
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "birefringent-native-v1.json")));
         var data = fixture.RootElement.GetProperty("cases").EnumerateArray().Single(c => c.GetProperty("id").GetString() == id);
         var original = OpticalFormatCatalog.Import(data.GetProperty("source").GetString()!, ".zmx");
         var modified = InsertReferencePlanes(original, 2);
@@ -83,7 +84,7 @@ public sealed class CoordinateReferenceMediumTests
     [Fact]
     public void CrystalFramesAndExplicitInterfacesRemainRequiredAtPhysicalBoundaries()
     {
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "birefringent-native-v1.json")));
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "birefringent-native-v1.json")));
         var source = fixture.RootElement.GetProperty("cases")[0].GetProperty("source").GetString()!;
         var optic = OpticalFormatCatalog.Import(source, ".zmx"); var entrance = optic.SurfaceGroup.Items[2];
         var exit = optic.SurfaceGroup.Items[3].Clone();

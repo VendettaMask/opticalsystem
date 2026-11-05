@@ -18,8 +18,8 @@ Light、Dark、Pixel共 **1989** 个实际使用图标/尺寸组合与[已有基
 
 ## 实际离屏效果
 
-- [字体家族框灰显，字形/字号保持可用](previews/almendra-locked-settings.png)
-- [实际工作台Language按钮灰显](previews/almendra-workbench-13.png)
-- [18 DIP / 200%工作台](previews/almendra-workbench-18.png)
+- [字体家族框灰显，字形/字号保持可用](../isekai-popup-font/after/almendra-locked-settings.png)
+- [实际工作台Language按钮灰显](../isekai-popup-font/after/almendra-workbench-13.png)
+- [18 DIP / 200%工作台](../isekai-popup-font/after/almendra-workbench-18.png)
 
 全程Headless/Skia后台验证，没有重启或控制用户程序，没有修改光学计算、提交、推送或重新打包。不作为全仓或数值认证。

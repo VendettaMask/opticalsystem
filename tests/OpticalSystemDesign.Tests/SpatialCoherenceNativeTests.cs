@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Numerics;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -170,8 +171,8 @@ public sealed class SpatialCoherenceNativeTests
                 PixelSizeMillimeters = .0005
             }));
 
-    private static OpticalSystemDesign.Core.Optic Primary() => OpticalFormatCatalog.Import(File.ReadAllText(
+    private static OpticalSystemDesign.Core.Optic Primary() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(
         Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
-    private static JsonDocument Fixture() => JsonDocument.Parse(File.ReadAllText(
+    private static JsonDocument Fixture() => JsonDocument.Parse(EvidenceFiles.ReadAllText(
         Path.Combine(AppContext.BaseDirectory, "Fixtures", "partial-coherence-zemax-2026-r1.json")));
 }

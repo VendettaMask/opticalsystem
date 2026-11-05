@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -24,24 +25,24 @@ public sealed class FieldCurvatureNativeMatrixTests(ITestOutputHelper output)
     {
         var root = Root();
         var capture = Path.Combine(root, "validation/zemax/2026-r1/fcgt-efno-2026-10-14");
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(capture, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(capture, "manifest.json")));
         var item = manifest.RootElement.GetProperty("Cases").EnumerateArray().Single(item => item.GetProperty("Name").GetString() == name);
         var source = Path.Combine(root, item.GetProperty("Source").GetString()!);
-        Assert.Equal(item.GetProperty("SourceSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(source))));
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(source), ".zmx");
+        Assert.Equal(item.GetProperty("SourceSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(source))));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
         var directory = Path.Combine(capture, name);
-        using var environment = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "environment.json")));
+        using var environment = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(directory, "environment.json")));
         Assert.True(environment.RootElement.GetProperty("validLicense").GetBoolean());
         Assert.Equal(26, environment.RootElement.GetProperty("major").GetInt32());
         Assert.Equal(1, environment.RootElement.GetProperty("minor").GetInt32());
-        using var schema = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, code + "-schema.json")));
+        using var schema = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(directory, code + "-schema.json")));
         Assert.False(schema.RootElement[0].GetProperty("cell").GetProperty("IsActive").GetBoolean());
         Assert.Equal("Integer", schema.RootElement[1].GetProperty("cell").GetProperty("DataType").GetString());
         Assert.Equal("Double", schema.RootElement[2].GetProperty("cell").GetProperty("DataType").GetString());
-        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "curvature-operands.json")));
+        using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(directory, "curvature-operands.json")));
         var rows = native.RootElement.EnumerateArray().Where(row => row.GetProperty("code").GetString() == code).ToArray();
         Assert.Equal(count, rows.Length);
-        using var signed = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "signed-curvature-operands.json")));
+        using var signed = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(directory, "signed-curvature-operands.json")));
         var signedRows = signed.RootElement.EnumerateArray().Where(row => row.GetProperty("code").GetString() == code).ToArray();
         Assert.Equal(count / 101 * 7, signedRows.Length);
         rows = rows.Concat(signedRows).ToArray();
@@ -70,10 +71,10 @@ public sealed class FieldCurvatureNativeMatrixTests(ITestOutputHelper output)
     public void ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(string name)
     {
         var root = Root();
-        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(root,
+        using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root,
             "artifacts/zemax/123456-zemax-2026-r1-baseline/analyses/004-fieldcurvatureanddistortion/data.json")));
         var curves = native.RootElement.GetProperty("dataSeries").EnumerateArray().ToArray();
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(root,
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(root,
             "artifacts/zemax/123456-zemax-2026-r1-baseline/source/123456.ZMX")), ".zmx");
         optic.FieldDefinition = FieldDefinitionKind.Angle;
         var maximumAngle = curves[0].GetProperty("x")[100].GetDouble();
@@ -111,7 +112,7 @@ public sealed class FieldCurvatureNativeMatrixTests(ITestOutputHelper output)
     [InlineData("FCGT")]
     public void ObliqueGeneralizedComponentsRetainActualImageDefocus(string code)
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(Root(),
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(Root(),
             "validation/zemax/2026-r1/tessar-ray-audit-2026-10-07/even-asphere-gq6-remove/source.zmx")), ".zmx");
         var row = new MeritOperandDefinition
         {
@@ -133,7 +134,7 @@ public sealed class FieldCurvatureNativeMatrixTests(ITestOutputHelper output)
     private static string Root()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
         return directory?.FullName ?? throw new DirectoryNotFoundException("Repository not found");
     }
 }

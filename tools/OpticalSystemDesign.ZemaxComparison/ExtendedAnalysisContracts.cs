@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 
 namespace OpticalSystemDesign.ZemaxComparison;
@@ -48,7 +49,7 @@ public static partial class ExtendedAnalysisContracts
         {
             case "Extended Source Encircled Energy":
                 var sourcePath = Path.Combine(AppContext.BaseDirectory, "assets", "uniform-square.IMA");
-                r = r with { SourceImagePath = sourcePath, SourceImageSha256 = JsonFiles.Hash(File.ReadAllBytes(sourcePath)) };
+                r = r with { SourceImagePath = sourcePath, SourceImageSha256 = JsonFiles.Hash(EvidenceFiles.ReadAllBytes(sourcePath)) };
                 Set("Field", r.Field, "Wavelength", r.Wavelength, "Surface", -1, "Type", "Encircled", "ReferTo", "Centroid", "RaysX1000", 100,
                     "MultiplyByDiffractionLimit", false, "RemoveVignettingFactors", true, "UseDashes", false, "UsePolarization", false,
                     "MaximumDistance", 10d, "FieldSize", 0.1, "Rotation", 0d, "ImageName", sourcePath); break;

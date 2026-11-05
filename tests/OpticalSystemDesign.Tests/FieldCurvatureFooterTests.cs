@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Reflection;
 using Avalonia;
@@ -34,7 +35,7 @@ public sealed class FieldCurvatureFooterTests
     [Fact]
     public async Task CombinedFooterShowsTwoCompactSummariesFromTheActualLensResult()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(
             AppContext.BaseDirectory, "Fixtures", "zemax-ms-l7-high-na.ZMX")), ".zmx");
         var raw = new WorkbenchRuntime(optic).BuildAnalysisView("Field Curvature and Distortion");
         var mapper = typeof(WorkbenchApplication).Assembly.GetType(

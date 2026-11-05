@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -14,14 +15,14 @@ public sealed class ObjectivesNativePrecisionTests
         get
         {
             var directory = new DirectoryInfo(AppContext.BaseDirectory);
-            while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
+            while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
             return directory?.FullName ?? throw new DirectoryNotFoundException("Repository root is required for native controls.");
         }
     }
 
     public static IEnumerable<object[]> Cases()
     {
-        using var cases = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, "validation/zemax/2026-r1/objectives-2026-10-20/captures/cases.json")));
+        using var cases = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, "validation/zemax/2026-r1/objectives-2026-10-20/captures/cases.json")));
         return cases.RootElement.EnumerateArray().Where(item => item.GetProperty("requiredPass").GetBoolean())
             .Select(item => new object[] { item.GetProperty("id").GetString()!,
             item.GetProperty("lens").GetString()!, item.GetProperty("sourceSha256").GetString()! }).ToArray();
@@ -32,12 +33,12 @@ public sealed class ObjectivesNativePrecisionTests
     public void RecalculationMatchesIndependentNativeCaptureAtOriginalTolerances(string id, string lens, string sourceSha256)
     {
         var source = Path.Combine(Root, "src/OpticalSystemDesign.App/Assets/SequentialExamples", lens);
-        Assert.Equal(sourceSha256, Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(source))));
+        Assert.Equal(sourceSha256, Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(source))));
         var capture = Path.Combine(Root, "validation/zemax/2026-r1/objectives-2026-10-20/captures", id);
         var request = JsonFiles.Read<CanonicalAnalysisRequest>(Path.Combine(capture, "request.json"));
         var entry = AnalysisComparisonRegistry.Get(request.CanonicalAnalysisKey);
         var policy = ComparisonConfiguration.Load(Path.Combine(Root, "tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json"));
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(source), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
         var data = new WorkbenchRuntime(optic).BuildAnalysisData(request.CanonicalAnalysisKey, request.WorkbenchSettings);
         var output = Path.Combine(Path.GetTempPath(), "objectives-native-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(output);

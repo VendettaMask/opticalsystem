@@ -18,10 +18,10 @@
 | 主窗口，13号字体 | [完整界面](workbench/workbench-1600-13.png) |
 | 主窗口，18号字体 | [较大字体](workbench/workbench-1120-18.png) |
 | 原生设置展开 | [13号](workbench/settings-1600-13.png)、[18号](workbench/settings-1120-18.png) |
-| 惠更斯MTF / 星象配饰 | [界面](previews/Huygens-MTF-live.png)、[源图](previews/Huygens-MTF-source.png) |
-| 惠更斯PSF / 炼金配饰 | [界面](previews/Huygens-PSF-live.png)、[源图](previews/Huygens-PSF-source.png) |
-| 波前 / 法阵配饰 | [界面](previews/Wavefront-Map-live.png)、[源图](previews/Wavefront-Map-source.png) |
-| 点列 / 书卷配饰 | [界面](previews/Spot-Diagram-live.png)、[源图](previews/Spot-Diagram-source.png) |
+| 惠更斯MTF / 星象配饰 | [界面](previews/Huygens-MTF-live.png)、[源图](../isekai-paper-gaps/tabs/Huygens-MTF-source.png) |
+| 惠更斯PSF / 炼金配饰 | [界面](previews/Huygens-PSF-live.png)、[源图](../isekai-paper-gaps/tabs/Huygens-PSF-source.png) |
+| 波前 / 法阵配饰 | [界面](previews/Wavefront-Map-live.png)、[源图](../isekai-paper-gaps/tabs/Wavefront-Map-source.png) |
+| 点列 / 书卷配饰 | [界面](previews/Spot-Diagram-live.png)、[源图](../isekai-paper-gaps/tabs/Spot-Diagram-source.png) |
 
 ## 验证与中间失败
 

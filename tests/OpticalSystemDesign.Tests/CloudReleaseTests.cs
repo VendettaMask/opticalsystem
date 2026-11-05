@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -8,7 +9,7 @@ public sealed class CloudReleaseTests
     [Fact]
     public void CloudWorkflowGatesPublishingAndRestrictsWriteCredentialsToPublisher()
     {
-        var text = File.ReadAllText(Path.Combine(RepositoryRoot(), ".github", "workflows", "release.yml"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(RepositoryRoot(), ".github", "workflows", "release.yml"));
         Assert.Contains("workflow_dispatch:", text);
         Assert.Contains("tags: ['v*']", text);
         Assert.Contains("cancel-in-progress: false", text);
@@ -26,7 +27,7 @@ public sealed class CloudReleaseTests
         Assert.DoesNotContain("GitFrozenIntegrity.ps1", text);
         Assert.DoesNotContain("verify-documentation.ps1", text);
 
-        var ci = File.ReadAllText(Path.Combine(RepositoryRoot(), ".github", "workflows", "ci.yml"));
+        var ci = EvidenceFiles.ReadAllText(Path.Combine(RepositoryRoot(), ".github", "workflows", "ci.yml"));
         var mainStart = ci.IndexOf("  test-main:", StringComparison.Ordinal);
         var mainEnd = ci.IndexOf("  test-lab:", mainStart, StringComparison.Ordinal);
         Assert.True(mainStart >= 0 && mainEnd > mainStart);
@@ -59,7 +60,7 @@ public sealed class CloudReleaseTests
         Assert.Contains("FullyQualifiedName~OtaHelperRuntimeTests", text);
         Assert.Contains("OPTICAL_SYSTEM_DESIGN_OTA_RUNTIME_SOURCE = $payload", text);
         Assert.Contains("LogFileName=ota-runtime-package.trx", text);
-        Assert.Contains("verify-macos-package.sh", File.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "build-macos.sh")));
+        Assert.Contains("verify-macos-package.sh", EvidenceFiles.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "build-macos.sh")));
         Assert.Contains("test-macos-ota-install.py", text);
         Assert.Contains("publish-github-exe.ps1", text);
         Assert.Contains("GH_TOKEN: ${{ github.token }}", text);
@@ -127,7 +128,7 @@ public sealed class CloudReleaseTests
         File.Delete(Path.Combine(fixture.Directory, fixture.ExeName));
         var path = Path.Combine(fixture.Directory, fixture.MacName);
         var recordPath = Path.Combine(fixture.Directory, "release-osx-arm64.json");
-        var record = JsonSerializer.Deserialize<Dictionary<string, object>>(File.ReadAllText(recordPath))!;
+        var record = JsonSerializer.Deserialize<Dictionary<string, object>>(EvidenceFiles.ReadAllText(recordPath))!;
         switch (defect)
         {
             case "bytes": File.WriteAllBytes(path, new byte[512]); break;
@@ -215,7 +216,7 @@ public sealed class CloudReleaseTests
     [Fact]
     public void ReplacingOldAssetsRequiresVerifiedUploadsAndKeepsRecoverableBackups()
     {
-        var text = File.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "publish-github-exe.ps1"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(RepositoryRoot(), "scripts", "publish-github-exe.ps1"));
         Assert.Contains("-not $ReplaceExisting", text);
         Assert.Contains("Unrecognized release asset; preserved for review", text);
         Assert.Contains("Previous asset backup verification failed; release unchanged", text);
@@ -387,7 +388,7 @@ public sealed class CloudReleaseTests
     private static string RepositoryRoot()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
         return directory?.FullName ?? throw new DirectoryNotFoundException("Repository root not found.");
     }
 }

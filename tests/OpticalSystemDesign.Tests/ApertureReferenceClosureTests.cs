@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
@@ -70,7 +71,7 @@ public sealed class ApertureReferenceClosureTests
     [InlineData("annular.zmx", 0, 0)]
     public void OriginalExampleChiefRemainsPhysicallyTransmitted(string file, double hx, double hy)
     {
-        var original = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "reference-closure", file)), ".zmx");
+        var original = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "reference-closure", file)), ".zmx");
         foreach (var optic in new[] { original, original.Clone() })
         {
             var wave = optic.Wavelengths.First(w => w.IsPrimary);

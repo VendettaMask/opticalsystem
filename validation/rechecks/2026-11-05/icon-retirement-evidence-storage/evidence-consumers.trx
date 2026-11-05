@@ -1,0 +1,744 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="10e63c20-37ba-4c1f-ac97-488674d6060e" name="optics@LAPTOP-G4BBBCS0 2026-11-05 10:55:09" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-05T10:55:09.1645964+08:00" queuing="2026-11-05T10:55:09.1645968+08:00" start="2026-11-05T10:55:05.7062325+08:00" finish="2026-11-05T11:01:58.2300355+08:00" />
+  <TestSettings name="default" id="c15d0a3f-70c3-4c5a-b459-3e574f3abfaf">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-05_10_55_09" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="60513f90-b689-4485-ab13-77de517826e9" testId="55740872-092c-bcd6-cd0c-fe3cf0664d60" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: -1, phase: -0.31)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0852922" startTime="2026-11-05T10:55:09.1252114+08:00" endTime="2026-11-05T10:55:09.1664587+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="60513f90-b689-4485-ab13-77de517826e9" />
+    <UnitTestResult executionId="720f2628-6f6b-4c5c-95b2-8841ecf44f51" testId="70f54e1a-99ec-00af-ee3f-62e03760a268" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512(file: &quot;double-gauss-50mm.zmx&quot;, objectDistance: ∞)" computerName="LAPTOP-G4BBBCS0" duration="00:01:06.0791746" startTime="2026-11-05T10:57:26.0086955+08:00" endTime="2026-11-05T10:58:32.0830085+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="720f2628-6f6b-4c5c-95b2-8841ecf44f51" />
+    <UnitTestResult executionId="b240c403-a83f-445d-8b0d-508ad27562b5" testId="926823ff-9e15-1e85-2650-fba9e7718543" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: -9, row: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0193132" startTime="2026-11-05T11:01:58.0031196+08:00" endTime="2026-11-05T11:01:58.0224376+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b240c403-a83f-445d-8b0d-508ad27562b5" />
+    <UnitTestResult executionId="38170e44-9774-4383-8fcc-7e866dae4258" testId="3d35c08a-6453-31ce-aaff-84d0597831e7" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: -5)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0387446" startTime="2026-11-05T10:57:01.3061797+08:00" endTime="2026-11-05T10:57:01.3381319+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="38170e44-9774-4383-8fcc-7e866dae4258" />
+    <UnitTestResult executionId="762728d0-830e-4e20-9010-f217f1b9dfb2" testId="cd9ca83d-69db-24cc-3d33-986f338a7086" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(name: &quot;Field Curvature&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.9181825" startTime="2026-11-05T10:57:04.4403949+08:00" endTime="2026-11-05T10:57:06.3478243+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="762728d0-830e-4e20-9010-f217f1b9dfb2">
+      <Output>
+        <StdOut>Field Curvature: 606 captured values; maximumError=0.00041672136290109643 mm</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1.0000000000000001E-05)&#xD;
+Actual: 0.00041672136290109643</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(String name) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvatureNativeMatrixTests.cs:line 99&#xD;
+   at InvokeStub_FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(Object, Span`1)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="660715b0-34cf-4741-acb5-e4b3cde1e3d4" testId="fdcaecaa-4a53-7352-cccd-70890685b45c" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 17)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0807303" startTime="2026-11-05T10:55:42.6159398+08:00" endTime="2026-11-05T10:55:42.6962343+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="660715b0-34cf-4741-acb5-e4b3cde1e3d4" />
+    <UnitTestResult executionId="21edd6e3-5b30-43b4-85ae-a9c5c945cd10" testId="25bb655f-433e-3086-3f62-3dac84f50a40" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.CircularConeMatchesIndependentNativeFiniteMappingAndEdgeWeights(density: 5)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0141591" startTime="2026-11-05T10:55:10.6980798+08:00" endTime="2026-11-05T10:55:10.7128223+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="21edd6e3-5b30-43b4-85ae-a9c5c945cd10" />
+    <UnitTestResult executionId="c47bc508-38db-454b-91e5-2cae6293d759" testId="21ea9a21-29f9-1409-4c26-426caf9d616d" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.FiniteReferenceChangesWithDetectorDistanceWhilePhysicalConeIsUnchanged" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.2941738" startTime="2026-11-05T10:55:10.7130839+08:00" endTime="2026-11-05T10:55:12.0422877+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c47bc508-38db-454b-91e5-2cae6293d759" />
+    <UnitTestResult executionId="41362482-c891-4d41-88b1-c3fb2ae13fc7" testId="243800df-7917-fa84-d59e-a0399e11ac48" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ObliqueGeneralizedComponentsRetainActualImageDefocus(code: &quot;FCGS&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0076742" startTime="2026-11-05T10:57:01.3198283+08:00" endTime="2026-11-05T10:57:01.3198550+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="41362482-c891-4d41-88b1-c3fb2ae13fc7" />
+    <UnitTestResult executionId="1e6283ee-04f7-4452-b07a-d3e399b2363b" testId="76b1cf20-3753-02d5-aec6-2d9c8797b338" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;double-gauss-28-degree-field&quot;, code: &quot;FCGT&quot;, count: 303)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.6185825" startTime="2026-11-05T10:56:12.0171053+08:00" endTime="2026-11-05T10:56:12.6243948+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1e6283ee-04f7-4452-b07a-d3e399b2363b">
+      <Output>
+        <StdOut>double-gauss-28-degree-field/FCGT: count=324, maximumError=2.1130222571663637E-10 mm; originalTarget=1e-5 mm</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="16279450-731e-4526-909b-30116971cbd3" testId="40f4d5ff-6086-db50-ac0f-17c346496a15" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 5)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0285800" startTime="2026-11-05T10:55:57.8248259+08:00" endTime="2026-11-05T10:55:57.8482143+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="16279450-731e-4526-909b-30116971cbd3" />
+    <UnitTestResult executionId="a034b9b1-0ffe-4320-a485-f0b04b6e909b" testId="4c0e553e-54a5-cb36-3cc0-bb121a0bf3a1" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.DirectionalFourierSectionMatchesIndependentAnisotropicGaussian" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1893603" startTime="2026-11-05T10:55:09.0939576+08:00" endTime="2026-11-05T10:55:09.1000554+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a034b9b1-0ffe-4320-a485-f0b04b6e909b" />
+    <UnitTestResult executionId="29a50799-e09f-46fd-a75d-20e895c241be" testId="d65d330c-3fb6-258f-2d34-75009b18be5e" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.CircularConeMatchesIndependentNativeFiniteMappingAndEdgeWeights(density: 10)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5998698" startTime="2026-11-05T10:55:09.0940718+08:00" endTime="2026-11-05T10:55:10.4568627+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="29a50799-e09f-46fd-a75d-20e895c241be" />
+    <UnitTestResult executionId="0df0f4b8-ff00-4ee0-b6e3-4ab5a1f660d8" testId="99598721-a10d-c9cf-eeee-58cc56c140ea" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 5)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0281634" startTime="2026-11-05T10:55:57.7603949+08:00" endTime="2026-11-05T10:55:57.7869295+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0df0f4b8-ff00-4ee0-b6e3-4ab5a1f660d8" />
+    <UnitTestResult executionId="c589ad57-8e21-4b63-ac00-54f84320c0eb" testId="6b91ed9f-e0da-0e93-03f6-d4711bde61ab" testName="OpticalSystemDesign.Tests.EvidenceStorageTests.StorageAuthorityCannotLeaveTheRepository" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0217422" startTime="2026-11-05T10:55:09.2870060+08:00" endTime="2026-11-05T10:55:09.2938995+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c589ad57-8e21-4b63-ac00-54f84320c0eb" />
+    <UnitTestResult executionId="70de2070-ca6f-4cdd-8713-1ee518f72396" testId="41055689-ccf1-bd6d-0246-1a1bddcb24a0" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 21)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3442348" startTime="2026-11-05T10:55:12.0427500+08:00" endTime="2026-11-05T10:55:13.3508911+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70de2070-ca6f-4cdd-8713-1ee518f72396" />
+    <UnitTestResult executionId="0bfbfd64-7c3f-48f7-8798-95265fa17efd" testId="4ed83eb6-e003-300f-494f-330e0b3767f7" testName="OpticalSystemDesign.Tests.CameraSfrTests.CurrentLensLinearArraySfrConvergenceAndFrozenReplaySurviveWorkspaceReplacement" computerName="LAPTOP-G4BBBCS0" duration="00:05:18.3113667" startTime="2026-11-05T10:55:41.2166184+08:00" endTime="2026-11-05T11:00:59.5284818+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0bfbfd64-7c3f-48f7-8798-95265fa17efd" />
+    <UnitTestResult executionId="4f5a89c2-b300-4f5d-a49e-fc0db14150b0" testId="0a1c5323-b08f-6224-8169-6162413d18a0" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 20)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.1125681" startTime="2026-11-05T10:55:13.6373739+08:00" endTime="2026-11-05T10:55:14.7525324+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4f5a89c2-b300-4f5d-a49e-fc0db14150b0" />
+    <UnitTestResult executionId="3e0e01a1-53cb-476c-806d-e158cf7c88b9" testId="a55bc1dc-2146-04a0-9f26-b0854662d722" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.FlatInvalidRoiAndNonlinearInvalidValuesFailExplicitly" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0039363" startTime="2026-11-05T10:59:54.2956150+08:00" endTime="2026-11-05T10:59:54.2991673+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e0e01a1-53cb-476c-806d-e158cf7c88b9" />
+    <UnitTestResult executionId="b393ab17-eece-467a-803b-1f22d4170490" testId="785793d5-a0b4-e62b-a347-cd9940e0ac9b" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 4, row: -9)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0189915" startTime="2026-11-05T11:01:57.9462483+08:00" endTime="2026-11-05T11:01:57.9652205+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b393ab17-eece-467a-803b-1f22d4170490" />
+    <UnitTestResult executionId="ad626ed0-7747-4b12-a3a6-911fbcb687af" testId="4413d1f5-074c-f531-2758-625c4ff8d5af" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 4, row: 9)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0182221" startTime="2026-11-05T11:01:57.9087247+08:00" endTime="2026-11-05T11:01:57.9269507+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad626ed0-7747-4b12-a3a6-911fbcb687af" />
+    <UnitTestResult executionId="2a6dd234-a75d-4af9-bbaf-49be8dc5dae6" testId="859bca90-9514-70ff-6df9-ecf99214b9db" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;even-asphere&quot;, code: &quot;FCGT&quot;, count: 101)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0450987" startTime="2026-11-05T10:56:12.6245915+08:00" endTime="2026-11-05T10:56:12.6699272+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2a6dd234-a75d-4af9-bbaf-49be8dc5dae6">
+      <Output>
+        <StdOut>even-asphere/FCGT: count=108, maximumError=1.4350132970797347E-08 mm; originalTarget=1e-5 mm</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6d3d41ca-6387-449b-86df-13ee063e9613" testId="797a7a1b-aeb8-4aa6-b153-2855ef93ef27" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;double-gauss-28-degree-field&quot;, code: &quot;EFNO&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:12.8038578" startTime="2026-11-05T10:59:59.0953599+08:00" endTime="2026-11-05T11:00:11.8992172+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d3d41ca-6387-449b-86df-13ee063e9613">
+      <Output>
+        <StdOut>double-gauss-28-degree-field/EFNO: 36 original rows, maximum=3.1555424939710974E-11</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d79171f4-f914-43e4-b76a-98a8c9b8abe6" testId="223cb499-7de0-f98a-bbd1-9660846d463e" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 20)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.3932750" startTime="2026-11-05T10:55:43.9115673+08:00" endTime="2026-11-05T10:55:44.3047629+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d79171f4-f914-43e4-b76a-98a8c9b8abe6" />
+    <UnitTestResult executionId="1e521ec9-7bdc-4c1f-b4f0-53ea2cb15b24" testId="45c641c8-9371-0174-6dd2-13d8454c03f2" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 40)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.9805161" startTime="2026-11-05T10:55:42.6964262+08:00" endTime="2026-11-05T10:55:43.6730722+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1e521ec9-7bdc-4c1f-b4f0-53ea2cb15b24" />
+    <UnitTestResult executionId="27d4ec52-42e4-44b8-8a96-ab05f95ac287" testId="b1347a81-a241-e772-f32e-586ee609ecd0" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.SquarePixelIntegrationAndDeltaPsfPreserveAnalyticEdge" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0188308" startTime="2026-11-05T10:59:50.0672304+08:00" endTime="2026-11-05T10:59:50.0710019+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="27d4ec52-42e4-44b8-8a96-ab05f95ac287" />
+    <UnitTestResult executionId="71cc2535-6fa8-4e00-a830-b3df7591183f" testId="6ebd0a1f-11f6-f549-bfa5-54c027f178a4" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;double-gauss-28-degree-field&quot;, code: &quot;FCGS&quot;, count: 303)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2548602" startTime="2026-11-05T10:57:01.0565027+08:00" endTime="2026-11-05T10:57:01.3196946+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="71cc2535-6fa8-4e00-a830-b3df7591183f">
+      <Output>
+        <StdOut>double-gauss-28-degree-field/FCGS: count=324, maximumError=1.6849575901201064E-10 mm; originalTarget=1e-5 mm</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="cbb7912e-4fd1-4edf-b2dc-eaaf298ded1d" testId="e26f4c81-b8d1-1113-a932-10860e31b354" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512(file: &quot;Double Gauss 28 degree field_2.zmx&quot;, objectDistance: 500)" computerName="LAPTOP-G4BBBCS0" duration="00:00:24.6613569" startTime="2026-11-05T10:57:01.3386666+08:00" endTime="2026-11-05T10:57:26.0079149+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cbb7912e-4fd1-4edf-b2dc-eaaf298ded1d" />
+    <UnitTestResult executionId="52194cc3-3c83-4bb1-bfd1-427a1631e1d4" testId="aad22c3b-ab46-a337-81a1-51d4474dac8b" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: 10)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1686725" startTime="2026-11-05T10:57:01.1323493+08:00" endTime="2026-11-05T10:57:01.3060408+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="52194cc3-3c83-4bb1-bfd1-427a1631e1d4" />
+    <UnitTestResult executionId="c82eb19a-27f9-43b7-a06b-3b87dbc22d85" testId="2133b852-ff8c-87f1-9ef0-2aa9072f5e4e" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.StandardDoubleGaussWindowExpansionConvergesWithoutChangingItsInfiniteConjugate" computerName="LAPTOP-G4BBBCS0" duration="00:02:14.9065233" startTime="2026-11-05T10:58:32.0835625+08:00" endTime="2026-11-05T11:00:46.9854767+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c82eb19a-27f9-43b7-a06b-3b87dbc22d85" />
+    <UnitTestResult executionId="f8fe19f4-3118-4a7e-bd46-b2a6428ecae5" testId="88667a0d-b488-128b-c596-e4ff41903787" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;123456&quot;, code: &quot;EFNO&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:04:50.2210306" startTime="2026-11-05T10:55:09.0994440+08:00" endTime="2026-11-05T10:59:59.0942447+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8fe19f4-3118-4a7e-bd46-b2a6428ecae5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1E-08)&#xD;
+Actual: 1.1107368903529036E-06</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(String name, String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\IlluminationInverseNativeTests.cs:line 49&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="23db30ab-8288-4095-959d-e00267b74b2f" testId="29f649e3-ac23-0a0c-f1f3-9c4f678cca1b" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(name: &quot;Field Curvature and Distortion&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.0962855" startTime="2026-11-05T10:57:01.3270424+08:00" endTime="2026-11-05T10:57:04.4207755+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="23db30ab-8288-4095-959d-e00267b74b2f">
+      <Output>
+        <StdOut>Field Curvature and Distortion: 606 captured values; maximumError=0.00041672136290109643 mm</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1.0000000000000001E-05)&#xD;
+Actual: 0.00041672136290109643</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(String name) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvatureNativeMatrixTests.cs:line 99&#xD;
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a7899a9b-8a32-4a63-b25b-58e2e6ed5f03" testId="8485cf5a-2865-3937-6ea5-7220d89558b2" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 9, row: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0190155" startTime="2026-11-05T11:01:57.9270644+08:00" endTime="2026-11-05T11:01:57.9461270+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a7899a9b-8a32-4a63-b25b-58e2e6ed5f03" />
+    <UnitTestResult executionId="c7a5c73f-464c-479e-bd90-fe5d542e3da0" testId="e7223345-b560-d6f9-6d86-d8c81e472592" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;even-asphere&quot;, code: &quot;EFNO&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2688130" startTime="2026-11-05T11:01:10.9148314+08:00" endTime="2026-11-05T11:01:11.1836409+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c7a5c73f-464c-479e-bd90-fe5d542e3da0">
+      <Output>
+        <StdOut>even-asphere/EFNO: 8 original rows, maximum=2.9343194540842887E-12</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6ffac8c6-c606-4b2e-b6b1-14d59f5cc235" testId="468c7e26-4510-ed23-887a-bc8cce05f1cd" testName="OpticalSystemDesign.Tests.CameraSfrTests.ActualPreviousArchivesKeepTheirOriginalCurvesAndRemainViewOnly(folder: &quot;monochrome-sfr&quot;, algorithm: &quot;MonochromeLocalFourierEdge/1&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:08.9940277" startTime="2026-11-05T10:55:09.0942647+08:00" endTime="2026-11-05T10:55:17.8969517+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6ffac8c6-c606-4b2e-b6b1-14d59f5cc235" />
+    <UnitTestResult executionId="585f331e-e3be-4650-9e15-a37adf33d433" testId="53d881f0-da3f-d2ce-67d4-820f7771c61a" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;relay-lens&quot;, code: &quot;EFNO&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:35.3558055" startTime="2026-11-05T11:00:11.9049071+08:00" endTime="2026-11-05T11:00:47.2540971+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="585f331e-e3be-4650-9e15-a37adf33d433">
+      <Output>
+        <StdOut>relay-lens/EFNO: 24 original rows, maximum=1.0912371006810417E-09</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="10e5c8de-0025-414d-be4b-ee4e8008afd9" testId="ecc8908f-3858-a391-72ac-d45e13eed656" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ObliqueGeneralizedComponentsRetainActualImageDefocus(code: &quot;FCGT&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0042278" startTime="2026-11-05T10:57:01.3198978+08:00" endTime="2026-11-05T10:57:01.3268462+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="10e5c8de-0025-414d-be4b-ee4e8008afd9" />
+    <UnitTestResult executionId="51ca531c-a97c-4b4a-a60e-14868bbdd541" testId="b8f1c017-bfcb-8a35-bfe3-e2c5b709fe6f" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: 2)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0619409" startTime="2026-11-05T10:57:01.0683766+08:00" endTime="2026-11-05T10:57:01.1322040+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="51ca531c-a97c-4b4a-a60e-14868bbdd541" />
+    <UnitTestResult executionId="fb6cd098-4721-4e0c-a536-5d1e40a0105b" testId="6be53e1f-0e8d-f94e-81ba-c80f6938b59b" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ApplicationExportsConvergedStandardDoubleGaussAndPreservesLegacyViewOnlyIdentity" computerName="LAPTOP-G4BBBCS0" duration="00:01:52.1827771" startTime="2026-11-05T10:55:09.0943544+08:00" endTime="2026-11-05T10:57:01.0681878+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fb6cd098-4721-4e0c-a536-5d1e40a0105b" />
+    <UnitTestResult executionId="f539496a-0014-4d9a-b7ba-a073b64460c7" testId="5165007b-7dc4-1b07-ff03-fc93c42b605a" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 100)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.4991838" startTime="2026-11-05T10:55:51.2615369+08:00" endTime="2026-11-05T10:55:57.7599411+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f539496a-0014-4d9a-b7ba-a073b64460c7" />
+    <UnitTestResult executionId="2b5550dd-93b1-4139-95f7-d3299369ab19" testId="dcbc1b98-e9a8-e220-0314-22a41ad430b5" testName="OpticalSystemDesign.Tests.EvidenceStorageTests.LogicalCaptureRetainsItsPathAndExactBytesWithoutAnotherStoredCopy" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0460687" startTime="2026-11-05T10:55:09.1440192+08:00" endTime="2026-11-05T10:55:09.2718024+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2b5550dd-93b1-4139-95f7-d3299369ab19">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: ["C:\\Users\\19851\\AppData\\Local\\Temp\\evidence-s"···]&#xD;
+Actual:   ["C:\\Users\\19851\\AppData\\Local\\Temp\\evidence-s"···]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.EvidenceStorageTests.LogicalCaptureRetainsItsPathAndExactBytesWithoutAnotherStoredCopy() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\EvidenceStorageTests.cs:line 17&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a1b80596-4c20-4d5f-8aa9-bcee5b866a06" testId="4d1f14c7-50d3-fc20-dafd-a57ab40da51f" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 0, row: 8)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0198475" startTime="2026-11-05T11:01:57.8888255+08:00" endTime="2026-11-05T11:01:57.9086133+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a1b80596-4c20-4d5f-8aa9-bcee5b866a06" />
+    <UnitTestResult executionId="c0d07d82-a98c-46ba-b925-066743b9f959" testId="aa50a60c-b9e7-7c2b-f2cf-e7400b00e63f" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;123456&quot;, code: &quot;RELI&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:44.0129665" startTime="2026-11-05T11:01:13.8519245+08:00" endTime="2026-11-05T11:01:57.8651900+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c0d07d82-a98c-46ba-b925-066743b9f959">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1E-08)&#xD;
+Actual: 3.4534485515713698E-06</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(String name, String code) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\IlluminationInverseNativeTests.cs:line 49&#xD;
+   at InvokeStub_IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1e31eb5e-ac45-4a81-88f2-a0cbc9a31001" testId="1a618774-611f-412a-8ff0-5936fe6717b7" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: -4, row: 9)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0181335" startTime="2026-11-05T11:01:57.9848894+08:00" endTime="2026-11-05T11:01:58.0030152+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1e31eb5e-ac45-4a81-88f2-a0cbc9a31001" />
+    <UnitTestResult executionId="60f2e31d-7c74-4af0-a924-399817cb72d6" testId="58a65867-aafb-05c8-8d5c-5e60f7e3de06" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 40)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.6018852" startTime="2026-11-05T10:55:14.7527384+08:00" endTime="2026-11-05T10:55:18.3658371+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="60f2e31d-7c74-4af0-a924-399817cb72d6" />
+    <UnitTestResult executionId="a2c39774-aef0-4e68-933d-990ec65698c5" testId="4dddfb51-ac9e-ea4c-1a23-39c5aa223842" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 100)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.8463349" startTime="2026-11-05T10:55:44.4122111+08:00" endTime="2026-11-05T10:55:51.2543524+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a2c39774-aef0-4e68-933d-990ec65698c5" />
+    <UnitTestResult executionId="d4e341dd-e4e8-4a00-b207-88def5203de6" testId="a748fbfa-47de-1942-c887-f28a535fba79" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1009119" startTime="2026-11-05T10:55:44.3050068+08:00" endTime="2026-11-05T10:55:44.4074744+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d4e341dd-e4e8-4a00-b207-88def5203de6" />
+    <UnitTestResult executionId="8f7cf7b2-b49f-41cf-886a-adc9d547354a" testId="9c2365b6-c6f7-de68-a215-2701a7fa12be" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;relay-lens&quot;, code: &quot;FCGT&quot;, count: 303)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.6968238" startTime="2026-11-05T10:55:10.7064571+08:00" endTime="2026-11-05T10:55:17.4101529+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8f7cf7b2-b49f-41cf-886a-adc9d547354a">
+      <Output>
+        <StdOut>relay-lens/FCGT: count=324, maximumError=4.29798752143995E-10 mm; originalTarget=1e-5 mm</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="85e4ad7e-1f28-40ae-a967-143bc17f650e" testId="4e096b91-ae3c-dd08-d9fb-ca4e84ff49e2" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.ExplicitSvdCutoffIsRelativeAndDoesNotChangeTheGeneralSolverDefault" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010474" startTime="2026-11-05T11:01:58.0806163+08:00" endTime="2026-11-05T11:01:58.0816308+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85e4ad7e-1f28-40ae-a967-143bc17f650e" />
+    <UnitTestResult executionId="e482fab4-d276-48b3-ae82-76ed38bde586" testId="190a7329-c7d1-fec4-ffa0-17dbb3707c6a" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.CircularConeMatchesIndependentNativeFiniteMappingAndEdgeWeights(density: 20)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2410631" startTime="2026-11-05T10:55:10.4571551+08:00" endTime="2026-11-05T10:55:10.6978355+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e482fab4-d276-48b3-ae82-76ed38bde586" />
+    <UnitTestResult executionId="9e7cf423-85e6-438d-a6b8-9cd264888864" testId="30f6213f-e05a-a8c3-ab7e-aa4bdf45d3bb" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 5, row: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0201035" startTime="2026-11-05T11:01:58.0420382+08:00" endTime="2026-11-05T11:01:58.0617979+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9e7cf423-85e6-438d-a6b8-9cd264888864" />
+    <UnitTestResult executionId="e2b0e038-19d9-4ac7-854e-80664c59fe42" testId="7e5e45a7-09ce-948f-2f2c-37c6bec722c4" testName="OpticalSystemDesign.Tests.CameraSfrTests.UnsupportedModeSamplingAndCancellationHaveExplicitFailures" computerName="LAPTOP-G4BBBCS0" duration="00:00:10.1168245" startTime="2026-11-05T11:00:59.5289016+08:00" endTime="2026-11-05T11:01:09.6458762+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e2b0e038-19d9-4ac7-854e-80664c59fe42" />
+    <UnitTestResult executionId="add4493b-d8d8-41ad-98a5-78cb200fe80e" testId="15db244a-2a4d-884c-6065-1d99c14c9d7f" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 10)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2860263" startTime="2026-11-05T10:55:13.3538413+08:00" endTime="2026-11-05T10:55:13.6370345+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="add4493b-d8d8-41ad-98a5-78cb200fe80e" />
+    <UnitTestResult executionId="a27f40a4-f24c-460d-b9f5-efa9d66e58b6" testId="2839de50-8536-3643-318d-61fd9522abf2" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;relay-lens&quot;, code: &quot;FCGS&quot;, count: 303)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.5424230" startTime="2026-11-05T10:57:00.5122518+08:00" endTime="2026-11-05T10:57:01.0563498+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a27f40a4-f24c-460d-b9f5-efa9d66e58b6">
+      <Output>
+        <StdOut>relay-lens/FCGS: count=324, maximumError=1.9960200159374608E-10 mm; originalTarget=1e-5 mm</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9859f5a3-f41d-4dc3-9181-200b4e8bc762" testId="8707e0bc-2c94-90c2-5bde-ae21658e81cf" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.20000000000000001)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0041553" startTime="2026-11-05T10:55:09.1668144+08:00" endTime="2026-11-05T10:55:09.1706187+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9859f5a3-f41d-4dc3-9181-200b4e8bc762" />
+    <UnitTestResult executionId="d590a27b-5f4f-4273-a3c7-5350f293dca9" testId="6135dc1a-ea34-55e5-2c99-2ce55619cfed" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 101)" computerName="LAPTOP-G4BBBCS0" duration="00:00:18.7717101" startTime="2026-11-05T10:55:18.3662356+08:00" endTime="2026-11-05T10:55:37.1253435+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d590a27b-5f4f-4273-a3c7-5350f293dca9" />
+    <UnitTestResult executionId="55030ba4-41ff-4f76-9600-cafbb93dac07" testId="de9d8d7f-f5c9-7d7f-1fcf-f4747fb40210" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.SharedSvdRejectsNonFiniteDataAndHonorsCancellation" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0008305" startTime="2026-11-05T11:01:58.0817195+08:00" endTime="2026-11-05T11:01:58.0825205+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="55030ba4-41ff-4f76-9600-cafbb93dac07" />
+    <UnitTestResult executionId="f64bfb41-fc8d-4727-ae5a-9cfe0201cda6" testId="429cfdb7-b35a-27b7-0f5d-22c634c0e2f1" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;double-gauss-28-degree-field&quot;, code: &quot;RELI&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.4051935" startTime="2026-11-05T11:01:11.1837485+08:00" endTime="2026-11-05T11:01:13.5890204+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f64bfb41-fc8d-4727-ae5a-9cfe0201cda6">
+      <Output>
+        <StdOut>double-gauss-28-degree-field/RELI: 36 original rows, maximum=8.552480945667185E-11</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4fa9c83b-a6e1-4a03-a0b1-e517d9061f70" testId="e7e52396-f7f1-1a2f-e762-b79b93a64f4b" testName="OpticalSystemDesign.Tests.DoubleGaussSfrTests.UnwrappedPhaseRejectsAliasingRatherThanJudgingWrappedComplexPhase" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0014875" startTime="2026-11-05T11:00:46.9858862+08:00" endTime="2026-11-05T11:00:46.9870425+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4fa9c83b-a6e1-4a03-a0b1-e517d9061f70" />
+    <UnitTestResult executionId="53272aea-c353-4701-b845-1d78967e8831" testId="b6992382-1c80-974d-94df-65cdab5b8d5f" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 19)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2862758" startTime="2026-11-05T10:55:57.8483625+08:00" endTime="2026-11-05T10:55:58.1345671+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="53272aea-c353-4701-b845-1d78967e8831" />
+    <UnitTestResult executionId="b587eddc-d8e2-4464-89b1-edf3e475885c" testId="699ca022-325c-bcdd-dddc-b9d09730a5c0" testName="OpticalSystemDesign.Tests.CameraSfrTests.ActualPreviousArchivesKeepTheirOriginalCurvesAndRemainViewOnly(folder: &quot;double-gauss-sfr&quot;, algorithm: &quot;MonochromeLocalFourierEdge/2&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:23.2601111" startTime="2026-11-05T10:55:17.9419144+08:00" endTime="2026-11-05T10:55:41.2136916+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b587eddc-d8e2-4464-89b1-edf3e475885c" />
+    <UnitTestResult executionId="83203435-004c-43c6-a6d6-ad35594e6e67" testId="08f582cd-279f-eb57-6845-880e7817e876" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalCellIntegralAgreesWithSharedFftTimesAnalyticCellFootprint" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.2240414" startTime="2026-11-05T10:59:50.0711711+08:00" endTime="2026-11-05T10:59:54.2951488+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="83203435-004c-43c6-a6d6-ad35594e6e67" />
+    <UnitTestResult executionId="92fd15ab-d364-4582-93f8-57a058a9d3af" testId="472e0793-d3a4-9ea1-1572-669e344051fe" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.GenericUniformPhysicalGridRetainsItsCellCenterContract" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0755897" startTime="2026-11-05T10:55:58.1347311+08:00" endTime="2026-11-05T10:55:58.2148906+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="92fd15ab-d364-4582-93f8-57a058a9d3af" />
+    <UnitTestResult executionId="4b5548d4-8a30-498b-8f34-1e2af3c92924" testId="f67e94d9-5123-36c9-8051-ccbc6a361e5e" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;relay-lens&quot;, code: &quot;RELI&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:23.6605700" startTime="2026-11-05T11:00:47.2542052+08:00" endTime="2026-11-05T11:01:10.9147208+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b5548d4-8a30-498b-8f34-1e2af3c92924">
+      <Output>
+        <StdOut>relay-lens/RELI: 24 original rows, maximum=1.3849208446714556E-09</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2e210b65-76b4-4729-8754-a05f645416e1" testId="498374a1-17e4-a7a0-fbed-e2b2f199e949" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass" computerName="LAPTOP-G4BBBCS0" duration="00:04:40.8605366" startTime="2026-11-05T10:55:09.1966057+08:00" endTime="2026-11-05T10:59:50.0524801+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2e210b65-76b4-4729-8754-a05f645416e1">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0.13 - 0.13300000000000001)&#xD;
+Actual: 0.12945912101755958</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SlantedEdgeSfrTests.ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SlantedEdgeSfrTests.cs:line 77&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="52d07524-c357-44d0-aaef-9628dcb13db1" testId="5c20fd40-6a46-5041-fc00-de92648b4dd8" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;123456&quot;, code: &quot;FCGS&quot;, count: 303)" computerName="LAPTOP-G4BBBCS0" duration="00:00:54.6013350" startTime="2026-11-05T10:55:17.4158569+08:00" endTime="2026-11-05T10:56:12.0087965+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="52d07524-c357-44d0-aaef-9628dcb13db1">
+      <Output>
+        <StdOut>123456/FCGS: count=324, maximumError=0.000415882050410786 mm; originalTarget=1e-5 mm</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1.0000000000000001E-05)&#xD;
+Actual: 0.00041588205041078602</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(String name, String code, Int32 count) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvatureNativeMatrixTests.cs:line 65&#xD;
+   at InvokeStub_FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2ba8a1df-a804-41b9-8cf3-65b8149b4617" testId="2b33c52b-ba81-e114-eed6-476015f1c56c" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2388919" startTime="2026-11-05T10:55:43.7008894+08:00" endTime="2026-11-05T10:55:43.9113989+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2ba8a1df-a804-41b9-8cf3-65b8149b4617" />
+    <UnitTestResult executionId="40d8bbe3-7d2c-48d2-b5e4-ad9d6b905ff2" testId="0d0c2103-7b3a-a1e4-8945-53fed1917953" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 10)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0392551" startTime="2026-11-05T10:55:57.7870775+08:00" endTime="2026-11-05T10:55:57.8246616+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="40d8bbe3-7d2c-48d2-b5e4-ad9d6b905ff2" />
+    <UnitTestResult executionId="b28c1daf-aa67-4351-8aa5-f9f65edcb1e7" testId="25738154-9dc0-d2af-706d-c599cd0b67c1" testName="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.45000000000000001)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0139496" startTime="2026-11-05T10:55:09.1707811+08:00" endTime="2026-11-05T10:55:09.1846939+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b28c1daf-aa67-4351-8aa5-f9f65edcb1e7" />
+    <UnitTestResult executionId="b0269402-8d8a-486d-8909-00149583a8fe" testId="ebd921b6-c21b-1055-6f46-f42e0ba9294c" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.EntirelyBlockedEnvelopeKeepsSamplingMetadataAndFailsTheOperand" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0066063" startTime="2026-11-05T10:55:58.2150733+08:00" endTime="2026-11-05T10:55:58.2183348+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b0269402-8d8a-486d-8909-00149583a8fe" />
+    <UnitTestResult executionId="e58ab9e7-d4da-46fc-81c1-504c9a5838c3" testId="3910c257-3feb-844a-5c87-f2768d4fc529" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;123456&quot;, code: &quot;FCGT&quot;, count: 303)" computerName="LAPTOP-G4BBBCS0" duration="00:00:47.8409564" startTime="2026-11-05T10:56:12.6700677+08:00" endTime="2026-11-05T10:57:00.5108275+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e58ab9e7-d4da-46fc-81c1-504c9a5838c3">
+      <Output>
+        <StdOut>123456/FCGT: count=324, maximumError=0.00041588199909999707 mm; originalTarget=1e-5 mm</StdOut>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0 - 1.0000000000000001E-05)&#xD;
+Actual: 0.00041588199909999707</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(String name, String code, Int32 count) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvatureNativeMatrixTests.cs:line 65&#xD;
+   at InvokeStub_FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4463a30e-ec2e-4cc0-80ba-406af5bbd8c7" testId="5ae6ec3a-5a0f-686c-8158-01dc967f9f58" testName="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 128)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.4866518" startTime="2026-11-05T10:55:37.1269149+08:00" endTime="2026-11-05T10:55:42.6157387+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4463a30e-ec2e-4cc0-80ba-406af5bbd8c7" />
+    <UnitTestResult executionId="95237abe-9bf6-490e-9e53-aed81215e10b" testId="8468c901-ab88-01a2-b8b1-52202d7e3908" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 0, row: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0190897" startTime="2026-11-05T11:01:58.0225437+08:00" endTime="2026-11-05T11:01:58.0416115+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="95237abe-9bf6-490e-9e53-aed81215e10b" />
+    <UnitTestResult executionId="df93dc65-dc5b-4dc8-9db8-e849ef5453ad" testId="a361d8a7-f0eb-96a2-5fcc-48172ced56f3" testName="OpticalSystemDesign.Tests.EvidenceStorageTests.ChangedOrMissingAuthorityIsRejected(missing: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0088887" startTime="2026-11-05T10:55:09.1267546+08:00" endTime="2026-11-05T10:55:09.1268181+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df93dc65-dc5b-4dc8-9db8-e849ef5453ad" />
+    <UnitTestResult executionId="f5e20df9-198f-4e49-816e-eba36e3735c9" testId="1875bf43-3272-667f-d644-f034a1163a59" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: -4, row: -9)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0186472" startTime="2026-11-05T11:01:58.0619110+08:00" endTime="2026-11-05T11:01:58.0805004+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f5e20df9-198f-4e49-816e-eba36e3735c9" />
+    <UnitTestResult executionId="5001f8cc-d0cf-4672-a482-91a37edd5e8d" testId="fe5c235d-8de2-e6a5-c520-ce325cdc64df" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 0, row: -8)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0233345" startTime="2026-11-05T11:01:57.8675759+08:00" endTime="2026-11-05T11:01:57.8886494+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5001f8cc-d0cf-4672-a482-91a37edd5e8d" />
+    <UnitTestResult executionId="67b47e15-f343-4cbb-99fd-718bb0edc283" testId="f3f76072-5fe2-6b61-d33d-cc72724a5653" testName="OpticalSystemDesign.Tests.EvidenceStorageTests.ChangedOrMissingAuthorityIsRejected(missing: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2425525" startTime="2026-11-05T10:55:09.0795706+08:00" endTime="2026-11-05T10:55:09.1253007+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67b47e15-f343-4cbb-99fd-718bb0edc283" />
+    <UnitTestResult executionId="364d8dfd-5986-4dff-b2d6-487b0c271528" testId="19c663fd-0125-7fa7-3558-54951ffbdd01" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: -5, row: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0195294" startTime="2026-11-05T11:01:57.9653387+08:00" endTime="2026-11-05T11:01:57.9847595+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="364d8dfd-5986-4dff-b2d6-487b0c271528" />
+    <UnitTestResult executionId="5e051fb7-669e-4b06-b548-82880cc17e8a" testId="fd45b25f-dce9-c146-9b11-71e303c1b888" testName="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;even-asphere&quot;, code: &quot;RELI&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2628596" startTime="2026-11-05T11:01:13.5891285+08:00" endTime="2026-11-05T11:01:13.8518395+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e051fb7-669e-4b06-b548-82880cc17e8a">
+      <Output>
+        <StdOut>even-asphere/RELI: 8 original rows, maximum=8.262279749260415E-12</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b4228656-098d-4ea2-8231-4d31e9a5bdce" testId="9827b3e4-b0b0-9a68-efec-9dc479f6e678" testName="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;even-asphere&quot;, code: &quot;FCGS&quot;, count: 101)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.8472190" startTime="2026-11-05T10:55:09.0941844+08:00" endTime="2026-11-05T10:55:10.7045557+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b4228656-098d-4ea2-8231-4d31e9a5bdce">
+      <Output>
+        <StdOut>even-asphere/FCGS: count=108, maximumError=6.400907581749493E-11 mm; originalTarget=1e-5 mm</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 128)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5ae6ec3a-5a0f-686c-8158-01dc967f9f58">
+      <Execution id="4463a30e-ec2e-4cc0-80ba-406af5bbd8c7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;double-gauss-28-degree-field&quot;, code: &quot;EFNO&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="797a7a1b-aeb8-4aa6-b153-2855ef93ef27">
+      <Execution id="6d3d41ca-6387-449b-86df-13ee063e9613" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="OriginalFourFileOperandsAgreeAtSharedRayTracePrecision" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;relay-lens&quot;, code: &quot;EFNO&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="53d881f0-da3f-d2ce-67d4-820f7771c61a">
+      <Execution id="585f331e-e3be-4650-9e15-a37adf33d433" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="OriginalFourFileOperandsAgreeAtSharedRayTracePrecision" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 0, row: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8468c901-ab88-01a2-b8b1-52202d7e3908">
+      <Execution id="95237abe-9bf6-490e-9e53-aed81215e10b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="NativeLocatedNodeMaskRemovesTheSameFiniteContribution" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;relay-lens&quot;, code: &quot;FCGS&quot;, count: 303)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2839de50-8536-3643-318d-61fd9522abf2">
+      <Execution id="a27f40a4-f24c-460d-b9f5-efa9d66e58b6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="NativeMfeControlsPassOriginalCurvatureTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.FiniteReferenceChangesWithDetectorDistanceWhilePhysicalConeIsUnchanged" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="21ea9a21-29f9-1409-4c26-426caf9d616d">
+      <Execution id="c47bc508-38db-454b-91e5-2cae6293d759" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="FiniteReferenceChangesWithDetectorDistanceWhilePhysicalConeIsUnchanged" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraSfrTests.ActualPreviousArchivesKeepTheirOriginalCurvesAndRemainViewOnly(folder: &quot;monochrome-sfr&quot;, algorithm: &quot;MonochromeLocalFourierEdge/1&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="468c7e26-4510-ed23-887a-bc8cce05f1cd">
+      <Execution id="6ffac8c6-c606-4b2e-b6b1-14d59f5cc235" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraSfrTests" name="ActualPreviousArchivesKeepTheirOriginalCurvesAndRemainViewOnly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 101)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6135dc1a-ea34-55e5-2c99-2ce55619cfed">
+      <Execution id="d590a27b-5f4f-4273-a3c7-5350f293dca9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 100)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5165007b-7dc4-1b07-ff03-fc93c42b605a">
+      <Execution id="f539496a-0014-4d9a-b7ba-a073b64460c7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 40)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="58a65867-aafb-05c8-8d5c-5e60f7e3de06">
+      <Execution id="60f2e31d-7c74-4af0-a924-399817cb72d6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.FlatInvalidRoiAndNonlinearInvalidValuesFailExplicitly" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a55bc1dc-2146-04a0-9f26-b0854662d722">
+      <Execution id="3e0e01a1-53cb-476c-806d-e158cf7c88b9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="FlatInvalidRoiAndNonlinearInvalidValuesFailExplicitly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a748fbfa-47de-1942-c887-f28a535fba79">
+      <Execution id="d4e341dd-e4e8-4a00-b207-88def5203de6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;even-asphere&quot;, code: &quot;EFNO&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e7223345-b560-d6f9-6d86-d8c81e472592">
+      <Execution id="c7a5c73f-464c-479e-bd90-fe5d542e3da0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="OriginalFourFileOperandsAgreeAtSharedRayTracePrecision" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 21)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="41055689-ccf1-bd6d-0246-1a1bddcb24a0">
+      <Execution id="70de2070-ca6f-4cdd-8713-1ee518f72396" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;123456&quot;, code: &quot;RELI&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="aa50a60c-b9e7-7c2b-f2cf-e7400b00e63f">
+      <Execution id="c0d07d82-a98c-46ba-b925-066743b9f959" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="OriginalFourFileOperandsAgreeAtSharedRayTracePrecision" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.DirectionalFourierSectionMatchesIndependentAnisotropicGaussian" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4c0e553e-54a5-cb36-3cc0-bb121a0bf3a1">
+      <Execution id="a034b9b1-0ffe-4320-a485-f0b04b6e909b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="DirectionalFourierSectionMatchesIndependentAnisotropicGaussian" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(name: &quot;Field Curvature and Distortion&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="29f649e3-ac23-0a0c-f1f3-9c4f678cca1b">
+      <Execution id="23db30ab-8288-4095-959d-e00267b74b2f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512(file: &quot;Double Gauss 28 degree field_2.zmx&quot;, objectDistance: 500)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e26f4c81-b8d1-1113-a932-10860e31b354">
+      <Execution id="cbb7912e-4fd1-4edf-b2dc-eaaf298ded1d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraSfrTests.UnsupportedModeSamplingAndCancellationHaveExplicitFailures" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7e5e45a7-09ce-948f-2f2c-37c6bec722c4">
+      <Execution id="e2b0e038-19d9-4ac7-854e-80664c59fe42" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraSfrTests" name="UnsupportedModeSamplingAndCancellationHaveExplicitFailures" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.SquarePixelIntegrationAndDeltaPsfPreserveAnalyticEdge" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b1347a81-a241-e772-f32e-586ee609ecd0">
+      <Execution id="27d4ec52-42e4-44b8-8a96-ab05f95ac287" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="SquarePixelIntegrationAndDeltaPsfPreserveAnalyticEdge" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.CircularConeMatchesIndependentNativeFiniteMappingAndEdgeWeights(density: 20)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="190a7329-c7d1-fec4-ffa0-17dbb3707c6a">
+      <Execution id="e482fab4-d276-48b3-ae82-76ed38bde586" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="CircularConeMatchesIndependentNativeFiniteMappingAndEdgeWeights" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="498374a1-17e4-a7a0-fbed-e2b2f199e949">
+      <Execution id="2e210b65-76b4-4729-8754-a05f645416e1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 5, row: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="30f6213f-e05a-a8c3-ab7e-aa4bdf45d3bb">
+      <Execution id="9e7cf423-85e6-438d-a6b8-9cd264888864" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="NativeLocatedNodeMaskRemovesTheSameFiniteContribution" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraSfrTests.ActualPreviousArchivesKeepTheirOriginalCurvesAndRemainViewOnly(folder: &quot;double-gauss-sfr&quot;, algorithm: &quot;MonochromeLocalFourierEdge/2&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="699ca022-325c-bcdd-dddc-b9d09730a5c0">
+      <Execution id="b587eddc-d8e2-4464-89b1-edf3e475885c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraSfrTests" name="ActualPreviousArchivesKeepTheirOriginalCurvesAndRemainViewOnly" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512(file: &quot;double-gauss-50mm.zmx&quot;, objectDistance: ∞)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="70f54e1a-99ec-00af-ee3f-62e03760a268">
+      <Execution id="720f2628-6f6b-4c5c-95b2-8841ecf44f51" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.20000000000000001)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8707e0bc-2c94-90c2-5bde-ae21658e81cf">
+      <Execution id="9859f5a3-f41d-4dc3-9181-200b4e8bc762" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;even-asphere&quot;, code: &quot;FCGT&quot;, count: 101)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="859bca90-9514-70ff-6df9-ecf99214b9db">
+      <Execution id="2a6dd234-a75d-4af9-bbaf-49be8dc5dae6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="NativeMfeControlsPassOriginalCurvatureTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.UnwrappedPhaseRejectsAliasingRatherThanJudgingWrappedComplexPhase" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e7e52396-f7f1-1a2f-e762-b79b93a64f4b">
+      <Execution id="4fa9c83b-a6e1-4a03-a0b1-e517d9061f70" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="UnwrappedPhaseRejectsAliasingRatherThanJudgingWrappedComplexPhase" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.EvidenceStorageTests.LogicalCaptureRetainsItsPathAndExactBytesWithoutAnotherStoredCopy" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="dcbc1b98-e9a8-e220-0314-22a41ad430b5">
+      <Execution id="2b5550dd-93b1-4139-95f7-d3299369ab19" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.EvidenceStorageTests" name="LogicalCaptureRetainsItsPathAndExactBytesWithoutAnotherStoredCopy" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;relay-lens&quot;, code: &quot;FCGT&quot;, count: 303)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9c2365b6-c6f7-de68-a215-2701a7fa12be">
+      <Execution id="8f7cf7b2-b49f-41cf-886a-adc9d547354a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="NativeMfeControlsPassOriginalCurvatureTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;relay-lens&quot;, code: &quot;RELI&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f67e94d9-5123-36c9-8051-ccbc6a361e5e">
+      <Execution id="4b5548d4-8a30-498b-8f34-1e2af3c92924" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="OriginalFourFileOperandsAgreeAtSharedRayTracePrecision" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(name: &quot;Field Curvature&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="cd9ca83d-69db-24cc-3d33-986f338a7086">
+      <Execution id="762728d0-830e-4e20-9010-f217f1b9dfb2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: -5)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3d35c08a-6453-31ce-aaff-84d0597831e7">
+      <Execution id="38170e44-9774-4383-8fcc-7e866dae4258" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: -1, phase: -0.31)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="55740872-092c-bcd6-cd0c-fe3cf0664d60">
+      <Execution id="60513f90-b689-4485-ab13-77de517826e9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 4, row: 9)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4413d1f5-074c-f531-2758-625c4ff8d5af">
+      <Execution id="ad626ed0-7747-4b12-a3a6-911fbcb687af" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="NativeLocatedNodeMaskRemovesTheSameFiniteContribution" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.EntirelyBlockedEnvelopeKeepsSamplingMetadataAndFailsTheOperand" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ebd921b6-c21b-1055-6f46-f42e0ba9294c">
+      <Execution id="b0269402-8d8a-486d-8909-00149583a8fe" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="EntirelyBlockedEnvelopeKeepsSamplingMetadataAndFailsTheOperand" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;double-gauss-28-degree-field&quot;, code: &quot;RELI&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="429cfdb7-b35a-27b7-0f5d-22c634c0e2f1">
+      <Execution id="f64bfb41-fc8d-4727-ae5a-9cfe0201cda6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="OriginalFourFileOperandsAgreeAtSharedRayTracePrecision" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: 2)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b8f1c017-bfcb-8a35-bfe3-e2c5b709fe6f">
+      <Execution id="51ca531c-a97c-4b4a-a60e-14868bbdd541" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;double-gauss-28-degree-field&quot;, code: &quot;FCGT&quot;, count: 303)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="76b1cf20-3753-02d5-aec6-2d9c8797b338">
+      <Execution id="1e6283ee-04f7-4452-b07a-d3e399b2363b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="NativeMfeControlsPassOriginalCurvatureTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(polarity: 1, phase: 0.45000000000000001)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="25738154-9dc0-d2af-706d-c599cd0b67c1">
+      <Execution id="b28c1daf-aa67-4351-8aa5-f9f65edcb1e7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.SharedSvdRejectsNonFiniteDataAndHonorsCancellation" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="de9d8d7f-f5c9-7d7f-1fcf-f4747fb40210">
+      <Execution id="55030ba4-41ff-4f76-9600-cafbb93dac07" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="SharedSvdRejectsNonFiniteDataAndHonorsCancellation" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.EvidenceStorageTests.ChangedOrMissingAuthorityIsRejected(missing: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="f3f76072-5fe2-6b61-d33d-cc72724a5653">
+      <Execution id="67b47e15-f343-4cbb-99fd-718bb0edc283" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.EvidenceStorageTests" name="ChangedOrMissingAuthorityIsRejected" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: -5, row: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="19c663fd-0125-7fa7-3558-54951ffbdd01">
+      <Execution id="364d8dfd-5986-4dff-b2d6-487b0c271528" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="NativeLocatedNodeMaskRemovesTheSameFiniteContribution" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.StandardDoubleGaussWindowExpansionConvergesWithoutChangingItsInfiniteConjugate" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2133b852-ff8c-87f1-9ef0-2aa9072f5e4e">
+      <Execution id="c82eb19a-27f9-43b7-a06b-3b87dbc22d85" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="StandardDoubleGaussWindowExpansionConvergesWithoutChangingItsInfiniteConjugate" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 5)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="99598721-a10d-c9cf-eeee-58cc56c140ea">
+      <Execution id="0df0f4b8-ff00-4ee0-b6e3-4ab5a1f660d8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 10)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="15db244a-2a4d-884c-6065-1d99c14c9d7f">
+      <Execution id="add4493b-d8d8-41ad-98a5-78cb200fe80e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.EvidenceStorageTests.ChangedOrMissingAuthorityIsRejected(missing: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a361d8a7-f0eb-96a2-5fcc-48172ced56f3">
+      <Execution id="df93dc65-dc5b-4dc8-9db8-e849ef5453ad" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.EvidenceStorageTests" name="ChangedOrMissingAuthorityIsRejected" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: -4, row: 9)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1a618774-611f-412a-8ff0-5936fe6717b7">
+      <Execution id="1e31eb5e-ac45-4a81-88f2-a0cbc9a31001" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="NativeLocatedNodeMaskRemovesTheSameFiniteContribution" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ApplicationExportsConvergedStandardDoubleGaussAndPreservesLegacyViewOnlyIdentity" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6be53e1f-0e8d-f94e-81ba-c80f6938b59b">
+      <Execution id="fb6cd098-4721-4e0c-a536-5d1e40a0105b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="ApplicationExportsConvergedStandardDoubleGaussAndPreservesLegacyViewOnlyIdentity" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 20)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0a1c5323-b08f-6224-8169-6162413d18a0">
+      <Execution id="4f5a89c2-b300-4f5d-a49e-fc0db14150b0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.CircularConeMatchesIndependentNativeFiniteMappingAndEdgeWeights(density: 5)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="25bb655f-433e-3086-3f62-3dac84f50a40">
+      <Execution id="21edd6e3-5b30-43b4-85ae-a9c5c945cd10" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="CircularConeMatchesIndependentNativeFiniteMappingAndEdgeWeights" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ObliqueGeneralizedComponentsRetainActualImageDefocus(code: &quot;FCGS&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="243800df-7917-fa84-d59e-a0399e11ac48">
+      <Execution id="41362482-c891-4d41-88b1-c3fb2ae13fc7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="ObliqueGeneralizedComponentsRetainActualImageDefocus" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 10)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0d0c2103-7b3a-a1e4-8945-53fed1917953">
+      <Execution id="40d8bbe3-7d2c-48d2-b5e4-ad9d6b905ff2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 4, row: -9)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="785793d5-a0b4-e62b-a347-cd9940e0ac9b">
+      <Execution id="b393ab17-eece-467a-803b-1f22d4170490" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="NativeLocatedNodeMaskRemovesTheSameFiniteContribution" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;even-asphere&quot;, code: &quot;FCGS&quot;, count: 101)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9827b3e4-b0b0-9a68-efec-9dc479f6e678">
+      <Execution id="b4228656-098d-4ea2-8231-4d31e9a5bdce" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="NativeMfeControlsPassOriginalCurvatureTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.CircularConeMatchesIndependentNativeFiniteMappingAndEdgeWeights(density: 10)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d65d330c-3fb6-258f-2d34-75009b18be5e">
+      <Execution id="29a50799-e09f-46fd-a75d-20e895c241be" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="CircularConeMatchesIndependentNativeFiniteMappingAndEdgeWeights" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 20)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="223cb499-7de0-f98a-bbd1-9660846d463e">
+      <Execution id="d79171f4-f914-43e4-b76a-98a8c9b8abe6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;123456&quot;, code: &quot;FCGS&quot;, count: 303)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5c20fd40-6a46-5041-fc00-de92648b4dd8">
+      <Execution id="52d07524-c357-44d0-aaef-9628dcb13db1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="NativeMfeControlsPassOriginalCurvatureTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.29999999999999999, density: 40)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="45c641c8-9371-0174-6dd2-13d8454c03f2">
+      <Execution id="1e521ec9-7bdc-4c1f-b4f0-53ea2cb15b24" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 17)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fdcaecaa-4a53-7352-cccd-70890685b45c">
+      <Execution id="660715b0-34cf-4741-acb5-e4b3cde1e3d4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CameraSfrTests.CurrentLensLinearArraySfrConvergenceAndFrozenReplaySurviveWorkspaceReplacement" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4ed83eb6-e003-300f-494f-330e0b3767f7">
+      <Execution id="0bfbfd64-7c3f-48f7-8798-95265fa17efd" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CameraSfrTests" name="CurrentLensLinearArraySfrConvergenceAndFrozenReplaySurviveWorkspaceReplacement" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.ExplicitSvdCutoffIsRelativeAndDoesNotChangeTheGeneralSolverDefault" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4e096b91-ae3c-dd08-d9fb-ca4e84ff49e2">
+      <Execution id="85e4ad7e-1f28-40ae-a967-143bc17f650e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="ExplicitSvdCutoffIsRelativeAndDoesNotChangeTheGeneralSolverDefault" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 0, row: 8)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4d1f14c7-50d3-fc20-dafd-a57ab40da51f">
+      <Execution id="a1b80596-4c20-4d5f-8aa9-bcee5b866a06" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="NativeLocatedNodeMaskRemovesTheSameFiniteContribution" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: -9, row: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="926823ff-9e15-1e85-2650-fba9e7718543">
+      <Execution id="b240c403-a83f-445d-8b0d-508ad27562b5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="NativeLocatedNodeMaskRemovesTheSameFiniteContribution" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ObliqueGeneralizedComponentsRetainActualImageDefocus(code: &quot;FCGT&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ecc8908f-3858-a391-72ac-d45e13eed656">
+      <Execution id="10e5c8de-0025-414d-be4b-ee4e8008afd9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="ObliqueGeneralizedComponentsRetainActualImageDefocus" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;even-asphere&quot;, code: &quot;RELI&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fd45b25f-dce9-c146-9b11-71e303c1b888">
+      <Execution id="5e051fb7-669e-4b06-b548-82880cc17e8a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="OriginalFourFileOperandsAgreeAtSharedRayTracePrecision" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2b33c52b-ba81-e114-eed6-476015f1c56c">
+      <Execution id="2ba8a1df-a804-41b9-8cf3-65b8149b4617" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;double-gauss-28-degree-field&quot;, code: &quot;FCGS&quot;, count: 303)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6ebd0a1f-11f6-f549-bfa5-54c027f178a4">
+      <Execution id="71cc2535-6fa8-4e00-a830-b3df7591183f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="NativeMfeControlsPassOriginalCurvatureTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.GenericUniformPhysicalGridRetainsItsCellCenterContract" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="472e0793-d3a4-9ea1-1572-669e344051fe">
+      <Execution id="92fd15ab-d364-4582-93f8-57a058a9d3af" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="GenericUniformPhysicalGridRetainsItsCellCenterContract" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: &quot;123456&quot;, code: &quot;EFNO&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="88667a0d-b488-128b-c596-e4ff41903787">
+      <Execution id="f8fe19f4-3118-4a7e-bd46-b2a6428ecae5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="OriginalFourFileOperandsAgreeAtSharedRayTracePrecision" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SlantedEdgeSfrTests.LocalCellIntegralAgreesWithSharedFftTimesAnalyticCellFootprint" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="08f582cd-279f-eb57-6845-880e7817e876">
+      <Execution id="83203435-004c-43c6-a6d6-ad35594e6e67" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SlantedEdgeSfrTests" name="LocalCellIntegralAgreesWithSharedFftTimesAnalyticCellFootprint" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.DoubleGaussSfrTests.ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf(angle: 10)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="aad22c3b-ab46-a337-81a1-51d4474dac8b">
+      <Execution id="52194cc3-3c83-4bb1-bfd1-427a1631e1d4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.DoubleGaussSfrTests" name="ProjectedConvolutionMatchesIndependentClippedPixelAreaForAsymmetricPsf" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: -4, row: -9)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1875bf43-3272-667f-d644-f034a1163a59">
+      <Execution id="f5e20df9-198f-4e49-816e-eba36e3735c9" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="NativeLocatedNodeMaskRemovesTheSameFiniteContribution" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: &quot;123456&quot;, code: &quot;FCGT&quot;, count: 303)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3910c257-3feb-844a-5c87-f2768d4fc529">
+      <Execution id="e58ab9e7-d4da-46fc-81c1-504c9a5838c3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests" name="NativeMfeControlsPassOriginalCurvatureTarget" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 19)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b6992382-1c80-974d-94df-65cdab5b8d5f">
+      <Execution id="53272aea-c353-4701-b845-1d78967e8831" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 100)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4dddfb51-ac9e-ea4c-1a23-39c5aa223842">
+      <Execution id="a2c39774-aef0-4e68-933d-990ec65698c5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 0, row: -8)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fe5c235d-8de2-e6a5-c520-ce325cdc64df">
+      <Execution id="5001f8cc-d0cf-4672-a482-91a37edd5e8d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="NativeLocatedNodeMaskRemovesTheSameFiniteContribution" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.FiniteIlluminationGridTests.IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap(halfWidth: 0.5, density: 5)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="40f4d5ff-6086-db50-ac0f-17c346496a15">
+      <Execution id="16279450-731e-4526-909b-30116971cbd3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.FiniteIlluminationGridTests" name="IndependentNativeSquareControlsResolveCoarseEnvelopeAndSamplingCap" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.EvidenceStorageTests.StorageAuthorityCannotLeaveTheRepository" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6b91ed9f-e0da-0e93-03f6-d4711bde61ab">
+      <Execution id="c589ad57-8e21-4b63-ac00-54f84320c0eb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.EvidenceStorageTests" name="StorageAuthorityCannotLeaveTheRepository" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.IlluminationInverseNativeTests.NativeLocatedNodeMaskRemovesTheSameFiniteContribution(column: 9, row: 0)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8485cf5a-2865-3937-6ea5-7220d89558b2">
+      <Execution id="a7899a9b-8a32-4a63-b25b-58e2e6ed5f03" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.IlluminationInverseNativeTests" name="NativeLocatedNodeMaskRemovesTheSameFiniteContribution" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="55740872-092c-bcd6-cd0c-fe3cf0664d60" executionId="60513f90-b689-4485-ab13-77de517826e9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="70f54e1a-99ec-00af-ee3f-62e03760a268" executionId="720f2628-6f6b-4c5c-95b2-8841ecf44f51" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="926823ff-9e15-1e85-2650-fba9e7718543" executionId="b240c403-a83f-445d-8b0d-508ad27562b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3d35c08a-6453-31ce-aaff-84d0597831e7" executionId="38170e44-9774-4383-8fcc-7e866dae4258" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cd9ca83d-69db-24cc-3d33-986f338a7086" executionId="762728d0-830e-4e20-9010-f217f1b9dfb2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fdcaecaa-4a53-7352-cccd-70890685b45c" executionId="660715b0-34cf-4741-acb5-e4b3cde1e3d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25bb655f-433e-3086-3f62-3dac84f50a40" executionId="21edd6e3-5b30-43b4-85ae-a9c5c945cd10" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="21ea9a21-29f9-1409-4c26-426caf9d616d" executionId="c47bc508-38db-454b-91e5-2cae6293d759" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="243800df-7917-fa84-d59e-a0399e11ac48" executionId="41362482-c891-4d41-88b1-c3fb2ae13fc7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="76b1cf20-3753-02d5-aec6-2d9c8797b338" executionId="1e6283ee-04f7-4452-b07a-d3e399b2363b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="40f4d5ff-6086-db50-ac0f-17c346496a15" executionId="16279450-731e-4526-909b-30116971cbd3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4c0e553e-54a5-cb36-3cc0-bb121a0bf3a1" executionId="a034b9b1-0ffe-4320-a485-f0b04b6e909b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d65d330c-3fb6-258f-2d34-75009b18be5e" executionId="29a50799-e09f-46fd-a75d-20e895c241be" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="99598721-a10d-c9cf-eeee-58cc56c140ea" executionId="0df0f4b8-ff00-4ee0-b6e3-4ab5a1f660d8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6b91ed9f-e0da-0e93-03f6-d4711bde61ab" executionId="c589ad57-8e21-4b63-ac00-54f84320c0eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="41055689-ccf1-bd6d-0246-1a1bddcb24a0" executionId="70de2070-ca6f-4cdd-8713-1ee518f72396" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4ed83eb6-e003-300f-494f-330e0b3767f7" executionId="0bfbfd64-7c3f-48f7-8798-95265fa17efd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0a1c5323-b08f-6224-8169-6162413d18a0" executionId="4f5a89c2-b300-4f5d-a49e-fc0db14150b0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a55bc1dc-2146-04a0-9f26-b0854662d722" executionId="3e0e01a1-53cb-476c-806d-e158cf7c88b9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="785793d5-a0b4-e62b-a347-cd9940e0ac9b" executionId="b393ab17-eece-467a-803b-1f22d4170490" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4413d1f5-074c-f531-2758-625c4ff8d5af" executionId="ad626ed0-7747-4b12-a3a6-911fbcb687af" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="859bca90-9514-70ff-6df9-ecf99214b9db" executionId="2a6dd234-a75d-4af9-bbaf-49be8dc5dae6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="797a7a1b-aeb8-4aa6-b153-2855ef93ef27" executionId="6d3d41ca-6387-449b-86df-13ee063e9613" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="223cb499-7de0-f98a-bbd1-9660846d463e" executionId="d79171f4-f914-43e4-b76a-98a8c9b8abe6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="45c641c8-9371-0174-6dd2-13d8454c03f2" executionId="1e521ec9-7bdc-4c1f-b4f0-53ea2cb15b24" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b1347a81-a241-e772-f32e-586ee609ecd0" executionId="27d4ec52-42e4-44b8-8a96-ab05f95ac287" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ebd0a1f-11f6-f549-bfa5-54c027f178a4" executionId="71cc2535-6fa8-4e00-a830-b3df7591183f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e26f4c81-b8d1-1113-a932-10860e31b354" executionId="cbb7912e-4fd1-4edf-b2dc-eaaf298ded1d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aad22c3b-ab46-a337-81a1-51d4474dac8b" executionId="52194cc3-3c83-4bb1-bfd1-427a1631e1d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2133b852-ff8c-87f1-9ef0-2aa9072f5e4e" executionId="c82eb19a-27f9-43b7-a06b-3b87dbc22d85" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="88667a0d-b488-128b-c596-e4ff41903787" executionId="f8fe19f4-3118-4a7e-bd46-b2a6428ecae5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="29f649e3-ac23-0a0c-f1f3-9c4f678cca1b" executionId="23db30ab-8288-4095-959d-e00267b74b2f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8485cf5a-2865-3937-6ea5-7220d89558b2" executionId="a7899a9b-8a32-4a63-b25b-58e2e6ed5f03" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7223345-b560-d6f9-6d86-d8c81e472592" executionId="c7a5c73f-464c-479e-bd90-fe5d542e3da0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="468c7e26-4510-ed23-887a-bc8cce05f1cd" executionId="6ffac8c6-c606-4b2e-b6b1-14d59f5cc235" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="53d881f0-da3f-d2ce-67d4-820f7771c61a" executionId="585f331e-e3be-4650-9e15-a37adf33d433" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecc8908f-3858-a391-72ac-d45e13eed656" executionId="10e5c8de-0025-414d-be4b-ee4e8008afd9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8f1c017-bfcb-8a35-bfe3-e2c5b709fe6f" executionId="51ca531c-a97c-4b4a-a60e-14868bbdd541" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6be53e1f-0e8d-f94e-81ba-c80f6938b59b" executionId="fb6cd098-4721-4e0c-a536-5d1e40a0105b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5165007b-7dc4-1b07-ff03-fc93c42b605a" executionId="f539496a-0014-4d9a-b7ba-a073b64460c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dcbc1b98-e9a8-e220-0314-22a41ad430b5" executionId="2b5550dd-93b1-4139-95f7-d3299369ab19" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4d1f14c7-50d3-fc20-dafd-a57ab40da51f" executionId="a1b80596-4c20-4d5f-8aa9-bcee5b866a06" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="aa50a60c-b9e7-7c2b-f2cf-e7400b00e63f" executionId="c0d07d82-a98c-46ba-b925-066743b9f959" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1a618774-611f-412a-8ff0-5936fe6717b7" executionId="1e31eb5e-ac45-4a81-88f2-a0cbc9a31001" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="58a65867-aafb-05c8-8d5c-5e60f7e3de06" executionId="60f2e31d-7c74-4af0-a924-399817cb72d6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4dddfb51-ac9e-ea4c-1a23-39c5aa223842" executionId="a2c39774-aef0-4e68-933d-990ec65698c5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a748fbfa-47de-1942-c887-f28a535fba79" executionId="d4e341dd-e4e8-4a00-b207-88def5203de6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9c2365b6-c6f7-de68-a215-2701a7fa12be" executionId="8f7cf7b2-b49f-41cf-886a-adc9d547354a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4e096b91-ae3c-dd08-d9fb-ca4e84ff49e2" executionId="85e4ad7e-1f28-40ae-a967-143bc17f650e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="190a7329-c7d1-fec4-ffa0-17dbb3707c6a" executionId="e482fab4-d276-48b3-ae82-76ed38bde586" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="30f6213f-e05a-a8c3-ab7e-aa4bdf45d3bb" executionId="9e7cf423-85e6-438d-a6b8-9cd264888864" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7e5e45a7-09ce-948f-2f2c-37c6bec722c4" executionId="e2b0e038-19d9-4ac7-854e-80664c59fe42" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="15db244a-2a4d-884c-6065-1d99c14c9d7f" executionId="add4493b-d8d8-41ad-98a5-78cb200fe80e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2839de50-8536-3643-318d-61fd9522abf2" executionId="a27f40a4-f24c-460d-b9f5-efa9d66e58b6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8707e0bc-2c94-90c2-5bde-ae21658e81cf" executionId="9859f5a3-f41d-4dc3-9181-200b4e8bc762" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6135dc1a-ea34-55e5-2c99-2ce55619cfed" executionId="d590a27b-5f4f-4273-a3c7-5350f293dca9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="de9d8d7f-f5c9-7d7f-1fcf-f4747fb40210" executionId="55030ba4-41ff-4f76-9600-cafbb93dac07" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="429cfdb7-b35a-27b7-0f5d-22c634c0e2f1" executionId="f64bfb41-fc8d-4727-ae5a-9cfe0201cda6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e7e52396-f7f1-1a2f-e762-b79b93a64f4b" executionId="4fa9c83b-a6e1-4a03-a0b1-e517d9061f70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b6992382-1c80-974d-94df-65cdab5b8d5f" executionId="53272aea-c353-4701-b845-1d78967e8831" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="699ca022-325c-bcdd-dddc-b9d09730a5c0" executionId="b587eddc-d8e2-4464-89b1-edf3e475885c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="08f582cd-279f-eb57-6845-880e7817e876" executionId="83203435-004c-43c6-a6d6-ad35594e6e67" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="472e0793-d3a4-9ea1-1572-669e344051fe" executionId="92fd15ab-d364-4582-93f8-57a058a9d3af" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f67e94d9-5123-36c9-8051-ccbc6a361e5e" executionId="4b5548d4-8a30-498b-8f34-1e2af3c92924" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="498374a1-17e4-a7a0-fbed-e2b2f199e949" executionId="2e210b65-76b4-4729-8754-a05f645416e1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5c20fd40-6a46-5041-fc00-de92648b4dd8" executionId="52d07524-c357-44d0-aaef-9628dcb13db1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2b33c52b-ba81-e114-eed6-476015f1c56c" executionId="2ba8a1df-a804-41b9-8cf3-65b8149b4617" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0d0c2103-7b3a-a1e4-8945-53fed1917953" executionId="40d8bbe3-7d2c-48d2-b5e4-ad9d6b905ff2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="25738154-9dc0-d2af-706d-c599cd0b67c1" executionId="b28c1daf-aa67-4351-8aa5-f9f65edcb1e7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ebd921b6-c21b-1055-6f46-f42e0ba9294c" executionId="b0269402-8d8a-486d-8909-00149583a8fe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3910c257-3feb-844a-5c87-f2768d4fc529" executionId="e58ab9e7-d4da-46fc-81c1-504c9a5838c3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5ae6ec3a-5a0f-686c-8158-01dc967f9f58" executionId="4463a30e-ec2e-4cc0-80ba-406af5bbd8c7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8468c901-ab88-01a2-b8b1-52202d7e3908" executionId="95237abe-9bf6-490e-9e53-aed81215e10b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a361d8a7-f0eb-96a2-5fcc-48172ced56f3" executionId="df93dc65-dc5b-4dc8-9db8-e849ef5453ad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1875bf43-3272-667f-d644-f034a1163a59" executionId="f5e20df9-198f-4e49-816e-eba36e3735c9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe5c235d-8de2-e6a5-c520-ce325cdc64df" executionId="5001f8cc-d0cf-4672-a482-91a37edd5e8d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f3f76072-5fe2-6b61-d33d-cc72724a5653" executionId="67b47e15-f343-4cbb-99fd-718bb0edc283" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="19c663fd-0125-7fa7-3558-54951ffbdd01" executionId="364d8dfd-5986-4dff-b2d6-487b0c271528" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd45b25f-dce9-c146-9b11-71e303c1b888" executionId="5e051fb7-669e-4b06-b548-82880cc17e8a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9827b3e4-b0b0-9a68-efec-9dc479f6e678" executionId="b4228656-098d-4ea2-8231-4d31e9a5bdce" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="80" executed="80" passed="72" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.28]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.29]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.40]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.92]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:02.92]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:02.92]       Expected: ["C:\\Users\\19851\\AppData\\Local\\Temp\\evidence-s"···]&#xD;
+[xUnit.net 00:00:02.92]       Actual:   ["C:\\Users\\19851\\AppData\\Local\\Temp\\evidence-s"···]&#xD;
+[xUnit.net 00:00:02.92]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:02.92]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.93]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\EvidenceStorageTests.cs(17,0): at OpticalSystemDesign.Tests.EvidenceStorageTests.LogicalCaptureRetainsItsPathAndExactBytesWithoutAnotherStoredCopy()&#xD;
+[xUnit.net 00:00:02.93]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.93]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:01:05.65]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:01:05.65]       Range:  (0 - 1.0000000000000001E-05)&#xD;
+[xUnit.net 00:01:05.65]       Actual: 0.00041588205041078602&#xD;
+[xUnit.net 00:01:05.65]       Stack Trace:&#xD;
+[xUnit.net 00:01:05.65]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvatureNativeMatrixTests.cs(65,0): at OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(String name, String code, Int32 count)&#xD;
+[xUnit.net 00:01:05.65]            at InvokeStub_FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(Object, Span`1)&#xD;
+[xUnit.net 00:01:05.65]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:01:05.65]       Output:&#xD;
+[xUnit.net 00:01:05.65]         123456/FCGS: count=324, maximumError=0.000415882050410786 mm; originalTarget=1e-5 mm&#xD;
+[xUnit.net 00:01:54.15]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:01:54.15]       Range:  (0 - 1.0000000000000001E-05)&#xD;
+[xUnit.net 00:01:54.15]       Actual: 0.00041588199909999707&#xD;
+[xUnit.net 00:01:54.15]       Stack Trace:&#xD;
+[xUnit.net 00:01:54.15]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvatureNativeMatrixTests.cs(65,0): at OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(String name, String code, Int32 count)&#xD;
+[xUnit.net 00:01:54.15]            at InvokeStub_FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(Object, Span`1)&#xD;
+[xUnit.net 00:01:54.15]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:01:54.15]       Output:&#xD;
+[xUnit.net 00:01:54.15]         123456/FCGT: count=324, maximumError=0.00041588199909999707 mm; originalTarget=1e-5 mm&#xD;
+[xUnit.net 00:01:58.06]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:01:58.06]       Range:  (0 - 1.0000000000000001E-05)&#xD;
+[xUnit.net 00:01:58.06]       Actual: 0.00041672136290109643&#xD;
+[xUnit.net 00:01:58.06]       Stack Trace:&#xD;
+[xUnit.net 00:01:58.06]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvatureNativeMatrixTests.cs(99,0): at OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(String name)&#xD;
+[xUnit.net 00:01:58.06]            at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)&#xD;
+[xUnit.net 00:01:58.07]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:01:58.07]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:01:58.07]       Output:&#xD;
+[xUnit.net 00:01:58.07]         Field Curvature and Distortion: 606 captured values; maximumError=0.00041672136290109643 mm&#xD;
+[xUnit.net 00:01:59.99]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:01:59.99]       Range:  (0 - 1.0000000000000001E-05)&#xD;
+[xUnit.net 00:01:59.99]       Actual: 0.00041672136290109643&#xD;
+[xUnit.net 00:01:59.99]       Stack Trace:&#xD;
+[xUnit.net 00:01:59.99]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\FieldCurvatureNativeMatrixTests.cs(99,0): at OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(String name)&#xD;
+[xUnit.net 00:01:59.99]            at InvokeStub_FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(Object, Span`1)&#xD;
+[xUnit.net 00:01:59.99]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:01:59.99]       Output:&#xD;
+[xUnit.net 00:01:59.99]         Field Curvature: 606 captured values; maximumError=0.00041672136290109643 mm&#xD;
+[xUnit.net 00:04:43.70]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:04:43.70]       Range:  (0.13 - 0.13300000000000001)&#xD;
+[xUnit.net 00:04:43.70]       Actual: 0.12945912101755958&#xD;
+[xUnit.net 00:04:43.70]       Stack Trace:&#xD;
+[xUnit.net 00:04:43.70]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SlantedEdgeSfrTests.cs(77,0): at OpticalSystemDesign.Tests.SlantedEdgeSfrTests.ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass()&#xD;
+[xUnit.net 00:04:43.70]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:04:43.70]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:04:52.74]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:04:52.74]       Range:  (0 - 1E-08)&#xD;
+[xUnit.net 00:04:52.74]       Actual: 1.1107368903529036E-06&#xD;
+[xUnit.net 00:04:52.74]       Stack Trace:&#xD;
+[xUnit.net 00:04:52.74]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\IlluminationInverseNativeTests.cs(49,0): at OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(String name, String code)&#xD;
+[xUnit.net 00:04:52.74]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:04:52.74]            at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)&#xD;
+[xUnit.net 00:06:51.51]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:06:51.51]       Range:  (0 - 1E-08)&#xD;
+[xUnit.net 00:06:51.51]       Actual: 3.4534485515713698E-06&#xD;
+[xUnit.net 00:06:51.51]       Stack Trace:&#xD;
+[xUnit.net 00:06:51.51]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\IlluminationInverseNativeTests.cs(49,0): at OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(String name, String code)&#xD;
+[xUnit.net 00:06:51.51]            at InvokeStub_IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(Object, Span`1)&#xD;
+[xUnit.net 00:06:51.51]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:06:51.73]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T10:55:09.2753997+08:00">
+        <Text>[xUnit.net 00:00:02.92]     OpticalSystemDesign.Tests.EvidenceStorageTests.LogicalCaptureRetainsItsPathAndExactBytesWithoutAnotherStoredCopy [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T10:56:12.0114909+08:00">
+        <Text>[xUnit.net 00:01:05.65]     OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: "123456", code: "FCGS", count: 303) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T10:57:00.5134973+08:00">
+        <Text>[xUnit.net 00:01:54.15]     OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.NativeMfeControlsPassOriginalCurvatureTarget(name: "123456", code: "FCGT", count: 303) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T10:57:04.4263955+08:00">
+        <Text>[xUnit.net 00:01:58.06]     OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(name: "Field Curvature and Distortion") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T10:57:06.3513128+08:00">
+        <Text>[xUnit.net 00:01:59.99]     OpticalSystemDesign.Tests.FieldCurvatureNativeMatrixTests.ApplicationPresetMatchesCapturedCurveAndRetainsExplicitLegacySettings(name: "Field Curvature") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T10:59:50.0528436+08:00">
+        <Text>[xUnit.net 00:04:43.70]     OpticalSystemDesign.Tests.SlantedEdgeSfrTests.ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T10:59:59.0946241+08:00">
+        <Text>[xUnit.net 00:04:52.74]     OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: "123456", code: "EFNO") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T11:01:57.8656579+08:00">
+        <Text>[xUnit.net 00:06:51.51]     OpticalSystemDesign.Tests.IlluminationInverseNativeTests.OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(name: "123456", code: "RELI") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

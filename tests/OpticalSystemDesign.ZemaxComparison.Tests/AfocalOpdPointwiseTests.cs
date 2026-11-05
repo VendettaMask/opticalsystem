@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -36,9 +37,9 @@ public sealed class AfocalOpdPointwiseTests(ITestOutputHelper output)
     public async Task OriginalCapturedOpdMeetsUnchangedPointwiseGate(string id, string lens, int configuration)
     {
         var fixture = Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-psf-contract");
-        using var manifest = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(fixture, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllBytes(Path.Combine(fixture, "manifest.json")));
         var archive = Path.Combine(fixture, "source-evidence.zip");
-        using (var file = File.OpenRead(archive))
+        using (var file = EvidenceFiles.OpenRead(archive))
             Assert.Equal(manifest.RootElement.GetProperty("sourceArchiveSha256").GetString(),
                 Convert.ToHexStringLower(SHA256.HashData(file)));
         using var zip = ZipFile.OpenRead(archive);

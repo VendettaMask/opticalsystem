@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
@@ -59,7 +60,7 @@ public sealed class GradientIndexOperandTests
             var result = MeritFunctionCatalog.Evaluate(optic, row); Assert.Empty(result.Error);
             Assert.Equal(expected, result.Value, 12); Assert.Equal(3 * Math.Pow(expected - target, 2), result.Contribution, 12);
         }
-        var source = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var source = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         var imported = OpticalFormatCatalog.Import(source + $"\n{code} 1 2 11 12 13 14 1.6 3 0 0\n", ".zmx");
         var original = imported.MeritFunctionOperands.Last();
         Assert.True(original.CompatibilityOnly); Assert.False(original.Enabled);

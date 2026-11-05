@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.Application.Contracts;
@@ -257,8 +258,8 @@ public sealed class IncidenceCardinalOperandTests
     public void CardinalDataMatchesExistingZemax123456CapturedSettings()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(fixtures, "zemax-123456.ZMX")), ".zmx");
-        var text = File.ReadAllText(Path.Combine(fixtures, "zemax-123456-cardinal-points.txt"));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(fixtures, "zemax-123456.ZMX")), ".zmx");
+        var text = EvidenceFiles.ReadAllText(Path.Combine(fixtures, "zemax-123456-cardinal-points.txt"));
         var captured = Regex.Matches(text, @"(?m)^.*?:\s*([-+]?\d+\.\d+)\s+([-+]?\d+\.\d+)\s*$")
             .SelectMany(m => new[] { double.Parse(m.Groups[1].Value, CultureInfo.InvariantCulture), double.Parse(m.Groups[2].Value, CultureInfo.InvariantCulture) }).ToArray();
         Assert.Equal(12, captured.Length);

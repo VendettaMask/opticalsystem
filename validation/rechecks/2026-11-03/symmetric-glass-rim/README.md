@@ -6,7 +6,7 @@
 
 同一 `4d6ac597` 基线、同一 Double Gauss 工程及既有真实窗口测试，修改前后分别捕获。主工作区其他任务的未完成 Core 修改未进入隔离检出。
 
-- [修改前 1600×1000](before/workbench-1600x1000-13.png)
+- [修改前 1600×1000](../chinese-medium-default/workbench-1600x1000-13.png)
 - [修改后 1600×1000](after/workbench-1600x1000-13.png)
 - [修改后窄窗/大字号](after/workbench-900x700-18.png)
 - [原始像素采样](edge-pixels.json)

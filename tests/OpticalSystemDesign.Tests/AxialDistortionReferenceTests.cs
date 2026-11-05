@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core;
@@ -45,7 +46,7 @@ public sealed class AxialDistortionReferenceTests(Xunit.Abstractions.ITestOutput
     {
         var source = Path.Combine(AppContext.BaseDirectory, "Fixtures", "single-ray-path",
             "initial-six-primary", "doublet", "source.zmx");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(source), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
         Assert.Equal(0, FieldCoordinates.MaximumRadius(optic.Fields));
         var before = Snapshot(optic);
         var result = new FieldCurvatureAndDistortionAnalysis(optic, numPoints: 101,

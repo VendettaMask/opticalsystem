@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Materials;
@@ -10,7 +11,7 @@ public sealed class GeneralCoatingDerivativeTests
     [Fact]
     public void StableAdjointAgreesWithTheIndependentPinnedAnalyticReferenceAcrossWavesAnglesAndLosses()
     {
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/tmmcore-sensitivity-0.4.2.json")));
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/tmmcore-sensitivity-0.4.2.json")));
         foreach (var c in fixture.RootElement.GetProperty("cases").EnumerateArray())
         {
             static IMaterial Material(JsonElement v) => new ConstantIndexMaterial("independent index", v[0].GetDouble(), v[1].GetDouble());

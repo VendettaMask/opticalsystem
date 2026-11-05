@@ -15,4 +15,7 @@
     <None Include="ZemaxHost/*.cs" CopyToOutputDirectory="PreserveNewest" />
     <None Update="assets/*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../validation/EvidenceFiles.cs" Link="Shared/EvidenceFiles.cs" />
+  </ItemGroup>
 </Project>

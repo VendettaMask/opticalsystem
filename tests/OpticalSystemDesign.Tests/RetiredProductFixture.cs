@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 
 namespace OpticalSystemDesign.Tests;
@@ -9,7 +10,7 @@ internal static class RetiredProductFixture
 
     private static string ReadBrand()
     {
-        using var document = JsonDocument.Parse(File.ReadAllText(
+        using var document = JsonDocument.Parse(EvidenceFiles.ReadAllText(
             Path.Combine(AppContext.BaseDirectory, "Fixtures", "retired-product.json")));
         return document.RootElement.GetProperty("Brand").GetString()!;
     }

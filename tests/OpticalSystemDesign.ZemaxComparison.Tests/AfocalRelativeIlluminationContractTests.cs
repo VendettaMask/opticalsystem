@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -17,7 +18,7 @@ public sealed class AfocalRelativeIlluminationContractTests
     private static string Archive => Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-psf-contract/source-evidence.zip");
     private static readonly Lazy<bool> Verified = new(() =>
     {
-        using var file = File.OpenRead(Archive);
+        using var file = EvidenceFiles.OpenRead(Archive);
         Assert.Equal(Manifest().GetProperty("sourceArchiveSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(file)));
         return true;
     });

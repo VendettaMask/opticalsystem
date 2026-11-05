@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -15,7 +16,7 @@ public sealed class ObjectivesEnergy32RepairTests
         get
         {
             var directory = new DirectoryInfo(AppContext.BaseDirectory);
-            while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
+            while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
             return directory?.FullName ?? throw new DirectoryNotFoundException("Repository root required.");
         }
     }
@@ -25,7 +26,7 @@ public sealed class ObjectivesEnergy32RepairTests
 
     public static IEnumerable<object[]> Cases()
     {
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(Fixtures, "cases.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Fixtures, "cases.json")));
         foreach (var item in manifest.RootElement.GetProperty("cases").EnumerateArray())
             yield return [item.GetProperty("id").GetString()!, item.GetProperty("lens").GetString()!, item.GetProperty("sourceSha256").GetString()!];
     }
@@ -44,7 +45,7 @@ public sealed class ObjectivesEnergy32RepairTests
         Assert.Equal("64", request.WorkbenchSettings["ImageSampling"]);
         Assert.Equal("401", request.WorkbenchSettings["NumPoints"]);
         Assert.Equal("S_32x32", request.ZemaxSettings["SampleSize"].ToString());
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(source), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
         var data = new WorkbenchRuntime(optic).BuildAnalysisData(request.CanonicalAnalysisKey, request.WorkbenchSettings);
         var output = Path.Combine(Path.GetTempPath(), "objectives-energy32-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(output);
@@ -72,8 +73,8 @@ public sealed class ObjectivesEnergy32RepairTests
         {
             var id = (string)item[0];
             var source = Path.Combine(Root, "src/OpticalSystemDesign.App/Assets/SequentialExamples", (string)item[1]);
-            var optic = OpticalFormatCatalog.Import(File.ReadAllText(source), ".zmx");
-            using var indices = JsonDocument.Parse(File.ReadAllText(Path.Combine(Fixtures, id, "refractive-indices.json")));
+            var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+            using var indices = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Fixtures, id, "refractive-indices.json")));
             foreach (var (surface, index) in optic.SurfaceGroup.Items.Select((s, i) => (s, i)))
             {
                 if (surface.MaterialAfter is not CatalogGlassMaterial { Formula: "zemax formula 2" } glass) continue;
@@ -91,13 +92,13 @@ public sealed class ObjectivesEnergy32RepairTests
     [Fact]
     public void OriginalPolicyAndFrozenNativeCaptureBytesAreUnchanged()
     {
-        using var cases = JsonDocument.Parse(File.ReadAllText(Path.Combine(Fixtures, "cases.json")));
+        using var cases = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Fixtures, "cases.json")));
         Assert.Equal("30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5", Hash(Policy));
         Assert.Equal(Hash(Policy), cases.RootElement.GetProperty("originalComparisonPolicySha256").GetString());
         var rows = cases.RootElement.GetProperty("cases").EnumerateArray().ToArray();
         Assert.Equal(3, rows.Count(r => r.GetProperty("original32Conclusion").GetString() == "Difference"));
         Assert.Equal(7, rows.Count(r => r.GetProperty("original32Conclusion").GetString() == "Pass"));
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(Fixtures, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Fixtures, "manifest.json")));
         foreach (var file in manifest.RootElement.GetProperty("files").EnumerateArray())
         {
             var path = Path.GetFullPath(Path.Combine(Fixtures, file.GetProperty("path").GetString()!));
@@ -107,5 +108,5 @@ public sealed class ObjectivesEnergy32RepairTests
         }
     }
 
-    private static string Hash(string path) => Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path)));
+    private static string Hash(string path) => Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(path)));
 }

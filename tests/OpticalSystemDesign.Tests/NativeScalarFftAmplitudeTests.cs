@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
@@ -19,12 +20,12 @@ public sealed class NativeScalarFftAmplitudeTests
     public void FormalScalarPupilMatchesFrozenNativeFftWithoutImportedAmplitudes(string name, int sampling)
     {
         var directory = Path.Combine(AppContext.BaseDirectory, "Validation/Zemax/FftPupilPhase", name);
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(directory, "source.ZMX")), ".zmx");
-        using var model = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "probe/model.json")));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(directory, "source.ZMX")), ".zmx");
+        using var model = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(directory, "probe/model.json")));
         var aiming = model.RootElement.GetProperty("rayAiming").GetProperty("RayAiming").GetString() != "Off";
         optic.RayAimingEnabled = aiming;
         var psf = Compute(optic, sampling, compatible: true, aiming: aiming);
-        using var expected = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, $"psf-{sampling}/data.json")));
+        using var expected = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(directory, $"psf-{sampling}/data.json")));
         var grid = expected.RootElement.GetProperty("dataGrids")[0];
         var squared = 0d; var referenceSquared = 0d; var maximum = 0d;
         for (var y = 0; y < grid.GetProperty("ny").GetInt32(); y++)
@@ -96,7 +97,7 @@ public sealed class NativeScalarFftAmplitudeTests
         Assert.False(maskedPsf.Values.Cast<double>().SequenceEqual(Compute(optic, 32, true).Values.Cast<double>()));
     }
 
-    private static Optic Lens() => OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(
+    private static Optic Lens() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(
         AppContext.BaseDirectory, "Fixtures/zemax-ms-l7-high-na.ZMX")), ".zmx");
     private static WavefrontResult Prepare(Optic optic, bool compatible) => WavefrontEngine.GenerateChiefRayUniform(
         optic, (0, 0), optic.Wavelengths[0], 32, cellCentered: true, aimAtStop: true,

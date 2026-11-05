@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
@@ -211,7 +212,7 @@ public sealed class AnalysisSurfaceAndReferenceTests
         _ => throw new ArgumentException(key)
     };
 
-    private static Optic Example() => OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,
+    private static Optic Example() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,
         "Fixtures", "definition-settings", "example2.zmx")), ".zmx");
 
     private static Optic Lens(double focalLength = 50)

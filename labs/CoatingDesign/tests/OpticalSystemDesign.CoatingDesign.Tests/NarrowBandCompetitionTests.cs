@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Coatings;
@@ -49,7 +50,7 @@ public sealed class NarrowBandCompetitionTests
     [Fact]
     public void PublicPrototypeBuilderAgreesWithEveryFrozenPinnedReferenceLayerIncludingParityAndSpacerOrder()
     {
-        using var reference = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/tfstudio-competition-8b942b3.json")));
+        using var reference = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/tfstudio-competition-8b942b3.json")));
         var input = Lossless(); var service = new DesignService();
         foreach (var test in reference.RootElement.GetProperty("cases").EnumerateArray())
         {
@@ -78,7 +79,7 @@ public sealed class NarrowBandCompetitionTests
     public void ActualMediumMatchingRestoresLosslessTransmissionWithoutChangingTheFilterAndHonorsFixedLayers(int referenceCase)
     {
         var service = new DesignService(); var input = Lossless();
-        using var reference = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/tfstudio-competition-8b942b3.json")));
+        using var reference = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/tfstudio-competition-8b942b3.json")));
         var test = reference.RootElement.GetProperty("matching")[referenceCase];
         var mirrors = test.GetProperty("mirrors").EnumerateArray().Select(x => x.GetInt32()).ToArray();
         var orders = test.GetProperty("spacers").EnumerateArray().Select(x => x.GetInt32()).ToArray();

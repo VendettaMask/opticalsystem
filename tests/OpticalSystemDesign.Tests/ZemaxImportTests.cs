@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
@@ -26,14 +27,14 @@ public sealed class ZemaxImportTests
     {
         var sourcePath = FixturePath("zemax-ms-l7-high-na.ZMX");
         var goldenPath = FixturePath("zemax-ms-l7-merit-function.json");
-        using var golden = JsonDocument.Parse(File.ReadAllText(goldenPath));
+        using var golden = JsonDocument.Parse(EvidenceFiles.ReadAllText(goldenPath));
         var root = golden.RootElement;
-        var expectedHash = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(sourcePath))).ToLowerInvariant();
+        var expectedHash = Convert.ToHexString(SHA256.HashData(EvidenceFiles.ReadAllBytes(sourcePath))).ToLowerInvariant();
         Assert.Equal(1, root.GetProperty("schemaVersion").GetInt32());
         Assert.Equal("Ansys Zemax OpticStudio 2026 R1 ZOS-API", root.GetProperty("source").GetString());
         Assert.Equal(expectedHash, root.GetProperty("sourceSha256").GetString());
 
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(sourcePath), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(sourcePath), ".zmx");
         var rows = root.GetProperty("rows").EnumerateArray().ToArray();
         Assert.Equal(root.GetProperty("rowCount").GetInt32(), rows.Length);
         Assert.Equal(rows.Length, optic.MeritFunctionOperands.Count);
@@ -90,9 +91,9 @@ public sealed class ZemaxImportTests
     public void MsL7ExecutableMeritRowsMatchCommittedZosApiGoldenValues()
     {
         var sourcePath = FixturePath("zemax-ms-l7-high-na.ZMX");
-        using var golden = JsonDocument.Parse(File.ReadAllText(FixturePath("zemax-ms-l7-merit-function.json")));
+        using var golden = JsonDocument.Parse(EvidenceFiles.ReadAllText(FixturePath("zemax-ms-l7-merit-function.json")));
         var expectedRows = golden.RootElement.GetProperty("rows").EnumerateArray().ToArray();
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(sourcePath), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(sourcePath), ".zmx");
         var evaluations = MeritFunctionCatalog.EvaluateAll(optic, optic.MeritFunctionOperands);
         var validatedRows = new HashSet<int> { 3, 4, 6, 8, 9, 11, 13, 14, 15, 16, 18, 19, 23, 25, 26, 27, 28, 30, 31 };
         foreach (var row in Enumerable.Range(39, 65).Except(new[] { 48, 76 }))
@@ -146,7 +147,7 @@ public sealed class ZemaxImportTests
     public void ZemaxRearSurfaceZeroUsesTheObjectSurface()
     {
         var optic = OpticalFormatCatalog.Import(
-            File.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
+            EvidenceFiles.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
             ".zmx");
         var operand = optic.MeritFunctionOperands[17];
         var launch = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
@@ -166,7 +167,7 @@ public sealed class ZemaxImportTests
     public void MsL7MeritSampleCacheResolvesActualZeroSurfaceSemanticsByTypeAndOrder()
     {
         var optic = OpticalFormatCatalog.Import(
-            File.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
+            EvidenceFiles.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
             ".zmx");
         var trar = optic.MeritFunctionOperands[38];
         Assert.Equal("TRAR", trar.Type);
@@ -201,7 +202,7 @@ public sealed class ZemaxImportTests
     public void MsL7RmsSpotZeroSurfaceUsesImageConventions(string rmsType)
     {
         var optic = OpticalFormatCatalog.Import(
-            File.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
+            EvidenceFiles.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
             ".zmx");
         var imageSurface = optic.SurfaceGroup.Items[^1].Number;
         var zeroSurface = new MeritOperandDefinition
@@ -247,7 +248,7 @@ public sealed class ZemaxImportTests
     public void MsL7SpotAndSingleRaySamplesUseRayAimingConsistency(bool rayAimingEnabled)
     {
         var optic = OpticalFormatCatalog.Import(
-            File.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
+            EvidenceFiles.ReadAllText(FixturePath("zemax-ms-l7-high-na.ZMX")),
             ".zmx");
         optic.RayAimingEnabled = rayAimingEnabled;
         var imageSurface = optic.SurfaceGroup.Items[^1].Number;
@@ -1601,7 +1602,7 @@ public sealed class ZemaxImportTests
             "project",
             "root",
             "[MS-L7](10X大NA大视场).ZMX");
-        var source = File.ReadAllText(path);
+        var source = EvidenceFiles.ReadAllText(path);
         var sourceRows = source
             .Replace("\r\n", "\n", StringComparison.Ordinal)
             .Replace('\r', '\n')
@@ -1657,7 +1658,7 @@ public sealed class ZemaxImportTests
         int expectedSurfaceCount,
         int expectedGlassSurfaceCount)
     {
-        var source = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Samples", fileName));
+        var source = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Samples", fileName));
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
 
         Assert.Equal(expectedFieldDefinition, optic.FieldDefinition);
@@ -1701,7 +1702,7 @@ public sealed class ZemaxImportTests
     [Fact]
     public void Historical058ToroidSlotIsRejectedAndNativeSlotImportsTheIntendedPrescription()
     {
-        var source = File.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx"));
+        var source = EvidenceFiles.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx"));
         // Preserve the historical bytes. That auxiliary export put the rotation
         // radius in the native aspheric-coefficient slot, not native PARM 1.
         Assert.Throws<NotSupportedException>(() => OpticalFormatCatalog.Import(source, ".zmx"));
@@ -1982,10 +1983,10 @@ public sealed class ZemaxImportTests
     [Fact]
     public void ZemaxFixtureMatchesFrozenReferenceReferenceContract()
     {
-        using var expected = JsonDocument.Parse(File.ReadAllText(
+        using var expected = JsonDocument.Parse(EvidenceFiles.ReadAllText(
             FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.json")));
         var optic = OpticalFormatCatalog.Import(
-            File.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx")),
+            EvidenceFiles.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx")),
             ".zmx");
         var root = expected.RootElement;
 
@@ -2379,7 +2380,7 @@ public sealed class ZemaxImportTests
     [Fact]
     public async Task WorkbenchFilePathImportDetectsBomlessUtf16Zemax()
     {
-        var source = File.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx"));
+        var source = EvidenceFiles.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx"));
         var path = Path.Combine(Path.GetTempPath(), $"opticalsystemdesign-zemax-{Guid.NewGuid():N}.zmx");
         try
         {
@@ -2702,7 +2703,7 @@ public sealed class ZemaxImportTests
     private static string FindRepositoryRoot()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx")))
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx")))
         {
             directory = directory.Parent;
         }

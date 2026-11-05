@@ -1,0 +1,39 @@
+{
+  "opticalTests": false,
+  "failed": 0,
+  "passed": 8,
+  "cases": [
+    {
+      "name": "Two logical roles retain the original aggregate through one stored file",
+      "passed": true
+    },
+    {
+      "name": "Corrupt authority cannot pass either logical role",
+      "passed": true
+    },
+    {
+      "name": "Reintroduced duplicate cannot hide behind storage mapping",
+      "passed": true
+    },
+    {
+      "name": "Storage traversal rejected",
+      "passed": true
+    },
+    {
+      "name": "Storage mapping cannot alter frozen expected hash",
+      "passed": true
+    },
+    {
+      "name": "Committed map and single authority validate both original roles",
+      "passed": true
+    },
+    {
+      "name": "Working map cannot certify a different committed map",
+      "passed": true
+    },
+    {
+      "name": "Index validates its own exact map identity",
+      "passed": true
+    }
+  ]
+}

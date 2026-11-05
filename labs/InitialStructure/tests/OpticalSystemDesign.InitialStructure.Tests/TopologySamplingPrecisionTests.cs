@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Differentiation;
 using OpticalSystemDesign.InitialStructure.Contracts;
@@ -110,7 +111,7 @@ public sealed class TopologySamplingPrecisionTests
     private static async Task<FixtureData> Fixture()
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
-        while (root is not null && !File.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
+        while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
         var state = await new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(root!.FullName,
             "validation/rechecks/2026-10-27/topology-transmission-priority/final-paired-runs/repr-qualified4-wide21-42-C-both/run.autonomous.json"));
         var candidate = state.Candidates.Single(item => item.Topology.Elements.Length == 3);

@@ -24,6 +24,6 @@
 - [工作台：18 DIP / 200%](previews/almendra-workbench-18.png)
 - [实际 Huygens MTF 页](previews/almendra-analysis.png)
 - [字体设置锁定](previews/almendra-locked-settings.png)
-- [四种真实字形及数字控件](previews/almendra-real-faces.png)
+- [四种真实字形及数字控件](../isekai-popup-font/after/almendra-real-faces.png)
 
 所有截图来自真实产品控件，不是生成的字体示意。未提交、推送、打包或重启用户程序；此次变更不构成新安装包交付、全仓认证或完整三语翻译审计。

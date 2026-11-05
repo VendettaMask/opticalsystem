@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 
@@ -14,7 +15,7 @@ public sealed class NonlinearCoatingRegressionTests
     [InlineData("correction-real-nbf-red")]
     public async Task NonlinearCorrectionImprovesPhysicalQualityWithoutSpendingFrozenTargetsOrMargins(string name)
     {
-        using var json = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/nonlinear-correction-20261031.json")));
+        using var json = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/nonlinear-correction-20261031.json")));
         var c = json.RootElement.GetProperty("Cases").EnumerateArray().Single(c => c.GetProperty("Input").GetProperty("Name").GetString() == name);
         var d = c.GetProperty("Input").Deserialize<Experiment>(Experiment.JsonOptions)!; var service = new DesignService();
         var previous = service.Evaluate(d with { Layers = c.GetProperty("PreviousLayers").Deserialize<FilmLayer[]>(Experiment.JsonOptions)! });

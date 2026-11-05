@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -215,9 +216,9 @@ public sealed class InterferogramAnalysisTests
     {
         var optic = Lens();
         var data = new InterferogramAnalysis(optic, new(Sampling: 64, WavelengthNumber: 2, FieldNumber: 1, UseExitPupilShape: false)).GenerateData();
-        using var json = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456-interferogram.json")));
+        using var json = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456-interferogram.json")));
         var grid = json.RootElement.GetProperty("dataGrids")[0].GetProperty("values");
-        var printed = File.ReadAllLines(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456-interferogram.txt"))
+        var printed = EvidenceFiles.ReadAllLines(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456-interferogram.txt"))
             .Select(line => line.Split('\t', StringSplitOptions.RemoveEmptyEntries))
             .Where(row => row.Length == 64).Select(row => row.Select(Number).ToArray()).ToArray();
         Assert.Equal(64, printed.Length);
@@ -253,5 +254,5 @@ public sealed class InterferogramAnalysisTests
     }
     private static double Number(string value) => double.Parse(value, CultureInfo.InvariantCulture);
     internal static InterferogramSettings Settings() => new(Sampling: 16, UseExitPupilShape: false);
-    internal static Optic Lens() => OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
+    internal static Optic Lens() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
 }

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
@@ -263,8 +264,8 @@ public sealed class ChromaticFocusOperandTests
     public void LongitudinalOperandMatchesCaptured123456PupilCurve(double nanometers, int column)
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(fixtures, "zemax-123456.ZMX")), ".zmx");
-        using var capture = JsonDocument.Parse(File.ReadAllText(Path.Combine(fixtures, "zemax-123456-longitudinal-aberration.json")));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(fixtures, "zemax-123456.ZMX")), ".zmx");
+        using var capture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(fixtures, "zemax-123456-longitudinal-aberration.json")));
         var series = capture.RootElement.GetProperty("dataSeries")[0];
         var pupil = series.GetProperty("x").EnumerateArray().Select(v => v.GetDouble()).ToArray();
         var expected = series.GetProperty("y").EnumerateArray().Select(v => v[column].GetDouble()).ToArray();

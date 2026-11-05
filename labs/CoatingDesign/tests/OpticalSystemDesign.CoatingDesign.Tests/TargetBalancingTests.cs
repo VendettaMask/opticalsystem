@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 
@@ -10,7 +11,7 @@ public sealed class TargetBalancingTests
     [InlineData("real-nbf2-96")]
     public async Task FrozenBlockedTargetsImproveWithTheirOriginalMaterialsGatesAndBudget(string name)
     {
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/target-balancing-20261031.json")));
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/target-balancing-20261031.json")));
         var c = fixture.RootElement.GetProperty("Cases").EnumerateArray().Single(x => x.GetProperty("Input").GetProperty("Name").GetString() == name);
         var input = c.GetProperty("Input").Deserialize<Experiment>(Experiment.JsonOptions)!;
         var previous = c.GetProperty("Previous"); var service = new DesignService(); var fingerprint = input.Fingerprint();

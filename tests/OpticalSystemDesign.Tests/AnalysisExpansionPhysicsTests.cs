@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
@@ -6,7 +7,7 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class AnalysisExpansionPhysicsTests
 {
-    private static Optic Lens() => OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(
+    private static Optic Lens() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(
         AppContext.BaseDirectory, "Fixtures", "zemax-ms-l7-high-na.ZMX")), ".zmx");
 
     [Fact]

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using OpticalSystemDesign.Application.Runtime;
@@ -24,7 +25,7 @@ public sealed class ExplicitObjectivesReferenceTests
         var raw = JsonFiles.Read<JsonElement>(Path.Combine(folder, "request.json"));
         var request = JsonFiles.Read<CanonicalAnalysisRequest>(Path.Combine(folder, "request.json"));
         var native = JsonFiles.Read<JsonElement>(Path.Combine(folder, "point-reference.json"));
-        Assert.Equal(raw.GetProperty("inputSha256").GetString(), JsonFiles.Hash(File.ReadAllBytes(Path.Combine(folder, "source.zmx"))));
+        Assert.Equal(raw.GetProperty("inputSha256").GetString(), JsonFiles.Hash(EvidenceFiles.ReadAllBytes(Path.Combine(folder, "source.zmx"))));
         Assert.Equal(83, native.GetProperty("inputs").GetArrayLength());
         var primary = JsonFiles.Read<JsonElement>(Path.Combine(folder, "reference-wavelength-readback.json"));
         Assert.True(primary.GetProperty("IsPrimary").GetBoolean());
@@ -96,7 +97,7 @@ public sealed class ExplicitObjectivesReferenceTests
     public void ExplicitReferenceCannotBeRelabeledAsAnotherContract(string property, string value)
     {
         var folder = Directory.EnumerateDirectories(Path.Combine(Root, "fans")).Order().First();
-        var node = JsonNode.Parse(File.ReadAllText(Path.Combine(folder, "point-reference.json")))!;
+        var node = JsonNode.Parse(EvidenceFiles.ReadAllText(Path.Combine(folder, "point-reference.json")))!;
         node[property] = value; var path = Path.GetTempFileName();
         try
         {
@@ -120,7 +121,7 @@ public sealed class ExplicitObjectivesReferenceTests
     private static void Verify(string prefix)
     {
         foreach (var item in JsonFiles.Read<JsonElement>(Path.Combine(Root, "manifest.json")).EnumerateArray().Where(i => i.GetProperty("path").GetString()!.StartsWith(prefix, StringComparison.Ordinal)))
-            Assert.Equal(item.GetProperty("sha256").GetString(), JsonFiles.Hash(File.ReadAllBytes(Path.Combine(Root, item.GetProperty("path").GetString()!))));
+            Assert.Equal(item.GetProperty("sha256").GetString(), JsonFiles.Hash(EvidenceFiles.ReadAllBytes(Path.Combine(Root, item.GetProperty("path").GetString()!))));
     }
     private static string Root => Path.Combine(AppContext.BaseDirectory, "Fixtures/objectives-completion");
 }

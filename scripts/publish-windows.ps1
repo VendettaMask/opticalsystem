@@ -104,8 +104,7 @@ try {
         'LensLibrary\index.json',
         'Assets\Brand\AppIcon.ico',
         'Assets\Fonts\OFL-LICENSE.txt',
-        'Assets\Icons\GAME-ICONS-LICENSE.txt',
-        'Assets\Icons\FARM-FRESH-ICONS-LICENSE.txt'
+        'Assets\Icons\LUCIDE-LICENSE.txt'
     )
     foreach ($relativePath in $requiredFiles) {
         $filePath = Join-Path $stagingDirectory $relativePath
@@ -122,9 +121,6 @@ try {
         }
     }
 
-    # This license is tracked but is not currently copied by the application project.
-    Copy-Item -LiteralPath (Join-Path $repositoryRoot 'src\OpticalSystemDesign.App\Assets\Icons\LUCIDE-LICENSE.txt') `
-        -Destination (Join-Path $stagingDirectory 'Assets\Icons\LUCIDE-LICENSE.txt')
     Copy-Item -LiteralPath (Join-Path $repositoryRoot 'packaging\windows\README.txt') `
         -Destination (Join-Path $stagingDirectory 'README.txt')
 

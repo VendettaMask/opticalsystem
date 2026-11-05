@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
@@ -65,7 +66,7 @@ public sealed class HuygensPsfOperandTests
     [MemberData(nameof(Codes))]
     public void SixSlotZmxAndStaroptRoundTripPreserveParameterMeaning(string code)
     {
-        var text = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         var slots = code == "STRH" ? "1 1 2 0 0 0" : "1 2 0 1 1 0";
         var optic = OpticalFormatCatalog.Import(text + $"\n{code} {slots} .625 2.5 0 0\n", ".zmx");
         var imported = optic.MeritFunctionOperands.Last();

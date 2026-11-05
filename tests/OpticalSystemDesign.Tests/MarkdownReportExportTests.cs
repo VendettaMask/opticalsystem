@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
@@ -19,7 +20,7 @@ public sealed class MarkdownReportExportTests
         var surface = application.Prescription.GetSurfaces()[1];
         application.Prescription.UpdateSurface(surface with { Thickness = surface.Thickness + 0.5 });
         var before = application.Documents.GetRecoveryState();
-        var sourceBytes = await File.ReadAllBytesAsync(path);
+        var sourceBytes = await EvidenceFiles.ReadAllBytesAsync(path);
         using var snapshot = application.CaptureReportSnapshot();
         application.Prescription.UpdateSurface(surface with { Thickness = surface.Thickness + 1.5 });
         Assert.Equal(surface.Thickness + 0.5, snapshot.Workspace.Prescription.GetSurfaces()[1].Thickness);
@@ -28,7 +29,7 @@ public sealed class MarkdownReportExportTests
         Assert.Equal(path, snapshot.SourceDocument.Path);
         Assert.True(snapshot.SourceDocument.IsDirty);
         Assert.Equal(before.Revision, snapshot.SourceDocument.Revision);
-        Assert.Equal(sourceBytes, await File.ReadAllBytesAsync(path));
+        Assert.Equal(sourceBytes, await EvidenceFiles.ReadAllBytesAsync(path));
     }
 
     [Fact]
@@ -54,21 +55,21 @@ public sealed class MarkdownReportExportTests
         Assert.Equal(directory.Path, Path.GetDirectoryName(result.ReportPath));
         Assert.Matches(@"_report_\d{8}_\d{6}_\d{3}\.md$", result.ReportPath);
         Assert.Equal(3, result.Succeeded); Assert.Equal(0, result.Failed);
-        var markdown = await File.ReadAllTextAsync(result.ReportPath);
+        var markdown = await EvidenceFiles.ReadAllTextAsync(result.ReportPath);
         Assert.Contains("系统参数", markdown); Assert.Contains("RayDensity", markdown);
         Assert.Contains("计算来源", markdown); Assert.DoesNotContain("```json", markdown);
         Assert.DoesNotContain("完整处方", markdown); Assert.DoesNotContain("半径 / mm", markdown);
         var links = Regex.Matches(markdown, @"!\[[^\]]*\]\(<([^>]+)>\)");
         Assert.Equal(4, links.Count); // three complete original drawings plus the vector company mark
         foreach (Match link in links)
-            Assert.True(File.Exists(Path.Combine(directory.Path, Uri.UnescapeDataString(link.Groups[1].Value))));
+            Assert.True(EvidenceFiles.Exists(Path.Combine(directory.Path, Uri.UnescapeDataString(link.Groups[1].Value))));
         Assert.Equal(progress[^1].Total, progress[^1].Completed);
         Assert.True(progress.Zip(progress.Skip(1)).All(pair => pair.First.Completed <= pair.Second.Completed));
         Assert.Equal(initial, application.Documents.GetRecoveryState());
         using var repeat = application.CaptureReportSnapshot();
         var second = await MarkdownReportExporter.ExportAsync(repeat, options, directory.Path, WritePlaceholder);
         Assert.NotEqual(result.ReportPath, second.ReportPath);
-        Assert.True(File.Exists(result.ReportPath));
+        Assert.True(EvidenceFiles.Exists(result.ReportPath));
     }
 
     [Theory]
@@ -91,7 +92,7 @@ public sealed class MarkdownReportExportTests
                 var result = await WritePlaceholder(request, output, stem, token);
                 cancellation.Cancel(); return result;
             }, cancellationToken: cancellation.Token));
-        Assert.Equal("keep", await File.ReadAllTextAsync(existing));
+        Assert.Equal("keep", await EvidenceFiles.ReadAllTextAsync(existing));
         Assert.Equal([existing], Directory.GetFileSystemEntries(directory.Path));
     }
 
@@ -118,7 +119,7 @@ public sealed class MarkdownReportExportTests
                 seen.Add(request.Analysis!.View.PresentationKind);
                 return WritePlaceholder(request, output, stem, token);
             });
-        var markdown = await File.ReadAllTextAsync(result.ReportPath);
+        var markdown = await EvidenceFiles.ReadAllTextAsync(result.ReportPath);
         Assert.True(result.Succeeded == 3, string.Join(Environment.NewLine,
             markdown.Split('\n').Where(line => line.Contains("未完成", StringComparison.Ordinal))));
         Assert.Equal(0, result.Failed);
@@ -141,7 +142,7 @@ public sealed class MarkdownReportExportTests
             new() { AnalysisKeys = ["Unknown Analysis", "Spot Diagram"], Include2DLayout = false, Include3DLayout = false },
             directory.Path, WritePlaceholder);
         Assert.Equal(1, result.Succeeded); Assert.Equal(1, result.Failed);
-        var markdown = await File.ReadAllTextAsync(result.ReportPath);
+        var markdown = await EvidenceFiles.ReadAllTextAsync(result.ReportPath);
         Assert.Contains("未完成", markdown); Assert.Contains("点列图", markdown);
         Assert.Empty(Directory.GetDirectories(directory.Path, ".report-export-*"));
     }
@@ -163,7 +164,7 @@ public sealed class MarkdownReportExportTests
                 scenes.Add(request.Scene!);
                 return WritePlaceholder(request, output, stem, token);
             });
-        var markdown = await File.ReadAllTextAsync(result.ReportPath);
+        var markdown = await EvidenceFiles.ReadAllTextAsync(result.ReportPath);
         Assert.Contains("## 配置 1", markdown); Assert.Contains("## 配置 2", markdown);
         Assert.DoesNotContain("4.321", markdown); Assert.Equal(2, result.Succeeded);
         Assert.Equal(2, scenes.Count);
@@ -186,7 +187,7 @@ public sealed class MarkdownReportExportTests
         };
         var result = await MarkdownReportExporter.ExportAsync(snapshot, options, directory.Path, WritePlaceholder);
         Assert.Equal(1, result.Succeeded); Assert.Equal(0, result.Failed);
-        var markdown = await File.ReadAllTextAsync(result.ReportPath);
+        var markdown = await EvidenceFiles.ReadAllTextAsync(result.ReportPath);
         Assert.Contains("RayDensity", markdown);
         Assert.DoesNotContain("表面数据报告", markdown);
         Assert.DoesNotContain("SurfacePrescription", markdown);
@@ -224,6 +225,6 @@ internal sealed class ReportTestDirectory : IDisposable
         var absolute = System.IO.Path.GetFullPath(Path);
         if (absolute.StartsWith(System.IO.Path.GetFullPath(System.IO.Path.GetTempPath()), StringComparison.OrdinalIgnoreCase)
             && System.IO.Path.GetFileName(absolute).StartsWith("OpticalSystemDesign-ReportTests-", StringComparison.Ordinal)
-            && Directory.Exists(absolute)) Directory.Delete(absolute, true);
+            && EvidenceFiles.DirectoryExists(absolute)) Directory.Delete(absolute, true);
     }
 }

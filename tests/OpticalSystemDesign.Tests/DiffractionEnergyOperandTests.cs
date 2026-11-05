@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
@@ -247,7 +248,7 @@ public sealed class DiffractionEnergyOperandTests
         Assert.True(editor.IsParameterEditable(7)); editor.Parameter8 = 4;
         app.Optimization.SetMeritFunction([editor.ToDto()]); var dto = Assert.Single(app.Optimization.GetMeritFunction());
         Assert.Equal(4, dto.ZemaxData6); Assert.Equal(.25, dto.Target); Assert.Equal(2, dto.Weight);
-        var text = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         var imported = OpticalFormatCatalog.Import(text + $"\n{code} 1 1 1 1 1 .5 .25 2 0 0\n", ".zmx");
         var native = imported.MeritFunctionOperands.Last(); Assert.True(native.CompatibilityOnly); Assert.False(native.Enabled);
         Assert.True(Optic.FromSnapshot(imported.ToSnapshot()).MeritFunctionOperands.Last().CompatibilityOnly);

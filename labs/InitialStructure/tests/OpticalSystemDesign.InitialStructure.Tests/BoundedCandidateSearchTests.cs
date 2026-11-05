@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -17,7 +18,7 @@ public sealed class BoundedCandidateSearchTests
         var root = Root();
         var plan = await AutonomousDesignFiles.LoadPlanAsync(Path.Combine(root,
             "validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/task.topology-plan.json"));
-        using var protocol = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(root, "validation/rechecks/2026-10-29/happylens-wide21/protocol.json")));
+        using var protocol = JsonDocument.Parse(await EvidenceFiles.ReadAllBytesAsync(Path.Combine(root, "validation/rechecks/2026-10-29/happylens-wide21/protocol.json")));
         var options = protocol.RootElement.GetProperty("Preparation").Deserialize<ParaxialSeedSearchOptions>(Json)! with
         { FixedStopRecoveryVersion = 2 };
         var result = ParaxialSeedSearch.Run(plan, options);
@@ -213,7 +214,7 @@ public sealed class BoundedCandidateSearchTests
             Assert.Equal(full.Candidates.Select(c => ContentFingerprint.Compute(c.Topology)), resumed.Candidates.Select(c => ContentFingerprint.Compute(c.Topology)));
             Assert.Contains(resumed.Events, e => e.Phase == AutonomousSearchPhase.Screening && e.Work.FunctionEvaluations > 0);
         }
-        finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
+        finally { if (EvidenceFiles.DirectoryExists(directory)) Directory.Delete(directory, true); }
     }
 
     internal static AutonomousSearchPlan SmallPlan()
@@ -260,7 +261,7 @@ public sealed class BoundedCandidateSearchTests
     private static string Root()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
         return directory!.FullName;
     }
     private static readonly JsonSerializerOptions Json = new()

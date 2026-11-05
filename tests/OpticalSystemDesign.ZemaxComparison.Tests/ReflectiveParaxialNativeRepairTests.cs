@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -14,7 +15,7 @@ public sealed class ReflectiveParaxialNativeRepairTests
         get
         {
             var dir = new DirectoryInfo(AppContext.BaseDirectory);
-            while (dir is not null && !File.Exists(Path.Combine(dir.FullName, "OpticalSystemDesign.slnx"))) dir = dir.Parent;
+            while (dir is not null && !EvidenceFiles.Exists(Path.Combine(dir.FullName, "OpticalSystemDesign.slnx"))) dir = dir.Parent;
             return dir?.FullName ?? throw new DirectoryNotFoundException("Repository root required.");
         }
     }
@@ -23,7 +24,7 @@ public sealed class ReflectiveParaxialNativeRepairTests
 
     public static IEnumerable<object[]> Cases()
     {
-        using var cases = JsonDocument.Parse(File.ReadAllText(Path.Combine(Fixtures, "cases.json")));
+        using var cases = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Fixtures, "cases.json")));
         foreach (var row in cases.RootElement.GetProperty("cases").EnumerateArray())
             yield return [row.GetProperty("id").GetString()!, row.GetProperty("lens").GetString()!, row.GetProperty("sourceSha256").GetString()!];
     }
@@ -58,7 +59,7 @@ public sealed class ReflectiveParaxialNativeRepairTests
     {
         Assert.Equal("30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5", Hash(Policy));
         Assert.Equal(11, Cases().Count());
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(Fixtures, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Fixtures, "manifest.json")));
         foreach (var file in manifest.RootElement.GetProperty("files").EnumerateArray())
         {
             var path = Path.GetFullPath(Path.Combine(Fixtures, file.GetProperty("path").GetString()!));
@@ -67,5 +68,5 @@ public sealed class ReflectiveParaxialNativeRepairTests
             Assert.Equal(file.GetProperty("sha256").GetString(), Hash(path));
         }
     }
-    private static string Hash(string path) => Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path)));
+    private static string Hash(string path) => Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(path)));
 }

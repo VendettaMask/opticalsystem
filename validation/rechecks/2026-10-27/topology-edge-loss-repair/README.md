@@ -70,7 +70,7 @@ RMS是物理有效光线的正式统计，不能把丢光后的较小RMS当作�
 主程序默认Release输出和开发工具构建均0警告0错误，定向格式检查及文档链接核对完成。开发诊断最初数组/元组声明和测试分析器错误仅在编译时发生，修正后再运行；没有把编译失败或未运行测试计为通过，也没有重复启动训练。
 
 - [60项测试记录](tests/edge-loss-scoped.trx)、[梯度数据](tests/gradients.json)。
-- [合格四片STAROPT](native-audit-boundary-budget/qualified-source.staropt)、[修复后仍未合格的三片STAROPT](native-audit-boundary-budget/unqualified-reduced.staropt)、[正式回读结果](native-audit-boundary-budget/native-checks.json)。
+- [合格四片STAROPT](../topology-transmission-priority/final-paired-runs/repr-qualified4-wide21-42-C-both/seed-0.staropt)、[修复后仍未合格的三片STAROPT](native-audit-boundary-budget/unqualified-reduced.staropt)、[正式回读结果](native-audit-boundary-budget/native-checks.json)。
 - [无边界残差三片STAROPT](native-audit-budget/unqualified-reduced.staropt)、[对应回读](native-audit-budget/native-checks.json)。
 
 以上均重新导入并按相同完整门槛复验：四片通过、两种三片准确复现各自失败门槛。失败处方供后续分析，不作为合格设计交付。

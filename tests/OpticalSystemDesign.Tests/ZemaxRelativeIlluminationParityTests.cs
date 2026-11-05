@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
@@ -16,9 +17,9 @@ public sealed class ZemaxRelativeIlluminationParityTests
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");
         var optic = OpticalFormatCatalog.Import(
-            File.ReadAllText(Path.Combine(fixtureDirectory, "zemax-123456.ZMX")),
+            EvidenceFiles.ReadAllText(Path.Combine(fixtureDirectory, "zemax-123456.ZMX")),
             ".zmx");
-        using var zemax = JsonDocument.Parse(File.ReadAllText(
+        using var zemax = JsonDocument.Parse(EvidenceFiles.ReadAllText(
             Path.Combine(fixtureDirectory, "zemax-123456-relative-illumination.json")));
 
         var current = new RelativeIlluminationAnalysis(

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Numerics;
 using System.Text.Json;
 using OpticalSystemDesign.App.ViewModels;
@@ -64,7 +65,7 @@ public sealed class HuygensMtfOperandTests(ITestOutputHelper output)
     [MemberData(nameof(Codes))]
     public void NativeExtendedZmxRecordStaysReadOnlyAcrossEditorAndSnapshot(string code)
     {
-        var text = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         text += $"\n{code} 1 0 1 50 0 0 .625 2.5 91 92 .375 .825\n";
         var optic = OpticalFormatCatalog.Import(text, ".zmx");
         var original = optic.MeritFunctionOperands.Last();
@@ -280,8 +281,8 @@ public sealed class HuygensMtfOperandTests(ITestOutputHelper output)
     public void Captured123456SettingsCompareAtSelectedFieldsAndFrequencies()
     {
         var fixture = Path.Combine(AppContext.BaseDirectory, "Fixtures");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(fixture, "zemax-123456.ZMX")), ".zmx");
-        using var capture = JsonDocument.Parse(File.ReadAllText(Path.Combine(fixture, "zemax-123456-huygens-mtf.json")));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(fixture, "zemax-123456.ZMX")), ".zmx");
+        using var capture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(fixture, "zemax-123456-huygens-mtf.json")));
         var series = capture.RootElement.GetProperty("dataSeries");
         // Captured frequency plot used a shared automatic image delta resolved at its first field.
         // Recover that saved grid's pitch from its final frequency and recorded N=32 contract.

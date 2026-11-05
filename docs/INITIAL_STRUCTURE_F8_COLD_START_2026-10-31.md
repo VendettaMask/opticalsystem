@@ -40,7 +40,7 @@ F/4 保留原前光阑半径 6.25 mm 超过各面 5 mm 的规格冲突；本批�
 
 长程运行期间，工作区另有无焦分析、BSDF 与工程序列化改动，故另用当前默认 Release 产品 Core 复验相同全部结果；它的 SHA-256 为 `cf9d428fc6ae02b4629e0f747ad9de78a206c94bd67decad3d8168c6814c44c6`，同样 **96 次** 通过，原验收逐值一致。该复验单独计费，不是新增冷启动成功或追加补偿。见 [当前产品审计](../validation/rechecks/2026-10-31/f8-cold-start/audit-current-product-v1/audit.json)。
 
-可打开 [当前产品导出的合格工程](../validation/rechecks/2026-10-31/f8-cold-start/audit-current-product-v1/candidate/seed44/qualified.staropt)。仍为 8 片，16 个非球面，使用原许可 A4/A6 共 32 个坐标；没有锥常数、扩径或提高允许阶数。达到现有制造验收不等于制造复杂度已降低。
+可打开 [当前产品导出的合格工程](../validation/rechecks/2026-10-31/f8-cold-start/audit-final-v1/candidate/seed44/qualified.staropt)。仍为 8 片，16 个非球面，使用原许可 A4/A6 共 32 个坐标；没有锥常数、扩径或提高允许阶数。达到现有制造验收不等于制造复杂度已降低。
 
 ## 自动入口
 

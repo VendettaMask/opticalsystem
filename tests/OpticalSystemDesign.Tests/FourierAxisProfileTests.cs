@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Numerics;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
@@ -13,7 +14,7 @@ public sealed class FourierAxisProfileTests
     [InlineData(4)]
     public void ExplicitPhysicalRangeResamplesTheNativeCurveDomain(double range)
     {
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,
             "Fixtures/fft-profile-physical-range-native-v1.json")));
         var root = fixture.RootElement;
         var optic = OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(root.GetProperty("source").GetString()!, ".zmx");

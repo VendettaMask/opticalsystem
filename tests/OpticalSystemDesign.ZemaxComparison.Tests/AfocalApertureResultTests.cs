@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Analysis;
@@ -21,8 +22,8 @@ public sealed class AfocalApertureResultTests(ITestOutputHelper output)
     {
         var row = Manifest.GetProperty("rows").EnumerateArray().Single(r => r.GetProperty("id").GetString() == id);
         foreach (var file in Manifest.GetProperty("files").EnumerateArray().Where(f => f.GetProperty("path").GetString()!.StartsWith(id + "/", StringComparison.Ordinal)))
-            Assert.Equal(file.GetProperty("sha256").GetString(), JsonFiles.Hash(File.ReadAllBytes(Path.Combine(Root, file.GetProperty("path").GetString()!))));
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(Root, id, "source.ZMX")), ".zmx");
+            Assert.Equal(file.GetProperty("sha256").GetString(), JsonFiles.Hash(EvidenceFiles.ReadAllBytes(Path.Combine(Root, file.GetProperty("path").GetString()!))));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(Root, id, "source.ZMX")), ".zmx");
         var active = row.GetProperty("active").GetBoolean();
         if (active) { var aperture = Assert.IsType<AnnularAperture>(optic.SurfaceGroup.Items[1].PhysicalAperture); Assert.Equal(.31, aperture.InnerRadius); }
         else Assert.Null(optic.SurfaceGroup.Items[1].PhysicalAperture);

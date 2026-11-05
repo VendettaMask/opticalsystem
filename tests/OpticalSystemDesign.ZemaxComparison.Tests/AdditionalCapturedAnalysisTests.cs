@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using OpticalSystemDesign.Application.Runtime;
@@ -15,7 +16,7 @@ public sealed class AdditionalCapturedAnalysisTests(ITestOutputHelper output)
     private static string Root => Path.Combine(AppContext.BaseDirectory, "Fixtures", "analysis-expansion");
     public static IEnumerable<object[]> Cases()
     {
-        using var doc = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, "additional-regression-expectations.json")));
+        using var doc = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, "additional-regression-expectations.json")));
         return doc.RootElement.EnumerateArray().Select(e => new object[] { e.GetProperty("key").GetString()!, e.GetProperty("directory").GetString()! }).ToArray();
     }
 
@@ -24,16 +25,16 @@ public sealed class AdditionalCapturedAnalysisTests(ITestOutputHelper output)
     public void CapturedContractsRetainUnaffectedPassesAndExposeOpenErrors(string key, string directory)
     {
         var native = Path.Combine(Root, directory);
-        using var captured = JsonDocument.Parse(File.ReadAllText(Path.Combine(native, "captured-settings.json")));
+        using var captured = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(native, "captured-settings.json")));
         var request = captured.RootElement.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
         if (request.SourceImagePath is not null)
         {
             var source = Path.Combine(native, "source-image.IMA");
-            Assert.Equal(request.SourceImageSha256, JsonFiles.Hash(File.ReadAllBytes(source)));
+            Assert.Equal(request.SourceImageSha256, JsonFiles.Hash(EvidenceFiles.ReadAllBytes(source)));
             request = request with { SourceImagePath = source };
         }
         var entry = AnalysisComparisonRegistry.Get(key);
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(Root, "source.ZMX")), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(Root, "source.ZMX")), ".zmx");
         var data = new WorkbenchRuntime(optic).BuildAnalysisData(key, AnalysisComparisonRegistry.MapWorkbench(entry, request));
         data = JsonSerializer.Deserialize<AnalysisData>(JsonSerializer.Serialize(data, JsonFiles.Options), JsonFiles.Options)!;
         var w = ExtendedResultNormalizer.Workbench(data, request);
@@ -51,7 +52,7 @@ public sealed class AdditionalCapturedAnalysisTests(ITestOutputHelper output)
         foreach (var grid in z.Grids)
             metrics.Add(ComparisonMetrics.Calculate(grid.Id, grid.ValueAxis.Unit,
                 ComparisonMetrics.Align(w.Grids.Single(g => g.Id == grid.Id), grid, []), entry.DefaultTolerances[grid.ValueAxis.Quantity]));
-        using var doc = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, "additional-regression-expectations.json")));
+        using var doc = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, "additional-regression-expectations.json")));
         var expected = doc.RootElement.EnumerateArray().Single(e => e.GetProperty("key").GetString() == key).GetProperty("metrics");
         Assert.Equal(expected.GetArrayLength(), metrics.Count);
         if (key == "Huygens MTF vs Field")
@@ -101,7 +102,7 @@ public sealed class AdditionalCapturedAnalysisTests(ITestOutputHelper output)
     public void ImageHeightFieldGridCannotBeRelabelledAsAngle()
     {
         var native = Path.Combine(Root, "rms-field-map-c1");
-        using var captured = JsonDocument.Parse(File.ReadAllText(Path.Combine(native, "captured-settings.json")));
+        using var captured = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(native, "captured-settings.json")));
         var request = captured.RootElement.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
         var error = Assert.Throws<InvalidDataException>(() => ExtendedResultNormalizer.Zemax(Path.Combine(native, "data.json"), request with { FieldDefinition = "RealImageHeight" }));
         Assert.Contains("no angular/image-height substitution", error.Message);
@@ -111,10 +112,10 @@ public sealed class AdditionalCapturedAnalysisTests(ITestOutputHelper output)
     public void CapturedEmptyIarChannelsDoNotHideImageAndTextCapabilities()
     {
         var native = Path.Combine(Root, "capability-inspection");
-        using var bitmap = JsonDocument.Parse(File.ReadAllText(Path.Combine(native, "image-simulation-c1", "result-channel-audit.json")));
+        using var bitmap = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(native, "image-simulation-c1", "result-channel-audit.json")));
         Assert.True(bitmap.RootElement.GetProperty("bitmapSaved").GetBoolean());
-        Assert.True(File.Exists(Path.Combine(native, "image-simulation-c1", "native-image.bmp")));
-        using var gia = JsonDocument.Parse(File.ReadAllText(Path.Combine(native, "geometric-image-analysis-c1", "result-channel-audit.json")));
+        Assert.True(EvidenceFiles.Exists(Path.Combine(native, "image-simulation-c1", "native-image.bmp")));
+        using var gia = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(native, "geometric-image-analysis-c1", "result-channel-audit.json")));
         Assert.Equal(1, gia.RootElement.GetProperty("counts").GetProperty("dataGrids").GetInt32());
         Assert.True(gia.RootElement.GetProperty("textSaved").GetBoolean());
         foreach (var key in new[] { "Image Simulation", "Geometric Image Analysis" })
@@ -125,9 +126,9 @@ public sealed class AdditionalCapturedAnalysisTests(ITestOutputHelper output)
     public void AngleNormalizerRejectsDifferentNativeRayInputs()
     {
         var native = Path.Combine(Root, "angle-vs-image-height---through-pupil-c1");
-        using var captured = JsonDocument.Parse(File.ReadAllText(Path.Combine(native, "captured-settings.json")));
+        using var captured = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(native, "captured-settings.json")));
         var request = captured.RootElement.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
-        var raw = JsonNode.Parse(File.ReadAllText(Path.Combine(native, "data.json")))!;
+        var raw = JsonNode.Parse(EvidenceFiles.ReadAllText(Path.Combine(native, "data.json")))!;
         raw["angleRayInputs"]![0]![3] = -0.9;
         var temporary = Path.Combine(Path.GetTempPath(), "angle-input-" + Guid.NewGuid() + ".json");
         try

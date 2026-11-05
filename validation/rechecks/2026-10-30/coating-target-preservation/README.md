@@ -15,7 +15,7 @@
 
 ## 固定参考
 
-[reference-materials.json](reference-materials.json)从同一共享Core导出8个冻结起点的真实n/k，参考查询未导出波长时拒绝回退；[reference-results.json](reference-results.json)记录固定TFStudio DLS/Newton的16次实际运行。[reference-final-native](reference-final-native/summary.json)用最终运行时复验参考膜厚；[reference-comparison.json](reference-comparison.json)记录逐项目标：1份通过原规格，14份相对输入有至少一项超限增加。
+[reference-materials.json](reference-materials.json)从同一共享Core导出8个冻结起点的真实n/k，参考查询未导出波长时拒绝回退；[reference-results.json](reference-results.json)记录固定TFStudio DLS/Newton的16次实际运行。[reference-final-native](reference-native/summary.json)用最终运行时复验参考膜厚；[reference-comparison.json](reference-comparison.json)记录逐项目标：1份通过原规格，14份相对输入有至少一项超限增加。
 
 参考使用自己的谱点平方目标，与本地实际FWHM/OD和逐项保护目标不同，不作同问题/同总成本排名。`reference-inputs`是上述8个完整输入；`reference-native`为较早同物理定义复验，最终以`reference-final-native`为准。JS仅作离线参考，不是产品依赖。
 

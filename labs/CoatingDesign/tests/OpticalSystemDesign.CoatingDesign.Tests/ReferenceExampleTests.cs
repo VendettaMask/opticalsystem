@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Coatings;
@@ -7,7 +8,7 @@ namespace OpticalSystemDesign.CoatingDesign.Tests;
 
 public sealed class ReferenceExampleTests
 {
-    private static JsonDocument Fixture() => JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,
+    private static JsonDocument Fixture() => JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,
         "Fixtures", "tfstudio-demo-examples-8b942b3.json")));
 
     [Theory]

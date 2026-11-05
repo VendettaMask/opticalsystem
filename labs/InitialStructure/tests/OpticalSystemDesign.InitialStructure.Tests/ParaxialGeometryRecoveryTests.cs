@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core.Raytrace;
@@ -83,7 +84,7 @@ public sealed class ParaxialGeometryRecoveryTests
     {
         var checkpoint = await Recorded(); var plan = checkpoint.Plan;
         var history = checkpoint.Events.Single(item => item.Recovery is not null);
-        var original = JsonSerializer.Deserialize<ParaxialRecoveryResult>(await File.ReadAllTextAsync(Path.Combine(Root(),
+        var original = JsonSerializer.Deserialize<ParaxialRecoveryResult>(await EvidenceFiles.ReadAllTextAsync(Path.Combine(Root(),
             "validation/rechecks/2026-10-27/autonomous-recovery-progress/front-stop-pupil-full-current.json")), Json)!;
         var source = TopologyCompiler.Compile(original.Topology, plan.Constraints);
         var binding = TopologyParameterBinder.Bind(source, original.Variables);
@@ -140,7 +141,7 @@ public sealed class ParaxialGeometryRecoveryTests
     private static string Root()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
         return directory!.FullName;
     }
     private static void Evidence(string name, object value)

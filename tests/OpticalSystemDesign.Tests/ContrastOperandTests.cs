@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
@@ -355,7 +356,7 @@ public sealed class ContrastOperandTests
     [Fact]
     public void UnverifiedNativeAverageStaysReadOnlyWhileKnownDirectionalSlotsRemainUsable()
     {
-        var text = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         var optic = OpticalFormatCatalog.Import(text + "\nMECA 0 1 2 30 .35 .25 .125 2 0\nMECS 0 1 2 30 .35 .25 .125 2 0\nMECT 0 1 2 30 .35 .25 .125 2 0\n", ".zmx");
         var rows = optic.MeritFunctionOperands.TakeLast(3).ToArray();
         Assert.True(rows[0].CompatibilityOnly); Assert.False(rows[0].Enabled);

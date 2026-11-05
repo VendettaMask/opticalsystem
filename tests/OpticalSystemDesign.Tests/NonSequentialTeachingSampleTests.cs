@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.NonSequential;
@@ -17,7 +18,7 @@ public sealed class NonSequentialTeachingSampleTests
         Assert.Equal(12, manifest.Samples.Count);
         Assert.Equal(
             manifest.Samples.Select(item => item.File).Order(StringComparer.Ordinal).ToArray(),
-            Directory.EnumerateFiles(directory, "*.staropt")
+            EvidenceFiles.EnumerateFiles(directory, "*.staropt")
                 .Select(Path.GetFileName)
                 .Order(StringComparer.Ordinal)
                 .ToArray());
@@ -32,8 +33,8 @@ public sealed class NonSequentialTeachingSampleTests
             {
                 Assert.False(string.IsNullOrWhiteSpace(item.PreviewFile));
                 var previewPath = Path.Combine(directory, item.PreviewFile!.Replace('/', Path.DirectorySeparatorChar));
-                Assert.True(File.Exists(previewPath), $"Missing preview: {item.PreviewFile}");
-                Assert.Contains("<svg", File.ReadAllText(previewPath), StringComparison.Ordinal);
+                Assert.True(EvidenceFiles.Exists(previewPath), $"Missing preview: {item.PreviewFile}");
+                Assert.Contains("<svg", EvidenceFiles.ReadAllText(previewPath), StringComparison.Ordinal);
             }
         });
     }
@@ -126,7 +127,7 @@ public sealed class NonSequentialTeachingSampleTests
     }
 
     private static SampleManifest ReadManifest(string directory) =>
-        JsonSerializer.Deserialize<SampleManifest>(File.ReadAllText(Path.Combine(directory, "index.json")))
+        JsonSerializer.Deserialize<SampleManifest>(EvidenceFiles.ReadAllText(Path.Combine(directory, "index.json")))
         ?? throw new InvalidDataException("Non-sequential teaching sample manifest is empty.");
 
     private static string SampleDirectory() =>
@@ -137,7 +138,7 @@ public sealed class NonSequentialTeachingSampleTests
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
         while (directory is not null)
         {
-            if (File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) return directory.FullName;
+            if (EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) return directory.FullName;
             directory = directory.Parent;
         }
         throw new DirectoryNotFoundException("Unable to locate the repository root.");

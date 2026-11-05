@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
@@ -12,7 +13,7 @@ public sealed class CoupledFieldCurvatureNativeTests
 {
     public static IEnumerable<object[]> NativeCases()
     {
-        using var fixture=JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","field-curvature-coupled-native-v1.json")));
+        using var fixture=JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","field-curvature-coupled-native-v1.json")));
         foreach(var c in fixture.RootElement.GetProperty("cases").EnumerateArray())
         foreach(var v in c.GetProperty("values").EnumerateArray())
             yield return [c.GetProperty("rotation").GetDouble(),c.GetProperty("sourceSha256").GetString()!,v.GetProperty("code").GetString()!,v.GetProperty("hy").GetDouble(),v.GetProperty("value").GetDouble()];
@@ -22,11 +23,11 @@ public sealed class CoupledFieldCurvatureNativeTests
     public void EachPupilPencilUsesBothTransverseOutputComponents(double rotation,string sourceHash,string code,double hy,double expected)
     {
         var source=Path.Combine(AppContext.BaseDirectory,"Fixtures","reference-closure","Toroid.zmx");
-        var text=File.ReadAllText(source);
+        var text=EvidenceFiles.ReadAllText(source);
         if(rotation!=45) text=text.Replace("PARM 5 45","PARM 5 "+rotation.ToString("R",CultureInfo.InvariantCulture))
             .Replace("PARM 5 -45","PARM 5 "+(-rotation).ToString("R",CultureInfo.InvariantCulture))
             .Replace("PPAR 5 1 -1.000000000000E+00 0.000000000000E+00 0","");
-        var bytes=rotation==45?File.ReadAllBytes(source):Encoding.UTF8.GetBytes(text);
+        var bytes=rotation==45?EvidenceFiles.ReadAllBytes(source):Encoding.UTF8.GetBytes(text);
         Assert.Equal(sourceHash,Convert.ToHexStringLower(SHA256.HashData(bytes)));
         var optic=OpticalFormatCatalog.Import(text,".zmx");
         var actual=FieldCurvatureMetrics.Evaluate(optic,.5,0,hy,code=="FCGS");
@@ -44,7 +45,7 @@ public sealed class CoupledFieldCurvatureNativeTests
     {
         // Original native corpus index 2168, selected primary wavelength,
         // on-axis Twyman-Green field. The image is perpendicular to world Y.
-        var optic=OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","optical-testing","Twyman Green Interferometer.zmx")),".zmx");
+        var optic=OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","optical-testing","Twyman Green Interferometer.zmx")),".zmx");
         var wave=optic.Wavelengths.ToList().FindIndex(w=>w.IsPrimary)+1;
         var actual=new FieldCurvatureAnalysis(optic,2,parabasalDelta:.001,wavelengthNumber:wave,
             parabasalRayPair:ParabasalRayPair.ChiefAndPositive).GenerateData().PlotSeries[sagittal?1:0].Points[0].X;

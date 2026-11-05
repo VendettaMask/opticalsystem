@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.App;
 using OpticalSystemDesign.Application.Contracts;
@@ -71,12 +72,12 @@ public sealed class CadExportTests
             Assert.Equal(result.ByteCount, new FileInfo(path).Length);
             Assert.StartsWith(
                 "ISO-10303-21;",
-                await File.ReadAllTextAsync(path),
+                await EvidenceFiles.ReadAllTextAsync(path),
                 StringComparison.Ordinal);
         }
         finally
         {
-            if (File.Exists(path))
+            if (EvidenceFiles.Exists(path))
             {
                 File.Delete(path);
             }

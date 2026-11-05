@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
@@ -177,12 +178,12 @@ public sealed class PosedOpticalAssemblyTests
         static string Repository([System.Runtime.CompilerServices.CallerFilePath]string source="")
         {
             for(var directory=new DirectoryInfo(Path.GetDirectoryName(source)!);directory is not null;directory=directory.Parent)
-                if(File.Exists(Path.Combine(directory.FullName,"OpticalSystemDesign.slnx")))return directory.FullName;
+                if(EvidenceFiles.Exists(Path.Combine(directory.FullName,"OpticalSystemDesign.slnx")))return directory.FullName;
             throw new DirectoryNotFoundException("Repository for retained assembly regression input.");
         }
         var root=Path.Combine(Repository(),"validation/rechecks/2026-11-01/cemented-immersion/final-controls");
-        var project=StarOptProjectStore.Deserialize(File.ReadAllBytes(Path.Combine(root,name+".staropt")));var scene=project.NonSequentialDocument!;
-        using var stream=File.OpenRead(Path.Combine(root,name+".starrdb"));using var database=new NonSequentialRayDatabaseReader(stream);
+        var project=StarOptProjectStore.Deserialize(EvidenceFiles.ReadAllBytes(Path.Combine(root,name+".staropt")));var scene=project.NonSequentialDocument!;
+        using var stream=EvidenceFiles.OpenRead(Path.Combine(root,name+".starrdb"));using var database=new NonSequentialRayDatabaseReader(stream);
         Assert.False(((OpticalAssemblyParameters)scene.Objects[0].Parameters).HasExtendedSurfaces);
         Assert.Equal(database.Header.SceneHash,NonSequentialSceneHasher.Compute(scene,project.Configurations[0].Materials));
         var trace=new NonSequentialDocumentTracer().Trace(scene,project.Configurations[0].Materials,new(SplittingMode:NonSequentialSplittingMode.FullFresnel));OpticalAssemblyTests.Balanced(trace);
@@ -212,7 +213,7 @@ public sealed class PosedOpticalAssemblyTests
         }
         var group=(OpticalAssemblyParameters)obj.Parameters;Assert.Throws<NotSupportedException>(()=>((IList<double>)group.Interfaces[0].SurfaceGeometry!.Coefficients)[1]=999);
         using var files=new CameraSensorFileTests.TemporaryFiles();var file=files.Path("posed.staropt");await StarOptProjectStore.SaveAsync(new([optic],0,NonSequentialDocument:scene),file);
-        var bytes=File.ReadAllBytes(file);var restored=StarOptProjectStore.Deserialize(bytes).NonSequentialDocument!;
+        var bytes=EvidenceFiles.ReadAllBytes(file);var restored=StarOptProjectStore.Deserialize(bytes).NonSequentialDocument!;
         Assert.Equal(NonSequentialSceneHasher.Compute(scene,optic.Materials),NonSequentialSceneHasher.Compute(restored,optic.Materials));
         using var raw=new MemoryStream(bytes);raw.Position=52;using var decompressor=new BrotliStream(raw,CompressionMode.Decompress);using var json=JsonDocument.Parse(decompressor);
         Assert.Equal(21,json.RootElement.GetProperty("FormatVersion").GetInt32());

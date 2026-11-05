@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Numerics;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.FileIO;
@@ -39,7 +40,7 @@ public sealed class StandardIntersectionPrecisionTests
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
         var source = Path.Combine(root, "src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Petzval.zmx");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(source), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
         var pupil = ApertureSampler.GenerateGaussianQuadrature(6, 12);
         for (var field = 0; field <= 15; field++)
         {

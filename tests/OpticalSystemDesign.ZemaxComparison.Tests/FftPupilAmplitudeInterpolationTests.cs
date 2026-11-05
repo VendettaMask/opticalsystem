@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Numerics;
 using System.Reflection;
@@ -18,9 +19,9 @@ public sealed class FftPupilAmplitudeInterpolationTests(ITestOutputHelper output
     public void FrozenComplexControlConfirmsAmplitudeStencilAndUnchangedMask()
     {
         var directory = Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-psf-contract");
-        using var manifest = JsonDocument.Parse(File.ReadAllBytes(Path.Combine(directory, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllBytes(Path.Combine(directory, "manifest.json")));
         var path = Path.Combine(directory, "source-evidence.zip");
-        using (var file = File.OpenRead(path))
+        using (var file = EvidenceFiles.OpenRead(path))
             Assert.Equal(manifest.RootElement.GetProperty("sourceArchiveSha256").GetString(),
                 Convert.ToHexStringLower(SHA256.HashData(file)));
         using var zip = ZipFile.OpenRead(path);

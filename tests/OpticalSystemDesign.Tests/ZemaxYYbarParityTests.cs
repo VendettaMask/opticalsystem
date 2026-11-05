@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.Core.Analysis;
@@ -17,7 +18,7 @@ public sealed partial class ZemaxYYbarParityTests
     {
         var fixtureDirectory = Path.Combine(AppContext.BaseDirectory, "Fixtures");
         var optic = OpticalFormatCatalog.Import(
-            File.ReadAllText(Path.Combine(fixtureDirectory, "zemax-123456.ZMX")),
+            EvidenceFiles.ReadAllText(Path.Combine(fixtureDirectory, "zemax-123456.ZMX")),
             ".zmx");
         var reference = ParseReference(Path.Combine(fixtureDirectory, "zemax-123456-y-ybar.txt"));
 
@@ -52,7 +53,7 @@ public sealed partial class ZemaxYYbarParityTests
 
     private static IReadOnlyList<(int Surface, double Ybar, double Y)> ParseReference(string path)
     {
-        return File.ReadLines(path)
+        return EvidenceFiles.ReadLines(path)
             .Select(line => DataRowRegex().Match(line))
             .Where(match => match.Success)
             .Select(match => (

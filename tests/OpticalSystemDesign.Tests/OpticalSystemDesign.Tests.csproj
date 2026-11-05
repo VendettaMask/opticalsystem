@@ -245,4 +245,10 @@
     <None Update="Fixtures/camera-xyz-grid8-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures/camera-polar-grid9-frozen.zip" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
+  <Target Name="MaterializeEvidenceAliases" AfterTargets="CopyFilesToOutputDirectory" Condition="'$(DesignTimeBuild)' != 'true'">
+    <Exec Command="pwsh -NoProfile -File &quot;$(MSBuildProjectDirectory)/../../tools/validation/EvidenceAliases.ps1&quot; -Mode Materialize -RepositoryRoot &quot;$(MSBuildProjectDirectory)/../..&quot; -DestinationRoot &quot;$(TargetDir).&quot; -FixtureLayout -FetchLfs -ProjectPath &quot;$(MSBuildProjectFullPath)&quot;" />
+  </Target>
+  <ItemGroup>
+    <Compile Include="../../tools/validation/EvidenceFiles.cs" Link="Shared/EvidenceFiles.cs" />
+  </ItemGroup>
 </Project>

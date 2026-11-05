@@ -585,11 +585,11 @@
 
 ### 二维布局
 
-![二维布局](<OpticalSystemDesign%20Cooke%20Triplet_report_20261024_203720_441_assets/c001-TwoDimensional.png>)
+![二维布局](<OpticalSystemDesign Cooke Triplet_report_20261024_202925_162_assets/c001-TwoDimensional.png>)
 
 ### 三维布局
 
-![三维布局](<OpticalSystemDesign%20Cooke%20Triplet_report_20261024_203720_441_assets/c001-ThreeDimensional.png>)
+![三维布局](<OpticalSystemDesign Cooke Triplet_report_20261024_202925_162_assets/c001-ThreeDimensional.png>)
 
 ### 标准点列图
 
@@ -688,7 +688,7 @@ RayAberrationUnit：mm
 最大光线像差 (mm)：0.048
 ```
 
-![光线像差图](<OpticalSystemDesign%20Cooke%20Triplet_report_20261024_203720_441_assets/c001-analysis-002.png>)
+![光线像差图](<OpticalSystemDesign Cooke Triplet_report_20261024_202734_783_assets/c001-analysis-002.png>)
 
 ### 傅里叶 MTF
 
@@ -781,7 +781,7 @@ ZemaxCompatible：True
 畸变.最大绝对畸变 (%)：0.064
 ```
 
-![场曲/畸变](<OpticalSystemDesign%20Cooke%20Triplet_report_20261024_203720_441_assets/c001-analysis-004.png>)
+![场曲/畸变](<OpticalSystemDesign Cooke Triplet_report_20261024_202734_783_assets/c001-analysis-004.png>)
 
 ### 赛德尔系数
 
@@ -861,9 +861,9 @@ ZemaxCompatible：True
 累计      7.640562      3.592104      -0.456354
 ```
 
-![赛德尔系数](<OpticalSystemDesign%20Cooke%20Triplet_report_20261024_203720_441_assets/c001-analysis-005-001.png>)
+![赛德尔系数](<OpticalSystemDesign Cooke Triplet_report_20261024_202925_162_assets/c001-analysis-005-001.png>)
 
-![赛德尔系数](<OpticalSystemDesign%20Cooke%20Triplet_report_20261024_203720_441_assets/c001-analysis-005-002.png>)
+![赛德尔系数](<OpticalSystemDesign Cooke Triplet_report_20261024_202925_162_assets/c001-analysis-005-002.png>)
 
 ### 波前图
 
@@ -933,7 +933,7 @@ Sy：0
 Sr：1
 ```
 
-![波前图](<OpticalSystemDesign%20Cooke%20Triplet_report_20261024_203720_441_assets/c001-analysis-006.png>)
+![波前图](<OpticalSystemDesign Cooke Triplet_report_20261024_202734_783_assets/c001-analysis-006.png>)
 
 ## 导出结果
 

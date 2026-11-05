@@ -17,7 +17,7 @@
 
 [reference-input.json](reference-input.json) 导出7份冻结输入的真实材料 n/k；[reference-results.json](reference-results.json) 是未改动固定 TFStudio DLS/Newton 的14次真实运行。参考谱点目标与本产品的实际 FWHM/OD/最差指标目标不同；保留差异，不宣称同问题比较。每次用相同初始膜厚、固定层、厚度界和最大迭代次数，不清零吸收。
 
-[reference-final-native/summary.json](reference-final-native/summary.json) 使用最终运行时 Core 对参考膜厚作原密集复验。真实 HR、单腔和双腔参考均未达原规格；14份参考处方中2份通过各自原门槛。`reference-native` 是较早同定义复验，最终以 `reference-final-native` 为准。参考源归档及选定执行文件完整性已核验。
+[reference-final-native/summary.json](reference-native/summary.json) 使用最终运行时 Core 对参考膜厚作原密集复验。真实 HR、单腔和双腔参考均未达原规格；14份参考处方中2份通过各自原门槛。`reference-native` 是较早同定义复验，最终以 `reference-final-native` 为准。参考源归档及选定执行文件完整性已核验。
 
 ## 历史探针与失败
 

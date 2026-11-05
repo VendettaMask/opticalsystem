@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
@@ -381,7 +382,7 @@ public sealed class GeometricEnergyOperandTests
         app.Optimization.SetMeritFunction([editor.ToDto()]); var saved = Assert.Single(app.Optimization.GetMeritFunction());
         Assert.False(saved.CompatibilityOnly); Assert.Equal(2, saved.Weight); Assert.Equal(.25, saved.Target);
         if (code != "ERFP") Assert.Equal(-1, saved.ZemaxData5);
-        var text = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         var imported = OpticalFormatCatalog.Import(text + $"\n{code} 1 1 1 1 1 .8 .25 2 0 0\n", ".zmx");
         var native = imported.MeritFunctionOperands.Last(); Assert.False(native.Enabled); Assert.True(native.CompatibilityOnly);
         Assert.True(Optic.FromSnapshot(imported.ToSnapshot()).MeritFunctionOperands.Last().CompatibilityOnly);

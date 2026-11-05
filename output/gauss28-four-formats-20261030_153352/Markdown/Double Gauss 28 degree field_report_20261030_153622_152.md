@@ -39,19 +39,19 @@
 
 ### 二维布局
 
-![二维布局](<Double%20Gauss%2028%20degree%20field_report_20261030_153622_152_assets/c001-TwoDimensional.png>)
+![二维布局](../source-images/Pdf/c001-TwoDimensional.png)
 
 *图 1　二维布局*
 
 ### 三维布局
 
-![三维布局](<Double%20Gauss%2028%20degree%20field_report_20261030_153622_152_assets/c001-ThreeDimensional.png>)
+![三维布局](../source-images/Pdf/c001-ThreeDimensional.png)
 
 *图 2　三维布局*
 
 ### 离焦点列图
 
-![离焦点列图](<Double%20Gauss%2028%20degree%20field_report_20261030_153622_152_assets/c001-analysis-001.png>)
+![离焦点列图](../source-images/Pdf/c001-analysis-001.png)
 
 *图 3　离焦点列图*
 
@@ -70,7 +70,7 @@
 
 ### 非相干照度
 
-![非相干照度](<Double%20Gauss%2028%20degree%20field_report_20261030_153622_152_assets/c001-analysis-002.png>)
+![非相干照度](../source-images/Pdf/c001-analysis-002.png)
 
 *图 4　非相干照度*
 
@@ -122,7 +122,7 @@
 
 ### 傅里叶 MTF
 
-![傅里叶 MTF](<Double%20Gauss%2028%20degree%20field_report_20261030_153622_152_assets/c001-analysis-005.png>)
+![傅里叶 MTF](../source-images/Pdf/c001-analysis-005.png)
 
 *图 5　傅里叶 MTF*
 
@@ -319,11 +319,11 @@ ScaleBarMilliradians：0
 
 计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：724762E0E7A3A70D130159258D5C23C3ED13E4EE8F1F835ED7CDF5EF5139A44D
 
-![赛德尔系数](<Double%20Gauss%2028%20degree%20field_report_20261030_153622_152_assets/c001-analysis-003-001.png>)
+![赛德尔系数](../source-images/Html/c001-analysis-003-001.png)
 
 *图 6　赛德尔系数*
 
-![赛德尔系数](<Double%20Gauss%2028%20degree%20field_report_20261030_153622_152_assets/c001-analysis-003-002.png>)
+![赛德尔系数](../source-images/Html/c001-analysis-003-002.png)
 
 *图 7　赛德尔系数*
 
@@ -428,11 +428,11 @@ ScaleBarMilliradians：0
 
 计算来源：Application.WorkbenchRuntime.BuildAnalysisView/v1；请求指纹：2335A06C8EAE5729D2453F811540E650B8BDBA09D98FC5D8713B849D014AB3DF
 
-![Zernike Fringe系数](<Double%20Gauss%2028%20degree%20field_report_20261030_153622_152_assets/c001-analysis-004-001.png>)
+![Zernike Fringe系数](../source-images/Html/c001-analysis-004-001.png)
 
 *图 8　Zernike Fringe系数*
 
-![Zernike Fringe系数](<Double%20Gauss%2028%20degree%20field_report_20261030_153622_152_assets/c001-analysis-004-002.png>)
+![Zernike Fringe系数](../source-images/Html/c001-analysis-004-002.png)
 
 *图 9　Zernike Fringe系数*
 

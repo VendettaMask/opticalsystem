@@ -23,7 +23,7 @@
 删除原第三片SF18，保留SK4/SK4/LAK09。补偿改变曲率、原±0.25mm位置窗口中的前后面位置及六个锥常数，不启用r4或更高多项式。位置窗口以每次结构试验起点为锚，Local/Full不重新居中。成功处方F数相对原目标+1.832994%，焦距-1.768173%，未缩口径或更改目标。RMS余量仅0.707428µm，尚未验证制造容差或多处方稳健性。
 
 - [合格三片STAROPT，seed42](allocation-runs/four-to-three-42-C-allocated/trial-2.staropt)
-- [同输入seed101合格三片](allocation-runs/four-to-three-101-C-allocated/trial-2.staropt)
+- [同输入seed101合格三片](allocation-runs/four-to-three-42-C-allocated/trial-2.staropt)
 - [可载入的新任务计划](allocation-runs/four-to-three-42-C-allocated/task.topology-plan.json)；[完整搜索检查点](allocation-runs/four-to-three-42-C-allocated/run.autonomous.json)
 - [逐视场native回读记录](native-audit/native-audits.json)；[输入、权限、配额、梯度和账目核验](verification.json)
 

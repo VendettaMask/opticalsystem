@@ -211,7 +211,7 @@ public sealed class ScientificIconTests
                     var found = new HashSet<string>();
                     foreach (var tabName in new[] { "公差", "帮助", "窗口" })
                     {
-                        tabs.SelectedItem = tabs.Items.Cast<TabItem>().Single(t => AutomationProperties.GetName(t) == tabName);
+                        tabs.SelectedItem = tabs.Items.Cast<TabItem>().Single(t => AutomationProperties.GetName(t) == UiLocalization.Text(tabName));
                         Tick(window);
                         foreach (var icon in window.GetVisualDescendants().OfType<LocalIcon>())
                         {

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -83,7 +84,7 @@ public sealed class RiflescopeMtfFieldTests
     private static void Record(string cohort,string id,AnalysisData data)
     {
         var output=Environment.GetEnvironmentVariable("OSD_RIFLESCOPE_MTF_FIELD_EVIDENCE"); if(string.IsNullOrWhiteSpace(output))return;
-        var hash=Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(typeof(Optic).Assembly.Location)));
+        var hash=Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(typeof(Optic).Assembly.Location)));
         var folder=Path.Combine(output,"core-"+hash[..12],cohort);Directory.CreateDirectory(folder);
         JsonFiles.Write(Path.Combine(folder,id+".json"),data);JsonFiles.Write(Path.Combine(folder,"identity.json"),new{coreSha256=hash});
     }
@@ -95,14 +96,14 @@ public sealed class RiflescopeMtfFieldTests
         {
             var folder=Path.Combine(AppContext.BaseDirectory,"Fixtures/riflescope-mtf-field");
             var manifest=JsonFiles.Read<JsonElement>(Path.Combine(folder,"manifest.json"));var archive=Path.Combine(folder,"reference.zip");
-            Assert.Equal(manifest.GetProperty("sha256").GetString(),Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(archive))));
+            Assert.Equal(manifest.GetProperty("sha256").GetString(),Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(archive))));
             ZipFile.ExtractToDirectory(archive,Root);_contract=JsonFiles.Read<JsonElement>(Path.Combine(Root,"contract.json"));
-            Assert.Equal(_contract.GetProperty("policySha256").GetString(),Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory,"comparison-settings.json")))));
+            Assert.Equal(_contract.GetProperty("policySha256").GetString(),Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(Path.Combine(AppContext.BaseDirectory,"comparison-settings.json")))));
         }
         internal Optic Optic()
         {
             var file=Path.Combine(Root,"inputs/riflescope.optic.json");
-            Assert.Equal(_contract.GetProperty("snapshotSha256").GetString(),Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(file))));
+            Assert.Equal(_contract.GetProperty("snapshotSha256").GetString(),Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(file))));
             return Core.Optic.FromSnapshot(JsonFiles.Read<OpticSnapshot>(file));
         }
         internal Series1DResult[] Native(string method,int n)=>NativeCurves.Read(Root,method,n,_contract.GetProperty("sourceSha256").GetString()!,Frequencies);

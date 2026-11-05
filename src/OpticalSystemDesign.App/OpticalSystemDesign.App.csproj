@@ -22,10 +22,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Assets/Localization/ui.catalog.json" LogicalName="OpticalSystemDesign.App.Localization.ui.catalog.json" />
     <EmbeddedResource Include="Assets/Localization/ui.invariants.json" LogicalName="OpticalSystemDesign.App.Localization.ui.invariants.json" />
-    <AvaloniaResource Remove="Assets/Icons/lucide-icon-nodes.json" />
-    <AvaloniaResource Remove="Assets/Icons/game-icons-isekai.json" />
-    <AvaloniaResource Remove="Assets/Icons/farm-fresh-icons.json" />
-    <AvaloniaResource Remove="Assets/Icons/FarmFresh32/*.png" />
     <AvaloniaResource Include="Assets/Author.jpg" />
     <AvaloniaResource Include="Assets/Brand/AppIcon.png" />
     <AvaloniaResource Include="Assets/Brand/Splash.png" />
@@ -69,8 +65,6 @@
              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <EmbeddedResource Include="Assets/Fonts/NotoSansCJKsc-Regular.otf"
                       LogicalName="OpticalSystemDesign.App.Assets.Fonts.NotoSansCJKsc-Regular.otf" />
-    <EmbeddedResource Include="Assets/Icons/lucide-icon-nodes.json"
-                      LogicalName="OpticalSystemDesign.App.Assets.Icons.lucide-icon-nodes.json" />
     <EmbeddedResource Include="Assets/Icons/Analysis/*.svg">
       <LogicalName>OpticalSystemDesign.App.Assets.Icons.Analysis.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
@@ -87,21 +81,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Assets/Icons/Scientific/Themes/manifest.json"
                       LogicalName="OpticalSystemDesign.App.Assets.IconThemes.Manifest.json" />
-    <EmbeddedResource Include="Assets/Icons/game-icons-isekai.json"
-                      LogicalName="OpticalSystemDesign.App.Assets.Icons.game-icons-isekai.json" />
-    <EmbeddedResource Include="Assets/Icons/farm-fresh-icons.json"
-                      LogicalName="OpticalSystemDesign.App.Assets.Icons.farm-fresh-icons.json" />
-    <EmbeddedResource Include="Assets/Icons/FarmFresh32/*.png">
-      <LogicalName>OpticalSystemDesign.App.Assets.Icons.FarmFresh32.%(Filename)%(Extension)</LogicalName>
-    </EmbeddedResource>
     <AvaloniaResource Include="Assets/Fonts/fusion-pixel-10px-monospaced-zh_hans.ttf" />
     <AvaloniaResource Include="Assets/Fonts/Typography/**/*.ttf" />
     <AvaloniaResource Include="Assets/Fonts/Typography/**/*.otf" />
     <AvaloniaResource Include="Assets/Fonts/Typography/*-OFL.txt;Assets/Fonts/OFL-LICENSE.txt;Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt" />
     <Content Include="Assets/Fonts/Typography/*-OFL.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
-    <Content Include="Assets/Icons/GAME-ICONS-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets/Icons/LUCIDE-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
-    <Content Include="Assets/Icons/FARM-FRESH-ICONS-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets/Fonts/FUSION-PIXEL-FONT-OFL.txt" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../third_party/coating-reference/*LICENSE.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../third_party/coating-reference/*NOTICE.txt" Link="Licenses/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />

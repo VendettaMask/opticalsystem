@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Differentiation;
@@ -176,7 +177,7 @@ public sealed class TopologyEdgeLossTests
     private static async Task<(AutonomousSearchCheckpoint State, AutonomousSearchCandidate Candidate)> Recorded()
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
-        while (root is not null && !File.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
+        while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
         var state = await new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(root!.FullName,
             "validation/rechecks/2026-10-27/representative-reduction/qualified-control-verified/repr-qualified4-wide21-42-C-fixed/run.autonomous.json"));
         return (state, state.Candidates.Where(item => item.Topology.Elements.Length == 3 && item.Assessment.Completed).OrderBy(item => item.Score).First());

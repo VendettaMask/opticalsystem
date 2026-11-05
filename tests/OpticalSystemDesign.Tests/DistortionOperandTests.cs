@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
@@ -354,15 +355,15 @@ public sealed class DistortionOperandTests(Xunit.Abstractions.ITestOutputHelper 
     public void Captured123456ComparisonKeepsExplicitAccuracyAndResidualBudgets(string code)
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
         Assert.NotNull(directory);
         var path = Path.Combine(directory.FullName, "artifacts", "zemax", "123456-zemax-2026-r1-baseline", "analyses", "004-fieldcurvatureanddistortion", "data.json");
-        using var captured = System.Text.Json.JsonDocument.Parse(File.ReadAllText(path));
+        using var captured = System.Text.Json.JsonDocument.Parse(EvidenceFiles.ReadAllText(path));
         var fixture = Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX");
         var maximumError = 0.0;
         foreach (var curve in captured.RootElement.GetProperty("dataSeries").EnumerateArray())
         {
-            var optic = OpticalFormatCatalog.Import(File.ReadAllText(fixture), ".zmx");
+            var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(fixture), ".zmx");
             var description = curve.GetProperty("description").GetString()!;
             var wave = double.Parse(System.Text.RegularExpressions.Regex.Match(description, @"0\.\d+").Value, System.Globalization.CultureInfo.InvariantCulture);
             var waveIndex = optic.Wavelengths.ToList().FindIndex(w => Math.Abs(w.Micrometers - wave) < 1e-10) + 1;
@@ -413,7 +414,7 @@ public sealed class DistortionOperandTests(Xunit.Abstractions.ITestOutputHelper 
     [InlineData("SMIA")]
     public void RealImageHeightConversionUsesFormalEngineAndPreservesOriginalSnapshot(string code)
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
         Assert.Equal(FieldDefinitionKind.RealImageHeight, optic.FieldDefinition);
         optic.ConfigureRayTraceCache(new RayTraceCache(), 17);
         var before = System.Text.Json.JsonSerializer.Serialize(optic.ToSnapshot());

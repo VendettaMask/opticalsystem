@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Contracts;
@@ -39,7 +40,7 @@ public sealed class MeasuredAngularChainTests
     {
         var data=MeasuredAngularCoverageTests.Partial();var scene=CommercialBsdfNscTests.Scene();var plane=scene.Objects[1];
         scene.Replace(plane.Id,plane with{Enabled=false,Parameters=new CoreNsc.PlaneRectangleParameters(1,1,CoreNsc.NonSequentialSurfaceBehavior.Reflective,"AIR","AIR"),SurfaceBsdf=new(CoreNsc.NonSequentialBsdfKind.Measured,0,data)});
-        using var files=new CameraSensorFileTests.TemporaryFiles();var file=files.Path("polar.staropt");await StarOptProjectStore.SaveAsync(new([Optic.CreateBlank()],0,NonSequentialDocument:scene),file);var bytes=await File.ReadAllBytesAsync(file);
+        using var files=new CameraSensorFileTests.TemporaryFiles();var file=files.Path("polar.staropt");await StarOptProjectStore.SaveAsync(new([Optic.CreateBlank()],0,NonSequentialDocument:scene),file);var bytes=await EvidenceFiles.ReadAllBytesAsync(file);
         using var raw=new MemoryStream(bytes);raw.Position=52;using var unzip=new BrotliStream(raw,CompressionMode.Decompress);using var json=JsonDocument.Parse(unzip);Assert.Equal(17,json.RootElement.GetProperty("FormatVersion").GetInt32());
         var changed=System.Text.Json.Nodes.JsonNode.Parse(json.RootElement.GetRawText())!;changed["FormatVersion"]=16;var payload=System.Text.Encoding.UTF8.GetBytes(changed.ToJsonString());
         using var packed=new MemoryStream();using(var compressor=new BrotliStream(packed,CompressionLevel.Optimal,true))compressor.Write(payload);

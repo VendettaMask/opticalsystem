@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
@@ -351,7 +352,7 @@ public sealed class ManufacturingProfileOperandTests
         app.Optimization.SetMeritFunction([editor.ToDto()]); var saved = Assert.Single(app.Optimization.GetMeritFunction());
         Assert.False(saved.CompatibilityOnly); Assert.Equal(.25, saved.Target); Assert.Equal(2, saved.Weight);
         if (code is "DSLP" or "DCRV") Assert.Equal(3, saved.ZemaxData5);
-        var text = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         var imported = OpticalFormatCatalog.Import(text + $"\n{code} 1 1 1 0 0 0 .25 2 0 0\n", ".zmx");
         var native = imported.MeritFunctionOperands.Last(); Assert.True(native.CompatibilityOnly); Assert.False(native.Enabled);
         var again = Optic.FromSnapshot(imported.ToSnapshot()).MeritFunctionOperands.Last(); Assert.True(again.CompatibilityOnly);

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -13,10 +14,10 @@ public sealed class CandidateChainTests
     public void RejectedLinearCandidateYieldsToPrimaryAndSurvivesResume()
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
-        while (root is not null && !File.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
+        while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
         var json = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
         json.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
-        using var input = JsonDocument.Parse(File.ReadAllText(Path.Combine(root!.FullName,
+        using var input = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root!.FullName,
             "validation/rechecks/2026-10-28/two-element-candidate-chain/candidate-chain-input.json")));
         T Read<T>(string name) => JsonSerializer.Deserialize<T>(input.RootElement.GetProperty(name).GetRawText(), json)!;
         var source = TopologyCompiler.Compile(Read<DesignTopology>("Source"), Read<TopologyConstraints>("Constraints"));

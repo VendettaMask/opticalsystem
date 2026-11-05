@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
@@ -177,11 +178,11 @@ public sealed class ComparisonTests
         Directory.CreateDirectory(System.IO.Path.GetDirectoryName(oldPlot)!); File.WriteAllText(oldPlot, "previous evidence");
         var userNote = System.IO.Path.Combine(temp.Path, "notes.txt"); File.WriteAllText(userNote, "user note");
         ComparisonRunner.ArchivePreviousRun(temp.Path);
-        Assert.False(File.Exists(oldPlot));
+        Assert.False(EvidenceFiles.Exists(oldPlot));
         var archive = Assert.Single(Directory.GetDirectories(temp.Path, "previous-run-*"));
-        Assert.Equal("previous evidence", File.ReadAllText(System.IO.Path.Combine(archive, "comparisons", "mtf", "overlay.png")));
-        Assert.True(File.Exists(System.IO.Path.Combine(archive, "manifest.json")));
-        Assert.Equal("user note", File.ReadAllText(userNote));
+        Assert.Equal("previous evidence", EvidenceFiles.ReadAllText(System.IO.Path.Combine(archive, "comparisons", "mtf", "overlay.png")));
+        Assert.True(EvidenceFiles.Exists(System.IO.Path.Combine(archive, "manifest.json")));
+        Assert.Equal("user note", EvidenceFiles.ReadAllText(userNote));
     }
     [Theory]
     [InlineData("difference", Conclusion.Difference, 1)]
@@ -206,8 +207,8 @@ public sealed class ComparisonTests
         var runs = new[] { new AnalysisRun { Key = "MTF", Directory = "mtf", Conclusion = Conclusion.Pass, ZemaxStatus = CaptureStatus.Captured, WorkbenchStatus = CaptureStatus.Captured },
             new AnalysisRun { Key = "Wavefront", Directory = "wavefront", Conclusion = Conclusion.Error, Reason = "Synthetic executor failure" } };
         ReportWriter.Write(temp.Path, new { InputSha256 = "abc" }, runs, "zh-CN", 2, null);
-        Assert.Contains("Synthetic executor failure", File.ReadAllText(System.IO.Path.Combine(temp.Path, "COMPARISON_REPORT.md")));
-        using var json = JsonDocument.Parse(File.ReadAllText(System.IO.Path.Combine(temp.Path, "run-summary.json")));
+        Assert.Contains("Synthetic executor failure", EvidenceFiles.ReadAllText(System.IO.Path.Combine(temp.Path, "COMPARISON_REPORT.md")));
+        using var json = JsonDocument.Parse(EvidenceFiles.ReadAllText(System.IO.Path.Combine(temp.Path, "run-summary.json")));
         Assert.Equal(1, json.RootElement.GetProperty("counts").GetProperty("Pass").GetInt32());
         Assert.Equal(1, json.RootElement.GetProperty("counts").GetProperty("Error").GetInt32());
     }
@@ -219,18 +220,18 @@ public sealed class ComparisonTests
         var result = OperatingSystem.IsWindows()
             ? await ProcessIsolation.Run("powershell.exe", ["-NoProfile", "-NonInteractive", "-Command", "Start-Sleep -Seconds 30"], temp.Path, 20, cancelled.Token)
             : await ProcessIsolation.Run("sleep", ["30"], temp.Path, 20, cancelled.Token);
-        Assert.True(result.Cancelled); Assert.Equal("{\"completed\":true}", File.ReadAllText(finished));
+        Assert.True(result.Cancelled); Assert.Equal("{\"completed\":true}", EvidenceFiles.ReadAllText(finished));
     }
     [Fact]
     public void ProductHasNoReverseDependencyOnValidationTool()
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
-        while (root is not null && !File.Exists(System.IO.Path.Combine(root.FullName, "OpticalSystemDesign.slnx"))) root = root.Parent;
+        while (root is not null && !EvidenceFiles.Exists(System.IO.Path.Combine(root.FullName, "OpticalSystemDesign.slnx"))) root = root.Parent;
         Assert.NotNull(root);
-        foreach (var file in Directory.EnumerateFiles(System.IO.Path.Combine(root.FullName, "src"), "*", SearchOption.AllDirectories)
+        foreach (var file in EvidenceFiles.EnumerateFiles(System.IO.Path.Combine(root.FullName, "src"), "*", SearchOption.AllDirectories)
             .Where(p => !p.Split(System.IO.Path.DirectorySeparatorChar).Any(s => s is "obj" or "bin") && System.IO.Path.GetExtension(p) is ".cs" or ".csproj"))
         {
-            var text = File.ReadAllText(file);
+            var text = EvidenceFiles.ReadAllText(file);
             Assert.DoesNotContain("ZemaxComparison", text, StringComparison.OrdinalIgnoreCase);
             Assert.DoesNotContain("ZOSAPI", text, StringComparison.OrdinalIgnoreCase);
         }

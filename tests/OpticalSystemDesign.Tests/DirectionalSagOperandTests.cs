@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.App.ViewModels;
@@ -171,7 +172,7 @@ public sealed class DirectionalSagOperandTests(ITestOutputHelper output)
         var dto = Assert.Single(application.Optimization.GetMeritFunction());
         Assert.Equal(16, dto.ZemaxData6); Assert.Equal(-3, dto.ZemaxData3); Assert.Equal(.25, dto.Target); Assert.Equal(2, dto.Weight);
 
-        var source = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var source = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         var optic = OpticalFormatCatalog.Import(source + "\nTSAG 1 0 1 2 3 4 .25 2 0 0\n", ".zmx");
         var imported = optic.MeritFunctionOperands.Last(); Assert.True(imported.CompatibilityOnly); Assert.False(imported.Enabled);
         Assert.Equal(4, imported.ZemaxDataParameters.Length);
@@ -292,8 +293,8 @@ public sealed class DirectionalSagOperandTests(ITestOutputHelper output)
     public void CapturedSagTableValidatesOnlyItsZeroTiltSphericalCase()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(fixtures, "zemax-123456.ZMX")), ".zmx");
-        var lines = File.ReadAllLines(Path.Combine(fixtures, "zemax-123456-sag-table.txt"));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(fixtures, "zemax-123456.ZMX")), ".zmx");
+        var lines = EvidenceFiles.ReadAllLines(Path.Combine(fixtures, "zemax-123456-sag-table.txt"));
         var count = 0; var maximum = 0.0;
         foreach (var line in lines)
         {

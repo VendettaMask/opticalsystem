@@ -11,11 +11,10 @@ function Resolve-FrozenEvidencePath {
     # Reject junctions/symlinks rather than hashing an unrelated target.
     $ancestor = $path
     while ($ancestor -and $ancestor.StartsWith($prefix, [StringComparison]::OrdinalIgnoreCase)) {
-        if (Test-Path -LiteralPath $ancestor) {
-            $item = Get-Item -LiteralPath $ancestor -Force -ErrorAction Stop
-            if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw 'Frozen path contains a link.' }
+        if ([IO.File]::Exists($ancestor) -or [IO.Directory]::Exists($ancestor)) {
+            if (([IO.File]::GetAttributes($ancestor) -band [IO.FileAttributes]::ReparsePoint) -ne 0) { throw 'Frozen path contains a link.' }
         }
-        $ancestor = Split-Path -Parent $ancestor
+        $ancestor = [IO.Path]::GetDirectoryName($ancestor)
     }
     $path
 }
@@ -82,8 +81,46 @@ function Get-FrozenIntegrityPlan {
         }
         $mapIdentity = [pscustomobject]@{path=$RelocationMapPath; sha256=$mapHash; count=$relocations.Count}
     }
+    $storageIdentity = $null
+    $storageManifest = Join-Path $repository 'validation/evidence-aliases.json'
+    if (Test-Path -LiteralPath $storageManifest -PathType Leaf) {
+        $storage = Get-Content -LiteralPath $storageManifest -Raw -Encoding utf8 | ConvertFrom-Json
+        if ($storage.schemaVersion -ne 1) { throw 'Invalid evidence storage manifest.' }
+        $aliases = [Collections.Generic.Dictionary[string,object]]::new([StringComparer]::Ordinal)
+        $canonicalPaths = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+        foreach ($group in $storage.groups) {
+            if ($group.sha256 -cnotmatch '^[0-9a-f]{64}$' -or $group.bytes -le 0 -or !$canonicalPaths.Add($group.canonical)) {
+                throw 'Invalid evidence storage authority.'
+            }
+            foreach ($alias in $group.aliases) {
+                if (!$aliases.TryAdd($alias, $group)) { throw 'Repeated evidence storage alias.' }
+            }
+        }
+        foreach ($canonicalPath in $canonicalPaths) {
+            if ($aliases.ContainsKey($canonicalPath)) { throw 'Chained evidence storage aliases are forbidden.' }
+        }
+        $used = 0
+        foreach ($entry in $entries) {
+            if (!$aliases.ContainsKey($entry.resolvedPath)) { continue }
+            $group = $aliases[$entry.resolvedPath]
+            if ($group.sha256 -cne $entry.sha256) { throw 'Storage aliases cannot change a frozen hash.' }
+            $logicalPath = Resolve-FrozenEvidencePath $repository $entry.resolvedPath
+            if (Test-Path -LiteralPath $logicalPath) { throw 'A frozen storage alias cannot hide a physical duplicate.' }
+            $canonical = Resolve-FrozenEvidencePath $repository $group.canonical
+            if (!(Test-Path -LiteralPath $canonical -PathType Leaf) -or (Get-Item -LiteralPath $canonical).Length -ne $group.bytes) {
+                throw 'Frozen storage authority is missing or has the wrong length.'
+            }
+            $entry | Add-Member -NotePropertyName storageAliasPath -NotePropertyValue $entry.resolvedPath
+            $entry.resolvedPath = $group.canonical
+            $used++
+        }
+        if ($used) {
+            $storageIdentity = [pscustomobject]@{path='validation/evidence-aliases.json';
+                sha256=(Get-FileHash -LiteralPath $storageManifest -Algorithm SHA256).Hash.ToLowerInvariant(); count=$used}
+        }
+    }
     [pscustomobject]@{repository=$repository; entries=$entries.ToArray();
-        expectedAggregateSha256=$expectedAggregate; relocationMap=$mapIdentity}
+        expectedAggregateSha256=$expectedAggregate; relocationMap=$mapIdentity; storageAliases=$storageIdentity}
 }
 
 function Get-FrozenWorkingIntegrityReport {
@@ -104,7 +141,7 @@ function Get-FrozenWorkingIntegrityReport {
         count=$entries.Count; matched=($entries.Count-$mismatches.Count)
         expectedAggregateSha256=$Plan.expectedAggregateSha256; actualAggregateSha256=$actualAggregate
         unchanged=($mismatches.Count -eq 0 -and $actualAggregate -ceq $Plan.expectedAggregateSha256)
-        mismatches=$mismatches; relocationMap=$Plan.relocationMap
+        mismatches=$mismatches; relocationMap=$Plan.relocationMap; storageAliases=$Plan.storageAliases
         relocations=@($entries | Where-Object { $_.path -cne $_.resolvedPath })
     }
 }

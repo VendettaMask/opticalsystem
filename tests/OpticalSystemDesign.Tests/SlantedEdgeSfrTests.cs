@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Analysis.Imaging;
 using OpticalSystemDesign.Core.FileIO;
@@ -67,7 +68,7 @@ public sealed class SlantedEdgeSfrTests
     [Fact]
     public void ExistingLensConvergesWithoutChangingPrescriptionAndInsufficientChecksCannotPass()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(ReferenceLens), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(ReferenceLens), ".zmx");
         var before = optic.ToSnapshot();
         var run = MonochromeSlantedEdge.Run(optic, new());
         Assert.True(run.SamplingConverged);
@@ -83,7 +84,7 @@ public sealed class SlantedEdgeSfrTests
     [Fact]
     public void LocalCellIntegralAgreesWithSharedFftTimesAnalyticCellFootprint()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(ReferenceLens), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(ReferenceLens), ".zmx");
         var wave = new OpticalSystemDesign.Core.Domain.Wavelength { Micrometers = .55 };
         var fft = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 128, 256, cellCenteredPupil: true);
         // Cell-centered nodes have spacing 2/N. Use that exact Fourier lattice;
@@ -106,7 +107,7 @@ public sealed class SlantedEdgeSfrTests
         get
         {
             var dir = new DirectoryInfo(AppContext.BaseDirectory);
-            while (dir is not null && !File.Exists(Path.Combine(dir.FullName, "OpticalSystemDesign.slnx"))) dir = dir.Parent;
+            while (dir is not null && !EvidenceFiles.Exists(Path.Combine(dir.FullName, "OpticalSystemDesign.slnx"))) dir = dir.Parent;
             return dir!.FullName;
         }
     }

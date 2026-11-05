@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Specialized;
 using Avalonia;
 using Avalonia.Controls;
@@ -237,7 +238,7 @@ public sealed partial class FlatStartDesktopTests
             var library = new FlatStartRunLibrary(host.Directory);
             await library.SaveAsync(checkpoint);
             var sourcePath = library.PathFor(checkpoint.RunId);
-            var originalBytes = await File.ReadAllBytesAsync(sourcePath);
+            var originalBytes = await EvidenceFiles.ReadAllBytesAsync(sourcePath);
             File.Copy(sourcePath, host.OpenPath);
             var window = host.Window();
             window.Show(); await window.Ready;
@@ -264,7 +265,7 @@ public sealed partial class FlatStartDesktopTests
                 var row = Assert.IsType<CandidateRow>(Find<DataGrid>(window, "Candidates").SelectedItem);
                 Assert.Equal(row.Candidate.OpticFingerprint, ContentFingerprint.Compute(exported.Configurations[0].ToSnapshot()));
             }
-            Assert.Equal(originalBytes, await File.ReadAllBytesAsync(sourcePath));
+            Assert.Equal(originalBytes, await EvidenceFiles.ReadAllBytesAsync(sourcePath));
             Find<TabControl>(window, "InputTabs").SelectedIndex = 2;
             Find<TextBlock>(window, "OptimizationMethod").BringIntoView(); window.UpdateLayout();
             Capture(window, "autolens-only-legacy-" + method);
@@ -282,7 +283,7 @@ public sealed partial class FlatStartDesktopTests
             Assert.True(window.CurrentCheckpoint.Specification.FlatStart.UsePhysicalStop);
             Assert.NotNull(window.CurrentCheckpoint.Specification.FlatStart.AutoLens);
             Assert.Equal(0, window.CurrentCheckpoint.Specification.FlatStart.AutoLens.TargetPolishEvaluations);
-            Assert.Equal(originalBytes, await File.ReadAllBytesAsync(sourcePath));
+            Assert.Equal(originalBytes, await EvidenceFiles.ReadAllBytesAsync(sourcePath));
             window.Close();
         });
     }
@@ -551,7 +552,7 @@ public sealed partial class FlatStartDesktopTests
             Assert.Equal(FlatStartSearchState.Cancelled, stopped.State);
             Assert.InRange(stopped.ChargedEvaluations, 1, budget - 1);
             Click(window, "Export"); await window.PendingOperation;
-            Assert.True(File.Exists(host.ExportPath));
+            Assert.True(EvidenceFiles.Exists(host.ExportPath));
             Click(window, "Resume"); await window.PendingOperation;
             Assert.Equal(stopped.RunId, window.CurrentCheckpoint!.RunId);
             Assert.Equal(budget, window.CurrentCheckpoint.Specification.Budget.MaximumEvaluations);
@@ -598,14 +599,14 @@ public sealed partial class FlatStartDesktopTests
             var source = window.CurrentCheckpoint!;
             var selected = Assert.IsType<CandidateRow>(Find<DataGrid>(window, "Candidates").SelectedItem).Candidate;
             var sourcePath = new FlatStartRunLibrary(host.Directory).PathFor(source.RunId);
-            var bytes = await File.ReadAllBytesAsync(sourcePath);
+            var bytes = await EvidenceFiles.ReadAllBytesAsync(sourcePath);
             Find<NumericUpDown>(window, "RefinementBudget").Value = 16;
             Click(window, "Refine"); await window.PendingOperation;
             Assert.NotEqual(source.RunId, window.CurrentCheckpoint!.RunId);
             Assert.Equal(16, window.CurrentCheckpoint.Specification.Budget.MaximumEvaluations);
             Assert.InRange(window.CurrentCheckpoint.ChargedEvaluations, 1, 16);
             Assert.Equal(selected.CandidateId, window.CurrentCheckpoint.Origin!.Source.Candidate!.CandidateId);
-            Assert.Equal(bytes, await File.ReadAllBytesAsync(sourcePath));
+            Assert.Equal(bytes, await EvidenceFiles.ReadAllBytesAsync(sourcePath));
             Assert.NotNull(Find<DataGrid>(window, "Candidates").SelectedItem);
             window.Close();
         });

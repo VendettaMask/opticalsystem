@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
@@ -13,13 +14,13 @@ public sealed class Imported38668AnalysisTests(ITestOutputHelper output)
 {
     internal static string FixturePath => Path.Combine(AppContext.BaseDirectory, "Fixtures", "zmax_38668.ZMX");
 
-    internal static Optic Import() => OpticalFormatCatalog.Import(File.ReadAllText(FixturePath), ".zmx");
+    internal static Optic Import() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(FixturePath), ".zmx");
 
     [Fact]
     public void FixtureMatchesTheReportedFileAndWorkingFNumberMatchesSnellsLaw()
     {
         Assert.Equal("8407918B31B4ADDD03BC0207368AC3571BE43549AADE2F5D395EFE703BC22684",
-            Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(FixturePath))));
+            Convert.ToHexString(SHA256.HashData(EvidenceFiles.ReadAllBytes(FixturePath))));
         var optic = Import();
         var wavelength = Assert.Single(optic.Wavelengths);
         Assert.Equal(355, wavelength.Nanometers, 10);

@@ -33,6 +33,6 @@
 - [窄屏](../validation/rechecks/2026-10-27/user-guide-reader-redesign/previews/guide-zh-CN-Light-520.png)
 - [深色](../validation/rechecks/2026-10-27/user-guide-reader-redesign/previews/guide-zh-CN-Dark-1200.png)
 - [英文](../validation/rechecks/2026-10-27/user-guide-reader-redesign/previews/guide-en-US-Light-1200.png) / [日文](../validation/rechecks/2026-10-27/user-guide-reader-redesign/previews/guide-ja-JP-Light-1200.png)
-- [最终测试](../validation/rechecks/2026-10-27/user-guide-reader-redesign/reader-final.trx)、[构建日志](../validation/rechecks/2026-10-27/user-guide-reader-redesign/reader-final.log)、[冻结核对](../validation/rechecks/2026-10-27/user-guide-reader-redesign/frozen-integrity.json)
+- [最终测试](../validation/rechecks/2026-10-27/user-guide-reader-redesign/reader-final.trx)、[构建日志](../validation/rechecks/2026-10-27/user-guide-reader-redesign/reader-final.log)、[冻结核对](../validation/rechecks/2026-10-27/user-guide/frozen-integrity.json)
 
 使用说明见[用户指南](USER_GUIDE.md)。

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core;
@@ -20,7 +21,7 @@ public sealed class SingleRayPathParityTests
 
     public static IEnumerable<object[]> Captures()
     {
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, "manifest.json")));
         return manifest.RootElement.GetProperty("cases").EnumerateArray()
             .Select(c => new object[] { c.GetProperty("name").GetString()! }).ToArray();
     }
@@ -31,10 +32,10 @@ public sealed class SingleRayPathParityTests
     {
         var directory = Path.Combine(Root, name);
         var optic = Optic.FromSnapshot(JsonSerializer.Deserialize<OpticSnapshot>(
-            File.ReadAllText(Path.Combine(directory, "snapshot.json")), Json)!);
-        using var request = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "canonical-request.json")));
-        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "native-normalized.json")));
-        using var environment = JsonDocument.Parse(File.ReadAllText(Path.Combine(directory, "environment.json")));
+            EvidenceFiles.ReadAllText(Path.Combine(directory, "snapshot.json")), Json)!);
+        using var request = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(directory, "canonical-request.json")));
+        using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(directory, "native-normalized.json")));
+        using var environment = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(directory, "environment.json")));
         Assert.Equal(26, environment.RootElement.GetProperty("major").GetInt32());
         Assert.Equal(1, environment.RootElement.GetProperty("minor").GetInt32());
         Assert.True(environment.RootElement.GetProperty("validLicense").GetBoolean());
@@ -120,13 +121,13 @@ public sealed class SingleRayPathParityTests
     [Fact]
     public void AllOriginalNativeFixtureHashesStayUnchanged()
     {
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, "manifest.json")));
         foreach (var file in manifest.RootElement.GetProperty("files").EnumerateArray())
         {
             var path = Path.GetFullPath(Path.Combine(Root, file.GetProperty("path").GetString()!));
             Assert.StartsWith(Path.GetFullPath(Root) + Path.DirectorySeparatorChar, path);
             Assert.Equal(file.GetProperty("sha256").GetString(), Convert.ToHexString(
-                System.Security.Cryptography.SHA256.HashData(File.ReadAllBytes(path))).ToLowerInvariant());
+                System.Security.Cryptography.SHA256.HashData(EvidenceFiles.ReadAllBytes(path))).ToLowerInvariant());
         }
     }
 

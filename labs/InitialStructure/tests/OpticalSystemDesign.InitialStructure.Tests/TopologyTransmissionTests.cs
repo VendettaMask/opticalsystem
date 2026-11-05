@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -158,7 +159,7 @@ public sealed class TopologyTransmissionTests
     {
         var f = await Fixture();
         var root = new DirectoryInfo(AppContext.BaseDirectory);
-        while (root is not null && !File.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
+        while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
         var old = await new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(root!.FullName,
             "validation/rechecks/2026-10-27/topology-transmission-priority/final-paired-runs/repr-qualified4-wide21-42-C-both/run.autonomous.json"));
         var recorded = old.Events.Single(item => item.Phase == AutonomousSearchPhase.Local).Optimization!;
@@ -183,7 +184,7 @@ public sealed class TopologyTransmissionTests
     private static async Task<(CompiledTopology Source, BoundTopologyParameters Binding, AutonomousSearchPlan Plan, FixedTopologyOptions Options)> Fixture()
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
-        while (root is not null && !File.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
+        while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
         var state = await new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(root!.FullName,
             "validation/rechecks/2026-10-27/topology-edge-loss-repair/budget-control/repr-qualified4-wide21-42-C-boundary-budget/run.autonomous.json"));
         var recovered = state.Events.First(item => item.Recovery?.Termination == ParaxialRecoveryTermination.Recovered && item.Endpoint!.Elements.Length == 3);

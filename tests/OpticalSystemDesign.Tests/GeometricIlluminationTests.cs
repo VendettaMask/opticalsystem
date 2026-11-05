@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
@@ -123,8 +124,8 @@ public sealed class GeometricIlluminationTests(ITestOutputHelper output)
     public void ProductPolZeroCurveRetainsOriginalCapturedRelativeIlluminationGate()
     {
         var fixtures = Path.Combine(AppContext.BaseDirectory, "Fixtures");
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(fixtures, "zemax-123456.ZMX")), ".zmx");
-        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(fixtures, "zemax-123456-relative-illumination.json")));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(fixtures, "zemax-123456.ZMX")), ".zmx");
+        using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(fixtures, "zemax-123456-relative-illumination.json")));
         var data = new WorkbenchRuntime(optic).BuildAnalysisData("Relative Illumination", new Dictionary<string, string>
         {
             ["RayDensity"] = "10",
@@ -164,15 +165,15 @@ public sealed class GeometricIlluminationTests(ITestOutputHelper output)
     public void GeometricRayPowerMatchesExistingNativeUnpolarizedRayControls(string name)
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(root,
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root,
             "validation/zemax/2026-r1/fcgt-efno-2026-10-14/manifest.json")));
         var item = manifest.RootElement.GetProperty("Cases").EnumerateArray()
             .Single(value => value.GetProperty("Name").GetString() == name);
         var sourcePath = Path.Combine(root, item.GetProperty("Source").GetString()!);
         Assert.Equal(item.GetProperty("SourceSha256").GetString(),
-            Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(sourcePath))));
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(sourcePath), ".zmx");
-        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(root,
+            Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(sourcePath))));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(sourcePath), ".zmx");
+        using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root,
             item.GetProperty("Capture").GetString()!, "rays.json")));
         var wave = optic.Wavelengths[native.RootElement.GetProperty("wave").GetInt32() - 1].Micrometers;
         var inputs = native.RootElement.GetProperty("inputs").EnumerateArray().ToArray();

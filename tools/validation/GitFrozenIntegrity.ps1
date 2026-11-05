@@ -76,6 +76,7 @@ function Read-GitFrozenBlob([string]$RelativePath) {
     [pscustomobject]@{sha256=$actual; blob=$blob; bytes=$length}
 }
 $mapReport = $null
+$storageReport = $null
 try {
     foreach ($entry in $plan.entries) {
         $content = Read-GitFrozenBlob $entry.resolvedPath
@@ -83,6 +84,9 @@ try {
         $originalPresent = $false
         if ($entry.path -cne $entry.resolvedPath) {
             $originalPresent = $null -ne (Read-GitFrozenBlob $entry.path).blob
+        }
+        if ($entry.storageAliasPath -and $entry.storageAliasPath -cne $entry.path) {
+            $originalPresent = $originalPresent -or $null -ne (Read-GitFrozenBlob $entry.storageAliasPath).blob
         }
         $rows.Add([pscustomobject]@{path=$entry.path; resolvedPath=$entry.resolvedPath; expectedSha256=$entry.sha256;
             actualSha256=$content.sha256; gitBlob=$content.blob; bytes=$content.bytes; originalPathPresent=$originalPresent;
@@ -97,6 +101,13 @@ try {
             expectedSha256=$plan.relocationMap.sha256; actualSha256=$content.sha256;
             gitBlob=$content.blob; gitLinkPath=$gitLink; matches=(!$gitLink -and $content.sha256 -ceq $plan.relocationMap.sha256)}
     }
+    if ($plan.storageAliases) {
+        $content = Read-GitFrozenBlob $plan.storageAliases.path
+        $gitLink = Get-GitFrozenLink $plan.storageAliases.path
+        $storageReport = [pscustomobject]@{path=$plan.storageAliases.path; count=$plan.storageAliases.count;
+            expectedSha256=$plan.storageAliases.sha256; actualSha256=$content.sha256;
+            gitBlob=$content.blob; gitLinkPath=$gitLink; matches=(!$gitLink -and $content.sha256 -ceq $plan.storageAliases.sha256)}
+    }
     $process.StandardInput.Close()
     if (!$process.WaitForExit(10000)) { throw 'Git batch did not exit.' }
     if ($process.ExitCode -ne 0) { throw ('Git batch failed: ' + $errors.GetAwaiter().GetResult()) }
@@ -110,8 +121,8 @@ $report = [ordered]@{source=$Source; commit=$revision; count=$rows.Count;
     matched=($rows.Count-$mismatches.Count); expectedAggregateSha256=$working.expectedAggregateSha256;
     actualAggregateSha256=$aggregate;
     unchanged=($mismatches.Count -eq 0 -and $aggregate -ceq $working.expectedAggregateSha256 -and
-        (!$mapReport -or $mapReport.matches));
-    mismatches=$mismatches; relocationMap=$mapReport;
+        (!$mapReport -or $mapReport.matches) -and (!$storageReport -or $storageReport.matches));
+    mismatches=$mismatches; relocationMap=$mapReport; storageAliases=$storageReport;
     relocations=@($rows | Where-Object { $_.path -cne $_.resolvedPath }); workingTree=$working}
 $json = $report | ConvertTo-Json -Depth 8
 if ($OutputPath) {

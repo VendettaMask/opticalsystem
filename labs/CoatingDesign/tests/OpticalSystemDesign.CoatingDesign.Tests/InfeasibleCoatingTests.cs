@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Reflection;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
@@ -15,7 +16,7 @@ public sealed class InfeasibleCoatingTests
     [InlineData("ir-absorbing-s")]
     public async Task FrozenFailuresImproveAgainstThePreviousEngineWithoutChangingMaterialsTargetsOrBudget(string name)
     {
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/coating-infeasible-20261030.json")));
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/coating-infeasible-20261030.json")));
         var c = fixture.RootElement.GetProperty("Cases").EnumerateArray().Single(c => c.GetProperty("Input").GetProperty("Name").GetString() == name);
         var input = c.GetProperty("Input").Deserialize<Experiment>(Experiment.JsonOptions)!;
         var fingerprint = input.Fingerprint(); var service = new DesignService(); var output = service.Optimize(input);

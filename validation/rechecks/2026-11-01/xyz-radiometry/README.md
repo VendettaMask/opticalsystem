@@ -21,9 +21,9 @@
 
 - [最终TRX](gamut-final-focused.trx)、[日志](test-gamut-final-focused.log)、[可复查运行脚本](run-focused.ps1)。过滤器覆盖新XYZ域约束、Speos v11、二进制/Zemax、实测/Lambertian、NSC相机/杂散光和文档边界。
 - [运行前](before-gamut-final-run.json)、[运行后](after-gamut-final-run.json)、[无漂移核对](final-run-integrity.json)、[副本一致性](pre-final-copy-identity.json)、[最终汇总](final-verification-summary.json)。汇总保留真实材料/商业认证未通过标记。
-- [默认App最终构建](build-gamut-app-final.log)、[测试最终构建](build-gamut-tests-final.log)、[XYZ诊断构建](build-xyz-diagnostic-final.log)、[White诊断构建](build-power-diagnostic-final.log)。测试/诊断在默认App完成后使用BuildProjectReferences=false，未把旧Core驱动结果作为最终结果。
+- [默认App最终构建](build-gamut-app-final.log)、[测试最终构建](../../2026-10-31/speos-v11-xyz/build-final-tests.log)、[XYZ诊断构建](build-xyz-diagnostic-final.log)、[White诊断构建](build-power-diagnostic-final.log)。测试/诊断在默认App完成后使用BuildProjectReferences=false，未把旧Core驱动结果作为最终结果。
 - [旧证据核对](prior-evidence-integrity.json)与[White23组复算](white-power-recheck/runtime6-native-power-audit.json)。功率驱动新增可选独立输出目录，仅输出新根，原捕获与旧结果均未覆盖。
-- 新链路：[反射](gamut-final-xyz-chain/gamut-chain-False.json)、[透射](gamut-final-xyz-chain/gamut-chain-True.json)及同目录相机ZIP。数据库/工程v15、禁用对象降级拒绝、越域导入原子性、旧Grid/6 ZIP重放均有事实断言。
+- 新链路：[反射](../xyz-reconstruction/final-test-gamut/gamut-chain-False.json)、[透射](../xyz-reconstruction/final-test-gamut/gamut-chain-True.json)及同目录相机ZIP。数据库/工程v15、禁用对象降级拒绝、越域导入原子性、旧Grid/6 ZIP重放均有事实断言。
 
 `gamut-final-chain/`、`gamut-final-results/`保存原集合本次执行产生的能量/采样、White、XYZ原模型和相机机器结果；不覆盖旧阶段结果。
 

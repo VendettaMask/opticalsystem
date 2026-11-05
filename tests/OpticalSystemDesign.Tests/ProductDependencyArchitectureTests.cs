@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
@@ -24,14 +25,14 @@ public sealed class ProductDependencyArchitectureTests
     {
         var root = RepositoryRoot();
         var inputs = ProductSourceRoots(root).SelectMany(SourceFiles)
-            .Concat(Directory.EnumerateFiles(root).Where(path =>
+            .Concat(EvidenceFiles.EnumerateFiles(root).Where(path =>
                 Path.GetExtension(path) is ".props" or ".targets" or ".cmd" or ".command"))
             .Concat(SourceFiles(Path.Combine(root, "packaging")))
             .Where(path => Path.GetExtension(path) is ".cs" or ".csproj" or ".props" or ".targets"
                 or ".json" or ".cmd" or ".command" or ".ps1" or ".sh");
         var violations = inputs.SelectMany(path =>
             {
-                var source = File.ReadAllText(path);
+                var source = EvidenceFiles.ReadAllText(path);
                 var lines = source.Split('\n');
                 return ForbiddenSourceLines(source, Path.GetExtension(path)).Select(line =>
                     $"{Path.GetRelativePath(root, path)}:{line + 1}: {lines[line].TrimEnd('\r')}");
@@ -55,7 +56,7 @@ public sealed class ProductDependencyArchitectureTests
                 var target = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(project)!,
                     reference.Attribute("Include")!.Value.Replace('\\', Path.DirectorySeparatorChar)));
                 Assert.Contains(roots, root => target.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase));
-                Assert.True(File.Exists(target), target);
+                Assert.True(EvidenceFiles.Exists(target), target);
             }
         }
 
@@ -86,8 +87,8 @@ public sealed class ProductDependencyArchitectureTests
     [InlineData(".cs", "#if OUTER\n#if INNER\nProcess.Start(\"python\");\n#endif\n#endif")]
     [InlineData(".csproj", "<PackageReference Include=\"pythonnet\" />")]
     [InlineData(".props", "<Content Include=\"../../tools/python-reference/input.json\" />")]
-    [InlineData(".cs", "File.ReadAllText(\"../../validation/history/reference.json\");")]
-    [InlineData(".cs", "File.ReadAllText(@\"..\u005c..\u005cvalidation\u005chistory\u005creference.json\");")]
+    [InlineData(".cs", "EvidenceFiles.ReadAllText(\"../../validation/history/reference.json\");")]
+    [InlineData(".cs", "EvidenceFiles.ReadAllText(@\"..\u005c..\u005cvalidation\u005chistory\u005creference.json\");")]
     [InlineData(".ps1", "& python3 worker.py")]
     [InlineData(".json", "{\"runtime\":\"python\"}")]
     public void DependencyGuardDetectsProhibitedRuntimeAndAssetReferences(string extension, string source)
@@ -171,7 +172,7 @@ public sealed class ProductDependencyArchitectureTests
         return false;
     }
 
-    private static IEnumerable<string> SourceFiles(string root) => Directory.EnumerateFiles(root, "*", SearchOption.AllDirectories)
+    private static IEnumerable<string> SourceFiles(string root) => EvidenceFiles.EnumerateFiles(root, "*", SearchOption.AllDirectories)
         .Where(path => !Path.GetRelativePath(root, path).Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
             .Any(part => part is "bin" or "obj"));
 
@@ -183,7 +184,7 @@ public sealed class ProductDependencyArchitectureTests
     {
         for (var directory = new DirectoryInfo(AppContext.BaseDirectory); directory is not null; directory = directory.Parent)
         {
-            if (File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx")))
+            if (EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx")))
             {
                 return directory.FullName;
             }

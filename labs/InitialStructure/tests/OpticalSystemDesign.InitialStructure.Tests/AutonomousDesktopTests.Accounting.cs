@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using Avalonia.Controls;
@@ -199,7 +200,7 @@ public sealed partial class AutonomousDesktopTests
     {
         using var files = new OwnedFiles();
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(System.IO.Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
+        while (directory is not null && !EvidenceFiles.Exists(System.IO.Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
         var path = System.IO.Path.Combine(directory!.FullName, "validation/rechecks/2026-10-26/autonomous-search-m4/checkpoint-interrupted.json");
         var store = new AutonomousSearchCheckpointStore();
         var interrupted = await store.LoadAsync(path);

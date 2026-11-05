@@ -11,6 +11,22 @@ namespace OpticalSystemDesign.Tests;
 public sealed class ThemeResourceTests
 {
     [Fact]
+    public void RetiredIconImplementationsAndResourcesAreNotShipped()
+    {
+        var assembly = typeof(LocalIcon).Assembly;
+        Assert.Null(assembly.GetType("OpticalSystemDesign.App.Theming.IsekaiThemeIconPack"));
+        Assert.Null(assembly.GetType("OpticalSystemDesign.App.Theming.PixelThemeIconPack"));
+        Assert.Null(assembly.GetType("OpticalSystemDesign.App.Controls.StandardThemeIconPack"));
+        Assert.DoesNotContain(assembly.GetManifestResourceNames(), name =>
+            name.Contains("FarmFresh32", StringComparison.Ordinal) ||
+            name.EndsWith("game-icons-isekai.json", StringComparison.Ordinal) ||
+            name.EndsWith("farm-fresh-icons.json", StringComparison.Ordinal) ||
+            name.EndsWith("lucide-icon-nodes.json", StringComparison.Ordinal));
+        Assert.All(ThemeRegistry.ConcreteThemes, theme =>
+            Assert.StartsWith("ScientificOutline:", theme.IconPack.Id, StringComparison.Ordinal));
+    }
+
+    [Fact]
     public void ReferenceWorkbenchResourcesStayInsideTheLightTheme()
     {
         foreach (var theme in ThemeRegistry.ConcreteThemes)
@@ -209,7 +225,7 @@ public sealed class ThemeResourceTests
     }
 
     [Fact]
-    public void IsekaiUsesScientificThemeColoursAndRetainsArchivedArtworkAttributionAndChrome()
+    public void IsekaiUsesScientificThemeColoursAndChrome()
     {
         Assert.Equal("ScientificOutline:Isekai", ThemeIconResolver.PackId(IsekaiTheme.Variant));
         Assert.True(ThemeIconResolver.TryResolve(ThemeVariant.Light, "save", out var standard));
@@ -220,22 +236,6 @@ public sealed class ThemeResourceTests
         Assert.Equal(Matrix.Identity, isekai.ContentTransform);
         Assert.Equal(PenLineCap.Round, isekai.LineCap);
         Assert.Equal(ScientificIconPalette.IsekaiArcane.Signal, ThemeRegistry.FromSettings("Isekai").IconPalette.Signal);
-
-        Assert.True(IsekaiThemeIconPack.Names.Count >= 80);
-        Assert.All(IsekaiThemeIconPack.Names, iconName =>
-        {
-            Assert.True(
-                IsekaiThemeIconPack.Instance.TryResolve(iconName, out var imported),
-                $"异世界图标包无法解析语义图标 '{iconName}'。");
-            Assert.True(StandardThemeIconPack.Instance.TryResolve(iconName, out var standardIcon));
-            Assert.NotSame(standardIcon, imported);
-            Assert.NotEmpty(imported.Primitives);
-            Assert.Empty(imported.AccentPrimitives);
-            Assert.All(imported.Primitives, primitive => Assert.IsType<FilledPathPrimitive>(primitive));
-            Assert.True(IsekaiThemeIconPack.TryGetAttribution(iconName, out var attribution));
-            Assert.False(string.IsNullOrWhiteSpace(attribution.Author));
-            Assert.EndsWith(".svg", attribution.Source, StringComparison.Ordinal);
-        });
 
         var profile = ThemeRegistry.FromSettings(IsekaiTheme.SettingsValue).Chrome;
         Assert.Equal(new Thickness(1), profile[ThemeChromeRole.SettingsCard].BorderThickness);
@@ -276,15 +276,6 @@ public sealed class ThemeResourceTests
         Assert.Equal(1, pixel.StrokeWidthScale, precision: 12);
         Assert.False(pixel.UseAliasedEdges);
         Assert.False(standard.UseAliasedEdges);
-        Assert.Equal(87, PixelThemeIconPack.Names.Count);
-        Assert.True(PixelThemeIconPack.TryGetSource("save", out var saveSource));
-        Assert.Equal("diskette.png", saveSource);
-        Assert.All(LocalIconLibrary.Names, iconName =>
-            Assert.True(PixelThemeIconPack.Instance.TryResolve(iconName, out _)));
-        Assert.True(PixelThemeIconPack.Instance.TryResolve("not-a-real-icon", out var fallback));
-        Assert.True(PixelThemeIconPack.Instance.TryResolve("circle-question-mark", out var question));
-        Assert.Same(question, fallback);
-
         var standardChrome = ThemeRegistry.FromSettings("Light").Chrome;
         var pixelChrome = ThemeRegistry.FromSettings(PixelTheme.SettingsValue).Chrome;
         foreach (var role in Enum.GetValues<ThemeChromeRole>())
@@ -342,63 +333,6 @@ public sealed class ThemeResourceTests
     }
 
     [Fact]
-    public void ThemeIconPacksOwnImportedAssetsAndFallbackPolicy()
-    {
-        Assert.True(IsekaiThemeIconPack.Instance.TryResolve("save", out var imported));
-        Assert.Empty(imported.AccentPrimitives);
-        Assert.NotEqual(Matrix.Identity, imported.ContentTransform);
-        Assert.True(IsekaiThemeIconPack.TryGetAttribution("save", out var attribution));
-        Assert.Equal("delapouite", attribution.Author);
-        Assert.Equal("delapouite/save.svg", attribution.Source);
-
-        Assert.True(IsekaiThemeIconPack.Instance.TryResolve("accessibility", out var unmapped));
-
-        Assert.True(IsekaiThemeIconPack.Instance.TryResolve("not-a-real-icon", out var fallback));
-        Assert.True(IsekaiThemeIconPack.Instance.TryResolve("circle-question-mark", out var question));
-        Assert.Same(question, fallback);
-        Assert.Same(question, unmapped);
-    }
-
-    [Fact]
-    public void IsekaiIconMappingsKeepReviewedOperationsSemanticallyDistinct()
-    {
-        var expectedSources = new Dictionary<string, string>
-        {
-            ["grid-2x2"] = "skoll/divided-square.svg",
-            ["list-tree"] = "lorc/checkbox-tree.svg",
-            ["picture-in-picture-2"] = "delapouite/window.svg",
-            ["search"] = "lorc/magnifying-glass.svg",
-            ["zoom-in"] = "delapouite/expand.svg",
-            ["zoom-out"] = "delapouite/contract.svg",
-            ["file-plus"] = "delapouite/scroll-quill.svg",
-            ["type"] = "lorc/quill-ink.svg",
-            ["package-search"] = "delapouite/archive-research.svg",
-            ["scan-search"] = "lorc/radar-sweep.svg"
-        };
-
-        foreach (var (iconName, expectedSource) in expectedSources)
-        {
-            Assert.True(IsekaiThemeIconPack.TryGetAttribution(iconName, out var attribution));
-            Assert.Equal(expectedSource, attribution.Source);
-        }
-
-        AssertDistinctSources("grid-2x2", "list-tree", "picture-in-picture-2");
-        AssertDistinctSources("search", "zoom-in", "zoom-out");
-        AssertDistinctSources("file-plus", "type");
-        AssertDistinctSources("package-search", "scan-search");
-
-        static void AssertDistinctSources(params string[] iconNames)
-        {
-            var sources = iconNames.Select(iconName =>
-            {
-                Assert.True(IsekaiThemeIconPack.TryGetAttribution(iconName, out var attribution));
-                return attribution.Source;
-            });
-            Assert.Equal(iconNames.Length, sources.Distinct(StringComparer.Ordinal).Count());
-        }
-    }
-
-    [Fact]
     public void ThemeChromeOverlayIsInputTransparentAndDoesNotRequestLayoutSpace()
     {
         var chrome = new ThemeChromeOverlay { Role = ThemeChromeRole.Ribbon };
@@ -435,7 +369,7 @@ public sealed class ThemeResourceTests
 
     private static void AssertBrush(ResourceDictionary resources, string key)
     {
-        Assert.True(resources.ContainsKey(key));
+        Assert.True(resources.ContainsKey(key), $"Missing theme brush: {key}");
         Assert.IsAssignableFrom<IBrush>(resources[key]);
     }
 
@@ -507,6 +441,6 @@ public sealed class ThemeResourceTests
         public string Id => "TestThemeIcons";
 
         public bool TryResolve(string iconName, out IconDefinition definition) =>
-            StandardThemeIconPack.Instance.TryResolve(iconName, out definition!);
+            new ScientificThemeIconPack("Light").TryResolve(iconName, out definition!);
     }
 }

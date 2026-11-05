@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.ZemaxComparison;
@@ -17,10 +18,10 @@ public sealed class ZeroFieldDomainTests
     public async Task FreshCoreOnAxisValuesMatchIndependentNativeCapture(string id)
     {
         var root = Path.Combine(AppContext.BaseDirectory, "Fixtures/zero-field");
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "manifest.json")));
-        Assert.Equal(manifest.RootElement.GetProperty("sourceSha256").GetString(), JsonFiles.Hash(File.ReadAllBytes(Path.Combine(root, "source.zmx"))));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root, "manifest.json")));
+        Assert.Equal(manifest.RootElement.GetProperty("sourceSha256").GetString(), JsonFiles.Hash(EvidenceFiles.ReadAllBytes(Path.Combine(root, "source.zmx"))));
         foreach (var file in manifest.RootElement.GetProperty("files").EnumerateArray())
-            Assert.Equal(file.GetProperty("sha256").GetString(), JsonFiles.Hash(File.ReadAllBytes(Path.Combine(root, file.GetProperty("path").GetString()!))));
+            Assert.Equal(file.GetProperty("sha256").GetString(), JsonFiles.Hash(EvidenceFiles.ReadAllBytes(Path.Combine(root, file.GetProperty("path").GetString()!))));
         var request = JsonFiles.Read<CanonicalAnalysisRequest>(Path.Combine(root, id, "request.json"));
         Assert.Equal(0, request.MaximumFieldRadius);
         var optic = (await WorkbenchExecutor.Import(Path.Combine(root, "source.zmx"))).Configurations[0];

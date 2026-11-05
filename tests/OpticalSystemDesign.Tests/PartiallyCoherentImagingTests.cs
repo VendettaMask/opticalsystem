@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Numerics;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
@@ -362,7 +363,7 @@ public sealed class PartiallyCoherentImagingTests
             }));
     }
 
-    private static Optic Primary() => OpticalFormatCatalog.Import(File.ReadAllText(
+    private static Optic Primary() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(
         Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
 
     private static RgbImage PairSource()

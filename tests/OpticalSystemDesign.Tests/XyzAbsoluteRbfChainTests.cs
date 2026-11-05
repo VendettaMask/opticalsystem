@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Contracts;
@@ -27,7 +28,7 @@ public sealed class XyzAbsoluteRbfChainTests
         for(int y=0;y<32;y++)for(int x=0;x<32;x++){var qe=(y%2,x%2) switch{(0,0)=>.2,(1,1)=>.8,_=>.5};var expected=input.Bands.Sum(b=>b.PixelPowerWatts[(31-y)*32+x]*.01*b.WavelengthNanometers*1e-9/hc*qe);max=Math.Max(max,Math.Abs(expected-run.PhotoElectrons[y*32+x]));Assert.InRange(Math.Abs(expected-run.PhotoElectrons[y*32+x]),0,1e-11);}
         var experiment=files.Path("positive.camera-experiment.zip");await app.CameraImaging.SaveExperimentAsync(new(CameraExperiment.FormatIdentifier,1,run,run),experiment);
         var project=files.Path("positive.staropt");await app.Documents.SaveAsync(project);
-        using(var raw=File.OpenRead(project)){raw.Position=52;using var z=new BrotliStream(raw,CompressionMode.Decompress);using var json=await JsonDocument.ParseAsync(z);Assert.Equal(19,json.RootElement.GetProperty("FormatVersion").GetInt32());}
+        using(var raw=EvidenceFiles.OpenRead(project)){raw.Position=52;using var z=new BrotliStream(raw,CompressionMode.Decompress);using var json=await JsonDocument.ParseAsync(z);Assert.Equal(19,json.RootElement.GetProperty("FormatVersion").GetInt32());}
         File.Delete(xyz);File.Delete(calibration);await app.NonSequentialAnalysis.ClearDetectorsAsync();app.Documents.NewBlank();await app.Documents.OpenAsync(project);
         Assert.Equal(model.MeasuredData!.DataSha256,app.NonSequential.GetDocument().Objects.Single(o=>o.Id==scene.Plane).SurfaceBsdf!.MeasuredData!.DataSha256);app.Documents.NewBlank();
         var opened=await app.CameraImaging.OpenExperimentAsync(experiment);var replay=await app.CameraImaging.RecomputeAsync(opened.B);
@@ -49,7 +50,7 @@ public sealed class XyzAbsoluteRbfChainTests
     {
         var data=XyzAbsoluteRbfTests.Read();var scene=CommercialBsdfNscTests.Scene();var plane=scene.Objects[1];
         scene.Replace(plane.Id,plane with{Enabled=false,Parameters=new CoreNsc.PlaneRectangleParameters(1,1,CoreNsc.NonSequentialSurfaceBehavior.Reflective,"AIR","AIR"),SurfaceBsdf=new(CoreNsc.NonSequentialBsdfKind.Measured,0,data)});
-        using var files=new CameraSensorFileTests.TemporaryFiles();var file=files.Path("positive.staropt");await StarOptProjectStore.SaveAsync(new([Optic.CreateBlank()],0,NonSequentialDocument:scene),file);var bytes=await File.ReadAllBytesAsync(file);
+        using var files=new CameraSensorFileTests.TemporaryFiles();var file=files.Path("positive.staropt");await StarOptProjectStore.SaveAsync(new([Optic.CreateBlank()],0,NonSequentialDocument:scene),file);var bytes=await EvidenceFiles.ReadAllBytesAsync(file);
         using var raw=new MemoryStream(bytes);raw.Position=52;using var z=new BrotliStream(raw,CompressionMode.Decompress);using var json=JsonDocument.Parse(z);var changed=System.Text.Json.Nodes.JsonNode.Parse(json.RootElement.GetRawText())!;changed["FormatVersion"]=18;
         var payload=System.Text.Encoding.UTF8.GetBytes(changed.ToJsonString());using var packed=new MemoryStream();using(var compressor=new BrotliStream(packed,CompressionLevel.Optimal,true))compressor.Write(payload);
         var header=bytes[..52];System.Buffers.Binary.BinaryPrimitives.WriteInt32LittleEndian(header.AsSpan(12),payload.Length);System.Buffers.Binary.BinaryPrimitives.WriteInt32LittleEndian(header.AsSpan(16),(int)packed.Length);System.Security.Cryptography.SHA256.HashData(payload).CopyTo(header,20);

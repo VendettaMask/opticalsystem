@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Coatings;
@@ -10,7 +11,7 @@ public sealed class DuplexCoatingTests
     [Fact]
     public void BothCoherentFacesMatch162IndependentMixedCoherenceReferences()
     {
-        using var json = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/duplex-substrate-20261102.json")));
+        using var json = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/duplex-substrate-20261102.json")));
         var cases = json.RootElement.GetProperty("cases").EnumerateArray().ToArray(); Assert.Equal(162, cases.Length);
         foreach (var sample in cases)
         {
@@ -164,10 +165,10 @@ public sealed class DuplexCoatingTests
             Assert.Throws<InvalidDataException>(() => (result with { Duplex = result.Duplex! with { Version = 99 } }).Validate());
             Assert.Throws<InvalidDataException>(() => (result with { Duplex = new(CoatingDesignSurface.Both, CoatingEvaluationSurface.Front) }).Validate());
             await ExperimentStore.ExportAsync(result, exportDirectory);
-            Assert.Equal(2, File.ReadAllLines(Path.Combine(exportDirectory, "back-layers.csv")).Length);
-            Assert.Contains("WholePlate", File.ReadAllText(Path.Combine(exportDirectory, "evaluation.json")));
+            Assert.Equal(2, EvidenceFiles.ReadAllLines(Path.Combine(exportDirectory, "back-layers.csv")).Length);
+            Assert.Contains("WholePlate", EvidenceFiles.ReadAllText(Path.Combine(exportDirectory, "evaluation.json")));
         }
-        finally { File.Delete(path); if (Directory.Exists(exportDirectory)) Directory.Delete(exportDirectory, true); }
+        finally { File.Delete(path); if (EvidenceFiles.DirectoryExists(exportDirectory)) Directory.Delete(exportDirectory, true); }
     }
 
     [Fact]

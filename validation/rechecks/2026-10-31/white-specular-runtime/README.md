@@ -20,7 +20,7 @@
 
 ## 判定文件
 
-- [最终23组原生功率/方向矩审计](runtime6-native-power-audit.json)、[执行日志](runtime6-final2-native-audit.log)。全半球减独立背板遮挡，与HTML场景逃逸比较；容差为0.5 µW显示舍入加按实际发射数计算的六西格玛加权MC方差。有限窗口通量未缩放到全半球。
+- [最终23组原生功率/方向矩审计](runtime6-native-power-audit.json)、[执行日志](../../2026-11-01/xyz-angular/final-white.log)。全半球减独立背板遮挡，与HTML场景逃逸比较；容差为0.5 µW显示舍入加按实际发射数计算的六西格玛加权MC方差。有限窗口通量未缩放到全半球。
 - [原生功率账本](native-power-ledger.json)逐项列出输入SHA、实际光线数、场景R/A/逃逸及HTML/XMP摘要；最大账本闭合差5.55112e−17 W。`Update-Ledger.ps1` 从各独立case的HTML与trace元数据生成。
 - [最终TRX](runtime6-final2-focused.trx)、[日志](test-runtime6-final2-focused.log)、[运行脚本](run-runtime6-final2-focused.ps1)。包括White、Speos v11/XYZ、二进制/Zemax BSDF、Lambertian/Measured BSDF、NSC相机/杂散光、文档边界和旧链路回放，不是全仓基线。
 - [运行前](before-runtime6-final2-run.json)、[运行后](after-runtime6-final2-run.json)、[无漂移核对](runtime6-final2-run-integrity.json)、[App/测试副本身份](pre-runtime6-final2-test-copy-identity.json)。最终Core SHA-256：`4bd425b9eb1d32709d941abf83c27398eb87e986a33b54b9586339d0ff0a66ea`；数值诊断：`f17200b6c96bb8908285801b34fa99a7efa6b5d5f5eef09af5453077814a5b81`。
@@ -29,7 +29,7 @@
 
 `runtime6-final2-chain/` 与 `runtime6-final2-results/` 保存本次链路、电子/RAW/ISP、保存重开及独立采样检查的机器结果。旧Grid/5 ZIP逐值电子/RAW/ISP重放为自动化事实断言；其余Grid/4等旧冻结夹具继续参加回归。
 
-[White链路](runtime6-final2-chain/chain-speos-white.json)执行16,384次抽样，工程v14，光子→电子独立换算最大差9.09495e−13 e⁻，冻结RAW/ISP逐值一致；[联合R/T统计](runtime6-final2-chain/joint-white-400.json)保持六西格玛二项统计门槛。[最终汇总](final-verification-summary.json)仅汇集明确判定，不把XYZ失败或未执行GUI范围计入通过。
+[White链路](../../2026-11-01/xyz-reconstruction/final-test-xyz/chain-speos-white.json)执行16,384次抽样，工程v14，光子→电子独立换算最大差9.09495e−13 e⁻，冻结RAW/ISP逐值一致；[联合R/T统计](../../2026-11-01/xyz-reconstruction/final-test-xyz/joint-white-400.json)保持六西格玛二项统计门槛。[最终汇总](final-verification-summary.json)仅汇集明确判定，不把XYZ失败或未执行GUI范围计入通过。
 
 ## 捕获范围与独立性
 

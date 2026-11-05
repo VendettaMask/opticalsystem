@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.FileIO;
@@ -70,7 +71,7 @@ public sealed class GlassCatalogTests
     [Fact]
     public void CatalogIndicesAndExtinctionMatchFrozenReference()
     {
-        using var expected = JsonDocument.Parse(File.ReadAllText(
+        using var expected = JsonDocument.Parse(EvidenceFiles.ReadAllText(
             FrozenHistoryFixture.PathFor("optiland-0.5.8-glass-reference.json")));
         var registry = new MaterialRegistry();
         var root = expected.RootElement;

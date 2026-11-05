@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Materials;
@@ -9,7 +10,7 @@ public sealed class DuplexSensitivityTests
     [Fact]
     public void BothFaceAdjointsMatchCentralDifferencesAcross162IndependentPhysicalInputs()
     {
-        using var json = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/duplex-substrate-20261102.json")));
+        using var json = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures/duplex-substrate-20261102.json")));
         foreach (var sample in json.RootElement.GetProperty("cases").EnumerateArray())
         {
             static IMaterial M(JsonElement n) => new ConstantIndexMaterial("independent input", n[0].GetDouble(), n[1].GetDouble());

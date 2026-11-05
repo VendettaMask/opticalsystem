@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Numerics;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
@@ -231,6 +232,6 @@ public sealed class OpticalNumericalConsistencyTests
         Assert.Equal(result.OutcomeReason, dto.OutcomeReason);
     }
 
-    private static Optic Baseline() => OpticalFormatCatalog.Import(File.ReadAllText(
+    private static Optic Baseline() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(
         Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
 }

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -16,10 +17,10 @@ public sealed class AfocalPsfContractTests(ITestOutputHelper output)
     private static readonly Lazy<Dictionary<string, byte[]>> Files = new(() =>
     {
         var directory = Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-psf-contract");
-        var manifestBytes = File.ReadAllBytes(Path.Combine(directory, "manifest.json"));
+        var manifestBytes = EvidenceFiles.ReadAllBytes(Path.Combine(directory, "manifest.json"));
         using var manifest = JsonDocument.Parse(manifestBytes);
         var source = Path.Combine(directory, "source-evidence.zip");
-        using (var stream = File.OpenRead(source))
+        using (var stream = EvidenceFiles.OpenRead(source))
             Assert.Equal(manifest.RootElement.GetProperty("sourceArchiveSha256").GetString(),
                 Convert.ToHexStringLower(SHA256.HashData(stream)));
         using var zip = ZipFile.OpenRead(source);
@@ -96,7 +97,7 @@ public sealed class AfocalPsfContractTests(ITestOutputHelper output)
         var request = row.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
         var outcomes = JsonFiles.Read<JsonElement>(Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-current-grid-expectations.json"));
         Assert.Equal(outcomes.GetProperty("originalManifestSha256").GetString(),
-            Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory,
+            Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(Path.Combine(AppContext.BaseDirectory,
                 "Fixtures/afocal-psf-contract/manifest.json")))));
         Assert.Equal(Manifest().GetProperty("cases").GetArrayLength(), outcomes.GetProperty("cases").GetArrayLength());
         var current = outcomes.GetProperty("cases").EnumerateArray().Single(c => c.GetProperty("id").GetString() == id);
@@ -196,7 +197,7 @@ public sealed class AfocalPsfContractTests(ITestOutputHelper output)
         try
         {
             var path = Path.Combine(directory, "captured-settings.json");
-            var capture = JsonNode.Parse(File.ReadAllText(path))!;
+            var capture = JsonNode.Parse(EvidenceFiles.ReadAllText(path))!;
             capture[group]![key] = JsonNode.Parse(value);
             File.WriteAllText(path, capture.ToJsonString());
             Assert.Throws<InvalidDataException>(() => ResultNormalizer.Zemax(Path.Combine(directory, "data.json"),

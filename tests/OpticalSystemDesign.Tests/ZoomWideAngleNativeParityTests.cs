@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Backend;
@@ -171,7 +172,7 @@ public sealed class ZoomWideAngleNativeParityTests
     private static ZipArchive OpenReference()
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
-        while (root is not null && !File.Exists(Path.Combine(root.FullName, "OpticalSystemDesign.slnx"))) root = root.Parent;
+        while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "OpticalSystemDesign.slnx"))) root = root.Parent;
         return ZipFile.OpenRead(Path.Combine(root?.FullName ?? throw new DirectoryNotFoundException("Repository not found"),
             "validation/zemax/2026-r1/standard-matrix-2026-10-15/native-and-core-evidence.zip"));
     }

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis.Imaging;
 
@@ -10,7 +11,7 @@ public sealed class CameraPublishedSensorTests
     [InlineData(0)] [InlineData(1)] [InlineData(2)] [InlineData(3)]
     public void PublishedQeAtItsActualWavelengthProducesTheExpectedPhotocharge(int row)
     {
-        using var doc = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "camera-flir-bfs-u3-23s6-points.json")));
+        using var doc = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "camera-flir-bfs-u3-23s6-points.json")));
         var data = doc.RootElement; var point = data.GetProperty("points")[row];
         var wavelength = point.GetProperty("wavelengthNanometers").GetDouble(); var qe = point.GetProperty("qe").GetDouble();
         const double photons = 1000; const double hc = 6.62607015e-34 * 299792458;
@@ -32,7 +33,7 @@ public sealed class CameraPublishedSensorTests
     [InlineData(0)] [InlineData(1)]
     public void ReportedReadNoiseAndWellCapacityRemainPhysicalElectronParameters(int row)
     {
-        using var doc = JsonDocument.Parse(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "camera-flir-bfs-u3-23s6-points.json")));
+        using var doc = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "camera-flir-bfs-u3-23s6-points.json")));
         var point = doc.RootElement.GetProperty("points")[row];
         var noise = point.GetProperty("readNoiseElectrons").GetDouble(); var well = point.GetProperty("wellElectrons").GetDouble();
         var sensor = new CameraSensorSettings(NoiseEnabled: true, ReadNoiseElectrons: noise, DarkElectronsPerSecond: 0,

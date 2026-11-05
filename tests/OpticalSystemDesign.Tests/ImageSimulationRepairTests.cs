@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
@@ -400,7 +401,7 @@ public sealed class ImageSimulationRepairTests
         return optic;
     }
 
-    private static Optic PrimaryOptic() => OpticalFormatCatalog.Import(File.ReadAllText(
+    private static Optic PrimaryOptic() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(
         Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
 
     private static ImageSimulationConfig Config(bool polarization = false, bool fixedApertures = true,

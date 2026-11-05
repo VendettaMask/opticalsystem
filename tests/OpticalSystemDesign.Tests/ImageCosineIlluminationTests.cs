@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
@@ -211,7 +212,7 @@ public sealed class ImageCosineIlluminationTests(ITestOutputHelper output)
     [Fact]
     public void CapturedFileDensityStudyReportsCurrentGridWithoutClaimingNativeEquivalence()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
         optic = AnalysisTrace.PrepareVignettingFactors(optic, true);
         foreach (var density in new[] { 10, 20, 40 })
         {

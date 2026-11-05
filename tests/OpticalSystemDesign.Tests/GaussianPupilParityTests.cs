@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core;
@@ -13,7 +14,7 @@ public sealed class GaussianPupilParityTests
 {
     private static string Root => Path.Combine(AppContext.BaseDirectory, "Fixtures", "tessar-ray-audit");
     private static Optic Load(string name) => Optic.FromSnapshot(JsonSerializer.Deserialize<OpticSnapshot>(
-        File.ReadAllText(Path.Combine(Root, name, "snapshot.json")), new JsonSerializerOptions
+        EvidenceFiles.ReadAllText(Path.Combine(Root, name, "snapshot.json")), new JsonSerializerOptions
         { PropertyNameCaseInsensitive = true, NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals })!);
 
     [Theory]
@@ -50,10 +51,10 @@ public sealed class GaussianPupilParityTests
     public void EverySurfaceAndRayMatchesActualNativeBatchWithSeparateApertureFlags(string name)
     {
         var optic = Load(name);
-        using var job = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, name, "job.json")));
-        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, name, "native-ray-audit.json")));
-        using var inputs = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, name, "inputs.json")));
-        using var environment = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, name, "native-environment.json")));
+        using var job = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, name, "job.json")));
+        using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, name, "native-ray-audit.json")));
+        using var inputs = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, name, "inputs.json")));
+        using var environment = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, name, "native-environment.json")));
         Assert.True(environment.RootElement.GetProperty("validLicense").GetBoolean());
         Assert.Equal(26, environment.RootElement.GetProperty("major").GetInt32());
         Assert.Equal(1, environment.RootElement.GetProperty("minor").GetInt32());
@@ -139,7 +140,7 @@ public sealed class GaussianPupilParityTests
     {
         var name = $"tessar-lens-using-vignetting-factors-{method.ToLowerInvariant()}-{density}-{(remove ? "remove" : "retain")}";
         var root = Path.Combine(AppContext.BaseDirectory, "Fixtures", "rms-field-sampling", name);
-        using var native = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, "data.json")));
+        using var native = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root, "data.json")));
         var optic = Load("tessar-gq6-remove");
         var result = new RmsVsFieldAnalysis(optic, fieldDensity: 15, numRings: density, method: method,
             wavelengthNumber: 2, removeVignetting: remove)
@@ -153,13 +154,13 @@ public sealed class GaussianPupilParityTests
     [Fact]
     public void NativeAuditEvidenceHashesRemainUnchanged()
     {
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, "manifest.json")));
         foreach (var file in manifest.RootElement.GetProperty("files").EnumerateArray())
         {
             var path = Path.GetFullPath(Path.Combine(Root, file.GetProperty("path").GetString()!));
             Assert.StartsWith(Path.GetFullPath(Root) + Path.DirectorySeparatorChar, path);
             Assert.Equal(file.GetProperty("sha256").GetString(), Convert.ToHexString(
-                System.Security.Cryptography.SHA256.HashData(File.ReadAllBytes(path))).ToLowerInvariant());
+                System.Security.Cryptography.SHA256.HashData(EvidenceFiles.ReadAllBytes(path))).ToLowerInvariant());
         }
     }
 }

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
@@ -23,13 +24,13 @@ public sealed class IlluminationInverseNativeTests(Xunit.Abstractions.ITestOutpu
     public void OriginalFourFileOperandsAgreeAtSharedRayTracePrecision(string name, string code)
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(root,
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root,
             "validation/zemax/2026-r1/fcgt-efno-2026-10-14/manifest.json")));
         var item = manifest.RootElement.GetProperty("Cases").EnumerateArray().Single(row => row.GetProperty("Name").GetString() == name);
         var path = Path.Combine(root, item.GetProperty("Source").GetString()!);
-        Assert.Equal(item.GetProperty("SourceSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path))));
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(path), ".zmx");
-        using var capture = JsonDocument.Parse(File.ReadAllText(Path.Combine(root, item.GetProperty("Capture").GetString()!, "operands.json")));
+        Assert.Equal(item.GetProperty("SourceSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(path))));
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(path), ".zmx");
+        using var capture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root, item.GetProperty("Capture").GetString()!, "operands.json")));
         double maximum = 0;
         var rows = capture.RootElement.EnumerateArray().Where(row => row.GetProperty("code").GetString() == code).ToArray();
         foreach (var row in rows)
@@ -64,13 +65,13 @@ public sealed class IlluminationInverseNativeTests(Xunit.Abstractions.ITestOutpu
     public void NativeLocatedNodeMaskRemovesTheSameFiniteContribution(int column, int row)
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
-        using var fixture = JsonDocument.Parse(File.ReadAllText(Path.Combine(root,
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(root,
             "validation/zemax/2026-r1/illumination-inverse-2026-10-16/controls.json")));
         var path = Path.Combine(root, fixture.RootElement.GetProperty("source").GetString()!);
-        Assert.Equal(fixture.RootElement.GetProperty("sourceSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path))));
+        Assert.Equal(fixture.RootElement.GetProperty("sourceSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(path))));
         var capture = fixture.RootElement.GetProperty("nodes").EnumerateArray().Single(node =>
             node.GetProperty("column").GetInt32() == column && node.GetProperty("row").GetInt32() == row);
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(path), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(path), ".zmx");
         var stop = optic.SurfaceGroup.Items[1];
         var distance = stop.Thickness; stop.Thickness = 0;
         var mask = new OpticalSurface { Thickness = distance, SemiDiameter = 20 };

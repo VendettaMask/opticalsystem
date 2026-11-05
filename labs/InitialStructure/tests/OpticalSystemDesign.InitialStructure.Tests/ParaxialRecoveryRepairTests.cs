@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -46,7 +47,7 @@ public sealed class ParaxialRecoveryRepairTests
     public async Task DependentPupilJacobianWithIncompatibleResidualStillRejectsRecovery()
     {
         var plan = await Plan(); var parent = TopologyCompiler.Compile(plan.Seeds[0], plan.Constraints);
-        using var recorded = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/preparation.json")));
+        using var recorded = JsonDocument.Parse(await EvidenceFiles.ReadAllBytesAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/preparation.json")));
         var restored = recorded.RootElement.GetProperty("Deletions")[2].GetProperty("Recovery").GetProperty("Topology").Deserialize<DesignTopology>(
             new JsonSerializerOptions { Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) } })!;
         var child = TopologyCompiler.Compile(restored, plan.Constraints);
@@ -66,7 +67,7 @@ public sealed class ParaxialRecoveryRepairTests
     public async Task MatchedAAndCDoNotFalselyCertifyUnrestoredFixedStopPupil()
     {
         var plan = await Plan(); var parent = TopologyCompiler.Compile(plan.Seeds[0], plan.Constraints);
-        using var recorded = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/preparation.json")));
+        using var recorded = JsonDocument.Parse(await EvidenceFiles.ReadAllBytesAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/preparation.json")));
         var restored = recorded.RootElement.GetProperty("Deletions")[2].GetProperty("Recovery").GetProperty("Topology").Deserialize<DesignTopology>(
             new JsonSerializerOptions { Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) } })!;
         var child = TopologyCompiler.Compile(restored, plan.Constraints); var binding = Bind(child, plan, true);
@@ -96,7 +97,7 @@ public sealed class ParaxialRecoveryRepairTests
         Assert.True(automatic.Work.FunctionEvaluations < old.Work.FunctionEvaluations);
         Assert.InRange(Math.Abs(automatic.EndpointAError!.Value), 0, plan.Options.Recovery.ATolerance);
         Assert.InRange(Math.Abs(automatic.EndpointFocalCError!.Value), 0, plan.Options.Recovery.FocalCTolerance);
-        using var recorded = JsonDocument.Parse(await File.ReadAllBytesAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/preparation.json")));
+        using var recorded = JsonDocument.Parse(await EvidenceFiles.ReadAllBytesAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/preparation.json")));
         var expected = recorded.RootElement.GetProperty("Deletions")[2].GetProperty("Recovery");
         Assert.Equal(expected.GetProperty("ProtocolFingerprint").GetString(), old.ProtocolFingerprint);
         Assert.NotEqual(old.ProtocolFingerprint, automatic.ProtocolFingerprint);
@@ -225,7 +226,7 @@ public sealed class ParaxialRecoveryRepairTests
         Evidence("conic-gradients", results);
     }
     private static async Task<AutonomousSearchPlan> Plan() => await AutonomousDesignFiles.LoadPlanAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/baseline.topology-plan.json"));
-    private static string Root() { var directory = new DirectoryInfo(AppContext.BaseDirectory); while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent; return directory!.FullName; }
+    private static string Root() { var directory = new DirectoryInfo(AppContext.BaseDirectory); while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent; return directory!.FullName; }
     private static void Evidence(string name, object value)
     { if (Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_RECOVERY_EVIDENCE") is not { } directory) return; Directory.CreateDirectory(directory); File.WriteAllText(Path.Combine(directory, name + ".json"), JsonSerializer.Serialize(value, new JsonSerializerOptions { WriteIndented = true, NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals })); }
 }

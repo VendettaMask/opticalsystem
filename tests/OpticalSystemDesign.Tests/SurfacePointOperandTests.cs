@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
@@ -191,7 +192,7 @@ public sealed class SurfacePointOperandTests
     [MemberData(nameof(Codes))]
     public void NativeRowsDoNotAcquireMissingExtendedSlotsOrAutoUpgrade(string code)
     {
-        var text = File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
+        var text = EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX"));
         var imported = OpticalFormatCatalog.Import(text + $"\n{code} 1 1 3 4 0 0 .25 2 0 0\n", ".zmx");
         var row = imported.MeritFunctionOperands.Last(); Assert.True(row.CompatibilityOnly); Assert.False(row.Enabled);
         Assert.Equal(4, row.ZemaxDataParameters.Length);

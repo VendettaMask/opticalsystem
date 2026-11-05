@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Numerics;
 using System.Text.Json;
@@ -267,7 +268,7 @@ public sealed class PsfEnergyWindowNativeTests
         Assert.Contains("Fourier work", error.Message);
     }
 
-    private static OpticalSystemDesign.Core.Optic Primary() => OpticalFormatCatalog.Import(File.ReadAllText(
+    private static OpticalSystemDesign.Core.Optic Primary() => OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(
         Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-123456.ZMX")), ".zmx");
 
     private static JsonDocument ReadEntry(string name)

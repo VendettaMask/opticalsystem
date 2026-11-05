@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Application.Contracts;
@@ -47,7 +48,7 @@ public sealed class DoubleGaussSfrTests
     [Fact]
     public void StandardDoubleGaussWindowExpansionConvergesWithoutChangingItsInfiniteConjugate()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(StandardLens), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(StandardLens), ".zmx");
         var json = new JsonSerializerOptions { NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals };
         var before = JsonSerializer.Serialize(optic.ToSnapshot(), json);
         Assert.True(double.IsPositiveInfinity(optic.SurfaceGroup.Items[0].Thickness));
@@ -71,7 +72,7 @@ public sealed class DoubleGaussSfrTests
     public void OriginalSeverelyDefocusedFilesRejectUndersampledPhaseAt128And512(string file, double objectDistance)
     {
         var path = Path.Combine(SlantedEdgeSfrTests.RepositoryRoot, "local-data/lens-library/originals/user-zmx/project/samples/lenses", file);
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(path), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(path), ".zmx");
         Assert.Equal(objectDistance, optic.SurfaceGroup.Items[0].Thickness);
         foreach (var n in new[] { 128, 512 })
         {

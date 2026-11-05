@@ -188,6 +188,7 @@ internal sealed record ThemePalette(
             [ThemeResourceBindings.TextSecondary] = Brush(TextSecondary),
             [ThemeResourceBindings.TextMuted] = Brush(TextMuted),
             [ThemeResourceBindings.TextDisabled] = Brush(TextDisabled),
+            [ThemeResourceBindings.LockedSettingForeground] = Brush(TextDisabled),
             [ThemeResourceBindings.TextAccent] = Brush(TextAccent),
             [ThemeResourceBindings.TextOnAccent] = Brush(TextOnAccent),
             [ThemeResourceBindings.TextWarning] = Brush(TextWarning),

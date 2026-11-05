@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -22,7 +23,7 @@ public sealed class AfocalFftProfilePointwiseTests(ITestOutputHelper output)
     public void OriginalCapturedFftProfileMeetsUnchangedPointwiseGate(string id, string model)
     {
         var archive = Path.Combine(AppContext.BaseDirectory, "Fixtures/afocal-psf-contract/source-evidence.zip");
-        using (var file = File.OpenRead(archive))
+        using (var file = EvidenceFiles.OpenRead(archive))
             Assert.Equal("235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1", Convert.ToHexStringLower(SHA256.HashData(file)));
         using var zip = ZipFile.OpenRead(archive);
         byte[] Read(string member)

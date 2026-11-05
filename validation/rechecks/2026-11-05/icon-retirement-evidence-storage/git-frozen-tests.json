@@ -1,0 +1,197 @@
+[
+  {
+    "name": "exact working and committed bytes pass",
+    "passed": true,
+    "expectedSuccess": true,
+    "exitCode": 0,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "working bytes alone cannot hide Git EOL normalization",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "repaired index passes before commit",
+    "passed": true,
+    "expectedSuccess": true,
+    "exitCode": 0,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "Index"
+  },
+  {
+    "name": "staging a repair does not certify the old commit",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "committed original CRLF passes without changing manifest",
+    "passed": true,
+    "expectedSuccess": true,
+    "exitCode": 0,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "correct commit cannot hide modified working bytes",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 1,
+    "workingMatched": 0,
+    "source": "HEAD"
+  },
+  {
+    "name": "untracked original cannot certify a missing Git blob",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "binary blob remains exact without decoding or EOL conversion",
+    "passed": true,
+    "expectedSuccess": true,
+    "exitCode": 0,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "replacement manifest cannot bypass pinned aggregate",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1
+  },
+  {
+    "name": "rename without explicit map still fails",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 0,
+    "source": "Index"
+  },
+  {
+    "name": "unstaged map cannot certify Git index",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "Index"
+  },
+  {
+    "name": "explicit staged relocation passes exact byte checks",
+    "passed": true,
+    "expectedSuccess": true,
+    "exitCode": 0,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "Index"
+  },
+  {
+    "name": "staged relocation cannot certify pre-migration HEAD",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "committed relocation preserves frozen logical aggregate",
+    "passed": true,
+    "expectedSuccess": true,
+    "exitCode": 0,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "HEAD"
+  },
+  {
+    "name": "committed relocation cannot hide modified working bytes",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 1,
+    "workingMatched": 0,
+    "source": "HEAD"
+  },
+  {
+    "name": "correct relocated working bytes cannot hide changed index blob",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 1,
+    "source": "Index"
+  },
+  {
+    "name": "untracked relocated bytes cannot certify missing index blob",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 1,
+    "source": "Index"
+  },
+  {
+    "name": "correct working map cannot hide changed Git map",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "Index"
+  },
+  {
+    "name": "relocation cannot hide original path retained in Git",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 1,
+    "source": "Index"
+  },
+  {
+    "name": "same blob hash in a Git symlink cannot certify relocated evidence",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 0,
+    "workingMatched": 1,
+    "source": "Index"
+  },
+  {
+    "name": "same map hash in a Git symlink is rejected",
+    "passed": true,
+    "expectedSuccess": false,
+    "exitCode": 1,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "Index"
+  },
+  {
+    "name": "repaired index passes after all negative controls",
+    "passed": true,
+    "expectedSuccess": true,
+    "exitCode": 0,
+    "gitMatched": 1,
+    "workingMatched": 1,
+    "source": "Index"
+  }
+]

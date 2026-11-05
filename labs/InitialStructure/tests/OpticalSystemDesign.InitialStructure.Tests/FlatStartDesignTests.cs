@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core;
@@ -199,8 +200,8 @@ public sealed class FlatStartDesignTests(ITestOutputHelper output)
     internal static InitialStructureSpecification LoadSpecification(string name)
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
-        return JsonSerializer.Deserialize<InitialStructureSpecification>(File.ReadAllText(Path.Combine(directory!.FullName,
+        while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "OpticalSystemDesign.slnx"))) directory = directory.Parent;
+        return JsonSerializer.Deserialize<InitialStructureSpecification>(EvidenceFiles.ReadAllText(Path.Combine(directory!.FullName,
             "labs/InitialStructure/benchmarks/flat-start-v1/specs", name)))!;
     }
 

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -112,7 +113,7 @@ public sealed class BinocularFourierConvergedTests
                 series.GetProperty("y").EnumerateArray().Select(v => v[direction].GetDouble()).ToArray(),
                 new("NormalizedField", "Dimensionless"), new("Modulation", "Dimensionless"));
         }
-        private static string Hash(string path) => Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(path)));
+        private static string Hash(string path) => Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(path)));
         public void Dispose()
         {
             var path = Path.GetFullPath(Directory);

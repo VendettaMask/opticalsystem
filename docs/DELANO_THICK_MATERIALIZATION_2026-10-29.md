@@ -15,7 +15,7 @@
 
 原目标为f25.462945192 mm、F3.341593857，对应入瞳直径7.62 mm；实际光阑半径固定为2.488053082 mm。四个实体的光阑边缘高度均偏大，焦面A为−0.109至−0.151，远超准备容差0.001。旧图仅以主光线在光阑前后异号作软排序，没有在实际光阑位置施加边缘高度条件。部分初始F数接近目标，是焦距偏短与入瞳偏小共同造成，不能说明固定光阑倍率已恢复。
 
-随后每起点剩余的短程恢复需要同时追回焦面、整体光焦度和入瞳倍率；上批4个终点虽焦面通过，F数仍超标。这首先是旧实体化未保持图的约束，不能仅归因于迭代次数少；本轮保持实体光阑处理。诊断使用28次Core一阶请求、3364次几何查询、0追迹；主平面分解仅在测试诊断中计算，不参与产品接受。[最终诊断](../validation/rechecks/2026-10-29/delano-thick-materialization/regressions/legacy-materialization-diagnosis.json)。
+随后每起点剩余的短程恢复需要同时追回焦面、整体光焦度和入瞳倍率；上批4个终点虽焦面通过，F数仍超标。这首先是旧实体化未保持图的约束，不能仅归因于迭代次数少；本轮保持实体光阑处理。诊断使用28次Core一阶请求、3364次几何查询、0追迹；主平面分解仅在测试诊断中计算，不参与产品接受。[最终诊断](../validation/rechecks/2026-10-30/structure-competition-v1/final/legacy-materialization-diagnosis.json)。
 
 ## 实体化修正
 
@@ -28,7 +28,7 @@
 
 这是基于实际分段的近轴光线反向初始化，不宣称复制上游完整Delano搜索或SHADE。光学公式位于共享Core，模块只组织描述、提议和排序。原材料、逐面口径、参考面、光阑、像面、视场、波长、曲率/锥常数及每次±0.25 mm补偿权限保持；不借用原镜片曲率。改变输入原镜片形状后，固定随机状态生成的处方指纹仍相同。
 
-4个新提议在进入最小二乘恢复前，Core读回即为f25.462945192 mm、F3.341593857、入瞳7.62 mm，焦面A绝对值≤6.67e−16。[构造后、恢复前的记录](../validation/rechecks/2026-10-29/delano-thick-materialization/regressions/thick-before-restoration.json)。最终4个起点都通过原一阶/制造筛选，受原保留上限限制只选1个进入完整像质验收。共52函数、136矩阵请求、8 Jacobian、38,471几何查询、0追迹；生成内部的正式矩阵与几何查询已补齐计数，取消/额度中断的已完成工作也保留。
+4个新提议在进入最小二乘恢复前，Core读回即为f25.462945192 mm、F3.341593857、入瞳7.62 mm，焦面A绝对值≤6.67e−16。[构造后、恢复前的记录](../validation/rechecks/2026-10-30/structure-competition-v1/final/thick-before-restoration.json)。最终4个起点都通过原一阶/制造筛选，受原保留上限限制只选1个进入完整像质验收。共52函数、136矩阵请求、8 Jacobian、38,471几何查询、0追迹；生成内部的正式矩阵与几何查询已补齐计数，取消/额度中断的已完成工作也保留。
 
 界面新增“按实际厚度与固定光阑构造 Delano 起点”，手动开启时同时开启描述/Delano与固定光阑恢复；支持中英日、保存回读和旧null路径。新方法保持显式可选。近轴可行不是光学验收，任何新起点仍须原独立追迹。
 
@@ -69,4 +69,4 @@
 
 开发和测试中的构造/重放单独保存，不计为冻结对照收益；冻结三臂完成后另作24次Core一阶只读请求、0追迹。Python核验工具仅读JSON/TRX和哈希，不进入产品计算。全程后台CPU、两处理器、BelowNormal及离屏测试，无桌面操作、旧完整训练、提交推送或发布。
 
-[汇总](../validation/rechecks/2026-10-29/delano-thick-materialization/runs/summary.json)、[规格与账目核验](../validation/rechecks/2026-10-29/delano-thick-materialization/verification.json)、[新起点完整初验失败处方](../validation/rechecks/2026-10-29/delano-thick-materialization/runs/thick-delano/seed-1-unqualified.staropt)、[最佳合格保留处方](../validation/rechecks/2026-10-29/delano-thick-materialization/runs/thick-delano/best-retained.staropt)、[此前有界流程记录](BOUNDED_INITIAL_STRUCTURE_2026-10-29.md)。
+[汇总](../validation/rechecks/2026-10-29/delano-thick-materialization/runs/summary.json)、[规格与账目核验](../validation/rechecks/2026-10-29/delano-thick-materialization/verification.json)、[新起点完整初验失败处方](../validation/rechecks/2026-10-29/delano-thick-materialization/runs/thick-delano/seed-1-unqualified.staropt)、[最佳合格保留处方](../validation/rechecks/2026-10-29/happylens-wide21/runs/original/best-retained.staropt)、[此前有界流程记录](BOUNDED_INITIAL_STRUCTURE_2026-10-29.md)。

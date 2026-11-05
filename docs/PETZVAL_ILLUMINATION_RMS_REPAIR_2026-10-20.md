@@ -17,7 +17,7 @@
 | 原直接公式 | 2.0015766569413245 | -1.79489e-10 | 1.30014e-10 | 错误丢弃有效光线 |
 | 稳定乘积公式 | 2.001576657120898 | -3.57151e-16 | 1.30014e-10 | 正确通过 |
 
-完整输入、系数和限值保存在[相消实例](../validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/root-cancellation-example.json)。修复后的 1152 条光线全部恢复；与本轮新采原生参考的 **10368 个逐面记录**比较，最大坐标差 **2.10258e-10 mm**、最大方向差 **1.55431e-15**。见[逐场保留数](../validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/ray-retention-v3.json)和[原生光线误差](../validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/gaussian-native-v3.json)。
+完整输入、系数和限值保存在[相消实例](../validation/repairs/2026-10-20/petzval-illumination-rms/final-v2/root-cancellation-example.json)。修复后的 1152 条光线全部恢复；与本轮新采原生参考的 **10368 个逐面记录**比较，最大坐标差 **2.10258e-10 mm**、最大方向差 **1.55431e-15**。见[逐场保留数](../validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/ray-retention-v3.json)和[原生光线误差](../validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/gaussian-native-v3.json)。
 
 ## 最终实现与被否决的候选
 
@@ -25,7 +25,7 @@
 
 修复统一用于 [StandardGeometry](../src/OpticalSystemDesign.Core/Geometries/GeometryModels.cs)、[标量批量后备](../src/OpticalSystemDesign.Core/Backend/IBatchedNumericBackend.cs)和 [SIMD 批量路径](../src/OpticalSystemDesign.Core/Backend/ManagedCpuBackend.BatchedIntersections.cs)，判据与稳定根由[共享求交支持](../src/OpticalSystemDesign.Core/Backend/StandardIntersectionValidation.cs)定义。没有按镜头名、文件哈希、视场或原生结果调整算法；产品也不读取验证捕获。
 
-首版候选对所有二次方程无条件替换求根表达式，虽然 Petzval 两项及三镜头矩阵通过，却使部分旧高采样衍射能量守卫退化：普通光线末位舍入发生变化，既有离散 Fourier 瞳边界对这些末位敏感。该候选被否决，保留源文件、结果和已观察到的失败；剩余首版全量测试由本任务主动中止，不能把它当成完整通过或产品崩溃。[首版记录](../validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/candidate-v1-rejected.json)保留阶段边界。
+首版候选对所有二次方程无条件替换求根表达式，虽然 Petzval 两项及三镜头矩阵通过，却使部分旧高采样衍射能量守卫退化：普通光线末位舍入发生变化，既有离散 Fourier 瞳边界对这些末位敏感。该候选被否决，保留源文件、结果和已观察到的失败；剩余首版全量测试由本任务主动中止，不能把它当成完整通过或产品崩溃。[首版记录](../validation/repairs/2026-10-20/petzval-illumination-rms/final-v2/candidate-v1-rejected.json)保留阶段边界。
 
 第二版按舍入误差选择稳定根（Core `71562147…`），通过 Petzval 和相关能量守卫后，协同聊天的内置初始结构常规检查仍发现 2/308 失败：`trial-0078` 的最大 RMS 为 **0.4851952254 mm**，超过原 **0.45 mm**；`TinyInitialRoundoff(-1e-12)` 为 **0.0400613269 mm**，未达到原 **0.03 mm** 目标。因此第二版也被否决，不能把此前局部通过当作整体验收。问题是该判据仍可能改变已通过原校验的根，扰动优化轨迹。[第二版失败记录](../validation/repairs/2026-10-20/petzval-illumination-rms/final-v3/candidate-v2-rejected.json)及本地完整 TRX 保留。
 

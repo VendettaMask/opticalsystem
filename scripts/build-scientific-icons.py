@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / 'src/OpticalSystemDesign.App/Assets/Icons'
 DEST = ASSETS / 'Scientific/Glyphs'
 DEST.mkdir(parents=True, exist_ok=True)
-catalog = json.loads((ASSETS/'lucide-icon-nodes.json').read_text(encoding='utf-8'))
+catalog = json.loads((ROOT/'scripts/data/lucide-icon-nodes.json').read_text(encoding='utf-8'))
 N = '{http://www.w3.org/2000/svg}'
 ET.register_namespace('', N[1:-1])
 CSS = '.structure{fill:none;stroke:#8298A8}.signal{fill:none;stroke:#398FF0}.secondary{fill:none;stroke:#28ADAF}.signal-fill{fill:#398FF0;stroke:none}.secondary-fill{fill:#28ADAF;stroke:none}.glyph{stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round}.dark .structure{stroke:#A5978B}.dark .signal{stroke:#F0AE79}.dark .secondary{stroke:#D5B89C}.dark .signal-fill{fill:#F0AE79}.dark .secondary-fill{fill:#D5B89C}'

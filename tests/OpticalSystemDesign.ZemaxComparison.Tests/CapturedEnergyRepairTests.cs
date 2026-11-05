@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Analysis;
@@ -27,18 +28,18 @@ public sealed class CapturedEnergyRepairTests
     private static void Verify(string lens, string directory, string key)
     {
         var native = Path.Combine(Root, directory);
-        using var captured = JsonDocument.Parse(File.ReadAllText(Path.Combine(native, "captured-settings.json")));
+        using var captured = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(native, "captured-settings.json")));
         var request = captured.RootElement.GetProperty("request").Deserialize<CanonicalAnalysisRequest>(JsonFiles.Options)!;
         var settings = new Dictionary<string, string>(request.WorkbenchSettings);
         settings["ZemaxCompatibleOutput"] = "True";
         if (request.SourceImagePath is not null)
         {
             settings["SourceFile"] = Path.Combine(Root, "source-image.IMA");
-            Assert.Equal(request.SourceImageSha256, JsonFiles.Hash(File.ReadAllBytes(settings["SourceFile"])));
+            Assert.Equal(request.SourceImageSha256, JsonFiles.Hash(EvidenceFiles.ReadAllBytes(settings["SourceFile"])));
             Assert.Equal(Convert.ToDouble(settings["MaximumDistanceMicrometers"], System.Globalization.CultureInfo.InvariantCulture),
                 captured.RootElement.GetProperty("properties").GetProperty("MaximumDistance").GetDouble());
         }
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(Root, lens)), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(Root, lens)), ".zmx");
         var data = new WorkbenchRuntime(optic).BuildAnalysisData(key, settings);
         data = JsonSerializer.Deserialize<AnalysisData>(JsonSerializer.Serialize(data, JsonFiles.Options), JsonFiles.Options)!;
         var actual = ExtendedResultNormalizer.Workbench(data, request);
@@ -69,7 +70,7 @@ public sealed class CapturedEnergyRepairTests
     {
         double[] Values(string path)
         {
-            using var doc = JsonDocument.Parse(File.ReadAllText(path));
+            using var doc = JsonDocument.Parse(EvidenceFiles.ReadAllText(path));
             return doc.RootElement.GetProperty("dataSeries")[0].GetProperty("y")
                 .EnumerateArray().Select(row => row[0].GetDouble()).ToArray();
         }
@@ -91,7 +92,7 @@ public sealed class CapturedEnergyRepairTests
     [Fact]
     public void StructuredPhaseGridsRemainAvailableWithoutLeakingClrTypesIntoTheSummary()
     {
-        var optic = OpticalFormatCatalog.Import(File.ReadAllText(Path.Combine(Root, "primary.ZMX")), ".zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(Root, "primary.ZMX")), ".zmx");
         var runtime = new WorkbenchRuntime(optic);
         var settings = new Dictionary<string, string> { ["ShowOPD"] = "True", ["Sampling"] = "9" };
         var data = runtime.BuildAnalysisData("Contrast Loss Map", settings);
@@ -104,12 +105,12 @@ public sealed class CapturedEnergyRepairTests
     [Fact]
     public void EnergyRepairCaptureManifestProtectsAllRawEvidence()
     {
-        using var manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(Root, "manifest.json")));
+        using var manifest = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Root, "manifest.json")));
         foreach (var item in manifest.RootElement.GetProperty("files").EnumerateArray())
         {
             var path = Path.GetFullPath(Path.Combine(Root, item.GetProperty("path").GetString()!));
             Assert.StartsWith(Path.GetFullPath(Root) + Path.DirectorySeparatorChar, path);
-            Assert.Equal(item.GetProperty("sha256").GetString(), JsonFiles.Hash(File.ReadAllBytes(path)));
+            Assert.Equal(item.GetProperty("sha256").GetString(), JsonFiles.Hash(EvidenceFiles.ReadAllBytes(path)));
         }
     }
 }

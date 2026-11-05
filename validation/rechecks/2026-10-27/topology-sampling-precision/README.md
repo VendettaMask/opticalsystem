@@ -2,7 +2,7 @@
 
 日期：2026-10-27。**这组三片接续修复已通过全部原验收门槛，35个视场的积分光线960/960、中心/边界光线99/99全部有效，21°剩余失光9→0。** 成功依次来自更准确的训练积分，以及第二片前后表面的有限轴向补偿；不能把收益全部归因于采样，也不能称为从四片起点一次预算内完成减片。
 
-[合格三片STAROPT](axial-runs/retained-nine-accurate-axial/qualified.staropt)已重新导入并通过原完整验收。该次接续修复消耗1,077,444次实际追迹、14次完整梯度评价、约5.313秒，低于原200万追迹/100梯度/60秒总上限；初验和终验已包含在内。源准备、其他配对实验及独立回读审计分别记账。
+[合格三片STAROPT](../topology-integrated-compensation/final-integration-tests/integrated-qualified.staropt)已重新导入并通过原完整验收。该次接续修复消耗1,077,444次实际追迹、14次完整梯度评价、约5.313秒，低于原200万追迹/100梯度/60秒总上限；初验和终验已包含在内。源准备、其他配对实验及独立回读审计分别记账。
 
 全程仅后台，显式CPU、两个处理器配额、BelowNormal，无GPU、桌面窗口或输入操作。旧完整训练保持停止，未提交、推送或发布。
 
@@ -95,6 +95,6 @@
 
 本轮改动的是显式运行协议、开发工具及验证，继续使用已有Core采样、追迹、分析和参数绑定；未改Core公式、原AutoLens/MOBILE_CONFIG，也未把本例有限轴向补偿自动推广为默认自主搜索策略。本例通过不等同更低F数/其他处方、公差或外部软件数值认证。
 
-- [合格三片处方](axial-runs/retained-nine-accurate-axial/qualified.staropt)、[原始输入/变量范围](axial-runs/retained-nine-accurate-axial/input.json)、[实际阶段配置](axial-runs/retained-nine-accurate-axial/phase-options.json)。
+- [合格三片处方](../topology-integrated-compensation/final-integration-tests/integrated-qualified.staropt)、[原始输入/变量范围](axial-runs/retained-nine-accurate-axial/input.json)、[实际阶段配置](axial-runs/retained-nine-accurate-axial/phase-options.json)。
 - [同预算曲率控制失败处方](axial-runs/retained-nine-accurate/unqualified.staropt)。
 - [30项测试](tests/sampling-precision-scoped.trx)、[高精度差分数据](tests/higher-precision-tangents.json)、[低估反例修正](tests/counterexample.json)。

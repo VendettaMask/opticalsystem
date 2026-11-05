@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using OpticalSystemDesign.Application.Runtime;
@@ -28,8 +29,8 @@ public sealed class WorkbenchRecaptureTests
     public async Task PartialRecapturePreservesTheHistoricalViewSchemaAndActualRuntimeResults()
     {
         using var scope = new Scope();
-        var sourceBefore = File.ReadAllBytes(scope.Source);
-        var settingsBefore = File.ReadAllBytes(scope.Settings);
+        var sourceBefore = EvidenceFiles.ReadAllBytes(scope.Source);
+        var settingsBefore = EvidenceFiles.ReadAllBytes(scope.Settings);
         Assert.Equal(0, await WorkbenchRecapture.RunAsync(scope.Options("First Order")));
         using var manifest = scope.Manifest();
         var rows = manifest.RootElement.GetProperty("analyses").EnumerateArray().ToArray();
@@ -42,7 +43,7 @@ public sealed class WorkbenchRecaptureTests
             Assert.Equal(JsonValueKind.Null, row.GetProperty("output").ValueKind);
         });
         using var view = scope.View(selected);
-        var expected = new WorkbenchRuntime(OpticalFormatCatalog.Import(File.ReadAllText(scope.Source), ".zmx"))
+        var expected = new WorkbenchRuntime(OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(scope.Source), ".zmx"))
             .BuildAnalysisView("First Order");
         Assert.Equal(expected.Name, view.RootElement.GetProperty("name").GetString());
         Assert.Equal(expected.ReportText, view.RootElement.GetProperty("reportText").GetString());
@@ -52,8 +53,8 @@ public sealed class WorkbenchRecaptureTests
         Assert.True(view.RootElement.TryGetProperty("plotPanes", out _));
         Assert.Equal(JsonFiles.Hash(sourceBefore), manifest.RootElement.GetProperty("sourceSha256").GetString());
         Assert.Equal(JsonFiles.Hash(settingsBefore), manifest.RootElement.GetProperty("settingsManifestSha256").GetString());
-        Assert.Equal(sourceBefore, File.ReadAllBytes(scope.Source));
-        Assert.Equal(settingsBefore, File.ReadAllBytes(scope.Settings));
+        Assert.Equal(sourceBefore, EvidenceFiles.ReadAllBytes(scope.Source));
+        Assert.Equal(settingsBefore, EvidenceFiles.ReadAllBytes(scope.Settings));
     }
 
     [Fact]
@@ -64,13 +65,13 @@ public sealed class WorkbenchRecaptureTests
         using var previous = scope.Manifest();
         var prior = Find(previous, "First Order");
         var path = Path.Combine(scope.Output, prior.GetProperty("output").GetString()!);
-        var before = File.ReadAllBytes(path);
+        var before = EvidenceFiles.ReadAllBytes(path);
         Assert.Equal(0, await WorkbenchRecapture.RunAsync(scope.Options("Seidel Coefficients")));
         using var current = scope.Manifest();
         var reused = Find(current, "First Order");
         Assert.True(reused.GetProperty("reused").GetBoolean());
         Assert.Equal("captured", reused.GetProperty("status").GetString());
-        Assert.Equal(before, File.ReadAllBytes(path));
+        Assert.Equal(before, EvidenceFiles.ReadAllBytes(path));
         Assert.Equal(JsonFiles.Hash(before), reused.GetProperty("outputSha256").GetString());
     }
 
@@ -84,13 +85,13 @@ public sealed class WorkbenchRecaptureTests
         if (changeSource) File.AppendAllText(scope.Source, "\n! changed source\n");
         else
         {
-            var edited = JsonNode.Parse(File.ReadAllText(scope.ManifestPath))!;
+            var edited = JsonNode.Parse(EvidenceFiles.ReadAllText(scope.ManifestPath))!;
             edited["codeFingerprint"] = "different binaries";
             File.WriteAllText(scope.ManifestPath, edited.ToJsonString());
         }
-        var before = File.ReadAllBytes(scope.ManifestPath);
+        var before = EvidenceFiles.ReadAllBytes(scope.ManifestPath);
         await Assert.ThrowsAsync<IOException>(() => WorkbenchRecapture.RunAsync(scope.Options("First Order")));
-        Assert.Equal(before, File.ReadAllBytes(scope.ManifestPath));
+        Assert.Equal(before, EvidenceFiles.ReadAllBytes(scope.ManifestPath));
     }
 
     [Fact]
@@ -106,7 +107,7 @@ public sealed class WorkbenchRecaptureTests
         var failed = Find(current, "First Order");
         Assert.Equal("failed", failed.GetProperty("status").GetString());
         Assert.Contains("checksum mismatch", failed.GetProperty("error").GetString());
-        Assert.Equal("{\"name\":\"modified\"}", File.ReadAllText(path));
+        Assert.Equal("{\"name\":\"modified\"}", EvidenceFiles.ReadAllText(path));
     }
 
     [Fact]
@@ -145,7 +146,7 @@ public sealed class WorkbenchRecaptureTests
         Directory.CreateDirectory(Path.Combine(scope.Root, "analyses"));
         File.WriteAllText(Path.Combine(scope.Root, "manifest.json"), "{}");
         await Assert.ThrowsAsync<IOException>(() => WorkbenchRecapture.RunAsync(scope.Options("First Order")));
-        Assert.False(Directory.Exists(scope.Output));
+        Assert.False(EvidenceFiles.DirectoryExists(scope.Output));
     }
 
     [Fact]
@@ -156,15 +157,15 @@ public sealed class WorkbenchRecaptureTests
         var unrelated = Path.Combine(scope.Output, "user.txt");
         File.WriteAllText(unrelated, "keep");
         await Assert.ThrowsAsync<IOException>(() => WorkbenchRecapture.RunAsync(scope.Options("First Order")));
-        Assert.Equal("keep", File.ReadAllText(unrelated));
+        Assert.Equal("keep", EvidenceFiles.ReadAllText(unrelated));
         var cleanOutput = Path.Combine(scope.Root, "another-output");
         var options = scope.Options("First Order") with { Output = cleanOutput };
         Assert.Equal(0, await WorkbenchRecapture.RunAsync(options));
         var manifestPath = Path.Combine(cleanOutput, "current-manifest.json");
-        var before = File.ReadAllBytes(manifestPath);
+        var before = EvidenceFiles.ReadAllBytes(manifestPath);
         using var held = new FileStream(Path.Combine(cleanOutput, ".recapture.lock"), FileMode.Open, FileAccess.ReadWrite, FileShare.None);
         await Assert.ThrowsAsync<IOException>(() => WorkbenchRecapture.RunAsync(options));
-        Assert.Equal(before, File.ReadAllBytes(manifestPath));
+        Assert.Equal(before, EvidenceFiles.ReadAllBytes(manifestPath));
     }
 
     [Fact]
@@ -172,7 +173,7 @@ public sealed class WorkbenchRecaptureTests
     {
         using var scope = new Scope();
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => WorkbenchRecapture.RunAsync(scope.Options("First Order"), new CancellationToken(true)));
-        Assert.False(Directory.Exists(scope.Output));
+        Assert.False(EvidenceFiles.DirectoryExists(scope.Output));
     }
 
     [Fact]
@@ -184,7 +185,7 @@ public sealed class WorkbenchRecaptureTests
         using var previous = scope.Manifest();
         var seidel = Find(previous, "Seidel Coefficients");
         var path = Path.Combine(scope.Output, seidel.GetProperty("output").GetString()!);
-        var bytes = File.ReadAllBytes(path);
+        var bytes = EvidenceFiles.ReadAllBytes(path);
 
         await CancelAfterFirstOrder(scope);
         using (var cancelled = scope.Manifest())
@@ -199,7 +200,7 @@ public sealed class WorkbenchRecaptureTests
         Assert.Equal(0, await WorkbenchRecapture.RunAsync(scope.Options("First Order")));
         using var resumed = scope.Manifest();
         Assert.Equal("captured", Find(resumed, "Seidel Coefficients").GetProperty("status").GetString());
-        Assert.Equal(bytes, File.ReadAllBytes(path));
+        Assert.Equal(bytes, EvidenceFiles.ReadAllBytes(path));
     }
 
     [Theory]
@@ -220,13 +221,13 @@ public sealed class WorkbenchRecaptureTests
             } }
             });
         else File.WriteAllText(path, "{\"name\":\"tampered\"}");
-        var bytes = File.ReadAllBytes(path);
+        var bytes = EvidenceFiles.ReadAllBytes(path);
 
         await CancelAfterFirstOrder(scope);
         using var cancelled = scope.Manifest();
         var unvisited = Find(cancelled, name);
         Assert.Equal(changeSettings ? "not-requested" : "failed", unvisited.GetProperty("status").GetString());
-        Assert.Equal(bytes, File.ReadAllBytes(path));
+        Assert.Equal(bytes, EvidenceFiles.ReadAllBytes(path));
     }
 
     [Fact]
@@ -239,7 +240,7 @@ public sealed class WorkbenchRecaptureTests
         Assert.Equal(new AnalysisCatalog(new Optic()).Names.Count, rows.Length);
         Assert.Single(rows, row => row.GetProperty("status").GetString() == "captured");
         Assert.Equal("not-requested", Find(cancelled, "Seidel Coefficients").GetProperty("status").GetString());
-        Assert.Single(Directory.GetFiles(Path.Combine(scope.Output, "current"), "*.json"));
+        Assert.Single(EvidenceFiles.GetFiles(Path.Combine(scope.Output, "current"), "*.json"));
     }
 
     private static async Task CancelAfterFirstOrder(Scope scope)
@@ -286,8 +287,8 @@ public sealed class WorkbenchRecaptureTests
             var index = new AnalysisCatalog(new Optic()).Names.ToList().IndexOf(name) + 1;
             return new(Source, Settings, Output, index, index);
         }
-        public JsonDocument Manifest() => JsonDocument.Parse(File.ReadAllText(ManifestPath));
-        public JsonDocument View(JsonElement entry) => JsonDocument.Parse(File.ReadAllText(Path.Combine(Output, entry.GetProperty("output").GetString()!)));
+        public JsonDocument Manifest() => JsonDocument.Parse(EvidenceFiles.ReadAllText(ManifestPath));
+        public JsonDocument View(JsonElement entry) => JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(Output, entry.GetProperty("output").GetString()!)));
         public void Dispose() => Directory.Delete(Root, recursive: true);
     }
 }

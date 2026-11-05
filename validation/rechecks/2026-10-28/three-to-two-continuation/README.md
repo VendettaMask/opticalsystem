@@ -17,7 +17,7 @@
 
 评价全部来自共享C# Core的独立35场、三波长10×32面积积分及中心/边界33条检查/波长，原最大值和畸变定义不改。训练保持4×16、边界/最大统计及v4逐行保护。没有将训练损失当物理合格结论。
 
-- [最好失败两片STAROPT](selected-runs/reduce-3-2-42-C-geometry/trial-0-unqualified.staropt)，[真实完整检查点](selected-runs/reduce-3-2-42-C-geometry/run.autonomous.json)，[原门槛任务计划](selected-runs/reduce-3-2-42-C-geometry/task.topology-plan.json)。文件名明确为未达标。
+- [最好失败两片STAROPT](../two-element-field-conflict/paired-runs/v4/unqualified.staropt)，[真实完整检查点](selected-runs/reduce-3-2-42-C-geometry/run.autonomous.json)，[原门槛任务计划](../../2026-10-29/happylens-wide21/runs/original-task.topology-plan.json)。文件名明确为未达标。
 - [原三片的本轮回读](paired-runs/preparation.json)、[默认搜索汇总](paired-runs/summary.json)、[定点删除汇总](selected-runs/summary.json)、[完整核验](verification.json)。每次源验收和终验均在各自搜索内重新计费。
 
 ## 同预算设计和实际覆盖范围
