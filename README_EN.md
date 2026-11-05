@@ -93,7 +93,6 @@ Optical System Design is a non-commercial optical-design project maintained by S
     <td width="50%" valign="top">
       <h3>🛠️ Projects, materials, and manufacturing data</h3>
       <p>Use material and lens libraries and save complete STAROPT projects. Export prescription and analysis CSV, complete PNGs, Word/PDF/Markdown/HTML design reports, manufacturing drawings, and faceted STEP, with scoped ZMX, SEQ, and LEN exchange.</p>
-      <p>CDGM uses one official September 2026 catalog with 352 materials. Material details include the source melt frequency, comment, relative cost, and resistance codes. <a href="docs/USER_GUIDE.md#材料库目录与参数">Material-library guide →</a></p>
       <a href="docs/FILE_FORMATS_AND_PLUGINS.md">Files and exchange formats</a> · <a href="docs/MARKDOWN_REPORT_EXPORT.md">Design reports →</a>
     </td>
   </tr>

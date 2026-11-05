@@ -93,7 +93,6 @@
     <td width="50%" valign="top">
       <h3>🛠️ 工程、材料与制造资料</h3>
       <p>使用材料与镜头库，以 STAROPT 保存完整工程；导出处方与分析 CSV、完整 PNG、Word/PDF/Markdown/HTML 设计报告、制造图纸和分面 STEP。支持范围明确的 ZMX、SEQ、LEN 交换子集。</p>
-      <p>CDGM 已统一采用官网下载的 2026 年 9 月版，共 352 种材料；材料详情显示原目录的熔融频率、标注、参考成本及耐久性参数。<a href="docs/USER_GUIDE.md#材料库目录与参数">材料库使用说明 →</a></p>
       <a href="docs/FILE_FORMATS_AND_PLUGINS.md">文件与交换格式</a> · <a href="docs/MARKDOWN_REPORT_EXPORT.md">设计报告 →</a>
     </td>
   </tr>
