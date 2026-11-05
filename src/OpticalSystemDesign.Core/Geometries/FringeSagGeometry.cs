@@ -68,26 +68,52 @@ internal static class FringeZernikeBasis
         (9,1),(9,-1), (10,0), (12,0)
     });
     // Cartesian polynomial derivatives remain well defined at the pupil center.
-    internal static (double Value,double Dx,double Dy) Evaluate(int index,double x,double y)
+    internal static (double Value, double Dx, double Dy) Evaluate(int index, double x, double y)
     {
-        var (n,signedM)=Orders[index];var m=Math.Abs(signedM);
-        var re=1.0;var im=0.0;var previousRe=1.0;var previousIm=0.0;
-        for(var i=0;i<m;i++)
-        {
-            previousRe=re;previousIm=im;(re,im)=(re*x-im*y,re*y+im*x);
-        }
-        var angular=signedM<0?im:re;
-        var ax=m==0?0:m*(signedM<0?previousIm:previousRe);
-        var ay=m==0?0:m*(signedM<0?previousRe:-previousIm);
-        var r2=x*x+y*y;var radial=0.0;var derivative=0.0;
-        for(var k=0;k<=(n-m)/2;k++)
-        {
-            var p=(n-m)/2-k;
-            var c=(k%2==0?1:-1)*Factorial(n-k)/(Factorial(k)*Factorial((n+m)/2-k)*Factorial(p));
-            radial+=c*Math.Pow(r2,p);
-            if(p>0) derivative+=c*p*Math.Pow(r2,p-1);
-        }
-        return (radial*angular,2*x*derivative*angular+radial*ax,2*y*derivative*angular+radial*ay);
+        var (n, signedM) = Orders[index];
+        return EvaluateOrder(n, signedM, x, y);
     }
-    private static double Factorial(int n){var value=1.0;for(var i=2;i<=n;i++)value*=i;return value;}
+
+    internal static (double Value, double Dx, double Dy) EvaluateOrder(int n, int signedM, double x, double y)
+    {
+        var m = Math.Abs(signedM);
+        var real = 1.0;
+        var imaginary = 0.0;
+        var previousReal = 1.0;
+        var previousImaginary = 0.0;
+        for (var i = 0; i < m; i++)
+        {
+            previousReal = real;
+            previousImaginary = imaginary;
+            (real, imaginary) = (real * x - imaginary * y, real * y + imaginary * x);
+        }
+        var angular = signedM < 0 ? imaginary : real;
+        var angularDx = m * (signedM < 0 ? previousImaginary : previousReal);
+        var angularDy = m * (signedM < 0 ? previousReal : -previousImaginary);
+        var order = (n - m) / 2;
+        var argument = 2 * (x * x + y * y) - 1;
+        // R_n^m = r^m P_order^(0,m)(2r² - 1), avoiding cancellation of large monomial coefficients.
+        var radial = Jacobi(order, 0, m, argument);
+        var derivative = order == 0 ? 0 : (order + m + 1) * Jacobi(order - 1, 1, m + 1, argument);
+        return (radial * angular,
+            2 * x * derivative * angular + radial * angularDx,
+            2 * y * derivative * angular + radial * angularDy);
+    }
+
+    private static double Jacobi(int order, int a, int b, double argument)
+    {
+        if (order == 0) return 1;
+        var previous = 1.0;
+        var value = (a - b + (a + b + 2) * argument) / 2;
+        for (var i = 2; i <= order; i++)
+        {
+            var sum = 2 * i + a + b;
+            var next = ((sum - 1) * (sum * (sum - 2) * argument + a * a - b * b) * value
+                - 2 * (i + a - 1) * (i + b - 1) * sum * previous)
+                / (2 * i * (i + a + b) * (sum - 2));
+            previous = value;
+            value = next;
+        }
+        return value;
+    }
 }

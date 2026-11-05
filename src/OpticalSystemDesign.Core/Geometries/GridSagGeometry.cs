@@ -37,6 +37,10 @@ public sealed class GridSagGeometry : IGeometry
     public bool Linear { get; }
     public IReadOnlyList<GridSagPoint> Points { get; }
 
+    internal bool ContainsGridPoint(Vector3D point) =>
+        Math.Abs(point.X - DecenterX) <= (Columns - 1) * SpacingX / 2
+        && Math.Abs(point.Y - DecenterY) <= (Rows - 1) * SpacingY / 2;
+
     private (double Value, double Dx, double Dy, double Dyy) Grid(double x, double y, bool normalField = false)
     {
         var u = (x - DecenterX) / SpacingX + (Columns - 1) / 2d;

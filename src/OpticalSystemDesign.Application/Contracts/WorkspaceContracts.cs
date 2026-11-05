@@ -1,3 +1,5 @@
+using OpticalSystemDesign.Core.Tolerancing;
+
 namespace OpticalSystemDesign.Application.Contracts;
 
 public sealed record DocumentRecoveryState(string Name, string? OriginalPath,
@@ -1660,7 +1662,13 @@ public enum ToleranceOperandKind
     AbbeNumber,
     Compensator,
     FringePower,
-    FringeIrregularity
+    FringeIrregularity,
+    FringeZernikeIrregularity,
+    StandardZernikeIrregularity,
+    IsoPower,
+    IsoIrregularityPv,
+    IsoRotationalIrregularityPv,
+    IsoIrregularityRms
 }
 
 public enum ToleranceDistribution
@@ -1692,8 +1700,10 @@ public sealed record ToleranceMtfSettingsDto(
     ToleranceMtfDirection Direction = ToleranceMtfDirection.Minimum,
     bool SeparateFields = true,
     IReadOnlyList<ToleranceFieldLimitDto>? FieldLimits = null);
+public sealed record TolerancePivotDto(double X, double Y, double Z);
 public sealed record ToleranceCompensatorDto(int SurfaceNumber,
-    ToleranceCompensatorKind Kind, double Minimum, double Maximum, int EndSurfaceNumber = -1);
+    ToleranceCompensatorKind Kind, double Minimum, double Maximum, int EndSurfaceNumber = -1,
+    TolerancePivotDto? Pivot = null);
 public sealed record ToleranceFieldValueDto(int FieldNumber, double Value, string Error = "");
 public sealed record ToleranceCompensatorValueDto(string Name, double Nominal, double Value,
     double Minimum, double Maximum);
@@ -1734,7 +1744,11 @@ public sealed record ToleranceOperandDto(
     string Comment = "",
     int EndSurfaceNumber = -1,
     int ParameterIndex = 0,
-    double? TestWavelengthMicrometers = null);
+    double? TestWavelengthMicrometers = null,
+    int MinimumZernikeTerm = 2,
+    int MaximumZernikeTerm = 11,
+    IsoSurfaceFormUnit IsoUnit = IsoSurfaceFormUnit.Nanometers,
+    IsoSurfaceFormStatistics IsoStatistics = IsoSurfaceFormStatistics.AtMaximum);
 
 public sealed record ToleranceWizardSettingsDto(
     int StartSurface,
@@ -1764,7 +1778,11 @@ public sealed record ToleranceWizardSettingsDto(
     double AsphereCoefficientTolerance = 0,
     bool IncludeFringeIrregularity = false,
     double FringeIrregularity = 0,
-    double TestWavelengthMicrometers = 0.6328);
+    double TestWavelengthMicrometers = 0.6328,
+    ToleranceOperandKind? ZernikeIrregularityKind = null,
+    double ZernikeIrregularity = 0,
+    int MinimumZernikeTerm = 2,
+    int MaximumZernikeTerm = 11);
 
 public sealed record ToleranceValidationResultDto(
     bool IsValid,

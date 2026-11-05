@@ -444,6 +444,12 @@
     "Japanese": "FWHM公差 (nm)"
   },
   {
+    "Source": "Fringe Zernike 面形不规则度",
+    "Chinese": "Fringe Zernike 面形不规则度",
+    "English": "Fringe Zernike surface irregularity",
+    "Japanese": "Fringe Zernike 面形状不規則度"
+  },
+  {
     "Source": "G · GRIN",
     "Chinese": "G · GRIN",
     "English": "G · GRIN",
@@ -526,6 +532,42 @@
     "Chinese": "IMA和BIM图片浏览器",
     "English": "IMA/BIM Image Viewer",
     "Japanese": "IMA/BIM 画像ビューアー"
+  },
+  {
+    "Source": "ISO 总不规则度 RMS",
+    "Chinese": "ISO 总不规则度 RMS",
+    "English": "ISO total irregularity RMS",
+    "Japanese": "ISO 総不規則度 RMS"
+  },
+  {
+    "Source": "ISO 总不规则度峰谷值",
+    "Chinese": "ISO 总不规则度峰谷值",
+    "English": "ISO peak-to-valley total irregularity",
+    "Japanese": "ISO 総不規則度のピーク・バレー値"
+  },
+  {
+    "Source": "ISO 旋转对称不规则度峰谷值",
+    "Chinese": "ISO 旋转对称不规则度峰谷值",
+    "English": "ISO peak-to-valley rotationally symmetric irregularity",
+    "Japanese": "ISO 回転対称不規則度のピーク・バレー値"
+  },
+  {
+    "Source": "ISO 统计模型",
+    "Chinese": "ISO 统计模型",
+    "English": "ISO statistical model",
+    "Japanese": "ISO 統計モデル"
+  },
+  {
+    "Source": "ISO 面形单位",
+    "Chinese": "ISO 面形单位",
+    "English": "ISO surface form unit",
+    "Japanese": "ISO 面形状の単位"
+  },
+  {
+    "Source": "ISO 面形峰谷光焦度",
+    "Chinese": "ISO 面形峰谷光焦度",
+    "English": "ISO peak-to-valley surface power",
+    "Japanese": "ISO 面形状のピーク・バレー パワー"
   },
   {
     "Source": "Inferno（黑—红—黄）",
@@ -1008,6 +1050,12 @@
     "Japanese": "Speos鏡面コーン（ファイルを上書き）"
   },
   {
+    "Source": "Standard Zernike 面形 RMS",
+    "Chinese": "Standard Zernike 面形 RMS",
+    "English": "Standard Zernike surface RMS",
+    "Japanese": "Standard Zernike 面形状 RMS"
+  },
+  {
     "Source": "S{0} {1} · z={2} mm · SD={3} / 机械半径={4} mm · 旋转={5}° · {6} → {7} · {8} · {9}",
     "Chinese": "S{0} {1} · z={2} mm · SD={3} / 机械半径={4} mm · 旋转={5}° · {6} → {7} · {8} · {9}",
     "English": "S{0} {1} · z={2} mm · SD={3} / mechanical radius={4} mm · rotation={5}° · {6} → {7} · {8} · {9}",
@@ -1018,6 +1066,18 @@
     "Chinese": "T · 环曲面",
     "English": "T · Toroidal",
     "Japanese": "T · トロイダル"
+  },
+  {
+    "Source": "TEXI (双程条纹)",
+    "Chinese": "TEXI (双程条纹)",
+    "English": "TEXI (double-pass fringes)",
+    "Japanese": "TEXI (ダブルパス干渉縞)"
+  },
+  {
+    "Source": "TEXI、TEZI、ISOA 和机械支点需要版本 5 公差文件。",
+    "Chinese": "TEXI、TEZI、ISOA 和机械支点需要版本 5 公差文件。",
+    "English": "TEXI, TEZI, ISOA and mechanical pivots require a version 5 tolerance file.",
+    "Japanese": "TEXI、TEZI、ISOA、機械支点にはバージョン 5 の公差ファイルが必要です。"
   },
   {
     "Source": "TRAC（质心参考径向像差）",
@@ -1288,6 +1348,30 @@
     "Chinese": "Zernike 不规则度",
     "English": "Zernike Irregularity",
     "Japanese": "Zernike不規則度"
+  },
+  {
+    "Source": "Zernike 终止项",
+    "Chinese": "Zernike 终止项",
+    "English": "Last Zernike term",
+    "Japanese": "Zernike 終了項"
+  },
+  {
+    "Source": "Zernike 起始项",
+    "Chinese": "Zernike 起始项",
+    "English": "First Zernike term",
+    "Japanese": "Zernike 開始項"
+  },
+  {
+    "Source": "Zernike 面形公差设置无效。",
+    "Chinese": "Zernike 面形公差设置无效。",
+    "English": "The Zernike surface form tolerance settings are invalid.",
+    "Japanese": "Zernike 面形状公差の設定が無効です。"
+  },
+  {
+    "Source": "Zernike、ISO 面形公差和机械支点需要版本 5 公差文件。",
+    "Chinese": "Zernike、ISO 面形公差和机械支点需要版本 5 公差文件。",
+    "English": "Zernike and ISO surface form tolerances and mechanical pivots require a version 5 tolerance file.",
+    "Japanese": "Zernike と ISO の面形状公差および機械支点にはバージョン 5 の公差ファイルが必要です。"
   },
   {
     "Source": "n = n0 + nr2·r² + nr1·r；非零 nr1 在轴上不可微，不能用于轴上追迹/近轴瞄准。",
@@ -4260,6 +4344,12 @@
     "Japanese": "全視野で補償量を共有します。群内の全ての面が一体で移動し、先頭面の頂点を支点に傾きます。"
   },
   {
+    "Source": "全部视场共用补偿量。镜组各面一起移动，倾斜支点以首面坐标输入。",
+    "Chinese": "全部视场共用补偿量。镜组各面一起移动，倾斜支点以首面坐标输入。",
+    "English": "All fields share the compensator settings. The group moves as a unit. Enter the tilt pivot in first-surface coordinates.",
+    "Japanese": "全視野で補正量を共有します。レンズ群は一体で移動します。傾きの支点は先頭面の座標で入力します。"
+  },
+  {
     "Source": "全部镜头",
     "Chinese": "全部镜头",
     "English": "All Lenses",
@@ -5754,6 +5844,12 @@
     "Japanese": "複屈折プリズム"
   },
   {
+    "Source": "双程条纹",
+    "Chinese": "双程条纹",
+    "English": "Double-pass fringes",
+    "Japanese": "ダブルパス干渉縞"
+  },
+  {
     "Source": "双面优化流程",
     "Chinese": "双面优化流程",
     "English": "Two-Sided Optimization Workflow",
@@ -6126,6 +6222,18 @@
     "Japanese": "同じ固定レンズ・シーン・全センサーで各光源スペクトルの画像を生成します。浮動小数点パワーと放射照度を、共通目盛の16ビット線形PNGと保存します。既定サンプリングは手順確認用で、正式MTFと収束は別途検証が必要です。"
   },
   {
+    "Source": "同一镜组共用一个支点。全部为 0 时沿用该组已设置的支点，未设置时使用首面顶点。",
+    "Chinese": "同一镜组共用一个支点。全部为 0 时沿用该组已设置的支点，未设置时使用首面顶点。",
+    "English": "The group shares a pivot. With all entries at 0, the group uses its configured pivot or the first surface vertex if none is set.",
+    "Japanese": "レンズ群で支点を共有します。すべて 0 の場合、群に設定した支点を使用します。支点の設定がなければ先頭面の頂点を使用します。"
+  },
+  {
+    "Source": "同一镜组的倾斜补偿必须共用机械支点。",
+    "Chinese": "同一镜组的倾斜补偿必须共用机械支点。",
+    "English": "Tilt compensators in the same group must share a mechanical pivot.",
+    "Japanese": "同じレンズ群の傾き補正器は機械支点を共有する必要があります。"
+  },
+  {
     "Source": "同材料同步",
     "Chinese": "同材料同步",
     "English": "Synchronize Same Material",
@@ -6400,6 +6508,12 @@
     "Chinese": "固定所选",
     "English": "Fix Selected",
     "Japanese": "選択層を固定"
+  },
+  {
+    "Source": "固定最大值",
+    "Chinese": "固定最大值",
+    "English": "Always use maximum",
+    "Japanese": "最大値を使用"
   },
   {
     "Source": "固定毫米刻度的只读探测面图像，像长、倍率和返回光线数列于下方。",
@@ -9480,6 +9594,18 @@
     "Japanese": "成功"
   },
   {
+    "Source": "截断正态",
+    "Chinese": "截断正态",
+    "English": "Truncated normal",
+    "Japanese": "切断正規分布"
+  },
+  {
+    "Source": "截断正态的均值为最大值的一半，标准差为最大值的八分之一。",
+    "Chinese": "截断正态的均值为最大值的一半，标准差为最大值的八分之一。",
+    "English": "The truncated normal uses half the maximum as its mean and one eighth of the maximum as its standard deviation.",
+    "Japanese": "切断正規分布の平均は最大値の半分で、標準偏差は最大値の八分の一です。"
+  },
+  {
     "Source": "截止波段 (nm)，例 490-510;590-610",
     "Chinese": "截止波段 (nm)，例 490-510;590-610",
     "English": "Stop Bands (nm), e.g. 490-510;590-610",
@@ -10342,6 +10468,24 @@
     "Chinese": "支持",
     "English": "Support",
     "Japanese": "サポート"
+  },
+  {
+    "Source": "支点 X (mm)",
+    "Chinese": "支点 X (mm)",
+    "English": "Pivot X (mm)",
+    "Japanese": "支点 X (mm)"
+  },
+  {
+    "Source": "支点 Y (mm)",
+    "Chinese": "支点 Y (mm)",
+    "English": "Pivot Y (mm)",
+    "Japanese": "支点 Y (mm)"
+  },
+  {
+    "Source": "支点 Z (mm)",
+    "Chinese": "支点 Z (mm)",
+    "English": "Pivot Z (mm)",
+    "Japanese": "支点 Z (mm)"
   },
   {
     "Source": "收起操作数属性",
@@ -11728,6 +11872,12 @@
     "Chinese": "机械参考 / 光阑 / 像面位置",
     "English": "Reference / Stop / Image Positions",
     "Japanese": "基準 / 絞り / 像面の位置"
+  },
+  {
+    "Source": "机械支点只能用于镜组倾斜，坐标必须在 ±1000000 mm 内。",
+    "Chinese": "机械支点只能用于镜组倾斜，坐标必须在 ±1000000 mm 内。",
+    "English": "A mechanical pivot is available for group tilt. Coordinates must be within ±1000000 mm.",
+    "Japanese": "機械支点はレンズ群の傾きに使用できます。座標は ±1000000 mm の範囲内にしてください。"
   },
   {
     "Source": "机械直径",
@@ -14232,6 +14382,42 @@
     "Japanese": "第{0}層、{1}、{2}"
   },
   {
+    "Source": "第 {0} 行的 ISO 统计模型无效。",
+    "Chinese": "第 {0} 行的 ISO 统计模型无效。",
+    "English": "The ISO statistical model on row {0} is invalid.",
+    "Japanese": "行 {0} の ISO 統計モデルが無効です。"
+  },
+  {
+    "Source": "第 {0} 行的 ISO 面形单位无效。",
+    "Chinese": "第 {0} 行的 ISO 面形单位无效。",
+    "English": "The ISO surface form unit on row {0} is invalid.",
+    "Japanese": "行 {0} の ISO 面形状の単位が無効です。"
+  },
+  {
+    "Source": "第 {0} 行的 ISOA 使用截断正态分布。",
+    "Chinese": "第 {0} 行的 ISOA 使用截断正态分布。",
+    "English": "The ISOA operand on row {0} uses a truncated normal distribution.",
+    "Japanese": "行 {0} の ISOA オペランドは切断正規分布を使用します。"
+  },
+  {
+    "Source": "第 {0} 行的 Zernike 起止项无效。",
+    "Chinese": "第 {0} 行的 Zernike 起止项无效。",
+    "English": "The Zernike term range on row {0} is invalid.",
+    "Japanese": "行 {0} の Zernike 項の範囲が無効です。"
+  },
+  {
+    "Source": "第 {0} 行的面形公差必须使用对称范围。",
+    "Chinese": "第 {0} 行的面形公差必须使用对称范围。",
+    "English": "The surface form tolerance on row {0} requires a symmetric range.",
+    "Japanese": "行 {0} の面形状公差には、対称範囲が必要です。"
+  },
+  {
+    "Source": "第 {0} 行的面形公差需要具有居中圆形净口径的实体表面。",
+    "Chinese": "第 {0} 行的面形公差需要具有居中圆形净口径的实体表面。",
+    "English": "The surface form tolerance on row {0} requires a physical surface with a centered circular clear aperture.",
+    "Japanese": "行 {0} の面形状公差には、中心に円形有効口径がある実体面が必要です。"
+  },
+  {
     "Source": "第 {0} 轮 · 到达末面 {1:N0}/{2:N0} · 处理 {3:N0} 面次 · 追迹 {4:F3} s · 更新 {5} 次 / {6:F3} s",
     "Chinese": "第 {0} 轮 · 到达末面 {1:N0}/{2:N0} · 处理 {3:N0} 面次 · 追迹 {4:F3} s · 更新 {5} 次 / {6:F3} s",
     "English": "Trial {0} · Final-surface arrivals {1:N0}/{2:N0} · Surface visits {3:N0} · Tracing {4:F3} s · Updates {5} / {6:F3} s",
@@ -15366,6 +15552,12 @@
     "Japanese": "面 {0} 厚さソルブタイプ"
   },
   {
+    "Source": "表面 {0} 只能使用一种面形不规则度公差。",
+    "Chinese": "表面 {0} 只能使用一种面形不规则度公差。",
+    "English": "Surface {0} allows a single surface irregularity tolerance.",
+    "Japanese": "面 {0} で使用できる面形状不規則度公差は 1 種類です。"
+  },
+  {
     "Source": "表面 {0} 后的梯度材料",
     "Chinese": "表面 {0} 后的梯度材料",
     "English": "Gradient Material after Surface {0}",
@@ -15382,6 +15574,18 @@
     "Chinese": "表面 {0} 曲率求解类型",
     "English": "Surface {0} Curvature Solve Type",
     "Japanese": "面 {0} 曲率ソルブタイプ"
+  },
+  {
+    "Source": "表面 {0} 的 ISOA 与 TRAD 或 TFRN 同时定义了曲率误差。",
+    "Chinese": "表面 {0} 的 ISOA 与 TRAD 或 TFRN 同时定义了曲率误差。",
+    "English": "ISOA and TRAD or TFRN both define surface power error on surface {0}.",
+    "Japanese": "面 {0} のパワー誤差が ISOA と TRAD または TFRN の両方で定義されています。"
+  },
+  {
+    "Source": "表面 {0} 的 ISOB 和 ISOC 需要联合峰谷值标定，目前仅支持分别用于不同表面。",
+    "Chinese": "表面 {0} 的 ISOB 和 ISOC 需要联合峰谷值标定，目前仅支持分别用于不同表面。",
+    "English": "ISOB and ISOC on surface {0} require joint peak-to-valley calibration. This version supports these operands on separate surfaces.",
+    "Japanese": "面 {0} の ISOB と ISOC にはピーク・バレー値の同時校正が必要です。このバージョンでは両オペランドを別々の面で使用できます。"
   },
   {
     "Source": "表面 {0} 的净口径求解：{1}",
@@ -16734,6 +16938,12 @@
     "Japanese": "入力は前のセルに属しています。元に戻してから現在のセルを編集してください。"
   },
   {
+    "Source": "输入去均值面形 RMS，最小偏差自动取反。",
+    "Chinese": "输入去均值面形 RMS，最小偏差自动取反。",
+    "English": "Enter the surface RMS after removing the aperture mean. The minimum is its negative.",
+    "Japanese": "開口内の平均値を除いた面形状 RMS を入力すると、最小偏差に符号を反転した値が設定されます。"
+  },
+  {
     "Source": "输入图 · sRGB 解码后预览",
     "Chinese": "输入图 · sRGB 解码后预览",
     "English": "Input Image · Preview after sRGB Decoding",
@@ -16752,6 +16962,12 @@
     "Japanese": "入力が変更されたため、以前の結果は無効です。"
   },
   {
+    "Source": "输入最大偏差，最小偏差自动取反。",
+    "Chinese": "输入最大偏差，最小偏差自动取反。",
+    "English": "Enter the maximum deviation. The minimum is its negative.",
+    "Japanese": "最大偏差を入力すると、最小偏差に符号を反転した値が設定されます。"
+  },
+  {
     "Source": "输入有效，尚未进行光学验收",
     "Chinese": "输入有效，尚未进行光学验收",
     "English": "Inputs Valid; Optical Acceptance Not Yet Assessed",
@@ -16768,6 +16984,24 @@
     "Chinese": "输入说明",
     "English": "Input details",
     "Japanese": "入力説明"
+  },
+  {
+    "Source": "输入面形 RMS (mm)，最小偏差自动取反。",
+    "Chinese": "输入面形 RMS (mm)，最小偏差自动取反。",
+    "English": "Enter the surface form RMS (mm). The minimum is its negative.",
+    "Japanese": "面形状 RMS (mm) を入力すると、最小偏差に符号を反転した値が設定されます。"
+  },
+  {
+    "Source": "输入面形峰谷值，最小偏差自动取反。",
+    "Chinese": "输入面形峰谷值，最小偏差自动取反。",
+    "English": "Enter the surface peak-to-valley value. The minimum is its negative.",
+    "Japanese": "面形状のピーク・バレー値を入力すると、最小偏差に符号を反転した値が設定されます。"
+  },
+  {
+    "Source": "输入面形峰谷值，最小偏差自动取反。使用截断正态分布。",
+    "Chinese": "输入面形峰谷值，最小偏差自动取反。使用截断正态分布。",
+    "English": "Enter the surface peak-to-valley value. The minimum is its negative. Sampling uses a truncated normal distribution.",
+    "Japanese": "面形状のピーク・バレー値を入力すると、最小偏差に符号を反転した値が設定されます。標本抽出には切断正規分布を使用します。"
   },
   {
     "Source": "输出 Gamma",

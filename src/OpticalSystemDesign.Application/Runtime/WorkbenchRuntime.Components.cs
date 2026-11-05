@@ -260,9 +260,11 @@ public partial class WorkbenchRuntime
         var selectedMaterial = string.IsNullOrWhiteSpace(materialName) ? "Air" : materialName;
         var isMirror = selectedMaterial.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
         surface.Material = isMirror ? "MIRROR" : selectedMaterial;
-        var retainedGradient = !isMirror && surface.MaterialAfter is GradientIndexMaterial gradient
-            && string.Equals(gradient.Name, selectedMaterial, StringComparison.OrdinalIgnoreCase) ? gradient : null;
-        surface.MaterialAfter = retainedGradient ?? (isMirror
+        var retainedMaterial = !isMirror
+            && surface.MaterialAfter is (GradientIndexMaterial or AirMaterial { PressureAtmospheres: not 1 })
+            && string.Equals(surface.MaterialAfter.Name, selectedMaterial, StringComparison.OrdinalIgnoreCase)
+                ? surface.MaterialAfter : null;
+        surface.MaterialAfter = retainedMaterial ?? (isMirror
             ? surface.MaterialBefore.Clone()
             : CurrentOptic.Materials.TryResolve(selectedMaterial, CurrentOptic.GlassCatalogs, out var resolved)
                 ? resolved

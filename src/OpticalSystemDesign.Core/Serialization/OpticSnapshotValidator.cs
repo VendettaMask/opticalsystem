@@ -55,6 +55,7 @@ public static class OpticSnapshotValidator
         "gradient_index",
         "unresolved",
         "air",
+        "pressure_air",
         "constant",
         "cauchy",
         "sellmeier",
@@ -871,6 +872,12 @@ public static class OpticSnapshotValidator
         }
 
         ValidateEncodedCollectionSizes(component, role, path);
+        if (role == ComponentRole.Material && component.Kind == "pressure_air")
+        {
+            RequireNumberKey(component, "pressureAtmospheres", path);
+            if (component.Numbers["pressureAtmospheres"] < 0)
+                Invalid(path, "air pressure must be non-negative");
+        }
         if (role == ComponentRole.Material && component.Kind == "tabulated_index")
         {
             try { _ = ComponentSnapshotFactory.ToMaterial(component, "", new Materials.MaterialRegistry()); }

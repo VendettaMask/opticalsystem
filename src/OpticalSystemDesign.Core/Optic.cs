@@ -164,6 +164,12 @@ public sealed class Optic
         set => _state.GlobalReferenceSurfaceNumber = value;
     }
 
+    internal bool HasImportedSurfaceTiltDecenter
+    {
+        get => _state.HasImportedSurfaceTiltDecenter;
+        set => _state.HasImportedSurfaceTiltDecenter = value;
+    }
+
     public RealRayTracer RealRayTracer { get; }
 
     public SequentialRayTracer SequentialRayTracer { get; }
@@ -609,6 +615,7 @@ public sealed class Optic
             Polarization: new PolarizationSnapshot(Polarization.Unpolarized, Polarization.Jx, Polarization.Jy,
                 Polarization.XPhaseDegrees, Polarization.YPhaseDegrees, Polarization.ReferenceAxis.ToString()),
             GlobalReferenceSurfaceNumber: GlobalReferenceSurfaceNumber,
+            HasImportedSurfaceTiltDecenter: HasImportedSurfaceTiltDecenter,
             RadiusPickups: Pickups.RadiusPickups.Select(pickup => new RadiusPickupSnapshot(
                 pickup.SourceSurface,
                 pickup.TargetSurface,
@@ -713,6 +720,7 @@ public sealed class Optic
             ? new(polarization.Unpolarized, polarization.Jx, polarization.Jy, polarization.XPhaseDegrees,
                 polarization.YPhaseDegrees, Enum.Parse<PolarizationReferenceAxis>(polarization.ReferenceAxis)) : new();
         GlobalReferenceSurfaceNumber = snapshot.GlobalReferenceSurfaceNumber;
+        HasImportedSurfaceTiltDecenter = snapshot.HasImportedSurfaceTiltDecenter;
         Environment.MatchRefractiveIndexData = snapshot.Environment?.MatchRefractiveIndexData ?? true;
         Environment.TemperatureCelsius = snapshot.Environment?.TemperatureCelsius ?? 20.0;
         Environment.PressureAtmospheres = snapshot.Environment?.PressureAtmospheres ?? 1.0;
@@ -962,6 +970,7 @@ public sealed class Optic
         public ReferenceOpdMode ReferenceOpd { get; set; } = ReferenceOpdMode.ExitPupil;
 
         public int GlobalReferenceSurfaceNumber { get; set; } = 1;
+        public bool HasImportedSurfaceTiltDecenter { get; set; }
 
         public ObservableCollection<Wavelength> Wavelengths { get; } = new();
 

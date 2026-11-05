@@ -38,6 +38,13 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
 
     public override string Name => "FFT PSF Cross Section";
 
+    internal bool SupportsDensePhysicalPupil => !Optic.ImageSpaceAfocal && !_usePolarization && !_normalize
+        && (_row == "中心" || _row.Equals("Center", StringComparison.OrdinalIgnoreCase))
+        && (_type.StartsWith("X", StringComparison.OrdinalIgnoreCase) || _type.StartsWith("Y", StringComparison.OrdinalIgnoreCase))
+        && !_type.Contains("对数", StringComparison.Ordinal) && !_type.Contains("log", StringComparison.OrdinalIgnoreCase);
+
+    internal AnalysisData GenerateDensePhysicalPupil() => GenerateBoundedProfiles(densePhysicalPupil: true);
+
     public override AnalysisData GenerateData()
     {
         if ((_gridSize ?? 2 * _sampling) > AnalysisResourceLimits.MaximumFftGridSize)
@@ -74,7 +81,7 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
             interpolateFftProfile: true, idealPeak: idealPeak);
     }
 
-    private AnalysisData GenerateBoundedProfiles()
+    private AnalysisData GenerateBoundedProfiles(bool densePhysicalPupil = false)
     {
         if (_usePolarization || _normalize || (_row != "中心" && !_row.Equals("Center", StringComparison.OrdinalIgnoreCase)))
             throw new AnalysisDataUnavailableException(Name,
@@ -86,14 +93,15 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
         var field = fields.Count == 0 ? (0d, 0d) : fields[Math.Clamp(_fieldNumber - 1, 0, fields.Count - 1)];
         var reference = waves.FirstOrDefault(w => w.IsPrimary) ?? waves[0];
         var ordered = waves.OrderBy(w => w.Nanometers).ToArray();
-        var transform = _gridSize ?? 2 * _sampling;
+        var transform = densePhysicalPupil ? DiffractionEngine.DensePupilPaddingFactor * _sampling : _gridSize ?? 2 * _sampling;
         if (2L * transform * waves.Length > AnalysisResourceLimits.MaximumAggregateGridCells)
             throw new ArgumentOutOfRangeException(nameof(_sampling), "Spectral Fourier axes exceed the aggregate readout budget.");
         var results = new List<(Domain.Wavelength Wave, FftAxisProfiles Profile)>();
         var pitch = 0d;
         foreach (var wave in ordered)
         {
-            var profile = DiffractionEngine.ComputeFftAxisProfiles(Optic, field, wave, _sampling, transform, reference, pitch);
+            var profile = DiffractionEngine.ComputeFftAxisProfiles(Optic, field, wave, _sampling, transform, reference,
+                pitch, densePhysicalPupil: densePhysicalPupil);
             if (pitch == 0) pitch = profile.Spacing;
             results.Add((wave, profile));
         }

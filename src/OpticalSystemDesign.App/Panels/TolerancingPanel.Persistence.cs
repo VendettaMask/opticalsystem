@@ -5,7 +5,9 @@ namespace OpticalSystemDesign.App.Panels;
 public sealed partial class TolerancingPanel
 {
     internal ToleranceFileDto BuildStudyFile() => new(
-        _operands.Any(row => ToleranceOperandEditorRow.UsesFringes(row.Kind))
+        _operands.Any(row => row.Kind.SurfaceFormModeFor().HasValue)
+            || _additionalCompensators.Any(row => row.Pivot is not null) ? 5
+            : _operands.Any(row => ToleranceOperandEditorRow.UsesFringes(row.Kind))
             || _additionalCompensators.Any(row => row.Kind.IsElement()) ? 4 : 3,
         _operands.Select(row => row.ToDto()).ToArray(), (ToleranceCriterion)_criterion.SelectedIndex,
         IntValue(_trials, 20), IntValue(_seed, 1234), IntValue(_compensationIterations, 3),
@@ -16,8 +18,11 @@ public sealed partial class TolerancingPanel
     internal ToleranceFileDto ParseStudyFile(string json)
     {
         var document = System.Text.Json.JsonSerializer.Deserialize<ToleranceFileDto>(json, ToleranceJsonOptions);
-        if (document is null || document.SchemaVersion is < 1 or > 4 || document.Operands is null)
+        if (document is null || document.SchemaVersion is < 1 or > 5 || document.Operands is null)
             throw new InvalidDataException("不支持的公差文件版本或操作数表缺失。");
+        if (document.SchemaVersion < 5 && (document.Operands.Any(row => row.Kind.SurfaceFormModeFor().HasValue)
+            || document.AdditionalCompensators?.Any(row => row.Pivot is not null) == true))
+            throw new InvalidDataException("Zernike、ISO 面形公差和机械支点需要版本 5 公差文件。");
         if (document.SchemaVersion < 4 && (document.Operands.Any(row => ToleranceOperandEditorRow.UsesFringes(row.Kind))
             || document.AdditionalCompensators?.Any(row => row.Kind.IsElement()) == true))
             throw new InvalidDataException("条纹公差与镜组补偿需要版本 4 公差文件。");

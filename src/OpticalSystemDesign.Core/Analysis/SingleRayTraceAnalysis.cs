@@ -262,8 +262,8 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
 
             var localPosition = surface.CoordinateSystem.ToLocalPoint(sample.Position);
             var localDirection = surface.CoordinateSystem.ToLocalDirection(sample.Direction);
-            var localIncident = surface.CoordinateSystem.ToLocalDirection(incidentDirection);
-            var localNormal = surface.Geometry.SurfaceNormal(localPosition);
+            var localIncident = surface.CoordinateSystem.ToLocalDirection(sample.IncidentDirection ?? incidentDirection);
+            var localNormal = surface.SequentialTraceNormal(localPosition);
             // Report the normal facing the incident medium, independently of the geometry's
             // arbitrary normal orientation. This does not change the traced refraction.
             if (Dot(localIncident, localNormal) > 0) localNormal = -localNormal;

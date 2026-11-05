@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.FileIO;
@@ -15,6 +16,26 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class GridGradientPhaseTests
 {
+    [Fact]
+    public void SingleRayReportUsesActualGridExitIncidence()
+    {
+        using var fixture = Fixture();
+        var source = fixture.RootElement.GetProperty("cases")[0].GetProperty("source").GetString()!;
+        var portable = Regex.Replace(source, @"TYPE GRINSU11 [^\r\n]+", "TYPE GRINSU11 Sample.GGD");
+        var optic = OpticalFormatCatalog.Import(portable, ".zmx");
+        const double py = .15;
+        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0, 0, 0, py, .55, false);
+        using var trace = optic.SequentialRayTracer.Trace(bundle, TraceRequest.Selected([1, 2]));
+        Assert.True(trace.TryGetSample(0, 1, out var entrance));
+        Assert.True(trace.TryGetSample(0, 2, out var exit));
+        var incident = exit.IncidentDirection!.Value;
+        var expected = Math.Acos(Math.Abs(incident.Z)) * 180 / Math.PI;
+        Assert.True(Math.Abs(incident.Z - entrance.Direction.Z) > 1e-6);
+        var report = new SingleRayTraceAnalysis(optic, fieldNumber: 1, px: 0, py: py, useRayAiming: false).GenerateData();
+        var rows = Assert.IsType<double[][]>(report.Values["RealRayData"]);
+        Assert.Equal(expected, rows.Single(row => row[0] == 2)[10], 10);
+    }
+
     private static JsonDocument Fixture() => JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(
         AppContext.BaseDirectory, "Fixtures", "grid-gradient-phase-native-v1.json")));
 

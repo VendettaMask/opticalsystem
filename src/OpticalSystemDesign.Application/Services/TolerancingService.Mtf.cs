@@ -46,6 +46,9 @@ internal sealed partial class TolerancingService
                 if (item.Kind.IsElement() && (item.EndSurfaceNumber <= item.SurfaceNumber
                     || item.EndSurfaceNumber >= optic.SurfaceGroup.Items.Count - 1))
                     throw new ArgumentException("镜组补偿需要有效的起止实体面，且至少包含两个面。");
+                if (item.Pivot is { } pivot && (!item.Kind.IsElementTilt()
+                    || !IsPivotOffset(pivot.X) || !IsPivotOffset(pivot.Y) || !IsPivotOffset(pivot.Z)))
+                    throw new ArgumentException("机械支点只能用于镜组倾斜，坐标必须在 ±1000000 mm 内。");
                 var surface = optic.SurfaceGroup.Items[item.SurfaceNumber];
                 if (item.Kind == ToleranceCompensatorKind.Thickness
                     && (surface.Thickness + item.Minimum < 0 || surface.MaterialAfter.RefractiveIndex(587.6) > 1.0001))
@@ -61,6 +64,10 @@ internal sealed partial class TolerancingService
             for (var i = 1; i < groups.Length; i++)
                 if (groups[i].First <= groups[i - 1].Last)
                     throw new ArgumentException("不同镜组补偿的表面范围不能重叠。");
+            if (compensators.Where(item => item.Pivot is not null)
+                .GroupBy(item => (item.SurfaceNumber, item.EndSurfaceNumber))
+                .Any(group => group.Select(item => item.Pivot).Distinct().Skip(1).Any()))
+                throw new ArgumentException("同一镜组的倾斜补偿必须共用机械支点。");
 
             foreach (var group in groups)
             {
@@ -72,4 +79,7 @@ internal sealed partial class TolerancingService
             }
         }
     }
+
+    private static bool IsPivotOffset(double millimeters) =>
+        double.IsFinite(millimeters) && millimeters is >= -1_000_000 and <= 1_000_000;
 }

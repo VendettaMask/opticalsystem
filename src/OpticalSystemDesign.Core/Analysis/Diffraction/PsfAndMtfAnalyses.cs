@@ -60,7 +60,15 @@ public sealed class PsfAnalysis : BaseAnalysis
 
     public override string Name => "PSF";
 
-    public override AnalysisData GenerateData()
+    internal bool SupportsDensePhysicalPupil => !Optic.ImageSpaceAfocal && _zemaxCompatible && !_ignoreOpd
+        && !_usePolarization && !_normalize && _imageDeltaMicrometers > 0 && _displaySize.HasValue
+        && !_type.Contains("对数", StringComparison.Ordinal) && !_type.Contains("log", StringComparison.OrdinalIgnoreCase);
+
+    public override AnalysisData GenerateData() => GenerateData(denseDisplaySize: null);
+
+    internal AnalysisData GenerateDensePhysicalPupil(int displaySize) => GenerateData(displaySize);
+
+    private AnalysisData GenerateData(int? denseDisplaySize)
     {
         var analysisOptic = ResolveAnalysisOptic();
         var allWavelengths = analysisOptic.Wavelengths.ToArray();
@@ -88,15 +96,20 @@ public sealed class PsfAnalysis : BaseAnalysis
                 ? allFields[^1]
                 : allFields[Math.Clamp(_fieldNumber - 1, 0, allFields.Count - 1)];
         var pupilSampling = _requestedRays;
-        var transformSize = Math.Max(pupilSampling, _gridSize ?? (_requestedRays * 2));
-        var displaySize = Math.Min(transformSize, _displaySize ?? transformSize);
-        var croppedReadout = transformSize > AnalysisResourceLimits.MaximumFftGridSize && _displaySize.HasValue;
+        var densePhysicalPupil = denseDisplaySize.HasValue;
+        var transformSize = densePhysicalPupil ? DiffractionEngine.DensePupilPaddingFactor * pupilSampling
+            : Math.Max(pupilSampling, _gridSize ?? (_requestedRays * 2));
+        var displaySize = denseDisplaySize ?? Math.Min(transformSize, _displaySize ?? transformSize);
+        var croppedReadout = densePhysicalPupil || transformSize > AnalysisResourceLimits.MaximumFftGridSize && _displaySize.HasValue;
         if (croppedReadout && _normalize)
             throw new AnalysisDataUnavailableException(Name, "full-image peak normalization is unavailable for a cropped large Fourier readout");
         // Native scalar FFT display excludes surface/material attenuation.
         // The shared engine retains launch apodization, clipping and polarized
         // transmission; general-purpose callers retain their normal defaults.
-        var results = DiffractionEngine.ComputeFftPsfSpectrum(analysisOptic, field, wavelengths,
+        var results = densePhysicalPupil
+            ? DiffractionEngine.ComputeDenseFftPsfSpectrum(analysisOptic, field, wavelengths,
+                pupilSampling, transformSize, displaySize, _imageDeltaMicrometers)
+            : DiffractionEngine.ComputeFftPsfSpectrum(analysisOptic, field, wavelengths,
             pupilSampling, transformSize, usePolarization: _usePolarization,
             cellCenteredPupil: _zemaxCompatible, zemaxFftSampling: _zemaxCompatible,
             ignoreOpd: _ignoreOpd, aimAtStop: analysisOptic.RayAimingEnabled,

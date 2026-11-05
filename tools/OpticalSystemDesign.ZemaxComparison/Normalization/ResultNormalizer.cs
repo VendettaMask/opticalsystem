@@ -54,8 +54,7 @@ public static class ResultNormalizer
                 && (!data.Values.TryGetValue("FirstOrderReferenceConvention", out var convention)
                     || convention.ToString() != request.Reference))
                 throw new InvalidDataException("Core first-order convention does not match the declared reference");
-            foreach (var key in new[] { "EffectiveFocalLength", "FNumber" })
-                result.Scalars.Add(new(key, ((JsonElement)data.Values[key]).GetDouble(), key == "FNumber" ? "Dimensionless" : "Millimeter"));
+            AddWorkbenchFirstOrderScalars(data, result);
             return result;
         }
         if (entry.ZemaxSettingsMapper == "spot")
@@ -153,8 +152,7 @@ public static class ResultNormalizer
                     || reference.GetProperty("savedInput").GetBoolean()
                     || reference.GetProperty("realRayModeChanged").GetBoolean()))
                 throw new InvalidDataException("Native first-order reference lacks the declared centered ordinary-index convention");
-            foreach (var p in root.GetProperty("scalars").EnumerateObject())
-                result.Scalars.Add(new(p.Name, p.Value.GetDouble(), p.Name == "FNumber" ? "Dimensionless" : "Millimeter"));
+            AddNativeFirstOrderScalars(path, root, result);
             return result;
         }
         if (entry.ZemaxSettingsMapper == "spot")
@@ -236,6 +234,63 @@ public static class ResultNormalizer
             || selected.GetInt32() != NativeConfigurationSelector.Numbered(request.Configuration))
             throw new InvalidDataException("Native analysis configuration selector differs from the requested numbered configuration");
     }
+    private static void AddWorkbenchFirstOrderScalars(AnalysisData data, NumericResult result)
+    {
+        if (data.Values.GetValueOrDefault("CardinalParametersApplicable") is JsonElement { ValueKind: JsonValueKind.False })
+            throw new InvalidDataException("Core first-order cardinal parameters are not applicable to this prescription.");
+        var infinite = data.Values.GetValueOrDefault("EffectiveFocalLengthStatus") is JsonElement { ValueKind: JsonValueKind.String } status
+            && status.GetString() == "Infinite"
+            && data.Values.GetValueOrDefault("OpticalPowerInverseMillimeters") is JsonElement power && Finite(power) == 0;
+        foreach (var key in new[] { "EffectiveFocalLength", "FNumber" })
+        {
+            if (data.Values.GetValueOrDefault(key) is not JsonElement value)
+                throw new InvalidDataException($"Missing Core first-order value {key}.");
+            var scalar = infinite
+                ? value.ValueKind == JsonValueKind.String && value.GetString() == "Infinity"
+                    ? double.PositiveInfinity
+                    : throw new InvalidDataException($"Core zero-power state conflicts with {key}.")
+                : Finite(value) ?? throw new InvalidDataException($"Core first-order value {key} is not finite or a verified zero-power state.");
+            result.Scalars.Add(new(key, scalar, FirstOrderUnit(key)));
+        }
+    }
+
+    private static void AddNativeFirstOrderScalars(string path, JsonElement root, NumericResult result)
+    {
+        var scalars = root.GetProperty("scalars");
+        var focalLength = Finite(scalars.GetProperty("EffectiveFocalLength"));
+        if (focalLength is { } efl && Math.Abs(efl) == 1e10
+            && root.TryGetProperty("operands", out var operands)
+            && operands.TryGetProperty("EFFL", out var effl) && Finite(effl) == efl)
+        {
+            // The large finite operand can represent zero power. Establish it
+            // independently from the native prescription before interpreting it.
+            var modelPath = Path.Combine(Path.GetDirectoryName(path)!, "model.json");
+            if (!EvidenceFiles.Exists(modelPath))
+                throw new InvalidDataException("Native first-order infinity marker has no accompanying prescription.");
+            using var model = JsonDocument.Parse(EvidenceFiles.ReadAllText(modelPath));
+            var planeOnly = model.RootElement.TryGetProperty("surfaces", out var surfaces)
+                && surfaces.ValueKind == JsonValueKind.Array && surfaces.GetArrayLength() > 2
+                && surfaces.EnumerateArray().All(surface => surface.TryGetProperty("Type", out var type)
+                    && type.ValueKind == JsonValueKind.String && type.GetString() is ("Standard" or "CoordinateBreak" or "Tilted")
+                    && surface.TryGetProperty("Radius", out var radius)
+                    && (radius.ValueKind == JsonValueKind.Null || Finite(radius) == 0));
+            if (!planeOnly || !operands.TryGetProperty("EPDI", out var diameter) || Finite(diameter) is not (> 0)
+                || Finite(scalars.GetProperty("FNumber")) != Math.Abs(efl) / diameter.GetDouble())
+                throw new InvalidDataException("Native first-order infinity marker could not be verified as zero power from the plane-only prescription and entrance pupil.");
+            result.Scalars.Add(new("EffectiveFocalLength", double.PositiveInfinity, "Millimeter"));
+            result.Scalars.Add(new("FNumber", double.PositiveInfinity, "Dimensionless"));
+            result.Transformations.Add("Verified native signed EFFL saturation as zero power from plane-only optics and the captured entrance pupil.");
+            return;
+        }
+        foreach (var property in scalars.EnumerateObject())
+        {
+            var value = Finite(property.Value) ?? throw new InvalidDataException($"Native first-order value {property.Name} is not finite.");
+            result.Scalars.Add(new(property.Name, value, FirstOrderUnit(property.Name)));
+        }
+    }
+
+    private static string FirstOrderUnit(string key) => key == "FNumber" ? "Dimensionless" : "Millimeter";
+
     private static double? Finite(JsonElement e) => e.ValueKind == JsonValueKind.Number && e.TryGetDouble(out var d) && double.IsFinite(d) ? d : null;
     private static string Semantics(AnalysisComparisonEntry e) => e.ZemaxSettingsMapper switch
     {

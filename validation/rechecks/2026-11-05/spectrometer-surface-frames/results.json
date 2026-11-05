@@ -1,0 +1,2488 @@
+{
+  "scope": "All 30 original configuration 1 requests for Sample Spectrometer, lens 12 of the 95 sequential examples.",
+  "identity": {
+    "source": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Diffractive components/Sample Spectrometer.ZMX",
+    "sourceSha256": "2f85aa23896797969b375d24a4d5e43a103aa39e498b07dca22d8c6adc247b0f",
+    "coreSha256": "53c886b850cc64ddd5d600cb323c3f4f631b1f3b97934de477c4a41dc81fad03",
+    "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478"
+  },
+  "priorCoreSha256": "ef619509d9af578999561f1b65f7ffa938e89b5d9b10cd939df0fdc5697528a3",
+  "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "before": {
+    "Pass": 1,
+    "Difference": 11,
+    "Incomparable": 16,
+    "Error": 1,
+    "Close": 1
+  },
+  "after": {
+    "Pass": 14,
+    "Incomparable": 12,
+    "Difference": 4
+  },
+  "surfacePoses": [
+    {
+      "number": 0,
+      "origin": {
+        "x": 0,
+        "y": 0,
+        "z": -1,
+        "length": 1
+      },
+      "rotationXDegrees": 0,
+      "rotationYDegrees": 0,
+      "rotationZDegrees": 0,
+      "thickness": 1
+    },
+    {
+      "number": 1,
+      "origin": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "length": 0
+      },
+      "rotationXDegrees": 0,
+      "rotationYDegrees": 0,
+      "rotationZDegrees": 0,
+      "thickness": 5
+    },
+    {
+      "number": 2,
+      "origin": {
+        "x": 0,
+        "y": 0,
+        "z": 5,
+        "length": 5
+      },
+      "rotationXDegrees": 8,
+      "rotationYDegrees": 0,
+      "rotationZDegrees": 0,
+      "thickness": -3
+    },
+    {
+      "number": 3,
+      "origin": {
+        "x": 0,
+        "y": 0.8269120674509975,
+        "z": 2.116214912185043,
+        "length": 2.2720363381447997
+      },
+      "rotationXDegrees": 0,
+      "rotationYDegrees": 3.1805546814635168e-15,
+      "rotationZDegrees": 90,
+      "thickness": 3
+    },
+    {
+      "number": 4,
+      "origin": {
+        "x": 0,
+        "y": 1.6538241349019953,
+        "z": 5,
+        "length": 5.2664156946811875
+      },
+      "rotationXDegrees": -8.000000000000004,
+      "rotationYDegrees": 1.9475280550837126e-31,
+      "rotationZDegrees": 0,
+      "thickness": -5
+    },
+    {
+      "number": 5,
+      "origin": {
+        "x": 0,
+        "y": 1.653824134901995,
+        "z": -1.7763568394002505e-15,
+        "length": 1.653824134901995
+      },
+      "rotationXDegrees": -3.180554681463515e-15,
+      "rotationYDegrees": 1.9475280550837126e-31,
+      "rotationZDegrees": 0,
+      "thickness": 0
+    }
+  ],
+  "controls": {
+    "zeroScbdPreservesExactSnapshot": true,
+    "zeroCase": "Image Simulation/Example 6, tilted image plane.ZMX",
+    "zeroConfigurations": 2,
+    "staroptPreservesAllPoses": true,
+    "staroptFileSha256": "2d23237b92f6cea171361c8ddefeac3db051454cf8d7d9f6c1b3938937ab4043",
+    "unsupportedZmxExportRefused": true,
+    "independentCompoundGeometryPassed": true,
+    "slit": [
+      {
+        "px": -0.35,
+        "actualX": -0.028090032386679478,
+        "independentX": -0.028090032386679478,
+        "firstClip": 1,
+        "pass": false
+      },
+      {
+        "px": -0.3,
+        "actualX": -0.024077170617153844,
+        "independentX": -0.02407717061715384,
+        "firstClip": null,
+        "pass": true
+      },
+      {
+        "px": 0.3,
+        "actualX": 0.024077170617153844,
+        "independentX": 0.02407717061715384,
+        "firstClip": null,
+        "pass": true
+      },
+      {
+        "px": 0.35,
+        "actualX": 0.028090032386679478,
+        "independentX": 0.028090032386679478,
+        "firstClip": 1,
+        "pass": false
+      }
+    ]
+  },
+  "rows": [
+    {
+      "index": 437,
+      "key": "First Order",
+      "before": "Pass",
+      "conclusion": "Pass",
+      "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "FNumber",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "1aa6b8b8db120d82b633f89aa3d931cab0bd0e5e49b8f19fe240622b725dd9ac",
+      "native": "run/analyses/0437-012-sample-spectrometer-c1-primary-f1-w2-first-order/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "95f94bd77f124e3c5922e243b4b9bdac5b4fed94ac2b16ee1a262aea221b6f01",
+          "bytes": 5058,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "fc3967862ef47f60a4f0cebe58cd8a48b52792f168a5dc8b1a19c55bb9583ab5",
+          "bytes": 509,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "2d11d98cbd0e75e016314ea1b703bfb9382240bdb7d152e77b6b4a2072c0b6d8",
+          "bytes": 1565,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "9db0a065c8b5628595705bc648a689aff1a8c35a5a12827f0a7dea8f7b58d2be",
+          "bytes": 256,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "EffectiveFocalLength",
+          "count": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "coverage": 1
+        },
+        {
+          "id": "FNumber",
+          "count": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 438,
+      "key": "Single Ray Trace",
+      "before": "Difference",
+      "conclusion": "Pass",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "metrics": [
+        {
+          "id": "x",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 4.506894857314592e-12,
+          "nrmse": 5.96202996671903e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "y",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 4.701128375472763e-12,
+          "nrmse": 5.427149637309523e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "z",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 3.885173432971456e-14,
+          "nrmse": 3.04555184191074e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "l",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 8.251732630526476e-12,
+          "nrmse": 1.7286257522141806e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "m",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 4.7089984689385744e-11,
+          "nrmse": 2.3263025470094795e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "n",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 3.9840908350186055e-11,
+          "nrmse": 2.8358932210992875e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-x",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 8.809619700400617e-14,
+          "nrmse": 2.4341106131672366e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-y",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 2.1529888982740886e-11,
+          "nrmse": 3.1389202387612936e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-z",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 2.982381008820312e-11,
+          "nrmse": 1.4410996464386665e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "incidence",
+          "unit": "Degree",
+          "count": 5,
+          "maxAbsolute": 4.1933923000669893e-10,
+          "nrmse": 1.422595682505682e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "path-length",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 4.231814898503217e-11,
+          "nrmse": 5.761105400402904e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "157dfd220f124b311422a236c81eae6af2df217b1bb4d63e976defd1d1eba7b7",
+      "native": "run/analyses/0438-012-sample-spectrometer-c1-primary-f1-w2-single-ray-trace/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "5da7f545a9e32a431a2d44c69ceb8a20619e2fb0827a2fc187494b78d5e23585",
+          "bytes": 5344,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "d1c06a0f68057cd760a952fdd470fe4067e2f63de1818e5549443eda31aa84d3",
+          "bytes": 361,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "658ae78d503ec740ed162dcbe8d7c65d3a9c358fdef68ef4ea84f09d01b5e307",
+          "bytes": 1860,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "fc5bcfcff3eff824dddeb7bc97c1fdc7b7fa45ba852db1843541d0bdcbf09781",
+          "bytes": 261,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "x",
+          "count": 5,
+          "maxAbsolute": 0.35713564222,
+          "nrmse": 0.5997924532273763,
+          "coverage": 1
+        },
+        {
+          "id": "y",
+          "count": 5,
+          "maxAbsolute": 0.3462931158944201,
+          "nrmse": 0.5447728341313407,
+          "coverage": 1
+        },
+        {
+          "id": "z",
+          "count": 5,
+          "maxAbsolute": 0.005193472567637369,
+          "nrmse": 0.3040815457318686,
+          "coverage": 1
+        },
+        {
+          "id": "l",
+          "count": 5,
+          "maxAbsolute": 0.2620577866,
+          "nrmse": 0.45058611826114264,
+          "coverage": 1
+        },
+        {
+          "id": "m",
+          "count": 5,
+          "maxAbsolute": 0.13805088038510915,
+          "nrmse": 0.653025131596445,
+          "coverage": 1
+        },
+        {
+          "id": "n",
+          "count": 5,
+          "maxAbsolute": 0.03562777309584375,
+          "nrmse": 0.016366319988372617,
+          "coverage": 1
+        },
+        {
+          "id": "normal-x",
+          "count": 5,
+          "maxAbsolute": 0.0161857135,
+          "nrmse": 0.4472135954999579,
+          "coverage": 1
+        },
+        {
+          "id": "normal-y",
+          "count": 5,
+          "maxAbsolute": 0.01671530664372819,
+          "nrmse": 0.19132519058870037,
+          "coverage": 1
+        },
+        {
+          "id": "normal-z",
+          "count": 5,
+          "maxAbsolute": 0.000519347244563706,
+          "nrmse": 0.00023251030102502905,
+          "coverage": 1
+        },
+        {
+          "id": "incidence",
+          "count": 5,
+          "maxAbsolute": 14.455771730451923,
+          "nrmse": 0.5149697055032619,
+          "coverage": 1
+        },
+        {
+          "id": "path-length",
+          "count": 5,
+          "maxAbsolute": 0.05435886225543296,
+          "nrmse": 0.0079500714586636,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 439,
+      "key": "Spot Diagram",
+      "before": "Difference",
+      "conclusion": "Pass",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "metrics": [
+        {
+          "id": "RmsSpotRadius",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 2.842170943040401e-14,
+          "nrmse": 5.28749934563151e-16,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "GeoSpotRadius",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 6.536993168992922e-13,
+          "nrmse": 7.250769571932713e-15,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "1ace8eaf815a10bd45f91ae163072404446f7c877f95ca22af6477e1d7b06a02",
+      "native": "run/analyses/0439-012-sample-spectrometer-c1-primary-f1-w2-spot-diagram/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "ebc473b1f343e2d2de488cd1d4af270ece5b3ca46b56c6eb252d0eb0953c8150",
+          "bytes": 1048,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "bbe0904cb68e72021394a332b721f88d0642af0683e74abf8ec369ceb886dc54",
+          "bytes": 1759,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "9cd518a68f28ba6edd55d13d5cb2836f24bf1af319aa9d93403549b47ce51c8d",
+          "bytes": 2143,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "553f79e8f06238bd538807100abf1096c421ac20cb479fa5636f387371d48ae6",
+          "bytes": 257,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "RmsSpotRadius",
+          "count": 1,
+          "maxAbsolute": 4.026850557057074,
+          "nrmse": 0.07491445839150744,
+          "coverage": 1
+        },
+        {
+          "id": "GeoSpotRadius",
+          "count": 1,
+          "maxAbsolute": 7.320682806427271,
+          "nrmse": 0.08120030534893666,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 440,
+      "key": "Ray Fan",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Checked fan validity masks differ at physical coordinate -0.30000000000000004",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 61,
+          "maxAbsolute": 1.3855583347321954e-12,
+          "nrmse": 7.088929250922403e-15,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "116dec3179ef33c5afcc7ba261d4da1675d80ad446c518158b75ab830c67c25f",
+      "native": "run/analyses/0440-012-sample-spectrometer-c1-primary-f1-w2-ray-fan/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "888443ad2e09e94b6340bb69fa5f97e6f826c9802cfc22162f3338923f425e81",
+          "bytes": 4828,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "ee68945fe44ee4e29a2d93ddab559c3c9494fe6721b33809bd48b9ac3d0434ff",
+          "bytes": 3783,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "534e33536f4d6ae629c87cfa048f7f9988b0fc0fc5945bd37d9bf0f62370d501",
+          "bytes": 1921,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "9141b377564e391dbfbc8be5feee5af6217feef0fbd5c9e3178d72cecb7bb8ce",
+          "bytes": 252,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "tangential",
+          "count": 61,
+          "maxAbsolute": 8.897730264498435,
+          "nrmse": 0.050552382157567924,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 441,
+      "key": "Optical Path Difference",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Checked fan validity masks differ at physical coordinate -0.30000000000000004",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 0.7285318289020779,
+          "nrmse": 0.001635187534537905,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "b701da9359c56ede28a914170a0896f5305ed6a2c2e5a7dac5749df2f298a68e",
+      "native": "run/analyses/0441-012-sample-spectrometer-c1-primary-f1-w2-optical-path-difference/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "6ce6f83aad8d7c2ed3e8eb3742c9802f631d3dfec92dd7b90f7e7d8ca6a2a2d0",
+          "bytes": 4714,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "db1432f2cf0cb5f58abfdc160426dbe106947d670067090e203bcb5a213e408e",
+          "bytes": 3670,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "644bf4b7b704e9cb912d44f41d18009f0ace1473504f57ed0113e183105fd95d",
+          "bytes": 1861,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "0322da788dac0ee9f2948e50a1e6588ffa2286fdef4a6557a190f370f7456173",
+          "bytes": 268,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "tangential",
+          "count": 61,
+          "maxAbsolute": 121.37151142272822,
+          "nrmse": 0.408224376901189,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 442,
+      "key": "Wavefront",
+      "before": "Difference",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 1153,
+          "maxAbsolute": 0.7341492637870886,
+          "nrmse": 0.0013335374365840715,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "f30fbca62385e3b3e357d854a7da5bfcc6a2c137259d865c60e1cae8e1a61d6b",
+      "native": "run/analyses/0442-012-sample-spectrometer-c1-primary-f1-w2-wavefront/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "1354d1e80e50bf011a6351a878ea762bec30e3e902dc0b092a6fa6a2e9427f44",
+          "bytes": 123652,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "b516cdaa23456500d475f0e3c45758a00b3829ac2cada3b337dde85f49220ae8",
+          "bytes": 38331,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "5f363919a0fb4443a87dcb283d34d888bcb15bb0250fd2a144f01846a41dd8d1",
+          "bytes": 2093,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "3a92496491e470a2721853be0f8e96d37fea7464479e10fe2a2896692cde1bdb",
+          "bytes": 254,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "grid",
+          "count": 1151,
+          "maxAbsolute": 121.5968221184782,
+          "nrmse": 0.381177217077709,
+          "coverage": 0.9982653946227233
+        }
+      ]
+    },
+    {
+      "index": 443,
+      "key": "PSF",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+      "metrics": [],
+      "fingerprint": "1a2cc4c5b1f6798761fed2fae9a331ae337c43e721643a54618dfc7ae449bfb1",
+      "native": "run/analyses/0443-012-sample-spectrometer-c1-primary-f1-w2-psf/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "7cd11ce222496342b61d27f3e32fdb37b05727b02d6e75f0f52255b9cd65ad36",
+          "bytes": 34,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "6273af1f93d780ef1385dbc51eaeac8a314a17c8ab242eafaec8871cd382492a",
+          "bytes": 556,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "a42e994687e948752b6845189c77bd28d40e8649bf04c6fd058f9754e5ea08c9",
+          "bytes": 1894,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "3ea910a37cc2601ab9fdd863c872cb6a9f2705b9839591b41cc2256f3e9bd21a",
+          "bytes": 248,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": []
+    },
+    {
+      "index": 444,
+      "key": "Huygens PSF",
+      "before": "Incomparable",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Dimensionless",
+          "count": 1024,
+          "maxAbsolute": 0.01864823280044265,
+          "nrmse": 0.5770185946340698,
+          "coverage": 1,
+          "conclusion": "Difference"
+        }
+      ],
+      "fingerprint": "b5bb60861430b3bc7ede9be1a334d0e7a4a90ea74497fe1142a78451ae60aa78",
+      "native": "run/analyses/0444-012-sample-spectrometer-c1-primary-f1-w2-huygens-psf/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "d44d4bf1c617dbdd8cbf028285d40c32ba76b975bb17e8e0a421431c63bd25b0",
+          "bytes": 27614,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "b5ef2ef29bae7b0ab64464b21310ef97b3e5225cc480508066932bd164affce8",
+          "bytes": 22587,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "c847d62bd443f23f0d6c86d8d5a9f1093ecac2b24e00d1690ff1f2537654a992",
+          "bytes": 1989,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "44231c40590d9d36458dcedb303442cce04316d1f7f1792bd1201732abf28444",
+          "bytes": 256,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": []
+    },
+    {
+      "index": 445,
+      "key": "MTF",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+      "metrics": [],
+      "fingerprint": "5ddc3bafcf1350559e2a16468a22dc2e9e31cb026123e9576bc649da1136e9f5",
+      "native": "run/analyses/0445-012-sample-spectrometer-c1-primary-f1-w2-mtf/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "bc285dd673f446bd2b219dbd54302495f18222366dcc741a94bccda284a8ba36",
+          "bytes": 9704,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "e13622f95f4c9ed2c6023f9aaaec649ba5557fa47200c5447c0bab1ae9efb48e",
+          "bytes": 19321,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "55632179d9f124b19a62d3c7db3a96dd6c276408c599e0a5571b8635c27ce682",
+          "bytes": 1827,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "9d9b030f657a669bc864fbbee5f0bc4259698c5d66717de42e0192fe418f7afe",
+          "bytes": 248,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": []
+    },
+    {
+      "index": 446,
+      "key": "Huygens MTF",
+      "before": "Incomparable",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Dimensionless",
+          "count": 336,
+          "maxAbsolute": 0.3532930100696411,
+          "nrmse": 0.22496022375905303,
+          "coverage": 1,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Dimensionless",
+          "count": 336,
+          "maxAbsolute": 0.06891478689786135,
+          "nrmse": 0.03333542576514935,
+          "coverage": 1,
+          "conclusion": "Difference"
+        }
+      ],
+      "fingerprint": "07669a6ce71bcef15881fd72ed32b378a8ef171a69edbe6cdd94d160c8e9f591",
+      "native": "run/analyses/0446-012-sample-spectrometer-c1-primary-f1-w2-huygens-mtf/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "c14e1fd382a0c2e34c1e7a0b33191290a504d655b37f8c9cccc4419c3e693bc1",
+          "bytes": 5090,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "f6dc244f0ab6ccb5a241ed3490540de10c7b687b4d9d037829f812d7bea3fe39",
+          "bytes": 18584,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "b51c81fba7d3c952519b47ac6d1efed3aaff2f2ee2fa9e342a2ffd29f157c482",
+          "bytes": 1934,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "25eaa1a7bdd688f80f1fb341f26bfa2534ed9cde9655fe872aeaac4bdb4228b7",
+          "bytes": 256,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": []
+    },
+    {
+      "index": 447,
+      "key": "FFT PSF Cross Section",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Original native capture failed; no valid numeric authority",
+      "metrics": [],
+      "fingerprint": "a649ffe4c71cd39af942fa6a8d0bff66bf605ba51076e6142f8e24a4e5a87014",
+      "native": "run/analyses/0447-012-sample-spectrometer-c1-primary-f1-w2-fft-psf-cross-section/native",
+      "nativePayloads": {
+        "captured-settings.json": {
+          "sha256": "bbe46d248574dbb1733783147b7fd52b864964617261bef19113f933cb3d5b96",
+          "bytes": 2528,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "86f270516ee701c29db20d071deb96cb17ed80903d7cfe014e4eb418007928e2",
+          "bytes": 266,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": []
+    },
+    {
+      "index": 448,
+      "key": "Huygens PSF Cross Section",
+      "before": "Incomparable",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 32,
+          "maxAbsolute": 0.005384496004293274,
+          "nrmse": 4.742694199750643,
+          "coverage": 0.96875,
+          "conclusion": "Difference"
+        }
+      ],
+      "fingerprint": "c0c88055d609f857be7672e157fa65d5f29cbcc6766a44b194d0644d1bc5f6dc",
+      "native": "run/analyses/0448-012-sample-spectrometer-c1-primary-f1-w2-huygens-psf-cross-section/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "fc21e845989616e588c9a74c2ddb80aff6671c36a5572f2c3b49562fb466a7be",
+          "bytes": 2688,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "31828ff27e81aa0d230b6d0c00310ca2b9050f9b07887e77ee04d878977be710",
+          "bytes": 403,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "a9de3669e714d319494960bbbe27fa40840c00e6192fa07157f006d8826e5522",
+          "bytes": 2686,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "34ac4ac8f5b004d631383d53a72d7294cc7cad821a0e4000963386b9a6d32ae3",
+          "bytes": 270,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": []
+    },
+    {
+      "index": 449,
+      "key": "Encircled Energy",
+      "before": "Difference",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 630,
+          "maxAbsolute": 5.377642775528102e-17,
+          "nrmse": 4.330001118117891e-16,
+          "coverage": 0.9999999999999998,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 630,
+          "maxAbsolute": 5.377642775528102e-17,
+          "nrmse": 4.3336458199016686e-16,
+          "coverage": 0.9999999999999998,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "1a100b71df0cd5a87ca81f88af50b0f2b9c33622aa3ded2d541df106c97b6b29",
+      "native": "run/analyses/0449-012-sample-spectrometer-c1-primary-f1-w2-encircled-energy/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "b9d0ff077d9b6ee145266b042843c20a3a83a15fdf7b2a464a864dd6c2473678",
+          "bytes": 15354,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "51e589bc1e08cf1d6c5169e37d7737516435ff179dde58861c25554fb87004c6",
+          "bytes": 34454,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "395f88ec1dfab364081334246e4fc663d985d885973cccd7a0496a98dfc5f6a9",
+          "bytes": 2418,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "8d1540f77bb26bdc1203146d49dbc7c4b1b1eb686044cb9889a4d1018864fe63",
+          "bytes": 261,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "curve:0",
+          "count": 630,
+          "maxAbsolute": 0.003909420558483267,
+          "nrmse": 0.12458353106481343,
+          "coverage": 0.9999999999999998
+        },
+        {
+          "id": "curve:1",
+          "count": 630,
+          "maxAbsolute": 0.003909422970366295,
+          "nrmse": 0.12673093836928329,
+          "coverage": 0.9999999999999998
+        }
+      ]
+    },
+    {
+      "index": 450,
+      "key": "Diffraction Encircled Energy",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+      "metrics": [],
+      "fingerprint": "105d2a353e10631c990674bb30e03f67e8583e416df46dcdc3e4a27e77293912",
+      "native": "run/analyses/0450-012-sample-spectrometer-c1-primary-f1-w2-diffraction-encircled-energy/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "7cd11ce222496342b61d27f3e32fdb37b05727b02d6e75f0f52255b9cd65ad36",
+          "bytes": 34,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "423ce11409f54034c8e4651c9b5a9ac7afb1aac1a446a247148b92ba92bea697",
+          "bytes": 450,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "75713e6e7d90100715889a0d57a1e8a3921bb95a4ead1b69f0be3a9102e19690",
+          "bytes": 2418,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "3d5d615f24c3cc89f98013d17097fc79b1d329fbd960625301a36483e7fe1715",
+          "bytes": 273,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": []
+    },
+    {
+      "index": 451,
+      "key": "Huygens Through Focus MTF",
+      "before": "Incomparable",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.21857050436492853,
+          "nrmse": 0.1615494293735098,
+          "coverage": 1,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.18925067207413204,
+          "nrmse": 0.2670692176327251,
+          "coverage": 1,
+          "conclusion": "Difference"
+        }
+      ],
+      "fingerprint": "a1ed63d8e72ff78e39bd92a25eef73b914bd683a6f81b525c531ab1e96c470f6",
+      "native": "run/analyses/0451-012-sample-spectrometer-c1-primary-f1-w2-huygens-through-focus-mtf/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "833ea37f2d2d76121bdc49a350b57d82bc10e4dfb9b9ed192bf9d77964951e38",
+          "bytes": 9642,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "2557065ad390f1ddb9c19ebb2963be6debaabe79053bdd016d3a9b99537579cb",
+          "bytes": 6292,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "29cd2c1e22729d7715f11f87348b5d4df154ce094b1523cdc7a7e9aa153c0f00",
+          "bytes": 2613,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "f920f6b080b0624192e526aae8d773c4cd88c9aebf2d46e1cc78804f87814854",
+          "bytes": 270,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": []
+    },
+    {
+      "index": 452,
+      "key": "Relative Illumination",
+      "before": "Error",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 22,
+          "maxAbsolute": 1.4238695164037196e-06,
+          "nrmse": 8.241516591095263e-07,
+          "coverage": 0.9999999999999998,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "f05e96d2c381997eabdaa4692e43b453004d74ddcb2d874f97815d7ebddb9bcc",
+      "native": "run/analyses/0452-012-sample-spectrometer-c1-primary-f1-w2-relative-illumination/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "3aad7772a503ab14416c4a503e7eba1216f39ad49bfd6c7d98fc8cf67e6101b0",
+          "bytes": 2202,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "ede054721058923672d82eefcc8fe3e3534876064f321a74b364e84b5184eec9",
+          "bytes": 1639,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "0288ba84c09dcc027fb9f80039f98926e2abe8605c39625f4c7d45e52faf564d",
+          "bytes": 2213,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "f9d5c8e19ab215aa737717aa37e4a5d541e1a32641b9012c7eb2e172ea089a7c",
+          "bytes": 266,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": []
+    },
+    {
+      "index": 453,
+      "key": "RMS vs Field",
+      "before": "Close",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Micrometer",
+          "count": 16,
+          "maxAbsolute": 1.3500311979441904e-13,
+          "nrmse": 1.388791171208532e-15,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "5ca523f67d442a9f6b476d5176e66f56da2dd35f6df1da834cff0c4db140ce62",
+      "native": "run/analyses/0453-012-sample-spectrometer-c1-primary-f1-w2-rms-vs-field/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "daa2dd8a486e9f1720b2fe13a6d5d69d66dcc9c2d9cd69ed1695b9dc3dc9faa1",
+          "bytes": 1304,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "7f5a3a6ad132a865de2588c2320c9bff75dd89ae3f2d7d6f7f01d6bc03244526",
+          "bytes": 1145,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "3978fc0c17c6d988006a6271fae846df8e19e162a6a902f9d957b30c720a645b",
+          "bytes": 2479,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "dbb8f81245de1adef7c2ff79130dd428b748563155ac714e147a6ef935ab4299",
+          "bytes": 257,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "curve:0",
+          "count": 16,
+          "maxAbsolute": 0.31446280653126735,
+          "nrmse": 0.004797328801827526,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 454,
+      "key": "Field Curvature and Distortion",
+      "before": "Difference",
+      "conclusion": "Pass",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Millimeter",
+          "count": 102,
+          "maxAbsolute": 5.781022958339932e-06,
+          "nrmse": 4.748000921265415e-06,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Millimeter",
+          "count": 102,
+          "maxAbsolute": 1.2341956513783892e-05,
+          "nrmse": 1.5753226669251145e-05,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 102,
+          "maxAbsolute": 8.378014784875872e-07,
+          "nrmse": 3.047803346298859e-06,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "7c222310665313fc5d7d946ef70bde330a3ea15e1a57164269891ef657dfdd08",
+      "native": "run/analyses/0454-012-sample-spectrometer-c1-primary-f1-w2-field-curvature-and-distortion/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "d0b7446d06f507939337cef531c1e5fa3ce21997c7a71d9e5d333d39c6da8de1",
+          "bytes": 20696,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "d63bcae251638e30070050fea5b8d14861c384e9ab815f879397cbafff3ca2ee",
+          "bytes": 12378,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "d7d9e9f42f55841fd4d3d18bb7721767841e1af7278b969a5b1e3022fd698289",
+          "bytes": 2287,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "afce9edce90fd4019f6331028cc9def50c033e08a7bf5de3b11e7ad4c241bd01",
+          "bytes": 275,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "tangential",
+          "count": 102,
+          "maxAbsolute": 0.07751092192577191,
+          "nrmse": 0.08096802233620261,
+          "coverage": 1
+        },
+        {
+          "id": "sagittal",
+          "count": 102,
+          "maxAbsolute": 0.07904691038963108,
+          "nrmse": 0.09978666266557536,
+          "coverage": 1
+        },
+        {
+          "id": "distortion",
+          "count": 102,
+          "maxAbsolute": 43.91566886309639,
+          "nrmse": 93.19590775451219,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 455,
+      "key": "Single Ray Trace",
+      "before": "Difference",
+      "conclusion": "Pass",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "metrics": [
+        {
+          "id": "x",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 4.790418062228241e-12,
+          "nrmse": 1.0243547100185334e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "y",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 2.502942297866184e-12,
+          "nrmse": 3.3430690565700986e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "z",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 3.390603769970468e-14,
+          "nrmse": 2.7929037035203636e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "l",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 3.575489904150686e-11,
+          "nrmse": 7.070650274807157e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "m",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 2.4033122714151034e-11,
+          "nrmse": 1.257966693236361e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "n",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 4.0566883185988445e-11,
+          "nrmse": 3.06010836979796e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-x",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 2.0720428844933636e-11,
+          "nrmse": 7.85288455111312e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-y",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 2.7749701841939256e-11,
+          "nrmse": 3.9776012722240773e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-z",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 2.0996648864013423e-11,
+          "nrmse": 1.246509598162479e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "incidence",
+          "unit": "Degree",
+          "count": 5,
+          "maxAbsolute": 3.9906211668494507e-10,
+          "nrmse": 1.7000831904778007e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "path-length",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 4.8856696466259564e-11,
+          "nrmse": 6.399731518189338e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "fd9c235707b459ac65db42f9a210e51a4966851dfe1f4498e8f62ec87d255e2f",
+      "native": "run/analyses/0455-012-sample-spectrometer-c1-edge-f2-w1-single-ray-trace/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "6608f9b74feb8194b8ccd35982ea7c7352a43f540a7934cb64d7bec510dd82a0",
+          "bytes": 5344,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "d1c06a0f68057cd760a952fdd470fe4067e2f63de1818e5549443eda31aa84d3",
+          "bytes": 361,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "a9e6068986670bc28325a5e61f24725622081fb2babadddf3723c43f56ef899d",
+          "bytes": 1860,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "d8b6c41dfdc1c077fa64d8ef284be62781db3ffb4a05ea3f8a4e64e9bb2607e7",
+          "bytes": 258,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "x",
+          "count": 5,
+          "maxAbsolute": 0.30571032719,
+          "nrmse": 0.5617329496210692,
+          "coverage": 1
+        },
+        {
+          "id": "y",
+          "count": 5,
+          "maxAbsolute": 0.29646298211160005,
+          "nrmse": 0.500905958708814,
+          "coverage": 1
+        },
+        {
+          "id": "z",
+          "count": 5,
+          "maxAbsolute": 0.0031743473034710513,
+          "nrmse": 0.24590172924541065,
+          "coverage": 1
+        },
+        {
+          "id": "l",
+          "count": 5,
+          "maxAbsolute": 0.2622891762,
+          "nrmse": 0.4489858969837326,
+          "coverage": 1
+        },
+        {
+          "id": "m",
+          "count": 5,
+          "maxAbsolute": 0.13828154726039468,
+          "nrmse": 0.6642317080604255,
+          "coverage": 1
+        },
+        {
+          "id": "n",
+          "count": 5,
+          "maxAbsolute": 0.03547130977601021,
+          "nrmse": 0.016293696807545,
+          "coverage": 1
+        },
+        {
+          "id": "normal-x",
+          "count": 5,
+          "maxAbsolute": 0.0118000684,
+          "nrmse": 0.447213595499958,
+          "coverage": 1
+        },
+        {
+          "id": "normal-y",
+          "count": 5,
+          "maxAbsolute": 0.012216776865389047,
+          "nrmse": 0.16083245080119357,
+          "coverage": 1
+        },
+        {
+          "id": "normal-z",
+          "count": 5,
+          "maxAbsolute": 0.00031743471201706175,
+          "nrmse": 0.00014216682713773552,
+          "coverage": 1
+        },
+        {
+          "id": "incidence",
+          "count": 5,
+          "maxAbsolute": 14.469923626359424,
+          "nrmse": 0.5117979816737064,
+          "coverage": 1
+        },
+        {
+          "id": "path-length",
+          "count": 5,
+          "maxAbsolute": 0.04727255738892744,
+          "nrmse": 0.0070081011714067595,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 456,
+      "key": "Spot Diagram",
+      "before": "Difference",
+      "conclusion": "Pass",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "metrics": [
+        {
+          "id": "RmsSpotRadius",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 7.105427357601002e-14,
+          "nrmse": 1.3192780263469837e-15,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "GeoSpotRadius",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 9.237055564881302e-13,
+          "nrmse": 1.0221119033437214e-14,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "eb2f9ce4688bab08f7cd0ad88d41ab8ccec4b6a402c8d95f7c376e35f84bb458",
+      "native": "run/analyses/0456-012-sample-spectrometer-c1-edge-f2-w1-spot-diagram/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "42198a8b14407264f25e56addf7326c5e28f26cc97486160aa9d7d276588d460",
+          "bytes": 1046,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "61f783d338a3585b80fef686edb3e77d631de651d2833fd10666da3fe2154a6a",
+          "bytes": 1748,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "359ec83b05f9622ba47f0407e9340db939d5f23eabe80226fc2574cdb57e692a",
+          "bytes": 2143,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "3585caa1dac9aaba039f3a62f468443fa9570f9d60a6458d0ef2aec6b86ca157",
+          "bytes": 254,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "RmsSpotRadius",
+          "count": 1,
+          "maxAbsolute": 4.101190255965548,
+          "nrmse": 0.0761475688126729,
+          "coverage": 1
+        },
+        {
+          "id": "GeoSpotRadius",
+          "count": 1,
+          "maxAbsolute": 7.567449924477103,
+          "nrmse": 0.08373643085111164,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 457,
+      "key": "Ray Fan",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Checked fan validity masks differ at physical coordinate -0.30000000000000004",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 61,
+          "maxAbsolute": 1.6200374375330284e-12,
+          "nrmse": 7.329732016755879e-15,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "908e6f4559212c5ea9e0f9099090feaabd84c891306fa5b1cdcc008052e84af6",
+      "native": "run/analyses/0457-012-sample-spectrometer-c1-edge-f2-w1-ray-fan/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "e40273c25e860ef195717ec9540c14ee48668325463e17e47078bba328e2326f",
+          "bytes": 4828,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "784417b3acc2e06189ee2dccac8dfde8314ad00437902c1409b4212be0407227",
+          "bytes": 3786,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "df69fd02510476fb1baabb4d2bd526815a37505c8bd8348ac9f7296fd0eff0d3",
+          "bytes": 1921,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "8977eed82172da51aa2cf9bd8e3af4c6a160eb4c8ce0fd187092a175d9df5425",
+          "bytes": 249,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "tangential",
+          "count": 61,
+          "maxAbsolute": 8.695336205029065,
+          "nrmse": 0.051146746829103584,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 458,
+      "key": "Optical Path Difference",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Checked fan validity masks differ at physical coordinate -0.30000000000000004",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 1.0838146920221732,
+          "nrmse": 0.0016430242270156444,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "346a901e87af6ca76ff0268fe99f6a63772417192f29e1504c8e362b59df8780",
+      "native": "run/analyses/0458-012-sample-spectrometer-c1-edge-f2-w1-optical-path-difference/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "be0ba1aea483608ed380c13ef98ed63899318279ac907b9eb35486e4e85d0751",
+          "bytes": 4714,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "f09efb8f42aa66c548d7bb6b8f484b83d951ddba1ec51b3124576fb492afc015",
+          "bytes": 3676,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "a6cf3accf7844f0979c0061b01eb31317ce800361f4f40473b1bfac174e47b08",
+          "bytes": 1861,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "6e9423ea58a91490388700b87ccb3b4841eb8c3abb08d4d8fde15ffba153a0db",
+          "bytes": 265,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "tangential",
+          "count": 61,
+          "maxAbsolute": 170.49195552310653,
+          "nrmse": 0.4018760843829281,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 459,
+      "key": "Single Ray Trace",
+      "before": "Difference",
+      "conclusion": "Pass",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "metrics": [
+        {
+          "id": "x",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 4.27424762250439e-12,
+          "nrmse": 7.876164455385463e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "y",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 4.001687869958914e-12,
+          "nrmse": 5.301073208367356e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "z",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 4.176520240761761e-14,
+          "nrmse": 4.161251175054295e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "l",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 3.575489904150686e-11,
+          "nrmse": 7.574818683341033e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "m",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 4.564347511060163e-11,
+          "nrmse": 2.544893105125409e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "n",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 3.951838856153245e-11,
+          "nrmse": 3.2462173925369334e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-x",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 1.8706512033839218e-11,
+          "nrmse": 5.153401419342451e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-y",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 1.2016269923531553e-11,
+          "nrmse": 1.743776201588287e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-z",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 3.8295810966815225e-11,
+          "nrmse": 1.9531658409488537e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "incidence",
+          "unit": "Degree",
+          "count": 5,
+          "maxAbsolute": 4.2223646801176073e-10,
+          "nrmse": 1.7482047296489135e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "path-length",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 4.8856696466259564e-11,
+          "nrmse": 7.080600750600504e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "2c393abd141a95d6af51532319c9af23865cbeb3f138896d4202bd99f5240084",
+      "native": "run/analyses/0459-012-sample-spectrometer-c1-edge-f2-w2-single-ray-trace/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "c22e217279cf2faf4c7bd0de4cfb5066ffc9cb9df45f56d1ef8be501973868cf",
+          "bytes": 5344,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "d1c06a0f68057cd760a952fdd470fe4067e2f63de1818e5549443eda31aa84d3",
+          "bytes": 361,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "6e17afc23beaefa677f6332881f312448d629bfb94fbacdf28a1f61dd93f98ef",
+          "bytes": 1860,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "5685c5a100772947f99185fe39a688e98bde95dc329a35a60ef98b33415c3767",
+          "bytes": 258,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "x",
+          "count": 5,
+          "maxAbsolute": 0.30571032719,
+          "nrmse": 0.6469750493221499,
+          "coverage": 1
+        },
+        {
+          "id": "y",
+          "count": 5,
+          "maxAbsolute": 0.29646298211160005,
+          "nrmse": 0.5793381982157186,
+          "coverage": 1
+        },
+        {
+          "id": "z",
+          "count": 5,
+          "maxAbsolute": 0.004338297085674965,
+          "nrmse": 0.3358415947032812,
+          "coverage": 1
+        },
+        {
+          "id": "l",
+          "count": 5,
+          "maxAbsolute": 0.2622891762,
+          "nrmse": 0.4505570180426885,
+          "coverage": 1
+        },
+        {
+          "id": "m",
+          "count": 5,
+          "maxAbsolute": 0.13828154726039468,
+          "nrmse": 0.6525703284534058,
+          "coverage": 1
+        },
+        {
+          "id": "n",
+          "count": 5,
+          "maxAbsolute": 0.035690434007372485,
+          "nrmse": 0.016404968289091628,
+          "coverage": 1
+        },
+        {
+          "id": "normal-x",
+          "count": 5,
+          "maxAbsolute": 0.0162335627,
+          "nrmse": 0.447213595499958,
+          "coverage": 1
+        },
+        {
+          "id": "normal-y",
+          "count": 5,
+          "maxAbsolute": 0.016657009693470084,
+          "nrmse": 0.21920072127169068,
+          "coverage": 1
+        },
+        {
+          "id": "normal-z",
+          "count": 5,
+          "maxAbsolute": 0.00043382974686745346,
+          "nrmse": 0.0001941651289834391,
+          "coverage": 1
+        },
+        {
+          "id": "incidence",
+          "count": 5,
+          "maxAbsolute": 14.469923626359424,
+          "nrmse": 0.5204872743604306,
+          "coverage": 1
+        },
+        {
+          "id": "path-length",
+          "count": 5,
+          "maxAbsolute": 0.04727255738892744,
+          "nrmse": 0.00683240911695105,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 460,
+      "key": "Spot Diagram",
+      "before": "Difference",
+      "conclusion": "Pass",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "metrics": [
+        {
+          "id": "RmsSpotRadius",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 9.237055564881302e-14,
+          "nrmse": 1.7171439099690666e-15,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "GeoSpotRadius",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 4.263256414560601e-14,
+          "nrmse": 4.708391418796848e-16,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "bcf573a67f436f65c0d2cc7cc447b167fe15abbee3cedef265be00cbdc4cf9db",
+      "native": "run/analyses/0460-012-sample-spectrometer-c1-edge-f2-w2-spot-diagram/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "7365e409f084e2cbd2b1c7fe7fd25777b75ee9aedf6b9a60ad815c23216e71a1",
+          "bytes": 1048,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "d9275209ac3ef25a4a098272896fc97eeba28cdc05381aea84ee08f8a13355c0",
+          "bytes": 1759,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "e8a4c8e0f76bfe6a14a690c8885d72ef4e68b95b09e5d2861e318530cadfb33a",
+          "bytes": 2143,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "d73d807da4a8702ee774b08664a87489b7d60ed465af4a29ec44af04e03eec45",
+          "bytes": 254,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "RmsSpotRadius",
+          "count": 1,
+          "maxAbsolute": 3.8889375725071034,
+          "nrmse": 0.07229430874346233,
+          "coverage": 1
+        },
+        {
+          "id": "GeoSpotRadius",
+          "count": 1,
+          "maxAbsolute": 7.117662437245883,
+          "nrmse": 0.0786083159975148,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 461,
+      "key": "Ray Fan",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Checked fan validity masks differ at physical coordinate -0.30000000000000004",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 61,
+          "maxAbsolute": 1.7905676941154525e-12,
+          "nrmse": 7.211216979895214e-15,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "9d687248e86411a4d2324ebc4806235b83edcff46165e17761152bba444e415b",
+      "native": "run/analyses/0461-012-sample-spectrometer-c1-edge-f2-w2-ray-fan/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "c21a194476a12a879caa995db55c1498cb96c68cbd25d789d4fca12d67a1b075",
+          "bytes": 4828,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "95ce97690b6615cb24b4d81e8bf14d24ea66974b053cc9b780652fe3fcbc8072",
+          "bytes": 3783,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "71181e0165141ee1c756245479efea6259ce2df5e1885d75329e1ae7a2b58eef",
+          "bytes": 1921,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "19a015b01697a80d68b7d407ea32b71e41e90eb7ae6346970c1bbc1ff0555298",
+          "bytes": 249,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "tangential",
+          "count": 61,
+          "maxAbsolute": 8.633424973400224,
+          "nrmse": 0.04874945233394759,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 462,
+      "key": "Optical Path Difference",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Checked fan validity masks differ at physical coordinate -0.30000000000000004",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 0.7666004838860516,
+          "nrmse": 0.0016262920770244223,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "8cc5cceccd2cde16048be6ca528ce1756b89b546f729bdaa4ca81f9b888bbed7",
+      "native": "run/analyses/0462-012-sample-spectrometer-c1-edge-f2-w2-optical-path-difference/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "1e23b452b7e25a8320caa09ccb07cd5f564f9cc4a37d047370464b4416e8d6e7",
+          "bytes": 4714,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "0b9a9b844e509eb681acf24c8747f6edd3b55b6b407e4e5f4e16aa2435efa375",
+          "bytes": 3674,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "9072ae3219e6ae9e1ac7684f376a71d8e8f1d146356a4c076b3e9e1925ddd225",
+          "bytes": 1861,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "4ac224659e9283e909988d6ed0d462c45adae7c9084201e7270e28523f6c079e",
+          "bytes": 265,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "tangential",
+          "count": 61,
+          "maxAbsolute": 123.12870406102412,
+          "nrmse": 0.4030456486994546,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 463,
+      "key": "Single Ray Trace",
+      "before": "Difference",
+      "conclusion": "Pass",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "metrics": [
+        {
+          "id": "x",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 4.27424762250439e-12,
+          "nrmse": 7.261745777836093e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "y",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 3.2128188998115093e-12,
+          "nrmse": 4.267263697921593e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "z",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 3.390603769970468e-14,
+          "nrmse": 2.6260793209665927e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "l",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 4.358059399467429e-11,
+          "nrmse": 1.2148873492851542e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "m",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 3.332979725545471e-11,
+          "nrmse": 1.6857929020262998e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "n",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 3.951838856153245e-11,
+          "nrmse": 2.8654302834172636e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-x",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 2.7074110314773137e-11,
+          "nrmse": 5.856274428540544e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-y",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 2.132128154586077e-11,
+          "nrmse": 3.2192403894520417e-10,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-z",
+          "unit": "Dimensionless",
+          "count": 5,
+          "maxAbsolute": 2.0996648864013423e-11,
+          "nrmse": 9.542543159173685e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "incidence",
+          "unit": "Degree",
+          "count": 5,
+          "maxAbsolute": 3.2936853244791564e-10,
+          "nrmse": 1.302263470688737e-11,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "path-length",
+          "unit": "Millimeter",
+          "count": 5,
+          "maxAbsolute": 4.8856696466259564e-11,
+          "nrmse": 6.153796302399391e-12,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "c5ec21a9a5cab4d3240d1f49187c45856fd1fb63296fdceff14e89ef6d73564a",
+      "native": "run/analyses/0463-012-sample-spectrometer-c1-edge-f2-w3-single-ray-trace/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "ff62748e91624174e375f663126a7ed43483cfe8c106fb865317dd2f8ae3cfc5",
+          "bytes": 5344,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "d1c06a0f68057cd760a952fdd470fe4067e2f63de1818e5549443eda31aa84d3",
+          "bytes": 361,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "f8f5fd5c37dbf85a506c375612376148b3c3f17cbd67f80c09c5681f969b7c1e",
+          "bytes": 1860,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "0680d5dd5a77e65e27657c566687f9e8307135bf74e70c327ea59c333a114c03",
+          "bytes": 258,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "x",
+          "count": 5,
+          "maxAbsolute": 0.35047036725,
+          "nrmse": 0.6494449169679604,
+          "coverage": 1
+        },
+        {
+          "id": "y",
+          "count": 5,
+          "maxAbsolute": 0.35418261576670723,
+          "nrmse": 0.667876497618741,
+          "coverage": 1
+        },
+        {
+          "id": "z",
+          "count": 5,
+          "maxAbsolute": 0.005502852266881038,
+          "nrmse": 0.42586857942323164,
+          "coverage": 1
+        },
+        {
+          "id": "l",
+          "count": 5,
+          "maxAbsolute": 0.2622891762,
+          "nrmse": 0.45261387256419106,
+          "coverage": 1
+        },
+        {
+          "id": "m",
+          "count": 5,
+          "maxAbsolute": 0.13828154726039468,
+          "nrmse": 0.6421162351266907,
+          "coverage": 1
+        },
+        {
+          "id": "n",
+          "count": 5,
+          "maxAbsolute": 0.035918262738604434,
+          "nrmse": 0.016523771940691188,
+          "coverage": 1
+        },
+        {
+          "id": "normal-x",
+          "count": 5,
+          "maxAbsolute": 0.0206751073,
+          "nrmse": 0.447213595499958,
+          "coverage": 1
+        },
+        {
+          "id": "normal-y",
+          "count": 5,
+          "maxAbsolute": 0.021083393684541724,
+          "nrmse": 0.27740234173858674,
+          "coverage": 1
+        },
+        {
+          "id": "normal-z",
+          "count": 5,
+          "maxAbsolute": 0.0005502852304880568,
+          "nrmse": 0.00024621375761398577,
+          "coverage": 1
+        },
+        {
+          "id": "incidence",
+          "count": 5,
+          "maxAbsolute": 14.469923626359424,
+          "nrmse": 0.5184766660866907,
+          "coverage": 1
+        },
+        {
+          "id": "path-length",
+          "count": 5,
+          "maxAbsolute": 0.04727255738892744,
+          "nrmse": 0.006666412614005112,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 464,
+      "key": "Spot Diagram",
+      "before": "Difference",
+      "conclusion": "Pass",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated.",
+      "metrics": [
+        {
+          "id": "RmsSpotRadius",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 2.842170943040401e-14,
+          "nrmse": 5.29197922299415e-16,
+          "coverage": 1,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "GeoSpotRadius",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 9.094947017729282e-13,
+          "nrmse": 1.0018918648598682e-14,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "fc964522f9113f9b20761eb11aaaf11867058f9181099ea96c0256196653342c",
+      "native": "run/analyses/0464-012-sample-spectrometer-c1-edge-f2-w3-spot-diagram/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "2fc97f86dd28de74b3113cdba515080a199bac337547dd6e4a49713c9020a914",
+          "bytes": 1046,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "9e670324509415039de3964b3408786a34c8321a3d250ca2a85fe1f6443cb284",
+          "bytes": 1758,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "fd1a8082a22c48f8cfd6c2b92c9c144335079fe726787716cc5155268ea75c3d",
+          "bytes": 2143,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "a2ec82ad1c4d26725f97d55828b7ecba3c8c9ebf93c90707d1cde23c4af513c8",
+          "bytes": 254,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "RmsSpotRadius",
+          "count": 1,
+          "maxAbsolute": 3.6233955265348357,
+          "nrmse": 0.06746580071148005,
+          "coverage": 1
+        },
+        {
+          "id": "GeoSpotRadius",
+          "count": 1,
+          "maxAbsolute": 6.664937001206141,
+          "nrmse": 0.07342039649373491,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 465,
+      "key": "Ray Fan",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Checked fan validity masks differ at physical coordinate -0.30000000000000004",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 61,
+          "maxAbsolute": 1.2221335055073723e-12,
+          "nrmse": 6.1934537075295896e-15,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "c2ac93a03c65aa361241884bbdf5f1b5a72a5fd036de384514507faf60092ac8",
+      "native": "run/analyses/0465-012-sample-spectrometer-c1-edge-f2-w3-ray-fan/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "60eb0ce92f3f74af136473ed69065cfa5a6b0ac3ea7e7fbe1c59487058a5fd5c",
+          "bytes": 4828,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "f6ecfdf7fb9b3aba9c20f9d6ca675da7b603b754bd842b0a3cc0fa171b486690",
+          "bytes": 3782,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "82f7b95fdb2bb4149c499cb82a910e852b5907d387dd329c2221d5eb73da27ac",
+          "bytes": 1921,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "bcf6cf2978660becd69694b6c98ccf363ba352ce3aa1242e3145841e21f565a4",
+          "bytes": 249,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "tangential",
+          "count": 61,
+          "maxAbsolute": 8.463252096627954,
+          "nrmse": 0.04576868259847355,
+          "coverage": 1
+        }
+      ]
+    },
+    {
+      "index": 466,
+      "key": "Optical Path Difference",
+      "before": "Incomparable",
+      "conclusion": "Incomparable",
+      "reason": "Checked fan validity masks differ at physical coordinate -0.30000000000000004",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 61,
+          "maxAbsolute": 0.5814897385132127,
+          "nrmse": 0.00160560441600695,
+          "coverage": 1,
+          "conclusion": "Pass"
+        }
+      ],
+      "fingerprint": "6142d8a5522416c7f8a528b98bbb7e911d6e3aad7495ea5b9a7fdb4e16af70e6",
+      "native": "run/analyses/0466-012-sample-spectrometer-c1-edge-f2-w3-optical-path-difference/native",
+      "nativePayloads": {
+        "data.txt": {
+          "sha256": "d4c00c9531b2090b3c5fd3a48a491c8064a2542fed3d67d44891350f72dfa42d",
+          "bytes": 4714,
+          "matchedPriorReceipt": true
+        },
+        "data.json": {
+          "sha256": "379015e5758b7662b08573fb11e5eef9a32aed57e47e016ac4acdc7d5d476a64",
+          "bytes": 3678,
+          "matchedPriorReceipt": true
+        },
+        "captured-settings.json": {
+          "sha256": "ca33921a7b7a1842396238684b38660f9a0b8c471e52609f004b87912431cc14",
+          "bytes": 1861,
+          "matchedPriorReceipt": true
+        },
+        "model.json": {
+          "sha256": "36312c2b9f0e199ab23a048a1f7001332e74bb4f732ecc344a308c56d327b64b",
+          "bytes": 4306,
+          "matchedPriorReceipt": true
+        },
+        "batch-result.json": {
+          "sha256": "7c668f1292f7a8a7319392fc86a03fc5b55aba9835697dd785a9d1655099f9bc",
+          "bytes": 265,
+          "matchedPriorReceipt": true
+        }
+      },
+      "priorMetrics": [
+        {
+          "id": "tangential",
+          "count": 61,
+          "maxAbsolute": 95.86649576520779,
+          "nrmse": 0.4045333958078962,
+          "coverage": 1
+        }
+      ]
+    }
+  ]
+}

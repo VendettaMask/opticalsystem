@@ -200,7 +200,7 @@ public static partial class ZernikeFitEngine
             .ToArray();
     }
 
-    private static IReadOnlyList<(int Number, int N, int M)> StandardIndices(int count)
+    internal static IReadOnlyList<(int Number, int N, int M)> StandardIndices(int count)
     {
         var result = new List<(int Number, int N, int M)>(count);
         for (var n = 0; result.Count < count; n++)
@@ -269,11 +269,11 @@ public static partial class ZernikeFitEngine
             return angular;
         }
 
-        var normalization = m == 0
-            ? Math.Sqrt(n + 1)
-            : Math.Sqrt(2 * (n + 1));
-        return normalization * angular;
+        return StandardNormalization(n, m) * angular;
     }
+
+    internal static double StandardNormalization(int n, int m) =>
+        Math.Sqrt((m == 0 ? 1 : 2) * (n + 1));
 
     private static double AnnularBasis(
         int n,

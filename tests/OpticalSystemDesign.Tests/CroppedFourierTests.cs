@@ -54,4 +54,30 @@ public sealed class CroppedFourierTests
         Assert.Throws<AnalysisDataUnavailableException>(() => new PsfAnalysis(optic, 32, 4096,
             normalize: true, displaySize: 8).GenerateData());
     }
+
+    [Fact]
+    public void DenseSeparatedWindowMatchesTheFullTransformAtTheSamePhysicalPixels()
+    {
+        var optic = Optic.CreateCookeTriplet();
+        var wave = optic.Wavelengths[0];
+        var scout = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 32, 64,
+            cellCenteredPupil: true, zemaxFftSampling: true);
+        var pitch = scout.WorkingFNumber * wave.Micrometers / 10;
+        const int samples = 64, logicalTransform = 512, output = 16;
+        var analysis = new PsfAnalysis(optic, samples, logicalTransform, 1, 1,
+            imageDeltaMicrometers: pitch, zemaxCompatible: true, displaySize: output);
+        var full = analysis.GenerateData();
+        var dense = analysis.GenerateDensePhysicalPupil(output);
+        Assert.Equal(false, full.Values["CroppedFourierReadout"]);
+        Assert.Equal(true, dense.Values["CroppedFourierReadout"]);
+        var actual = Assert.Single(dense.PlotSeries).Points;
+        var expected = Assert.Single(full.PlotSeries).Points;
+        Assert.Equal(output * output, actual.Count);
+        Assert.Equal(expected.Select(p => (p.X, p.Y)), actual.Select(p => (p.X, p.Y)));
+        foreach (var (a, e) in actual.Zip(expected))
+            Assert.InRange(Math.Abs(a.Value!.Value - e.Value!.Value), 0, 1e-12);
+        Assert.Equal(Convert.ToDouble(full.Values["StrehlRatio"]), Convert.ToDouble(dense.Values["StrehlRatio"]), 12);
+        Assert.Equal(Convert.ToDouble(full.Values["DisplayedWindowPeakRatio"]),
+            Convert.ToDouble(dense.Values["DisplayedWindowPeakRatio"]), 12);
+    }
 }

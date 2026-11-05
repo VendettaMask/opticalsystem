@@ -28,7 +28,10 @@ public sealed record FourierValidationOptions(
 }
 
 public sealed record FourierValidationStep(int PupilSampling, bool PhaseResolved,
-    double? RelativeRmsChange, double? MaximumAbsoluteChange);
+    double? RelativeRmsChange, double? MaximumAbsoluteChange)
+{
+    public bool UsesDensePhysicalPupil { get; init; }
+}
 
 public sealed record FourierValidationReport(string Protocol, FourierSamplingMode Mode,
     int RequestedPupilSampling, int ReturnedPupilSampling, int MaximumPupilSampling,
@@ -49,6 +52,7 @@ public sealed record FourierValidationReport(string Protocol, FourierSamplingMod
 public sealed class FourierResultValidationAnalysis : BaseAnalysis
 {
     public const string Protocol = "FourierPhysicalDomainConvergence/v1";
+    public const string DensePupilProtocol = "FourierPhysicalDomainConvergence/v2";
     private readonly string name;
     private readonly int requested;
     private readonly Func<int, BaseAnalysis> create;
@@ -71,70 +75,112 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
         var work = 0L;
         var sourceCount = Math.Max(1L, Optic.Fields.Count) * Math.Max(1L, Optic.Wavelengths.Count);
         (double Rms, double Max)? requestedError = null;
-        AnalysisData? original = null, previous = null;
-        var previousResolved = false;
+        AnalysisData? original = null;
+        var supportsDensePupil = false;
+        var usedDensePupil = false;
         if (source is null) return Unavailable("The optical source cannot be identified losslessly for Fourier validation.");
-        for (var n = requested; n <= options.MaximumPupilSampling; n = checked(n * 2))
+        var result = Scan(requested, options.MaximumPupilSampling, densePhysicalPupil: false);
+        if (result is not null) return result;
+
+        var denseLimit = Math.Min(options.MaximumPupilSampling, AnalysisResourceLimits.MaximumFftGridSize);
+        if (options.Mode == FourierSamplingMode.Adaptive && supportsDensePupil && requested <= denseLimit / 4)
         {
-            ComputationCancellation.ThrowIfCancellationRequested();
-            // Conservative nominal-cell accounting includes both actual and
-            // ideal scalar pupils and all defined fields/wavelengths. It is
-            // explicitly not a claim about the tracer's private interpolation work.
-            var nextWork = checked(2L * n * n * sourceCount);
-            if (nextWork > options.MaximumNominalPupilCells - work)
-                return Unavailable("The total declared Fourier pupil-cell budget was exhausted.");
-            work += nextWork;
-            var phase = new List<FftPupilSampling>(); AnalysisData data;
-            try
-            {
-                using (FftPupilSampling.RequireResolvedResults())
-                using (FftPupilSampling.ObserveForValidation(phase)) data = create(n).GenerateData();
-            }
-            catch (ArgumentOutOfRangeException) when (n > requested)
-            { return Unavailable("The refined Fourier grid exceeds the existing backend allocation limit."); }
-            if (data.Values.TryGetValue("WavelengthNumber", out var selection) && selection is int wave)
-            {
-                var fields = data.Values.GetValueOrDefault("FieldCount") is int count ? Math.Max(1, count) : 1;
-                var activeSources = (wave != 0 ? 1L : Math.Max(1, Optic.Wavelengths.Count)) * fields;
-                work -= nextWork; sourceCount = activeSources;
-                work += checked(2L * n * n * sourceCount);
-            }
-            if (PupilSourceIdentity.Capture(Optic)?.Fingerprint != source)
-                return Unavailable("The optical source changed during Fourier validation.");
-            if (data.Outcome != AnalysisOutcome.Success) return Unavailable(data.OutcomeReason ?? "Fourier result unavailable");
-            if (data.Values.GetValueOrDefault("Normalized") is true || data.Values.GetValueOrDefault("UsePolarization") is true
-                || data.PlotSeries.Any(s => s.YUnit is AnalysisAxisUnit.Decibel or AnalysisAxisUnit.Radian || s.ValueUnit == AnalysisAxisUnit.Decibel))
-                return Unavailable("This protocol requires linear scalar intensity or modulation without peak normalization.");
-            if (data.Table is not null || data.PlotPanes is { Count: > 0 })
-                return Unavailable("This validation protocol requires a scalar Fourier plot without result tables or panes.");
-            original ??= data;
-            AnalysisData projected;
-            try { projected = Project(data, original); }
-            catch (InvalidOperationException e) { return Unavailable(e.Message); }
-            var resolved = phase.Count > 0 && phase.All(p => p.Status == FftPhaseSamplingStatus.ResolvedAtNodes);
-            if (phase.Any(p => p.Status is FftPhaseSamplingStatus.NoConnectedSamples or FftPhaseSamplingStatus.UnverifiedNodeOrder))
-                return Unavailable("The physical pupil adjacency cannot be verified.");
-            var error = previous is null ? ((double Rms, double Max)?)null : Difference(previous, projected);
-            steps.Add(new(n, resolved, error?.Rms, error?.Max));
-            if (previousResolved && resolved && error is { } delta && Accept(delta))
-            {
-                var candidate = options.Mode == FourierSamplingMode.ValidateRequested ? Project(original, original) : projected;
-                var originalError = Difference(candidate, projected);
-                requestedError = Difference(Project(original, original), projected);
-                if (!Accept(originalError)) return Unavailable("The requested finite sum differs from the resolved reference beyond the declared accuracy.");
-                return Attach(candidate, true, options.Mode == FourierSamplingMode.ValidateRequested ? requested : n,
-                    "Two independently sampled phase-resolved outputs agree over every requested physical node.");
-            }
-            previous = projected; previousResolved = resolved;
+            usedDensePupil = true;
+            result = Scan(checked(requested * 2), denseLimit, densePhysicalPupil: true);
+            if (result is not null) return result;
         }
         return Unavailable("The declared pupil-sampling budget did not establish result convergence.");
+
+        AnalysisData? Scan(int first, int last, bool densePhysicalPupil)
+        {
+            AnalysisData? previous = null;
+            var previousResolved = false;
+            for (var n = first; n <= last; n = checked(n * 2))
+            {
+                ComputationCancellation.ThrowIfCancellationRequested();
+                // Conservative nominal-cell accounting includes both actual and
+                // ideal scalar pupils and all defined fields/wavelengths. It is
+                // explicitly not a claim about the tracer's private interpolation work.
+                var nextWork = checked(2L * n * n * sourceCount);
+                if (nextWork > options.MaximumNominalPupilCells - work)
+                    return Unavailable("The total declared Fourier pupil-cell budget was exhausted.");
+                work += nextWork;
+                var phase = new List<FftPupilSampling>(); AnalysisData data;
+                try
+                {
+                    using (FftPupilSampling.RequireResolvedResults())
+                    using (FftPupilSampling.ObserveForValidation(phase))
+                    {
+                        var analysis = create(n);
+                        if (densePhysicalPupil)
+                        {
+                            if (analysis is FftPsfCrossSectionAnalysis { SupportsDensePhysicalPupil: true } section)
+                                data = section.GenerateDensePhysicalPupil();
+                            else if (analysis is PsfAnalysis { SupportsDensePhysicalPupil: true } psf
+                                && original?.Values.GetValueOrDefault("DisplaySize") is int displaySize)
+                                data = psf.GenerateDensePhysicalPupil(displaySize);
+                            else
+                                return Unavailable("Dense pupil refinement requires an eligible scalar focal FFT analysis.");
+                        }
+                        else
+                        {
+                            if (n == requested)
+                                supportsDensePupil = analysis is FftPsfCrossSectionAnalysis { SupportsDensePhysicalPupil: true }
+                                    or PsfAnalysis { SupportsDensePhysicalPupil: true };
+                            data = analysis.GenerateData();
+                        }
+                    }
+                }
+                catch (ArgumentException) when (densePhysicalPupil)
+                { return Unavailable("Dense Fourier pupil sampling exceeds its physical coverage or allocation limit."); }
+                catch (AnalysisDataUnavailableException unavailable) when (densePhysicalPupil)
+                { return Unavailable(unavailable.Message); }
+                catch (ArgumentOutOfRangeException) when (n > requested)
+                { return Unavailable("The refined Fourier grid exceeds the existing backend allocation limit."); }
+                if (data.Values.TryGetValue("WavelengthNumber", out var selection) && selection is int wave)
+                {
+                    var fields = data.Values.GetValueOrDefault("FieldCount") is int count ? Math.Max(1, count) : 1;
+                    var activeSources = (wave != 0 ? 1L : Math.Max(1, Optic.Wavelengths.Count)) * fields;
+                    work -= nextWork; sourceCount = activeSources;
+                    work += checked(2L * n * n * sourceCount);
+                }
+                if (PupilSourceIdentity.Capture(Optic)?.Fingerprint != source)
+                    return Unavailable("The optical source changed during Fourier validation.");
+                if (data.Outcome != AnalysisOutcome.Success) return Unavailable(data.OutcomeReason ?? "Fourier result unavailable");
+                if (data.Values.GetValueOrDefault("Normalized") is true || data.Values.GetValueOrDefault("UsePolarization") is true
+                    || data.PlotSeries.Any(s => s.YUnit is AnalysisAxisUnit.Decibel or AnalysisAxisUnit.Radian || s.ValueUnit == AnalysisAxisUnit.Decibel))
+                    return Unavailable("This protocol requires linear scalar intensity or modulation without peak normalization.");
+                if (data.Table is not null || data.PlotPanes is { Count: > 0 })
+                    return Unavailable("This validation protocol requires a scalar Fourier plot without result tables or panes.");
+                original ??= data;
+                AnalysisData projected;
+                try { projected = Project(data, original); }
+                catch (InvalidOperationException e) { return Unavailable(e.Message); }
+                var resolved = phase.Count > 0 && phase.All(p => p.Status == FftPhaseSamplingStatus.ResolvedAtNodes);
+                if (phase.Any(p => p.Status is FftPhaseSamplingStatus.NoConnectedSamples or FftPhaseSamplingStatus.UnverifiedNodeOrder))
+                    return Unavailable("The physical pupil adjacency cannot be verified.");
+                var error = previous is null ? ((double Rms, double Max)?)null : Difference(previous, projected);
+                steps.Add(new(n, resolved, error?.Rms, error?.Max) { UsesDensePhysicalPupil = densePhysicalPupil });
+                if (previousResolved && resolved && error is { } delta && Accept(delta))
+                {
+                    var candidate = options.Mode == FourierSamplingMode.ValidateRequested ? Project(original, original) : projected;
+                    var originalError = Difference(candidate, projected);
+                    requestedError = Difference(Project(original, original), projected);
+                    if (!Accept(originalError)) return Unavailable("The requested finite sum differs from the resolved reference beyond the declared accuracy.");
+                    return Attach(candidate, true, options.Mode == FourierSamplingMode.ValidateRequested ? requested : n,
+                        "Two independently sampled phase-resolved outputs agree over every requested physical node.");
+                }
+                previous = projected; previousResolved = resolved;
+            }
+            return null;
+        }
 
         bool Accept((double Rms, double Max) error) => error.Max <= options.AbsoluteAccuracy || error.Rms <= options.RelativeRmsAccuracy;
         AnalysisData Attach(AnalysisData data, bool valid, int actual, string reason)
         {
             var values = new Dictionary<string, object>(data.Values)
             {
-                ["FourierSamplingValidation"] = new FourierValidationReport(Protocol, options.Mode, requested, actual,
+                ["FourierSamplingValidation"] = new FourierValidationReport(usedDensePupil ? DensePupilProtocol : Protocol, options.Mode, requested, actual,
                     options.MaximumPupilSampling, options.RelativeRmsAccuracy, options.AbsoluteAccuracy, valid, steps.ToArray(), reason)
                 {
                     EvaluatedNominalPupilCells = work, MaximumNominalPupilCells = options.MaximumNominalPupilCells,

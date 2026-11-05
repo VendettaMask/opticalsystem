@@ -19,6 +19,8 @@ public static class SequentialOpticalAssemblyConverter
         var surfaces=optic.SurfaceGroup.Items;
         if(surfaces.Count<4)throw new NotSupportedException("完整转换需要至少两个实体光学界面。");
         if(surfaces.Count>514)throw new NotSupportedException("一次完整转换最多接受 512 个光学界面。");
+        if(surfaces[0].MaterialAfter is Materials.AirMaterial { PressureAtmospheres: not 1 })
+            throw new NotSupportedException("分段气压作为外部介质时需要显式非序列容器。");
         var origin=surfaces[1].CoordinateSystem;var faces=new List<NonSequentialOpticalInterface>();
         var extended=surfaces.Skip(1).Take(surfaces.Count-2).Any(s=>
         {

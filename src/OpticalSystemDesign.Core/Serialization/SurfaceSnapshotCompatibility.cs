@@ -118,7 +118,7 @@ internal static class SurfaceSnapshotCompatibility
             return string.IsNullOrWhiteSpace(fallback) ? null : fallback;
         }
 
-        if (material.Kind == "air")
+        if (material.Kind is "air" or "pressure_air")
         {
             return "Air";
         }

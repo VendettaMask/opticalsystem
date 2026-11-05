@@ -345,6 +345,18 @@ public sealed class ComparisonRunner
         foreach (var scalar in z.Scalars)
         {
             var actual = w.Scalars.Single(s => s.Id == scalar.Id);
+            if (entry.ZemaxSettingsMapper == "first-order"
+                && scalar.Id is ("EffectiveFocalLength" or "FNumber")
+                && (double.IsPositiveInfinity(actual.Value) || double.IsPositiveInfinity(scalar.Value)))
+            {
+                var stateId = scalar.Id + ":infinite-state";
+                var states = new MatchedValues([0], null, [double.IsPositiveInfinity(actual.Value) ? 1 : 0],
+                    [double.IsPositiveInfinity(scalar.Value) ? 1 : 0], 1);
+                run.Metrics.Add(ComparisonMetrics.Calculate(stateId, "Dimensionless", states, new Tolerances(0, 0, 0, 0, 1)));
+                ReportWriter.Values(Path.Combine(directory, JsonFiles.Slug(stateId) + "-values.csv"), states);
+                run.Normalizations.Add($"{scalar.Id}: compare the finite/infinite state exactly. Workbench={actual.Value:R}, OpticStudio={scalar.Value:R}.");
+                continue;
+            }
             var values = new MatchedValues([0], null, [actual.Value * PhysicalNormalization.UnitScale(actual.Unit, scalar.Unit)], [scalar.Value], 1);
             run.Metrics.Add(ComparisonMetrics.Calculate(scalar.Id, scalar.Unit, values, T(scalar.Id)));
             ReportWriter.Values(Path.Combine(directory, JsonFiles.Slug(scalar.Id) + "-values.csv"), values);

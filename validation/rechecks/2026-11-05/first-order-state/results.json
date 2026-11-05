@@ -1,0 +1,385 @@
+{
+  "coreSha256": "5505dec0786132725bb71ee69f9e2effff459e64308c29a4f46c9f86058dd346",
+  "comparisonSha256": "4e91d07353553bbea96ec7075470c59d84b9146824c54afe0c517052240c6bef",
+  "reference": "Frozen OpticStudio 2026 R1 with original request and settings",
+  "results": [
+    {
+      "id": 1131,
+      "lens": "Miscellaneous/Grid Sag Example.zmx",
+      "conclusion": "Incomparable",
+      "reason": "Native first-order infinity marker could not be verified as zero power from the plane-only prescription and entrance pupil.",
+      "metrics": [],
+      "normalizations": [],
+      "fingerprint": "e4f51b47e7ab75143876da2d12ab6e8668bfe8d01b2641dd1cdd2e098b3d31a7",
+      "priorVerdict": "Error",
+      "actual": {
+        "EffectiveFocalLength": "Infinity",
+        "FNumber": "Infinity",
+        "OpticalPowerInverseMillimeters": -0,
+        "EffectiveFocalLengthStatus": "Infinite",
+        "CardinalParametersApplicable": true,
+        "FirstOrderReferenceConvention": "CenteredVertexOrdinaryIndexV1",
+        "IncludesChiefRayWalkOff": false,
+        "DirectionalMediumUsesOrdinaryIndex": false,
+        "ImageSpaceAfocal": false,
+        "TotalTrack": 0
+      },
+      "native": {
+        "EffectiveFocalLength": 10000000000,
+        "FNumber": 1000000000
+      },
+      "nativeSha256": "c4bd128e01cf821bea1fc587ec53a3a5453d469ab8cd1dab6ae39b8c2f077f7c"
+    },
+    {
+      "id": 1153,
+      "lens": "Miscellaneous/Grid Sag Example.zmx",
+      "conclusion": "Incomparable",
+      "reason": "Native first-order infinity marker could not be verified as zero power from the plane-only prescription and entrance pupil.",
+      "metrics": [],
+      "normalizations": [],
+      "fingerprint": "f248f49c05ee0bb19d6808f5c9032dcbdb1b8ef7d6c7c177ab5551404a60b129",
+      "priorVerdict": "Error",
+      "actual": {
+        "EffectiveFocalLength": "Infinity",
+        "FNumber": "Infinity",
+        "OpticalPowerInverseMillimeters": -0,
+        "EffectiveFocalLengthStatus": "Infinite",
+        "CardinalParametersApplicable": true,
+        "FirstOrderReferenceConvention": "CenteredVertexOrdinaryIndexV1",
+        "IncludesChiefRayWalkOff": false,
+        "DirectionalMediumUsesOrdinaryIndex": false,
+        "ImageSpaceAfocal": false,
+        "TotalTrack": 0
+      },
+      "native": {
+        "EffectiveFocalLength": 10000000000,
+        "FNumber": 1000000000
+      },
+      "nativeSha256": "c4bd128e01cf821bea1fc587ec53a3a5453d469ab8cd1dab6ae39b8c2f077f7c"
+    },
+    {
+      "id": 1241,
+      "lens": "Miscellaneous/MEMS DLL Sample.ZMX",
+      "conclusion": "Incomparable",
+      "reason": "Native first-order infinity marker could not be verified as zero power from the plane-only prescription and entrance pupil.",
+      "metrics": [],
+      "normalizations": [],
+      "fingerprint": "e4f51b47e7ab75143876da2d12ab6e8668bfe8d01b2641dd1cdd2e098b3d31a7",
+      "priorVerdict": "Error",
+      "actual": {
+        "EffectiveFocalLength": "Infinity",
+        "FNumber": "Infinity",
+        "OpticalPowerInverseMillimeters": 0,
+        "EffectiveFocalLengthStatus": "Infinite",
+        "CardinalParametersApplicable": true,
+        "FirstOrderReferenceConvention": "CenteredVertexOrdinaryIndexV1",
+        "IncludesChiefRayWalkOff": false,
+        "DirectionalMediumUsesOrdinaryIndex": false,
+        "ImageSpaceAfocal": false,
+        "TotalTrack": -20
+      },
+      "native": {
+        "EffectiveFocalLength": -10000000000,
+        "FNumber": 2000000000
+      },
+      "nativeSha256": "9be2e8d578ffb419b985f51c99ee3e6643f872d4dd4f3bfb917f12bd94063c23"
+    },
+    {
+      "id": 1263,
+      "lens": "Miscellaneous/Optimization demo 1.zmx",
+      "conclusion": "Pass",
+      "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength:infinite-state",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 0,
+          "meanAbsolute": 0,
+          "rmse": 0,
+          "nrmse": 0,
+          "maxRelative": 0,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1,
+            "zemax": 1
+          }
+        },
+        {
+          "id": "FNumber:infinite-state",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 0,
+          "meanAbsolute": 0,
+          "rmse": 0,
+          "nrmse": 0,
+          "maxRelative": 0,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1,
+            "zemax": 1
+          }
+        }
+      ],
+      "normalizations": [
+        "EffectiveFocalLength: compare the finite/infinite state exactly. Workbench=\u221E, OpticStudio=\u221E.",
+        "FNumber: compare the finite/infinite state exactly. Workbench=\u221E, OpticStudio=\u221E."
+      ],
+      "fingerprint": "48b322f2686b804f57a44b4679750170967bfdc7c526d5af4ee86f7b260680cc",
+      "priorVerdict": "Error",
+      "actual": {
+        "EffectiveFocalLength": "Infinity",
+        "FNumber": "Infinity",
+        "OpticalPowerInverseMillimeters": 0,
+        "EffectiveFocalLengthStatus": "Infinite",
+        "CardinalParametersApplicable": true,
+        "FirstOrderReferenceConvention": "CenteredVertexOrdinaryIndexV1",
+        "IncludesChiefRayWalkOff": false,
+        "DirectionalMediumUsesOrdinaryIndex": false,
+        "ImageSpaceAfocal": false,
+        "TotalTrack": -200
+      },
+      "native": {
+        "EffectiveFocalLength": -10000000000,
+        "FNumber": 250000000
+      },
+      "nativeSha256": "dc94bd6b72ed950ad783abe481a33ed123abc6d8214659060980ab32cdb5848c"
+    },
+    {
+      "id": 2195,
+      "lens": "Polarization/Etalon.ZMX",
+      "conclusion": "Pass",
+      "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength:infinite-state",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 0,
+          "meanAbsolute": 0,
+          "rmse": 0,
+          "nrmse": 0,
+          "maxRelative": 0,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1,
+            "zemax": 1
+          }
+        },
+        {
+          "id": "FNumber:infinite-state",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 0,
+          "meanAbsolute": 0,
+          "rmse": 0,
+          "nrmse": 0,
+          "maxRelative": 0,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1,
+            "zemax": 1
+          }
+        }
+      ],
+      "normalizations": [
+        "EffectiveFocalLength: compare the finite/infinite state exactly. Workbench=\u221E, OpticStudio=\u221E.",
+        "FNumber: compare the finite/infinite state exactly. Workbench=\u221E, OpticStudio=\u221E."
+      ],
+      "fingerprint": "4aa01303e188b00d4e3cb8d721b9c7a9536b64b6e868ecc18e875a8266855a89",
+      "priorVerdict": "Error",
+      "actual": {
+        "EffectiveFocalLength": "Infinity",
+        "FNumber": "Infinity",
+        "OpticalPowerInverseMillimeters": -0,
+        "EffectiveFocalLengthStatus": "Infinite",
+        "CardinalParametersApplicable": true,
+        "FirstOrderReferenceConvention": "CenteredVertexOrdinaryIndexV1",
+        "IncludesChiefRayWalkOff": false,
+        "DirectionalMediumUsesOrdinaryIndex": false,
+        "ImageSpaceAfocal": false,
+        "TotalTrack": 0
+      },
+      "native": {
+        "EffectiveFocalLength": 10000000000,
+        "FNumber": 1000000000
+      },
+      "nativeSha256": "cdaf7c46a0aa3caf5d8b754dcf1ff7cab5875d2860991ce6c9111cbb70ca242d"
+    },
+    {
+      "id": 2537,
+      "lens": "Tilted systems \u0026 prisms/Beamsplitter cube.zmx",
+      "conclusion": "Pass",
+      "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength:infinite-state",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 0,
+          "meanAbsolute": 0,
+          "rmse": 0,
+          "nrmse": 0,
+          "maxRelative": 0,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1,
+            "zemax": 1
+          }
+        },
+        {
+          "id": "FNumber:infinite-state",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 0,
+          "meanAbsolute": 0,
+          "rmse": 0,
+          "nrmse": 0,
+          "maxRelative": 0,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1,
+            "zemax": 1
+          }
+        }
+      ],
+      "normalizations": [
+        "EffectiveFocalLength: compare the finite/infinite state exactly. Workbench=\u221E, OpticStudio=\u221E.",
+        "FNumber: compare the finite/infinite state exactly. Workbench=\u221E, OpticStudio=\u221E."
+      ],
+      "fingerprint": "839325e140139f08a4e4a12837446d3486cd4b0fbf3ef2a0478591ba17957c56",
+      "priorVerdict": "Error",
+      "actual": {
+        "EffectiveFocalLength": "Infinity",
+        "FNumber": "Infinity",
+        "OpticalPowerInverseMillimeters": -0,
+        "EffectiveFocalLengthStatus": "Infinite",
+        "CardinalParametersApplicable": true,
+        "FirstOrderReferenceConvention": "CenteredVertexOrdinaryIndexV1",
+        "IncludesChiefRayWalkOff": false,
+        "DirectionalMediumUsesOrdinaryIndex": false,
+        "ImageSpaceAfocal": false,
+        "TotalTrack": 40
+      },
+      "native": {
+        "EffectiveFocalLength": 10000000000,
+        "FNumber": 1000000000
+      },
+      "nativeSha256": "95b862129cbdd39dfc91e4c1b6471bd6a30ada8304df1d42d65b0c692078f062"
+    },
+    {
+      "id": 2589,
+      "lens": "Tilted systems \u0026 prisms/OAP using Chebyshev Polynomial surface.zmx",
+      "conclusion": "Pass",
+      "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 0,
+          "meanAbsolute": 0,
+          "rmse": 0,
+          "nrmse": 0,
+          "maxRelative": 0,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 500.00000000700004,
+            "zemax": 500.00000000700004
+          }
+        },
+        {
+          "id": "FNumber",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 0,
+          "meanAbsolute": 0,
+          "rmse": 0,
+          "nrmse": 0,
+          "maxRelative": 0,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 7.042253521225352,
+            "zemax": 7.042253521225352
+          }
+        }
+      ],
+      "normalizations": [],
+      "fingerprint": "494200fa25e987fcca72ec22696f176ce38ec67f3e112c0e14c775518fa21de4",
+      "priorVerdict": "Error",
+      "actual": {
+        "EffectiveFocalLength": 500.00000000700004,
+        "FNumber": 7.042253521225352,
+        "OpticalPowerInverseMillimeters": 0.001999999999972,
+        "EffectiveFocalLengthStatus": "Finite",
+        "CardinalParametersApplicable": true,
+        "FirstOrderReferenceConvention": "CenteredVertexOrdinaryIndexV1",
+        "IncludesChiefRayWalkOff": false,
+        "DirectionalMediumUsesOrdinaryIndex": false,
+        "ImageSpaceAfocal": false,
+        "TotalTrack": -100
+      },
+      "native": {
+        "EffectiveFocalLength": 500.00000000700004,
+        "FNumber": 7.0422535212253523
+      },
+      "nativeSha256": "d3b0ab4df7a18a70b8664d42693c350b1b989905aa84ba60a28b5eb1cfa3fe6b"
+    }
+  ]
+}

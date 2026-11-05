@@ -7,6 +7,7 @@ using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Tolerancing;
 
 namespace OpticalSystemDesign.App.Panels;
@@ -24,6 +25,13 @@ public sealed class ToleranceWizardWindow : Window
     private readonly NumericUpDown _powerFringes = Number(1, 0, 1_000_000, 0.1m);
     private readonly CheckBox _irregularityEnabled = Check("S + A 不规则度", false);
     private readonly NumericUpDown _irregularity = Number(0.2m, 0, 1_000_000, 0.1m);
+    private readonly CheckBox _zernikeEnabled = Check("Zernike 不规则度", false);
+    private readonly ComboBox _zernikeKind = Picker(0, "TEXI (双程条纹)", "TEZI (RMS mm)");
+    private readonly NumericUpDown _texiMagnitude = Number(.2m, 0, 1_000_000, .1m);
+    private readonly NumericUpDown _teziMagnitude = Number(.001m, 0, 1_000_000, .001m);
+    private readonly NumericUpDown _zernikeMinimumTerm = Number(2, 2, ZernikeFitEngine.MaximumStandardTerm, 1);
+    private readonly NumericUpDown _zernikeMaximumTerm = Number(11, 3, ZernikeFitEngine.MaximumStandardTerm, 1);
+    private readonly StackPanel _zernikeInputs = new() { Spacing = 4 };
     private readonly NumericUpDown _testWavelength = Number(
         (decimal)SurfaceFringePerturbation.DefaultTestWavelengthMicrometers, 0.001m, 1000m, 0.0001m);
     private readonly CheckBox _conicEnabled = Check("圆锥系数", false);
@@ -114,6 +122,14 @@ public sealed class ToleranceWizardWindow : Window
         Grid.SetRow(_radiusMode, 1);
         Grid.SetColumnSpan(_radiusMode, 2);
 
+        _zernikeInputs.Children.Add(_zernikeKind);
+        _zernikeInputs.Children.Add(new Panel { Children = { _texiMagnitude, _teziMagnitude } });
+        _zernikeInputs.Children.Add(Label("Zernike 起始项"));
+        _zernikeInputs.Children.Add(_zernikeMinimumTerm);
+        _zernikeInputs.Children.Add(Label("Zernike 终止项"));
+        _zernikeInputs.Children.Add(_zernikeMaximumTerm);
+        Avalonia.Automation.AutomationProperties.SetName(_zernikeMinimumTerm, "Zernike 起始项");
+        Avalonia.Automation.AutomationProperties.SetName(_zernikeMaximumTerm, "Zernike 终止项");
         var surfaceGrid = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("*,34,*"),
@@ -127,7 +143,7 @@ public sealed class ToleranceWizardWindow : Window
                 ToleranceRow(_conicEnabled, UnitLabel("系数"), _conic),
                 ToleranceRow(_asphereEnabled, UnitLabel("系数"), _asphere),
                 ToleranceRow(_irregularityEnabled, UnitLabel("条纹数"), _irregularity),
-                DisabledToleranceRow("Zernike 不规则度", "光圈"),
+                new StackPanel { Spacing = 4, Children = { _zernikeEnabled, _zernikeInputs } },
                 new StackPanel
                 {
                     Spacing = 4,
@@ -286,7 +302,18 @@ public sealed class ToleranceWizardWindow : Window
         _endSurface.ValueChanged += (_, _) => UpdatePreview();
         _radiusEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _radiusMode.SelectionChanged += (_, _) => UpdatePreview();
-        _irregularityEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
+        _irregularityEnabled.IsCheckedChanged += (_, _) =>
+        {
+            if (_irregularityEnabled.IsChecked == true) _zernikeEnabled.IsChecked = false;
+            UpdatePreview();
+        };
+        _zernikeEnabled.IsCheckedChanged += (_, _) =>
+        {
+            if (_zernikeEnabled.IsChecked == true) _irregularityEnabled.IsChecked = false;
+            UpdatePreview();
+        };
+        _zernikeKind.SelectionChanged += (_, _) => UpdatePreview();
+        _zernikeMaximumTerm.ValueChanged += (_, _) => UpdatePreview();
         _conicEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _asphereEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _thicknessEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
@@ -331,7 +358,13 @@ public sealed class ToleranceWizardWindow : Window
             AsphereCoefficientTolerance: DoubleValue(_asphere, 0.000001),
             IncludeFringeIrregularity: _irregularityEnabled.IsChecked == true,
             FringeIrregularity: DoubleValue(_irregularity, 0.2),
-            TestWavelengthMicrometers: DoubleValue(_testWavelength, SurfaceFringePerturbation.DefaultTestWavelengthMicrometers)));
+            TestWavelengthMicrometers: DoubleValue(_testWavelength, SurfaceFringePerturbation.DefaultTestWavelengthMicrometers),
+            ZernikeIrregularityKind: _zernikeEnabled.IsChecked == true
+                ? (_zernikeKind.SelectedIndex == 1 ? ToleranceOperandKind.StandardZernikeIrregularity : ToleranceOperandKind.FringeZernikeIrregularity)
+                : null,
+            ZernikeIrregularity: _zernikeKind.SelectedIndex == 1 ? DoubleValue(_teziMagnitude, .001) : DoubleValue(_texiMagnitude, .2),
+            MinimumZernikeTerm: IntegerValue(_zernikeMinimumTerm, 2),
+            MaximumZernikeTerm: IntegerValue(_zernikeMaximumTerm, 11)));
     }
 
     private void ApplyPreset(int preset)
@@ -376,8 +409,14 @@ public sealed class ToleranceWizardWindow : Window
         _radius.IsVisible = !fringePower;
         _powerFringes.IsVisible = fringePower;
         _irregularity.IsEnabled = _irregularityEnabled.IsChecked == true;
+        var standardZernike = _zernikeKind.SelectedIndex == 1;
+        _zernikeInputs.IsVisible = _zernikeEnabled.IsChecked == true;
+        _texiMagnitude.IsVisible = !standardZernike;
+        _teziMagnitude.IsVisible = standardZernike;
+        _zernikeMaximumTerm.Maximum = standardZernike ? ZernikeFitEngine.MaximumStandardTerm : ZernikeFitEngine.MaximumFringeTerm;
+        _zernikeMinimumTerm.Maximum = _zernikeMaximumTerm.Value ?? 11;
         _testWavelength.IsEnabled = (_radiusEnabled.IsChecked == true && fringePower)
-            || _irregularityEnabled.IsChecked == true;
+            || _irregularityEnabled.IsChecked == true || (_zernikeEnabled.IsChecked == true && !standardZernike);
         var start = IntegerValue(_startSurface, 1);
         var end = Math.Max(start, IntegerValue(_endSurface, start));
         var count = Math.Max(0, end - start + 1);
@@ -385,7 +424,7 @@ public sealed class ToleranceWizardWindow : Window
             + (_conicEnabled.IsChecked == true ? 1 : 0)
             + (_thicknessEnabled.IsChecked == true ? 1 : 0)
             + (_asphereEnabled.IsChecked == true ? 1 : 0)
-            + (_irregularityEnabled.IsChecked == true ? 1 : 0);
+            + (_irregularityEnabled.IsChecked == true || _zernikeEnabled.IsChecked == true ? 1 : 0);
         var material = (_indexEnabled.IsChecked == true ? 1 : 0)
             + (_abbeEnabled.IsChecked == true ? 1 : 0);
         var elementRows = (_decenterEnabled.IsChecked == true ? 2 : 0)
@@ -566,16 +605,6 @@ public sealed class ToleranceWizardWindow : Window
         Grid.SetColumn(unit, 1);
         Grid.SetColumn(value, 2);
         return row;
-    }
-
-    private static Grid DisabledToleranceRow(string label, string unit)
-    {
-        var enabled = Check(label, false);
-        var reason = $"当前公差向导尚不支持生成{label}操作数。";
-        ControlAvailability.Set(enabled, false, reason);
-        var value = Number(0.2m, 0, 1_000_000, 0.01m);
-        ControlAvailability.Set(value, false, reason);
-        return ToleranceRow(enabled, UnitLabel(unit), value);
     }
 
     private static TextBlock Label(string text)

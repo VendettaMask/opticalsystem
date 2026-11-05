@@ -299,7 +299,8 @@ public static partial class ComponentSnapshotFactory
                 new() { ["name"] = crystal.Name }, new() { ["ordinary"] = FromMaterial(crystal.Ordinary), ["extraordinary"] = FromMaterial(crystal.Extraordinary) }),
             GradientIndexMaterial gradient => FromGradientIndex(gradient),
             LocatedGradientIndexMaterial => throw new NotSupportedException("GRIN 的运行时体坐标绑定不能保存为处方材料，请使用原始空间分布材料。"),
-            AirMaterial => ComponentSnapshot.Empty("air"),
+            AirMaterial { PressureAtmospheres: 1 } => ComponentSnapshot.Empty("air"),
+            AirMaterial air => new ComponentSnapshot("pressure_air", new() { ["pressureAtmospheres"] = air.PressureAtmospheres }, new()),
             CatalogGlassMaterial catalog => FromCatalogGlass(catalog),
             TabulatedMaterial table => new ComponentSnapshot("tabulated_index",
                 Coefficients(table.WavelengthsNanometers, new Dictionary<string, double>(), "w")
@@ -351,6 +352,7 @@ public static partial class ComponentSnapshotFactory
         return snapshot.Kind switch
         {
             "air" => new AirMaterial(),
+            "pressure_air" => new AirMaterial(snapshot.Numbers["pressureAtmospheres"]),
             "uniaxial" => new UniaxialMaterial(ToMaterial(snapshot.Children!["ordinary"], "", registry),
                 ToMaterial(snapshot.Children!["extraordinary"], "", registry),
                 new(snapshot.Numbers["axisX"], snapshot.Numbers["axisY"], snapshot.Numbers["axisZ"]),

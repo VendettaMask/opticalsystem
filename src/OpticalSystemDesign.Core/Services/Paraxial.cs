@@ -603,6 +603,11 @@ public sealed partial class Paraxial
             var gridCurvature = grid.VertexMeridionalCurvature;
             return gridCurvature == 0 ? double.PositiveInfinity : 1 / gridCurvature;
         }
+        if (surface.Geometry is ChebyshevSagGeometry chebyshev)
+        {
+            var chebyshevCurvature = chebyshev.VertexMeridionalCurvature;
+            return chebyshevCurvature == 0 ? double.PositiveInfinity : 1 / chebyshevCurvature;
+        }
         var radius = surface.IsPlane ? double.PositiveInfinity : surface.Radius;
         var asphere = surface.Geometry switch
         {

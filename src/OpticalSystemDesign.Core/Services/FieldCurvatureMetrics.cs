@@ -14,6 +14,7 @@ public static class FieldCurvatureMetrics
     // Verified against the captured OpticStudio 2026 R1 afocal curves/FCGS/FCGT.
     // Focal analyses retain their existing, separate sampling convention.
     public const double DefaultAfocalPupilDelta = 1e-4;
+    public const double NativeFocalPupilDelta = 1e-3;
     /// <summary>Signed reciprocal image distance; zero for a collimated differential fan.</summary>
     internal static (double Sagittal, double Tangential) AfocalVergences(
         Optic optic, double hx, double hy, double wavelength, double pupilDelta,
@@ -82,7 +83,7 @@ public static class FieldCurvatureMetrics
         // therefore computes a different tangential focal displacement.
         // The generalized components are fixed X (FCGS) and Y (FCGT), including
         // X, negative and oblique fields; they do not rotate with field azimuth.
-        return ImagePlaneDelta(optic, hx, hy, wavelength, 1e-3, sagittal ? 1 : 0, sagittal ? 0 : 1, requireUnvignetted: true,
+        return ImagePlaneDelta(optic, hx, hy, wavelength, NativeFocalPupilDelta, sagittal ? 1 : 0, sagittal ? 0 : 1, requireUnvignetted: true,
             rayPair: ParabasalRayPair.ChiefAndPositive);
     }
 

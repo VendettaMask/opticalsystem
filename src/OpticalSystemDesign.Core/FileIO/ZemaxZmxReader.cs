@@ -44,6 +44,8 @@ internal static partial class ZemaxZmxReader
         var optic = new Optic(document.Name);
         optic.Materials.SetPreferredGlassCatalogs(document.GlassCatalogs);
         var configuredSurfaces = ConfigureSurfaces(document, configurationIndex);
+        optic.HasImportedSurfaceTiltDecenter = configuredSurfaces.Any(surface => surface.BeforeFrameOffset is { HasTransform: true }
+            || surface.AfterFrameOffset is { HasTransform: true });
         var converted = ConvertSurfaces(optic, configuredSurfaces, document.GlassCatalogs);
         InstallConvertedSurfaces(optic, converted);
         var sourceSurfaceNumbers = configuredSurfaces
@@ -236,6 +238,9 @@ internal static partial class ZemaxZmxReader
                 case "RAIM":
                     document.RayAimingEnabled = tokens.Length > 2
                         && RequiredInt(tokens, 2, command) != 0;
+                    break;
+                case "ENVD":
+                    document.EnvironmentRecord = tokens;
                     break;
                 case "GLRS":
                     document.GlobalReferenceSurfaceNumber = RequiredInt(tokens, 1, command);
@@ -614,7 +619,10 @@ internal static partial class ZemaxZmxReader
                 case "WAVE":
                 case "WLWT":
                 case "GLSS":
+                case "PRES":
+                case "TEMP":
                 case "STPS":
+                case "IGNR":
                 case "PRAM":
                 case "EDVA":
                 case "NCOM":
@@ -632,6 +640,9 @@ internal static partial class ZemaxZmxReader
                     var typedSurface = RequireSurface(current, command);
                     typedSurface.Type = RequiredToken(tokens, 1, command).ToUpperInvariant();
                     typedSurface.TypeArguments = string.Join(" ", tokens.Skip(2));
+                    break;
+                case "SCBD":
+                    ReadSurfaceFrameOffset(RequireSurface(current, command), tokens);
                     break;
                 case "PARM":
                     var parameterNumber = RequiredInt(tokens, 1, command);
@@ -791,11 +802,51 @@ internal static partial class ZemaxZmxReader
         }
     }
 
+    private static Dictionary<int, double> ConfigureAirPressures(ZemaxDocument document, int configurationIndex)
+    {
+        var pressures = new Dictionary<int, double>();
+        var operands = document.ConfigurationOperands.Where(item => item.ConfigurationIndex == configurationIndex).ToArray();
+        var finalPressure = operands.LastOrDefault(item => item.Command == "PRES");
+        if (finalPressure is null)
+            return pressures;
+
+        var temperature = 20d;
+        if (document.EnvironmentRecord is { } environment)
+        {
+            if (environment.Length > 3 && RequiredInt(environment, 3, "ENVD") == 0)
+                return pressures;
+            temperature = RequiredDouble(environment, 1, "ENVD");
+        }
+        if (ReadPressure(finalPressure) != 1 || temperature != 20
+            || operands.Any(item => item.Command == "TEMP" && (!TryParseDouble(item.Value, out var value) || value != 20)))
+            throw new NotSupportedException("Zemax PRES requires a 20 °C, 1 atm system reference and fixed 20 °C temperatures.");
+
+        // The last pressure is global. A GLSS row uses the preceding pressure
+        // in its own configuration, even if the glass column is empty.
+        var localPressure = 1d;
+        foreach (var operand in operands)
+        {
+            if (operand.Command == "PRES")
+                localPressure = ReadPressure(operand);
+            else if (operand.Command == "GLSS")
+                pressures[operand.Target] = localPressure;
+        }
+        return pressures;
+
+        static double ReadPressure(ZemaxConfigurationOperand operand)
+        {
+            if (!TryParseDouble(operand.Value, out var pressure) || !double.IsFinite(pressure) || pressure < 0)
+                throw new InvalidDataException("Zemax PRES requires a finite, non-negative pressure in atmospheres.");
+            return pressure;
+        }
+    }
+
     private static IReadOnlyList<ZemaxSurface> ConfigureSurfaces(
         ZemaxDocument document,
         int configurationIndex)
     {
         var configuredStop = document.ConfigurationDouble("STPS", 0, configurationIndex);
+        var airPressures = ConfigureAirPressures(document, configurationIndex);
         var configuredSurfaces = document.Surfaces.Select(source =>
         {
             var material = document.ConfigurationText("GLSS", source.Number, configurationIndex)
@@ -804,6 +855,8 @@ internal static partial class ZemaxZmxReader
             {
                 Type = source.Type,
                 TypeArguments = source.TypeArguments,
+                BeforeFrameOffset = source.BeforeFrameOffset,
+                AfterFrameOffset = source.AfterFrameOffset,
                 PolygonAssetDirectory = source.PolygonAssetDirectory,
                 PolygonObjectCount = source.PolygonObjectCount,
                 PolygonIsVolume = source.PolygonIsVolume,
@@ -834,6 +887,7 @@ internal static partial class ZemaxZmxReader
                     source.Thickness),
                 Conic = source.Conic,
                 Material = string.IsNullOrWhiteSpace(material) ? "Air" : material,
+                AirPressureAtmospheres = airPressures.GetValueOrDefault(source.Number, 1),
                 RefractiveIndex = source.RefractiveIndex,
                 AbbeNumber = source.AbbeNumber,
                 SemiDiameter = source.CircularAperture ? ScaleConfiguredLength(
@@ -912,10 +966,29 @@ internal static partial class ZemaxZmxReader
 
             return configured;
         }).ToArray();
+        ResolveSurfaceFramePickups(configuredSurfaces);
         ApplyCurvaturePickups(configuredSurfaces);
         ApplyThicknessAndMaterialPickups(configuredSurfaces);
         ApplyParameterPickups(document, configuredSurfaces);
-        return configuredSurfaces;
+
+        return configuredSurfaces.Select((surface, index) =>
+        {
+            var ignored = document.ConfigurationText("IGNR", surface.Number, configurationIndex);
+            if (ignored is null) return surface;
+            if (!TryParseDouble(ignored, out var value) || value is not (0 or 1))
+                throw new InvalidDataException("Zemax IGNR must be zero (active) or one (ignored).");
+            if (value == 0) return surface;
+            if (index == 0 || index == configuredSurfaces.Length - 1 || surface.IsStop)
+                throw new NotSupportedException("Zemax IGNR cannot ignore the object, image, or configured aperture stop.");
+
+            // Keep the source number available to ray reports and cross-surface
+            // references, with no optical interaction, aperture, pose or gap.
+            return new ZemaxSurface(surface.Number, surface.LengthScaleToMillimeters, surface.AssetDirectory)
+            {
+                Comment = string.IsNullOrWhiteSpace(surface.Comment) ? $"Ignored surface {surface.Number}" : surface.Comment,
+                RetainReferencePlane = true
+            };
+        }).ToArray();
     }
 
     private static void ApplyThicknessAndMaterialPickups(IReadOnlyList<ZemaxSurface> surfaces)
@@ -1040,6 +1113,8 @@ internal static partial class ZemaxZmxReader
             else
             {
                 previous++;
+                ApplySurfaceFrameOffset(surface.BeforeFrameOffset, ref origin, ref rotation);
+                ApplySurfaceFrameOffset(surface.AfterFrameOffset, ref origin, ref rotation);
                 if (previous > 0 && !double.IsInfinity(surface.Thickness)) origin += rotation.Transform(new Vector3D(0, 0, surface.Thickness));
             }
         }
@@ -1100,6 +1175,7 @@ internal static partial class ZemaxZmxReader
                 ApplyCoordinateBreak(source, ref origin, ref rotation, !source.RetainReferencePlane);
                 if (!source.RetainReferencePlane) continue;
             }
+            ApplySurfaceFrameOffset(source.BeforeFrameOffset, ref origin, ref rotation);
 
             if (source.Type == "NONSEQCO" && source.PolygonPayload is not null)
             {
@@ -1163,7 +1239,8 @@ internal static partial class ZemaxZmxReader
             // Curvature alone does not make a refracting surface: curved dummy
             // surfaces can carry a fixed DIAM without defining a floating stop.
             var hasOpticalInteraction = isReflective || !string.Equals(previousMaterial.Name, materialAfter.Name,
-                StringComparison.OrdinalIgnoreCase);
+                StringComparison.OrdinalIgnoreCase) || previousMaterial is AirMaterial incidentAir
+                && materialAfter is AirMaterial outgoingAir && incidentAir.PressureAtmospheres != outgoingAir.PressureAtmospheres;
             var hasOpticalPower = !referencePlane && HasSurfacePower(source)
                 && (hasOpticalInteraction || interaction is ParaxialLensInteractionModel);
             var physicalAperture = referencePlane ? null : CreatePhysicalAperture(source, semiDiameter,
@@ -1205,6 +1282,7 @@ internal static partial class ZemaxZmxReader
                 coordinate, interaction));
 
             previousMaterial = materialAfter.Clone();
+            ApplySurfaceFrameOffset(source.AfterFrameOffset, ref origin, ref rotation);
             if (index == 0)
             {
                 origin = Vector3D.Zero;
@@ -2178,6 +2256,8 @@ internal static partial class ZemaxZmxReader
         IReadOnlyList<string> glassCatalogs)
     {
         var material = NormalizeMaterial(surface.Material);
+        if (surface.AirPressureAtmospheres != 1 && material.Equals("Air", StringComparison.OrdinalIgnoreCase))
+            return new AirMaterial(surface.AirPressureAtmospheres);
         if (optic.Materials.TryResolveExternalGlass(material, glassCatalogs, out var externalGlass))
         {
             return externalGlass;
@@ -2446,6 +2526,7 @@ internal static partial class ZemaxZmxReader
         public bool ObjectSpaceTelecentric { get; set; }
 
         public bool RayAimingEnabled { get; set; }
+        public string[]? EnvironmentRecord { get; set; }
 
         public int GlobalReferenceSurfaceNumber { get; set; } = 1;
         public bool AfocalImageSpace { get; set; }
@@ -2515,6 +2596,8 @@ internal static partial class ZemaxZmxReader
 
     private sealed class ZemaxSurface(int number, double lengthScaleToMillimeters = 1, string? assetDirectory = null)
     {
+        public ZemaxSurfaceFrameOffset? BeforeFrameOffset { get; set; }
+        public ZemaxSurfaceFrameOffset? AfterFrameOffset { get; set; }
         public GridGradientIndexProfile? GridGradientProfile { get; set; }
         public double LengthScaleToMillimeters { get; } = lengthScaleToMillimeters;
         public string? AssetDirectory { get; } = assetDirectory;
@@ -2526,6 +2609,7 @@ internal static partial class ZemaxZmxReader
         public double Thickness { get; set; }
         public double Conic { get; set; }
         public string Material { get; set; } = "Air";
+        public double AirPressureAtmospheres { get; set; } = 1;
         public double? RefractiveIndex { get; set; }
         public double? AbbeNumber { get; set; }
         public double? SemiDiameter { get; set; }

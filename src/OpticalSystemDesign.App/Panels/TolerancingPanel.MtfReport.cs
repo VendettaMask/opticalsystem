@@ -13,6 +13,8 @@ public sealed partial class TolerancingPanel
             var surfaces = definition.Kind.IsElement()
                 ? $"{definition.SurfaceNumber}–{definition.EndSurfaceNumber}" : $"{definition.SurfaceNumber}";
             builder.AppendLine($"  面 {surfaces} {definition.Kind} 相对名义范围 [{definition.Minimum:G6}, {definition.Maximum:G6}]");
+            if (definition.Pivot is { } pivot)
+                builder.AppendLine($"  镜组 {surfaces} 首面坐标机械支点 ({Display(pivot.X)}, {Display(pivot.Y)}, {Display(pivot.Z)}) mm");
         }
         AppendCompensators(builder, "名义系统", result.NominalCompensators);
         if (result.MtfSettings is not { } settings) return;

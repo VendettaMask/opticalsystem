@@ -17,15 +17,36 @@ public interface IMaterial
 
 public sealed class AirMaterial : IMaterial
 {
+    public AirMaterial() : this(1) { }
+
+    internal AirMaterial(double pressureAtmospheres)
+    {
+        if (!double.IsFinite(pressureAtmospheres) || pressureAtmospheres < 0)
+            throw new ArgumentOutOfRangeException(nameof(pressureAtmospheres));
+        PressureAtmospheres = pressureAtmospheres;
+    }
+
     public string Name => "Air";
+
+    public double PressureAtmospheres { get; }
 
     public IPropagationModel PropagationModel { get; } = new HomogeneousPropagationModel();
 
-    public double RefractiveIndex(double wavelengthNanometers) => 1.0;
+    public double RefractiveIndex(double wavelengthNanometers)
+    {
+        if (PressureAtmospheres == 1) return 1.0;
+
+        // OpticStudio's air dispersion, relative to air at 20 °C and 1 atm.
+        var wavelengthSquared = Math.Pow(wavelengthNanometers / 1000, 2);
+        var referenceRefractivity = (6432.8 + 2949810 * wavelengthSquared / (146 * wavelengthSquared - 1)
+            + 25540 * wavelengthSquared / (41 * wavelengthSquared - 1)) * 1e-8;
+        var refractivity = referenceRefractivity / (1 + (20 - 15) * 3.4785e-3);
+        return (1 + PressureAtmospheres * refractivity) / (1 + refractivity);
+    }
 
     public double ExtinctionCoefficient(double wavelengthNanometers) => 0.0;
 
-    public IMaterial Clone() => new AirMaterial();
+    public IMaterial Clone() => new AirMaterial(PressureAtmospheres);
 }
 
 public sealed class ConstantIndexMaterial : IMaterial

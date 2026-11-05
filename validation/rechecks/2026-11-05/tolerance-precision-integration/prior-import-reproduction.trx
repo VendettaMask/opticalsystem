@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ee245650-1179-421f-ab94-a86622ede120" name="allen@DESKTOP-SET3SNR 2026-11-05 20:33:18" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-05T20:33:18.1984763+08:00" queuing="2026-11-05T20:33:18.1984769+08:00" start="2026-11-05T20:33:14.2739126+08:00" finish="2026-11-05T20:33:18.2068708+08:00" />
+  <TestSettings name="default" id="82da5cc8-b814-47f0-a4f9-a1b0b4dd5ee0">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-05_20_33_18" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="58542eab-e046-4418-ba46-7ee3654fd803" testId="2001a264-b0a5-9662-c199-9367dd33029e" testName="OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportPreservesUnsupportedSurfaceTypeAsOpaqueReadOnlyGeometry" computerName="DESKTOP-SET3SNR" duration="00:00:00.0169726" startTime="2026-11-05T20:33:18.0608457+08:00" endTime="2026-11-05T20:33:18.0773988+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="58542eab-e046-4418-ba46-7ee3654fd803">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.IsType() Failure: Value is not the exact type&#xD;
+Expected: typeof(OpticalSystemDesign.Core.Geometries.OpaqueGeometryPayload)&#xD;
+Actual:   typeof(OpticalSystemDesign.Core.Geometries.EvenAsphereGeometry)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportPreservesUnsupportedSurfaceTypeAsOpaqueReadOnlyGeometry() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportTests.cs:line 2609&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="aea895e0-d84d-4d2f-9f97-9750366231d1" testId="49d5ab59-9778-8cbf-af17-4c0310671a2c" testName="OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxFixtureMatchesFrozenReferenceReferenceContract" computerName="DESKTOP-SET3SNR" duration="00:00:00.0106668" startTime="2026-11-05T20:33:18.0780861+08:00" endTime="2026-11-05T20:33:18.0884461+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aea895e0-d84d-4d2f-9f97-9750366231d1">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotSupportedException : Zemax toroidal conic or polynomial terms are not supported (SURF 3).</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.CreateToroidalGeometry(ZemaxSurface surface) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 1539&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.CreateGeometry(ZemaxSurface surface) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 1335&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ConvertSurfaces(Optic optic, IReadOnlyList`1 sourceSurfaces, IReadOnlyList`1 glassCatalogs) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 1118&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.BuildOptic(ZemaxDocument document, Int32 configurationIndex) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 47&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.&lt;&gt;c__DisplayClass7_0.&lt;ImportConfigurationSet&gt;b__0(Int32 configurationIndex) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 31&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 30&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 22&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 217&#xD;
+   at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 126&#xD;
+   at OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxFixtureMatchesFrozenReferenceReferenceContract() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportTests.cs:line 1987&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2059e2d0-25dc-4441-a6b7-1143b3974fcb" testId="49060374-9ab9-0425-144e-a4a744e897e0" testName="OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxExportRejectsUnmappedGeometryAndAperturesInsteadOfDowngradingToStandard" computerName="DESKTOP-SET3SNR" duration="00:00:00.4440311" startTime="2026-11-05T20:33:17.5306963+08:00" endTime="2026-11-05T20:33:17.9683814+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2059e2d0-25dc-4441-a6b7-1143b3974fcb">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Throws() Failure: No exception was thrown&#xD;
+Expected: typeof(System.NotSupportedException)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxExportRejectsUnmappedGeometryAndAperturesInsteadOfDowngradingToStandard() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportTests.cs:line 1895&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6b81e298-fb07-4ad0-bbc8-d8b4f4e654c4" testId="9cb7fd8d-5098-3046-cb99-4a788b09c337" testName="OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportSupportsFloatingStopMirrorAndCoordinateBreak" computerName="DESKTOP-SET3SNR" duration="00:00:00.0062924" startTime="2026-11-05T20:33:18.0894660+08:00" endTime="2026-11-05T20:33:18.0949418+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6b81e298-fb07-4ad0-bbc8-d8b4f4e654c4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 4&#xD;
+Actual:   5</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportSupportsFloatingStopMirrorAndCoordinateBreak() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportTests.cs:line 2089&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2d266eb4-55a0-4262-b680-5397427db0e3" testId="d6d838d0-d590-f70e-570a-4907a4349a5e" testName="OpticalSystemDesign.Tests.ZemaxImportTests.WorkbenchFilePathImportDetectsBomlessUtf16Zemax" computerName="DESKTOP-SET3SNR" duration="00:00:00.0688343" startTime="2026-11-05T20:33:17.9832381+08:00" endTime="2026-11-05T20:33:18.0589114+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2d266eb4-55a0-4262-b680-5397427db0e3">
+      <Output>
+        <ErrorInfo>
+          <Message>System.NotSupportedException : Zemax toroidal conic or polynomial terms are not supported (SURF 3).</Message>
+          <StackTrace>   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.CreateToroidalGeometry(ZemaxSurface surface) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 1539&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.CreateGeometry(ZemaxSurface surface) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 1335&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ConvertSurfaces(Optic optic, IReadOnlyList`1 sourceSurfaces, IReadOnlyList`1 glassCatalogs) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 1118&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.BuildOptic(ZemaxDocument document, Int32 configurationIndex) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 47&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.&lt;&gt;c__DisplayClass7_0.&lt;ImportConfigurationSet&gt;b__0(Int32 configurationIndex) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 31&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+   at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs:line 30&#xD;
+   at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSetFileAsync(String path, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs:line 248&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ReadDocumentAsync(String path, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs:line 151&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ReadOpticAsync(String path, CancellationToken cancellationToken) in D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs:line 123&#xD;
+   at OpticalSystemDesign.Tests.ZemaxImportTests.WorkbenchFilePathImportDetectsBomlessUtf16Zemax() in D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportTests.cs:line 2388&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportPreservesUnsupportedSurfaceTypeAsOpaqueReadOnlyGeometry" storage="d:\projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="2001a264-b0a5-9662-c199-9367dd33029e">
+      <Execution id="58542eab-e046-4418-ba46-7ee3654fd803" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportTests" name="ZemaxImportPreservesUnsupportedSurfaceTypeAsOpaqueReadOnlyGeometry" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportTests.WorkbenchFilePathImportDetectsBomlessUtf16Zemax" storage="d:\projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="d6d838d0-d590-f70e-570a-4907a4349a5e">
+      <Execution id="2d266eb4-55a0-4262-b680-5397427db0e3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportTests" name="WorkbenchFilePathImportDetectsBomlessUtf16Zemax" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxExportRejectsUnmappedGeometryAndAperturesInsteadOfDowngradingToStandard" storage="d:\projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="49060374-9ab9-0425-144e-a4a744e897e0">
+      <Execution id="2059e2d0-25dc-4441-a6b7-1143b3974fcb" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportTests" name="ZemaxExportRejectsUnmappedGeometryAndAperturesInsteadOfDowngradingToStandard" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportSupportsFloatingStopMirrorAndCoordinateBreak" storage="d:\projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="9cb7fd8d-5098-3046-cb99-4a788b09c337">
+      <Execution id="6b81e298-fb07-4ad0-bbc8-d8b4f4e654c4" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportTests" name="ZemaxImportSupportsFloatingStopMirrorAndCoordinateBreak" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxFixtureMatchesFrozenReferenceReferenceContract" storage="d:\projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="49d5ab59-9778-8cbf-af17-4c0310671a2c">
+      <Execution id="aea895e0-d84d-4d2f-9f97-9750366231d1" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\artifacts\isekai-ribbon-details-20261104\build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportTests" name="ZemaxFixtureMatchesFrozenReferenceReferenceContract" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2001a264-b0a5-9662-c199-9367dd33029e" executionId="58542eab-e046-4418-ba46-7ee3654fd803" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49d5ab59-9778-8cbf-af17-4c0310671a2c" executionId="aea895e0-d84d-4d2f-9f97-9750366231d1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49060374-9ab9-0425-144e-a4a744e897e0" executionId="2059e2d0-25dc-4441-a6b7-1143b3974fcb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9cb7fd8d-5098-3046-cb99-4a788b09c337" executionId="6b81e298-fb07-4ad0-bbc8-d8b4f4e654c4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d6d838d0-d590-f70e-570a-4907a4349a5e" executionId="2d266eb4-55a0-4262-b680-5397427db0e3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="0" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.22]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.35]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.38]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.86]       Assert.Throws() Failure: No exception was thrown&#xD;
+[xUnit.net 00:00:02.86]       Expected: typeof(System.NotSupportedException)&#xD;
+[xUnit.net 00:00:02.86]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.86]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportTests.cs(1895,0): at OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxExportRejectsUnmappedGeometryAndAperturesInsteadOfDowngradingToStandard()&#xD;
+[xUnit.net 00:00:02.86]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.86]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.94]       System.NotSupportedException : Zemax toroidal conic or polynomial terms are not supported (SURF 3).&#xD;
+[xUnit.net 00:00:02.94]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.94]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(1539,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.CreateToroidalGeometry(ZemaxSurface surface)&#xD;
+[xUnit.net 00:00:02.94]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(1335,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.CreateGeometry(ZemaxSurface surface)&#xD;
+[xUnit.net 00:00:02.94]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(1118,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ConvertSurfaces(Optic optic, IReadOnlyList`1 sourceSurfaces, IReadOnlyList`1 glassCatalogs)&#xD;
+[xUnit.net 00:00:02.94]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(47,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.BuildOptic(ZemaxDocument document, Int32 configurationIndex)&#xD;
+[xUnit.net 00:00:02.94]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(31,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.&lt;&gt;c__DisplayClass7_0.&lt;ImportConfigurationSet&gt;b__0(Int32 configurationIndex)&#xD;
+[xUnit.net 00:00:02.94]            at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+[xUnit.net 00:00:02.94]            at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+[xUnit.net 00:00:02.94]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(30,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory)&#xD;
+[xUnit.net 00:00:02.94]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs(248,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.ImportConfigurationSetFileAsync(String path, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:02.94]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs(151,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ReadDocumentAsync(String path, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:02.94]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Documents.cs(123,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.ReadOpticAsync(String path, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:02.94]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportTests.cs(2388,0): at OpticalSystemDesign.Tests.ZemaxImportTests.WorkbenchFilePathImportDetectsBomlessUtf16Zemax()&#xD;
+[xUnit.net 00:00:02.94]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:02.96]       Assert.IsType() Failure: Value is not the exact type&#xD;
+[xUnit.net 00:00:02.96]       Expected: typeof(OpticalSystemDesign.Core.Geometries.OpaqueGeometryPayload)&#xD;
+[xUnit.net 00:00:02.96]       Actual:   typeof(OpticalSystemDesign.Core.Geometries.EvenAsphereGeometry)&#xD;
+[xUnit.net 00:00:02.96]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.96]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportTests.cs(2609,0): at OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportPreservesUnsupportedSurfaceTypeAsOpaqueReadOnlyGeometry()&#xD;
+[xUnit.net 00:00:02.96]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.96]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.97]       System.NotSupportedException : Zemax toroidal conic or polynomial terms are not supported (SURF 3).&#xD;
+[xUnit.net 00:00:02.97]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(1539,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.CreateToroidalGeometry(ZemaxSurface surface)&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(1335,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.CreateGeometry(ZemaxSurface surface)&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(1118,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ConvertSurfaces(Optic optic, IReadOnlyList`1 sourceSurfaces, IReadOnlyList`1 glassCatalogs)&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(47,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.BuildOptic(ZemaxDocument document, Int32 configurationIndex)&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(31,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.&lt;&gt;c__DisplayClass7_0.&lt;ImportConfigurationSet&gt;b__0(Int32 configurationIndex)&#xD;
+[xUnit.net 00:00:02.97]            at System.Linq.Enumerable.RangeSelectIterator`2.Fill(Span`1 results, T start, Func`2 func)&#xD;
+[xUnit.net 00:00:02.97]            at System.Linq.Enumerable.RangeSelectIterator`2.ToArray()&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(30,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.ImportConfigurationSet(String text, String assetDirectory)&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\ZemaxZmxReader.cs(22,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxReader.Import(String text)&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs(217,0): at OpticalSystemDesign.Core.FileIO.ZemaxZmxImporter.Import(String text)&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\src\OpticalSystemDesign.Core\FileIO\CommercialFormatIO.cs(126,0): at OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(String text, String extension)&#xD;
+[xUnit.net 00:00:02.97]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportTests.cs(1987,0): at OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxFixtureMatchesFrozenReferenceReferenceContract()&#xD;
+[xUnit.net 00:00:02.97]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.97]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.98]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:02.98]       Expected: 4&#xD;
+[xUnit.net 00:00:02.98]       Actual:   5&#xD;
+[xUnit.net 00:00:02.98]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.98]         D:\Projects\opticalsystem\tests\OpticalSystemDesign.Tests\ZemaxImportTests.cs(2089,0): at OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportSupportsFloatingStopMirrorAndCoordinateBreak()&#xD;
+[xUnit.net 00:00:02.98]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.98]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:02.98]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-05T20:33:17.9707920+08:00">
+        <Text>[xUnit.net 00:00:02.86]     OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxExportRejectsUnmappedGeometryAndAperturesInsteadOfDowngradingToStandard [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-05T20:33:18.0597587+08:00">
+        <Text>[xUnit.net 00:00:02.94]     OpticalSystemDesign.Tests.ZemaxImportTests.WorkbenchFilePathImportDetectsBomlessUtf16Zemax [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-05T20:33:18.0778846+08:00">
+        <Text>[xUnit.net 00:00:02.96]     OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportPreservesUnsupportedSurfaceTypeAsOpaqueReadOnlyGeometry [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-05T20:33:18.0890841+08:00">
+        <Text>[xUnit.net 00:00:02.97]     OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxFixtureMatchesFrozenReferenceReferenceContract [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-SET3SNR" outcome="Error" timestamp="2026-11-05T20:33:18.0952653+08:00">
+        <Text>[xUnit.net 00:00:02.98]     OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportSupportsFloatingStopMirrorAndCoordinateBreak [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

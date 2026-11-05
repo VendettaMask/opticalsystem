@@ -4,12 +4,42 @@ using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Raytrace;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class SpecialSagSurfaceTests
 {
+    [Theory]
+    [InlineData(0, 2, 3)]
+    [InlineData(1, 3, 2)]
+    public async Task GridSagConfigurationsIgnoreOnlyTheSelectedSurfaceAndPassNeutralOutsideRays(
+        int configuration, int ignored, int active)
+    {
+        var source = Path.Combine(AppContext.BaseDirectory, "Fixtures", "reference-closure", "Grid Sag Example.zmx");
+        var imported = await new ZemaxZmxImporter().ImportConfigurationSetFileAsync(source);
+        var optic = Optic.FromSnapshot(imported.Configurations[configuration].ToSnapshot());
+        var reference = optic.SurfaceGroup.Items[ignored];
+        Assert.IsType<CoordinateReferenceInteractionModel>(reference.InteractionModel);
+        Assert.Null(reference.PhysicalAperture);
+        Assert.Equal(0, reference.Thickness);
+
+        var grid = Assert.IsType<GridSagGeometry>(optic.SurfaceGroup.Items[active].Geometry);
+        Assert.True(double.IsNaN(grid.Sag(0, 4)));
+        Assert.False(grid.DistanceToIntersection(new(0, 4, -1), new(0, 0, 1)).IsHit);
+        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0, 0, 0, .8, .55, false);
+        using var trace = optic.SequentialRayTracer.Trace(bundle, TraceRequest.Selected([active, 4]));
+        foreach (var surface in new[] { active, 4 })
+        {
+            Assert.True(trace.TryGetSample(0, surface, out var hit));
+            Assert.False(hit.Vignetted);
+            Assert.Equal(4, hit.Position.Y, 10);
+            Assert.Equal(0, hit.Position.Z, 10);
+            Assert.Equal(1, hit.Intensity, 10);
+        }
+    }
+
     [Theory]
     [InlineData("fringe-nonzero","MM",1)] [InlineData("fringe-nonzero","CM",10)] [InlineData("fringe-nonzero","IN",25.4)]
     [InlineData("fringe-mirror","MM",1)] [InlineData("fringe-mirror","CM",10)] [InlineData("fringe-mirror","IN",25.4)]
@@ -58,6 +88,36 @@ public sealed class SpecialSagSurfaceTests
         var normal=cheb.SurfaceNormal(new(.5,.25,cheb.Sag(.5,.25)));
         var expected=new Vector3D(-(.15+.05*.5),-(.16+.064*.25),1);expected/=expected.Length;
         Assert.InRange((normal-expected).Length,0,1e-14);
+    }
+
+    [Fact]
+    public void ChebyshevFirstOrderIncludesTheVertexSecondDerivative()
+    {
+        var coefficients = new double[14];
+        coefficients[5] = .02;  // T0(x) T2(y)
+        coefficients[7] = .007; // T2(x) T2(y)
+        coefficients[11] = .003; // T0(x) T4(y)
+        var geometry = new ChebyshevSagGeometry(200, 2, 4, 4, 5, coefficients);
+        var expected = 1d / 200 + 4d / 5 * (.02 * 4 - .007 * 4 - .003 * 16);
+        Assert.Equal(expected, geometry.VertexMeridionalCurvature, 14);
+
+        const double step = 1e-5;
+        var upper = geometry.SurfaceNormal(new(0, step, geometry.Sag(0, step)));
+        var lower = geometry.SurfaceNormal(new(0, -step, geometry.Sag(0, -step)));
+        Assert.Equal(expected, (-upper.Y / upper.Z + lower.Y / lower.Z) / (2 * step), 10);
+    }
+
+    [Fact]
+    public async Task MenuChebyshevMirrorReportsTheFiniteFocalLengthOfItsSag()
+    {
+        var source = Path.Combine(ProductDependencyArchitectureTests.RepositoryRoot(), "src",
+            "OpticalSystemDesign.App", "Assets", "SequentialExamples", "Tilted systems & prisms",
+            "OAP using Chebyshev Polynomial surface.zmx");
+        var optic = await new ZemaxZmxImporter().ImportFileAsync(source);
+        var result = new Core.Analysis.FirstOrderAnalysis(optic).GenerateData();
+        Assert.Equal("Finite", result.Values["EffectiveFocalLengthStatus"]);
+        Assert.InRange(Assert.IsType<double>(result.Values["EffectiveFocalLength"]), 500 - 1e-7, 500 + 1e-7);
+        Assert.InRange(Assert.IsType<double>(result.Values["FNumber"]), 500d / 71 - 1e-8, 500d / 71 + 1e-8);
     }
 
     [Fact]

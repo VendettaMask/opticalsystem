@@ -40,6 +40,12 @@ public sealed record SequentialLensDocument(string Name, IReadOnlyList<Sequentia
 {
     public static SequentialLensDocument FromOptic(Optic optic, bool retainExtendedGeometry = false)
     {
+        if (optic.HasImportedSurfaceTiltDecenter)
+            throw new NotSupportedException("此文本导出尚未映射逐面偏心和倾斜（SCBD）。请保存 STAROPT 以保留各面的实际姿态。");
+        if (!retainExtendedGeometry && optic.SurfaceGroup.Items.Any(surface =>
+                surface.MaterialBefore is Materials.AirMaterial { PressureAtmospheres: not 1 }
+                || surface.MaterialAfter is Materials.AirMaterial { PressureAtmospheres: not 1 }))
+            throw new NotSupportedException("此文本格式尚未映射分段气压，请保存 STAROPT 或 ZMX。");
         if (!retainExtendedGeometry && optic.SurfaceGroup.Items.Any(surface =>
                 surface.Geometry is Geometries.TiltedPlaneGeometry or Geometries.FringeSagGeometry or Geometries.ChebyshevSagGeometry or Geometries.TernaryMirrorArrayGeometry or Geometries.IrregularGeometry or Geometries.GridSagGeometry or Geometries.ConcentricZoneGeometry
                     || surface.InteractionModel is Interactions.ParaxialLensInteractionModel or Interactions.RuledGratingInteractionModel or Interactions.DiffractivePhaseInteractionModel or Interactions.BirefringentInteractionModel
@@ -311,6 +317,13 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         var primaryIndex = optic.Wavelengths.ToList().FindIndex(wavelength => wavelength.IsPrimary);
         lines.Add($"PWAV {Math.Max(0, primaryIndex) + 1}");
 
+        var pressureGroups = optic.SurfaceGroup.Items
+            .Where(surface => !surface.IsReflective && surface.MaterialAfter is Materials.AirMaterial { PressureAtmospheres: not 1 })
+            .GroupBy(surface => ((Materials.AirMaterial)surface.MaterialAfter).PressureAtmospheres)
+            .ToArray();
+        if (pressureGroups.Length != 0)
+            lines.Add("ENVD 20 1 1");
+
         foreach (var surface in SequentialLensDocument.FromOptic(optic, retainExtendedGeometry: true).Surfaces)
         {
             var opticSurface = optic.SurfaceGroup.Items[surface.Number];
@@ -419,6 +432,17 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             }
         }
 
+        if (pressureGroups.Length != 0)
+        {
+            lines.Add("MNUM 1 1");
+            foreach (var group in pressureGroups)
+            {
+                lines.Add($"PRES 0 1 {FormatDouble(group.Key)} 0 0 0 1 1 1 0 0 \"\" 0");
+                foreach (var surface in group)
+                    lines.Add($"GLSS {surface.Number} 1 \"\" 0 0 0 1 1 0 0.0 \"\" 0");
+            }
+            lines.Add("PRES 0 1 1 0 0 0 1 1 1 0 0 \"\" 0");
+        }
         return string.Join(Environment.NewLine, lines);
     }
 

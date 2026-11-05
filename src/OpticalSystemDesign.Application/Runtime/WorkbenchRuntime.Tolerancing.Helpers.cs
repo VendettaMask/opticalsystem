@@ -282,6 +282,12 @@ public partial class WorkbenchRuntime
             ToleranceOperandKind.Compensator => "COMP",
             ToleranceOperandKind.FringePower => "TFRN",
             ToleranceOperandKind.FringeIrregularity => "TIRR",
+            ToleranceOperandKind.FringeZernikeIrregularity => "TEXI",
+            ToleranceOperandKind.StandardZernikeIrregularity => "TEZI",
+            ToleranceOperandKind.IsoPower => "ISOA",
+            ToleranceOperandKind.IsoIrregularityPv => "ISOB",
+            ToleranceOperandKind.IsoRotationalIrregularityPv => "ISOC",
+            ToleranceOperandKind.IsoIrregularityRms => "ISOD",
             _ => operand.Kind.ToString()
         };
         var location = operand.Kind is ToleranceOperandKind.ElementDecenterX

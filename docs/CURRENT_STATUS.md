@@ -1,5 +1,33 @@
 # 当前实现与验证状态
 
+## 2026-11-05 网格与反射变焦精度复验
+
+Grid Sag 的配置忽略面及同介质展示面修复后，12 项原数值差异和 10 项原不可比请求转为通过。反射变焦修正原生场曲的傍轴步长适配，五个配置通过原阈值。Grid GRIN 的单光线报告已读取体积分后的入射方向，一阶量及冻结参考下的光线、光程差与衍射残差仍开放。95 支按原矩阵复验，3,024 项为 **2,396 通过 / 38 接近 / 77 差异 / 443 不可比 / 70 错误**，29 项转为通过。227 项定向测试和默认 Release 构建通过。[完整复验与逐项未通过清单](../validation/rechecks/2026-11-05/all-example-accuracy-grid-zoom/README.md)
+
+## 2026-11-05 光谱仪、近轴曲率及 95 支精度复算第二轮
+
+示例光谱仪恢复 ZMX 面前、面后偏心和倾斜记录。原 11 项数值差异均通过，逐面最大坐标误差由 0.357 mm 降至 4.79e-12 mm，STAROPT 重开保留姿态。新增四项可比较的惠更斯分析仍有差异。Chebyshev 镜的一阶分析使用实际顶点矢高曲率，原离轴镜 EFL 恢复为 500.000000007 mm。一阶参数七项原字段错误复验为四通过、三不可比。
+
+同一默认 Release Core 对完整 95 支复算 3,024 项原请求，2,904 项实际重算。结果为 **2367 Pass / 41 Close / 93 Difference / 453 Incomparable / 70 Error**，较首轮新增 17 项通过，原通过全部保留。固定光线 143 通过、108 不可比。最终应用定向 279 项通过，5 项扩展 ZMX 失败与修改前逐条一致。对标项目另有 9 项通过。见[逐镜头与逐请求](../validation/rechecks/2026-11-05/all-example-accuracy-followup/README.md)及[集成验证](../validation/rechecks/2026-11-05/tolerance-precision-integration/README.md)。
+
+## 2026-11-05 ISO B/C/D 面形公差
+
+ISOB、ISOC 和 ISOD 接入实际曲面追迹、灵敏度、反求、Monte Carlo、MTF 和 startol v5。支持 nm、µm 和双程条纹。B/C 用连续口径极值验证，D 验证去均值 RMS。ISOB 使用本地单角频率面形族，B/C 同面联合标定、偏轴或非圆口径及 OpticStudio 逐样本对照继续开放。
+
+独立 Windows Release 构建零警告、零错误。126 项定向回归全部通过，其中 17 项为新增 ISO 控制。中英日词库 3116 条、2869 处引用，零漏译。见[公差说明](TOLERANCING.md)和[证据](../validation/rechecks/2026-11-05/iso-irregularity-tolerancing/README.md)。
+
+## 2026-11-05 95 支菜单示例首轮精度复算
+
+全部 95 支源文件核验，94 支导入、114 个配置。3,024 项原请求实际重算 2,904 项，结论为 **2350 Pass / 42 Close / 100 Difference / 454 Incomparable / 78 Error**。与 11 月 4 日相比，原通过全部保留，真空腔新增 4 项通过，此前两支图像模拟示例合计新增 52 项通过。
+
+固定光线 251 组为 143 通过、108 不可比。真空腔两种 CPU 路径的最大坐标误差均小于 1.43e-14 mm。原七个 FFT 未收敛案例在显式自适应模式下分别通过原物理域门槛。默认 Release 与本轮矩阵使用同一 Core，集成回归 258 通过，另有 5 项 ZMX 扩展测试在修改前的程序集同样失败。见[逐镜头与逐请求](../validation/rechecks/2026-11-05/all-example-accuracy/README.md)、[FFT](../validation/rechecks/2026-11-05/fourier-physical-pupil/README.md)和[集成测试](../validation/rechecks/2026-11-05/tolerance-precision-integration/README.md)。
+
+## 2026-11-05 Zernike 面形、ISOA 与镜组机械支点
+
+公差向导接入 TEXI 和 TEZI，编辑器同时支持 ISOA。试验修改实际面形、交点和法线，覆盖灵敏度、反求、Monte Carlo 及 MTF。镜组补偿可指定首面局部 XYZ 机械支点，同组多轴共用。新增研究设置使用 startol v5，可读 v1–v4。
+
+独立 Release 公差定向 **88/88**，Fringe Sag 与 Zernike **21/21**。证据覆盖解析矢高和 RMS、截断分布、刚体位置和法线、串并一致以及离屏向导。ISO B/C/D、多配置联合公差、制造倾斜自定义支点与 OpticStudio 逐值对照继续开放。见[操作与范围](TOLERANCING.md)和[验证记录](../validation/rechecks/2026-11-05/surface-form-mechanical-pivot/README.md)。
+
 ## 2026-11-05 面形／条纹公差与镜组装调补偿
 
 面形与装调列为当前优先项。首批在公差向导与编辑器接入 TFRN 曲率条纹和 TIRR 球差／像散不规则度，按独立检测波长和实际净口径扰动几何。公差分析补偿页加入有界镜组 X/Y 偏心、倾斜，按首面顶点作刚体调整。新研究使用 startol v4，仍可读取 v1–v3。

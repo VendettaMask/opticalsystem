@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Core.Tolerancing;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -16,6 +17,10 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
     private int _endSurfaceNumber;
     private int _parameterIndex;
     private double? _testWavelengthMicrometers;
+    private int _minimumZernikeTerm;
+    private int _maximumZernikeTerm;
+    private IsoSurfaceFormUnit _isoUnit;
+    private IsoSurfaceFormStatistics _isoStatistics;
 
     public ToleranceOperandEditorRow(ToleranceOperandDto source)
     {
@@ -30,6 +35,10 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
         EndSurfaceNumber = source.EndSurfaceNumber;
         ParameterIndex = source.ParameterIndex;
         TestWavelengthMicrometers = source.TestWavelengthMicrometers;
+        MinimumZernikeTerm = source.MinimumZernikeTerm;
+        MaximumZernikeTerm = source.MaximumZernikeTerm;
+        IsoUnit = source.IsoUnit;
+        IsoStatistics = source.IsoStatistics;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -54,6 +63,7 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
             if (SetField(ref _kind, value, nameof(Kind)))
             {
                 OnPropertyChanged(nameof(Code));
+                OnPropertyChanged(nameof(DistributionText));
             }
         }
     }
@@ -97,6 +107,34 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
         set => SetField(ref _testWavelengthMicrometers, value, nameof(TestWavelengthMicrometers));
     }
 
+    public int MinimumZernikeTerm
+    {
+        get => _minimumZernikeTerm;
+        set => SetField(ref _minimumZernikeTerm, value, nameof(MinimumZernikeTerm));
+    }
+
+    public int MaximumZernikeTerm
+    {
+        get => _maximumZernikeTerm;
+        set => SetField(ref _maximumZernikeTerm, value, nameof(MaximumZernikeTerm));
+    }
+
+    public IsoSurfaceFormUnit IsoUnit
+    {
+        get => _isoUnit;
+        set => SetField(ref _isoUnit, value, nameof(IsoUnit));
+    }
+
+    public IsoSurfaceFormStatistics IsoStatistics
+    {
+        get => _isoStatistics;
+        set
+        {
+            if (SetField(ref _isoStatistics, value, nameof(IsoStatistics)))
+                OnPropertyChanged(nameof(DistributionText));
+        }
+    }
+
     public double Minimum
     {
         get => _minimum;
@@ -123,9 +161,27 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
 
     public string DistributionText
     {
-        get => Distribution == ToleranceDistribution.Normal ? "正态" : "均匀";
+        get => Kind.UsesIsoStatistics()
+            ? IsoStatisticsText(IsoStatistics)
+            : Distribution == ToleranceDistribution.Normal ? "正态" : "均匀";
         set
         {
+            if (Kind.UsesIsoStatistics())
+            {
+                switch (value?.Trim().ToLowerInvariant())
+                {
+                    case "固定最大值" or "always use maximum" or "最大値を使用":
+                        IsoStatistics = IsoSurfaceFormStatistics.AtMaximum;
+                        break;
+                    case "截断正态" or "truncated normal" or "切断正規分布":
+                        IsoStatistics = IsoSurfaceFormStatistics.TruncatedGaussian;
+                        break;
+                    default:
+                        OnPropertyChanged(nameof(DistributionText));
+                        break;
+                }
+                return;
+            }
             if (TryParseDistribution(value, out var distribution))
             {
                 Distribution = distribution;
@@ -153,10 +209,15 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
         Comment,
         EndSurfaceNumber,
         ParameterIndex,
-        UsesFringes(Kind) ? TestWavelengthMicrometers : null);
+        UsesFringes(Kind, IsoUnit) ? TestWavelengthMicrometers : null,
+        MinimumZernikeTerm, MaximumZernikeTerm, IsoUnit, IsoStatistics);
 
-    internal static bool UsesFringes(ToleranceOperandKind kind) =>
-        kind is ToleranceOperandKind.FringePower or ToleranceOperandKind.FringeIrregularity;
+    internal static bool UsesFringes(ToleranceOperandKind kind, IsoSurfaceFormUnit unit = IsoSurfaceFormUnit.Nanometers) =>
+        kind is ToleranceOperandKind.FringePower or ToleranceOperandKind.FringeIrregularity
+        || (kind.SurfaceFormModeFor() is { } formMode && SurfaceFormPerturbation.UsesTestWavelength(formMode, unit));
+
+    internal static string IsoStatisticsText(IsoSurfaceFormStatistics statistics) =>
+        statistics == IsoSurfaceFormStatistics.AtMaximum ? "固定最大值" : "截断正态";
 
     public static string CodeFor(ToleranceOperandKind kind) => kind switch
     {
@@ -177,6 +238,12 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
         ToleranceOperandKind.Compensator => "COMP",
         ToleranceOperandKind.FringePower => "TFRN",
         ToleranceOperandKind.FringeIrregularity => "TIRR",
+        ToleranceOperandKind.FringeZernikeIrregularity => "TEXI",
+        ToleranceOperandKind.StandardZernikeIrregularity => "TEZI",
+        ToleranceOperandKind.IsoPower => "ISOA",
+        ToleranceOperandKind.IsoIrregularityPv => "ISOB",
+        ToleranceOperandKind.IsoRotationalIrregularityPv => "ISOC",
+        ToleranceOperandKind.IsoIrregularityRms => "ISOD",
         _ => kind.ToString().ToUpperInvariant()
     };
 
@@ -201,6 +268,12 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
             "COMP" => ToleranceOperandKind.Compensator,
             "TFRN" => ToleranceOperandKind.FringePower,
             "TIRR" => ToleranceOperandKind.FringeIrregularity,
+            "TEXI" => ToleranceOperandKind.FringeZernikeIrregularity,
+            "TEZI" => ToleranceOperandKind.StandardZernikeIrregularity,
+            "ISOA" => ToleranceOperandKind.IsoPower,
+            "ISOB" => ToleranceOperandKind.IsoIrregularityPv,
+            "ISOC" => ToleranceOperandKind.IsoRotationalIrregularityPv,
+            "ISOD" => ToleranceOperandKind.IsoIrregularityRms,
             _ => default
         };
         return CodeFor(kind).Equals(text?.Trim(), StringComparison.OrdinalIgnoreCase)

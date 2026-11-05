@@ -55,6 +55,9 @@ internal static class MeritOperandRowPalette
     internal static MeritOperandRowCategory ToleranceCategoryFor(ToleranceOperandKind kind) => kind switch
     {
         ToleranceOperandKind.FringePower or ToleranceOperandKind.FringeIrregularity
+            or ToleranceOperandKind.FringeZernikeIrregularity or ToleranceOperandKind.StandardZernikeIrregularity
+            or ToleranceOperandKind.IsoPower or ToleranceOperandKind.IsoIrregularityPv
+            or ToleranceOperandKind.IsoRotationalIrregularityPv or ToleranceOperandKind.IsoIrregularityRms
             => C("tolerance-shape", "公差 / 曲率与面形", "#AB70A8"),
         ToleranceOperandKind.Radius or ToleranceOperandKind.Conic or ToleranceOperandKind.AsphereCoefficient
             => C("tolerance-shape", "公差 / 曲率与面形", "#A17BC5"),

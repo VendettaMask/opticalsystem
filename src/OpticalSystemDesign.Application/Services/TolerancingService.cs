@@ -43,9 +43,16 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
             }
 
             if (!Enum.IsDefined(settings.RadiusMode)
-                || ((settings.IncludeRadius && settings.RadiusMode == RadiusToleranceMode.Fringes) || settings.IncludeFringeIrregularity)
+                || ((settings.IncludeRadius && settings.RadiusMode == RadiusToleranceMode.Fringes) || settings.IncludeFringeIrregularity
+                    || settings.ZernikeIrregularityKind == ToleranceOperandKind.FringeZernikeIrregularity)
                 && !SurfaceFringePerturbation.IsValidTestWavelength(settings.TestWavelengthMicrometers))
                 throw new ArgumentException("曲率公差模式或条纹检测波长无效。");
+            if (settings.ZernikeIrregularityKind is { } requestedKind
+                && (!requestedKind.UsesZernikeTerms() || settings.IncludeFringeIrregularity
+                    || !SurfaceFormPerturbation.HasValidTerms(requestedKind.SurfaceFormModeFor()!.Value,
+                        settings.MinimumZernikeTerm, settings.MaximumZernikeTerm)
+                    || !double.IsFinite(settings.ZernikeIrregularity) || settings.ZernikeIrregularity < 0))
+                throw new ArgumentException("Zernike 面形公差设置无效。");
 
             var first = Math.Clamp(settings.StartSurface, 0, surfaces.Count - 1);
             var last = Math.Clamp(settings.EndSurface, first, surfaces.Count - 1);
@@ -61,6 +68,13 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                 if (canUseFringes && settings.IncludeFringeIrregularity)
                     AddSymmetric(rows, ToleranceOperandKind.FringeIrregularity, surfaceNumber, settings.FringeIrregularity,
                         settings.Distribution, "面形不规则度", testWavelengthMicrometers: settings.TestWavelengthMicrometers);
+                if (settings.ZernikeIrregularityKind is { } kind && settings.ZernikeIrregularity > 1e-15
+                    && surfaceNumber > 0 && surfaceNumber < surfaces.Count - 1 && SurfaceFormPerturbation.Supports(surface))
+                    rows.Add(new ToleranceOperandDto(rows.Count + 1, true, kind, surfaceNumber,
+                        -settings.ZernikeIrregularity, settings.ZernikeIrregularity, settings.Distribution,
+                        TestWavelengthMicrometers: kind == ToleranceOperandKind.FringeZernikeIrregularity
+                            ? settings.TestWavelengthMicrometers : null,
+                        MinimumZernikeTerm: settings.MinimumZernikeTerm, MaximumZernikeTerm: settings.MaximumZernikeTerm));
 
                 if (settings.IncludeRadius && settings.RadiusMode != RadiusToleranceMode.Fringes && Math.Abs(surface.Radius) > 1e-9)
                 {
@@ -210,6 +224,7 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                     messages.Add($"第 {operand.Index} 行的最小值/最大值无效。");
                 }
                 else if (operand.Kind != ToleranceOperandKind.Compensator
+                         && !operand.Kind.SurfaceFormModeFor().HasValue
                          && Math.Abs(operand.Minimum) <= 1e-15
                          && Math.Abs(operand.Maximum) <= 1e-15)
                 {
@@ -232,6 +247,28 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                             && (!SurfaceFringePerturbation.IsValidPowerChange(surface, wavelength, operand.Minimum)
                                 || !SurfaceFringePerturbation.IsValidPowerChange(surface, wavelength, operand.Maximum)))
                             messages.Add($"第 {operand.Index} 行的曲率条纹范围使净口径超出曲面有效域。");
+                    }
+
+                    if (operand.Kind.SurfaceFormModeFor() is { } formMode)
+                    {
+                        var wavelength = operand.TestWavelengthMicrometers
+                            ?? SurfaceFringePerturbation.DefaultTestWavelengthMicrometers;
+                        if (operand.SurfaceNumber == 0 || operand.SurfaceNumber == surfaceCount - 1
+                            || !SurfaceFormPerturbation.Supports(surface))
+                            messages.Add($"第 {operand.Index} 行的面形公差需要具有居中圆形净口径的实体表面。");
+                        if (operand.Minimum != -operand.Maximum || operand.Maximum < 0)
+                            messages.Add($"第 {operand.Index} 行的面形公差必须使用对称范围。");
+                        if (!SurfaceFormPerturbation.HasValidTerms(formMode, operand.MinimumZernikeTerm, operand.MaximumZernikeTerm))
+                            messages.Add($"第 {operand.Index} 行的 Zernike 起止项无效。");
+                        if (!Enum.IsDefined(operand.IsoUnit))
+                            messages.Add($"第 {operand.Index} 行的 ISO 面形单位无效。");
+                        if (!Enum.IsDefined(operand.IsoStatistics))
+                            messages.Add($"第 {operand.Index} 行的 ISO 统计模型无效。");
+                        if (SurfaceFormPerturbation.UsesTestWavelength(formMode, operand.IsoUnit)
+                            && !SurfaceFringePerturbation.IsValidTestWavelength(wavelength))
+                            messages.Add($"第 {operand.Index} 行的条纹检测波长须为 0.001–1000 µm。");
+                        if (formMode == SurfaceFormMode.IsoPower && operand.Distribution != ToleranceDistribution.Normal)
+                            messages.Add($"第 {operand.Index} 行的 ISOA 使用截断正态分布。");
                     }
 
                     if (operand.Kind is ToleranceOperandKind.Thickness or ToleranceOperandKind.Compensator
@@ -271,8 +308,8 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                          .GroupBy(item => (
                              item.Kind,
                              item.SurfaceNumber,
-                             EndSurfaceNumber: IsFringeOperand(item.Kind) ? -1 : item.EndSurfaceNumber,
-                             ParameterIndex: IsFringeOperand(item.Kind) ? 0 : item.ParameterIndex))
+                             EndSurfaceNumber: IsFringeOperand(item.Kind) || item.Kind.SurfaceFormModeFor().HasValue ? -1 : item.EndSurfaceNumber,
+                             ParameterIndex: IsFringeOperand(item.Kind) || item.Kind.SurfaceFormModeFor().HasValue ? 0 : item.ParameterIndex))
                          .Where(group => group.Count() > 1))
             {
                 messages.Add($"{duplicate.Key.Kind} / 表面 {duplicate.Key.SurfaceNumber} 重复定义。");
@@ -283,6 +320,15 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                 if (group.Any(row => row.Kind == ToleranceOperandKind.FringePower)
                     && group.Any(row => row.Kind == ToleranceOperandKind.Radius))
                     messages.Add($"表面 {group.Key} 的 TRAD 与 TFRN 同时定义了曲率误差。");
+                if (group.Any(row => row.Kind == ToleranceOperandKind.IsoPower)
+                    && group.Any(row => row.Kind is ToleranceOperandKind.FringePower or ToleranceOperandKind.Radius))
+                    messages.Add($"表面 {group.Key} 的 ISOA 与 TRAD 或 TFRN 同时定义了曲率误差。");
+                if (group.Any(row => row.Kind == ToleranceOperandKind.IsoIrregularityPv)
+                    && group.Any(row => row.Kind == ToleranceOperandKind.IsoRotationalIrregularityPv))
+                    messages.Add($"表面 {group.Key} 的 ISOB 和 ISOC 需要联合峰谷值标定，目前仅支持分别用于不同表面。");
+                else if (group.Count(row => row.Kind.UsesZernikeTerms() || row.Kind.UsesIsoStatistics()
+                    || row.Kind == ToleranceOperandKind.FringeIrregularity) > 1)
+                    messages.Add($"表面 {group.Key} 只能使用一种面形不规则度公差。");
             }
             return new ToleranceValidationResultDto(messages.Count == 0, messages);
         }

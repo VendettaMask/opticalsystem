@@ -14,6 +14,8 @@ public static partial class DiffractionEngine
     // The original 2048-square source and aggregate allocation limits remain.
     internal const int MaximumAxisTransformSize = 32_768;
     internal const int MaximumBoundedFourierTransformSize = 524_288;
+    internal const int DensePupilPaddingFactor = 8;
+    private const double DenseAxisPupilStretch = 1.25;
 
     internal static PupilGridSpecification CompactFftPupilGrid(PupilGridSpecification source)
     {
@@ -37,7 +39,7 @@ public static partial class DiffractionEngine
 
     internal static FftAxisProfiles ComputeFftAxisProfiles(Optic optic, (double Hx, double Hy) field,
         Wavelength wave, int pupilSampling, int transformSize, Wavelength reference,
-        double imageDelta = 0, PupilGridSpecification? explicitGrid = null)
+        double imageDelta = 0, PupilGridSpecification? explicitGrid = null, bool densePhysicalPupil = false)
     {
         if (transformSize < 2 * pupilSampling || transformSize > MaximumAxisTransformSize
             || (transformSize & (transformSize - 1)) != 0 || !double.IsFinite(imageDelta) || imageDelta < 0)
@@ -50,6 +52,11 @@ public static partial class DiffractionEngine
             axes = WorkingFNumbers(optic, field, wave, true); fallback = !aiming; aiming = true;
         }
         var fNumber = optic.ImageSpaceAfocal ? double.PositiveInfinity : CombineWorkingFNumbers(axes);
+        // Keep the image-plane knot spacing independent of pupil refinement.
+        // The axis transform's larger zero-padding interval lets us reduce the
+        // pupil-node spacing while still covering the same physical aperture.
+        if (densePhysicalPupil && imageDelta == 0)
+            imageDelta = wave.Micrometers * fNumber / (DensePupilPaddingFactor * DenseAxisPupilStretch);
         var stretch = FftPupilStretch(optic, wave, pupilSampling, transformSize, true, fNumber, imageDelta);
         var source = explicitGrid ?? new PupilGridSpecification(pupilSampling, true, true, stretch);
         var spacingFNumber = fNumber;

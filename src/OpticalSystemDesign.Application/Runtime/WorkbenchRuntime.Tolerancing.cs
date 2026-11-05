@@ -267,10 +267,17 @@ public partial class WorkbenchRuntime
             }
 
             var result = results[resultIndex++];
+            var minimum = result.Minimum.AdjustedTolerance;
+            var maximum = result.Maximum.AdjustedTolerance;
+            if (operand.Kind.SurfaceFormModeFor().HasValue)
+            {
+                maximum = Math.Min(-minimum, maximum);
+                minimum = -maximum;
+            }
             adjusted[index] = operand with
             {
-                Minimum = result.Minimum.AdjustedTolerance,
-                Maximum = result.Maximum.AdjustedTolerance
+                Minimum = minimum,
+                Maximum = maximum
             };
         }
 

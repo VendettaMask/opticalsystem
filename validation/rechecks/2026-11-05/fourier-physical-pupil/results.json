@@ -1,0 +1,1281 @@
+{
+  "scope": "Seven Fourier analyses in the 95-menu-example cohort. Same frozen optical snapshots, original physical nodes and per-analysis settings, and existing convergence-checked OpticStudio 2026 R1 references.",
+  "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "compiledCoreSha256": "c793b4a03e144c320607b1751b93932ac94c78f2d5019c129d99f3fc539718f2",
+  "compiledApplicationSha256": "0aa083b05783c69906eae1c592602641bff4f3cbbefe852d5acc669d29559577",
+  "sourceFiles": {
+    "src/OpticalSystemDesign.Core/Analysis/FourierResultValidation.cs": "f970911be5a78329f11d47734d01736a477f12096a386166bf6201b56752bfa5",
+    "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.AxisProfiles.cs": "c2de027632b395a680d1d75c67c29461985f83781745d18d01e8d634976f8cfe",
+    "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfProfileAnalyses.cs": "6cf92f773e27492566ccea2accdfd480191e6092c60bf2b8e4d2d1b76a62702b",
+    "src/OpticalSystemDesign.Core/Analysis/DiffractionEngine.cs": "7a0e01c21e09f57e8c1f18c5ee97701449aae7699e9f1500f9ac509c3283c2b2",
+    "src/OpticalSystemDesign.Core/Analysis/Diffraction/PsfAndMtfAnalyses.cs": "2e867ebb7f845658579460896e0e23f44f1123c8e1f083789fb02a92800a0b5b"
+  },
+  "productCases": [
+    {
+      "index": 313,
+      "fixedOutcome": "Unavailable",
+      "nativeSampling": 2048,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 201,
+          "maxAbsolute": 0.00021753968575966356,
+          "meanAbsolute": 1.812582825326577e-05,
+          "rmse": 3.789411439290649e-05,
+          "nrmse": 0.0024012492486475186,
+          "maxRelative": 0.03645896134891856,
+          "p50": 7.265561515917862e-06,
+          "p90": 4.000997987527524e-05,
+          "p95": 7.427182075068171e-05,
+          "pearson": 0.9999648165512918,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "report": {
+        "protocol": "FourierPhysicalDomainConvergence/v2",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 32,
+        "returnedPupilSampling": 2048,
+        "maximumPupilSampling": 4096,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1e-07,
+        "validated": true,
+        "steps": [
+          {
+            "pupilSampling": 32,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.28176411898826836,
+            "maximumAbsoluteChange": 0.004227098299055649,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.24042835236826723,
+            "maximumAbsoluteChange": 0.003930652465268964,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.06968181287843833,
+            "maximumAbsoluteChange": 0.0010649857471175164,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.033726472174957306,
+            "maximumAbsoluteChange": 0.0005334518047978871,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.005785994282810976,
+            "maximumAbsoluteChange": 0.00018242317856128655,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.00814202548952677,
+            "maximumAbsoluteChange": 0.00012848580047385844,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 4096,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.00785425794521671,
+            "maximumAbsoluteChange": 0.00012492586465781552,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": true,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.015261469981280862,
+            "maximumAbsoluteChange": 0.0002505887346144261,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.014303583606860501,
+            "maximumAbsoluteChange": 0.00022797136082232383,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0018096428702736361,
+            "maximumAbsoluteChange": 0.00011125835240246955,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.002520228210258928,
+            "maximumAbsoluteChange": 4.033466456808063e-05,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0003644231060559627,
+            "maximumAbsoluteChange": 5.830237524644122e-06,
+            "usesDensePhysicalPupil": true
+          }
+        ],
+        "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+        "evaluatedNominalPupilCells": 55920640,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": 0.06931003580045422,
+        "requestedMaximumAbsoluteDeviation": 0.0030074864357963215
+      },
+      "snapshotSha256": "c501d425a8db7fcd349acf363accb3092204d73d5589e06838b9775beb123d71",
+      "nativeDataSha256": "fccd9c620567b973db88cbab152420bbed1227ca053ecfa0b8c2e5ce96ac5eb3",
+      "nativeReferenceLogicalPath": "runs/fourier-resolution-native-2048-20261104/313-2048/native/data.json",
+      "previousStandardAdaptive": {
+        "pupilSampling": 4096,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.00785425794521671,
+        "maximumAbsoluteChange": 0.00012492586465781552
+      }
+    },
+    {
+      "index": 1115,
+      "fixedOutcome": "Unavailable",
+      "nativeSampling": 1024,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Dimensionless",
+          "count": 16384,
+          "maxAbsolute": 0.0002750766795540996,
+          "meanAbsolute": 1.8280881504929375e-05,
+          "rmse": 2.9654661200290016e-05,
+          "nrmse": 0.000576768407429133,
+          "maxRelative": 0.11023205479388168,
+          "p50": 1.0090665617119832e-05,
+          "p90": 4.080413089433592e-05,
+          "p95": 6.389322911263173e-05,
+          "pearson": 0.9999747844211064,
+          "worstX": 0,
+          "worstY": 0,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 0.05169027352168289,
+            "grid.workbench.pv": 0.051591012214736866,
+            "grid.workbench.rmsAboutZero": 0.004731384550275659,
+            "grid.workbench.rmsAfterPiston": 0.0038057961173753227,
+            "grid.workbench.sampleSum": 46.05599133274541,
+            "grid.workbench.integratedEnergy": 2.878499458296588,
+            "grid.workbench.centroidX": 0.05411589907997595,
+            "grid.workbench.centroidY": 0.05411589908435753,
+            "grid.workbench.marginalFwhmX": 9.752604233442074,
+            "grid.workbench.marginalFwhmY": 9.752604233426473,
+            "grid.workbench.encircledEnergyRadius50": 11.059228919133322,
+            "grid.workbench.encircledEnergyRadius80": 13.117817035668537,
+            "grid.workbench.encircledEnergyRadius90": 15.733445239731294,
+            "grid.zemax.peak": 0.051415196842128794,
+            "grid.zemax.pv": 0.05131446638738051,
+            "grid.zemax.rmsAboutZero": 0.0047207893901905894,
+            "grid.zemax.rmsAfterPiston": 0.0037935622684987964,
+            "grid.zemax.sampleSum": 46.035068549890106,
+            "grid.zemax.integratedEnergy": 2.8771917843681316,
+            "grid.zemax.centroidX": 0.053920718390662106,
+            "grid.zemax.centroidY": 0.05392071839068585,
+            "grid.zemax.marginalFwhmX": 9.779453190864807,
+            "grid.zemax.marginalFwhmY": 9.779453190863533,
+            "grid.zemax.encircledEnergyRadius50": 11.061035112560965,
+            "grid.zemax.encircledEnergyRadius80": 13.112854790235714,
+            "grid.zemax.encircledEnergyRadius90": 15.733447000849774
+          }
+        }
+      ],
+      "report": {
+        "protocol": "FourierPhysicalDomainConvergence/v2",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 64,
+        "returnedPupilSampling": 1024,
+        "maximumPupilSampling": 2048,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1e-07,
+        "validated": true,
+        "steps": [
+          {
+            "pupilSampling": 64,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": false,
+            "relativeRmsChange": 1.3684189313824846,
+            "maximumAbsoluteChange": 0.08389099710360323,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": false,
+            "relativeRmsChange": 0.21483015113705642,
+            "maximumAbsoluteChange": 0.012249927976694046,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.12191991079415411,
+            "maximumAbsoluteChange": 0.006196566031835916,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.011554807168429562,
+            "maximumAbsoluteChange": 0.0005941369388790113,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.005240250022447063,
+            "maximumAbsoluteChange": 0.0002708679719745921,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.011554817384561869,
+            "maximumAbsoluteChange": 0.0005941374667315369,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.005240246517929365,
+            "maximumAbsoluteChange": 0.0002708677910342461,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.00012096714277350371,
+            "maximumAbsoluteChange": 2.702401485268381e-05,
+            "usesDensePhysicalPupil": true
+          }
+        ],
+        "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+        "evaluatedNominalPupilCells": 13967360,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": 1.0514059408053882,
+        "requestedMaximumAbsoluteDeviation": 0.08484878683892497
+      },
+      "centerValue": 0.05169027352168289,
+      "windowPeak": 0.05169027352168289,
+      "imageDeltaMicrometers": 0.25,
+      "displaySize": 128,
+      "logicalTransform": 8192,
+      "snapshotSha256": "f82b85690eaf9add601ff61302029bfb7dd2d91c358af3918c9c467170e93bcb",
+      "nativeDataSha256": "09e1bf9b6eac92a3e99e4848f0469ae8251e1bf0f2e9b3b4e1058c61f03524ab",
+      "nativeReferenceLogicalPath": "runs/fourier-resolution-native-1024-20261104/1115-1024/native/data.json",
+      "previousStandardAdaptive": {
+        "pupilSampling": 2048,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.005240250022447063,
+        "maximumAbsoluteChange": 0.0002708679719745921
+      }
+    },
+    {
+      "index": 1119,
+      "fixedOutcome": "Unavailable",
+      "nativeSampling": 1024,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 201,
+          "maxAbsolute": 0.00010110182588295808,
+          "meanAbsolute": 1.758975401851532e-05,
+          "rmse": 2.7736584253645803e-05,
+          "nrmse": 0.0005350524557504158,
+          "maxRelative": 0.12513236450111442,
+          "p50": 1.0783618560788793e-05,
+          "p90": 5.3180982026765355e-05,
+          "p95": 6.395580690469853e-05,
+          "pearson": 0.9999943291884452,
+          "worstX": 27.900429576207898,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "report": {
+        "protocol": "FourierPhysicalDomainConvergence/v2",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 32,
+        "returnedPupilSampling": 512,
+        "maximumPupilSampling": 4096,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1e-07,
+        "validated": true,
+        "steps": [
+          {
+            "pupilSampling": 32,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": false,
+            "relativeRmsChange": 0.1843080517098031,
+            "maximumAbsoluteChange": 0.011879582269068455,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.26056031323111684,
+            "maximumAbsoluteChange": 0.0133229837722535,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.04503928746307901,
+            "maximumAbsoluteChange": 0.002411566473864535,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.028773312237935337,
+            "maximumAbsoluteChange": 0.0014975381515653918,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.003921448060281162,
+            "maximumAbsoluteChange": 0.0002391872131913466,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.006649362679265066,
+            "maximumAbsoluteChange": 0.0003560597068688817,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 4096,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.005524056974762216,
+            "maximumAbsoluteChange": 0.0002867156593084272,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.03879757306745016,
+            "maximumAbsoluteChange": 0.0019877960402513023,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.010667829068575265,
+            "maximumAbsoluteChange": 0.000552460431323204,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0004886662942116329,
+            "maximumAbsoluteChange": 8.978978162187644e-05,
+            "usesDensePhysicalPupil": true
+          }
+        ],
+        "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+        "evaluatedNominalPupilCells": 45434880,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": 0.018874136873513178,
+        "requestedMaximumAbsoluteDeviation": 0.0037058861073588165
+      },
+      "snapshotSha256": "f82b85690eaf9add601ff61302029bfb7dd2d91c358af3918c9c467170e93bcb",
+      "nativeDataSha256": "82815c3aa29743742a76d79fc09ad0d5d5444ddfca680aab4828b5d0edcdcc55",
+      "nativeReferenceLogicalPath": "runs/fourier-resolution-native-1024-20261104/1119-1024/native/data.json",
+      "previousStandardAdaptive": {
+        "pupilSampling": 4096,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.005524056974762216,
+        "maximumAbsoluteChange": 0.0002867156593084272
+      }
+    },
+    {
+      "index": 1767,
+      "fixedOutcome": "Unavailable",
+      "nativeSampling": 1024,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 201,
+          "maxAbsolute": 0.0002626698015137062,
+          "meanAbsolute": 2.3429323005570227e-05,
+          "rmse": 5.242162235203902e-05,
+          "nrmse": 0.0019156448877046966,
+          "maxRelative": 0.06530929204014176,
+          "p50": 6.4873972835771915e-06,
+          "p90": 6.889706158280662e-05,
+          "p95": 0.0001337455336014818,
+          "pearson": 0.9999663976256207,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "report": {
+        "protocol": "FourierPhysicalDomainConvergence/v2",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 32,
+        "returnedPupilSampling": 2048,
+        "maximumPupilSampling": 4096,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1e-07,
+        "validated": true,
+        "steps": [
+          {
+            "pupilSampling": 32,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": false,
+            "relativeRmsChange": 0.21427519692835478,
+            "maximumAbsoluteChange": 0.006554851125881242,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.12017434577731086,
+            "maximumAbsoluteChange": 0.003280367027676312,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.03977018520689997,
+            "maximumAbsoluteChange": 0.0010440731438402344,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.031942516445416146,
+            "maximumAbsoluteChange": 0.0008662460987948588,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.009006641554329063,
+            "maximumAbsoluteChange": 0.00024647013324167674,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.003107309738472004,
+            "maximumAbsoluteChange": 0.00011395451280557349,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 4096,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.007059866641572808,
+            "maximumAbsoluteChange": 0.0001939668256380478,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.02115252727475413,
+            "maximumAbsoluteChange": 0.0005794138903746499,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0015393014099166927,
+            "maximumAbsoluteChange": 0.00011397983730100994,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.004425557378345827,
+            "maximumAbsoluteChange": 0.0001232211746374813,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0026396301683500613,
+            "maximumAbsoluteChange": 7.293112289401618e-05,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 5.885631784734092e-05,
+            "maximumAbsoluteChange": 2.68338231354439e-06,
+            "usesDensePhysicalPupil": true
+          }
+        ],
+        "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+        "evaluatedNominalPupilCells": 55920640,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": 0.05843005149554806,
+        "requestedMaximumAbsoluteDeviation": 0.006142834925534664
+      },
+      "snapshotSha256": "b8e012ebcdfde3213e1c8fa3ba06c57a5e306fe7057f91af07eb6db61e53e2da",
+      "nativeDataSha256": "40ff3a415e46927b64812fa472557fa8e842ac4bab8507e24159fe45d9e5c87d",
+      "nativeReferenceLogicalPath": "runs/fourier-resolution-native-1024-20261104/1767-1024/native/data.json",
+      "previousStandardAdaptive": {
+        "pupilSampling": 4096,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.007059866641572808,
+        "maximumAbsoluteChange": 0.0001939668256380478
+      }
+    },
+    {
+      "index": 2569,
+      "fixedOutcome": "Unavailable",
+      "nativeSampling": 4096,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 201,
+          "maxAbsolute": 3.584434534779912e-05,
+          "meanAbsolute": 1.405441556614748e-05,
+          "rmse": 1.6170849267466708e-05,
+          "nrmse": 0.0012979251358429013,
+          "maxRelative": 0.005601309565127565,
+          "p50": 1.4464201648673944e-05,
+          "p90": 2.3410320689622177e-05,
+          "p95": 2.4406380217218207e-05,
+          "pearson": 0.9999875308942184,
+          "worstX": 7.105427357601002e-15,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "report": {
+        "protocol": "FourierPhysicalDomainConvergence/v2",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 32,
+        "returnedPupilSampling": 2048,
+        "maximumPupilSampling": 4096,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1e-07,
+        "validated": true,
+        "steps": [
+          {
+            "pupilSampling": 32,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": false,
+            "relativeRmsChange": 0.6742854880233066,
+            "maximumAbsoluteChange": 0.012107958997836003,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": false,
+            "relativeRmsChange": 0.1551870853981283,
+            "maximumAbsoluteChange": 0.003907137734820914,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.03831695100901397,
+            "maximumAbsoluteChange": 0.0006947717930426631,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.020514698203637247,
+            "maximumAbsoluteChange": 0.0002916016602702142,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.006389975150652145,
+            "maximumAbsoluteChange": 0.00016903177788049617,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.008937379958874024,
+            "maximumAbsoluteChange": 0.00016591765350749965,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 4096,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0024322487294240057,
+            "maximumAbsoluteChange": 6.447201134680315e-05,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0871459843081989,
+            "maximumAbsoluteChange": 0.0014641368264887641,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.008299987863711883,
+            "maximumAbsoluteChange": 0.00022050602406344273,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.003173035505202478,
+            "maximumAbsoluteChange": 0.00012079869644334926,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0013080090031736488,
+            "maximumAbsoluteChange": 2.9519759231899992e-05,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0003969249617404577,
+            "maximumAbsoluteChange": 7.0079921367250525e-06,
+            "usesDensePhysicalPupil": true
+          }
+        ],
+        "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+        "evaluatedNominalPupilCells": 55920640,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": 0.8888116058314217,
+        "requestedMaximumAbsoluteDeviation": 0.013569703265599767
+      },
+      "snapshotSha256": "f9a93348fbf338b0ab0f54822b1f7845323f9f789669717a84557a02728ff786",
+      "nativeDataSha256": "89e560763310fcbb8c4425d581ed661ca1e67c3fa67349a102ecdba00a8c927a",
+      "nativeReferenceLogicalPath": "runs/fourier-resolution-native-4096-20261104/2569-4096/native/data.json",
+      "previousStandardAdaptive": {
+        "pupilSampling": 4096,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.0024322487294240057,
+        "maximumAbsoluteChange": 6.447201134680315e-05
+      }
+    },
+    {
+      "index": 2813,
+      "fixedOutcome": "Unavailable",
+      "nativeSampling": 4096,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 201,
+          "maxAbsolute": 0.00011879590821288477,
+          "meanAbsolute": 1.759425916969191e-05,
+          "rmse": 2.7918631012419372e-05,
+          "nrmse": 0.001299689540171285,
+          "maxRelative": 0.033403642356522864,
+          "p50": 9.086504799685506e-06,
+          "p90": 4.7251632769061865e-05,
+          "p95": 6.0499944567450614e-05,
+          "pearson": 0.9999787518696505,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "report": {
+        "protocol": "FourierPhysicalDomainConvergence/v2",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 32,
+        "returnedPupilSampling": 2048,
+        "maximumPupilSampling": 4096,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1e-07,
+        "validated": true,
+        "steps": [
+          {
+            "pupilSampling": 32,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.3736056347876695,
+            "maximumAbsoluteChange": 0.006319393643362602,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.20910687723708124,
+            "maximumAbsoluteChange": 0.004472110321565127,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.04983119693672377,
+            "maximumAbsoluteChange": 0.0010151402246724346,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.044438842083672755,
+            "maximumAbsoluteChange": 0.0009473903662124868,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.012880713099107335,
+            "maximumAbsoluteChange": 0.000386397456323565,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.014283509663329606,
+            "maximumAbsoluteChange": 0.00030413903289470967,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 4096,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.008742129133492317,
+            "maximumAbsoluteChange": 0.0001877879825637821,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": true,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.042798993554151205,
+            "maximumAbsoluteChange": 0.0009366979142422759,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.018658232148215693,
+            "maximumAbsoluteChange": 0.00040087409257099846,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.003629336088207356,
+            "maximumAbsoluteChange": 7.826070439825167e-05,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0024031722081117464,
+            "maximumAbsoluteChange": 5.194531674457964e-05,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0007183381382713077,
+            "maximumAbsoluteChange": 1.5515957179745854e-05,
+            "usesDensePhysicalPupil": true
+          }
+        ],
+        "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+        "evaluatedNominalPupilCells": 55920640,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": 0.07565848499070713,
+        "requestedMaximumAbsoluteDeviation": 0.0025895150201821456
+      },
+      "snapshotSha256": "9e0be123cc46ce9c43d80a3f370c2286cb8d57cb18b7346e8d685e787364974d",
+      "nativeDataSha256": "4ab6b8ceb10e5afcb835a90d4091918a6444e759900d716b502a75a755a48fb2",
+      "nativeReferenceLogicalPath": "runs/fourier-resolution-native-4096-20261104/2813-4096/native/data.json",
+      "previousStandardAdaptive": {
+        "pupilSampling": 4096,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.008742129133492317,
+        "maximumAbsoluteChange": 0.0001877879825637821
+      }
+    },
+    {
+      "index": 2835,
+      "fixedOutcome": "Unavailable",
+      "nativeSampling": 4096,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 201,
+          "maxAbsolute": 4.689703139453688e-05,
+          "meanAbsolute": 1.028684939872972e-05,
+          "rmse": 1.4944326647312944e-05,
+          "nrmse": 0.0018275482951460667,
+          "maxRelative": 0.023784293623409607,
+          "p50": 6.472675024042727e-06,
+          "p90": 2.52791896019032e-05,
+          "p95": 3.655630854408273e-05,
+          "pearson": 0.9999652500397491,
+          "worstX": -24.99409618239892,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "report": {
+        "protocol": "FourierPhysicalDomainConvergence/v2",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 32,
+        "returnedPupilSampling": 2048,
+        "maximumPupilSampling": 4096,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1e-07,
+        "validated": true,
+        "steps": [
+          {
+            "pupilSampling": 32,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.3689263942636875,
+            "maximumAbsoluteChange": 0.0051702571214216645,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.10747361272315675,
+            "maximumAbsoluteChange": 0.0008369424066347218,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.019327311340925364,
+            "maximumAbsoluteChange": 0.00041414748406931297,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.038266462975074064,
+            "maximumAbsoluteChange": 0.00030520496887543203,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.007620989798742254,
+            "maximumAbsoluteChange": 0.00015517140763115372,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0034228122883432754,
+            "maximumAbsoluteChange": 8.323406157844369e-05,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 4096,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.00341553584431618,
+            "maximumAbsoluteChange": 3.6473374077582686e-05,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": true,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.07377758558148022,
+            "maximumAbsoluteChange": 0.0006454922129436017,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.02464733908027049,
+            "maximumAbsoluteChange": 0.00021541998876018105,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0027514263390673757,
+            "maximumAbsoluteChange": 5.2304530945189486e-05,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0047436757976643895,
+            "maximumAbsoluteChange": 3.834462985518802e-05,
+            "usesDensePhysicalPupil": true
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0009735158896549908,
+            "maximumAbsoluteChange": 7.861583064067146e-06,
+            "usesDensePhysicalPupil": true
+          }
+        ],
+        "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+        "evaluatedNominalPupilCells": 55920640,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": 0.17822416164439567,
+        "requestedMaximumAbsoluteDeviation": 0.004727599644058061
+      },
+      "snapshotSha256": "336cb9ee5fbf2ea3e2b4ca57a5ca3f64f08a8e970b70c05c51414a0811fd5e5e",
+      "nativeDataSha256": "4ab6b8ceb10e5afcb835a90d4091918a6444e759900d716b502a75a755a48fb2",
+      "nativeReferenceLogicalPath": "runs/fourier-resolution-native-4096-20261104/2835-4096/native/data.json",
+      "previousStandardAdaptive": {
+        "pupilSampling": 4096,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.00341553584431618,
+        "maximumAbsoluteChange": 3.6473374077582686e-05
+      }
+    }
+  ],
+  "standardAdaptiveControls": [
+    {
+      "index": 835,
+      "outcome": "Success",
+      "report": {
+        "protocol": "FourierPhysicalDomainConvergence/v1",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 32,
+        "returnedPupilSampling": 1024,
+        "maximumPupilSampling": 4096,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1e-07,
+        "validated": true,
+        "steps": [
+          {
+            "pupilSampling": 32,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.004707059472725793,
+            "maximumAbsoluteChange": 0.00434453545693049,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.002657508469178784,
+            "maximumAbsoluteChange": 0.0026447862557921475,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.007585094859903803,
+            "maximumAbsoluteChange": 0.0018584289856566072,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0012440191000580398,
+            "maximumAbsoluteChange": 0.00034789995061115797,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0009424165244827749,
+            "maximumAbsoluteChange": 0.00027353032752883144,
+            "usesDensePhysicalPupil": false
+          }
+        ],
+        "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+        "evaluatedNominalPupilCells": 2795520,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": 0.010319937850861605,
+        "requestedMaximumAbsoluteDeviation": 0.002863909255070296
+      },
+      "referenceComparison": {
+        "conclusion": "Pass",
+        "protocol": "native-8x",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 201,
+            "maxAbsolute": 0.0006032140136724706,
+            "meanAbsolute": 5.2318316183413005e-05,
+            "rmse": 0.00010611336358254881,
+            "nrmse": 0.0004655381249316645,
+            "maxRelative": 0.2294013437595733,
+            "p50": 2.803495647109972e-05,
+            "p90": 9.818243641626016e-05,
+            "p95": 0.00021495587039283004,
+            "pearson": 0.9999982103121738,
+            "worstX": 0.20046147105847467,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      }
+    },
+    {
+      "index": 791,
+      "outcome": "Success",
+      "report": {
+        "protocol": "FourierPhysicalDomainConvergence/v1",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 32,
+        "returnedPupilSampling": 4096,
+        "maximumPupilSampling": 4096,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1e-07,
+        "validated": true,
+        "steps": [
+          {
+            "pupilSampling": 32,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 64,
+            "phaseResolved": false,
+            "relativeRmsChange": 0.04498047540273186,
+            "maximumAbsoluteChange": 0.005425281349378495,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 128,
+            "phaseResolved": false,
+            "relativeRmsChange": 0.00956178332082759,
+            "maximumAbsoluteChange": 0.003431903561761186,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 256,
+            "phaseResolved": false,
+            "relativeRmsChange": 0.07076378388171761,
+            "maximumAbsoluteChange": 0.007608174556105504,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 512,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.004023849644176298,
+            "maximumAbsoluteChange": 0.0004308907151038127,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0013811663058872945,
+            "maximumAbsoluteChange": 0.00016553418369148754,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0019472164512918007,
+            "maximumAbsoluteChange": 0.00021771406913072278,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 4096,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0005014876351677592,
+            "maximumAbsoluteChange": 7.549890263958137e-05,
+            "usesDensePhysicalPupil": false
+          }
+        ],
+        "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+        "evaluatedNominalPupilCells": 44738560,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": 0.11515632530586774,
+        "requestedMaximumAbsoluteDeviation": 0.012366368621492443
+      }
+    }
+  ],
+  "independent1115HigherGridProbe": {
+    "levels": [
+      {
+        "n": 512,
+        "transform": 4096,
+        "stretch": 1.4036082587462537,
+        "centerValue": 0.05168989476114894,
+        "peak": 0.05168989476114894,
+        "phase": {
+          "status": "ResolvedAtNodes",
+          "connectedEdges": 206660,
+          "maximumStepWaves": 0.08526930204507976,
+          "criterion": "LocalUnwrappedPupilPhaseStep/v1",
+          "certifiesConvergence": false
+        },
+        "delta": null
+      },
+      {
+        "n": 1024,
+        "transform": 8192,
+        "stretch": 1.406360431802619,
+        "centerValue": 0.05169027352168289,
+        "peak": 0.05169027352168289,
+        "phase": {
+          "status": "ResolvedAtNodes",
+          "connectedEdges": 828092,
+          "maximumStepWaves": 0.04313044800338417,
+          "criterion": "LocalUnwrappedPupilPhaseStep/v1",
+          "certifiesConvergence": false
+        },
+        "delta": {}
+      },
+      {
+        "n": 2048,
+        "transform": 16384,
+        "stretch": 1.4077365183308015,
+        "centerValue": 0.05171324860606773,
+        "peak": 0.05171324860606773,
+        "phase": {
+          "status": "ResolvedAtNodes",
+          "connectedEdges": 3315136,
+          "maximumStepWaves": 0.021650551140985685,
+          "criterion": "LocalUnwrappedPupilPhaseStep/v1",
+          "certifiesConvergence": false
+        },
+        "delta": {}
+      }
+    ],
+    "conclusion": "Pass",
+    "nrmse": 0.0005615262440133386,
+    "maxAbsolute": 0.0002980517639389335
+  }
+}

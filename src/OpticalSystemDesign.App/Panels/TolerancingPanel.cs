@@ -18,6 +18,7 @@ using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Application.Services;
+using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Tolerancing;
 
 namespace OpticalSystemDesign.App.Panels;
@@ -48,6 +49,17 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
     private StackPanel? _testWavelengthRow;
     private StackPanel? _endSurfaceRow;
     private StackPanel? _parameterRow;
+    private StackPanel? _minimumRow;
+    private StackPanel? _minimumTermRow;
+    private StackPanel? _maximumTermRow;
+    private StackPanel? _isoUnitRow;
+    private StackPanel? _isoStatisticsRow;
+    private StackPanel? _distributionRow;
+    private readonly TextBlock _formUnits = new() { TextWrapping = TextWrapping.Wrap, IsVisible = false };
+    private readonly NumericUpDown _minimumTerm = Number(2, 2, ZernikeFitEngine.MaximumStandardTerm, 1, 150);
+    private readonly NumericUpDown _maximumTerm = Number(11, 3, ZernikeFitEngine.MaximumStandardTerm, 1, 150);
+    private readonly ComboBox _isoUnitPicker = Picker(0, "nm", "双程条纹", "µm");
+    private readonly ComboBox _isoStatisticsPicker = Picker(0, "固定最大值", "截断正态");
     private readonly NumericUpDown _parameterIndex = Number(1, 0, 256, 1, 150);
     private readonly ComboBox _distributionPicker = Picker(0, "正态（公差极限为 ±2σ）", "均匀");
     private readonly CheckBox _enabled = new() { Content = "启用", IsChecked = true };
@@ -242,13 +254,17 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         _enabled.IsCheckedChanged += (_, _) => MarkDirtyFromEditor();
         _kindPicker.SelectionChanged += (_, _) =>
         {
-            var fringe = _kindPicker.SelectedItem is ToleranceKindChoice choice
-                && ToleranceOperandEditorRow.UsesFringes(choice.Kind);
-            if (_testWavelengthRow is not null) _testWavelengthRow.IsVisible = fringe;
-            if (_endSurfaceRow is not null) _endSurfaceRow.IsVisible = !fringe;
-            if (_parameterRow is not null) _parameterRow.IsVisible = !fringe;
+            UpdateSurfaceFormEditor();
             MarkDirtyFromEditor();
         };
+        _isoUnitPicker.SelectionChanged += (_, _) =>
+        {
+            UpdateSurfaceFormEditor();
+            MarkDirtyFromEditor();
+        };
+        _minimumTerm.ValueChanged += (_, _) => MarkDirtyFromEditor();
+        _maximumTerm.ValueChanged += (_, _) => MarkDirtyFromEditor();
+        _isoStatisticsPicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
         _testWavelength.ValueChanged += (_, _) => MarkDirtyFromEditor();
         _surfacePicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
         _endSurfacePicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
@@ -346,9 +362,17 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         applyButton.Click += (_, _) => ApplySelectedOperand();
         _endSurfaceRow = Labeled("元件终止面", _endSurfacePicker);
         _parameterRow = Labeled("非球面参数序号", _parameterIndex);
+        _minimumRow = Labeled("最小偏差", _minimum);
+        _minimumTermRow = Labeled("Zernike 起始项", _minimumTerm);
+        _maximumTermRow = Labeled("Zernike 终止项", _maximumTerm);
+        _isoUnitRow = Labeled("ISO 面形单位", _isoUnitPicker);
+        _isoStatisticsRow = Labeled("ISO 统计模型", _isoStatisticsPicker);
+        Avalonia.Automation.AutomationProperties.SetName(_isoStatisticsPicker, "ISO 统计模型");
+        ToolTip.SetTip(_isoStatisticsPicker, "截断正态的均值为最大值的一半，标准差为最大值的八分之一。");
+        _distributionRow = Labeled("统计分布", _distributionPicker);
         _testWavelengthRow = Labeled("条纹检测波长 (µm)", _testWavelength);
         _testWavelengthRow.Children.Add(new TextBlock { Text = "偏差单位为双程干涉条纹数。", TextWrapping = TextWrapping.Wrap });
-        _testWavelengthRow.IsVisible = false;
+        UpdateSurfaceFormEditor();
         Avalonia.Automation.AutomationProperties.SetName(_testWavelength, "条纹检测波长 (µm)");
         var panel = new StackPanel
         {
@@ -361,10 +385,15 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                 Labeled("表面", _surfacePicker),
                 _endSurfaceRow,
                 _parameterRow,
+                _minimumTermRow,
+                _maximumTermRow,
+                _isoUnitRow,
+                _isoStatisticsRow,
                 _testWavelengthRow,
-                Labeled("最小偏差", _minimum),
+                _formUnits,
+                _minimumRow,
                 Labeled("最大偏差", _maximum),
-                Labeled("统计分布", _distributionPicker),
+                _distributionRow,
                 Labeled("备注", _comment),
                 applyButton
             }
@@ -376,6 +405,40 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         };
         SettingsPanelChrome.ApplySurfaceCardStyle(border, shadow: false);
         return border;
+    }
+
+    private void UpdateSurfaceFormEditor()
+    {
+        var kind = (_kindPicker.SelectedItem as ToleranceKindChoice)?.Kind ?? ToleranceOperandKind.Radius;
+        var usesFringes = ToleranceOperandEditorRow.UsesFringes(kind, (IsoSurfaceFormUnit)_isoUnitPicker.SelectedIndex);
+        var usesTerms = kind.UsesZernikeTerms();
+        var isIso = kind.UsesIsoUnits();
+        var isForm = kind.SurfaceFormModeFor().HasValue;
+        var maximumTerm = kind == ToleranceOperandKind.FringeZernikeIrregularity
+            ? ZernikeFitEngine.MaximumFringeTerm : ZernikeFitEngine.MaximumStandardTerm;
+        _minimumTerm.Maximum = maximumTerm;
+        _maximumTerm.Maximum = maximumTerm;
+        if (_testWavelengthRow is not null) _testWavelengthRow.IsVisible = usesFringes;
+        if (_endSurfaceRow is not null) _endSurfaceRow.IsVisible = !isForm && !usesFringes;
+        if (_parameterRow is not null) _parameterRow.IsVisible = !isForm && !usesFringes;
+        if (_minimumRow is not null) _minimumRow.IsVisible = !isForm;
+        if (_minimumTermRow is not null) _minimumTermRow.IsVisible = usesTerms;
+        if (_maximumTermRow is not null) _maximumTermRow.IsVisible = usesTerms;
+        if (_isoUnitRow is not null) _isoUnitRow.IsVisible = isIso;
+        if (_isoStatisticsRow is not null) _isoStatisticsRow.IsVisible = kind.UsesIsoStatistics();
+        if (_distributionRow is not null) _distributionRow.IsVisible = !kind.UsesIsoStatistics();
+        _distributionPicker.IsEnabled = !isIso;
+        if (isIso) _distributionPicker.SelectedIndex = 0;
+        _formUnits.IsVisible = isForm;
+        _formUnits.Text = kind switch
+        {
+            ToleranceOperandKind.StandardZernikeIrregularity => "输入面形 RMS (mm)，最小偏差自动取反。",
+            ToleranceOperandKind.IsoPower => "输入面形峰谷值，最小偏差自动取反。使用截断正态分布。",
+            ToleranceOperandKind.IsoIrregularityPv or ToleranceOperandKind.IsoRotationalIrregularityPv =>
+                "输入面形峰谷值，最小偏差自动取反。",
+            ToleranceOperandKind.IsoIrregularityRms => "输入去均值面形 RMS，最小偏差自动取反。",
+            _ => "输入最大偏差，最小偏差自动取反。"
+        };
     }
 
     private async Task ShowWizardAsync()
@@ -500,12 +563,17 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                 .Cast<SurfaceEditorRow>()
                 .FirstOrDefault(item => item.Number == row.EndSurfaceNumber);
             _parameterIndex.Value = row.ParameterIndex;
+            _minimumTerm.Value = row.MinimumZernikeTerm;
+            _maximumTerm.Value = row.MaximumZernikeTerm;
+            _isoUnitPicker.SelectedIndex = (int)row.IsoUnit;
+            _isoStatisticsPicker.SelectedIndex = (int)row.IsoStatistics;
             _testWavelength.Value = ToDecimal(row.TestWavelengthMicrometers
                 ?? SurfaceFringePerturbation.DefaultTestWavelengthMicrometers);
             _minimum.Value = ToDecimal(row.Minimum);
             _maximum.Value = ToDecimal(row.Maximum);
             _distributionPicker.SelectedIndex = row.Distribution == ToleranceDistribution.Uniform ? 1 : 0;
             _comment.Text = row.Comment;
+            UpdateSurfaceFormEditor();
         }
         finally
         {
@@ -530,11 +598,15 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
             selected.SurfaceNumber = surface.Number;
             selected.EndSurfaceNumber = (_endSurfacePicker.SelectedItem as SurfaceEditorRow)?.Number ?? -1;
             selected.ParameterIndex = IntValue(_parameterIndex, 0);
-            selected.TestWavelengthMicrometers = ToleranceOperandEditorRow.UsesFringes(kind.Kind)
+            selected.MinimumZernikeTerm = IntValue(_minimumTerm, 2);
+            selected.MaximumZernikeTerm = IntValue(_maximumTerm, 11);
+            selected.IsoUnit = (IsoSurfaceFormUnit)_isoUnitPicker.SelectedIndex;
+            selected.IsoStatistics = (IsoSurfaceFormStatistics)_isoStatisticsPicker.SelectedIndex;
+            selected.TestWavelengthMicrometers = ToleranceOperandEditorRow.UsesFringes(kind.Kind, selected.IsoUnit)
                 ? DoubleValue(_testWavelength, SurfaceFringePerturbation.DefaultTestWavelengthMicrometers)
                 : null;
-            selected.Minimum = DoubleValue(_minimum, -0.1);
             selected.Maximum = DoubleValue(_maximum, 0.1);
+            selected.Minimum = kind.Kind.SurfaceFormModeFor().HasValue ? -selected.Maximum : DoubleValue(_minimum, -0.1);
             selected.Distribution = _distributionPicker.SelectedIndex == 1
                 ? ToleranceDistribution.Uniform
                 : ToleranceDistribution.Normal;
@@ -641,7 +713,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
             var rows = _operands.Select(row => row.ToDto()).ToArray();
             if (options.DistributionOverride is { } distribution)
             {
-                rows = rows.Select(row => row.Kind == ToleranceOperandKind.Compensator
+                rows = rows.Select(row => row.Kind == ToleranceOperandKind.Compensator || row.Kind.UsesIsoUnits()
                     ? row
                     : row with { Distribution = distribution }).ToArray();
             }
@@ -1083,7 +1155,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         builder.AppendLine();
         builder.AppendLine("公差操作数:");
         builder.AppendLine();
-        builder.AppendLine(FixedColumns("#", "类型", "位置", "最小", "最大", "统计", "检测波长 (µm)", "标注"));
+        builder.AppendLine(FixedColumns("#", "类型", "位置", "最小", "最大", "统计", "检测波长 (µm)", "面形参数", "标注"));
         foreach (var operand in operands)
         {
             builder.AppendLine(FixedColumns(
@@ -1092,10 +1164,18 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                 ToleranceLocation(operand),
                 FormatNumber(operand.Minimum),
                 FormatNumber(operand.Maximum),
-                operand.Distribution == ToleranceDistribution.Normal ? "正态" : "均匀",
-                ToleranceOperandEditorRow.UsesFringes(operand.Kind)
+                operand.Kind.UsesIsoStatistics() ? ToleranceOperandEditorRow.IsoStatisticsText(operand.IsoStatistics)
+                    : operand.Distribution == ToleranceDistribution.Normal ? "正态" : "均匀",
+                ToleranceOperandEditorRow.UsesFringes(operand.Kind, operand.IsoUnit)
                     ? FormatNumber(operand.TestWavelengthMicrometers ?? SurfaceFringePerturbation.DefaultTestWavelengthMicrometers)
                     : "-",
+                operand.Kind switch
+                {
+                    ToleranceOperandKind.FringeZernikeIrregularity => $"Z{operand.MinimumZernikeTerm}–Z{operand.MaximumZernikeTerm}",
+                    ToleranceOperandKind.StandardZernikeIrregularity => $"Z{operand.MinimumZernikeTerm}–Z{operand.MaximumZernikeTerm} RMS (mm)",
+                    _ when operand.Kind.UsesIsoUnits() => FormatIsoMagnitude(operand),
+                    _ => "-"
+                },
                 operand.Comment));
         }
 
@@ -1330,6 +1410,18 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
             + $"预计合格率：{statistics.Yield}";
     }
 
+    private static string FormatIsoMagnitude(ToleranceOperandDto operand)
+    {
+        var measure = operand.Kind == ToleranceOperandKind.IsoIrregularityRms ? "RMS" : "P–V";
+        var unit = operand.IsoUnit switch
+        {
+            IsoSurfaceFormUnit.Nanometers => "nm",
+            IsoSurfaceFormUnit.Micrometers => "µm",
+            _ => "fringes"
+        };
+        return $"{measure} ({unit})";
+    }
+
     private static string KindName(ToleranceOperandKind kind) => kind switch
     {
         ToleranceOperandKind.Radius => "曲率半径",
@@ -1349,6 +1441,12 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         ToleranceOperandKind.Compensator => "补偿器",
         ToleranceOperandKind.FringePower => "曲率条纹",
         ToleranceOperandKind.FringeIrregularity => "面形不规则度（球差 + 像散）",
+        ToleranceOperandKind.FringeZernikeIrregularity => "Fringe Zernike 面形不规则度",
+        ToleranceOperandKind.StandardZernikeIrregularity => "Standard Zernike 面形 RMS",
+        ToleranceOperandKind.IsoPower => "ISO 面形峰谷光焦度",
+        ToleranceOperandKind.IsoIrregularityPv => "ISO 总不规则度峰谷值",
+        ToleranceOperandKind.IsoRotationalIrregularityPv => "ISO 旋转对称不规则度峰谷值",
+        ToleranceOperandKind.IsoIrregularityRms => "ISO 总不规则度 RMS",
         _ => kind.ToString()
     };
 

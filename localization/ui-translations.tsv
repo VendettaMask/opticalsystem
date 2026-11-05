@@ -1283,6 +1283,45 @@ CPU · {0} 个逻辑处理器 · {1} · 软件版本 {2}	CPU · {0} logical proc
 曲率条纹	Power fringes	パワー縞
 条纹数	Fringes	干渉縞数
 面形不规则度（球差 + 像散）	Surface irregularity (spherical + astigmatism)	面形状不規則度（球面 + 非点）
+双程条纹	Double-pass fringes	ダブルパス干渉縞
+Fringe Zernike 面形不规则度	Fringe Zernike surface irregularity	Fringe Zernike 面形状不規則度
+Standard Zernike 面形 RMS	Standard Zernike surface RMS	Standard Zernike 面形状 RMS
+ISO 面形峰谷光焦度	ISO peak-to-valley surface power	ISO 面形状のピーク・バレー パワー
+ISO 面形单位	ISO surface form unit	ISO 面形状の単位
+Zernike 起始项	First Zernike term	Zernike 開始項
+Zernike 终止项	Last Zernike term	Zernike 終了項
+TEXI (双程条纹)	TEXI (double-pass fringes)	TEXI (ダブルパス干渉縞)
+Zernike 面形公差设置无效。	The Zernike surface form tolerance settings are invalid.	Zernike 面形状公差の設定が無効です。
+输入最大偏差，最小偏差自动取反。	Enter the maximum deviation. The minimum is its negative.	最大偏差を入力すると、最小偏差に符号を反転した値が設定されます。
+输入面形 RMS (mm)，最小偏差自动取反。	Enter the surface form RMS (mm). The minimum is its negative.	面形状 RMS (mm) を入力すると、最小偏差に符号を反転した値が設定されます。
+输入面形峰谷值，最小偏差自动取反。使用截断正态分布。	Enter the surface peak-to-valley value. The minimum is its negative. Sampling uses a truncated normal distribution.	面形状のピーク・バレー値を入力すると、最小偏差に符号を反転した値が設定されます。標本抽出には切断正規分布を使用します。
+TEXI、TEZI、ISOA 和机械支点需要版本 5 公差文件。	TEXI, TEZI, ISOA and mechanical pivots require a version 5 tolerance file.	TEXI、TEZI、ISOA、機械支点にはバージョン 5 の公差ファイルが必要です。
+全部视场共用补偿量。镜组各面一起移动，倾斜支点以首面坐标输入。	All fields share the compensator settings. The group moves as a unit. Enter the tilt pivot in first-surface coordinates.	全視野で補正量を共有します。レンズ群は一体で移動します。傾きの支点は先頭面の座標で入力します。
+支点 X (mm)	Pivot X (mm)	支点 X (mm)
+支点 Y (mm)	Pivot Y (mm)	支点 Y (mm)
+支点 Z (mm)	Pivot Z (mm)	支点 Z (mm)
+同一镜组共用一个支点。全部为 0 时沿用该组已设置的支点，未设置时使用首面顶点。	The group shares a pivot. With all entries at 0, the group uses its configured pivot or the first surface vertex if none is set.	レンズ群で支点を共有します。すべて 0 の場合、群に設定した支点を使用します。支点の設定がなければ先頭面の頂点を使用します。
+机械支点只能用于镜组倾斜，坐标必须在 ±1000000 mm 内。	A mechanical pivot is available for group tilt. Coordinates must be within ±1000000 mm.	機械支点はレンズ群の傾きに使用できます。座標は ±1000000 mm の範囲内にしてください。
+同一镜组的倾斜补偿必须共用机械支点。	Tilt compensators in the same group must share a mechanical pivot.	同じレンズ群の傾き補正器は機械支点を共有する必要があります。
+ISO 总不规则度峰谷值	ISO peak-to-valley total irregularity	ISO 総不規則度のピーク・バレー値
+ISO 旋转对称不规则度峰谷值	ISO peak-to-valley rotationally symmetric irregularity	ISO 回転対称不規則度のピーク・バレー値
+ISO 总不规则度 RMS	ISO total irregularity RMS	ISO 総不規則度 RMS
+ISO 统计模型	ISO statistical model	ISO 統計モデル
+固定最大值	Always use maximum	最大値を使用
+截断正态	Truncated normal	切断正規分布
+输入面形峰谷值，最小偏差自动取反。	Enter the surface peak-to-valley value. The minimum is its negative.	面形状のピーク・バレー値を入力すると、最小偏差に符号を反転した値が設定されます。
+输入去均值面形 RMS，最小偏差自动取反。	Enter the surface RMS after removing the aperture mean. The minimum is its negative.	開口内の平均値を除いた面形状 RMS を入力すると、最小偏差に符号を反転した値が設定されます。
+截断正态的均值为最大值的一半，标准差为最大值的八分之一。	The truncated normal uses half the maximum as its mean and one eighth of the maximum as its standard deviation.	切断正規分布の平均は最大値の半分で、標準偏差は最大値の八分の一です。
+Zernike、ISO 面形公差和机械支点需要版本 5 公差文件。	Zernike and ISO surface form tolerances and mechanical pivots require a version 5 tolerance file.	Zernike と ISO の面形状公差および機械支点にはバージョン 5 の公差ファイルが必要です。
+第 {0} 行的 ISO 统计模型无效。	The ISO statistical model on row {0} is invalid.	行 {0} の ISO 統計モデルが無効です。
+表面 {0} 的 ISOB 和 ISOC 需要联合峰谷值标定，目前仅支持分别用于不同表面。	ISOB and ISOC on surface {0} require joint peak-to-valley calibration. This version supports these operands on separate surfaces.	面 {0} の ISOB と ISOC にはピーク・バレー値の同時校正が必要です。このバージョンでは両オペランドを別々の面で使用できます。
+第 {0} 行的面形公差需要具有居中圆形净口径的实体表面。	The surface form tolerance on row {0} requires a physical surface with a centered circular clear aperture.	行 {0} の面形状公差には、中心に円形有効口径がある実体面が必要です。
+第 {0} 行的面形公差必须使用对称范围。	The surface form tolerance on row {0} requires a symmetric range.	行 {0} の面形状公差には、対称範囲が必要です。
+第 {0} 行的 Zernike 起止项无效。	The Zernike term range on row {0} is invalid.	行 {0} の Zernike 項の範囲が無効です。
+第 {0} 行的 ISO 面形单位无效。	The ISO surface form unit on row {0} is invalid.	行 {0} の ISO 面形状の単位が無効です。
+第 {0} 行的 ISOA 使用截断正态分布。	The ISOA operand on row {0} uses a truncated normal distribution.	行 {0} の ISOA オペランドは切断正規分布を使用します。
+表面 {0} 的 ISOA 与 TRAD 或 TFRN 同时定义了曲率误差。	ISOA and TRAD or TFRN both define surface power error on surface {0}.	面 {0} のパワー誤差が ISOA と TRAD または TFRN の両方で定義されています。
+表面 {0} 只能使用一种面形不规则度公差。	Surface {0} allows a single surface irregularity tolerance.	面 {0} で使用できる面形状不規則度公差は 1 種類です。
 镜组终止面	Last group surface	群の終端面
 镜组终止面必须在起始面之后。	The last group surface must follow the first surface.	群の終端面は開始面より後に指定してください。
 镜组 X 偏心 (mm)	Group X decenter (mm)	群の X 偏心 (mm)

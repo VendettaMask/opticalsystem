@@ -13,6 +13,26 @@ namespace OpticalSystemDesign.Core.Domain;
 
 public sealed partial class OpticalSurface
 {
+    private static readonly PlaneGeometry GridReferencePlane = new();
+
+    // A coplanar Grid Sag display surface in unchanged air can report a
+    // vertex-plane sample outside its measured patch. The sag geometry itself
+    // stays bounded, including when used for a refracting or reflecting face.
+    private bool IsNeutralGridReference(GridSagGeometry grid, IMaterial incoming, IMaterial outgoing) =>
+        !IsStop && !IsReflective && Thickness == 0 && PhysicalAperture is null && ScatteringModel is null
+        && CoatingModel is OpticalSystemDesign.Core.Coatings.NoneCoatingModel
+        && InteractionModel is RefractiveReflectiveInteractionModel { IsReflective: false }
+        && (grid.Base.Base.Radius == 0 || double.IsInfinity(grid.Base.Base.Radius))
+        && grid.Base.Coefficients.All(c => c == 0)
+        && incoming is AirMaterial before && outgoing is AirMaterial after
+        && before.PressureAtmospheres == after.PressureAtmospheres;
+
+    internal Vector3D SequentialTraceNormal(Vector3D localPoint) =>
+        Geometry is GridSagGeometry grid && !grid.ContainsGridPoint(localPoint)
+            && IsNeutralGridReference(grid, MaterialBefore, MaterialAfter)
+        ? GridReferencePlane.SurfaceNormal(localPoint)
+        : Geometry.SurfaceNormal(localPoint);
+
     internal SurfaceRayTraceStateResult TraceRayState(
         RayState inputRay,
         IMaterial materialBefore,
@@ -89,13 +109,13 @@ public sealed partial class OpticalSurface
             refractiveIndexBefore = materialBefore.RefractiveIndex(ray.WavelengthNanometers);
             var localOrigin = CoordinateSystem.ToLocalPoint(ray.Origin);
             var localDirection = CoordinateSystem.ToLocalDirection(ray.Direction);
-            var intersection = Geometry.DistanceToIntersection(localOrigin, localDirection);
+            var intersection = Intersect(localDirection);
             var signedDistance = intersection.Distance;
             if (!intersection.IsHit && allowVirtualIntersection)
             {
                 if (materialBefore.PropagationModel is not HomogeneousPropagationModel)
                     throw new NotSupportedException("Virtual pupil intersections require homogeneous propagation.");
-                intersection = Geometry.DistanceToIntersection(localOrigin, -localDirection);
+                intersection = Intersect(-localDirection);
                 signedDistance = -intersection.Distance;
             }
             if (!intersection.IsHit) return Miss(refractiveIndexBefore, intersection.Status);
@@ -105,6 +125,16 @@ public sealed partial class OpticalSurface
             propagated = Propagate(ray, materialBefore.PropagationModel, segmentLength);
             localHit = intersection.Point;
             incidenceCosineSquared = intersection.IncidenceCosineSquared;
+
+            IntersectionResult Intersect(Vector3D direction)
+            {
+                var hit = Geometry.DistanceToIntersection(localOrigin, direction);
+                if (hit.IsHit || Geometry is not GridSagGeometry grid
+                    || !IsNeutralGridReference(grid, materialBefore, materialAfter))
+                    return hit;
+                var plane = GridReferencePlane.DistanceToIntersection(localOrigin, direction);
+                return plane.IsHit && !grid.ContainsGridPoint(plane.Point) ? plane : hit;
+            }
         }
         if (continuesMedium)
             materialAfter = materialBefore is LocatedGradientIndexMaterial gradientBefore
@@ -181,7 +211,7 @@ public sealed partial class OpticalSurface
                 nextCumulativePathLength, nextCumulativeOpticalPathLength, !propagated.CanTrace);
         }
 
-        var localNormal = Geometry.SurfaceNormal(localHit);
+        var localNormal = SequentialTraceNormal(localHit);
         var globalNormal = CoordinateSystem.ToGlobalDirection(localNormal);
         var reflective = IsReflective;
         var context = new SurfaceInteractionStateContext(

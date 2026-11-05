@@ -25,6 +25,27 @@ public sealed class ChebyshevSagGeometry : IGeometry
     public double NormalizationX { get; }
     public double NormalizationY { get; }
     public IReadOnlyList<double> NormalizedCoefficients { get; }
+
+    internal double VertexMeridionalCurvature
+    {
+        get
+        {
+            var derivative = 0d;
+            for (var yOrder = 2; yOrder <= MaximumYOrder; yOrder += 2)
+            {
+                for (var xOrder = 0; xOrder <= MaximumXOrder; xOrder += 2)
+                {
+                    // T''_j(0) = -j² T_j(0). Only even orders contribute at the vertex.
+                    var vertexSign = (xOrder / 2 + yOrder / 2) % 2 == 0 ? 1 : -1;
+                    var index = yOrder * (MaximumXOrder + 1) + xOrder - 1;
+                    derivative -= yOrder * yOrder * vertexSign * NormalizedCoefficients[index];
+                }
+            }
+            var baseCurvature = Base.Radius == 0 || double.IsInfinity(Base.Radius) ? 0 : 1 / Base.Radius;
+            return baseCurvature + NormalizationX / NormalizationY * derivative;
+        }
+    }
+
     private bool InDomain(double x, double y) => Math.Abs(x) <= NormalizationX && Math.Abs(y) <= NormalizationY;
     public double Sag(double x, double y)
     {

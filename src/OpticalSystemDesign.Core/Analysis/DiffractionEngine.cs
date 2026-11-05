@@ -186,6 +186,17 @@ public static partial class DiffractionEngine
             interpolateScalarPupilAmplitude: interpolateScalarPupilAmplitude, croppedOutputSize: croppedOutputSize);
     }
 
+    internal static (Wavelength Wavelength, PsfResult Result)[] ComputeDenseFftPsfSpectrum(
+        Optic optic, (double Hx, double Hy) field, IReadOnlyList<Wavelength> wavelengths,
+        int pupilSampling, int transformSize, int displaySize, double imageDelta)
+    {
+        var reference = wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0];
+        return wavelengths.Select(wave => (wave, ComputeFftPsfCore(optic, field, wave, pupilSampling, transformSize,
+            false, true, 0, null, null, true, false, optic.RayAimingEnabled, reference,
+            imageDelta, true, out _, interpolateScalarPupilAmplitude: true,
+            croppedOutputSize: displaySize, separatedWindow: true))).ToArray();
+    }
+
     /// <summary>
     /// Scalar transmission can be explicitly omitted from automatically generated
     /// pupils. Prepared amplitudes remain authoritative; polarized pupils retain
@@ -228,9 +239,14 @@ public static partial class DiffractionEngine
         PupilGridSpecification? explicitPupilGrid = null,
         bool interpolateScalarPupilAmplitude = false,
         int? croppedOutputSize = null,
-        Action<WavefrontResult>? observeWavefront = null)
+        Action<WavefrontResult>? observeWavefront = null,
+        bool separatedWindow = false)
     {
-        if (croppedOutputSize is { } crop) ValidateCroppedFft(pupilSampling, gridSize, crop);
+        if (croppedOutputSize is { } crop)
+        {
+            if (separatedWindow) ValidateSeparatedWindow(pupilSampling, gridSize, crop, crop);
+            else ValidateCroppedFft(pupilSampling, gridSize, crop);
+        }
         else AnalysisResourceLimits.ValidateFftGrid(pupilSampling, gridSize);
         if (interpolateScalarPupilAmplitude && (!zemaxFftSampling || usePolarization))
             throw new ArgumentException("Scalar FFT amplitude interpolation requires scalar native FFT sampling.");
@@ -303,13 +319,13 @@ public static partial class DiffractionEngine
         if (zemaxFftSampling && imageDelta > 0)
         {
             if (!double.IsFinite(pupilGridStretch) || pupilGridStretch <= 0)
-                throw new InvalidOperationException("FFT image delta cannot produce a finite pupil grid.");
+                throw InvalidPupilGrid("FFT image delta cannot produce a finite pupil grid.");
             if (grid.Coordinate(0) > -1 + 1e-12 || grid.Coordinate(pupilSampling - 1) < 1 - 1e-12
                 || grid.YCoordinate(0) > -1 + 1e-12 || grid.YCoordinate(pupilSampling - 1) < 1 - 1e-12)
-                throw new InvalidOperationException("FFT image delta is too large: the sampling grid does not cover the full pupil.");
+                throw InvalidPupilGrid("FFT image delta is too large: the sampling grid does not cover the full pupil.");
             if (Enumerable.Range(0, pupilSampling).Count(i => Math.Abs(grid.Coordinate(i)) <= 1) < 2
                 || Enumerable.Range(0, pupilSampling).Count(i => Math.Abs(grid.YCoordinate(i)) <= 1) < 2)
-                throw new InvalidOperationException("FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction.");
+                throw InvalidPupilGrid("FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction.");
         }
         if (preparedWavefront is not null)
         {
@@ -419,7 +435,9 @@ public static partial class DiffractionEngine
         Complex[,] shifted;
         if (croppedOutputSize is { } readout)
         {
-            shifted = FourierTransformCropped(pupil, gridSize, readout, zemaxFftSampling);
+            var first = -(readout - 1) / 2;
+            shifted = separatedWindow ? FourierTransformWindow(pupil, gridSize, first, first, readout, readout)
+                : FourierTransformCropped(pupil, gridSize, readout, zemaxFftSampling);
         }
         else
         {
@@ -481,6 +499,9 @@ public static partial class DiffractionEngine
             UnaberratedPeakRatio = unaberratedPeakRatio,
             CroppedImageCenterIndex = croppedOutputSize.HasValue ? zemaxFftSampling ? (outputSize - 1) / 2 : outputSize / 2 : null
         };
+
+        InvalidOperationException InvalidPupilGrid(string reason) => separatedWindow
+            ? new AnalysisDataUnavailableException("FFT PSF", reason) : new InvalidOperationException(reason);
 
         void ValidatePreparedSource(PupilSourceIdentity? source, string component)
         {

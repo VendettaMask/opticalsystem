@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
@@ -13,6 +14,8 @@ using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
+using IsoSurfaceFormUnit = OpticalSystemDesign.Core.Tolerancing.IsoSurfaceFormUnit;
+using IsoSurfaceFormStatistics = OpticalSystemDesign.Core.Tolerancing.IsoSurfaceFormStatistics;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -43,7 +46,7 @@ public sealed class MtfTolerancingPanelTests
                 Criterion = ToleranceCriterion.Mtf,
                 YieldLimit = .2,
                 MtfSettings = new(30, FieldLimits: [new(2, .15)]),
-                AdditionalCompensators = [new(1, ToleranceCompensatorKind.ElementTiltY, -.05, .05, 2)]
+                AdditionalCompensators = [new(1, ToleranceCompensatorKind.ElementTiltY, -.05, .05, 2, new(1, -2, 5))]
             };
             var window = new TolerancingRunWindow(options, app.Prescription.GetFields(), app.Prescription.GetSurfaces(), app.Prescription.GetWavelengths()) { Width = width, Height = 760 };
             try
@@ -73,6 +76,11 @@ public sealed class MtfTolerancingPanelTests
                 Assert.True(end.IsEffectivelyVisible);
                 Assert.Equal(2, end.Value);
                 Assert.InRange(end.TranslatePoint(default, window)!.Value.X + end.Bounds.Width, 0, window.Bounds.Width - 25);
+                var pivotZ = window.GetVisualDescendants().OfType<NumericUpDown>()
+                    .Single(control => AutomationProperties.GetName(control) == "支点 Z (mm)");
+                Assert.True(pivotZ.IsEffectivelyVisible);
+                Assert.Equal(5, pivotZ.Value);
+                Assert.InRange(pivotZ.TranslatePoint(default, window)!.Value.X + pivotZ.Bounds.Width, 0, window.Bounds.Width - 25);
                 Assert.Equal(options.AdditionalCompensators, draft.AdditionalCompensators);
                 Assert.Contains("accent", window.GetVisualDescendants().OfType<Button>().Single(button => Equals(button.Content, "运行")).Classes);
                 Assert.DoesNotContain("accent", window.GetVisualDescendants().OfType<Button>().Single(button => Equals(button.Content, "取消")).Classes);
@@ -184,6 +192,44 @@ public sealed class MtfTolerancingPanelTests
     }
 
     [Fact]
+    public async Task WizardGeneratesAStandardZernikeToleranceWithItsOwnUnitsAndTerms()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MtfTolerancingPanelTests));
+        await session.Dispatch(() =>
+        {
+            ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
+            using var app = WorkbenchApplication.Create("cooke");
+            var owner = new Window { Width = 640, Height = 720 };
+            var wizard = new ToleranceWizardWindow(app.Prescription) { Width = 640 };
+            owner.Show();
+            try
+            {
+                var settings = wizard.ShowDialog<ToleranceWizardSettingsDto>(owner);
+                var irregularity = Field<CheckBox>(wizard, "_irregularityEnabled");
+                irregularity.IsChecked = true;
+                Field<CheckBox>(wizard, "_zernikeEnabled").IsChecked = true;
+                Assert.False(irregularity.IsChecked);
+                Field<ComboBox>(wizard, "_zernikeKind").SelectedIndex = 1;
+                Assert.False(Field<NumericUpDown>(wizard, "_testWavelength").IsEnabled);
+                Field<NumericUpDown>(wizard, "_teziMagnitude").Value = .002m;
+                Field<NumericUpDown>(wizard, "_zernikeMaximumTerm").Value = 85;
+                Field<NumericUpDown>(wizard, "_zernikeMinimumTerm").Value = 21;
+                var confirm = wizard.GetVisualDescendants().OfType<Button>().Single(button => Equals(button.Content, "确定"));
+                confirm.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Dispatcher.UIThread.RunJobs();
+                Assert.True(settings.IsCompletedSuccessfully);
+                var rows = app.Tolerancing.GenerateWizard(settings.Result);
+                Assert.Contains(rows, row => row.Kind == ToleranceOperandKind.StandardZernikeIrregularity
+                    && row.Maximum == .002 && row.Minimum == -.002 && row.TestWavelengthMicrometers is null
+                    && row.MinimumZernikeTerm == 21 && row.MaximumZernikeTerm == 85);
+                Assert.DoesNotContain(rows, row => row.Kind == ToleranceOperandKind.FringeIrregularity);
+                Assert.True(app.Tolerancing.ValidateOperands(rows).IsValid);
+            }
+            finally { wizard.Close(); owner.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
     public async Task FringeEditorAppliesWavelengthAndRoundTripsVersionFour()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MtfTolerancingPanelTests));
@@ -223,6 +269,126 @@ public sealed class MtfTolerancingPanelTests
                     panel.ParseStudyFile(JsonSerializer.Serialize(study with { SchemaVersion = 3 }, json)));
 
                 CaptureFrame(window, "fringe-editor-light-840.png");
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task SurfaceFormEditorAppliesTermsAndIsoUnitsAndRoundTripsVersionFive()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MtfTolerancingPanelTests));
+        await session.Dispatch(() =>
+        {
+            ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
+            using var app = WorkbenchApplication.Create("cooke");
+            using var panel = new TolerancingPanel(app.Documents, app.Prescription, app.Tolerancing, app.Events);
+            var window = new Window { Width = 940, Height = 820, Content = panel };
+            try
+            {
+                window.Show();
+                var grid = Field<DataGrid>(panel, "_operandGrid");
+                var row = Assert.IsType<ToleranceOperandEditorRow>(grid.SelectedItem);
+                var minimumTerm = Field<NumericUpDown>(panel, "_minimumTerm");
+                var maximumTerm = Field<NumericUpDown>(panel, "_maximumTerm");
+                var wavelength = Field<NumericUpDown>(panel, "_testWavelength");
+                var apply = panel.GetVisualDescendants().OfType<Button>()
+                    .Single(button => Equals(button.Content, "应用到当前行"));
+
+                row.Code = "TEZI";
+                row.SurfaceNumber = 1;
+                Assert.True(minimumTerm.IsEffectivelyVisible);
+                Assert.False(wavelength.IsEffectivelyVisible);
+                minimumTerm.Value = 4;
+                maximumTerm.Value = 231;
+                Field<NumericUpDown>(panel, "_maximum").Value = .001m;
+                apply.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Assert.Equal(4, row.MinimumZernikeTerm);
+                Assert.Equal(231, row.MaximumZernikeTerm);
+                Assert.Equal(-.001, row.Minimum);
+
+                row.Code = "ISOA";
+                Assert.False(minimumTerm.IsEffectivelyVisible);
+                Assert.False(wavelength.IsEffectivelyVisible);
+                Field<ComboBox>(panel, "_isoUnitPicker").SelectedIndex = (int)IsoSurfaceFormUnit.Fringes;
+                Assert.True(wavelength.IsEffectivelyVisible);
+                Assert.False(Field<ComboBox>(panel, "_distributionPicker").IsEnabled);
+                wavelength.Value = .5461m;
+                Field<NumericUpDown>(panel, "_maximum").Value = 2;
+                apply.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Assert.Equal(IsoSurfaceFormUnit.Fringes, row.ToDto().IsoUnit);
+                Assert.Equal(.5461, row.ToDto().TestWavelengthMicrometers);
+                Assert.Equal(-2, row.Minimum);
+                Assert.Contains("P–V (fringes)", panel.BuildToleranceReportText());
+
+                var study = panel.BuildStudyFile();
+                Assert.Equal(5, study.SchemaVersion);
+                var options = new JsonSerializerOptions { Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() } };
+                Assert.Equal(study.Operands, panel.ParseStudyFile(JsonSerializer.Serialize(study, options)).Operands);
+                Assert.Throws<InvalidDataException>(() =>
+                    panel.ParseStudyFile(JsonSerializer.Serialize(study with { SchemaVersion = 4 }, options)));
+                row.Code = "TRAD";
+                var pivot = new ToleranceCompensatorDto(1, ToleranceCompensatorKind.ElementTiltY, -.05, .05, 2, new(1, -2, 5));
+                typeof(TolerancingPanel).GetField("_additionalCompensators", BindingFlags.Instance | BindingFlags.NonPublic)!
+                    .SetValue(panel, new[] { pivot });
+                var pivotStudy = panel.BuildStudyFile();
+                Assert.Equal(5, pivotStudy.SchemaVersion);
+                Assert.Equal(pivot, Assert.Single(panel.ParseStudyFile(JsonSerializer.Serialize(pivotStudy, options)).AdditionalCompensators!));
+                Assert.Throws<InvalidDataException>(() =>
+                    panel.ParseStudyFile(JsonSerializer.Serialize(pivotStudy with { SchemaVersion = 4 }, options)));
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task IsoIrregularityEditorPersistsUnitsAndItsIndependentStatistics()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MtfTolerancingPanelTests));
+        await session.Dispatch(() =>
+        {
+            ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
+            using var app = WorkbenchApplication.Create("cooke");
+            using var panel = new TolerancingPanel(app.Documents, app.Prescription, app.Tolerancing, app.Events);
+            var window = new Window { Width = 940, Height = 820, Content = panel };
+            try
+            {
+                window.Show();
+                var row = Assert.IsType<ToleranceOperandEditorRow>(Field<DataGrid>(panel, "_operandGrid").SelectedItem);
+                row.Code = "ISOC";
+                row.SurfaceNumber = 1;
+                var statistics = Field<ComboBox>(panel, "_isoStatisticsPicker");
+                Assert.True(statistics.IsEffectivelyVisible);
+                Assert.False(Field<ComboBox>(panel, "_distributionPicker").IsEffectivelyVisible);
+                Assert.False(Field<NumericUpDown>(panel, "_minimumTerm").IsEffectivelyVisible);
+                statistics.SelectedIndex = (int)IsoSurfaceFormStatistics.TruncatedGaussian;
+                Field<ComboBox>(panel, "_isoUnitPicker").SelectedIndex = (int)IsoSurfaceFormUnit.Fringes;
+                Field<NumericUpDown>(panel, "_testWavelength").Value = .5461m;
+                Field<NumericUpDown>(panel, "_maximum").Value = 2;
+                var apply = panel.GetVisualDescendants().OfType<Button>().Single(button => Equals(button.Content, "应用到当前行"));
+                apply.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
+                Assert.Equal(IsoSurfaceFormStatistics.TruncatedGaussian, row.IsoStatistics);
+                Assert.Equal(-2, row.Minimum);
+                Assert.Equal(IsoSurfaceFormUnit.Fringes, row.IsoUnit);
+                Assert.Equal(.5461, row.TestWavelengthMicrometers);
+                Assert.Contains("截断正态", panel.BuildToleranceReportText());
+                Assert.Contains("P–V (fringes)", panel.BuildToleranceReportText());
+                row.Code = "ISOD";
+                Assert.Contains("RMS (fringes)", panel.BuildToleranceReportText());
+
+                var study = panel.BuildStudyFile();
+                Assert.Equal(5, study.SchemaVersion);
+                var options = new JsonSerializerOptions { Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() } };
+                var json = JsonSerializer.Serialize(study, options);
+                Assert.Equal(study.Operands, panel.ParseStudyFile(json).Operands);
+                Assert.Throws<InvalidDataException>(() =>
+                    panel.ParseStudyFile(JsonSerializer.Serialize(study with { SchemaVersion = 4 }, options)));
+                var withoutStatistics = JsonNode.Parse(json)!;
+                foreach (var operand in withoutStatistics["Operands"]!.AsArray())
+                    operand!.AsObject().Remove("IsoStatistics");
+                Assert.All(panel.ParseStudyFile(withoutStatistics.ToJsonString()).Operands,
+                    operand => Assert.Equal(IsoSurfaceFormStatistics.AtMaximum, operand.IsoStatistics));
             }
             finally { window.Close(); }
         }, CancellationToken.None);

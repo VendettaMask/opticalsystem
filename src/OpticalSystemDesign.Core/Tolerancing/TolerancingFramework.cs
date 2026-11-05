@@ -212,10 +212,10 @@ public sealed class VariableRangePerturbation : IScaledRangePerturbation
         _variable.Value = _previousValue + delta;
     }
 
-    internal static double SampleDelta(Random random, double minimum, double maximum, bool normalDistribution)
+    internal static double SampleDelta(Random random, double minimum, double maximum, bool normalDistribution,
+        double sigmaSpan = 2)
     {
         if (!normalDistribution) return minimum + (maximum - minimum) * random.NextDouble();
-        const double sigmaSpan = 2.0;
         var midpoint = (minimum + maximum) / 2.0;
         var sigma = (maximum - minimum) / (2.0 * sigmaSpan);
         if (sigma <= 1e-15)
@@ -260,6 +260,9 @@ public sealed partial class Tolerancing
     private Func<double>? _criterionEvaluator;
 
     public IReadOnlyList<IPerturbation> Perturbations => _perturbations;
+    // Install transient sag overlays after changes to the prescription's underlying geometry.
+    internal IEnumerable<IPerturbation> TrialPerturbations() =>
+        _perturbations.OrderBy(perturbation => perturbation is SurfaceFormPerturbation);
 
     public IReadOnlyList<Operand> Operands => _operands;
 
@@ -745,6 +748,7 @@ public sealed class MonteCarlo
         cancellationToken.ThrowIfCancellationRequested();
         ValidateBudget(trials, compensationIterations);
         var results = new List<TolerancingTrialResult>();
+        var perturbations = _tolerancing.TrialPerturbations().ToArray();
         for (var trial = 0; trial < Math.Max(0, trials); trial++)
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -752,7 +756,7 @@ public sealed class MonteCarlo
             var snapshot = _optic.ToSnapshot();
             try
             {
-                foreach (var perturbation in _tolerancing.Perturbations)
+                foreach (var perturbation in perturbations)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     ApplyPerturbation(perturbation, random);
@@ -778,7 +782,7 @@ public sealed class MonteCarlo
             {
                 try
                 {
-                    foreach (var perturbation in _tolerancing.Perturbations.Reverse())
+                    foreach (var perturbation in perturbations.Reverse())
                     {
                         perturbation.Revert(_optic);
                     }
@@ -829,7 +833,7 @@ public sealed class MonteCarlo
             var workerTolerancing = workerFactory(workerOptic)
                 ?? throw new InvalidOperationException("The tolerancing worker factory returned null.");
             var random = new Random(DeriveTrialSeed(seed, trial));
-            foreach (var perturbation in workerTolerancing.Perturbations)
+            foreach (var perturbation in workerTolerancing.TrialPerturbations())
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 if (perturbation is ISampledPerturbation sampled)

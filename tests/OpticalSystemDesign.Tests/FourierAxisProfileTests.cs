@@ -112,4 +112,29 @@ public sealed class FourierAxisProfileTests
         Assert.IsType<string>(high.Values["PeakStrehlRatio"]);
         Assert.Throws<AnalysisDataUnavailableException>(() => new FftPsfCrossSectionAnalysis(optic, 2048, normalize: true).GenerateData());
     }
+
+    [Fact]
+    public void DensePupilRefinementKeepsTheImagePitchAndEveryOriginalPhysicalNode()
+    {
+        using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,
+            "Fixtures/fft-profile-physical-range-native-v1.json")));
+        var optic = OpticalSystemDesign.Core.FileIO.OpticalFormatCatalog.Import(fixture.RootElement.GetProperty("source").GetString()!, ".zmx");
+        optic.RayAimingEnabled = true;
+        var original = new FftPsfCrossSectionAnalysis(optic, 32, wavelengthNumber: 1, type: "X-线性").GenerateData();
+        var low = new FftPsfCrossSectionAnalysis(optic, 128, wavelengthNumber: 1, type: "X-线性").GenerateDensePhysicalPupil();
+        var high = new FftPsfCrossSectionAnalysis(optic, 256, wavelengthNumber: 1, type: "X-线性").GenerateDensePhysicalPupil();
+        Assert.Equal(1024, low.Values["GridSize"]);
+        Assert.Equal(2048, high.Values["GridSize"]);
+        Assert.Equal(Convert.ToDouble(low.Values["ImageDeltaMicrometers"]), Convert.ToDouble(high.Values["ImageDeltaMicrometers"]), 12);
+        Assert.True(Assert.Single(Assert.IsType<int[]>(high.Values["StoredPupilSize"]))
+            >= 2 * Assert.Single(Assert.IsType<int[]>(low.Values["StoredPupilSize"])) - 2);
+        var projected = FourierResultValidationAnalysis.Project(high, original);
+        var points = Assert.Single(projected.PlotSeries).Points;
+        Assert.Equal(Assert.Single(original.PlotSeries).Points.Select(p => p.X), points.Select(p => p.X));
+        Assert.Equal(AnalysisAxisUnit.Micrometer, projected.PlotSeries[0].XUnit);
+        var center = points.MinBy(p => Math.Abs(p.X));
+        Assert.NotNull(center);
+        Assert.InRange(Math.Abs(center.X), 0, 1e-12);
+        Assert.Equal(Convert.ToDouble(high.Values["StrehlRatio"]), center.Y, 12);
+    }
 }

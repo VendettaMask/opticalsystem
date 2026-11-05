@@ -37,6 +37,15 @@ public partial class WorkbenchRuntime
                     operand.TestWavelengthMicrometers ?? SurfaceFringePerturbation.DefaultTestWavelengthMicrometers,
                     operand.Minimum, operand.Maximum, operand.Distribution == ToleranceDistribution.Normal));
             }
+            else if (operand.Kind.SurfaceFormModeFor() is { } formMode)
+            {
+                tolerancing.AddPerturbation(new SurfaceFormPerturbation(
+                    ToleranceOperandName(operand), operand.SurfaceNumber, formMode,
+                    operand.Maximum, operand.Distribution == ToleranceDistribution.Normal,
+                    operand.MinimumZernikeTerm, operand.MaximumZernikeTerm, operand.IsoUnit,
+                    operand.TestWavelengthMicrometers ?? SurfaceFringePerturbation.DefaultTestWavelengthMicrometers,
+                    operand.IsoStatistics));
+            }
             else
             {
                 tolerancing.AddPerturbation(new VariableRangePerturbation(
