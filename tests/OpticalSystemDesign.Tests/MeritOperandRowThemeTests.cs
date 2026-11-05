@@ -122,29 +122,129 @@ public sealed class MeritOperandRowThemeTests
         }, CancellationToken.None);
     }
 
+    [Fact]
+    public async Task NativeToleranceRowsKeepTheirColorsDuringEditingThemeSwitchAndRecycling()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MeritOperandRowThemeTests));
+        await session.Dispatch(() =>
+        {
+            var app = global::Avalonia.Application.Current!;
+            ThemeApplicationService.Apply(app, "Light");
+            using var application = WorkbenchApplication.Create("cooke");
+            using var panel = new TolerancingPanel(application.Documents, application.Prescription,
+                application.Tolerancing, application.Events);
+            var window = new Window { Width = 1550, Height = 690, Content = panel };
+            try
+            {
+                window.Show();
+                Render(window);
+                var grid = panel.GetVisualDescendants().OfType<DataGrid>().Single(g =>
+                    g.ItemsSource is IEnumerable<ToleranceOperandEditorRow>);
+                var items = Assert.IsAssignableFrom<IList<ToleranceOperandEditorRow>>(grid.ItemsSource);
+                items.Clear();
+                var kinds = Enum.GetValues<ToleranceOperandKind>();
+                for (var i = 0; i < 64; i++)
+                    items.Add(new(new(i + 1, i != 1, kinds[i % kinds.Length], 2, -.1, .1,
+                        ToleranceDistribution.Normal, "")));
+
+                DataGridRow Row(int index) => grid.GetVisualDescendants().OfType<DataGridRow>()
+                    .Single(r => ReferenceEquals(r.DataContext, items[index]));
+                void RenderAway()
+                {
+                    window.MouseMove(new Point(window.Width - 5, window.Height - 5));
+                    Render(window);
+                }
+                void AssertPaint()
+                {
+                    foreach (var row in grid.GetVisualDescendants().OfType<DataGridRow>())
+                    {
+                        if (row.DataContext is not ToleranceOperandEditorRow item) continue;
+                        var visual = MeritOperandRowPalette.ResolveToleranceVisual(item.Kind,
+                            ThemeRegistry.FromActualVariant(row.ActualThemeVariant), row.IsPointerOver, row.IsSelected, row.IsEnabled);
+                        Assert.Equal(visual.Background, Solid(Background(row).Fill));
+                        Assert.Equal(1, Background(row).Opacity);
+                        Assert.Equal(visual.Foreground, Solid(row.Foreground));
+                        var text = row.GetVisualDescendants().OfType<TextBlock>().First(t => t.Name == "CellTextBlock");
+                        Assert.Equal(visual.Foreground, Solid(text.Foreground));
+                    }
+                }
+
+                foreach (var theme in new[] { "Light", "Dark", "Isekai", "Pixel", "Lumen", "Light" })
+                {
+                    ThemeApplicationService.Apply(app, theme);
+                    grid.SelectedItem = null;
+                    RenderAway();
+                    AssertPaint();
+                    Capture(window, $"tolerance-rows-{theme}.png");
+                    AssertPixels(window, grid, [0, 2, 9]);
+                    grid.SelectedItem = items[3];
+                    Render(window);
+                    AssertPaint();
+                    Assert.Equal(1, Background(Row(3)).StrokeThickness);
+                    var point = Row(3).TranslatePoint(new Point(125, Row(3).Bounds.Height / 2), window)!.Value;
+                    window.MouseMove(point);
+                    Render(window);
+                    Assert.True(Row(3).IsPointerOver);
+                    AssertPaint();
+                }
+
+                var original = Solid(Row(0).Background);
+                items[0].Code = "TIND";
+                RenderAway();
+                AssertPaint();
+                Assert.NotEqual(original, Solid(Row(0).Background));
+                grid.ScrollIntoView(items[^1], grid.Columns[0]);
+                RenderAway();
+                AssertPaint();
+                Assert.Same(items[^1], Row(items.Count - 1).DataContext);
+                grid.ScrollIntoView(items[0], grid.Columns[0]);
+                RenderAway();
+                AssertPaint();
+
+                var liveRow = Row(0);
+                var beforeDispose = liveRow.Background;
+                panel.Dispose();
+                items[0].Code = "TRAD";
+                Render(window);
+                Assert.Same(beforeDispose, liveRow.Background);
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
     private static Rectangle Background(DataGridRow row) => row.GetVisualDescendants().OfType<Rectangle>()
         .Single(r => r.Name == "BackgroundRectangle" && !r.GetVisualAncestors().OfType<DataGridRowHeader>().Any());
     private static Color Solid(IBrush? brush) => Assert.IsAssignableFrom<ISolidColorBrush>(brush).Color;
-    private static void AssertPixels(Window window, DataGrid grid)
+    private static void AssertPixels(Window window, DataGrid grid, int[]? columns = null)
     {
         using var image = new RenderTargetBitmap(new PixelSize((int)window.Bounds.Width, (int)window.Bounds.Height));
         image.Render(window);
         using var stream = new MemoryStream();
         image.Save(stream, PngBitmapEncoderOptions.Default);
         using var pixels = SkiaSharp.SKBitmap.Decode(stream.ToArray());
+        var gridOrigin = grid.TranslatePoint(default, window)!.Value;
         foreach (var row in grid.GetVisualDescendants().OfType<DataGridRow>())
         {
-            if (row.DataContext is not MeritOperandEditorRow item) continue;
-            foreach (var column in new[] { 0, 2, 14 }) // Frozen index, parameter and empty comment cells.
+            var code = row.DataContext switch
+            {
+                MeritOperandEditorRow item => item.Type,
+                ToleranceOperandEditorRow item => item.Code,
+                _ => null
+            };
+            if (code is null) continue;
+            foreach (var column in columns ?? [0, 2, 14]) // Index, parameter/type and empty comment cells.
             {
                 var content = grid.Columns[column].GetCellContent(row);
                 var cell = content?.GetVisualAncestors().OfType<DataGridCell>().FirstOrDefault();
                 if (cell is null) continue;
-                var point = cell.TranslatePoint(new Point(cell.Bounds.Width - 8, 4), window)!.Value;
-                if (point.Y < 145 || point.Y >= window.Bounds.Height - 45 || point.X < 0 || point.X >= window.Bounds.Width - 20) continue;
+                // The last tolerance column stretches past the vertical scrollbar.
+                var sampleX = columns is not null && column == 9 ? 28 : cell.Bounds.Width - 8;
+                var point = cell.TranslatePoint(new Point(sampleX, 4), window)!.Value;
+                if (point.Y < 145 || point.Y >= window.Bounds.Height - 45 || point.X < gridOrigin.X
+                    || point.X >= gridOrigin.X + grid.Bounds.Width - 20) continue;
                 var actual = pixels.GetPixel((int)point.X, (int)point.Y);
                 Assert.True(Solid(row.Background) == Color.FromRgb(actual.Red, actual.Green, actual.Blue),
-                    $"{row.ActualThemeVariant}/{item.Type}/column {column}: rendered {actual}, row {row.Background}");
+                    $"{row.ActualThemeVariant}/{code}/column {column}: rendered {actual}, row {row.Background}");
             }
         }
     }

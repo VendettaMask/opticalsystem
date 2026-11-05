@@ -1,11 +1,13 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Core.Tolerancing;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -17,8 +19,13 @@ public sealed class ToleranceWizardWindow : Window
     private readonly NumericUpDown _startSurface = Number(1, 0, 100_000, 1);
     private readonly NumericUpDown _endSurface = Number(1, 0, 100_000, 1);
     private readonly CheckBox _radiusEnabled = Check("曲率半径", true);
-    private readonly ComboBox _radiusMode = Picker(0, "固定值 (mm)", "半径百分比 (%)");
+    private readonly ComboBox _radiusMode = Picker(0, "固定值 (mm)", "半径百分比 (%)", "曲率条纹");
     private readonly NumericUpDown _radius = Number(0.05m, 0, 1_000_000, 0.01m);
+    private readonly NumericUpDown _powerFringes = Number(1, 0, 1_000_000, 0.1m);
+    private readonly CheckBox _irregularityEnabled = Check("S + A 不规则度", false);
+    private readonly NumericUpDown _irregularity = Number(0.2m, 0, 1_000_000, 0.1m);
+    private readonly NumericUpDown _testWavelength = Number(
+        (decimal)SurfaceFringePerturbation.DefaultTestWavelengthMicrometers, 0.001m, 1000m, 0.0001m);
     private readonly CheckBox _conicEnabled = Check("圆锥系数", false);
     private readonly NumericUpDown _conic = Number(0.02m, 0, 100, 0.001m);
     private readonly CheckBox _asphereEnabled = Check("非球面参数", false);
@@ -94,6 +101,19 @@ public sealed class ToleranceWizardWindow : Window
         Grid.SetColumn(choosePreset, 6);
         var presetGroup = Group("公差预设", presetGrid);
 
+        var radiusInput = new Panel { Children = { _radius, _powerFringes } };
+        var radiusRow = new Grid
+        {
+            ColumnDefinitions = new ColumnDefinitions("*,*"),
+            RowDefinitions = new RowDefinitions("Auto,Auto"),
+            ColumnSpacing = 7,
+            RowSpacing = 4,
+            Children = { _radiusEnabled, radiusInput, _radiusMode }
+        };
+        Grid.SetColumn(radiusInput, 1);
+        Grid.SetRow(_radiusMode, 1);
+        Grid.SetColumnSpan(_radiusMode, 2);
+
         var surfaceGrid = new Grid
         {
             ColumnDefinitions = new ColumnDefinitions("*,34,*"),
@@ -102,12 +122,17 @@ public sealed class ToleranceWizardWindow : Window
             RowSpacing = 7,
             Children =
             {
-                ToleranceRow(_radiusEnabled, _radiusMode, _radius),
+                radiusRow,
                 ToleranceRow(_thicknessEnabled, UnitLabel("毫米"), _thickness),
                 ToleranceRow(_conicEnabled, UnitLabel("系数"), _conic),
                 ToleranceRow(_asphereEnabled, UnitLabel("系数"), _asphere),
-                DisabledToleranceRow("S + A 不规则度", "光圈"),
-                DisabledToleranceRow("Zernike 不规则度", "光圈")
+                ToleranceRow(_irregularityEnabled, UnitLabel("条纹数"), _irregularity),
+                DisabledToleranceRow("Zernike 不规则度", "光圈"),
+                new StackPanel
+                {
+                    Spacing = 4,
+                    Children = { new TextBlock { Text = "条纹检测波长 (µm)", TextWrapping = TextWrapping.Wrap }, _testWavelength }
+                }
             }
         };
         Grid.SetRow(surfaceGrid.Children[1], 1);
@@ -116,6 +141,9 @@ public sealed class ToleranceWizardWindow : Window
         Grid.SetColumn(surfaceGrid.Children[4], 2);
         Grid.SetColumn(surfaceGrid.Children[5], 2);
         Grid.SetRow(surfaceGrid.Children[5], 1);
+        Grid.SetColumn(surfaceGrid.Children[6], 2);
+        Grid.SetRow(surfaceGrid.Children[6], 2);
+        Avalonia.Automation.AutomationProperties.SetName(_testWavelength, "条纹检测波长 (µm)");
         var surfaceToleranceGroup = Group("表面公差", surfaceGrid);
 
         var lower = new Grid
@@ -257,6 +285,8 @@ public sealed class ToleranceWizardWindow : Window
         _startSurface.ValueChanged += (_, _) => UpdatePreview();
         _endSurface.ValueChanged += (_, _) => UpdatePreview();
         _radiusEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
+        _radiusMode.SelectionChanged += (_, _) => UpdatePreview();
+        _irregularityEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _conicEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _asphereEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
         _thicknessEnabled.IsCheckedChanged += (_, _) => UpdatePreview();
@@ -276,8 +306,9 @@ public sealed class ToleranceWizardWindow : Window
             start,
             end,
             _radiusEnabled.IsChecked == true,
-            _radiusMode.SelectedIndex == 1 ? RadiusToleranceMode.Percent : RadiusToleranceMode.Fixed,
-            DoubleValue(_radius, 0.05),
+            (RadiusToleranceMode)_radiusMode.SelectedIndex,
+            _radiusMode.SelectedIndex == (int)RadiusToleranceMode.Fringes
+                ? DoubleValue(_powerFringes, 1) : DoubleValue(_radius, 0.05),
             _thicknessEnabled.IsChecked == true,
             DoubleValue(_thickness, 0.05),
             _decenterEnabled.IsChecked == true,
@@ -297,7 +328,10 @@ public sealed class ToleranceWizardWindow : Window
             ConicTolerance: DoubleValue(_conic, 0.02),
             UseElementGroups: true,
             IncludeAsphereCoefficients: _asphereEnabled.IsChecked == true,
-            AsphereCoefficientTolerance: DoubleValue(_asphere, 0.000001)));
+            AsphereCoefficientTolerance: DoubleValue(_asphere, 0.000001),
+            IncludeFringeIrregularity: _irregularityEnabled.IsChecked == true,
+            FringeIrregularity: DoubleValue(_irregularity, 0.2),
+            TestWavelengthMicrometers: DoubleValue(_testWavelength, SurfaceFringePerturbation.DefaultTestWavelengthMicrometers)));
     }
 
     private void ApplyPreset(int preset)
@@ -338,13 +372,20 @@ public sealed class ToleranceWizardWindow : Window
 
     private void UpdatePreview()
     {
+        var fringePower = _radiusMode.SelectedIndex == (int)RadiusToleranceMode.Fringes;
+        _radius.IsVisible = !fringePower;
+        _powerFringes.IsVisible = fringePower;
+        _irregularity.IsEnabled = _irregularityEnabled.IsChecked == true;
+        _testWavelength.IsEnabled = (_radiusEnabled.IsChecked == true && fringePower)
+            || _irregularityEnabled.IsChecked == true;
         var start = IntegerValue(_startSurface, 1);
         var end = Math.Max(start, IntegerValue(_endSurface, start));
         var count = Math.Max(0, end - start + 1);
         var perSurface = (_radiusEnabled.IsChecked == true ? 1 : 0)
             + (_conicEnabled.IsChecked == true ? 1 : 0)
             + (_thicknessEnabled.IsChecked == true ? 1 : 0)
-            + (_asphereEnabled.IsChecked == true ? 1 : 0);
+            + (_asphereEnabled.IsChecked == true ? 1 : 0)
+            + (_irregularityEnabled.IsChecked == true ? 1 : 0);
         var material = (_indexEnabled.IsChecked == true ? 1 : 0)
             + (_abbeEnabled.IsChecked == true ? 1 : 0);
         var elementRows = (_decenterEnabled.IsChecked == true ? 2 : 0)
@@ -619,6 +660,12 @@ public sealed class ToleranceWizardWindow : Window
     private static ComboBox Picker(int selectedIndex, params string[] values) => new()
     {
         ItemsSource = values,
+        ItemTemplate = new FuncDataTemplate<string>((value, _) =>
+        {
+            var label = new TextBlock { Text = value };
+            UiLocalization.LocalizeChoiceLabel(label);
+            return label;
+        }),
         SelectedIndex = selectedIndex,
         HorizontalAlignment = HorizontalAlignment.Stretch
     };

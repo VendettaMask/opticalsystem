@@ -15,6 +15,7 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
     private string _comment = string.Empty;
     private int _endSurfaceNumber;
     private int _parameterIndex;
+    private double? _testWavelengthMicrometers;
 
     public ToleranceOperandEditorRow(ToleranceOperandDto source)
     {
@@ -28,6 +29,7 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
         Comment = source.Comment;
         EndSurfaceNumber = source.EndSurfaceNumber;
         ParameterIndex = source.ParameterIndex;
+        TestWavelengthMicrometers = source.TestWavelengthMicrometers;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
@@ -89,6 +91,12 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
         set => SetField(ref _parameterIndex, value, nameof(ParameterIndex));
     }
 
+    public double? TestWavelengthMicrometers
+    {
+        get => _testWavelengthMicrometers;
+        set => SetField(ref _testWavelengthMicrometers, value, nameof(TestWavelengthMicrometers));
+    }
+
     public double Minimum
     {
         get => _minimum;
@@ -144,7 +152,11 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
         Distribution,
         Comment,
         EndSurfaceNumber,
-        ParameterIndex);
+        ParameterIndex,
+        UsesFringes(Kind) ? TestWavelengthMicrometers : null);
+
+    internal static bool UsesFringes(ToleranceOperandKind kind) =>
+        kind is ToleranceOperandKind.FringePower or ToleranceOperandKind.FringeIrregularity;
 
     public static string CodeFor(ToleranceOperandKind kind) => kind switch
     {
@@ -163,6 +175,8 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
         ToleranceOperandKind.RefractiveIndex => "TIND",
         ToleranceOperandKind.AbbeNumber => "TABB",
         ToleranceOperandKind.Compensator => "COMP",
+        ToleranceOperandKind.FringePower => "TFRN",
+        ToleranceOperandKind.FringeIrregularity => "TIRR",
         _ => kind.ToString().ToUpperInvariant()
     };
 
@@ -185,6 +199,8 @@ public sealed class ToleranceOperandEditorRow : INotifyPropertyChanged
             "TIND" => ToleranceOperandKind.RefractiveIndex,
             "TABB" => ToleranceOperandKind.AbbeNumber,
             "COMP" => ToleranceOperandKind.Compensator,
+            "TFRN" => ToleranceOperandKind.FringePower,
+            "TIRR" => ToleranceOperandKind.FringeIrregularity,
             _ => default
         };
         return CodeFor(kind).Equals(text?.Trim(), StringComparison.OrdinalIgnoreCase)

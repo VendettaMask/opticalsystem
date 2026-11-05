@@ -22,6 +22,7 @@ public sealed partial class WorkbenchApplication : IWorkbenchApplication
         _nonSequentialLayoutSession = new NonSequentialLayoutSession(_workspace);
 
         Modes = new WorkbenchModeService(_workspace);
+        Performance = new PerformanceTestService(_workspace, Modes);
         _nonSequentialAnalysisService = new NonSequentialAnalysisService(
             _workspace,
             _nonSequentialAnalysisSession,
@@ -45,6 +46,7 @@ public sealed partial class WorkbenchApplication : IWorkbenchApplication
     }
 
     public IOpticalDocumentService Documents { get; }
+    public IPerformanceTestService Performance { get; }
 
     public IWorkbenchModeService Modes { get; }
 

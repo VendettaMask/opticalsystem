@@ -19,26 +19,39 @@ public partial class WorkbenchRuntime
         foreach (var definition in definitions ?? Array.Empty<ToleranceCompensatorDto>())
         {
             var surface = FindSurface(optic, definition.SurfaceNumber);
-            double Get() => definition.Kind switch
+            var group = definition.Kind.IsElement();
+            var axis = definition.Kind switch
             {
-                ToleranceCompensatorKind.Thickness => FindSurface(optic, definition.SurfaceNumber).Thickness,
-                ToleranceCompensatorKind.DecenterX => FindSurface(optic, definition.SurfaceNumber).CoordinateSystem.Origin.X,
-                ToleranceCompensatorKind.DecenterY => FindSurface(optic, definition.SurfaceNumber).CoordinateSystem.Origin.Y,
-                ToleranceCompensatorKind.TiltX => FindSurface(optic, definition.SurfaceNumber).CoordinateSystem.RotationXDegrees,
-                ToleranceCompensatorKind.TiltY => FindSurface(optic, definition.SurfaceNumber).CoordinateSystem.RotationYDegrees,
-                _ => throw new ArgumentOutOfRangeException(nameof(definitions))
+                ToleranceCompensatorKind.ElementDecenterX => ToleranceCompensatorKind.DecenterX,
+                ToleranceCompensatorKind.ElementDecenterY => ToleranceCompensatorKind.DecenterY,
+                ToleranceCompensatorKind.ElementTiltX => ToleranceCompensatorKind.TiltX,
+                ToleranceCompensatorKind.ElementTiltY => ToleranceCompensatorKind.TiltY,
+                _ => definition.Kind
             };
-            void Set(double value)
+            double Get()
             {
                 var target = FindSurface(optic, definition.SurfaceNumber);
-                var pose = target.CoordinateSystem;
-                if (definition.Kind == ToleranceCompensatorKind.Thickness)
+                return axis switch
                 {
-                    target.Thickness = value;
-                    SyncSurfacePositions(optic);
+                    ToleranceCompensatorKind.Thickness => target.Thickness,
+                    ToleranceCompensatorKind.DecenterX => target.CoordinateSystem.Origin.X,
+                    ToleranceCompensatorKind.DecenterY => target.CoordinateSystem.Origin.Y,
+                    ToleranceCompensatorKind.TiltX => target.CoordinateSystem.RotationXDegrees,
+                    ToleranceCompensatorKind.TiltY => target.CoordinateSystem.RotationYDegrees,
+                    _ => throw new ArgumentOutOfRangeException(nameof(definitions))
+                };
+            }
+            void Set(double value)
+            {
+                if (axis == ToleranceCompensatorKind.Thickness)
+                {
+                    SetToleranceThickness(optic, definition.SurfaceNumber, value);
                     return;
                 }
-                target.CoordinateSystem = definition.Kind switch
+
+                var target = FindSurface(optic, definition.SurfaceNumber);
+                var pose = target.CoordinateSystem;
+                var next = axis switch
                 {
                     ToleranceCompensatorKind.DecenterX => pose with { Origin = pose.Origin with { X = value } },
                     ToleranceCompensatorKind.DecenterY => pose with { Origin = pose.Origin with { Y = value } },
@@ -46,10 +59,22 @@ public partial class WorkbenchRuntime
                     ToleranceCompensatorKind.TiltY => pose with { RotationYDegrees = value },
                     _ => throw new ArgumentOutOfRangeException(nameof(definitions))
                 };
+                if (pose == next) return;
+                if (group)
+                {
+                    for (var number = definition.SurfaceNumber + 1; number <= definition.EndSurfaceNumber; number++)
+                    {
+                        var member = FindSurface(optic, number);
+                        member.CoordinateSystem = member.CoordinateSystem.MoveWithFrame(pose, next);
+                    }
+                }
+                target.CoordinateSystem = next;
             }
+
             var nominal = Get();
+            var location = group ? $"{surface.Number}–{definition.EndSurfaceNumber}" : surface.Number.ToString();
             tolerancing.AddCompensator(new DelegateVariable(
-                $"本地补偿 {definition.Kind} 面 {surface.Number}", Get, Set,
+                $"本地补偿 {definition.Kind} 面 {location}", Get, Set,
                 nominal + definition.Minimum, nominal + definition.Maximum,
                 Math.Max(1e-8, (definition.Maximum - definition.Minimum) / 10)));
         }

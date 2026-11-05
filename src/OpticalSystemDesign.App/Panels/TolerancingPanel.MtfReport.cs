@@ -9,7 +9,11 @@ public sealed partial class TolerancingPanel
     {
         builder.AppendLine($"补偿算法：{_compensationAlgorithm}    附加补偿器：{_additionalCompensators.Count}");
         foreach (var definition in _additionalCompensators)
-            builder.AppendLine($"  面 {definition.SurfaceNumber} {definition.Kind} 相对名义范围 [{definition.Minimum:G6}, {definition.Maximum:G6}]");
+        {
+            var surfaces = definition.Kind.IsElement()
+                ? $"{definition.SurfaceNumber}–{definition.EndSurfaceNumber}" : $"{definition.SurfaceNumber}";
+            builder.AppendLine($"  面 {surfaces} {definition.Kind} 相对名义范围 [{definition.Minimum:G6}, {definition.Maximum:G6}]");
+        }
         AppendCompensators(builder, "名义系统", result.NominalCompensators);
         if (result.MtfSettings is not { } settings) return;
         builder.AppendLine($"MTF 频率：{settings.Frequency:G6} cycles/mm    瞳孔：{32 << (settings.Sampling - 1)} × {32 << (settings.Sampling - 1)}    波长编号：{settings.Wave}（0=多波长）");

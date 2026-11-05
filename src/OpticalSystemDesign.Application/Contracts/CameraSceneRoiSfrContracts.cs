@@ -13,3 +13,10 @@ public sealed record CameraSceneRoiSfrReport(string Format, int SchemaVersion, s
     public const int MaximumMeasurements = 128;
 }
 public sealed record CameraSceneRoiSfrProgress(int TaskIndex, int CompletedRegions, int TotalMeasurements);
+
+public sealed record SceneRoiMtfComparison(LinearSfrRoiResult Measurement,
+    OpticalSystemDesign.Core.Analysis.SceneEdgeMtfReference? Reference, string? ReferenceFailure);
+public sealed record SceneTaskMtfComparison(int TaskIndex, string Name, string IrradianceSha256,
+    IReadOnlyList<SceneRoiMtfComparison> Regions);
+public sealed record CameraSceneMtfReport(string ReferenceAlgorithm, string MeasurementAlgorithm,
+    string SourceManifestSha256, string LensSha256, int PupilAxisSamples, IReadOnlyList<SceneTaskMtfComparison> Tasks);

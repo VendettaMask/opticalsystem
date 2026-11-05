@@ -3,7 +3,7 @@ using OpticalSystemDesign.Core.Domain;
 
 namespace OpticalSystemDesign.Core.Analysis;
 
-public sealed class GeometricMtfAnalysis : BaseAnalysis
+public sealed partial class GeometricMtfAnalysis : BaseAnalysis
 {
     private readonly int _numRays;
     private readonly string _distribution;

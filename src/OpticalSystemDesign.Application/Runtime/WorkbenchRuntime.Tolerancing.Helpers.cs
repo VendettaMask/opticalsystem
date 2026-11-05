@@ -280,6 +280,8 @@ public partial class WorkbenchRuntime
             ToleranceOperandKind.RefractiveIndex => "TIND",
             ToleranceOperandKind.AbbeNumber => "TABB",
             ToleranceOperandKind.Compensator => "COMP",
+            ToleranceOperandKind.FringePower => "TFRN",
+            ToleranceOperandKind.FringeIrregularity => "TIRR",
             _ => operand.Kind.ToString()
         };
         var location = operand.Kind is ToleranceOperandKind.ElementDecenterX

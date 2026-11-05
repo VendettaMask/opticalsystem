@@ -1263,3 +1263,31 @@ X：{0} mm    Y：{1} mm    Z：{2} mm\nX 倾斜：{3}°    Y 倾斜：{4}°    
 采样检查未完成，A/B 和原记录保留：{0}	Sampling checks incomplete; A/B and original records retained: {0}	サンプリング確認未完了。A/Bと元記録を保持：{0}
 随软件加载 {0} 个本地镜头	{0} Local Lenses Loaded with the Software	ソフトウェアに付属するローカルレンズ{0}件
 非序列对象 {0}    显示光线 {1}    Z 范围 {2} 至 {3} mm{4}	NSC objects {0}    Displayed rays {1}    Z range {2} to {3} mm{4}	非順序オブジェクト {0}    表示光線 {1}    Z範囲 {2}～{3} mm{4}
+诊断	Diagnostics	診断
+性能检验	Performance Test	性能テスト
+开始检验	Run Test	テスト開始
+请在顺序模式下运行性能检验。	Run the performance test in sequential mode.	順序モードで性能テストを実行してください。
+使用当前顺序镜头测量 CPU 追迹吞吐和系统更新速度。	Measure CPU ray-tracing throughput and system updates for the current sequential lens.	現在の順序レンズで CPU 光線追跡の処理量とシステム更新速度を測定します。
+正在检验性能…	Running performance test…	性能テストを実行中…
+检验完成。读数为三轮的中位数。	Test complete. Readings are the median of three trials.	テスト完了。表示値は3回の測定の中央値です。
+性能检验已取消。	Performance test cancelled.	性能テストをキャンセルしました。
+性能检验失败：{0}	Performance test failed: {0}	性能テストに失敗しました：{0}
+配置 {0} · {1} 个追迹面 · 视场 {2} · {3:G6} µm	Configuration {0} · {1} trace surfaces · Field {2} · {3:G6} µm	構成 {0} · 追跡面数 {1} · 視野 {2} · {3:G6} µm
+CPU · {0} 个逻辑处理器 · {1} · 软件版本 {2}	CPU · {0} logical processors · {1} · App version {2}	CPU · 論理プロセッサー {0} · {1} · アプリバージョン {2}
+追迹光线/秒    {0:N0}	Rays traced/sec    {0:N0}	追跡光線数/秒    {0:N0}
+处理面次/秒    {0:N0}	Ray-surface visits/sec    {0:N0}	光線の面処理数/秒    {0:N0}
+系统更新/秒    {0:N1}	System updates/sec    {0:N1}	システム更新回数/秒    {0:N1}
+第 {0} 轮 · 到达末面 {1:N0}/{2:N0} · 处理 {3:N0} 面次 · 追迹 {4:F3} s · 更新 {5} 次 / {6:F3} s	Trial {0} · Final-surface arrivals {1:N0}/{2:N0} · Surface visits {3:N0} · Tracing {4:F3} s · Updates {5} / {6:F3} s	試行 {0} · 最終面到達 {1:N0}/{2:N0} · 面処理 {3:N0} · 追跡 {4:F3} s · 更新 {5} 回 / {6:F3} s
+条纹检测波长 (µm)	Fringe test wavelength (µm)	干渉縞の検査波長 (µm)
+偏差单位为双程干涉条纹数。	Deviations are given in double-pass fringes.	偏差の単位は往復干渉縞の本数です。
+曲率条纹	Power fringes	パワー縞
+条纹数	Fringes	干渉縞数
+面形不规则度（球差 + 像散）	Surface irregularity (spherical + astigmatism)	面形状不規則度（球面 + 非点）
+镜组终止面	Last group surface	群の終端面
+镜组终止面必须在起始面之后。	The last group surface must follow the first surface.	群の終端面は開始面より後に指定してください。
+镜组 X 偏心 (mm)	Group X decenter (mm)	群の X 偏心 (mm)
+镜组 Y 偏心 (mm)	Group Y decenter (mm)	群の Y 偏心 (mm)
+镜组 X 倾斜 (°)	Group X tilt (°)	群の X 傾き (°)
+镜组 Y 倾斜 (°)	Group Y tilt (°)	群の Y 傾き (°)
+公差表中的 COMP 仍参与补偿。可增加空气间隔、单面或镜组 X/Y 偏心与倾斜。偏差相对名义值，范围必须包含 0。	COMP rows also participate. Add air gaps or X/Y decenter and tilt for a surface or group. Deviations are relative to nominal and the range must include 0.	公差表の COMP も使用します。空気間隔、単面または群の X/Y 偏心と傾きを追加できます。偏差は公称値に対する値で、範囲には 0 が必要です。
+全部视场共用补偿量。镜组两端及中间各面一起移动，倾斜以首面顶点为支点。	All fields share the same adjustments. All surfaces in the group move together and tilt pivots about the first surface vertex.	全視野で補償量を共有します。群内の全ての面が一体で移動し、先頭面の頂点を支点に傾きます。

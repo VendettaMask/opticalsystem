@@ -21,7 +21,7 @@ public static partial class DirectCameraRenderer
         ArgumentNullException.ThrowIfNull(settings); ArgumentNullException.ThrowIfNull(sourceBandCounts);
         if (settings.Width < 4 || settings.Height < 4 || settings.Width > 16384 || settings.Height > 16384
             || sourceBandCounts.Count is < 1 or > 16 || sourceBandCounts.Any(n => n is < 1 or > 16)
-            || physicalSurfaceCount is < 1 or > 256 || settings.PupilRings is < 1 or > 8 || settings.PupilArms is < 4 or > 32
+            || physicalSurfaceCount is < 1 or > 256 || settings.PupilRings is < 1 or > MaximumPupilRings || settings.PupilArms is < 4 or > 32
             || !double.IsFinite(settings.PixelPitchMicrometers) || settings.PixelPitchMicrometers is < .1 or > 100)
             throw new ArgumentException("Invalid complete-sensor batch settings.");
         var pixelNodes = CameraPixelAperture.Quadrature(settings.PixelSampling).Count;

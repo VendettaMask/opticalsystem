@@ -75,6 +75,8 @@ public sealed partial class MainWindow
                         RibbonButton("show-multiconfig", "configuration-matrix", "多重结构")),
                     RibbonGroup("显示",
                         RibbonButton("display-settings", "format-font", "格式与字体")),
+                    RibbonGroup("诊断",
+                        RibbonButton("performance-test", "gauge", "性能检验")),
                     RibbonGroup("语言", RibbonLanguageMenuButton()))),
                 RibbonTab("视图", BuildRibbonPage(
                     RibbonGroup("系统布局",

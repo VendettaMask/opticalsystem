@@ -2,12 +2,9 @@ using System.Collections.ObjectModel;
 using Avalonia.Controls;
 using Avalonia.Controls.Documents;
 using Avalonia.Controls.Templates;
-using Avalonia.Controls.Shapes;
 using Avalonia.Data;
 using Avalonia.Layout;
-using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
-using Avalonia.Styling;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
@@ -25,7 +22,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
     private readonly IWorkspaceEventStream _events;
     private readonly ObservableCollection<MeritOperandEditorRow> _rows = new();
     private readonly DataGrid _grid;
-    private readonly Dictionary<DataGridRow, MeritOperandRowAppearance> _rowAppearances = new();
+    private readonly OperandRowAppearance _rowAppearance;
     private readonly string[] _operandCodes;
     private readonly IReadOnlyDictionary<string, MeritOperandTypeDto> _operandTypes;
     private readonly DataGridColumn[] _parameterColumns = new DataGridColumn[8];
@@ -71,6 +68,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         _operandTypes = operandTypes.ToDictionary(type => type.Code, StringComparer.OrdinalIgnoreCase);
         _optimizerPicker.ItemsSource = optimization.OptimizerNames;
         _grid = CreateGrid();
+        _rowAppearance = new(_grid);
 
         var addButton = CommandButton("action-add", "添加");
         addButton.Click += (_, _) => AddOperand();
@@ -164,8 +162,7 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
         _runCancellation?.Cancel();
         _runCancellation?.Dispose();
         _operationStatus.Dispose();
-        foreach (var appearance in _rowAppearances.Values) appearance.Dispose();
-        _rowAppearances.Clear();
+        _rowAppearance.Dispose();
     }
 
     public void RefreshDisplaySettings() => Refresh();
@@ -188,53 +185,6 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
             BorderThickness = new Avalonia.Thickness(1)
         };
         grid.BindThemeResource(DataGrid.BorderBrushProperty, ThemeResourceBindings.Border);
-        // Some theme cell surfaces are opaque; reveal the classified row underneath.
-        grid.Styles.Add(new Style(s => s.OfType<DataGridCell>())
-        { Setters = { new Setter(DataGridCell.BackgroundProperty, Brushes.Transparent) } });
-        // Fluent paints an opaque rectangle above Row.Background. Bind that real surface,
-        // for both frozen and scrolling cells, rather than only colouring the container.
-        grid.Styles.Add(new Style(s => s.OfType<DataGridRow>().Class("merit-color-row")
-            .Template().OfType<Rectangle>().Name("BackgroundRectangle"))
-        {
-            Setters =
-            {
-                new Setter(Shape.FillProperty, new Binding("Background")
-                {
-                    RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor) { AncestorType = typeof(DataGridRow) }
-                }),
-                new Setter(Avalonia.Visual.OpacityProperty, 1d)
-            }
-        });
-        grid.Styles.Add(new Style(selector => selector
-            .OfType<DataGridRow>()
-            .Class("merit-color-row")
-            .Class(":selected"))
-        {
-            Setters =
-            {
-                new Setter(
-                    DataGridRow.BorderBrushProperty,
-                    new DynamicResourceExtension("AccentFillColorDefaultBrush"))
-            }
-        });
-        grid.Styles.Add(new Style(s => s.OfType<DataGridRow>().Class("merit-color-row").Class(":selected")
-            .Template().OfType<Rectangle>().Name("BackgroundRectangle"))
-        {
-            Setters =
-            {
-                new Setter(Shape.StrokeProperty, new DynamicResourceExtension("AccentFillColorDefaultBrush")),
-                new Setter(Shape.StrokeThicknessProperty, 1d)
-            }
-        });
-        grid.LoadingRow += (_, args) =>
-        {
-            if (_rowAppearances.Remove(args.Row, out var previous)) previous.Dispose();
-            _rowAppearances.Add(args.Row, new MeritOperandRowAppearance(args.Row));
-        };
-        grid.UnloadingRow += (_, args) =>
-        {
-            if (_rowAppearances.Remove(args.Row, out var appearance)) appearance.Dispose();
-        };
         grid.Columns.Add(TextColumn("#", nameof(MeritOperandEditorRow.Index), 44, true));
         grid.Columns.Add(TypeColumn());
         for (var index = 0; index < _parameterColumns.Length; index++)

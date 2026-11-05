@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="d21379d8-1ed5-4bf4-984d-3d377e7f4dc7" name="optics@LAPTOP-G4BBBCS0 2026-11-05 14:05:20" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-05T14:05:20.9973343+08:00" queuing="2026-11-05T14:05:20.9973347+08:00" start="2026-11-05T14:05:17.1794199+08:00" finish="2026-11-05T14:06:49.8530605+08:00" />
+  <TestSettings name="default" id="ea9a8a4a-685f-41f5-bcc1-a57cc0d25974">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-05_14_05_20" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="1344a807-5eeb-4741-a45a-1ff1d281c04f" testId="2f6e26c4-31bb-bb7c-c0a5-c4e50d17c648" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.ApplicationContractsDoNotExposeCoreTypes" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0241056" startTime="2026-11-05T14:05:20.4258346+08:00" endTime="2026-11-05T14:05:20.4267747+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1344a807-5eeb-4741-a45a-1ff1d281c04f">
+      <Output>
+        <ErrorInfo>
+          <Message>Application contract exposes Core type OpticalSystemDesign.Core.Analysis.Imaging.ScalarSpectrumSample.</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LayeringArchitectureTests.AssertNotCoreType(Type type) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 510&#xD;
+   at OpticalSystemDesign.Tests.LayeringArchitectureTests.ApplicationContractsDoNotExposeCoreTypes() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 48&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ba28f4d3-564d-45f5-b39e-864db372a48c" testId="d4c06c38-d49d-4e5a-e33a-96ce0f61a443" testName="OpticalSystemDesign.Tests.PerformanceTestTests.CancelledRunDoesNotStartBenchmarkWork" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0084689" startTime="2026-11-05T14:06:49.6671474+08:00" endTime="2026-11-05T14:06:49.6760769+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba28f4d3-564d-45f5-b39e-864db372a48c" />
+    <UnitTestResult executionId="5200f05b-27ed-4292-a785-242e4ca0dfc5" testId="07c6cbce-b94b-db51-9a76-e4f0de524cd3" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.ProductionServicesUseTheCanonicalRuntimeVocabulary" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0306658" startTime="2026-11-05T14:05:20.6237700+08:00" endTime="2026-11-05T14:05:20.6537871+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5200f05b-27ed-4292-a785-242e4ca0dfc5" />
+    <UnitTestResult executionId="2db93d87-c7ff-4c27-ac2d-5a55f6da8a71" testId="fa2d44a7-18c0-35e1-ea60-ea90d1e824e3" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.CoreAndApplicationDoNotReferenceUiFrameworks" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0012914" startTime="2026-11-05T14:05:20.7517419+08:00" endTime="2026-11-05T14:05:20.7527228+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2db93d87-c7ff-4c27-ac2d-5a55f6da8a71" />
+    <UnitTestResult executionId="08b4cf72-9084-484a-8cbd-ab535db0e753" testId="1f5b6200-667d-f76e-d9b6-b96f6da1bda3" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0924632" startTime="2026-11-05T14:05:21.4034866+08:00" endTime="2026-11-05T14:05:21.4959958+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08b4cf72-9084-484a-8cbd-ab535db0e753">
+      <Output>
+        <ErrorInfo>
+          <Message>Ordinary App UI colors must use ThemeResourceBindings or theme-derived brushes. Only engineering semantics such as drawings, wavelength colors, ray colors, analysis color maps and Zemax row palettes may use fixed colors:&#xD;
+Controls/LinearRoiImageView.cs:99: base.Render(context); context.FillRectangle(Brushes.Black, new Rect(Bounds.Size));&#xD;
+Controls/LinearRoiImageView.cs:109: var color = result is { Status: not LinearSfrRoiStatus.Measured } ? Brushes.OrangeRed : Brushes.Cyan;&#xD;
+Controls/LinearRoiImageView.cs:119: context.DrawLine(new Pen(Brushes.Yellow, 1.5), Screen(P(u0)), Screen(P(u1)));&#xD;
+Controls/LinearRoiImageView.cs:122: if (_draft is { } draft) context.DrawRectangle(null, new Pen(Brushes.White, 2), Box(draft));&#xD;
+Panels/UserGuideMath.cs:104: public static readonly StyledProperty&lt;IBrush&gt; ForegroundProperty = AvaloniaProperty.Register&lt;UserGuideMathView, IBrush&gt;(nameof(Foreground), Brushes.Black);&#xD;
+Services/ExportImageFrame.cs:28: &amp;&amp; resource is IBrush brush ? brush : Brushes.White;&#xD;
+Services/ExportImageFrame.cs:71: &amp;&amp; resource is IBrush axis ? axis : new SolidColorBrush(Color.FromRgb(112, 128, 148));&#xD;
+Services/ScientificColorMaps.cs:43: var low = value &lt;= .5 ? Color.FromRgb(33, 102, 172) : Colors.White;&#xD;
+Services/ScientificColorMaps.cs:44: var high = value &lt;= .5 ? Colors.White : Color.FromRgb(178, 24, 43);&#xD;
+Services/ScientificColorMaps.cs:47: return Color.FromRgb(Mix(low.R, high.R), Mix(low.G, high.G), Mix(low.B, high.B));&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:94: var background = ThemeBrush(ThemeResourceBindings.PlotBackground, Colors.White);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:95: var text = ThemeBrush(ThemeResourceBindings.TextPrimary, Colors.Black);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:96: var muted = ThemeBrush(ThemeResourceBindings.TextSecondary, Colors.DimGray);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:97: var accent = ThemeBrush(ThemeResourceBindings.TextAccent, Colors.RoyalBlue);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:98: var line = ThemeBrush(ThemeResourceBindings.Border, Colors.Gray);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:115: context.DrawRectangle(new SolidColorBrush(Color.FromArgb(18, 50, 80, 105)), null, new Rect(300, bottom + 10, 390, 16), 8, 8);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:121: Polygon(context, Mix(Bands[0].Layer.Color, Colors.White, .62), [first.TopLeft, first.TopRight,&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:158: Polygon(context, Mix(color, Colors.Black, substrate ? .12 : .25), side, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .3)), .6));&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:162: GradientStops = new GradientStops { new(Mix(color, Colors.White, .62), 0), new(Mix(color, Colors.White, .18), .15), new(color, .7), new(Mix(color, Colors.Black, .15), 1) }&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:164: context.DrawRectangle(fill, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .2)), .6), front);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:165: context.DrawLine(new Pen(new SolidColorBrush(Color.FromArgb(125, 255, 255, 255)), .8), front.TopLeft, front.TopRight);&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:169: Polygon(context, Color.FromArgb(52, 255, 255, 255), [new(front.Left + 28, front.Top), new(front.Left + 66, front.Top),&#xD;
+Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:199: private static Color Mix(Color a, Color b, double amount) =&gt; Color.FromRgb((byte)(a.R * (1 - amount) + b.R * amount),&#xD;
+Laboratories/CoatingDesign/MainWindow.Geometry.cs:80: var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;&#xD;
+Laboratories/CoatingDesign/MainWindow.Geometry.cs:86: var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;&#xD;
+Laboratories/CoatingDesign/SpectrumPlot.cs:149: private IBrush PlotAreaBackgroundBrush =&gt; ThemeBrush(ThemeResourceBindings.SubtleSurface, Colors.WhiteSmoke);&#xD;
+Laboratories/CoatingDesign/SpectrumPlot.cs:154: var color = (PlotAreaBackgroundBrush as ISolidColorBrush)?.Color ?? Colors.WhiteSmoke;&#xD;
+Laboratories/CoatingDesign/SpectrumPlot.cs:156: return new ImmutableSolidColorBrush(Color.FromRgb((byte)Math.Round(color.R * factor),&#xD;
+Laboratories/CoatingDesign/SpectrumPlot.cs:240: var grid = new Pen(ThemeBrush(ThemeResourceBindings.PlotGrid, Colors.LightGray), .6);&#xD;
+Laboratories/InitialStructure/TopologyStructurePlot.cs:17: internal static readonly IBrush[] FieldBrushes = [Brushes.RoyalBlue, Brushes.ForestGreen, Brushes.Red, Brushes.DarkViolet, Brushes.DarkOrange, Brushes.Teal];&#xD;
+Laboratories/InitialStructure/TopologyStructurePlot.cs:104: var pen = new Pen(surface.IsStop ? Brushes.DarkGoldenrod : ink, surface.IsStop ? 2 : 1.4,</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 332&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b8462a35-1b5e-4ada-bc16-0a7d3ce1167b" testId="ab9beed0-6700-9c7d-9026-96df36f9b71c" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.ShellUiSourcesDoNotReferenceCore" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0663931" startTime="2026-11-05T14:05:20.6551977+08:00" endTime="2026-11-05T14:05:20.7217882+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b8462a35-1b5e-4ada-bc16-0a7d3ce1167b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Empty() Failure: Collection was not empty&#xD;
+Collection: ["Controls\\LinearRoiImageView.cs", "Panels\\NonSequentialDesignWindow.cs", "Panels\\NonSequentialZemaxImportWindow.cs"]</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LayeringArchitectureTests.ShellUiSourcesDoNotReferenceCore() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 26&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="22d18d19-3f00-4d7d-85ec-cd2ca3cb0558" testId="82ce7543-2c19-681b-6bae-62365af044ee" testName="OpticalSystemDesign.Tests.ScientificIconTests.ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens(fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:38.7272827" startTime="2026-11-05T14:06:08.6648523+08:00" endTime="2026-11-05T14:06:47.3912076+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="22d18d19-3f00-4d7d-85ec-cd2ca3cb0558" />
+    <UnitTestResult executionId="c6e638d0-8af8-4fd9-8039-7d4cf75a22e8" testId="c9f253d9-53cc-c000-53d2-760dcad66db2" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.MainApplicationProjectDoesNotCompileTheLegacyNamespace" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0167036" startTime="2026-11-05T14:05:21.3874945+08:00" endTime="2026-11-05T14:05:21.4031467+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c6e638d0-8af8-4fd9-8039-7d4cf75a22e8" />
+    <UnitTestResult executionId="257a7a73-08e7-4a09-b4b8-786bd383dfc4" testId="c6c413ca-444f-9984-a3c8-019758d45fb3" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.RuntimeDoesNotDiscoverOrParseAUserZemaxStockCatalog" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1562356" startTime="2026-11-05T14:05:20.9725100+08:00" endTime="2026-11-05T14:05:21.1153135+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="257a7a73-08e7-4a09-b4b8-786bd383dfc4" />
+    <UnitTestResult executionId="08040011-8fa4-4c3c-9a24-d2a340ab0564" testId="79e4fcea-68aa-7f02-8438-3c918128cf79" testName="OpticalSystemDesign.Tests.PerformanceTestTests.DesktopDialogRunsAndShowsMeasuredData" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.7638788" startTime="2026-11-05T14:06:48.9042675+08:00" endTime="2026-11-05T14:06:49.6669100+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08040011-8fa4-4c3c-9a24-d2a340ab0564" />
+    <UnitTestResult executionId="0a59d627-9433-43bf-9aa2-772ca7978a77" testId="d473a4ac-badc-3332-00fc-5e258f200c39" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.DesktopLaunchersRestorePackagesBeforeCleaningBuildOutputs" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0012885" startTime="2026-11-05T14:05:21.4989781+08:00" endTime="2026-11-05T14:05:21.4990880+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0a59d627-9433-43bf-9aa2-772ca7978a77" />
+    <UnitTestResult executionId="3d90ae58-a552-4eda-abfc-cd33bfa0c788" testId="b0b38296-818b-1d10-8065-e0e50291d3b5" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiCardsUseSharedChromeTokens" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2057762" startTime="2026-11-05T14:05:20.7529841+08:00" endTime="2026-11-05T14:05:20.9589406+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d90ae58-a552-4eda-abfc-cd33bfa0c788">
+      <Output>
+        <ErrorInfo>
+          <Message>Card shadows must come from theme Chrome profiles instead of local strings:&#xD;
+Theming/LightGlassMaterial.cs:17: public static BoxShadows SectionShadow { get; } = BoxShadows.Parse(&#xD;
+Theming/LightGlassMaterial.cs:19: public static BoxShadows FrameShadow { get; } = BoxShadows.Parse(</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiCardsUseSharedChromeTokens() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 226&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="bf2516c3-dd75-482c-b3de-e7100c567436" testId="35ee02e6-6e40-0957-f607-1ca36cd8b223" testName="OpticalSystemDesign.Tests.PerformanceTestTests.DoubleGaussBenchmarkCountsRealWorkAndLeavesTheActiveDocumentIntact" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5064351" startTime="2026-11-05T14:06:47.3951118+08:00" endTime="2026-11-05T14:06:48.9021339+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf2516c3-dd75-482c-b3de-e7100c567436">
+      <Output>
+        <StdOut>32,768 rays, 32,768 arrivals, 393,216 visits, 0.124575 s, 263038 rays/s, 3156460 visits/s&#xD;
+32,768 rays, 32,768 arrivals, 393,216 visits, 0.108258 s, 302685 rays/s, 3632222 visits/s&#xD;
+32,768 rays, 32,768 arrivals, 393,216 visits, 0.114651 s, 285806 rays/s, 3429672 visits/s&#xD;
+9 updates, 0.210218 s, 42.81 updates/s&#xD;
+14 updates, 0.208127 s, 67.27 updates/s&#xD;
+13 updates, 0.211897 s, 61.35 updates/s</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0f6a80bf-5b75-4f9d-8f02-fefb1ac4d468" testId="fe8e27a8-a5c2-896f-d3b4-a946c1e5c0c6" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.ProductionServicesDoNotReferenceLegacyNamespace" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0108708" startTime="2026-11-05T14:05:21.1156667+08:00" endTime="2026-11-05T14:05:21.1263453+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0f6a80bf-5b75-4f9d-8f02-fefb1ac4d468" />
+    <UnitTestResult executionId="249a157f-fb34-4c72-9fa3-acfe3ce3b2eb" testId="a6840615-6050-a4fd-8348-f0645d059124" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.GlobalNumericInputStyleUsesTheAcceptedArrowFreeChrome" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010418" startTime="2026-11-05T14:05:20.6541327+08:00" endTime="2026-11-05T14:05:20.6549281+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="249a157f-fb34-4c72-9fa3-acfe3ce3b2eb" />
+    <UnitTestResult executionId="79b8681c-0d87-4948-9539-13d1c347c9f1" testId="1461e8b3-6215-1e60-991c-cbc39c0a525c" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.ThemeSpecificUiCodeStaysInsideRegisteredThemePackages" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0799177" startTime="2026-11-05T14:05:21.1267000+08:00" endTime="2026-11-05T14:05:21.2065666+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="79b8681c-0d87-4948-9539-13d1c347c9f1">
+      <Output>
+        <ErrorInfo>
+          <Message>Theme-specific decisions belong in registered theme packages, not business UI:&#xD;
+App.cs:467: Styles.Add(new IsekaiThemeStyles());&#xD;
+Controls/AnalysisBookWorkspace.cs:22: _bar.Resources.ThemeDictionaries[IsekaiTheme.Variant] = IsekaiDrawingMaterial.ManuscriptCommandResources();&#xD;
+Controls/AnalysisCategoryIcon.cs:47: if (theme.SettingsValue is "Lumen" or "Isekai")&#xD;
+Services/UiLocalization.cs:1387: Add("异世界", "Isekai", "異世界");</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LayeringArchitectureTests.ThemeSpecificUiCodeStaysInsideRegisteredThemePackages() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 256&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="a101660c-814f-4cef-a1ff-1ee0bfef5cea" testId="a06fa30f-7ec1-94f5-db52-a154ac553380" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiTableDensityUsesSharedTokens" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2000041" startTime="2026-11-05T14:05:20.4363417+08:00" endTime="2026-11-05T14:05:20.6230726+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a101660c-814f-4cef-a1ff-1ee0bfef5cea" />
+    <UnitTestResult executionId="f466d458-dbbe-409a-907c-3dcc49a25132" testId="4034aea1-44dd-dd37-5c4c-589358001c56" testName="OpticalSystemDesign.Tests.ScientificIconTests.ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens(fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:47.1554220" startTime="2026-11-05T14:05:21.5024792+08:00" endTime="2026-11-05T14:06:08.6620678+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f466d458-dbbe-409a-907c-3dcc49a25132" />
+    <UnitTestResult executionId="d05ba228-cb58-413f-9675-261a92d32a10" testId="3463c9e2-e6a7-caf4-ed22-09176b55d882" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0877658" startTime="2026-11-05T14:05:21.3011542+08:00" endTime="2026-11-05T14:05:21.3863525+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d05ba228-cb58-413f-9675-261a92d32a10">
+      <Output>
+        <ErrorInfo>
+          <Message>Use OperationStatusBar for long-running App UI progress instead of local ProgressBar instances:&#xD;
+Laboratories/CameraImagingWindow.Presentation.cs:22: private readonly ProgressBar _activity = new() { Width = 70, Height = 3, IsIndeterminate = true };&#xD;
+Laboratories/OpticalAssemblyWindow.Presentation.cs:16: private readonly ProgressBar _activity = new() { IsIndeterminate = true, Width = 70, Height = 3, IsVisible = false };&#xD;
+Panels/MacSoftwareUpdatePanel.cs:23: private readonly ProgressBar _progress = new() { Name = "UpdateDownloadProgress", Minimum = 0, Maximum = 100, Height = 6, IsVisible = false };</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 442&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="e5f5500e-e107-48d8-9ce6-fde623c4759a" testId="ff4615dd-5cef-53bc-76b4-73c01c0bebb2" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.WorkbenchApplicationIsOnlyACompositionRoot" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0120688" startTime="2026-11-05T14:05:20.4042828+08:00" endTime="2026-11-05T14:05:20.4079333+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e5f5500e-e107-48d8-9ce6-fde623c4759a" />
+    <UnitTestResult executionId="89a7be18-fcd2-4193-9663-4a54023feb10" testId="14adf5a1-535d-71b4-af54-510be7a7dc32" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiFontSizesUseTypographyTokens" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0912641" startTime="2026-11-05T14:05:21.2079160+08:00" endTime="2026-11-05T14:05:21.2985122+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="89a7be18-fcd2-4193-9663-4a54023feb10">
+      <Output>
+        <ErrorInfo>
+          <Message>Use DisplayTypography named tokens instead of literal UI FontSize values:&#xD;
+Laboratories/CameraImagingWindow.SceneBatch.cs:83: new TextBlock { Text = "全幅线性成像与逐波段任务", FontWeight = FontWeight.Bold, FontSize = 18 },&#xD;
+Laboratories/CameraImagingWindow.SceneSfr.cs:108: new TextBlock { Text = "场景斜边 · 几何成像", FontSize = 18, FontWeight = FontWeight.Bold },&#xD;
+Panels/UserGuidePanel.cs:197: FontSize = 18,&#xD;
+Panels/UserGuidePanel.cs:204: FontSize = 15,&#xD;
+Panels/UserGuidePanel.cs:235: gallery.Children.Add(new TextBlock { Text = galleryTitle, FontSize = 18, FontWeight = FontWeight.SemiBold });&#xD;
+Panels/UserGuidePanel.Layout.cs:17: private readonly TextBlock _chapterKind = new() { Name = "UserGuideChapterKind", FontSize = 11, FontWeight = FontWeight.SemiBold };&#xD;
+Panels/UserGuidePanel.Layout.cs:20: private readonly TextBlock _guideHeading = new() { FontSize = 17, FontWeight = FontWeight.SemiBold };&#xD;
+Panels/UserGuidePanel.Layout.cs:21: private readonly TextBlock _guideSubtitle = new() { FontSize = 11, TextWrapping = TextWrapping.Wrap };&#xD;
+Panels/UserGuidePanel.Layout.cs:22: private readonly TextBlock _tocHeading = new() { FontSize = 11, FontWeight = FontWeight.SemiBold };&#xD;
+Panels/UserGuidePanel.Layout.cs:45: _path.FontSize = 11;&#xD;
+Panels/UserGuidePanel.Layout.cs:49: _title.FontSize = 30;&#xD;
+Panels/UserGuidePanel.Layout.cs:51: _summary.FontSize = 15;&#xD;
+Panels/UserGuidePanel.Layout.cs:55: _resultCount.FontSize = 11;&#xD;
+Panels/UserGuidePanel.Layout.cs:56: _search.FontSize = 12;&#xD;
+Panels/UserGuidePanel.Layout.cs:62: _kindFilter.FontSize = 12;&#xD;
+Panels/UserGuidePanel.Layout.cs:81: _navigationToggle.FontSize = 12;&#xD;
+Panels/UserGuidePanel.Layout.cs:87: _pdfExport.FontSize = 20;&#xD;
+Panels/UserGuidePanel.Layout.cs:103: _inlineContents.FontSize = 12;&#xD;
+Panels/UserGuidePanel.Pdf.cs:12: private readonly TextBlock _pdfStatus = new() { Name = "UserGuidePdfStatus", TextWrapping = Avalonia.Media.TextWrapping.Wrap, MaxWidth = 250, FontSize = 12 };&#xD;
+Panels/UserGuideScreenshots.cs:84: var caption = new TextBlock { Text = title, FontSize = 12, TextWrapping = TextWrapping.Wrap };&#xD;
+Panels/UserGuideScreenshots.cs:86: var note = new TextBlock { Text = L("点击放大 ↗", "Enlarge ↗", "拡大 ↗"), FontSize = 11, VerticalAlignment = VerticalAlignment.Center };</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiFontSizesUseTypographyTokens() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs:line 191&#xD;
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c3f1c340-01b2-4898-8926-adeaa8dda5c0" testId="c32ce533-ad9a-baa0-7dbe-8b8aa7b9d088" testName="OpticalSystemDesign.Tests.LayeringArchitectureTests.DockDocumentsDoNotRestoreLargeFixedMinimumWidths" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0285758" startTime="2026-11-05T14:05:20.7229658+08:00" endTime="2026-11-05T14:05:20.7514069+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3f1c340-01b2-4898-8926-adeaa8dda5c0" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.DesktopLaunchersRestorePackagesBeforeCleaningBuildOutputs" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d473a4ac-badc-3332-00fc-5e258f200c39">
+      <Execution id="0a59d627-9433-43bf-9aa2-772ca7978a77" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="DesktopLaunchersRestorePackagesBeforeCleaningBuildOutputs" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.CoreAndApplicationDoNotReferenceUiFrameworks" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fa2d44a7-18c0-35e1-ea60-ea90d1e824e3">
+      <Execution id="2db93d87-c7ff-4c27-ac2d-5a55f6da8a71" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="CoreAndApplicationDoNotReferenceUiFrameworks" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.GlobalNumericInputStyleUsesTheAcceptedArrowFreeChrome" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a6840615-6050-a4fd-8348-f0645d059124">
+      <Execution id="249a157f-fb34-4c72-9fa3-acfe3ce3b2eb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="GlobalNumericInputStyleUsesTheAcceptedArrowFreeChrome" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.MainApplicationProjectDoesNotCompileTheLegacyNamespace" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c9f253d9-53cc-c000-53d2-760dcad66db2">
+      <Execution id="c6e638d0-8af8-4fd9-8039-7d4cf75a22e8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="MainApplicationProjectDoesNotCompileTheLegacyNamespace" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiTableDensityUsesSharedTokens" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a06fa30f-7ec1-94f5-db52-a154ac553380">
+      <Execution id="a101660c-814f-4cef-a1ff-1ee0bfef5cea" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="AppUiTableDensityUsesSharedTokens" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1f5b6200-667d-f76e-d9b6-b96f6da1bda3">
+      <Execution id="08b4cf72-9084-484a-8cbd-ab535db0e753" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="OrdinaryAppUiColorsUseThemeResources" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PerformanceTestTests.CancelledRunDoesNotStartBenchmarkWork" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d4c06c38-d49d-4e5a-e33a-96ce0f61a443">
+      <Execution id="ba28f4d3-564d-45f5-b39e-864db372a48c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PerformanceTestTests" name="CancelledRunDoesNotStartBenchmarkWork" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.ShellUiSourcesDoNotReferenceCore" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ab9beed0-6700-9c7d-9026-96df36f9b71c">
+      <Execution id="b8462a35-1b5e-4ada-bc16-0a7d3ce1167b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="ShellUiSourcesDoNotReferenceCore" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PerformanceTestTests.DoubleGaussBenchmarkCountsRealWorkAndLeavesTheActiveDocumentIntact" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="35ee02e6-6e40-0957-f607-1ca36cd8b223">
+      <Execution id="bf2516c3-dd75-482c-b3de-e7100c567436" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PerformanceTestTests" name="DoubleGaussBenchmarkCountsRealWorkAndLeavesTheActiveDocumentIntact" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.ProductionServicesDoNotReferenceLegacyNamespace" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fe8e27a8-a5c2-896f-d3b4-a946c1e5c0c6">
+      <Execution id="0f6a80bf-5b75-4f9d-8f02-fefb1ac4d468" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="ProductionServicesDoNotReferenceLegacyNamespace" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3463c9e2-e6a7-caf4-ed22-09176b55d882">
+      <Execution id="d05ba228-cb58-413f-9675-261a92d32a10" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="LongRunningPanelsUseSharedOperationStatusBar" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens(fontSize: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4034aea1-44dd-dd37-5c4c-589358001c56">
+      <Execution id="f466d458-dbbe-409a-907c-3dcc49a25132" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.DockDocumentsDoNotRestoreLargeFixedMinimumWidths" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c32ce533-ad9a-baa0-7dbe-8b8aa7b9d088">
+      <Execution id="c3f1c340-01b2-4898-8926-adeaa8dda5c0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="DockDocumentsDoNotRestoreLargeFixedMinimumWidths" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiCardsUseSharedChromeTokens" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b0b38296-818b-1d10-8065-e0e50291d3b5">
+      <Execution id="3d90ae58-a552-4eda-abfc-cd33bfa0c788" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="AppUiCardsUseSharedChromeTokens" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.RuntimeDoesNotDiscoverOrParseAUserZemaxStockCatalog" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="c6c413ca-444f-9984-a3c8-019758d45fb3">
+      <Execution id="257a7a73-08e7-4a09-b4b8-786bd383dfc4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="RuntimeDoesNotDiscoverOrParseAUserZemaxStockCatalog" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.ProductionServicesUseTheCanonicalRuntimeVocabulary" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="07c6cbce-b94b-db51-9a76-e4f0de524cd3">
+      <Execution id="5200f05b-27ed-4292-a785-242e4ca0dfc5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="ProductionServicesUseTheCanonicalRuntimeVocabulary" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PerformanceTestTests.DesktopDialogRunsAndShowsMeasuredData" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="79e4fcea-68aa-7f02-8438-3c918128cf79">
+      <Execution id="08040011-8fa4-4c3c-9a24-d2a340ab0564" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PerformanceTestTests" name="DesktopDialogRunsAndShowsMeasuredData" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.WorkbenchApplicationIsOnlyACompositionRoot" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ff4615dd-5cef-53bc-76b4-73c01c0bebb2">
+      <Execution id="e5f5500e-e107-48d8-9ce6-fde623c4759a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="WorkbenchApplicationIsOnlyACompositionRoot" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiFontSizesUseTypographyTokens" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="14adf5a1-535d-71b4-af54-510be7a7dc32">
+      <Execution id="89a7be18-fcd2-4193-9663-4a54023feb10" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="AppUiFontSizesUseTypographyTokens" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.ThemeSpecificUiCodeStaysInsideRegisteredThemePackages" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1461e8b3-6215-1e60-991c-cbc39c0a525c">
+      <Execution id="79b8681c-0d87-4948-9539-13d1c347c9f1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="ThemeSpecificUiCodeStaysInsideRegisteredThemePackages" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LayeringArchitectureTests.ApplicationContractsDoNotExposeCoreTypes" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2f6e26c4-31bb-bb7c-c0a5-c4e50d17c648">
+      <Execution id="1344a807-5eeb-4741-a45a-1ff1d281c04f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LayeringArchitectureTests" name="ApplicationContractsDoNotExposeCoreTypes" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ScientificIconTests.ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens(fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="82ce7543-2c19-681b-6bae-62365af044ee">
+      <Execution id="22d18d19-3f00-4d7d-85ec-cd2ca3cb0558" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ScientificIconTests" name="ActualWorkbenchUsesApprovedSemanticsAcrossThemesWithoutChangingTheLens" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="2f6e26c4-31bb-bb7c-c0a5-c4e50d17c648" executionId="1344a807-5eeb-4741-a45a-1ff1d281c04f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d4c06c38-d49d-4e5a-e33a-96ce0f61a443" executionId="ba28f4d3-564d-45f5-b39e-864db372a48c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="07c6cbce-b94b-db51-9a76-e4f0de524cd3" executionId="5200f05b-27ed-4292-a785-242e4ca0dfc5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa2d44a7-18c0-35e1-ea60-ea90d1e824e3" executionId="2db93d87-c7ff-4c27-ac2d-5a55f6da8a71" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1f5b6200-667d-f76e-d9b6-b96f6da1bda3" executionId="08b4cf72-9084-484a-8cbd-ab535db0e753" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ab9beed0-6700-9c7d-9026-96df36f9b71c" executionId="b8462a35-1b5e-4ada-bc16-0a7d3ce1167b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="82ce7543-2c19-681b-6bae-62365af044ee" executionId="22d18d19-3f00-4d7d-85ec-cd2ca3cb0558" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c9f253d9-53cc-c000-53d2-760dcad66db2" executionId="c6e638d0-8af8-4fd9-8039-7d4cf75a22e8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c6c413ca-444f-9984-a3c8-019758d45fb3" executionId="257a7a73-08e7-4a09-b4b8-786bd383dfc4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="79e4fcea-68aa-7f02-8438-3c918128cf79" executionId="08040011-8fa4-4c3c-9a24-d2a340ab0564" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d473a4ac-badc-3332-00fc-5e258f200c39" executionId="0a59d627-9433-43bf-9aa2-772ca7978a77" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b0b38296-818b-1d10-8065-e0e50291d3b5" executionId="3d90ae58-a552-4eda-abfc-cd33bfa0c788" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="35ee02e6-6e40-0957-f607-1ca36cd8b223" executionId="bf2516c3-dd75-482c-b3de-e7100c567436" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fe8e27a8-a5c2-896f-d3b4-a946c1e5c0c6" executionId="0f6a80bf-5b75-4f9d-8f02-fefb1ac4d468" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6840615-6050-a4fd-8348-f0645d059124" executionId="249a157f-fb34-4c72-9fa3-acfe3ce3b2eb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1461e8b3-6215-1e60-991c-cbc39c0a525c" executionId="79b8681c-0d87-4948-9539-13d1c347c9f1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a06fa30f-7ec1-94f5-db52-a154ac553380" executionId="a101660c-814f-4cef-a1ff-1ee0bfef5cea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4034aea1-44dd-dd37-5c4c-589358001c56" executionId="f466d458-dbbe-409a-907c-3dcc49a25132" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3463c9e2-e6a7-caf4-ed22-09176b55d882" executionId="d05ba228-cb58-413f-9675-261a92d32a10" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff4615dd-5cef-53bc-76b4-73c01c0bebb2" executionId="e5f5500e-e107-48d8-9ce6-fde623c4759a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="14adf5a1-535d-71b4-af54-510be7a7dc32" executionId="89a7be18-fcd2-4193-9663-4a54023feb10" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c32ce533-ad9a-baa0-7dbe-8b8aa7b9d088" executionId="c3f1c340-01b2-4898-8926-adeaa8dda5c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="22" executed="22" passed="15" failed="7" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.07]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.57]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.65]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.76]       Application contract exposes Core type OpticalSystemDesign.Core.Analysis.Imaging.ScalarSpectrumSample.&#xD;
+[xUnit.net 00:00:02.76]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.77]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(510,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.AssertNotCoreType(Type type)&#xD;
+[xUnit.net 00:00:02.77]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(48,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.ApplicationContractsDoNotExposeCoreTypes()&#xD;
+[xUnit.net 00:00:02.77]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:02.77]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.05]       Assert.Empty() Failure: Collection was not empty&#xD;
+[xUnit.net 00:00:03.05]       Collection: ["Controls\\LinearRoiImageView.cs", "Panels\\NonSequentialDesignWindow.cs", "Panels\\NonSequentialZemaxImportWindow.cs"]&#xD;
+[xUnit.net 00:00:03.05]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.05]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(26,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.ShellUiSourcesDoNotReferenceCore()&#xD;
+[xUnit.net 00:00:03.05]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.05]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.29]       Card shadows must come from theme Chrome profiles instead of local strings:&#xD;
+[xUnit.net 00:00:03.29]       Theming/LightGlassMaterial.cs:17: public static BoxShadows SectionShadow { get; } = BoxShadows.Parse(&#xD;
+[xUnit.net 00:00:03.29]       Theming/LightGlassMaterial.cs:19: public static BoxShadows FrameShadow { get; } = BoxShadows.Parse(&#xD;
+[xUnit.net 00:00:03.29]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.29]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(226,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiCardsUseSharedChromeTokens()&#xD;
+[xUnit.net 00:00:03.29]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.29]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.54]       Theme-specific decisions belong in registered theme packages, not business UI:&#xD;
+[xUnit.net 00:00:03.54]       App.cs:467: Styles.Add(new IsekaiThemeStyles());&#xD;
+[xUnit.net 00:00:03.54]       Controls/AnalysisBookWorkspace.cs:22: _bar.Resources.ThemeDictionaries[IsekaiTheme.Variant] = IsekaiDrawingMaterial.ManuscriptCommandResources();&#xD;
+[xUnit.net 00:00:03.54]       Controls/AnalysisCategoryIcon.cs:47: if (theme.SettingsValue is "Lumen" or "Isekai")&#xD;
+[xUnit.net 00:00:03.54]       Services/UiLocalization.cs:1387: Add("异世界", "Isekai", "異世界");&#xD;
+[xUnit.net 00:00:03.54]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(256,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.ThemeSpecificUiCodeStaysInsideRegisteredThemePackages()&#xD;
+[xUnit.net 00:00:03.54]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.54]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.63]       Use DisplayTypography named tokens instead of literal UI FontSize values:&#xD;
+[xUnit.net 00:00:03.63]       Laboratories/CameraImagingWindow.SceneBatch.cs:83: new TextBlock { Text = "全幅线性成像与逐波段任务", FontWeight = FontWeight.Bold, FontSize = 18 },&#xD;
+[xUnit.net 00:00:03.63]       Laboratories/CameraImagingWindow.SceneSfr.cs:108: new TextBlock { Text = "场景斜边 · 几何成像", FontSize = 18, FontWeight = FontWeight.Bold },&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.cs:197: FontSize = 18,&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.cs:204: FontSize = 15,&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.cs:235: gallery.Children.Add(new TextBlock { Text = galleryTitle, FontSize = 18, FontWeight = FontWeight.SemiBold });&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:17: private readonly TextBlock _chapterKind = new() { Name = "UserGuideChapterKind", FontSize = 11, FontWeight = FontWeight.SemiBold };&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:20: private readonly TextBlock _guideHeading = new() { FontSize = 17, FontWeight = FontWeight.SemiBold };&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:21: private readonly TextBlock _guideSubtitle = new() { FontSize = 11, TextWrapping = TextWrapping.Wrap };&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:22: private readonly TextBlock _tocHeading = new() { FontSize = 11, FontWeight = FontWeight.SemiBold };&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:45: _path.FontSize = 11;&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:49: _title.FontSize = 30;&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:51: _summary.FontSize = 15;&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:55: _resultCount.FontSize = 11;&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:56: _search.FontSize = 12;&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:62: _kindFilter.FontSize = 12;&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:81: _navigationToggle.FontSize = 12;&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:87: _pdfExport.FontSize = 20;&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Layout.cs:103: _inlineContents.FontSize = 12;&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuidePanel.Pdf.cs:12: private readonly TextBlock _pdfStatus = new() { Name = "UserGuidePdfStatus", TextWrapping = Avalonia.Media.TextWrapping.Wrap, MaxWidth = 250, FontSize = 12 };&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuideScreenshots.cs:84: var caption = new TextBlock { Text = title, FontSize = 12, TextWrapping = TextWrapping.Wrap };&#xD;
+[xUnit.net 00:00:03.63]       Panels/UserGuideScreenshots.cs:86: var note = new TextBlock { Text = L("点击放大 ↗", "Enlarge ↗", "拡大 ↗"), FontSize = 11, VerticalAlignment = VerticalAlignment.Center };&#xD;
+[xUnit.net 00:00:03.63]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.63]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(191,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiFontSizesUseTypographyTokens()&#xD;
+[xUnit.net 00:00:03.63]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.63]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.72]       Use OperationStatusBar for long-running App UI progress instead of local ProgressBar instances:&#xD;
+[xUnit.net 00:00:03.72]       Laboratories/CameraImagingWindow.Presentation.cs:22: private readonly ProgressBar _activity = new() { Width = 70, Height = 3, IsIndeterminate = true };&#xD;
+[xUnit.net 00:00:03.72]       Laboratories/OpticalAssemblyWindow.Presentation.cs:16: private readonly ProgressBar _activity = new() { IsIndeterminate = true, Width = 70, Height = 3, IsVisible = false };&#xD;
+[xUnit.net 00:00:03.72]       Panels/MacSoftwareUpdatePanel.cs:23: private readonly ProgressBar _progress = new() { Name = "UpdateDownloadProgress", Minimum = 0, Maximum = 100, Height = 6, IsVisible = false };&#xD;
+[xUnit.net 00:00:03.72]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.72]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(442,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar()&#xD;
+[xUnit.net 00:00:03.72]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.72]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:03.83]       Ordinary App UI colors must use ThemeResourceBindings or theme-derived brushes. Only engineering semantics such as drawings, wavelength colors, ray colors, analysis color maps and Zemax row palettes may use fixed colors:&#xD;
+[xUnit.net 00:00:03.83]       Controls/LinearRoiImageView.cs:99: base.Render(context); context.FillRectangle(Brushes.Black, new Rect(Bounds.Size));&#xD;
+[xUnit.net 00:00:03.83]       Controls/LinearRoiImageView.cs:109: var color = result is { Status: not LinearSfrRoiStatus.Measured } ? Brushes.OrangeRed : Brushes.Cyan;&#xD;
+[xUnit.net 00:00:03.83]       Controls/LinearRoiImageView.cs:119: context.DrawLine(new Pen(Brushes.Yellow, 1.5), Screen(P(u0)), Screen(P(u1)));&#xD;
+[xUnit.net 00:00:03.83]       Controls/LinearRoiImageView.cs:122: if (_draft is { } draft) context.DrawRectangle(null, new Pen(Brushes.White, 2), Box(draft));&#xD;
+[xUnit.net 00:00:03.83]       Panels/UserGuideMath.cs:104: public static readonly StyledProperty&lt;IBrush&gt; ForegroundProperty = AvaloniaProperty.Register&lt;UserGuideMathView, IBrush&gt;(nameof(Foreground), Brushes.Black);&#xD;
+[xUnit.net 00:00:03.83]       Services/ExportImageFrame.cs:28: &amp;&amp; resource is IBrush brush ? brush : Brushes.White;&#xD;
+[xUnit.net 00:00:03.83]       Services/ExportImageFrame.cs:71: &amp;&amp; resource is IBrush axis ? axis : new SolidColorBrush(Color.FromRgb(112, 128, 148));&#xD;
+[xUnit.net 00:00:03.83]       Services/ScientificColorMaps.cs:43: var low = value &lt;= .5 ? Color.FromRgb(33, 102, 172) : Colors.White;&#xD;
+[xUnit.net 00:00:03.83]       Services/ScientificColorMaps.cs:44: var high = value &lt;= .5 ? Colors.White : Color.FromRgb(178, 24, 43);&#xD;
+[xUnit.net 00:00:03.83]       Services/ScientificColorMaps.cs:47: return Color.FromRgb(Mix(low.R, high.R), Mix(low.G, high.G), Mix(low.B, high.B));&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:94: var background = ThemeBrush(ThemeResourceBindings.PlotBackground, Colors.White);&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:95: var text = ThemeBrush(ThemeResourceBindings.TextPrimary, Colors.Black);&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:96: var muted = ThemeBrush(ThemeResourceBindings.TextSecondary, Colors.DimGray);&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:97: var accent = ThemeBrush(ThemeResourceBindings.TextAccent, Colors.RoyalBlue);&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:98: var line = ThemeBrush(ThemeResourceBindings.Border, Colors.Gray);&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:115: context.DrawRectangle(new SolidColorBrush(Color.FromArgb(18, 50, 80, 105)), null, new Rect(300, bottom + 10, 390, 16), 8, 8);&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:121: Polygon(context, Mix(Bands[0].Layer.Color, Colors.White, .62), [first.TopLeft, first.TopRight,&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:158: Polygon(context, Mix(color, Colors.Black, substrate ? .12 : .25), side, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .3)), .6));&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:162: GradientStops = new GradientStops { new(Mix(color, Colors.White, .62), 0), new(Mix(color, Colors.White, .18), .15), new(color, .7), new(Mix(color, Colors.Black, .15), 1) }&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:164: context.DrawRectangle(fill, new Pen(new SolidColorBrush(Mix(color, Colors.Black, .2)), .6), front);&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:165: context.DrawLine(new Pen(new SolidColorBrush(Color.FromArgb(125, 255, 255, 255)), .8), front.TopLeft, front.TopRight);&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:169: Polygon(context, Color.FromArgb(52, 255, 255, 255), [new(front.Left + 28, front.Top), new(front.Left + 66, front.Top),&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs:199: private static Color Mix(Color a, Color b, double amount) =&gt; Color.FromRgb((byte)(a.R * (1 - amount) + b.R * amount),&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/MainWindow.Geometry.cs:80: var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/MainWindow.Geometry.cs:86: var color = (MaterialBrushFor(layer.MaterialId) as ISolidColorBrush)?.Color ?? Colors.SteelBlue;&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/SpectrumPlot.cs:149: private IBrush PlotAreaBackgroundBrush =&gt; ThemeBrush(ThemeResourceBindings.SubtleSurface, Colors.WhiteSmoke);&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/SpectrumPlot.cs:154: var color = (PlotAreaBackgroundBrush as ISolidColorBrush)?.Color ?? Colors.WhiteSmoke;&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/SpectrumPlot.cs:156: return new ImmutableSolidColorBrush(Color.FromRgb((byte)Math.Round(color.R * factor),&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/CoatingDesign/SpectrumPlot.cs:240: var grid = new Pen(ThemeBrush(ThemeResourceBindings.PlotGrid, Colors.LightGray), .6);&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/InitialStructure/TopologyStructurePlot.cs:17: internal static readonly IBrush[] FieldBrushes = [Brushes.RoyalBlue, Brushes.ForestGreen, Brushes.Red, Brushes.DarkViolet, Brushes.DarkOrange, Brushes.Teal];&#xD;
+[xUnit.net 00:00:03.83]       Laboratories/InitialStructure/TopologyStructurePlot.cs:104: var pen = new Pen(surface.IsStop ? Brushes.DarkGoldenrod : ink, surface.IsStop ? 2 : 1.4,&#xD;
+[xUnit.net 00:00:03.83]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.83]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\LayeringArchitectureTests.cs(332,0): at OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources()&#xD;
+[xUnit.net 00:00:03.83]            at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)&#xD;
+[xUnit.net 00:00:03.83]            at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:01:32.01]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T14:05:20.4314856+08:00">
+        <Text>[xUnit.net 00:00:02.76]     OpticalSystemDesign.Tests.LayeringArchitectureTests.ApplicationContractsDoNotExposeCoreTypes [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T14:05:20.7223386+08:00">
+        <Text>[xUnit.net 00:00:03.05]     OpticalSystemDesign.Tests.LayeringArchitectureTests.ShellUiSourcesDoNotReferenceCore [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T14:05:20.9594525+08:00">
+        <Text>[xUnit.net 00:00:03.29]     OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiCardsUseSharedChromeTokens [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T14:05:21.2070748+08:00">
+        <Text>[xUnit.net 00:00:03.54]     OpticalSystemDesign.Tests.LayeringArchitectureTests.ThemeSpecificUiCodeStaysInsideRegisteredThemePackages [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T14:05:21.2990607+08:00">
+        <Text>[xUnit.net 00:00:03.63]     OpticalSystemDesign.Tests.LayeringArchitectureTests.AppUiFontSizesUseTypographyTokens [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T14:05:21.3868483+08:00">
+        <Text>[xUnit.net 00:00:03.72]     OpticalSystemDesign.Tests.LayeringArchitectureTests.LongRunningPanelsUseSharedOperationStatusBar [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-05T14:05:21.4964914+08:00">
+        <Text>[xUnit.net 00:00:03.83]     OpticalSystemDesign.Tests.LayeringArchitectureTests.OrdinaryAppUiColorsUseThemeResources [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

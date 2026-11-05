@@ -42,13 +42,27 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                 return Array.Empty<ToleranceOperandDto>();
             }
 
+            if (!Enum.IsDefined(settings.RadiusMode)
+                || ((settings.IncludeRadius && settings.RadiusMode == RadiusToleranceMode.Fringes) || settings.IncludeFringeIrregularity)
+                && !SurfaceFringePerturbation.IsValidTestWavelength(settings.TestWavelengthMicrometers))
+                throw new ArgumentException("曲率公差模式或条纹检测波长无效。");
+
             var first = Math.Clamp(settings.StartSurface, 0, surfaces.Count - 1);
             var last = Math.Clamp(settings.EndSurface, first, surfaces.Count - 1);
             var rows = new List<ToleranceOperandDto>();
             for (var surfaceNumber = first; surfaceNumber <= last; surfaceNumber++)
             {
                 var surface = surfaces[surfaceNumber];
-                if (settings.IncludeRadius && Math.Abs(surface.Radius) > 1e-9)
+                var canUseFringes = surfaceNumber > 0 && surfaceNumber < surfaces.Count - 1
+                    && SurfaceFringePerturbation.Supports(surface);
+                if (canUseFringes && settings.IncludeRadius && settings.RadiusMode == RadiusToleranceMode.Fringes)
+                    AddSymmetric(rows, ToleranceOperandKind.FringePower, surfaceNumber, settings.RadiusTolerance,
+                        settings.Distribution, "曲率条纹", testWavelengthMicrometers: settings.TestWavelengthMicrometers);
+                if (canUseFringes && settings.IncludeFringeIrregularity)
+                    AddSymmetric(rows, ToleranceOperandKind.FringeIrregularity, surfaceNumber, settings.FringeIrregularity,
+                        settings.Distribution, "面形不规则度", testWavelengthMicrometers: settings.TestWavelengthMicrometers);
+
+                if (settings.IncludeRadius && settings.RadiusMode != RadiusToleranceMode.Fringes && Math.Abs(surface.Radius) > 1e-9)
                 {
                     var tolerance = settings.RadiusMode == RadiusToleranceMode.Percent
                         ? Math.Abs(surface.Radius) * Math.Abs(settings.RadiusTolerance) / 100.0
@@ -205,6 +219,21 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                 if (operand.SurfaceNumber >= 0 && operand.SurfaceNumber < surfaceCount)
                 {
                     var surface = Runtime.CurrentOptic.SurfaceGroup.Items[operand.SurfaceNumber];
+                    if (IsFringeOperand(operand.Kind))
+                    {
+                        var wavelength = operand.TestWavelengthMicrometers
+                            ?? SurfaceFringePerturbation.DefaultTestWavelengthMicrometers;
+                        if (operand.SurfaceNumber == 0 || operand.SurfaceNumber == surfaceCount - 1
+                            || !SurfaceFringePerturbation.Supports(surface))
+                            messages.Add($"第 {operand.Index} 行的条纹公差需要有圆形有效口径的标准实体表面。");
+                        else if (!SurfaceFringePerturbation.IsValidTestWavelength(wavelength))
+                            messages.Add($"第 {operand.Index} 行的条纹检测波长须为 0.001–1000 µm。");
+                        else if (operand.Kind == ToleranceOperandKind.FringePower
+                            && (!SurfaceFringePerturbation.IsValidPowerChange(surface, wavelength, operand.Minimum)
+                                || !SurfaceFringePerturbation.IsValidPowerChange(surface, wavelength, operand.Maximum)))
+                            messages.Add($"第 {operand.Index} 行的曲率条纹范围使净口径超出曲面有效域。");
+                    }
+
                     if (operand.Kind is ToleranceOperandKind.Thickness or ToleranceOperandKind.Compensator
                         && surface.Thickness + operand.Minimum < 0)
                     {
@@ -242,13 +271,19 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                          .GroupBy(item => (
                              item.Kind,
                              item.SurfaceNumber,
-                             item.EndSurfaceNumber,
-                             item.ParameterIndex))
+                             EndSurfaceNumber: IsFringeOperand(item.Kind) ? -1 : item.EndSurfaceNumber,
+                             ParameterIndex: IsFringeOperand(item.Kind) ? 0 : item.ParameterIndex))
                          .Where(group => group.Count() > 1))
             {
                 messages.Add($"{duplicate.Key.Kind} / 表面 {duplicate.Key.SurfaceNumber} 重复定义。");
             }
 
+            foreach (var group in enabled.GroupBy(row => row.SurfaceNumber))
+            {
+                if (group.Any(row => row.Kind == ToleranceOperandKind.FringePower)
+                    && group.Any(row => row.Kind == ToleranceOperandKind.Radius))
+                    messages.Add($"表面 {group.Key} 的 TRAD 与 TFRN 同时定义了曲率误差。");
+            }
             return new ToleranceValidationResultDto(messages.Count == 0, messages);
         }
     }
@@ -271,6 +306,9 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
         ForbesQGeometry forbes => forbes.QCoefficients.Count,
         _ => 0
     };
+
+    private static bool IsFringeOperand(ToleranceOperandKind kind) =>
+        kind is ToleranceOperandKind.FringePower or ToleranceOperandKind.FringeIrregularity;
 
     private static bool IsElementOperand(ToleranceOperandKind kind) => kind is
         ToleranceOperandKind.ElementDecenterX
@@ -477,7 +515,8 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
         ToleranceDistribution distribution,
         string comment,
         int endSurfaceNumber = -1,
-        int parameterIndex = 0)
+        int parameterIndex = 0,
+        double? testWavelengthMicrometers = null)
     {
         var absolute = Math.Abs(tolerance);
         if (absolute <= 1e-15)
@@ -495,6 +534,7 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
             distribution,
             comment,
             endSurfaceNumber,
-            parameterIndex));
+            parameterIndex,
+            testWavelengthMicrometers));
     }
 }

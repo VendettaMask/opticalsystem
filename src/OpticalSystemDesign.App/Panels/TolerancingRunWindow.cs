@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
 using Avalonia.Layout;
 using Avalonia.Media;
 using OpticalSystemDesign.App.Controls;
@@ -272,6 +273,12 @@ public sealed partial class TolerancingRunWindow : Window
     private static ComboBox Picker(int selectedIndex, params string[] items) => new()
     {
         ItemsSource = items,
+        ItemTemplate = new FuncDataTemplate<string>((value, _) =>
+        {
+            var label = new TextBlock { Text = value };
+            UiLocalization.LocalizeChoiceLabel(label);
+            return label;
+        }),
         SelectedIndex = selectedIndex,
         MinWidth = 160,
         HorizontalAlignment = HorizontalAlignment.Stretch

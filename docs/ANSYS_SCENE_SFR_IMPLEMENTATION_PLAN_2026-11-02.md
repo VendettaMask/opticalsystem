@@ -136,7 +136,7 @@ flowchart LR
 
 ### M3 实际图像上的多 ROI 测量
 
-本机选框、像素坐标编辑、逐任务多 ROI、近水平/近竖直、ESF/LSF/SFR 与质量、法线和伴随记录回放已实现，见[操作与边界](SCENE_SLANTED_EDGE_SFR.md#全幅图上的多-roi-sfr)及[定向验证](../validation/rechecks/2026-11-03/scene-multi-roi-sfr/README.md)。独立工具读回及同 ROI 数值比较尚未完成，M3 的完整交付仍保持开放。
+本机选框、像素坐标编辑、逐任务多 ROI、近水平/近竖直、ESF/LSF/SFR 与质量、法线和伴随记录回放已实现，见[操作与边界](SCENE_SLANTED_EDGE_SFR.md#全幅图上的多-roi-sfr)及[定向验证](../validation/rechecks/2026-11-03/scene-multi-roi-sfr/README.md)。已用独立 MTF Mapper CLI 对冻结线性图作同 ROI 数值复核，逐项保留通过与拒绝结果。桌面端读回仍列为后续集成。见[2026-11-05 验收记录](../validation/rechecks/2026-11-05/scene-mtf/README.md)。
 
 SFR 输入接口只接收线性图像、像元元数据和用户 ROI。增加手动选边、多 ROI 管理、近水平与近竖直边支持，保留 ESF、LSF、拟合残差、有效样本、SFR、MTF50 和质量原因。
 
@@ -147,6 +147,8 @@ ROI 必须避开棋盘交点、邻边、遮挡、裁切和不可用的饱和区�
 交付：整幅图上的多个测量位置及方向、内部与独立工具逐 ROI 对照。
 
 ### M4 正式 MTF 和完整收敛闭环
+
+已接入有限共轭、连续视场和任意实测法线的正式几何 MTF 对照，并记录计入实际像元的预测及预算内采样梯级。曲线、误差和验收边界见[2026-11-05 验收记录](../validation/rechecks/2026-11-05/scene-mtf/README.md)。
 
 将 ROI 像素坐标换算为传感器毫米坐标，再按实际镜头／ROM 映射求对应视场。不能以整幅传感器中心代替任意 ROI，也不能仅取最近一个已定义视场而忽略偏差。自由选点可以作为连续视场求值，原定义视场仍显示原 Field 编号；所有映射数值存入元数据。
 

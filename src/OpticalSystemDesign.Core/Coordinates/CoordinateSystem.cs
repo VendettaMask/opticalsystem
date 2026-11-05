@@ -30,6 +30,22 @@ public sealed record CoordinateSystem(
         return RotationMatrix().Transform(localDirection);
     }
 
+    /// <summary>Moves this pose with a rigid change of reference frame.</summary>
+    public CoordinateSystem MoveWithFrame(CoordinateSystem from, CoordinateSystem to)
+    {
+        if (from.RotationXDegrees == to.RotationXDegrees && from.RotationYDegrees == to.RotationYDegrees
+            && from.RotationZDegrees == to.RotationZDegrees)
+            return this with { Origin = Origin + (to.Origin - from.Origin) };
+
+        var origin = to.ToGlobalPoint(from.ToLocalPoint(Origin));
+        var rotation = to.RotationMatrix() * from.RotationMatrix().Transpose() * RotationMatrix();
+        var horizontal = Math.Sqrt(rotation.M11 * rotation.M11 + rotation.M21 * rotation.M21);
+        var pitch = Math.Atan2(-rotation.M31, horizontal);
+        var roll = horizontal > 1e-12 ? Math.Atan2(rotation.M32, rotation.M33) : 0;
+        var yaw = horizontal > 1e-12 ? Math.Atan2(rotation.M21, rotation.M11) : Math.Atan2(-rotation.M12, rotation.M22);
+        return new CoordinateSystem(origin, roll * 180 / Math.PI, pitch * 180 / Math.PI, yaw * 180 / Math.PI);
+    }
+
     private Matrix3x3 RotationMatrix()
     {
         var rx = DegreesToRadians(RotationXDegrees);

@@ -9,6 +9,7 @@ using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
@@ -42,12 +43,12 @@ public sealed class MtfTolerancingPanelTests
                 Criterion = ToleranceCriterion.Mtf,
                 YieldLimit = .2,
                 MtfSettings = new(30, FieldLimits: [new(2, .15)]),
-                AdditionalCompensators = [new(2, ToleranceCompensatorKind.Thickness, -.05, .05)]
+                AdditionalCompensators = [new(1, ToleranceCompensatorKind.ElementTiltY, -.05, .05, 2)]
             };
             var window = new TolerancingRunWindow(options, app.Prescription.GetFields(), app.Prescription.GetSurfaces(), app.Prescription.GetWavelengths()) { Width = width, Height = 760 };
             try
             {
-                window.Show(); Tick(); var tabs = window.GetVisualDescendants().OfType<TabControl>().Single();
+                window.Show(); window.SetRenderScaling(width == 480 ? 1.5 : 1); Tick(); var tabs = window.GetVisualDescendants().OfType<TabControl>().Single();
                 tabs.SelectedIndex = 1; Tick(); Capture("criterion");
                 var frequency = Field<NumericUpDown>(window, "_mtfFrequency");
                 Assert.Equal(30, frequency.Value); Assert.True(frequency.IsEffectivelyVisible);
@@ -67,7 +68,12 @@ public sealed class MtfTolerancingPanelTests
                 var draft = (TolerancingRunOptions)window.GetType().GetMethod("BuildOptions", BindingFlags.Instance | BindingFlags.NonPublic)!.Invoke(window, null)!;
                 Assert.Equal(ToleranceCompensationAlgorithm.CoordinatePatternSearch, draft.CompensationAlgorithm);
                 Assert.Equal(.18, Assert.Single(draft.MtfSettings!.FieldLimits!).Minimum);
-                Assert.Single(draft.AdditionalCompensators!);
+                var end = window.GetVisualDescendants().OfType<NumericUpDown>()
+                    .Single(control => AutomationProperties.GetName(control) == "镜组终止面");
+                Assert.True(end.IsEffectivelyVisible);
+                Assert.Equal(2, end.Value);
+                Assert.InRange(end.TranslatePoint(default, window)!.Value.X + end.Bounds.Width, 0, window.Bounds.Width - 25);
+                Assert.Equal(options.AdditionalCompensators, draft.AdditionalCompensators);
                 Assert.Contains("accent", window.GetVisualDescendants().OfType<Button>().Single(button => Equals(button.Content, "运行")).Classes);
                 Assert.DoesNotContain("accent", window.GetVisualDescendants().OfType<Button>().Single(button => Equals(button.Content, "取消")).Classes);
 
@@ -117,6 +123,112 @@ public sealed class MtfTolerancingPanelTests
     }
 
     [Fact]
+    public async Task WizardGeneratesPowerAndIrregularityWithSelectedTestWavelength()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MtfTolerancingPanelTests));
+        await session.Dispatch(() =>
+        {
+            ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
+            using var app = WorkbenchApplication.Create("cooke");
+            var owner = new Window { Width = 640, Height = 720 };
+            var wizard = new ToleranceWizardWindow(app.Prescription) { Width = 640 };
+            owner.Show();
+            try
+            {
+                var settings = wizard.ShowDialog<ToleranceWizardSettingsDto>(owner);
+                wizard.SetRenderScaling(1.5);
+                var mode = Field<ComboBox>(wizard, "_radiusMode");
+                var wavelength = Field<NumericUpDown>(wizard, "_testWavelength");
+                Assert.False(wavelength.IsEnabled);
+                mode.SelectedIndex = (int)RadiusToleranceMode.Fringes;
+                Assert.True(wavelength.IsEnabled);
+                wavelength.Value = .5461m;
+                Field<NumericUpDown>(wizard, "_powerFringes").Value = .75m;
+                Field<CheckBox>(wizard, "_irregularityEnabled").IsChecked = true;
+                Dispatcher.UIThread.RunJobs();
+                wizard.UpdateLayout();
+                Assert.True(wavelength.IsEffectivelyVisible);
+                Assert.InRange(mode.Bounds.Width, 120, 640);
+                Assert.InRange(wavelength.TranslatePoint(default, wizard)!.Value.X + wavelength.Bounds.Width, 0, wizard.Bounds.Width);
+                CaptureFrame(wizard, "fringe-wizard-light-640.png");
+                try
+                {
+                    UiLocalization.Apply(UiLocalization.English);
+                    Dispatcher.UIThread.RunJobs();
+                    Assert.Contains(mode.GetVisualDescendants().OfType<TextBlock>(), text => text.Text == "Power fringes");
+                    Assert.Equal((int)RadiusToleranceMode.Fringes, mode.SelectedIndex);
+                    UiLocalization.Apply(UiLocalization.Japanese);
+                    Dispatcher.UIThread.RunJobs();
+                    Assert.Contains(mode.GetVisualDescendants().OfType<TextBlock>(), text => text.Text == "パワー縞");
+                }
+                finally { UiLocalization.Apply(UiLocalization.Chinese); }
+
+                var confirm = wizard.GetVisualDescendants().OfType<Button>().Single(button => Equals(button.Content, "确定"));
+                confirm.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Dispatcher.UIThread.RunJobs();
+                Assert.True(settings.IsCompletedSuccessfully);
+                var rows = app.Tolerancing.GenerateWizard(settings.Result);
+                Assert.Contains(rows, row => row.Kind == ToleranceOperandKind.FringePower
+                    && row.Maximum == .75 && row.TestWavelengthMicrometers == .5461);
+                Assert.Contains(rows, row => row.Kind == ToleranceOperandKind.FringeIrregularity
+                    && row.Maximum == .2 && row.TestWavelengthMicrometers == .5461);
+                Assert.DoesNotContain(rows, row => row.Kind == ToleranceOperandKind.Radius);
+                Assert.True(app.Tolerancing.ValidateOperands(rows).IsValid);
+            }
+            finally
+            {
+                if (wizard.IsVisible) wizard.Close();
+                owner.Close();
+            }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task FringeEditorAppliesWavelengthAndRoundTripsVersionFour()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MtfTolerancingPanelTests));
+        await session.Dispatch(() =>
+        {
+            ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
+            using var app = WorkbenchApplication.Create("cooke");
+            using var panel = new TolerancingPanel(app.Documents, app.Prescription, app.Tolerancing, app.Events);
+            var window = new Window { Width = 840, Height = 820, Content = panel };
+            try
+            {
+                window.Show();
+                var grid = Field<DataGrid>(panel, "_operandGrid");
+                var row = Assert.IsType<ToleranceOperandEditorRow>(grid.SelectedItem);
+                row.Code = "TIRR";
+                row.SurfaceNumber = 1;
+                var wavelength = Field<NumericUpDown>(panel, "_testWavelength");
+                Assert.True(wavelength.IsEffectivelyVisible);
+                Assert.Equal(.6328m, wavelength.Value);
+                wavelength.Value = .5461m;
+                var apply = panel.GetVisualDescendants().OfType<Button>()
+                    .Single(button => Equals(button.Content, "应用到当前行"));
+                apply.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Assert.Equal(.5461, row.ToDto().TestWavelengthMicrometers);
+                Assert.Contains("0.5461", panel.BuildToleranceReportText());
+
+                var study = panel.BuildStudyFile() with
+                {
+                    AdditionalCompensators = [new(1, ToleranceCompensatorKind.ElementDecenterX, -.05, .05, 2)]
+                };
+                Assert.Equal(4, study.SchemaVersion);
+                var json = new JsonSerializerOptions { Converters = { new System.Text.Json.Serialization.JsonStringEnumConverter() } };
+                var restored = panel.ParseStudyFile(JsonSerializer.Serialize(study, json));
+                Assert.Equal(study.Operands, restored.Operands);
+                Assert.Equal(study.AdditionalCompensators, restored.AdditionalCompensators);
+                Assert.Throws<InvalidDataException>(() =>
+                    panel.ParseStudyFile(JsonSerializer.Serialize(study with { SchemaVersion = 3 }, json)));
+
+                CaptureFrame(window, "fringe-editor-light-840.png");
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
     public async Task ReportPublishesJointYieldIndividualFieldsAndBoundedCompensation()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MtfTolerancingPanelTests));
@@ -141,6 +253,19 @@ public sealed class MtfTolerancingPanelTests
             operands[0].Comment = "制造扰动已修改";
             Assert.Null(panel.GetType().GetField("_lastResult", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(panel));
         }, CancellationToken.None);
+    }
+
+    private static void CaptureFrame(Window window, string name)
+    {
+        var directory = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_MTF_TOLERANCE_CAPTURE_DIR");
+        if (string.IsNullOrWhiteSpace(directory)) return;
+        Dispatcher.UIThread.RunJobs();
+        window.UpdateLayout();
+        AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+        Directory.CreateDirectory(directory);
+        using var frame = window.CaptureRenderedFrame();
+        Assert.NotNull(frame);
+        frame.Save(Path.Combine(directory, name), PngBitmapEncoderOptions.Default);
     }
 
     private static T Field<T>(object instance, string name) => (T)instance.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(instance)!;

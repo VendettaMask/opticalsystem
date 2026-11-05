@@ -23,6 +23,7 @@ public sealed record DirectCameraRenderResult(SpectralDetectorPower DetectorPowe
 /// Scene intersections use the NSC BVH. Pixel quadrature samples the actual active area; no 2D PSF fallback.</summary>
 public static partial class DirectCameraRenderer
 {
+    public const int MaximumPupilRings = 32;
     public const long MaximumRays = 8_388_608;
     public const long MaximumSurfaceInteractions = 100_000_000;
 
@@ -42,7 +43,7 @@ public static partial class DirectCameraRenderer
         ArgumentNullException.ThrowIfNull(optic); ArgumentNullException.ThrowIfNull(scene); ArgumentNullException.ThrowIfNull(settings);
         CameraSensorPipeline.ValidateDimensions(settings.Width, settings.Height); CameraPixelAperture.Validate(settings.PixelSampling);
         if (!double.IsFinite(settings.PixelPitchMicrometers) || settings.PixelPitchMicrometers is < .1 or > 100
-            || settings.PupilRings is < 1 or > 8 || settings.PupilArms is < 4 or > 32)
+            || settings.PupilRings is < 1 or > MaximumPupilRings || settings.PupilArms is < 4 or > 32)
             throw new ArgumentException("Invalid camera pixel pitch or pupil quadrature.");
         var copy = optic.Clone(); var surfaces = copy.SurfaceGroup.Items.ToArray();
         if (copy.Apodization is not null || !copy.Polarization.Unpolarized)

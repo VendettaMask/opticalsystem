@@ -1,6 +1,6 @@
 # 物方棋盘与线性场景斜边
 
-2026-11-03：已接入 M1 单 ROI、M2 预算内全幅逐源谱，以及 M3 的原始线性图多 ROI 测量与两类边缘方向，遵循[Ansys 工作流计划](ANSYS_SCENE_SFR_IMPLEMENTATION_PLAN_2026-11-02.md)。原文 5000×3000、ROM、独立工具、正式 MTF 和收敛验收继续开放。[M1](../validation/rechecks/2026-11-02/ansys-scene-sfr/README.md)、[M2](../validation/rechecks/2026-11-02/scene-linear-batch/README.md)与[多 ROI 记录](../validation/rechecks/2026-11-03/scene-multi-roi-sfr/README.md)各保留自身范围。
+截至 2026-11-05，已接入 M1 单 ROI、M2 预算内全幅逐源谱，以及 M3 的原始线性图多 ROI 测量与两类边缘方向，遵循[Ansys 工作流计划](ANSYS_SCENE_SFR_IMPLEMENTATION_PLAN_2026-11-02.md)。正式几何参考、MTF Mapper 同图复核与采样梯级见[本轮验收记录](../validation/rechecks/2026-11-05/scene-mtf/README.md)。原文 5000×3000 和 ROM 继续开放。[M1](../validation/rechecks/2026-11-02/ansys-scene-sfr/README.md)、[M2](../validation/rechecks/2026-11-02/scene-linear-batch/README.md)与[多 ROI 记录](../validation/rechecks/2026-11-03/scene-multi-roi-sfr/README.md)各保留自身范围。
 
 ## 使用入口
 
@@ -48,13 +48,13 @@
 
 打开归档时检查文件摘要、任务/节点完整性、全幅尺寸、全局计算量、节点求和、面积换算及 PNG 物理量化一致性。任务下拉框可查看各图，屏幕 8 位预览也使用同一标尺；多 ROI SFR 读取归档中的 float64 辐照度。明确打开的冻结实验在工程切换后保持来源，按冻结条件另存复算沿用原输入。
 
-对应接口为 `PrepareSceneLinearBatch`、`RunSceneLinearBatchAsync`、`OpenSceneLinearBatchAsync` 和 `ReadSceneLinearTaskAsync`。自定义离散或有限源谱的批次可由接口声明，界面提供当前镜头与原文形状两种预设及自定义文件回放。逐任务的正式 MTF、独立工具与收敛不是本阶段的通过项。
+对应接口为 `PrepareSceneLinearBatch`、`RunSceneLinearBatchAsync`、`OpenSceneLinearBatchAsync` 和 `ReadSceneLinearTaskAsync`。自定义离散或有限源谱的批次可由接口声明，界面提供当前镜头与原文形状两种预设及自定义文件回放。正式 MTF 与独立工具验证使用另行保存的对照证据。
 
 ## 全幅图上的多 ROI SFR
 
 完成或打开 `.scene-linear.zip` 后，切换“多 ROI SFR”。在完整预览上拖框，或填写从 0 起的左列、顶行、宽、高；反向拖动和窗口适配均换算回原始像素，不重采样图像。填写唯一名称、选择“近竖直边”或“近水平边”，再添加或更新 ROI。列表可选择、删除，修改定义会清除旧测量。每个 ROI 宽高各 32–256 px、法线半窗口 8–48 px；最多 32 个定义、128 个任务/ROI 组合。可测全部波段，也可只测当前任务，共用同一组原幅面坐标。
 
-测量器只接原始 W/m² 像元与像元尺寸，不读取靶标角度、镜头参考或显示图。水平边通过无插值转置复用同一估计器；截距映回原幅面，像面毫米坐标与法线按首行方向转换。位置是实际拟合边缘在 ROI 中段的像素中心，法线为探测器局部 X/Y 下的规范无符号方向，尚未赋予 T/S 或自动匹配视场。两种方向保留既有 `0.02 ≤ |slope| ≤ 0.25`、残差 `≤0.25 px`、窗口支持和非空投影箱门限；没有放宽原质量标准，也未宣称完整 ISO 12233 实现。
+测量器只接原始 W/m² 像元与像元尺寸，不读取靶标角度、镜头参考或显示图。水平边通过无插值转置复用同一估计器；截距映回原幅面，像面毫米坐标与法线按首行方向转换。位置是实际拟合边缘在 ROI 中段的像素中心，法线为探测器局部 X/Y 下的规范无符号方向。后续正式参考按该位置反解视场，并沿同一法线求值。两种方向保留既有 `0.02 ≤ |slope| ≤ 0.25`、残差 `≤0.25 px`、窗口支持和非空投影箱门限；没有放宽原质量标准，也未宣称完整 ISO 12233 实现。
 
 每项独立返回曲线或明确失败：无光、非法区域、无对比度、交点/邻边导致的不一致、角度/拟合或采样支持不足。失败项没有替代曲线，其他 ROI 继续测量；可以取得拟合时保留失败前的斜率、残差和扫描线数。有效结果还保留每箱最少样本和投影样本总数、线性对比差、ESF、加窗 LSF、SFR、Nyquist 内的首次 MTF50/MTF10 交叉，以及 cycles/pixel、cycles/mm 两套频率。没有交叉时显示“Nyquist 内未交叉”。
 
@@ -62,7 +62,13 @@
 
 “保存 ROI 与结果”只写 `.scene-sfr-rois.json`，拒绝其他后缀以保护原图归档；内容包括定义、逐任务结果/失败、算法、像元/行序、源文档、镜头摘要、完整批次清单摘要和辐照度文件摘要。它是原归档的伴随记录，不复制镜头与像元；保留对应 `.scene-linear.zip`。打开记录会核对源身份，并从同一浮点图逐项重算验证，不重新追迹镜头，也不使用当前工程。源批次不符或结果被修改会拒绝。由当前工程实时生成的源在工程变化时清除图与结果；明确打开的冻结源及其 ROI 记录继续保留身份。
 
-对应接口为 `MeasureSceneLinearRoisAsync`、`SaveSceneLinearRoisAsync`、`OpenSceneLinearRoisAsync`，共享 Core 为 `LinearImageRoiSfr`。本阶段没有自动寻找所有边、曲边拟合、任意 PNG 的线性标定导入、MTF Mapper 读回或正式光学 MTF 对照。取得曲线表示 ROI 通过测量质量检查，不能据此判定场景采样已收敛。
+对应接口为 `MeasureSceneLinearRoisAsync`、`SaveSceneLinearRoisAsync`、`OpenSceneLinearRoisAsync`，共享 Core 为 `LinearImageRoiSfr`。桌面端保留手动选边和现有测量质量提示。正式对照与 MTF Mapper 复核可按下节在后台执行。取得曲线表示 ROI 通过图像测量质量检查，采样收敛由独立梯级验证。
+
+## 正式几何 MTF 与独立复核
+
+`CompareSceneLinearMtfAsync` 对已验证的冻结批次重新测量选定 ROI。参考在派生镜头上用有限共轭反解连续物高，保留首实体面至探测面的间距，按实测法线投影正式几何 OTF，关闭衍射极限乘项。记录纯光学和一次计入实际方形感光区响应的两条曲线，使用 cycles/pixel 和 cycles/mm。对交点、欠采样等失败 ROI 保留原因；无法匹配参考时单独记录。现阶段通过应用接口与后台诊断输出结果。
+
+全幅逐波段可选最高 32 个瞳面径向节点，原来的光线、表面传播、像元和存储总预算仍适用。使用保留的原幅面线性 Gray16 进行 MTF Mapper 同 ROI 验证，定量结果和复现方法见[验收记录](../validation/rechecks/2026-11-05/scene-mtf/README.md)。
 
 ## 原例与后续边界
 
@@ -70,4 +76,4 @@
 
 保存相机为 5000×3000、2.5×1.5 mm，即 0.5 µm 像元；完整 1500 万像元即使每像元一条光线也超过既有 8388608 光线和 262144 像元上限。`.OPTDistortion` 为未解码的二进制；原处方也未通过当前场景追迹器的几何适用性检查。因此原例全流程仍未复现，不用缩小传感器或其他镜头代替其验收。
 
-预算内的全幅分块、逐源谱编排、线性交换与多 ROI 已接入；仍需原例完整幅面的专用资源方案、原场景几何/源单位和验收参数、独立工具逐 ROI 比较、匹配共轭/方向的正式 MTF、各级收敛、原生 ROM 及声明版本的 Ansys 文件接口。既有局部单色/多波长 SFR 的通过记录保持其原范围。
+预算内的全幅分块、逐源谱编排、线性交换与多 ROI 已接入；仍需原例完整幅面的专用资源方案、原场景几何/源单位和验收参数、超出当前控制试验范围的收敛和参考验收、原生 ROM 及声明版本的 Ansys 文件接口。既有局部单色/多波长 SFR 的通过记录保持其原范围。

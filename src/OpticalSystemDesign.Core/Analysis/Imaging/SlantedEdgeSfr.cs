@@ -19,8 +19,14 @@ public static class SlantedEdgeSfr
 
     public static SlantedEdgeMeasurement Measure(IReadOnlyList<double> pixels, int width, int height,
         SfrRegion roi, double pixelPitchMicrometers, int halfWindowPixels = 24, Action<SlantedEdgeFit>? fitted = null)
+        => MeasureAtBinDensity(pixels, width, height, roi, pixelPitchMicrometers, halfWindowPixels, 8, fitted);
+
+    /// <summary>Explicit sensitivity check for ESF bin density. The scene measurement protocol uses eight bins per pixel.</summary>
+    public static SlantedEdgeMeasurement MeasureAtBinDensity(IReadOnlyList<double> pixels, int width, int height,
+        SfrRegion roi, double pixelPitchMicrometers, int halfWindowPixels, int oversampling, Action<SlantedEdgeFit>? fitted = null)
     {
         ArgumentNullException.ThrowIfNull(pixels); ArgumentNullException.ThrowIfNull(roi);
+        if (oversampling is not (4 or 8 or 16)) throw new ArgumentOutOfRangeException(nameof(oversampling));
         if (width is < 32 or > 256 || height is < 32 or > 256 || pixels.Count != width * height
             || roi.X < 0 || roi.Y < 0 || roi.Width < 32 || roi.Height < 32
             || (long)roi.X + roi.Width > width || (long)roi.Y + roi.Height > height
@@ -59,7 +65,6 @@ public static class SlantedEdgeSfr
         if (Enumerable.Range(0, roi.Height).Any(y => Math.Min(intercept + slope * y, roi.Width - 1 - intercept - slope * y) / scale < halfWindowPixels + 1))
             throw new InvalidOperationException("ROI is too narrow for the requested edge window; enlarge/reposition it or reduce the window explicitly.");
 
-        const int oversampling = 8;
         var count = 2 * halfWindowPixels * oversampling + 1;
         var sums = new double[count]; var weights = new int[count];
         for (var y = 0; y < roi.Height; y++)

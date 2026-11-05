@@ -4,6 +4,7 @@ using System.Text.Json;
 using Avalonia.Media;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Core.Optimization;
 
 namespace OpticalSystemDesign.Tests;
@@ -62,6 +63,35 @@ public sealed class MeritOperandRowPaletteTests
             if (code is "DIVI" or "DIVB")
                 Assert.NotEqual(MeritOperandRowPalette.ResolveVisual(code, theme).Background,
                     MeritOperandRowPalette.ResolveVisual(code, theme, hasError: true).Background);
+        }
+    }
+
+    [Fact]
+    public void LightMeritTintsStandOutAndEveryToleranceKindHasReadableStates()
+    {
+        var light = ThemeRegistry.FromSettings("Light");
+        foreach (var code in new[] { "AXCL", "REAY", "EFFL", "MNEA", "OPDX" })
+        {
+            var surface = light.Palette!.Surface;
+            var oldStrongest = MeritOperandRowPalette.Mix(surface, MeritOperandRowPalette.CategoryFor(code).Tint, .225);
+            var current = MeritOperandRowPalette.ResolveVisual(code, light).Background;
+            static int Distance(Color a, Color b) =>
+                Math.Abs(a.R - b.R) + Math.Abs(a.G - b.G) + Math.Abs(a.B - b.B);
+            Assert.True(Distance(current, surface) >= Distance(oldStrongest, surface) * 1.4, code);
+        }
+
+        var kinds = Enum.GetValues<ToleranceOperandKind>();
+        Assert.Equal(6, kinds.Select(k => MeritOperandRowPalette.ToleranceCategoryFor(k).Id).Distinct().Count());
+        Assert.Equal(kinds.Length, kinds.Select(k => MeritOperandRowPalette.ResolveToleranceVisual(k, light).Background).Distinct().Count());
+        foreach (var theme in ThemeRegistry.ConcreteThemes)
+        foreach (var kind in kinds)
+        foreach (var selected in new[] { false, true })
+        foreach (var hovered in new[] { false, true })
+        {
+            var appearance = MeritOperandRowPalette.ResolveToleranceVisual(kind, theme, hovered, selected);
+            Assert.Equal(theme.Palette!.TextPrimary, appearance.Foreground);
+            Assert.True(Contrast(appearance.Foreground, appearance.Background) >= 4.5,
+                $"{theme.SettingsValue}/{kind}/{hovered}/{selected}");
         }
     }
 

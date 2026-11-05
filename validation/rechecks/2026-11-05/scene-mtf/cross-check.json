@@ -1,0 +1,6682 @@
+{
+  "tool": "0.7.40",
+  "executable_sha256": "6bdb50911e80ce00e35465b9c44a304eccc84667ed7bcd7834c8624b86f3a273",
+  "numpy": "2.4.6",
+  "formal_mtf_sha256": "53d43508a0ea44805e9c8b0d4b521886748d2d374ca1cf3b1a7e5ebc44614a9f",
+  "flags": "--single-roi --linear --esf-model loess --sfr --edges",
+  "gates": {
+    "frequency_band_cpp": [
+      0,
+      0.1
+    ],
+    "diagnostic_band_cpp": [
+      0,
+      0.5
+    ],
+    "tool_max_abs": 0.04,
+    "formal_max_abs": 0.05,
+    "mtf50_abs_cpp": 0.005,
+    "convergence_max_abs": 0.025,
+    "convergence_mtf50_abs_cpp": 0.003
+  },
+  "results": [
+    {
+      "scene": "cross",
+      "task": 0,
+      "roi": {
+        "Id": "V top",
+        "Region": {
+          "X": 24,
+          "Y": 0,
+          "Width": 80,
+          "Height": 48
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 12
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "230337345bf3ef7f13f3d1e9cf6d48a61463e478ce5d84bb54bf225db506f233",
+      "float_sha256": "c12f95002111621ccb4b12d9e3b880eb7f72df99b26983f075c128e6f73232d6",
+      "max_quantization_error": 3.398802271084578e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "bb14f85cc49613428a9c3d0f112609b6fc6d45094276286e1f0dea6f11a0ba7a",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0625 0.0625 0.0625 0.0625 0.0625  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          35.99873,
+          23.495646
+        ],
+        "edge_angle_deg": 5.159202,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.062485,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963953
+          ],
+          [
+            0.03125,
+            0.859843
+          ],
+          [
+            0.046875,
+            0.699246
+          ],
+          [
+            0.0625,
+            0.499807
+          ],
+          [
+            0.078125,
+            0.28299
+          ],
+          [
+            0.09375,
+            0.071383
+          ],
+          [
+            0.109375,
+            0.111708
+          ],
+          [
+            0.125,
+            0.249796
+          ],
+          [
+            0.140625,
+            0.335811
+          ],
+          [
+            0.15625,
+            0.365582
+          ],
+          [
+            0.171875,
+            0.339358
+          ],
+          [
+            0.1875,
+            0.27677
+          ],
+          [
+            0.203125,
+            0.185302
+          ],
+          [
+            0.21875,
+            0.088113
+          ],
+          [
+            0.234375,
+            0.008372
+          ],
+          [
+            0.25,
+            0.089119
+          ],
+          [
+            0.265625,
+            0.136783
+          ],
+          [
+            0.28125,
+            0.169461
+          ],
+          [
+            0.296875,
+            0.175937
+          ],
+          [
+            0.3125,
+            0.153472
+          ],
+          [
+            0.328125,
+            0.122959
+          ],
+          [
+            0.34375,
+            0.080915
+          ],
+          [
+            0.359375,
+            0.034627
+          ],
+          [
+            0.375,
+            0.009213
+          ],
+          [
+            0.390625,
+            0.046562
+          ],
+          [
+            0.40625,
+            0.072616
+          ],
+          [
+            0.421875,
+            0.085351
+          ],
+          [
+            0.4375,
+            0.085716
+          ],
+          [
+            0.453125,
+            0.074383
+          ],
+          [
+            0.46875,
+            0.054155
+          ],
+          [
+            0.484375,
+            0.028593
+          ],
+          [
+            0.5,
+            0.00141
+          ]
+        ]
+      },
+      "mtf50_native": 0.062456333991990555,
+      "tool_error": {
+        "max_abs": 0.0005889108383259067,
+        "rms": 0.00034779840437689787,
+        "mtf50_abs_cycles_per_pixel": 2.866600800944391e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06682809184086683,
+        "rms": 0.032664150497599874,
+        "mtf50_abs_cycles_per_pixel": 2.866600800944391e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.06318829783510323,
+        "rms": 0.013013971277093424,
+        "mtf50_abs_cycles_per_pixel": 2.8545469900047304e-05
+      },
+      "tool_centre_error_pixels": 0.004439750498737618,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481810679063486,
+      "mtf50_pixel": 0.07435531388874095,
+      "optical_error": {
+        "max_abs": 0.2647424600754227,
+        "rms": 0.13218839918707462,
+        "mtf50_abs_cycles_per_pixel": 0.012361772798644304
+      },
+      "pixel_error": {
+        "max_abs": 0.26021351669120335,
+        "rms": 0.12906481427941432,
+        "mtf50_abs_cycles_per_pixel": 0.011898979896750393
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.32246652621174315,
+        "rms": 0.13007716863874608,
+        "mtf50_abs_cycles_per_pixel": 0.011898979896750393
+      },
+      "pixel_band_pass": false,
+      "reference_density_error": {
+        "max_abs": 0.0004919039111115769,
+        "rms": 0.0002443200498081412,
+        "mtf50_abs_cycles_per_pixel": 2.5004031718872666e-05
+      }
+    },
+    {
+      "scene": "cross",
+      "task": 0,
+      "roi": {
+        "Id": "H left",
+        "Region": {
+          "X": 0,
+          "Y": 24,
+          "Width": 48,
+          "Height": 80
+        },
+        "Orientation": 1,
+        "HalfWindowPixels": 12
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "230337345bf3ef7f13f3d1e9cf6d48a61463e478ce5d84bb54bf225db506f233",
+      "float_sha256": "c12f95002111621ccb4b12d9e3b880eb7f72df99b26983f075c128e6f73232d6",
+      "max_quantization_error": 3.398802271084578e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "6907e8134bfc3c5cc21132c3dee3dfdd0f657b4e0c2a035e13df4279cd23449a",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0625 0.0625 0.0625 0.0625 0.0625  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          23.495649,
+          43.001108
+        ],
+        "edge_angle_deg": 5.159138,
+        "declared_orientation": 1,
+        "mtf50_reported": 0.062485,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963954
+          ],
+          [
+            0.03125,
+            0.859845
+          ],
+          [
+            0.046875,
+            0.699247
+          ],
+          [
+            0.0625,
+            0.499808
+          ],
+          [
+            0.078125,
+            0.28299
+          ],
+          [
+            0.09375,
+            0.071384
+          ],
+          [
+            0.109375,
+            0.111708
+          ],
+          [
+            0.125,
+            0.249796
+          ],
+          [
+            0.140625,
+            0.335811
+          ],
+          [
+            0.15625,
+            0.365581
+          ],
+          [
+            0.171875,
+            0.339358
+          ],
+          [
+            0.1875,
+            0.276769
+          ],
+          [
+            0.203125,
+            0.185302
+          ],
+          [
+            0.21875,
+            0.088114
+          ],
+          [
+            0.234375,
+            0.008371
+          ],
+          [
+            0.25,
+            0.089119
+          ],
+          [
+            0.265625,
+            0.136782
+          ],
+          [
+            0.28125,
+            0.169461
+          ],
+          [
+            0.296875,
+            0.175937
+          ],
+          [
+            0.3125,
+            0.153472
+          ],
+          [
+            0.328125,
+            0.12296
+          ],
+          [
+            0.34375,
+            0.080918
+          ],
+          [
+            0.359375,
+            0.034631
+          ],
+          [
+            0.375,
+            0.009207
+          ],
+          [
+            0.390625,
+            0.046555
+          ],
+          [
+            0.40625,
+            0.072607
+          ],
+          [
+            0.421875,
+            0.085341
+          ],
+          [
+            0.4375,
+            0.085705
+          ],
+          [
+            0.453125,
+            0.074372
+          ],
+          [
+            0.46875,
+            0.054145
+          ],
+          [
+            0.484375,
+            0.028584
+          ],
+          [
+            0.5,
+            0.001403
+          ]
+        ]
+      },
+      "mtf50_native": 0.06245636155788967,
+      "tool_error": {
+        "max_abs": 0.0005898526246693597,
+        "rms": 0.0003482481820871107,
+        "mtf50_abs_cycles_per_pixel": 2.8638442110331952e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06683475808192296,
+        "rms": 0.03266689241569839,
+        "mtf50_abs_cycles_per_pixel": 2.8638442110331952e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.06318886550704507,
+        "rms": 0.013013959409529674,
+        "mtf50_abs_cycles_per_pixel": 2.8596248757978282e-05
+      },
+      "tool_centre_error_pixels": 0.004518328186800495,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481810677155817,
+      "mtf50_pixel": 0.07435531386997547,
+      "optical_error": {
+        "max_abs": 0.26474244575787426,
+        "rms": 0.13218823546777553,
+        "mtf50_abs_cycles_per_pixel": 0.012361745213668507
+      },
+      "pixel_error": {
+        "max_abs": 0.2602135023768039,
+        "rms": 0.12906465168037956,
+        "mtf50_abs_cycles_per_pixel": 0.011898952312085806
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.32246691562095653,
+        "rms": 0.1300772133104915,
+        "mtf50_abs_cycles_per_pixel": 0.011898952312085806
+      },
+      "pixel_band_pass": false,
+      "reference_density_error": {
+        "max_abs": 0.0004919040147006032,
+        "rms": 0.0002443200943223528,
+        "mtf50_abs_cycles_per_pixel": 2.500405008368234e-05
+      }
+    },
+    {
+      "scene": "cross",
+      "task": 0,
+      "roi": {
+        "Id": "V bottom",
+        "Region": {
+          "X": 24,
+          "Y": 80,
+          "Width": 80,
+          "Height": 48
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 12
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "230337345bf3ef7f13f3d1e9cf6d48a61463e478ce5d84bb54bf225db506f233",
+      "float_sha256": "c12f95002111621ccb4b12d9e3b880eb7f72df99b26983f075c128e6f73232d6",
+      "max_quantization_error": 3.398802271084578e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "3f38bfb38b8c9e40807cbd8bdea993cb618c18d87a4bd169d159474e0af370f2",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0625 0.0625 0.0625 0.0625 0.0625  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          43.00127,
+          23.504354
+        ],
+        "edge_angle_deg": 5.159202,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.062496,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963964
+          ],
+          [
+            0.03125,
+            0.859886
+          ],
+          [
+            0.046875,
+            0.699337
+          ],
+          [
+            0.0625,
+            0.499954
+          ],
+          [
+            0.078125,
+            0.283191
+          ],
+          [
+            0.09375,
+            0.071627
+          ],
+          [
+            0.109375,
+            0.111448
+          ],
+          [
+            0.125,
+            0.249553
+          ],
+          [
+            0.140625,
+            0.335624
+          ],
+          [
+            0.15625,
+            0.365491
+          ],
+          [
+            0.171875,
+            0.339403
+          ],
+          [
+            0.1875,
+            0.276968
+          ],
+          [
+            0.203125,
+            0.185663
+          ],
+          [
+            0.21875,
+            0.088613
+          ],
+          [
+            0.234375,
+            0.007766
+          ],
+          [
+            0.25,
+            0.088461
+          ],
+          [
+            0.265625,
+            0.136153
+          ],
+          [
+            0.28125,
+            0.16889
+          ],
+          [
+            0.296875,
+            0.175469
+          ],
+          [
+            0.3125,
+            0.153142
+          ],
+          [
+            0.328125,
+            0.122754
+          ],
+          [
+            0.34375,
+            0.080817
+          ],
+          [
+            0.359375,
+            0.034596
+          ],
+          [
+            0.375,
+            0.009235
+          ],
+          [
+            0.390625,
+            0.046644
+          ],
+          [
+            0.40625,
+            0.072832
+          ],
+          [
+            0.421875,
+            0.085771
+          ],
+          [
+            0.4375,
+            0.086394
+          ],
+          [
+            0.453125,
+            0.075356
+          ],
+          [
+            0.46875,
+            0.055432
+          ],
+          [
+            0.484375,
+            0.03016
+          ],
+          [
+            0.5,
+            0.00323
+          ]
+        ]
+      },
+      "mtf50_native": 0.06245633399199053,
+      "tool_error": {
+        "max_abs": 0.0008329108383259703,
+        "rms": 0.00048488820151685685,
+        "mtf50_abs_cycles_per_pixel": 3.966600800947573e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06674609184086688,
+        "rms": 0.032711452758289766,
+        "mtf50_abs_cycles_per_pixel": 3.966600800947573e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.06323069783510321,
+        "rms": 0.013036150846848504,
+        "mtf50_abs_cycles_per_pixel": 4.006113698235697e-05
+      },
+      "tool_centre_error_pixels": 0.004439750498745975,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481810679063482,
+      "mtf50_pixel": 0.07435531388874089,
+      "optical_error": {
+        "max_abs": 0.2647424600754231,
+        "rms": 0.13218839918707465,
+        "mtf50_abs_cycles_per_pixel": 0.01236177279864429
+      },
+      "pixel_error": {
+        "max_abs": 0.26021351669120385,
+        "rms": 0.1290648142794144,
+        "mtf50_abs_cycles_per_pixel": 0.011898979896750365
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.32246652621174254,
+        "rms": 0.13007716863874602,
+        "mtf50_abs_cycles_per_pixel": 0.011898979896750365
+      },
+      "pixel_band_pass": false,
+      "reference_density_error": {
+        "max_abs": 0.0004919039111115839,
+        "rms": 0.0002443200498082824,
+        "mtf50_abs_cycles_per_pixel": 2.5004031718942055e-05
+      }
+    },
+    {
+      "scene": "cross",
+      "task": 0,
+      "roi": {
+        "Id": "H right",
+        "Region": {
+          "X": 80,
+          "Y": 24,
+          "Width": 48,
+          "Height": 80
+        },
+        "Orientation": 1,
+        "HalfWindowPixels": 12
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "230337345bf3ef7f13f3d1e9cf6d48a61463e478ce5d84bb54bf225db506f233",
+      "float_sha256": "c12f95002111621ccb4b12d9e3b880eb7f72df99b26983f075c128e6f73232d6",
+      "max_quantization_error": 3.398802271084578e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "343cc97442e77cf8ac5de229f44a8793730ac90e3556aa87533960b7036ec652",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0625 0.0625 0.0625 0.0625 0.0625  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          23.504351,
+          35.998892
+        ],
+        "edge_angle_deg": 5.159138,
+        "declared_orientation": 1,
+        "mtf50_reported": 0.062496,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963965
+          ],
+          [
+            0.03125,
+            0.859888
+          ],
+          [
+            0.046875,
+            0.699338
+          ],
+          [
+            0.0625,
+            0.499954
+          ],
+          [
+            0.078125,
+            0.28319
+          ],
+          [
+            0.09375,
+            0.071626
+          ],
+          [
+            0.109375,
+            0.111448
+          ],
+          [
+            0.125,
+            0.249553
+          ],
+          [
+            0.140625,
+            0.335624
+          ],
+          [
+            0.15625,
+            0.365491
+          ],
+          [
+            0.171875,
+            0.339402
+          ],
+          [
+            0.1875,
+            0.276967
+          ],
+          [
+            0.203125,
+            0.185662
+          ],
+          [
+            0.21875,
+            0.088612
+          ],
+          [
+            0.234375,
+            0.007767
+          ],
+          [
+            0.25,
+            0.088462
+          ],
+          [
+            0.265625,
+            0.136154
+          ],
+          [
+            0.28125,
+            0.168891
+          ],
+          [
+            0.296875,
+            0.17547
+          ],
+          [
+            0.3125,
+            0.153144
+          ],
+          [
+            0.328125,
+            0.122756
+          ],
+          [
+            0.34375,
+            0.08082
+          ],
+          [
+            0.359375,
+            0.0346
+          ],
+          [
+            0.375,
+            0.009229
+          ],
+          [
+            0.390625,
+            0.046637
+          ],
+          [
+            0.40625,
+            0.072823
+          ],
+          [
+            0.421875,
+            0.085762
+          ],
+          [
+            0.4375,
+            0.086384
+          ],
+          [
+            0.453125,
+            0.075346
+          ],
+          [
+            0.46875,
+            0.055422
+          ],
+          [
+            0.484375,
+            0.030151
+          ],
+          [
+            0.5,
+            0.003223
+          ]
+        ]
+      },
+      "mtf50_native": 0.06245636155788961,
+      "tool_error": {
+        "max_abs": 0.0008318526246695185,
+        "rms": 0.0004844735938765116,
+        "mtf50_abs_cycles_per_pixel": 3.9638442110391525e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06675275808192281,
+        "rms": 0.03271359162174155,
+        "mtf50_abs_cycles_per_pixel": 3.9638442110391525e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.0632300655070451,
+        "rms": 0.013035786579765965,
+        "mtf50_abs_cycles_per_pixel": 4.0033589163310235e-05
+      },
+      "tool_centre_error_pixels": 0.004518328186804326,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481810677156703,
+      "mtf50_pixel": 0.07435531386998419,
+      "optical_error": {
+        "max_abs": 0.26474244575796935,
+        "rms": 0.1321882354678369,
+        "mtf50_abs_cycles_per_pixel": 0.012361745213677416
+      },
+      "pixel_error": {
+        "max_abs": 0.26021350237689755,
+        "rms": 0.12906465168044023,
+        "mtf50_abs_cycles_per_pixel": 0.011898952312094577
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.3224669156209607,
+        "rms": 0.1300772133105024,
+        "mtf50_abs_cycles_per_pixel": 0.011898952312094577
+      },
+      "pixel_band_pass": false,
+      "reference_density_error": {
+        "max_abs": 0.0004919040147004713,
+        "rms": 0.0002443200943223186,
+        "mtf50_abs_cycles_per_pixel": 2.500405008368234e-05
+      }
+    },
+    {
+      "scene": "cross",
+      "task": 0,
+      "roi": {
+        "Id": "crossing",
+        "Region": {
+          "X": 16,
+          "Y": 16,
+          "Width": 96,
+          "Height": 96
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aROI has no measurable edge contrast.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "230337345bf3ef7f13f3d1e9cf6d48a61463e478ce5d84bb54bf225db506f233",
+      "float_sha256": "c12f95002111621ccb4b12d9e3b880eb7f72df99b26983f075c128e6f73232d6",
+      "max_quantization_error": 3.398802271084578e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "e42ea0ed52d24e55bb61a407bf9d6c96eec33d0606544deb747998691c63352d",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0305 0.0305 0.0305 0.0305 0.0305  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          47.499996,
+          47.499997
+        ],
+        "edge_angle_deg": 5.037709,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.030453,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.776447
+          ],
+          [
+            0.03125,
+            0.485139
+          ],
+          [
+            0.046875,
+            0.129102
+          ],
+          [
+            0.0625,
+            0.169027
+          ],
+          [
+            0.078125,
+            0.129017
+          ],
+          [
+            0.09375,
+            0.089814
+          ],
+          [
+            0.109375,
+            0.300284
+          ],
+          [
+            0.125,
+            0.348266
+          ],
+          [
+            0.140625,
+            0.262409
+          ],
+          [
+            0.15625,
+            0.057575
+          ],
+          [
+            0.171875,
+            0.122583
+          ],
+          [
+            0.1875,
+            0.256723
+          ],
+          [
+            0.203125,
+            0.312984
+          ],
+          [
+            0.21875,
+            0.28817
+          ],
+          [
+            0.234375,
+            0.235268
+          ],
+          [
+            0.25,
+            0.147032
+          ],
+          [
+            0.265625,
+            0.072205
+          ],
+          [
+            0.28125,
+            0.019298
+          ],
+          [
+            0.296875,
+            0.103736
+          ],
+          [
+            0.3125,
+            0.192613
+          ],
+          [
+            0.328125,
+            0.275626
+          ],
+          [
+            0.34375,
+            0.355876
+          ],
+          [
+            0.359375,
+            0.42819
+          ],
+          [
+            0.375,
+            0.490539
+          ],
+          [
+            0.390625,
+            0.535768
+          ],
+          [
+            0.40625,
+            0.563821
+          ],
+          [
+            0.421875,
+            0.570431
+          ],
+          [
+            0.4375,
+            0.556064
+          ],
+          [
+            0.453125,
+            0.520119
+          ],
+          [
+            0.46875,
+            0.465396
+          ],
+          [
+            0.484375,
+            0.396497
+          ],
+          [
+            0.5,
+            0.318878
+          ]
+        ]
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-512",
+      "task": 0,
+      "roi": {
+        "Id": "V top",
+        "Region": {
+          "X": 160,
+          "Y": 8,
+          "Width": 192,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "836b342edace44203c82e7ef0c24204148a12d9d19d9b7530a2201522204d00f",
+      "float_sha256": "86d0aa3e6a2be2a612734069018a116d51f85630b389484f0e98717dc0e2c1ec",
+      "max_quantization_error": 1.021531282206084e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "71a7612fa52c01dc9360d07c79cddf31c2c9cc2d8ca2ea8ff61d2f5e8e039034",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0892 0.0892 0.0892 0.0892 0.0892  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          79.794393,
+          63.130579
+        ],
+        "edge_angle_deg": 4.949942,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.089225,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.982336
+          ],
+          [
+            0.03125,
+            0.930289
+          ],
+          [
+            0.046875,
+            0.846629
+          ],
+          [
+            0.0625,
+            0.735821
+          ],
+          [
+            0.078125,
+            0.603807
+          ],
+          [
+            0.09375,
+            0.457681
+          ],
+          [
+            0.109375,
+            0.312003
+          ],
+          [
+            0.125,
+            0.164532
+          ],
+          [
+            0.140625,
+            0.021751
+          ],
+          [
+            0.15625,
+            0.110062
+          ],
+          [
+            0.171875,
+            0.215381
+          ],
+          [
+            0.1875,
+            0.287078
+          ],
+          [
+            0.203125,
+            0.321034
+          ],
+          [
+            0.21875,
+            0.318713
+          ],
+          [
+            0.234375,
+            0.303755
+          ],
+          [
+            0.25,
+            0.283182
+          ],
+          [
+            0.265625,
+            0.281747
+          ],
+          [
+            0.28125,
+            0.289396
+          ],
+          [
+            0.296875,
+            0.320246
+          ],
+          [
+            0.3125,
+            0.389512
+          ],
+          [
+            0.328125,
+            0.461966
+          ],
+          [
+            0.34375,
+            0.546969
+          ],
+          [
+            0.359375,
+            0.636227
+          ],
+          [
+            0.375,
+            0.719561
+          ],
+          [
+            0.390625,
+            0.788781
+          ],
+          [
+            0.40625,
+            0.835196
+          ],
+          [
+            0.421875,
+            0.853592
+          ],
+          [
+            0.4375,
+            0.844949
+          ],
+          [
+            0.453125,
+            0.809778
+          ],
+          [
+            0.46875,
+            0.753306
+          ],
+          [
+            0.484375,
+            0.683152
+          ],
+          [
+            0.5,
+            0.607889
+          ]
+        ]
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-512",
+      "task": 0,
+      "roi": {
+        "Id": "V middle",
+        "Region": {
+          "X": 160,
+          "Y": 192,
+          "Width": 192,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "836b342edace44203c82e7ef0c24204148a12d9d19d9b7530a2201522204d00f",
+      "float_sha256": "86d0aa3e6a2be2a612734069018a116d51f85630b389484f0e98717dc0e2c1ec",
+      "max_quantization_error": 1.021531282206084e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "09b13d554f6a278cbbe78e8fc2554f1fac727392f706c16d03d556f357b6d18d",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.1058 0.1058 0.1058 0.1058 0.1058  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          95.513352,
+          63.546594
+        ],
+        "edge_angle_deg": 4.956201,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.105807,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.986702
+          ],
+          [
+            0.03125,
+            0.9475
+          ],
+          [
+            0.046875,
+            0.884453
+          ],
+          [
+            0.0625,
+            0.800731
+          ],
+          [
+            0.078125,
+            0.700658
+          ],
+          [
+            0.09375,
+            0.589617
+          ],
+          [
+            0.109375,
+            0.473477
+          ],
+          [
+            0.125,
+            0.358477
+          ],
+          [
+            0.140625,
+            0.250581
+          ],
+          [
+            0.15625,
+            0.155401
+          ],
+          [
+            0.171875,
+            0.078491
+          ],
+          [
+            0.1875,
+            0.02258
+          ],
+          [
+            0.203125,
+            0.009312
+          ],
+          [
+            0.21875,
+            0.012701
+          ],
+          [
+            0.234375,
+            0.007076
+          ],
+          [
+            0.25,
+            0.051078
+          ],
+          [
+            0.265625,
+            0.118794
+          ],
+          [
+            0.28125,
+            0.200894
+          ],
+          [
+            0.296875,
+            0.295713
+          ],
+          [
+            0.3125,
+            0.398034
+          ],
+          [
+            0.328125,
+            0.501143
+          ],
+          [
+            0.34375,
+            0.601009
+          ],
+          [
+            0.359375,
+            0.692136
+          ],
+          [
+            0.375,
+            0.769701
+          ],
+          [
+            0.390625,
+            0.829955
+          ],
+          [
+            0.40625,
+            0.869434
+          ],
+          [
+            0.421875,
+            0.885948
+          ],
+          [
+            0.4375,
+            0.878495
+          ],
+          [
+            0.453125,
+            0.847067
+          ],
+          [
+            0.46875,
+            0.793008
+          ],
+          [
+            0.484375,
+            0.718795
+          ],
+          [
+            0.5,
+            0.627946
+          ]
+        ]
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-512",
+      "task": 0,
+      "roi": {
+        "Id": "V bottom",
+        "Region": {
+          "X": 160,
+          "Y": 360,
+          "Width": 192,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "836b342edace44203c82e7ef0c24204148a12d9d19d9b7530a2201522204d00f",
+      "float_sha256": "86d0aa3e6a2be2a612734069018a116d51f85630b389484f0e98717dc0e2c1ec",
+      "max_quantization_error": 1.021531282206084e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "69b620f43936e1504f32a93af640d2ed8c21e711c8345d04ad5ca4d92df8abc1",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0893 0.0893 0.0893 0.0893 0.0893  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          109.871601,
+          64.436299
+        ],
+        "edge_angle_deg": 5.025915,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.089291,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.982364
+          ],
+          [
+            0.03125,
+            0.930391
+          ],
+          [
+            0.046875,
+            0.84684
+          ],
+          [
+            0.0625,
+            0.736169
+          ],
+          [
+            0.078125,
+            0.604313
+          ],
+          [
+            0.09375,
+            0.458347
+          ],
+          [
+            0.109375,
+            0.312228
+          ],
+          [
+            0.125,
+            0.164431
+          ],
+          [
+            0.140625,
+            0.022886
+          ],
+          [
+            0.15625,
+            0.106888
+          ],
+          [
+            0.171875,
+            0.215534
+          ],
+          [
+            0.1875,
+            0.296136
+          ],
+          [
+            0.203125,
+            0.343331
+          ],
+          [
+            0.21875,
+            0.348413
+          ],
+          [
+            0.234375,
+            0.320468
+          ],
+          [
+            0.25,
+            0.257281
+          ],
+          [
+            0.265625,
+            0.159282
+          ],
+          [
+            0.28125,
+            0.041179
+          ],
+          [
+            0.296875,
+            0.094446
+          ],
+          [
+            0.3125,
+            0.239027
+          ],
+          [
+            0.328125,
+            0.383418
+          ],
+          [
+            0.34375,
+            0.521084
+          ],
+          [
+            0.359375,
+            0.643879
+          ],
+          [
+            0.375,
+            0.744944
+          ],
+          [
+            0.390625,
+            0.81956
+          ],
+          [
+            0.40625,
+            0.864063
+          ],
+          [
+            0.421875,
+            0.877567
+          ],
+          [
+            0.4375,
+            0.861587
+          ],
+          [
+            0.453125,
+            0.819868
+          ],
+          [
+            0.46875,
+            0.758437
+          ],
+          [
+            0.484375,
+            0.684828
+          ],
+          [
+            0.5,
+            0.607208
+          ]
+        ]
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-512",
+      "task": 0,
+      "roi": {
+        "Id": "H candidate",
+        "Region": {
+          "X": 8,
+          "Y": 144,
+          "Width": 144,
+          "Height": 128
+        },
+        "Orientation": 1,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "836b342edace44203c82e7ef0c24204148a12d9d19d9b7530a2201522204d00f",
+      "float_sha256": "86d0aa3e6a2be2a612734069018a116d51f85630b389484f0e98717dc0e2c1ec",
+      "max_quantization_error": 1.021531282206084e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "c561ae23e5a0b882ad68a0beed2f8583f7c3d76f695d9bd1c02282f0aa67a38a",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n",
+        "stderr": "",
+        "failure": "Expected exactly one valid reported edge"
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-512",
+      "task": 1,
+      "roi": {
+        "Id": "V top",
+        "Region": {
+          "X": 160,
+          "Y": 8,
+          "Width": 192,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aEdge window does not contain a usable line-spread response.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "7eebcd9d50f282e29b8308c2e58d2a5a724e484c575605a8852ef0b8fa4f4844",
+      "float_sha256": "29265da73ca43c9702df21f58d22e5de4c73ec204e8432bfb2a2efc28da4d27c",
+      "max_quantization_error": 1.0215389243482115e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "8e6da9220bce2dc797c55ad2309ff86398a959ef745377050fe9dd63746f6091",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.6453 0.6453 0.6453 0.6453 0.6453  (total=1)\n",
+        "stderr": "",
+        "failure": "Expected exactly one valid reported edge"
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-512",
+      "task": 1,
+      "roi": {
+        "Id": "V middle",
+        "Region": {
+          "X": 160,
+          "Y": 192,
+          "Width": 192,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "7eebcd9d50f282e29b8308c2e58d2a5a724e484c575605a8852ef0b8fa4f4844",
+      "float_sha256": "29265da73ca43c9702df21f58d22e5de4c73ec204e8432bfb2a2efc28da4d27c",
+      "max_quantization_error": 1.0215389243482115e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "b0775e2d7454c168bf449290c7cf0cb6a83d01063ff657a3260cecc782154306",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.7457 0.7457 0.7457 0.7457 0.7457  (total=1)\n",
+        "stderr": "",
+        "failure": "Expected exactly one valid reported edge"
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-512",
+      "task": 1,
+      "roi": {
+        "Id": "V bottom",
+        "Region": {
+          "X": 160,
+          "Y": 360,
+          "Width": 192,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "7eebcd9d50f282e29b8308c2e58d2a5a724e484c575605a8852ef0b8fa4f4844",
+      "float_sha256": "29265da73ca43c9702df21f58d22e5de4c73ec204e8432bfb2a2efc28da4d27c",
+      "max_quantization_error": 1.0215389243482115e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "552bf6f1253059447d20e33f36ab4534ff6bf40a0a242309efd1e0c91419fa20",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.6512 0.6512 0.6512 0.6512 0.6512  (total=1)\n",
+        "stderr": "",
+        "failure": "Expected exactly one valid reported edge"
+      },
+      "mtf50_native": 0.08837635510250082,
+      "mtf50_optical": 0.07486984996190416,
+      "mtf50_pixel": 0.07440628266908039,
+      "optical_error": {
+        "max_abs": 0.13067343152118283,
+        "rms": 0.08390860173757465,
+        "mtf50_abs_cycles_per_pixel": 0.013506505140596661
+      },
+      "pixel_error": {
+        "max_abs": 0.1353040896664202,
+        "rms": 0.08713742199310966,
+        "mtf50_abs_cycles_per_pixel": 0.013970072433420425
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.1353040896664202,
+        "rms": 0.06942622604042392,
+        "mtf50_abs_cycles_per_pixel": 0.013970072433420425
+      },
+      "pixel_band_pass": false
+    },
+    {
+      "scene": "coarse-512",
+      "task": 1,
+      "roi": {
+        "Id": "H candidate",
+        "Region": {
+          "X": 8,
+          "Y": 144,
+          "Width": 144,
+          "Height": 128
+        },
+        "Orientation": 1,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "7eebcd9d50f282e29b8308c2e58d2a5a724e484c575605a8852ef0b8fa4f4844",
+      "float_sha256": "29265da73ca43c9702df21f58d22e5de4c73ec204e8432bfb2a2efc28da4d27c",
+      "max_quantization_error": 1.0215389243482115e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "3d0b902325a901d8f6a6699cf24a8416559d5719fd4e8462a5e9ab60d5c9051e",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n",
+        "stderr": "",
+        "failure": "Expected exactly one valid reported edge"
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-512",
+      "task": 2,
+      "roi": {
+        "Id": "V top",
+        "Region": {
+          "X": 160,
+          "Y": 8,
+          "Width": 192,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "e6ab139cb88d3d52216d310c0c8b175ac083dd3d9195474eeead7b27952022cb",
+      "float_sha256": "5498dca5408e87b9e09c49c3a0b4425647597b833e476514d35599a6239ece92",
+      "max_quantization_error": 1.0215399652187263e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "8abb28d8dad3961a20f35b2f22dfa5a10990511ea0fb82c4ce9e0b77b93fb7f2",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0716 0.0716 0.0716 0.0716 0.0716  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          80.110406,
+          60.949906
+        ],
+        "edge_angle_deg": 5.090591,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.071631,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.961213
+          ],
+          [
+            0.03125,
+            0.864516
+          ],
+          [
+            0.046875,
+            0.741239
+          ],
+          [
+            0.0625,
+            0.598562
+          ],
+          [
+            0.078125,
+            0.429894
+          ],
+          [
+            0.09375,
+            0.260384
+          ],
+          [
+            0.109375,
+            0.07854
+          ],
+          [
+            0.125,
+            0.085187
+          ],
+          [
+            0.140625,
+            0.219318
+          ],
+          [
+            0.15625,
+            0.309953
+          ],
+          [
+            0.171875,
+            0.349123
+          ],
+          [
+            0.1875,
+            0.33859
+          ],
+          [
+            0.203125,
+            0.277568
+          ],
+          [
+            0.21875,
+            0.166568
+          ],
+          [
+            0.234375,
+            0.025203
+          ],
+          [
+            0.25,
+            0.137125
+          ],
+          [
+            0.265625,
+            0.300479
+          ],
+          [
+            0.28125,
+            0.456162
+          ],
+          [
+            0.296875,
+            0.590924
+          ],
+          [
+            0.3125,
+            0.67807
+          ],
+          [
+            0.328125,
+            0.745447
+          ],
+          [
+            0.34375,
+            0.776742
+          ],
+          [
+            0.359375,
+            0.773755
+          ],
+          [
+            0.375,
+            0.7423
+          ],
+          [
+            0.390625,
+            0.690703
+          ],
+          [
+            0.40625,
+            0.628454
+          ],
+          [
+            0.421875,
+            0.564648
+          ],
+          [
+            0.4375,
+            0.504075
+          ],
+          [
+            0.453125,
+            0.452742
+          ],
+          [
+            0.46875,
+            0.413288
+          ],
+          [
+            0.484375,
+            0.386044
+          ],
+          [
+            0.5,
+            0.369795
+          ]
+        ]
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-512",
+      "task": 2,
+      "roi": {
+        "Id": "V middle",
+        "Region": {
+          "X": 160,
+          "Y": 192,
+          "Width": 192,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "e6ab139cb88d3d52216d310c0c8b175ac083dd3d9195474eeead7b27952022cb",
+      "float_sha256": "5498dca5408e87b9e09c49c3a0b4425647597b833e476514d35599a6239ece92",
+      "max_quantization_error": 1.0215399652187263e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "4a9de1e5a1e87cdb542dd9d98f98fd6abaa58b646f1c93b5010bcc9eb3363dba",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0795 0.0795 0.0795 0.0795 0.0795  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          95.558283,
+          63.797864
+        ],
+        "edge_angle_deg": 4.901513,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.079506,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.977254
+          ],
+          [
+            0.03125,
+            0.909619
+          ],
+          [
+            0.046875,
+            0.80511
+          ],
+          [
+            0.0625,
+            0.669331
+          ],
+          [
+            0.078125,
+            0.514099
+          ],
+          [
+            0.09375,
+            0.354565
+          ],
+          [
+            0.109375,
+            0.20027
+          ],
+          [
+            0.125,
+            0.065898
+          ],
+          [
+            0.140625,
+            0.038954
+          ],
+          [
+            0.15625,
+            0.105886
+          ],
+          [
+            0.171875,
+            0.128305
+          ],
+          [
+            0.1875,
+            0.111089
+          ],
+          [
+            0.203125,
+            0.054307
+          ],
+          [
+            0.21875,
+            0.037186
+          ],
+          [
+            0.234375,
+            0.149066
+          ],
+          [
+            0.25,
+            0.273066
+          ],
+          [
+            0.265625,
+            0.395043
+          ],
+          [
+            0.28125,
+            0.510828
+          ],
+          [
+            0.296875,
+            0.609738
+          ],
+          [
+            0.3125,
+            0.674769
+          ],
+          [
+            0.328125,
+            0.720843
+          ],
+          [
+            0.34375,
+            0.73673
+          ],
+          [
+            0.359375,
+            0.722335
+          ],
+          [
+            0.375,
+            0.68014
+          ],
+          [
+            0.390625,
+            0.614342
+          ],
+          [
+            0.40625,
+            0.531256
+          ],
+          [
+            0.421875,
+            0.438249
+          ],
+          [
+            0.4375,
+            0.341691
+          ],
+          [
+            0.453125,
+            0.249843
+          ],
+          [
+            0.46875,
+            0.169564
+          ],
+          [
+            0.484375,
+            0.106365
+          ],
+          [
+            0.5,
+            0.064029
+          ]
+        ]
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-512",
+      "task": 2,
+      "roi": {
+        "Id": "V bottom",
+        "Region": {
+          "X": 160,
+          "Y": 360,
+          "Width": 192,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "e6ab139cb88d3d52216d310c0c8b175ac083dd3d9195474eeead7b27952022cb",
+      "float_sha256": "5498dca5408e87b9e09c49c3a0b4425647597b833e476514d35599a6239ece92",
+      "max_quantization_error": 1.0215399652187263e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "c523913b5bdc7036e08b7f3f099fb5d9fbb31e0ede8f8d0bb0caa8fedbc0c4c9",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0712 0.0712 0.0712 0.0712 0.0712  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          109.420794,
+          62.225958
+        ],
+        "edge_angle_deg": 5.336042,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.071237,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.972068
+          ],
+          [
+            0.03125,
+            0.890816
+          ],
+          [
+            0.046875,
+            0.763628
+          ],
+          [
+            0.0625,
+            0.60198
+          ],
+          [
+            0.078125,
+            0.419612
+          ],
+          [
+            0.09375,
+            0.247171
+          ],
+          [
+            0.109375,
+            0.066792
+          ],
+          [
+            0.125,
+            0.091043
+          ],
+          [
+            0.140625,
+            0.214649
+          ],
+          [
+            0.15625,
+            0.291646
+          ],
+          [
+            0.171875,
+            0.316679
+          ],
+          [
+            0.1875,
+            0.297666
+          ],
+          [
+            0.203125,
+            0.236249
+          ],
+          [
+            0.21875,
+            0.140512
+          ],
+          [
+            0.234375,
+            0.025144
+          ],
+          [
+            0.25,
+            0.099176
+          ],
+          [
+            0.265625,
+            0.21435
+          ],
+          [
+            0.28125,
+            0.321055
+          ],
+          [
+            0.296875,
+            0.407271
+          ],
+          [
+            0.3125,
+            0.456146
+          ],
+          [
+            0.328125,
+            0.489756
+          ],
+          [
+            0.34375,
+            0.49685
+          ],
+          [
+            0.359375,
+            0.480152
+          ],
+          [
+            0.375,
+            0.444632
+          ],
+          [
+            0.390625,
+            0.396006
+          ],
+          [
+            0.40625,
+            0.341198
+          ],
+          [
+            0.421875,
+            0.28633
+          ],
+          [
+            0.4375,
+            0.234409
+          ],
+          [
+            0.453125,
+            0.189629
+          ],
+          [
+            0.46875,
+            0.153647
+          ],
+          [
+            0.484375,
+            0.126369
+          ],
+          [
+            0.5,
+            0.106279
+          ]
+        ]
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-512",
+      "task": 2,
+      "roi": {
+        "Id": "H candidate",
+        "Region": {
+          "X": 8,
+          "Y": 144,
+          "Width": 144,
+          "Height": 128
+        },
+        "Orientation": 1,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "e6ab139cb88d3d52216d310c0c8b175ac083dd3d9195474eeead7b27952022cb",
+      "float_sha256": "5498dca5408e87b9e09c49c3a0b4425647597b833e476514d35599a6239ece92",
+      "max_quantization_error": 1.0215399652187263e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "b7cbd6b1816045c4c2213d49209228402504289ca9ce502a60695e46941d7246",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n",
+        "stderr": "",
+        "failure": "Expected exactly one valid reported edge"
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-spectra",
+      "task": 0,
+      "roi": {
+        "Id": "V centre",
+        "Region": {
+          "X": 0,
+          "Y": 0,
+          "Width": 128,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "6b986c710a6cd74109fb81c21842b62c0cbd3bc0f33e62db9e585bac3265e4d5",
+      "float_sha256": "b5c5c6ac1c7f6821617f9199bded3a3273d417548ad070ba9a7687795c945f47",
+      "max_quantization_error": 1.0171596045160936e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "d2756b333e06f3fd1d5b2f511cf53d4f23fb1b90756e5f156a184f82a6152eab",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.1051 0.1051 0.1051 0.1051 0.1051  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          63.499989,
+          63.499848
+        ],
+        "edge_angle_deg": 4.983547,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.105149,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.986483
+          ],
+          [
+            0.03125,
+            0.946654
+          ],
+          [
+            0.046875,
+            0.882643
+          ],
+          [
+            0.0625,
+            0.797875
+          ],
+          [
+            0.078125,
+            0.696888
+          ],
+          [
+            0.09375,
+            0.585075
+          ],
+          [
+            0.109375,
+            0.468465
+          ],
+          [
+            0.125,
+            0.353457
+          ],
+          [
+            0.140625,
+            0.246202
+          ],
+          [
+            0.15625,
+            0.152429
+          ],
+          [
+            0.171875,
+            0.077842
+          ],
+          [
+            0.1875,
+            0.024942
+          ],
+          [
+            0.203125,
+            0.003321
+          ],
+          [
+            0.21875,
+            0.00272
+          ],
+          [
+            0.234375,
+            0.021034
+          ],
+          [
+            0.25,
+            0.068717
+          ],
+          [
+            0.265625,
+            0.139401
+          ],
+          [
+            0.28125,
+            0.223682
+          ],
+          [
+            0.296875,
+            0.319564
+          ],
+          [
+            0.3125,
+            0.421334
+          ],
+          [
+            0.328125,
+            0.522681
+          ],
+          [
+            0.34375,
+            0.619241
+          ],
+          [
+            0.359375,
+            0.705523
+          ],
+          [
+            0.375,
+            0.776807
+          ],
+          [
+            0.390625,
+            0.829543
+          ],
+          [
+            0.40625,
+            0.860606
+          ],
+          [
+            0.421875,
+            0.868253
+          ],
+          [
+            0.4375,
+            0.851984
+          ],
+          [
+            0.453125,
+            0.812409
+          ],
+          [
+            0.46875,
+            0.751483
+          ],
+          [
+            0.484375,
+            0.672268
+          ],
+          [
+            0.5,
+            0.578769
+          ]
+        ]
+      },
+      "mtf50_native": 0.10530529177761472,
+      "tool_error": {
+        "max_abs": 0.0009436428858633494,
+        "rms": 0.0005035601508095172,
+        "mtf50_abs_cycles_per_pixel": 0.00015629177761471158
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.04838210081120897,
+        "rms": 0.02312444443538029,
+        "mtf50_abs_cycles_per_pixel": 0.00015629177761471158
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.0033365479064397796,
+        "rms": 0.0019702284259867937,
+        "mtf50_abs_cycles_per_pixel": 0.00015578165841395597
+      },
+      "tool_centre_error_pixels": 0.001030578305405528,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.054040576656265514,
+      "mtf50_pixel": 0.05388126273104398,
+      "optical_error": {
+        "max_abs": 0.6110197927304907,
+        "rms": 0.36619730706911685,
+        "mtf50_abs_cycles_per_pixel": 0.051264715121349204
+      },
+      "pixel_error": {
+        "max_abs": 0.6110540817185708,
+        "rms": 0.36741366549355325,
+        "mtf50_abs_cycles_per_pixel": 0.051424029046570736
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.9013349823220187,
+        "rms": 0.49635097670177586,
+        "mtf50_abs_cycles_per_pixel": 0.051424029046570736
+      },
+      "pixel_band_pass": false
+    },
+    {
+      "scene": "coarse-spectra",
+      "task": 0,
+      "roi": {
+        "Id": "H candidate",
+        "Region": {
+          "X": 0,
+          "Y": 0,
+          "Width": 128,
+          "Height": 128
+        },
+        "Orientation": 1,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aEdge does not span the ROI consistently.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "6b986c710a6cd74109fb81c21842b62c0cbd3bc0f33e62db9e585bac3265e4d5",
+      "float_sha256": "b5c5c6ac1c7f6821617f9199bded3a3273d417548ad070ba9a7687795c945f47",
+      "max_quantization_error": 1.0171596045160936e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "d2756b333e06f3fd1d5b2f511cf53d4f23fb1b90756e5f156a184f82a6152eab",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.1051 0.1051 0.1051 0.1051 0.1051  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          63.499989,
+          63.499848
+        ],
+        "edge_angle_deg": 4.983547,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.105149,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.986483
+          ],
+          [
+            0.03125,
+            0.946654
+          ],
+          [
+            0.046875,
+            0.882643
+          ],
+          [
+            0.0625,
+            0.797875
+          ],
+          [
+            0.078125,
+            0.696888
+          ],
+          [
+            0.09375,
+            0.585075
+          ],
+          [
+            0.109375,
+            0.468465
+          ],
+          [
+            0.125,
+            0.353457
+          ],
+          [
+            0.140625,
+            0.246202
+          ],
+          [
+            0.15625,
+            0.152429
+          ],
+          [
+            0.171875,
+            0.077842
+          ],
+          [
+            0.1875,
+            0.024942
+          ],
+          [
+            0.203125,
+            0.003321
+          ],
+          [
+            0.21875,
+            0.00272
+          ],
+          [
+            0.234375,
+            0.021034
+          ],
+          [
+            0.25,
+            0.068717
+          ],
+          [
+            0.265625,
+            0.139401
+          ],
+          [
+            0.28125,
+            0.223682
+          ],
+          [
+            0.296875,
+            0.319564
+          ],
+          [
+            0.3125,
+            0.421334
+          ],
+          [
+            0.328125,
+            0.522681
+          ],
+          [
+            0.34375,
+            0.619241
+          ],
+          [
+            0.359375,
+            0.705523
+          ],
+          [
+            0.375,
+            0.776807
+          ],
+          [
+            0.390625,
+            0.829543
+          ],
+          [
+            0.40625,
+            0.860606
+          ],
+          [
+            0.421875,
+            0.868253
+          ],
+          [
+            0.4375,
+            0.851984
+          ],
+          [
+            0.453125,
+            0.812409
+          ],
+          [
+            0.46875,
+            0.751483
+          ],
+          [
+            0.484375,
+            0.672268
+          ],
+          [
+            0.5,
+            0.578769
+          ]
+        ]
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-spectra",
+      "task": 1,
+      "roi": {
+        "Id": "V centre",
+        "Region": {
+          "X": 0,
+          "Y": 0,
+          "Width": 128,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "ee376238e9650c0d5d44885a5651c6c73af102234f0da454bba129e699fe892b",
+      "float_sha256": "caff9f9d30a05a93710388566095ee14a2da96ccd3274d99fc890382460f60c1",
+      "max_quantization_error": 1.0168389111275822e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "f543109f3ccf0bf74dd38b4c9953be887960198e693669e50c22d11019cfdff5",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.8132 0.8132 0.8132 0.8132 0.8132  (total=1)\n",
+        "stderr": "",
+        "failure": "Expected exactly one valid reported edge"
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-spectra",
+      "task": 1,
+      "roi": {
+        "Id": "H candidate",
+        "Region": {
+          "X": 0,
+          "Y": 0,
+          "Width": 128,
+          "Height": 128
+        },
+        "Orientation": 1,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aEdge does not span the ROI consistently.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "ee376238e9650c0d5d44885a5651c6c73af102234f0da454bba129e699fe892b",
+      "float_sha256": "caff9f9d30a05a93710388566095ee14a2da96ccd3274d99fc890382460f60c1",
+      "max_quantization_error": 1.0168389111275822e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "f543109f3ccf0bf74dd38b4c9953be887960198e693669e50c22d11019cfdff5",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.8132 0.8132 0.8132 0.8132 0.8132  (total=1)\n",
+        "stderr": "",
+        "failure": "Expected exactly one valid reported edge"
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-spectra",
+      "task": 2,
+      "roi": {
+        "Id": "V centre",
+        "Region": {
+          "X": 0,
+          "Y": 0,
+          "Width": 128,
+          "Height": 128
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aUse a single near-vertical edge, about 2\u201310 degrees from vertical; fit residual must be <= 0.25 pixel.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "cc455d7826909588064c574cafb01be6fd051600b1439439dd28c7ecce182bde",
+      "float_sha256": "57398fef7964f4b448bb9dad7812fe152ca969b4f8ce1503e86eabdf0e89078e",
+      "max_quantization_error": 1.0172883003825572e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "32c791cf8babf9ee4ba263d2821bb4cfeadb4782f2beacdab3a0bbc4ff9ebfe3",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0828 0.0828 0.0828 0.0828 0.0828  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          63.53839,
+          63.795785
+        ],
+        "edge_angle_deg": 4.936159,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.082775,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.978477
+          ],
+          [
+            0.03125,
+            0.915747
+          ],
+          [
+            0.046875,
+            0.816928
+          ],
+          [
+            0.0625,
+            0.689899
+          ],
+          [
+            0.078125,
+            0.544942
+          ],
+          [
+            0.09375,
+            0.393929
+          ],
+          [
+            0.109375,
+            0.249929
+          ],
+          [
+            0.125,
+            0.124418
+          ],
+          [
+            0.140625,
+            0.026263
+          ],
+          [
+            0.15625,
+            0.037147
+          ],
+          [
+            0.171875,
+            0.059167
+          ],
+          [
+            0.1875,
+            0.04439
+          ],
+          [
+            0.203125,
+            0.007132
+          ],
+          [
+            0.21875,
+            0.090736
+          ],
+          [
+            0.234375,
+            0.193185
+          ],
+          [
+            0.25,
+            0.306899
+          ],
+          [
+            0.265625,
+            0.418859
+          ],
+          [
+            0.28125,
+            0.525269
+          ],
+          [
+            0.296875,
+            0.616293
+          ],
+          [
+            0.3125,
+            0.676747
+          ],
+          [
+            0.328125,
+            0.719325
+          ],
+          [
+            0.34375,
+            0.733789
+          ],
+          [
+            0.359375,
+            0.71966
+          ],
+          [
+            0.375,
+            0.678771
+          ],
+          [
+            0.390625,
+            0.614509
+          ],
+          [
+            0.40625,
+            0.532299
+          ],
+          [
+            0.421875,
+            0.438655
+          ],
+          [
+            0.4375,
+            0.339452
+          ],
+          [
+            0.453125,
+            0.242417
+          ],
+          [
+            0.46875,
+            0.154364
+          ],
+          [
+            0.484375,
+            0.081236
+          ],
+          [
+            0.5,
+            0.027679
+          ]
+        ]
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "coarse-spectra",
+      "task": 2,
+      "roi": {
+        "Id": "H candidate",
+        "Region": {
+          "X": 0,
+          "Y": 0,
+          "Width": 128,
+          "Height": 128
+        },
+        "Orientation": 1,
+        "HalfWindowPixels": 24
+      },
+      "native_status": 3,
+      "native_failure": "\u672a\u6ee1\u8db3\u5355\u4e00\u659c\u8fb9\u8d28\u91cf\u6761\u4ef6\uff1aEdge does not span the ROI consistently.",
+      "reference_failure": "ROI did not pass image measurement quality.",
+      "source_png_sha256": "cc455d7826909588064c574cafb01be6fd051600b1439439dd28c7ecce182bde",
+      "float_sha256": "57398fef7964f4b448bb9dad7812fe152ca969b4f8ce1503e86eabdf0e89078e",
+      "max_quantization_error": 1.0172883003825572e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "32c791cf8babf9ee4ba263d2821bb4cfeadb4782f2beacdab3a0bbc4ff9ebfe3",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0828 0.0828 0.0828 0.0828 0.0828  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          63.53839,
+          63.795785
+        ],
+        "edge_angle_deg": 4.936159,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.082775,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.978477
+          ],
+          [
+            0.03125,
+            0.915747
+          ],
+          [
+            0.046875,
+            0.816928
+          ],
+          [
+            0.0625,
+            0.689899
+          ],
+          [
+            0.078125,
+            0.544942
+          ],
+          [
+            0.09375,
+            0.393929
+          ],
+          [
+            0.109375,
+            0.249929
+          ],
+          [
+            0.125,
+            0.124418
+          ],
+          [
+            0.140625,
+            0.026263
+          ],
+          [
+            0.15625,
+            0.037147
+          ],
+          [
+            0.171875,
+            0.059167
+          ],
+          [
+            0.1875,
+            0.04439
+          ],
+          [
+            0.203125,
+            0.007132
+          ],
+          [
+            0.21875,
+            0.090736
+          ],
+          [
+            0.234375,
+            0.193185
+          ],
+          [
+            0.25,
+            0.306899
+          ],
+          [
+            0.265625,
+            0.418859
+          ],
+          [
+            0.28125,
+            0.525269
+          ],
+          [
+            0.296875,
+            0.616293
+          ],
+          [
+            0.3125,
+            0.676747
+          ],
+          [
+            0.328125,
+            0.719325
+          ],
+          [
+            0.34375,
+            0.733789
+          ],
+          [
+            0.359375,
+            0.71966
+          ],
+          [
+            0.375,
+            0.678771
+          ],
+          [
+            0.390625,
+            0.614509
+          ],
+          [
+            0.40625,
+            0.532299
+          ],
+          [
+            0.421875,
+            0.438655
+          ],
+          [
+            0.4375,
+            0.339452
+          ],
+          [
+            0.453125,
+            0.242417
+          ],
+          [
+            0.46875,
+            0.154364
+          ],
+          [
+            0.484375,
+            0.081236
+          ],
+          [
+            0.5,
+            0.027679
+          ]
+        ]
+      },
+      "mtf50_native": null
+    },
+    {
+      "scene": "pupil-low",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "5717aa74233e8f8270993bae80c5c2c745e97734a2c0bff8d4830b1d2eaf0869",
+      "float_sha256": "95511c24fb9dbfec67e1f8794dcda83f4c5f42e43d5a9d0824d1ea171f25bb4d",
+      "max_quantization_error": 1.0090358294276985e-06,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "8c30b402b6eabc99af3b4fc650969085b23fedc4628b9098977a2b77be460807",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.4905 0.4905 0.4905 0.4905 0.4905  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.499996,
+          31.500014
+        ],
+        "edge_angle_deg": 4.997198,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.49047,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.999373
+          ],
+          [
+            0.03125,
+            0.997494
+          ],
+          [
+            0.046875,
+            0.994368
+          ],
+          [
+            0.0625,
+            0.990002
+          ],
+          [
+            0.078125,
+            0.984409
+          ],
+          [
+            0.09375,
+            0.977602
+          ],
+          [
+            0.109375,
+            0.969599
+          ],
+          [
+            0.125,
+            0.960421
+          ],
+          [
+            0.140625,
+            0.950092
+          ],
+          [
+            0.15625,
+            0.938639
+          ],
+          [
+            0.171875,
+            0.926088
+          ],
+          [
+            0.1875,
+            0.912477
+          ],
+          [
+            0.203125,
+            0.897838
+          ],
+          [
+            0.21875,
+            0.882203
+          ],
+          [
+            0.234375,
+            0.865622
+          ],
+          [
+            0.25,
+            0.848132
+          ],
+          [
+            0.265625,
+            0.829769
+          ],
+          [
+            0.28125,
+            0.810594
+          ],
+          [
+            0.296875,
+            0.790647
+          ],
+          [
+            0.3125,
+            0.769971
+          ],
+          [
+            0.328125,
+            0.748631
+          ],
+          [
+            0.34375,
+            0.72667
+          ],
+          [
+            0.359375,
+            0.704142
+          ],
+          [
+            0.375,
+            0.681101
+          ],
+          [
+            0.390625,
+            0.657601
+          ],
+          [
+            0.40625,
+            0.633697
+          ],
+          [
+            0.421875,
+            0.609447
+          ],
+          [
+            0.4375,
+            0.584904
+          ],
+          [
+            0.453125,
+            0.560127
+          ],
+          [
+            0.46875,
+            0.535173
+          ],
+          [
+            0.484375,
+            0.510098
+          ],
+          [
+            0.5,
+            0.48496
+          ]
+        ]
+      },
+      "mtf50_native": 0.4886184662329726,
+      "tool_error": {
+        "max_abs": 7.36416238422688e-05,
+        "rms": 3.81208405959281e-05,
+        "mtf50_abs_cycles_per_pixel": 0.0018515337670274024
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.0035558499986694247,
+        "rms": 0.0012431911149778777,
+        "mtf50_abs_cycles_per_pixel": 0.0018515337670274024
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.00021559524680059283,
+        "rms": 0.00013528001195005612,
+        "mtf50_abs_cycles_per_pixel": 0.002033136917636069
+      },
+      "tool_centre_error_pixels": 7.884889612307875e-05,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.0748133574080773,
+      "mtf50_pixel": 0.07435064735280128,
+      "optical_error": {
+        "max_abs": 0.7046463116265061,
+        "rms": 0.36619637719056186,
+        "mtf50_abs_cycles_per_pixel": 0.4138051088248953
+      },
+      "pixel_error": {
+        "max_abs": 0.7090571420524668,
+        "rms": 0.369361145158455,
+        "mtf50_abs_cycles_per_pixel": 0.41426781888017133
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.8888178365789788,
+        "rms": 0.6320344424081671,
+        "mtf50_abs_cycles_per_pixel": 0.41426781888017133
+      },
+      "pixel_band_pass": false
+    },
+    {
+      "scene": "baseline",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "cf05938c66fca78fde56fe58d2fe1c9875f5969d426c02d5ea40725d06bcbd9d",
+      "float_sha256": "a200b2ebe0014abd7aa9e9c4a142051f95a406cab76c3d10d1575dcd64ce7ad7",
+      "max_quantization_error": 3.6577040711874287e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "61b1fd98930bcf4a914db36dba85a16713f5942a9d21c27903f94e8cc5bb6f96",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0511 0.0511 0.0511 0.0511 0.0511  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.499951,
+          31.499815
+        ],
+        "edge_angle_deg": 5.301932,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.051053,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.946672
+          ],
+          [
+            0.03125,
+            0.79533
+          ],
+          [
+            0.046875,
+            0.57033
+          ],
+          [
+            0.0625,
+            0.307315
+          ],
+          [
+            0.078125,
+            0.046793
+          ],
+          [
+            0.09375,
+            0.173034
+          ],
+          [
+            0.109375,
+            0.317007
+          ],
+          [
+            0.125,
+            0.372802
+          ],
+          [
+            0.140625,
+            0.351369
+          ],
+          [
+            0.15625,
+            0.265201
+          ],
+          [
+            0.171875,
+            0.140306
+          ],
+          [
+            0.1875,
+            0.011505
+          ],
+          [
+            0.203125,
+            0.101087
+          ],
+          [
+            0.21875,
+            0.161548
+          ],
+          [
+            0.234375,
+            0.193869
+          ],
+          [
+            0.25,
+            0.186239
+          ],
+          [
+            0.265625,
+            0.144246
+          ],
+          [
+            0.28125,
+            0.092606
+          ],
+          [
+            0.296875,
+            0.033815
+          ],
+          [
+            0.3125,
+            0.00678
+          ],
+          [
+            0.328125,
+            0.044586
+          ],
+          [
+            0.34375,
+            0.066857
+          ],
+          [
+            0.359375,
+            0.070864
+          ],
+          [
+            0.375,
+            0.058628
+          ],
+          [
+            0.390625,
+            0.035842
+          ],
+          [
+            0.40625,
+            0.007715
+          ],
+          [
+            0.421875,
+            0.019246
+          ],
+          [
+            0.4375,
+            0.041844
+          ],
+          [
+            0.453125,
+            0.055893
+          ],
+          [
+            0.46875,
+            0.060002
+          ],
+          [
+            0.484375,
+            0.055113
+          ],
+          [
+            0.5,
+            0.043962
+          ]
+        ]
+      },
+      "mtf50_native": 0.05112088897213264,
+      "tool_error": {
+        "max_abs": 0.0013474835824990872,
+        "rms": 0.0008956227505265395,
+        "mtf50_abs_cycles_per_pixel": 6.788897213264034e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.1445904169169102,
+        "rms": 0.06167812311286205,
+        "mtf50_abs_cycles_per_pixel": 6.788897213264034e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.06317128106533254,
+        "rms": 0.014927996980939561,
+        "mtf50_abs_cycles_per_pixel": 6.777650706411148e-05
+      },
+      "tool_centre_error_pixels": 0.00018847917304450036,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481459659764583,
+      "mtf50_pixel": 0.07435185770907307,
+      "optical_error": {
+        "max_abs": 0.42105426398267326,
+        "rms": 0.23023766095095388,
+        "mtf50_abs_cycles_per_pixel": 0.02369370762551319
+      },
+      "pixel_error": {
+        "max_abs": 0.4163805514796302,
+        "rms": 0.2271862756613512,
+        "mtf50_abs_cycles_per_pixel": 0.02323096873694043
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.4163805514796302,
+        "rms": 0.14644064798098955,
+        "mtf50_abs_cycles_per_pixel": 0.02323096873694043
+      },
+      "pixel_band_pass": false
+    },
+    {
+      "scene": "pupil-high",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "0c293e723affacfba6428b67be25464c4d1d9ba43180c28cba4a61138f6dac18",
+      "float_sha256": "aeaa2e27d27beae7c9e69bf96c83579ebee8ccc871b9e88e09cd9d080a0da8c6",
+      "max_quantization_error": 3.3963498203941345e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "6a0ead7d7a72243a83a77362774c675eca0edee4e681695c7b7ca0707b2b534d",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0624 0.0624 0.0624 0.0624 0.0624  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.499945,
+          31.499949
+        ],
+        "edge_angle_deg": 5.166742,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.062401,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963858
+          ],
+          [
+            0.03125,
+            0.859487
+          ],
+          [
+            0.046875,
+            0.698532
+          ],
+          [
+            0.0625,
+            0.498732
+          ],
+          [
+            0.078125,
+            0.281655
+          ],
+          [
+            0.09375,
+            0.069985
+          ],
+          [
+            0.109375,
+            0.112895
+          ],
+          [
+            0.125,
+            0.250495
+          ],
+          [
+            0.140625,
+            0.335825
+          ],
+          [
+            0.15625,
+            0.364796
+          ],
+          [
+            0.171875,
+            0.337789
+          ],
+          [
+            0.1875,
+            0.274583
+          ],
+          [
+            0.203125,
+            0.182751
+          ],
+          [
+            0.21875,
+            0.085613
+          ],
+          [
+            0.234375,
+            0.010574
+          ],
+          [
+            0.25,
+            0.090746
+          ],
+          [
+            0.265625,
+            0.137624
+          ],
+          [
+            0.28125,
+            0.169496
+          ],
+          [
+            0.296875,
+            0.1752
+          ],
+          [
+            0.3125,
+            0.152231
+          ],
+          [
+            0.328125,
+            0.121338
+          ],
+          [
+            0.34375,
+            0.079162
+          ],
+          [
+            0.359375,
+            0.033014
+          ],
+          [
+            0.375,
+            0.010435
+          ],
+          [
+            0.390625,
+            0.047216
+          ],
+          [
+            0.40625,
+            0.072614
+          ],
+          [
+            0.421875,
+            0.084728
+          ],
+          [
+            0.4375,
+            0.084607
+          ],
+          [
+            0.453125,
+            0.073027
+          ],
+          [
+            0.46875,
+            0.052869
+          ],
+          [
+            0.484375,
+            0.027741
+          ],
+          [
+            0.5,
+            0.001366
+          ]
+        ]
+      },
+      "mtf50_native": 0.062366726131786454,
+      "tool_error": {
+        "max_abs": 0.0008321258157462791,
+        "rms": 0.0004773752840594196,
+        "mtf50_abs_cycles_per_pixel": 3.4273868213544056e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06735098421938601,
+        "rms": 0.0329122205312486,
+        "mtf50_abs_cycles_per_pixel": 3.4273868213544056e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.06251620439041812,
+        "rms": 0.013067212729940221,
+        "mtf50_abs_cycles_per_pixel": 3.4112206551882573e-05
+      },
+      "tool_centre_error_pixels": 5.912276843290155e-05,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481483849298595,
+      "mtf50_pixel": 0.0743520953557254,
+      "optical_error": {
+        "max_abs": 0.2663426021863983,
+        "rms": 0.13313218547133404,
+        "mtf50_abs_cycles_per_pixel": 0.012448112361199498
+      },
+      "pixel_error": {
+        "max_abs": 0.26181416492442006,
+        "rms": 0.13000730133927987,
+        "mtf50_abs_cycles_per_pixel": 0.011985369223938946
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.321946697510336,
+        "rms": 0.12993131650710624,
+        "mtf50_abs_cycles_per_pixel": 0.011985369223938946
+      },
+      "pixel_band_pass": false
+    },
+    {
+      "scene": "pupil-16",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "53271f125d5733725c8ea42914bb9c5430f21a7ba3aa04cb5d901c20a0014e89",
+      "float_sha256": "aa99f7178dd9da28f23b7ee661b8cf0848f364d2e0a65ea9e2476f7187265cbe",
+      "max_quantization_error": 4.7636846614487055e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "25a3a6eba5854ef1679af61f24e29da4eff19ed8da51883dea6199bf0dec75d1",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0809 0.0809 0.0809 0.0809 0.0809  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.500002,
+          31.500022
+        ],
+        "edge_angle_deg": 5.000025,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.080928,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.974918
+          ],
+          [
+            0.03125,
+            0.903057
+          ],
+          [
+            0.046875,
+            0.793999
+          ],
+          [
+            0.0625,
+            0.661915
+          ],
+          [
+            0.078125,
+            0.523207
+          ],
+          [
+            0.09375,
+            0.393869
+          ],
+          [
+            0.109375,
+            0.28913
+          ],
+          [
+            0.125,
+            0.216297
+          ],
+          [
+            0.140625,
+            0.174257
+          ],
+          [
+            0.15625,
+            0.161069
+          ],
+          [
+            0.171875,
+            0.170013
+          ],
+          [
+            0.1875,
+            0.189185
+          ],
+          [
+            0.203125,
+            0.212449
+          ],
+          [
+            0.21875,
+            0.227882
+          ],
+          [
+            0.234375,
+            0.241011
+          ],
+          [
+            0.25,
+            0.247118
+          ],
+          [
+            0.265625,
+            0.246418
+          ],
+          [
+            0.28125,
+            0.245187
+          ],
+          [
+            0.296875,
+            0.24277
+          ],
+          [
+            0.3125,
+            0.244957
+          ],
+          [
+            0.328125,
+            0.246979
+          ],
+          [
+            0.34375,
+            0.251201
+          ],
+          [
+            0.359375,
+            0.25756
+          ],
+          [
+            0.375,
+            0.264792
+          ],
+          [
+            0.390625,
+            0.270774
+          ],
+          [
+            0.40625,
+            0.273839
+          ],
+          [
+            0.421875,
+            0.272225
+          ],
+          [
+            0.4375,
+            0.265399
+          ],
+          [
+            0.453125,
+            0.252872
+          ],
+          [
+            0.46875,
+            0.235175
+          ],
+          [
+            0.484375,
+            0.213661
+          ],
+          [
+            0.5,
+            0.190249
+          ]
+        ]
+      },
+      "mtf50_native": 0.08074633809591765,
+      "tool_error": {
+        "max_abs": 0.0005642460428936791,
+        "rms": 0.000349415402593618,
+        "mtf50_abs_cycles_per_pixel": 0.00018166190408235028
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.04188552251724559,
+        "rms": 0.019563837027164827,
+        "mtf50_abs_cycles_per_pixel": 0.00018166190408235028
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.006130510827059177,
+        "rms": 0.002711277974453989,
+        "mtf50_abs_cycles_per_pixel": 0.00018224147853068695
+      },
+      "tool_centre_error_pixels": 8.876599397334536e-05,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481390945170706,
+      "mtf50_pixel": 0.07435118825827047,
+      "optical_error": {
+        "max_abs": 0.07749946034865601,
+        "rms": 0.039399470213328,
+        "mtf50_abs_cycles_per_pixel": 0.005932428644210591
+      },
+      "pixel_error": {
+        "max_abs": 0.0819104147597659,
+        "rms": 0.04255806587666996,
+        "mtf50_abs_cycles_per_pixel": 0.006395149837647177
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.22967035072598202,
+        "rms": 0.1364559707479571,
+        "mtf50_abs_cycles_per_pixel": 0.006395149837647177
+      },
+      "pixel_band_pass": false
+    },
+    {
+      "scene": "pupil-24",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "9052f4d4e54756051066719849b88f7ea713c5797972274c4e56e9956d728436",
+      "float_sha256": "e215ee45aa2e053ffbab52d619d3434918c5d1190d8d0223fd2396e0f3bcd891",
+      "max_quantization_error": 4.1863593844369135e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "adc8808d43467455c6782c33e1cbd5bae24290a73dcf38f071d5e9e27bc40964",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0740 0.0740 0.0740 0.0740 0.0740  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.500004,
+          31.500005
+        ],
+        "edge_angle_deg": 4.991108,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.074012,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.971497
+          ],
+          [
+            0.03125,
+            0.889842
+          ],
+          [
+            0.046875,
+            0.76595
+          ],
+          [
+            0.0625,
+            0.615963
+          ],
+          [
+            0.078125,
+            0.45857
+          ],
+          [
+            0.09375,
+            0.311999
+          ],
+          [
+            0.109375,
+            0.193617
+          ],
+          [
+            0.125,
+            0.1118
+          ],
+          [
+            0.140625,
+            0.065361
+          ],
+          [
+            0.15625,
+            0.0521
+          ],
+          [
+            0.171875,
+            0.064473
+          ],
+          [
+            0.1875,
+            0.088453
+          ],
+          [
+            0.203125,
+            0.116846
+          ],
+          [
+            0.21875,
+            0.135109
+          ],
+          [
+            0.234375,
+            0.148908
+          ],
+          [
+            0.25,
+            0.152022
+          ],
+          [
+            0.265625,
+            0.143157
+          ],
+          [
+            0.28125,
+            0.131464
+          ],
+          [
+            0.296875,
+            0.115525
+          ],
+          [
+            0.3125,
+            0.101594
+          ],
+          [
+            0.328125,
+            0.087854
+          ],
+          [
+            0.34375,
+            0.076912
+          ],
+          [
+            0.359375,
+            0.070158
+          ],
+          [
+            0.375,
+            0.067586
+          ],
+          [
+            0.390625,
+            0.067858
+          ],
+          [
+            0.40625,
+            0.069974
+          ],
+          [
+            0.421875,
+            0.07226
+          ],
+          [
+            0.4375,
+            0.07365
+          ],
+          [
+            0.453125,
+            0.072892
+          ],
+          [
+            0.46875,
+            0.069287
+          ],
+          [
+            0.484375,
+            0.062741
+          ],
+          [
+            0.5,
+            0.053688
+          ]
+        ]
+      },
+      "mtf50_native": 0.07391512831508228,
+      "tool_error": {
+        "max_abs": 0.0006917082166466582,
+        "rms": 0.0004467228590088216,
+        "mtf50_abs_cycles_per_pixel": 9.687168491771814e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.041753350174007345,
+        "rms": 0.01824420670934426,
+        "mtf50_abs_cycles_per_pixel": 9.687168491771814e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.006964242728366932,
+        "rms": 0.0030844554947709393,
+        "mtf50_abs_cycles_per_pixel": 9.695846768442706e-05
+      },
+      "tool_centre_error_pixels": 8.846571190907438e-05,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481447913494009,
+      "mtf50_pixel": 0.0743517449641799,
+      "optical_error": {
+        "max_abs": 0.010508806942223892,
+        "rms": 0.006503722119045827,
+        "mtf50_abs_cycles_per_pixel": 0.0008993508198578137
+      },
+      "pixel_error": {
+        "max_abs": 0.0060977018898604185,
+        "rms": 0.0032970728895931165,
+        "mtf50_abs_cycles_per_pixel": 0.00043661664909762365
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.012228529666828358,
+        "rms": 0.006325564106766275,
+        "mtf50_abs_cycles_per_pixel": 0.00043661664909762365
+      },
+      "pixel_band_pass": true
+    },
+    {
+      "scene": "pupil-32",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "e0ea293715d674bce4bd4019f795994ed2acea6de87957fee86f6465780272f4",
+      "float_sha256": "72d575e664d63af53d2b616827f2d9214e65fce5956cd3e76d21c8f1d0d2a0c4",
+      "max_quantization_error": 4.692688993605809e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "d2e87960efc2c70c68d6c20b1df65c6edd8ee0c7a442319299da66f8a9a41c03",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0800 0.0800 0.0800 0.0800 0.0800  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.499995,
+          31.499987
+        ],
+        "edge_angle_deg": 4.992078,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.07995,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.974504
+          ],
+          [
+            0.03125,
+            0.901458
+          ],
+          [
+            0.046875,
+            0.790603
+          ],
+          [
+            0.0625,
+            0.656343
+          ],
+          [
+            0.078125,
+            0.515357
+          ],
+          [
+            0.09375,
+            0.383906
+          ],
+          [
+            0.109375,
+            0.277477
+          ],
+          [
+            0.125,
+            0.203529
+          ],
+          [
+            0.140625,
+            0.16098
+          ],
+          [
+            0.15625,
+            0.147853
+          ],
+          [
+            0.171875,
+            0.157394
+          ],
+          [
+            0.1875,
+            0.177091
+          ],
+          [
+            0.203125,
+            0.200519
+          ],
+          [
+            0.21875,
+            0.2147
+          ],
+          [
+            0.234375,
+            0.224696
+          ],
+          [
+            0.25,
+            0.224942
+          ],
+          [
+            0.265625,
+            0.214257
+          ],
+          [
+            0.28125,
+            0.200842
+          ],
+          [
+            0.296875,
+            0.183427
+          ],
+          [
+            0.3125,
+            0.167523
+          ],
+          [
+            0.328125,
+            0.151708
+          ],
+          [
+            0.34375,
+            0.138297
+          ],
+          [
+            0.359375,
+            0.128616
+          ],
+          [
+            0.375,
+            0.122767
+          ],
+          [
+            0.390625,
+            0.119682
+          ],
+          [
+            0.40625,
+            0.11861
+          ],
+          [
+            0.421875,
+            0.118192
+          ],
+          [
+            0.4375,
+            0.117587
+          ],
+          [
+            0.453125,
+            0.115766
+          ],
+          [
+            0.46875,
+            0.112139
+          ],
+          [
+            0.484375,
+            0.106592
+          ],
+          [
+            0.5,
+            0.099415
+          ]
+        ]
+      },
+      "mtf50_native": 0.07977231668946108,
+      "tool_error": {
+        "max_abs": 0.000947350629738275,
+        "rms": 0.0005787672083163866,
+        "mtf50_abs_cycles_per_pixel": 0.00017768331053891195
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.03645391111884415,
+        "rms": 0.015563308506585586,
+        "mtf50_abs_cycles_per_pixel": 0.00017768331053891195
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.006225983222158726,
+        "rms": 0.0028053962445765005,
+        "mtf50_abs_cycles_per_pixel": 0.00017810209776761288
+      },
+      "tool_centre_error_pixels": 8.008351962658949e-05,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.0748144915707839,
+      "mtf50_pixel": 0.0743517547391625,
+      "optical_error": {
+        "max_abs": 0.06639586441903145,
+        "rms": 0.03360261253031563,
+        "mtf50_abs_cycles_per_pixel": 0.004957825118677178
+      },
+      "pixel_error": {
+        "max_abs": 0.07080700871202533,
+        "rms": 0.03675991119548293,
+        "mtf50_abs_cycles_per_pixel": 0.00542056195029858
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.08973082161610337,
+        "rms": 0.06267177170919852,
+        "mtf50_abs_cycles_per_pixel": 0.00542056195029858
+      },
+      "pixel_band_pass": false
+    },
+    {
+      "scene": "pupil-azimuth-32",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "067fdccc41f68fb9f63c7851f12e410b84dcb36cadf131c2ebff57153f592fcc",
+      "float_sha256": "0335b0abbc32eea0a27b1fe978762129a96e46ed57aa3df647e0edd0042f5ffe",
+      "max_quantization_error": 4.763684661414011e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "a94fd23ccf513c1d60d412322ab7bc1668205dbb7cda3357dd74b5d43ad4a002",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0809 0.0809 0.0809 0.0809 0.0809  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.499996,
+          31.500005
+        ],
+        "edge_angle_deg": 5.001731,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.080911,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.974911
+          ],
+          [
+            0.03125,
+            0.903028
+          ],
+          [
+            0.046875,
+            0.793939
+          ],
+          [
+            0.0625,
+            0.661816
+          ],
+          [
+            0.078125,
+            0.523069
+          ],
+          [
+            0.09375,
+            0.393694
+          ],
+          [
+            0.109375,
+            0.288922
+          ],
+          [
+            0.125,
+            0.216063
+          ],
+          [
+            0.140625,
+            0.174001
+          ],
+          [
+            0.15625,
+            0.160799
+          ],
+          [
+            0.171875,
+            0.169734
+          ],
+          [
+            0.1875,
+            0.188911
+          ],
+          [
+            0.203125,
+            0.212195
+          ],
+          [
+            0.21875,
+            0.227675
+          ],
+          [
+            0.234375,
+            0.240872
+          ],
+          [
+            0.25,
+            0.247072
+          ],
+          [
+            0.265625,
+            0.246497
+          ],
+          [
+            0.28125,
+            0.245388
+          ],
+          [
+            0.296875,
+            0.243091
+          ],
+          [
+            0.3125,
+            0.245388
+          ],
+          [
+            0.328125,
+            0.247468
+          ],
+          [
+            0.34375,
+            0.251687
+          ],
+          [
+            0.359375,
+            0.257958
+          ],
+          [
+            0.375,
+            0.264993
+          ],
+          [
+            0.390625,
+            0.270646
+          ],
+          [
+            0.40625,
+            0.273228
+          ],
+          [
+            0.421875,
+            0.270965
+          ],
+          [
+            0.4375,
+            0.263316
+          ],
+          [
+            0.453125,
+            0.249797
+          ],
+          [
+            0.46875,
+            0.230958
+          ],
+          [
+            0.484375,
+            0.20819
+          ],
+          [
+            0.5,
+            0.183466
+          ]
+        ]
+      },
+      "mtf50_native": 0.08073053659695188,
+      "tool_error": {
+        "max_abs": 0.000554363003586078,
+        "rms": 0.00034443775349549143,
+        "mtf50_abs_cycles_per_pixel": 0.00018046340304811448
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.042150882249648275,
+        "rms": 0.019601508795135204,
+        "mtf50_abs_cycles_per_pixel": 0.00018046340304811448
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.006132169443425872,
+        "rms": 0.0027105500848227217,
+        "mtf50_abs_cycles_per_pixel": 0.00018057451415923187
+      },
+      "tool_centre_error_pixels": 8.0152625841556e-05,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.0748133633110279,
+      "mtf50_pixel": 0.07435065315701589,
+      "optical_error": {
+        "max_abs": 0.07732942061503023,
+        "rms": 0.03931076963894665,
+        "mtf50_abs_cycles_per_pixel": 0.005917173285923977
+      },
+      "pixel_error": {
+        "max_abs": 0.08174025210442865,
+        "rms": 0.04246929695503483,
+        "mtf50_abs_cycles_per_pixel": 0.006379883439935993
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.2286524201516593,
+        "rms": 0.13558879874390634,
+        "mtf50_abs_cycles_per_pixel": 0.006379883439935993
+      },
+      "pixel_band_pass": false
+    },
+    {
+      "scene": "pixel-centre",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "59483d7f2eeeaacd29c5745e57f2535f2f229d87fa9ba29e13ba7b23ef393564",
+      "float_sha256": "a381e7e4846c3f69f054eb76ae3f5cb8f500ad77c04c45cc3fbf794f1227e64e",
+      "max_quantization_error": 3.6577040744313616e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "e7c5e7a866f0b664c6490400bc579011306f2b1b8350de07d36dd93e385a7fa8",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0511 0.0511 0.0511 0.0511 0.0511  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.499821,
+          31.500045
+        ],
+        "edge_angle_deg": 5.590813,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.051076,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.94684
+          ],
+          [
+            0.03125,
+            0.795835
+          ],
+          [
+            0.046875,
+            0.570901
+          ],
+          [
+            0.0625,
+            0.307171
+          ],
+          [
+            0.078125,
+            0.044819
+          ],
+          [
+            0.09375,
+            0.177903
+          ],
+          [
+            0.109375,
+            0.325325
+          ],
+          [
+            0.125,
+            0.383894
+          ],
+          [
+            0.140625,
+            0.363345
+          ],
+          [
+            0.15625,
+            0.275486
+          ],
+          [
+            0.171875,
+            0.145563
+          ],
+          [
+            0.1875,
+            0.01073
+          ],
+          [
+            0.203125,
+            0.108353
+          ],
+          [
+            0.21875,
+            0.172542
+          ],
+          [
+            0.234375,
+            0.206235
+          ],
+          [
+            0.25,
+            0.196633
+          ],
+          [
+            0.265625,
+            0.148424
+          ],
+          [
+            0.28125,
+            0.0903
+          ],
+          [
+            0.296875,
+            0.024307
+          ],
+          [
+            0.3125,
+            0.02109
+          ],
+          [
+            0.328125,
+            0.062276
+          ],
+          [
+            0.34375,
+            0.08518
+          ],
+          [
+            0.359375,
+            0.086743
+          ],
+          [
+            0.375,
+            0.069331
+          ],
+          [
+            0.390625,
+            0.039847
+          ],
+          [
+            0.40625,
+            0.004673
+          ],
+          [
+            0.421875,
+            0.028201
+          ],
+          [
+            0.4375,
+            0.054503
+          ],
+          [
+            0.453125,
+            0.06932
+          ],
+          [
+            0.46875,
+            0.071224
+          ],
+          [
+            0.484375,
+            0.061862
+          ],
+          [
+            0.5,
+            0.045318
+          ]
+        ]
+      },
+      "mtf50_native": 0.051259289513383356,
+      "tool_error": {
+        "max_abs": 0.001357404028199262,
+        "rms": 0.0009164245488315622,
+        "mtf50_abs_cycles_per_pixel": 0.00018328951338335286
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.17135627167152348,
+        "rms": 0.08228574275818229,
+        "mtf50_abs_cycles_per_pixel": 0.00018328951338335286
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.06299989394511363,
+        "rms": 0.015031188709212728,
+        "mtf50_abs_cycles_per_pixel": 0.00018367477482498368
+      },
+      "tool_centre_error_pixels": 0.00010417357486176204,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481198705414545,
+      "mtf50_pixel": 0.07434928914219334,
+      "optical_error": {
+        "max_abs": 0.42028026355440407,
+        "rms": 0.2290052570077114,
+        "mtf50_abs_cycles_per_pixel": 0.023552697540762092
+      },
+      "pixel_error": {
+        "max_abs": 0.4156068152232058,
+        "rms": 0.22595786877128748,
+        "mtf50_abs_cycles_per_pixel": 0.023089999628809983
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.4156068152232058,
+        "rms": 0.1610184343998275,
+        "mtf50_abs_cycles_per_pixel": 0.023089999628809983
+      },
+      "pixel_band_pass": false
+    },
+    {
+      "scene": "pixel-high",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "21689ab10341d3f55b39a88c58e08f6c784af6715db1d53d435d143568aa2ade",
+      "float_sha256": "bae6f2dd17ab4c3f47b96e9ff3a8707696bd8b67de971b90cc486753aedd6cee",
+      "max_quantization_error": 3.6577040711961023e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "2172620b56715bcbba873a34c07cfe90a7e92af00578322b8db24641e2222aa7",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0510 0.0510 0.0510 0.0510 0.0510  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.4999,
+          31.499918
+        ],
+        "edge_angle_deg": 5.187812,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.051047,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.946667
+          ],
+          [
+            0.03125,
+            0.795305
+          ],
+          [
+            0.046875,
+            0.570252
+          ],
+          [
+            0.0625,
+            0.307129
+          ],
+          [
+            0.078125,
+            0.046427
+          ],
+          [
+            0.09375,
+            0.173659
+          ],
+          [
+            0.109375,
+            0.317965
+          ],
+          [
+            0.125,
+            0.374114
+          ],
+          [
+            0.140625,
+            0.35297
+          ],
+          [
+            0.15625,
+            0.266952
+          ],
+          [
+            0.171875,
+            0.141958
+          ],
+          [
+            0.1875,
+            0.012846
+          ],
+          [
+            0.203125,
+            0.100281
+          ],
+          [
+            0.21875,
+            0.161379
+          ],
+          [
+            0.234375,
+            0.194287
+          ],
+          [
+            0.25,
+            0.1871
+          ],
+          [
+            0.265625,
+            0.14518
+          ],
+          [
+            0.28125,
+            0.093526
+          ],
+          [
+            0.296875,
+            0.034526
+          ],
+          [
+            0.3125,
+            0.006421
+          ],
+          [
+            0.328125,
+            0.044445
+          ],
+          [
+            0.34375,
+            0.066797
+          ],
+          [
+            0.359375,
+            0.07065
+          ],
+          [
+            0.375,
+            0.057962
+          ],
+          [
+            0.390625,
+            0.034443
+          ],
+          [
+            0.40625,
+            0.005356
+          ],
+          [
+            0.421875,
+            0.022669
+          ],
+          [
+            0.4375,
+            0.046257
+          ],
+          [
+            0.453125,
+            0.061066
+          ],
+          [
+            0.46875,
+            0.065557
+          ],
+          [
+            0.484375,
+            0.060585
+          ],
+          [
+            0.5,
+            0.048868
+          ]
+        ]
+      },
+      "mtf50_native": 0.05111297720696807,
+      "tool_error": {
+        "max_abs": 0.00136430433751486,
+        "rms": 0.0009032296990128453,
+        "mtf50_abs_cycles_per_pixel": 6.597720696806947e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.14612328668252017,
+        "rms": 0.06297073456300073,
+        "mtf50_abs_cycles_per_pixel": 6.597720696806947e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.0626262377274078,
+        "rms": 0.014812163057987587,
+        "mtf50_abs_cycles_per_pixel": 6.621153083941761e-05
+      },
+      "tool_centre_error_pixels": 8.33521867673265e-05,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.0748144800260241,
+      "mtf50_pixel": 0.07435174584035661,
+      "optical_error": {
+        "max_abs": 0.42143424357385034,
+        "rms": 0.2302629360421134,
+        "mtf50_abs_cycles_per_pixel": 0.02370150281905603
+      },
+      "pixel_error": {
+        "max_abs": 0.4167605450349252,
+        "rms": 0.22721261515776672,
+        "mtf50_abs_cycles_per_pixel": 0.023238768633388543
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.4167605450349252,
+        "rms": 0.14735875731887654,
+        "mtf50_abs_cycles_per_pixel": 0.023238768633388543
+      },
+      "pixel_band_pass": false
+    },
+    {
+      "scene": "joint",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "5760e5d709cff6b952df1a5d95e5b8bf0c58aa1fe3c4c88ecdec6c0ea17ae518",
+      "float_sha256": "6ffba8c9461b2b0ea398e8fd3b6f21778e7b9e6907902460d5d1a18d90ae510b",
+      "max_quantization_error": 3.396349712450966e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "681a1a6ac02b98580ebeda294f4aa4d3088096e62395f021ce90629fe53ef909",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0624 0.0624 0.0624 0.0624 0.0624  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.499954,
+          31.500138
+        ],
+        "edge_angle_deg": 5.103726,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.062446,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963907
+          ],
+          [
+            0.03125,
+            0.859671
+          ],
+          [
+            0.046875,
+            0.698908
+          ],
+          [
+            0.0625,
+            0.499313
+          ],
+          [
+            0.078125,
+            0.282406
+          ],
+          [
+            0.09375,
+            0.070831
+          ],
+          [
+            0.109375,
+            0.112062
+          ],
+          [
+            0.125,
+            0.249777
+          ],
+          [
+            0.140625,
+            0.335278
+          ],
+          [
+            0.15625,
+            0.36443
+          ],
+          [
+            0.171875,
+            0.337543
+          ],
+          [
+            0.1875,
+            0.274344
+          ],
+          [
+            0.203125,
+            0.182375
+          ],
+          [
+            0.21875,
+            0.084917
+          ],
+          [
+            0.234375,
+            0.011627
+          ],
+          [
+            0.25,
+            0.092144
+          ],
+          [
+            0.265625,
+            0.139205
+          ],
+          [
+            0.28125,
+            0.171089
+          ],
+          [
+            0.296875,
+            0.176545
+          ],
+          [
+            0.3125,
+            0.152859
+          ],
+          [
+            0.328125,
+            0.121129
+          ],
+          [
+            0.34375,
+            0.077895
+          ],
+          [
+            0.359375,
+            0.030553
+          ],
+          [
+            0.375,
+            0.014098
+          ],
+          [
+            0.390625,
+            0.051942
+          ],
+          [
+            0.40625,
+            0.078111
+          ],
+          [
+            0.421875,
+            0.090568
+          ],
+          [
+            0.4375,
+            0.090288
+          ],
+          [
+            0.453125,
+            0.077991
+          ],
+          [
+            0.46875,
+            0.056576
+          ],
+          [
+            0.484375,
+            0.029742
+          ],
+          [
+            0.5,
+            0.001361
+          ]
+        ]
+      },
+      "mtf50_native": 0.06240553399485694,
+      "tool_error": {
+        "max_abs": 0.0007518414310106469,
+        "rms": 0.00047968784117300784,
+        "mtf50_abs_cycles_per_pixel": 4.046600514306248e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06942909660183072,
+        "rms": 0.03367560716333973,
+        "mtf50_abs_cycles_per_pixel": 4.046600514306248e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.06290980918056721,
+        "rms": 0.013029245279701479,
+        "mtf50_abs_cycles_per_pixel": 4.068522406137226e-05
+      },
+      "tool_centre_error_pixels": 0.0001433800883844422,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481336316713857,
+      "mtf50_pixel": 0.0743506530155335,
+      "optical_error": {
+        "max_abs": 0.26535756421088214,
+        "rms": 0.13264197765281516,
+        "mtf50_abs_cycles_per_pixel": 0.012407829172281636
+      },
+      "pixel_error": {
+        "max_abs": 0.2608294686906762,
+        "rms": 0.12951764599769405,
+        "mtf50_abs_cycles_per_pixel": 0.011945119020676555
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.3205631514813152,
+        "rms": 0.13007144748617314,
+        "mtf50_abs_cycles_per_pixel": 0.011945119020676555
+      },
+      "pixel_band_pass": false,
+      "reference_density_error": {
+        "max_abs": 0.00045543976197977287,
+        "rms": 0.00024015075341740066,
+        "mtf50_abs_cycles_per_pixel": 2.618506445550839e-05
+      }
+    },
+    {
+      "scene": "joint",
+      "task": 0,
+      "roi": {
+        "Id": "window-12",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 12
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "5760e5d709cff6b952df1a5d95e5b8bf0c58aa1fe3c4c88ecdec6c0ea17ae518",
+      "float_sha256": "6ffba8c9461b2b0ea398e8fd3b6f21778e7b9e6907902460d5d1a18d90ae510b",
+      "max_quantization_error": 3.396349712450966e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "681a1a6ac02b98580ebeda294f4aa4d3088096e62395f021ce90629fe53ef909",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0624 0.0624 0.0624 0.0624 0.0624  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.499954,
+          31.500138
+        ],
+        "edge_angle_deg": 5.103726,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.062446,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963907
+          ],
+          [
+            0.03125,
+            0.859671
+          ],
+          [
+            0.046875,
+            0.698908
+          ],
+          [
+            0.0625,
+            0.499313
+          ],
+          [
+            0.078125,
+            0.282406
+          ],
+          [
+            0.09375,
+            0.070831
+          ],
+          [
+            0.109375,
+            0.112062
+          ],
+          [
+            0.125,
+            0.249777
+          ],
+          [
+            0.140625,
+            0.335278
+          ],
+          [
+            0.15625,
+            0.36443
+          ],
+          [
+            0.171875,
+            0.337543
+          ],
+          [
+            0.1875,
+            0.274344
+          ],
+          [
+            0.203125,
+            0.182375
+          ],
+          [
+            0.21875,
+            0.084917
+          ],
+          [
+            0.234375,
+            0.011627
+          ],
+          [
+            0.25,
+            0.092144
+          ],
+          [
+            0.265625,
+            0.139205
+          ],
+          [
+            0.28125,
+            0.171089
+          ],
+          [
+            0.296875,
+            0.176545
+          ],
+          [
+            0.3125,
+            0.152859
+          ],
+          [
+            0.328125,
+            0.121129
+          ],
+          [
+            0.34375,
+            0.077895
+          ],
+          [
+            0.359375,
+            0.030553
+          ],
+          [
+            0.375,
+            0.014098
+          ],
+          [
+            0.390625,
+            0.051942
+          ],
+          [
+            0.40625,
+            0.078111
+          ],
+          [
+            0.421875,
+            0.090568
+          ],
+          [
+            0.4375,
+            0.090288
+          ],
+          [
+            0.453125,
+            0.077991
+          ],
+          [
+            0.46875,
+            0.056576
+          ],
+          [
+            0.484375,
+            0.029742
+          ],
+          [
+            0.5,
+            0.001361
+          ]
+        ]
+      },
+      "mtf50_native": 0.062405513951648166,
+      "tool_error": {
+        "max_abs": 0.0007517181720676502,
+        "rms": 0.00047978475706533455,
+        "mtf50_abs_cycles_per_pixel": 4.0486048351835724e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06942906617789095,
+        "rms": 0.03367557917901742,
+        "mtf50_abs_cycles_per_pixel": 4.0486048351835724e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.0629098298492173,
+        "rms": 0.013029181408783848,
+        "mtf50_abs_cycles_per_pixel": 4.0705267270145506e-05
+      },
+      "tool_centre_error_pixels": 0.0001433800883844422,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481336316713857,
+      "mtf50_pixel": 0.0743506530155335,
+      "optical_error": {
+        "max_abs": 0.2653574398133179,
+        "rms": 0.1326420436622991,
+        "mtf50_abs_cycles_per_pixel": 0.012407849215490409
+      },
+      "pixel_error": {
+        "max_abs": 0.26082934429311194,
+        "rms": 0.1295177105803908,
+        "mtf50_abs_cycles_per_pixel": 0.011945139063885328
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.3205630416666541,
+        "rms": 0.13007142825840215,
+        "mtf50_abs_cycles_per_pixel": 0.011945139063885328
+      },
+      "pixel_band_pass": false,
+      "reference_density_error": {
+        "max_abs": 0.00045543976197977287,
+        "rms": 0.00024015075341740066,
+        "mtf50_abs_cycles_per_pixel": 2.618506445550839e-05
+      }
+    },
+    {
+      "scene": "joint",
+      "task": 0,
+      "roi": {
+        "Id": "window-20",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 20
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "5760e5d709cff6b952df1a5d95e5b8bf0c58aa1fe3c4c88ecdec6c0ea17ae518",
+      "float_sha256": "6ffba8c9461b2b0ea398e8fd3b6f21778e7b9e6907902460d5d1a18d90ae510b",
+      "max_quantization_error": 3.396349712450966e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "681a1a6ac02b98580ebeda294f4aa4d3088096e62395f021ce90629fe53ef909",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0624 0.0624 0.0624 0.0624 0.0624  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.499954,
+          31.500138
+        ],
+        "edge_angle_deg": 5.103726,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.062446,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963907
+          ],
+          [
+            0.03125,
+            0.859671
+          ],
+          [
+            0.046875,
+            0.698908
+          ],
+          [
+            0.0625,
+            0.499313
+          ],
+          [
+            0.078125,
+            0.282406
+          ],
+          [
+            0.09375,
+            0.070831
+          ],
+          [
+            0.109375,
+            0.112062
+          ],
+          [
+            0.125,
+            0.249777
+          ],
+          [
+            0.140625,
+            0.335278
+          ],
+          [
+            0.15625,
+            0.36443
+          ],
+          [
+            0.171875,
+            0.337543
+          ],
+          [
+            0.1875,
+            0.274344
+          ],
+          [
+            0.203125,
+            0.182375
+          ],
+          [
+            0.21875,
+            0.084917
+          ],
+          [
+            0.234375,
+            0.011627
+          ],
+          [
+            0.25,
+            0.092144
+          ],
+          [
+            0.265625,
+            0.139205
+          ],
+          [
+            0.28125,
+            0.171089
+          ],
+          [
+            0.296875,
+            0.176545
+          ],
+          [
+            0.3125,
+            0.152859
+          ],
+          [
+            0.328125,
+            0.121129
+          ],
+          [
+            0.34375,
+            0.077895
+          ],
+          [
+            0.359375,
+            0.030553
+          ],
+          [
+            0.375,
+            0.014098
+          ],
+          [
+            0.390625,
+            0.051942
+          ],
+          [
+            0.40625,
+            0.078111
+          ],
+          [
+            0.421875,
+            0.090568
+          ],
+          [
+            0.4375,
+            0.090288
+          ],
+          [
+            0.453125,
+            0.077991
+          ],
+          [
+            0.46875,
+            0.056576
+          ],
+          [
+            0.484375,
+            0.029742
+          ],
+          [
+            0.5,
+            0.001361
+          ]
+        ]
+      },
+      "mtf50_native": 0.06240553797045583,
+      "tool_error": {
+        "max_abs": 0.0007517882132256765,
+        "rms": 0.00047958450296923226,
+        "mtf50_abs_cycles_per_pixel": 4.046202954417072e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06942914364761679,
+        "rms": 0.033675646050831454,
+        "mtf50_abs_cycles_per_pixel": 4.046202954417072e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.06290982602820241,
+        "rms": 0.0130293042965481,
+        "mtf50_abs_cycles_per_pixel": 4.06812484624805e-05
+      },
+      "tool_centre_error_pixels": 0.0001433800883844422,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481336316713857,
+      "mtf50_pixel": 0.0743506530155335,
+      "optical_error": {
+        "max_abs": 0.26535749600392544,
+        "rms": 0.13264190585677382,
+        "mtf50_abs_cycles_per_pixel": 0.012407825196682744
+      },
+      "pixel_error": {
+        "max_abs": 0.2608294004837195,
+        "rms": 0.12951757539880304,
+        "mtf50_abs_cycles_per_pixel": 0.011945115045077663
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.3205632989578556,
+        "rms": 0.13007148658212436,
+        "mtf50_abs_cycles_per_pixel": 0.011945115045077663
+      },
+      "pixel_band_pass": false,
+      "reference_density_error": {
+        "max_abs": 0.00045543976197977287,
+        "rms": 0.00024015075341740066,
+        "mtf50_abs_cycles_per_pixel": 2.618506445550839e-05
+      }
+    },
+    {
+      "scene": "joint",
+      "task": 0,
+      "roi": {
+        "Id": "roi-short",
+        "Region": {
+          "X": 4,
+          "Y": 8,
+          "Width": 56,
+          "Height": 48
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "5760e5d709cff6b952df1a5d95e5b8bf0c58aa1fe3c4c88ecdec6c0ea17ae518",
+      "float_sha256": "6ffba8c9461b2b0ea398e8fd3b6f21778e7b9e6907902460d5d1a18d90ae510b",
+      "max_quantization_error": 3.396349712450966e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "62193b1a8d654643dea98c954a5c2b3afdb4b5dff4912561e489beb5afeeaceb",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0624 0.0624 0.0624 0.0624 0.0624  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.499944,
+          23.500089
+        ],
+        "edge_angle_deg": 5.109261,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.062433,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963891
+          ],
+          [
+            0.03125,
+            0.859614
+          ],
+          [
+            0.046875,
+            0.698793
+          ],
+          [
+            0.0625,
+            0.499138
+          ],
+          [
+            0.078125,
+            0.282184
+          ],
+          [
+            0.09375,
+            0.070591
+          ],
+          [
+            0.109375,
+            0.112281
+          ],
+          [
+            0.125,
+            0.249935
+          ],
+          [
+            0.140625,
+            0.33535
+          ],
+          [
+            0.15625,
+            0.364407
+          ],
+          [
+            0.171875,
+            0.337436
+          ],
+          [
+            0.1875,
+            0.27419
+          ],
+          [
+            0.203125,
+            0.182226
+          ],
+          [
+            0.21875,
+            0.084852
+          ],
+          [
+            0.234375,
+            0.011564
+          ],
+          [
+            0.25,
+            0.091909
+          ],
+          [
+            0.265625,
+            0.138778
+          ],
+          [
+            0.28125,
+            0.170479
+          ],
+          [
+            0.296875,
+            0.175779
+          ],
+          [
+            0.3125,
+            0.152018
+          ],
+          [
+            0.328125,
+            0.120247
+          ],
+          [
+            0.34375,
+            0.077035
+          ],
+          [
+            0.359375,
+            0.029776
+          ],
+          [
+            0.375,
+            0.014744
+          ],
+          [
+            0.390625,
+            0.052429
+          ],
+          [
+            0.40625,
+            0.078439
+          ],
+          [
+            0.421875,
+            0.090762
+          ],
+          [
+            0.4375,
+            0.090393
+          ],
+          [
+            0.453125,
+            0.078071
+          ],
+          [
+            0.46875,
+            0.056704
+          ],
+          [
+            0.484375,
+            0.029983
+          ],
+          [
+            0.5,
+            0.001766
+          ]
+        ]
+      },
+      "mtf50_native": 0.06243594247770853,
+      "tool_error": {
+        "max_abs": 8.946619724638227e-05,
+        "rms": 3.645791356991571e-05,
+        "mtf50_abs_cycles_per_pixel": 2.942477708524349e-06
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06719673218417611,
+        "rms": 0.032936241302406966,
+        "mtf50_abs_cycles_per_pixel": 2.942477708524349e-06
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.06297448098377093,
+        "rms": 0.012943639018932956,
+        "mtf50_abs_cycles_per_pixel": 3.402596413286385e-06
+      },
+      "tool_centre_error_pixels": 9.357716832986523e-05,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481350545297889,
+      "mtf50_pixel": 0.07435079189024232,
+      "optical_error": {
+        "max_abs": 0.2647537460307358,
+        "rms": 0.13230285071989106,
+        "mtf50_abs_cycles_per_pixel": 0.012377562975270366
+      },
+      "pixel_error": {
+        "max_abs": 0.26022561481362355,
+        "rms": 0.1291789851520151,
+        "mtf50_abs_cycles_per_pixel": 0.011914849412533797
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.3205339151172681,
+        "rms": 0.12989075555934554,
+        "mtf50_abs_cycles_per_pixel": 0.011914849412533797
+      },
+      "pixel_band_pass": false,
+      "reference_density_error": {
+        "max_abs": 0.0004762902685385567,
+        "rms": 0.00023227458009933617,
+        "mtf50_abs_cycles_per_pixel": 2.5683599482739794e-05
+      }
+    },
+    {
+      "scene": "joint",
+      "task": 0,
+      "roi": {
+        "Id": "roi-narrow",
+        "Region": {
+          "X": 8,
+          "Y": 0,
+          "Width": 48,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "5760e5d709cff6b952df1a5d95e5b8bf0c58aa1fe3c4c88ecdec6c0ea17ae518",
+      "float_sha256": "6ffba8c9461b2b0ea398e8fd3b6f21778e7b9e6907902460d5d1a18d90ae510b",
+      "max_quantization_error": 3.396349712450966e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "ba2d4d5beedb485f9c0f3ce96d72e6988a97f942058e6ece71704f9017b2ae08",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0624 0.0624 0.0624 0.0624 0.0624  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          23.499954,
+          31.500138
+        ],
+        "edge_angle_deg": 5.103726,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.062446,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963906
+          ],
+          [
+            0.03125,
+            0.859671
+          ],
+          [
+            0.046875,
+            0.698908
+          ],
+          [
+            0.0625,
+            0.499313
+          ],
+          [
+            0.078125,
+            0.282406
+          ],
+          [
+            0.09375,
+            0.070831
+          ],
+          [
+            0.109375,
+            0.112062
+          ],
+          [
+            0.125,
+            0.249777
+          ],
+          [
+            0.140625,
+            0.335278
+          ],
+          [
+            0.15625,
+            0.36443
+          ],
+          [
+            0.171875,
+            0.337543
+          ],
+          [
+            0.1875,
+            0.274343
+          ],
+          [
+            0.203125,
+            0.182375
+          ],
+          [
+            0.21875,
+            0.084917
+          ],
+          [
+            0.234375,
+            0.011627
+          ],
+          [
+            0.25,
+            0.092144
+          ],
+          [
+            0.265625,
+            0.139205
+          ],
+          [
+            0.28125,
+            0.171089
+          ],
+          [
+            0.296875,
+            0.176545
+          ],
+          [
+            0.3125,
+            0.152859
+          ],
+          [
+            0.328125,
+            0.121129
+          ],
+          [
+            0.34375,
+            0.077895
+          ],
+          [
+            0.359375,
+            0.030553
+          ],
+          [
+            0.375,
+            0.014098
+          ],
+          [
+            0.390625,
+            0.051942
+          ],
+          [
+            0.40625,
+            0.078111
+          ],
+          [
+            0.421875,
+            0.090568
+          ],
+          [
+            0.4375,
+            0.090288
+          ],
+          [
+            0.453125,
+            0.077991
+          ],
+          [
+            0.46875,
+            0.056576
+          ],
+          [
+            0.484375,
+            0.029742
+          ],
+          [
+            0.5,
+            0.001361
+          ]
+        ]
+      },
+      "mtf50_native": 0.06240553399485694,
+      "tool_error": {
+        "max_abs": 0.0007518414310106469,
+        "rms": 0.00047967252656978365,
+        "mtf50_abs_cycles_per_pixel": 4.046600514306248e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06942909660183072,
+        "rms": 0.033675612860079196,
+        "mtf50_abs_cycles_per_pixel": 4.046600514306248e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.06290980918056721,
+        "rms": 0.01302930744502961,
+        "mtf50_abs_cycles_per_pixel": 4.068522406137226e-05
+      },
+      "tool_centre_error_pixels": 0.00013815200832734798,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481336323011922,
+      "mtf50_pixel": 0.07435065307746061,
+      "optical_error": {
+        "max_abs": 0.26535756488564183,
+        "rms": 0.13264197808624478,
+        "mtf50_abs_cycles_per_pixel": 0.012407829235262284
+      },
+      "pixel_error": {
+        "max_abs": 0.26082946935459955,
+        "rms": 0.12951764642571476,
+        "mtf50_abs_cycles_per_pixel": 0.011945119082603671
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.3205631515120377,
+        "rms": 0.13007144756689054,
+        "mtf50_abs_cycles_per_pixel": 0.011945119082603671
+      },
+      "pixel_band_pass": false,
+      "reference_density_error": {
+        "max_abs": 0.0004554391084503062,
+        "rms": 0.00024015047573701625,
+        "mtf50_abs_cycles_per_pixel": 2.6184948714091938e-05
+      }
+    },
+    {
+      "scene": "joint-phase",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "1eb0a8ee340314138be26b4d15737ef093cbdb8d29c7afa216f73d26727cb681",
+      "float_sha256": "5cd50c72f00ea2c35ba3a5df34bc0bed0eed28e4d87fb94cd9a7488088527f4c",
+      "max_quantization_error": 3.3939922534659966e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "8b92cdf43cba17f864e0e4f4cae0fbc7d8bdd9ccefb20e8fe1c96f549ed24815",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0624 0.0624 0.0624 0.0624 0.0624  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.256671,
+          31.502345
+        ],
+        "edge_angle_deg": 5.08306,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.062439,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963899
+          ],
+          [
+            0.03125,
+            0.859642
+          ],
+          [
+            0.046875,
+            0.698848
+          ],
+          [
+            0.0625,
+            0.499221
+          ],
+          [
+            0.078125,
+            0.282287
+          ],
+          [
+            0.09375,
+            0.070698
+          ],
+          [
+            0.109375,
+            0.112194
+          ],
+          [
+            0.125,
+            0.249893
+          ],
+          [
+            0.140625,
+            0.335372
+          ],
+          [
+            0.15625,
+            0.364506
+          ],
+          [
+            0.171875,
+            0.337615
+          ],
+          [
+            0.1875,
+            0.274428
+          ],
+          [
+            0.203125,
+            0.182492
+          ],
+          [
+            0.21875,
+            0.085087
+          ],
+          [
+            0.234375,
+            0.011411
+          ],
+          [
+            0.25,
+            0.091899
+          ],
+          [
+            0.265625,
+            0.138984
+          ],
+          [
+            0.28125,
+            0.170937
+          ],
+          [
+            0.296875,
+            0.176527
+          ],
+          [
+            0.3125,
+            0.153081
+          ],
+          [
+            0.328125,
+            0.121622
+          ],
+          [
+            0.34375,
+            0.078709
+          ],
+          [
+            0.359375,
+            0.031719
+          ],
+          [
+            0.375,
+            0.012578
+          ],
+          [
+            0.390625,
+            0.050099
+          ],
+          [
+            0.40625,
+            0.076015
+          ],
+          [
+            0.421875,
+            0.08832
+          ],
+          [
+            0.4375,
+            0.088011
+          ],
+          [
+            0.453125,
+            0.075829
+          ],
+          [
+            0.46875,
+            0.054676
+          ],
+          [
+            0.484375,
+            0.028238
+          ],
+          [
+            0.5,
+            0.000359
+          ]
+        ]
+      },
+      "mtf50_native": 0.062401656166718916,
+      "tool_error": {
+        "max_abs": 0.0007673833753652493,
+        "rms": 0.00046600772094340426,
+        "mtf50_abs_cycles_per_pixel": 3.7343833281085204e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06742408773240582,
+        "rms": 0.03351367877274396,
+        "mtf50_abs_cycles_per_pixel": 3.7343833281085204e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.0628371819756415,
+        "rms": 0.013037283685014306,
+        "mtf50_abs_cycles_per_pixel": 3.737074346858715e-05
+      },
+      "tool_centre_error_pixels": 0.005463623890599424,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481455512987706,
+      "mtf50_pixel": 0.0743518171807147,
+      "optical_error": {
+        "max_abs": 0.26553650230863307,
+        "rms": 0.13271479345385825,
+        "mtf50_abs_cycles_per_pixel": 0.012412898963158142
+      },
+      "pixel_error": {
+        "max_abs": 0.26100811685579844,
+        "rms": 0.12959037952718142,
+        "mtf50_abs_cycles_per_pixel": 0.011950161013995778
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.3209469168474014,
+        "rms": 0.13011373917040017,
+        "mtf50_abs_cycles_per_pixel": 0.011950161013995778
+      },
+      "pixel_band_pass": false
+    },
+    {
+      "scene": "joint-angle",
+      "task": 0,
+      "roi": {
+        "Id": "edge",
+        "Region": {
+          "X": 4,
+          "Y": 0,
+          "Width": 56,
+          "Height": 64
+        },
+        "Orientation": 0,
+        "HalfWindowPixels": 16
+      },
+      "native_status": 0,
+      "native_failure": null,
+      "reference_failure": null,
+      "source_png_sha256": "ad36031ac2d05cf3370d37381ab6a3c3b7314f7511de98632b28e2005efcf438",
+      "float_sha256": "27df71ca055a4b43a47d7433a871bb6e4d1d32e2c0563199218db9bf356cac4b",
+      "max_quantization_error": 3.396349712450966e-07,
+      "mapper": {
+        "exit_code": 0,
+        "crop_png_sha256": "d8ac8384098e3c98cea84510c11507a916b0019e8a7378a6d0dfbacdce065f0a",
+        "stdout": "16-bit linear grayscale\nThresholding image ...\nComputing gradients ...\nComponent labelling ...\n    Quantiles ->                       5%    25%    50%    75%    95%\nStatistics on all edges:           0.0624 0.0624 0.0624 0.0624 0.0624  (total=1)\n",
+        "stderr": "",
+        "edge_centre_in_crop": [
+          27.499999,
+          31.500098
+        ],
+        "edge_angle_deg": 7.12804,
+        "declared_orientation": 0,
+        "mtf50_reported": 0.062431,
+        "curve": [
+          [
+            0.0,
+            1.0
+          ],
+          [
+            0.015625,
+            0.963891
+          ],
+          [
+            0.03125,
+            0.85961
+          ],
+          [
+            0.046875,
+            0.698782
+          ],
+          [
+            0.0625,
+            0.499114
+          ],
+          [
+            0.078125,
+            0.282142
+          ],
+          [
+            0.09375,
+            0.070521
+          ],
+          [
+            0.109375,
+            0.112389
+          ],
+          [
+            0.125,
+            0.25009
+          ],
+          [
+            0.140625,
+            0.335557
+          ],
+          [
+            0.15625,
+            0.364667
+          ],
+          [
+            0.171875,
+            0.337747
+          ],
+          [
+            0.1875,
+            0.274538
+          ],
+          [
+            0.203125,
+            0.182591
+          ],
+          [
+            0.21875,
+            0.085196
+          ],
+          [
+            0.234375,
+            0.01128
+          ],
+          [
+            0.25,
+            0.091743
+          ],
+          [
+            0.265625,
+            0.138814
+          ],
+          [
+            0.28125,
+            0.170765
+          ],
+          [
+            0.296875,
+            0.176376
+          ],
+          [
+            0.3125,
+            0.153025
+          ],
+          [
+            0.328125,
+            0.121643
+          ],
+          [
+            0.34375,
+            0.07881
+          ],
+          [
+            0.359375,
+            0.03187
+          ],
+          [
+            0.375,
+            0.012455
+          ],
+          [
+            0.390625,
+            0.050149
+          ],
+          [
+            0.40625,
+            0.076467
+          ],
+          [
+            0.421875,
+            0.089507
+          ],
+          [
+            0.4375,
+            0.090375
+          ],
+          [
+            0.453125,
+            0.079932
+          ],
+          [
+            0.46875,
+            0.061194
+          ],
+          [
+            0.484375,
+            0.037946
+          ],
+          [
+            0.5,
+            0.014105
+          ]
+        ]
+      },
+      "mtf50_native": 0.06235595890219836,
+      "tool_error": {
+        "max_abs": 0.0015502370218823253,
+        "rms": 0.0009222008919716983,
+        "mtf50_abs_cycles_per_pixel": 7.50410978016397e-05
+      },
+      "tool_nyquist_error": {
+        "max_abs": 0.06853139871250842,
+        "rms": 0.033561938535068885,
+        "mtf50_abs_cycles_per_pixel": 7.50410978016397e-05
+      },
+      "tool_interpolated_band_error": {
+        "max_abs": 0.0626062406345687,
+        "rms": 0.013145502844051263,
+        "mtf50_abs_cycles_per_pixel": 7.470725362029862e-05
+      },
+      "tool_centre_error_pixels": 0.00012901391293656896,
+      "tool_band_pass": true,
+      "mtf50_optical": 0.07481805220199972,
+      "mtf50_pixel": 0.07435532261800333,
+      "optical_error": {
+        "max_abs": 0.2665182170054259,
+        "rms": 0.13326057056977647,
+        "mtf50_abs_cycles_per_pixel": 0.012462093299801358
+      },
+      "pixel_error": {
+        "max_abs": 0.2619899960278136,
+        "rms": 0.1301353506229456,
+        "mtf50_abs_cycles_per_pixel": 0.01199936371580497
+      },
+      "pixel_nyquist_error": {
+        "max_abs": 0.32159582904721734,
+        "rms": 0.13057272574819348,
+        "mtf50_abs_cycles_per_pixel": 0.01199936371580497
+      },
+      "pixel_band_pass": false
+    }
+  ],
+  "convergence": [
+    {
+      "left": [
+        "pupil-low",
+        "edge"
+      ],
+      "right": [
+        "baseline",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.9679620295024841,
+        "rms": 0.5783184526993043,
+        "mtf50_abs_cycles_per_pixel": 0.43749757726084
+      },
+      "nyquist_error": {
+        "max_abs": 0.9679620295024841,
+        "rms": 0.6061493810504684,
+        "mtf50_abs_cycles_per_pixel": 0.43749757726084
+      },
+      "passed": false
+    },
+    {
+      "left": [
+        "baseline",
+        "edge"
+      ],
+      "right": [
+        "pupil-high",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.23525026451213046,
+        "rms": 0.1358312724584017,
+        "mtf50_abs_cycles_per_pixel": 0.011245837159653813
+      },
+      "nyquist_error": {
+        "max_abs": 0.2812070324965998,
+        "rms": 0.13153251565288732,
+        "mtf50_abs_cycles_per_pixel": 0.011245837159653813
+      },
+      "passed": false
+    },
+    {
+      "left": [
+        "pupil-high",
+        "edge"
+      ],
+      "right": [
+        "pupil-16",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.34129739425317834,
+        "rms": 0.1724999065033426,
+        "mtf50_abs_cycles_per_pixel": 0.018379611964131196
+      },
+      "nyquist_error": {
+        "max_abs": 0.34129739425317834,
+        "rms": 0.16029019606952657,
+        "mtf50_abs_cycles_per_pixel": 0.018379611964131196
+      },
+      "passed": false
+    },
+    {
+      "left": [
+        "pupil-16",
+        "edge"
+      ],
+      "right": [
+        "pupil-24",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.08799908618249186,
+        "rms": 0.045849695314258795,
+        "mtf50_abs_cycles_per_pixel": 0.006831209780835373
+      },
+      "nyquist_error": {
+        "max_abs": 0.22026598280915644,
+        "rms": 0.13498175879641833,
+        "mtf50_abs_cycles_per_pixel": 0.006831209780835373
+      },
+      "passed": false
+    },
+    {
+      "left": [
+        "pupil-24",
+        "edge"
+      ],
+      "right": [
+        "pupil-32",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.07690704672166115,
+        "rms": 0.04005623144668955,
+        "mtf50_abs_cycles_per_pixel": 0.005857188374378805
+      },
+      "nyquist_error": {
+        "max_abs": 0.09630876320149198,
+        "rms": 0.0643530528792617,
+        "mtf50_abs_cycles_per_pixel": 0.005857188374378805
+      },
+      "passed": false
+    },
+    {
+      "left": [
+        "pupil-16",
+        "edge"
+      ],
+      "right": [
+        "pupil-azimuth-32",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.0001775404497252886,
+        "rms": 9.275051108029556e-05,
+        "mtf50_abs_cycles_per_pixel": 1.5801498965767324e-05
+      },
+      "nyquist_error": {
+        "max_abs": 0.0064491901920483985,
+        "rms": 0.0015939258375121084,
+        "mtf50_abs_cycles_per_pixel": 1.5801498965767324e-05
+      },
+      "passed": true
+    },
+    {
+      "left": [
+        "pixel-centre",
+        "edge"
+      ],
+      "right": [
+        "baseline",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.003816725392410153,
+        "rms": 0.001653434069584789,
+        "mtf50_abs_cycles_per_pixel": 0.00013840054125071471
+      },
+      "nyquist_error": {
+        "max_abs": 0.07743839764595747,
+        "rms": 0.03299648563105908,
+        "mtf50_abs_cycles_per_pixel": 0.00013840054125071471
+      },
+      "passed": true
+    },
+    {
+      "left": [
+        "baseline",
+        "edge"
+      ],
+      "right": [
+        "pixel-high",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.0006813870409951295,
+        "rms": 0.00028129510667177925,
+        "mtf50_abs_cycles_per_pixel": 7.911765164569928e-06
+      },
+      "nyquist_error": {
+        "max_abs": 0.011055890924688894,
+        "rms": 0.003887911503431316,
+        "mtf50_abs_cycles_per_pixel": 7.911765164569928e-06
+      },
+      "passed": true
+    },
+    {
+      "left": [
+        "baseline",
+        "edge"
+      ],
+      "right": [
+        "joint",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.23598101125268164,
+        "rms": 0.13612669500275798,
+        "mtf50_abs_cycles_per_pixel": 0.011284645022724298
+      },
+      "nyquist_error": {
+        "max_abs": 0.2795620177549231,
+        "rms": 0.13165257833969032,
+        "mtf50_abs_cycles_per_pixel": 0.011284645022724298
+      },
+      "passed": false
+    },
+    {
+      "left": [
+        "pupil-high",
+        "edge"
+      ],
+      "right": [
+        "joint",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.0009629094365086119,
+        "rms": 0.0004979230621875345,
+        "mtf50_abs_cycles_per_pixel": 3.880786307048495e-05
+      },
+      "nyquist_error": {
+        "max_abs": 0.009721217534628748,
+        "rms": 0.004219268269569317,
+        "mtf50_abs_cycles_per_pixel": 3.880786307048495e-05
+      },
+      "passed": true
+    },
+    {
+      "left": [
+        "pixel-high",
+        "edge"
+      ],
+      "right": [
+        "joint",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.2363623715215899,
+        "rms": 0.13627616466227965,
+        "mtf50_abs_cycles_per_pixel": 0.011292556787888867
+      },
+      "nyquist_error": {
+        "max_abs": 0.2790124866279548,
+        "rms": 0.13242114194623067,
+        "mtf50_abs_cycles_per_pixel": 0.011292556787888867
+      },
+      "passed": false
+    },
+    {
+      "left": [
+        "joint",
+        "edge"
+      ],
+      "right": [
+        "joint-phase",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.00016016074621936355,
+        "rms": 6.685503262176924e-05,
+        "mtf50_abs_cycles_per_pixel": 3.8778281380227875e-06
+      },
+      "nyquist_error": {
+        "max_abs": 0.004018257040025397,
+        "rms": 0.0018989162906122594,
+        "mtf50_abs_cycles_per_pixel": 3.8778281380227875e-06
+      },
+      "passed": true
+    },
+    {
+      "left": [
+        "joint",
+        "edge"
+      ],
+      "right": [
+        "joint-angle",
+        "edge"
+      ],
+      "band_error": {
+        "max_abs": 0.0011395840074613223,
+        "rms": 0.0006157090158140272,
+        "mtf50_abs_cycles_per_pixel": 4.9575092658578346e-05
+      },
+      "nyquist_error": {
+        "max_abs": 0.013719765681515238,
+        "rms": 0.002752571939959389,
+        "mtf50_abs_cycles_per_pixel": 4.9575092658578346e-05
+      },
+      "passed": true
+    },
+    {
+      "left": [
+        "joint",
+        "edge"
+      ],
+      "right": [
+        "joint",
+        "window-12"
+      ],
+      "band_error": {
+        "max_abs": 4.766661514388204e-07,
+        "rms": 2.712204569791174e-07,
+        "mtf50_abs_cycles_per_pixel": 2.0043208773246057e-08
+      },
+      "nyquist_error": {
+        "max_abs": 4.766661514388204e-07,
+        "rms": 1.3195224463914933e-07,
+        "mtf50_abs_cycles_per_pixel": 2.0043208773246057e-08
+      },
+      "passed": true
+    },
+    {
+      "left": [
+        "joint",
+        "edge"
+      ],
+      "right": [
+        "joint",
+        "window-20"
+      ],
+      "band_error": {
+        "max_abs": 6.661096979554415e-07,
+        "rms": 3.3957141869440393e-07,
+        "mtf50_abs_cycles_per_pixel": 3.9755988917589136e-09
+      },
+      "nyquist_error": {
+        "max_abs": 6.661096979554415e-07,
+        "rms": 1.669609462345683e-07,
+        "mtf50_abs_cycles_per_pixel": 3.9755988917589136e-09
+      },
+      "passed": true
+    },
+    {
+      "left": [
+        "joint",
+        "edge"
+      ],
+      "right": [
+        "joint",
+        "roi-short"
+      ],
+      "band_error": {
+        "max_abs": 0.0006061443425425805,
+        "rms": 0.0003563926274994079,
+        "mtf50_abs_cycles_per_pixel": 3.0408482851587704e-05
+      },
+      "nyquist_error": {
+        "max_abs": 0.0018547115334131836,
+        "rms": 0.0009420465228553067,
+        "mtf50_abs_cycles_per_pixel": 3.0408482851587704e-05
+      },
+      "passed": true
+    },
+    {
+      "left": [
+        "joint",
+        "edge"
+      ],
+      "right": [
+        "joint",
+        "roi-narrow"
+      ],
+      "band_error": {
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "mtf50_abs_cycles_per_pixel": 0.0
+      },
+      "nyquist_error": {
+        "max_abs": 0.0,
+        "rms": 0.0,
+        "mtf50_abs_cycles_per_pixel": 0.0
+      },
+      "passed": true
+    }
+  ],
+  "bin_sensitivity": [
+    {
+      "bins_per_pixel": 4,
+      "band_error": {
+        "max_abs": 0.00017865185212757873,
+        "rms": 5.6346623645974176e-05,
+        "mtf50_abs_cycles_per_pixel": 2.3294789901900925e-07
+      },
+      "nyquist_error": {
+        "max_abs": 0.003710361476532753,
+        "rms": 0.0019111528773453695,
+        "mtf50_abs_cycles_per_pixel": 2.3294789901900925e-07
+      },
+      "passed": true
+    },
+    {
+      "bins_per_pixel": 16,
+      "band_error": {
+        "max_abs": 0.0004805512703298098,
+        "rms": 0.00032241759602986297,
+        "mtf50_abs_cycles_per_pixel": 3.301198747883427e-05
+      },
+      "nyquist_error": {
+        "max_abs": 0.007363361451603143,
+        "rms": 0.0034889275867148756,
+        "mtf50_abs_cycles_per_pixel": 3.301198747883427e-05
+      },
+      "passed": true
+    }
+  ]
+}

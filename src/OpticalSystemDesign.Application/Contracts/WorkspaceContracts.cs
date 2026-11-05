@@ -1658,7 +1658,9 @@ public enum ToleranceOperandKind
     AsphereCoefficient,
     RefractiveIndex,
     AbbeNumber,
-    Compensator
+    Compensator,
+    FringePower,
+    FringeIrregularity
 }
 
 public enum ToleranceDistribution
@@ -1677,7 +1679,11 @@ public enum ToleranceCriterion
 public enum ToleranceMtfMethod { Fourier, Geometric }
 public enum ToleranceMtfDirection { Average, Tangential, Sagittal, Minimum }
 public enum ToleranceCompensationAlgorithm { DampedLeastSquares, CoordinatePatternSearch }
-public enum ToleranceCompensatorKind { Thickness, DecenterX, DecenterY, TiltX, TiltY }
+public enum ToleranceCompensatorKind
+{
+    Thickness, DecenterX, DecenterY, TiltX, TiltY,
+    ElementDecenterX, ElementDecenterY, ElementTiltX, ElementTiltY
+}
 
 public sealed record ToleranceFieldLimitDto(int FieldNumber, double Minimum);
 public sealed record ToleranceMtfSettingsDto(
@@ -1687,7 +1693,7 @@ public sealed record ToleranceMtfSettingsDto(
     bool SeparateFields = true,
     IReadOnlyList<ToleranceFieldLimitDto>? FieldLimits = null);
 public sealed record ToleranceCompensatorDto(int SurfaceNumber,
-    ToleranceCompensatorKind Kind, double Minimum, double Maximum);
+    ToleranceCompensatorKind Kind, double Minimum, double Maximum, int EndSurfaceNumber = -1);
 public sealed record ToleranceFieldValueDto(int FieldNumber, double Value, string Error = "");
 public sealed record ToleranceCompensatorValueDto(string Name, double Nominal, double Value,
     double Minimum, double Maximum);
@@ -1713,7 +1719,8 @@ public enum ToleranceInverseEndpointStatus
 public enum RadiusToleranceMode
 {
     Fixed,
-    Percent
+    Percent,
+    Fringes
 }
 
 public sealed record ToleranceOperandDto(
@@ -1726,7 +1733,8 @@ public sealed record ToleranceOperandDto(
     ToleranceDistribution Distribution = ToleranceDistribution.Normal,
     string Comment = "",
     int EndSurfaceNumber = -1,
-    int ParameterIndex = 0);
+    int ParameterIndex = 0,
+    double? TestWavelengthMicrometers = null);
 
 public sealed record ToleranceWizardSettingsDto(
     int StartSurface,
@@ -1753,7 +1761,10 @@ public sealed record ToleranceWizardSettingsDto(
     double ConicTolerance = 0,
     bool UseElementGroups = false,
     bool IncludeAsphereCoefficients = false,
-    double AsphereCoefficientTolerance = 0);
+    double AsphereCoefficientTolerance = 0,
+    bool IncludeFringeIrregularity = false,
+    double FringeIrregularity = 0,
+    double TestWavelengthMicrometers = 0.6328);
 
 public sealed record ToleranceValidationResultDto(
     bool IsValid,

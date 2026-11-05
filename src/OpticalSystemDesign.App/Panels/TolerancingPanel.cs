@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Text;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;
@@ -17,6 +18,7 @@ using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
 using OpticalSystemDesign.Application.Services;
+using OpticalSystemDesign.Core.Tolerancing;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -35,11 +37,17 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
     private readonly ObservableCollection<ToleranceOperandEditorRow> _operands = new();
     private readonly HashSet<ToleranceOperandEditorRow> _trackedOperands = new();
     private readonly DataGrid _operandGrid = CreateGrid();
+    private readonly OperandRowAppearance _rowAppearance;
     private readonly DataGrid _sensitivityGrid = CreateGrid();
     private readonly DataGrid _monteCarloGrid = CreateGrid();
     private readonly ComboBox _kindPicker = new() { MinWidth = 180 };
     private readonly ComboBox _surfacePicker = new() { MinWidth = 180 };
     private readonly ComboBox _endSurfacePicker = new() { MinWidth = 180 };
+    private readonly NumericUpDown _testWavelength = Number(
+        (decimal)SurfaceFringePerturbation.DefaultTestWavelengthMicrometers, 0.001m, 1000m, 0.0001m, 150);
+    private StackPanel? _testWavelengthRow;
+    private StackPanel? _endSurfaceRow;
+    private StackPanel? _parameterRow;
     private readonly NumericUpDown _parameterIndex = Number(1, 0, 256, 1, 150);
     private readonly ComboBox _distributionPicker = Picker(0, "正态（公差极限为 ±2σ）", "均匀");
     private readonly CheckBox _enabled = new() { Content = "启用", IsChecked = true };
@@ -84,6 +92,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         _tolerancing = tolerancing;
         _events = events;
         _operands.CollectionChanged += OnOperandsCollectionChanged;
+        _rowAppearance = new(_operandGrid);
         ConfigureGrids();
         ConfigureEditor();
 
@@ -178,6 +187,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         _runCancellation?.Cancel();
         _runCancellation?.Dispose();
         _operationStatus.Dispose();
+        _rowAppearance.Dispose();
     }
 
     private void ConfigureGrids()
@@ -213,14 +223,33 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         _kindPicker.ItemsSource = Enum.GetValues<ToleranceOperandKind>()
             .Select(kind => new ToleranceKindChoice(kind, ToleranceOperandEditorRow.CodeFor(kind), KindName(kind)))
             .ToArray();
-        _kindPicker.DisplayMemberBinding = new Binding(nameof(ToleranceKindChoice.Display));
+        _kindPicker.ItemTemplate = new FuncDataTemplate<ToleranceKindChoice>((choice, _) =>
+        {
+            var name = new TextBlock { Text = choice.Name, TextWrapping = TextWrapping.Wrap };
+            UiLocalization.LocalizeChoiceLabel(name);
+            return new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing = 6,
+                Children = { new TextBlock { Text = choice.Code }, name }
+            };
+        });
         _kindPicker.SelectedIndex = 0;
     }
 
     private void AttachDirtyTracking()
     {
         _enabled.IsCheckedChanged += (_, _) => MarkDirtyFromEditor();
-        _kindPicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
+        _kindPicker.SelectionChanged += (_, _) =>
+        {
+            var fringe = _kindPicker.SelectedItem is ToleranceKindChoice choice
+                && ToleranceOperandEditorRow.UsesFringes(choice.Kind);
+            if (_testWavelengthRow is not null) _testWavelengthRow.IsVisible = fringe;
+            if (_endSurfaceRow is not null) _endSurfaceRow.IsVisible = !fringe;
+            if (_parameterRow is not null) _parameterRow.IsVisible = !fringe;
+            MarkDirtyFromEditor();
+        };
+        _testWavelength.ValueChanged += (_, _) => MarkDirtyFromEditor();
         _surfacePicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
         _endSurfacePicker.SelectionChanged += (_, _) => MarkDirtyFromEditor();
         _parameterIndex.ValueChanged += (_, _) => MarkDirtyFromEditor();
@@ -315,6 +344,12 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
             MinWidth = 120
         };
         applyButton.Click += (_, _) => ApplySelectedOperand();
+        _endSurfaceRow = Labeled("元件终止面", _endSurfacePicker);
+        _parameterRow = Labeled("非球面参数序号", _parameterIndex);
+        _testWavelengthRow = Labeled("条纹检测波长 (µm)", _testWavelength);
+        _testWavelengthRow.Children.Add(new TextBlock { Text = "偏差单位为双程干涉条纹数。", TextWrapping = TextWrapping.Wrap });
+        _testWavelengthRow.IsVisible = false;
+        Avalonia.Automation.AutomationProperties.SetName(_testWavelength, "条纹检测波长 (µm)");
         var panel = new StackPanel
         {
             Spacing = 8,
@@ -324,8 +359,9 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                 _enabled,
                 Labeled("类型", _kindPicker),
                 Labeled("表面", _surfacePicker),
-                Labeled("元件终止面", _endSurfacePicker),
-                Labeled("非球面参数序号", _parameterIndex),
+                _endSurfaceRow,
+                _parameterRow,
+                _testWavelengthRow,
                 Labeled("最小偏差", _minimum),
                 Labeled("最大偏差", _maximum),
                 Labeled("统计分布", _distributionPicker),
@@ -464,6 +500,8 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                 .Cast<SurfaceEditorRow>()
                 .FirstOrDefault(item => item.Number == row.EndSurfaceNumber);
             _parameterIndex.Value = row.ParameterIndex;
+            _testWavelength.Value = ToDecimal(row.TestWavelengthMicrometers
+                ?? SurfaceFringePerturbation.DefaultTestWavelengthMicrometers);
             _minimum.Value = ToDecimal(row.Minimum);
             _maximum.Value = ToDecimal(row.Maximum);
             _distributionPicker.SelectedIndex = row.Distribution == ToleranceDistribution.Uniform ? 1 : 0;
@@ -492,6 +530,9 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
             selected.SurfaceNumber = surface.Number;
             selected.EndSurfaceNumber = (_endSurfacePicker.SelectedItem as SurfaceEditorRow)?.Number ?? -1;
             selected.ParameterIndex = IntValue(_parameterIndex, 0);
+            selected.TestWavelengthMicrometers = ToleranceOperandEditorRow.UsesFringes(kind.Kind)
+                ? DoubleValue(_testWavelength, SurfaceFringePerturbation.DefaultTestWavelengthMicrometers)
+                : null;
             selected.Minimum = DoubleValue(_minimum, -0.1);
             selected.Maximum = DoubleValue(_maximum, 0.1);
             selected.Distribution = _distributionPicker.SelectedIndex == 1
@@ -972,11 +1013,8 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         var document = _documents.GetSnapshot();
         var path = document.Path ?? document.Name;
         var surfaces = _prescription.GetSurfaces();
-        var wavelengths = _prescription.GetWavelengths();
         var operands = _operands.Select(row => row.ToDto()).ToArray();
         var enabled = operands.Where(row => row.Enabled).ToArray();
-        var measurementWavelength = wavelengths.FirstOrDefault(wave => wave.IsPrimary)
-            ?? wavelengths.FirstOrDefault();
         var builder = new StringBuilder();
 
         builder.AppendLine("公差数据概要");
@@ -986,9 +1024,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         builder.AppendLine($"日期 : {DateTime.Now:yyyy/M/d}");
         builder.AppendLine();
         builder.AppendLine("半径和厚度数据在毫米里。");
-        builder.AppendLine($"光焦和不规则度是通过双通干涉测量，测量波长: {FormatWavelength(measurementWavelength)}");
-        builder.AppendLine("仅球差和象散不规则公差列在表面中心公差；");
-        builder.AppendLine("Zernike不规则公差列在其它公差下。");
+        builder.AppendLine("TFRN/TIRR 使用双程干涉条纹数，每行单独给出检测波长。");
         builder.AppendLine("表面全跳动公差（TIR）单位是：毫米。");
         builder.AppendLine("折射率和阿贝公差是无量纲的。");
         builder.AppendLine("表面和元件偏心单位：毫米。");
@@ -996,7 +1032,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         builder.AppendLine();
         builder.AppendLine("表面中心公差:");
         builder.AppendLine();
-        builder.AppendLine(FixedColumns("表面", "半径", "最小公差", "最大公差", "光焦度", "不规则", "厚度", "最小公差", "最大公差"));
+        builder.AppendLine(FixedColumns("表面", "半径", "最小公差", "最大公差", "TFRN", "TIRR", "圆锥系数", "厚度", "最小公差", "最大公差"));
         foreach (var surface in surfaces)
         {
             var radius = FindOperand(enabled, ToleranceOperandKind.Radius, surface.Number);
@@ -1006,8 +1042,9 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                 FormatRadius(surface.Radius),
                 FormatOperandMinimum(radius),
                 FormatOperandMaximum(radius),
-                "-",
-                FormatConicTolerance(enabled, surface.Number),
+                FormatOperandRange(FindOperand(enabled, ToleranceOperandKind.FringePower, surface.Number)),
+                FormatOperandRange(FindOperand(enabled, ToleranceOperandKind.FringeIrregularity, surface.Number)),
+                FormatOperandRange(FindOperand(enabled, ToleranceOperandKind.Conic, surface.Number)),
                 FormatNumber(surface.Thickness),
                 FormatOperandMinimum(thickness),
                 FormatOperandMaximum(thickness)));
@@ -1046,7 +1083,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         builder.AppendLine();
         builder.AppendLine("公差操作数:");
         builder.AppendLine();
-        builder.AppendLine(FixedColumns("#", "类型", "位置", "最小", "最大", "统计", "标注"));
+        builder.AppendLine(FixedColumns("#", "类型", "位置", "最小", "最大", "统计", "检测波长 (µm)", "标注"));
         foreach (var operand in operands)
         {
             builder.AppendLine(FixedColumns(
@@ -1056,6 +1093,9 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                 FormatNumber(operand.Minimum),
                 FormatNumber(operand.Maximum),
                 operand.Distribution == ToleranceDistribution.Normal ? "正态" : "均匀",
+                ToleranceOperandEditorRow.UsesFringes(operand.Kind)
+                    ? FormatNumber(operand.TestWavelengthMicrometers ?? SurfaceFringePerturbation.DefaultTestWavelengthMicrometers)
+                    : "-",
                 operand.Comment));
         }
 
@@ -1214,21 +1254,10 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         int surfaceNumber) =>
         operands.FirstOrDefault(operand => operand.Kind == kind && operand.SurfaceNumber == surfaceNumber);
 
-    private static string FormatWavelength(WavelengthRowDto? wavelength) =>
-        wavelength is null
-            ? "-"
-            : $"{wavelength.Nanometers / 1000.0:0.####} μm";
-
     private static string FormatRadius(double radius) =>
         !double.IsFinite(radius) || Math.Abs(radius) < 1e-12
             ? NumericDisplayFormatter.Format(double.PositiveInfinity)
             : FormatNumber(radius);
-
-    private static string FormatConicTolerance(IReadOnlyList<ToleranceOperandDto> operands, int surfaceNumber)
-    {
-        var conic = FindOperand(operands, ToleranceOperandKind.Conic, surfaceNumber);
-        return conic is null ? "-" : FormatOperandRange(conic);
-    }
 
     private static string FormatOperandMinimum(ToleranceOperandDto? operand) =>
         operand is null ? "-" : FormatNumber(operand.Minimum);
@@ -1318,6 +1347,8 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         ToleranceOperandKind.RefractiveIndex => "折射率",
         ToleranceOperandKind.AbbeNumber => "阿贝数",
         ToleranceOperandKind.Compensator => "补偿器",
+        ToleranceOperandKind.FringePower => "曲率条纹",
+        ToleranceOperandKind.FringeIrregularity => "面形不规则度（球差 + 像散）",
         _ => kind.ToString()
     };
 
@@ -1394,9 +1425,6 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
     private static int IntValue(NumericUpDown input, int fallback) =>
         input.Value.HasValue ? decimal.ToInt32(input.Value.Value) : fallback;
 
-    private sealed record ToleranceKindChoice(ToleranceOperandKind Kind, string Code, string Name)
-    {
-        public string Display => $"{Code} — {Name}";
-    }
+    private sealed record ToleranceKindChoice(ToleranceOperandKind Kind, string Code, string Name);
 
 }

@@ -35,6 +35,36 @@ public sealed class StandardIntersectionPrecisionTests
         }
     }
 
+    [Theory]
+    [InlineData(50)]
+    [InlineData(-50)]
+    public void FiniteFarObjectRetainsSphericalHitsInEveryBatchLane(double radius)
+    {
+        var count = 2 * Vector<double>.Count + 1;
+        var geometry = new StandardGeometry(radius);
+        const double expectedDistance = 100_000;
+        var targets = Enumerable.Range(0, count).Select(i =>
+        {
+            var x = 3d + i;
+            return new Vector3D(x, -2, geometry.Sag(x, -2));
+        }).ToArray();
+        var direction = new Vector3D(.001, -.002, 1);
+        direction /= direction.Length;
+        var origins = targets.Select(p => p - direction * expectedDistance).ToArray();
+        IBatchedNumericBackend[] backends = [new ManagedCpuBackend(), new ScalarBatchedNumericBackendAdapter(new ManagedCpuBackend())];
+        foreach (var backend in backends)
+        {
+            var distances = new double[count];
+            var hits = new bool[count];
+            backend.IntersectStandard(origins.Select(p => p.X).ToArray(), origins.Select(p => p.Y).ToArray(),
+                origins.Select(p => p.Z).ToArray(), Enumerable.Repeat(direction.X, count).ToArray(),
+                Enumerable.Repeat(direction.Y, count).ToArray(), Enumerable.Repeat(direction.Z, count).ToArray(),
+                radius, 0, distances, hits);
+            Assert.All(hits, hit => Assert.True(hit));
+            Assert.All(distances, value => Assert.InRange(Math.Abs(value - expectedDistance), 0, 1e-9));
+        }
+    }
+
     [Fact]
     public void PetzvalGaussianScanRetainsEveryRayConfirmedByTheNativePupilAudit()
     {

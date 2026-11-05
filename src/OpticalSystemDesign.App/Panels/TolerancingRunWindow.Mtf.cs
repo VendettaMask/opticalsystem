@@ -59,20 +59,29 @@ public sealed partial class TolerancingRunWindow
             _contextSurfaces.FirstOrDefault(surface => surface.Number > 0 && surface.Number < _contextSurfaces.Count - 1 && string.IsNullOrEmpty(surface.Material))?.Number ?? 1,
             ToleranceCompensatorKind.Thickness, -0.1, 0.1));
         return Page(Section("补偿方式", Row("方法", _compensation), Row("补偿循环", _cycles)),
-            Section("附加可调量", Note("公差表中的 COMP 仍参与补偿。此处可增加空气间隔和单表面 X/Y 偏心、倾斜；范围是相对名义值的偏差，必须包含 0。偏心和间隔单位 mm，倾斜单位 °。"),
+            Section("附加可调量", Note("公差表中的 COMP 仍参与补偿。可增加空气间隔、单面或镜组 X/Y 偏心与倾斜。偏差相对名义值，范围必须包含 0。"),
                 add, _compensatorRows),
-            Note("全部视场共用同一组补偿量。DLS 和坐标模式搜索为本软件算法；单表面调整并不自动移动整个镜片组。"));
+            Note("全部视场共用补偿量。镜组两端及中间各面一起移动，倾斜以首面顶点为支点。"));
     }
 
     private void AddCompensator(ToleranceCompensatorDto definition)
     {
         var surface = Number(definition.SurfaceNumber, 1, Math.Max(1, _contextSurfaces.Count - 2), 1);
-        var kind = Picker((int)definition.Kind, "空气间隔 (mm)", "X 偏心 (mm)", "Y 偏心 (mm)", "X 倾斜 (°)", "Y 倾斜 (°)");
+        var lastPhysicalSurface = Math.Max(1, _contextSurfaces.Count - 2);
+        var end = Number(definition.EndSurfaceNumber > 0 ? definition.EndSurfaceNumber
+            : Math.Min(definition.SurfaceNumber + 1, lastPhysicalSurface), 1, lastPhysicalSurface, 1);
+        var kind = Picker((int)definition.Kind, "空气间隔 (mm)", "X 偏心 (mm)", "Y 偏心 (mm)", "X 倾斜 (°)", "Y 倾斜 (°)",
+            "镜组 X 偏心 (mm)", "镜组 Y 偏心 (mm)", "镜组 X 倾斜 (°)", "镜组 Y 倾斜 (°)");
         var minimum = Number(ToDecimal(definition.Minimum), -1_000_000, 0, 0.01m);
         var maximum = Number(ToDecimal(definition.Maximum), 0, 1_000_000, 0.01m);
         var remove = Button("删除");
-        var card = Section("附加补偿器", Row("表面编号", surface), Row("可调量", kind), Row("最小偏差", minimum), Row("最大偏差", maximum), remove);
-        var controls = new CompensatorControls(surface, kind, minimum, maximum, card);
+        var endRow = Row("镜组终止面", end);
+        endRow.IsVisible = definition.Kind.IsElement();
+        kind.SelectionChanged += (_, _) => endRow.IsVisible = ((ToleranceCompensatorKind)kind.SelectedIndex).IsElement();
+        Avalonia.Automation.AutomationProperties.SetName(end, "镜组终止面");
+        var card = Section("附加补偿器", Row("可调量", kind), Row("表面编号", surface), endRow,
+            Row("最小偏差", minimum), Row("最大偏差", maximum), remove);
+        var controls = new CompensatorControls(surface, end, kind, minimum, maximum);
         _compControls.Add(controls); _compensatorRows.Children.Add(card);
         remove.Click += (_, _) => { _compControls.Remove(controls); _compensatorRows.Children.Remove(card); };
     }
@@ -102,7 +111,9 @@ public sealed partial class TolerancingRunWindow
             ? _fieldControls.Where(field => field.Use.IsChecked == true).Select(field => new ToleranceFieldLimitDto(field.Number, DoubleValue(field.Limit, 0.2))).ToArray()
             : Array.Empty<ToleranceFieldLimitDto>());
     private IReadOnlyList<ToleranceCompensatorDto> BuildAdditionalCompensators() => _compControls.Select(row => new ToleranceCompensatorDto(
-        IntValue(row.Surface, 1), (ToleranceCompensatorKind)row.Kind.SelectedIndex, DoubleValue(row.Minimum, 0), DoubleValue(row.Maximum, 0))).ToArray();
+        IntValue(row.Surface, 1), (ToleranceCompensatorKind)row.Kind.SelectedIndex,
+        DoubleValue(row.Minimum, 0), DoubleValue(row.Maximum, 0),
+        ((ToleranceCompensatorKind)row.Kind.SelectedIndex).IsElement() ? IntValue(row.EndSurface, -1) : -1)).ToArray();
 
     private void UpdateMtfControls()
     {
@@ -123,9 +134,11 @@ public sealed partial class TolerancingRunWindow
         var options = BuildOptions();
         if (options.AdditionalCompensators?.Any(row => row.Minimum >= row.Maximum) == true)
         { _settingsError.Text = "补偿器范围必须包含 0，且最小偏差小于最大偏差。"; return; }
+        if (options.AdditionalCompensators?.Any(row => row.Kind.IsElement() && row.EndSurfaceNumber <= row.SurfaceNumber) == true)
+        { _settingsError.Text = "镜组终止面必须在起始面之后。"; return; }
         Close(options);
     }
 
     private sealed record FieldLimitControls(int Number, CheckBox Use, NumericUpDown Limit);
-    private sealed record CompensatorControls(NumericUpDown Surface, ComboBox Kind, NumericUpDown Minimum, NumericUpDown Maximum, Border Card);
+    private sealed record CompensatorControls(NumericUpDown Surface, NumericUpDown EndSurface, ComboBox Kind, NumericUpDown Minimum, NumericUpDown Maximum);
 }

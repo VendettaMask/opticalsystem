@@ -330,6 +330,12 @@
     "Japanese": "CODA は入力された Jones 値を、RRET は基準軸を使用します。照度の偏光計算は非偏光設定に従います。"
   },
   {
+    "Source": "CPU · {0} 个逻辑处理器 · {1} · 软件版本 {2}",
+    "Chinese": "CPU · {0} 个逻辑处理器 · {1} · 软件版本 {2}",
+    "English": "CPU · {0} logical processors · {1} · App version {2}",
+    "Japanese": "CPU · 論理プロセッサー {0} · {1} · アプリバージョン {2}"
+  },
+  {
     "Source": "CPU 恢复光线",
     "Chinese": "CPU 恢复光线",
     "English": "CPU recovery rays",
@@ -2712,6 +2718,12 @@
     "Japanese": "現在のプロジェクトのレンズと入力を使用"
   },
   {
+    "Source": "使用当前顺序镜头测量 CPU 追迹吞吐和系统更新速度。",
+    "Chinese": "使用当前顺序镜头测量 CPU 追迹吞吐和系统更新速度。",
+    "English": "Measure CPU ray-tracing throughput and system updates for the current sequential lens.",
+    "Japanese": "現在の順序レンズで CPU 光線追跡の処理量とシステム更新速度を測定します。"
+  },
+  {
     "Source": "使用所有波长",
     "Chinese": "使用所有波长",
     "English": "Use All Wavelengths",
@@ -3190,6 +3202,12 @@
     "Chinese": "倾斜系统与棱镜",
     "English": "Tilted systems & prisms",
     "Japanese": "傾斜光学系とプリズム"
+  },
+  {
+    "Source": "偏差单位为双程干涉条纹数。",
+    "Chinese": "偏差单位为双程干涉条纹数。",
+    "English": "Deviations are given in double-pass fringes.",
+    "Japanese": "偏差の単位は往復干渉縞の本数です。"
   },
   {
     "Source": "偏心",
@@ -4236,6 +4254,12 @@
     "Japanese": "すべてフロート"
   },
   {
+    "Source": "全部视场共用补偿量。镜组两端及中间各面一起移动，倾斜以首面顶点为支点。",
+    "Chinese": "全部视场共用补偿量。镜组两端及中间各面一起移动，倾斜以首面顶点为支点。",
+    "English": "All fields share the same adjustments. All surfaces in the group move together and tilt pivots about the first surface vertex.",
+    "Japanese": "全視野で補償量を共有します。群内の全ての面が一体で移動し、先頭面の頂点を支点に傾きます。"
+  },
+  {
     "Source": "全部镜头",
     "Chinese": "全部镜头",
     "English": "All Lenses",
@@ -4360,6 +4384,12 @@
     "Chinese": "公差样本数",
     "English": "Tolerance Samples",
     "Japanese": "公差サンプル数"
+  },
+  {
+    "Source": "公差表中的 COMP 仍参与补偿。可增加空气间隔、单面或镜组 X/Y 偏心与倾斜。偏差相对名义值，范围必须包含 0。",
+    "Chinese": "公差表中的 COMP 仍参与补偿。可增加空气间隔、单面或镜组 X/Y 偏心与倾斜。偏差相对名义值，范围必须包含 0。",
+    "English": "COMP rows also participate. Add air gaps or X/Y decenter and tilt for a surface or group. Deviations are relative to nominal and the range must include 0.",
+    "Japanese": "公差表の COMP も使用します。空気間隔、単面または群の X/Y 偏心と傾きを追加できます。偏差は公称値に対する値で、範囲には 0 が必要です。"
   },
   {
     "Source": "公差设置",
@@ -6750,6 +6780,12 @@
     "Japanese": "移行が元の許可条件または形状条件に不適合"
   },
   {
+    "Source": "处理面次/秒    {0:N0}",
+    "Chinese": "处理面次/秒    {0:N0}",
+    "English": "Ray-surface visits/sec    {0:N0}",
+    "Japanese": "光線の面処理数/秒    {0:N0}"
+  },
+  {
     "Source": "备注",
     "Chinese": "备注",
     "English": "Notes",
@@ -8868,6 +8904,12 @@
     "Japanese": "新規タスクは再構築と完全検証を先に実行します。不適合なら保存して停止し、既存タスクの再開では再構築しません。"
   },
   {
+    "Source": "开始检验",
+    "Chinese": "开始检验",
+    "English": "Run Test",
+    "Japanese": "テスト開始"
+  },
+  {
     "Source": "开始自主设计",
     "Chinese": "开始自主设计",
     "English": "Start Autonomous Design",
@@ -9244,6 +9286,24 @@
     "Chinese": "忽略这个表面",
     "English": "Ignore This Surface",
     "Japanese": "この面を無視"
+  },
+  {
+    "Source": "性能检验",
+    "Chinese": "性能检验",
+    "English": "Performance Test",
+    "Japanese": "性能テスト"
+  },
+  {
+    "Source": "性能检验失败：{0}",
+    "Chinese": "性能检验失败：{0}",
+    "English": "Performance test failed: {0}",
+    "Japanese": "性能テストに失敗しました：{0}"
+  },
+  {
+    "Source": "性能检验已取消。",
+    "Chinese": "性能检验已取消。",
+    "English": "Performance test cancelled.",
+    "Japanese": "性能テストをキャンセルしました。"
   },
   {
     "Source": "总体布局预览已更新",
@@ -11040,6 +11100,12 @@
     "Japanese": "曲率半径 mm"
   },
   {
+    "Source": "曲率条纹",
+    "Chinese": "曲率条纹",
+    "English": "Power fringes",
+    "Japanese": "パワー縞"
+  },
+  {
     "Source": "曲率（mm⁻¹）",
     "Chinese": "曲率（mm⁻¹）",
     "English": "Curvature (mm⁻¹)",
@@ -11802,6 +11868,18 @@
     "Japanese": "脈理等級"
   },
   {
+    "Source": "条纹数",
+    "Chinese": "条纹数",
+    "English": "Fringes",
+    "Japanese": "干渉縞数"
+  },
+  {
+    "Source": "条纹检测波长 (µm)",
+    "Chinese": "条纹检测波长 (µm)",
+    "English": "Fringe test wavelength (µm)",
+    "Japanese": "干渉縞の検査波長 (µm)"
+  },
+  {
     "Source": "条纹由两光束 OPD 差生成；等强度、出瞳完全重叠。X/Y 倾斜为全瞳直径上的附加条纹数，倍率先于倾斜应用。",
     "Chinese": "条纹由两光束 OPD 差生成；等强度、出瞳完全重叠。X/Y 倾斜为全瞳直径上的附加条纹数，倍率先于倾斜应用。",
     "English": "Fringes use the OPD difference of two equal-intensity beams with fully overlapping exit pupils. X/Y tilt specifies extra fringes across the full pupil diameter; scale is applied before tilt.",
@@ -12070,6 +12148,12 @@
     "Chinese": "检索已保存，已有镜头复用不计为新设计",
     "English": "Retrieval saved; reused prescriptions are not newly designed lenses",
     "Japanese": "検索結果を保存しました。既存処方の再利用は新規設計には数えません"
+  },
+  {
+    "Source": "检验完成。读数为三轮的中位数。",
+    "Chinese": "检验完成。读数为三轮的中位数。",
+    "English": "Test complete. Readings are the median of three trials.",
+    "Japanese": "テスト完了。表示値は3回の測定の中央値です。"
   },
   {
     "Source": "检验波长 λ",
@@ -12358,6 +12442,12 @@
     "Chinese": "正在检索镜头库",
     "English": "Retrieving library prescriptions",
     "Japanese": "レンズライブラリを検索中"
+  },
+  {
+    "Source": "正在检验性能…",
+    "Chinese": "正在检验性能…",
+    "English": "Running performance test…",
+    "Japanese": "性能テストを実行中…"
   },
   {
     "Source": "正在生成 STEP CAD 模型…",
@@ -14142,6 +14232,12 @@
     "Japanese": "第{0}層、{1}、{2}"
   },
   {
+    "Source": "第 {0} 轮 · 到达末面 {1:N0}/{2:N0} · 处理 {3:N0} 面次 · 追迹 {4:F3} s · 更新 {5} 次 / {6:F3} s",
+    "Chinese": "第 {0} 轮 · 到达末面 {1:N0}/{2:N0} · 处理 {3:N0} 面次 · 追迹 {4:F3} s · 更新 {5} 次 / {6:F3} s",
+    "English": "Trial {0} · Final-surface arrivals {1:N0}/{2:N0} · Surface visits {3:N0} · Tracing {4:F3} s · Updates {5} / {6:F3} s",
+    "Japanese": "試行 {0} · 最終面到達 {1:N0}/{2:N0} · 面処理 {3:N0} · 追跡 {4:F3} s · 更新 {5} 回 / {6:F3} s"
+  },
+  {
     "Source": "等待生成候选",
     "Chinese": "等待生成候选",
     "English": "Waiting for Candidates",
@@ -14314,6 +14410,12 @@
     "Chinese": "系统数据摘要",
     "English": "First Order",
     "Japanese": "一次特性"
+  },
+  {
+    "Source": "系统更新/秒    {0:N1}",
+    "Chinese": "系统更新/秒    {0:N1}",
+    "English": "System updates/sec    {0:N1}",
+    "Japanese": "システム更新回数/秒    {0:N1}"
   },
   {
     "Source": "系统选项",
@@ -16044,6 +16146,12 @@
     "Japanese": "評価角度 {0}"
   },
   {
+    "Source": "诊断",
+    "Chinese": "诊断",
+    "English": "Diagnostics",
+    "Japanese": "診断"
+  },
+  {
     "Source": "诊断日志：",
     "Chinese": "诊断日志：",
     "English": "Diagnostic log: ",
@@ -16222,6 +16330,12 @@
     "Chinese": "请切换到非序列模式后读取探测器。",
     "English": "Switch to non-sequential mode to read a detector.",
     "Japanese": "非順序モードに切り替えて検出器を読み込んでください。"
+  },
+  {
+    "Source": "请在顺序模式下运行性能检验。",
+    "Chinese": "请在顺序模式下运行性能检验。",
+    "English": "Run the performance test in sequential mode.",
+    "Japanese": "順序モードで性能テストを実行してください。"
   },
   {
     "Source": "请填写有效数字",
@@ -16908,6 +17022,12 @@
     "Japanese": "追跡光線"
   },
   {
+    "Source": "追迹光线/秒    {0:N0}",
+    "Chinese": "追迹光线/秒    {0:N0}",
+    "English": "Rays traced/sec    {0:N0}",
+    "Japanese": "追跡光線数/秒    {0:N0}"
+  },
+  {
     "Source": "追迹失败：{0}",
     "Chinese": "追迹失败：{0}",
     "English": "Tracing failed: {0}",
@@ -17236,6 +17356,12 @@
     "Chinese": "部分项目需要工艺评审",
     "English": "Some checks need process review",
     "Japanese": "一部の項目に工程確認が必要です"
+  },
+  {
+    "Source": "配置 {0} · {1} 个追迹面 · 视场 {2} · {3:G6} µm",
+    "Chinese": "配置 {0} · {1} 个追迹面 · 视场 {2} · {3:G6} µm",
+    "English": "Configuration {0} · {1} trace surfaces · Field {2} · {3:G6} µm",
+    "Japanese": "構成 {0} · 追跡面数 {1} · 視野 {2} · {3:G6} µm"
   },
   {
     "Source": "配置号",
@@ -17658,6 +17784,42 @@
     "Japanese": "実際の光線に合わせてレンズ径を調整"
   },
   {
+    "Source": "镜组 X 倾斜 (°)",
+    "Chinese": "镜组 X 倾斜 (°)",
+    "English": "Group X tilt (°)",
+    "Japanese": "群の X 傾き (°)"
+  },
+  {
+    "Source": "镜组 X 偏心 (mm)",
+    "Chinese": "镜组 X 偏心 (mm)",
+    "English": "Group X decenter (mm)",
+    "Japanese": "群の X 偏心 (mm)"
+  },
+  {
+    "Source": "镜组 Y 倾斜 (°)",
+    "Chinese": "镜组 Y 倾斜 (°)",
+    "English": "Group Y tilt (°)",
+    "Japanese": "群の Y 傾き (°)"
+  },
+  {
+    "Source": "镜组 Y 偏心 (mm)",
+    "Chinese": "镜组 Y 偏心 (mm)",
+    "English": "Group Y decenter (mm)",
+    "Japanese": "群の Y 偏心 (mm)"
+  },
+  {
+    "Source": "镜组终止面",
+    "Chinese": "镜组终止面",
+    "English": "Last group surface",
+    "Japanese": "群の終端面"
+  },
+  {
+    "Source": "镜组终止面必须在起始面之后。",
+    "Chinese": "镜组终止面必须在起始面之后。",
+    "English": "The last group surface must follow the first surface.",
+    "Japanese": "群の終端面は開始面より後に指定してください。"
+  },
+  {
     "Source": "镜面锥半角 (°)",
     "Chinese": "镜面锥半角 (°)",
     "English": "Peak cone half-angle (°)",
@@ -18010,6 +18172,12 @@
     "Chinese": "面型定义引用",
     "English": "Surface Definition Reference",
     "Japanese": "面形状定義の参照"
+  },
+  {
+    "Source": "面形不规则度（球差 + 像散）",
+    "Chinese": "面形不规则度（球差 + 像散）",
+    "English": "Surface irregularity (spherical + astigmatism)",
+    "Japanese": "面形状不規則度（球面 + 非点）"
   },
   {
     "Source": "面板",

@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using static OpticalSystemDesign.Core.Backend.StandardIntersectionValidation;
 
@@ -179,8 +180,19 @@ internal sealed class ScalarBatchedNumericBackendAdapter : IBatchedNumericBacken
         }
 
         var conicFactor = 1.0 + conic;
+        var longLaunch = DistantLaunchThreshold(radius);
+        var surface = new RotationalSurfaceEquation { Kind = 1, Radius = radius, Conic = conic };
         for (var index = 0; index < originX.Length; index++)
         {
+            if (Math.Abs(originZ[index]) > longLaunch)
+            {
+                var hit = surface.Intersect(new(originX[index], originY[index], originZ[index]),
+                    new(directionX[index], directionY[index], directionZ[index]));
+                distance[index] = hit.IsHit ? hit.Distance : double.NaN;
+                intersects[index] = hit.IsHit;
+                continue;
+            }
+
             var a = (directionX[index] * directionX[index])
                 + (directionY[index] * directionY[index])
                 + (conicFactor * directionZ[index] * directionZ[index]);

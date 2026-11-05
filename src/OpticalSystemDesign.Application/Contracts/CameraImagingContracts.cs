@@ -119,6 +119,8 @@ public interface ICameraImagingService
 {
     Task<CameraSceneRoiSfrReport> MeasureSceneLinearRoisAsync(CameraSceneLinearBatchArtifact artifact, CameraSceneRoiSfrRequest request,
         IProgress<CameraSceneRoiSfrProgress>? progress = null, CancellationToken cancellationToken = default);
+    Task<CameraSceneMtfReport> CompareSceneLinearMtfAsync(CameraSceneLinearBatchArtifact artifact,
+        CameraSceneRoiSfrRequest request, int pupilAxisSamples = 129, CancellationToken cancellationToken = default);
     Task SaveSceneLinearRoisAsync(CameraSceneRoiSfrReport report, string path, CancellationToken cancellationToken = default);
     Task<CameraSceneRoiSfrReport> OpenSceneLinearRoisAsync(CameraSceneLinearBatchArtifact artifact, string path, CancellationToken cancellationToken = default);
     CameraSceneLinearBatchPlan PrepareSceneLinearBatch(CameraSceneLinearBatchRequest request);

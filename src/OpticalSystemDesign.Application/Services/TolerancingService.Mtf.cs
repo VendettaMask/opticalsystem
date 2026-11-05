@@ -43,6 +43,9 @@ internal sealed partial class TolerancingService
                     || !double.IsFinite(item.Minimum) || !double.IsFinite(item.Maximum)
                     || item.Minimum > 0 || item.Maximum < 0 || item.Minimum >= item.Maximum)
                     throw new ArgumentException("补偿表面或范围无效；偏差范围必须包含名义值 0。");
+                if (item.Kind.IsElement() && (item.EndSurfaceNumber <= item.SurfaceNumber
+                    || item.EndSurfaceNumber >= optic.SurfaceGroup.Items.Count - 1))
+                    throw new ArgumentException("镜组补偿需要有效的起止实体面，且至少包含两个面。");
                 var surface = optic.SurfaceGroup.Items[item.SurfaceNumber];
                 if (item.Kind == ToleranceCompensatorKind.Thickness
                     && (surface.Thickness + item.Minimum < 0 || surface.MaterialAfter.RefractiveIndex(587.6) > 1.0001))
@@ -50,6 +53,22 @@ internal sealed partial class TolerancingService
                 if (item.Kind == ToleranceCompensatorKind.Thickness
                     && request.Operands?.Any(row => row.Enabled && row.Kind == ToleranceOperandKind.Compensator && row.SurfaceNumber == item.SurfaceNumber) == true)
                     throw new ArgumentException("附加间隔补偿与 COMP 重复。");
+            }
+
+            var groups = compensators.Where(item => item.Kind.IsElement())
+                .Select(item => (First: item.SurfaceNumber, Last: item.EndSurfaceNumber))
+                .Distinct().OrderBy(group => group.First).ToArray();
+            for (var i = 1; i < groups.Length; i++)
+                if (groups[i].First <= groups[i - 1].Last)
+                    throw new ArgumentException("不同镜组补偿的表面范围不能重叠。");
+
+            foreach (var group in groups)
+            {
+                if (compensators.Any(item => !item.Kind.IsElement() && item.SurfaceNumber >= group.First
+                    && (item.Kind == ToleranceCompensatorKind.Thickness ? item.SurfaceNumber < group.Last : item.SurfaceNumber <= group.Last))
+                    || request.Operands?.Any(row => row.Enabled && row.Kind == ToleranceOperandKind.Compensator
+                        && row.SurfaceNumber >= group.First && row.SurfaceNumber < group.Last) == true)
+                    throw new ArgumentException("镜组补偿与组内单面姿态或组内可调间隔冲突。");
             }
         }
     }

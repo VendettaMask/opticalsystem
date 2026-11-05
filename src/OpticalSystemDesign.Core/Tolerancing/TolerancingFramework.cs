@@ -191,10 +191,7 @@ public sealed class VariableRangePerturbation : IScaledRangePerturbation
 
     public void Apply(Optic optic, Random random)
     {
-        var delta = _normalDistribution
-            ? SampleTruncatedNormal(random)
-            : Minimum + ((Maximum - Minimum) * random.NextDouble());
-        ApplyDelta(delta);
+        ApplyDelta(SampleDelta(random, Minimum, Maximum, _normalDistribution));
     }
 
     public void ApplyMinimum(Optic optic) => ApplyDelta(Minimum);
@@ -215,11 +212,12 @@ public sealed class VariableRangePerturbation : IScaledRangePerturbation
         _variable.Value = _previousValue + delta;
     }
 
-    private double SampleTruncatedNormal(Random random)
+    internal static double SampleDelta(Random random, double minimum, double maximum, bool normalDistribution)
     {
+        if (!normalDistribution) return minimum + (maximum - minimum) * random.NextDouble();
         const double sigmaSpan = 2.0;
-        var midpoint = (Minimum + Maximum) / 2.0;
-        var sigma = (Maximum - Minimum) / (2.0 * sigmaSpan);
+        var midpoint = (minimum + maximum) / 2.0;
+        var sigma = (maximum - minimum) / (2.0 * sigmaSpan);
         if (sigma <= 1e-15)
         {
             return midpoint;
@@ -234,7 +232,7 @@ public sealed class VariableRangePerturbation : IScaledRangePerturbation
             var u2 = random.NextDouble();
             var value = midpoint
                 + (sigma * Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2));
-            if (value >= Minimum && value <= Maximum)
+            if (value >= minimum && value <= maximum)
             {
                 return value;
             }
@@ -243,7 +241,7 @@ public sealed class VariableRangePerturbation : IScaledRangePerturbation
         return midpoint;
     }
 
-    private static double ValidateScale(double scale)
+    internal static double ValidateScale(double scale)
     {
         if (!double.IsFinite(scale) || scale < 0 || scale > 1)
         {

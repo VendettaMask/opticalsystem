@@ -29,6 +29,14 @@ public partial class WorkbenchRuntime
             {
                 tolerancing.AddCompensator(CreateToleranceVariableWorker(optic, operand));
             }
+            else if (operand.Kind is ToleranceOperandKind.FringePower or ToleranceOperandKind.FringeIrregularity)
+            {
+                tolerancing.AddPerturbation(new SurfaceFringePerturbation(
+                    ToleranceOperandName(operand), operand.SurfaceNumber,
+                    operand.Kind == ToleranceOperandKind.FringePower ? SurfaceFringeMode.Power : SurfaceFringeMode.Irregularity,
+                    operand.TestWavelengthMicrometers ?? SurfaceFringePerturbation.DefaultTestWavelengthMicrometers,
+                    operand.Minimum, operand.Maximum, operand.Distribution == ToleranceDistribution.Normal));
+            }
             else
             {
                 tolerancing.AddPerturbation(new VariableRangePerturbation(
@@ -80,11 +88,7 @@ public partial class WorkbenchRuntime
                 new DelegateVariable(
                     $"surface {surfaceNumber} thickness",
                     () => FindSurface(optic, surfaceNumber).Thickness,
-                    value =>
-                    {
-                        FindSurface(optic, surfaceNumber).Thickness = value;
-                        SyncSurfacePositions(optic);
-                    },
+                    value => SetToleranceThickness(optic, surfaceNumber, value),
                     0,
                     Math.Max(1, target.Thickness * 4),
                     Math.Max(1e-6, Math.Abs(thicknessSigma))),
@@ -98,11 +102,7 @@ public partial class WorkbenchRuntime
             tolerancing.AddCompensator(new DelegateVariable(
                 $"surface {surfaceId} image spacing",
                 () => FindSurface(optic, surfaceId).Thickness,
-                value =>
-                {
-                    FindSurface(optic, surfaceId).Thickness = value;
-                    SyncSurfacePositions(optic);
-                },
+                value => SetToleranceThickness(optic, surfaceId, value),
                 0,
                 Math.Max(1, spacingSurface.Thickness + 100),
                 0.5));
@@ -213,11 +213,7 @@ public partial class WorkbenchRuntime
         new DelegateVariable(
             ToleranceOperandName(operand),
             () => FindSurface(optic, operand.SurfaceNumber).Thickness,
-            value =>
-            {
-                FindSurface(optic, operand.SurfaceNumber).Thickness = value;
-                SyncSurfacePositions(optic);
-            },
+            value => SetToleranceThickness(optic, operand.SurfaceNumber, value),
             minimum,
             maximum,
             Math.Max(1e-8, ToleranceStep(operand)));
@@ -264,20 +260,20 @@ public partial class WorkbenchRuntime
         optic.SurfaceGroup.Items.FirstOrDefault(surface => surface.Number == surfaceNumber)
         ?? throw new ArgumentOutOfRangeException(nameof(surfaceNumber));
 
-    private static void SyncSurfacePositions(Optic optic)
+    private static void SetToleranceThickness(Optic optic, int surfaceNumber, double value)
     {
-        var z = 0.0;
-        for (var index = 0; index < optic.SurfaceGroup.Items.Count; index++)
+        var surface = FindSurface(optic, surfaceNumber);
+        var previous = surface.Thickness;
+        if (value == previous) return;
+        surface.Thickness = value;
+        var delta = surfaceNumber == 0
+            ? (double.IsPositiveInfinity(value) ? 0 : value) - (double.IsPositiveInfinity(previous) ? 0 : previous)
+            : value - previous;
+        // An axial gap moves later surfaces without resetting any manufactured or adjusted pose.
+        foreach (var later in optic.SurfaceGroup.Items.Skip(surfaceNumber + 1))
         {
-            var surface = optic.SurfaceGroup.Items[index];
-            surface.CoordinateSystem = surface.CoordinateSystem with
-            {
-                Origin = surface.CoordinateSystem.Origin with { Z = z }
-            };
-            if (index != 0 || !ObjectConjugate.IsInfinite(surface))
-            {
-                z += surface.Thickness;
-            }
+            var coordinate = later.CoordinateSystem;
+            later.CoordinateSystem = coordinate with { Origin = coordinate.Origin with { Z = coordinate.Origin.Z + delta } };
         }
     }
 

@@ -9,6 +9,7 @@ using Avalonia.Platform.Storage;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
@@ -47,6 +48,7 @@ public sealed partial class MainWindow
             () => SwitchWorkbenchModeAsync(OpticalWorkbenchMode.NonSequential));
         _actions.Register("show-system", "显示系统属性", "面板", () => _panels.Show(WorkspacePanelId.SystemProperties));
         _actions.Register("display-settings", "显示格式设置", "设置", ShowDisplaySettingsAsync);
+        _actions.Register("performance-test", "性能检验", "诊断", ShowPerformanceTestAsync);
         _actions.Register("show-viewer", "显示系统视图", "面板", () => _panels.Show(WorkspacePanelId.Viewer));
         _actions.Register("show-viewer-2d", "显示二维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.TwoDimensional));
         _actions.Register("show-viewer-3d", "显示三维布局", "视图", () => _panels.ShowViewer(OpticSceneViewMode.ThreeDimensional));
@@ -220,6 +222,17 @@ public sealed partial class MainWindow
                     }
                 });
         }
+    }
+
+    private async Task ShowPerformanceTestAsync()
+    {
+        if (_application.Modes.CurrentMode != OpticalWorkbenchMode.Sequential)
+        {
+            _statusText.Text = UiLocalization.Text("请在顺序模式下运行性能检验。");
+            return;
+        }
+
+        await new PerformanceTestWindow(_application.Performance).ShowDialog(this);
     }
 
     private async Task OpenNonSequentialTraceControlAsync()

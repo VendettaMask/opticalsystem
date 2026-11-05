@@ -4,7 +4,9 @@ namespace OpticalSystemDesign.App.Panels;
 
 public sealed partial class TolerancingPanel
 {
-    internal ToleranceFileDto BuildStudyFile() => new(3,
+    internal ToleranceFileDto BuildStudyFile() => new(
+        _operands.Any(row => ToleranceOperandEditorRow.UsesFringes(row.Kind))
+            || _additionalCompensators.Any(row => row.Kind.IsElement()) ? 4 : 3,
         _operands.Select(row => row.ToDto()).ToArray(), (ToleranceCriterion)_criterion.SelectedIndex,
         IntValue(_trials, 20), IntValue(_seed, 1234), IntValue(_compensationIterations, 3),
         DoubleValue(_yieldLimit, 0), _analysisMode, _inverseValue, _distributionOverride,
@@ -14,8 +16,11 @@ public sealed partial class TolerancingPanel
     internal ToleranceFileDto ParseStudyFile(string json)
     {
         var document = System.Text.Json.JsonSerializer.Deserialize<ToleranceFileDto>(json, ToleranceJsonOptions);
-        if (document is null || document.SchemaVersion is < 1 or > 3 || document.Operands is null)
+        if (document is null || document.SchemaVersion is < 1 or > 4 || document.Operands is null)
             throw new InvalidDataException("不支持的公差文件版本或操作数表缺失。");
+        if (document.SchemaVersion < 4 && (document.Operands.Any(row => ToleranceOperandEditorRow.UsesFringes(row.Kind))
+            || document.AdditionalCompensators?.Any(row => row.Kind.IsElement()) == true))
+            throw new InvalidDataException("条纹公差与镜组补偿需要版本 4 公差文件。");
         if (!Enum.IsDefined(document.Mode) || !double.IsFinite(document.InverseValue)
             || document.InverseValue <= 0 || document.MaxDegreeOfParallelism <= 0
             || document.WorstSensitivityCount < 0

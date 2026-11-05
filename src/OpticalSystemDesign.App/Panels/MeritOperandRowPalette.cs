@@ -1,10 +1,11 @@
 using Avalonia.Media;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Panels;
 
 // Business classification colours, independent of wavelength and calculation/status semantics.
-// OperandHelpTaxonomy is the single code-family catalogue; aliases keep their physical family.
+// Merit families use OperandHelpTaxonomy; tolerance families use the typed perturbation kind.
 internal static class MeritOperandRowPalette
 {
     internal static MeritOperandRowCategory CategoryFor(string? operandType)
@@ -51,22 +52,49 @@ internal static class MeritOperandRowPalette
         };
     }
 
+    internal static MeritOperandRowCategory ToleranceCategoryFor(ToleranceOperandKind kind) => kind switch
+    {
+        ToleranceOperandKind.FringePower or ToleranceOperandKind.FringeIrregularity
+            => C("tolerance-shape", "公差 / 曲率与面形", "#AB70A8"),
+        ToleranceOperandKind.Radius or ToleranceOperandKind.Conic or ToleranceOperandKind.AsphereCoefficient
+            => C("tolerance-shape", "公差 / 曲率与面形", "#A17BC5"),
+        ToleranceOperandKind.Thickness => CategoryFor("THIC"),
+        ToleranceOperandKind.DecenterX or ToleranceOperandKind.DecenterY
+            or ToleranceOperandKind.ElementDecenterX or ToleranceOperandKind.ElementDecenterY
+            => C("tolerance-decenter", "公差 / 偏心", "#548CCB"),
+        ToleranceOperandKind.TiltX or ToleranceOperandKind.TiltY
+            or ToleranceOperandKind.ElementTiltX or ToleranceOperandKind.ElementTiltY
+            => C("tolerance-tilt", "公差 / 倾斜", "#4B9FBA"),
+        ToleranceOperandKind.RefractiveIndex or ToleranceOperandKind.AbbeNumber => CategoryFor("INDX"),
+        ToleranceOperandKind.Compensator => C("tolerance-compensator", "公差 / 补偿", "#879CA8"),
+        _ => CategoryFor(null)
+    };
+
+    internal static MeritOperandRowVisual ResolveToleranceVisual(ToleranceOperandKind kind, ThemeDefinition theme,
+        bool hovered = false, bool selected = false, bool enabled = true) =>
+        ResolveVisual(ToleranceOperandEditorRow.CodeFor(kind), ToleranceCategoryFor(kind), theme,
+            shadeCount: 7, shadeStep: 0.018, hasError: false, hovered, selected, enabled);
+
     internal static Color Resolve(string? operandType, bool hasError = false) =>
         ResolveVisual(operandType, ThemeRegistry.FromSettings("Light"), hasError).Background;
 
     internal static MeritOperandRowVisual ResolveVisual(
         string? operandType, ThemeDefinition theme, bool hasError = false,
         bool hovered = false, bool selected = false, bool enabled = true)
+        => ResolveVisual(Normalize(operandType), CategoryFor(operandType), theme,
+            shadeCount: 4, shadeStep: 0.025, hasError, hovered, selected, enabled);
+
+    private static MeritOperandRowVisual ResolveVisual(string code, MeritOperandRowCategory category,
+        ThemeDefinition theme, uint shadeCount, double shadeStep, bool hasError, bool hovered, bool selected, bool enabled)
     {
         var palette = theme.Palette!;
-        var code = Normalize(operandType);
-        var category = CategoryFor(code);
         // An explicitly specified, process-independent hash gives a code its fixed shade.
         // This is not row-index striping; insertion, sorting and recycling cannot change it.
         uint shade = 2166136261;
         foreach (var ch in code) shade = unchecked((shade ^ ch) * 16777619);
         var neutral = category.Id is "comment" or "unclassified";
-        var strength = neutral ? 0.04 : (theme.IsDarkLike ? 0.30 : 0.15) + (shade % 4) * 0.025;
+        var baseStrength = theme.SettingsValue == "Light" ? 0.34 : theme.IsDarkLike ? 0.30 : 0.15;
+        var strength = neutral ? 0.04 : baseStrength + (shade % shadeCount) * shadeStep;
         if (selected) strength += theme.IsDarkLike ? 0.16 : 0.13;
         if (hovered) strength += 0.065;
         var background = Mix(palette.Surface, category.Tint, strength);

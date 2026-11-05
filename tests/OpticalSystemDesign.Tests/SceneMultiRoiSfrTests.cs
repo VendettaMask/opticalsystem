@@ -2,8 +2,11 @@ using System.Text.Json;
 using System.Text.Json.Nodes;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
+using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Analysis.Imaging;
+using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -77,11 +80,31 @@ public sealed class SceneMultiRoiSfrTests
         Assert.ThrowsAny<OperationCanceledException>(() => LinearImageRoiSfr.Measure(new double[64 * 64], 64, 64, 3, DetectorRowOrder.PositiveLocalYFirst, [roi]));
     }
 
+    private static double PixelResponse(double cycles) => Math.Abs(cycles) < 1e-12
+        ? 1 : Math.Sin(Math.PI * cycles) / (Math.PI * cycles);
+
     internal static CameraSceneLinearBatchRequest CrossRequest() => new(new(2, 2, 2, 100), Width: 192, Height: 192,
         PixelPitchMicrometers: 10, PixelSamplesPerAxis: 2, RowsPerStrip: 17);
     internal static LinearSfrRoi[] CrossRois() => [new("V top", new(48, 0, 96, 80)),
         new("H left", new(0, 48, 80, 96), LinearEdgeOrientation.NearHorizontal), new("crossing", new(48, 48, 96, 96)),
         new("outside", new(160, 160, 64, 64))];
+
+    [Fact]
+    public void DistantOffAxisReferenceMapsBeyondTheNearFieldStepLimit()
+    {
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(DoubleGaussSfrTests.StandardLens), ".zmx");
+        var tilt = 5 * Math.PI / 180;
+        var detectorEdge = new LinearSfrEdgeGeometry(255.1473, 423.5, -.0010580379060533289, -.504,
+            Math.Cos(tilt), -Math.Sin(tilt), -5, 1, 1);
+        var reference = GeometricMtfAnalysis.EvaluateSceneEdge(optic, new(14, 14, 2000, 100_000),
+            [new(587.6, 1, 1, .1)], detectorEdge, 3, 1, pupilAxisSamples: 17);
+
+        Assert.Equal(100_000, reference.Field.ObjectDistanceMillimeters);
+        Assert.InRange(reference.Field.ObjectXMillimeters, 1.06, 1.07);
+        Assert.InRange(reference.Field.ObjectYMillimeters, 507, 508);
+        Assert.Equal(132.988419345, reference.Field.ImageDistanceFromFirstSurfaceMillimeters, 8);
+        Assert.True(reference.AcceptedRays > 0);
+    }
 
     [Fact]
     public async Task RealFullFrameMultiTaskMeasurementRoundTripsWithoutRetracingAndRejectsWrongSourceOrEditedCurves()
@@ -110,6 +133,29 @@ public sealed class SceneMultiRoiSfrTests
             await app.Documents.OpenAsync(DoubleGaussSfrTests.StandardLens); var revision = app.Documents.GetSnapshot().Revision;
             var replay = await app.CameraImaging.OpenSceneLinearRoisAsync(artifact, reportPath);
             Assert.Equal(JsonSerializer.Serialize(report), JsonSerializer.Serialize(replay)); Assert.Equal(revision, app.Documents.GetSnapshot().Revision);
+            var comparison = await app.CameraImaging.CompareSceneLinearMtfAsync(artifact, request, 17);
+            Assert.Equal(report.SourceManifestSha256, comparison.SourceManifestSha256);
+            Assert.Equal(report.LensSha256, comparison.LensSha256);
+            Assert.Equal(revision, app.Documents.GetSnapshot().Revision);
+            foreach (var task in comparison.Tasks.Take(2))
+            {
+                foreach (var region in task.Regions.Take(2))
+                {
+                    Assert.Null(region.ReferenceFailure);
+                    var reference = Assert.IsType<SceneEdgeMtfReference>(region.Reference);
+                    var geometry = region.Measurement.Geometry!;
+                    Assert.Equal(100, reference.Field.ObjectDistanceMillimeters, 8);
+                    Assert.Equal(100, reference.Field.ImageDistanceFromFirstSurfaceMillimeters, 8);
+                    Assert.Equal(-geometry.XMillimeters, reference.Field.ObjectXMillimeters, 8);
+                    Assert.Equal(-geometry.YMillimeters, reference.Field.ObjectYMillimeters, 8);
+                    Assert.All(reference.Optical, point => Assert.Equal(1, point.Response, 10));
+                    var expected = PixelResponse(.5 * geometry.NormalX) * PixelResponse(.5 * geometry.NormalY);
+                    Assert.Equal(expected, reference.WithPixelAperture[^1].Response, 10);
+                    Assert.Equal(50, reference.WithPixelAperture[^1].CyclesPerMillimeter, 10);
+                }
+                Assert.All(task.Regions.Skip(2), region => Assert.Null(region.Reference));
+            }
+            Assert.All(comparison.Tasks[2].Regions, region => Assert.Null(region.Reference));
             var retained = await File.ReadAllBytesAsync(reportPath); using var cts = new CancellationTokenSource(); cts.Cancel();
             await Assert.ThrowsAnyAsync<OperationCanceledException>(() => app.CameraImaging.SaveSceneLinearRoisAsync(report, reportPath, cts.Token));
             Assert.Equal(retained, await File.ReadAllBytesAsync(reportPath));

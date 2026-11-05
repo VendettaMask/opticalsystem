@@ -61,7 +61,7 @@ public sealed partial class CameraImagingWindow
         Number("width", "完整传感器宽 (px)", 128, 4, 16384, true); Number("height", "完整传感器高 (px)", 128, 4, 16384, true);
         Number("pitch", "像元边长 (µm)", 3, .1m, 100);
         Number("fill", "实际感光面积比例", 1, .0001m, 1);
-        Number("pixels", "像元每边采样", 1, 1, 4, true); Number("rings", "瞳面径向环数", 2, 1, 8, true); Number("arms", "每环方位点数", 4, 4, 32, true);
+        Number("pixels", "像元每边采样", 1, 1, 4, true); Number("rings", "瞳面径向环数", 2, 1, DirectCameraRenderer.MaximumPupilRings, true); Number("arms", "每环方位点数", 4, 4, 32, true);
         Number("order", "源光谱积分阶数", 2, 2, 3, true); Number("strips", "每块完整行数", 16, 1, 256, true);
         _sceneBatchRun.Classes.Add("accent");
         foreach (var check in new[] { _sceneBatchWeights, _sceneBatchFresnel })

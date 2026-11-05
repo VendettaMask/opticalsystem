@@ -3,6 +3,9 @@ namespace OpticalSystemDesign.Core.Backend;
 // Scalar and SIMD roots share identical explicit-sag branch and tolerance checks.
 internal static class StandardIntersectionValidation
 {
+    // Far finite-conjugate launches need the surface equation's vertex-plane coordinates.
+    internal static double DistantLaunchThreshold(double radius) => Math.Max(1000, 64 * Math.Abs(radius));
+
     // Called only after both ordinary roots fail the unchanged explicit-sag
     // validation. Preserve every already accepted ordinary intersection.
     internal static (double First, double Second) StableQuadraticRoots(double a, double b, double c, double squareRoot)

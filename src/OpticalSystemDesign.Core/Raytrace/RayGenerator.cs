@@ -1021,7 +1021,7 @@ public sealed partial class RayGenerator
     internal (double X, double Y) ResolveRealImageFieldCoordinates(
         double targetX,
         double targetY,
-        bool aimAtStop = false)
+        bool aimAtStop = false, bool geometricReference = false)
     {
         if (!double.IsFinite(targetX) || !double.IsFinite(targetY))
         {
@@ -1029,16 +1029,16 @@ public sealed partial class RayGenerator
         }
 
         var guess = InitialRealImageFieldGuess(targetX, targetY);
-        if (!TryEvaluateRealImageChief(guess.X, guess.Y, out var current, aimAtStop))
+        if (!TryEvaluateRealImageChief(guess.X, guess.Y, out var current, aimAtStop, geometricReference))
         {
             guess = (0, 0);
-            if (!TryEvaluateRealImageChief(guess.X, guess.Y, out current, aimAtStop))
+            if (!TryEvaluateRealImageChief(guess.X, guess.Y, out current, aimAtStop, geometricReference))
             {
                 throw RealImageSolveFailure(targetX, targetY);
             }
         }
 
-        var tolerance = 1e-9 * Math.Max(1, Math.Sqrt((targetX * targetX) + (targetY * targetY)));
+        var tolerance = (geometricReference ? 1e-7 : 1e-9) * Math.Max(1, Math.Sqrt((targetX * targetX) + (targetY * targetY)));
 
         for (var iteration = 0; iteration < 24; iteration++)
         {
@@ -1051,10 +1051,10 @@ public sealed partial class RayGenerator
                 return guess;
             }
 
-            var stepX = DerivativeStep(guess.X, targetX);
-            var stepY = DerivativeStep(guess.Y, targetY);
-            var derivativeX = ImageDerivative(guess, current, stepX, varyX: true, aimAtStop);
-            var derivativeY = ImageDerivative(guess, current, stepY, varyX: false, aimAtStop);
+            var stepX = Math.Max(DerivativeStep(guess.X, targetX), geometricReference ? .01 : 0);
+            var stepY = Math.Max(DerivativeStep(guess.Y, targetY), geometricReference ? .01 : 0);
+            var derivativeX = ImageDerivative(guess, current, stepX, varyX: true, aimAtStop, geometricReference);
+            var derivativeY = ImageDerivative(guess, current, stepY, varyX: false, aimAtStop, geometricReference);
             var jxx = derivativeX.X;
             var jyx = derivativeX.Y;
             var jxy = derivativeY.X;
@@ -1068,11 +1068,12 @@ public sealed partial class RayGenerator
             var deltaX = ((-errorX * jyy) + (jxy * errorY)) / determinant;
             var deltaY = ((jyx * errorX) - (jxx * errorY)) / determinant;
             var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+            // The scene's object plane can be the world origin even at a very long conjugate.
+            // Its thickness to the first lens vertex sets the finite field scale.
+            var objectScale = geometricReference ? objectSurface?.Thickness : objectSurface?.CoordinateSystem.Origin.Z;
             var maximumStep = ObjectConjugate.IsInfinite(objectSurface)
                 ? 15.0
-                : Math.Max(
-                    10.0,
-                    2 * Math.Abs(objectSurface?.CoordinateSystem.Origin.Z ?? 0));
+                : Math.Max(10.0, 2 * Math.Abs(objectScale ?? 0));
             var deltaNorm = Math.Sqrt((deltaX * deltaX) + (deltaY * deltaY));
             if (deltaNorm > maximumStep)
             {
@@ -1092,7 +1093,7 @@ public sealed partial class RayGenerator
                     candidate.X,
                     candidate.Y,
                     out var candidateImage,
-                    aimAtStop))
+                    aimAtStop, geometricReference))
                 {
                     continue;
                 }
@@ -1142,7 +1143,7 @@ public sealed partial class RayGenerator
     private (double X, double Y) EvaluateRealImageChief(
         double launchX,
         double launchY,
-        bool aimAtStop = false)
+        bool aimAtStop = false, bool geometricReference = false)
     {
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
         var apertureRadius = EntrancePupilRadius();
@@ -1170,18 +1171,21 @@ public sealed partial class RayGenerator
         }
 
         var ray = new RealRay(origin, direction, wavelengthNanometers);
-        var history = _optic.SequentialRayTracer.Trace(new RealRayBundle(new[] { ray })).RayHistories.Single();
         var imageSurface = _optic.SurfaceGroup.Items.LastOrDefault();
+        // A geometric reference locates the field only. It supplies no pupil power.
+        var sample = geometricReference
+            ? _optic.SequentialRayTracer.TraceToSurface(ray, _optic.SurfaceGroup.Items.Count - 1)
+            : _optic.SequentialRayTracer.Trace(new RealRayBundle(new[] { ray })).RayHistories.Single().LastOrDefault();
         if (imageSurface is null
-            || history.Count == 0
-            || history[^1].SurfaceNumber != imageSurface.Number
-            || history[^1].Vignetted
-            || history[^1].Intensity <= 0)
+            || sample is null
+            || sample.SurfaceNumber != imageSurface.Number
+            || sample.Vignetted
+            || sample.Intensity <= 0)
         {
             throw RealImageSolveFailure(double.NaN, double.NaN);
         }
 
-        var localImagePoint = imageSurface.CoordinateSystem.ToLocalPoint(history[^1].Position);
+        var localImagePoint = imageSurface.CoordinateSystem.ToLocalPoint(sample.Position);
         return (localImagePoint.X, localImagePoint.Y);
     }
 
@@ -1189,11 +1193,11 @@ public sealed partial class RayGenerator
         double launchX,
         double launchY,
         out (double X, double Y) imagePoint,
-        bool aimAtStop = false)
+        bool aimAtStop = false, bool geometricReference = false)
     {
         try
         {
-            imagePoint = EvaluateRealImageChief(launchX, launchY, aimAtStop);
+            imagePoint = EvaluateRealImageChief(launchX, launchY, aimAtStop, geometricReference);
             return true;
         }
         catch (FieldAimingException)
@@ -1208,7 +1212,7 @@ public sealed partial class RayGenerator
         (double X, double Y) currentImage,
         double step,
         bool varyX,
-        bool aimAtStop)
+        bool aimAtStop, bool geometricReference)
     {
         var plusLaunch = varyX
             ? (launch.X + step, launch.Y)
@@ -1220,12 +1224,12 @@ public sealed partial class RayGenerator
             plusLaunch.Item1,
             plusLaunch.Item2,
             out var plusImage,
-            aimAtStop);
+            aimAtStop, geometricReference);
         var hasMinus = TryEvaluateRealImageChief(
             minusLaunch.Item1,
             minusLaunch.Item2,
             out var minusImage,
-            aimAtStop);
+            aimAtStop, geometricReference);
         if (hasPlus && hasMinus)
         {
             return (

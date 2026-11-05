@@ -365,6 +365,7 @@ public interface IWorkbenchApplication : IDisposable
 {
     DesignReportSnapshot CaptureReportSnapshot();
 
+    IPerformanceTestService Performance { get; }
     IWorkbenchModeService Modes { get; }
 
     INonSequentialDocumentService NonSequential { get; }

@@ -1,4 +1,5 @@
 using System.Numerics;
+using OpticalSystemDesign.Core.Geometries;
 using static OpticalSystemDesign.Core.Backend.StandardIntersectionValidation;
 
 namespace OpticalSystemDesign.Core.Backend;
@@ -37,6 +38,10 @@ public sealed partial class ManagedCpuBackend
             return;
         }
 
+        // A distant finite object can put the first spherical surface many radii from the ray
+        // origin. Use the scalar surface equation's vertex-plane formulation in that regime.
+        var longLaunch = DistantLaunchThreshold(radius);
+        var surface = new RotationalSurfaceEquation { Kind = 1, Radius = radius, Conic = conic };
         var width = Vector<double>.Count;
         var index = 0;
         var conicFactor = new Vector<double>(1 + conic);
@@ -69,7 +74,12 @@ public sealed partial class ManagedCpuBackend
             for (var lane = 0; lane < width; lane++)
             {
                 double? validDistance;
-                if (Math.Abs(a[lane]) < 1e-15)
+                if (Math.Abs(oz[lane]) > longLaunch)
+                {
+                    var hit = surface.Intersect(new(ox[lane], oy[lane], oz[lane]), new(dx[lane], dy[lane], dz[lane]));
+                    validDistance = hit.IsHit ? hit.Distance : null;
+                }
+                else if (Math.Abs(a[lane]) < 1e-15)
                 {
                     validDistance = Math.Abs(b[lane]) < 1e-15
                         ? null
