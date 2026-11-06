@@ -191,7 +191,7 @@ public sealed class VariableRangePerturbation : IScaledRangePerturbation
 
     public void Apply(Optic optic, Random random)
     {
-        ApplyDelta(SampleDelta(random, Minimum, Maximum, _normalDistribution));
+        ApplyDelta(DrawDelta(random));
     }
 
     public void ApplyMinimum(Optic optic) => ApplyDelta(Minimum);
@@ -206,7 +206,9 @@ public sealed class VariableRangePerturbation : IScaledRangePerturbation
 
     public void Revert(Optic optic) => _variable.Value = _previousValue;
 
-    private void ApplyDelta(double delta)
+    internal double DrawDelta(Random random) => SampleDelta(random, Minimum, Maximum, _normalDistribution);
+
+    internal void ApplyDelta(double delta)
     {
         _previousValue = _variable.Value;
         _variable.Value = _previousValue + delta;
@@ -257,12 +259,34 @@ public sealed partial class Tolerancing
     private readonly List<IPerturbation> _perturbations = new();
     private readonly List<Operand> _operands = new();
     private readonly List<IOptimizationVariable> _compensators = new();
+    private readonly Dictionary<IOptimizationVariable, int> _compensatorStages = new();
     private Func<double>? _criterionEvaluator;
 
     public IReadOnlyList<IPerturbation> Perturbations => _perturbations;
     // Install transient sag overlays after changes to the prescription's underlying geometry.
-    internal IEnumerable<IPerturbation> TrialPerturbations() =>
-        _perturbations.OrderBy(perturbation => perturbation is SurfaceFormPerturbation);
+    internal IEnumerable<IPerturbation> TrialPerturbations()
+    {
+        var isoRows = _perturbations.OfType<SurfaceFormPerturbation>()
+            .Where(form => form.Mode is SurfaceFormMode.IsoIrregularityPv or SurfaceFormMode.IsoRotationalIrregularityPv)
+            .ToLookup(form => (form.SurfaceNumber, form.Mode));
+        foreach (var perturbation in _perturbations.OrderBy(perturbation => perturbation is SurfaceFormPerturbation))
+        {
+            if (perturbation is SurfaceFormPerturbation form)
+            {
+                if (form.Mode == SurfaceFormMode.IsoIrregularityPv &&
+                    isoRows[(form.SurfaceNumber, SurfaceFormMode.IsoRotationalIrregularityPv)].SingleOrDefault() is { } rotational)
+                {
+                    yield return isoRows[(form.SurfaceNumber, SurfaceFormMode.IsoIrregularityPv)].Single()
+                        .WithRotationalIrregularity(rotational);
+                    continue;
+                }
+                if (form.Mode == SurfaceFormMode.IsoRotationalIrregularityPv &&
+                    isoRows.Contains((form.SurfaceNumber, SurfaceFormMode.IsoIrregularityPv)))
+                    continue;
+            }
+            yield return perturbation;
+        }
+    }
 
     public IReadOnlyList<Operand> Operands => _operands;
 
@@ -280,9 +304,11 @@ public sealed partial class Tolerancing
         _operands.Add(operand);
     }
 
-    public void AddCompensator(IOptimizationVariable variable)
+    public void AddCompensator(IOptimizationVariable variable, int stage = 1)
     {
         ArgumentNullException.ThrowIfNull(variable);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(stage);
+        _compensatorStages[variable] = stage;
         _compensators.Add(variable);
         _compensatorNominals[variable.Name] = variable.Value;
     }
@@ -292,7 +318,15 @@ public sealed partial class Tolerancing
         _criterionEvaluator = evaluator ?? throw new ArgumentNullException(nameof(evaluator));
     }
 
-    public double Merit() => _operands.Sum(operand => operand.Squared());
+    public bool StrictMerit { get; set; }
+
+    public double Merit()
+    {
+        if (!StrictMerit) return _operands.Sum(operand => operand.Squared());
+        using var batch = MeritFunctionCatalog.BeginEvaluationBatch();
+        try { return _operands.Sum(operand => operand.Squared()); }
+        catch (OptimizationEvaluationException) { return double.PositiveInfinity; }
+    }
 
     public double Criterion()
     {
@@ -311,15 +345,18 @@ public sealed partial class Tolerancing
         }
     }
 
-    public OptimizationProblem CreateCompensationProblem()
+    public OptimizationProblem CreateCompensationProblem() => CreateCompensationProblem(_compensators);
+
+    private OptimizationProblem CreateCompensationProblem(IEnumerable<IOptimizationVariable> compensators,
+        IReadOnlyList<Operand>? objectiveOperands = null)
     {
         var problem = new OptimizationProblem();
-        foreach (var compensator in _compensators)
+        foreach (var compensator in compensators)
         {
             problem.AddVariable(compensator);
         }
 
-        foreach (var operand in _operands)
+        foreach (var operand in objectiveOperands ?? _operands)
         {
             problem.AddOperand(operand);
         }
@@ -681,10 +718,13 @@ public sealed class SensitivityAnalysis
 
 public readonly record struct ToleranceFieldValue(int FieldNumber, double Value, string Error = "");
 public readonly record struct ToleranceCompensatorValue(string Name, double Nominal, double Value,
-    double Minimum, double Maximum);
+    double Minimum, double Maximum, int Stage = 1);
+public sealed record ToleranceStageValue(int Stage, double Criterion, IReadOnlyList<ToleranceCompensatorValue> Compensators,
+    IReadOnlyList<ToleranceFieldValue>? Fields = null, string Error = "");
 public readonly record struct ToleranceEvaluation(double Merit, double Criterion,
     IReadOnlyList<ToleranceFieldValue>? Fields = null,
-    IReadOnlyList<ToleranceCompensatorValue>? Compensators = null);
+    IReadOnlyList<ToleranceCompensatorValue>? Compensators = null,
+    IReadOnlyList<ToleranceStageValue>? Stages = null);
 
 public sealed record TolerancingTrialResult(
     int Trial,
@@ -694,7 +734,8 @@ public sealed record TolerancingTrialResult(
     double CompensatedCriterion = double.NaN,
     IReadOnlyList<ToleranceFieldValue>? Fields = null,
     IReadOnlyList<ToleranceFieldValue>? CompensatedFields = null,
-    IReadOnlyList<ToleranceCompensatorValue>? Compensators = null)
+    IReadOnlyList<ToleranceCompensatorValue>? Compensators = null,
+    IReadOnlyList<ToleranceStageValue>? Stages = null)
 {
     public bool IsValid =>
         double.IsFinite(Criterion) && double.IsFinite(CompensatedCriterion);
@@ -759,7 +800,7 @@ public sealed class MonteCarlo
                 foreach (var perturbation in perturbations)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    ApplyPerturbation(perturbation, random);
+                    ApplyPerturbation(_optic, perturbation, random);
                 }
 
                 cancellationToken.ThrowIfCancellationRequested();
@@ -776,7 +817,7 @@ public sealed class MonteCarlo
                     merit,
                     compensated.Merit,
                     criterion,
-                    compensated.Criterion, uncompensated.Fields, compensated.Fields, compensated.Compensators));
+                    compensated.Criterion, uncompensated.Fields, compensated.Fields, compensated.Compensators, compensated.Stages));
             }
             finally
             {
@@ -827,47 +868,43 @@ public sealed class MonteCarlo
         };
 
         Parallel.For(0, trialCount, options, trial =>
-        {
-            using var parallelism = ComputationParallelism.SuppressNestedParallelism();
-            var workerOptic = Optic.FromSnapshot(nominalSnapshot);
-            var workerTolerancing = workerFactory(workerOptic)
-                ?? throw new InvalidOperationException("The tolerancing worker factory returned null.");
-            var random = new Random(DeriveTrialSeed(seed, trial));
-            foreach (var perturbation in workerTolerancing.TrialPerturbations())
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                if (perturbation is ISampledPerturbation sampled)
-                {
-                    sampled.Apply(workerOptic, random);
-                }
-                else
-                {
-                    perturbation.Apply(workerOptic);
-                }
-            }
-
-            cancellationToken.ThrowIfCancellationRequested();
-            var merit = workerTolerancing.Merit();
-            var uncompensated = workerTolerancing.Evaluate();
-            var criterion = uncompensated.Criterion;
-            var compensated = EvaluateCompensatedWorker(
-                workerTolerancing,
-                compensationIterations,
-                cancellationToken,
-                merit,
-                criterion);
-            results[trial] = new TolerancingTrialResult(
-                trial,
-                merit,
-                compensated.Merit,
-                criterion,
-                compensated.Criterion, uncompensated.Fields, compensated.Fields, compensated.Compensators);
-        });
-
+            results[trial] = EvaluateWorkerTrial(nominalSnapshot, workerFactory, trial, seed, compensationIterations, cancellationToken));
         return results;
     }
 
-    private static int DeriveTrialSeed(int seed, int trial)
+    public TolerancingTrialResult ReplayDetailed(int trial, int seed, int compensationIterations,
+        CancellationToken cancellationToken, Func<Optic, Tolerancing> workerFactory)
+    {
+        ArgumentNullException.ThrowIfNull(workerFactory);
+        cancellationToken.ThrowIfCancellationRequested();
+        if (trial is < 0 or >= MaximumTrialCount) throw new ArgumentOutOfRangeException(nameof(trial));
+        ValidateBudget(1, compensationIterations);
+        return EvaluateWorkerTrial(_optic.ToSnapshot(), workerFactory, trial, seed, compensationIterations, cancellationToken);
+    }
+
+    private static TolerancingTrialResult EvaluateWorkerTrial(OpticSnapshot nominalSnapshot,
+        Func<Optic, Tolerancing> workerFactory, int trial, int seed, int iterations, CancellationToken cancellationToken)
+    {
+        using var parallelism = ComputationParallelism.SuppressNestedParallelism();
+        var optic = Optic.FromSnapshot(nominalSnapshot);
+        var tolerancing = workerFactory(optic)
+            ?? throw new InvalidOperationException("The tolerancing worker factory returned null.");
+        var random = new Random(DeriveTrialSeed(seed, trial));
+        foreach (var perturbation in tolerancing.TrialPerturbations())
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            ApplyPerturbation(optic, perturbation, random);
+        }
+
+        cancellationToken.ThrowIfCancellationRequested();
+        var merit = tolerancing.Merit();
+        var uncompensated = tolerancing.Evaluate();
+        var compensated = tolerancing.EvaluateCompensated(iterations, cancellationToken);
+        return new TolerancingTrialResult(trial, merit, compensated.Merit, uncompensated.Criterion,
+            compensated.Criterion, uncompensated.Fields, compensated.Fields, compensated.Compensators, compensated.Stages);
+    }
+
+    internal static int DeriveTrialSeed(int seed, int trial)
     {
         unchecked
         {
@@ -888,25 +925,10 @@ public sealed class MonteCarlo
             throw new ArgumentOutOfRangeException(nameof(compensationIterations));
     }
 
-    private static ToleranceEvaluation EvaluateCompensatedWorker(
-        Tolerancing tolerancing,
-        int compensationIterations,
-        CancellationToken cancellationToken,
-        double uncompensatedMerit,
-        double uncompensatedCriterion)
+    private static void ApplyPerturbation(Optic optic, IPerturbation perturbation, Random random)
     {
-        return tolerancing.EvaluateCompensated(compensationIterations, cancellationToken);
-    }
-
-    private void ApplyPerturbation(IPerturbation perturbation, Random random)
-    {
-        if (perturbation is ISampledPerturbation sampled)
-        {
-            sampled.Apply(_optic, random);
-            return;
-        }
-
-        perturbation.Apply(_optic);
+        if (perturbation is ISampledPerturbation sampled) sampled.Apply(optic, random);
+        else perturbation.Apply(optic);
     }
 
     private ToleranceEvaluation CompensatedEvaluation(

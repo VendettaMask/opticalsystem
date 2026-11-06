@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="42aea95b-ba52-482c-b662-001463b11f84" name="optics@LAPTOP-G4BBBCS0 2026-11-06 11:26:02" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-06T11:26:02.7752819+08:00" queuing="2026-11-06T11:26:02.7752823+08:00" start="2026-11-06T11:25:57.9244700+08:00" finish="2026-11-06T11:26:13.3549142+08:00" />
+  <TestSettings name="default" id="55458698-6521-48a6-b51d-0fb49233b8e4">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-06_11_26_02" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="e26f41b9-2aaf-4c72-b5aa-318ebdd5d990" testId="21e4a1db-c5eb-902b-12ca-371bf0a22860" testName="OpticalSystemDesign.Tests.SystemMeritTolerancingTests.CustomMeritDrivesCompensationAndReplaysTheFrozenEditorTable(joint: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4356104" startTime="2026-11-06T11:26:01.2560986+08:00" endTime="2026-11-06T11:26:02.6765172+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e26f41b9-2aaf-4c72-b5aa-318ebdd5d990" />
+    <UnitTestResult executionId="3d545f7e-40cb-4f19-a638-6c7ac87c5592" testId="55733f15-69ef-7e2b-bb90-a4e7771fae97" testName="OpticalSystemDesign.Tests.SystemMeritTolerancingTests.OrderedResidualsPreserveRowReferencesAndSkipTargets" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0045655" startTime="2026-11-06T11:26:02.8498730+08:00" endTime="2026-11-06T11:26:02.8543298+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d545f7e-40cb-4f19-a638-6c7ac87c5592" />
+    <UnitTestResult executionId="663319c1-10c1-4947-bc27-75f9834fa90d" testId="62916843-d99d-cd46-be42-fe44eeddc976" testName="OpticalSystemDesign.Tests.SystemMeritTolerancingTests.CustomMeritDrivesCompensationAndReplaysTheFrozenEditorTable(joint: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1706842" startTime="2026-11-06T11:26:02.6853065+08:00" endTime="2026-11-06T11:26:02.8483725+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="663319c1-10c1-4947-bc27-75f9834fa90d" />
+    <UnitTestResult executionId="c6c364d5-cb72-4ad3-9169-73ac0e2f884c" testId="15f6dac0-af3e-f5da-ab19-d7ada7f9f499" testName="OpticalSystemDesign.Tests.MtfTolerancingPanelTests.StageObjectivesStayEditableAndRoundTripStudy(systemMerit: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.9449020" startTime="2026-11-06T11:26:08.2885163+08:00" endTime="2026-11-06T11:26:13.2325550+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c6c364d5-cb72-4ad3-9169-73ac0e2f884c" />
+    <UnitTestResult executionId="cc461f3e-7dd8-42ee-a138-23a0492d9203" testId="1e23aba3-f89c-0d8f-21a3-9c9eb11858e2" testName="OpticalSystemDesign.Tests.MtfTolerancingPanelTests.StageObjectivesStayEditableAndRoundTripStudy(systemMerit: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.4282098" startTime="2026-11-06T11:26:02.8583056+08:00" endTime="2026-11-06T11:26:08.2869497+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc461f3e-7dd8-42ee-a138-23a0492d9203" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SystemMeritTolerancingTests.CustomMeritDrivesCompensationAndReplaysTheFrozenEditorTable(joint: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="62916843-d99d-cd46-be42-fe44eeddc976">
+      <Execution id="663319c1-10c1-4947-bc27-75f9834fa90d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SystemMeritTolerancingTests" name="CustomMeritDrivesCompensationAndReplaysTheFrozenEditorTable" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MtfTolerancingPanelTests.StageObjectivesStayEditableAndRoundTripStudy(systemMerit: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1e23aba3-f89c-0d8f-21a3-9c9eb11858e2">
+      <Execution id="cc461f3e-7dd8-42ee-a138-23a0492d9203" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MtfTolerancingPanelTests" name="StageObjectivesStayEditableAndRoundTripStudy" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MtfTolerancingPanelTests.StageObjectivesStayEditableAndRoundTripStudy(systemMerit: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="15f6dac0-af3e-f5da-ab19-d7ada7f9f499">
+      <Execution id="c6c364d5-cb72-4ad3-9169-73ac0e2f884c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MtfTolerancingPanelTests" name="StageObjectivesStayEditableAndRoundTripStudy" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SystemMeritTolerancingTests.OrderedResidualsPreserveRowReferencesAndSkipTargets" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="55733f15-69ef-7e2b-bb90-a4e7771fae97">
+      <Execution id="3d545f7e-40cb-4f19-a638-6c7ac87c5592" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SystemMeritTolerancingTests" name="OrderedResidualsPreserveRowReferencesAndSkipTargets" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SystemMeritTolerancingTests.CustomMeritDrivesCompensationAndReplaysTheFrozenEditorTable(joint: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="21e4a1db-c5eb-902b-12ca-371bf0a22860">
+      <Execution id="e26f41b9-2aaf-4c72-b5aa-318ebdd5d990" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SystemMeritTolerancingTests" name="CustomMeritDrivesCompensationAndReplaysTheFrozenEditorTable" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="21e4a1db-c5eb-902b-12ca-371bf0a22860" executionId="e26f41b9-2aaf-4c72-b5aa-318ebdd5d990" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="55733f15-69ef-7e2b-bb90-a4e7771fae97" executionId="3d545f7e-40cb-4f19-a638-6c7ac87c5592" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="62916843-d99d-cd46-be42-fe44eeddc976" executionId="663319c1-10c1-4947-bc27-75f9834fa90d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="15f6dac0-af3e-f5da-ab19-d7ada7f9f499" executionId="c6c364d5-cb72-4ad3-9169-73ac0e2f884c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1e23aba3-f89c-0d8f-21a3-9c9eb11858e2" executionId="cc461f3e-7dd8-42ee-a138-23a0492d9203" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="5" executed="5" passed="5" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.19]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.70]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.74]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:14.76]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

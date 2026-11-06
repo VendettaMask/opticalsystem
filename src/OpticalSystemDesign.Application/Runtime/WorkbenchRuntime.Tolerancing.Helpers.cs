@@ -26,26 +26,6 @@ namespace OpticalSystemDesign.Application.Runtime;
 
 public partial class WorkbenchRuntime
 {
-    private Tolerancing BuildDefaultTolerancing(
-        int surfaceNumber,
-        double radiusSigma,
-        double thicknessSigma,
-        int compensationIterations,
-        ToleranceCriterion criterion,
-        ToleranceMtfSettingsDto? mtfSettings = null,
-        ToleranceCompensationAlgorithm algorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
-        IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null) => BuildDefaultTolerancingWorker(
-            CurrentOptic, surfaceNumber, radiusSigma, thicknessSigma, compensationIterations, criterion,
-            mtfSettings, algorithm, additionalCompensators);
-
-    private Tolerancing BuildConfiguredTolerancing(
-        IReadOnlyList<ToleranceOperandDto> operands,
-        ToleranceCriterion criterion,
-        ToleranceMtfSettingsDto? mtfSettings = null,
-        ToleranceCompensationAlgorithm algorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
-        IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null) => BuildConfiguredTolerancingWorker(CurrentOptic, operands, criterion,
-            mtfSettings, algorithm, additionalCompensators);
-
     private double EvaluateToleranceCriterion(
         IReadOnlyList<MeritOperandDefinition> definitions)
     {

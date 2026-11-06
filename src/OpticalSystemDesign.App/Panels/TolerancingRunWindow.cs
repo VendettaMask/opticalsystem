@@ -24,7 +24,10 @@ public sealed record TolerancingRunOptions(
     double InverseValue,
     ToleranceMtfSettingsDto? MtfSettings = null,
     ToleranceCompensationAlgorithm CompensationAlgorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
-    IReadOnlyList<ToleranceCompensatorDto>? AdditionalCompensators = null);
+    IReadOnlyList<ToleranceCompensatorDto>? AdditionalCompensators = null,
+    ToleranceConfigurationSettingsDto? ConfigurationSettings = null,
+    IReadOnlyList<ToleranceStageObjectiveDto>? StageObjectives = null,
+    ToleranceMeritTableDto? MeritTable = null);
 
 public sealed partial class TolerancingRunWindow : Window
 {
@@ -34,7 +37,7 @@ public sealed partial class TolerancingRunWindow : Window
         "反向极限",
         "反向增量",
         "跳过灵敏度（仅 Monte Carlo）");
-    private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前误差", "指定频率 MTF");
+    private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前误差", "指定频率 MTF", "系统评价函数");
     private readonly ComboBox _compensation = Picker(1, "无", "优化全部（DLS）", "优化全部（坐标模式搜索）");
     private readonly NumericUpDown _cycles = Number(3, 0, 500, 1);
     private readonly NumericUpDown _runs = Number(20, 0, 10_000, 20);
@@ -53,7 +56,10 @@ public sealed partial class TolerancingRunWindow : Window
     public TolerancingRunWindow(TolerancingRunOptions defaults,
         IReadOnlyList<FieldRowDto>? fields = null,
         IReadOnlyList<SurfaceRowDto>? surfaces = null,
-        IReadOnlyList<WavelengthRowDto>? wavelengths = null)
+        IReadOnlyList<WavelengthRowDto>? wavelengths = null,
+        IReadOnlyList<MultiConfigurationRowDto>? configurations = null,
+        IReadOnlyList<MultiConfigurationOperandRowDto>? configurationOperands = null,
+        Func<string, ToleranceMeritTableDto>? captureMeritTable = null)
     {
         Title = "公差分析";
         Width = 720;
@@ -63,7 +69,9 @@ public sealed partial class TolerancingRunWindow : Window
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
         this.BindThemeResource(Window.BackgroundProperty, ThemeResourceBindings.Workspace);
 
+        _captureMeritTable = captureMeritTable;
         InitializeMtfControls(fields, surfaces, wavelengths);
+        InitializeJointControls(configurations, configurationOperands);
         Apply(defaults);
         _criterion.SelectionChanged += (_, _) => UpdateMtfControls();
         _mode.SelectionChanged += (_, _) => UpdateModeControls();
@@ -76,6 +84,8 @@ public sealed partial class TolerancingRunWindow : Window
         run.Click += (_, _) => SubmitOptions();
         var cancel = Button("取消");
         cancel.Click += (_, _) => Close(null);
+        var apply = Button("应用设置");
+        apply.Click += (_, _) => SubmitOptions(applyOnly: true);
         var reset = Button("重置");
         reset.Click += (_, _) => Apply(DefaultOptions());
 
@@ -93,23 +103,31 @@ public sealed partial class TolerancingRunWindow : Window
 
         var footer = new Grid
         {
-            ColumnDefinitions = new ColumnDefinitions("*,Auto,Auto,Auto"),
+            ColumnDefinitions = new ColumnDefinitions("*,Auto,Auto,Auto,Auto"),
             ColumnSpacing = 8,
             Margin = new Thickness(12, 10),
-            Children = { _settingsError, reset, run, cancel }
+            Children = { reset, apply, run, cancel }
         };
         Grid.SetColumn(reset, 1);
-        Grid.SetColumn(run, 2);
-        Grid.SetColumn(cancel, 3);
+        Grid.SetColumn(apply, 2);
+        Grid.SetColumn(run, 3);
+        Grid.SetColumn(cancel, 4);
 
+        _settingsError.Margin = new Thickness(12, 0, 12, 0);
+        ShowSettingsError("");
         Content = new Grid
         {
-            RowDefinitions = new RowDefinitions("*,Auto"),
-            Children = { tabs, footer }
+            RowDefinitions = new RowDefinitions("*,Auto,Auto"),
+            Children = { tabs, _settingsError, footer }
         };
-        Grid.SetRow(footer, 1);
+        Grid.SetRow(_settingsError, 1);
+        Grid.SetRow(footer, 2);
+        SetMeritBinding(_finalMeritBinding!, defaults.MeritTable);
+        UpdateMtfControls();
         ThemeChrome.ApplyDialogDecoration(this);
     }
+
+    internal bool ApplyOnly { get; private set; }
 
     public static TolerancingRunOptions DefaultOptions() => new(
         ToleranceAnalysisMode.Sensitivity,
@@ -129,12 +147,13 @@ public sealed partial class TolerancingRunWindow : Window
             Row("模式", _mode),
             Row("反求极限 / 增量", _inverseValue),
             Row("并行 CPU 数", _cpuCount)),
-        Note("反向极限：RMS 为上限，MTF 为下限。反向增量：RMS 允许增加，MTF 允许下降；逐视场模式按每个视场的名义值反求。满足目标的公差不会放宽。"));
+        JointSection(),
+        Note("反向极限：RMS 和系统评价函数为上限，MTF 为下限。反向增量：RMS 和系统评价值允许增加，MTF 允许下降；逐视场模式按每个视场的名义值反求。满足目标的公差不会放宽。"));
 
     private Control CriterionTab() => Page(
         Section("评价标准", Row("标准", _criterion), Row(_acceptanceLabel, _yieldLimit)),
-        MtfSection(), FieldLimitsSection(),
-        Note("RMS 按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。"));
+        FinalMeritSection(), MtfSection(), FieldLimitsSection(),
+        Note("RMS 和系统评价函数按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。"));
 
     private Control MonteCarloTab() => Page(
         Section("Monte Carlo",
@@ -173,7 +192,8 @@ public sealed partial class TolerancingRunWindow : Window
         _showMonteCarlo.IsChecked == true,
         DoubleValue(_inverseValue, 0.05), BuildMtfSettings(),
         _compensation.SelectedIndex == 2 ? ToleranceCompensationAlgorithm.CoordinatePatternSearch : ToleranceCompensationAlgorithm.DampedLeastSquares,
-        BuildAdditionalCompensators());
+        BuildAdditionalCompensators(), BuildConfigurationSettings(), BuildStageObjectives(),
+        _criterion.SelectedIndex == (int)ToleranceCriterion.SystemMerit ? ReadMeritBinding(_finalMeritBinding) : null);
 
     private void Apply(TolerancingRunOptions options)
     {
@@ -202,6 +222,10 @@ public sealed partial class TolerancingRunWindow : Window
         _showMonteCarlo.IsChecked = options.ShowMonteCarloTrials;
         _inverseValue.Value = ToDecimal(options.InverseValue);
         ApplyMtfSettings(options.MtfSettings, options.AdditionalCompensators);
+        ApplyConfigurationSettings(options.ConfigurationSettings);
+        ApplyStageObjectives(options.StageObjectives);
+        if (_finalMeritBinding is not null) SetMeritBinding(_finalMeritBinding, options.MeritTable);
+        ShowSettingsError("");
         UpdateModeControls();
         UpdateMtfControls();
     }

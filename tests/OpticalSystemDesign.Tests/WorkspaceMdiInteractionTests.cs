@@ -35,7 +35,7 @@ public sealed class WorkspaceMdiInteractionTests
     public async Task TiledDocumentsKeepInteractiveContentAcrossActivationAndLayoutChanges()
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(WorkspaceMdiInteractionTests));
-        await session.Dispatch(() =>
+        await session.Dispatch(async () =>
         {
             ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
             using var application = WorkbenchApplication.Create("tessar");
@@ -45,11 +45,13 @@ public sealed class WorkspaceMdiInteractionTests
             {
                 window.Show();
                 Render(window);
+                manager.Show(WorkspacePanelId.Tolerancing);
                 manager.ShowTolerancingDataViewer();
                 Render(window);
                 manager.TileAllWindows();
                 Render(window);
                 var documents = manager.Factory.OpenDocuments().ToArray();
+                Assert.Single(documents, document => document.Context is ToleranceResultsPanel);
                 foreach (var open in documents) AssertContent(open);
                 foreach (var document in documents.Concat(documents.Reverse()))
                 {
@@ -89,7 +91,7 @@ public sealed class WorkspaceMdiInteractionTests
                 var viewer = documents.Single(d => d.Id == WorkspaceDockFactory.Viewer2DDocumentId);
                 var viewerPanel = Assert.IsType<ViewerPanel>(viewer.Context);
                 var rays = viewerPanel.GetVisualDescendants().OfType<CheckBox>().Single(c => Equals(c.Content, "显示光线"));
-                Click(window, rays);
+                await ClickWhenReady(window, rays);
                 Assert.False(rays.IsChecked);
                 Assert.False(viewerPanel.GetVisualDescendants().OfType<OpticSceneControl>().Single().ShowRays);
                 Assert.Same(viewer, manager.Factory.PrimaryDocumentDock!.ActiveDockable);
@@ -261,6 +263,26 @@ public sealed class WorkspaceMdiInteractionTests
         window.MouseDown(point, MouseButton.Left);
         window.MouseUp(point, MouseButton.Left);
         Render(window);
+    }
+
+    private static async Task ClickWhenReady(Window window, Control control)
+    {
+        // The fitted drawing's overlay is arranged after the scene reports its bounds.
+        Visual? hit = null;
+        for (var attempt = 0; attempt < 100; attempt++)
+        {
+            Render(window);
+            hit = window.InputHitTest(Point(control, window)) as Visual;
+            if (hit == control || hit?.GetVisualAncestors().Contains(control) == true)
+            {
+                Click(window, control);
+                return;
+            }
+            await Task.Delay(10);
+        }
+        var ancestry = string.Join(" > ", control.GetVisualAncestors().OfType<Control>()
+            .TakeWhile(item => item is not Window).Select(item => $"{item.GetType().Name}: {item.Bounds}"));
+        Assert.Fail($"{control.Name} at {Point(control, window)} hit {hit?.GetType().Name}/{(hit as Control)?.Name}. {ancestry}");
     }
 
     private static void Key(Window window, Key key)

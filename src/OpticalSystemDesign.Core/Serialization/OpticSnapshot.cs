@@ -1,3 +1,5 @@
+using OpticalSystemDesign.Core.Optimization;
+
 namespace OpticalSystemDesign.Core.Serialization;
 
 public sealed record OpticSnapshot(
@@ -58,7 +60,41 @@ public sealed record MeritOperandSnapshot(
     bool PolychromaticReference = false,
     bool CompatibilityOnly = false,
     List<int>? ZemaxIntegerParameters = null,
-    List<double>? ZemaxDataParameters = null);
+    List<double>? ZemaxDataParameters = null)
+{
+    public static MeritOperandSnapshot FromDefinition(MeritOperandDefinition operand) => new(
+        operand.Enabled, operand.Type, operand.Surface, operand.Field, operand.Wavelength,
+        operand.Hx, operand.Hy, operand.Px, operand.Py, operand.Target, operand.Weight, operand.Comment,
+        operand.PupilRings, operand.PupilArms, operand.PupilObscuration, operand.PupilSampling, operand.SpatialFrequency,
+        operand.IgnoreLateralColor, operand.PolychromaticReference, operand.CompatibilityOnly,
+        operand.ZemaxIntegerParameters?.ToList() ?? [], operand.ZemaxDataParameters?.ToList() ?? []);
+
+    public MeritOperandDefinition ToDefinition() => new()
+    {
+        Enabled = Enabled,
+        Type = MeritFunctionCatalog.CanonicalType(Type),
+        Surface = Surface,
+        Field = Field,
+        Wavelength = Wavelength,
+        Hx = Hx,
+        Hy = Hy,
+        Px = Px,
+        Py = Py,
+        Target = Target,
+        Weight = Weight,
+        Comment = Comment,
+        PupilRings = PupilRings,
+        PupilArms = PupilArms,
+        PupilObscuration = PupilObscuration,
+        PupilSampling = PupilSampling,
+        SpatialFrequency = SpatialFrequency,
+        IgnoreLateralColor = IgnoreLateralColor,
+        PolychromaticReference = PolychromaticReference,
+        CompatibilityOnly = CompatibilityOnly,
+        ZemaxIntegerParameters = ZemaxIntegerParameters?.ToArray() ?? [],
+        ZemaxDataParameters = ZemaxDataParameters?.ToArray() ?? []
+    };
+}
 
 public sealed record ApertureSnapshot(
     string Kind,

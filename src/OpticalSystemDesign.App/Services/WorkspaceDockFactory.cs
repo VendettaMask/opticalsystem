@@ -537,7 +537,7 @@ public sealed class WorkspaceDockFactory : Factory
         if (dockable is not null)
         {
             if (_content.TryGetValue(dockable.Id, out var control)
-                && control is not TolerancingPanel { HasUnsavedChanges: true })
+                && control is not TolerancingPanel)
             {
                 _content.Remove(dockable.Id);
                 if (control is IDisposable disposable)
@@ -754,7 +754,13 @@ public sealed class WorkspaceDockFactory : Factory
                 _application.Documents,
                 _application.Prescription,
                 _application.Tolerancing,
-                _application.Events),
+                _application.Events,
+                _application.MultiConfiguration),
+            WorkspaceDocumentTypes.ToleranceResults => new ToleranceResultsPanel(
+                TolerancingEditor(),
+                () => OpenDocument(new("document:tolerance-report", WorkspaceDocumentTypes.ToleranceReport, "1: 公差报告")),
+                () => OpenDocument(new("document:tolerance-histogram", WorkspaceDocumentTypes.ToleranceHistogram, "直方图")),
+                () => OpenDocument(new("document:tolerance-yield", WorkspaceDocumentTypes.ToleranceYield, "良率"))),
             WorkspaceDocumentTypes.ToleranceReport => new ToleranceTextDocumentPanel(
                 "公差报告",
                 "tolerance-report.txt",
@@ -784,6 +790,15 @@ public sealed class WorkspaceDockFactory : Factory
             DisplayTypography.Apply(templated);
         }
         _content[id] = control;
+        if (control is TolerancingPanel tolerancing)
+        {
+            tolerancing.ResultPresentationChanged += (_, _) =>
+            {
+                RefreshDocumentContent("document:tolerance-histogram");
+                RefreshDocumentContent("document:tolerance-yield");
+                RefreshDocumentContent("document:tolerance-report");
+            };
+        }
         if (control is OpticalDrawingPanel drawing)
         {
             drawing.DrawingStandardChanged += (_, _) =>

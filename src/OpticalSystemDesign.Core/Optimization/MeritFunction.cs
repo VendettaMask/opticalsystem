@@ -472,6 +472,8 @@ public static partial class MeritFunctionCatalog
 
     private sealed class EvaluationBatch
     {
+        public Dictionary<MeritConfigurationContext, IReadOnlyList<MeritOperandEvaluation>>? ToleranceTables { get; set; }
+
         public Dictionary<RaySampleCacheKey, RayTraceSample> RaySamples { get; } = new();
 
         public Dictionary<AberrationReferenceCacheKey, (double X, double Y)> AberrationReferences { get; } = new();

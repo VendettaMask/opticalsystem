@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Core.Serialization;
 using System.Globalization;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Apodization;
@@ -226,6 +227,15 @@ public sealed class ZemaxZmxImporter : IOpticalFormatImporter
     public ZemaxZmxImportResult ImportConfigurationSet(string text)
     {
         return ZemaxZmxReader.ImportConfigurationSet(text);
+    }
+
+    public async Task<IReadOnlyList<MeritOperandSnapshot>> ReadMeritTableAsync(string path, int surfaceCount,
+        CancellationToken cancellationToken = default)
+    {
+        var bytes = await BoundedFile.ReadAllBytesAsync(path, BoundedFile.MaximumSettingsBytes, "ZMX merit table", cancellationToken)
+            .ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
+        return ZemaxZmxReader.ReadMeritTable(ZemaxZmxReader.Decode(bytes), surfaceCount);
     }
 
     public async Task<Optic> ImportFileAsync(

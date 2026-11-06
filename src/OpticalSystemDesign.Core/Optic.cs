@@ -634,29 +634,7 @@ public sealed class Optic
             SolveSettings: new SolveSettingsSnapshot(
                 Solves.DesiredBackFocus,
                 Solves.KeepImageAtBackFocus),
-            MeritOperands: MeritFunctionOperands.Select(operand => new MeritOperandSnapshot(
-                operand.Enabled,
-                operand.Type,
-                operand.Surface,
-                operand.Field,
-                operand.Wavelength,
-                operand.Hx,
-                operand.Hy,
-                operand.Px,
-                operand.Py,
-                operand.Target,
-                operand.Weight,
-                operand.Comment,
-                operand.PupilRings,
-                operand.PupilArms,
-                operand.PupilObscuration,
-                operand.PupilSampling,
-                operand.SpatialFrequency,
-                operand.IgnoreLateralColor,
-                operand.PolychromaticReference,
-                operand.CompatibilityOnly,
-                operand.ZemaxIntegerParameters?.ToList() ?? [],
-                operand.ZemaxDataParameters?.ToList() ?? [])).ToList(),
+            MeritOperands: MeritFunctionOperands.Select(MeritOperandSnapshot.FromDefinition).ToList(),
             Environment: new EnvironmentSnapshot(
                 Environment.MatchRefractiveIndexData,
                 Environment.TemperatureCelsius,
@@ -854,34 +832,12 @@ public sealed class Optic
         var availableSurfaceNumbers = SurfaceGroup.Items.Select(surface => surface.Number).ToHashSet();
         foreach (var operand in snapshot.MeritOperands ?? new List<MeritOperandSnapshot>())
         {
-            MeritFunctionOperands.Add(new MeritOperandDefinition
-            {
-                Enabled = operand.Enabled,
-                Type = MeritFunctionCatalog.CanonicalType(operand.Type),
-                Surface = operand.Surface,
-                Field = operand.Field,
-                Wavelength = operand.Wavelength,
-                Hx = operand.Hx,
-                Hy = operand.Hy,
-                Px = operand.Px,
-                Py = operand.Py,
-                Target = operand.Target,
-                Weight = operand.Weight,
-                Comment = operand.Comment,
-                PupilRings = operand.PupilRings,
-                PupilArms = operand.PupilArms,
-                PupilObscuration = operand.PupilObscuration,
-                PupilSampling = operand.PupilSampling,
-                SpatialFrequency = operand.SpatialFrequency,
-                IgnoreLateralColor = operand.IgnoreLateralColor,
-                PolychromaticReference = operand.PolychromaticReference,
-                CompatibilityOnly = operand.CompatibilityOnly
-                    && (!ZemaxOperandRegistry.TryGet(operand.Type, out var descriptor)
-                        || descriptor.SupportLevel != ZemaxOperandSupportLevel.Executable
-                        || !OpticSnapshotValidator.CanUpgradeMeritOperand(operand, availableSurfaceNumbers, Fields.Count, Wavelengths.Count, SurfaceGroup.Items)),
-                ZemaxIntegerParameters = operand.ZemaxIntegerParameters?.ToArray() ?? [],
-                ZemaxDataParameters = operand.ZemaxDataParameters?.ToArray() ?? []
-            });
+            var definition = operand.ToDefinition();
+            definition.CompatibilityOnly = operand.CompatibilityOnly
+                && (!ZemaxOperandRegistry.TryGet(operand.Type, out var descriptor)
+                    || descriptor.SupportLevel != ZemaxOperandSupportLevel.Executable
+                    || !OpticSnapshotValidator.CanUpgradeMeritOperand(operand, availableSurfaceNumbers, Fields.Count, Wavelengths.Count, SurfaceGroup.Items));
+            MeritFunctionOperands.Add(definition);
         }
     }
 

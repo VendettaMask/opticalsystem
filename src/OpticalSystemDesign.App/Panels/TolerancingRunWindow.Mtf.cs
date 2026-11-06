@@ -23,6 +23,7 @@ public sealed partial class TolerancingRunWindow
     private IReadOnlyList<SurfaceRowDto> _contextSurfaces = Array.Empty<SurfaceRowDto>();
     private Border? _mtfCard;
     private Border? _fieldCard;
+    private Control? _systemMeritNote;
 
     private void InitializeMtfControls(IReadOnlyList<FieldRowDto>? fields,
         IReadOnlyList<SurfaceRowDto>? surfaces, IReadOnlyList<WavelengthRowDto>? wavelengths)
@@ -58,9 +59,11 @@ public sealed partial class TolerancingRunWindow
         add.Click += (_, _) => AddCompensator(new(
             _contextSurfaces.FirstOrDefault(surface => surface.Number > 0 && surface.Number < _contextSurfaces.Count - 1 && string.IsNullOrEmpty(surface.Material))?.Number ?? 1,
             ToleranceCompensatorKind.Thickness, -0.1, 0.1));
-        return Page(Section("补偿方式", Row("方法", _compensation), Row("补偿循环", _cycles)),
+        return Page(Section("补偿方式", Row("方法", _compensation), Row("每阶段循环数", _cycles)),
+            StageObjectivesSection(),
             Section("附加可调量", Note("公差表中的 COMP 仍参与补偿。可增加空气间隔、单面或镜组 X/Y 偏心与倾斜。偏差相对名义值，范围必须包含 0。"),
                 add, _compensatorRows),
+            Note("按阶段编号依次调整。同阶段变量一起优化，完成后锁定。启用多阶段时，公差表 COMP 最后执行。"),
             Note("全部视场共用补偿量。镜组各面一起移动，倾斜支点以首面坐标输入。"));
     }
 
@@ -74,6 +77,11 @@ public sealed partial class TolerancingRunWindow
             "镜组 X 偏心 (mm)", "镜组 Y 偏心 (mm)", "镜组 X 倾斜 (°)", "镜组 Y 倾斜 (°)");
         var minimum = Number(ToDecimal(definition.Minimum), -1_000_000, 0, 0.01m);
         var maximum = Number(ToDecimal(definition.Maximum), 0, 1_000_000, 0.01m);
+        var stage = Number(definition.Stage, 1, 8, 1);
+        var configuration = Number(definition.Configuration, 0, Math.Max(1, _configurationControls.Count), 1);
+        var configurationRow = Row("补偿配置（0=共用）", configuration);
+        configurationRow.IsVisible = IsJointScope;
+        Avalonia.Automation.AutomationProperties.SetName(stage, "补偿阶段");
         var remove = Button("删除");
         var endRow = Row("镜组终止面", end);
         var pivotX = Number(ToDecimal(definition.Pivot?.X ?? 0), -1_000_000, 1_000_000, 0.1m);
@@ -101,8 +109,8 @@ public sealed partial class TolerancingRunWindow
         Avalonia.Automation.AutomationProperties.SetName(pivotY, "支点 Y (mm)");
         Avalonia.Automation.AutomationProperties.SetName(pivotZ, "支点 Z (mm)");
         var card = Section("附加补偿器", Row("可调量", kind), Row("表面编号", surface), endRow,
-            Row("最小偏差", minimum), Row("最大偏差", maximum), pivotRows, remove);
-        var controls = new CompensatorControls(surface, end, kind, minimum, maximum, pivotX, pivotY, pivotZ);
+            Row("最小偏差", minimum), Row("最大偏差", maximum), Row("补偿阶段", stage), configurationRow, pivotRows, remove);
+        var controls = new CompensatorControls(surface, end, kind, minimum, maximum, pivotX, pivotY, pivotZ, stage, configuration, configurationRow);
         _compControls.Add(controls); _compensatorRows.Children.Add(card);
         remove.Click += (_, _) => { _compControls.Remove(controls); _compensatorRows.Children.Remove(card); };
     }
@@ -131,13 +139,15 @@ public sealed partial class TolerancingRunWindow
         _separateFields.IsChecked == true, _separateFields.IsChecked == true
             ? _fieldControls.Where(field => field.Use.IsChecked == true).Select(field => new ToleranceFieldLimitDto(field.Number, DoubleValue(field.Limit, 0.2))).ToArray()
             : Array.Empty<ToleranceFieldLimitDto>());
-    private IReadOnlyList<ToleranceCompensatorDto> BuildAdditionalCompensators() => _compControls.Select(row =>
+    private IReadOnlyList<ToleranceCompensatorDto> BuildAdditionalCompensators() => _compControls
+        .Where(row => IsJointScope || IntValue(row.Configuration, 0) == 0).Select(row =>
     {
         var kind = (ToleranceCompensatorKind)row.Kind.SelectedIndex;
         var pivot = new TolerancePivotDto(DoubleValue(row.PivotX, 0), DoubleValue(row.PivotY, 0), DoubleValue(row.PivotZ, 0));
         return new ToleranceCompensatorDto(IntValue(row.Surface, 1), kind,
             DoubleValue(row.Minimum, 0), DoubleValue(row.Maximum, 0), kind.IsElement() ? IntValue(row.EndSurface, -1) : -1,
-            kind.IsElementTilt() && (pivot.X != 0 || pivot.Y != 0 || pivot.Z != 0) ? pivot : null);
+            kind.IsElementTilt() && (pivot.X != 0 || pivot.Y != 0 || pivot.Z != 0) ? pivot : null,
+            IntValue(row.Stage, 1), IntValue(row.Configuration, 0));
     }).ToArray();
 
     private void UpdateMtfControls()
@@ -145,6 +155,8 @@ public sealed partial class TolerancingRunWindow
         var mtf = _criterion.SelectedIndex == (int)ToleranceCriterion.Mtf;
         if (_mtfCard is not null) _mtfCard.IsVisible = mtf;
         if (_fieldCard is not null) _fieldCard.IsVisible = mtf;
+        if (_systemMeritNote is not null)
+            _systemMeritNote.IsVisible = _criterion.SelectedIndex == (int)ToleranceCriterion.SystemMerit;
         _acceptanceLabel.Text = mtf ? "MTF 合格下限（0=不计算）" : "合格上限（0=不计算）";
         _yieldLimit.Maximum = mtf ? 1 : 1_000_000;
         foreach (var field in _fieldControls)
@@ -154,17 +166,26 @@ public sealed partial class TolerancingRunWindow
         }
     }
 
-    private void SubmitOptions()
+    private void ShowSettingsError(string message)
     {
-        var options = BuildOptions();
+        _settingsError.Text = message;
+        _settingsError.IsVisible = message.Length > 0;
+    }
+
+    private void SubmitOptions(bool applyOnly = false)
+    {
+        TolerancingRunOptions options;
+        try { options = BuildOptions(); }
+        catch (ArgumentException error) { ShowSettingsError(error.Message); return; }
         if (options.AdditionalCompensators?.Any(row => row.Minimum >= row.Maximum) == true)
-        { _settingsError.Text = "补偿器范围必须包含 0，且最小偏差小于最大偏差。"; return; }
+        { ShowSettingsError("补偿器范围必须包含 0，且最小偏差小于最大偏差。"); return; }
         if (options.AdditionalCompensators?.Any(row => row.Kind.IsElement() && row.EndSurfaceNumber <= row.SurfaceNumber) == true)
-        { _settingsError.Text = "镜组终止面必须在起始面之后。"; return; }
+        { ShowSettingsError("镜组终止面必须在起始面之后。"); return; }
+        ApplyOnly = applyOnly;
         Close(options);
     }
 
     private sealed record FieldLimitControls(int Number, CheckBox Use, NumericUpDown Limit);
     private sealed record CompensatorControls(NumericUpDown Surface, NumericUpDown EndSurface, ComboBox Kind,
-        NumericUpDown Minimum, NumericUpDown Maximum, NumericUpDown PivotX, NumericUpDown PivotY, NumericUpDown PivotZ);
+        NumericUpDown Minimum, NumericUpDown Maximum, NumericUpDown PivotX, NumericUpDown PivotY, NumericUpDown PivotZ, NumericUpDown Stage, NumericUpDown Configuration, Control ConfigurationRow);
 }

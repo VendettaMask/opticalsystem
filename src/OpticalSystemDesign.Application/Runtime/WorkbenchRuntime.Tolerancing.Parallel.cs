@@ -18,16 +18,17 @@ public partial class WorkbenchRuntime
         ToleranceCriterion criterion,
         ToleranceMtfSettingsDto? mtfSettings = null,
         ToleranceCompensationAlgorithm algorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
-        IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null)
+        IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null,
+        IReadOnlyList<MeritOperandDefinition>? meritDefinitions = null)
     {
         var tolerancing = optic.CreateTolerancing();
-        ConfigureToleranceCriterionWorker(optic, tolerancing, criterion, mtfSettings);
+        ConfigureToleranceCriterionWorker(optic, tolerancing, criterion, mtfSettings, meritDefinitions);
         ConfigureAdditionalCompensators(optic, tolerancing, algorithm, additionalCompensators);
         foreach (var operand in operands.Where(item => item.Enabled))
         {
             if (operand.Kind == ToleranceOperandKind.Compensator)
             {
-                tolerancing.AddCompensator(CreateToleranceVariableWorker(optic, operand));
+                tolerancing.AddCompensator(CreateToleranceVariableWorker(optic, operand), ImageCompensationStage(additionalCompensators));
             }
             else if (operand.Kind is ToleranceOperandKind.FringePower or ToleranceOperandKind.FringeIrregularity)
             {
@@ -69,10 +70,11 @@ public partial class WorkbenchRuntime
         ToleranceCriterion criterion,
         ToleranceMtfSettingsDto? mtfSettings = null,
         ToleranceCompensationAlgorithm algorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
-        IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null)
+        IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null,
+        IReadOnlyList<MeritOperandDefinition>? meritDefinitions = null)
     {
         var tolerancing = optic.CreateTolerancing();
-        ConfigureToleranceCriterionWorker(optic, tolerancing, criterion, mtfSettings);
+        ConfigureToleranceCriterionWorker(optic, tolerancing, criterion, mtfSettings, meritDefinitions);
         ConfigureAdditionalCompensators(optic, tolerancing, algorithm, additionalCompensators);
         var target = FindSurface(optic, surfaceNumber);
         if (Math.Abs(radiusSigma) > 1e-12)
@@ -114,17 +116,48 @@ public partial class WorkbenchRuntime
                 value => SetToleranceThickness(optic, surfaceId, value),
                 0,
                 Math.Max(1, spacingSurface.Thickness + 100),
-                0.5));
+                0.5), ImageCompensationStage(additionalCompensators));
         }
 
         return tolerancing;
     }
 
-    private void ConfigureToleranceCriterionWorker(
+    private static void ConfigureStageObjectives(Tolerancing study, Optic optic,
+        IReadOnlyList<ToleranceStageObjectiveDto>? objectives)
+    {
+        foreach (var definition in objectives ?? [])
+            study.SetStageObjective(definition.Stage, BuildStageObjective(optic, definition));
+    }
+
+    private static Tolerancing BuildStageObjective(Optic optic, ToleranceStageObjectiveDto definition,
+        IReadOnlyList<MeritOperandDefinition>? meritDefinitions = null)
+    {
+        var objective = optic.CreateTolerancing();
+        ConfigureToleranceCriterionWorker(optic, objective, definition.Criterion, definition.MtfSettings,
+            ResolveMeritDefinitions(definition.MeritTable, meritDefinitions));
+        return objective;
+    }
+
+    private static IReadOnlyList<MeritOperandDefinition>? ResolveMeritDefinitions(ToleranceMeritTableDto? table,
+        IReadOnlyList<MeritOperandDefinition>? fallback = null) =>
+        table?.Rows.Select(row => row.ToDefinition()).ToArray() ?? fallback;
+
+    private static void ConfigureToleranceCriterionWorker(
         Optic optic,
         Tolerancing tolerancing,
-        ToleranceCriterion criterion, ToleranceMtfSettingsDto? mtfSettings = null)
+        ToleranceCriterion criterion, ToleranceMtfSettingsDto? mtfSettings = null,
+        IReadOnlyList<MeritOperandDefinition>? meritDefinitions = null)
     {
+        if (criterion == ToleranceCriterion.SystemMerit)
+        {
+            var residuals = MeritFunctionCatalog.CreateToleranceResiduals(optic,
+                meritDefinitions ?? optic.MeritFunctionOperands.Select(row => row.Clone()).ToArray());
+            var weight = residuals.Sum(row => Math.Abs(row.Weight));
+            foreach (var residual in residuals) tolerancing.AddOperand(residual);
+            tolerancing.StrictMerit = true;
+            tolerancing.SetCriterionEvaluator(() => Math.Sqrt(tolerancing.Merit() / weight));
+            return;
+        }
         if (criterion == ToleranceCriterion.Mtf)
         {
             var settings = mtfSettings ?? new ToleranceMtfSettingsDto();

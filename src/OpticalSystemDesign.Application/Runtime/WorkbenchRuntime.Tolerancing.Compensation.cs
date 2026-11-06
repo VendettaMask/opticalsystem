@@ -85,8 +85,14 @@ public partial class WorkbenchRuntime
             tolerancing.AddCompensator(new DelegateVariable(
                 $"本地补偿 {definition.Kind} 面 {location}", Get, Set,
                 nominal + definition.Minimum, nominal + definition.Maximum,
-                Math.Max(1e-8, (definition.Maximum - definition.Minimum) / 10)));
+                Math.Max(1e-8, (definition.Maximum - definition.Minimum) / 10)), definition.Stage);
         }
+    }
+
+    internal static int ImageCompensationStage(IReadOnlyList<ToleranceCompensatorDto>? definitions)
+    {
+        var last = definitions?.Select(item => item.Stage).DefaultIfEmpty(1).Max() ?? 1;
+        return last > 1 ? last + 1 : 1;
     }
 
     internal static CoordinateSystem KeepMechanicalPivot(CoordinateSystem pose, CoordinateSystem next, Vector3D pivot) =>

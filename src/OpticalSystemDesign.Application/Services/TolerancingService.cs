@@ -177,7 +177,11 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
         }
     }
 
-    public ToleranceValidationResultDto ValidateOperands(IReadOnlyList<ToleranceOperandDto> operands)
+    public ToleranceValidationResultDto ValidateOperands(IReadOnlyList<ToleranceOperandDto> operands) =>
+        ValidateOperands(operands, null, false);
+
+    private ToleranceValidationResultDto ValidateOperands(IReadOnlyList<ToleranceOperandDto> operands,
+        Func<int, double>? sharedFringeRadius, bool joint)
     {
         ArgumentNullException.ThrowIfNull(operands);
         lock (Gate)
@@ -190,7 +194,7 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
             }
             var surfaceCount = Runtime.CurrentOptic.SurfaceGroup.Items.Count;
             var enabled = operands.Where(item => item.Enabled).ToArray();
-            if (!enabled.Any(item => item.Kind != ToleranceOperandKind.Compensator))
+            if (!joint && !enabled.Any(item => item.Kind != ToleranceOperandKind.Compensator))
             {
                 messages.Add("至少需要一个启用的公差操作数。");
             }
@@ -223,7 +227,7 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                 {
                     messages.Add($"第 {operand.Index} 行的最小值/最大值无效。");
                 }
-                else if (operand.Kind != ToleranceOperandKind.Compensator
+                else if (!joint && operand.Kind != ToleranceOperandKind.Compensator
                          && !operand.Kind.SurfaceFormModeFor().HasValue
                          && Math.Abs(operand.Minimum) <= 1e-15
                          && Math.Abs(operand.Maximum) <= 1e-15)
@@ -244,8 +248,8 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                         else if (!SurfaceFringePerturbation.IsValidTestWavelength(wavelength))
                             messages.Add($"第 {operand.Index} 行的条纹检测波长须为 0.001–1000 µm。");
                         else if (operand.Kind == ToleranceOperandKind.FringePower
-                            && (!SurfaceFringePerturbation.IsValidPowerChange(surface, wavelength, operand.Minimum)
-                                || !SurfaceFringePerturbation.IsValidPowerChange(surface, wavelength, operand.Maximum)))
+                            && (!SurfaceFringePerturbation.IsValidPowerChange(surface, wavelength, operand.Minimum, sharedFringeRadius?.Invoke(operand.SurfaceNumber))
+                                || !SurfaceFringePerturbation.IsValidPowerChange(surface, wavelength, operand.Maximum, sharedFringeRadius?.Invoke(operand.SurfaceNumber))))
                             messages.Add($"第 {operand.Index} 行的曲率条纹范围使净口径超出曲面有效域。");
                     }
 
@@ -323,12 +327,17 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                 if (group.Any(row => row.Kind == ToleranceOperandKind.IsoPower)
                     && group.Any(row => row.Kind is ToleranceOperandKind.FringePower or ToleranceOperandKind.Radius))
                     messages.Add($"表面 {group.Key} 的 ISOA 与 TRAD 或 TFRN 同时定义了曲率误差。");
-                if (group.Any(row => row.Kind == ToleranceOperandKind.IsoIrregularityPv)
-                    && group.Any(row => row.Kind == ToleranceOperandKind.IsoRotationalIrregularityPv))
-                    messages.Add($"表面 {group.Key} 的 ISOB 和 ISOC 需要联合峰谷值标定，目前仅支持分别用于不同表面。");
-                else if (group.Count(row => row.Kind.UsesZernikeTerms() || row.Kind.UsesIsoStatistics()
-                    || row.Kind == ToleranceOperandKind.FringeIrregularity) > 1)
-                    messages.Add($"表面 {group.Key} 只能使用一种面形不规则度公差。");
+                var irregularities = group.Count(row => row.Kind.UsesZernikeTerms() || row.Kind.UsesIsoStatistics()
+                    || row.Kind == ToleranceOperandKind.FringeIrregularity);
+                if (irregularities == 2 && ToleranceSurfaceFormExtensions.TryGetIsoPair(group, out var total, out var rotational))
+                {
+                    var b = total.Maximum * total.IsoMillimetersPerUnit();
+                    var c = rotational.Maximum * rotational.IsoMillimetersPerUnit();
+                    if (!(c < b || (b == 0 && c == 0)))
+                        messages.Add($"表面 {group.Key} 的 ISOC 最大峰谷值换算后须小于 ISOB，或两者均为零。");
+                }
+                else if (irregularities > 1)
+                    messages.Add($"表面 {group.Key} 只能使用一种面形不规则度公差，或联合使用 ISOB 与 ISOC。");
             }
             return new ToleranceValidationResultDto(messages.Count == 0, messages);
         }
@@ -401,12 +410,26 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
         CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(request);
-        ValidateRequest(request);
+        request = FreezeRequest(request);
+        if (request.ConfigurationSettings is { Scope: not ToleranceConfigurationScope.Current })
+        {
+            JointToleranceSnapshot joint;
+            long revision;
+            CancellationTokenSource cancellation;
+            lock (Gate)
+            {
+                joint = Runtime.CaptureJointToleranceSnapshot();
+                revision = Workspace.Revision;
+                cancellation = Workspace.LinkDocumentToken(cancellationToken);
+            }
+            return RunJointWorkerAsync(joint, revision, request, cancellation);
+        }
         Optic snapshot;
         long sourceRevision;
         CancellationTokenSource linked;
         lock (Gate)
         {
+            ValidateRequest(request);
             snapshot = Optic.FromSnapshot(Runtime.CurrentOptic.ToSnapshot());
             sourceRevision = Workspace.Revision;
             linked = Workspace.LinkDocumentToken(cancellationToken);
@@ -415,8 +438,13 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
         return RunTolerancingWorkerAsync(snapshot, sourceRevision, request, linked);
     }
 
-    private void ValidateRequest(TolerancingRequestDto request)
+    internal void ValidateRequest(TolerancingRequestDto request, Func<int, double>? sharedFringeRadius = null, bool joint = false)
     {
+        if (request.ConfigurationSettings is { } scope
+            && (scope.Scope != ToleranceConfigurationScope.Current || scope.Configurations is { Count: > 0 }
+                || scope.Limits is { Count: > 0 } || scope.MceRows is { Count: > 0 })
+            || request.AdditionalCompensators?.Any(row => row.Configuration != 0) == true)
+            throw new ArgumentException("指定配置的验收、补偿与配置操作数须在多配置公差中使用。");
         int surfaceCount;
         lock (Gate)
         {
@@ -461,14 +489,36 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
         {
             throw new ArgumentException("反向灵敏度需要显式公差操作数表。", nameof(request));
         }
+        if (!joint)
+        {
+            var phases = (request.AdditionalCompensators ?? []).Select(row => row.Stage);
+            if (request.Operands?.Any(row => row.Enabled) != true
+                || request.Operands.Any(row => row.Enabled && row.Kind == ToleranceOperandKind.Compensator))
+                phases = phases.Append(WorkbenchRuntime.ImageCompensationStage(request.AdditionalCompensators));
+            ValidateStageObjectives(request, phases);
+            ValidateMeritSources(request, Runtime.CurrentOptic);
+        }
         ValidateMtfAndCompensation(request);
         if (request.Operands is { Count: > 0 } operands)
         {
-            var validation = ValidateOperands(operands);
+            var validation = ValidateOperands(operands, sharedFringeRadius, joint);
             if (!validation.IsValid)
             {
                 throw new ArgumentException(string.Join(" ", validation.Messages), nameof(request));
             }
+        }
+    }
+
+    private static async Task<TolerancingResultDto> RunJointWorkerAsync(
+        JointToleranceSnapshot snapshot, long revision, TolerancingRequestDto request, CancellationTokenSource cancellation)
+    {
+        using (cancellation)
+        {
+            return await Task.Run(() =>
+            {
+                using var computation = ComputationCancellation.Push(cancellation.Token);
+                return WorkbenchRuntime.RunJointTolerancing(snapshot, request, revision, cancellation.Token);
+            }, cancellation.Token).ConfigureAwait(false);
         }
     }
 
@@ -484,6 +534,7 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
             {
                 linked.Token.ThrowIfCancellationRequested();
                 using var cancellationScope = ComputationCancellation.Push(linked.Token);
+                var nominalSnapshot = request.Trials > 0 ? snapshot.ToSnapshot() : null;
                 var worker = new WorkbenchRuntime(snapshot);
                 var view = worker.RunTolerancing(
                     worker.Surfaces.FirstOrDefault(surface => surface.Number == request.SurfaceNumber),
@@ -498,8 +549,11 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                     linked.Token,
                     request.MaxDegreeOfParallelism,
                     request.Mode,
-                    request.InverseValue, request.MtfSettings, request.CompensationAlgorithm, request.AdditionalCompensators);
+                    request.InverseValue, request.MtfSettings, request.CompensationAlgorithm, request.AdditionalCompensators, request.StageObjectives, request.MeritTable);
                 linked.Token.ThrowIfCancellationRequested();
+                var trials = view.TrialRows.Select(row => new TolerancingTrialRowDto(
+                    row.Trial, row.Merit, row.CompensatedMerit, row.Degradation, row.Fields, row.UncompensatedFields,
+                    row.Compensators, row.Passed, row.AcceptanceMargin, row.CriterionValue, row.Stages)).ToArray();
                 return new TolerancingResultDto(
                     view.Summary,
                     view.SensitivityRows.Select(row => new TolerancingSensitivityRowDto(
@@ -507,12 +561,9 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                         row.DeltaMerit,
                         row.NegativeMerit,
                         row.PositiveMerit,
-                        row.WorstMerit, row.NegativeFields, row.PositiveFields, row.NegativeCompensators, row.PositiveCompensators)).ToArray(),
-                    view.TrialRows.Select(row => new TolerancingTrialRowDto(
-                        row.Trial,
-                        row.Merit,
-                        row.CompensatedMerit,
-                        row.Degradation, row.Fields, row.UncompensatedFields, row.Compensators, row.Passed, row.AcceptanceMargin, row.CriterionValue)).ToArray(),
+                        row.WorstMerit, row.NegativeFields, row.PositiveFields, row.NegativeCompensators, row.PositiveCompensators,
+                        NegativeStages: row.NegativeStages, PositiveStages: row.PositiveStages)).ToArray(),
+                    trials,
                     view.Details,
                     view.Statistics is null
                         ? null
@@ -548,7 +599,8 @@ internal sealed partial class TolerancingService : WorkbenchServiceBase, ITolera
                             row.Maximum.Status,
                             row.Maximum.Iterations))).ToArray(),
                     view.AdjustedOperands,
-                    view.InverseTarget, view.MtfSettings, view.NominalFields, view.FieldStatistics, view.NominalCompensators);
+                    view.InverseTarget, view.MtfSettings, view.NominalFields, view.FieldStatistics, view.NominalCompensators,
+                    view.NominalStages, CaptureWorstSample(nominalSnapshot, request, view, trials));
             }, linked.Token).ConfigureAwait(false);
         }
     }

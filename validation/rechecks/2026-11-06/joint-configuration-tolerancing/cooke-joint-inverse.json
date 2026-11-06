@@ -1,0 +1,103 @@
+{
+  "InverseRows": [
+    {
+      "Perturbation": "TTHI  \u9762 6",
+      "Minimum": {
+        "OriginalTolerance": "-0.8",
+        "AdjustedTolerance": "-0.0028496838524",
+        "Criterion": "0.0859696006065",
+        "Status": 1,
+        "Iterations": 36,
+        "LimitingConfiguration": 1,
+        "LimitingField": null,
+        "AcceptanceMargin": 3.4353075939463906E-13
+      },
+      "Maximum": {
+        "OriginalTolerance": "0.8",
+        "AdjustedTolerance": "0.0028496975312",
+        "Criterion": "0.0859470102329",
+        "Status": 1,
+        "Iterations": 36,
+        "LimitingConfiguration": 2,
+        "LimitingField": null,
+        "AcceptanceMargin": 5.629802179996091E-13
+      }
+    }
+  ],
+  "AdjustedOperands": [
+    {
+      "Index": 1,
+      "Enabled": true,
+      "Kind": 1,
+      "SurfaceNumber": 6,
+      "Minimum": -0.002849683852400631,
+      "Maximum": 0.0028496975312009456,
+      "Distribution": 0,
+      "Comment": "",
+      "EndSurfaceNumber": -1,
+      "ParameterIndex": 0,
+      "TestWavelengthMicrometers": null,
+      "MinimumZernikeTerm": 2,
+      "MaximumZernikeTerm": 11,
+      "IsoUnit": 0,
+      "IsoStatistics": 0
+    }
+  ],
+  "SensitivityRows": [
+    {
+      "Perturbation": "TTHI  \u9762 6",
+      "DeltaMerit": "0.000199999999656",
+      "NegativeMerit": "0.0859696006065",
+      "PositiveMerit": "0.0859470102329",
+      "WorstMerit": "0.0859696006065",
+      "NegativeFields": null,
+      "PositiveFields": null,
+      "NegativeCompensators": null,
+      "PositiveCompensators": null,
+      "NegativeConfigurations": [
+        {
+          "Configuration": 1,
+          "Criterion": 0.085969600606539,
+          "Fields": null,
+          "Compensators": [],
+          "Passed": null,
+          "AcceptanceMargin": null,
+          "LimitingField": null,
+          "Error": ""
+        },
+        {
+          "Configuration": 2,
+          "Criterion": 0.08554701972850691,
+          "Fields": null,
+          "Compensators": [],
+          "Passed": null,
+          "AcceptanceMargin": null,
+          "LimitingField": null,
+          "Error": ""
+        }
+      ],
+      "PositiveConfigurations": [
+        {
+          "Configuration": 1,
+          "Criterion": 0.08556960817496623,
+          "Fields": null,
+          "Compensators": [],
+          "Passed": null,
+          "AcceptanceMargin": null,
+          "LimitingField": null,
+          "Error": ""
+        },
+        {
+          "Configuration": 2,
+          "Criterion": 0.08594701023290044,
+          "Fields": null,
+          "Compensators": [],
+          "Passed": null,
+          "AcceptanceMargin": null,
+          "LimitingField": null,
+          "Error": ""
+        }
+      ]
+    }
+  ]
+}

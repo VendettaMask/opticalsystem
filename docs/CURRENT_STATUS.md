@@ -1,5 +1,45 @@
 # 当前实现与验证状态
 
+## 2026-11-06 公差数据查看器
+
+公差分析完成后打开独立结果页，展示整机与分配置良率、灵敏度、反求端点和逐次试验。可筛选试验、定位最差样件，以及查看补偿前后与分阶段的评价值和补偿行程。报告、直方图、良率图同步更新，处方变更时清除过期结果。Cooke 双配置算例完成明暗主题、150% 缩放离屏验证，公差定向回归 123 项通过。[操作说明](TOLERANCING.md#公差数据可视化) · [截图与回归记录](../validation/rechecks/2026-11-06/tolerance-results-viewer/README.md)
+
+关页保存测试已在 Light 和 Isekai 下完成真实运行、取消保存、保存并读回研究文件。编辑器和结果页分别参与停靠和平铺。二维视图按可见绘图区定位工具条，平铺后可以切换光线显示。[关页与平铺复验](../validation/rechecks/2026-11-06/tolerance-results-viewer/README.md#关页保存复验)
+
+## 2026-11-06 OpticStudio TSC 装调子集导入
+
+公差编辑器可预览并导入 CLEARCOMP、LOADMERIT、厚度 COMP／CMCO、固定循环 OPTIMIZE 和末尾 GETMERIT。显式选择同名 ZMX 评价表及 Workbench 对称补偿行程。未映射命令按原行定位并阻止应用。Cooke 两阶段计算与跨工程样件复算已验收，定向回归 160/160 通过。扩展回归另有三项 ZMX 特殊曲面断言失败，修改前 HEAD 复现了相同消息。[操作说明](TOLERANCING.md#导入-opticstudio-公差脚本) · [脚本、ZMX、样件与验收](../validation/rechecks/2026-11-06/tsc-tolerance-import/README.md)
+
+## 2026-11-06 独立装调评价表
+
+装调阶段与最终验收分别绑定独立的系统评价表，保存表名、操作数顺序、目标和权重。「应用设置」保留研究设置，可在编辑器准备下一张表。双配置 Cooke 已核对表 A 定心锁定、表 B 独立调焦、表 C 整机验收及跨工程复算。研究 v10 保存绑定表，样件 v5 冻结实际执行的表。Release 定向回归 130/130 通过。[操作说明](TOLERANCING.md#系统评价函数) · [双配置样件与界面证据](../validation/rechecks/2026-11-06/bound-merit-tolerancing/README.md)
+
+## 2026-11-06 系统评价函数用于公差和装调
+
+系统评价函数可作为装调阶段准则或最终验收。单、双配置 Cooke 验证有序行引用、目标和权重、配置独立补偿及样件复算。Release 定向回归 114/114 通过。v9 研究保留准则选择，v4 样件冻结运行时的活动评价表。显式跨配置寻址和 OpticStudio .TSC 仍待接入。[操作说明](TOLERANCING.md#系统评价函数) · [算例、界面与验证](../validation/rechecks/2026-11-06/system-merit-tolerancing/README.md)
+
+## 2026-11-06 逐阶段装调评价
+
+补偿阶段可独立选 RMS 点列、RMS 波前或指定频率 MTF，并沿用该阶段的执行器限位。最终准则独立用于灵敏度、反求和良率。双配置 Cooke 已验证先以 RMS 调整共用镜组，再用 18 cycles/mm MTF 独立调焦，最终以 30 cycles/mm 逐视场验收。跨工程复算匹配保存记录，Release 定向回归 110/110 通过。研究使用 startol v8，样件使用 startolsample v3。[操作说明](TOLERANCING.md#分步装调) · [样件、离屏界面与回归](../validation/rechecks/2026-11-06/stage-objective-tolerancing/README.md)
+
+## 2026-11-06 多配置联合公差
+
+一次 Monte Carlo 对所选配置共享同一件样件的制造误差，并在各自净口径下追迹。支持共用执行器、配置独立补偿、逐配置及逐视场限值、整机良率、联合反求及最差样件复算。配置厚度和空气间隔可使用 TMCO／CMCO，沿同类拾取传播。联合研究使用 startol v7，样件使用 startolsample v2。
+
+双配置 Cooke 数值及离屏界面已验收，Release 定向回归 105/105 通过。当前环境未安装 OpticStudio，原生逐值对照待执行。[操作说明](TOLERANCING.md#多配置联合公差) · [双配置算例和验证](../validation/rechecks/2026-11-06/joint-configuration-tolerancing/README.md)
+
+## 2026-11-06 分步装调与最差样件复算
+
+附加补偿器可指定阶段 1–8。同阶段共同优化，完成后锁定，后续阶段从已调整的姿态继续。有非默认阶段时，公差表 COMP 最后执行。研究使用 startol v6，兼容 v1–v5。
+
+Monte Carlo 最差样件保存实际公差范围、名义快照、阶段、试验号、种子和原结果。可在其他镜头工作区只复算该试验，逐项核对结果。最终 96 项定向测试通过，覆盖同面 ISO B/C、三阶段装调、跨工作区复算和 150% 窄窗界面。[使用说明](TOLERANCING.md) · [验证记录](../validation/rechecks/2026-11-06/staged-compensation-replay/README.md)
+
+## 2026-11-06 同面 ISOB／ISOC 联合标定
+
+同一圆形净口径面可同时启用 ISOB 与 ISOC。Monte Carlo 按旋转对称分量和叠加后总峰谷值联合标定真实曲面。支持混合单位、两行独立统计设置、反求后范围复验和 startol v5。
+
+定向复验 146/146 通过。扩展测试另有一项工作区关页保存测试在 Isekai 渲染资源初始化时失败，单独运行复现。固定 Cooke ZMX 样件验证联合扰动和显式 Fringe Sag 的本地矢高、法线及 FFT MTF 一致。原生 OpticStudio 尚待运行。[计算说明](TOLERANCING.md#isob-与-isoc-同面联合标定) · [试件与证据](../validation/rechecks/2026-11-06/joint-iso-surface-figure/README.md)
+
 ## 2026-11-05 网格与反射变焦精度复验
 
 Grid Sag 的配置忽略面及同介质展示面修复后，12 项原数值差异和 10 项原不可比请求转为通过。反射变焦修正原生场曲的傍轴步长适配，五个配置通过原阈值。Grid GRIN 的单光线报告已读取体积分后的入射方向，一阶量及冻结参考下的光线、光程差与衍射残差仍开放。95 支按原矩阵复验，3,024 项为 **2,396 通过 / 38 接近 / 77 差异 / 443 不可比 / 70 错误**，29 项转为通过。227 项定向测试和默认 Release 构建通过。[完整复验与逐项未通过清单](../validation/rechecks/2026-11-05/all-example-accuracy-grid-zoom/README.md)

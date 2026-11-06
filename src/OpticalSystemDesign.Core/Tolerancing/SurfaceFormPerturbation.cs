@@ -16,7 +16,7 @@ public enum IsoSurfaceFormUnit { Nanometers, Fringes, Micrometers }
 public enum IsoSurfaceFormStatistics { AtMaximum, TruncatedGaussian }
 
 /// <summary>Adds a manufactured surface sag error in the existing surface coordinates.</summary>
-public sealed class SurfaceFormPerturbation : IScaledRangePerturbation
+public sealed class SurfaceFormPerturbation : IScaledRangePerturbation, ISharedSurfaceForm
 {
     private static readonly IReadOnlyList<(int Number, int N, int M)> StandardOrders =
         ZernikeFitEngine.StandardIndices(ZernikeFitEngine.MaximumStandardTerm);
@@ -47,12 +47,7 @@ public sealed class SurfaceFormPerturbation : IScaledRangePerturbation
         if (mode == SurfaceFormMode.IsoPower || IsIsoIrregularity(mode))
         {
             _orders = [];
-            _sagScale = isoUnit switch
-            {
-                IsoSurfaceFormUnit.Nanometers => 1e-6,
-                IsoSurfaceFormUnit.Micrometers => 1e-3,
-                _ => 0.0005 * testWavelengthMicrometers
-            };
+            _sagScale = IsoUnitScale(isoUnit, testWavelengthMicrometers);
         }
         else
         {
@@ -71,6 +66,76 @@ public sealed class SurfaceFormPerturbation : IScaledRangePerturbation
     public string Name { get; }
     public double Minimum => -Maximum;
     public double Maximum { get; }
+
+    internal int SurfaceNumber => _surfaceNumber;
+    int ISharedSurfaceForm.SurfaceNumber => _surfaceNumber;
+    internal SurfaceFormMode Mode => _mode;
+
+    public static double IsoUnitScale(IsoSurfaceFormUnit unit, double wavelengthMicrometers) => unit switch
+    {
+        IsoSurfaceFormUnit.Nanometers => 1e-6,
+        IsoSurfaceFormUnit.Micrometers => 1e-3,
+        _ => 0.0005 * wavelengthMicrometers
+    };
+
+    internal ISampledPerturbation WithRotationalIrregularity(SurfaceFormPerturbation rotational) =>
+        new JointIsoPerturbation(this, rotational);
+
+    private sealed class JointIsoPerturbation : ISampledPerturbation, ISharedSurfaceForm
+    {
+        private readonly SurfaceFormPerturbation _total;
+        private readonly SurfaceFormPerturbation _rotational;
+        private readonly double _totalMaximum;
+        private readonly double _rotationalMaximum;
+
+        public JointIsoPerturbation(SurfaceFormPerturbation total, SurfaceFormPerturbation rotational)
+        {
+            _total = total;
+            _rotational = rotational;
+            _totalMaximum = total.Maximum * total._sagScale;
+            _rotationalMaximum = rotational.Maximum * rotational._sagScale;
+            if (!(_rotationalMaximum < _totalMaximum || (_totalMaximum == 0 && _rotationalMaximum == 0)))
+                throw new ArgumentException("Joint ISOC maximum must be smaller than ISOB in physical sag units.");
+        }
+
+        public string Name => $"{_total.Name} + {_rotational.Name}";
+        public int SurfaceNumber => _total.SurfaceNumber;
+
+        public void Apply(Optic optic) => Apply(optic, new Random(1234));
+
+        public void Apply(Optic optic, Random random)
+        {
+            if (_totalMaximum == 0) return;
+
+            var totalRandom = _total._isoStatistics == IsoSurfaceFormStatistics.TruncatedGaussian;
+            var rotationalRandom = _rotational._isoStatistics == IsoSurfaceFormStatistics.TruncatedGaussian;
+            // Shared quantile preserves both marginals when both use the same distribution.
+            var fraction = totalRandom || rotationalRandom ? SampleIsoFraction(random,
+                totalRandom && !rotationalRandom ? _rotationalMaximum / _totalMaximum : 0) : 1;
+            var total = _totalMaximum * (totalRandom ? fraction : 1);
+            var rotational = _rotationalMaximum * (rotationalRandom ? fraction : 1);
+            if (total == 0) return;
+            var figure = IsoSurfaceFigure.CreateJoint(total, rotational, random);
+            _total.ApplySag(optic, 0, figure.Coefficients, figure.Orders, figure.Piston);
+        }
+
+        public void Revert(Optic optic) => _total.Revert(optic);
+    }
+
+    private static double SampleIsoFraction(Random random, double lower)
+    {
+        if (lower == 0)
+            return VariableRangePerturbation.SampleDelta(random, 0, 1, normalDistribution: true, sigmaSpan: 4);
+
+        // A uniform proposal on the conditional interval also works when C is very close to B.
+        var mode = Math.Max(0, lower - .5);
+        while (true)
+        {
+            var candidate = lower + (1 - lower) * random.NextDouble();
+            var delta = candidate - .5;
+            if (random.NextDouble() <= Math.Exp(-32 * (delta * delta - mode * mode))) return candidate;
+        }
+    }
 
     public static bool HasValidTerms(SurfaceFormMode mode, int minimumTerm, int maximumTerm) =>
         mode == SurfaceFormMode.IsoPower || IsIsoIrregularity(mode)
@@ -106,7 +171,7 @@ public sealed class SurfaceFormPerturbation : IScaledRangePerturbation
         if (IsIsoIrregularity(_mode))
         {
             var fraction = _isoStatistics == IsoSurfaceFormStatistics.TruncatedGaussian
-                ? VariableRangePerturbation.SampleDelta(random, 0, 1, normalDistribution: true, sigmaSpan: 4) : 1;
+                ? SampleIsoFraction(random, 0) : 1;
             ApplyIsoIrregularity(optic, fraction * Maximum * _sagScale, random);
             return;
         }
@@ -199,6 +264,13 @@ public sealed class SurfaceFormPerturbation : IScaledRangePerturbation
             ? optic.SurfaceGroup.Items[_surfaceNumber]
             : throw new ArgumentOutOfRangeException(nameof(optic), "A surface form tolerance must target a physical lens surface.");
 
+    internal static void CopyDeformation(IGeometry deformed, OpticalSurface target)
+    {
+        if (deformed is not SurfaceFormGeometry overlay || !Supports(target))
+            throw new InvalidOperationException("The corresponding surface cannot accept the sampled form error.");
+        target.Geometry = overlay.WithNominal(target.Geometry);
+    }
+
     private static double ApertureRadius(OpticalSurface surface) =>
         surface.PhysicalAperture is CircularAperture circle ? circle.Radius : surface.SemiDiameter;
 
@@ -222,8 +294,10 @@ public sealed class SurfaceFormPerturbation : IScaledRangePerturbation
         public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction) =>
             StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);
 
-        public IGeometry Clone() => new SurfaceFormGeometry(Nominal.Clone(), radius, decenterX, decenterY, extrapolate,
-            power, piston, orders, coefficients);
+        public IGeometry Clone() => WithNominal(Nominal.Clone());
+
+        public IGeometry WithNominal(IGeometry geometry) =>
+            new SurfaceFormGeometry(geometry, radius, decenterX, decenterY, extrapolate, power, piston, orders, coefficients);
 
         private (double Sag, double Dx, double Dy) Deformation(double x, double y)
         {

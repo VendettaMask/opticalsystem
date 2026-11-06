@@ -39,6 +39,20 @@ internal static partial class ZemaxZmxReader
             activeConfigurationIndex);
     }
 
+    internal static IReadOnlyList<MeritOperandSnapshot> ReadMeritTable(string text, int surfaceCount)
+    {
+        var document = Parse(text);
+        if (!document.SequentialModeSeen || document.LengthScaleToMillimeters != 1 || document.Surfaces.Count != surfaceCount
+            || document.Surfaces.Where((surface, index) => surface.Number != index || !IsImportedSurface(surface)).Any())
+            throw new InvalidDataException("评价表来源须使用 mm，且 ZMX 表面编号必须与当前处方逐面一致。");
+        if (document.MeritOperands.Count == 0)
+            throw new InvalidDataException("ZMX 文件没有可读取的评价表。");
+        var unsupported = document.MeritOperands.FindIndex(row => row.CompatibilityOnly);
+        if (unsupported >= 0)
+            throw new InvalidDataException($"ZMX 评价表第 {unsupported + 1} 行 {document.MeritOperands[unsupported].Type} 尚无法执行。");
+        return document.MeritOperands.Select(MeritOperandSnapshot.FromDefinition).ToArray();
+    }
+
     private static Optic BuildOptic(ZemaxDocument document, int configurationIndex)
     {
         var optic = new Optic(document.Name);

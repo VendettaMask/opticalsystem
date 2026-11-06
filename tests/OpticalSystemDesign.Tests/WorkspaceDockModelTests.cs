@@ -2,6 +2,9 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Headless;
+using Avalonia.Interactivity;
+using Avalonia.Platform.Storage;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Dock.Avalonia.Controls;
 using Dock.Model.Controls;
@@ -12,6 +15,7 @@ using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Manufacturing;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 
@@ -172,31 +176,88 @@ public sealed class WorkspaceDockModelTests
         factory.DisposeContent();
     }
 
-    [Fact]
-    public void ClosingDirtyTolerancingDocumentPreservesItForTheGlobalSaveGuard()
+    [Theory]
+    [InlineData("Light")]
+    [InlineData("Isekai")]
+    public async Task ClosingDirtyTolerancingDocumentPreservesItForTheGlobalSaveGuard(string theme)
     {
-        using var application = WorkbenchApplication.Create("cooke");
-        var factory = new WorkspaceDockFactory(application, new AppSettings());
-        var layout = factory.CreateLayout();
-        factory.InitLayout(layout);
-        var descriptor = new WorkspaceDocumentDescriptor(
-            "document:tolerancing",
-            WorkspaceDocumentTypes.Tolerancing,
-            "公差数据编辑器");
-        var document = factory.OpenDocument(descriptor);
-        var panel = Assert.IsType<TolerancingPanel>(document.Context);
-        var operands = Assert.IsType<ObservableCollection<ToleranceOperandEditorRow>>(
-            typeof(TolerancingPanel)
-                .GetField("_operands", BindingFlags.Instance | BindingFlags.NonPublic)!
-                .GetValue(panel));
-        operands[0].Comment = "关闭面板后仍需保存";
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(OpticalSystemDesign.App.App));
+        await session.Dispatch(async () =>
+        {
+            ThemeApplicationService.Apply(global::Avalonia.Application.Current!, theme);
+            using var application = WorkbenchApplication.Create("cooke");
+            var directory = Directory.CreateTempSubdirectory("optical-tolerance-dock-");
+            using var manager = new PanelManager(application, new AppSettings(), new WorkspaceSessionStore(directory.FullName));
+            var window = new Window { Width = 1024, Height = 760, Content = manager.WorkspaceControl };
+            var path = Path.Combine(directory.FullName, "study.startol.json");
+            try
+            {
+                window.Show();
+                manager.Show(WorkspacePanelId.Tolerancing);
+                var document = Assert.Single(manager.Factory.OpenDocuments(), item => item.Context is TolerancingPanel);
+                var panel = Assert.IsType<TolerancingPanel>(document.Context);
+                var operands = Assert.IsType<ObservableCollection<ToleranceOperandEditorRow>>(
+                    typeof(TolerancingPanel).GetField("_operands", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(panel));
+                const string comment = "关闭面板后仍需保存";
+                operands[0].Comment = comment;
+                Assert.True(manager.HasUnsavedToleranceChanges);
 
-        factory.CloseDockable(document);
+                var canceledRun = manager.RunTolerancingAsync(window);
+                Assert.Single(window.OwnedWindows.OfType<TolerancingRunWindow>()).Close();
+                await canceledRun;
+                Assert.DoesNotContain(manager.Factory.OpenDocuments(), item => item.Context is ToleranceResultsPanel);
 
-        Assert.True(factory.HasUnsavedToleranceChanges);
-        var reopened = factory.OpenDocument(descriptor);
-        Assert.Same(panel, reopened.Context);
-        factory.DisposeContent();
+                var run = manager.RunTolerancingAsync(window);
+                var dialog = Assert.Single(window.OwnedWindows.OfType<TolerancingRunWindow>());
+                Dispatcher.UIThread.RunJobs();
+                dialog.UpdateLayout();
+                var runButton = Assert.Single(dialog.GetVisualDescendants().OfType<Button>(),
+                    button => button.IsEffectivelyVisible && Equals(button.Content, UiLocalization.Text("运行")));
+                Assert.True(runButton.IsEnabled);
+                runButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                await run;
+                var result = Assert.IsType<TolerancingResultDto>(panel.CurrentResult);
+                var viewer = Assert.Single(manager.Factory.OpenDocuments(), item => item.Context is ToleranceResultsPanel);
+                Assert.Same(viewer, manager.Factory.PrimaryDocumentDock!.ActiveDockable);
+
+                manager.Factory.CloseDockable(document);
+                Assert.DoesNotContain(document, manager.Factory.OpenDocuments());
+                Assert.True(manager.HasUnsavedToleranceChanges);
+                Assert.Contains(viewer, manager.Factory.OpenDocuments());
+                Assert.Same(result, panel.CurrentResult);
+
+                var file = DispatchProxy.Create<IStorageFile, AnalysisImageExportTests.StorageProxy>();
+                ((AnalysisImageExportTests.StorageProxy)(object)file).Handler = method => method.Name == "get_Path" ? new Uri(path) : null;
+                var provider = DispatchProxy.Create<IStorageProvider, AnalysisImageExportTests.StorageProxy>();
+                var cancelSave = true;
+                ((AnalysisImageExportTests.StorageProxy)(object)provider).Handler = method => method.Name switch
+                {
+                    "get_CanSave" => true,
+                    "SaveFilePickerAsync" => Task.FromResult<IStorageFile?>(cancelSave ? null : file),
+                    _ => throw new InvalidOperationException(method.Name)
+                };
+                typeof(TopLevel).GetField("_storageProvider", BindingFlags.Instance | BindingFlags.NonPublic)!.SetValue(window, provider);
+
+                Assert.False(await manager.SaveUnsavedToleranceChangesAsync(window));
+                Assert.True(manager.HasUnsavedToleranceChanges);
+                Assert.False(File.Exists(path));
+                cancelSave = false;
+                Assert.True(await manager.SaveUnsavedToleranceChangesAsync(window));
+                Assert.False(manager.HasUnsavedToleranceChanges);
+                Assert.Equal(comment, panel.ParseStudyFile(await File.ReadAllTextAsync(path)).Operands[0].Comment);
+
+                manager.Show(WorkspacePanelId.Tolerancing);
+                var reopened = Assert.Single(manager.Factory.OpenDocuments(), item => item.Context is TolerancingPanel);
+                Assert.Same(panel, reopened.Context);
+                Assert.Same(result, panel.CurrentResult);
+            }
+            finally
+            {
+                window.Close();
+                manager.Dispose();
+                directory.Delete(recursive: true);
+            }
+        }, CancellationToken.None);
     }
 
     [Theory]

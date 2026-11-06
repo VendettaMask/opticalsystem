@@ -212,7 +212,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         var root = new DockPanel { Children = { _diagramModeButton } };
         var viewport = new Grid { ClipToBounds = true, Children = { host } };
         if (_diagramChrome is { } chrome)
-            viewport.Children.Add(new DiagramOverlayPresenter(_scene) { Child = chrome, ClipToBounds = true });
+            viewport.Children.Add(new DiagramOverlayPresenter(_scene, constrainToViewport: _dimension == SceneDimension.TwoDimensional)
+            { Child = chrome, ClipToBounds = true });
         root.Children.Add(viewport);
         return root;
     }

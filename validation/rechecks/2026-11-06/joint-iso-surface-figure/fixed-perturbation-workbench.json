@@ -1,0 +1,83 @@
+{
+  "source": "Workbench exported Cooke Triplet",
+  "nativeOpticStudioCapture": false,
+  "surface": 1,
+  "normalizationRadiusMm": 6,
+  "targetTotalPvMm": 0.0015375,
+  "targetRotationalPvMm": 0.0006,
+  "fringeCoefficientsMm": [
+    -0.0004,
+    0,
+    0,
+    0,
+    0.0006,
+    0,
+    0,
+    0,
+    0.0004,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "field": 1,
+  "wave": 2,
+  "frequencyCyclesPerMm": 20,
+  "method": "FFT MTF, modulation, no refocus",
+  "comparisons": [
+    {
+      "pupilSampling": 128,
+      "nominal": {
+        "Tangential": 0.8685909938269905,
+        "Sagittal": 0.8685909938269905
+      },
+      "fixedFringeSag": {
+        "Tangential": 0.5693828454268351,
+        "Sagittal": 0.7369428697593307
+      },
+      "joint": {
+        "Tangential": 0.5693828454279886,
+        "Sagittal": 0.7369428697590549
+      }
+    },
+    {
+      "pupilSampling": 256,
+      "nominal": {
+        "Tangential": 0.8684821031709496,
+        "Sagittal": 0.8684821031709496
+      },
+      "fixedFringeSag": {
+        "Tangential": 0.5696694630129515,
+        "Sagittal": 0.7363933598999051
+      },
+      "joint": {
+        "Tangential": 0.569669463013183,
+        "Sagittal": 0.7363933598999254
+      }
+    }
+  ]
+}

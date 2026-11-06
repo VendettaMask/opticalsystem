@@ -70,7 +70,8 @@ public sealed record TolerancingView(
     ToleranceMtfSettingsDto? MtfSettings = null,
     IReadOnlyList<ToleranceFieldValueDto>? NominalFields = null,
     IReadOnlyList<ToleranceFieldStatisticsDto>? FieldStatistics = null,
-    IReadOnlyList<ToleranceCompensatorValueDto>? NominalCompensators = null)
+    IReadOnlyList<ToleranceCompensatorValueDto>? NominalCompensators = null,
+    IReadOnlyList<ToleranceStageValueDto>? NominalStages = null)
 {
     public static TolerancingView Empty(string message)
     {
@@ -87,7 +88,9 @@ public sealed record TolerancingSensitivityRow(
     IReadOnlyList<ToleranceFieldValueDto>? NegativeFields = null,
     IReadOnlyList<ToleranceFieldValueDto>? PositiveFields = null,
     IReadOnlyList<ToleranceCompensatorValueDto>? NegativeCompensators = null,
-    IReadOnlyList<ToleranceCompensatorValueDto>? PositiveCompensators = null);
+    IReadOnlyList<ToleranceCompensatorValueDto>? PositiveCompensators = null,
+    IReadOnlyList<ToleranceStageValueDto>? NegativeStages = null,
+    IReadOnlyList<ToleranceStageValueDto>? PositiveStages = null);
 
 public sealed record TolerancingTrialRow(
     int Trial,
@@ -99,7 +102,8 @@ public sealed record TolerancingTrialRow(
     IReadOnlyList<ToleranceCompensatorValueDto>? Compensators = null,
     bool? Passed = null,
     double? AcceptanceMargin = null,
-    double? CriterionValue = null);
+    double? CriterionValue = null,
+    IReadOnlyList<ToleranceStageValueDto>? Stages = null);
 
 public sealed record TolerancingStatistics(
     string Nominal,

@@ -1,0 +1,205 @@
+{
+  "SchemaVersion": 10,
+  "Operands": [
+    {
+      "Index": 1,
+      "Enabled": true,
+      "Kind": "Radius",
+      "SurfaceNumber": 1,
+      "Minimum": -0.01,
+      "Maximum": 0.01,
+      "Distribution": "Normal",
+      "Comment": "",
+      "EndSurfaceNumber": -1,
+      "ParameterIndex": 0,
+      "TestWavelengthMicrometers": null,
+      "MinimumZernikeTerm": 2,
+      "MaximumZernikeTerm": 11,
+      "IsoUnit": "Nanometers",
+      "IsoStatistics": "AtMaximum"
+    }
+  ],
+  "Criterion": "SystemMerit",
+  "Trials": 20,
+  "Seed": 1234,
+  "CompensationIterations": 3,
+  "YieldLimit": 0,
+  "Mode": "Sensitivity",
+  "InverseValue": 0.05,
+  "DistributionOverride": null,
+  "MaxDegreeOfParallelism": 24,
+  "WorstSensitivityCount": 0,
+  "ShowMonteCarloTrials": true,
+  "MtfSettings": {
+    "Frequency": 50,
+    "Sampling": 1,
+    "Wave": 0,
+    "Method": "Fourier",
+    "Direction": "Minimum",
+    "SeparateFields": true,
+    "FieldLimits": null
+  },
+  "CompensationAlgorithm": "DampedLeastSquares",
+  "AdditionalCompensators": [
+    {
+      "SurfaceNumber": 3,
+      "Kind": "ElementDecenterX",
+      "Minimum": -0.1,
+      "Maximum": 0.1,
+      "EndSurfaceNumber": 4,
+      "Pivot": null,
+      "Stage": 1,
+      "Configuration": 0
+    },
+    {
+      "SurfaceNumber": 6,
+      "Kind": "Thickness",
+      "Minimum": -0.4,
+      "Maximum": 0.4,
+      "EndSurfaceNumber": -1,
+      "Pivot": null,
+      "Stage": 2,
+      "Configuration": 0
+    }
+  ],
+  "ConfigurationSettings": null,
+  "StageObjectives": [
+    {
+      "Stage": 1,
+      "Criterion": "SystemMerit",
+      "MtfSettings": null,
+      "MeritTable": {
+        "Name": "\u8868 1",
+        "Rows": [
+          {
+            "Enabled": true,
+            "Type": "GLCX",
+            "Surface": 3,
+            "Field": 0,
+            "Wavelength": 0,
+            "Hx": 0,
+            "Hy": 0,
+            "Px": 0,
+            "Py": 0,
+            "Target": 0.03,
+            "Weight": 1,
+            "Comment": "",
+            "PupilRings": 3,
+            "PupilArms": 6,
+            "PupilObscuration": 0,
+            "PupilSampling": "hexapolar",
+            "SpatialFrequency": 30,
+            "IgnoreLateralColor": false,
+            "PolychromaticReference": false,
+            "CompatibilityOnly": false,
+            "ZemaxIntegerParameters": [
+              3,
+              0
+            ],
+            "ZemaxDataParameters": [
+              0,
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "Stage": 2,
+      "Criterion": "SystemMerit",
+      "MtfSettings": null,
+      "MeritTable": {
+        "Name": "\u8868 2",
+        "Rows": [
+          {
+            "Enabled": true,
+            "Type": "THIC",
+            "Surface": 6,
+            "Field": 0,
+            "Wavelength": 0,
+            "Hx": 0,
+            "Hy": 0,
+            "Px": 0,
+            "Py": 0,
+            "Target": 42.30778,
+            "Weight": 1,
+            "Comment": "",
+            "PupilRings": 3,
+            "PupilArms": 6,
+            "PupilObscuration": 0,
+            "PupilSampling": "hexapolar",
+            "SpatialFrequency": 30,
+            "IgnoreLateralColor": false,
+            "PolychromaticReference": false,
+            "CompatibilityOnly": false,
+            "ZemaxIntegerParameters": [],
+            "ZemaxDataParameters": []
+          }
+        ]
+      }
+    }
+  ],
+  "MeritTable": {
+    "Name": "\u8868 3",
+    "Rows": [
+      {
+        "Enabled": true,
+        "Type": "GLCX",
+        "Surface": 3,
+        "Field": 0,
+        "Wavelength": 0,
+        "Hx": 0,
+        "Hy": 0,
+        "Px": 0,
+        "Py": 0,
+        "Target": 0.03,
+        "Weight": 1,
+        "Comment": "",
+        "PupilRings": 3,
+        "PupilArms": 6,
+        "PupilObscuration": 0,
+        "PupilSampling": "hexapolar",
+        "SpatialFrequency": 30,
+        "IgnoreLateralColor": false,
+        "PolychromaticReference": false,
+        "CompatibilityOnly": false,
+        "ZemaxIntegerParameters": [
+          3,
+          0
+        ],
+        "ZemaxDataParameters": [
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "Enabled": true,
+        "Type": "THIC",
+        "Surface": 6,
+        "Field": 0,
+        "Wavelength": 0,
+        "Hx": 0,
+        "Hy": 0,
+        "Px": 0,
+        "Py": 0,
+        "Target": 42.33278,
+        "Weight": 1,
+        "Comment": "",
+        "PupilRings": 3,
+        "PupilArms": 6,
+        "PupilObscuration": 0,
+        "PupilSampling": "hexapolar",
+        "SpatialFrequency": 30,
+        "IgnoreLateralColor": false,
+        "PolychromaticReference": false,
+        "CompatibilityOnly": false,
+        "ZemaxIntegerParameters": [],
+        "ZemaxDataParameters": []
+      }
+    ]
+  }
+}

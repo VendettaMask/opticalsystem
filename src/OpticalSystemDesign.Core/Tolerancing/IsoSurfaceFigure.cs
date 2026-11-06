@@ -3,7 +3,7 @@ using OpticalSystemDesign.Core.Analysis;
 namespace OpticalSystemDesign.Core.Tolerancing;
 
 /// <summary>A local Standard Zernike realization of the ISO irregularity magnitude.</summary>
-internal sealed record IsoSurfaceFigure((int N, int M)[] Orders, double[] Coefficients, double Piston)
+internal sealed record IsoSurfaceFigure((int N, int M)[] Orders, double[] Coefficients, double Piston, double[]? Envelope = null)
 {
     private static readonly (int N, int M)[] TotalOrders = ZernikeFitEngine.StandardIndices(37)
         .Skip(4).Select(order => (order.N, order.M)).ToArray();
@@ -12,11 +12,12 @@ internal sealed record IsoSurfaceFigure((int N, int M)[] Orders, double[] Coeffi
         .Where(order => order.M >= 0).GroupBy(order => order.M)
         .OrderBy(group => group.Key).Select(group => group.ToArray()).ToArray();
 
-    internal static IsoSurfaceFigure Create(SurfaceFormMode mode, double magnitude, Random? random)
+    internal static IsoSurfaceFigure Create(SurfaceFormMode mode, double magnitude, Random? random, bool nonRotating = false)
     {
         var orders = mode switch
         {
             SurfaceFormMode.IsoRotationalIrregularityPv => RadialOrders,
+            SurfaceFormMode.IsoIrregularityPv when nonRotating => AngularFamilies[random?.Next(1, AngularFamilies.Length) ?? 2],
             SurfaceFormMode.IsoIrregularityPv => AngularFamilies[random?.Next(AngularFamilies.Length) ?? 2],
             _ => TotalOrders
         };
@@ -54,12 +55,74 @@ internal sealed record IsoSurfaceFigure((int N, int M)[] Orders, double[] Coeffi
                 phasedCoefficients[2 * i] = cosine * coefficients[i];
                 phasedCoefficients[2 * i + 1] = sine * coefficients[i];
             }
-            return new(phasedOrders, phasedCoefficients, piston);
+            return new(phasedOrders, phasedCoefficients, piston, nonRotating ? RadialPolynomial(orders, coefficients, normalized: true) : null);
         }
-        return new(orders, coefficients, piston);
+        return new(orders, coefficients, piston, nonRotating ? RadialPolynomial(orders, coefficients, normalized: true) : null);
     }
 
-    private static double PeakToValley((int N, int M)[] orders, double[] coefficients)
+    internal static IsoSurfaceFigure CreateJoint(double total, double rotational, Random random)
+    {
+        if (!(total > 0) || rotational < 0 || total < rotational)
+            throw new ArgumentOutOfRangeException(nameof(rotational));
+        // Solve in units of the total P-V to keep the calibration scale independent.
+        var symmetric = Create(SurfaceFormMode.IsoRotationalIrregularityPv, rotational / total, random);
+        var asymmetric = Create(SurfaceFormMode.IsoIrregularityPv, 1, random, nonRotating: true);
+        var c = RadialPolynomial(symmetric.Orders, symmetric.Coefficients, normalized: true);
+        var b = asymmetric.Envelope!;
+        var angularOrder = asymmetric.Orders[0].M;
+        var degree = Math.Max(2 * (c.Length - 1), 2 * (b.Length - 1) + angularOrder);
+        var positive = new double[degree + 1];
+        var negative = new double[degree + 1];
+        for (var i = 0; i < c.Length; i++)
+            positive[2 * i] = negative[2 * i] = c[i];
+
+        // At each radius the angular extrema are the two branches C ± r^m Q(r²).
+        // The combined P-V grows monotonically with the non-rotational amplitude.
+        var lower = 0.0;
+        var upper = rotational == total ? 0.0 : 1.0;
+        for (var iteration = 0; iteration < 42 && upper > lower; iteration++)
+        {
+            var scale = (lower + upper) / 2;
+            for (var i = 0; i < b.Length; i++)
+            {
+                var power = 2 * i + angularOrder;
+                var offset = c.Length > power / 2 && power % 2 == 0 ? c[power / 2] : 0;
+                positive[power] = offset + scale * b[i];
+                negative[power] = offset - scale * b[i];
+            }
+            var plus = PolynomialRange(positive);
+            var minus = PolynomialRange(negative);
+            var pv = Math.Max(plus.Maximum, minus.Maximum) - Math.Min(plus.Minimum, minus.Minimum);
+            if (pv <= 1) lower = scale;
+            else upper = scale;
+        }
+
+        return new([.. symmetric.Orders, .. asymmetric.Orders],
+            [.. symmetric.Coefficients.Select(value => value * total),
+             .. asymmetric.Coefficients.Select(value => value * (lower * total))],
+            symmetric.Piston * total);
+    }
+
+    private static (double Minimum, double Maximum) PolynomialRange(double[] polynomial)
+    {
+        var derivative = new double[polynomial.Length - 1];
+        for (var i = 0; i < derivative.Length; i++) derivative[i] = (i + 1) * polynomial[i + 1];
+
+        var minimum = Math.Min(polynomial[0], Evaluate(polynomial, 1));
+        var maximum = Math.Max(polynomial[0], Evaluate(polynomial, 1));
+        foreach (var r in RootCandidates(derivative))
+        {
+            var value = Evaluate(polynomial, r);
+            minimum = Math.Min(minimum, value);
+            maximum = Math.Max(maximum, value);
+        }
+        return (minimum, maximum);
+    }
+
+    private static double PeakToValley((int N, int M)[] orders, double[] coefficients) =>
+        RadialPeakToValley(RadialPolynomial(orders, coefficients, normalized: false), orders[0].M);
+
+    private static double[] RadialPolynomial((int N, int M)[] orders, double[] coefficients, bool normalized)
     {
         var m = orders[0].M;
         var polynomial = new double[(orders[^1].N - m) / 2 + 1];
@@ -67,7 +130,7 @@ internal sealed record IsoSurfaceFigure((int N, int M)[] Orders, double[] Coeffi
         {
             var n = orders[i].N;
             var radialOrder = (n - m) / 2;
-            var scale = coefficients[i] * ZernikeFitEngine.StandardNormalization(n, m);
+            var scale = normalized ? coefficients[i] : coefficients[i] * ZernikeFitEngine.StandardNormalization(n, m);
             // R_n^m(r) = r^m Q(r²). The monomial coefficients of Q are small
             // integers for the ISO term limits used here.
             for (var k = 0; k <= radialOrder; k++)
@@ -78,7 +141,7 @@ internal sealed record IsoSurfaceFigure((int N, int M)[] Orders, double[] Coeffi
                 polynomial[degree] += (k % 2 == 0 ? scale : -scale) * multiplier;
             }
         }
-        return RadialPeakToValley(polynomial, m);
+        return polynomial;
     }
 
     internal static double RadialPeakToValley(double[] polynomial, int angularOrder)

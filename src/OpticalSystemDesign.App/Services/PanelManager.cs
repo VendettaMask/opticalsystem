@@ -163,7 +163,7 @@ public sealed class PanelManager : IDisposable
     }
 
     public void ShowTolerancingDataViewer() =>
-        OpenStable("document:tolerancing", WorkspaceDocumentTypes.Tolerancing, "公差数据编辑器");
+        OpenStable("document:tolerance-results", WorkspaceDocumentTypes.ToleranceResults, "公差数据查看器");
 
     public void ShowTolerancingReport() =>
         OpenStable("document:tolerance-report", WorkspaceDocumentTypes.ToleranceReport, "1: 公差报告");
@@ -185,10 +185,7 @@ public sealed class PanelManager : IDisposable
             return;
         }
 
-        Factory.RefreshDocumentContent("document:tolerance-histogram");
-        Factory.RefreshDocumentContent("document:tolerance-yield");
-        ShowTolerancingReport();
-        Factory.RefreshDocumentContent("document:tolerance-report");
+        ShowTolerancingDataViewer();
     }
 
     public void ShowMaterialLibrary()

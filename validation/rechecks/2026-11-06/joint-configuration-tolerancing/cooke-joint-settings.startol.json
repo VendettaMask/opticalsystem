@@ -1,0 +1,106 @@
+{
+  "SchemaVersion": 7,
+  "Operands": [
+    {
+      "Index": 1,
+      "Enabled": true,
+      "Kind": "Radius",
+      "SurfaceNumber": 1,
+      "Minimum": -0.01,
+      "Maximum": 0.01,
+      "Distribution": "Normal",
+      "Comment": "",
+      "EndSurfaceNumber": -1,
+      "ParameterIndex": 0,
+      "TestWavelengthMicrometers": null,
+      "MinimumZernikeTerm": 2,
+      "MaximumZernikeTerm": 11,
+      "IsoUnit": "Nanometers",
+      "IsoStatistics": "AtMaximum"
+    }
+  ],
+  "Criterion": "Mtf",
+  "Trials": 20,
+  "Seed": 1234,
+  "CompensationIterations": 3,
+  "YieldLimit": 0,
+  "Mode": "Sensitivity",
+  "InverseValue": 0.05,
+  "DistributionOverride": null,
+  "MaxDegreeOfParallelism": 24,
+  "WorstSensitivityCount": 0,
+  "ShowMonteCarloTrials": true,
+  "MtfSettings": {
+    "Frequency": 30,
+    "Sampling": 1,
+    "Wave": 0,
+    "Method": "Fourier",
+    "Direction": "Minimum",
+    "SeparateFields": true,
+    "FieldLimits": []
+  },
+  "CompensationAlgorithm": "DampedLeastSquares",
+  "AdditionalCompensators": [
+    {
+      "SurfaceNumber": 1,
+      "Kind": "DecenterX",
+      "Minimum": -0.05,
+      "Maximum": 0.05,
+      "EndSurfaceNumber": -1,
+      "Pivot": null,
+      "Stage": 1,
+      "Configuration": 2
+    }
+  ],
+  "ConfigurationSettings": {
+    "Scope": "Selected",
+    "Configurations": [
+      1,
+      2
+    ],
+    "Limits": [
+      {
+        "Configuration": 1,
+        "Limit": 0.2,
+        "FieldLimits": [
+          {
+            "FieldNumber": 1,
+            "Minimum": 0.25
+          }
+        ]
+      },
+      {
+        "Configuration": 2,
+        "Limit": 0.3,
+        "FieldLimits": [
+          {
+            "FieldNumber": 2,
+            "Minimum": 0.4
+          }
+        ]
+      }
+    ],
+    "MceRows": [
+      {
+        "Configuration": 1,
+        "Row": 1,
+        "SurfaceNumber": 6,
+        "Minimum": -0.1,
+        "Maximum": 0.1,
+        "Compensator": false,
+        "Stage": 1,
+        "Distribution": "Normal"
+      },
+      {
+        "Configuration": 1,
+        "Row": 1,
+        "SurfaceNumber": 6,
+        "Minimum": -0.2,
+        "Maximum": 0.2,
+        "Compensator": true,
+        "Stage": 2,
+        "Distribution": "Normal"
+      }
+    ]
+  }
+}

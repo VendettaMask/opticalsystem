@@ -46,15 +46,15 @@ public sealed class SurfaceFringePerturbation : IScaledRangePerturbation
         && (surface.PhysicalAperture is null or CircularAperture)
         && double.IsFinite(ApertureRadius(surface)) && ApertureRadius(surface) > 0;
 
-    public static bool IsValidPowerChange(OpticalSurface surface, double testWavelengthMicrometers, double fringes) =>
-        TryPowerCurvature(surface, testWavelengthMicrometers * .001, fringes, out _);
+    public static bool IsValidPowerChange(OpticalSurface surface, double testWavelengthMicrometers, double fringes,
+        double? referenceRadius = null) =>
+        TryPowerCurvature(surface, testWavelengthMicrometers * .001, fringes, out _, referenceRadius);
 
     public void Apply(Optic optic) => Apply(optic, new Random(1234));
 
     public void Apply(Optic optic, Random random)
     {
-        var value = VariableRangePerturbation.SampleDelta(random, Minimum, Maximum, _normalDistribution);
-        var angle = _mode == SurfaceFringeMode.Irregularity ? 360 * random.NextDouble() : 0;
+        var (value, angle) = DrawFringes(random);
         ApplyFringes(optic, value, angle);
     }
 
@@ -72,7 +72,15 @@ public sealed class SurfaceFringePerturbation : IScaledRangePerturbation
         _original = null;
     }
 
-    private void ApplyFringes(Optic optic, double fringes, double angleDegrees)
+    internal (double Fringes, double Angle) DrawFringes(Random random)
+    {
+        var value = VariableRangePerturbation.SampleDelta(random, Minimum, Maximum, _normalDistribution);
+        return (value, _mode == SurfaceFringeMode.Irregularity ? 360 * random.NextDouble() : 0);
+    }
+
+    internal double ReferenceRadius(Optic optic) => ApertureRadius(Target(optic));
+
+    internal void ApplyFringes(Optic optic, double fringes, double angleDegrees, double? referenceRadius = null)
     {
         var surface = Target(optic);
         if (!Supports(surface) && !(_mode == SurfaceFringeMode.Power && surface.Geometry is IrregularGeometry))
@@ -81,10 +89,10 @@ public sealed class SurfaceFringePerturbation : IScaledRangePerturbation
         _original = surface.Geometry;
         if (fringes == 0) return;
 
-        var radius = ApertureRadius(surface);
+        var radius = referenceRadius ?? ApertureRadius(surface);
         if (_mode == SurfaceFringeMode.Power)
         {
-            if (!TryPowerCurvature(surface, _testWavelengthMillimeters, fringes, out var curvature))
+            if (!TryPowerCurvature(surface, _testWavelengthMillimeters, fringes, out var curvature, radius))
                 throw new InvalidOperationException("Fringe power change places the clear aperture outside the conic domain.");
             surface.Radius = curvature == 0 ? 0 : 1 / curvature;
             return;
@@ -96,11 +104,12 @@ public sealed class SurfaceFringePerturbation : IScaledRangePerturbation
             0, 0, 0, 0, coefficient, coefficient, 0, angleDegrees);
     }
 
-    private static bool TryPowerCurvature(OpticalSurface surface, double wavelengthMillimeters, double fringes, out double curvature)
+    private static bool TryPowerCurvature(OpticalSurface surface, double wavelengthMillimeters, double fringes, out double curvature, double? referenceRadius = null)
     {
         var radius = ApertureRadius(surface);
         var nominalCurvature = double.IsInfinity(surface.Radius) || surface.Radius == 0 ? 0 : 1 / surface.Radius;
-        curvature = nominalCurvature + wavelengthMillimeters * fringes / (radius * radius);
+        var testRadius = referenceRadius ?? radius;
+        curvature = nominalCurvature + wavelengthMillimeters * fringes / (testRadius * testRadius);
         var scaledCurvature = curvature * radius;
         return double.IsFinite(curvature) && 1 - (1 + surface.Conic) * scaledCurvature * scaledCurvature >= 0;
     }
@@ -110,6 +119,6 @@ public sealed class SurfaceFringePerturbation : IScaledRangePerturbation
             ? optic.SurfaceGroup.Items[_surfaceNumber]
             : throw new ArgumentOutOfRangeException(nameof(optic), "A fringe tolerance must target a physical lens surface.");
 
-    private static double ApertureRadius(OpticalSurface surface) =>
+    public static double ApertureRadius(OpticalSurface surface) =>
         surface.PhysicalAperture is CircularAperture circle ? circle.Radius : surface.SemiDiameter;
 }

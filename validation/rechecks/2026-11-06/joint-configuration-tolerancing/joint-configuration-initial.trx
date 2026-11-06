@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="1496b470-c654-4e51-b17d-05bd6607ae9c" name="optics@LAPTOP-G4BBBCS0 2026-11-06 10:36:33" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-06T10:36:33.2481972+08:00" queuing="2026-11-06T10:36:33.2481975+08:00" start="2026-11-06T10:36:26.9521098+08:00" finish="2026-11-06T10:36:33.2562866+08:00" />
+  <TestSettings name="default" id="94535c3b-92ec-4bef-981e-e53c9fd12410">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-06_10_36_33" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="b6448a5b-e35e-4bdf-a940-96e87bd4a4b7" testId="1f49822a-c809-d2b3-507a-5c76f9c38f74" testName="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.TwoConfigurationStudyUsesOneActuatorAndReplaysTheJointWorstTrial" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0815210" startTime="2026-11-06T10:36:32.9122371+08:00" endTime="2026-11-06T10:36:32.9801155+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6448a5b-e35e-4bdf-a940-96e87bd4a4b7">
+      <Output>
+        <ErrorInfo>
+          <Message>配置 1：面 6 的 thickness 写入与拾取、求解或配置操作数冲突。</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.TwoConfigurationStudyUsesOneActuatorAndReplaysTheJointWorstTrial() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\JointConfigurationTolerancingTests.cs:line 65&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="35a60dc1-5e61-4fb7-ac86-477c25e0054a" testId="96f50fc8-09f2-a9b2-27cf-6e6e15567511" testName="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.ConfigurationThicknessRowsFollowExplicitPickupAndRejectOverlappingWrites" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1143796" startTime="2026-11-06T10:36:32.9813854+08:00" endTime="2026-11-06T10:36:33.0952613+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="35a60dc1-5e61-4fb7-ac86-477c25e0054a">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : TMCO 配置 1 行 1 影响配置 1 面 6，与可调间隔或求解范围冲突。</Message>
+          <StackTrace>   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.BindJointMce(JointToleranceSnapshot snapshot, Optic[] optics, IReadOnlyList`1 selected, IReadOnlyList`1 rows) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.JointMce.cs:line 102&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.JointToleranceStudy..ctor(JointToleranceSnapshot snapshot, TolerancingRequestDto request, CancellationToken token) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.Joint.cs:line 53&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.RunJointTolerancing(JointToleranceSnapshot snapshot, TolerancingRequestDto request, Int64 revision, CancellationToken cancellationToken) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.Joint.cs:line 15&#xD;
+   at OpticalSystemDesign.Application.Services.TolerancingService.&lt;&gt;c__DisplayClass12_0.&lt;RunJointWorkerAsync&gt;b__0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Services\TolerancingService.cs:line 507&#xD;
+   at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Application.Services.TolerancingService.RunJointWorkerAsync(JointToleranceSnapshot snapshot, Int64 revision, TolerancingRequestDto request, CancellationTokenSource cancellation) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Services\TolerancingService.cs:line 504&#xD;
+   at OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.ConfigurationThicknessRowsFollowExplicitPickupAndRejectOverlappingWrites() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\JointConfigurationTolerancingTests.cs:line 152&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b5f8fdc7-c5f4-4bef-9c66-708c028f699a" testId="3c2a5c6b-5fa0-734a-5c68-ad46f3dfbedb" testName="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.SharedIsoRealizationUsesSamePhysicalSagDespiteDifferentApertures" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0367176" startTime="2026-11-06T10:36:33.0966135+08:00" endTime="2026-11-06T10:36:33.1324696+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b5f8fdc7-c5f4-4bef-9c66-708c028f699a" />
+    <UnitTestResult executionId="43d7875a-4bdc-4072-81b1-8db00692dcae" testId="6e1ae77c-95f7-dc77-3bd5-e63bd444e314" testName="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.JointInverseReportsDifferentLimitingConfigurationsForOppositeEndpoints" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.1262868" startTime="2026-11-06T10:36:31.7781152+08:00" endTime="2026-11-06T10:36:32.8956540+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="43d7875a-4bdc-4072-81b1-8db00692dcae">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentException : 配置 1：面 6 的 thickness 写入与拾取、求解或配置操作数冲突。&#xD;
+---- System.ArgumentException : 面 6 的 thickness 写入与拾取、求解或配置操作数冲突。</Message>
+          <StackTrace>   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.JointToleranceStudy.Validate(Optic[] nominal) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.JointValidation.cs:line 117&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.JointToleranceStudy..ctor(JointToleranceSnapshot snapshot, TolerancingRequestDto request, CancellationToken token) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.Joint.cs:line 57&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.RunJointTolerancing(JointToleranceSnapshot snapshot, TolerancingRequestDto request, Int64 revision, CancellationToken cancellationToken) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.Joint.cs:line 15&#xD;
+   at OpticalSystemDesign.Application.Services.TolerancingService.&lt;&gt;c__DisplayClass12_0.&lt;RunJointWorkerAsync&gt;b__0() in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Services\TolerancingService.cs:line 507&#xD;
+   at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Application.Services.TolerancingService.RunJointWorkerAsync(JointToleranceSnapshot snapshot, Int64 revision, TolerancingRequestDto request, CancellationTokenSource cancellation) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Services\TolerancingService.cs:line 504&#xD;
+   at OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.JointInverseReportsDifferentLimitingConfigurationsForOppositeEndpoints() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\JointConfigurationTolerancingTests.cs:line 128&#xD;
+--- End of stack trace from previous location ---&#xD;
+----- Inner Stack Trace -----&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.JointToleranceStudy.VerifyIndependentWrite(Optic optic, Int32 configuration, Int32 surface, String property, Boolean manufacturing) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.JointValidation.cs:line 154&#xD;
+   at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.JointToleranceStudy.Validate(Optic[] nominal) in D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.JointValidation.cs:line 91</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.ConfigurationThicknessRowsFollowExplicitPickupAndRejectOverlappingWrites" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="96f50fc8-09f2-a9b2-27cf-6e6e15567511">
+      <Execution id="35a60dc1-5e61-4fb7-ac86-477c25e0054a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests" name="ConfigurationThicknessRowsFollowExplicitPickupAndRejectOverlappingWrites" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.JointInverseReportsDifferentLimitingConfigurationsForOppositeEndpoints" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6e1ae77c-95f7-dc77-3bd5-e63bd444e314">
+      <Execution id="43d7875a-4bdc-4072-81b1-8db00692dcae" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests" name="JointInverseReportsDifferentLimitingConfigurationsForOppositeEndpoints" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.SharedIsoRealizationUsesSamePhysicalSagDespiteDifferentApertures" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3c2a5c6b-5fa0-734a-5c68-ad46f3dfbedb">
+      <Execution id="b5f8fdc7-c5f4-4bef-9c66-708c028f699a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests" name="SharedIsoRealizationUsesSamePhysicalSagDespiteDifferentApertures" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.TwoConfigurationStudyUsesOneActuatorAndReplaysTheJointWorstTrial" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1f49822a-c809-d2b3-507a-5c76f9c38f74">
+      <Execution id="b6448a5b-e35e-4bdf-a940-96e87bd4a4b7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.JointConfigurationTolerancingTests" name="TwoConfigurationStudyUsesOneActuatorAndReplaysTheJointWorstTrial" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="1f49822a-c809-d2b3-507a-5c76f9c38f74" executionId="b6448a5b-e35e-4bdf-a940-96e87bd4a4b7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="96f50fc8-09f2-a9b2-27cf-6e6e15567511" executionId="35a60dc1-5e61-4fb7-ac86-477c25e0054a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3c2a5c6b-5fa0-734a-5c68-ad46f3dfbedb" executionId="b5f8fdc7-c5f4-4bef-9c66-708c028f699a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6e1ae77c-95f7-dc77-3bd5-e63bd444e314" executionId="43d7875a-4bdc-4072-81b1-8db00692dcae" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="1" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.66]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:04.16]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:04.22]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:05.45]       System.ArgumentException : 配置 1：面 6 的 thickness 写入与拾取、求解或配置操作数冲突。&#xD;
+[xUnit.net 00:00:05.45]       ---- System.ArgumentException : 面 6 的 thickness 写入与拾取、求解或配置操作数冲突。&#xD;
+[xUnit.net 00:00:05.45]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.45]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.JointValidation.cs(117,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.JointToleranceStudy.Validate(Optic[] nominal)&#xD;
+[xUnit.net 00:00:05.45]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.Joint.cs(57,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.JointToleranceStudy..ctor(JointToleranceSnapshot snapshot, TolerancingRequestDto request, CancellationToken token)&#xD;
+[xUnit.net 00:00:05.45]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.Joint.cs(15,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.RunJointTolerancing(JointToleranceSnapshot snapshot, TolerancingRequestDto request, Int64 revision, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:05.45]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Services\TolerancingService.cs(507,0): at OpticalSystemDesign.Application.Services.TolerancingService.&lt;&gt;c__DisplayClass12_0.&lt;RunJointWorkerAsync&gt;b__0()&#xD;
+[xUnit.net 00:00:05.45]            at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+[xUnit.net 00:00:05.45]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:05.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.45]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:05.45]            at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+[xUnit.net 00:00:05.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.45]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Services\TolerancingService.cs(504,0): at OpticalSystemDesign.Application.Services.TolerancingService.RunJointWorkerAsync(JointToleranceSnapshot snapshot, Int64 revision, TolerancingRequestDto request, CancellationTokenSource cancellation)&#xD;
+[xUnit.net 00:00:05.45]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\JointConfigurationTolerancingTests.cs(128,0): at OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.JointInverseReportsDifferentLimitingConfigurationsForOppositeEndpoints()&#xD;
+[xUnit.net 00:00:05.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.45]         ----- Inner Stack Trace -----&#xD;
+[xUnit.net 00:00:05.45]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.JointValidation.cs(154,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.JointToleranceStudy.VerifyIndependentWrite(Optic optic, Int32 configuration, Int32 surface, String property, Boolean manufacturing)&#xD;
+[xUnit.net 00:00:05.45]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.JointValidation.cs(91,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.JointToleranceStudy.Validate(Optic[] nominal)&#xD;
+[xUnit.net 00:00:05.53]       配置 1：面 6 的 thickness 写入与拾取、求解或配置操作数冲突。&#xD;
+[xUnit.net 00:00:05.53]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.53]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\JointConfigurationTolerancingTests.cs(65,0): at OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.TwoConfigurationStudyUsesOneActuatorAndReplaysTheJointWorstTrial()&#xD;
+[xUnit.net 00:00:05.53]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.65]       System.ArgumentException : TMCO 配置 1 行 1 影响配置 1 面 6，与可调间隔或求解范围冲突。&#xD;
+[xUnit.net 00:00:05.65]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.JointMce.cs(102,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.BindJointMce(JointToleranceSnapshot snapshot, Optic[] optics, IReadOnlyList`1 selected, IReadOnlyList`1 rows)&#xD;
+[xUnit.net 00:00:05.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.Joint.cs(53,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.JointToleranceStudy..ctor(JointToleranceSnapshot snapshot, TolerancingRequestDto request, CancellationToken token)&#xD;
+[xUnit.net 00:00:05.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Runtime\WorkbenchRuntime.Tolerancing.Joint.cs(15,0): at OpticalSystemDesign.Application.Runtime.WorkbenchRuntime.RunJointTolerancing(JointToleranceSnapshot snapshot, TolerancingRequestDto request, Int64 revision, CancellationToken cancellationToken)&#xD;
+[xUnit.net 00:00:05.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Services\TolerancingService.cs(507,0): at OpticalSystemDesign.Application.Services.TolerancingService.&lt;&gt;c__DisplayClass12_0.&lt;RunJointWorkerAsync&gt;b__0()&#xD;
+[xUnit.net 00:00:05.65]            at System.Threading.Tasks.Task`1.InnerInvoke()&#xD;
+[xUnit.net 00:00:05.65]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:05.65]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.65]            at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)&#xD;
+[xUnit.net 00:00:05.65]            at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)&#xD;
+[xUnit.net 00:00:05.65]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.65]         D:\optical system design\opticalsystem\src\OpticalSystemDesign.Application\Services\TolerancingService.cs(504,0): at OpticalSystemDesign.Application.Services.TolerancingService.RunJointWorkerAsync(JointToleranceSnapshot snapshot, Int64 revision, TolerancingRequestDto request, CancellationTokenSource cancellation)&#xD;
+[xUnit.net 00:00:05.65]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\JointConfigurationTolerancingTests.cs(152,0): at OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.ConfigurationThicknessRowsFollowExplicitPickupAndRejectOverlappingWrites()&#xD;
+[xUnit.net 00:00:05.65]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.69]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-06T10:36:32.8986170+08:00">
+        <Text>[xUnit.net 00:00:05.45]     OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.JointInverseReportsDifferentLimitingConfigurationsForOppositeEndpoints [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-06T10:36:32.9805847+08:00">
+        <Text>[xUnit.net 00:00:05.53]     OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.TwoConfigurationStudyUsesOneActuatorAndReplaysTheJointWorstTrial [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-06T10:36:33.0956962+08:00">
+        <Text>[xUnit.net 00:00:05.65]     OpticalSystemDesign.Tests.JointConfigurationTolerancingTests.ConfigurationThicknessRowsFollowExplicitPickupAndRejectOverlappingWrites [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

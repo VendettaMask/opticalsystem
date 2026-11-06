@@ -1032,7 +1032,8 @@ public enum AnalysisAxisQuantity
     NormalizedField,
     Probability,
     IrradianceGradient,
-    FieldAmplitude
+    FieldAmplitude,
+    MeritValue
 }
 
 public enum AnalysisAxisUnit
@@ -1681,7 +1682,8 @@ public enum ToleranceCriterion
 {
     RmsSpotRadius,
     RmsWavefront,
-    Mtf
+    Mtf,
+    SystemMerit
 }
 
 public enum ToleranceMtfMethod { Fourier, Geometric }
@@ -1703,10 +1705,16 @@ public sealed record ToleranceMtfSettingsDto(
 public sealed record TolerancePivotDto(double X, double Y, double Z);
 public sealed record ToleranceCompensatorDto(int SurfaceNumber,
     ToleranceCompensatorKind Kind, double Minimum, double Maximum, int EndSurfaceNumber = -1,
-    TolerancePivotDto? Pivot = null);
+    TolerancePivotDto? Pivot = null, int Stage = 1, int Configuration = 0);
 public sealed record ToleranceFieldValueDto(int FieldNumber, double Value, string Error = "");
 public sealed record ToleranceCompensatorValueDto(string Name, double Nominal, double Value,
-    double Minimum, double Maximum);
+    double Minimum, double Maximum, int Stage = 1);
+public sealed record ToleranceStageObjectiveDto(int Stage, ToleranceCriterion Criterion, ToleranceMtfSettingsDto? MtfSettings = null,
+    ToleranceMeritTableDto? MeritTable = null);
+public sealed record ToleranceStageValueDto(int Stage, double Criterion, IReadOnlyList<ToleranceCompensatorValueDto> Compensators,
+    IReadOnlyList<ToleranceConfigurationResultDto>? Configurations = null,
+    ToleranceStageObjectiveDto? Objective = null, IReadOnlyList<ToleranceFieldValueDto>? Fields = null, string Error = "",
+    string? MeritTableName = null);
 public sealed record ToleranceFieldStatisticsDto(int FieldNumber, double Nominal,
     double Mean, double Minimum, double Percentile05, double? Limit, double? Yield);
 
@@ -1803,7 +1811,10 @@ public sealed record TolerancingRequestDto(
     double InverseValue = 0,
     ToleranceMtfSettingsDto? MtfSettings = null,
     ToleranceCompensationAlgorithm CompensationAlgorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
-    IReadOnlyList<ToleranceCompensatorDto>? AdditionalCompensators = null);
+    IReadOnlyList<ToleranceCompensatorDto>? AdditionalCompensators = null,
+    ToleranceConfigurationSettingsDto? ConfigurationSettings = null,
+    IReadOnlyList<ToleranceStageObjectiveDto>? StageObjectives = null,
+    ToleranceMeritTableDto? MeritTable = null);
 
 public sealed record TolerancingSensitivityRowDto(
     string Perturbation,
@@ -1814,7 +1825,11 @@ public sealed record TolerancingSensitivityRowDto(
     IReadOnlyList<ToleranceFieldValueDto>? NegativeFields = null,
     IReadOnlyList<ToleranceFieldValueDto>? PositiveFields = null,
     IReadOnlyList<ToleranceCompensatorValueDto>? NegativeCompensators = null,
-    IReadOnlyList<ToleranceCompensatorValueDto>? PositiveCompensators = null);
+    IReadOnlyList<ToleranceCompensatorValueDto>? PositiveCompensators = null,
+    IReadOnlyList<ToleranceConfigurationResultDto>? NegativeConfigurations = null,
+    IReadOnlyList<ToleranceConfigurationResultDto>? PositiveConfigurations = null,
+    IReadOnlyList<ToleranceStageValueDto>? NegativeStages = null,
+    IReadOnlyList<ToleranceStageValueDto>? PositiveStages = null);
 
 public sealed record TolerancingTrialRowDto(
     int Trial,
@@ -1826,7 +1841,10 @@ public sealed record TolerancingTrialRowDto(
     IReadOnlyList<ToleranceCompensatorValueDto>? Compensators = null,
     bool? Passed = null,
     double? AcceptanceMargin = null,
-    double? CriterionValue = null);
+    double? CriterionValue = null,
+    IReadOnlyList<ToleranceStageValueDto>? Stages = null,
+    IReadOnlyList<ToleranceConfigurationResultDto>? Configurations = null,
+    IReadOnlyList<ToleranceConfigurationResultDto>? UncompensatedConfigurations = null);
 
 public sealed record TolerancingStatisticsDto(
     string Nominal,
@@ -1850,7 +1868,8 @@ public sealed record TolerancingInverseEndpointDto(
     string AdjustedTolerance,
     string Criterion,
     ToleranceInverseEndpointStatus Status,
-    int Iterations);
+    int Iterations, int? LimitingConfiguration = null, int? LimitingField = null,
+    double? AcceptanceMargin = null);
 
 public sealed record TolerancingInverseRowDto(
     string Perturbation,
@@ -1871,7 +1890,12 @@ public sealed record TolerancingResultDto(
     ToleranceMtfSettingsDto? MtfSettings = null,
     IReadOnlyList<ToleranceFieldValueDto>? NominalFields = null,
     IReadOnlyList<ToleranceFieldStatisticsDto>? FieldStatistics = null,
-    IReadOnlyList<ToleranceCompensatorValueDto>? NominalCompensators = null);
+    IReadOnlyList<ToleranceCompensatorValueDto>? NominalCompensators = null,
+    IReadOnlyList<ToleranceStageValueDto>? NominalStages = null,
+    ToleranceSampleDto? WorstSample = null,
+    IReadOnlyList<ToleranceConfigurationResultDto>? NominalConfigurations = null,
+    IReadOnlyList<ToleranceConfigurationYieldDto>? ConfigurationYields = null,
+    IReadOnlyList<ToleranceMceAdjustmentDto>? AdjustedMceRows = null);
 
 public sealed record MultiConfigurationNavigationDto(int Count, int ActiveIndex);
 public sealed record MultiConfigurationThicknessRowDto(int SurfaceNumber, IReadOnlyList<double> Values);

@@ -914,7 +914,7 @@ X {0} · Y {1} · 权重 {2}	X {0} · Y {1} · Weight {2}	X {0} · Y {1} · 重�
 库存目录加载失败：{0}	Stock catalog loading failed: {0}	在庫カタログ読み込み失敗：{0}
 库存镜头匹配失败：{0}	Stock lens matching failed: {0}	在庫レンズマッチング失敗：{0}
 H/L表示当前膜料；数字为参考波长处QW系数。支持(HL)^4、0.5H、{材料ID}及Inc | … | Sub。	H/L denote the current film materials; numbers are QW factors at the reference wavelength. Supports (HL)^4, 0.5H, {材料ID} and Inc | … | Sub.	H/Lは現在の膜材料、数値は基準波長でのQW係数です。(HL)^4、0.5H、{材料ID}、Inc | … | Subに対応します。
-RMS 按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。	RMS uses an upper acceptance limit and MTF a lower limit. Per-field mode requires every defined field to pass after the same compensation, including fields with weight 0.	RMSは上限、MTFは下限で判定します。視野別モードでは同じ補償後に全定義視野が同時に適合する必要があり、重み0の視野も含みます。
+RMS 和系统评价函数按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。	RMS and system merit use upper acceptance limits, and MTF uses a lower limit. Per-field mode requires every defined field to pass after the same compensation, including fields with weight 0.	RMS とシステム評価値は上限、MTF は下限で判定します。視野別モードでは同じ補償後に全定義視野が同時に適合する必要があり、重み0の視野も含みます。
 SFR 直接使用浮点线性像元数据，预览不参与计算。采用选定视场的局部恒定标量 PSF；未包含全视场畸变、偏振、CFA、ADC 或 ISP。有限 PSF 显式按截取能量归一化，并显示能量及窗口检查。结果不代表 ISO 12233 合规认证。	SFR uses floating-point linear pixels directly; previews do not enter the calculation. Uses a locally constant scalar PSF at the selected field, without full-field distortion, polarization, CFA, ADC or ISP. The finite PSF is explicitly normalized by captured energy, with energy and window checks. Results do not certify ISO 12233 compliance.	SFRは浮動小数点の線形画素を直接使用し、プレビューは計算に使用しません。選択視野の局所一定スカラーPSFを使用し、全視野歪曲・偏光・CFA・ADC・ISPは含みません。有限PSFを捕捉エネルギーで明示的に正規化し、エネルギーと窓の確認を表示します。ISO 12233適合認証ではありません。
 STL 文件本身不保存单位，请明确选择源文件单位。导入后统一换算为毫米。	STL files do not store units. Select the source units explicitly; imported geometry is converted to millimeters.	STLファイルには単位がありません。元ファイルの単位を明示してください。読み込み後はミリメートルに統一します。
 Workbench 原生操作数使用评价函数编辑器中的 Surface、Field、Wavelength、Hx、Hy、Px、Py 通用字段；实际使用项见上方计算说明。	Workbench operands use the shared Surface, Field, Wavelength, Hx, Hy, Px and Py fields in the merit function editor; see calculation notes above for applicable fields.	Workbenchオペランドは評価関数エディターの共通フィールドSurface・Field・Wavelength・Hx・Hy・Px・Pyを使用します。使用項目は上の計算説明を確認してください。
@@ -1330,3 +1330,130 @@ Zernike、ISO 面形公差和机械支点需要版本 5 公差文件。	Zernike 
 镜组 Y 倾斜 (°)	Group Y tilt (°)	群の Y 傾き (°)
 公差表中的 COMP 仍参与补偿。可增加空气间隔、单面或镜组 X/Y 偏心与倾斜。偏差相对名义值，范围必须包含 0。	COMP rows also participate. Add air gaps or X/Y decenter and tilt for a surface or group. Deviations are relative to nominal and the range must include 0.	公差表の COMP も使用します。空気間隔、単面または群の X/Y 偏心と傾きを追加できます。偏差は公称値に対する値で、範囲には 0 が必要です。
 全部视场共用补偿量。镜组两端及中间各面一起移动，倾斜以首面顶点为支点。	All fields share the same adjustments. All surfaces in the group move together and tilt pivots about the first surface vertex.	全視野で補償量を共有します。群内の全ての面が一体で移動し、先頭面の頂点を支点に傾きます。
+保存最差样件	Save worst sample	最悪サンプルを保存
+打开样件复算	Open and replay sample	サンプルを開いて再計算
+公差样件	Tolerance sample	公差サンプル
+公差样件复算	Replay tolerance sample	公差サンプルの再計算
+复算与记录一致。	Replay matches the record.	再計算結果は記録と一致しました。
+复算与记录存在差异。	Replay differs from the record.	再計算結果は記録と異なります。
+已保存公差样件。	Saved the tolerance sample.	公差サンプルを保存しました。
+无法保存公差样件：{0}	Could not save the tolerance sample: {0}	公差サンプルを保存できませんでした：{0}
+无法复算公差样件：{0}	Could not replay the tolerance sample: {0}	公差サンプルを再計算できませんでした：{0}
+补偿阶段	Compensation stage	補償段階
+每阶段循环数	Cycles per stage	段階ごとのサイクル数
+按阶段编号依次调整。同阶段变量一起优化，完成后锁定。启用多阶段时，公差表 COMP 最后执行。	Adjust stages in numerical order. Variables in a stage are optimized together and then locked. With staged compensation, the tolerance-table COMP runs last.	段階番号順に調整します。同じ段階の変数は一緒に最適化し、その後固定します。段階別補償では公差表の COMP を最後に実行します。
+试验 {0}，种子 {1}	Trial {0}, seed {1}	試行 {0}、シード {1}
+记录的补偿前／后评价值 {0} / {1}	Recorded criterion before and after compensation {0} / {1}	記録した補償前後の評価値 {0} / {1}
+复算的补偿前／后评价值 {0} / {1}	Replayed criterion before and after compensation {0} / {1}	再計算した補償前後の評価値 {0} / {1}
+正在复算公差样件…	Replaying the tolerance sample…	公差サンプルを再計算中…
+当前配置	Current configuration	現在の構成
+选定配置	Selected configurations	選択した構成
+全部配置	All configurations	すべての構成
+补偿配置（0=共用）	Compensation configuration (0=shared)	補償構成（0=共通）
+覆盖配置验收限值	Override the configuration limit	構成の合格限界を上書き
+逐视场下限（视场=数值）	Per-field limits (field=value)	視野別の下限（視野=値）
+添加 TMCO	Add TMCO	TMCO を追加
+添加 CMCO	Add CMCO	CMCO を追加
+请先在多配置编辑器添加厚度行。	Add a thickness row in the Multi-Configuration Editor first.	先に多重構成エディタで厚さ行を追加してください。
+多配置联合公差	Joint configuration tolerancing	複数構成の公差解析
+配置范围	Configuration scope	構成の範囲
+同一次试验使用同一份共享制造误差。各配置同时达标才计入整机良率。	Each trial shares one realization of manufacturing errors. It contributes to system yield only when every configuration passes.	同じ試行では製造誤差を共有します。全構成で合格した試行をシステム歩留まりに計上します。
+配置编号	Configuration number	構成番号
+多配置厚度行	Multi-configuration thickness row	多重構成の厚さ行
+请选择至少一个参与公差的配置。	Select at least one configuration for tolerancing.	公差解析を行う構成を少なくとも一つ選択してください。
+请选择有效的多配置厚度行。	Select a valid multi-configuration thickness row.	有効な多重構成の厚さ行を選択してください。
+逐视场下限请使用 1=0.25, 2=0.20 格式。	Use 1=0.25, 2=0.20 for per-field limits.	視野別の下限は 1=0.25, 2=0.20 の形式で入力してください。
+整机最小验收余量	Minimum system acceptance margin	システムの最小合格余裕
+全部配置合格（余量 ≥ 0）	All configurations pass (margin ≥ 0)	全構成合格（余裕 ≥ 0）
+整机合格余量	System acceptance margin	システムの合格余裕
+添加阶段评价	Add stage objective	段階評価を追加
+阶段评价准则	Stage objectives	段階評価基準
+为有补偿器的阶段单独选准则。未设置的阶段沿用最终评价准则，良率始终按评价标准页判定。	Choose an objective for a stage with compensators. Other stages inherit the final criterion. Yield always uses the Criteria tab.	補償器がある段階の評価基準を選びます。未設定の段階は最終評価基準を使い、歩留まりは評価基準タブの設定で判定します。
+阶段评价包含零权重视场	Include zero-weight fields in this stage	この段階の評価に重みゼロの視野を含める
+阶段 MTF 空间频率	Stage MTF spatial frequency	段階 MTF 空間周波数
+阶段评价	Stage objective	段階評価
+阶段编号	Stage number	段階番号
+阶段准则	Stage criterion	段階基準
+同一阶段只能设置一个评价准则。	Each stage can have one objective.	各段階に設定できる評価基準は 1 つです。
+系统评价函数	System merit function	システム評価関数
+系统评价函数值	System merit value	システム評価値
+按运行时评价函数编辑器中的操作数、目标和权重计算。评价值越小越好，多配置使用同一张表分别评价。	Uses the operands, targets and weights from the Merit Function Editor at run time. Lower values are better. Each configuration uses the same table.	実行時の評価関数エディタのオペランド、目標値、重みを使います。値が小さいほど良好で、各構成は同じ表で個別に評価されます。
+此阶段使用运行时的系统评价函数。	This stage uses the system merit function at run time.	この段階は実行時のシステム評価関数を使います。
+反向极限：RMS 和系统评价函数为上限，MTF 为下限。反向增量：RMS 和系统评价值允许增加，MTF 允许下降；逐视场模式按每个视场的名义值反求。满足目标的公差不会放宽。	Inverse limits are upper bounds for RMS and system merit and lower bounds for MTF. Increments allow RMS and merit to increase or MTF to decrease. Per-field mode uses each field’s nominal value. Passing tolerances are retained.	逆解析の限界は RMS とシステム評価値では上限、MTF では下限です。増分は RMS と評価値の増加、または MTF の低下を許容します。視野別モードでは各視野の公称値を使います。合格した公差は維持します。
+最终验收使用系统评价函数，按加权残差上限判定。	Final acceptance uses an upper limit on the system merit value.	最終合格判定ではシステム評価値の上限を使います。
+最终验收评价表	Final acceptance merit table	最終合格判定の評価表
+评价表名称	Merit table name	評価表名
+绑定当前评价表	Bind current merit table	現在の評価表を割り当て
+改用活动评价表	Use active merit table	アクティブな評価表を使う
+请从公差数据编辑器打开此设置。	Open these settings from the Tolerance Data Editor.	公差データエディタからこの設定を開いてください。
+使用运行时的活动评价表。绑定后可用「应用设置」关闭设置，再准备下一张表。	Uses the active merit table at run time. After binding, apply the settings to return and prepare the next table.	実行時のアクティブな評価表を使います。割り当てた後、設定を適用して次の表をエディタで準備できます。
+已绑定 {0}（{1} 行）	Bound to {0} ({1} rows)	{0} を割り当て済み（{1} 行）
+请输入绑定评价表名称。	Enter a name for the bound merit table.	割り当てる評価表の名前を入力してください。
+应用设置	Apply settings	設定を適用
+最终评价表 {0}	Final merit table {0}	最終評価表 {0}
+导入 TSC	Import TSC	TSC をインポート
+导入 OpticStudio 公差脚本	Import OpticStudio tolerance script	OpticStudio 公差スクリプトをインポート
+打开 OpticStudio 公差脚本	Open OpticStudio tolerance script	OpticStudio 公差スクリプトを開く
+应用脚本映射	Apply script mapping	スクリプトの割り当てを適用
+选择评价表 ZMX	Select merit ZMX files	評価表の ZMX を選択
+选择 LOADMERIT 评价表	Select LOADMERIT merit tables	LOADMERIT 評価表を選択
+补偿行程 ± (mm)	Compensator travel ± (mm)	補償器の移動範囲 ± (mm)
+为 LOADMERIT 选择同名 ZMX。输入本地补偿行程，应用后在评价标准中设置验收上限。	Select matching ZMX files for LOADMERIT. Enter the local compensator travel, then set the acceptance limit on the Criteria tab.	LOADMERIT と同名の ZMX を選択し、補償器の移動範囲を入力します。適用後は評価基準タブで合格上限を設定します。
+应用后替换补偿设置，并保留现有制造公差。	Applying replaces compensation settings and keeps the manufacturing tolerances.	適用すると補償設定を置き換え、製造公差は維持されます。
+请处理预览中的阻塞行。	Resolve the blocking lines in the preview.	プレビューの問題行を修正してください。
+已应用公差脚本	Tolerance script applied	公差スクリプトを適用済み
+公差脚本导入失败	Tolerance script import failed	公差スクリプトのインポートに失敗
+已导入 {0} 个装调阶段。请按系统评价值设置验收上限。	Imported {0} alignment stages. Set the upper acceptance limit for system merit.	{0} 段階の調整をインポートしました。システム評価値の合格上限を設定してください。
+定位最差试验	Go to worst trial	最悪の試行へ移動
+验收对象	Acceptance scope	合格判定対象
+合格数	Passed	合格数
+试验数	Trials	試行数
+名义评价值	Nominal criterion	公称評価値
+原偏差	Original deviation	元の偏差
+调整后偏差	Adjusted deviation	調整後の偏差
+限制配置／视场	Limiting configuration / field	制限する構成／視野
+验收余量	Acceptance margin	合格余裕
+试验筛选	Trial filter	試行フィルター
+全部试验	All trials	すべての試行
+不合格试验	Failed acceptance	不合格の試行
+计算失效试验	Invalid evaluations	計算無効の試行
+按最坏端点变化排序，计算失效项优先。	Ranked by the worst endpoint change, with invalid evaluations first.	最悪端点の変化順で、計算が無効な項目を先に表示します。
+Monte Carlo 试验	Monte Carlo trials	モンテカルロ試行
+结果总览	Results overview	結果概要
+运行公差分析后在此查看结果。	Run tolerance analysis to view results here.	公差解析を実行するとここに結果が表示されます。
+评价准则 {0}    试验 {1} 次    最差试验 {2}	Criterion {0}    {1} trials    Worst trial {2}	評価基準 {0}    試行 {1} 回    最悪試行 {2}
+整机	System	システム
+配置 {0}	Configuration {0}	構成 {0}
+负端	Negative	負側
+正端	Positive	正側
+没有符合筛选条件的试验。	No trials match the filter.	条件に一致する試行がありません。
+未设置限值	No acceptance limit	合格限界未設定
+配置 {0} · 视场 {1}	Configuration {0} · Field {1}	構成 {0} · 視野 {1}
+已收紧	Tightened	縮小済み
+收紧至零	Reduced to zero	ゼロまで縮小
+无法反求	Inverse solve unavailable	逆解析不可
+原范围合格	Original range passes	元の範囲が合格
+MTF {0} cycles/mm	MTF {0} cycles/mm	MTF {0} cycles/mm
+评价表 {0}	Merit table {0}	評価表 {0}
+阶段 {0}	Stage {0}	段階 {0}
+试验 {0}    验收余量 {1}	Trial {0}    Acceptance margin {1}	試行 {0}    合格余裕 {1}
+验收余量 {0}	Acceptance margin {0}	合格余裕 {0}
+限制视场 {0}	Limiting field {0}	制限する視野 {0}
+调整 {0} · 行程 [{1}, {2}]	Adjustment {0} · Travel [{1}, {2}]	調整 {0} · 移動範囲 [{1}, {2}]
+结果值	Result value	結果値
+状态／调整	Status / adjustment	状態／調整
+公差分析已取消。	Tolerance analysis canceled.	公差解析がキャンセルされました。
+RMS 波前误差 (waves)	RMS wavefront error (waves)	RMS 波面誤差 (waves)
+RMS 点列半径 (mm)	RMS spot radius (mm)	RMS スポット半径 (mm)
+不合格	Failed	不合格
+合格	Passed	合格
+失效	Invalid	無効
+反求	Inverse sensitivity	逆感度解析
+指定频率 MTF	MTF at specified frequency	指定周波数の MTF
+灵敏度	Sensitivity	感度
+端点	Endpoint	端点
+补偿前	Before compensation	補償前
+补偿后	After compensation	補償後
+评价值	Criterion value	評価値
+先运行包含 Monte Carlo 的公差分析。	Run a tolerance analysis with Monte Carlo first.	先にモンテカルロを含む公差解析を実行してください。
+本次没有可定位的最差试验。	There is no worst trial to locate in this run.	この解析で移動できる最悪の試行はありません。

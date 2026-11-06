@@ -1,10 +1,14 @@
+using System.Text.Json;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Tolerancing;
 
 namespace OpticalSystemDesign.Tests;
@@ -189,6 +193,11 @@ public sealed class IsoIrregularityTolerancingTests
         Assert.True(app.Tolerancing.ValidateOperands([b, c with { SurfaceNumber = 2 }, d with { SurfaceNumber = 3 }]).IsValid);
         Assert.True(app.Tolerancing.ValidateOperands([c, b with { Kind = ToleranceOperandKind.IsoPower }]).IsValid);
         Assert.False(app.Tolerancing.ValidateOperands([b, c]).IsValid);
+        Assert.True(app.Tolerancing.ValidateOperands([b, c with { Minimum = -.0006, Maximum = .0006,
+            IsoUnit = IsoSurfaceFormUnit.Micrometers }]).IsValid);
+        Assert.False(app.Tolerancing.ValidateOperands([b, c with { Minimum = -.1, Maximum = .1,
+            IsoUnit = IsoSurfaceFormUnit.Fringes }]).IsValid);
+        Assert.False(app.Tolerancing.ValidateOperands([b, c, d]).IsValid);
         Assert.False(app.Tolerancing.ValidateOperands([b, d]).IsValid);
         Assert.False(app.Tolerancing.ValidateOperands([c, d]).IsValid);
         Assert.False(app.Tolerancing.ValidateOperands([d, d with { Index = 9 }]).IsValid);
@@ -197,6 +206,235 @@ public sealed class IsoIrregularityTolerancingTests
         Assert.False(app.Tolerancing.ValidateOperands([b with { IsoUnit = (IsoSurfaceFormUnit)20 }]).IsValid);
         Assert.False(app.Tolerancing.ValidateOperands([b with { IsoStatistics = (IsoSurfaceFormStatistics)20 }]).IsValid);
         Assert.False(app.Tolerancing.ValidateOperands([c with { IsoUnit = IsoSurfaceFormUnit.Fringes, TestWavelengthMicrometers = 0 }]).IsValid);
+    }
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    [InlineData(4)]
+    [InlineData(5)]
+    [InlineData(6)]
+    [InlineData(7)]
+    public void JointIsoCalibratesTotalAndRotationalSagOnTheContinuousAperture(int harmonic)
+    {
+        var (optic, surface) = Plane();
+        var nominal = surface.Geometry;
+        var total = Make(SurfaceFormMode.IsoIrregularityPv, 1600);
+        var rotational = Make(SurfaceFormMode.IsoRotationalIrregularityPv, .6, IsoSurfaceFormUnit.Micrometers);
+        var tolerancing = optic.CreateTolerancing();
+        tolerancing.AddPerturbation(rotational);
+        tolerancing.AddPerturbation(total);
+        var pair = Assert.IsAssignableFrom<ISampledPerturbation>(Assert.Single(tolerancing.TrialPerturbations()));
+        pair.Apply(optic, new HarmonicRandom(harmonic));
+        var (b, c) = MeasureJointSag(surface.Geometry, nominal, harmonic);
+        Assert.InRange(b, .0016 * (1 - 2e-6), .0016 * (1 + 1e-9));
+        Assert.InRange(c, .0006 * (1 - 2e-6), .0006 * (1 + 1e-9));
+        Assert.Equal(0, surface.Geometry.Sag(0, 0), 14);
+
+        var point = new Vector3D(3, 1, surface.Geometry.Sag(3, 1));
+        var normal = surface.Geometry.SurfaceNormal(point);
+        const double step = 1e-5;
+        var dx = (surface.Geometry.Sag(3 + step, 1) - surface.Geometry.Sag(3 - step, 1)) / (2 * step);
+        Assert.Equal(dx, -normal.X / normal.Z, 9);
+        pair.Revert(optic);
+        Assert.Same(nominal, surface.Geometry);
+    }
+
+    [Theory]
+    [InlineData(IsoSurfaceFormStatistics.AtMaximum, IsoSurfaceFormStatistics.TruncatedGaussian)]
+    [InlineData(IsoSurfaceFormStatistics.TruncatedGaussian, IsoSurfaceFormStatistics.AtMaximum)]
+    [InlineData(IsoSurfaceFormStatistics.TruncatedGaussian, IsoSurfaceFormStatistics.TruncatedGaussian)]
+    public void JointSamplingPreservesFeasibleAmplitudes(IsoSurfaceFormStatistics bStatistics,
+        IsoSurfaceFormStatistics cStatistics)
+    {
+        var (optic, surface) = Plane();
+        var nominal = surface.Geometry;
+        var total = Make(SurfaceFormMode.IsoIrregularityPv, 1000, statistics: bStatistics);
+        var rotational = Make(SurfaceFormMode.IsoRotationalIrregularityPv, 990, statistics: cStatistics);
+        var pair = total.WithRotationalIrregularity(rotational);
+        var random = new HarmonicRandom(3);
+
+        for (var trial = 0; trial < 8; trial++)
+        {
+            pair.Apply(optic, random);
+            var (b, c) = MeasureJointSag(surface.Geometry, nominal, 3);
+            Assert.InRange(b, c, .001000000001);
+            if (bStatistics == IsoSurfaceFormStatistics.AtMaximum) Assert.InRange(b, .00099999, .001000000001);
+            if (cStatistics == IsoSurfaceFormStatistics.AtMaximum) Assert.InRange(c, .00098999, .000990000001);
+            if (bStatistics == cStatistics) Assert.InRange(c / b, .98999, .99001);
+            pair.Revert(optic);
+        }
+    }
+
+    [Fact]
+    public async Task JointRowsRunAndReverseIndependentlyThenShareOneTrialShape()
+    {
+        using var app = WorkbenchApplication.Create("cooke");
+        var before = app.Prescription.GetSurfaces();
+        var b = new ToleranceOperandDto(1, true, ToleranceOperandKind.IsoIrregularityPv, 1, -1500, 1500);
+        var c = new ToleranceOperandDto(2, true, ToleranceOperandKind.IsoRotationalIrregularityPv, 1, -1, 1,
+            IsoUnit: IsoSurfaceFormUnit.Micrometers);
+        var request = new TolerancingRequestDto(1, 0, 0, 3, 192, 0, [b, c],
+            ToleranceCriterion.Mtf, MaxDegreeOfParallelism: 1,
+            MtfSettings: new(20, Method: ToleranceMtfMethod.Geometric));
+
+        Assert.True(app.Tolerancing.ValidateStudy(request).IsValid);
+        var forward = await app.Tolerancing.RunAsync(request);
+        var parallel = await app.Tolerancing.RunAsync(request with { Operands = [c, b], MaxDegreeOfParallelism = 2 });
+        Assert.Equal(2, forward.SensitivityRows.Count);
+        Assert.All(forward.SensitivityRows, row =>
+            Assert.All(row.NegativeFields!.Concat(row.PositiveFields!), field => Assert.Empty(field.Error)));
+        Assert.Equal(3, forward.TrialRows.Count);
+        Assert.Equal(forward.TrialRows.Select(trial => trial.CriterionValue),
+            parallel.TrialRows.Select(trial => trial.CriterionValue));
+
+        var inverse = await app.Tolerancing.RunAsync(request with
+        {
+            Criterion = ToleranceCriterion.RmsSpotRadius, Mode = ToleranceAnalysisMode.InverseIncrement,
+            InverseValue = .00001, Trials = 1
+        });
+        Assert.Equal(2, inverse.InverseRows!.Count);
+        var adjusted = inverse.AdjustedOperands!;
+        Assert.True(app.Tolerancing.ValidateOperands(adjusted).IsValid);
+        Assert.All(adjusted, row => Assert.Equal(-row.Maximum, row.Minimum));
+        Assert.Single(inverse.TrialRows);
+        Assert.Equal(before, app.Prescription.GetSurfaces());
+    }
+
+    [Fact]
+    public void FixedJointIsoMatchesAnExplicitFringeSagZmxAtIdenticalMtfSettings()
+    {
+        const double radius = 6;
+        const double total = .0015375;
+        const double rotational = .0006;
+        var original = Optic.CreateCookeTriplet();
+        original.SurfaceGroup.Items[1].PhysicalAperture = new CircularAperture(radius);
+        original.SurfaceGroup.Items[1].SemiDiameter = radius;
+        var exporter = new ZemaxZmxExporter();
+        var importer = new ZemaxZmxImporter();
+        var nominalText = exporter.Export(original);
+        var explicitOptic = importer.Import(nominalText);
+        var target = explicitOptic.SurfaceGroup.Items[1];
+        var terms = new double[FringeZernikeBasis.Orders.Count];
+        for (var i = 0; i < terms.Length; i++)
+            terms[i] = FringeZernikeBasis.Orders[i] switch
+            {
+                (0, 0) => -.0004,
+                (4, 0) => .0004,
+                (2, 2) => .0006,
+                _ => 0
+            };
+        target.Geometry = new FringeSagGeometry(target.Radius, target.Conic, [], radius, terms, extrapolate: true);
+        var perturbedText = exporter.Export(explicitOptic);
+        var perturbed = importer.Import(perturbedText);
+        var nominal = importer.Import(nominalText);
+        var transient = importer.Import(nominalText);
+        var perturbation = Make(SurfaceFormMode.IsoIrregularityPv, total * 1e6)
+            .WithRotationalIrregularity(Make(SurfaceFormMode.IsoRotationalIrregularityPv, rotational * 1e6));
+        perturbation.Apply(transient, new FixedPolynomialRandom());
+
+        var nominalGeometry = nominal.SurfaceGroup.Items[1].Geometry;
+        var fixedGeometry = perturbed.SurfaceGroup.Items[1].Geometry;
+        var transientGeometry = transient.SurfaceGroup.Items[1].Geometry;
+        var (b, c) = MeasureJointSag(fixedGeometry, nominalGeometry, 2);
+        Assert.Equal(total, b, 10);
+        Assert.Equal(rotational, c, 10);
+        foreach (var (x, y) in new[] { (0d, 0d), (2d, 0d), (0d, 4d), (1d, 3d), (0d, 6d), (6d, 0d) })
+        {
+            Assert.Equal(fixedGeometry.Sag(x, y), transientGeometry.Sag(x, y), 14);
+            var first = fixedGeometry.SurfaceNormal(new(x, y, fixedGeometry.Sag(x, y)));
+            var second = transientGeometry.SurfaceNormal(new(x, y, transientGeometry.Sag(x, y)));
+            Assert.InRange((first - second).Length, 0, 1e-12);
+        }
+
+        const double frequency = 20;
+        const int wave = 2;
+        const int field = 1;
+        var comparisons = new List<object>();
+        foreach (var sampling in new[] { 3, 4 })
+        {
+            var before = MtfMetrics.EvaluateGrid(nominal, MtfMetricKind.Fourier, sampling, wave, field, frequency);
+            var fixedMtf = MtfMetrics.EvaluateGrid(perturbed, MtfMetricKind.Fourier, sampling, wave, field, frequency);
+            var joint = MtfMetrics.EvaluateGrid(transient, MtfMetricKind.Fourier, sampling, wave, field, frequency);
+            Assert.InRange(fixedMtf.Tangential, 0, 1);
+            Assert.InRange(fixedMtf.Sagittal, 0, 1);
+            Assert.Equal(fixedMtf.Tangential, joint.Tangential, 10);
+            Assert.Equal(fixedMtf.Sagittal, joint.Sagittal, 10);
+            Assert.NotEqual(before, fixedMtf);
+            comparisons.Add(new { pupilSampling = 32 << (sampling - 1), nominal = before, fixedFringeSag = fixedMtf, joint });
+        }
+        var directory = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_JOINT_ISO_CAPTURE_DIR");
+        if (!string.IsNullOrWhiteSpace(directory))
+        {
+            Directory.CreateDirectory(directory);
+            File.WriteAllText(Path.Combine(directory, "nominal.zmx"), nominalText);
+            File.WriteAllText(Path.Combine(directory, "fixed-joint-iso.zmx"), perturbedText);
+            File.WriteAllText(Path.Combine(directory, "fixed-perturbation-workbench.json"),
+                JsonSerializer.Serialize(new
+                {
+                    source = "Workbench exported Cooke Triplet",
+                    nativeOpticStudioCapture = false,
+                    surface = 1,
+                    normalizationRadiusMm = radius,
+                    targetTotalPvMm = total,
+                    targetRotationalPvMm = rotational,
+                    fringeCoefficientsMm = terms,
+                    field, wave, frequencyCyclesPerMm = frequency,
+                    method = "FFT MTF, modulation, no refocus",
+                    comparisons
+                }, new JsonSerializerOptions { WriteIndented = true }));
+        }
+    }
+
+    private sealed class FixedPolynomialRandom : Random
+    {
+        private static readonly int AngularTerms = ZernikeFitEngine.StandardIndices(37).Skip(4)
+            .Count(order => order.M == 2);
+        private int _sample;
+        public override int Next(int minValue, int maxValue) => 2;
+        public override double NextDouble()
+        {
+            var index = _sample++;
+            if (index == 4 + AngularTerms) return 0;
+            return index is 0 or 4 ? .75 : .5;
+        }
+    }
+
+    private static (double Total, double Rotational) MeasureJointSag(IGeometry figure, IGeometry nominal,
+        int harmonic)
+    {
+        var minimum = double.PositiveInfinity;
+        var maximum = double.NegativeInfinity;
+        var radialMinimum = double.PositiveInfinity;
+        var radialMaximum = double.NegativeInfinity;
+        const int samples = 8192;
+        for (var i = 0; i <= samples; i++)
+        {
+            var r = 6.0 * i / samples;
+            double Sag(int quadrant)
+            {
+                var (sine, cosine) = Math.SinCos(quadrant * Math.PI / (2 * harmonic));
+                var (x, y) = (r * cosine, r * sine);
+                return figure.Sag(x, y) - nominal.Sag(x, y);
+            }
+            var a = Sag(0);
+            var b = Sag(1);
+            var c = Sag(2);
+            var d = Sag(3);
+            var radial = (a + b + c + d) / 4;
+            var envelope = double.Hypot(a - c, b - d) / 2;
+            minimum = Math.Min(minimum, radial - envelope);
+            maximum = Math.Max(maximum, radial + envelope);
+            radialMinimum = Math.Min(radialMinimum, radial);
+            radialMaximum = Math.Max(radialMaximum, radial);
+        }
+        return (maximum - minimum, radialMaximum - radialMinimum);
+    }
+
+    private sealed class HarmonicRandom(int harmonic) : Random(73)
+    {
+        public override int Next(int minValue, int maxValue) => harmonic;
     }
 
     private static (Optic Optic, OpticalSurface Surface) Plane()

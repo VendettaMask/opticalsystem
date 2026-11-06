@@ -32,6 +32,7 @@ public static class WorkspaceDocumentTypes
     public const string StockLensCatalog = "stock-lens-catalog";
     public const string StockLensMatching = "stock-lens-matching";
     public const string MaterialAnalysis = "material-analysis";
+    public const string ToleranceResults = "tolerance-results";
     public const string ToleranceReport = "tolerance-report";
     public const string ToleranceHistogram = "tolerance-histogram";
     public const string ToleranceYield = "tolerance-yield";
@@ -58,6 +59,7 @@ public static class WorkspaceDocumentTypes
         StockLensCatalog,
         StockLensMatching,
         MaterialAnalysis,
+        ToleranceResults,
         ToleranceReport,
         ToleranceHistogram,
         ToleranceYield,

@@ -40,7 +40,8 @@ public partial class WorkbenchRuntime
             double inverseValue = 0,
             ToleranceMtfSettingsDto? mtfSettings = null,
             ToleranceCompensationAlgorithm algorithm = ToleranceCompensationAlgorithm.DampedLeastSquares,
-            IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null)
+            IReadOnlyList<ToleranceCompensatorDto>? additionalCompensators = null,
+            IReadOnlyList<ToleranceStageObjectiveDto>? stageObjectives = null, ToleranceMeritTableDto? meritTable = null)
     {
         cancellationToken.ThrowIfCancellationRequested();
         OpticCapabilityPreflight.EnsureSupported(CurrentOptic, OpticCapabilityOperation.Tolerancing);
@@ -54,14 +55,19 @@ public partial class WorkbenchRuntime
         mtfSettings = higherIsBetter ? mtfSettings ?? new ToleranceMtfSettingsDto() : null;
         var requestedOperands = operands?.ToArray();
         var configuredOperands = requestedOperands?.Where(item => item.Enabled).ToArray();
-        var tolerancing = configuredOperands is { Length: > 0 }
-            ? BuildConfiguredTolerancing(configuredOperands, criterion, mtfSettings, algorithm, additionalCompensators)
-            : BuildDefaultTolerancing(
-                surface.Number,
-                radiusSigma,
-                thicknessSigma,
-                compensationIterations,
-                criterion, mtfSettings, algorithm, additionalCompensators);
+        var surfaceNumber = surface.Number;
+        var finalMerit = ResolveMeritDefinitions(meritTable);
+        Tolerancing BuildStudy(Optic optic)
+        {
+            var study = configuredOperands is { Length: > 0 }
+                ? BuildConfiguredTolerancingWorker(optic, configuredOperands, criterion, mtfSettings, algorithm, additionalCompensators, finalMerit)
+                : BuildDefaultTolerancingWorker(optic, surfaceNumber, radiusSigma, thicknessSigma, compensationIterations,
+                    criterion, mtfSettings, algorithm, additionalCompensators, finalMerit);
+            ConfigureStageObjectives(study, optic, stageObjectives);
+            return study;
+        }
+
+        var tolerancing = BuildStudy(CurrentOptic);
         if (tolerancing.Perturbations.Count == 0)
         {
             return TolerancingView.Empty("请至少设置一个启用且非零的公差操作数。");
@@ -103,7 +109,7 @@ public partial class WorkbenchRuntime
                 requestedOperands ?? configuredOperands,
                 inverseResults);
             configuredOperands = adjustedOperands.Where(item => item.Enabled).ToArray();
-            tolerancing = BuildConfiguredTolerancing(configuredOperands, criterion, mtfSettings, algorithm, additionalCompensators);
+            tolerancing = BuildStudy(CurrentOptic);
             sensitivityAnalysis = new SensitivityAnalysis(CurrentOptic, tolerancing);
             inverseRows = inverseResults.Select(ToInverseRow).ToArray();
         }
@@ -119,7 +125,9 @@ public partial class WorkbenchRuntime
                     FormatCriterion(result.PositiveCriterion),
                     FormatCriterion(result.WorstCriterion),
                     ToFieldDtos(result.NegativeEvaluation?.Fields), ToFieldDtos(result.PositiveEvaluation?.Fields),
-                    ToCompensatorDtos(result.NegativeEvaluation?.Compensators), ToCompensatorDtos(result.PositiveEvaluation?.Compensators)))
+                    ToCompensatorDtos(result.NegativeEvaluation?.Compensators), ToCompensatorDtos(result.PositiveEvaluation?.Compensators),
+                    stageObjectives is { Count: > 0 } ? ToStageDtos(result.NegativeEvaluation?.Stages, stageObjectives) : null,
+                    stageObjectives is { Count: > 0 } ? ToStageDtos(result.PositiveEvaluation?.Stages, stageObjectives) : null))
                 .ToArray();
         var rssEstimatedChange = CalculateSensitivityRss(sensitivityResults, nominal);
         var sensitivityStatistics = sensitivityResults.Length == 0
@@ -137,15 +145,7 @@ public partial class WorkbenchRuntime
                     seed,
                     compensationIterations,
                     cancellationToken,
-                    workerOptic => configuredOperands is { Length: > 0 }
-                        ? BuildConfiguredTolerancingWorker(workerOptic, configuredOperands, criterion, mtfSettings, algorithm, additionalCompensators)
-                        : BuildDefaultTolerancingWorker(
-                            workerOptic,
-                            surface.Number,
-                            radiusSigma,
-                            thicknessSigma,
-                            compensationIterations,
-                            criterion, mtfSettings, algorithm, additionalCompensators),
+                    BuildStudy,
                     maxDegreeOfParallelism: maxDegreeOfParallelism == -1
                         ? Math.Max(1, Environment.ProcessorCount)
                         : maxDegreeOfParallelism);
@@ -160,7 +160,7 @@ public partial class WorkbenchRuntime
                     ? AcceptanceMargin(result, higherIsBetter, yieldLimit, mtfSettings) >= 0 : null,
                 HasToleranceAcceptance(higherIsBetter, yieldLimit, mtfSettings)
                     ? AcceptanceMargin(result, higherIsBetter, yieldLimit, mtfSettings) : null,
-                result.CompensatedCriterion))
+                result.CompensatedCriterion, ToStageDtos(result.Stages, stageObjectives)))
             .ToArray();
         var values = trialResults
             .Select(result => result.CompensatedCriterion)
@@ -197,7 +197,8 @@ public partial class WorkbenchRuntime
         SetStatus($"公差分析完成：表面 {surface.Number}，{monteCarlo.Length} 次 Monte Carlo。");
         return new TolerancingView(
             higherIsBetter ? $"{(mtfSettings!.Method == ToleranceMtfMethod.Fourier ? "FFT 衍射" : "几何")} MTF 公差分析（{mtfSettings.Frequency:0.###} cycles/mm，{mtfSettings.Direction}）"
-                : $"{(criterion == ToleranceCriterion.RmsWavefront ? "RMS 波前" : "RMS 点列半径")}公差分析",
+                : criterion == ToleranceCriterion.SystemMerit ? "系统评价函数公差分析"
+                    : $"{(criterion == ToleranceCriterion.RmsWavefront ? "RMS 波前" : "RMS 点列半径")}公差分析",
             sensitivity,
             monteCarlo,
             $"公差数：{tolerancing.Perturbations.Count}    补偿器：{tolerancing.Compensators.Count}    Monte Carlo：{monteCarlo.Length}    失效试验：{invalidTrials}    补偿迭代：{Math.Max(0, compensationIterations)}{inverseDetail}",
@@ -206,7 +207,8 @@ public partial class WorkbenchRuntime
             inverseRows,
             adjustedOperands,
             double.IsFinite(inverseTarget) ? FormatCriterion(inverseTarget) : string.Empty,
-            mtfSettings, ToFieldDtos(nominalEvaluation.Fields), fieldStatistics, ToCompensatorDtos(nominalEvaluation.Compensators));
+            mtfSettings, ToFieldDtos(nominalEvaluation.Fields), fieldStatistics, ToCompensatorDtos(nominalEvaluation.Compensators),
+            ToStageDtos(nominalEvaluation.Stages, stageObjectives));
     }
 
     private static bool HasToleranceAcceptance(bool higher, double limit, ToleranceMtfSettingsDto? settings) =>
@@ -244,7 +246,43 @@ public partial class WorkbenchRuntime
     private static IReadOnlyList<ToleranceFieldValueDto>? ToFieldDtos(IReadOnlyList<ToleranceFieldValue>? values) =>
         values?.Select(value => new ToleranceFieldValueDto(value.FieldNumber, value.Value, value.Error)).ToArray();
     private static IReadOnlyList<ToleranceCompensatorValueDto>? ToCompensatorDtos(IReadOnlyList<ToleranceCompensatorValue>? values) =>
-        values?.Select(value => new ToleranceCompensatorValueDto(value.Name, value.Nominal, value.Value, value.Minimum, value.Maximum)).ToArray();
+        values?.Select(value => new ToleranceCompensatorValueDto(value.Name, value.Nominal, value.Value, value.Minimum, value.Maximum, value.Stage)).ToArray();
+
+    private static IReadOnlyList<ToleranceStageValueDto>? ToStageDtos(IReadOnlyList<ToleranceStageValue>? stages,
+        IReadOnlyList<ToleranceStageObjectiveDto>? objectives) =>
+        stages?.Select(stage =>
+        {
+            var objective = objectives?.FirstOrDefault(item => item.Stage == stage.Stage);
+            return new ToleranceStageValueDto(stage.Stage, stage.Criterion, ToCompensatorDtos(stage.Compensators)!,
+                Objective: objective is null ? null : objective with { MeritTable = null }, Fields: ToFieldDtos(stage.Fields),
+                Error: stage.Error, MeritTableName: objective?.MeritTable?.Name);
+        }).ToArray();
+
+    internal TolerancingTrialRowDto ReplayToleranceSample(TolerancingRequestDto request, int trial, CancellationToken cancellationToken)
+    {
+        var mtf = request.Criterion == ToleranceCriterion.Mtf;
+        var settings = mtf ? request.MtfSettings ?? new() : null;
+        var operands = request.Operands?.Where(item => item.Enabled).ToArray();
+        var finalMerit = ResolveMeritDefinitions(request.MeritTable);
+        Tolerancing Build(Optic optic)
+        {
+            var study = operands is { Length: > 0 }
+                ? BuildConfiguredTolerancingWorker(optic, operands, request.Criterion, settings, request.CompensationAlgorithm, request.AdditionalCompensators, finalMerit)
+                : BuildDefaultTolerancingWorker(optic, request.SurfaceNumber, request.RadiusSigma, request.ThicknessSigma,
+                    request.CompensationIterations, request.Criterion, settings, request.CompensationAlgorithm, request.AdditionalCompensators, finalMerit);
+            ConfigureStageObjectives(study, optic, request.StageObjectives);
+            return study;
+        }
+
+        var result = new MonteCarlo(CurrentOptic, Build(CurrentOptic))
+            .ReplayDetailed(trial - 1, request.Seed, request.CompensationIterations, cancellationToken, Build);
+        var margin = HasToleranceAcceptance(mtf, request.YieldLimit, settings)
+            ? AcceptanceMargin(result, mtf, request.YieldLimit, settings) : (double?)null;
+        return new(trial, FormatCriterion(result.Criterion), FormatCriterion(result.CompensatedCriterion),
+            Fields: ToFieldDtos(result.CompensatedFields), UncompensatedFields: ToFieldDtos(result.Fields),
+            Compensators: ToCompensatorDtos(result.Compensators), Passed: margin is { } value ? value >= 0 : null,
+            AcceptanceMargin: margin, CriterionValue: result.CompensatedCriterion, Stages: ToStageDtos(result.Stages, request.StageObjectives));
+    }
 
     private static IReadOnlyList<ToleranceOperandDto> ApplyInverseResults(
         IReadOnlyList<ToleranceOperandDto> operands,
@@ -286,7 +324,23 @@ public partial class WorkbenchRuntime
             throw new InvalidOperationException("反向灵敏度返回了多余结果。");
         }
 
+        ConstrainJointIsoInverse(adjusted);
         return adjusted;
+    }
+
+    private static void ConstrainJointIsoInverse(ToleranceOperandDto[] adjusted)
+    {
+        // The independent inverse limits can reduce B below the original C.
+        foreach (var group in adjusted.Where(row => row.Enabled && row.Kind.UsesIsoStatistics()).GroupBy(row => row.SurfaceNumber))
+        {
+            if (!ToleranceSurfaceFormExtensions.TryGetIsoPair(group, out var total, out var rotational)) continue;
+            var b = total.Maximum * total.IsoMillimetersPerUnit();
+            var cScale = rotational.IsoMillimetersPerUnit();
+            if (rotational.Maximum == 0 || rotational.Maximum * cScale < b) continue;
+            var maximum = (b / cScale) * (1 - 1e-12);
+            var index = Array.IndexOf(adjusted, rotational);
+            adjusted[index] = rotational with { Minimum = -maximum, Maximum = maximum };
+        }
     }
 
     private static TolerancingInverseRow ToInverseRow(InverseSensitivityResult result) => new(

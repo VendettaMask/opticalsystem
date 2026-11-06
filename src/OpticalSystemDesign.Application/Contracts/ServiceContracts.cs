@@ -293,12 +293,15 @@ public interface IOptimizationService
 
 public interface ITolerancingService
 {
+    ToleranceMeritTableDto CaptureMeritTable(string name);
     ToleranceValidationResultDto ValidateStudy(TolerancingRequestDto request);
     IReadOnlyList<ToleranceOperandDto> GenerateWizard(ToleranceWizardSettingsDto settings);
 
     ToleranceValidationResultDto ValidateOperands(IReadOnlyList<ToleranceOperandDto> operands);
 
     Task<TolerancingResultDto> RunAsync(TolerancingRequestDto request, CancellationToken cancellationToken = default);
+    Task SaveSampleAsync(ToleranceSampleDto sample, string path, CancellationToken cancellationToken = default);
+    Task<ToleranceSampleReplayDto> ReplaySampleAsync(string path, CancellationToken cancellationToken = default);
 }
 
 public interface IMultiConfigurationService

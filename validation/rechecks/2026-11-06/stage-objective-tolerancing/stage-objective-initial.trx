@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="9b0f0ee8-0b52-4678-8265-1f7da9eb4237" name="optics@LAPTOP-G4BBBCS0 2026-11-06 11:08:28" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-06T11:08:28.8932954+08:00" queuing="2026-11-06T11:08:28.8932956+08:00" start="2026-11-06T11:08:23.7006212+08:00" finish="2026-11-06T11:08:45.3305939+08:00" />
+  <TestSettings name="default" id="a4ee49b4-d48c-4135-9614-4d2864bddd32">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-06_11_08_28" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="270c250b-8d0d-42c0-a8fa-5c149cb8e16a" testId="e1967367-72ee-359f-c992-116d809ee34b" testName="OpticalSystemDesign.Tests.StagedTolerancingTests.CookeSwitchesFromRmsToMtfAndReplaysTheSameStages(joint: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.9183054" startTime="2026-11-06T11:08:27.4508082+08:00" endTime="2026-11-06T11:08:33.3629305+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="270c250b-8d0d-42c0-a8fa-5c149cb8e16a" />
+    <UnitTestResult executionId="3063c78c-c1d1-4afc-8c59-2c97e1b599ea" testId="8bdd6456-56f3-51d7-3da2-3f15517d1c87" testName="OpticalSystemDesign.Tests.StagedTolerancingTests.StageObjectivesChangeTheOptimizedResidualsAndLeaveFinalCriterionIndependent" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0018721" startTime="2026-11-06T11:08:27.4500196+08:00" endTime="2026-11-06T11:08:27.4501072+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3063c78c-c1d1-4afc-8c59-2c97e1b599ea" />
+    <UnitTestResult executionId="6920fec9-d249-4e1b-bc61-729d0c895d9c" testId="afe46894-f25c-7b9b-07c7-7f33c3e0ac56" testName="OpticalSystemDesign.Tests.StagedTolerancingTests.EachStageOptimizesOnlyItsOwnVariablesAndKeepsEarlierAdjustment" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0844206" startTime="2026-11-06T11:08:27.3724279+08:00" endTime="2026-11-06T11:08:27.4396482+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6920fec9-d249-4e1b-bc61-729d0c895d9c" />
+    <UnitTestResult executionId="8c8f2e14-eec9-4118-bfd0-a364ebc0222a" testId="494f29b4-82b3-a0bf-4d4b-fc9c5b9b3c94" testName="OpticalSystemDesign.Tests.StagedTolerancingTests.CookeSwitchesFromRmsToMtfAndReplaysTheSameStages(joint: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.5313532" startTime="2026-11-06T11:08:33.3648182+08:00" endTime="2026-11-06T11:08:37.8953936+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c8f2e14-eec9-4118-bfd0-a364ebc0222a" />
+    <UnitTestResult executionId="04f784b4-e93e-4326-9fe8-74ca5cdb72b5" testId="d774f535-b447-884c-18e4-4c530c8b9816" testName="OpticalSystemDesign.Tests.StagedTolerancingTests.WorstJointIsoSampleReplaysFromFileWithEarlierStagesLocked" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.2689644" startTime="2026-11-06T11:08:37.8965095+08:00" endTime="2026-11-06T11:08:40.1654977+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04f784b4-e93e-4326-9fe8-74ca5cdb72b5" />
+    <UnitTestResult executionId="4748e386-21ba-4f9a-aeb3-edf2126d7ca0" testId="6ed589e5-c36c-67c8-560b-17819ad6ef3f" testName="OpticalSystemDesign.Tests.MtfTolerancingPanelTests.StageObjectivesStayEditableAndRoundTripVersionEight" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.0438710" startTime="2026-11-06T11:08:40.1700647+08:00" endTime="2026-11-06T11:08:45.2140070+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4748e386-21ba-4f9a-aeb3-edf2126d7ca0" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.StagedTolerancingTests.WorstJointIsoSampleReplaysFromFileWithEarlierStagesLocked" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d774f535-b447-884c-18e4-4c530c8b9816">
+      <Execution id="04f784b4-e93e-4326-9fe8-74ca5cdb72b5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.StagedTolerancingTests" name="WorstJointIsoSampleReplaysFromFileWithEarlierStagesLocked" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.StagedTolerancingTests.CookeSwitchesFromRmsToMtfAndReplaysTheSameStages(joint: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e1967367-72ee-359f-c992-116d809ee34b">
+      <Execution id="270c250b-8d0d-42c0-a8fa-5c149cb8e16a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.StagedTolerancingTests" name="CookeSwitchesFromRmsToMtfAndReplaysTheSameStages" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.StagedTolerancingTests.StageObjectivesChangeTheOptimizedResidualsAndLeaveFinalCriterionIndependent" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8bdd6456-56f3-51d7-3da2-3f15517d1c87">
+      <Execution id="3063c78c-c1d1-4afc-8c59-2c97e1b599ea" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.StagedTolerancingTests" name="StageObjectivesChangeTheOptimizedResidualsAndLeaveFinalCriterionIndependent" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.StagedTolerancingTests.EachStageOptimizesOnlyItsOwnVariablesAndKeepsEarlierAdjustment" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="afe46894-f25c-7b9b-07c7-7f33c3e0ac56">
+      <Execution id="6920fec9-d249-4e1b-bc61-729d0c895d9c" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.StagedTolerancingTests" name="EachStageOptimizesOnlyItsOwnVariablesAndKeepsEarlierAdjustment" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MtfTolerancingPanelTests.StageObjectivesStayEditableAndRoundTripVersionEight" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6ed589e5-c36c-67c8-560b-17819ad6ef3f">
+      <Execution id="4748e386-21ba-4f9a-aeb3-edf2126d7ca0" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MtfTolerancingPanelTests" name="StageObjectivesStayEditableAndRoundTripVersionEight" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.StagedTolerancingTests.CookeSwitchesFromRmsToMtfAndReplaysTheSameStages(joint: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="494f29b4-82b3-a0bf-4d4b-fc9c5b9b3c94">
+      <Execution id="8c8f2e14-eec9-4118-bfd0-a364ebc0222a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.StagedTolerancingTests" name="CookeSwitchesFromRmsToMtfAndReplaysTheSameStages" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="e1967367-72ee-359f-c992-116d809ee34b" executionId="270c250b-8d0d-42c0-a8fa-5c149cb8e16a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8bdd6456-56f3-51d7-3da2-3f15517d1c87" executionId="3063c78c-c1d1-4afc-8c59-2c97e1b599ea" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="afe46894-f25c-7b9b-07c7-7f33c3e0ac56" executionId="6920fec9-d249-4e1b-bc61-729d0c895d9c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="494f29b4-82b3-a0bf-4d4b-fc9c5b9b3c94" executionId="8c8f2e14-eec9-4118-bfd0-a364ebc0222a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d774f535-b447-884c-18e4-4c530c8b9816" executionId="04f784b4-e93e-4326-9fe8-74ca5cdb72b5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ed589e5-c36c-67c8-560b-17819ad6ef3f" executionId="4748e386-21ba-4f9a-aeb3-edf2126d7ca0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="6" executed="6" passed="6" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.47]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.10]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.13]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:21.03]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

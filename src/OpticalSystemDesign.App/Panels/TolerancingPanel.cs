@@ -39,8 +39,6 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
     private readonly HashSet<ToleranceOperandEditorRow> _trackedOperands = new();
     private readonly DataGrid _operandGrid = CreateGrid();
     private readonly OperandRowAppearance _rowAppearance;
-    private readonly DataGrid _sensitivityGrid = CreateGrid();
-    private readonly DataGrid _monteCarloGrid = CreateGrid();
     private readonly ComboBox _kindPicker = new() { MinWidth = 180 };
     private readonly ComboBox _surfacePicker = new() { MinWidth = 180 };
     private readonly ComboBox _endSurfacePicker = new() { MinWidth = 180 };
@@ -66,16 +64,22 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
     private readonly NumericUpDown _minimum = Number(-0.1m, -1_000_000, 1_000_000, 0.01m, 150);
     private readonly NumericUpDown _maximum = Number(0.1m, -1_000_000, 1_000_000, 0.01m, 150);
     private readonly TextBox _comment = new() { MinWidth = 180 };
-    private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前", "指定频率 MTF");
+    private readonly ComboBox _criterion = Picker(0, "RMS 点列半径", "RMS 波前", "指定频率 MTF", "系统评价函数");
     private readonly NumericUpDown _trials = Number(20, 0, 10_000, 20, 96);
     private readonly NumericUpDown _seed = Number(1234, 0, 2_000_000_000, 1, 104);
     private readonly NumericUpDown _compensationIterations = Number(3, 0, 500, 1, 96);
     private readonly NumericUpDown _yieldLimit = Number(0, 0, 1_000_000, 0.01m, 110);
     private readonly TextBlock _summary = new() { TextWrapping = TextWrapping.Wrap };
     private readonly OperationStatusBar _operationStatus = new();
-    private readonly TextBlock _statistics = new() { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(12) };
     private CancellationTokenSource? _runCancellation;
     private TolerancingResultDto? _lastResult;
+
+    internal event EventHandler? ResultPresentationChanged;
+    internal TolerancingResultDto? CurrentResult =>
+        _lastResult is { } result && result.SourceRevision == _events.Revision ? result : null;
+    internal ToleranceCriterion ResultCriterion { get; private set; }
+    private double _resultYieldLimit;
+    internal string ResultMessage => _summary.Text ?? "";
     private ToleranceOperandEditorRow? _selectedOperandForEditor;
     private ToleranceAnalysisMode _analysisMode = ToleranceAnalysisMode.Sensitivity;
     private ToleranceDistribution? _distributionOverride;
@@ -85,6 +89,10 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
     private double _inverseValue = 0.05;
     private ToleranceMtfSettingsDto _mtfSettings = new();
     private ToleranceCompensationAlgorithm _compensationAlgorithm;
+    private readonly IMultiConfigurationService? _multiConfiguration;
+    private ToleranceConfigurationSettingsDto? _configurationSettings;
+    private IReadOnlyList<ToleranceStageObjectiveDto>? _stageObjectives;
+    private ToleranceMeritTableDto? _meritTable;
     private IReadOnlyList<ToleranceCompensatorDto> _additionalCompensators = Array.Empty<ToleranceCompensatorDto>();
     private int _generation;
     private string? _currentTolerancePath;
@@ -97,12 +105,13 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         IOpticalDocumentService documents,
         IPrescriptionService prescription,
         ITolerancingService tolerancing,
-        IWorkspaceEventStream events)
+        IWorkspaceEventStream events, IMultiConfigurationService? multiConfiguration = null)
     {
         _documents = documents;
         _prescription = prescription;
         _tolerancing = tolerancing;
         _events = events;
+        _multiConfiguration = multiConfiguration;
         _operands.CollectionChanged += OnOperandsCollectionChanged;
         _rowAppearance = new(_operandGrid);
         ConfigureGrids();
@@ -120,8 +129,12 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         saveButton.Click += async (_, _) => await SaveToleranceFileAsync();
         var loadButton = CommandButton("file-open", "载入公差");
         loadButton.Click += async (_, _) => await LoadToleranceFileAsync();
+        var scriptButton = CommandButton("file-open", "导入 TSC");
+        scriptButton.Click += async (_, _) => await ImportToleranceScriptAsync();
         var exportButton = CommandButton("file-export-report", "导出报告");
         exportButton.Click += async (_, _) => await ExportReportAsync();
+        _saveWorstSample.IsEnabled = false;
+        _saveWorstSample.Click += async (_, _) => await SaveWorstSampleAsync();
         var toolbar = new WrapPanel
         {
             Orientation = Orientation.Horizontal,
@@ -129,7 +142,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
             Children =
             {
                 wizardButton, addButton, removeButton, validateButton,
-                saveButton, loadButton, exportButton, _operationStatus
+                saveButton, loadButton, scriptButton, exportButton, _saveWorstSample, CreateOpenSampleButton(), _operationStatus
             }
         };
 
@@ -218,16 +231,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         _operandGrid.SelectionChanged += (_, _) => LoadSelectedOperand();
         _operandGrid.ItemsSource = _operands;
 
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "公差操作数", Binding = new Binding(nameof(TolerancingSensitivityRowDto.Perturbation)), Width = new DataGridLength(1, DataGridLengthUnitType.Star) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "负极限评价值", Binding = new Binding(nameof(TolerancingSensitivityRowDto.NegativeMerit)), Width = Pixels(140) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "正极限评价值", Binding = new Binding(nameof(TolerancingSensitivityRowDto.PositiveMerit)), Width = Pixels(140) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "最坏评价值", Binding = new Binding(nameof(TolerancingSensitivityRowDto.WorstMerit)), Width = Pixels(130) });
-        _sensitivityGrid.Columns.Add(new DataGridTextColumn { Header = "评价值变化", Binding = new Binding(nameof(TolerancingSensitivityRowDto.DeltaMerit)), Width = Pixels(130) });
 
-        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "试验", Binding = new Binding(nameof(TolerancingTrialRowDto.Trial)), Width = Pixels(72) });
-        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿前评价值", Binding = new Binding(nameof(TolerancingTrialRowDto.Merit)), Width = Pixels(150) });
-        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "补偿后评价值", Binding = new Binding(nameof(TolerancingTrialRowDto.CompensatedMerit)), Width = Pixels(150) });
-        _monteCarloGrid.Columns.Add(new DataGridTextColumn { Header = "相对名义变化", Binding = new Binding(nameof(TolerancingTrialRowDto.Degradation)), Width = Pixels(140) });
     }
 
     private void ConfigureEditor()
@@ -623,7 +627,10 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
 
     private bool Validate(bool showSuccess)
     {
-        var result = _tolerancing.ValidateOperands(_operands.Select(row => row.ToDto()).ToArray());
+        var rows = _operands.Select(row => row.ToDto()).ToArray();
+        var result = _configurationSettings is { Scope: not ToleranceConfigurationScope.Current } || _stageObjectives is { Count: > 0 }
+            || (ToleranceCriterion)_criterion.SelectedIndex == ToleranceCriterion.SystemMerit
+            ? _tolerancing.ValidateStudy(CreateRequest(CurrentRunOptions(), rows)) : _tolerancing.ValidateOperands(rows);
         if (!result.IsValid)
         {
             _operationStatus.MarkFailed("公差数据验证失败");
@@ -643,8 +650,10 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
 
     public async Task<bool> ShowAnalysisDialogAsync(Window owner)
     {
-        var options = await new TolerancingRunWindow(CurrentRunOptions(), _prescription.GetFields(), _prescription.GetSurfaces(), _prescription.GetWavelengths())
-            .ShowDialog<TolerancingRunOptions?>(owner);
+        var window = new TolerancingRunWindow(CurrentRunOptions(), _prescription.GetFields(),
+            _prescription.GetSurfaces(), _prescription.GetWavelengths(), _multiConfiguration?.GetRows(),
+            _multiConfiguration?.GetOperandRows(), _tolerancing.CaptureMeritTable);
+        var options = await window.ShowDialog<TolerancingRunOptions?>(owner);
         if (options is null)
         {
             return false;
@@ -664,8 +673,11 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         _mtfSettings = options.MtfSettings ?? new();
         _compensationAlgorithm = options.CompensationAlgorithm;
         _additionalCompensators = options.AdditionalCompensators ?? Array.Empty<ToleranceCompensatorDto>();
+        _configurationSettings = options.ConfigurationSettings;
+        _stageObjectives = options.StageObjectives;
+        _meritTable = options.MeritTable;
         MarkDirty();
-        return await RunAsync(options);
+        return !window.ApplyOnly && await RunAsync(options);
     }
 
     private TolerancingRunOptions CurrentRunOptions() => new(
@@ -679,12 +691,19 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         _distributionOverride,
         _worstSensitivityCount,
         _showMonteCarloTrials,
-        _inverseValue, _mtfSettings, _compensationAlgorithm, _additionalCompensators);
+        _inverseValue, _mtfSettings, _compensationAlgorithm, _additionalCompensators, _configurationSettings, _stageObjectives, _meritTable);
 
-    private async Task<bool> RunAsync(TolerancingRunOptions options)
+    private static TolerancingRequestDto CreateRequest(TolerancingRunOptions options, IReadOnlyList<ToleranceOperandDto> rows) => new(
+        rows.FirstOrDefault(row => row.Enabled)?.SurfaceNumber ?? 1, 0, 0,
+        options.MonteCarloRuns, options.Seed, options.CompensationIterations, rows,
+        options.Criterion, options.YieldLimit, options.MaxDegreeOfParallelism, options.Mode,
+        options.InverseValue, options.MtfSettings, options.CompensationAlgorithm, options.AdditionalCompensators,
+        options.ConfigurationSettings, options.StageObjectives, options.MeritTable);
+
+    internal async Task<bool> RunAsync(TolerancingRunOptions options)
     {
         ApplySelectedOperand();
-        if (!Validate(showSuccess: false))
+        if (options.ConfigurationSettings is null && !Validate(showSuccess: false))
         {
             throw new InvalidOperationException(_summary.Text ?? "公差数据验证失败。");
         }
@@ -708,6 +727,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
             : options.MonteCarloRuns == 0
                 ? "正在运行灵敏度公差分析…"
                 : "正在运行灵敏度和 Monte Carlo 公差分析…";
+        ResultPresentationChanged?.Invoke(this, EventArgs.Empty);
         try
         {
             var rows = _operands.Select(row => row.ToDto()).ToArray();
@@ -718,20 +738,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                     : row with { Distribution = distribution }).ToArray();
             }
 
-            var firstSurface = rows.FirstOrDefault(row => row.Enabled)?.SurfaceNumber ?? 1;
-            var result = await _tolerancing.RunAsync(new TolerancingRequestDto(
-                firstSurface,
-                0,
-                0,
-                options.MonteCarloRuns,
-                options.Seed,
-                options.CompensationIterations,
-                rows,
-                options.Criterion,
-                options.YieldLimit,
-                options.MaxDegreeOfParallelism,
-                options.Mode,
-                options.InverseValue, options.MtfSettings, options.CompensationAlgorithm, options.AdditionalCompensators), cancellationToken);
+            var result = await _tolerancing.RunAsync(CreateRequest(options, rows), cancellationToken);
             if (_disposed || cancellationToken.IsCancellationRequested || generation != _generation)
             {
                 return false;
@@ -761,6 +768,8 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                 }
 
                 ApplyInverseOperands(result.AdjustedOperands);
+                if (_configurationSettings is not null && result.AdjustedMceRows is { } mce)
+                    _configurationSettings = _configurationSettings with { MceRows = mce };
             }
 
             if (options.MonteCarloRuns > 0 && result.TrialRows.Count == 0)
@@ -771,12 +780,13 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                         : result.Details);
             }
 
-            _sensitivityGrid.ItemsSource = result.SensitivityRows;
-            _monteCarloGrid.ItemsSource = result.TrialRows;
-            _statistics.Text = FormatStatistics(result.Statistics);
             _summary.Text = $"{result.Summary}    {result.Details}";
             _operationStatus.MarkSynced("公差分析完成");
             _lastResult = result;
+            ResultCriterion = options.Criterion;
+            _resultYieldLimit = options.YieldLimit;
+            _saveWorstSample.IsEnabled = result.WorstSample is not null;
+            ResultPresentationChanged?.Invoke(this, EventArgs.Empty);
             return true;
         }
         catch (OperationCanceledException)
@@ -784,6 +794,8 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
             if (!_disposed && generation == _generation)
             {
                 _operationStatus.MarkStale("公差分析已取消");
+                _summary.Text = "公差分析已取消。";
+                ResultPresentationChanged?.Invoke(this, EventArgs.Empty);
             }
 
             return false;
@@ -794,6 +806,7 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
             {
                 _operationStatus.MarkFailed($"公差分析失败：{exception.Message}");
                 _summary.Text = $"公差分析失败：{exception.Message}";
+                ResultPresentationChanged?.Invoke(this, EventArgs.Empty);
             }
 
             throw;
@@ -870,6 +883,9 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
             _mtfSettings = new();
             _compensationAlgorithm = ToleranceCompensationAlgorithm.DampedLeastSquares;
             _additionalCompensators = Array.Empty<ToleranceCompensatorDto>();
+            _configurationSettings = null;
+            _stageObjectives = null;
+            _meritTable = null;
             _analysisMode = ToleranceAnalysisMode.Sensitivity;
             _inverseValue = 0.05;
             _distributionOverride = null;
@@ -891,11 +907,10 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         }
 
         _lastResult = null;
-        _sensitivityGrid.ItemsSource = Array.Empty<TolerancingSensitivityRowDto>();
-        _monteCarloGrid.ItemsSource = Array.Empty<TolerancingTrialRowDto>();
-        _statistics.Text = "尚未运行公差分析。";
+        _saveWorstSample.IsEnabled = false;
         _summary.Text = message;
         _operationStatus.MarkStale("结果已过期，请重新运行");
+        ResultPresentationChanged?.Invoke(this, EventArgs.Empty);
     }
 
     private async Task<bool> SaveToleranceFileAsync(TopLevel? owner = null)
@@ -1025,6 +1040,9 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                 _mtfSettings = document.MtfSettings ?? new();
                 _compensationAlgorithm = document.CompensationAlgorithm;
                 _additionalCompensators = document.AdditionalCompensators ?? Array.Empty<ToleranceCompensatorDto>();
+                _configurationSettings = document.ConfigurationSettings;
+                _stageObjectives = document.StageObjectives;
+                _meritTable = document.MeritTable;
                 _operandGrid.SelectedItem = _operands.FirstOrDefault();
                 _currentTolerancePath = Path.GetFullPath(files[0].Path.LocalPath);
                 _hasUnsavedChanges = false;
@@ -1180,6 +1198,15 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         }
 
         builder.AppendLine();
+        var jointSurfaces = enabled.GroupBy(row => row.SurfaceNumber)
+            .Where(group => group.Any(row => row.Kind == ToleranceOperandKind.IsoIrregularityPv)
+                && group.Any(row => row.Kind == ToleranceOperandKind.IsoRotationalIrregularityPv))
+            .Select(group => group.Key).ToArray();
+        if (jointSurfaces.Length > 0)
+        {
+            builder.AppendLine($"ISOB + ISOC 联合标定表面：{string.Join(", ", jointSurfaces)}");
+            builder.AppendLine();
+        }
         builder.AppendLine("公差分析结果:");
         builder.AppendLine();
         if (_lastResult is null)
@@ -1221,6 +1248,8 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                     row.Maximum.AdjustedTolerance,
                     InverseStatusText(row.Minimum.Status),
                     InverseStatusText(row.Maximum.Status)));
+                AppendLimitingConfiguration(builder, "负端", row.Minimum);
+                AppendLimitingConfiguration(builder, "正端", row.Maximum);
             }
 
             builder.AppendLine();
@@ -1266,6 +1295,10 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                 AppendFields(builder, "正极限", row.PositiveFields);
                 AppendCompensators(builder, "负极限", row.NegativeCompensators);
                 AppendCompensators(builder, "正极限", row.PositiveCompensators);
+                AppendConfigurations(builder, "负极限", row.NegativeConfigurations);
+                AppendConfigurations(builder, "正极限", row.PositiveConfigurations);
+                AppendStages(builder, row.NegativeStages, "负极限");
+                AppendStages(builder, row.PositiveStages, "正极限");
             }
 
             builder.AppendLine();
@@ -1291,6 +1324,9 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
                 AppendFields(builder, "补偿前", row.UncompensatedFields);
                 AppendFields(builder, "补偿后", row.Fields);
                 AppendCompensators(builder, "试验", row.Compensators);
+                AppendStages(builder, row.Stages);
+                AppendConfigurations(builder, "补偿前", row.UncompensatedConfigurations);
+                AppendConfigurations(builder, "补偿后", row.Configurations);
             }
         }
 
@@ -1317,16 +1353,9 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         _ => operand.SurfaceNumber.ToString(CultureInfo.InvariantCulture)
     };
 
-    internal ToleranceChartView BuildHistogramChartView() =>
-        ToleranceChartBuilder.Histogram(
-            _lastResult,
-            (ToleranceCriterion)_criterion.SelectedIndex);
+    internal ToleranceChartView BuildHistogramChartView() => ToleranceChartBuilder.Histogram(CurrentResult, ResultCriterion);
 
-    internal ToleranceChartView BuildYieldChartView() =>
-        ToleranceChartBuilder.Yield(
-            _lastResult,
-            (ToleranceCriterion)_criterion.SelectedIndex,
-            DoubleValue(_yieldLimit, 0));
+    internal ToleranceChartView BuildYieldChartView() => ToleranceChartBuilder.Yield(CurrentResult, ResultCriterion, _resultYieldLimit);
 
     private static ToleranceOperandDto? FindOperand(
         IReadOnlyList<ToleranceOperandDto> operands,

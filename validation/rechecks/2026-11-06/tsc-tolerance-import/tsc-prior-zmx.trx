@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="7dbae066-756d-4a0c-b80c-03ac0506fb9a" name="optics@LAPTOP-G4BBBCS0 2026-11-06 13:52:59" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-06T13:52:59.1683649+08:00" queuing="2026-11-06T13:52:59.1683652+08:00" start="2026-11-06T13:52:56.5415890+08:00" finish="2026-11-06T13:52:59.1765487+08:00" />
+  <TestSettings name="default" id="c7c770ca-4001-4281-9835-823f9cbc6c7b">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-06_13_52_59" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5f72f106-fee5-4b5b-b2fa-ca38e602e445" testId="7584e431-64d4-eff0-96dc-81caa1344944" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;GRID_SAG&quot;, value: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0015048" startTime="2026-11-06T13:52:59.0872412+08:00" endTime="2026-11-06T13:52:59.0872966+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5f72f106-fee5-4b5b-b2fa-ca38e602e445" />
+    <UnitTestResult executionId="e08067e8-d568-46a2-b788-8054f46f769a" testId="68dfd061-3fd1-ca1c-9177-4d6e6c5ee765" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;BINARY_2&quot;, value: 1)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0068612" startTime="2026-11-06T13:52:59.0771463+08:00" endTime="2026-11-06T13:52:59.0815876+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e08067e8-d568-46a2-b788-8054f46f769a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.IsType() Failure: Value is not the exact type&#xD;
+Expected: typeof(OpticalSystemDesign.Core.Geometries.OpaqueGeometryPayload)&#xD;
+Actual:   typeof(OpticalSystemDesign.Core.Geometries.EvenAsphereGeometry)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(String type, Double value) in C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\ZemaxImportParameterAndSurfaceMappingTests.cs:line 32&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="18600e72-9d55-47d8-a527-5aa56e982581" testId="a8e8a2f2-ae79-7cf4-0a78-f4856a2e7b34" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;USERSURF&quot;, value: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0010471" startTime="2026-11-06T13:52:59.0885533+08:00" endTime="2026-11-06T13:52:59.0885917+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="18600e72-9d55-47d8-a527-5aa56e982581" />
+    <UnitTestResult executionId="93535226-0a08-4d1a-bc91-d174afca9e39" testId="c3b0c5a4-7673-6e59-3dfc-bb254ac2b6a7" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;BIRE__IN&quot;, value: 15)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0015619" startTime="2026-11-06T13:52:59.0881773+08:00" endTime="2026-11-06T13:52:59.0882175+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="93535226-0a08-4d1a-bc91-d174afca9e39">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 15&#xD;
+Actual:   150</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(String type, Double value) in C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\ZemaxImportParameterAndSurfaceMappingTests.cs:line 33&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="310761c7-f80c-45ab-be69-c3c9d28c7384" testId="2156d8b3-33a3-c8fc-a325-644472994ae6" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;FZERNSAG&quot;, value: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0016162" startTime="2026-11-06T13:52:59.0875666+08:00" endTime="2026-11-06T13:52:59.0876658+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="310761c7-f80c-45ab-be69-c3c9d28c7384">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.IsType() Failure: Value is not the exact type&#xD;
+Expected: typeof(OpticalSystemDesign.Core.Geometries.OpaqueGeometryPayload)&#xD;
+Actual:   typeof(OpticalSystemDesign.Core.Geometries.FringeSagGeometry)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(String type, Double value) in C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\ZemaxImportParameterAndSurfaceMappingTests.cs:line 32&#xD;
+   at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(Object, Span`1)&#xD;
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0ded4343-c991-4d34-91a0-ab98fc4772f3" testId="dadc826b-5ba8-b031-1019-31db1d7c6f69" testName="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;NONSEQCO&quot;, value: 0)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.0470884" startTime="2026-11-06T13:52:58.0126249+08:00" endTime="2026-11-06T13:52:59.0674840+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0ded4343-c991-4d34-91a0-ab98fc4772f3" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;BIRE__IN&quot;, value: 15)" storage="c:\users\19851\appdata\local\temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\release\net10.0\baselinetests.dll" id="c3b0c5a4-7673-6e59-3dfc-bb254ac2b6a7">
+      <Execution id="93535226-0a08-4d1a-bc91-d174afca9e39" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\Release\net10.0\BaselineTests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;USERSURF&quot;, value: 0)" storage="c:\users\19851\appdata\local\temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\release\net10.0\baselinetests.dll" id="a8e8a2f2-ae79-7cf4-0a78-f4856a2e7b34">
+      <Execution id="18600e72-9d55-47d8-a527-5aa56e982581" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\Release\net10.0\BaselineTests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;BINARY_2&quot;, value: 1)" storage="c:\users\19851\appdata\local\temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\release\net10.0\baselinetests.dll" id="68dfd061-3fd1-ca1c-9177-4d6e6c5ee765">
+      <Execution id="e08067e8-d568-46a2-b788-8054f46f769a" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\Release\net10.0\BaselineTests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;NONSEQCO&quot;, value: 0)" storage="c:\users\19851\appdata\local\temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\release\net10.0\baselinetests.dll" id="dadc826b-5ba8-b031-1019-31db1d7c6f69">
+      <Execution id="0ded4343-c991-4d34-91a0-ab98fc4772f3" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\Release\net10.0\BaselineTests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;GRID_SAG&quot;, value: 0)" storage="c:\users\19851\appdata\local\temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\release\net10.0\baselinetests.dll" id="7584e431-64d4-eff0-96dc-81caa1344944">
+      <Execution id="5f72f106-fee5-4b5b-b2fa-ca38e602e445" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\Release\net10.0\BaselineTests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: &quot;FZERNSAG&quot;, value: 0)" storage="c:\users\19851\appdata\local\temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\release\net10.0\baselinetests.dll" id="2156d8b3-33a3-c8fc-a325-644472994ae6">
+      <Execution id="310761c7-f80c-45ab-be69-c3c9d28c7384" />
+      <TestMethod codeBase="C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\bin\Release\net10.0\BaselineTests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests" name="SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="7584e431-64d4-eff0-96dc-81caa1344944" executionId="5f72f106-fee5-4b5b-b2fa-ca38e602e445" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="68dfd061-3fd1-ca1c-9177-4d6e6c5ee765" executionId="e08067e8-d568-46a2-b788-8054f46f769a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a8e8a2f2-ae79-7cf4-0a78-f4856a2e7b34" executionId="18600e72-9d55-47d8-a527-5aa56e982581" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c3b0c5a4-7673-6e59-3dfc-bb254ac2b6a7" executionId="93535226-0a08-4d1a-bc91-d174afca9e39" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2156d8b3-33a3-c8fc-a325-644472994ae6" executionId="310761c7-f80c-45ab-be69-c3c9d28c7384" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dadc826b-5ba8-b031-1019-31db1d7c6f69" executionId="0ded4343-c991-4d34-91a0-ab98fc4772f3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="6" executed="6" passed="3" failed="3" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.43]   Discovering: BaselineTests&#xD;
+[xUnit.net 00:00:00.49]   Discovered:  BaselineTests&#xD;
+[xUnit.net 00:00:00.52]   Starting:    BaselineTests&#xD;
+[xUnit.net 00:00:01.62]       Assert.IsType() Failure: Value is not the exact type&#xD;
+[xUnit.net 00:00:01.62]       Expected: typeof(OpticalSystemDesign.Core.Geometries.OpaqueGeometryPayload)&#xD;
+[xUnit.net 00:00:01.62]       Actual:   typeof(OpticalSystemDesign.Core.Geometries.EvenAsphereGeometry)&#xD;
+[xUnit.net 00:00:01.62]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.62]         C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\ZemaxImportParameterAndSurfaceMappingTests.cs(32,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(String type, Double value)&#xD;
+[xUnit.net 00:00:01.62]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.62]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.62]       Assert.IsType() Failure: Value is not the exact type&#xD;
+[xUnit.net 00:00:01.62]       Expected: typeof(OpticalSystemDesign.Core.Geometries.OpaqueGeometryPayload)&#xD;
+[xUnit.net 00:00:01.62]       Actual:   typeof(OpticalSystemDesign.Core.Geometries.FringeSagGeometry)&#xD;
+[xUnit.net 00:00:01.62]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.62]         C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\ZemaxImportParameterAndSurfaceMappingTests.cs(32,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(String type, Double value)&#xD;
+[xUnit.net 00:00:01.62]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.62]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.62]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:01.62]       Expected: 15&#xD;
+[xUnit.net 00:00:01.62]       Actual:   150&#xD;
+[xUnit.net 00:00:01.62]       Stack Trace:&#xD;
+[xUnit.net 00:00:01.62]         C:\Users\19851\AppData\Local\Temp\tsc-zmx-baseline-de76813c56654c71b844c42f3feeaca1\ZemaxImportParameterAndSurfaceMappingTests.cs(33,0): at OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(String type, Double value)&#xD;
+[xUnit.net 00:00:01.62]            at InvokeStub_ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(Object, Span`1)&#xD;
+[xUnit.net 00:00:01.62]            at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)&#xD;
+[xUnit.net 00:00:01.63]   Finished:    BaselineTests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-06T13:52:59.0839687+08:00">
+        <Text>[xUnit.net 00:00:01.62]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: "BINARY_2", value: 1) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-06T13:52:59.0879498+08:00">
+        <Text>[xUnit.net 00:00:01.62]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: "FZERNSAG", value: 0) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-06T13:52:59.0883653+08:00">
+        <Text>[xUnit.net 00:00:01.62]     OpticalSystemDesign.Tests.ZemaxImportParameterAndSurfaceMappingTests.SpecialSurfaceParameterZeroSurvivesSnapshotWithoutShiftingOtherParameters(type: "BIRE__IN", value: 15) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

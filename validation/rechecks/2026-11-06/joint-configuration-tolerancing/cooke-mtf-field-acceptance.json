@@ -1,0 +1,147 @@
+{
+  "ConfigurationSettings": {
+    "Scope": 2,
+    "Configurations": null,
+    "Limits": [
+      {
+        "Configuration": 1,
+        "Limit": 1E-06,
+        "FieldLimits": null
+      },
+      {
+        "Configuration": 2,
+        "Limit": 1E-06,
+        "FieldLimits": [
+          {
+            "FieldNumber": 2,
+            "Minimum": 1
+          }
+        ]
+      }
+    ],
+    "MceRows": null
+  },
+  "TrialRows": [
+    {
+      "Trial": 1,
+      "Merit": "0.370316446277",
+      "CompensatedMerit": "0.370316446277",
+      "Degradation": "6.2832095387E-05",
+      "Fields": null,
+      "UncompensatedFields": null,
+      "Compensators": null,
+      "Passed": false,
+      "AcceptanceMargin": -0.8317410811629408,
+      "CriterionValue": 0.3703164462768198,
+      "Stages": null,
+      "Configurations": [
+        {
+          "Configuration": 1,
+          "Criterion": 0.3703164462768198,
+          "Fields": [
+            {
+              "FieldNumber": 1,
+              "Value": 0.7071203370453434,
+              "Error": ""
+            },
+            {
+              "FieldNumber": 2,
+              "Value": 0.1682589188370592,
+              "Error": ""
+            },
+            {
+              "FieldNumber": 3,
+              "Value": 0.2355700829480567,
+              "Error": ""
+            }
+          ],
+          "Compensators": [],
+          "Passed": true,
+          "AcceptanceMargin": 0.1682579188370592,
+          "LimitingField": 2,
+          "Error": ""
+        },
+        {
+          "Configuration": 2,
+          "Criterion": 0.3703164462768198,
+          "Fields": [
+            {
+              "FieldNumber": 1,
+              "Value": 0.7071203370453434,
+              "Error": ""
+            },
+            {
+              "FieldNumber": 2,
+              "Value": 0.1682589188370592,
+              "Error": ""
+            },
+            {
+              "FieldNumber": 3,
+              "Value": 0.2355700829480567,
+              "Error": ""
+            }
+          ],
+          "Compensators": [],
+          "Passed": false,
+          "AcceptanceMargin": -0.8317410811629408,
+          "LimitingField": 2,
+          "Error": ""
+        }
+      ],
+      "UncompensatedConfigurations": [
+        {
+          "Configuration": 1,
+          "Criterion": 0.3703164462768198,
+          "Fields": [
+            {
+              "FieldNumber": 1,
+              "Value": 0.7071203370453434,
+              "Error": ""
+            },
+            {
+              "FieldNumber": 2,
+              "Value": 0.1682589188370592,
+              "Error": ""
+            },
+            {
+              "FieldNumber": 3,
+              "Value": 0.2355700829480567,
+              "Error": ""
+            }
+          ],
+          "Compensators": [],
+          "Passed": true,
+          "AcceptanceMargin": 0.1682579188370592,
+          "LimitingField": 2,
+          "Error": ""
+        },
+        {
+          "Configuration": 2,
+          "Criterion": 0.3703164462768198,
+          "Fields": [
+            {
+              "FieldNumber": 1,
+              "Value": 0.7071203370453434,
+              "Error": ""
+            },
+            {
+              "FieldNumber": 2,
+              "Value": 0.1682589188370592,
+              "Error": ""
+            },
+            {
+              "FieldNumber": 3,
+              "Value": 0.2355700829480567,
+              "Error": ""
+            }
+          ],
+          "Compensators": [],
+          "Passed": false,
+          "AcceptanceMargin": -0.8317410811629408,
+          "LimitingField": 2,
+          "Error": ""
+        }
+      ]
+    }
+  ]
+}

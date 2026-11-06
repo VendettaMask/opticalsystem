@@ -654,6 +654,12 @@
     "Japanese": "MECS / MECT（Moore-Elliott コントラスト）"
   },
   {
+    "Source": "MTF {0} cycles/mm",
+    "Chinese": "MTF {0} cycles/mm",
+    "English": "MTF {0} cycles/mm",
+    "Japanese": "MTF {0} cycles/mm"
+  },
+  {
     "Source": "MTF 合格下限（0=不计算）",
     "Chinese": "MTF 合格下限（0=不计算）",
     "English": "MTF Acceptance Lower Limit (0=disabled)",
@@ -676,6 +682,12 @@
     "Chinese": "MTF 空间频率",
     "English": "MTF Spatial Frequency",
     "Japanese": "MTF空間周波数"
+  },
+  {
+    "Source": "Monte Carlo 试验",
+    "Chinese": "Monte Carlo 试验",
+    "English": "Monte Carlo trials",
+    "Japanese": "モンテカルロ試行"
   },
   {
     "Source": "N 光圈数",
@@ -852,10 +864,22 @@
     "Japanese": "RMS 上限 (µm)"
   },
   {
-    "Source": "RMS 按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。",
-    "Chinese": "RMS 按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。",
-    "English": "RMS uses an upper acceptance limit and MTF a lower limit. Per-field mode requires every defined field to pass after the same compensation, including fields with weight 0.",
-    "Japanese": "RMSは上限、MTFは下限で判定します。視野別モードでは同じ補償後に全定義視野が同時に適合する必要があり、重み0の視野も含みます。"
+    "Source": "RMS 和系统评价函数按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。",
+    "Chinese": "RMS 和系统评价函数按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。",
+    "English": "RMS and system merit use upper acceptance limits, and MTF uses a lower limit. Per-field mode requires every defined field to pass after the same compensation, including fields with weight 0.",
+    "Japanese": "RMS とシステム評価値は上限、MTF は下限で判定します。視野別モードでは同じ補償後に全定義視野が同時に適合する必要があり、重み0の視野も含みます。"
+  },
+  {
+    "Source": "RMS 波前误差 (waves)",
+    "Chinese": "RMS 波前误差 (waves)",
+    "English": "RMS wavefront error (waves)",
+    "Japanese": "RMS 波面誤差 (waves)"
+  },
+  {
+    "Source": "RMS 点列半径 (mm)",
+    "Chinese": "RMS 点列半径 (mm)",
+    "English": "RMS spot radius (mm)",
+    "Japanese": "RMS スポット半径 (mm)"
   },
   {
     "Source": "ROI 已保存，可计算；无效位置或边缘会逐项显示原因。",
@@ -2154,6 +2178,18 @@
     "Japanese": "利用不可"
   },
   {
+    "Source": "不合格",
+    "Chinese": "不合格",
+    "English": "Failed",
+    "Japanese": "不合格"
+  },
+  {
+    "Source": "不合格试验",
+    "Chinese": "不合格试验",
+    "English": "Failed acceptance",
+    "Japanese": "不合格の試行"
+  },
+  {
     "Source": "不新增面型分支时独立释放已有面的锥常数；面型分支已有的变量规则保持",
     "Chinese": "不新增面型分支时独立释放已有面的锥常数；面型分支已有的变量规则保持",
     "English": "Release existing conic coordinates without adding profile branches; existing profile-branch variable rules are preserved",
@@ -2248,6 +2284,18 @@
     "Chinese": "临时覆盖射线数不是有效整数。",
     "English": "Temporary ray count must be a valid integer.",
     "Japanese": "一時的な光線数には有効な整数を指定してください。"
+  },
+  {
+    "Source": "为 LOADMERIT 选择同名 ZMX。输入本地补偿行程，应用后在评价标准中设置验收上限。",
+    "Chinese": "为 LOADMERIT 选择同名 ZMX。输入本地补偿行程，应用后在评价标准中设置验收上限。",
+    "English": "Select matching ZMX files for LOADMERIT. Enter the local compensator travel, then set the acceptance limit on the Criteria tab.",
+    "Japanese": "LOADMERIT と同名の ZMX を選択し、補償器の移動範囲を入力します。適用後は評価基準タブで合格上限を設定します。"
+  },
+  {
+    "Source": "为有补偿器的阶段单独选准则。未设置的阶段沿用最终评价准则，良率始终按评价标准页判定。",
+    "Chinese": "为有补偿器的阶段单独选准则。未设置的阶段沿用最终评价准则，良率始终按评价标准页判定。",
+    "English": "Choose an objective for a stage with compensators. Other stages inherit the final criterion. Yield always uses the Criteria tab.",
+    "Japanese": "補償器がある段階の評価基準を選びます。未設定の段階は最終評価基準を使い、歩留まりは評価基準タブの設定で判定します。"
   },
   {
     "Source": "主光线",
@@ -2826,6 +2874,12 @@
     "Japanese": "方向キーで回転、Shiftと方向キーで移動、プラス・マイナスで拡大縮小、Homeでリセットします。"
   },
   {
+    "Source": "使用运行时的活动评价表。绑定后可用「应用设置」关闭设置，再准备下一张表。",
+    "Chinese": "使用运行时的活动评价表。绑定后可用「应用设置」关闭设置，再准备下一张表。",
+    "English": "Uses the active merit table at run time. After binding, apply the settings to return and prepare the next table.",
+    "Japanese": "実行時のアクティブな評価表を使います。割り当てた後、設定を適用して次の表をエディタで準備できます。"
+  },
+  {
     "Source": "使用镜头主波长",
     "Chinese": "使用镜头主波长",
     "English": "Use Lens Primary Wavelength",
@@ -3022,6 +3076,12 @@
     "Chinese": "保存时创建独立材料，不替换原引用。",
     "English": "Saving creates an independent material without replacing the original reference.",
     "Japanese": "保存時に独立した材料を作成し、元の参照は置換しません。"
+  },
+  {
+    "Source": "保存最差样件",
+    "Chinese": "保存最差样件",
+    "English": "Save worst sample",
+    "Japanese": "最悪サンプルを保存"
   },
   {
     "Source": "保存材质场景",
@@ -3738,6 +3798,12 @@
     "Japanese": "NSC解析追跡を完了して検出器を読み込みます。パワーは選択した保存済み経路を含み、順序主像を追加しません。実際の波長をカバーする絶対QEを読み込みRAW/ISPを実行します。画素と寸法は一致が必要です。完全な実験はパワーと出所を保持し、再計算では再追跡しません。"
   },
   {
+    "Source": "先运行包含 Monte Carlo 的公差分析。",
+    "Chinese": "先运行包含 Monte Carlo 的公差分析。",
+    "English": "Run a tolerance analysis with Monte Carlo first.",
+    "Japanese": "先にモンテカルロを含む公差解析を実行してください。"
+  },
+  {
     "Source": "光吸收系数",
     "Chinese": "光吸收系数",
     "English": "Absorption Coefficient",
@@ -4350,6 +4416,24 @@
     "Japanese": "全視野で補正量を共有します。レンズ群は一体で移動します。傾きの支点は先頭面の座標で入力します。"
   },
   {
+    "Source": "全部试验",
+    "Chinese": "全部试验",
+    "English": "All trials",
+    "Japanese": "すべての試行"
+  },
+  {
+    "Source": "全部配置",
+    "Chinese": "全部配置",
+    "English": "All configurations",
+    "Japanese": "すべての構成"
+  },
+  {
+    "Source": "全部配置合格（余量 ≥ 0）",
+    "Chinese": "全部配置合格（余量 ≥ 0）",
+    "English": "All configurations pass (margin ≥ 0)",
+    "Japanese": "全構成合格（余裕 ≥ 0）"
+  },
+  {
     "Source": "全部镜头",
     "Chinese": "全部镜头",
     "English": "All Lenses",
@@ -4396,6 +4480,12 @@
     "Chinese": "公差分析失败：{0}",
     "English": "Tolerance analysis failed: {0}",
     "Japanese": "公差解析失敗：{0}"
+  },
+  {
+    "Source": "公差分析已取消。",
+    "Chinese": "公差分析已取消。",
+    "English": "Tolerance analysis canceled.",
+    "Japanese": "公差解析がキャンセルされました。"
   },
   {
     "Source": "公差分析报告已导出。",
@@ -4470,10 +4560,28 @@
     "Japanese": "公差データ検証失敗：{0}{1}"
   },
   {
+    "Source": "公差样件",
+    "Chinese": "公差样件",
+    "English": "Tolerance sample",
+    "Japanese": "公差サンプル"
+  },
+  {
+    "Source": "公差样件复算",
+    "Chinese": "公差样件复算",
+    "English": "Replay tolerance sample",
+    "Japanese": "公差サンプルの再計算"
+  },
+  {
     "Source": "公差样本数",
     "Chinese": "公差样本数",
     "English": "Tolerance Samples",
     "Japanese": "公差サンプル数"
+  },
+  {
+    "Source": "公差脚本导入失败",
+    "Chinese": "公差脚本导入失败",
+    "English": "Tolerance script import failed",
+    "Japanese": "公差スクリプトのインポートに失敗"
   },
   {
     "Source": "公差表中的 COMP 仍参与补偿。可增加空气间隔、单面或镜组 X/Y 偏心与倾斜。偏差相对名义值，范围必须包含 0。",
@@ -5544,6 +5652,12 @@
     "Japanese": "元のタスクの識別子"
   },
   {
+    "Source": "原偏差",
+    "Chinese": "原偏差",
+    "English": "Original deviation",
+    "Japanese": "元の偏差"
+  },
+  {
     "Source": "原双面流程 v1",
     "Chinese": "原双面流程 v1",
     "English": "Original Two-Sided Workflow v1",
@@ -5638,6 +5752,12 @@
     "Chinese": "原生信赖域（默认）",
     "English": "Native Trust Region (Default)",
     "Japanese": "ネイティブ信頼領域（既定）"
+  },
+  {
+    "Source": "原范围合格",
+    "Chinese": "原范围合格",
+    "English": "Original range passes",
+    "Japanese": "元の範囲が合格"
   },
   {
     "Source": "原规格冲突：固定光阑与镜面口径不相容",
@@ -5880,10 +6000,22 @@
     "Japanese": "逆解析の限界はRMSが上限、MTFが下限です。増分はRMS増加・MTF低下を許容し、視野別モードは各視野の公称値から逆算します。目標達成済みの公差は緩和しません。"
   },
   {
+    "Source": "反向极限：RMS 和系统评价函数为上限，MTF 为下限。反向增量：RMS 和系统评价值允许增加，MTF 允许下降；逐视场模式按每个视场的名义值反求。满足目标的公差不会放宽。",
+    "Chinese": "反向极限：RMS 和系统评价函数为上限，MTF 为下限。反向增量：RMS 和系统评价值允许增加，MTF 允许下降；逐视场模式按每个视场的名义值反求。满足目标的公差不会放宽。",
+    "English": "Inverse limits are upper bounds for RMS and system merit and lower bounds for MTF. Increments allow RMS and merit to increase or MTF to decrease. Per-field mode uses each field’s nominal value. Passing tolerances are retained.",
+    "Japanese": "逆解析の限界は RMS とシステム評価値では上限、MTF では下限です。増分は RMS と評価値の増加、または MTF の低下を許容します。視野別モードでは各視野の公称値を使います。合格した公差は維持します。"
+  },
+  {
     "Source": "反射率",
     "Chinese": "反射率",
     "English": "Reflectance",
     "Japanese": "反射率"
+  },
+  {
+    "Source": "反求",
+    "Chinese": "反求",
+    "English": "Inverse sensitivity",
+    "Japanese": "逆感度解析"
   },
   {
     "Source": "反求极限 / 增量",
@@ -6204,6 +6336,12 @@
     "Japanese": "すべてのページを1ペインに統合"
   },
   {
+    "Source": "合格",
+    "Chinese": "合格",
+    "English": "Passed",
+    "Japanese": "合格"
+  },
+  {
     "Source": "合格上限（0=不计算）",
     "Chinese": "合格上限（0=不计算）",
     "English": "Acceptance Limit (0=disabled)",
@@ -6216,10 +6354,22 @@
     "Japanese": "適合した記録"
   },
   {
+    "Source": "合格数",
+    "Chinese": "合格数",
+    "English": "Passed",
+    "Japanese": "合格数"
+  },
+  {
     "Source": "同一冻结镜头、场景与完整传感器，分别生成各源谱的图像。浮点数据直接保存为功率和辐照度，附带同一标尺的 16 位线性 PNG。默认采样用于流程检查；正式 MTF 与收敛另行验证。",
     "Chinese": "同一冻结镜头、场景与完整传感器，分别生成各源谱的图像。浮点数据直接保存为功率和辐照度，附带同一标尺的 16 位线性 PNG。默认采样用于流程检查；正式 MTF 与收敛另行验证。",
     "English": "Generate each source spectrum's image with the same frozen lens, scene and full sensor. Save floating-point power and irradiance with 16-bit linear PNGs on one scale. Default sampling checks the workflow; formal MTF and convergence require separate verification.",
     "Japanese": "同じ固定レンズ・シーン・全センサーで各光源スペクトルの画像を生成します。浮動小数点パワーと放射照度を、共通目盛の16ビット線形PNGと保存します。既定サンプリングは手順確認用で、正式MTFと収束は別途検証が必要です。"
+  },
+  {
+    "Source": "同一次试验使用同一份共享制造误差。各配置同时达标才计入整机良率。",
+    "Chinese": "同一次试验使用同一份共享制造误差。各配置同时达标才计入整机良率。",
+    "English": "Each trial shares one realization of manufacturing errors. It contributes to system yield only when every configuration passes.",
+    "Japanese": "同じ試行では製造誤差を共有します。全構成で合格した試行をシステム歩留まりに計上します。"
   },
   {
     "Source": "同一镜组共用一个支点。全部为 0 时沿用该组已设置的支点，未设置时使用首面顶点。",
@@ -6234,6 +6384,12 @@
     "Japanese": "同じレンズ群の傾き補正器は機械支点を共有する必要があります。"
   },
   {
+    "Source": "同一阶段只能设置一个评价准则。",
+    "Chinese": "同一阶段只能设置一个评价准则。",
+    "English": "Each stage can have one objective.",
+    "Japanese": "各段階に設定できる評価基準は 1 つです。"
+  },
+  {
     "Source": "同材料同步",
     "Chinese": "同材料同步",
     "English": "Synchronize Same Material",
@@ -6244,6 +6400,12 @@
     "Chinese": "同步并重新生成视图",
     "English": "Sync and Regenerate View",
     "Japanese": "同期してビューを再生成"
+  },
+  {
+    "Source": "名义评价值",
+    "Chinese": "名义评价值",
+    "English": "Nominal criterion",
+    "Japanese": "公称評価値"
   },
   {
     "Source": "名称",
@@ -6966,6 +7128,18 @@
     "Japanese": "A/Bを再計算"
   },
   {
+    "Source": "复算与记录一致。",
+    "Chinese": "复算与记录一致。",
+    "English": "Replay matches the record.",
+    "Japanese": "再計算結果は記録と一致しました。"
+  },
+  {
+    "Source": "复算与记录存在差异。",
+    "Chinese": "复算与记录存在差异。",
+    "English": "Replay differs from the record.",
+    "Japanese": "再計算結果は記録と異なります。"
+  },
+  {
     "Source": "复算失败，原 A/B 保留：",
     "Chinese": "复算失败，原 A/B 保留：",
     "English": "Recomputation failed; original A/B retained: ",
@@ -6982,6 +7156,12 @@
     "Chinese": "复算已取消，原 A/B 保留。",
     "English": "Recomputation cancelled; original A/B retained.",
     "Japanese": "再計算を中止し、元のA/Bを保持しました。"
+  },
+  {
+    "Source": "复算的补偿前／后评价值 {0} / {1}",
+    "Chinese": "复算的补偿前／后评价值 {0} / {1}",
+    "English": "Replayed criterion before and after compensation {0} / {1}",
+    "Japanese": "再計算した補償前後の評価値 {0} / {1}"
   },
   {
     "Source": "多 ROI SFR",
@@ -7020,6 +7200,18 @@
     "Japanese": "構成セルの値"
   },
   {
+    "Source": "多配置厚度行",
+    "Chinese": "多配置厚度行",
+    "English": "Multi-configuration thickness row",
+    "Japanese": "多重構成の厚さ行"
+  },
+  {
+    "Source": "多配置联合公差",
+    "Chinese": "多配置联合公差",
+    "English": "Joint configuration tolerancing",
+    "Japanese": "複数構成の公差解析"
+  },
+  {
     "Source": "多配置行类型",
     "Chinese": "多配置行类型",
     "English": "Configuration Operand Type",
@@ -7048,6 +7240,12 @@
     "Chinese": "大小",
     "English": "Size",
     "Japanese": "サイズ"
+  },
+  {
+    "Source": "失效",
+    "Chinese": "失效",
+    "English": "Invalid",
+    "Japanese": "無効"
   },
   {
     "Source": "失败处方保留但不再派发结构分支；达到预算或限定尝试即停止",
@@ -7282,6 +7480,12 @@
     "Chinese": "定义系统与目标 → 正负形式搜索 → 比较候选 → 继续优化",
     "English": "Define targets → Search forms → Compare candidates → Refine",
     "Japanese": "目標を設定 → 形態探索 → 候補を比較 → 改良"
+  },
+  {
+    "Source": "定位最差试验",
+    "Chinese": "定位最差试验",
+    "English": "Go to worst trial",
+    "Japanese": "最悪の試行へ移動"
   },
   {
     "Source": "定焦实验",
@@ -7596,6 +7800,12 @@
     "Japanese": "BSDFファイルを読み込む"
   },
   {
+    "Source": "导入 OpticStudio 公差脚本",
+    "Chinese": "导入 OpticStudio 公差脚本",
+    "English": "Import OpticStudio tolerance script",
+    "Japanese": "OpticStudio 公差スクリプトをインポート"
+  },
+  {
     "Source": "导入 QE 曲线",
     "Chinese": "导入 QE 曲线",
     "English": "Import QE Curve",
@@ -7606,6 +7816,12 @@
     "Chinese": "导入 STL",
     "English": "Import STL",
     "Japanese": "STLを読み込む"
+  },
+  {
+    "Source": "导入 TSC",
+    "Chinese": "导入 TSC",
+    "English": "Import TSC",
+    "Japanese": "TSC をインポート"
   },
   {
     "Source": "导入 Zemax NSC",
@@ -8364,6 +8580,12 @@
     "Japanese": "現在の光学系に新しい公差データを作成しました。"
   },
   {
+    "Source": "已保存公差样件。",
+    "Chinese": "已保存公差样件。",
+    "English": "Saved the tolerance sample.",
+    "Japanese": "公差サンプルを保存しました。"
+  },
+  {
     "Source": "已保存所选快照，但保存期间有新的修改，请再次保存。",
     "Chinese": "已保存所选快照，但保存期间有新的修改，请再次保存。",
     "English": "Selected snapshot saved, but new edits were made during saving; save again.",
@@ -8460,6 +8682,12 @@
     "Japanese": "実装済み：sRGB入力デコード、650/550/450 nmの3狭帯域、現在レンズの共有Core結像または理想対照、光電子変換、Poissonショットノイズ、読み出しノイズ、暗電流、PRNU/DSNU、飽和容量、ADC、Bayer、双線形デモザイク、RGBゲイン、ボックスノイズ除去、アンシャープマスク、Gamma。\n\nJSONセンサーパラメータとCSV絶対QE曲線に対応します。各CFA画素タイプは650/550/450 nmの3入力帯域に応答し、光電子を累積します。読み込み曲線は固定QEを置き換え、重複乗算しません。曲線がない場合は従来の独立3帯域応答を使用します。\n\n連続スペクトル：光源W/m²/nm、材質反射率、QEを読み込みます。単一材質または最大16種類の光源平面ラベル領域に対応します。波長ごとに材質反射率を適用してから共有光学を呼び出し、材質境界を越えてぼけが広がります。全折点を統合して区分3点Gauss-Legendre積分を行います。画像は線形グレースケールの空間パターンとなり、RGBからスペクトルを逆算しません。\n\n完全な実験の保存・読み込みと、固定レンズ・入力・光源・材質・センサー・ISPによるA/B再計算に対応します。既知ゲインのRAW暗・フラット画像からスカラーパラメータを推定し、測定条件と元フレームを保持します。画素別補正と内蔵実測センサーライブラリはありません。\n\n3Dシーン：不透明な矩形・球・直方体、点光源、Lambertian直接反射、遮蔽、異なる物体深度に対応し、幾何結像または有限セルのスカラーHuygens回折を使用します。実物点とレンズ光路長を用い、同じ点・波長内で複素電場を加算し、異なる点・波長間では強度を加算して感光面積とRAW/ISPへ接続します。感光領域は2×2/4×4 Gauss積分に対応し、光源・瞳・画素・有限窓の収束は個別確認が必要です。V5/V6/V7は元の再計算規則を保持します。一般BSDF・多重反射、ベクトル偏光回折、角度QE、マイクロレンズ、動的シャッター、迷光結合、メーカーISPはここには含まれません。出典の読み込みは実測の検証を意味しません。\n\n対照：無雑音結果は同一の光学像・露光・ADC・ISPを使用し、ランダムノイズと固定不均一性のみ無効化します。A/Bは各パラメータとレンズ改訂を保持します。同じシードで再現可能です。電子画像とRAWは画像別ピーク正規化をしません。\n\n公開機能参考（数値認証ではありません）：\nDeepO Sensor & ISP — https://www.ai4optics.com/deepo/manual/image-simulation/sensor/\nKeysight ImSym — https://www.keysight.com/us/en/products/software/optical-solutions-software/optical-design-solutions/imsym-imaging-system-simulator.html\nSpeos sensor examples — https://optics.ansys.com/hc/en-us/articles/20419350770067\nEMVA 1288 — https://www.emva.org/standards-technology/emva-1288/\n\n検証根拠：独立した光子・電子数の式、露光・ゲイン制御、暗・フラット統計、既知のBayer色パッチ、無雑音・A/B対照。EMVA適合や商用ソフトウェアとの結果一致を主張しません。"
   },
   {
+    "Source": "已导入 {0} 个装调阶段。请按系统评价值设置验收上限。",
+    "Chinese": "已导入 {0} 个装调阶段。请按系统评价值设置验收上限。",
+    "English": "Imported {0} alignment stages. Set the upper acceptance limit for system merit.",
+    "Japanese": "{0} 段階の調整をインポートしました。システム評価値の合格上限を設定してください。"
+  },
+  {
     "Source": "已导入 {0}：{1} 顶点，{2} 三角形。{3}",
     "Chinese": "已导入 {0}：{1} 顶点，{2} 三角形。{3}",
     "English": "Imported {0}: {1} vertices, {2} triangles. {3}",
@@ -8476,6 +8704,12 @@
     "Chinese": "已导出：{0}",
     "English": "Exported: {0}",
     "Japanese": "出力完了：{0}"
+  },
+  {
+    "Source": "已应用公差脚本",
+    "Chinese": "已应用公差脚本",
+    "English": "Tolerance script applied",
+    "Japanese": "公差スクリプトを適用済み"
   },
   {
     "Source": "已打开内置光学镀膜设计模块",
@@ -8524,6 +8758,12 @@
     "Chinese": "已接受步骤",
     "English": "Accepted steps",
     "Japanese": "受理済みステップ"
+  },
+  {
+    "Source": "已收紧",
+    "Chinese": "已收紧",
+    "English": "Tightened",
+    "Japanese": "縮小済み"
   },
   {
     "Source": "已是最后一个结构",
@@ -8590,6 +8830,12 @@
     "Chinese": "已框选 ({0}, {1})，{2} × {3} px；选择边缘方向后添加或更新 ROI。",
     "English": "Selected ({0}, {1}), {2} × {3} px; choose edge direction to add or update ROI.",
     "Japanese": "({0}, {1})、{2} × {3} pxを選択しました。エッジ方向を指定してROIを追加・更新してください。"
+  },
+  {
+    "Source": "已绑定 {0}（{1} 行）",
+    "Chinese": "已绑定 {0}（{1} 行）",
+    "English": "Bound to {0} ({1} rows)",
+    "Japanese": "{0} を割り当て済み（{1} 行）"
   },
   {
     "Source": "已计算光学功率 · 不再次传播",
@@ -8892,6 +9138,12 @@
     "Japanese": "適用後、この面を唯一の絞りに設定します。"
   },
   {
+    "Source": "应用后替换补偿设置，并保留现有制造公差。",
+    "Chinese": "应用后替换补偿设置，并保留现有制造公差。",
+    "English": "Applying replaces compensation settings and keeps the manufacturing tolerances.",
+    "Japanese": "適用すると補償設定を置き換え、製造公差は維持されます。"
+  },
+  {
     "Source": "应用场景：",
     "Chinese": "应用场景：",
     "English": "Application:",
@@ -8952,6 +9204,12 @@
     "Japanese": "システム偏光設定を適用"
   },
   {
+    "Source": "应用脚本映射",
+    "Chinese": "应用脚本映射",
+    "English": "Apply script mapping",
+    "Japanese": "スクリプトの割り当てを適用"
+  },
+  {
     "Source": "应用膜层",
     "Chinese": "应用膜层",
     "English": "Apply Coating",
@@ -8962,6 +9220,12 @@
     "Chinese": "应用膜系公式",
     "English": "Apply Stack Formula",
     "Japanese": "膜構成の式を適用"
+  },
+  {
+    "Source": "应用设置",
+    "Chinese": "应用设置",
+    "English": "Apply settings",
+    "Japanese": "設定を適用"
   },
   {
     "Source": "应用通过验证的候选",
@@ -9298,6 +9562,12 @@
     "Chinese": "当前软件版本无效，无法比较版本。",
     "English": "The installed version is invalid and cannot be compared.",
     "Japanese": "現在のバージョンが無効なため比較できません。"
+  },
+  {
+    "Source": "当前配置",
+    "Chinese": "当前配置",
+    "English": "Current configuration",
+    "Japanese": "現在の構成"
   },
   {
     "Source": "当前镜头 · 无噪声 · 单个 ROI。多波长使用镜头波长表及其权重，单色可手动设置。96 × 96 满填充方形像元，暗/亮 0.2/0.8。瞳面、像面和 PSF 窗口分别翻倍检查，差值门限 0.01。",
@@ -9666,6 +9936,12 @@
     "Japanese": "IMAまたはBIM画像を開く"
   },
   {
+    "Source": "打开 OpticStudio 公差脚本",
+    "Chinese": "打开 OpticStudio 公差脚本",
+    "English": "Open OpticStudio tolerance script",
+    "Japanese": "OpticStudio 公差スクリプトを開く"
+  },
+  {
     "Source": "打开{0}",
     "Chinese": "打开{0}",
     "English": "Open {0}",
@@ -9778,6 +10054,12 @@
     "Chinese": "打开材料库",
     "English": "Open Material Library",
     "Japanese": "材料ライブラリを開く"
+  },
+  {
+    "Source": "打开样件复算",
+    "Chinese": "打开样件复算",
+    "English": "Open and replay sample",
+    "Japanese": "サンプルを開いて再計算"
   },
   {
     "Source": "打开物方棋盘线性实验",
@@ -10026,6 +10308,12 @@
     "Japanese": "指定面・波長における実光線の高歩留まり寄与を指定し、入射・出射方向余弦、面法線、両側屈折率に依存します。"
   },
   {
+    "Source": "指定频率 MTF",
+    "Chinese": "指定频率 MTF",
+    "English": "MTF at specified frequency",
+    "Japanese": "指定周波数の MTF"
+  },
+  {
     "Source": "指标",
     "Chinese": "指标",
     "English": "Metric",
@@ -10110,6 +10398,12 @@
     "Japanese": "像探索位置で並べ替え"
   },
   {
+    "Source": "按最坏端点变化排序，计算失效项优先。",
+    "Chinese": "按最坏端点变化排序，计算失效项优先。",
+    "English": "Ranked by the worst endpoint change, with invalid evaluations first.",
+    "Japanese": "最悪端点の変化順で、計算が無効な項目を先に表示します。"
+  },
+  {
     "Source": "按真实像差筛选并排序起点",
     "Chinese": "按真实像差筛选并排序起点",
     "English": "Screen and rank seeds by physical aberrations",
@@ -10126,6 +10420,18 @@
     "Chinese": "按计划跳过恢复",
     "English": "Recovery Skipped by Plan",
     "Japanese": "計画に従い復元を省略"
+  },
+  {
+    "Source": "按运行时评价函数编辑器中的操作数、目标和权重计算。评价值越小越好，多配置使用同一张表分别评价。",
+    "Chinese": "按运行时评价函数编辑器中的操作数、目标和权重计算。评价值越小越好，多配置使用同一张表分别评价。",
+    "English": "Uses the operands, targets and weights from the Merit Function Editor at run time. Lower values are better. Each configuration uses the same table.",
+    "Japanese": "実行時の評価関数エディタのオペランド、目標値、重みを使います。値が小さいほど良好で、各構成は同じ表で個別に評価されます。"
+  },
+  {
+    "Source": "按阶段编号依次调整。同阶段变量一起优化，完成后锁定。启用多阶段时，公差表 COMP 最后执行。",
+    "Chinese": "按阶段编号依次调整。同阶段变量一起优化，完成后锁定。启用多阶段时，公差表 COMP 最后执行。",
+    "English": "Adjust stages in numerical order. Variables in a stage are optimized together and then locked. With staged compensation, the tolerance-table COMP runs last.",
+    "Japanese": "段階番号順に調整します。同じ段階の変数は一緒に最適化し、その後固定します。段階別補償では公差表の COMP を最後に実行します。"
   },
   {
     "Source": "排名",
@@ -10488,6 +10794,12 @@
     "Japanese": "支点 Z (mm)"
   },
   {
+    "Source": "收紧至零",
+    "Chinese": "收紧至零",
+    "English": "Reduced to zero",
+    "Japanese": "ゼロまで縮小"
+  },
+  {
     "Source": "收起操作数属性",
     "Chinese": "收起操作数属性",
     "English": "Collapse Operand Properties",
@@ -10498,6 +10810,12 @@
     "Chinese": "收起表面属性",
     "English": "Collapse Surface Properties",
     "Japanese": "面プロパティを折りたたむ"
+  },
+  {
+    "Source": "改用活动评价表",
+    "Chinese": "改用活动评价表",
+    "English": "Use active merit table",
+    "Japanese": "アクティブな評価表を使う"
   },
   {
     "Source": "放大",
@@ -10600,6 +10918,24 @@
     "Chinese": "整块基板评价：含吸收、裸背面及多次反射；设计验收仍为前表面",
     "English": "Whole Plate: Absorption, Bare Rear Surface and Multiple Reflections; Design Acceptance Uses the Front Surface",
     "Japanese": "基板全体：吸収・裸裏面・多重反射を含む。設計合否は前面で判定"
+  },
+  {
+    "Source": "整机",
+    "Chinese": "整机",
+    "English": "System",
+    "Japanese": "システム"
+  },
+  {
+    "Source": "整机合格余量",
+    "Chinese": "整机合格余量",
+    "English": "System acceptance margin",
+    "Japanese": "システムの合格余裕"
+  },
+  {
+    "Source": "整机最小验收余量",
+    "Chinese": "整机最小验收余量",
+    "English": "Minimum system acceptance margin",
+    "Japanese": "システムの最小合格余裕"
   },
   {
     "Source": "整片",
@@ -10830,10 +11166,28 @@
     "Japanese": "屈折力のある面なし"
   },
   {
+    "Source": "无法保存公差样件：{0}",
+    "Chinese": "无法保存公差样件：{0}",
+    "English": "Could not save the tolerance sample: {0}",
+    "Japanese": "公差サンプルを保存できませんでした：{0}"
+  },
+  {
     "Source": "无法准备更新，未执行安装。",
     "Chinese": "无法准备更新，未执行安装。",
     "English": "Unable to prepare the update. Nothing was installed.",
     "Japanese": "更新を準備できませんでした。インストールは行っていません。"
+  },
+  {
+    "Source": "无法反求",
+    "Chinese": "无法反求",
+    "English": "Inverse solve unavailable",
+    "Japanese": "逆解析不可"
+  },
+  {
+    "Source": "无法复算公差样件：{0}",
+    "Chinese": "无法复算公差样件：{0}",
+    "English": "Could not replay the tolerance sample: {0}",
+    "Japanese": "公差サンプルを再計算できませんでした：{0}"
   },
   {
     "Source": "无法完成更新，请稍后重试或从发布页手动安装。",
@@ -11658,6 +12012,24 @@
     "Japanese": "最短波長（nm）"
   },
   {
+    "Source": "最终评价表 {0}",
+    "Chinese": "最终评价表 {0}",
+    "English": "Final merit table {0}",
+    "Japanese": "最終評価表 {0}"
+  },
+  {
+    "Source": "最终验收使用系统评价函数，按加权残差上限判定。",
+    "Chinese": "最终验收使用系统评价函数，按加权残差上限判定。",
+    "English": "Final acceptance uses an upper limit on the system merit value.",
+    "Japanese": "最終合格判定ではシステム評価値の上限を使います。"
+  },
+  {
+    "Source": "最终验收评价表",
+    "Chinese": "最终验收评价表",
+    "English": "Final acceptance merit table",
+    "Japanese": "最終合格判定の評価表"
+  },
+  {
     "Source": "最长波长 / nm",
     "Chinese": "最长波长 / nm",
     "English": "Maximum Wavelength / nm",
@@ -11778,6 +12150,12 @@
     "Japanese": "変数未設定"
   },
   {
+    "Source": "未设置限值",
+    "Chinese": "未设置限值",
+    "English": "No acceptance limit",
+    "Japanese": "合格限界未設定"
+  },
+  {
     "Source": "未达标",
     "Chinese": "未达标",
     "English": "Fail",
@@ -11824,6 +12202,12 @@
     "Chinese": "本次搜索已结束，方案和过程已保存。",
     "English": "Search ended; designs and progress saved.",
     "Japanese": "探索が終了し、設計と進捗を保存しました。"
+  },
+  {
+    "Source": "本次没有可定位的最差试验。",
+    "Chinese": "本次没有可定位的最差试验。",
+    "English": "There is no worst trial to locate in this run.",
+    "Japanese": "この解析で移動できる最悪の試行はありません。"
   },
   {
     "Source": "本阶段正在恢复",
@@ -12474,6 +12858,12 @@
     "Japanese": "在庫レンズカタログをバックグラウンドで走査中…"
   },
   {
+    "Source": "正在复算公差样件…",
+    "Chinese": "正在复算公差样件…",
+    "English": "Replaying the tolerance sample…",
+    "Japanese": "公差サンプルを再計算中…"
+  },
+  {
     "Source": "正在安装更新并重启…",
     "Chinese": "正在安装更新并重启…",
     "English": "Installing the update and restarting…",
@@ -12768,6 +13158,12 @@
     "Japanese": "正側限界の評価値"
   },
   {
+    "Source": "正端",
+    "Chinese": "正端",
+    "English": "Positive",
+    "Japanese": "正側"
+  },
+  {
     "Source": "正面",
     "Chinese": "正面",
     "English": "Front",
@@ -12844,6 +13240,12 @@
     "Chinese": "此通光原型仅供查看和导出，请新建版本化计划",
     "English": "This transmission prototype is read-only; create a new versioned plan to run",
     "Japanese": "この透過補償プロトタイプは閲覧と出力専用です。実行には新しい版付き計画を作成してください"
+  },
+  {
+    "Source": "此阶段使用运行时的系统评价函数。",
+    "Chinese": "此阶段使用运行时的系统评价函数。",
+    "English": "This stage uses the system merit function at run time.",
+    "Japanese": "この段階は実行時のシステム評価関数を使います。"
   },
   {
     "Source": "此页沿用镜片与保存像面，不自动调焦。初始参数是 100 m 远靶控制；有限共轭请填写实际物距。浮点功率和辐照度用于测量；两张预览仅用于取景。当前阶段尚未提供正式 MTF 对照、ROM 或收敛判定。",
@@ -12948,6 +13350,12 @@
     "Japanese": "初期処方ごとの評価上限"
   },
   {
+    "Source": "每阶段循环数",
+    "Chinese": "每阶段循环数",
+    "English": "Cycles per stage",
+    "Japanese": "段階ごとのサイクル数"
+  },
+  {
     "Source": "比例",
     "Chinese": "比例",
     "English": "Scale",
@@ -13048,6 +13456,12 @@
     "Chinese": "没有可用的目录玻璃，请调整材料或波长。",
     "English": "No catalog glass is available; adjust materials or wavelengths.",
     "Japanese": "利用可能なカタログガラスがありません。材料または波長を調整してください。"
+  },
+  {
+    "Source": "没有符合筛选条件的试验。",
+    "Chinese": "没有符合筛选条件的试验。",
+    "English": "No trials match the filter.",
+    "Japanese": "条件に一致する試行がありません。"
   },
   {
     "Source": "没有识别到可评估的玻璃元件",
@@ -13332,10 +13746,22 @@
     "Japanese": "追加"
   },
   {
+    "Source": "添加 CMCO",
+    "Chinese": "添加 CMCO",
+    "English": "Add CMCO",
+    "Japanese": "CMCO を追加"
+  },
+  {
     "Source": "添加 ROI",
     "Chinese": "添加 ROI",
     "English": "Add ROI",
     "Japanese": "ROIを追加"
+  },
+  {
+    "Source": "添加 TMCO",
+    "Chinese": "添加 TMCO",
+    "English": "Add TMCO",
+    "Japanese": "TMCO を追加"
   },
   {
     "Source": "添加变量",
@@ -13372,6 +13798,12 @@
     "Chinese": "添加评估角度",
     "English": "Add Evaluation Angle",
     "Japanese": "評価角度を追加"
+  },
+  {
+    "Source": "添加阶段评价",
+    "Chinese": "添加阶段评价",
+    "English": "Add stage objective",
+    "Japanese": "段階評価を追加"
   },
   {
     "Source": "清空",
@@ -13504,6 +13936,12 @@
     "Chinese": "灰色项尚未实现，不能编辑；不会改变当前追迹。",
     "English": "Gray options are not implemented and cannot be edited; tracing is unchanged.",
     "Japanese": "灰色の項目は未実装で編集できず、現在の追跡は変更しません。"
+  },
+  {
+    "Source": "灵敏度",
+    "Chinese": "灵敏度",
+    "English": "Sensitivity",
+    "Japanese": "感度"
   },
   {
     "Source": "点",
@@ -13708,6 +14146,12 @@
     "Chinese": "状态",
     "English": "Status",
     "Japanese": "状態"
+  },
+  {
+    "Source": "状态／调整",
+    "Chinese": "状态／调整",
+    "English": "Status / adjustment",
+    "Japanese": "状態／調整"
   },
   {
     "Source": "状态：",
@@ -14370,6 +14814,12 @@
     "Japanese": "競争の各段階の更新上限"
   },
   {
+    "Source": "端点",
+    "Chinese": "端点",
+    "English": "Endpoint",
+    "Japanese": "端点"
+  },
+  {
     "Source": "第 {0} 层 · {1} · {2}",
     "Chinese": "第 {0} 层 · {1} · {2}",
     "English": "Layer {0} · {1} · {2}",
@@ -14604,6 +15054,18 @@
     "Japanese": "システム更新回数/秒    {0:N1}"
   },
   {
+    "Source": "系统评价函数",
+    "Chinese": "系统评价函数",
+    "English": "System merit function",
+    "Japanese": "システム評価関数"
+  },
+  {
+    "Source": "系统评价函数值",
+    "Chinese": "系统评价函数值",
+    "English": "System merit value",
+    "Japanese": "システム評価値"
+  },
+  {
     "Source": "系统选项",
     "Chinese": "系统选项",
     "English": "System Options",
@@ -14692,6 +15154,12 @@
     "Chinese": "终验预留追迹",
     "English": "Final Validation Ray Reserve",
     "Japanese": "最終検証用の光線数予約"
+  },
+  {
+    "Source": "绑定当前评价表",
+    "Chinese": "绑定当前评价表",
+    "English": "Bind current merit table",
+    "Japanese": "現在の評価表を割り当て"
   },
   {
     "Source": "结构",
@@ -14842,6 +15310,18 @@
     "Chinese": "结果代码",
     "English": "Outcome code",
     "Japanese": "結果コード"
+  },
+  {
+    "Source": "结果值",
+    "Chinese": "结果值",
+    "English": "Result value",
+    "Japanese": "結果値"
+  },
+  {
+    "Source": "结果总览",
+    "Chinese": "结果总览",
+    "English": "Results overview",
+    "Japanese": "結果概要"
   },
   {
     "Source": "结果指标",
@@ -15462,10 +15942,22 @@
     "Japanese": "補償最適化"
   },
   {
+    "Source": "补偿前",
+    "Chinese": "补偿前",
+    "English": "Before compensation",
+    "Japanese": "補償前"
+  },
+  {
     "Source": "补偿前评价值",
     "Chinese": "补偿前评价值",
     "English": "Merit Before Compensation",
     "Japanese": "補償前の評価値"
+  },
+  {
+    "Source": "补偿后",
+    "Chinese": "补偿后",
+    "English": "After compensation",
+    "Japanese": "補償後"
   },
   {
     "Source": "补偿后评价值",
@@ -15490,6 +15982,24 @@
     "Chinese": "补偿最小",
     "English": "Compensation Minimum",
     "Japanese": "補償最小値"
+  },
+  {
+    "Source": "补偿行程 ± (mm)",
+    "Chinese": "补偿行程 ± (mm)",
+    "English": "Compensator travel ± (mm)",
+    "Japanese": "補償器の移動範囲 ± (mm)"
+  },
+  {
+    "Source": "补偿配置（0=共用）",
+    "Chinese": "补偿配置（0=共用）",
+    "English": "Compensation configuration (0=shared)",
+    "Japanese": "補償構成（0=共通）"
+  },
+  {
+    "Source": "补偿阶段",
+    "Chinese": "补偿阶段",
+    "English": "Compensation stage",
+    "Japanese": "補償段階"
   },
   {
     "Source": "补充 Rq",
@@ -15748,6 +16258,12 @@
     "Chinese": "要移动光阑，请选择另一个表面并将其设为光阑。",
     "English": "To move the stop, select another surface and set it as the stop.",
     "Japanese": "絞りを移動するには、別の面を選択して絞りに設定してください。"
+  },
+  {
+    "Source": "覆盖配置验收限值",
+    "Chinese": "覆盖配置验收限值",
+    "English": "Override the configuration limit",
+    "Japanese": "構成の合格限界を上書き"
   },
   {
     "Source": "观察方向",
@@ -16020,6 +16536,12 @@
     "Japanese": "計算基盤：共有 Core · C# CPU"
   },
   {
+    "Source": "计算失效试验",
+    "Chinese": "计算失效试验",
+    "English": "Invalid evaluations",
+    "Japanese": "計算無効の試行"
+  },
+  {
     "Source": "计算已取消",
     "Chinese": "计算已取消",
     "English": "Calculation Cancelled",
@@ -16102,6 +16624,12 @@
     "Chinese": "记录数据已导出，仅供查看，不替代原检查点",
     "English": "Record data exported for review; it does not replace the original checkpoint",
     "Japanese": "閲覧用の記録データを書き出しました。元のチェックポイントの代わりにはなりません"
+  },
+  {
+    "Source": "记录的补偿前／后评价值 {0} / {1}",
+    "Chinese": "记录的补偿前／后评价值 {0} / {1}",
+    "English": "Recorded criterion before and after compensation {0} / {1}",
+    "Japanese": "記録した補償前後の評価値 {0} / {1}"
   },
   {
     "Source": "许可证：",
@@ -16278,10 +16806,22 @@
     "Japanese": "評価 / 光線勾配 / 追跡光線"
   },
   {
+    "Source": "评价值",
+    "Chinese": "评价值",
+    "English": "Criterion value",
+    "Japanese": "評価値"
+  },
+  {
     "Source": "评价值变化",
     "Chinese": "评价值变化",
     "English": "Merit Change",
     "Japanese": "評価値の変化"
+  },
+  {
+    "Source": "评价准则 {0}    试验 {1} 次    最差试验 {2}",
+    "Chinese": "评价准则 {0}    试验 {1} 次    最差试验 {2}",
+    "English": "Criterion {0}    {1} trials    Worst trial {2}",
+    "Japanese": "評価基準 {0}    試行 {1} 回    最悪試行 {2}"
   },
   {
     "Source": "评价函数",
@@ -16332,6 +16872,18 @@
     "Japanese": "評価回数の上限"
   },
   {
+    "Source": "评价表 {0}",
+    "Chinese": "评价表 {0}",
+    "English": "Merit table {0}",
+    "Japanese": "評価表 {0}"
+  },
+  {
+    "Source": "评价表名称",
+    "Chinese": "评价表名称",
+    "English": "Merit table name",
+    "Japanese": "評価表名"
+  },
+  {
     "Source": "评估数据已导出：{0}",
     "Chinese": "评估数据已导出：{0}",
     "English": "Evaluation data exported: {0}",
@@ -16368,6 +16920,30 @@
     "Japanese": "試行"
   },
   {
+    "Source": "试验 {0}    验收余量 {1}",
+    "Chinese": "试验 {0}    验收余量 {1}",
+    "English": "Trial {0}    Acceptance margin {1}",
+    "Japanese": "試行 {0}    合格余裕 {1}"
+  },
+  {
+    "Source": "试验 {0}，种子 {1}",
+    "Chinese": "试验 {0}，种子 {1}",
+    "English": "Trial {0}, seed {1}",
+    "Japanese": "試行 {0}、シード {1}"
+  },
+  {
+    "Source": "试验数",
+    "Chinese": "试验数",
+    "English": "Trials",
+    "Japanese": "試行数"
+  },
+  {
+    "Source": "试验筛选",
+    "Chinese": "试验筛选",
+    "English": "Trial filter",
+    "Japanese": "試行フィルター"
+  },
+  {
     "Source": "语言",
     "Chinese": "语言",
     "English": "Language",
@@ -16384,6 +16960,12 @@
     "Chinese": "请为运行记录选择新文件名",
     "English": "Choose a New Filename for the Run Record",
     "Japanese": "実行記録には新しいファイル名を指定してください"
+  },
+  {
+    "Source": "请从公差数据编辑器打开此设置。",
+    "Chinese": "请从公差数据编辑器打开此设置。",
+    "English": "Open these settings from the Tolerance Data Editor.",
+    "Japanese": "公差データエディタからこの設定を開いてください。"
   },
   {
     "Source": "请先修正当前单元格的输入，或按 Esc 还原后再切换结构。",
@@ -16414,6 +16996,12 @@
     "Chinese": "请先启用阶段间独立验收，原预算保护偏好保持",
     "English": "Enable between-stage checks first; saved budget-protection preferences are preserved",
     "Japanese": "先に段階間の独立検証を有効にしてください。保存済みの枠保護設定は保持します"
+  },
+  {
+    "Source": "请先在多配置编辑器添加厚度行。",
+    "Chinese": "请先在多配置编辑器添加厚度行。",
+    "English": "Add a thickness row in the Multi-Configuration Editor first.",
+    "Japanese": "先に多重構成エディタで厚さ行を追加してください。"
   },
   {
     "Source": "请先完成仿真或打开完整实验。",
@@ -16554,6 +17142,12 @@
     "Japanese": "有効な整数を入力してください"
   },
   {
+    "Source": "请处理预览中的阻塞行。",
+    "Chinese": "请处理预览中的阻塞行。",
+    "English": "Resolve the blocking lines in the preview.",
+    "Japanese": "プレビューの問題行を修正してください。"
+  },
+  {
     "Source": "请新建计划以修改输入，继续任务保持原计划",
     "Chinese": "请新建计划以修改输入，继续任务保持原计划",
     "English": "Create a new plan to change inputs; resumed tasks keep their original plan",
@@ -16596,16 +17190,34 @@
     "Japanese": "有限値を入力してください。曲率は mm⁻¹、厚さと半径は mm です。"
   },
   {
+    "Source": "请输入绑定评价表名称。",
+    "Chinese": "请输入绑定评价表名称。",
+    "English": "Enter a name for the bound merit table.",
+    "Japanese": "割り当てる評価表の名前を入力してください。"
+  },
+  {
     "Source": "请选择可编辑操作数；APER 请在系统选项中修改。",
     "Chinese": "请选择可编辑操作数；APER 请在系统选项中修改。",
     "English": "Select an editable operand; edit APER in System Options.",
     "Japanese": "編集可能なオペランドを選択してください。APER はシステムオプションで編集します。"
   },
   {
+    "Source": "请选择有效的多配置厚度行。",
+    "Chinese": "请选择有效的多配置厚度行。",
+    "English": "Select a valid multi-configuration thickness row.",
+    "Japanese": "有効な多重構成の厚さ行を選択してください。"
+  },
+  {
     "Source": "请选择本地文件位置",
     "Chinese": "请选择本地文件位置",
     "English": "Choose a local file location",
     "Japanese": "ローカルファイルの保存先を選択してください"
+  },
+  {
+    "Source": "请选择至少一个参与公差的配置。",
+    "Chinese": "请选择至少一个参与公差的配置。",
+    "English": "Select at least one configuration for tolerancing.",
+    "Japanese": "公差解析を行う構成を少なくとも一つ選択してください。"
   },
   {
     "Source": "请选择非序列探测器输入。",
@@ -16650,6 +17262,18 @@
     "Japanese": "変調伝達関数"
   },
   {
+    "Source": "调整 {0} · 行程 [{1}, {2}]",
+    "Chinese": "调整 {0} · 行程 [{1}, {2}]",
+    "English": "Adjustment {0} · Travel [{1}, {2}]",
+    "Japanese": "調整 {0} · 移動範囲 [{1}, {2}]"
+  },
+  {
+    "Source": "调整后偏差",
+    "Chinese": "调整后偏差",
+    "English": "Adjusted deviation",
+    "Japanese": "調整後の偏差"
+  },
+  {
     "Source": "谱系与失败",
     "Chinese": "谱系与失败",
     "English": "Lineage and Failures",
@@ -16660,6 +17284,12 @@
     "Chinese": "负极限评价值",
     "English": "Negative Limit Merit Value",
     "Japanese": "負側限界の評価値"
+  },
+  {
+    "Source": "负端",
+    "Chinese": "负端",
+    "English": "Negative",
+    "Japanese": "負側"
   },
   {
     "Source": "贡献",
@@ -17124,6 +17754,12 @@
     "Japanese": "公差解析を実行"
   },
   {
+    "Source": "运行公差分析后在此查看结果。",
+    "Chinese": "运行公差分析后在此查看结果。",
+    "English": "Run tolerance analysis to view results here.",
+    "Japanese": "公差解析を実行するとここに結果が表示されます。"
+  },
+  {
     "Source": "运行后固定 A，再修改参数运行 B；同尺寸图像可查看差异。",
     "Chinese": "运行后固定 A，再修改参数运行 B；同尺寸图像可查看差异。",
     "English": "Pin A after a run, then edit parameters and run B; equal-sized images support difference inspection.",
@@ -17322,10 +17958,22 @@
     "Japanese": "選択設計を独立した追加予算で最適化し、元の探索形式を継承します。"
   },
   {
+    "Source": "选定配置",
+    "Chinese": "选定配置",
+    "English": "Selected configurations",
+    "Japanese": "選択した構成"
+  },
+  {
     "Source": "选择 .starrdb 保存位置",
     "Chinese": "选择 .starrdb 保存位置",
     "English": "Choose .starrdb Save Location",
     "Japanese": ".starrdbの保存先を選択"
+  },
+  {
+    "Source": "选择 LOADMERIT 评价表",
+    "Chinese": "选择 LOADMERIT 评价表",
+    "English": "Select LOADMERIT merit tables",
+    "Japanese": "LOADMERIT 評価表を選択"
   },
   {
     "Source": "选择 XYZ 校准文件",
@@ -17454,6 +18102,12 @@
     "Japanese": "例を選択するか仕様を入力して、膜構成を生成してください。"
   },
   {
+    "Source": "选择评价表 ZMX",
+    "Chinese": "选择评价表 ZMX",
+    "English": "Select merit ZMX files",
+    "Japanese": "評価表の ZMX を選択"
+  },
+  {
     "Source": "选择输入、曝光与传感器参数，点击运行仿真。",
     "Chinese": "选择输入、曝光与传感器参数，点击运行仿真。",
     "English": "Choose input, exposure and sensor parameters, then run the simulation.",
@@ -17550,6 +18204,18 @@
     "Japanese": "面別偏光オーバーライドは未実装です。偏光解析は既存のJones / Fresnelモデルを使用し、機能しないチェック項目は表示しません。"
   },
   {
+    "Source": "逐视场下限请使用 1=0.25, 2=0.20 格式。",
+    "Chinese": "逐视场下限请使用 1=0.25, 2=0.20 格式。",
+    "English": "Use 1=0.25, 2=0.20 for per-field limits.",
+    "Japanese": "視野別の下限は 1=0.25, 2=0.20 の形式で入力してください。"
+  },
+  {
+    "Source": "逐视场下限（视场=数值）",
+    "Chinese": "逐视场下限（视场=数值）",
+    "English": "Per-field limits (field=value)",
+    "Japanese": "視野別の下限（視野=値）"
+  },
+  {
     "Source": "通用手动参数 · 尚未导入传感器文件",
     "Chinese": "通用手动参数 · 尚未导入传感器文件",
     "English": "Generic Manual Parameters · No Sensor File Imported",
@@ -17592,10 +18258,22 @@
     "Japanese": "一部の項目に工程確認が必要です"
   },
   {
+    "Source": "配置 {0}",
+    "Chinese": "配置 {0}",
+    "English": "Configuration {0}",
+    "Japanese": "構成 {0}"
+  },
+  {
     "Source": "配置 {0} · {1} 个追迹面 · 视场 {2} · {3:G6} µm",
     "Chinese": "配置 {0} · {1} 个追迹面 · 视场 {2} · {3:G6} µm",
     "English": "Configuration {0} · {1} trace surfaces · Field {2} · {3:G6} µm",
     "Japanese": "構成 {0} · 追跡面数 {1} · 視野 {2} · {3:G6} µm"
+  },
+  {
+    "Source": "配置 {0} · 视场 {1}",
+    "Chinese": "配置 {0} · 视场 {1}",
+    "English": "Configuration {0} · Field {1}",
+    "Japanese": "構成 {0} · 視野 {1}"
   },
   {
     "Source": "配置号",
@@ -17614,6 +18292,18 @@
     "Chinese": "配置概览",
     "English": "Configuration Overview",
     "Japanese": "構成一覧"
+  },
+  {
+    "Source": "配置编号",
+    "Chinese": "配置编号",
+    "English": "Configuration number",
+    "Japanese": "構成番号"
+  },
+  {
+    "Source": "配置范围",
+    "Chinese": "配置范围",
+    "English": "Configuration scope",
+    "Japanese": "構成の範囲"
   },
   {
     "Source": "采样",
@@ -18078,10 +18768,28 @@
     "Japanese": "段階"
   },
   {
+    "Source": "阶段 MTF 空间频率",
+    "Chinese": "阶段 MTF 空间频率",
+    "English": "Stage MTF spatial frequency",
+    "Japanese": "段階 MTF 空間周波数"
+  },
+  {
+    "Source": "阶段 {0}",
+    "Chinese": "阶段 {0}",
+    "English": "Stage {0}",
+    "Japanese": "段階 {0}"
+  },
+  {
     "Source": "阶段与淘汰原因",
     "Chinese": "阶段与淘汰原因",
     "English": "Stages and rejection reasons",
     "Japanese": "段階と除外理由"
+  },
+  {
+    "Source": "阶段准则",
+    "Chinese": "阶段准则",
+    "English": "Stage criterion",
+    "Japanese": "段階基準"
   },
   {
     "Source": "阶段已收敛",
@@ -18120,10 +18828,28 @@
     "Japanese": "段階の最終処方"
   },
   {
+    "Source": "阶段编号",
+    "Chinese": "阶段编号",
+    "English": "Stage number",
+    "Japanese": "段階番号"
+  },
+  {
     "Source": "阶段评价",
     "Chinese": "阶段评价",
-    "English": "Stage evaluations",
+    "English": "Stage objective",
     "Japanese": "段階評価"
+  },
+  {
+    "Source": "阶段评价准则",
+    "Chinese": "阶段评价准则",
+    "English": "Stage objectives",
+    "Japanese": "段階評価基準"
+  },
+  {
+    "Source": "阶段评价包含零权重视场",
+    "Chinese": "阶段评价包含零权重视场",
+    "English": "Include zero-weight fields in this stage",
+    "Japanese": "この段階の評価に重みゼロの視野を含める"
   },
   {
     "Source": "阶段输入被拒绝",
@@ -18172,6 +18898,18 @@
     "Chinese": "降低当前玻璃库的同名玻璃解析优先级。",
     "English": "Decrease this catalog's priority when resolving glass names.",
     "Japanese": "同名ガラスの検索でこのカタログの優先度を下げます。"
+  },
+  {
+    "Source": "限制视场 {0}",
+    "Chinese": "限制视场 {0}",
+    "English": "Limiting field {0}",
+    "Japanese": "制限する視野 {0}"
+  },
+  {
+    "Source": "限制配置／视场",
+    "Chinese": "限制配置／视场",
+    "English": "Limiting configuration / field",
+    "Japanese": "制限する構成／視野"
   },
   {
     "Source": "限定删减尝试已结束，保留达标处方",
@@ -18588,6 +19326,18 @@
     "Japanese": "合否"
   },
   {
+    "Source": "验收余量",
+    "Chinese": "验收余量",
+    "English": "Acceptance margin",
+    "Japanese": "合格余裕"
+  },
+  {
+    "Source": "验收余量 {0}",
+    "Chinese": "验收余量 {0}",
+    "English": "Acceptance margin {0}",
+    "Japanese": "合格余裕 {0}"
+  },
+  {
     "Source": "验收偏振",
     "Chinese": "验收偏振",
     "English": "Acceptance polarization",
@@ -18598,6 +19348,12 @@
     "Chinese": "验收协议",
     "English": "Acceptance protocol",
     "Japanese": "検証方式"
+  },
+  {
+    "Source": "验收对象",
+    "Chinese": "验收对象",
+    "English": "Acceptance scope",
+    "Japanese": "合格判定対象"
   },
   {
     "Source": "验收未完成",

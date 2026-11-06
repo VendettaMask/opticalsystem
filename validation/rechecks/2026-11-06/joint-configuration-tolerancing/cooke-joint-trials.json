@@ -1,0 +1,1474 @@
+{
+  "Seed": 431,
+  "Statistics": {
+    "Nominal": "0.032384414485",
+    "Mean": "0.0326187352633",
+    "StandardDeviation": "0.00108199493579",
+    "Minimum": "0.0312570240391",
+    "Maximum": "0.0339040546609",
+    "Percentile50": "0.0326951270899",
+    "Percentile90": "0.0336622691467",
+    "Percentile95": "0.0337831619038",
+    "Yield": "0.0%",
+    "Percentile05": "0.0314008343442"
+  },
+  "ConfigurationYields": [
+    {
+      "Configuration": 1,
+      "Passed": 3,
+      "Trials": 3,
+      "Yield": 1
+    },
+    {
+      "Configuration": 2,
+      "Passed": 0,
+      "Trials": 3,
+      "Yield": 0
+    }
+  ],
+  "NominalConfigurations": [
+    {
+      "Configuration": 1,
+      "Criterion": 0.012014927299642007,
+      "Fields": null,
+      "Compensators": [
+        {
+          "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+          "Nominal": 0,
+          "Value": 0.2,
+          "Minimum": -0.2,
+          "Maximum": 0.2,
+          "Stage": 1
+        },
+        {
+          "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+          "Nominal": 0,
+          "Value": -0.1,
+          "Minimum": -0.1,
+          "Maximum": 0.1,
+          "Stage": 2
+        },
+        {
+          "Name": "COMP  \u9762 6",
+          "Nominal": 42.20778,
+          "Value": 42.25260168480529,
+          "Minimum": 41.40778,
+          "Maximum": 43.00778,
+          "Stage": 3
+        }
+      ],
+      "Passed": true,
+      "AcceptanceMargin": 0.987985072700358,
+      "LimitingField": null,
+      "Error": ""
+    },
+    {
+      "Configuration": 2,
+      "Criterion": 0.03238441448496257,
+      "Fields": null,
+      "Compensators": [
+        {
+          "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+          "Nominal": 0,
+          "Value": 0.2,
+          "Minimum": -0.2,
+          "Maximum": 0.2,
+          "Stage": 1
+        },
+        {
+          "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+          "Nominal": 0,
+          "Value": -0.1,
+          "Minimum": -0.1,
+          "Maximum": 0.1,
+          "Stage": 2
+        },
+        {
+          "Name": "COMP  \u9762 6",
+          "Nominal": 42.60778,
+          "Value": 41.80778,
+          "Minimum": 41.80778,
+          "Maximum": 43.407779999999995,
+          "Stage": 3
+        }
+      ],
+      "Passed": false,
+      "AcceptanceMargin": -0.03238431448496257,
+      "LimitingField": null,
+      "Error": ""
+    }
+  ],
+  "TrialRows": [
+    {
+      "Trial": 1,
+      "Merit": "0.0877150141821",
+      "CompensatedMerit": "0.0312570240391",
+      "Degradation": "-0.00112739044589",
+      "Fields": null,
+      "UncompensatedFields": null,
+      "Compensators": [
+        {
+          "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+          "Nominal": 0,
+          "Value": 0.14392930622391029,
+          "Minimum": -0.2560706937760897,
+          "Maximum": 0.14392930622391029,
+          "Stage": 1
+        },
+        {
+          "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+          "Nominal": 0,
+          "Value": -0.1,
+          "Minimum": -0.1,
+          "Maximum": 0.1,
+          "Stage": 2
+        },
+        {
+          "Name": "\u914D\u7F6E 1 COMP  \u9762 6",
+          "Nominal": 42.20778,
+          "Value": 42.28470408561989,
+          "Minimum": 41.40778,
+          "Maximum": 43.00778,
+          "Stage": 3
+        },
+        {
+          "Name": "\u914D\u7F6E 2 COMP  \u9762 6",
+          "Nominal": 42.60778,
+          "Value": 41.80778,
+          "Minimum": 41.80778,
+          "Maximum": 43.407779999999995,
+          "Stage": 3
+        }
+      ],
+      "Passed": false,
+      "AcceptanceMargin": -0.03125692403907703,
+      "CriterionValue": 0.031257024039077035,
+      "Stages": [
+        {
+          "Stage": 1,
+          "Criterion": 0.08529965759316395,
+          "Compensators": [
+            {
+              "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.14392930622391029,
+              "Minimum": -0.2560706937760897,
+              "Maximum": 0.14392930622391029,
+              "Stage": 1
+            }
+          ],
+          "Configurations": [
+            {
+              "Configuration": 1,
+              "Criterion": 0.014947479462401462,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.20778,
+                  "Value": 42.20778,
+                  "Minimum": 41.40778,
+                  "Maximum": 43.00778,
+                  "Stage": 3
+                }
+              ],
+              "Passed": true,
+              "AcceptanceMargin": 0.9850525205375985,
+              "LimitingField": null,
+              "Error": ""
+            },
+            {
+              "Configuration": 2,
+              "Criterion": 0.08529965759316395,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.60778,
+                  "Value": 42.60778,
+                  "Minimum": 41.80778,
+                  "Maximum": 43.407779999999995,
+                  "Stage": 3
+                }
+              ],
+              "Passed": false,
+              "AcceptanceMargin": -0.08529955759316395,
+              "LimitingField": null,
+              "Error": ""
+            }
+          ]
+        },
+        {
+          "Stage": 2,
+          "Criterion": 0.0850970911573283,
+          "Compensators": [
+            {
+              "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": -0.1,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            }
+          ],
+          "Configurations": [
+            {
+              "Configuration": 1,
+              "Criterion": 0.014932970982173329,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.1,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.20778,
+                  "Value": 42.20778,
+                  "Minimum": 41.40778,
+                  "Maximum": 43.00778,
+                  "Stage": 3
+                }
+              ],
+              "Passed": true,
+              "AcceptanceMargin": 0.9850670290178267,
+              "LimitingField": null,
+              "Error": ""
+            },
+            {
+              "Configuration": 2,
+              "Criterion": 0.0850970911573283,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.1,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.60778,
+                  "Value": 42.60778,
+                  "Minimum": 41.80778,
+                  "Maximum": 43.407779999999995,
+                  "Stage": 3
+                }
+              ],
+              "Passed": false,
+              "AcceptanceMargin": -0.0850969911573283,
+              "LimitingField": null,
+              "Error": ""
+            }
+          ]
+        },
+        {
+          "Stage": 3,
+          "Criterion": 0.031257024039077035,
+          "Compensators": [
+            {
+              "Name": "\u914D\u7F6E 1 COMP  \u9762 6",
+              "Nominal": 42.20778,
+              "Value": 42.28470408561989,
+              "Minimum": 41.40778,
+              "Maximum": 43.00778,
+              "Stage": 3
+            },
+            {
+              "Name": "\u914D\u7F6E 2 COMP  \u9762 6",
+              "Nominal": 42.60778,
+              "Value": 41.80778,
+              "Minimum": 41.80778,
+              "Maximum": 43.407779999999995,
+              "Stage": 3
+            }
+          ],
+          "Configurations": [
+            {
+              "Configuration": 1,
+              "Criterion": 0.013907118288479585,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.1,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.20778,
+                  "Value": 42.28470408561989,
+                  "Minimum": 41.40778,
+                  "Maximum": 43.00778,
+                  "Stage": 3
+                }
+              ],
+              "Passed": true,
+              "AcceptanceMargin": 0.9860928817115204,
+              "LimitingField": null,
+              "Error": ""
+            },
+            {
+              "Configuration": 2,
+              "Criterion": 0.031257024039077035,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.1,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.60778,
+                  "Value": 41.80778,
+                  "Minimum": 41.80778,
+                  "Maximum": 43.407779999999995,
+                  "Stage": 3
+                }
+              ],
+              "Passed": false,
+              "AcceptanceMargin": -0.03125692403907703,
+              "LimitingField": null,
+              "Error": ""
+            }
+          ]
+        }
+      ],
+      "Configurations": [
+        {
+          "Configuration": 1,
+          "Criterion": 0.013907118288479585,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.2,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": -0.1,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.20778,
+              "Value": 42.28470408561989,
+              "Minimum": 41.40778,
+              "Maximum": 43.00778,
+              "Stage": 3
+            }
+          ],
+          "Passed": true,
+          "AcceptanceMargin": 0.9860928817115204,
+          "LimitingField": null,
+          "Error": ""
+        },
+        {
+          "Configuration": 2,
+          "Criterion": 0.031257024039077035,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.2,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": -0.1,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.60778,
+              "Value": 41.80778,
+              "Minimum": 41.80778,
+              "Maximum": 43.407779999999995,
+              "Stage": 3
+            }
+          ],
+          "Passed": false,
+          "AcceptanceMargin": -0.03125692403907703,
+          "LimitingField": null,
+          "Error": ""
+        }
+      ],
+      "UncompensatedConfigurations": [
+        {
+          "Configuration": 1,
+          "Criterion": 0.013740300792864315,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.056070693776089725,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.20778,
+              "Value": 42.20778,
+              "Minimum": 41.40778,
+              "Maximum": 43.00778,
+              "Stage": 3
+            }
+          ],
+          "Passed": true,
+          "AcceptanceMargin": 0.9862596992071356,
+          "LimitingField": null,
+          "Error": ""
+        },
+        {
+          "Configuration": 2,
+          "Criterion": 0.08771501418209547,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.056070693776089725,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.60778,
+              "Value": 42.60778,
+              "Minimum": 41.80778,
+              "Maximum": 43.407779999999995,
+              "Stage": 3
+            }
+          ],
+          "Passed": false,
+          "AcceptanceMargin": -0.08771491418209547,
+          "LimitingField": null,
+          "Error": ""
+        }
+      ]
+    },
+    {
+      "Trial": 2,
+      "Merit": "0.090698098844",
+      "CompensatedMerit": "0.0339040546609",
+      "Degradation": "0.00151964017594",
+      "Fields": null,
+      "UncompensatedFields": null,
+      "Compensators": [
+        {
+          "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+          "Nominal": 0,
+          "Value": 0.1480522186969892,
+          "Minimum": -0.2519477813030108,
+          "Maximum": 0.1480522186969892,
+          "Stage": 1
+        },
+        {
+          "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+          "Nominal": 0,
+          "Value": -0.1,
+          "Minimum": -0.1,
+          "Maximum": 0.1,
+          "Stage": 2
+        },
+        {
+          "Name": "\u914D\u7F6E 1 COMP  \u9762 6",
+          "Nominal": 42.20778,
+          "Value": 42.244626262821434,
+          "Minimum": 41.40778,
+          "Maximum": 43.00778,
+          "Stage": 3
+        },
+        {
+          "Name": "\u914D\u7F6E 2 COMP  \u9762 6",
+          "Nominal": 42.60778,
+          "Value": 41.80778,
+          "Minimum": 41.80778,
+          "Maximum": 43.407779999999995,
+          "Stage": 3
+        }
+      ],
+      "Passed": false,
+      "AcceptanceMargin": -0.033903954660902395,
+      "CriterionValue": 0.0339040546609024,
+      "Stages": [
+        {
+          "Stage": 1,
+          "Criterion": 0.08839893959712157,
+          "Compensators": [
+            {
+              "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.1480522186969892,
+              "Minimum": -0.2519477813030108,
+              "Maximum": 0.1480522186969892,
+              "Stage": 1
+            }
+          ],
+          "Configurations": [
+            {
+              "Configuration": 1,
+              "Criterion": 0.014677163687039287,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.20778,
+                  "Value": 42.20778,
+                  "Minimum": 41.40778,
+                  "Maximum": 43.00778,
+                  "Stage": 3
+                }
+              ],
+              "Passed": true,
+              "AcceptanceMargin": 0.9853228363129607,
+              "LimitingField": null,
+              "Error": ""
+            },
+            {
+              "Configuration": 2,
+              "Criterion": 0.08839893959712157,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.60778,
+                  "Value": 42.60778,
+                  "Minimum": 41.80778,
+                  "Maximum": 43.407779999999995,
+                  "Stage": 3
+                }
+              ],
+              "Passed": false,
+              "AcceptanceMargin": -0.08839883959712157,
+              "LimitingField": null,
+              "Error": ""
+            }
+          ]
+        },
+        {
+          "Stage": 2,
+          "Criterion": 0.08808415065735073,
+          "Compensators": [
+            {
+              "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": -0.1,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            }
+          ],
+          "Configurations": [
+            {
+              "Configuration": 1,
+              "Criterion": 0.013905362149434811,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.1,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.20778,
+                  "Value": 42.20778,
+                  "Minimum": 41.40778,
+                  "Maximum": 43.00778,
+                  "Stage": 3
+                }
+              ],
+              "Passed": true,
+              "AcceptanceMargin": 0.9860946378505652,
+              "LimitingField": null,
+              "Error": ""
+            },
+            {
+              "Configuration": 2,
+              "Criterion": 0.08808415065735073,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.1,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.60778,
+                  "Value": 42.60778,
+                  "Minimum": 41.80778,
+                  "Maximum": 43.407779999999995,
+                  "Stage": 3
+                }
+              ],
+              "Passed": false,
+              "AcceptanceMargin": -0.08808405065735073,
+              "LimitingField": null,
+              "Error": ""
+            }
+          ]
+        },
+        {
+          "Stage": 3,
+          "Criterion": 0.0339040546609024,
+          "Compensators": [
+            {
+              "Name": "\u914D\u7F6E 1 COMP  \u9762 6",
+              "Nominal": 42.20778,
+              "Value": 42.244626262821434,
+              "Minimum": 41.40778,
+              "Maximum": 43.00778,
+              "Stage": 3
+            },
+            {
+              "Name": "\u914D\u7F6E 2 COMP  \u9762 6",
+              "Nominal": 42.60778,
+              "Value": 41.80778,
+              "Minimum": 41.80778,
+              "Maximum": 43.407779999999995,
+              "Stage": 3
+            }
+          ],
+          "Configurations": [
+            {
+              "Configuration": 1,
+              "Criterion": 0.013658808987731337,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.1,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.20778,
+                  "Value": 42.244626262821434,
+                  "Minimum": 41.40778,
+                  "Maximum": 43.00778,
+                  "Stage": 3
+                }
+              ],
+              "Passed": true,
+              "AcceptanceMargin": 0.9863411910122687,
+              "LimitingField": null,
+              "Error": ""
+            },
+            {
+              "Configuration": 2,
+              "Criterion": 0.0339040546609024,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.1,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.60778,
+                  "Value": 41.80778,
+                  "Minimum": 41.80778,
+                  "Maximum": 43.407779999999995,
+                  "Stage": 3
+                }
+              ],
+              "Passed": false,
+              "AcceptanceMargin": -0.033903954660902395,
+              "LimitingField": null,
+              "Error": ""
+            }
+          ]
+        }
+      ],
+      "Configurations": [
+        {
+          "Configuration": 1,
+          "Criterion": 0.013658808987731337,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.2,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": -0.1,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.20778,
+              "Value": 42.244626262821434,
+              "Minimum": 41.40778,
+              "Maximum": 43.00778,
+              "Stage": 3
+            }
+          ],
+          "Passed": true,
+          "AcceptanceMargin": 0.9863411910122687,
+          "LimitingField": null,
+          "Error": ""
+        },
+        {
+          "Configuration": 2,
+          "Criterion": 0.0339040546609024,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.2,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": -0.1,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.60778,
+              "Value": 41.80778,
+              "Minimum": 41.80778,
+              "Maximum": 43.407779999999995,
+              "Stage": 3
+            }
+          ],
+          "Passed": false,
+          "AcceptanceMargin": -0.033903954660902395,
+          "LimitingField": null,
+          "Error": ""
+        }
+      ],
+      "UncompensatedConfigurations": [
+        {
+          "Configuration": 1,
+          "Criterion": 0.013413881980902908,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.0519477813030108,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.20778,
+              "Value": 42.20778,
+              "Minimum": 41.40778,
+              "Maximum": 43.00778,
+              "Stage": 3
+            }
+          ],
+          "Passed": true,
+          "AcceptanceMargin": 0.9865861180190971,
+          "LimitingField": null,
+          "Error": ""
+        },
+        {
+          "Configuration": 2,
+          "Criterion": 0.09069809884397999,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.0519477813030108,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.60778,
+              "Value": 42.60778,
+              "Minimum": 41.80778,
+              "Maximum": 43.407779999999995,
+              "Stage": 3
+            }
+          ],
+          "Passed": false,
+          "AcceptanceMargin": -0.09069799884397999,
+          "LimitingField": null,
+          "Error": ""
+        }
+      ]
+    },
+    {
+      "Trial": 3,
+      "Merit": "0.089450479926",
+      "CompensatedMerit": "0.0326951270899",
+      "Degradation": "0.000310712604944",
+      "Fields": null,
+      "UncompensatedFields": null,
+      "Compensators": [
+        {
+          "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+          "Nominal": 0,
+          "Value": 0.15750663602511916,
+          "Minimum": -0.24249336397488086,
+          "Maximum": 0.15750663602511916,
+          "Stage": 1
+        },
+        {
+          "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+          "Nominal": 0,
+          "Value": -0.08212176278888313,
+          "Minimum": -0.1,
+          "Maximum": 0.1,
+          "Stage": 2
+        },
+        {
+          "Name": "\u914D\u7F6E 1 COMP  \u9762 6",
+          "Nominal": 42.20778,
+          "Value": 42.25900028624741,
+          "Minimum": 41.40778,
+          "Maximum": 43.00778,
+          "Stage": 3
+        },
+        {
+          "Name": "\u914D\u7F6E 2 COMP  \u9762 6",
+          "Nominal": 42.60778,
+          "Value": 41.80778,
+          "Minimum": 41.80778,
+          "Maximum": 43.407779999999995,
+          "Stage": 3
+        }
+      ],
+      "Passed": false,
+      "AcceptanceMargin": -0.03269502708990619,
+      "CriterionValue": 0.03269512708990619,
+      "Stages": [
+        {
+          "Stage": 1,
+          "Criterion": 0.08709678934641976,
+          "Compensators": [
+            {
+              "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.15750663602511916,
+              "Minimum": -0.24249336397488086,
+              "Maximum": 0.15750663602511916,
+              "Stage": 1
+            }
+          ],
+          "Configurations": [
+            {
+              "Configuration": 1,
+              "Criterion": 0.013875151848727894,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.20778,
+                  "Value": 42.20778,
+                  "Minimum": 41.40778,
+                  "Maximum": 43.00778,
+                  "Stage": 3
+                }
+              ],
+              "Passed": true,
+              "AcceptanceMargin": 0.9861248481512721,
+              "LimitingField": null,
+              "Error": ""
+            },
+            {
+              "Configuration": 2,
+              "Criterion": 0.08709678934641976,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.60778,
+                  "Value": 42.60778,
+                  "Minimum": 41.80778,
+                  "Maximum": 43.407779999999995,
+                  "Stage": 3
+                }
+              ],
+              "Passed": false,
+              "AcceptanceMargin": -0.08709668934641976,
+              "LimitingField": null,
+              "Error": ""
+            }
+          ]
+        },
+        {
+          "Stage": 2,
+          "Criterion": 0.08698952756654252,
+          "Compensators": [
+            {
+              "Name": "\u5171\u7528 \u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": -0.08212176278888313,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            }
+          ],
+          "Configurations": [
+            {
+              "Configuration": 1,
+              "Criterion": 0.014120308397964692,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.08212176278888313,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.20778,
+                  "Value": 42.20778,
+                  "Minimum": 41.40778,
+                  "Maximum": 43.00778,
+                  "Stage": 3
+                }
+              ],
+              "Passed": true,
+              "AcceptanceMargin": 0.9858796916020353,
+              "LimitingField": null,
+              "Error": ""
+            },
+            {
+              "Configuration": 2,
+              "Criterion": 0.08698952756654252,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.08212176278888313,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.60778,
+                  "Value": 42.60778,
+                  "Minimum": 41.80778,
+                  "Maximum": 43.407779999999995,
+                  "Stage": 3
+                }
+              ],
+              "Passed": false,
+              "AcceptanceMargin": -0.08698942756654252,
+              "LimitingField": null,
+              "Error": ""
+            }
+          ]
+        },
+        {
+          "Stage": 3,
+          "Criterion": 0.03269512708990619,
+          "Compensators": [
+            {
+              "Name": "\u914D\u7F6E 1 COMP  \u9762 6",
+              "Nominal": 42.20778,
+              "Value": 42.25900028624741,
+              "Minimum": 41.40778,
+              "Maximum": 43.00778,
+              "Stage": 3
+            },
+            {
+              "Name": "\u914D\u7F6E 2 COMP  \u9762 6",
+              "Nominal": 42.60778,
+              "Value": 41.80778,
+              "Minimum": 41.80778,
+              "Maximum": 43.407779999999995,
+              "Stage": 3
+            }
+          ],
+          "Configurations": [
+            {
+              "Configuration": 1,
+              "Criterion": 0.013647547885740933,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.08212176278888313,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.20778,
+                  "Value": 42.25900028624741,
+                  "Minimum": 41.40778,
+                  "Maximum": 43.00778,
+                  "Stage": 3
+                }
+              ],
+              "Passed": true,
+              "AcceptanceMargin": 0.986352452114259,
+              "LimitingField": null,
+              "Error": ""
+            },
+            {
+              "Configuration": 2,
+              "Criterion": 0.03269512708990619,
+              "Fields": null,
+              "Compensators": [
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": 0.2,
+                  "Minimum": -0.2,
+                  "Maximum": 0.2,
+                  "Stage": 1
+                },
+                {
+                  "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+                  "Nominal": 0,
+                  "Value": -0.08212176278888313,
+                  "Minimum": -0.1,
+                  "Maximum": 0.1,
+                  "Stage": 2
+                },
+                {
+                  "Name": "COMP  \u9762 6",
+                  "Nominal": 42.60778,
+                  "Value": 41.80778,
+                  "Minimum": 41.80778,
+                  "Maximum": 43.407779999999995,
+                  "Stage": 3
+                }
+              ],
+              "Passed": false,
+              "AcceptanceMargin": -0.03269502708990619,
+              "LimitingField": null,
+              "Error": ""
+            }
+          ]
+        }
+      ],
+      "Configurations": [
+        {
+          "Configuration": 1,
+          "Criterion": 0.013647547885740933,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.2,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": -0.08212176278888313,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.20778,
+              "Value": 42.25900028624741,
+              "Minimum": 41.40778,
+              "Maximum": 43.00778,
+              "Stage": 3
+            }
+          ],
+          "Passed": true,
+          "AcceptanceMargin": 0.986352452114259,
+          "LimitingField": null,
+          "Error": ""
+        },
+        {
+          "Configuration": 2,
+          "Criterion": 0.03269512708990619,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.2,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": -0.08212176278888313,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.60778,
+              "Value": 41.80778,
+              "Minimum": 41.80778,
+              "Maximum": 43.407779999999995,
+              "Stage": 3
+            }
+          ],
+          "Passed": false,
+          "AcceptanceMargin": -0.03269502708990619,
+          "LimitingField": null,
+          "Error": ""
+        }
+      ],
+      "UncompensatedConfigurations": [
+        {
+          "Configuration": 1,
+          "Criterion": 0.013221960756682383,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.042493363974880835,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.20778,
+              "Value": 42.20778,
+              "Minimum": 41.40778,
+              "Maximum": 43.00778,
+              "Stage": 3
+            }
+          ],
+          "Passed": true,
+          "AcceptanceMargin": 0.9867780392433176,
+          "LimitingField": null,
+          "Error": ""
+        },
+        {
+          "Configuration": 2,
+          "Criterion": 0.08945047992602415,
+          "Fields": null,
+          "Compensators": [
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementDecenterX \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0.042493363974880835,
+              "Minimum": -0.2,
+              "Maximum": 0.2,
+              "Stage": 1
+            },
+            {
+              "Name": "\u672C\u5730\u8865\u507F ElementTiltY \u9762 1\u20132",
+              "Nominal": 0,
+              "Value": 0,
+              "Minimum": -0.1,
+              "Maximum": 0.1,
+              "Stage": 2
+            },
+            {
+              "Name": "COMP  \u9762 6",
+              "Nominal": 42.60778,
+              "Value": 42.60778,
+              "Minimum": 41.80778,
+              "Maximum": 43.407779999999995,
+              "Stage": 3
+            }
+          ],
+          "Passed": false,
+          "AcceptanceMargin": -0.08945037992602414,
+          "LimitingField": null,
+          "Error": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "SchemaVersion": 9,
+  "Operands": [
+    {
+      "Index": 1,
+      "Enabled": true,
+      "Kind": "Radius",
+      "SurfaceNumber": 1,
+      "Minimum": -0.01,
+      "Maximum": 0.01,
+      "Distribution": "Normal",
+      "Comment": "",
+      "EndSurfaceNumber": -1,
+      "ParameterIndex": 0,
+      "TestWavelengthMicrometers": null,
+      "MinimumZernikeTerm": 2,
+      "MaximumZernikeTerm": 11,
+      "IsoUnit": "Nanometers",
+      "IsoStatistics": "AtMaximum"
+    }
+  ],
+  "Criterion": "SystemMerit",
+  "Trials": 20,
+  "Seed": 1234,
+  "CompensationIterations": 3,
+  "YieldLimit": 0,
+  "Mode": "Sensitivity",
+  "InverseValue": 0.05,
+  "DistributionOverride": null,
+  "MaxDegreeOfParallelism": 24,
+  "WorstSensitivityCount": 0,
+  "ShowMonteCarloTrials": true,
+  "MtfSettings": {
+    "Frequency": 30,
+    "Sampling": 1,
+    "Wave": 0,
+    "Method": "Fourier",
+    "Direction": "Minimum",
+    "SeparateFields": true,
+    "FieldLimits": [
+      {
+        "FieldNumber": 2,
+        "Minimum": 0.2
+      }
+    ]
+  },
+  "CompensationAlgorithm": "DampedLeastSquares",
+  "AdditionalCompensators": [
+    {
+      "SurfaceNumber": 1,
+      "Kind": "ElementDecenterX",
+      "Minimum": -0.05,
+      "Maximum": 0.05,
+      "EndSurfaceNumber": 2,
+      "Pivot": null,
+      "Stage": 1,
+      "Configuration": 0
+    },
+    {
+      "SurfaceNumber": 6,
+      "Kind": "Thickness",
+      "Minimum": -0.2,
+      "Maximum": 0.2,
+      "EndSurfaceNumber": -1,
+      "Pivot": null,
+      "Stage": 2,
+      "Configuration": 0
+    }
+  ],
+  "ConfigurationSettings": null,
+  "StageObjectives": [
+    {
+      "Stage": 1,
+      "Criterion": "SystemMerit",
+      "MtfSettings": null
+    },
+    {
+      "Stage": 2,
+      "Criterion": "Mtf",
+      "MtfSettings": {
+        "Frequency": 18,
+        "Sampling": 1,
+        "Wave": 0,
+        "Method": "Geometric",
+        "Direction": "Minimum",
+        "SeparateFields": true,
+        "FieldLimits": null
+      }
+    }
+  ]
+}

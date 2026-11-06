@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="f73ca797-5f2f-41e7-82d5-a35868068dd8" name="optics@LAPTOP-G4BBBCS0 2026-11-06 13:27:46" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-06T13:27:46.2246890+08:00" queuing="2026-11-06T13:27:46.2246893+08:00" start="2026-11-06T13:27:39.8330892+08:00" finish="2026-11-06T13:27:54.9405655+08:00" />
+  <TestSettings name="default" id="515bca96-073a-400d-821c-a26f4ce858cd">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-06_13_27_46" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3afa86fc-c2c1-48d9-a9dc-81fd8635fedd" testId="8f76e406-97bb-7788-614d-bdd62f53481a" testName="OpticalSystemDesign.Tests.MtfTolerancingPanelTests.MeritBindingsCanBeCapturedAcrossDialogVisitsAndRoundTripVersionTen" computerName="LAPTOP-G4BBBCS0" duration="00:00:08.9680167" startTime="2026-11-06T13:27:45.8508513+08:00" endTime="2026-11-06T13:27:54.8196776+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3afa86fc-c2c1-48d9-a9dc-81fd8635fedd" />
+    <UnitTestResult executionId="92633895-aa99-4155-9968-ecfb7200dca5" testId="1b6a3635-572b-2a48-525e-cc712179796d" testName="OpticalSystemDesign.Tests.BoundMeritTolerancingTests.IndependentTablesDriveAlignmentFocusAndFinalAcceptance(joint: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.0231368" startTime="2026-11-06T13:27:44.7018175+08:00" endTime="2026-11-06T13:27:45.7170925+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="92633895-aa99-4155-9968-ecfb7200dca5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.All() Failure: 2 out of 2 items in the collection did not pass.&#xD;
+[0]: Item:  ToleranceCompensatorValueDto { Name = 配置 1 本地补偿 Thickness 面 6, Nominal = 42.20778, Value = 42.30777996671107, Minimum = 41.80778, Maximum = 42.60778, Stage = 2 }&#xD;
+     Error: Assert.Equal() Failure: Values are not within 8 decimal places&#xD;
+            Expected: 42.307780000000001 (rounded from 42.307780000000001)&#xD;
+            Actual:   42.307779969999999 (rounded from 42.307779966711067)&#xD;
+[1]: Item:  ToleranceCompensatorValueDto { Name = 配置 2 本地补偿 Thickness 面 6, Nominal = 42.38778, Value = 42.30778002663115, Minimum = 41.98778, Maximum = 42.78778, Stage = 2 }&#xD;
+     Error: Assert.Equal() Failure: Values are not within 8 decimal places&#xD;
+            Expected: 42.307780000000001 (rounded from 42.307780000000001)&#xD;
+            Actual:   42.307780030000004 (rounded from 42.30778002663115)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.BoundMeritTolerancingTests.IndependentTablesDriveAlignmentFocusAndFinalAcceptance(Boolean joint) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\BoundMeritTolerancingTests.cs:line 53&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8ace733d-2a33-480b-bffc-716f600d915e" testId="8647e8eb-ce18-4fc2-5f93-c3f49ad7b227" testName="OpticalSystemDesign.Tests.BoundMeritTolerancingTests.IndependentTablesDriveAlignmentFocusAndFinalAcceptance(joint: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1275505" startTime="2026-11-06T13:27:45.7318967+08:00" endTime="2026-11-06T13:27:45.8457721+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8ace733d-2a33-480b-bffc-716f600d915e">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.All() Failure: 1 out of 1 items in the collection did not pass.&#xD;
+[0]: Item:  ToleranceCompensatorValueDto { Name = 本地补偿 Thickness 面 6, Nominal = 42.20778, Value = 42.30777996671107, Minimum = 41.80778, Maximum = 42.60778, Stage = 2 }&#xD;
+     Error: Assert.Equal() Failure: Values are not within 8 decimal places&#xD;
+            Expected: 42.307780000000001 (rounded from 42.307780000000001)&#xD;
+            Actual:   42.307779969999999 (rounded from 42.307779966711067)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.BoundMeritTolerancingTests.IndependentTablesDriveAlignmentFocusAndFinalAcceptance(Boolean joint) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\BoundMeritTolerancingTests.cs:line 53&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.BoundMeritTolerancingTests.IndependentTablesDriveAlignmentFocusAndFinalAcceptance(joint: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="1b6a3635-572b-2a48-525e-cc712179796d">
+      <Execution id="92633895-aa99-4155-9968-ecfb7200dca5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BoundMeritTolerancingTests" name="IndependentTablesDriveAlignmentFocusAndFinalAcceptance" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.MtfTolerancingPanelTests.MeritBindingsCanBeCapturedAcrossDialogVisitsAndRoundTripVersionTen" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8f76e406-97bb-7788-614d-bdd62f53481a">
+      <Execution id="3afa86fc-c2c1-48d9-a9dc-81fd8635fedd" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.MtfTolerancingPanelTests" name="MeritBindingsCanBeCapturedAcrossDialogVisitsAndRoundTripVersionTen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.BoundMeritTolerancingTests.IndependentTablesDriveAlignmentFocusAndFinalAcceptance(joint: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8647e8eb-ce18-4fc2-5f93-c3f49ad7b227">
+      <Execution id="8ace733d-2a33-480b-bffc-716f600d915e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.BoundMeritTolerancingTests" name="IndependentTablesDriveAlignmentFocusAndFinalAcceptance" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="8f76e406-97bb-7788-614d-bdd62f53481a" executionId="3afa86fc-c2c1-48d9-a9dc-81fd8635fedd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1b6a3635-572b-2a48-525e-cc712179796d" executionId="92633895-aa99-4155-9968-ecfb7200dca5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8647e8eb-ce18-4fc2-5f93-c3f49ad7b227" executionId="8ace733d-2a33-480b-bffc-716f600d915e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="1" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:01.19]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.85]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:02.89]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.96]       Assert.All() Failure: 2 out of 2 items in the collection did not pass.&#xD;
+[xUnit.net 00:00:03.96]       [0]: Item:  ToleranceCompensatorValueDto { Name = 配置 1 本地补偿 Thickness 面 6, Nominal = 42.20778, Value = 42.30777996671107, Minimum = 41.80778, Maximum = 42.60778, Stage = 2 }&#xD;
+[xUnit.net 00:00:03.96]            Error: Assert.Equal() Failure: Values are not within 8 decimal places&#xD;
+[xUnit.net 00:00:03.96]                   Expected: 42.307780000000001 (rounded from 42.307780000000001)&#xD;
+[xUnit.net 00:00:03.96]                   Actual:   42.307779969999999 (rounded from 42.307779966711067)&#xD;
+[xUnit.net 00:00:03.96]       [1]: Item:  ToleranceCompensatorValueDto { Name = 配置 2 本地补偿 Thickness 面 6, Nominal = 42.38778, Value = 42.30778002663115, Minimum = 41.98778, Maximum = 42.78778, Stage = 2 }&#xD;
+[xUnit.net 00:00:03.96]            Error: Assert.Equal() Failure: Values are not within 8 decimal places&#xD;
+[xUnit.net 00:00:03.96]                   Expected: 42.307780000000001 (rounded from 42.307780000000001)&#xD;
+[xUnit.net 00:00:03.96]                   Actual:   42.307780030000004 (rounded from 42.30778002663115)&#xD;
+[xUnit.net 00:00:03.96]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.96]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\BoundMeritTolerancingTests.cs(53,0): at OpticalSystemDesign.Tests.BoundMeritTolerancingTests.IndependentTablesDriveAlignmentFocusAndFinalAcceptance(Boolean joint)&#xD;
+[xUnit.net 00:00:03.96]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:04.09]       Assert.All() Failure: 1 out of 1 items in the collection did not pass.&#xD;
+[xUnit.net 00:00:04.09]       [0]: Item:  ToleranceCompensatorValueDto { Name = 本地补偿 Thickness 面 6, Nominal = 42.20778, Value = 42.30777996671107, Minimum = 41.80778, Maximum = 42.60778, Stage = 2 }&#xD;
+[xUnit.net 00:00:04.09]            Error: Assert.Equal() Failure: Values are not within 8 decimal places&#xD;
+[xUnit.net 00:00:04.09]                   Expected: 42.307780000000001 (rounded from 42.307780000000001)&#xD;
+[xUnit.net 00:00:04.09]                   Actual:   42.307779969999999 (rounded from 42.307779966711067)&#xD;
+[xUnit.net 00:00:04.09]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.09]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\BoundMeritTolerancingTests.cs(53,0): at OpticalSystemDesign.Tests.BoundMeritTolerancingTests.IndependentTablesDriveAlignmentFocusAndFinalAcceptance(Boolean joint)&#xD;
+[xUnit.net 00:00:04.09]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.06]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-06T13:27:45.7198304+08:00">
+        <Text>[xUnit.net 00:00:03.96]     OpticalSystemDesign.Tests.BoundMeritTolerancingTests.IndependentTablesDriveAlignmentFocusAndFinalAcceptance(joint: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-06T13:27:45.8463001+08:00">
+        <Text>[xUnit.net 00:00:04.09]     OpticalSystemDesign.Tests.BoundMeritTolerancingTests.IndependentTablesDriveAlignmentFocusAndFinalAcceptance(joint: False) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
