@@ -51,6 +51,22 @@ public sealed class FirstOrderScalarContractTests
     }
 
     [Fact]
+    public void NeutralGridInfinityRequiresExplicitAbsenceOfMaterialAndCoating()
+    {
+        using var files = new FirstOrderFiles();
+        files.WriteWorkbenchZeroPower();
+        files.WriteNative(1e10, "GridSag", "");
+        Assert.Equal(Conclusion.Pass, Compare(files).Conclusion);
+        foreach (var material in new[] { "N-BK7", "MIRROR" })
+        {
+            files.WriteNative(1e10, "GridSag", material);
+            Assert.Throws<InvalidDataException>(() => ResultNormalizer.Zemax(files.Native, Entry, Request));
+        }
+        files.WriteNative(1e10, "GridSag", "", "AR");
+        Assert.Throws<InvalidDataException>(() => ResultNormalizer.Zemax(files.Native, Entry, Request));
+    }
+
+    [Fact]
     public void WorkbenchInfinityNeedsExplicitZeroPowerState()
     {
         using var files = new FirstOrderFiles();
@@ -88,7 +104,7 @@ public sealed class FirstOrderScalarContractTests
                 ["CardinalParametersApplicable"] = true
             }));
 
-        public void WriteNative(double efl, string surfaceType)
+        public void WriteNative(double efl, string surfaceType, string? gridMaterial = null, string coating = "")
         {
             JsonFiles.Write(Native, new
             {
@@ -97,8 +113,17 @@ public sealed class FirstOrderScalarContractTests
             });
             JsonFiles.Write(Path.Combine(Root, "model.json"), new
             {
-                surfaces = new[] { "Standard", surfaceType, "Standard" }
-                    .Select(type => new Dictionary<string, object?> { ["Type"] = type, ["Radius"] = null })
+                surfaces = new[] { "Standard", surfaceType, "Standard" }.Select(type =>
+                {
+                    var row = new Dictionary<string, object?> { ["Type"] = type, ["Radius"] = null };
+                    if (gridMaterial is not null)
+                    {
+                        row["Material"] = type == "GridSag" ? gridMaterial : "";
+                        row["Coating"] = type == "GridSag" ? coating : "";
+                        row["Thickness"] = 0;
+                    }
+                    return row;
+                })
             });
         }
 

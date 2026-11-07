@@ -59,13 +59,15 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
             type: _type,
             displayAs: "截面",
             usePolarization: _usePolarization,
-            normalize: _normalize, zemaxCompatible: true).GenerateData();
+            normalize: _normalize, zemaxCompatible: true).GenerateIntermediateGrid();
+        if (source.Outcome != AnalysisOutcome.Success) return source with { Name = Name };
         var idealPeak = 1d;
         if (!_normalize)
         {
             var ideal = new PsfAnalysis(Optic, _sampling, _gridSize ?? (_sampling * 2),
                 _wavelengthNumber, _fieldNumber, type: "linear", displayAs: "heatmap",
-                usePolarization: _usePolarization, zemaxCompatible: true, ignoreOpd: true).GenerateData();
+                usePolarization: _usePolarization, zemaxCompatible: true, ignoreOpd: true).GenerateIntermediateGrid();
+            if (ideal.Outcome != AnalysisOutcome.Success) return ideal with { Name = Name };
             idealPeak = ideal.PlotSeries.SelectMany(series => series.Points)
                 .Where(point => point.Value.HasValue).Select(point => point.Value!.Value).Max();
         }
@@ -186,7 +188,7 @@ public sealed class FftLineEdgeSpreadAnalysis : BaseAnalysis
             type: "线性",
             displayAs: "截面",
             usePolarization: _usePolarization,
-            normalize: false, zemaxCompatible: true).GenerateData();
+            normalize: false, zemaxCompatible: true).GenerateIntermediateGrid();
         return PsfProfilePresentation.CreateLineEdgeSpreadData(
             Name,
             source,

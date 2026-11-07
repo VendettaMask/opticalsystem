@@ -10,6 +10,11 @@ public static partial class DiffractionEngine
     internal static (double Tangential, double Sagittal) ImagePlaneFourierFNumbers(
         Optic optic, (double Hx, double Hy) field, Wavelength wave, bool aiming)
     {
+        if (optic.UseExitPupilFNumber)
+        {
+            var value = optic.Paraxial.ExitPupilFNumber();
+            return (value, value);
+        }
         var frame = optic.SurfaceGroup.Items[^1].CoordinateSystem;
         var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wave.Nanometers);
         foreach (var zone in new[] { 1d, .99, .95, .9, .8, .7, .5, .25 })

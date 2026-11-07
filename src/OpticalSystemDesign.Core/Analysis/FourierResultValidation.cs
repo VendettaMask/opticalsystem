@@ -146,6 +146,7 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                 }
                 if (PupilSourceIdentity.Capture(Optic)?.Fingerprint != source)
                     return Unavailable("The optical source changed during Fourier validation.");
+                if (data.Outcome == AnalysisOutcome.NotApplicable) return data;
                 if (data.Outcome != AnalysisOutcome.Success) return Unavailable(data.OutcomeReason ?? "Fourier result unavailable");
                 if (data.Values.GetValueOrDefault("Normalized") is true || data.Values.GetValueOrDefault("UsePolarization") is true
                     || data.PlotSeries.Any(s => s.YUnit is AnalysisAxisUnit.Decibel or AnalysisAxisUnit.Radian || s.ValueUnit == AnalysisAxisUnit.Decibel))

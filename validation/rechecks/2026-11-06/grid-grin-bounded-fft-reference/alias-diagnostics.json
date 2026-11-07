@@ -1,0 +1,91 @@
+{
+  "coarse": {
+    "cx": 2.941283285244708,
+    "cy": 1.3942899182688393,
+    "discreteX": 2.9412754164713095,
+    "discreteY": 1.3947973148159671,
+    "sum": 34.62218038287187,
+    "total": 2.1638862739294917,
+    "edge4FractionUpperBound": 0.0025251993621260202,
+    "window": [
+      -255.75,
+      256.0,
+      -255.75,
+      256.0
+    ]
+  },
+  "fine": {
+    "cx": 2.947219147717874,
+    "cy": 1.3666774280151799,
+    "discreteX": 2.9472124019123758,
+    "discreteY": 1.3671606331782797,
+    "sum": 34.631327982648145,
+    "total": 2.164457998915509,
+    "edge4FractionUpperBound": 0.002496225962810299,
+    "window": [
+      -255.75,
+      256.0,
+      -255.75,
+      256.0
+    ]
+  },
+  "wide": {
+    "cx": 3.680678519800722,
+    "cy": -8.210001316366004,
+    "discreteX": 3.6806789718537587,
+    "discreteY": -8.210004787185417,
+    "sum": 34.62453832907138,
+    "total": 2.164033645566961,
+    "edge4FractionUpperBound": 4.758429852949487e-06,
+    "window": [
+      -511.75,
+      512.0,
+      -511.75,
+      512.0
+    ]
+  },
+  "folded": {
+    "cx": 2.937172397789027,
+    "cy": 1.4034004397030344,
+    "discreteX": 2.937193025136227,
+    "discreteY": 1.4033975341780165,
+    "sum": 34.62453832907138,
+    "total": 2.164033645566961,
+    "edge4FractionUpperBound": 0.002567795351231627,
+    "window": [
+      -255.75,
+      256.0,
+      -255.75,
+      256.0
+    ]
+  },
+  "energyOutsideCoarseWindow": 0.02341252329879029,
+  "fixedWideCentroidStepComparison": {
+    "count": 2001,
+    "maxAbsolute": 1.8698276783997675e-06,
+    "nrmse": 0.0023095851638163757,
+    "pointwise": true,
+    "verdict": "Pass"
+  },
+  "fixedWideCentroidCoarseVsWide": {
+    "count": 2001,
+    "maxAbsolute": 8.909973215832554e-07,
+    "nrmse": 0.001079174942714296,
+    "pointwise": true,
+    "verdict": "Pass"
+  },
+  "fixedWideCentroidFineVsWide": {
+    "count": 2001,
+    "maxAbsolute": 1.6353902209200236e-06,
+    "nrmse": 0.0017748882668868508,
+    "pointwise": true,
+    "verdict": "Pass"
+  },
+  "eachGridOwnCentroidFineVsWide": {
+    "count": 2001,
+    "maxAbsolute": 5.20241409172442e-06,
+    "nrmse": 0.005868636690436937,
+    "pointwise": true,
+    "verdict": "Pass"
+  }
+}

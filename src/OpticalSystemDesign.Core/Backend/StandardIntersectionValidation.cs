@@ -56,7 +56,12 @@ internal static class StandardIntersectionValidation
             return firstDistance;
         }
 
-        return Math.Min(firstDistance.Value, secondDistance.Value);
+        if (firstDistance.Value == secondDistance.Value) return firstDistance;
+        // At grazing incidence two forward hits can satisfy the same sag.
+        // The sequential vertex-plane branch must also govern batched traces.
+        var equation = new Geometries.RotationalSurfaceEquation { Kind = 1, Radius = radius, Conic = conic };
+        var hit = equation.Intersect(new(originX, originY, originZ), new(directionX, directionY, directionZ));
+        return hit.IsHit ? hit.Distance : null;
     }
 
     internal static double? ValidateStandardExplicitSagDistance(

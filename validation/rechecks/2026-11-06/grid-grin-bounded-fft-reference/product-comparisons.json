@@ -1,0 +1,236 @@
+{
+  "profile-8192-window317": {
+    "gate": {
+      "absolute": 1e-05,
+      "relative": 0.002,
+      "nrmse": 0.003,
+      "closeNrmse": 0.01,
+      "minimumCoverage": 0.95
+    },
+    "comparisons": {
+      "profile-grid-495-2048-step.005": {
+        "count": 32769,
+        "coverage": 1,
+        "maxAbsolute": 2.8625400449737e-06,
+        "nrmse": 0.011027956389485708,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    },
+    "core": {
+      "seconds": 54.5287611,
+      "coreSha256": "b805b00bc0652d28b6e4a1952b56bde77339fceca3be031ac3c12f93045c3c6e"
+    }
+  },
+  "profile-16384-window317": {
+    "gate": {
+      "absolute": 1e-05,
+      "relative": 0.002,
+      "nrmse": 0.003,
+      "closeNrmse": 0.01,
+      "minimumCoverage": 0.95
+    },
+    "comparisons": {
+      "profile-grid-495-2048-step.005": {
+        "count": 32769,
+        "coverage": 1,
+        "maxAbsolute": 2.764061806991275e-06,
+        "nrmse": 0.009745327792941518,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    },
+    "core": {
+      "seconds": 174.7206071,
+      "coreSha256": "b805b00bc0652d28b6e4a1952b56bde77339fceca3be031ac3c12f93045c3c6e"
+    }
+  },
+  "energy-65536": {
+    "gate": {
+      "absolute": 1e-05,
+      "relative": 0.002,
+      "nrmse": 0.003,
+      "closeNrmse": 0.01,
+      "minimumCoverage": 0.95
+    },
+    "comparisons": {
+      "energy-zero-phase-grid": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 8.53859618055175e-05,
+        "nrmse": 2.9459966491622252e-05,
+        "pointwise": false,
+        "verdict": "Pass"
+      },
+      "energy-grid-full-512": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 1.7089243993768737e-06,
+        "nrmse": 0.0020245869031967137,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energy-grid-495-1024-step.001": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 4.539087441000829e-06,
+        "nrmse": 0.004973255113055266,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energy-grid-495-1024-step.005": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 2.1261258495870066e-05,
+        "nrmse": 0.02270551974533566,
+        "pointwise": false,
+        "verdict": "Difference"
+      },
+      "energy-grid-495-2048-step.005": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 1.6750847761538433e-06,
+        "nrmse": 0.0019613281867067902,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energy-grid-full-512-step0.0025": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 2.7286706109993836e-05,
+        "nrmse": 0.028424812140876436,
+        "pointwise": false,
+        "verdict": "Difference"
+      },
+      "energy-grid-full-512-step0.001": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 1.3416529566488461e-06,
+        "nrmse": 0.0020950460116917068,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    },
+    "core": {
+      "seconds": 129.4684227,
+      "coreSha256": "b805b00bc0652d28b6e4a1952b56bde77339fceca3be031ac3c12f93045c3c6e"
+    }
+  },
+  "energy-131072": {
+    "gate": {
+      "absolute": 1e-05,
+      "relative": 0.002,
+      "nrmse": 0.003,
+      "closeNrmse": 0.01,
+      "minimumCoverage": 0.95
+    },
+    "comparisons": {
+      "energy-zero-phase-grid": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 0.00017270621196391334,
+        "nrmse": 3.453135442187595e-05,
+        "pointwise": false,
+        "verdict": "Pass"
+      },
+      "energy-grid-full-512": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 2.1403410174759526e-06,
+        "nrmse": 0.0022676417744008867,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energy-grid-495-1024-step.001": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 4.093674460499457e-06,
+        "nrmse": 0.004565802341212935,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energy-grid-495-1024-step.005": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 2.151725568373821e-05,
+        "nrmse": 0.023383872050716455,
+        "pointwise": false,
+        "verdict": "Difference"
+      },
+      "energy-grid-495-2048-step.005": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 2.1108127763677393e-06,
+        "nrmse": 0.002736152358891169,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energy-grid-full-512-step0.0025": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 2.753911052240127e-05,
+        "nrmse": 0.02912299503241194,
+        "pointwise": false,
+        "verdict": "Difference"
+      },
+      "energy-grid-full-512-step0.001": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 1.7190329942102438e-06,
+        "nrmse": 0.0021159887420330436,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    },
+    "core": {
+      "seconds": 421.0582634,
+      "coreSha256": "b805b00bc0652d28b6e4a1952b56bde77339fceca3be031ac3c12f93045c3c6e"
+    }
+  },
+  "profile-8192-window317~profile-16384-window317": {
+    "comparisons": {
+      "X \u622a\u9762": {
+        "count": 65537,
+        "coverage": 1,
+        "maxAbsolute": 1.9263545363267914e-06,
+        "nrmse": 0.004787221560438066,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    },
+    "gate": {
+      "absolute": 1e-05,
+      "relative": 0.002,
+      "nrmse": 0.003,
+      "closeNrmse": 0.01,
+      "minimumCoverage": 0.95
+    }
+  },
+  "energy-65536~energy-131072": {
+    "comparisons": {
+      "\u884d\u5c04\u6781\u9650": {
+        "count": 401,
+        "coverage": 1,
+        "maxAbsolute": 0.00014445051357521443,
+        "nrmse": 3.363216023570656e-05,
+        "pointwise": false,
+        "verdict": "Pass"
+      },
+      "Field 1": {
+        "count": 401,
+        "coverage": 1,
+        "maxAbsolute": 6.091486992254526e-07,
+        "nrmse": 0.0008115964305159176,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    },
+    "gate": {
+      "absolute": 1e-05,
+      "relative": 0.002,
+      "nrmse": 0.003,
+      "closeNrmse": 0.01,
+      "minimumCoverage": 0.95
+    }
+  }
+}

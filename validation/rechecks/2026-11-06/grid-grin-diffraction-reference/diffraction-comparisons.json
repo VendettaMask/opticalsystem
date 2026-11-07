@@ -1,0 +1,1656 @@
+{
+  "coreSha256": "653e1b67b8d653f06587f7666c7a70fe60c43bc65313dc630bf3f4bb37ecbd6a",
+  "comparisonSha256": "df7c49cad55630ecc44416f3131b3c9b78f500f94410421d3a26c5b9f60c438b",
+  "results": [
+    {
+      "id": 496,
+      "scope": "native-original-vs-0.001",
+      "key": "Huygens PSF",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Dimensionless",
+          "count": 1024,
+          "maxAbsolute": 0.009343338959227367,
+          "meanAbsolute": 0.0016090517342378608,
+          "rmse": 0.002227820069579819,
+          "nrmse": 0.27186301934507295,
+          "maxRelative": 9492.195086117179,
+          "p50": 0.0011047999408512197,
+          "p90": 0.003715164480545182,
+          "p95": 0.0045362480477558155,
+          "pearson": -0.15933773727885917,
+          "worstX": 0.5,
+          "worstY": -1.75,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {
+            "grid.workbench.peak": 0.010735872678476487,
+            "grid.workbench.pv": 0.010735853165976375,
+            "grid.workbench.rmsAboutZero": 0.0019915225847939744,
+            "grid.workbench.rmsAfterPiston": 0.0014856323962647298,
+            "grid.workbench.sampleSum": 1.3581261424949607,
+            "grid.workbench.integratedEnergy": 0.08488288390593504,
+            "grid.workbench.centroidX": 0.2617718665341051,
+            "grid.workbench.centroidY": -0.663284705483255,
+            "grid.workbench.marginalFwhmX": 3.2084440959593397,
+            "grid.workbench.marginalFwhmY": 5.510831413461327,
+            "grid.workbench.encircledEnergyRadius50": 2.7592951047217515,
+            "grid.workbench.encircledEnergyRadius80": 3.627233261752922,
+            "grid.workbench.encircledEnergyRadius90": 4.210966769255537,
+            "grid.zemax.peak": 0.008194641827147773,
+            "grid.zemax.pv": 0.008194574329647587,
+            "grid.zemax.rmsAboutZero": 0.001975980299036642,
+            "grid.zemax.rmsAfterPiston": 0.001440004227932418,
+            "grid.zemax.sampleSum": 1.3855768049402386,
+            "grid.zemax.integratedEnergy": 0.08659855030876491,
+            "grid.zemax.centroidX": 0.23055968322434725,
+            "grid.zemax.centroidY": -0.2431981022952398,
+            "grid.zemax.marginalFwhmX": 5.535743635378611,
+            "grid.zemax.marginalFwhmY": 6.02278659704944,
+            "grid.zemax.encircledEnergyRadius50": 3.497825253855396,
+            "grid.zemax.encircledEnergyRadius80": 4.275109152884375,
+            "grid.zemax.encircledEnergyRadius90": 4.627599742449206
+          }
+        }
+      ],
+      "normalizations": [
+        "grid: typed units (1,1,1); identical physical axes; intersection of finite masks (1024/1024); no orientation search"
+      ],
+      "allMeasuredQuantitiesPass": false,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8"
+    },
+    {
+      "id": 496,
+      "scope": "native-0.005-vs-0.001",
+      "key": "Huygens PSF",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Dimensionless",
+          "count": 1024,
+          "maxAbsolute": 0.00024515346108793705,
+          "meanAbsolute": 6.24715675861401e-05,
+          "rmse": 8.722392481112638e-05,
+          "nrmse": 0.010644019183628619,
+          "maxRelative": 20.33915312300758,
+          "p50": 4.139975025822232e-05,
+          "p90": 0.00016149636642503567,
+          "p95": 0.00019510362144810382,
+          "pearson": 0.9984354118739283,
+          "worstX": 2.25,
+          "worstY": 1,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "grid.workbench.peak": 0.008409456086931598,
+            "grid.workbench.pv": 0.008408366569451344,
+            "grid.workbench.rmsAboutZero": 0.0020072102115155366,
+            "grid.workbench.rmsAfterPiston": 0.001457103322831026,
+            "grid.workbench.sampleSum": 1.4136180881468294,
+            "grid.workbench.integratedEnergy": 0.08835113050917684,
+            "grid.workbench.centroidX": 0.2361861455062843,
+            "grid.workbench.centroidY": -0.2244558018332955,
+            "grid.workbench.marginalFwhmX": 5.471551128936156,
+            "grid.workbench.marginalFwhmY": 6.026984522179506,
+            "grid.workbench.encircledEnergyRadius50": 3.4934043922936535,
+            "grid.workbench.encircledEnergyRadius80": 4.284405031362229,
+            "grid.workbench.encircledEnergyRadius90": 4.62404004416227,
+            "grid.zemax.peak": 0.008194641827147773,
+            "grid.zemax.pv": 0.008194574329647587,
+            "grid.zemax.rmsAboutZero": 0.001975980299036642,
+            "grid.zemax.rmsAfterPiston": 0.001440004227932418,
+            "grid.zemax.sampleSum": 1.3855768049402386,
+            "grid.zemax.integratedEnergy": 0.08659855030876491,
+            "grid.zemax.centroidX": 0.23055968322434725,
+            "grid.zemax.centroidY": -0.2431981022952398,
+            "grid.zemax.marginalFwhmX": 5.535743635378611,
+            "grid.zemax.marginalFwhmY": 6.02278659704944,
+            "grid.zemax.encircledEnergyRadius50": 3.497825253855396,
+            "grid.zemax.encircledEnergyRadius80": 4.275109152884375,
+            "grid.zemax.encircledEnergyRadius90": 4.627599742449206
+          }
+        }
+      ],
+      "normalizations": [
+        "grid: typed units (1,1,1); identical physical axes; intersection of finite masks (1024/1024); no orientation search"
+      ],
+      "allMeasuredQuantitiesPass": false,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8"
+    },
+    {
+      "id": 496,
+      "scope": "core-vs-0.001",
+      "key": "Huygens PSF",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Dimensionless",
+          "count": 1024,
+          "maxAbsolute": 8.315189573870939e-05,
+          "meanAbsolute": 1.4691575934249431e-05,
+          "rmse": 2.0155162190211293e-05,
+          "nrmse": 0.002459553768834641,
+          "maxRelative": 2.222970538198444,
+          "p50": 1.0378595908026701e-05,
+          "p90": 3.406164359307799e-05,
+          "p95": 4.1290317982775926e-05,
+          "pearson": 0.999913539801745,
+          "worstX": 2.5,
+          "worstY": -0.5,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 0.008205184962229951,
+            "grid.workbench.pv": 0.008204997355873508,
+            "grid.workbench.rmsAboutZero": 0.0019821603516541873,
+            "grid.workbench.rmsAfterPiston": 0.0014424654639370066,
+            "grid.workbench.sampleSum": 1.3921328187115212,
+            "grid.workbench.integratedEnergy": 0.08700830116947007,
+            "grid.workbench.centroidX": 0.23121302840239316,
+            "grid.workbench.centroidY": -0.24418359288358463,
+            "grid.workbench.marginalFwhmX": 5.525195240417531,
+            "grid.workbench.marginalFwhmY": 6.024291941114761,
+            "grid.workbench.encircledEnergyRadius50": 3.4943040589142025,
+            "grid.workbench.encircledEnergyRadius80": 4.273935162228961,
+            "grid.workbench.encircledEnergyRadius90": 4.626426640539554,
+            "grid.zemax.peak": 0.008194641827147773,
+            "grid.zemax.pv": 0.008194574329647587,
+            "grid.zemax.rmsAboutZero": 0.001975980299036642,
+            "grid.zemax.rmsAfterPiston": 0.001440004227932418,
+            "grid.zemax.sampleSum": 1.3855768049402386,
+            "grid.zemax.integratedEnergy": 0.08659855030876491,
+            "grid.zemax.centroidX": 0.23055968322434725,
+            "grid.zemax.centroidY": -0.2431981022952398,
+            "grid.zemax.marginalFwhmX": 5.535743635378611,
+            "grid.zemax.marginalFwhmY": 6.02278659704944,
+            "grid.zemax.encircledEnergyRadius50": 3.497825253855396,
+            "grid.zemax.encircledEnergyRadius80": 4.275109152884375,
+            "grid.zemax.encircledEnergyRadius90": 4.627599742449206
+          }
+        }
+      ],
+      "normalizations": [
+        "grid: typed units (1,1,1); identical physical axes; intersection of finite masks (1024/1024); no orientation search"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8"
+    },
+    {
+      "id": 496,
+      "scope": "native-0.001-vs-0.0005",
+      "key": "Huygens PSF",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Dimensionless",
+          "count": 1024,
+          "maxAbsolute": 7.702147832780795e-05,
+          "meanAbsolute": 1.3301890882833426e-05,
+          "rmse": 1.828540129285861e-05,
+          "nrmse": 0.0022208877696345422,
+          "maxRelative": 0.6712742040790352,
+          "p50": 9.798375974978259e-06,
+          "p90": 2.9609751676490078e-05,
+          "p95": 3.795879345776085e-05,
+          "pearson": 0.9999316977481549,
+          "worstX": -4,
+          "worstY": 0.25,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 0.008194641827147773,
+            "grid.workbench.pv": 0.008194574329647587,
+            "grid.workbench.rmsAboutZero": 0.001975980299036642,
+            "grid.workbench.rmsAfterPiston": 0.001440004227932418,
+            "grid.workbench.sampleSum": 1.3855768049402386,
+            "grid.workbench.integratedEnergy": 0.08659855030876491,
+            "grid.workbench.centroidX": 0.23055968322434725,
+            "grid.workbench.centroidY": -0.2431981022952398,
+            "grid.workbench.marginalFwhmX": 5.535743635378611,
+            "grid.workbench.marginalFwhmY": 6.02278659704944,
+            "grid.workbench.encircledEnergyRadius50": 3.497825253855396,
+            "grid.workbench.encircledEnergyRadius80": 4.275109152884375,
+            "grid.workbench.encircledEnergyRadius90": 4.627599742449206,
+            "grid.zemax.peak": 0.008233374753496689,
+            "grid.zemax.pv": 0.008233233514079383,
+            "grid.zemax.rmsAboutZero": 0.001982889951852689,
+            "grid.zemax.rmsAfterPiston": 0.0014439386653171283,
+            "grid.zemax.sampleSum": 1.3916207816575707,
+            "grid.zemax.integratedEnergy": 0.08697629885359817,
+            "grid.zemax.centroidX": 0.23190509235647672,
+            "grid.zemax.centroidY": -0.24330311879703118,
+            "grid.zemax.marginalFwhmX": 5.524088011169609,
+            "grid.zemax.marginalFwhmY": 6.022244841230009,
+            "grid.zemax.encircledEnergyRadius50": 3.494873283944438,
+            "grid.zemax.encircledEnergyRadius80": 4.274157694067821,
+            "grid.zemax.encircledEnergyRadius90": 4.626642398995452
+          }
+        }
+      ],
+      "normalizations": [
+        "grid: typed units (1,1,1); identical physical axes; intersection of finite masks (1024/1024); no orientation search"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8"
+    },
+    {
+      "id": 496,
+      "scope": "core-vs-0.0005",
+      "key": "Huygens PSF",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Dimensionless",
+          "count": 1024,
+          "maxAbsolute": 3.480817882424263e-05,
+          "meanAbsolute": 4.866362519917806e-06,
+          "rmse": 7.1177997005297895e-06,
+          "nrmse": 0.0008645057359385812,
+          "maxRelative": 0.5402389690782089,
+          "p50": 3.1532832461981858e-06,
+          "p90": 1.1871072735281733e-05,
+          "p95": 1.5652450736714535e-05,
+          "pearson": 0.9999884189598477,
+          "worstX": -3.75,
+          "worstY": 0.75,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 0.008205184962229951,
+            "grid.workbench.pv": 0.008204997355873508,
+            "grid.workbench.rmsAboutZero": 0.0019821603516541873,
+            "grid.workbench.rmsAfterPiston": 0.0014424654639370066,
+            "grid.workbench.sampleSum": 1.3921328187115212,
+            "grid.workbench.integratedEnergy": 0.08700830116947007,
+            "grid.workbench.centroidX": 0.23121302840239316,
+            "grid.workbench.centroidY": -0.24418359288358463,
+            "grid.workbench.marginalFwhmX": 5.525195240417531,
+            "grid.workbench.marginalFwhmY": 6.024291941114761,
+            "grid.workbench.encircledEnergyRadius50": 3.4943040589142025,
+            "grid.workbench.encircledEnergyRadius80": 4.273935162228961,
+            "grid.workbench.encircledEnergyRadius90": 4.626426640539554,
+            "grid.zemax.peak": 0.008233374753496689,
+            "grid.zemax.pv": 0.008233233514079383,
+            "grid.zemax.rmsAboutZero": 0.001982889951852689,
+            "grid.zemax.rmsAfterPiston": 0.0014439386653171283,
+            "grid.zemax.sampleSum": 1.3916207816575707,
+            "grid.zemax.integratedEnergy": 0.08697629885359817,
+            "grid.zemax.centroidX": 0.23190509235647672,
+            "grid.zemax.centroidY": -0.24330311879703118,
+            "grid.zemax.marginalFwhmX": 5.524088011169609,
+            "grid.zemax.marginalFwhmY": 6.022244841230009,
+            "grid.zemax.encircledEnergyRadius50": 3.494873283944438,
+            "grid.zemax.encircledEnergyRadius80": 4.274157694067821,
+            "grid.zemax.encircledEnergyRadius90": 4.626642398995452
+          }
+        }
+      ],
+      "normalizations": [
+        "grid: typed units (1,1,1); identical physical axes; intersection of finite masks (1024/1024); no orientation search"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8"
+    },
+    {
+      "id": 496,
+      "scope": "native-0.0005-vs-0.00025",
+      "key": "Huygens PSF",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Dimensionless",
+          "count": 1024,
+          "maxAbsolute": 2.7817007426192766e-05,
+          "meanAbsolute": 5.030523857294182e-06,
+          "rmse": 7.0605655204286275e-06,
+          "nrmse": 0.0008593873658173248,
+          "maxRelative": 0.4479522273393851,
+          "p50": 3.4504142307668234e-06,
+          "p90": 1.1618279095644896e-05,
+          "p95": 1.538111308463057e-05,
+          "pearson": 0.9999884844513519,
+          "worstX": -3.75,
+          "worstY": 0.75,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 0.008233374753496689,
+            "grid.workbench.pv": 0.008233233514079383,
+            "grid.workbench.rmsAboutZero": 0.001982889951852689,
+            "grid.workbench.rmsAfterPiston": 0.0014439386653171283,
+            "grid.workbench.sampleSum": 1.3916207816575707,
+            "grid.workbench.integratedEnergy": 0.08697629885359817,
+            "grid.workbench.centroidX": 0.23190509235647672,
+            "grid.workbench.centroidY": -0.24330311879703118,
+            "grid.workbench.marginalFwhmX": 5.524088011169609,
+            "grid.workbench.marginalFwhmY": 6.022244841230009,
+            "grid.workbench.encircledEnergyRadius50": 3.494873283944438,
+            "grid.workbench.encircledEnergyRadius80": 4.274157694067821,
+            "grid.workbench.encircledEnergyRadius90": 4.626642398995452,
+            "grid.zemax.peak": 0.008215812567495265,
+            "grid.zemax.pv": 0.008215612819593909,
+            "grid.zemax.rmsAboutZero": 0.0019820833212111596,
+            "grid.zemax.rmsAfterPiston": 0.0014425920817355475,
+            "grid.zemax.sampleSum": 1.391880217377937,
+            "grid.zemax.integratedEnergy": 0.08699251358612106,
+            "grid.zemax.centroidX": 0.23073110779166056,
+            "grid.zemax.centroidY": -0.24452875645152883,
+            "grid.zemax.marginalFwhmX": 5.525222850262159,
+            "grid.zemax.marginalFwhmY": 6.023559486406399,
+            "grid.zemax.encircledEnergyRadius50": 3.4945818805507485,
+            "grid.zemax.encircledEnergyRadius80": 4.273984465919809,
+            "grid.zemax.encircledEnergyRadius90": 4.626479577692118
+          }
+        }
+      ],
+      "normalizations": [
+        "grid: typed units (1,1,1); identical physical axes; intersection of finite masks (1024/1024); no orientation search"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8"
+    },
+    {
+      "id": 496,
+      "scope": "core-vs-0.00025",
+      "key": "Huygens PSF",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Dimensionless",
+          "count": 1024,
+          "maxAbsolute": 1.1254438270663289e-05,
+          "meanAbsolute": 1.6547106265561364e-06,
+          "rmse": 2.2569918290384172e-06,
+          "nrmse": 0.00027471315959274624,
+          "maxRelative": 0.14971450775529316,
+          "p50": 1.2116418680057262e-06,
+          "p90": 3.5764660896752023e-06,
+          "p95": 4.60203794330966e-06,
+          "pearson": 0.9999987944748784,
+          "worstX": -4,
+          "worstY": 0.25,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "grid.workbench.peak": 0.008205184962229951,
+            "grid.workbench.pv": 0.008204997355873508,
+            "grid.workbench.rmsAboutZero": 0.0019821603516541873,
+            "grid.workbench.rmsAfterPiston": 0.0014424654639370066,
+            "grid.workbench.sampleSum": 1.3921328187115212,
+            "grid.workbench.integratedEnergy": 0.08700830116947007,
+            "grid.workbench.centroidX": 0.23121302840239316,
+            "grid.workbench.centroidY": -0.24418359288358463,
+            "grid.workbench.marginalFwhmX": 5.525195240417531,
+            "grid.workbench.marginalFwhmY": 6.024291941114761,
+            "grid.workbench.encircledEnergyRadius50": 3.4943040589142025,
+            "grid.workbench.encircledEnergyRadius80": 4.273935162228961,
+            "grid.workbench.encircledEnergyRadius90": 4.626426640539554,
+            "grid.zemax.peak": 0.008215812567495265,
+            "grid.zemax.pv": 0.008215612819593909,
+            "grid.zemax.rmsAboutZero": 0.0019820833212111596,
+            "grid.zemax.rmsAfterPiston": 0.0014425920817355475,
+            "grid.zemax.sampleSum": 1.391880217377937,
+            "grid.zemax.integratedEnergy": 0.08699251358612106,
+            "grid.zemax.centroidX": 0.23073110779166056,
+            "grid.zemax.centroidY": -0.24452875645152883,
+            "grid.zemax.marginalFwhmX": 5.525222850262159,
+            "grid.zemax.marginalFwhmY": 6.023559486406399,
+            "grid.zemax.encircledEnergyRadius50": 3.4945818805507485,
+            "grid.zemax.encircledEnergyRadius80": 4.273984465919809,
+            "grid.zemax.encircledEnergyRadius90": 4.626479577692118
+          }
+        }
+      ],
+      "normalizations": [
+        "grid: typed units (1,1,1); identical physical axes; intersection of finite masks (1024/1024); no orientation search"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8"
+    },
+    {
+      "id": 498,
+      "scope": "native-original-vs-0.001",
+      "key": "Huygens MTF",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Dimensionless",
+          "count": 300,
+          "maxAbsolute": 0.019848185744637648,
+          "meanAbsolute": 0.012954042465156747,
+          "rmse": 0.01436893058162991,
+          "nrmse": 0.014368930581629911,
+          "maxRelative": 0.025754281079621306,
+          "p50": 0.01453624219577676,
+          "p90": 0.019758833723737733,
+          "p95": 0.0198251359310908,
+          "pearson": 0.999646174777372,
+          "worstX": 46.15384615384615,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench.dc": 0.9999999999999999,
+            "workbench.frequency10": 0.9560251128474917,
+            "workbench.frequency20": 0.910195554300475,
+            "workbench.frequency30": 0.8606567570366825,
+            "workbench.frequency50": 0.743033177069696,
+            "workbench.firstCrossing50": null,
+            "workbench.firstCrossing10": null,
+            "zemax.dc": 0.9999999999999999,
+            "zemax.frequency10": 0.9623677217261316,
+            "zemax.frequency20": 0.9222772106476661,
+            "zemax.frequency30": 0.8772703719002348,
+            "zemax.frequency50": 0.7626753319409979,
+            "zemax.firstCrossing50": null,
+            "zemax.firstCrossing10": null
+          }
+        },
+        {
+          "id": "sagittal",
+          "unit": "Dimensionless",
+          "count": 300,
+          "maxAbsolute": 0.0499802622313954,
+          "meanAbsolute": 0.021564009118863824,
+          "rmse": 0.02580255507899901,
+          "nrmse": 0.025802555078999017,
+          "maxRelative": 0.0654271486978566,
+          "p50": 0.01983376021745281,
+          "p90": 0.042630941989778584,
+          "p95": 0.04620763210518792,
+          "pearson": 0.9999200417306005,
+          "worstX": 50,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench.dc": 0.9999999999999998,
+            "workbench.frequency10": 0.9673275163621629,
+            "workbench.frequency20": 0.9335174889188591,
+            "workbench.frequency30": 0.8974324376962701,
+            "workbench.frequency50": 0.813887344017962,
+            "workbench.firstCrossing50": null,
+            "workbench.firstCrossing10": null,
+            "zemax.dc": 0.9999999999999998,
+            "zemax.frequency10": 0.9599715406306149,
+            "zemax.frequency20": 0.9181454997585432,
+            "zemax.frequency30": 0.8727243967498208,
+            "zemax.frequency50": 0.7639070817865666,
+            "zemax.firstCrossing50": null,
+            "zemax.firstCrossing10": null
+          }
+        }
+      ],
+      "normalizations": [
+        "Native group 0 column 0; other monochromatic wavelength slots are absent/null, never treated as zero.",
+        "Native group 0 column 1; other monochromatic wavelength slots are absent/null, never treated as zero.",
+        "IAS MTF Modulation: native columns 0=T, 1=S; explicit selected field/wavelength, cycles/mm.",
+        "Native group 0 column 0; other monochromatic wavelength slots are absent/null, never treated as zero.",
+        "Native group 0 column 1; other monochromatic wavelength slots are absent/null, never treated as zero.",
+        "IAS MTF Modulation: native columns 0=T, 1=S; explicit selected field/wavelength, cycles/mm.",
+        "tangential: sorted coordinates; linear interpolation on union of 300 physical knots in [0, 50]; no extrapolation",
+        "sagittal: sorted coordinates; linear interpolation on union of 300 physical knots in [0, 50]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": false,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "e9b74f9f8a2b03b839ab677f884b63572e3b6a514a241df7ed7b9343e65a26f2"
+    },
+    {
+      "id": 498,
+      "scope": "native-0.005-vs-0.001",
+      "key": "Huygens MTF",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Dimensionless",
+          "count": 300,
+          "maxAbsolute": 0.006499220638810033,
+          "meanAbsolute": 0.003571637026763792,
+          "rmse": 0.004057436169963669,
+          "nrmse": 0.00405743616996367,
+          "maxRelative": 0.008521608562151353,
+          "p50": 0.0037342658990418554,
+          "p90": 0.0060703004748912884,
+          "p95": 0.006293968914955811,
+          "pearson": 0.9999886130607473,
+          "worstX": 50,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 0.9999999999999999,
+            "workbench.frequency10": 0.9639157109031373,
+            "workbench.frequency20": 0.9253111509987796,
+            "workbench.frequency30": 0.8816661909008343,
+            "workbench.frequency50": 0.7691745525798079,
+            "workbench.firstCrossing50": null,
+            "workbench.firstCrossing10": null,
+            "zemax.dc": 0.9999999999999999,
+            "zemax.frequency10": 0.9623677217261316,
+            "zemax.frequency20": 0.9222772106476661,
+            "zemax.frequency30": 0.8772703719002348,
+            "zemax.frequency50": 0.7626753319409979,
+            "zemax.firstCrossing50": null,
+            "zemax.firstCrossing10": null
+          }
+        },
+        {
+          "id": "sagittal",
+          "unit": "Dimensionless",
+          "count": 300,
+          "maxAbsolute": 0.002615507123571059,
+          "meanAbsolute": 0.0010011742847337915,
+          "rmse": 0.0012424796035335397,
+          "nrmse": 0.0012424796035335399,
+          "maxRelative": 0.0034238550550599873,
+          "p50": 0.0008463466230788641,
+          "p90": 0.002143555841418954,
+          "p95": 0.002370764843871154,
+          "pearson": 0.9999990413577929,
+          "worstX": 50,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 0.9999999999999998,
+            "workbench.frequency10": 0.9596846808841922,
+            "workbench.frequency20": 0.9175127181890328,
+            "workbench.frequency30": 0.871627572518077,
+            "workbench.frequency50": 0.7612915746629956,
+            "workbench.firstCrossing50": null,
+            "workbench.firstCrossing10": null,
+            "zemax.dc": 0.9999999999999998,
+            "zemax.frequency10": 0.9599715406306149,
+            "zemax.frequency20": 0.9181454997585432,
+            "zemax.frequency30": 0.8727243967498208,
+            "zemax.frequency50": 0.7639070817865666,
+            "zemax.firstCrossing50": null,
+            "zemax.firstCrossing10": null
+          }
+        }
+      ],
+      "normalizations": [
+        "Native group 0 column 0; other monochromatic wavelength slots are absent/null, never treated as zero.",
+        "Native group 0 column 1; other monochromatic wavelength slots are absent/null, never treated as zero.",
+        "IAS MTF Modulation: native columns 0=T, 1=S; explicit selected field/wavelength, cycles/mm.",
+        "Native group 0 column 0; other monochromatic wavelength slots are absent/null, never treated as zero.",
+        "Native group 0 column 1; other monochromatic wavelength slots are absent/null, never treated as zero.",
+        "IAS MTF Modulation: native columns 0=T, 1=S; explicit selected field/wavelength, cycles/mm.",
+        "tangential: sorted coordinates; linear interpolation on union of 300 physical knots in [0, 50]; no extrapolation",
+        "sagittal: sorted coordinates; linear interpolation on union of 300 physical knots in [0, 50]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "e9b74f9f8a2b03b839ab677f884b63572e3b6a514a241df7ed7b9343e65a26f2"
+    },
+    {
+      "id": 498,
+      "scope": "core-vs-0.001",
+      "key": "Huygens MTF",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Dimensionless",
+          "count": 336,
+          "maxAbsolute": 0.00024075688779878757,
+          "meanAbsolute": 0.00010499220445006122,
+          "rmse": 0.000125526080233543,
+          "nrmse": 0.00012552608023354303,
+          "maxRelative": 0.00031567415086844973,
+          "p50": 9.693347898659388e-05,
+          "p90": 0.00020637909158899292,
+          "p95": 0.00022484388041069114,
+          "pearson": 0.9999999999696926,
+          "worstX": 50,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": 0.9623304143037811,
+            "workbench.frequency20": 0.922199884738099,
+            "workbench.frequency30": 0.8771476055258464,
+            "workbench.frequency50": 0.7624345750531991,
+            "workbench.firstCrossing50": null,
+            "workbench.firstCrossing10": null,
+            "zemax.dc": 0.9999999999999999,
+            "zemax.frequency10": 0.9623677217261316,
+            "zemax.frequency20": 0.9222772106476661,
+            "zemax.frequency30": 0.8772703719002348,
+            "zemax.frequency50": 0.7626753319409979,
+            "zemax.firstCrossing50": null,
+            "zemax.firstCrossing10": null
+          }
+        },
+        {
+          "id": "sagittal",
+          "unit": "Dimensionless",
+          "count": 336,
+          "maxAbsolute": 0.0007343572460228875,
+          "meanAbsolute": 0.000313462263741958,
+          "rmse": 0.0003769313916520898,
+          "nrmse": 0.0003769313916520899,
+          "maxRelative": 0.0009613174999051321,
+          "p50": 0.00028542816938820215,
+          "p90": 0.0006247174362130625,
+          "p95": 0.0006834622123454703,
+          "pearson": 0.9999999898562989,
+          "worstX": 50,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": 0.9598630250405178,
+            "workbench.frequency20": 0.9179188793445291,
+            "workbench.frequency30": 0.8723604935823359,
+            "workbench.frequency50": 0.7631727245405437,
+            "workbench.firstCrossing50": null,
+            "workbench.firstCrossing10": null,
+            "zemax.dc": 0.9999999999999998,
+            "zemax.frequency10": 0.9599715406306149,
+            "zemax.frequency20": 0.9181454997585432,
+            "zemax.frequency30": 0.8727243967498208,
+            "zemax.frequency50": 0.7639070817865666,
+            "zemax.firstCrossing50": null,
+            "zemax.firstCrossing10": null
+          }
+        }
+      ],
+      "normalizations": [
+        "Canonical one-field/one-wavelength output contract: native series/pane 0=tangential, 1=sagittal. No label parsing.",
+        "Native group 0 column 0; other monochromatic wavelength slots are absent/null, never treated as zero.",
+        "Native group 0 column 1; other monochromatic wavelength slots are absent/null, never treated as zero.",
+        "IAS MTF Modulation: native columns 0=T, 1=S; explicit selected field/wavelength, cycles/mm.",
+        "tangential: sorted coordinates; linear interpolation on union of 336 physical knots in [0, 50]; no extrapolation",
+        "sagittal: sorted coordinates; linear interpolation on union of 336 physical knots in [0, 50]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "e9b74f9f8a2b03b839ab677f884b63572e3b6a514a241df7ed7b9343e65a26f2"
+    },
+    {
+      "id": 500,
+      "scope": "native-original-vs-0.001",
+      "key": "Huygens PSF Cross Section",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 33,
+          "maxAbsolute": 0.0053349999999999995,
+          "meanAbsolute": 0.0019217575757575762,
+          "rmse": 0.0024783980285415794,
+          "nrmse": 0.3997416175067064,
+          "maxRelative": 25.831168831168835,
+          "p50": 0.001868,
+          "p90": 0.004362800000000001,
+          "p95": 0.0046872,
+          "pearson": -0.22474059131101604,
+          "worstX": -4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 33 physical knots in [-4, 4]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": false,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504"
+    },
+    {
+      "id": 500,
+      "scope": "native-0.005-vs-0.001",
+      "key": "Huygens PSF Cross Section",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 33,
+          "maxAbsolute": 0.00021399999999999978,
+          "meanAbsolute": 7.166666666666671e-05,
+          "rmse": 9.999015103014051e-05,
+          "nrmse": 0.016127443714538794,
+          "maxRelative": 0.36423841059602635,
+          "p50": 5.000000000000002e-05,
+          "p90": 0.00018620000000000024,
+          "p95": 0.0002028,
+          "pearson": 0.9993280497555921,
+          "worstX": 0.5,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 33 physical knots in [-4, 4]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": false,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504"
+    },
+    {
+      "id": 500,
+      "scope": "core-vs-0.001",
+      "key": "Huygens PSF Cross Section",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 32,
+          "maxAbsolute": 6.537205051442268e-05,
+          "meanAbsolute": 2.1796483925005807e-05,
+          "rmse": 2.829096580517793e-05,
+          "nrmse": 0.00456305900083515,
+          "maxRelative": 0.17781176317304914,
+          "p50": 1.4662337541846446e-05,
+          "p90": 4.972644288617644e-05,
+          "p95": 5.887530754955451e-05,
+          "pearson": 0.999932482029891,
+          "worstX": -4,
+          "worstY": null,
+          "coverage": 0.96875,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 32 physical knots in [-4, 3.75]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": false,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504"
+    },
+    {
+      "id": 500,
+      "scope": "native-0.001-vs-0.0005",
+      "key": "Huygens PSF Cross Section",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 33,
+          "maxAbsolute": 6.499999999999995e-05,
+          "meanAbsolute": 2.172727272727272e-05,
+          "rmse": 2.7529048019292007e-05,
+          "nrmse": 0.004394101838673904,
+          "maxRelative": 0.11538461538461534,
+          "p50": 1.699999999999998e-05,
+          "p90": 5.000000000000005e-05,
+          "p95": 5.699999999999996e-05,
+          "pearson": 0.9999210523598553,
+          "worstX": -4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 33 physical knots in [-4, 4]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": false,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504"
+    },
+    {
+      "id": 500,
+      "scope": "core-vs-0.0005",
+      "key": "Huygens PSF Cross Section",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 32,
+          "maxAbsolute": 9.728543949950267e-06,
+          "meanAbsolute": 3.100883445068409e-06,
+          "rmse": 3.885317925942402e-06,
+          "nrmse": 0.0006201624782030969,
+          "maxRelative": 0.04191040588385124,
+          "p50": 2.892326830913677e-06,
+          "p90": 5.411978945450232e-06,
+          "p95": 8.552644580435213e-06,
+          "pearson": 0.9999982956124776,
+          "worstX": -3.25,
+          "worstY": null,
+          "coverage": 0.96875,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 32 physical knots in [-4, 3.75]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504"
+    },
+    {
+      "id": 500,
+      "scope": "native-0.0005-vs-0.00025",
+      "key": "Huygens PSF Cross Section",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 33,
+          "maxAbsolute": 1.4000000000000123e-05,
+          "meanAbsolute": 5.060606060606082e-06,
+          "rmse": 6.22068884424949e-06,
+          "nrmse": 0.0009915028441583504,
+          "maxRelative": 0.04081632653061213,
+          "p50": 4.000000000000531e-06,
+          "p90": 1.0599999999999848e-05,
+          "p95": 1.220000000000001e-05,
+          "pearson": 0.9999960844459043,
+          "worstX": -3.5,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 33 physical knots in [-4, 4]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504"
+    },
+    {
+      "id": 500,
+      "scope": "core-vs-0.00025",
+      "key": "Huygens PSF Cross Section",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 32,
+          "maxAbsolute": 8.627949485577602e-06,
+          "meanAbsolute": 2.200998721835717e-06,
+          "rmse": 2.982372769097332e-06,
+          "nrmse": 0.0004753542826103494,
+          "maxRelative": 0.010399386455727874,
+          "p50": 1.5394692719105827e-06,
+          "p90": 4.269377879410723e-06,
+          "p95": 6.402183427717082e-06,
+          "pearson": 0.9999992463765957,
+          "worstX": -4,
+          "worstY": null,
+          "coverage": 0.96875,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 32 physical knots in [-4, 3.75]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504"
+    },
+    {
+      "id": 501,
+      "scope": "native-original-vs-0.001",
+      "key": "Encircled Energy",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 396,
+          "maxAbsolute": 0.001220923728172291,
+          "meanAbsolute": 1.3947263692909914e-05,
+          "rmse": 0.00010974755476390478,
+          "nrmse": 0.0794823403098701,
+          "maxRelative": 36.141875280734695,
+          "p50": 0,
+          "p90": 4.29487329813251e-12,
+          "p95": 1.6163326158779676e-07,
+          "pearson": 0.9873971756144303,
+          "worstX": 2.3232323232323235,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 396 physical knots in [0, 4.987373737373738]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": false,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "4b88e39454dd3fcb58ee055f333742bcb724a1ef22fb80831756d21b1a771fe7"
+    },
+    {
+      "id": 501,
+      "scope": "native-0.005-vs-0.001",
+      "key": "Encircled Energy",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 396,
+          "maxAbsolute": 0,
+          "meanAbsolute": 0,
+          "rmse": 0,
+          "nrmse": 0,
+          "maxRelative": 0,
+          "p50": 0,
+          "p90": 0,
+          "p95": 0,
+          "pearson": 1,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 396 physical knots in [0, 4.987373737373738]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "4b88e39454dd3fcb58ee055f333742bcb724a1ef22fb80831756d21b1a771fe7"
+    },
+    {
+      "id": 501,
+      "scope": "core-vs-0.001",
+      "key": "Encircled Energy",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 630,
+          "maxAbsolute": 9.540979117872439e-18,
+          "meanAbsolute": 5.250487344093034e-19,
+          "rmse": 9.361393097725114e-19,
+          "nrmse": 6.779790525342754e-16,
+          "maxRelative": 2.413115263050974e-13,
+          "p50": 8.673617379884035e-19,
+          "p90": 8.673617379884035e-19,
+          "p95": 8.673617379884035e-19,
+          "pearson": 0.9999999999999909,
+          "worstX": 2.3737373737373737,
+          "worstY": null,
+          "coverage": 0.9999999999999998,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 630 physical knots in [0, 4.987373737373737]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "4b88e39454dd3fcb58ee055f333742bcb724a1ef22fb80831756d21b1a771fe7"
+    },
+    {
+      "id": 503,
+      "scope": "native-original-vs-0.001",
+      "key": "Huygens Through Focus MTF",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.11550812536475508,
+          "meanAbsolute": 0.027043318071402967,
+          "rmse": 0.042822092423187484,
+          "nrmse": 0.06265712007707647,
+          "maxRelative": 0.16901104246224363,
+          "p50": 0.007991919361082789,
+          "p90": 0.08602265178948076,
+          "p95": 0.10074217950821063,
+          "pearson": -0.05041080479795454,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.12558556045675084,
+          "meanAbsolute": 0.11867227706313008,
+          "rmse": 0.11868970776579961,
+          "nrmse": 0.18572469713739992,
+          "maxRelative": 0.22655286247197665,
+          "p50": 0.11779999728129231,
+          "p90": 0.12185255671357353,
+          "p95": 0.12366845092761569,
+          "pearson": 0.9985591112739387,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 101 physical knots in [-0.01, 0.01]; no extrapolation",
+        "curve:1: sorted coordinates; linear interpolation on union of 101 physical knots in [-0.01, 0.01]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": false,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "b94bd6b384ea1642523e9c3bae4e0b547b13b5b26eb9da4a9141f7899eca8252"
+    },
+    {
+      "id": 503,
+      "scope": "native-0.005-vs-0.001",
+      "key": "Huygens Through Focus MTF",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.007907650267707345,
+          "meanAbsolute": 0.004361248168672504,
+          "rmse": 0.00491967327107374,
+          "nrmse": 0.007198446910051902,
+          "maxRelative": 0.012021662349400143,
+          "p50": 0.004176585818482681,
+          "p90": 0.007840533269518835,
+          "p95": 0.007886298046217433,
+          "pearson": 0.9849438555223675,
+          "worstX": 0.008600000000000002,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.007859876904393825,
+          "meanAbsolute": 0.005770216659128509,
+          "rmse": 0.0061437627778494555,
+          "nrmse": 0.009613710427627438,
+          "maxRelative": 0.013144247441337919,
+          "p50": 0.006699284966199315,
+          "p90": 0.007808793778349421,
+          "p95": 0.007842601779979197,
+          "pearson": 0.9985628311018523,
+          "worstX": 0.0031999999999999997,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 101 physical knots in [-0.01, 0.01]; no extrapolation",
+        "curve:1: sorted coordinates; linear interpolation on union of 101 physical knots in [-0.01, 0.01]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": false,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "b94bd6b384ea1642523e9c3bae4e0b547b13b5b26eb9da4a9141f7899eca8252"
+    },
+    {
+      "id": 503,
+      "scope": "core-vs-0.001",
+      "key": "Huygens Through Focus MTF",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0011832154292084063,
+          "meanAbsolute": 0.0008255282123129058,
+          "rmse": 0.0008887433465630957,
+          "nrmse": 0.001300405828678132,
+          "maxRelative": 0.001817671092804009,
+          "p50": 0.0008576962861216453,
+          "p90": 0.0011692679540239337,
+          "p95": 0.001177416588227409,
+          "pearson": 0.9994709902083853,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0014474552233633142,
+          "meanAbsolute": 0.0012653933007692568,
+          "rmse": 0.0012782053495550437,
+          "nrmse": 0.0020001254185741616,
+          "maxRelative": 0.002608965128324248,
+          "p50": 0.0013430601724481184,
+          "p90": 0.0014468689666765622,
+          "p95": 0.0014472080948995658,
+          "pearson": 0.9999948414590276,
+          "worstX": 0.0082,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 128 physical knots in [-0.01, 0.01]; no extrapolation",
+        "curve:1: sorted coordinates; linear interpolation on union of 128 physical knots in [-0.01, 0.01]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "b94bd6b384ea1642523e9c3bae4e0b547b13b5b26eb9da4a9141f7899eca8252"
+    },
+    {
+      "id": 503,
+      "scope": "native-0.001-vs-0.0005",
+      "key": "Huygens Through Focus MTF",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.000363740493946052,
+          "meanAbsolute": 0.00019352952508309062,
+          "rmse": 0.0002176654719499208,
+          "nrmse": 0.00031860736270723224,
+          "maxRelative": 0.0005611206549895684,
+          "p50": 0.0001674319969620086,
+          "p90": 0.00034158453985355663,
+          "p95": 0.00035334759035832164,
+          "pearson": 0.9999821149827203,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.0013217653906084648,
+          "meanAbsolute": 0.0009853761540423876,
+          "rmse": 0.0010106738306199115,
+          "nrmse": 0.0015831876168479312,
+          "maxRelative": 0.002390127134031896,
+          "p50": 0.0010323170768513634,
+          "p90": 0.0012630949905415578,
+          "p95": 0.0012922181713639347,
+          "pearson": 0.9999959575919414,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 101 physical knots in [-0.01, 0.01]; no extrapolation",
+        "curve:1: sorted coordinates; linear interpolation on union of 101 physical knots in [-0.01, 0.01]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "b94bd6b384ea1642523e9c3bae4e0b547b13b5b26eb9da4a9141f7899eca8252"
+    },
+    {
+      "id": 503,
+      "scope": "core-vs-0.0005",
+      "key": "Huygens Through Focus MTF",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0012333946042508703,
+          "meanAbsolute": 0.0007632556241432883,
+          "rmse": 0.0008561496170875801,
+          "nrmse": 0.0012531871460340722,
+          "maxRelative": 0.0020142880769195995,
+          "p50": 0.00089167552195063,
+          "p90": 0.0012211314677070372,
+          "p95": 0.0012299338985680697,
+          "pearson": 0.9996342099391325,
+          "worstX": 0.004399999999999999,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.00032573911951239154,
+          "meanAbsolute": 0.0002735576393367179,
+          "rmse": 0.0002785875898625667,
+          "nrmse": 0.0004363983800860832,
+          "maxRelative": 0.000511592669606625,
+          "p50": 0.0002972480803847266,
+          "p90": 0.00031707708261186074,
+          "p95": 0.00032106924160472115,
+          "pearson": 0.9999997999611804,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "normalizations": [
+        "curve:0: sorted coordinates; linear interpolation on union of 128 physical knots in [-0.01, 0.01]; no extrapolation",
+        "curve:1: sorted coordinates; linear interpolation on union of 128 physical knots in [-0.01, 0.01]; no extrapolation"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "b94bd6b384ea1642523e9c3bae4e0b547b13b5b26eb9da4a9141f7899eca8252"
+    },
+    {
+      "id": 505,
+      "scope": "native-original-vs-0.001",
+      "key": "RMS vs Field",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 0.7288141128670418,
+          "meanAbsolute": 0.7288141128670418,
+          "rmse": 0.7288141128670418,
+          "nrmse": 0.001917614281859786,
+          "maxRelative": 0.001917614281859786,
+          "p50": 0.7288141128670418,
+          "p90": 0.7288141128670418,
+          "p95": 0.7288141128670418,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench": 379.33412125503503,
+            "zemax": 380.06293536790207
+          }
+        }
+      ],
+      "normalizations": [
+        "26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names.",
+        "curve:0: zero field extent; compare the exact on-axis point only. Native nonzero plot coordinates are outside the requested domain; no interpolation or extrapolation.",
+        "26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names.",
+        "curve:0: zero field extent; compare the exact on-axis point only. Native nonzero plot coordinates are outside the requested domain; no interpolation or extrapolation.",
+        "curve:0: compare the complete point domain at 0; coverage=1 of one requested coordinate"
+      ],
+      "allMeasuredQuantitiesPass": false,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb"
+    },
+    {
+      "id": 505,
+      "scope": "native-0.005-vs-0.001",
+      "key": "RMS vs Field",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 0.020822923416801586,
+          "meanAbsolute": 0.020822923416801586,
+          "rmse": 0.020822923416801586,
+          "nrmse": 5.4788092915834936e-05,
+          "maxRelative": 5.4788092915834936e-05,
+          "p50": 0.020822923416801586,
+          "p90": 0.020822923416801586,
+          "p95": 0.020822923416801586,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 380.0837582913189,
+            "zemax": 380.06293536790207
+          }
+        }
+      ],
+      "normalizations": [
+        "26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names.",
+        "curve:0: zero field extent; compare the exact on-axis point only. Native nonzero plot coordinates are outside the requested domain; no interpolation or extrapolation.",
+        "26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names.",
+        "curve:0: zero field extent; compare the exact on-axis point only. Native nonzero plot coordinates are outside the requested domain; no interpolation or extrapolation.",
+        "curve:0: compare the complete point domain at 0; coverage=1 of one requested coordinate"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb"
+    },
+    {
+      "id": 505,
+      "scope": "core-vs-0.001",
+      "key": "RMS vs Field",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 0.0009480709714466684,
+          "meanAbsolute": 0.0009480709714466684,
+          "rmse": 0.0009480709714466684,
+          "nrmse": 2.4945104697697837e-06,
+          "maxRelative": 2.4945104697697837e-06,
+          "p50": 0.0009480709714466684,
+          "p90": 0.0009480709714466684,
+          "p95": 0.0009480709714466684,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 380.0619872969306,
+            "zemax": 380.06293536790207
+          }
+        }
+      ],
+      "normalizations": [
+        "curve:0: zero field extent; compare the exact on-axis point only. Repeated samples at the same zero coordinate were verified identical.",
+        "curve:0: unit conversion X Dimensionless->Dimensionless x1; Y Millimeter->Micrometer x1000",
+        "26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names.",
+        "curve:0: zero field extent; compare the exact on-axis point only. Native nonzero plot coordinates are outside the requested domain; no interpolation or extrapolation.",
+        "curve:0: compare the complete point domain at 0; coverage=1 of one requested coordinate"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb"
+    },
+    {
+      "id": 505,
+      "scope": "native-0.001-vs-0.0005",
+      "key": "RMS vs Field",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 0.0008151437650667503,
+          "meanAbsolute": 0.0008151437650667503,
+          "rmse": 0.0008151437650667503,
+          "nrmse": 2.1447645573992725e-06,
+          "maxRelative": 2.1447645573992725e-06,
+          "p50": 0.0008151437650667503,
+          "p90": 0.0008151437650667503,
+          "p95": 0.0008151437650667503,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 380.06293536790207,
+            "zemax": 380.062120224137
+          }
+        }
+      ],
+      "normalizations": [
+        "26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names.",
+        "curve:0: zero field extent; compare the exact on-axis point only. Native nonzero plot coordinates are outside the requested domain; no interpolation or extrapolation.",
+        "26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names.",
+        "curve:0: zero field extent; compare the exact on-axis point only. Native nonzero plot coordinates are outside the requested domain; no interpolation or extrapolation.",
+        "curve:0: compare the complete point domain at 0; coverage=1 of one requested coordinate"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb"
+    },
+    {
+      "id": 505,
+      "scope": "core-vs-0.0005",
+      "key": "RMS vs Field",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Micrometer",
+          "count": 1,
+          "maxAbsolute": 0.00013292720637991806,
+          "meanAbsolute": 0.00013292720637991806,
+          "rmse": 0.00013292720637991806,
+          "nrmse": 3.4975126250815485e-07,
+          "maxRelative": 3.4975126250815485e-07,
+          "p50": 0.00013292720637991806,
+          "p90": 0.00013292720637991806,
+          "p95": 0.00013292720637991806,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 380.0619872969306,
+            "zemax": 380.062120224137
+          }
+        }
+      ],
+      "normalizations": [
+        "curve:0: zero field extent; compare the exact on-axis point only. Repeated samples at the same zero coordinate were verified identical.",
+        "curve:0: unit conversion X Dimensionless->Dimensionless x1; Y Millimeter->Micrometer x1000",
+        "26.1 RMS enum-name discrepancy: physical reference and interval count verified from native report/data, not inferred from interface enum display names.",
+        "curve:0: zero field extent; compare the exact on-axis point only. Native nonzero plot coordinates are outside the requested domain; no interpolation or extrapolation.",
+        "curve:0: compare the complete point domain at 0; coverage=1 of one requested coordinate"
+      ],
+      "allMeasuredQuantitiesPass": true,
+      "unreportedPathSurfaces": null,
+      "requestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb"
+    }
+  ],
+  "originalSettingsByRequest": {
+    "496": {
+      "field": 1,
+      "wavelength": 2,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1e-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "498": {
+      "field": 1,
+      "wavelength": 2,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "500": {
+      "field": 1,
+      "wavelength": 2,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1e-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "501": {
+      "field": 1,
+      "wavelength": 2,
+      "pupilSampling": 32,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "EnergyFraction": {
+          "absolute": 1e-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "503": {
+      "field": 1,
+      "wavelength": 2,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Modulation": {
+          "absolute": 1e-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "505": {
+      "field": 1,
+      "wavelength": 2,
+      "pupilSampling": 64,
+      "imageSampling": 64,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Radius": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    }
+  }
+}

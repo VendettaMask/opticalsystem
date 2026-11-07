@@ -1,0 +1,1735 @@
+[
+  {
+    "group": "afocalTolerance",
+    "index": 4,
+    "lens": "Afocal/Afocal Riflescope.ZMX",
+    "configuration": 1,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "2e6d08f5cdb67882aab57fc9b9f6f02bedac7e1ea562f1b765bc38c227f35901",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 1.0566488482799397e-10,
+          "nrmse": 2.955383801044402e-10,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 1.0566488482799397e-10,
+          "nrmse": 2.955383801044402e-10,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 18,
+    "lens": "Afocal/Afocal Riflescope.ZMX",
+    "configuration": 1,
+    "analysis": "Field Curvature and Distortion",
+    "originalRequestFingerprint": "89e250b64ba5f1a9cc53d236b492a254ea539d4fb397da9371ea4517491614d3",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Incomplete physical coverage; shared quantities compared separately; tangential: No per-quantity tolerance: Defocus; sagittal: No per-quantity tolerance: Defocus",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 119,
+          "coverage": 1,
+          "maxAbsolute": 7.476766642477983e-07,
+          "nrmse": 7.649763015889462e-07,
+          "conclusion": "Pass"
+        }
+      ]
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Incomplete physical coverage; shared quantities compared separately; tangential: No per-quantity tolerance: Defocus; sagittal: No per-quantity tolerance: Defocus",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 119,
+          "coverage": 1,
+          "maxAbsolute": 7.476766642477983e-07,
+          "nrmse": 7.649763015889462e-07,
+          "conclusion": "Pass"
+        }
+      ]
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "Afocal tangential/sagittal vergence in diopters and dimensionless percentage distortion, under the captured wavelength and field scan.",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Diopter",
+          "count": 119,
+          "coverage": 1,
+          "maxAbsolute": 3.552934127459828e-09,
+          "nrmse": 3.4916175750211577e-09,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Diopter",
+          "count": 119,
+          "coverage": 1,
+          "maxAbsolute": 1.9408707974122308e-10,
+          "nrmse": 1.7056875518317478e-10,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 119,
+          "coverage": 1,
+          "maxAbsolute": 7.476766642477983e-07,
+          "nrmse": 7.649763015889462e-07,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 21,
+    "lens": "Afocal/Afocal Riflescope.ZMX",
+    "configuration": 1,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "61745d8528793be888b25f23b7379b9cba7428c7eb1baee8384a92bbb0f87695",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 8.199485847237842e-10,
+          "nrmse": 2.6118640962130817e-10,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 2.205725387061097e-09,
+          "nrmse": 2.1825081824289412e-08,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 25,
+    "lens": "Afocal/Afocal Riflescope.ZMX",
+    "configuration": 1,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "e107c9deafbf5bc7357e139a113ea1110f32d16cc2085f85ae443467b3e72017",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 2.1338683944827075e-10,
+          "nrmse": 8.649200002397151e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 1.5135263225010687e-09,
+          "nrmse": 1.5907134929002795e-08,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 29,
+    "lens": "Afocal/Afocal Riflescope.ZMX",
+    "configuration": 1,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "c77220508d529e025a0b62bddca0d40830a7ecaae1a694d77a1815bb5266ce95",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 1.779613255804141e-10,
+          "nrmse": 1.1290812225333108e-10,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 1.6896838424956817e-09,
+          "nrmse": 1.693225298051015e-08,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 38,
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 1,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "6b0be95b1aed2cb0aaf88622ddafbacba8c4892209184cf2c73f03e02247e9ae",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 9.920731770807212e-14,
+          "nrmse": 1.4362384069880792e-12,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 8.886127288902992e-08,
+          "nrmse": 2.79080145181642e-06,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 52,
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 1,
+    "analysis": "Field Curvature and Distortion",
+    "originalRequestFingerprint": "3eab373e8fd7d36ca9cc5d7caca85668af65f65515a907bc088f3d7d5229d9b7",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Incomplete physical coverage; shared quantities compared separately; tangential: No per-quantity tolerance: Defocus; sagittal: No per-quantity tolerance: Defocus",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 125,
+          "coverage": 1,
+          "maxAbsolute": 4.568757315532294e-06,
+          "nrmse": 1.2836848977254102e-05,
+          "conclusion": "Pass"
+        }
+      ]
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Incomplete physical coverage; shared quantities compared separately; tangential: No per-quantity tolerance: Defocus; sagittal: No per-quantity tolerance: Defocus",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 125,
+          "coverage": 1,
+          "maxAbsolute": 4.568757315532294e-06,
+          "nrmse": 1.2836848977254102e-05,
+          "conclusion": "Pass"
+        }
+      ]
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "Afocal tangential/sagittal vergence in diopters and dimensionless percentage distortion, under the captured wavelength and field scan.",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Diopter",
+          "count": 125,
+          "coverage": 1,
+          "maxAbsolute": 3.6406726106053e-09,
+          "nrmse": 9.28024299349834e-09,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Diopter",
+          "count": 125,
+          "coverage": 1,
+          "maxAbsolute": 4.506473222365415e-09,
+          "nrmse": 4.347729470852524e-09,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 125,
+          "coverage": 1,
+          "maxAbsolute": 4.568757315532294e-06,
+          "nrmse": 1.2836848977254102e-05,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 55,
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 1,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "d35f430204237f41a958bb75a61b68533de1d87871ad6765b01065765fc4e96e",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 8.08467875978991e-14,
+          "nrmse": 9.873823465758549e-13,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 8.129390441369289e-08,
+          "nrmse": 9.777093905525233e-07,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 59,
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 1,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "5d49b14f28d95fb6be7c6a6309242bf89221c02b9c56acb9f8f2f4901eef8645",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 7.030834248133999e-14,
+          "nrmse": 5.285200086665383e-13,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 8.130490096458498e-08,
+          "nrmse": 7.592468416256046e-07,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 63,
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 1,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "f3d8de012fda559234f20272c69e9f482651d4e27b187bf4833863fe46d74133",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 7.898889875512793e-14,
+          "nrmse": 5.394522449855404e-13,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 8.122352265771404e-08,
+          "nrmse": 8.517403739485694e-07,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 68,
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 2,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "6faf211fe8c7635874bebecf20f0ac083da515f87714b4e9bb252a21bd2cc926",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 6.403341398786289e-14,
+          "nrmse": 8.403883774778058e-13,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 8.137945612524122e-14,
+          "nrmse": 1.3487241761343426e-12,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 82,
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 2,
+    "analysis": "Field Curvature and Distortion",
+    "originalRequestFingerprint": "eac05cb6a095e8af7e451b09d120998c1d6eae25fdae453aa165180e52aa8dde",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Incomplete physical coverage; shared quantities compared separately; tangential: No per-quantity tolerance: Defocus; sagittal: No per-quantity tolerance: Defocus",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 125,
+          "coverage": 1,
+          "maxAbsolute": 4.550926663741931e-06,
+          "nrmse": 1.2786710422875771e-05,
+          "conclusion": "Pass"
+        }
+      ]
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Incomplete physical coverage; shared quantities compared separately; tangential: No per-quantity tolerance: Defocus; sagittal: No per-quantity tolerance: Defocus",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 125,
+          "coverage": 1,
+          "maxAbsolute": 4.550926663741931e-06,
+          "nrmse": 1.2786710422875771e-05,
+          "conclusion": "Pass"
+        }
+      ]
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "Afocal tangential/sagittal vergence in diopters and dimensionless percentage distortion, under the captured wavelength and field scan.",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Diopter",
+          "count": 125,
+          "coverage": 1,
+          "maxAbsolute": 3.4753096823936236e-09,
+          "nrmse": 9.061354354066338e-09,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Diopter",
+          "count": 125,
+          "coverage": 1,
+          "maxAbsolute": 4.506473222365415e-09,
+          "nrmse": 4.374232221235011e-09,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 125,
+          "coverage": 1,
+          "maxAbsolute": 4.550926663741931e-06,
+          "nrmse": 1.2786710422875771e-05,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 85,
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 2,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "73df01772854a721e6d1473b903d1683a070b69d8393b7db2e4ad1a1d8efb5e6",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 8.879789265003879e-14,
+          "nrmse": 9.096300008603729e-13,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 8.646729166006395e-14,
+          "nrmse": 3.679883921491505e-13,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 89,
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 2,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "2bf12555954df5094210e60842bf8f22cb80c2007c72899e4159f47304972841",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 7.34863558893295e-14,
+          "nrmse": 4.81887507459182e-13,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 1.0205551681519154e-13,
+          "nrmse": 4.034008380639808e-13,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "afocalTolerance",
+    "index": 93,
+    "lens": "Afocal/Binocular_System.ZMX",
+    "configuration": 2,
+    "analysis": "Ray Fan",
+    "originalRequestFingerprint": "f0bd4e8474011490065cdc9c09703957522ce2adcd6b02adc7aa45c22253c4dd",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "detail": "System.IO.InvalidDataException: Afocal Ray Fan requires explicit AfocalQuantities/IncidentAngle tolerances in degrees; focal length tolerances are not angular tolerances.",
+      "metrics": []
+    },
+    "supplementalAfocal": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 6.94479196372555e-14,
+          "nrmse": 6.170161334158923e-13,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Degree",
+          "count": 61,
+          "coverage": 1,
+          "maxAbsolute": 9.352241203686162e-14,
+          "nrmse": 3.5448705121592536e-13,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "tiltedObject",
+    "index": 741,
+    "lens": "Image Simulation/Example 6, tilted image plane.ZMX",
+    "configuration": 2,
+    "analysis": "Encircled Energy",
+    "originalRequestFingerprint": "dcea184db0bd0394752305effdb6f01ef208792dfd9ecd6d03afda9860de8f0c",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "A curve requires at least two finite coordinate/value pairs",
+      "detail": "System.IO.InvalidDataException: A curve requires at least two finite coordinate/value pairs",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 630,
+          "coverage": 0.9999999999999998,
+          "maxAbsolute": 4.440892098500626e-16,
+          "nrmse": 8.843445802142502e-17,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 630,
+          "coverage": 0.9999999999999998,
+          "maxAbsolute": 6.288372600415926e-18,
+          "nrmse": 6.373378613657087e-16,
+          "conclusion": "Pass"
+        }
+      ]
+    },
+    "current": {
+      "conclusion": "Pass",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 630,
+          "coverage": 0.9999999999999998,
+          "maxAbsolute": 4.440892098500626e-16,
+          "nrmse": 8.843445802142502e-17,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 630,
+          "coverage": 0.9999999999999998,
+          "maxAbsolute": 6.288372600415926e-18,
+          "nrmse": 6.373378613657087e-16,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "curve:2",
+          "unit": "Dimensionless",
+          "count": 630,
+          "coverage": 0.9999999999999998,
+          "maxAbsolute": 1.4094628242311558e-18,
+          "nrmse": 1.6989669830261052e-16,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "tiltedObject",
+    "index": 747,
+    "lens": "Image Simulation/Example 6, tilted image plane.ZMX",
+    "configuration": 2,
+    "analysis": "Single Ray Trace",
+    "originalRequestFingerprint": "f77590630f5f6f4fd91c5ecc1516d75ef5e51ae5edbe8d2dfa611f6c15e723fd",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Incomplete or unordered real-ray surface table",
+      "detail": "System.IO.InvalidDataException: Incomplete or unordered real-ray surface table",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Pass",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "x",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "y",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.926992147602505e-11,
+          "nrmse": 6.048329174577853e-12,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "z",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.7237491695995004e-12,
+          "nrmse": 5.625537506287858e-12,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "l",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "m",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.4744874472257834e-11,
+          "nrmse": 1.0472365684740376e-10,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "n",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 2.4181434632453147e-11,
+          "nrmse": 1.847188228930937e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-x",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-y",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.7502918265607263e-11,
+          "nrmse": 1.1993983744419773e-10,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-z",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.9223070064385865e-11,
+          "nrmse": 3.1085557704875684e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "incidence",
+          "unit": "Degree",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.947247056463766e-10,
+          "nrmse": 8.574880740338917e-12,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "path-length",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 7.592291240143823e-10,
+          "nrmse": 2.5761347760293126e-12,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "tiltedObject",
+    "index": 751,
+    "lens": "Image Simulation/Example 6, tilted image plane.ZMX",
+    "configuration": 2,
+    "analysis": "Single Ray Trace",
+    "originalRequestFingerprint": "df3cd083a049afda2242544e84b9bb01b5ade98d93d2c141894ecdb8dc48da9d",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Incomplete or unordered real-ray surface table",
+      "detail": "System.IO.InvalidDataException: Incomplete or unordered real-ray surface table",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Pass",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "x",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "y",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.785949414554125e-11,
+          "nrmse": 5.027878259980112e-12,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "z",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.343525539241e-12,
+          "nrmse": 5.768258311461458e-12,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "l",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "m",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.258623315100962e-11,
+          "nrmse": 9.419933317102663e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "n",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.486022664451639e-11,
+          "nrmse": 2.100210073686027e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-x",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-y",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 3.3781547004174683e-11,
+          "nrmse": 7.172294433252622e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-z",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 3.6247227441776886e-11,
+          "nrmse": 1.779506571223619e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "incidence",
+          "unit": "Degree",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.932330099904902e-10,
+          "nrmse": 1.22364994454391e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "path-length",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 7.592291240143823e-10,
+          "nrmse": 2.5468954149508826e-12,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "tiltedObject",
+    "index": 755,
+    "lens": "Image Simulation/Example 6, tilted image plane.ZMX",
+    "configuration": 2,
+    "analysis": "Single Ray Trace",
+    "originalRequestFingerprint": "9472b2e96cd565e9948d142d51192fcb8c2ff3d7b43a4e8c4f88817709dd16d3",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Incomplete or unordered real-ray surface table",
+      "detail": "System.IO.InvalidDataException: Incomplete or unordered real-ray surface table",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Pass",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "x",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "y",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.757172433755841e-11,
+          "nrmse": 5.685058266014206e-12,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "z",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.5477510646207975e-12,
+          "nrmse": 5.234921465059122e-12,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "l",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "m",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.822389709779884e-11,
+          "nrmse": 9.67482687469719e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "n",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.680600351747444e-11,
+          "nrmse": 2.8762625854612086e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-x",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 0,
+          "nrmse": 0,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-y",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 3.3517008612982124e-11,
+          "nrmse": 6.971345608624613e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-z",
+          "unit": "Dimensionless",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.512279438984024e-11,
+          "nrmse": 3.0334740668431544e-11,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "incidence",
+          "unit": "Degree",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 4.553850629918088e-10,
+          "nrmse": 9.905496598144645e-12,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "path-length",
+          "unit": "Millimeter",
+          "count": 8,
+          "coverage": 1,
+          "maxAbsolute": 7.592291240143823e-10,
+          "nrmse": 2.614177875128894e-12,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "huygens",
+    "index": 1138,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 1,
+    "analysis": "Huygens PSF",
+    "originalRequestFingerprint": "e16dda3f02d5ea520bfc45e84d32052b02dba0823a550843ee3a7bc5e2469414",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "No valid grid overlap",
+      "detail": "System.IO.InvalidDataException: No valid grid overlap",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Error",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "detail": "Huygens propagation produced a non-finite image intensity.",
+      "metrics": []
+    }
+  },
+  {
+    "group": "huygens",
+    "index": 1160,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 2,
+    "analysis": "Huygens PSF",
+    "originalRequestFingerprint": "9ad8656e023a7c71f295fd7c1394121746ae4609a577ceb770a05d818e5704ac",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "No valid grid overlap",
+      "detail": "System.IO.InvalidDataException: No valid grid overlap",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Error",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "detail": "Huygens propagation produced a non-finite image intensity.",
+      "metrics": []
+    }
+  },
+  {
+    "group": "huygens",
+    "index": 1344,
+    "lens": "Miscellaneous/Telecentric system.zmx",
+    "configuration": 1,
+    "analysis": "Huygens PSF",
+    "originalRequestFingerprint": "f9407a4f95e7caa4a66444984da63e565a7ecaffb7190d3a3df8baef1678accd",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "No valid grid overlap",
+      "detail": "System.IO.InvalidDataException: No valid grid overlap",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Error",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "detail": "Huygens propagation produced a non-finite image intensity.",
+      "metrics": []
+    }
+  },
+  {
+    "group": "huygens",
+    "index": 2202,
+    "lens": "Polarization/Etalon.ZMX",
+    "configuration": 1,
+    "analysis": "Huygens PSF",
+    "originalRequestFingerprint": "c66ce25a7985d3333143a184e6268b25f28ab1c19ab605e11ebab44c255c8bae",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "No valid grid overlap",
+      "detail": "System.IO.InvalidDataException: No valid grid overlap",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Error",
+      "reason": "Core returned Unavailable with numeric native reference",
+      "detail": "Huygens propagation produced a non-finite image intensity.",
+      "metrics": []
+    }
+  },
+  {
+    "group": "wavefront",
+    "index": 2430,
+    "lens": "Telescopes/Schmidt-Cassegrain spider obscuration.zmx",
+    "configuration": 1,
+    "analysis": "Wavefront",
+    "originalRequestFingerprint": "f144e0135f2f7b06bb8373ebe75f0f48acec79db9cc78365357556731917802b",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 2282,
+          "coverage": 0.8844961240310077,
+          "maxAbsolute": 4.0070813889236945e-09,
+          "nrmse": 1.382832657274702e-08,
+          "conclusion": "Incomparable"
+        }
+      ]
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 2282,
+          "coverage": 0.8844961240310077,
+          "maxAbsolute": 4.0070813889236945e-09,
+          "nrmse": 1.382832657274702e-08,
+          "conclusion": "Incomparable"
+        }
+      ]
+    }
+  },
+  {
+    "group": "wavefront",
+    "index": 2498,
+    "lens": "Telescopes/Unobscured Gregorian.zmx",
+    "configuration": 1,
+    "analysis": "Wavefront",
+    "originalRequestFingerprint": "4a89845998da9ce2e5543a8b2eb60d8cbe3621d6f2540a5411746b4402df062d",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 1875,
+          "coverage": 0.6252084028009336,
+          "maxAbsolute": 1.1638615404763186e-06,
+          "nrmse": 2.607709437447467e-06,
+          "conclusion": "Incomparable"
+        }
+      ]
+    },
+    "current": {
+      "conclusion": "Incomparable",
+      "reason": "",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "grid",
+          "unit": "Wave",
+          "count": 1875,
+          "coverage": 0.6252084028009336,
+          "maxAbsolute": 1.1638615404763186e-06,
+          "nrmse": 2.607709437447467e-06,
+          "conclusion": "Incomparable"
+        }
+      ]
+    }
+  },
+  {
+    "group": "yolo",
+    "index": 2516,
+    "lens": "Telescopes/Yolo.zmx",
+    "configuration": 1,
+    "analysis": "Single Ray Trace",
+    "originalRequestFingerprint": "56ce0c4c4781b568eef6edbbebf3622b0176490fca3f6d25d905970b4de3d35c",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Native/imported surface mapping is ambiguous; explicit source mapping required",
+      "detail": "System.IO.InvalidDataException: Native/imported surface mapping is ambiguous; explicit source mapping required",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Difference",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "x",
+          "unit": "Millimeter",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 0.3462781831957911,
+          "nrmse": 0.3649662380569578,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "y",
+          "unit": "Millimeter",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 0.03152181402194848,
+          "nrmse": 0.00015601283103314076,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "z",
+          "unit": "Millimeter",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 7.967360190497264e-05,
+          "nrmse": 8.9042961146661e-05,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "l",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 0.00021297471876052104,
+          "nrmse": 0.0018905887570992818,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "m",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 3.160092995092151e-05,
+          "nrmse": 0.00016951313813046097,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "n",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 2.871922251235226e-06,
+          "nrmse": 1.2997743069863506e-06,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-x",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 6.465481451014474e-06,
+          "nrmse": 0.3194304357264953,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "normal-y",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 1.646519604906957e-06,
+          "nrmse": 9.200768921496426e-05,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "normal-z",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 6.510845418361555e-09,
+          "nrmse": 2.1703955941726033e-09,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "incidence",
+          "unit": "Degree",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 0.00183356763712883,
+          "nrmse": 0.00013942756538260347,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "path-length",
+          "unit": "Millimeter",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 0.00430884202114612,
+          "nrmse": 1.119294615617979e-06,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "yolo",
+    "index": 2533,
+    "lens": "Telescopes/Yolo.zmx",
+    "configuration": 1,
+    "analysis": "Single Ray Trace",
+    "originalRequestFingerprint": "7d1f30180fa49902de4c4b6a4a0dbd37ac8fff19a7f98911421acd43f973e28e",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Native/imported surface mapping is ambiguous; explicit source mapping required",
+      "detail": "System.IO.InvalidDataException: Native/imported surface mapping is ambiguous; explicit source mapping required",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Difference",
+      "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "x",
+          "unit": "Millimeter",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 0.32364475056555086,
+          "nrmse": 0.36941408194683384,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "y",
+          "unit": "Millimeter",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 0.03151213360625604,
+          "nrmse": 0.0001559323392756225,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "z",
+          "unit": "Millimeter",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 0.00010045935450683774,
+          "nrmse": 0.00011227610803194432,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "l",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 0.00021060908217427482,
+          "nrmse": 0.0018649101398491514,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "m",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 3.160666184576569e-05,
+          "nrmse": 0.00017174601337976495,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "n",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 2.8170950164829733e-06,
+          "nrmse": 1.2725884392624479e-06,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "normal-x",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 7.013538696321708e-06,
+          "nrmse": 0.38336555749541407,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "normal-y",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 1.6443432502791927e-06,
+          "nrmse": 9.188734529492889e-05,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "normal-z",
+          "unit": "Dimensionless",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 8.231926251767163e-09,
+          "nrmse": 2.7440430439180442e-09,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "incidence",
+          "unit": "Degree",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 0.001832143317894941,
+          "nrmse": 0.00014115632913479383,
+          "conclusion": "Difference"
+        },
+        {
+          "id": "path-length",
+          "unit": "Millimeter",
+          "count": 9,
+          "coverage": 1,
+          "maxAbsolute": 0.004200902453703748,
+          "nrmse": 1.0802685097149302e-06,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "paraxialImageHeight",
+    "index": 2952,
+    "lens": "Zoom systems/Zoom lens.zmx",
+    "configuration": 1,
+    "analysis": "Field Curvature and Distortion",
+    "originalRequestFingerprint": "899ed6a4dbb92085ab0ee4e66f34194cdc3a60de23201cdc4266de09d0ef13a8",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Field-coordinate conversion requires an audited native field-type mapping",
+      "detail": "System.IO.InvalidDataException: Field-coordinate conversion requires an audited native field-type mapping",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Pass",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Millimeter",
+          "count": 130,
+          "coverage": 1,
+          "maxAbsolute": 9.064676925740756e-10,
+          "nrmse": 2.7212784092158114e-09,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Millimeter",
+          "count": 130,
+          "coverage": 1,
+          "maxAbsolute": 1.7445302841201382e-10,
+          "nrmse": 1.4289939425393303e-09,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 130,
+          "coverage": 1,
+          "maxAbsolute": 1.4272960591199535e-10,
+          "nrmse": 8.973518709127851e-11,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "paraxialImageHeight",
+    "index": 2982,
+    "lens": "Zoom systems/Zoom lens.zmx",
+    "configuration": 2,
+    "analysis": "Field Curvature and Distortion",
+    "originalRequestFingerprint": "330dc61ab480094775550fcd57452d474e87e0cff2fc1c907804002c48d339e3",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Field-coordinate conversion requires an audited native field-type mapping",
+      "detail": "System.IO.InvalidDataException: Field-coordinate conversion requires an audited native field-type mapping",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Pass",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Millimeter",
+          "count": 130,
+          "coverage": 1,
+          "maxAbsolute": 6.10856624727596e-08,
+          "nrmse": 3.88705792462237e-08,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Millimeter",
+          "count": 130,
+          "coverage": 1,
+          "maxAbsolute": 4.3072129196630726e-10,
+          "nrmse": 3.862883423700507e-10,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 130,
+          "coverage": 1,
+          "maxAbsolute": 1.2599407628322012e-10,
+          "nrmse": 1.6440489037232877e-10,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  },
+  {
+    "group": "paraxialImageHeight",
+    "index": 3012,
+    "lens": "Zoom systems/Zoom lens.zmx",
+    "configuration": 3,
+    "analysis": "Field Curvature and Distortion",
+    "originalRequestFingerprint": "08582368b688d90410b7299fb7365c3361f2df3404fce3595ba47b98cb3625ec",
+    "prior": {
+      "conclusion": "Incomparable",
+      "reason": "Field-coordinate conversion requires an audited native field-type mapping",
+      "detail": "System.IO.InvalidDataException: Field-coordinate conversion requires an audited native field-type mapping",
+      "metrics": []
+    },
+    "current": {
+      "conclusion": "Pass",
+      "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+      "detail": null,
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Millimeter",
+          "count": 130,
+          "coverage": 1,
+          "maxAbsolute": 7.141198365978596e-08,
+          "nrmse": 5.71489418549128e-09,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "sagittal",
+          "unit": "Millimeter",
+          "count": 130,
+          "coverage": 1,
+          "maxAbsolute": 1.2084246936439058e-09,
+          "nrmse": 2.1737198935749417e-10,
+          "conclusion": "Pass"
+        },
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 130,
+          "coverage": 1,
+          "maxAbsolute": 1.661475384356903e-10,
+          "nrmse": 6.233003734738238e-10,
+          "conclusion": "Pass"
+        }
+      ]
+    }
+  }
+]

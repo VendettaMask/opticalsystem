@@ -1,0 +1,3427 @@
+{
+  "coreSha256": "653e1b67b8d653f06587f7666c7a70fe60c43bc65313dc630bf3f4bb37ecbd6a",
+  "priorFixedSummarySha256": "0c007d4178ecc98daa140c40f7565cc5713cc60321990232d401075cffd01142",
+  "fixedInputsVerified": 30700,
+  "fixedArchiveSha256": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+  "freshFixedProductReplay": false,
+  "archiveSha256": "07aa4d81eb6809c444496197c1129837c8968141492070b82b2df3bbdf805277",
+  "captureCount": 43,
+  "archiveMemberCount": 545,
+  "captures": [
+    {
+      "stage": "native",
+      "id": "flat",
+      "inputSha256": "6fbbf0668f7af311e6b734db207f9e0dc3338ab9fc34fc418d76aba159bd304a",
+      "requestSha256": "51d0b5ecb6908667090cff5b0ee78caffb74918929769b14551bcfb838a71742",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "75fd75cf054928d90c893999d01a65b0ebbf27d7989676bf04f6a670a26b9989",
+      "captureStatus": {
+        "id": "flat",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:40:51.0557329Z",
+        "completedUtc": "2026-11-06T12:40:58.2520054Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "y-affine",
+      "inputSha256": "9fd95cd93910c30f7a5558f450994c211bc7bbf275bd6c24bb21df87d8b23dc0",
+      "requestSha256": "9add8170f9e4c5bc7d3eb6584ab8c2373f8024a01fa144847e8ba2a164735870",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "89be645fcc61f1e3d645e2af798736b175ce91dfbe3539497051f8f79f1c174e",
+      "captureStatus": {
+        "id": "y-affine",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:40:58.2530072Z",
+        "completedUtc": "2026-11-06T12:41:05.1205411Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "y-affine-negative",
+      "inputSha256": "b45c03c631f9bbf182b02796cc2ef9ff5de9a5b8514bcf12f3842d1a3e95fdd1",
+      "requestSha256": "b02b55f3113995281aec34dabd4af8f02350ace5dae8685639572b57db3dd263",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "f2adc7229053915bb565f492abb48afb652ad9ff979da34b1db886c1a5417e66",
+      "captureStatus": {
+        "id": "y-affine-negative",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:41:05.1215422Z",
+        "completedUtc": "2026-11-06T12:41:12.1386218Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "y-affine-double",
+      "inputSha256": "62ecdb98397e3624d1ff83ee031b0ceb6ec690806d07ac10a6e48036783a46a8",
+      "requestSha256": "79f6d407ac7e57cdd2e911a1e9995c19184569724b0d4d30ae0c03575c64d029",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "1c1e2f72542e5544e1acd5646008dd3e70c947baef44018787f9a8a978188e06",
+      "captureStatus": {
+        "id": "y-affine-double",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:41:12.1396239Z",
+        "completedUtc": "2026-11-06T12:41:19.0162594Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "y-affine-n3",
+      "inputSha256": "45234c688f88837b8fffbc7b0f09f71c1e7f63a177d579b4e059e57dac72d229",
+      "requestSha256": "300b80f1a55ce636c7fcc918e3b64fb8f503aa31e625e861241942892d3d7158",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "5c168b0902e3f479611ef15ab6a8057c25a73d958d1834d4b265ab8992151b27",
+      "captureStatus": {
+        "id": "y-affine-n3",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:41:19.0162594Z",
+        "completedUtc": "2026-11-06T12:41:26.1888868Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "y-affine-n6",
+      "inputSha256": "1461a728f905d8ecea8d8d51f35b3132e45d2f269cd2e059fa8ae77b4aef2cf5",
+      "requestSha256": "efe7f01f0aa1e8dce9177c514482aa3434c1c7add4953a28945c26bae7d96aa2",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "5d36eaf14f99eef222ca7a40c410aee20cd739fcff39bdb32386448af3a12c90",
+      "captureStatus": {
+        "id": "y-affine-n6",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:41:26.1888868Z",
+        "completedUtc": "2026-11-06T12:41:33.0242849Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "y-affine-short",
+      "inputSha256": "1bd5f0262d13a337578eb475d3c8f6356e3142a00f86c5d61250d1837ab615a3",
+      "requestSha256": "fcc7314593ef3e56f02158889189fa7f978b156b4460f38ef48a3a422253d8ec",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "28c58fd51374ca5943fde535fd5952e06151919d4d3162c2f19d6409f34f556d",
+      "captureStatus": {
+        "id": "y-affine-short",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:41:33.0252860Z",
+        "completedUtc": "2026-11-06T12:41:36.5705562Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "y-affine-fine-grid",
+      "inputSha256": "011d643307eab85fecbb3377a34a9d361c9347b9efd8d8eb704e332327f19907",
+      "requestSha256": "b6f8c0910ea480181740d64433d235a36d220b1154e46ea7179029ed905fdcb3",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "a81418ef5b3b8c02980910ef7226def1a80e5289ea6ebf6a9a93471031cacff3",
+      "captureStatus": {
+        "id": "y-affine-fine-grid",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:41:36.5715573Z",
+        "completedUtc": "2026-11-06T12:41:43.4723989Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "y-quadratic",
+      "inputSha256": "df66ab175cc2ee6c72164a11012bda38c42ba674890da6af8eefe9a4da376872",
+      "requestSha256": "11fb49d3562a0a31481c739b36cbbc6dc3db8ad4631598a058658144c957cc93",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "a83ed2ec6ffb47ed53e8678f0405071b43cc31aeb6502c27ecd504ca02ea2a5f",
+      "captureStatus": {
+        "id": "y-quadratic",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:41:43.4733989Z",
+        "completedUtc": "2026-11-06T12:41:50.3667018Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "y-quadratic-fine-grid",
+      "inputSha256": "0935d1d95a5de3cc35c7df03ca6c9ca4d729031352efcee595ba2d6d8f081d3d",
+      "requestSha256": "4de0c5e33103ac2258137647b6dbb68c7f674ff6cef6d0a6613fad7504d457b3",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "b5bc703be57b0e03db81f8bb0587af2f60b0f3ae49b21b08f6c5004e05365120",
+      "captureStatus": {
+        "id": "y-quadratic-fine-grid",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:41:50.3677030Z",
+        "completedUtc": "2026-11-06T12:41:57.3524609Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "y-affine-quadratic",
+      "inputSha256": "98e672d46a53a31a1d0c941a7eb166527b7714fec54729e4817904d7234a76da",
+      "requestSha256": "e1b3f40ccce99a1d784728d445ab4b2be02222e76868d1aa484aab01737cf488",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "f6364724fb24fbb6b21d22d31561b7074d5d9ea3ee2b673529e7c4047f6ac4c5",
+      "captureStatus": {
+        "id": "y-affine-quadratic",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:41:57.3534598Z",
+        "completedUtc": "2026-11-06T12:42:04.2218885Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "axis-linear-y-affine",
+      "inputSha256": "7ddf70f0b60cc1b38e14368002c7db34e696722233c4cd1220cff245ee03c137",
+      "requestSha256": "dbd3905fad18324227d8eb08d3affe3da46d714818d806efeed7552acb0c8cb8",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "58cf022ab8c250ae488b5a0a96507c8219942ae30535d0635f7bfd971f83e57b",
+      "captureStatus": {
+        "id": "axis-linear-y-affine",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:42:04.2228893Z",
+        "completedUtc": "2026-11-06T12:42:11.0772220Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "sample-axis",
+      "inputSha256": "02ad18ff7b03d8986470cb22badcdfd22177413fc97a4eab66e5ea3e7f788330",
+      "requestSha256": "a6f61478c189f8aa22ad2e02023f789b144e72becec32de9c23283687f24cf1c",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "967080955a1feb2f4fa872f473ff4ae08f72d23e029fb4730c5041c80fc43daf",
+      "captureStatus": {
+        "id": "sample-axis",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:42:11.0782227Z",
+        "completedUtc": "2026-11-06T12:42:18.0584486Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "sample-axis-y-affine",
+      "inputSha256": "58aa230d7587a07e3a1aa29c47da94952f50419efbca0f9dac8f8baefb2d5fdb",
+      "requestSha256": "c39ffec4d1a283b247d756999686e2e756537143614a7ce17f57aa0352678ab8",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "b7d2f5bd3ecbebd9164155ad25e6d7f05c88452b2e0667e89760fecebd13b94a",
+      "captureStatus": {
+        "id": "sample-axis-y-affine",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:42:18.0594492Z",
+        "completedUtc": "2026-11-06T12:42:26.2918004Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "sample-axis-y-affine-short",
+      "inputSha256": "2c7cc3e1aebc14e661aee0cd17d661368f4d505fdd8581b9ce5191186c720262",
+      "requestSha256": "ac47c448a6bd7ec53137bc605cdfc70815d8dfb16a92844a864f261d35d4cc87",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "8c4c91c1cb0f5888327dfa1b207123cfc5af00c0049961e2af00da6d0ddde85f",
+      "captureStatus": {
+        "id": "sample-axis-y-affine-short",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:42:26.2928019Z",
+        "completedUtc": "2026-11-06T12:42:29.8539568Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "496-step0.005",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "requestSha256": "e7a483c680c40a02ba05678f4fd7b3f1f75ee293fa7b1d45010dc92584d6fe28",
+      "originalRequestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "c3900e59e5ca4fa087c814d70ae77a68c0b656c21d0048b368845196f2bac17f",
+      "captureStatus": {
+        "id": "496-step0.005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:42:29.8549589Z",
+        "completedUtc": "2026-11-06T12:42:33.7831805Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "496-step0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "requestSha256": "b80e9ff7440dc7a1d41104c2b8419422ce6eb954e54ff0c17ba0246b6ffba7d6",
+      "originalRequestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "da46c0642e20e5c225cf8f409962732b8a12efc4ba91afbb849b033fd0ed3852",
+      "captureStatus": {
+        "id": "496-step0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:42:33.7841783Z",
+        "completedUtc": "2026-11-06T12:42:51.9153736Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "498-step0.005",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "requestSha256": "0cdca70f0ce3ea112ca1719985f961cc2093ad64585dbcafe38b95fde69cc259",
+      "originalRequestFingerprint": "e9b74f9f8a2b03b839ab677f884b63572e3b6a514a241df7ed7b9343e65a26f2",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "4aa963750a0d8c77c2df596b8185a034dc6457146edc72b0816ac18ec79f5d13",
+      "captureStatus": {
+        "id": "498-step0.005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:42:51.9163743Z",
+        "completedUtc": "2026-11-06T12:42:57.6552970Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "498-step0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "requestSha256": "f7852a4fa38be1520e02280f71749ea670109e833a418b0471b15fa48114490d",
+      "originalRequestFingerprint": "e9b74f9f8a2b03b839ab677f884b63572e3b6a514a241df7ed7b9343e65a26f2",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "1b9c3d0c2fc71dbd65842820aa67522c457f65198665d340c04e7a058af4e723",
+      "captureStatus": {
+        "id": "498-step0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:42:57.6562968Z",
+        "completedUtc": "2026-11-06T12:43:25.2708084Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "500-step0.005",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "requestSha256": "e87e8bbaf519f33f5eb757d5cc08b3cca0a139f6e14e61c4ad8a4cb839f5e2e2",
+      "originalRequestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "bbe2b6cb427f485118834b4394213d1bca43f457811e000f4e58ae8980fdabf4",
+      "captureStatus": {
+        "id": "500-step0.005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:43:25.2718100Z",
+        "completedUtc": "2026-11-06T12:43:29.1194838Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "500-step0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "requestSha256": "aeefcb119d031598e1b9b22d8fb0c3ee5c3f73e5439ec7149f5200350b299bee",
+      "originalRequestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "96e52fc346978aa9a282079196c2ef4be6924d61511c9028d82c2d545fcd290e",
+      "captureStatus": {
+        "id": "500-step0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:43:29.1194838Z",
+        "completedUtc": "2026-11-06T12:43:47.6237546Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "501-step0.005",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "requestSha256": "53b34708dc2e2203f04fe322128758f9a29157e4929b9166abcf47ad1b6a1cce",
+      "originalRequestFingerprint": "4b88e39454dd3fcb58ee055f333742bcb724a1ef22fb80831756d21b1a771fe7",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "57b95fb7c8bffbaa82f7d6dbeb4ec3b3827ef9551136f6448f6a29f819580b19",
+      "captureStatus": {
+        "id": "501-step0.005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:43:47.6247548Z",
+        "completedUtc": "2026-11-06T12:43:49.9556435Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "501-step0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "requestSha256": "cafd2f8b733e664f1a2fbeb450e914b3051bd22bc60e13af9c9fd359a965b504",
+      "originalRequestFingerprint": "4b88e39454dd3fcb58ee055f333742bcb724a1ef22fb80831756d21b1a771fe7",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "0f2e431ab14f59713127e769ca218c8e7dc758d71a26d4c73ae898367ed2963f",
+      "captureStatus": {
+        "id": "501-step0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:43:49.9566427Z",
+        "completedUtc": "2026-11-06T12:43:59.4210736Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "503-step0.005",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "requestSha256": "3151551d3a57c3b135332f87e4f374cd3b1f7db843095bca54ad5a715c1783d2",
+      "originalRequestFingerprint": "b94bd6b384ea1642523e9c3bae4e0b547b13b5b26eb9da4a9141f7899eca8252",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "965a491ac9090c1ae043b01d511e52b7be590deda43ab09317ed45f6399b5e5e",
+      "captureStatus": {
+        "id": "503-step0.005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:43:59.4220747Z",
+        "completedUtc": "2026-11-06T12:44:23.0512890Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "503-step0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "requestSha256": "e57f562e51aed567978e7607c213e95bc0d934748cb147f7f4d942c621b70ae4",
+      "originalRequestFingerprint": "b94bd6b384ea1642523e9c3bae4e0b547b13b5b26eb9da4a9141f7899eca8252",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "560797f46e30a446d47177eb36f16554fc8e6a5cb686e651e0b00f925978c62d",
+      "captureStatus": {
+        "id": "503-step0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:44:23.0512890Z",
+        "completedUtc": "2026-11-06T12:46:21.6782441Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "505-step0.005",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "requestSha256": "5142e28b70e0dd5da8b3acc671b20d385526b154eeda3c14b2c83a8fa0524453",
+      "originalRequestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "945d95589598e0c04d568809a9f8f211209ae1a731ddbe9af497ee393827ab5c",
+      "captureStatus": {
+        "id": "505-step0.005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:46:21.6792451Z",
+        "completedUtc": "2026-11-06T12:46:26.7875035Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "id": "505-step0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "requestSha256": "b251d45a8d4e27c29cca03818ca7c69211f7f0ed6c7562b3d044b3d3da4e2258",
+      "originalRequestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "0235a6002f2bc84ae449174cf6545e5ad0e5768f0cdcd824c9292a6d1038f7ff",
+      "captureStatus": {
+        "id": "505-step0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:46:26.7885037Z",
+        "completedUtc": "2026-11-06T12:46:51.9743966Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "y-affine-ray-operands",
+      "inputSha256": "9fd95cd93910c30f7a5558f450994c211bc7bbf275bd6c24bb21df87d8b23dc0",
+      "requestSha256": "bb84993926d1bad686545fb5e735ac798d4fd7a90b4d608d070ced72fb7d3923",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": null,
+      "captureStatus": {
+        "id": "y-affine-ray-operands",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:47:26.8103981Z",
+        "completedUtc": "2026-11-06T12:47:29.8930759Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "y-affine-negative-ray-operands",
+      "inputSha256": "b45c03c631f9bbf182b02796cc2ef9ff5de9a5b8514bcf12f3842d1a3e95fdd1",
+      "requestSha256": "b621ee8bafd3d63ce7623e496532e122b0df812d11776c0df08dbc9ae07df41f",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": null,
+      "captureStatus": {
+        "id": "y-affine-negative-ray-operands",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:47:29.8940781Z",
+        "completedUtc": "2026-11-06T12:47:32.7998610Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "axis-linear-y-affine-ray-operands",
+      "inputSha256": "7ddf70f0b60cc1b38e14368002c7db34e696722233c4cd1220cff245ee03c137",
+      "requestSha256": "c7e8d7b071251467db67d678f79959a0de2f14258e8a48e6ff9bf6a536903c09",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": null,
+      "captureStatus": {
+        "id": "axis-linear-y-affine-ray-operands",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:47:32.8008637Z",
+        "completedUtc": "2026-11-06T12:47:35.6993381Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "sample-axis-y-affine-ray-operands",
+      "inputSha256": "58aa230d7587a07e3a1aa29c47da94952f50419efbca0f9dac8f8baefb2d5fdb",
+      "requestSha256": "88e043b182a9e2b7438581807d3fd9afa9c023be5cc2bd3c24178086e2300a80",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": null,
+      "captureStatus": {
+        "id": "sample-axis-y-affine-ray-operands",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:47:35.7003379Z",
+        "completedUtc": "2026-11-06T12:47:38.6313204Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "sample-axis-y-affine-short-ray-operands",
+      "inputSha256": "2c7cc3e1aebc14e661aee0cd17d661368f4d505fdd8581b9ce5191186c720262",
+      "requestSha256": "d3028dc9202a4078466d058fc245c3370ae5bc888a7d3c73f86668bb754b17e9",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": null,
+      "captureStatus": {
+        "id": "sample-axis-y-affine-short-ray-operands",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:47:38.6323241Z",
+        "completedUtc": "2026-11-06T12:47:40.4675813Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "y-quadratic-fine-grid-ray-operands",
+      "inputSha256": "0935d1d95a5de3cc35c7df03ca6c9ca4d729031352efcee595ba2d6d8f081d3d",
+      "requestSha256": "a80310d67ba766750804c87ae51abf8124a07e774782700a9519062e903b9afb",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": null,
+      "captureStatus": {
+        "id": "y-quadratic-fine-grid-ray-operands",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:47:40.4685842Z",
+        "completedUtc": "2026-11-06T12:47:43.4558943Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "505-centroid-step0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "requestSha256": "db9f1a797833ee0896beea0378fa84732c01ab00fefcb02d5fb831d997085d17",
+      "originalRequestFingerprint": null,
+      "nativeSettingsEqualToOriginal": null,
+      "nativeDataSha256": "112f72649bb6aa048b96540f7a866fa0d60b3d46ac4dceb4fa74d8358f64d1cb",
+      "captureStatus": {
+        "id": "505-centroid-step0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:47:43.4558943Z",
+        "completedUtc": "2026-11-06T12:48:08.7487247Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "496-step0.0005",
+      "inputSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69",
+      "requestSha256": "341ea769d14c9838f8cc6f1866909188b5ecc6e58020ffc5553e1880a2f02dc5",
+      "originalRequestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "813973474683591089f82f71e374ebe0c3e6429ff5f930cc9bfdded29a3ad96d",
+      "captureStatus": {
+        "id": "496-step0.0005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:48:08.7497273Z",
+        "completedUtc": "2026-11-06T12:48:44.5203522Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "500-step0.0005",
+      "inputSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69",
+      "requestSha256": "6d5c2b45d48f5239eafd5aba943fbb9151079ce54a568c90743362746d068caf",
+      "originalRequestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "971882bbedab0d0374082d78e6a23683d7241e3b75fc410babebce91e7acc971",
+      "captureStatus": {
+        "id": "500-step0.0005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:48:44.5213514Z",
+        "completedUtc": "2026-11-06T12:49:21.3091935Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "505-step0.0005",
+      "inputSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69",
+      "requestSha256": "a1640537c34280edd76167333aab27668eda484cb3d46ec97fa329f5f817a24a",
+      "originalRequestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "bee99d25d43c6832d3a7ae2c94cb6d4135fc632dc695597f3793f042cd6cd4cc",
+      "captureStatus": {
+        "id": "505-step0.0005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:49:21.3101989Z",
+        "completedUtc": "2026-11-06T12:50:10.7119329Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "496-step0.00025",
+      "inputSha256": "d761106df65f4d07323099b4c97f8045d87dfc087374e670aa134b3e9cd8f31c",
+      "requestSha256": "aa04f0bbf09e335c022fec728e5507c6878b5376b18360628ea6dfef738a3ad7",
+      "originalRequestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "97f895a3d7cef32b6c67990318ecc2930a849b23126601e8367623a98e1022ef",
+      "captureStatus": {
+        "id": "496-step0.00025",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:50:10.7129346Z",
+        "completedUtc": "2026-11-06T12:51:23.7265232Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "500-step0.00025",
+      "inputSha256": "d761106df65f4d07323099b4c97f8045d87dfc087374e670aa134b3e9cd8f31c",
+      "requestSha256": "499a3defd6cf31d7933f58eba851a1406fd91fca1d589608bf65ebe456853518",
+      "originalRequestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "51ed1ad8978e421bc6ee4d8f7f1c5a733c99a1e491276c845a720d16712869a6",
+      "captureStatus": {
+        "id": "500-step0.00025",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:51:23.7275229Z",
+        "completedUtc": "2026-11-06T12:52:37.0798657Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "id": "503-step0.0005",
+      "inputSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69",
+      "requestSha256": "1fa72653ada684d7201ca9a26f0bda4eaf59a2575894fd91b42c9d95cc278e3b",
+      "originalRequestFingerprint": "b94bd6b384ea1642523e9c3bae4e0b547b13b5b26eb9da4a9141f7899eca8252",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "1443198c845d73a2d10952d40199bfb0ca874737d8d43375f8e99581dee6d73a",
+      "captureStatus": {
+        "id": "503-step0.0005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:52:37.0808629Z",
+        "completedUtc": "2026-11-06T12:56:32.2954616Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "fft-check",
+      "id": "495-step0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "requestSha256": "1a04219c5243c809a18f5f8fef1af1f7e381e215374e993c8460eac2a20291fc",
+      "originalRequestFingerprint": "d41bdd7247573b750d63c44b94b15b8dda009f91a8dcfd66bf65aca35321d695",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "8c2443f597dace410462ea1eef55f9492b3d0a7a9c0f1aafad71b60442fd91a7",
+      "captureStatus": {
+        "id": "495-step0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:56:39.6064547Z",
+        "completedUtc": "2026-11-06T12:56:49.7704653Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "fft-check",
+      "id": "499-step0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "requestSha256": "8dc5e22be31bbed4251670c173ee1757af857f0025885f20e0d4cf4e1ba9ebec",
+      "originalRequestFingerprint": "2c89cf4b802fda02f2f665c50eff1199bae20ab8c123caf1303f9fb632ce6eaa",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": null,
+      "captureStatus": {
+        "id": "499-step0.001",
+        "exitCode": 2,
+        "startedUtc": "2026-11-06T12:56:49.7714678Z",
+        "completedUtc": "2026-11-06T12:57:01.1972323Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "fft-check",
+      "id": "502-step0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "requestSha256": "bcfbaf338c611db39e5ffcc3a3ef63d24c2f499ee522c4f39c772533bac1e538",
+      "originalRequestFingerprint": "e79a4617a01590f002e28c92a7f40a8e31c98d47b46415e0ae5a086ea454a59a",
+      "nativeSettingsEqualToOriginal": true,
+      "nativeDataSha256": "0ad9afe669dcf739fc5c1eb72964b8f0a484c1a9d4eeccdd1112dd1201d8f1b7",
+      "captureStatus": {
+        "id": "502-step0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T12:57:01.1982326Z",
+        "completedUtc": "2026-11-06T12:57:08.9692986Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    }
+  ],
+  "members": [
+    {
+      "path": "audit/Program.cs",
+      "sha256": "e49735bf63b76f3bd6924c71127f4c4c37a825bef1fb8914216d89c6ea313eec",
+      "bytes": 3316
+    },
+    {
+      "path": "fft-check/captures/495-step0.001/batch-result.json",
+      "sha256": "45cd27574cb8385cbf33fcae3ff825bae088db2bca71132530c7832cf6790f1d",
+      "bytes": 212
+    },
+    {
+      "path": "fft-check/captures/495-step0.001/capture.json",
+      "sha256": "fc33f59b5c3d2ec8482544e4c8a23b4a251dc9c1c0c7381b3f1bde13815bf273",
+      "bytes": 76
+    },
+    {
+      "path": "fft-check/captures/495-step0.001/captured-settings.json",
+      "sha256": "a730fa120cf36fc3b53f1924e016fdd7454d1bc9ad9b900218834d591e6169ba",
+      "bytes": 1964
+    },
+    {
+      "path": "fft-check/captures/495-step0.001/data.json",
+      "sha256": "8c2443f597dace410462ea1eef55f9492b3d0a7a9c0f1aafad71b60442fd91a7",
+      "bytes": 578
+    },
+    {
+      "path": "fft-check/captures/495-step0.001/data.txt",
+      "sha256": "7cd11ce222496342b61d27f3e32fdb37b05727b02d6e75f0f52255b9cd65ad36",
+      "bytes": 34
+    },
+    {
+      "path": "fft-check/captures/495-step0.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "fft-check/captures/495-step0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "fft-check/captures/495-step0.001/native-timeline.jsonl",
+      "sha256": "f134deffd80f71bb1c1edb737c4dbb6cfc87e24004a7d836c8a4ed2c04167a65",
+      "bytes": 411
+    },
+    {
+      "path": "fft-check/captures/495-step0.001/result-diagnostics.json",
+      "sha256": "9c3295382ca9252f7ad8781550c1f825495356d308fa9741a38cd23e03b0aded",
+      "bytes": 108
+    },
+    {
+      "path": "fft-check/captures/495-step0.001/settings.CFG",
+      "sha256": "ace5745ba65b5c06ed21fb95e565754c7c0258e6c3f5d385a47a7cdec849bdc8",
+      "bytes": 18448
+    },
+    {
+      "path": "fft-check/captures/495-step0.001/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "fft-check/captures/499-step0.001/batch-result.json",
+      "sha256": "70ebcedd758a0c22b1eeb0a7014e9db993420d2898bfc34c524363407dede8a8",
+      "bytes": 212
+    },
+    {
+      "path": "fft-check/captures/499-step0.001/captured-settings.json",
+      "sha256": "20e359263606763c43c87c7c59f783c15ebcddf4458245e5007fdaa0968dcfbe",
+      "bytes": 2598
+    },
+    {
+      "path": "fft-check/captures/499-step0.001/data.txt",
+      "sha256": "50eac756bc4eb170cb7d3c90b20bb7cfb5ece7a3b0e5c4840d6ab06ca700b2a3",
+      "bytes": 34
+    },
+    {
+      "path": "fft-check/captures/499-step0.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "fft-check/captures/499-step0.001/error.json",
+      "sha256": "43ec225bd190eda0bdce6ed784a38d5a0f77ae175004424d7053c803d78dd452",
+      "bytes": 553
+    },
+    {
+      "path": "fft-check/captures/499-step0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "fft-check/captures/499-step0.001/native-timeline.jsonl",
+      "sha256": "2ef51ea2dac79df3bf7971d831502d9f02fe7b4d487cd47de52827976aa35185",
+      "bytes": 308
+    },
+    {
+      "path": "fft-check/captures/499-step0.001/result-diagnostics.json",
+      "sha256": "d06a5cfebaf969af4cd96514c66fb8d80c0645b019484d38ee28173ca871c721",
+      "bytes": 108
+    },
+    {
+      "path": "fft-check/captures/499-step0.001/settings.CFG",
+      "sha256": "b60cf3161d0ae3dab508148d803672adc6b896ac54ab11bed4d8d3f8690c8f3c",
+      "bytes": 18448
+    },
+    {
+      "path": "fft-check/captures/502-step0.001/batch-result.json",
+      "sha256": "af850b30e56c88467a02afb453dc210101d526bd7ae57e725dcc3f29fbaea7c3",
+      "bytes": 212
+    },
+    {
+      "path": "fft-check/captures/502-step0.001/capture.json",
+      "sha256": "7d002ef9bfc918491f112b513c160723f6694274f2cdd7bb885759107221e7f8",
+      "bytes": 96
+    },
+    {
+      "path": "fft-check/captures/502-step0.001/captured-settings.json",
+      "sha256": "e5f7b2fea3854b585cad416e4c8a43dbfd665cfa8b9b06a60d368bdca68a5d88",
+      "bytes": 2488
+    },
+    {
+      "path": "fft-check/captures/502-step0.001/data.json",
+      "sha256": "0ad9afe669dcf739fc5c1eb72964b8f0a484c1a9d4eeccdd1112dd1201d8f1b7",
+      "bytes": 472
+    },
+    {
+      "path": "fft-check/captures/502-step0.001/data.txt",
+      "sha256": "7cd11ce222496342b61d27f3e32fdb37b05727b02d6e75f0f52255b9cd65ad36",
+      "bytes": 34
+    },
+    {
+      "path": "fft-check/captures/502-step0.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "fft-check/captures/502-step0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "fft-check/captures/502-step0.001/native-timeline.jsonl",
+      "sha256": "98fcd06bcf7f33e938b01f3b64a67abed99e05d248a23adb1f7d6c2cd945a901",
+      "bytes": 411
+    },
+    {
+      "path": "fft-check/captures/502-step0.001/result-diagnostics.json",
+      "sha256": "617ffb7b2b044eb4ce420120e86d317b9266f94245f2dda4ad604a86a469e23e",
+      "bytes": 108
+    },
+    {
+      "path": "fft-check/captures/502-step0.001/settings.CFG",
+      "sha256": "6d5774acc81ffaa47b910ccd1d861ef51a26116e4c180533328d754533981a90",
+      "bytes": 18448
+    },
+    {
+      "path": "fft-check/captures/502-step0.001/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "fft-check/native-jobs.json",
+      "sha256": "4cef3cc07f11e7c349185781e3f7cdd4819c706651cd235d839196450fe89865",
+      "bytes": 1166
+    },
+    {
+      "path": "fft-check/native.log",
+      "sha256": "13b6df1ec23ccd786e412b60fa6b9e1e564c1eed394f045de72520c3cc4297d2",
+      "bytes": 611
+    },
+    {
+      "path": "fft-check/requests/495-step0.001.json",
+      "sha256": "1a04219c5243c809a18f5f8fef1af1f7e381e215374e993c8460eac2a20291fc",
+      "bytes": 2062
+    },
+    {
+      "path": "fft-check/requests/499-step0.001.json",
+      "sha256": "8dc5e22be31bbed4251670c173ee1757af857f0025885f20e0d4cf4e1ba9ebec",
+      "bytes": 2982
+    },
+    {
+      "path": "fft-check/requests/502-step0.001.json",
+      "sha256": "bcfbaf338c611db39e5ffcc3a3ef63d24c2f499ee522c4f39c772533bac1e538",
+      "bytes": 2627
+    },
+    {
+      "path": "models/Program.cs",
+      "sha256": "5b165759841efd6f837ae29c6a388c0a9c7622a7a92741f5401d3b388836e926",
+      "bytes": 1816
+    },
+    {
+      "path": "native/captures/496-step0.001/batch-result.json",
+      "sha256": "2ddabd87aeb1e4ce7e3737a93e0950506e49fecc5c7f8d5132d22c8c934312b9",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/496-step0.001/capture.json",
+      "sha256": "fdab7f0ee1d6f6742a162bd176b93672b567f381971e55836ff0e61344370876",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/496-step0.001/captured-settings.json",
+      "sha256": "24e3f8da92b7a0381c25f98288dd7c8eb7ae987c6f03c87810c3116b6d3f3f28",
+      "bytes": 2059
+    },
+    {
+      "path": "native/captures/496-step0.001/data.json",
+      "sha256": "da46c0642e20e5c225cf8f409962732b8a12efc4ba91afbb849b033fd0ed3852",
+      "bytes": 23474
+    },
+    {
+      "path": "native/captures/496-step0.001/data.txt",
+      "sha256": "02c490eaccd0c446d8bb639af91caf0345be530df5485328840e6e129831e756",
+      "bytes": 27650
+    },
+    {
+      "path": "native/captures/496-step0.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/496-step0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "native/captures/496-step0.001/native-timeline.jsonl",
+      "sha256": "b63fdd2f47ec9c294b6d0d0b7c8d5e671f63f7b0a5532edfc79ce6307b7c933c",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/496-step0.001/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/496-step0.001/settings.CFG",
+      "sha256": "0b93d87b1a8adfb51adb463f00485768e8b2615045f5c8302df30a4f87d1a0f7",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/496-step0.001/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/496-step0.005/batch-result.json",
+      "sha256": "ffb65f3728648e3c64487afe3847f431afd02f12fcf28ecb04547d7f53e8dd95",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/496-step0.005/capture.json",
+      "sha256": "fdab7f0ee1d6f6742a162bd176b93672b567f381971e55836ff0e61344370876",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/496-step0.005/captured-settings.json",
+      "sha256": "96af000105d48b942ee539b3a795480e3b1e7bdc0c1a6440ff26880f331a8536",
+      "bytes": 2059
+    },
+    {
+      "path": "native/captures/496-step0.005/data.json",
+      "sha256": "c3900e59e5ca4fa087c814d70ae77a68c0b656c21d0048b368845196f2bac17f",
+      "bytes": 23464
+    },
+    {
+      "path": "native/captures/496-step0.005/data.txt",
+      "sha256": "6db15fd0c8810f80307e78277a3cc9d1203fe16645ae2e3a15dfe8c315b32f41",
+      "bytes": 27650
+    },
+    {
+      "path": "native/captures/496-step0.005/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/496-step0.005/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "native/captures/496-step0.005/native-timeline.jsonl",
+      "sha256": "f741f5fb9cbd200d1bcd8d218bf76348b6c8912429d4791d379ec6303b8f64a7",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/496-step0.005/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/496-step0.005/settings.CFG",
+      "sha256": "0b93d87b1a8adfb51adb463f00485768e8b2615045f5c8302df30a4f87d1a0f7",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/496-step0.005/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/498-step0.001/batch-result.json",
+      "sha256": "97bcb8c3790eb5a757320eb953f3b90c99656a27888463dde436c2260b3fef73",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/498-step0.001/capture.json",
+      "sha256": "c31968bae4ae420a8240e25edb92970efaf00a515abccf8810ffb1fa2e78172b",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/498-step0.001/captured-settings.json",
+      "sha256": "6baf0b6abb5440984144e9a7866393f42f0a6d5d75e8c92ccd9b9e4888f8320c",
+      "bytes": 2004
+    },
+    {
+      "path": "native/captures/498-step0.001/data.json",
+      "sha256": "1b9c3d0c2fc71dbd65842820aa67522c457f65198665d340c04e7a058af4e723",
+      "bytes": 18557
+    },
+    {
+      "path": "native/captures/498-step0.001/data.txt",
+      "sha256": "835d620ed42e5f7f82ac363a3d59c023dcbe19b96a4ef70fe78f8001edbc004d",
+      "bytes": 5126
+    },
+    {
+      "path": "native/captures/498-step0.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/498-step0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "native/captures/498-step0.001/native-timeline.jsonl",
+      "sha256": "78d5e8a792916fcd1ca3985477070a6dabe36402521cf80b993f590afb15f2eb",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/498-step0.001/result-diagnostics.json",
+      "sha256": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/498-step0.001/settings.CFG",
+      "sha256": "86f7ea36a86ec61d9b7c4b67ca7b4b3260a2768379003e7711a659cb14bdd210",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/498-step0.001/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/498-step0.005/batch-result.json",
+      "sha256": "d4f8eef91ecad04f6ba5e83c38a3da2d53a72db1299d22e68d5dafc58fe0c903",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/498-step0.005/capture.json",
+      "sha256": "c31968bae4ae420a8240e25edb92970efaf00a515abccf8810ffb1fa2e78172b",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/498-step0.005/captured-settings.json",
+      "sha256": "f03bf41a45701d1a96d1686822ae4f0883187b6ad8de91b1961a453840374af2",
+      "bytes": 2004
+    },
+    {
+      "path": "native/captures/498-step0.005/data.json",
+      "sha256": "4aa963750a0d8c77c2df596b8185a034dc6457146edc72b0816ac18ec79f5d13",
+      "bytes": 18582
+    },
+    {
+      "path": "native/captures/498-step0.005/data.txt",
+      "sha256": "228119f215c583ef48252d3442705a0853cf3b32e45b5a620b769928d0448a16",
+      "bytes": 5126
+    },
+    {
+      "path": "native/captures/498-step0.005/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/498-step0.005/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "native/captures/498-step0.005/native-timeline.jsonl",
+      "sha256": "c0001f95dfbbaafbff4062b038e48dd70a722fd4013554f66e1b24faa3b1823e",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/498-step0.005/result-diagnostics.json",
+      "sha256": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/498-step0.005/settings.CFG",
+      "sha256": "86f7ea36a86ec61d9b7c4b67ca7b4b3260a2768379003e7711a659cb14bdd210",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/498-step0.005/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/500-step0.001/batch-result.json",
+      "sha256": "f7f90887c4b5e5bd3fc26b419c82e39b978c2ad767672273c91bbd4bcb98dd09",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/500-step0.001/capture.json",
+      "sha256": "426d49f5763091ff3bc50c15a3884bf8182e1df3ecc04f299f1035b71eca7811",
+      "bytes": 92
+    },
+    {
+      "path": "native/captures/500-step0.001/captured-settings.json",
+      "sha256": "d85bda67cb11de7c038ca74347b2b8ca4d5738e7e9cd3169c7cc77eedc263c40",
+      "bytes": 2756
+    },
+    {
+      "path": "native/captures/500-step0.001/data.json",
+      "sha256": "96e52fc346978aa9a282079196c2ef4be6924d61511c9028d82c2d545fcd290e",
+      "bytes": 425
+    },
+    {
+      "path": "native/captures/500-step0.001/data.txt",
+      "sha256": "281675e8b10e308c1f64f91b4e510a35663f4269795232037fc779a2707de00f",
+      "bytes": 2724
+    },
+    {
+      "path": "native/captures/500-step0.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/500-step0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "native/captures/500-step0.001/native-timeline.jsonl",
+      "sha256": "0de06e7443eda022fd80e778c729640dc9c7f93189c6e3dc6ec9ebb4dee74ebb",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/500-step0.001/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/500-step0.001/settings.CFG",
+      "sha256": "e3de3c3b14634cccbdb7fe2ac627e2a38fd1bdf5063b08dc3ba123b2c35594ba",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/500-step0.001/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/500-step0.005/batch-result.json",
+      "sha256": "298613d68713031fb569a87f69e283d5e7e9591097dccc2570980b1cf1f642df",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/500-step0.005/capture.json",
+      "sha256": "426d49f5763091ff3bc50c15a3884bf8182e1df3ecc04f299f1035b71eca7811",
+      "bytes": 92
+    },
+    {
+      "path": "native/captures/500-step0.005/captured-settings.json",
+      "sha256": "bf67e80d1caed93ab29ae77d0282722d3380cff4233d5f76e8fc5d512f607c7c",
+      "bytes": 2756
+    },
+    {
+      "path": "native/captures/500-step0.005/data.json",
+      "sha256": "bbe2b6cb427f485118834b4394213d1bca43f457811e000f4e58ae8980fdabf4",
+      "bytes": 425
+    },
+    {
+      "path": "native/captures/500-step0.005/data.txt",
+      "sha256": "8e1de8372abfa8861145eeaf41116742d7a32b1280fe0e1334850ac53b45bf3d",
+      "bytes": 2724
+    },
+    {
+      "path": "native/captures/500-step0.005/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/500-step0.005/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "native/captures/500-step0.005/native-timeline.jsonl",
+      "sha256": "28c7ca41d92de84c33cd233fdfe2308650e6c6a1648aac779fa6ef883a77297c",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/500-step0.005/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/500-step0.005/settings.CFG",
+      "sha256": "e3de3c3b14634cccbdb7fe2ac627e2a38fd1bdf5063b08dc3ba123b2c35594ba",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/500-step0.005/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/501-step0.001/batch-result.json",
+      "sha256": "57563845592fca6ab52fe9c42e2509a217e70ef48db0cbd2a01d1edc7837188d",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/501-step0.001/capture.json",
+      "sha256": "aa33864349c7287eda2834b378a9edc4631a1692a600a4dcb51164967d052b58",
+      "bytes": 94
+    },
+    {
+      "path": "native/captures/501-step0.001/captured-settings.json",
+      "sha256": "331b3b9b8f582f43f00279a7b364d60cfc23e64e79374ff9245d1c092b0f0511",
+      "bytes": 2488
+    },
+    {
+      "path": "native/captures/501-step0.001/data.json",
+      "sha256": "0f2e431ab14f59713127e769ca218c8e7dc758d71a26d4c73ae898367ed2963f",
+      "bytes": 17628
+    },
+    {
+      "path": "native/captures/501-step0.001/data.txt",
+      "sha256": "a4b7b29b2c4d8c4d16ec6567c306d172d00e1a3ff747524d2c3c033e51d56075",
+      "bytes": 7938
+    },
+    {
+      "path": "native/captures/501-step0.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/501-step0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "native/captures/501-step0.001/native-timeline.jsonl",
+      "sha256": "ac1afadac251deacd8d055c47f65ae14fbd230e568752869459e7c53a7e0db54",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/501-step0.001/result-diagnostics.json",
+      "sha256": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/501-step0.001/settings.CFG",
+      "sha256": "32e70f99ef288697d6dd459ab4a3164296212fb768f56e3e177c1e0bd11183fb",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/501-step0.001/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/501-step0.005/batch-result.json",
+      "sha256": "b0012acd05252757df6530c723364f780b8ae626a9fed34b3b4ee5c7cacfb5ad",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/501-step0.005/capture.json",
+      "sha256": "aa33864349c7287eda2834b378a9edc4631a1692a600a4dcb51164967d052b58",
+      "bytes": 94
+    },
+    {
+      "path": "native/captures/501-step0.005/captured-settings.json",
+      "sha256": "8a2faa5229ca02e2b0c462857afb5a272bfef93046c099f7d19da99f1293b81a",
+      "bytes": 2488
+    },
+    {
+      "path": "native/captures/501-step0.005/data.json",
+      "sha256": "57b95fb7c8bffbaa82f7d6dbeb4ec3b3827ef9551136f6448f6a29f819580b19",
+      "bytes": 17628
+    },
+    {
+      "path": "native/captures/501-step0.005/data.txt",
+      "sha256": "4d83a84e11e9750e069f470d30392c0fe9fa49173ef9134ef54b89b9dd04fed3",
+      "bytes": 7938
+    },
+    {
+      "path": "native/captures/501-step0.005/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/501-step0.005/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "native/captures/501-step0.005/native-timeline.jsonl",
+      "sha256": "0dcb11dad141bf81d71a1462a3d9d8ec00d439be7b4c6283fa0dd537470d8c79",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/501-step0.005/result-diagnostics.json",
+      "sha256": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/501-step0.005/settings.CFG",
+      "sha256": "32e70f99ef288697d6dd459ab4a3164296212fb768f56e3e177c1e0bd11183fb",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/501-step0.005/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/503-step0.001/batch-result.json",
+      "sha256": "c68bfd0ad542f171944abe9bb172eaec720ff6ffa449686837a510419516413c",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/503-step0.001/capture.json",
+      "sha256": "2803152bc6b929a28917f5c2bdb5ca1204ed9c553f62e235f10741f48415e3bb",
+      "bytes": 92
+    },
+    {
+      "path": "native/captures/503-step0.001/captured-settings.json",
+      "sha256": "54922e013a4471887b168540caaff7a30bd3d7dffd95ef763ebf91ce47d13f2e",
+      "bytes": 2683
+    },
+    {
+      "path": "native/captures/503-step0.001/data.json",
+      "sha256": "560797f46e30a446d47177eb36f16554fc8e6a5cb686e651e0b00f925978c62d",
+      "bytes": 6326
+    },
+    {
+      "path": "native/captures/503-step0.001/data.txt",
+      "sha256": "523f4551b8bb3e3a12c1e2f37c9e87faecba14481aaf510631514df916372c7e",
+      "bytes": 9678
+    },
+    {
+      "path": "native/captures/503-step0.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/503-step0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "native/captures/503-step0.001/native-timeline.jsonl",
+      "sha256": "5a181761d7c8ee50d78949290e7d27f4ecf6d31c8ed60eaebd2301add6135df0",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/503-step0.001/result-diagnostics.json",
+      "sha256": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/503-step0.001/settings.CFG",
+      "sha256": "aeac790be069159d3cd0af4fdc5093b5241ecff1c1b5e49d498fd934c843efa7",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/503-step0.001/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/503-step0.005/batch-result.json",
+      "sha256": "2b0fbc1589e7d79c13124759a10a8a1633eb1a7cecaa719ba0b247bf4be47b11",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/503-step0.005/capture.json",
+      "sha256": "2803152bc6b929a28917f5c2bdb5ca1204ed9c553f62e235f10741f48415e3bb",
+      "bytes": 92
+    },
+    {
+      "path": "native/captures/503-step0.005/captured-settings.json",
+      "sha256": "02f5031a0ed72acc8390f515e5661da033e12a7e32aa7e3bb46f718681331f65",
+      "bytes": 2683
+    },
+    {
+      "path": "native/captures/503-step0.005/data.json",
+      "sha256": "965a491ac9090c1ae043b01d511e52b7be590deda43ab09317ed45f6399b5e5e",
+      "bytes": 6319
+    },
+    {
+      "path": "native/captures/503-step0.005/data.txt",
+      "sha256": "526a547399d0b8607395d67bf566ded1f8a0345ba85b72ddd91c1704d407d6fb",
+      "bytes": 9678
+    },
+    {
+      "path": "native/captures/503-step0.005/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/503-step0.005/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "native/captures/503-step0.005/native-timeline.jsonl",
+      "sha256": "d364d4a7f9a6f6bffb46865338f55bf4bc64fac881e1382ddea447acfdb02dc2",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/503-step0.005/result-diagnostics.json",
+      "sha256": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/503-step0.005/settings.CFG",
+      "sha256": "aeac790be069159d3cd0af4fdc5093b5241ecff1c1b5e49d498fd934c843efa7",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/503-step0.005/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/505-step0.001/batch-result.json",
+      "sha256": "12543aabb7b0197937a9bb0d4f8f37ea01ba2ff618e06898e73f05db1ff17d88",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/505-step0.001/capture.json",
+      "sha256": "22a1e673ab257f837977af1013bc740777c5972c49c3ed857c9b8891d6f7c3ab",
+      "bytes": 78
+    },
+    {
+      "path": "native/captures/505-step0.001/captured-settings.json",
+      "sha256": "1e6b2001fc38b4963fc67c173822bea94bf8e42224e732766b23163ae5fefa07",
+      "bytes": 2549
+    },
+    {
+      "path": "native/captures/505-step0.001/data.json",
+      "sha256": "0235a6002f2bc84ae449174cf6545e5ad0e5768f0cdcd824c9292a6d1038f7ff",
+      "bytes": 1230
+    },
+    {
+      "path": "native/captures/505-step0.001/data.txt",
+      "sha256": "a1863d37a7b445e8c013a1e9f4249e0ce7e2ca29617c9e8bb1e081c62b84c8fd",
+      "bytes": 1334
+    },
+    {
+      "path": "native/captures/505-step0.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/505-step0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "native/captures/505-step0.001/native-timeline.jsonl",
+      "sha256": "497a117524bcb3640b49b0eb2bda9c89d5c24e83323a85c7cb9c98579bfe6da8",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/505-step0.001/result-diagnostics.json",
+      "sha256": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/505-step0.001/settings.CFG",
+      "sha256": "1cdda21388c9b14c8469231872f9c99935fa0308d61a6a284db4a579bf0c983b",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/505-step0.001/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/505-step0.005/batch-result.json",
+      "sha256": "fb041dbc2f59e2316b7e1b4f026a0f7e8b3c42b3019ba6565aa243c29dae3030",
+      "bytes": 212
+    },
+    {
+      "path": "native/captures/505-step0.005/capture.json",
+      "sha256": "22a1e673ab257f837977af1013bc740777c5972c49c3ed857c9b8891d6f7c3ab",
+      "bytes": 78
+    },
+    {
+      "path": "native/captures/505-step0.005/captured-settings.json",
+      "sha256": "a7519726f583f4806d30f8f0877deee73cec6afb1d39c50b7ac47921e4c8fe3b",
+      "bytes": 2549
+    },
+    {
+      "path": "native/captures/505-step0.005/data.json",
+      "sha256": "945d95589598e0c04d568809a9f8f211209ae1a731ddbe9af497ee393827ab5c",
+      "bytes": 1230
+    },
+    {
+      "path": "native/captures/505-step0.005/data.txt",
+      "sha256": "0f59db2bd594d515d0d06c5cc854e0f6786eb4988a2248b5187a192bee713546",
+      "bytes": 1334
+    },
+    {
+      "path": "native/captures/505-step0.005/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/505-step0.005/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "native/captures/505-step0.005/native-timeline.jsonl",
+      "sha256": "90ebcff390ef66d5553c9abfa45311649978abb263b9c240263f323d58c51ec3",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/505-step0.005/result-diagnostics.json",
+      "sha256": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/505-step0.005/settings.CFG",
+      "sha256": "1cdda21388c9b14c8469231872f9c99935fa0308d61a6a284db4a579bf0c983b",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/505-step0.005/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/axis-linear-y-affine/batch-result.json",
+      "sha256": "bc5d324b59c63b0def99fdaf8ff22a62aee54335c32b4e97e9674c9fcb5c1a0a",
+      "bytes": 219
+    },
+    {
+      "path": "native/captures/axis-linear-y-affine/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/axis-linear-y-affine/captured-settings.json",
+      "sha256": "8eda4454a531c13a876cf1a70f3d0e04da8f07a35571554942f00bb84917a933",
+      "bytes": 1653
+    },
+    {
+      "path": "native/captures/axis-linear-y-affine/data.json",
+      "sha256": "58cf022ab8c250ae488b5a0a96507c8219942ae30535d0635f7bfd971f83e57b",
+      "bytes": 520
+    },
+    {
+      "path": "native/captures/axis-linear-y-affine/data.txt",
+      "sha256": "890025bbdaee359fa9b909f74d87ca6d112f892b8b06b82043daf80bd0eb366f",
+      "bytes": 4724
+    },
+    {
+      "path": "native/captures/axis-linear-y-affine/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/axis-linear-y-affine/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/axis-linear-y-affine/native-timeline.jsonl",
+      "sha256": "0d2aa2f46aee14c725a04419dc590b8dc67520fddac64ac223271cc119b2cc09",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/axis-linear-y-affine/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/axis-linear-y-affine/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/axis-linear-y-affine/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/flat/batch-result.json",
+      "sha256": "f9f07b827846a1f6247e578f5e9798a19e89fd3564bbc39dbe7d8e4bd21345c6",
+      "bytes": 203
+    },
+    {
+      "path": "native/captures/flat/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/flat/captured-settings.json",
+      "sha256": "f13d1b5637caaaa62613f1c03fd68673f995f269063bc25a6ffb2637976dc0a3",
+      "bytes": 1637
+    },
+    {
+      "path": "native/captures/flat/data.json",
+      "sha256": "75fd75cf054928d90c893999d01a65b0ebbf27d7989676bf04f6a670a26b9989",
+      "bytes": 483
+    },
+    {
+      "path": "native/captures/flat/data.txt",
+      "sha256": "4bcd5ba8cc41bace01ab0e2c0f20aedd489bdc72b9c0bdd4ba836dea9cb2d95a",
+      "bytes": 4610
+    },
+    {
+      "path": "native/captures/flat/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/flat/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/flat/native-timeline.jsonl",
+      "sha256": "1091cbd5577835a11d9c63d7ccc558dafe76108b5a1f2fb57bd001f341c566cb",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/flat/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/flat/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/flat/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine-short/batch-result.json",
+      "sha256": "d070c844663edcae223ded7d7cb60209fdf7897a75748f9336ccaefe7bd840eb",
+      "bytes": 225
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine-short/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine-short/captured-settings.json",
+      "sha256": "74baf5f79014a702457217c9cbf4d1ed262030fbd8874aab862d0b6415c033ef",
+      "bytes": 1659
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine-short/data.json",
+      "sha256": "8c4c91c1cb0f5888327dfa1b207123cfc5af00c0049961e2af00da6d0ddde85f",
+      "bytes": 522
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine-short/data.txt",
+      "sha256": "213bd045ec37e631dd108897d25d192d58814c9cdef36a95dfb8c875505cf55c",
+      "bytes": 4736
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine-short/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine-short/model.json",
+      "sha256": "fc8cf163c867b6e76e93bbdf97b0ee37836d3672ffd2f7c1a34c2109e503abe2",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine-short/native-timeline.jsonl",
+      "sha256": "905db53e6a90a748dde066f21acc3afe824c5b357982ce9d374881de88ac77cd",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine-short/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine-short/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine-short/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine/batch-result.json",
+      "sha256": "9ac975c74cb9d04d7feddbb3cd0eb9f03def079b8cd69932af7ff5b10610efed",
+      "bytes": 219
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine/captured-settings.json",
+      "sha256": "091ab11063ecc0e05ae89c9a4b9fd4ae77467783c4d77f65f8789c5cc1a89033",
+      "bytes": 1653
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine/data.json",
+      "sha256": "b7d2f5bd3ecbebd9164155ad25e6d7f05c88452b2e0667e89760fecebd13b94a",
+      "bytes": 520
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine/data.txt",
+      "sha256": "c52eed3eb22fd3ba59c9024c53cd6fc8adb05ed10759214e014bb6c227dae60b",
+      "bytes": 4724
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine/native-timeline.jsonl",
+      "sha256": "b7b8abd3882aac4241f62ae7dd1e0730f9924a61444679480aa606644dcdeb1c",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/sample-axis-y-affine/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/sample-axis/batch-result.json",
+      "sha256": "f5941d1effbf4608193205933eff042949e90db79df1b8392d0edf5b63e699f6",
+      "bytes": 210
+    },
+    {
+      "path": "native/captures/sample-axis/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/sample-axis/captured-settings.json",
+      "sha256": "318ae96992820e9265261fd4f6b634b3f2ab6c68c76b15e7f122e19e8cbd688e",
+      "bytes": 1644
+    },
+    {
+      "path": "native/captures/sample-axis/data.json",
+      "sha256": "967080955a1feb2f4fa872f473ff4ae08f72d23e029fb4730c5041c80fc43daf",
+      "bytes": 490
+    },
+    {
+      "path": "native/captures/sample-axis/data.txt",
+      "sha256": "a8dbd12edd5f3c1de52306128bd2a5858e6856f6fd940094780f6bec5ee13ac2",
+      "bytes": 4706
+    },
+    {
+      "path": "native/captures/sample-axis/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/sample-axis/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/sample-axis/native-timeline.jsonl",
+      "sha256": "3506d48a34b3ae07e04d4442c156493ee02aa7c639c97297e3dc3aa9b42c0337",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/sample-axis/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/sample-axis/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/sample-axis/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/y-affine-double/batch-result.json",
+      "sha256": "185a95916dd5876f1eeeb97cb5c0237f785cdf7880263fb167fd5f49f1a6a731",
+      "bytes": 214
+    },
+    {
+      "path": "native/captures/y-affine-double/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/y-affine-double/captured-settings.json",
+      "sha256": "e66e9cdaafca9cc97ca97518a3b631ac01a1176ac02700a83986ab956c3a93f6",
+      "bytes": 1648
+    },
+    {
+      "path": "native/captures/y-affine-double/data.json",
+      "sha256": "1c1e2f72542e5544e1acd5646008dd3e70c947baef44018787f9a8a978188e06",
+      "bytes": 515
+    },
+    {
+      "path": "native/captures/y-affine-double/data.txt",
+      "sha256": "7fb73571bc4d8794bd0d34fb341ddf8f7c51b295d8b655b466e405cf6cff261e",
+      "bytes": 4714
+    },
+    {
+      "path": "native/captures/y-affine-double/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/y-affine-double/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/y-affine-double/native-timeline.jsonl",
+      "sha256": "6164c12502440b67a6e7492f1b475ce9328b7d84509a44c32652a12b40c3ca1b",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/y-affine-double/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/y-affine-double/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/y-affine-double/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/y-affine-fine-grid/batch-result.json",
+      "sha256": "05105cb5594450d8327898c48fb96f10221ece8e8c10793c3a78e95e21173e22",
+      "bytes": 217
+    },
+    {
+      "path": "native/captures/y-affine-fine-grid/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/y-affine-fine-grid/captured-settings.json",
+      "sha256": "177979659ad5f0d3f27b4f04e90dcade89cede620b87baabba167d1376ec00b6",
+      "bytes": 1651
+    },
+    {
+      "path": "native/captures/y-affine-fine-grid/data.json",
+      "sha256": "a81418ef5b3b8c02980910ef7226def1a80e5289ea6ebf6a9a93471031cacff3",
+      "bytes": 514
+    },
+    {
+      "path": "native/captures/y-affine-fine-grid/data.txt",
+      "sha256": "28d5fe1e08fd9970be3b819d4d9100d0a32265a13cc5d68062398d4dde7fd248",
+      "bytes": 4720
+    },
+    {
+      "path": "native/captures/y-affine-fine-grid/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/y-affine-fine-grid/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/y-affine-fine-grid/native-timeline.jsonl",
+      "sha256": "4c415b788da86ccd2eb1971b3ee7c37a5224235cf2b0fd87c7df7ebecede9d5c",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/y-affine-fine-grid/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/y-affine-fine-grid/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/y-affine-fine-grid/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/y-affine-n3/batch-result.json",
+      "sha256": "a37130c0d6b786f45b5c7dc7f0bd8c2c1c06a6d2d763bf8e6b20b18d28b7f5c7",
+      "bytes": 210
+    },
+    {
+      "path": "native/captures/y-affine-n3/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/y-affine-n3/captured-settings.json",
+      "sha256": "8ab700fea4352862dbd817e6aff41868f48cd451f5aac9056fcd62e753116c56",
+      "bytes": 1644
+    },
+    {
+      "path": "native/captures/y-affine-n3/data.json",
+      "sha256": "5c168b0902e3f479611ef15ab6a8057c25a73d958d1834d4b265ab8992151b27",
+      "bytes": 511
+    },
+    {
+      "path": "native/captures/y-affine-n3/data.txt",
+      "sha256": "fd6ec44b49c16a8451c2a6421e385842dd7ee303747207b68fd8bd17ab1ebc6a",
+      "bytes": 4706
+    },
+    {
+      "path": "native/captures/y-affine-n3/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/y-affine-n3/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/y-affine-n3/native-timeline.jsonl",
+      "sha256": "f328b51a08ad85890fb06a3325672470e7525c69ceb755975b863360ae21b5e4",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/y-affine-n3/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/y-affine-n3/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/y-affine-n3/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/y-affine-n6/batch-result.json",
+      "sha256": "d3f3cb6e9d41409dc892fb02b8f096da10bff8e8abd0eea12790e79b33559877",
+      "bytes": 210
+    },
+    {
+      "path": "native/captures/y-affine-n6/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/y-affine-n6/captured-settings.json",
+      "sha256": "58518fcd4290dfadb22dba57c8f338b9f45da0b12697562dd55da2c2c1984feb",
+      "bytes": 1644
+    },
+    {
+      "path": "native/captures/y-affine-n6/data.json",
+      "sha256": "5d36eaf14f99eef222ca7a40c410aee20cd739fcff39bdb32386448af3a12c90",
+      "bytes": 511
+    },
+    {
+      "path": "native/captures/y-affine-n6/data.txt",
+      "sha256": "95e7c9ceb6eab09e728794b2b6ecf1c61a193c0d328f369814c390f4729249f9",
+      "bytes": 4706
+    },
+    {
+      "path": "native/captures/y-affine-n6/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/y-affine-n6/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/y-affine-n6/native-timeline.jsonl",
+      "sha256": "fdab52d2681683b7ee391533e17fbcc42accf3d7365079d7ff48d92c0494ddd8",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/y-affine-n6/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/y-affine-n6/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/y-affine-n6/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/y-affine-negative/batch-result.json",
+      "sha256": "07ebb825a5aa9c7ab3c21e06860e3b0e388fe67324c83f2496f99bb6d671a1f2",
+      "bytes": 216
+    },
+    {
+      "path": "native/captures/y-affine-negative/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/y-affine-negative/captured-settings.json",
+      "sha256": "5c6520b6a1d85cd41ee706daf06ad4406bfb3ed6aa21a1918ec19ae733482762",
+      "bytes": 1650
+    },
+    {
+      "path": "native/captures/y-affine-negative/data.json",
+      "sha256": "f2adc7229053915bb565f492abb48afb652ad9ff979da34b1db886c1a5417e66",
+      "bytes": 517
+    },
+    {
+      "path": "native/captures/y-affine-negative/data.txt",
+      "sha256": "c9eeacc4e94fbacf077cf1417447aa7e912d303dc86b40f4631d0e27de63491c",
+      "bytes": 4718
+    },
+    {
+      "path": "native/captures/y-affine-negative/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/y-affine-negative/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/y-affine-negative/native-timeline.jsonl",
+      "sha256": "ae089fc05b49996ddf7ddd2ccb37e7a9fb84a51892a7d1a5938355580c5388ca",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/y-affine-negative/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/y-affine-negative/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/y-affine-negative/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/y-affine-quadratic/batch-result.json",
+      "sha256": "49f1283c097dbc0fefcd9df6a026cfafc07ae3ed140ff6f82765c846ffa38eb7",
+      "bytes": 217
+    },
+    {
+      "path": "native/captures/y-affine-quadratic/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/y-affine-quadratic/captured-settings.json",
+      "sha256": "d8334f2d3b3d9363ec545d1c4c4b3f7b3b4c789f4041b8f0e1797a179b95abdb",
+      "bytes": 1651
+    },
+    {
+      "path": "native/captures/y-affine-quadratic/data.json",
+      "sha256": "f6364724fb24fbb6b21d22d31561b7074d5d9ea3ee2b673529e7c4047f6ac4c5",
+      "bytes": 518
+    },
+    {
+      "path": "native/captures/y-affine-quadratic/data.txt",
+      "sha256": "32108e26ce385f5272486dd586bc33084ab573933b2961035523d631024b7bb0",
+      "bytes": 4720
+    },
+    {
+      "path": "native/captures/y-affine-quadratic/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/y-affine-quadratic/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/y-affine-quadratic/native-timeline.jsonl",
+      "sha256": "cced1654697c8027fa11f66fd8e2cdf9b4763803843151d511ea7b1c9c330256",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/y-affine-quadratic/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/y-affine-quadratic/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/y-affine-quadratic/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/y-affine-short/batch-result.json",
+      "sha256": "777cb2724a4e82c1850d702d3a3bf43ea14dabeab0c972784d2d6e0bf615d849",
+      "bytes": 213
+    },
+    {
+      "path": "native/captures/y-affine-short/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/y-affine-short/captured-settings.json",
+      "sha256": "de507d540ed35b799aab068edd5f29a8e79a402bf9e822b7d138d5f346907a27",
+      "bytes": 1647
+    },
+    {
+      "path": "native/captures/y-affine-short/data.json",
+      "sha256": "28c58fd51374ca5943fde535fd5952e06151919d4d3162c2f19d6409f34f556d",
+      "bytes": 514
+    },
+    {
+      "path": "native/captures/y-affine-short/data.txt",
+      "sha256": "a35160040eb2f6886a4152211114717ddd966fa9f353ed4ca747512c56535692",
+      "bytes": 4712
+    },
+    {
+      "path": "native/captures/y-affine-short/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/y-affine-short/model.json",
+      "sha256": "fc8cf163c867b6e76e93bbdf97b0ee37836d3672ffd2f7c1a34c2109e503abe2",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/y-affine-short/native-timeline.jsonl",
+      "sha256": "88fade3237d39d2b39d4bda02f8825d701c296d688a55f7290201cf19db73d2a",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/y-affine-short/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/y-affine-short/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/y-affine-short/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/y-affine/batch-result.json",
+      "sha256": "9ce31a94a2e8a0696ebb73f6b84572f3d0a7b52a06bf0058e832c49622df4d81",
+      "bytes": 207
+    },
+    {
+      "path": "native/captures/y-affine/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/y-affine/captured-settings.json",
+      "sha256": "f2bfc090bf009d7f03a89e1296ff5a32612f37c5895997bd0cf4694a8070fe79",
+      "bytes": 1641
+    },
+    {
+      "path": "native/captures/y-affine/data.json",
+      "sha256": "89be645fcc61f1e3d645e2af798736b175ce91dfbe3539497051f8f79f1c174e",
+      "bytes": 506
+    },
+    {
+      "path": "native/captures/y-affine/data.txt",
+      "sha256": "15dfb7a32dc7a6fd63186dd0e9b2421ad1daad64c5c4416bd0ea01a597485d2b",
+      "bytes": 4700
+    },
+    {
+      "path": "native/captures/y-affine/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/y-affine/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/y-affine/native-timeline.jsonl",
+      "sha256": "3a517fa67969f337c085ecd303b393d85d6549f8d2c34c5d3264af11762ca7ea",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/y-affine/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/y-affine/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/y-affine/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/y-quadratic-fine-grid/batch-result.json",
+      "sha256": "733658e67542b5dea286a4c18702254928ad45ea581deac71972a0a39af4b119",
+      "bytes": 220
+    },
+    {
+      "path": "native/captures/y-quadratic-fine-grid/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/y-quadratic-fine-grid/captured-settings.json",
+      "sha256": "b4cd8ab56de998cda608b707b9463ec51e535168279539e9f49589dc802447e2",
+      "bytes": 1654
+    },
+    {
+      "path": "native/captures/y-quadratic-fine-grid/data.json",
+      "sha256": "b5bc703be57b0e03db81f8bb0587af2f60b0f3ae49b21b08f6c5004e05365120",
+      "bytes": 519
+    },
+    {
+      "path": "native/captures/y-quadratic-fine-grid/data.txt",
+      "sha256": "5b04102aacde8bd75609319177b9fee963cf311c4143ad97c1dd607a5570efed",
+      "bytes": 4726
+    },
+    {
+      "path": "native/captures/y-quadratic-fine-grid/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/y-quadratic-fine-grid/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/y-quadratic-fine-grid/native-timeline.jsonl",
+      "sha256": "90e6f72cebd010065311c2d1ba29772f6bc8f6fa6ddf725558901f0184bae8c9",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/y-quadratic-fine-grid/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/y-quadratic-fine-grid/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/y-quadratic-fine-grid/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/captures/y-quadratic/batch-result.json",
+      "sha256": "2492a589daddd4375d25fef32089af1695ff5b9b759c354f2564a33b1d8eb3f9",
+      "bytes": 210
+    },
+    {
+      "path": "native/captures/y-quadratic/capture.json",
+      "sha256": "656fb43cb0ba5b2576b2b0aef301aa1627ef015c6696ac310f5e2e9e391b34be",
+      "bytes": 80
+    },
+    {
+      "path": "native/captures/y-quadratic/captured-settings.json",
+      "sha256": "a0c470f9983b93a40eae0b6403f3ddd052a93de6cf9e3df4c19bfb88f5b2f531",
+      "bytes": 1644
+    },
+    {
+      "path": "native/captures/y-quadratic/data.json",
+      "sha256": "a83ed2ec6ffb47ed53e8678f0405071b43cc31aeb6502c27ecd504ca02ea2a5f",
+      "bytes": 507
+    },
+    {
+      "path": "native/captures/y-quadratic/data.txt",
+      "sha256": "853a8d1d68bc0a64a61fc0ea0c3ca39a06eb0cc0ddb7ae50145c48e8a57f8e8f",
+      "bytes": 4706
+    },
+    {
+      "path": "native/captures/y-quadratic/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/captures/y-quadratic/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "native/captures/y-quadratic/native-timeline.jsonl",
+      "sha256": "e9c008e793e011c28774c3944f4421b4941b97a67c80dc33b24f730399925f5c",
+      "bytes": 411
+    },
+    {
+      "path": "native/captures/y-quadratic/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/captures/y-quadratic/settings.CFG",
+      "sha256": "96b9526e7604c904a6d3a1ebd8962e58b043a5612314b4aaab25ea655be0cd8f",
+      "bytes": 18448
+    },
+    {
+      "path": "native/captures/y-quadratic/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "native/native-jobs.json",
+      "sha256": "86d03f8caf3e3fd1bbaed7b9368903884686326a3501418d80b0ec36f93a9bf6",
+      "bytes": 10382
+    },
+    {
+      "path": "native/native.log",
+      "sha256": "5abf43dbd50d1302d197a8d257c40a78b22b7e21d5c80fcb98dde1397e7ffbb8",
+      "bytes": 1403
+    },
+    {
+      "path": "native/requests/496-step0.001.json",
+      "sha256": "b80e9ff7440dc7a1d41104c2b8419422ce6eb954e54ff0c17ba0246b6ffba7d6",
+      "bytes": 2108
+    },
+    {
+      "path": "native/requests/496-step0.005.json",
+      "sha256": "e7a483c680c40a02ba05678f4fd7b3f1f75ee293fa7b1d45010dc92584d6fe28",
+      "bytes": 2108
+    },
+    {
+      "path": "native/requests/498-step0.001.json",
+      "sha256": "f7852a4fa38be1520e02280f71749ea670109e833a418b0471b15fa48114490d",
+      "bytes": 2085
+    },
+    {
+      "path": "native/requests/498-step0.005.json",
+      "sha256": "0cdca70f0ce3ea112ca1719985f961cc2093ad64585dbcafe38b95fde69cc259",
+      "bytes": 2085
+    },
+    {
+      "path": "native/requests/500-step0.001.json",
+      "sha256": "aeefcb119d031598e1b9b22d8fb0c3ee5c3f73e5439ec7149f5200350b299bee",
+      "bytes": 3086
+    },
+    {
+      "path": "native/requests/500-step0.005.json",
+      "sha256": "e87e8bbaf519f33f5eb757d5cc08b3cca0a139f6e14e61c4ad8a4cb839f5e2e2",
+      "bytes": 3086
+    },
+    {
+      "path": "native/requests/501-step0.001.json",
+      "sha256": "cafd2f8b733e664f1a2fbeb450e914b3051bd22bc60e13af9c9fd359a965b504",
+      "bytes": 2626
+    },
+    {
+      "path": "native/requests/501-step0.005.json",
+      "sha256": "53b34708dc2e2203f04fe322128758f9a29157e4929b9166abcf47ad1b6a1cce",
+      "bytes": 2626
+    },
+    {
+      "path": "native/requests/503-step0.001.json",
+      "sha256": "e57f562e51aed567978e7607c213e95bc0d934748cb147f7f4d942c621b70ae4",
+      "bytes": 2956
+    },
+    {
+      "path": "native/requests/503-step0.005.json",
+      "sha256": "3151551d3a57c3b135332f87e4f374cd3b1f7db843095bca54ad5a715c1783d2",
+      "bytes": 2956
+    },
+    {
+      "path": "native/requests/505-step0.001.json",
+      "sha256": "b251d45a8d4e27c29cca03818ca7c69211f7f0ed6c7562b3d044b3d3da4e2258",
+      "bytes": 2703
+    },
+    {
+      "path": "native/requests/505-step0.005.json",
+      "sha256": "5142e28b70e0dd5da8b3acc671b20d385526b154eeda3c14b2c83a8fa0524453",
+      "bytes": 2703
+    },
+    {
+      "path": "native/requests/axis-linear-y-affine.json",
+      "sha256": "dbd3905fad18324227d8eb08d3affe3da46d714818d806efeed7552acb0c8cb8",
+      "bytes": 1877
+    },
+    {
+      "path": "native/requests/flat.json",
+      "sha256": "51d0b5ecb6908667090cff5b0ee78caffb74918929769b14551bcfb838a71742",
+      "bytes": 1861
+    },
+    {
+      "path": "native/requests/sample-axis-y-affine-short.json",
+      "sha256": "ac47c448a6bd7ec53137bc605cdfc70815d8dfb16a92844a864f261d35d4cc87",
+      "bytes": 1883
+    },
+    {
+      "path": "native/requests/sample-axis-y-affine.json",
+      "sha256": "c39ffec4d1a283b247d756999686e2e756537143614a7ce17f57aa0352678ab8",
+      "bytes": 1877
+    },
+    {
+      "path": "native/requests/sample-axis.json",
+      "sha256": "a6f61478c189f8aa22ad2e02023f789b144e72becec32de9c23283687f24cf1c",
+      "bytes": 1868
+    },
+    {
+      "path": "native/requests/y-affine-double.json",
+      "sha256": "79f6d407ac7e57cdd2e911a1e9995c19184569724b0d4d30ae0c03575c64d029",
+      "bytes": 1872
+    },
+    {
+      "path": "native/requests/y-affine-fine-grid.json",
+      "sha256": "b6f8c0910ea480181740d64433d235a36d220b1154e46ea7179029ed905fdcb3",
+      "bytes": 1875
+    },
+    {
+      "path": "native/requests/y-affine-n3.json",
+      "sha256": "300b80f1a55ce636c7fcc918e3b64fb8f503aa31e625e861241942892d3d7158",
+      "bytes": 1868
+    },
+    {
+      "path": "native/requests/y-affine-n6.json",
+      "sha256": "efe7f01f0aa1e8dce9177c514482aa3434c1c7add4953a28945c26bae7d96aa2",
+      "bytes": 1868
+    },
+    {
+      "path": "native/requests/y-affine-negative.json",
+      "sha256": "b02b55f3113995281aec34dabd4af8f02350ace5dae8685639572b57db3dd263",
+      "bytes": 1874
+    },
+    {
+      "path": "native/requests/y-affine-quadratic.json",
+      "sha256": "e1b3f40ccce99a1d784728d445ab4b2be02222e76868d1aa484aab01737cf488",
+      "bytes": 1875
+    },
+    {
+      "path": "native/requests/y-affine-short.json",
+      "sha256": "fcc7314593ef3e56f02158889189fa7f978b156b4460f38ef48a3a422253d8ec",
+      "bytes": 1871
+    },
+    {
+      "path": "native/requests/y-affine.json",
+      "sha256": "9add8170f9e4c5bc7d3eb6584ab8c2373f8024a01fa144847e8ba2a164735870",
+      "bytes": 1865
+    },
+    {
+      "path": "native/requests/y-quadratic-fine-grid.json",
+      "sha256": "4de0c5e33103ac2258137647b6dbb68c7f674ff6cef6d0a6613fad7504d457b3",
+      "bytes": 1878
+    },
+    {
+      "path": "native/requests/y-quadratic.json",
+      "sha256": "11fb49d3562a0a31481c739b36cbbc6dc3db8ad4631598a058658144c957cc93",
+      "bytes": 1868
+    },
+    {
+      "path": "native/synthetic-inputs.json",
+      "sha256": "2837f959afcdf39d401aafe6a11e49181b8ebac8cbf13a9330f9f6a38d8377f7",
+      "bytes": 11295
+    },
+    {
+      "path": "refinement/captures/496-step0.00025/batch-result.json",
+      "sha256": "bd13a940171169b7c1fb062d2c202d5a51245308d1d72556857d667eac2bad29",
+      "bytes": 214
+    },
+    {
+      "path": "refinement/captures/496-step0.00025/capture.json",
+      "sha256": "fdab7f0ee1d6f6742a162bd176b93672b567f381971e55836ff0e61344370876",
+      "bytes": 80
+    },
+    {
+      "path": "refinement/captures/496-step0.00025/captured-settings.json",
+      "sha256": "6cd7a41dd705f0352d8ceb3aa6e404511452ef1da1f69e4aa3183ddd2c41481d",
+      "bytes": 2065
+    },
+    {
+      "path": "refinement/captures/496-step0.00025/data.json",
+      "sha256": "97f895a3d7cef32b6c67990318ecc2930a849b23126601e8367623a98e1022ef",
+      "bytes": 23520
+    },
+    {
+      "path": "refinement/captures/496-step0.00025/data.txt",
+      "sha256": "da68b1b1a90978da2255cb0fda0619fad2dec3a019eb75c54fc75891f5acb470",
+      "bytes": 27662
+    },
+    {
+      "path": "refinement/captures/496-step0.00025/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/496-step0.00025/model.json",
+      "sha256": "790be7506ce78d3170faa6827292bfa009837b22fe089f62a82f76886652d686",
+      "bytes": 4020
+    },
+    {
+      "path": "refinement/captures/496-step0.00025/native-timeline.jsonl",
+      "sha256": "4c330cc17bdd767116dcfad34e9ecee477d69180b302b118f927e8c9da3f4358",
+      "bytes": 411
+    },
+    {
+      "path": "refinement/captures/496-step0.00025/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "refinement/captures/496-step0.00025/settings.CFG",
+      "sha256": "0b93d87b1a8adfb51adb463f00485768e8b2615045f5c8302df30a4f87d1a0f7",
+      "bytes": 18448
+    },
+    {
+      "path": "refinement/captures/496-step0.00025/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "refinement/captures/496-step0.0005/batch-result.json",
+      "sha256": "7125f0ed8e53f6a107c09cf461599b2adcf242b13a48f8906399c48b54a8a80a",
+      "bytes": 213
+    },
+    {
+      "path": "refinement/captures/496-step0.0005/capture.json",
+      "sha256": "fdab7f0ee1d6f6742a162bd176b93672b567f381971e55836ff0e61344370876",
+      "bytes": 80
+    },
+    {
+      "path": "refinement/captures/496-step0.0005/captured-settings.json",
+      "sha256": "85c2ba2f971a5291bdfb9a258e3b65456364b2e396af553c1c6d2f76872cfe27",
+      "bytes": 2064
+    },
+    {
+      "path": "refinement/captures/496-step0.0005/data.json",
+      "sha256": "813973474683591089f82f71e374ebe0c3e6429ff5f930cc9bfdded29a3ad96d",
+      "bytes": 23490
+    },
+    {
+      "path": "refinement/captures/496-step0.0005/data.txt",
+      "sha256": "362942e5bc5861f930621679eed88b0897c98490d9125b8c8a88aaee9fc0d613",
+      "bytes": 27660
+    },
+    {
+      "path": "refinement/captures/496-step0.0005/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/496-step0.0005/model.json",
+      "sha256": "8060b39dfd02f8e093de71684b967681fc4fddd32ff169c737434a7e740a436e",
+      "bytes": 4020
+    },
+    {
+      "path": "refinement/captures/496-step0.0005/native-timeline.jsonl",
+      "sha256": "f573b3ce209ba621535a7aa99c1cefe42d4cd762a931fe2738cc70f8967e64f5",
+      "bytes": 411
+    },
+    {
+      "path": "refinement/captures/496-step0.0005/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "refinement/captures/496-step0.0005/settings.CFG",
+      "sha256": "0b93d87b1a8adfb51adb463f00485768e8b2615045f5c8302df30a4f87d1a0f7",
+      "bytes": 18448
+    },
+    {
+      "path": "refinement/captures/496-step0.0005/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "refinement/captures/500-step0.00025/batch-result.json",
+      "sha256": "b08f4b4e676d5f17cb89b5eb070218bdc8150a9ef613072c8912ce6b6b2fc03a",
+      "bytes": 214
+    },
+    {
+      "path": "refinement/captures/500-step0.00025/capture.json",
+      "sha256": "426d49f5763091ff3bc50c15a3884bf8182e1df3ecc04f299f1035b71eca7811",
+      "bytes": 92
+    },
+    {
+      "path": "refinement/captures/500-step0.00025/captured-settings.json",
+      "sha256": "48ad834a8680ddb2a3faef4dcf126778e955b07ce9b3a104690411c49cf182bb",
+      "bytes": 2762
+    },
+    {
+      "path": "refinement/captures/500-step0.00025/data.json",
+      "sha256": "51ed1ad8978e421bc6ee4d8f7f1c5a733c99a1e491276c845a720d16712869a6",
+      "bytes": 431
+    },
+    {
+      "path": "refinement/captures/500-step0.00025/data.txt",
+      "sha256": "d5195f46c27a1feeffa4a865a3d1c1f646c05c25038129bc4b81b39ed333278b",
+      "bytes": 2736
+    },
+    {
+      "path": "refinement/captures/500-step0.00025/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/500-step0.00025/model.json",
+      "sha256": "790be7506ce78d3170faa6827292bfa009837b22fe089f62a82f76886652d686",
+      "bytes": 4020
+    },
+    {
+      "path": "refinement/captures/500-step0.00025/native-timeline.jsonl",
+      "sha256": "a1d000e3a3b9a06cfa796befc8f987bafd59d301301d9616ab362d91e317d34a",
+      "bytes": 411
+    },
+    {
+      "path": "refinement/captures/500-step0.00025/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "refinement/captures/500-step0.00025/settings.CFG",
+      "sha256": "e3de3c3b14634cccbdb7fe2ac627e2a38fd1bdf5063b08dc3ba123b2c35594ba",
+      "bytes": 18448
+    },
+    {
+      "path": "refinement/captures/500-step0.00025/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "refinement/captures/500-step0.0005/batch-result.json",
+      "sha256": "c9efdc5813698e6e3ead418c2d22193206fe43444e4038bb4d70cf6d3c3e77f6",
+      "bytes": 213
+    },
+    {
+      "path": "refinement/captures/500-step0.0005/capture.json",
+      "sha256": "426d49f5763091ff3bc50c15a3884bf8182e1df3ecc04f299f1035b71eca7811",
+      "bytes": 92
+    },
+    {
+      "path": "refinement/captures/500-step0.0005/captured-settings.json",
+      "sha256": "f3fa867a076c4e62bb1619eec132819525957e5d0879da764bf5720a551fa1fd",
+      "bytes": 2761
+    },
+    {
+      "path": "refinement/captures/500-step0.0005/data.json",
+      "sha256": "971882bbedab0d0374082d78e6a23683d7241e3b75fc410babebce91e7acc971",
+      "bytes": 430
+    },
+    {
+      "path": "refinement/captures/500-step0.0005/data.txt",
+      "sha256": "070ccce3062f5017f72c8e313d5fa3841335cbbdc49bb23d2521ee3bfff3ce4a",
+      "bytes": 2734
+    },
+    {
+      "path": "refinement/captures/500-step0.0005/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/500-step0.0005/model.json",
+      "sha256": "8060b39dfd02f8e093de71684b967681fc4fddd32ff169c737434a7e740a436e",
+      "bytes": 4020
+    },
+    {
+      "path": "refinement/captures/500-step0.0005/native-timeline.jsonl",
+      "sha256": "554f9130e530298e922eccdeb8b875875c7b0f553bcde3c402699d3f9c5d5302",
+      "bytes": 411
+    },
+    {
+      "path": "refinement/captures/500-step0.0005/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "refinement/captures/500-step0.0005/settings.CFG",
+      "sha256": "e3de3c3b14634cccbdb7fe2ac627e2a38fd1bdf5063b08dc3ba123b2c35594ba",
+      "bytes": 18448
+    },
+    {
+      "path": "refinement/captures/500-step0.0005/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "refinement/captures/503-step0.0005/batch-result.json",
+      "sha256": "c0d32d99669c194c5a8d740cb4e87105eae584ad298e62c501046b4689067417",
+      "bytes": 213
+    },
+    {
+      "path": "refinement/captures/503-step0.0005/capture.json",
+      "sha256": "2803152bc6b929a28917f5c2bdb5ca1204ed9c553f62e235f10741f48415e3bb",
+      "bytes": 92
+    },
+    {
+      "path": "refinement/captures/503-step0.0005/captured-settings.json",
+      "sha256": "1d714049d1eb6e5e730b799430b7736726be42f33500226c566b8466bba1d601",
+      "bytes": 2688
+    },
+    {
+      "path": "refinement/captures/503-step0.0005/data.json",
+      "sha256": "1443198c845d73a2d10952d40199bfb0ca874737d8d43375f8e99581dee6d73a",
+      "bytes": 6311
+    },
+    {
+      "path": "refinement/captures/503-step0.0005/data.txt",
+      "sha256": "2ec5a4321eb9f74ed8892fa8f060ef157ba7314c10dea7cc53b0809773594d74",
+      "bytes": 9688
+    },
+    {
+      "path": "refinement/captures/503-step0.0005/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/503-step0.0005/model.json",
+      "sha256": "8060b39dfd02f8e093de71684b967681fc4fddd32ff169c737434a7e740a436e",
+      "bytes": 4020
+    },
+    {
+      "path": "refinement/captures/503-step0.0005/native-timeline.jsonl",
+      "sha256": "ca337e6b7759f9261731b2600d626f29bd7d8fafb1bd4e17ec7ad8ff3ff1175e",
+      "bytes": 411
+    },
+    {
+      "path": "refinement/captures/503-step0.0005/result-diagnostics.json",
+      "sha256": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+      "bytes": 45
+    },
+    {
+      "path": "refinement/captures/503-step0.0005/settings.CFG",
+      "sha256": "aeac790be069159d3cd0af4fdc5093b5241ecff1c1b5e49d498fd934c843efa7",
+      "bytes": 18448
+    },
+    {
+      "path": "refinement/captures/503-step0.0005/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "refinement/captures/505-centroid-step0.001/batch-result.json",
+      "sha256": "cbfa25e91f286203394e431a9fa1af7ad69c744113c44b2f26f70d598ce4fea9",
+      "bytes": 221
+    },
+    {
+      "path": "refinement/captures/505-centroid-step0.001/capture.json",
+      "sha256": "22a1e673ab257f837977af1013bc740777c5972c49c3ed857c9b8891d6f7c3ab",
+      "bytes": 78
+    },
+    {
+      "path": "refinement/captures/505-centroid-step0.001/captured-settings.json",
+      "sha256": "07ae4befccf00a5c8e1119dbb3d410b578dbeedc0b23a0a0e42325b648146510",
+      "bytes": 2549
+    },
+    {
+      "path": "refinement/captures/505-centroid-step0.001/data.json",
+      "sha256": "112f72649bb6aa048b96540f7a866fa0d60b3d46ac4dceb4fa74d8358f64d1cb",
+      "bytes": 1233
+    },
+    {
+      "path": "refinement/captures/505-centroid-step0.001/data.txt",
+      "sha256": "5efe587d8ccc814ae4c0c74cc475f120f1b2d68280701bacef7821687f7559a2",
+      "bytes": 1336
+    },
+    {
+      "path": "refinement/captures/505-centroid-step0.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/505-centroid-step0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "refinement/captures/505-centroid-step0.001/native-timeline.jsonl",
+      "sha256": "1d8415b4c7440825ce1bbefc0c43c90b5160e0d4bd588b1fe79032bc1cd37fd3",
+      "bytes": 411
+    },
+    {
+      "path": "refinement/captures/505-centroid-step0.001/result-diagnostics.json",
+      "sha256": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+      "bytes": 45
+    },
+    {
+      "path": "refinement/captures/505-centroid-step0.001/settings.CFG",
+      "sha256": "327a1280a380c5eacc27ad44fee7a5c1dcd399987d2496cd7abe1fdfdadfd2b2",
+      "bytes": 18448
+    },
+    {
+      "path": "refinement/captures/505-centroid-step0.001/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "refinement/captures/505-step0.0005/batch-result.json",
+      "sha256": "bc5314eeb96084cbadcc643b1cdb111f5f9af29ba07becc80d1f22a7d1336e12",
+      "bytes": 213
+    },
+    {
+      "path": "refinement/captures/505-step0.0005/capture.json",
+      "sha256": "22a1e673ab257f837977af1013bc740777c5972c49c3ed857c9b8891d6f7c3ab",
+      "bytes": 78
+    },
+    {
+      "path": "refinement/captures/505-step0.0005/captured-settings.json",
+      "sha256": "af126aae7dece7faa59e54b10f16d2474623c078b5b8571998f3c6e474e981fa",
+      "bytes": 2554
+    },
+    {
+      "path": "refinement/captures/505-step0.0005/data.json",
+      "sha256": "bee99d25d43c6832d3a7ae2c94cb6d4135fc632dc695597f3793f042cd6cd4cc",
+      "bytes": 1203
+    },
+    {
+      "path": "refinement/captures/505-step0.0005/data.txt",
+      "sha256": "46ed951462713a1ccaae6bf4496137ab9392f13f804044ba3dd07042ca6f5a11",
+      "bytes": 1344
+    },
+    {
+      "path": "refinement/captures/505-step0.0005/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/505-step0.0005/model.json",
+      "sha256": "8060b39dfd02f8e093de71684b967681fc4fddd32ff169c737434a7e740a436e",
+      "bytes": 4020
+    },
+    {
+      "path": "refinement/captures/505-step0.0005/native-timeline.jsonl",
+      "sha256": "f4f7017db075f3b1eb2a48c9a03948ced759f15885e3c14ee86e6d9a2cdd957e",
+      "bytes": 411
+    },
+    {
+      "path": "refinement/captures/505-step0.0005/result-diagnostics.json",
+      "sha256": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+      "bytes": 45
+    },
+    {
+      "path": "refinement/captures/505-step0.0005/settings.CFG",
+      "sha256": "1cdda21388c9b14c8469231872f9c99935fa0308d61a6a284db4a579bf0c983b",
+      "bytes": 18448
+    },
+    {
+      "path": "refinement/captures/505-step0.0005/zemax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "refinement/captures/axis-linear-y-affine-ray-operands/PARY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/axis-linear-y-affine-ray-operands/PATY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/axis-linear-y-affine-ray-operands/REAB-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/axis-linear-y-affine-ray-operands/REAY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/axis-linear-y-affine-ray-operands/batch-result.json",
+      "sha256": "aa2bc9cfa735d1e70ce2cd74ddadb50a762f7e9cf09d9903b501797511a2e79f",
+      "bytes": 232
+    },
+    {
+      "path": "refinement/captures/axis-linear-y-affine-ray-operands/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/axis-linear-y-affine-ray-operands/model-controls.json",
+      "sha256": "0a4034ee3cc94667881849f7b45a3988cc844dfa3eed6ac1cee14b869505bae8",
+      "bytes": 5140
+    },
+    {
+      "path": "refinement/captures/axis-linear-y-affine-ray-operands/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "refinement/captures/axis-linear-y-affine-ray-operands/surface-readback.json",
+      "sha256": "d24278401934c912bc9c7b31e1a0af2d53abb68df321d33a616f71788239e92a",
+      "bytes": 18679
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-ray-operands/PARY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-ray-operands/PATY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-ray-operands/REAB-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-ray-operands/REAY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-ray-operands/batch-result.json",
+      "sha256": "543f3f7df136a2c571e45a24dfe00f14cf6f07511afbed29354f4c27d86abebb",
+      "bytes": 232
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-ray-operands/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-ray-operands/model-controls.json",
+      "sha256": "83373b886a27fe108ff38eefabfe4b0ab77d4833666e7672ee3853ff9f106d05",
+      "bytes": 5141
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-ray-operands/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-ray-operands/surface-readback.json",
+      "sha256": "d24278401934c912bc9c7b31e1a0af2d53abb68df321d33a616f71788239e92a",
+      "bytes": 18679
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-short-ray-operands/PARY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-short-ray-operands/PATY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-short-ray-operands/REAB-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-short-ray-operands/REAY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-short-ray-operands/batch-result.json",
+      "sha256": "6e0d055a010f3c2900b8712b3e987b2a7c3860186443137c7401bb3d7ddedcec",
+      "bytes": 238
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-short-ray-operands/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-short-ray-operands/model-controls.json",
+      "sha256": "3706be4f141f5777c04779a6aad4f9ae460d834443990977f1bdecae259d1087",
+      "bytes": 5146
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-short-ray-operands/model.json",
+      "sha256": "fc8cf163c867b6e76e93bbdf97b0ee37836d3672ffd2f7c1a34c2109e503abe2",
+      "bytes": 3705
+    },
+    {
+      "path": "refinement/captures/sample-axis-y-affine-short-ray-operands/surface-readback.json",
+      "sha256": "4d29664aa7715088a0ffecd4ee5f6132f1e67a385bfaa5c61eefc0d61352af4a",
+      "bytes": 18679
+    },
+    {
+      "path": "refinement/captures/y-affine-negative-ray-operands/PARY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-affine-negative-ray-operands/PATY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-affine-negative-ray-operands/REAB-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-affine-negative-ray-operands/REAY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-affine-negative-ray-operands/batch-result.json",
+      "sha256": "bea0f23ea08c2d556ed2de87b3a61fb32c2f08cdeeabf2aa65f783e333e2b11b",
+      "bytes": 229
+    },
+    {
+      "path": "refinement/captures/y-affine-negative-ray-operands/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/y-affine-negative-ray-operands/model-controls.json",
+      "sha256": "3fa7ec47515e86e995f12f90565187ff41e89c6766760e21484442db7b28949c",
+      "bytes": 5149
+    },
+    {
+      "path": "refinement/captures/y-affine-negative-ray-operands/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "refinement/captures/y-affine-negative-ray-operands/surface-readback.json",
+      "sha256": "d24278401934c912bc9c7b31e1a0af2d53abb68df321d33a616f71788239e92a",
+      "bytes": 18679
+    },
+    {
+      "path": "refinement/captures/y-affine-ray-operands/PARY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-affine-ray-operands/PATY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-affine-ray-operands/REAB-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-affine-ray-operands/REAY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-affine-ray-operands/batch-result.json",
+      "sha256": "023a0be9640d772a8fe82b4d2417e3e1f02cb576ea33dccde08854d58ddaa1c0",
+      "bytes": 220
+    },
+    {
+      "path": "refinement/captures/y-affine-ray-operands/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/y-affine-ray-operands/model-controls.json",
+      "sha256": "98960755f8339f684b19ad9da549c56fb46bc4a028555c9358c148f85a539224",
+      "bytes": 5142
+    },
+    {
+      "path": "refinement/captures/y-affine-ray-operands/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "refinement/captures/y-affine-ray-operands/surface-readback.json",
+      "sha256": "d24278401934c912bc9c7b31e1a0af2d53abb68df321d33a616f71788239e92a",
+      "bytes": 18679
+    },
+    {
+      "path": "refinement/captures/y-quadratic-fine-grid-ray-operands/PARY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-quadratic-fine-grid-ray-operands/PATY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-quadratic-fine-grid-ray-operands/REAB-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-quadratic-fine-grid-ray-operands/REAY-schema.json",
+      "sha256": "0ec53e312344b7371c4345c1208cc538b2e618ffbfc25ab9554682f1614a300c",
+      "bytes": 1743
+    },
+    {
+      "path": "refinement/captures/y-quadratic-fine-grid-ray-operands/batch-result.json",
+      "sha256": "95d2b17b8216aa0f7e87c7658169e468e68dab2ab2fb4ddb2673ad2214c4eff8",
+      "bytes": 233
+    },
+    {
+      "path": "refinement/captures/y-quadratic-fine-grid-ray-operands/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/captures/y-quadratic-fine-grid-ray-operands/model-controls.json",
+      "sha256": "f95f0acb476712458ad797abd04f730a09813b46f58f35022142b68a54fcb2d1",
+      "bytes": 5153
+    },
+    {
+      "path": "refinement/captures/y-quadratic-fine-grid-ray-operands/model.json",
+      "sha256": "4a994dc25045d9951dc81a0ccfb0ba3d3fba3e40737e02c0fa0b9ed03e966b16",
+      "bytes": 3705
+    },
+    {
+      "path": "refinement/captures/y-quadratic-fine-grid-ray-operands/surface-readback.json",
+      "sha256": "d24278401934c912bc9c7b31e1a0af2d53abb68df321d33a616f71788239e92a",
+      "bytes": 18679
+    },
+    {
+      "path": "refinement/native-jobs.json",
+      "sha256": "1a7eae0f6a0af32861a8bc808956828eda32d0b17416e7a1095af1747fc16944",
+      "bytes": 5449
+    },
+    {
+      "path": "refinement/native.log",
+      "sha256": "d716157bab179a520f1dbd78ad94756f4056b990f44f8c3fab7f396381f407b6",
+      "bytes": 943
+    },
+    {
+      "path": "refinement/requests/496-step0.00025.json",
+      "sha256": "aa04f0bbf09e335c022fec728e5507c6878b5376b18360628ea6dfef738a3ad7",
+      "bytes": 2114
+    },
+    {
+      "path": "refinement/requests/496-step0.0005.json",
+      "sha256": "341ea769d14c9838f8cc6f1866909188b5ecc6e58020ffc5553e1880a2f02dc5",
+      "bytes": 2113
+    },
+    {
+      "path": "refinement/requests/500-step0.00025.json",
+      "sha256": "499a3defd6cf31d7933f58eba851a1406fd91fca1d589608bf65ebe456853518",
+      "bytes": 3092
+    },
+    {
+      "path": "refinement/requests/500-step0.0005.json",
+      "sha256": "6d5c2b45d48f5239eafd5aba943fbb9151079ce54a568c90743362746d068caf",
+      "bytes": 3091
+    },
+    {
+      "path": "refinement/requests/503-step0.0005.json",
+      "sha256": "1fa72653ada684d7201ca9a26f0bda4eaf59a2575894fd91b42c9d95cc278e3b",
+      "bytes": 2961
+    },
+    {
+      "path": "refinement/requests/505-centroid-step0.001.json",
+      "sha256": "db9f1a797833ee0896beea0378fa84732c01ab00fefcb02d5fb831d997085d17",
+      "bytes": 2703
+    },
+    {
+      "path": "refinement/requests/505-step0.0005.json",
+      "sha256": "a1640537c34280edd76167333aab27668eda484cb3d46ec97fa329f5f817a24a",
+      "bytes": 2708
+    },
+    {
+      "path": "refinement/requests/axis-linear-y-affine-ray-operands.json",
+      "sha256": "c7e8d7b071251467db67d678f79959a0de2f14258e8a48e6ff9bf6a536903c09",
+      "bytes": 9443
+    },
+    {
+      "path": "refinement/requests/sample-axis-y-affine-ray-operands.json",
+      "sha256": "88e043b182a9e2b7438581807d3fd9afa9c023be5cc2bd3c24178086e2300a80",
+      "bytes": 9443
+    },
+    {
+      "path": "refinement/requests/sample-axis-y-affine-short-ray-operands.json",
+      "sha256": "d3028dc9202a4078466d058fc245c3370ae5bc888a7d3c73f86668bb754b17e9",
+      "bytes": 9449
+    },
+    {
+      "path": "refinement/requests/y-affine-negative-ray-operands.json",
+      "sha256": "b621ee8bafd3d63ce7623e496532e122b0df812d11776c0df08dbc9ae07df41f",
+      "bytes": 9440
+    },
+    {
+      "path": "refinement/requests/y-affine-ray-operands.json",
+      "sha256": "bb84993926d1bad686545fb5e735ac798d4fd7a90b4d608d070ced72fb7d3923",
+      "bytes": 9431
+    },
+    {
+      "path": "refinement/requests/y-quadratic-fine-grid-ray-operands.json",
+      "sha256": "a80310d67ba766750804c87ae51abf8124a07e774782700a9519062e903b9afb",
+      "bytes": 9444
+    },
+    {
+      "path": "sources/axis-linear-y-affine.ZMX",
+      "sha256": "7ddf70f0b60cc1b38e14368002c7db34e696722233c4cd1220cff245ee03c137",
+      "bytes": 558
+    },
+    {
+      "path": "sources/axis-linear-y-affine.ggd",
+      "sha256": "fb9f146faec7e29fac2cd524932f99cb7ef82a3f3436703852f98f6ab6da01a7",
+      "bytes": 152369
+    },
+    {
+      "path": "sources/flat.ZMX",
+      "sha256": "6fbbf0668f7af311e6b734db207f9e0dc3338ab9fc34fc418d76aba159bd304a",
+      "bytes": 542
+    },
+    {
+      "path": "sources/flat.ggd",
+      "sha256": "ef10a0591e9f7983ab7a7166abae96677225862f7f667c503c420b694c93b431",
+      "bytes": 139411
+    },
+    {
+      "path": "sources/grid-0.00025.ZMX",
+      "sha256": "d761106df65f4d07323099b4c97f8045d87dfc087374e670aa134b3e9cd8f31c",
+      "bytes": 6132
+    },
+    {
+      "path": "sources/grid-0.0005.ZMX",
+      "sha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69",
+      "bytes": 6130
+    },
+    {
+      "path": "sources/grid-0.001.ZMX",
+      "sha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "bytes": 6128
+    },
+    {
+      "path": "sources/grid-0.005.ZMX",
+      "sha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "bytes": 6128
+    },
+    {
+      "path": "sources/sample-axis-y-affine-short.ZMX",
+      "sha256": "2c7cc3e1aebc14e661aee0cd17d661368f4d505fdd8581b9ce5191186c720262",
+      "bytes": 564
+    },
+    {
+      "path": "sources/sample-axis-y-affine-short.ggd",
+      "sha256": "e1ad0a7ae775e8b0f2bcda60b4e7d83d3eb5d04d0c172ebcaf6f7b7c8e6c5cc6",
+      "bytes": 588956
+    },
+    {
+      "path": "sources/sample-axis-y-affine.ZMX",
+      "sha256": "58aa230d7587a07e3a1aa29c47da94952f50419efbca0f9dac8f8baefb2d5fdb",
+      "bytes": 558
+    },
+    {
+      "path": "sources/sample-axis-y-affine.ggd",
+      "sha256": "e1ad0a7ae775e8b0f2bcda60b4e7d83d3eb5d04d0c172ebcaf6f7b7c8e6c5cc6",
+      "bytes": 588956
+    },
+    {
+      "path": "sources/sample-axis.ZMX",
+      "sha256": "02ad18ff7b03d8986470cb22badcdfd22177413fc97a4eab66e5ea3e7f788330",
+      "bytes": 549
+    },
+    {
+      "path": "sources/sample-axis.ggd",
+      "sha256": "f962cb8c99ae44f2ffdde8725b8434ce8256ce4422107633414d253628c748a7",
+      "bytes": 560984
+    },
+    {
+      "path": "sources/y-affine-double.ZMX",
+      "sha256": "62ecdb98397e3624d1ff83ee031b0ceb6ec690806d07ac10a6e48036783a46a8",
+      "bytes": 553
+    },
+    {
+      "path": "sources/y-affine-double.ggd",
+      "sha256": "2d476b2ec82f9aa8ac99458e719607642e331a1b52ba6a0488f1ee1b526be624",
+      "bytes": 143569
+    },
+    {
+      "path": "sources/y-affine-fine-grid.ZMX",
+      "sha256": "011d643307eab85fecbb3377a34a9d361c9347b9efd8d8eb704e332327f19907",
+      "bytes": 556
+    },
+    {
+      "path": "sources/y-affine-fine-grid.ggd",
+      "sha256": "5fe9cfedc7b741fd3d88c5df86c598b14fc3d82dcfb0a7708b5db4e8df7aeca9",
+      "bytes": 550841
+    },
+    {
+      "path": "sources/y-affine-n3.ZMX",
+      "sha256": "45234c688f88837b8fffbc7b0f09f71c1e7f63a177d579b4e059e57dac72d229",
+      "bytes": 549
+    },
+    {
+      "path": "sources/y-affine-n3.ggd",
+      "sha256": "28b904e86250135239e55284b6830f2307015f60cc8cb64cb182a9b9652bc96d",
+      "bytes": 143107
+    },
+    {
+      "path": "sources/y-affine-n6.ZMX",
+      "sha256": "1461a728f905d8ecea8d8d51f35b3132e45d2f269cd2e059fa8ae77b4aef2cf5",
+      "bytes": 549
+    },
+    {
+      "path": "sources/y-affine-n6.ggd",
+      "sha256": "f37447e6cc27dd12f0645bd27cafe6c11104edefac26a4883057b9be2995df6e",
+      "bytes": 143107
+    },
+    {
+      "path": "sources/y-affine-negative.ZMX",
+      "sha256": "b45c03c631f9bbf182b02796cc2ef9ff5de9a5b8514bcf12f3842d1a3e95fdd1",
+      "bytes": 555
+    },
+    {
+      "path": "sources/y-affine-negative.ggd",
+      "sha256": "46234b0672585a5f39bc573e459f259ab3155fb4a7a71fa434d048475634de39",
+      "bytes": 143569
+    },
+    {
+      "path": "sources/y-affine-quadratic.ZMX",
+      "sha256": "98e672d46a53a31a1d0c941a7eb166527b7714fec54729e4817904d7234a76da",
+      "bytes": 556
+    },
+    {
+      "path": "sources/y-affine-quadratic.ggd",
+      "sha256": "e336463335c88c76b8e039bcf93e44cbc0424117573cfc21286b6b18d6a9b550",
+      "bytes": 148882
+    },
+    {
+      "path": "sources/y-affine-short.ZMX",
+      "sha256": "1bd5f0262d13a337578eb475d3c8f6356e3142a00f86c5d61250d1837ab615a3",
+      "bytes": 552
+    },
+    {
+      "path": "sources/y-affine-short.ggd",
+      "sha256": "9af7a8bd232e3c4ff67a7a02bf2370d899059fb7b415aa006c7585e8907cc2f1",
+      "bytes": 143569
+    },
+    {
+      "path": "sources/y-affine.ZMX",
+      "sha256": "9fd95cd93910c30f7a5558f450994c211bc7bbf275bd6c24bb21df87d8b23dc0",
+      "bytes": 546
+    },
+    {
+      "path": "sources/y-affine.ggd",
+      "sha256": "9af7a8bd232e3c4ff67a7a02bf2370d899059fb7b415aa006c7585e8907cc2f1",
+      "bytes": 143569
+    },
+    {
+      "path": "sources/y-quadratic-fine-grid.ZMX",
+      "sha256": "0935d1d95a5de3cc35c7df03ca6c9ca4d729031352efcee595ba2d6d8f081d3d",
+      "bytes": 559
+    },
+    {
+      "path": "sources/y-quadratic-fine-grid.ggd",
+      "sha256": "fb4c7d4b8ed66053b2e8a4411718d22a8ffd71a08a5c110c6a4cc07b9c981729",
+      "bytes": 564071
+    },
+    {
+      "path": "sources/y-quadratic.ZMX",
+      "sha256": "df66ab175cc2ee6c72164a11012bda38c42ba674890da6af8eefe9a4da376872",
+      "bytes": 549
+    },
+    {
+      "path": "sources/y-quadratic.ggd",
+      "sha256": "b309e366ca0fc34173e5ba4a9f8d3e39dc6dafae48facba146b4939c3a9c0ab5",
+      "bytes": 145879
+    }
+  ]
+}

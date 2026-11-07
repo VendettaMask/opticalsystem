@@ -13,7 +13,8 @@ public static partial class DiffractionEngine
         var sphere = WavefrontEngine.CreateChiefRayReferenceSphere(optic, field, reference, optic.RayAimingEnabled,
             allowGeometricReference: true);
         var surfaces = optic.SurfaceGroup.Items;
-        if (ObjectConjugate.IsInfinite(surfaces[0]) || !surfaces.Any(surface => surface.IsReflective)) return sphere;
+        if (ObjectConjugate.IsInfinite(surfaces[0]) || !surfaces.Any(surface => surface.IsReflective)
+            || !WavefrontEngine.RequiresGeometricPupilReference(optic)) return sphere;
         var frame = surfaces[^1].CoordinateSystem;
         var center = new Vector3D(sphere.CenterX, sphere.CenterY, sphere.CenterZ);
         var localCenter = frame.ToLocalPoint(center);

@@ -489,7 +489,9 @@ public static partial class ComponentSnapshotFactory
     {
         return interaction switch
         {
-            CoordinateReferenceInteractionModel reference => ComponentSnapshot.Empty(reference.Kind),
+            CoordinateReferenceInteractionModel reference => reference.IsIgnoredSurface
+                ? new ComponentSnapshot(reference.Kind, new() { ["ignoredSurface"] = 1 }, new())
+                : ComponentSnapshot.Empty(reference.Kind),
             RefractiveReflectiveInteractionModel model => new ComponentSnapshot(model.IsReflective ? "reflective" : "refractive", new Dictionary<string, double>(), new Dictionary<string, string>()),
             BirefringentInteractionModel crystal => new ComponentSnapshot(crystal.Kind, new()
                 { ["isExit"] = crystal.IsExit ? 1 : 0, ["axisDisplayLength"] = crystal.AxisDisplayLength }, new()),
@@ -530,7 +532,7 @@ public static partial class ComponentSnapshotFactory
     {
         return snapshot?.Kind switch
         {
-            "coordinate_reference" => new CoordinateReferenceInteractionModel(),
+            "coordinate_reference" => new CoordinateReferenceInteractionModel(Get(snapshot.Numbers, "ignoredSurface", 0) == 1),
             "reflective" => new RefractiveReflectiveInteractionModel(true),
             "refractive" => new RefractiveReflectiveInteractionModel(false),
             "birefringent_interface" => new BirefringentInteractionModel(snapshot.Numbers["isExit"] == 1, snapshot.Numbers["axisDisplayLength"]),
@@ -651,7 +653,9 @@ public static partial class ComponentSnapshotFactory
             {
                 ["outerRadius"] = annular.OuterRadius,
                 ["innerRadius"] = annular.InnerRadius
-            }, new Dictionary<string, string>()),
+            }, annular.ExcludeInnerBoundary
+                ? new Dictionary<string, string> { ["excludeInnerBoundary"] = "true" }
+                : new Dictionary<string, string>()),
             OffsetRadialAperture offset => new ComponentSnapshot("offset_radial", new Dictionary<string, double>
             {
                 ["outerRadius"] = offset.OuterRadius,
@@ -665,6 +669,13 @@ public static partial class ComponentSnapshotFactory
                 ["innerRadius"] = obscuration.InnerRadius,
                 ["offsetX"] = obscuration.OffsetX,
                 ["offsetY"] = obscuration.OffsetY
+            }, new Dictionary<string, string>()),
+            SpiderObscurationAperture spider => new ComponentSnapshot("spider_obscuration", new Dictionary<string, double>
+            {
+                ["armWidth"] = spider.ArmWidth,
+                ["armCount"] = spider.ArmCount,
+                ["offsetX"] = spider.OffsetX,
+                ["offsetY"] = spider.OffsetY
             }, new Dictionary<string, string>()),
             RectangularAperture rectangular => new ComponentSnapshot("rectangular", new Dictionary<string, double>
             {
@@ -717,7 +728,8 @@ public static partial class ComponentSnapshotFactory
             "circular" => new CircularAperture(Get(snapshot.Numbers, "radius", fallbackRadius)),
             "annular" => new AnnularAperture(
                 Get(snapshot.Numbers, "outerRadius", fallbackRadius),
-                Get(snapshot.Numbers, "innerRadius", 0)),
+                Get(snapshot.Numbers, "innerRadius", 0),
+                excludeInnerBoundary: snapshot.Text.GetValueOrDefault("excludeInnerBoundary") == "true"),
             "offset_radial" => new OffsetRadialAperture(
                 Get(snapshot.Numbers, "outerRadius", fallbackRadius),
                 Get(snapshot.Numbers, "innerRadius", 0),
@@ -728,6 +740,9 @@ public static partial class ComponentSnapshotFactory
                 Get(snapshot.Numbers, "innerRadius", 0),
                 Get(snapshot.Numbers, "offsetX", 0),
                 Get(snapshot.Numbers, "offsetY", 0)),
+            "spider_obscuration" => new SpiderObscurationAperture(
+                Get(snapshot.Numbers, "armWidth", 0), (int)Get(snapshot.Numbers, "armCount", 0),
+                Get(snapshot.Numbers, "offsetX", 0), Get(snapshot.Numbers, "offsetY", 0)),
             "rectangular" => new RectangularAperture(
                 Get(snapshot.Numbers, "halfWidth", fallbackRadius),
                 Get(snapshot.Numbers, "halfHeight", fallbackRadius),

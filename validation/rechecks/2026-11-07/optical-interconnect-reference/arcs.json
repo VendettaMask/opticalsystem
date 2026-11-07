@@ -1,0 +1,52 @@
+{
+  "forward": {
+    "surface": 3,
+    "nativeExtrapolatedMm": 2.6001255229695697,
+    "nativeChordsMm": {
+      "8": 2.6000723937693873,
+      "16": 2.6001122464424347,
+      "32": 2.600122203837786
+    },
+    "nativeChordConvergenceMm": 7.697213977309048e-09,
+    "maxIntegrationInterceptDeltaMm": 2.067207516276426e-12,
+    "nativeCoarseVsFineSameChordCountMm": 3.774758283725532e-14,
+    "gateMm": 3.6001255229695695e-06,
+    "requests": {
+      "848": {
+        "coreLengthMm": 2.6001255221012527,
+        "absoluteErrorMm": 8.68316973878791e-10,
+        "verdict": "Pass"
+      },
+      "865": {
+        "coreLengthMm": 2.6001255221012527,
+        "absoluteErrorMm": 8.68316973878791e-10,
+        "verdict": "Pass"
+      }
+    }
+  },
+  "backward": {
+    "surface": 5,
+    "nativeExtrapolatedMm": 2.6346485792873544,
+    "nativeChordsMm": {
+      "8": 2.6346345915510803,
+      "16": 2.634645056181359,
+      "32": 2.6346476985108556
+    },
+    "nativeChordConvergenceMm": 3.48959026119644e-08,
+    "maxIntegrationInterceptDeltaMm": 3.406513543469103e-10,
+    "nativeCoarseVsFineSameChordCountMm": 1.5710988066075515e-11,
+    "gateMm": 3.6346485792873543e-06,
+    "requests": {
+      "848": {
+        "coreLengthMm": 2.6346485812110716,
+        "absoluteErrorMm": 1.9237171855479573e-09,
+        "verdict": "Pass"
+      },
+      "865": {
+        "coreLengthMm": 2.6346485812110716,
+        "absoluteErrorMm": 1.9237171855479573e-09,
+        "verdict": "Pass"
+      }
+    }
+  }
+}

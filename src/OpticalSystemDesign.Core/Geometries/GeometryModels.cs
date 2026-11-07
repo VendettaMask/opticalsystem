@@ -13,6 +13,11 @@ public sealed class PlaneGeometry(Vector3D? referenceIncidenceNormal = null) : I
 
     public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
     {
+        // A coordinate break can start on the ray's launch plane even when
+        // the transformed plane is tangent to the ray. Retain its zero step.
+        if (ReferenceIncidenceNormal is not null && origin.Z == 0 && Math.Abs(direction.Z) < 1e-12
+            && GeometryIntersectionSolver.IsFinite(origin) && GeometryIntersectionSolver.IsFiniteNonZero(direction))
+            return new(IntersectionStatus.Tangent, 0, origin, new(0, 0, 1), 0, 0, double.PositiveInfinity);
         return default(RotationalSurfaceEquation).Intersect(origin, direction);
     }
 

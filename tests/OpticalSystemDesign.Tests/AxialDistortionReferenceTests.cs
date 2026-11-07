@@ -9,11 +9,30 @@ using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class AxialDistortionReferenceTests(Xunit.Abstractions.ITestOutputHelper output)
 {
+    [Fact]
+    public void WideFieldFTanUsesTheSameLimitedDomainForBothPanels()
+    {
+        var root = ProductDependencyArchitectureTests.RepositoryRoot();
+        var source = Path.Combine(root, "src/OpticalSystemDesign.App/Assets/SequentialExamples/Objectives/Wide angle lens 200 degree field.zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+        var fieldLimit = FieldCoordinates.MaximumRadius(optic.Fields);
+        Assert.Equal(100, fieldLimit);
+        var result = new FieldCurvatureAndDistortionAnalysis(optic, numPoints: 5,
+            parabasalDelta: 1e-4, wavelengthNumber: 1, parabasalRayPair: ParabasalRayPair.ChiefAndPositive)
+            .GenerateData();
+
+        Assert.All(result.PlotPanes!.SelectMany(pane => pane.Series),
+            series => Assert.Equal(89, series.Points[^1].Y));
+        Assert.Equal(fieldLimit, FieldCoordinates.MaximumRadius(optic.Fields));
+        Assert.Equal(fieldLimit, result.Values["Distortion.DefinedMaximumFieldDegrees"]);
+    }
+
     [Fact]
     public void PhysicalReferencePerturbationsSurviveAnAxialOnlyFieldTable()
     {

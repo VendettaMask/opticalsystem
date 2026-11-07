@@ -35,22 +35,33 @@ public static class WorkbenchExecutor
 
     internal static Dictionary<string, string> ResolveWorkbenchSettings(CanonicalAnalysisRequest request)
     {
-        // Captured focal field curvature has no native user-settable pupil
-        // delta. Replay its fixed chief-and-positive probe while preserving
-        // the archived request and its independently captured settings.
         var recorded = request.WorkbenchSettings;
-        if (request.ImageSpaceAfocal || request.SettingsOrigin != "CapturedSettings"
+        if (request.SettingsOrigin != "CapturedSettings"
             || request.CanonicalAnalysisKey is not ("Field Curvature" or "Field Curvature and Distortion")
-            || !request.ZemaxSettings.ContainsKey("ScanType")
-            || !string.Equals(recorded.GetValueOrDefault("ChiefRayParabasal"), "true", StringComparison.OrdinalIgnoreCase)
-            || !double.TryParse(recorded.GetValueOrDefault("ParabasalDelta"), NumberStyles.Float, CultureInfo.InvariantCulture, out var delta)
-            || delta != 1e-5)
+            || !request.ZemaxSettings.ContainsKey("ScanType"))
             return recorded;
 
-        return new(recorded, recorded.Comparer)
+        // The native dialog has no pupil-probe setting. Translate the legacy
+        // adapter's probe to the independently verified native convention.
+        var legacyProbe = string.Equals(recorded.GetValueOrDefault("ChiefRayParabasal"), "true", StringComparison.OrdinalIgnoreCase)
+            && double.TryParse(recorded.GetValueOrDefault("ParabasalDelta"), NumberStyles.Float, CultureInfo.InvariantCulture, out var delta)
+            && delta == 1e-5;
+        // Ordinary native distortion in object-height coordinates uses the
+        // near-axis magnification. ReferenceField does not re-anchor it.
+        var axialDistortion = request.CanonicalAnalysisKey == "Field Curvature and Distortion"
+            && !request.ImageSpaceAfocal && request.FieldDefinition == "ObjectHeight"
+            && request.ZemaxSettings.GetValueOrDefault("Distortion")?.ToString() == "F_TanTheta";
+        if (!legacyProbe && !axialDistortion) return recorded;
+
+        var translated = new Dictionary<string, string>(recorded, recorded.Comparer);
+        if (legacyProbe)
         {
-            ["ParabasalDelta"] = FieldCurvatureMetrics.NativeFocalPupilDelta.ToString("R", CultureInfo.InvariantCulture)
-        };
+            translated["ParabasalDelta"] = (request.ImageSpaceAfocal ? FieldCurvatureMetrics.DefaultAfocalPupilDelta
+                : FieldCurvatureMetrics.NativeFocalPupilDelta).ToString("R", CultureInfo.InvariantCulture);
+            translated["ChiefRayParabasal"] = request.ImageSpaceAfocal ? "false" : recorded["ChiefRayParabasal"];
+        }
+        if (axialDistortion) translated["ReferenceFieldNumber"] = "0";
+        return translated;
     }
     public static async Task<ZemaxZmxImportResult> Import(string path) => await new ZemaxZmxImporter().ImportConfigurationSetFileAsync(path);
 }

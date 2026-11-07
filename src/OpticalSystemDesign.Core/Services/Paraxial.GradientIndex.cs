@@ -95,13 +95,18 @@ public sealed partial class Paraxial
     }
 
     private static RayMatrix AxialPropagation(IMaterial material, OpticalSurface entrance,
-        double fromZ, double toZ, double wavelength, bool reverse = false)
+        double fromZ, double toZ, double wavelength, bool reverse = false, bool gridFocalConvention = false)
     {
         if (material is not GradientIndexMaterial gradient)
             return Translate(RayMatrix.Identity, (reverse ? -1 : 1) * (toZ - fromZ));
         var originZ = entrance.CoordinateSystem.Origin.Z;
-        var m = GradientIndexParaxialTransport.Between(gradient, fromZ - originZ, toZ - originZ,
-            wavelength, cancellationToken: ComputationCancellation.Current);
+        var localStart = fromZ - originZ;
+        var localEnd = toZ - originZ;
+        var token = ComputationCancellation.Current;
+        var m = gridFocalConvention && localStart == 0 && localEnd > localStart
+            && gradient.Profile is GridGradientIndexProfile grid && GridGradientFocalTransport.Supports(grid)
+            ? GridGradientFocalTransport.Between(gradient, grid, localStart, localEnd, wavelength, token)
+            : GradientIndexParaxialTransport.Between(gradient, localStart, localEnd, wavelength, cancellationToken: token);
         // Reverse rays use z_rev = z_image - z_global, and u_rev = -u_global.
         return new(m.A, reverse ? -m.B : m.B, reverse ? -m.C : m.C, m.D);
     }
@@ -111,7 +116,7 @@ public sealed partial class Paraxial
         after.C * before.A + after.D * before.C, after.C * before.B + after.D * before.D);
 
     private RayMatrix TraceGradientMatrix(int first, int end, double wavelength,
-        bool includeTrailingTranslation, out double determinant)
+        bool includeTrailingTranslation, bool gridFocalConvention, out double determinant)
     {
         var surfaces = _optic.SurfaceGroup.Items;
         var media = GradientMediumStates();
@@ -136,7 +141,8 @@ public sealed partial class Paraxial
             if (reflective) orientation = -orientation;
             if ((i != 0 || !ObjectConjugate.IsInfinite(s)) && (includeTrailingTranslation || i + 1 < end))
             {
-                matrix = Compose(AxialPropagation(outgoing.Material, outgoing.Entrance, z, z + s.Thickness, wavelength), matrix);
+                matrix = Compose(AxialPropagation(outgoing.Material, outgoing.Entrance, z, z + s.Thickness,
+                    wavelength, gridFocalConvention: gridFocalConvention), matrix);
                 currentIndex = AxialIndex(outgoing.Material, outgoing.Entrance, z + s.Thickness, wavelength);
             }
         }

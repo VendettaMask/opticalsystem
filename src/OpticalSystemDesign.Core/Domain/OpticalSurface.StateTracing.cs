@@ -128,6 +128,14 @@ public sealed partial class OpticalSurface
 
             IntersectionResult Intersect(Vector3D direction)
             {
+                if (Geometry is TiltedPlaneGeometry tilted)
+                {
+                    // Subtracting the surface vertex can lose precision at the
+                    // world coordinate scale even for a small local launch point.
+                    var vertex = CoordinateSystem.Origin;
+                    var coordinateScale = Math.Max(Math.Abs(vertex.X), Math.Max(Math.Abs(vertex.Y), Math.Abs(vertex.Z)));
+                    return tilted.DistanceToIntersection(localOrigin, direction, coordinateScale);
+                }
                 var hit = Geometry.DistanceToIntersection(localOrigin, direction);
                 if (hit.IsHit || Geometry is not GridSagGeometry grid
                     || !IsNeutralGridReference(grid, materialBefore, materialAfter))

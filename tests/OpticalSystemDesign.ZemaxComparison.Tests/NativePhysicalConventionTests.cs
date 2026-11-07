@@ -24,6 +24,23 @@ public sealed class NativePhysicalConventionTests
         Assert.Equal(12, rows[1][10]);
     }
 
+    [Fact]
+    public void CoordinateBreakNormalFacesTheIncidentRayInTheRotatedFrame()
+    {
+        using var model = JsonDocument.Parse("""
+            {"surfaces":[{"Type":"Standard"},{"Type":"CoordinateBreak"},{"Type":"Standard"}]}
+            """);
+        double[][] rows = [
+            [1, 0, 0, 0, 0, -.98, -.2, 0, 0, -1, 10, 0],
+            [2, 0, 0, 0, 0, -.98, -.2, 0, 0, -1, 10, 0]
+        ];
+        NativeReflectionConvention.ConvertRayReport(rows, [1, 1, 1], model.RootElement);
+        Assert.Equal(1, rows[0][9]);
+        Assert.Equal(-1, rows[1][9]);
+        Assert.Equal(-.2, rows[0][6]);
+        Assert.Equal(10, rows[0][10]);
+    }
+
     [Theory]
     [InlineData("CM")]
     [InlineData("IN")]

@@ -7,6 +7,7 @@ namespace OpticalSystemDesign.Core.Analysis;
 
 public sealed class DistortionAnalysis : BaseAnalysis
 {
+    private const double MaximumFTanScanDegrees = 89;
     private readonly int _numPoints;
     private readonly string _distortionType;
     private readonly int _wavelengthNumber;
@@ -32,7 +33,7 @@ public sealed class DistortionAnalysis : BaseAnalysis
         _wavelengthNumber = Math.Max(0, wavelengthNumber);
         _scanDirection = AnalysisTrace.NormalizeScanDirection(scanDirection);
         _displayMode = AnalysisTrace.NormalizeDistortionDisplayMode(displayMode);
-        _referenceFieldNumber = Math.Max(1, referenceFieldNumber);
+        _referenceFieldNumber = Math.Max(0, referenceFieldNumber);
         _ignoreVignettingFactors = ignoreVignettingFactors;
         _maximumDistortion = Math.Max(0, maximumDistortion);
     }
@@ -52,14 +53,16 @@ public sealed class DistortionAnalysis : BaseAnalysis
         var workingOptic = AnalysisTrace.PrepareVignettingFactors(calculationOptic, _ignoreVignettingFactors);
         ValidateAngularReferenceDomain(workingOptic);
         var displayReference = displayOptic ?? workingOptic;
-        var maxField = AnalysisTrace.MaxFieldValue(workingOptic);
+        var scanLimit = AngularScanLimit(workingOptic);
+        var definedMaxField = AnalysisTrace.MaxFieldValue(workingOptic);
+        var maxField = Math.Min(definedMaxField, scanLimit ?? double.PositiveInfinity);
         var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(displayReference);
         var fieldValueKey = AnalysisTrace.MaximumFieldValueKey(workingOptic);
         var effectiveDistortionType = workingOptic.FieldDefinition == FieldDefinitionKind.Angle
             ? _distortionType
             : "linear-height";
         var wavelengths = AnalysisTrace.SelectWavelengths(workingOptic, _wavelengthNumber);
-        var fields = AnalysisTrace.ScanFieldSamples(workingOptic, _scanDirection, _numPoints);
+        var fields = AnalysisTrace.ScanFieldSamples(workingOptic, _scanDirection, _numPoints, scanLimit);
         var displayFields = displayOptic is null
             ? fields
             : AnalysisTrace.ScanFieldSamples(displayReference, _scanDirection, _numPoints);
@@ -76,7 +79,8 @@ public sealed class DistortionAnalysis : BaseAnalysis
                     workingOptic,
                     wavelength.Micrometers,
                     _referenceFieldNumber,
-                    _distortionType);
+                    _distortionType,
+                    allowAxialPointReference: _distortionType is "f-tan" or "f-theta");
             }
             catch (InvalidOperationException exception) when (_distortionType == "smia-tv")
             {
@@ -160,6 +164,8 @@ public sealed class DistortionAnalysis : BaseAnalysis
                 ? workingOptic.ImageSpaceAfocal ? "MaximumAbsoluteDistortionTangent" : "MaximumAbsoluteDistortionMillimeters"
                 : "MaximumAbsoluteDistortionPercent"] = maximumAbsoluteDistortion
         };
+        if (maxField < definedMaxField)
+            values["DefinedMaximumFieldDegrees"] = definedMaxField;
         if (_distortionType == "smia-tv" && wavelengths.Length > 0)
         {
             values["SmiaTvDistortionPercent"] = ComputeSmiaTvDistortion(workingOptic, wavelengths[0]);
@@ -181,12 +187,21 @@ public sealed class DistortionAnalysis : BaseAnalysis
 
     internal void ValidateAngularReferenceDomain(Optic workingOptic)
     {
-        if (workingOptic.FieldDefinition == FieldDefinitionKind.Angle
-            && _distortionType is "f-tan" or "calibrated-f-tan"
-            && FieldCoordinates.MaximumRadius(workingOptic.Fields) >= 90)
+        if (workingOptic.FieldDefinition != FieldDefinitionKind.Angle) return;
+        if (_distortionType == "calibrated-f-tan" && FieldCoordinates.MaximumRadius(workingOptic.Fields) >= 90)
             throw new AnalysisDataUnavailableException("F-tan distortion",
                 "angular fields at or above 90 degrees have no continuous finite f-tan reference; select F-Theta or reduce the field range");
+        if (_distortionType == "f-tan" && _referenceFieldNumber > 0 && workingOptic.Fields.Count > 0)
+        {
+            var reference = workingOptic.Fields[Math.Min(_referenceFieldNumber, workingOptic.Fields.Count) - 1];
+            if (double.Hypot(reference.X, reference.Y) > MaximumFTanScanDegrees)
+                throw new AnalysisDataUnavailableException("F-tan distortion", "the chosen reference field lies outside the 89-degree scan domain");
+        }
     }
+
+    internal double? AngularScanLimit(Optic optic) =>
+        optic.FieldDefinition == FieldDefinitionKind.Angle && _distortionType == "f-tan"
+            ? MaximumFTanScanDegrees : null;
 
     private static double ComputeSmiaTvDistortion(Optic optic, Wavelength wavelength)
     {
@@ -312,8 +327,13 @@ public sealed class FieldCurvatureAndDistortionAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        if (FocalImageDomain.IsCollimatedContactPupil(Optic))
+            return FocalImageDomain.NotApplicable(Name, "Field curvature and distortion require a finite focal plane and a valid image-height mapping.");
+        if (FocalImageDomain.IsCollimatedPlaneAtImage(Optic))
+            return FocalImageDomain.NotApplicable(Name, "The image coincides with a plane pupil without a focus or a nonzero angular-to-height mapping.",
+                FocalImageDomain.CollimatedPlaneTrain);
         _distortion.ValidateAngularReferenceDomain(Optic);
-        var curvature = _fieldCurvature.GenerateData();
+        var curvature = _fieldCurvature.GenerateData(_distortion.AngularScanLimit(Optic));
         var distortion = _distortion.GenerateData();
         var values = new Dictionary<string, object>();
         foreach (var item in curvature.Values)
@@ -382,13 +402,15 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
 
     public override string Name => "Field Curvature";
 
-    public override AnalysisData GenerateData()
+    public override AnalysisData GenerateData() => GenerateData(null);
+
+    internal AnalysisData GenerateData(double? maximumScanMagnitude)
     {
         var workingOptic = AnalysisTrace.PrepareVignettingFactors(Optic, _ignoreVignettingFactors);
-        var maxField = AnalysisTrace.MaxFieldValue(workingOptic);
+        var maxField = Math.Min(AnalysisTrace.MaxFieldValue(workingOptic), maximumScanMagnitude ?? double.PositiveInfinity);
         var fieldAxisLabel = AnalysisTrace.FieldAxisLabel(workingOptic);
         var fieldValueKey = AnalysisTrace.MaximumFieldValueKey(workingOptic);
-        var fields = AnalysisTrace.ScanFieldSamples(workingOptic, _scanDirection, _numPoints);
+        var fields = AnalysisTrace.ScanFieldSamples(workingOptic, _scanDirection, _numPoints, maximumScanMagnitude);
         var wavelengths = AnalysisTrace.SelectWavelengths(workingOptic, _wavelengthNumber);
         var series = new List<AnalysisSeries>();
         var maximumAbsoluteDelta = 0.0;

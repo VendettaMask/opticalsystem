@@ -27,16 +27,17 @@ internal static partial class ZemaxZmxReader
         var document = Parse(text, assetDirectory);
         Validate(document);
 
-        var configurations = Enumerable.Range(0, Math.Max(1, document.ConfigurationCount))
-            .Select(configurationIndex => BuildOptic(document, configurationIndex))
-            .ToArray();
+        var configurations = new Optic[Math.Max(1, document.ConfigurationCount)];
+        var sourceSurfaceNumbers = new IReadOnlyList<int>[configurations.Length];
+        for (var configurationIndex = 0; configurationIndex < configurations.Length; configurationIndex++)
+            configurations[configurationIndex] = BuildOptic(document, configurationIndex, out sourceSurfaceNumbers[configurationIndex]);
         if (!configurations.Any(optic => optic.SurfaceGroup.Items.Any(s => s.MaterialAfter is UnresolvedMaterial)))
             Services.AutomaticSemiDiameterSolver.UpdateMaximum(configurations);
         var activeConfigurationIndex = DetectActiveConfiguration(document);
         return new ZemaxZmxImportResult(
             configurations[activeConfigurationIndex],
             configurations,
-            activeConfigurationIndex);
+            activeConfigurationIndex) { SourceSurfaceNumbers = sourceSurfaceNumbers };
     }
 
     internal static IReadOnlyList<MeritOperandSnapshot> ReadMeritTable(string text, int surfaceCount)
@@ -53,7 +54,7 @@ internal static partial class ZemaxZmxReader
         return document.MeritOperands.Select(MeritOperandSnapshot.FromDefinition).ToArray();
     }
 
-    private static Optic BuildOptic(ZemaxDocument document, int configurationIndex)
+    private static Optic BuildOptic(ZemaxDocument document, int configurationIndex, out IReadOnlyList<int> importedSourceNumbers)
     {
         var optic = new Optic(document.Name);
         optic.Materials.SetPreferredGlassCatalogs(document.GlassCatalogs);
@@ -65,6 +66,7 @@ internal static partial class ZemaxZmxReader
         var sourceSurfaceNumbers = configuredSurfaces
             .Where(IsImportedSurface)
             .Select(surface => surface.Number).ToArray();
+        importedSourceNumbers = Array.AsReadOnly(sourceSurfaceNumbers);
         optic.GlobalReferenceSurfaceNumber = Array.IndexOf(sourceSurfaceNumbers, document.GlobalReferenceSurfaceNumber);
         if (optic.GlobalReferenceSurfaceNumber < 0)
             throw new NotSupportedException($"全局参考面 {document.GlobalReferenceSurfaceNumber} 不存在或为坐标断点；不能转换到物理表面。");
@@ -80,6 +82,7 @@ internal static partial class ZemaxZmxReader
             throw new InvalidDataException("AFOC must be zero (focal) or one (afocal).");
         optic.ImageSpaceAfocal = configuredAfocal.HasValue ? configuredAfocal.Value == 1 : document.AfocalImageSpace;
         optic.ReferenceOpd = document.ReferenceOpd;
+        optic.UseExitPupilFNumber = document.UseExitPupilFNumber;
         ConfigureFields(optic, document, configurationIndex);
         ConfigureWavelengths(optic, document, configurationIndex);
         ApplyCoordinateBreakChiefDecenters(optic, document, configuredSurfaces);
@@ -258,6 +261,10 @@ internal static partial class ZemaxZmxReader
                     break;
                 case "GLRS":
                     document.GlobalReferenceSurfaceNumber = RequiredInt(tokens, 1, command);
+                    var fNumberMethod = tokens.Length > 2 ? RequiredInt(tokens, 2, command) : 0;
+                    if (fNumberMethod is not (0 or 1))
+                        throw new InvalidDataException("Unknown Zemax GLRS F-number method.");
+                    document.UseExitPupilFNumber = fNumberMethod == 1;
                     break;
                 case "FTYP":
                     ReadConfiguration(document, tokens);
@@ -329,6 +336,7 @@ internal static partial class ZemaxZmxReader
                     circular.CircularObscuration = false;
                     circular.RectangularAperture = false;
                     circular.FloatingAperture = false;
+                    circular.SpiderArms = 0;
                     circular.MinimumAperture = Math.Abs(ScaleLength(document, RequiredDouble(tokens, 1, command)));
                     circular.MaximumAperture = Math.Abs(ScaleLength(document, RequiredDouble(tokens, 2, command)));
                     break;
@@ -338,6 +346,7 @@ internal static partial class ZemaxZmxReader
                     obscuration.CircularAperture = false;
                     obscuration.RectangularAperture = false;
                     obscuration.FloatingAperture = false;
+                    obscuration.SpiderArms = 0;
                     obscuration.MinimumAperture = ScaleLength(document, RequiredDouble(tokens, 1, command));
                     obscuration.MaximumAperture = ScaleLength(document, RequiredDouble(tokens, 2, command));
                     break;
@@ -347,8 +356,20 @@ internal static partial class ZemaxZmxReader
                     rectangular.CircularAperture = false;
                     rectangular.CircularObscuration = false;
                     rectangular.FloatingAperture = false;
+                    rectangular.SpiderArms = 0;
                     rectangular.MinimumAperture = ScaleLength(document, RequiredDouble(tokens, 1, command));
                     rectangular.MaximumAperture = ScaleLength(document, RequiredDouble(tokens, 2, command));
+                    break;
+                case "SPID":
+                    var spider = RequireSurface(current, command);
+                    var arms = RequiredDouble(tokens, 2, command);
+                    if (arms is < 1 or > SpiderObscurationAperture.MaximumArmCount || arms != Math.Truncate(arms))
+                        throw new InvalidDataException("Invalid Zemax spider arm count.");
+                    spider.SpiderArms = (int)arms;
+                    spider.SpiderArmWidth = ScaleLength(document, RequiredDouble(tokens, 1, command));
+                    if (!(spider.SpiderArmWidth > 0) || !double.IsFinite(spider.SpiderArmWidth))
+                        throw new InvalidDataException("Invalid Zemax spider arm width.");
+                    spider.CircularAperture = spider.CircularObscuration = spider.RectangularAperture = spider.FloatingAperture = false;
                     break;
                 case "OBDC":
                     var apertureOffset = RequireSurface(current, command);
@@ -767,6 +788,7 @@ internal static partial class ZemaxZmxReader
                     floating.FloatingAperture = true;
                     floating.CircularAperture = false;
                     floating.CircularObscuration = false;
+                    floating.SpiderArms = 0;
                     floating.RectangularAperture = false;
                     break;
                 case "MEMA":
@@ -913,6 +935,8 @@ internal static partial class ZemaxZmxReader
                     source.SemiDiameter) : source.SemiDiameter,
                 CircularAperture = source.CircularAperture,
                 CircularObscuration = source.CircularObscuration,
+                SpiderArms = source.SpiderArms,
+                SpiderArmWidth = source.SpiderArmWidth,
                 RectangularAperture = source.RectangularAperture,
                 ApertureOffsetX = ScaleConfiguredLength(document, document.ConfigurationDouble("APDX", source.Number, configurationIndex), source.ApertureOffsetX) ?? 0,
                 ApertureOffsetY = ScaleConfiguredLength(document, document.ConfigurationDouble("APDY", source.Number, configurationIndex), source.ApertureOffsetY) ?? 0,
@@ -1000,7 +1024,8 @@ internal static partial class ZemaxZmxReader
             return new ZemaxSurface(surface.Number, surface.LengthScaleToMillimeters, surface.AssetDirectory)
             {
                 Comment = string.IsNullOrWhiteSpace(surface.Comment) ? $"Ignored surface {surface.Number}" : surface.Comment,
-                RetainReferencePlane = true
+                RetainReferencePlane = true,
+                IsIgnoredSurface = true
             };
         }).ToArray();
     }
@@ -1111,7 +1136,7 @@ internal static partial class ZemaxZmxReader
                     // frame for order 1. In a coincident grazing frame retain
                     // the incident point instead of dividing roundoff by zero.
                     var frame = surface.Parameter(5) == 0 ? rotation : rotation * RotationMatrix(
-                        -surface.Parameter(2), -surface.Parameter(3), -surface.Parameter(4)).Transpose();
+                        surface.Parameter(2), surface.Parameter(3), surface.Parameter(4));
                     var point = frame.Transpose().Transform(sample.Position - origin);
                     var direction = frame.Transpose().Transform(sample.Direction);
                     if (Math.Abs(direction.Z) > 1e-12) point -= direction * (point.Z / direction.Z);
@@ -1209,7 +1234,7 @@ internal static partial class ZemaxZmxReader
                 ? CreatePolygonGroup(source, optic, glassCatalogs)
                 : referencePlane ? new PlaneGeometry(rotation.Transpose().Transform(incomingRotation.Transform(new Vector3D(0, 0, 1)))) : CreateGeometry(source);
             var isReflective = !referencePlane && (source.IsMirror || source.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase));
-            IInteractionModel interaction = referencePlane ? new CoordinateReferenceInteractionModel()
+            IInteractionModel interaction = referencePlane ? new CoordinateReferenceInteractionModel(source.IsIgnoredSurface)
                 : geometry is PlaneGeometry && IsComputableParaxial(source)
                 ? new ParaxialLensInteractionModel(source.Parameter(0) == 0 ? 0 : 1 / source.Parameter(0),
                     source.Parameter(0) == 0 ? 0 : 1 / source.Parameter(0), (int)source.Parameter(1))
@@ -1314,6 +1339,8 @@ internal static partial class ZemaxZmxReader
     private static IPhysicalAperture? CreatePhysicalAperture(
         ZemaxSurface source, double semiDiameter, bool hasImplicitFloatingAperture)
     {
+        if (source.SpiderArms > 0)
+            return new SpiderObscurationAperture(source.SpiderArmWidth, source.SpiderArms, source.ApertureOffsetX, source.ApertureOffsetY);
         if (source.RectangularAperture)
         {
             var halfWidth = source.MinimumAperture ?? throw new NotSupportedException("Missing rectangular aperture X half-width.");
@@ -1339,7 +1366,7 @@ internal static partial class ZemaxZmxReader
                 throw new NotSupportedException("Invalid explicit Zemax circular aperture bounds.");
             if (source.ApertureOffsetX != 0 || source.ApertureOffsetY != 0)
                 return new OffsetRadialAperture(outer, inner, source.ApertureOffsetX, source.ApertureOffsetY);
-            return inner > 0 ? new AnnularAperture(outer, inner) : new CircularAperture(outer);
+            return inner > 0 ? new AnnularAperture(outer, inner, excludeInnerBoundary: true) : new CircularAperture(outer);
         }
 
         // Automatic DIAM is a ray-footprint estimate, including at the stop;
@@ -1375,11 +1402,12 @@ internal static partial class ZemaxZmxReader
         if (source.Parameter(5) == 0)
         {
             origin += rotation.Transform(decenter);
-            rotation *= RotationMatrix(source.Parameter(2), source.Parameter(3), source.Parameter(4));
+            // Zemax order 0 rotates around the current local X, then the new Y and Z.
+            rotation *= RotationMatrix(-source.Parameter(2), -source.Parameter(3), -source.Parameter(4)).Transpose();
         }
         else
         {
-            rotation *= RotationMatrix(-source.Parameter(2), -source.Parameter(3), -source.Parameter(4)).Transpose();
+            rotation *= RotationMatrix(source.Parameter(2), source.Parameter(3), source.Parameter(4));
             origin += rotation.Transform(decenter);
         }
         if (includeThickness && !double.IsInfinity(source.Thickness))
@@ -2546,6 +2574,7 @@ internal static partial class ZemaxZmxReader
         public bool AfocalImageSpace { get; set; }
 
         public ReferenceOpdMode ReferenceOpd { get; set; } = ReferenceOpdMode.ExitPupil;
+        public bool UseExitPupilFNumber { get; set; }
         public List<double> FieldX { get; set; } = new();
         public List<double> FieldY { get; set; } = new();
         public List<double> FieldWeights { get; set; } = new();
@@ -2633,6 +2662,8 @@ internal static partial class ZemaxZmxReader
         public double? MaximumAperture { get; set; }
         public bool CircularAperture { get; set; }
         public bool CircularObscuration { get; set; }
+        public int SpiderArms { get; set; }
+        public double SpiderArmWidth { get; set; }
         public bool RectangularAperture { get; set; }
         public double ApertureOffsetX { get; set; }
         public double ApertureOffsetY { get; set; }
@@ -2646,6 +2677,7 @@ internal static partial class ZemaxZmxReader
         public bool ExplicitMirror { get; set; }
         public Dictionary<int, ZemaxParameterPickup> ParameterPickups { get; } = [];
         public bool RetainReferencePlane { get; set; }
+        public bool IsIgnoredSurface { get; set; }
 
         public string? PolygonPayload { get; set; }
         public string? PolygonAssetDirectory { get; set; }

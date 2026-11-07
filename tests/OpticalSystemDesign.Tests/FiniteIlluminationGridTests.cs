@@ -4,6 +4,7 @@ using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Services;
@@ -12,6 +13,34 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class FiniteIlluminationGridTests
 {
+    [Fact]
+    public void ClippedFoldOutsideTheTransmittingPupilRetainsFiniteIllumination()
+    {
+        var root = ProductDependencyArchitectureTests.RepositoryRoot();
+        var source = Path.Combine(root,
+            "src/OpticalSystemDesign.App/Assets/SequentialExamples/Image Simulation/Example 1, A singlet eyepiece.ZMX");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+        var results = IlluminationMetrics.EvaluateFields(optic, [(0, 0), (0, 1)], .5875618, 20,
+            sampling: IlluminationSamplingKind.FiniteImageCosine, includeScalarTransmission: false);
+
+        // The outer field is vignetted. Its blocked rays fold in the
+        // reference direction-cosine map but carry no power to the image.
+        Assert.InRange(results[1].ProjectedCosineArea / results[0].ProjectedCosineArea, .55, .57);
+        Assert.True(results[1].ValidRays > 0);
+    }
+
+    [Fact]
+    public void TelecentricPupilAtInfinityUsesTheTracedImageCone()
+    {
+        var root = ProductDependencyArchitectureTests.RepositoryRoot();
+        var source = Path.Combine(root, "src/OpticalSystemDesign.App/Assets/SequentialExamples/Miscellaneous/Telecentric system.zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+        var results = IlluminationMetrics.EvaluateFields(optic, [(0, 0), (0, 1)], .55, 20,
+            sampling: IlluminationSamplingKind.FiniteImageCosine, includeScalarTransmission: false);
+        Assert.All(results, item => Assert.InRange(Math.Abs(item.EffectiveFNumber - 5.148073), 0, 5e-7));
+        Assert.Equal(results[0].ProjectedCosineArea, results[1].ProjectedCosineArea, 12);
+    }
+
     [Theory]
     [InlineData(.3, 5)]
     [InlineData(.3, 10)]

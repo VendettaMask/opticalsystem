@@ -139,6 +139,8 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
                 imageDeltaWavelength,
                 _numRays);
         var afocalImageSpace = Optic.ImageSpaceAfocal;
+        var contactPupilReadout = !_usePolarization && AfocalIntegration == AfocalHuygensIntegration.NativeFiniteCell
+            && FocalImageDomain.IsCollimatedContactPupil(Optic, field);
         var referenceWavelength = wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
         var geometricCenter = _useCentroid
             ? DiffractionEngine.HuygensGeometricCenterOffset(Optic, field, wavelengths,
@@ -146,14 +148,17 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             : (X: 0.0, Y: 0.0);
         var synthesis = HuygensPsfSynthesis.Compute(Optic, field, wavelengths, _numRays,
             _imageSize, pixelPitchMillimeters, _usePolarization, referenceWavelength,
-            imageCenterOffset: _useCentroid ? geometricCenter : null, afocalIntegration: AfocalIntegration);
+            imageCenterOffset: _useCentroid ? geometricCenter : null, afocalIntegration: AfocalIntegration,
+            contactPupilReadout: contactPupilReadout);
         var values = new double[_imageSize, _imageSize];
         for (var row = 0; row < _imageSize; row++)
         {
             for (var column = 0; column < _imageSize; column++)
             {
-                values[row, column] = synthesis.Psf.Values[row, column]
-                    / (100 * synthesis.IdealPeakWeight);
+                var intensity = synthesis.Psf.Values[row, column] / (100 * synthesis.IdealPeakWeight);
+                if (!double.IsFinite(intensity))
+                    return AnalysisData.Unavailable(Name, "Huygens propagation produced a non-finite image intensity.");
+                values[row, column] = intensity;
             }
         }
 
@@ -228,6 +233,7 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
         {
             ["Method"] = "Huygens-Fresnel",
             ["PropagationModel"] = Optic.ImageSpaceAfocal ? "Afocal scalar plane waves"
+                : contactPupilReadout ? "Collimated contact-pupil readout"
                 : synthesis.Psf.FiniteCellHuygensUsed ? "Finite-cell Auto planar/spherical Huygens"
                     : "Lens-datum scalar Huygens weight (compatibility approximation)",
             ["FiniteCellHuygensUsed"] = synthesis.Psf.FiniteCellHuygensUsed,

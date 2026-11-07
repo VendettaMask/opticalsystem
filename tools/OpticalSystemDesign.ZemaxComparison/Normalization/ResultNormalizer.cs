@@ -132,17 +132,19 @@ public static class ResultNormalizer
         return result;
     }
 
-    public static NumericResult Zemax(string path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request)
+    public static NumericResult Zemax(string path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request,
+        string? workbenchPath = null, IReadOnlyList<int>? sourceSurfaceNumbers = null)
     {
         ValidateNumberedConfiguration(path, entry, request);
         using var doc = JsonDocument.Parse(EvidenceFiles.ReadAllText(path)); var root = doc.RootElement;
         NativeReferenceDiagnostics.Validate(root);
+        NativeFocalImageDomain.Validate(path, request, workbenchPath);
         NativeLengthUnitContract.Validate(path, request);
         AfocalAnalysisContracts.ValidateNativeModel(path, request);
         if ((request.ImageSpaceAfocal && entry.CanonicalAnalysisKey is "Ray Fan" or "MTF")
             || (entry.CanonicalAnalysisKey == "MTF" && request.Field == 0))
             return AfocalCurveNormalizer.Zemax(root, request);
-        if (entry.ZemaxSettingsMapper == "contract") return ExtendedResultNormalizer.Zemax(path, request);
+        if (entry.ZemaxSettingsMapper == "contract") return ExtendedResultNormalizer.Zemax(path, request, workbenchPath, sourceSurfaceNumbers);
         var result = new NumericResult { Semantics = Semantics(entry) };
         if (entry.ZemaxSettingsMapper == "first-order")
         {
@@ -268,18 +270,12 @@ public static class ResultNormalizer
             if (!EvidenceFiles.Exists(modelPath))
                 throw new InvalidDataException("Native first-order infinity marker has no accompanying prescription.");
             using var model = JsonDocument.Parse(EvidenceFiles.ReadAllText(modelPath));
-            var planeOnly = model.RootElement.TryGetProperty("surfaces", out var surfaces)
-                && surfaces.ValueKind == JsonValueKind.Array && surfaces.GetArrayLength() > 2
-                && surfaces.EnumerateArray().All(surface => surface.TryGetProperty("Type", out var type)
-                    && type.ValueKind == JsonValueKind.String && type.GetString() is ("Standard" or "CoordinateBreak" or "Tilted")
-                    && surface.TryGetProperty("Radius", out var radius)
-                    && (radius.ValueKind == JsonValueKind.Null || Finite(radius) == 0));
-            if (!planeOnly || !operands.TryGetProperty("EPDI", out var diameter) || Finite(diameter) is not (> 0)
+            if (!ProvesNativeZeroPower(model.RootElement) || !operands.TryGetProperty("EPDI", out var diameter) || Finite(diameter) is not (> 0)
                 || Finite(scalars.GetProperty("FNumber")) != Math.Abs(efl) / diameter.GetDouble())
-                throw new InvalidDataException("Native first-order infinity marker could not be verified as zero power from the plane-only prescription and entrance pupil.");
+                throw new InvalidDataException("Native first-order infinity marker could not be verified as zero power from the prescription and entrance pupil.");
             result.Scalars.Add(new("EffectiveFocalLength", double.PositiveInfinity, "Millimeter"));
             result.Scalars.Add(new("FNumber", double.PositiveInfinity, "Dimensionless"));
-            result.Transformations.Add("Verified native signed EFFL saturation as zero power from plane-only optics and the captured entrance pupil.");
+            result.Transformations.Add("Verified native signed EFFL saturation as zero power from the captured prescription and entrance pupil.");
             return;
         }
         foreach (var property in scalars.EnumerateObject())
@@ -287,6 +283,30 @@ public static class ResultNormalizer
             var value = Finite(property.Value) ?? throw new InvalidDataException($"Native first-order value {property.Name} is not finite.");
             result.Scalars.Add(new(property.Name, value, FirstOrderUnit(property.Name)));
         }
+    }
+
+    private static bool ProvesNativeZeroPower(JsonElement model)
+    {
+        if (!model.TryGetProperty("surfaces", out var surfaces) || surfaces.ValueKind != JsonValueKind.Array
+            || surfaces.GetArrayLength() <= 2)
+            return false;
+        var rows = surfaces.EnumerateArray().ToArray();
+        if (rows.All(row => ZeroBaseCurvature(row) && Type(row) is ("Standard" or "CoordinateBreak" or "Tilted")))
+            return true;
+
+        // A shaped grid in unchanged ambient media has zero interface power.
+        // Demand explicit material/coating fields on every row, since a missing
+        // material record cannot prove absence of a refractive index change.
+        return rows.All(row => ZeroBaseCurvature(row) && Blank(row, "Material") && Blank(row, "Coating")
+            && (Type(row) == "Standard" || Type(row) == "GridSag"
+                && row.TryGetProperty("Thickness", out var gap) && Finite(gap) == 0));
+
+        static string? Type(JsonElement row) => row.TryGetProperty("Type", out var type)
+            && type.ValueKind == JsonValueKind.String ? type.GetString() : null;
+        static bool ZeroBaseCurvature(JsonElement row) => row.TryGetProperty("Radius", out var radius)
+            && (radius.ValueKind == JsonValueKind.Null || Finite(radius) == 0);
+        static bool Blank(JsonElement row, string key) => row.TryGetProperty(key, out var value)
+            && value.ValueKind == JsonValueKind.String && string.IsNullOrWhiteSpace(value.GetString());
     }
 
     private static string FirstOrderUnit(string key) => key == "FNumber" ? "Dimensionless" : "Millimeter";

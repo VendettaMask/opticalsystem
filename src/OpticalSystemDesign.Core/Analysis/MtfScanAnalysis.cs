@@ -126,15 +126,17 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
         {
             var previous = Optic.SurfaceGroup.Items[^2];
             var originalThickness = previous.Thickness;
-            // Defocus is a displacement along the preceding surface's local axis.
-            // Keep the prescription gap and the traced image coordinate consistent.
+            var precedingFrame = previous.CoordinateSystem;
+            // Huygens scans the image Z axis, which may be restored by a
+            // folded coordinate break after the last physical surface.
+            var focusFrame = _method == MtfComputationMethod.Huygens ? originalCoordinateSystem : precedingFrame;
             Optic.InvalidateRayTraceCache();
             try
             {
                 for (var focusIndex = 0; focusIndex < focus.Length; focusIndex++)
                 {
-                    var shift = previous.CoordinateSystem.ToGlobalDirection(new Vector3D(0, 0, focus[focusIndex]));
-                    previous.Thickness = originalThickness + focus[focusIndex];
+                    var shift = focusFrame.ToGlobalDirection(new Vector3D(0, 0, focus[focusIndex]));
+                    previous.Thickness = originalThickness + precedingFrame.ToLocalDirection(shift).Z;
                     imageSurface.CoordinateSystem = originalCoordinateSystem with
                     {
                         Origin = originalCoordinateSystem.Origin + shift

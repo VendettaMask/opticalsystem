@@ -68,9 +68,18 @@ public sealed class PsfAnalysis : BaseAnalysis
 
     internal AnalysisData GenerateDensePhysicalPupil(int displaySize) => GenerateData(displaySize);
 
-    private AnalysisData GenerateData(int? denseDisplaySize)
+    // Profile and energy contracts consume the historical intermediate grid.
+    // Their own calibration is separate from a direct focal-plane image request.
+    internal AnalysisData GenerateIntermediateGrid() => GenerateData(denseDisplaySize: null, requireFocalImage: false);
+
+    private AnalysisData GenerateData(int? denseDisplaySize, bool requireFocalImage = true)
     {
         var analysisOptic = ResolveAnalysisOptic();
+        if (requireFocalImage && FocalImageDomain.IsCollimatedContactPupil(analysisOptic))
+            return FocalImageDomain.NotApplicable(Name, "Focal FFT PSF has no finite diffraction image for a collimated beam at the pupil plane.");
+        if (requireFocalImage && FocalImageDomain.IsCollimatedPlaneTrain(analysisOptic))
+            return FocalImageDomain.NotApplicable(Name, "Focal FFT PSF requires converging or diverging image rays with a finite diffraction scale.",
+                FocalImageDomain.CollimatedPlaneTrain);
         var allWavelengths = analysisOptic.Wavelengths.ToArray();
         if (allWavelengths.Length == 0)
         {
@@ -365,6 +374,11 @@ public sealed class MtfAnalysis : BaseAnalysis
     public override AnalysisData GenerateData()
     {
         var analysisOptic = ResolveAnalysisOptic();
+        if (FocalImageDomain.IsCollimatedContactPupil(analysisOptic))
+            return FocalImageDomain.NotApplicable(Name, "Focal FFT MTF has no image-space frequency scale for a collimated beam at the pupil plane.");
+        if (FocalImageDomain.IsCollimatedPlaneTrain(analysisOptic))
+            return FocalImageDomain.NotApplicable(Name, "Focal FFT MTF has no finite image-plane frequency scale for parallel image rays.",
+                FocalImageDomain.CollimatedPlaneTrain);
         var wavelengths = MtfMethodEvaluator.SelectWavelengths(analysisOptic, _wavelengthNumber);
         if (wavelengths.Count == 0)
         {

@@ -11,6 +11,42 @@ public interface IPhysicalAperture
     IPhysicalAperture Clone();
 }
 
+/// <summary>Identical radial vanes starting at the local positive X axis.</summary>
+public sealed class SpiderObscurationAperture : IPhysicalAperture
+{
+    public const int MaximumArmCount = 4096;
+    private readonly (double Sin, double Cos)[] _arms;
+
+    public SpiderObscurationAperture(double armWidth, int armCount, double offsetX = 0, double offsetY = 0)
+    {
+        if (!double.IsFinite(armWidth) || armWidth <= 0) throw new ArgumentOutOfRangeException(nameof(armWidth));
+        if (armCount is < 1 or > MaximumArmCount) throw new ArgumentOutOfRangeException(nameof(armCount));
+        if (!double.IsFinite(offsetX) || !double.IsFinite(offsetY)) throw new ArgumentException("Spider offsets must be finite.");
+        ArmWidth = armWidth;
+        OffsetX = offsetX;
+        OffsetY = offsetY;
+        _arms = Enumerable.Range(0, armCount).Select(i => Math.SinCos(i * Math.Tau / armCount)).ToArray();
+    }
+
+    public string Kind => "spider_obscuration";
+    public double ArmWidth { get; }
+    public int ArmCount => _arms.Length;
+    public double OffsetX { get; }
+    public double OffsetY { get; }
+
+    public bool Contains(Vector3D localPoint)
+    {
+        var x = localPoint.X - OffsetX;
+        var y = localPoint.Y - OffsetY;
+        var halfWidth = ArmWidth / 2;
+        foreach (var (sin, cos) in _arms)
+            if (x * cos + y * sin >= 0 && Math.Abs(y * cos - x * sin) <= halfWidth) return false;
+        return true;
+    }
+
+    public IPhysicalAperture Clone() => new SpiderObscurationAperture(ArmWidth, ArmCount, OffsetX, OffsetY);
+}
+
 public sealed class CircularAperture : IPhysicalAperture
 {
     public CircularAperture(double radius)
@@ -40,10 +76,11 @@ public sealed class CircularAperture : IPhysicalAperture
 
 public sealed class AnnularAperture : IPhysicalAperture
 {
-    public AnnularAperture(double outerRadius, double innerRadius)
+    public AnnularAperture(double outerRadius, double innerRadius, bool excludeInnerBoundary = false)
     {
         OuterRadius = Math.Max(0.001, outerRadius);
         InnerRadius = Math.Clamp(innerRadius, 0, OuterRadius);
+        ExcludeInnerBoundary = excludeInnerBoundary;
     }
 
     public string Kind => "annular";
@@ -51,16 +88,19 @@ public sealed class AnnularAperture : IPhysicalAperture
     public double OuterRadius { get; set; }
 
     public double InnerRadius { get; set; }
+    public bool ExcludeInnerBoundary { get; }
 
     public bool Contains(Vector3D localPoint)
     {
         var radiusSquared = (localPoint.X * localPoint.X) + (localPoint.Y * localPoint.Y);
-        return radiusSquared <= OuterRadius * OuterRadius && radiusSquared >= InnerRadius * InnerRadius;
+        var innerSquared = InnerRadius * InnerRadius;
+        return radiusSquared <= OuterRadius * OuterRadius
+            && (ExcludeInnerBoundary && InnerRadius > 0 ? radiusSquared > innerSquared : radiusSquared >= innerSquared);
     }
 
     public IPhysicalAperture Clone()
     {
-        return new AnnularAperture(OuterRadius, InnerRadius);
+        return new AnnularAperture(OuterRadius, InnerRadius, ExcludeInnerBoundary);
     }
 }
 

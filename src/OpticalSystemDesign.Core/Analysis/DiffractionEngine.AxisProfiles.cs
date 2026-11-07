@@ -51,7 +51,7 @@ public static partial class DiffractionEngine
         {
             axes = WorkingFNumbers(optic, field, wave, true); fallback = !aiming; aiming = true;
         }
-        var fNumber = optic.ImageSpaceAfocal ? double.PositiveInfinity : CombineWorkingFNumbers(axes);
+        var fNumber = optic.ImageSpaceAfocal ? double.PositiveInfinity : CombineWorkingFNumbers(axes, optic.UseExitPupilFNumber);
         // Keep the image-plane knot spacing independent of pupil refinement.
         // The axis transform's larger zero-padding interval lets us reduce the
         // pupil-node spacing while still covering the same physical aperture.

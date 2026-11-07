@@ -1,0 +1,2391 @@
+{
+  "cases": [
+    {
+      "stage": "native",
+      "job": "control-full-256",
+      "inputSha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "receipt": {
+        "id": "control-full-256",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:05:43.0918262Z",
+        "completedUtc": "2026-11-06T14:05:44.8437436Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "job": "control-full-512",
+      "inputSha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "receipt": {
+        "id": "control-full-512",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:05:44.8457436Z",
+        "completedUtc": "2026-11-06T14:05:45.7747474Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "job": "control-native-profile",
+      "inputSha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "receipt": {
+        "id": "control-native-profile",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:05:45.7767480Z",
+        "completedUtc": "2026-11-06T14:05:46.1322888Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native",
+      "job": "control-native-energy",
+      "inputSha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "receipt": {
+        "id": "control-native-energy",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:05:46.1342885Z",
+        "completedUtc": "2026-11-06T14:05:47.9114469Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native-full",
+      "job": "control-full-256",
+      "inputSha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "receipt": {
+        "id": "control-full-256",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:07:51.4259501Z",
+        "completedUtc": "2026-11-06T14:07:53.6496228Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native-full",
+      "job": "control-default-256",
+      "inputSha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "receipt": {
+        "id": "control-default-256",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:07:53.6516226Z",
+        "completedUtc": "2026-11-06T14:07:54.3934149Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native-full",
+      "job": "control-full-512",
+      "inputSha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "receipt": {
+        "id": "control-full-512",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:07:54.3954163Z",
+        "completedUtc": "2026-11-06T14:07:55.7320262Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native-full",
+      "job": "control-native-energy-1024",
+      "inputSha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "receipt": {
+        "id": "control-native-energy-1024",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:07:55.7340259Z",
+        "completedUtc": "2026-11-06T14:08:13.0764167Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native-full",
+      "job": "control-native-energy-2048",
+      "inputSha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "receipt": {
+        "id": "control-native-energy-2048",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:08:13.0774156Z",
+        "completedUtc": "2026-11-06T14:10:13.1162717Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "native-full",
+      "job": "grid-full-512",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "receipt": {
+        "id": "grid-full-512",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:10:13.1182711Z",
+        "completedUtc": "2026-11-06T14:21:48.4501162Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "auto-native",
+      "job": "energy-native-auto-4096",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "receipt": {
+        "id": "energy-native-auto-4096",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:05:48.5367990Z",
+        "completedUtc": "2026-11-06T14:11:23.9866043Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "auto-native",
+      "job": "energy-native-auto-8192",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "receipt": {
+        "id": "energy-native-auto-8192",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:11:23.9906057Z",
+        "completedUtc": "2026-11-06T14:17:40.1528261Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "controls",
+      "job": "defocus-full-256",
+      "inputSha256": "070bc1e1133cd5e7f2f807dc4be37286bf814d5ee37a7aaecfdb995d759ab88f",
+      "receipt": {
+        "id": "defocus-full-256",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:14:37.7744572Z",
+        "completedUtc": "2026-11-06T14:14:38.4865482Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "controls",
+      "job": "defocus-full-512",
+      "inputSha256": "070bc1e1133cd5e7f2f807dc4be37286bf814d5ee37a7aaecfdb995d759ab88f",
+      "receipt": {
+        "id": "defocus-full-512",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:14:38.4885484Z",
+        "completedUtc": "2026-11-06T14:14:39.2106550Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "controls",
+      "job": "defocus-energy-1024",
+      "inputSha256": "070bc1e1133cd5e7f2f807dc4be37286bf814d5ee37a7aaecfdb995d759ab88f",
+      "receipt": {
+        "id": "defocus-energy-1024",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:14:39.2106550Z",
+        "completedUtc": "2026-11-06T14:14:46.4381743Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "controls",
+      "job": "defocus-energy-2048",
+      "inputSha256": "070bc1e1133cd5e7f2f807dc4be37286bf814d5ee37a7aaecfdb995d759ab88f",
+      "receipt": {
+        "id": "defocus-energy-2048",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:14:46.4391745Z",
+        "completedUtc": "2026-11-06T14:15:19.8024678Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "controls",
+      "job": "inspect-partial-coherence",
+      "inputSha256": "070bc1e1133cd5e7f2f807dc4be37286bf814d5ee37a7aaecfdb995d759ab88f",
+      "receipt": {
+        "id": "inspect-partial-coherence",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:15:19.8034680Z",
+        "completedUtc": "2026-11-06T14:15:19.9301871Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "complex-native",
+      "job": "control-real",
+      "inputSha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "receipt": {
+        "id": "control-real",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:15:41.0767360Z",
+        "completedUtc": "2026-11-06T14:15:41.8254112Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "complex-native",
+      "job": "control-imaginary",
+      "inputSha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "receipt": {
+        "id": "control-imaginary",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:15:41.8274111Z",
+        "completedUtc": "2026-11-06T14:15:42.1165966Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "complex-native",
+      "job": "grid-real",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "receipt": {
+        "id": "grid-real",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:15:42.1175964Z",
+        "completedUtc": "2026-11-06T14:25:10.1539056Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "complex-native",
+      "job": "grid-imaginary",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "receipt": {
+        "id": "grid-imaginary",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:25:10.1549057Z",
+        "completedUtc": "2026-11-06T14:31:48.2805619Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement",
+      "job": "grid-full-512-step0.0025",
+      "inputSha256": "ae36eab4f103f0b66f5f236c103c5f3c87165f9682cc62cc9b3db0afa2a44a82",
+      "receipt": {
+        "id": "grid-full-512-step0.0025",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:23:44.5822600Z",
+        "completedUtc": "2026-11-06T14:36:24.0838034Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "refinement-fine",
+      "job": "grid-full-512-step0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "receipt": {
+        "id": "grid-full-512-step0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:37:59.5592767Z",
+        "completedUtc": "2026-11-06T15:07:36.2215233Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "phase-controls",
+      "job": "wavefront-0.005",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "receipt": {
+        "id": "wavefront-0.005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:38:49.1222200Z",
+        "completedUtc": "2026-11-06T14:39:01.4993737Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "phase-controls",
+      "job": "wavefront-0.0025",
+      "inputSha256": "ae36eab4f103f0b66f5f236c103c5f3c87165f9682cc62cc9b3db0afa2a44a82",
+      "receipt": {
+        "id": "wavefront-0.0025",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:39:01.5003740Z",
+        "completedUtc": "2026-11-06T14:39:25.9678491Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "phase-controls",
+      "job": "wavefront-0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "receipt": {
+        "id": "wavefront-0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:39:25.9688492Z",
+        "completedUtc": "2026-11-06T14:40:27.1459598Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "phase-controls",
+      "job": "wavefront-0.0005",
+      "inputSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69",
+      "receipt": {
+        "id": "wavefront-0.0005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:40:27.1469598Z",
+        "completedUtc": "2026-11-06T14:42:31.5586559Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "phase-controls-128",
+      "job": "wavefront-0.005",
+      "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "receipt": {
+        "id": "wavefront-0.005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:53:01.5432019Z",
+        "completedUtc": "2026-11-06T14:53:46.1245373Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "phase-controls-128",
+      "job": "wavefront-0.0025",
+      "inputSha256": "ae36eab4f103f0b66f5f236c103c5f3c87165f9682cc62cc9b3db0afa2a44a82",
+      "receipt": {
+        "id": "wavefront-0.0025",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:53:46.1255460Z",
+        "completedUtc": "2026-11-06T14:55:25.6900099Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "phase-controls-128",
+      "job": "wavefront-0.001",
+      "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "receipt": {
+        "id": "wavefront-0.001",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:55:25.6910140Z",
+        "completedUtc": "2026-11-06T14:59:25.8058296Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    },
+    {
+      "stage": "phase-controls-128",
+      "job": "wavefront-0.0005",
+      "inputSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69",
+      "receipt": {
+        "id": "wavefront-0.0005",
+        "exitCode": 0,
+        "startedUtc": "2026-11-06T14:59:25.8058296Z",
+        "completedUtc": "2026-11-06T15:07:02.5803832Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      }
+    }
+  ],
+  "members": [
+    {
+      "path": "native/native-jobs.json",
+      "sha256": "383adc6555a4323336942523cc972910ce2f680436bbe3f8032e440b749f1988",
+      "bytes": 2907
+    },
+    {
+      "path": "native/native.log",
+      "sha256": "acba3457b01e29190edf3246236a55690fc340787bac1e48176f632502ea5829",
+      "bytes": 255
+    },
+    {
+      "path": "native/host/source-identities.json",
+      "sha256": "06b040d1ef0de86ed3583b09c58cafd30d648c31c815e01f31b2fac9a3309147",
+      "bytes": 11273
+    },
+    {
+      "path": "native/host/NativeBinaryPsf.cs",
+      "sha256": "facd943c9b59e9002802c7d4032231c0f8a7dcc1d03f36269cdbe8655b07a960",
+      "bytes": 2913
+    },
+    {
+      "path": "native/host-v2/source-identities.json",
+      "sha256": "ade1c40dea526b64dd122625ebef6e8477002620a3817fb8ac67463933402905",
+      "bytes": 11339
+    },
+    {
+      "path": "native/host-v2/NativeBinaryPsf.cs",
+      "sha256": "44460f8f9e6873e0625921f73a7778c111234bcdff94a264f0579e8ed5b88378",
+      "bytes": 2944
+    },
+    {
+      "path": "native/requests/control-full-256.json",
+      "sha256": "6485e715d82b04dc908e72b4def9198e4a58dc63474bd10199b4e520bb7a8064",
+      "bytes": 2274
+    },
+    {
+      "path": "native/sources/focal-control.ZMX",
+      "sha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "bytes": 309
+    },
+    {
+      "path": "native/capture/control-full-256/batch-result.json",
+      "sha256": "d7acddf922a0958777f48bc762dc1572a85a398c6663059bf075c765f7dfcee8",
+      "bytes": 215
+    },
+    {
+      "path": "native/capture/control-full-256/model.json",
+      "sha256": "d8d19f391022a2afe70ef3196c1ca014405736876c12a56ecf714dba6a3a0224",
+      "bytes": 2940
+    },
+    {
+      "path": "native/capture/control-full-256/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/capture/control-full-256/captured-settings.json",
+      "sha256": "aeabc65935c302dda31e7d305ec46d7ce751c0105591b84d8359242d18eea273",
+      "bytes": 2123
+    },
+    {
+      "path": "native/capture/control-full-256/settings.CFG",
+      "sha256": "17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703",
+      "bytes": 18448
+    },
+    {
+      "path": "native/capture/control-full-256/psf-grid.json",
+      "sha256": "c14e284e977e7ef784ea764b13518d2f0b379fdf9615615d3b8e16f883a6a9ff",
+      "bytes": 540
+    },
+    {
+      "path": "native/capture/control-full-256/grid-f64le.bin",
+      "sha256": "9bfeb66eac20af437925f579303544ff738c4e9933bc3cdd1c68cc4e4f7c8ed6",
+      "bytes": 131072
+    },
+    {
+      "path": "native/capture/control-full-256/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "native/requests/control-full-512.json",
+      "sha256": "6ae24209fb4dee00ebf6c794e4cda4abf19ec47d5324691a2293ee5635ba8c67",
+      "bytes": 2276
+    },
+    {
+      "path": "native/capture/control-full-512/batch-result.json",
+      "sha256": "efd8052860d3a77b137cb05ed6606cb01c70ea549d53e121c33d0f8daf1c0c2f",
+      "bytes": 215
+    },
+    {
+      "path": "native/capture/control-full-512/model.json",
+      "sha256": "d8d19f391022a2afe70ef3196c1ca014405736876c12a56ecf714dba6a3a0224",
+      "bytes": 2940
+    },
+    {
+      "path": "native/capture/control-full-512/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/capture/control-full-512/captured-settings.json",
+      "sha256": "548f0ac662800ed90bafc84893f72a166f9f4c00068d093ab07e91aa758f1514",
+      "bytes": 2125
+    },
+    {
+      "path": "native/capture/control-full-512/settings.CFG",
+      "sha256": "17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703",
+      "bytes": 18448
+    },
+    {
+      "path": "native/capture/control-full-512/psf-grid.json",
+      "sha256": "c14e284e977e7ef784ea764b13518d2f0b379fdf9615615d3b8e16f883a6a9ff",
+      "bytes": 540
+    },
+    {
+      "path": "native/capture/control-full-512/grid-f64le.bin",
+      "sha256": "9bfeb66eac20af437925f579303544ff738c4e9933bc3cdd1c68cc4e4f7c8ed6",
+      "bytes": 131072
+    },
+    {
+      "path": "native/capture/control-full-512/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "native/requests/control-native-profile.json",
+      "sha256": "24a1e648965889ee31a95b380374cee4d1929e101a7cbf1fd728fbaeedb6930e",
+      "bytes": 3059
+    },
+    {
+      "path": "native/capture/control-native-profile/batch-result.json",
+      "sha256": "7132eee4e170150c5dfe0c3da58948bdf22ce03585a5c5c3b78422ed95a0d2cd",
+      "bytes": 221
+    },
+    {
+      "path": "native/capture/control-native-profile/model.json",
+      "sha256": "d8d19f391022a2afe70ef3196c1ca014405736876c12a56ecf714dba6a3a0224",
+      "bytes": 2940
+    },
+    {
+      "path": "native/capture/control-native-profile/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/capture/control-native-profile/captured-settings.json",
+      "sha256": "6bf05ffb4068a345aa48c1d77756d49017953569e70a83ae144f97ece9b96373",
+      "bytes": 2658
+    },
+    {
+      "path": "native/capture/control-native-profile/settings.CFG",
+      "sha256": "2a9e16e8d713f765068dd18ce124f3359bb99daec66aa724f11337595cf51054",
+      "bytes": 18448
+    },
+    {
+      "path": "native/capture/control-native-profile/data.json",
+      "sha256": "abfcc838b4630130536a2e0c9a4c1ae1c694f854b553eccda704da153648707c",
+      "bytes": 445
+    },
+    {
+      "path": "native/capture/control-native-profile/data.txt",
+      "sha256": "31971847156fe4948640f1e2a2d5ef2fc5906ea119f5061ce42c79188935fab4",
+      "bytes": 68390
+    },
+    {
+      "path": "native/capture/control-native-profile/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "native/requests/control-native-energy.json",
+      "sha256": "9d7d201a1716c48faffdeb1401a40450611790b0aef72be5a63e49cbf021af6c",
+      "bytes": 2680
+    },
+    {
+      "path": "native/capture/control-native-energy/batch-result.json",
+      "sha256": "6943e773271ccee6f1f65f08c848cf5c510d81b5cdb4821bacd6ba3293bb62c5",
+      "bytes": 220
+    },
+    {
+      "path": "native/capture/control-native-energy/model.json",
+      "sha256": "d8d19f391022a2afe70ef3196c1ca014405736876c12a56ecf714dba6a3a0224",
+      "bytes": 2940
+    },
+    {
+      "path": "native/capture/control-native-energy/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native/capture/control-native-energy/captured-settings.json",
+      "sha256": "e0a1b6dbef0079931328d8e3e3d26b527ee4e3d3ce2175d7a7c8cedc5d069f8c",
+      "bytes": 2538
+    },
+    {
+      "path": "native/capture/control-native-energy/settings.CFG",
+      "sha256": "5b2a481a32686aac82bff38e4e613e6bf2c64ac661005479bb85c8d9df7e9c94",
+      "bytes": 18448
+    },
+    {
+      "path": "native/capture/control-native-energy/data.json",
+      "sha256": "ad566a1b38103265398614d002243669a61156c35cece9607e9a179e13e7d797",
+      "bytes": 32989
+    },
+    {
+      "path": "native/capture/control-native-energy/data.txt",
+      "sha256": "5f8e08cbc9e513386bf73f7df5538ce0a5ddcc9f5dbd2bcf223d0e9960ca862a",
+      "bytes": 15328
+    },
+    {
+      "path": "native/capture/control-native-energy/result-diagnostics.json",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "path": "native-full/native-jobs.json",
+      "sha256": "a2ea389678581e1ef7d372a901405e26bbf8955b5b624da55ae15777943b05e1",
+      "bytes": 3432
+    },
+    {
+      "path": "native-full/native.log",
+      "sha256": "98700f8f8d081e9915195c8bcc9030433a91c2bfcd64cf37176880cecf83008c",
+      "bytes": 380
+    },
+    {
+      "path": "native-full/host-v2/source-identities.json",
+      "sha256": "ba17dfe9449806564c98e08f2022eece1c12ddb4c6ac49fe7887dda3294eb5d1",
+      "bytes": 11449
+    },
+    {
+      "path": "native-full/host-v2/NativeBinaryPsf.cs",
+      "sha256": "44460f8f9e6873e0625921f73a7778c111234bcdff94a264f0579e8ed5b88378",
+      "bytes": 2944
+    },
+    {
+      "path": "native-full/requests/control-full-256.json",
+      "sha256": "05fa07f641dcc25b214c54454952a9ea1a590f00c1525e054c66b20aa17e3b0f",
+      "bytes": 2271
+    },
+    {
+      "path": "native-full/sources/focal-control.ZMX",
+      "sha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "bytes": 309
+    },
+    {
+      "path": "native-full/capture/control-full-256/batch-result.json",
+      "sha256": "ba5573286935d14076cd6549609f48ced28fc31642bf45cd116f05870af4fc8a",
+      "bytes": 215
+    },
+    {
+      "path": "native-full/capture/control-full-256/model.json",
+      "sha256": "d8d19f391022a2afe70ef3196c1ca014405736876c12a56ecf714dba6a3a0224",
+      "bytes": 2940
+    },
+    {
+      "path": "native-full/capture/control-full-256/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native-full/capture/control-full-256/captured-settings.json",
+      "sha256": "16fdca263119f4758b2970a9e717d097767feeafd432a0b2e329dd7ed5ca7cd2",
+      "bytes": 2116
+    },
+    {
+      "path": "native-full/capture/control-full-256/settings.CFG",
+      "sha256": "e64c1c64679808be38ac085960eaae24a97e96d7429c0369c006655f85174c29",
+      "bytes": 18448
+    },
+    {
+      "path": "native-full/capture/control-full-256/psf-grid.json",
+      "sha256": "4701f2ddd8068b8fc6709b688f3ba73ad30e72f3eb54df3069e40999195bc0fb",
+      "bytes": 587
+    },
+    {
+      "path": "native-full/capture/control-full-256/grid-f64le.bin",
+      "sha256": "cdd8317633bbdd0620ff1044b2a9f88ff9e9eaa0215b484049a6c99b4090fe13",
+      "bytes": 2097152
+    },
+    {
+      "path": "native-full/capture/control-full-256/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "native-full/requests/control-default-256.json",
+      "sha256": "e2937bef9246dc7e6562e6a44dff96649f2f121fe7f9e8c1fa9a2768e5d5836c",
+      "bytes": 2269
+    },
+    {
+      "path": "native-full/capture/control-default-256/batch-result.json",
+      "sha256": "4628e7b76844a75c5718a8a9d515c5733d694451e55a1e6d6d779e21675d0931",
+      "bytes": 218
+    },
+    {
+      "path": "native-full/capture/control-default-256/model.json",
+      "sha256": "d8d19f391022a2afe70ef3196c1ca014405736876c12a56ecf714dba6a3a0224",
+      "bytes": 2940
+    },
+    {
+      "path": "native-full/capture/control-default-256/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native-full/capture/control-default-256/captured-settings.json",
+      "sha256": "b9de3468b67135119c30fa20cdab22b5924a4aa8d7d7de769a045a431324b51a",
+      "bytes": 2113
+    },
+    {
+      "path": "native-full/capture/control-default-256/settings.CFG",
+      "sha256": "01ada044d2c678ab73f599b4469c264513d7561a95e5d0be9083a240bf7ec096",
+      "bytes": 18448
+    },
+    {
+      "path": "native-full/capture/control-default-256/psf-grid.json",
+      "sha256": "c29d78c704f8b95f881fd29a5b3c7488b40908799c0cc33ab1bd01f1121213aa",
+      "bytes": 587
+    },
+    {
+      "path": "native-full/capture/control-default-256/grid-f64le.bin",
+      "sha256": "38cd1b876835d6161a28f506efd7af71372d9bdfe556d0c0953a79a5c8447fce",
+      "bytes": 2097152
+    },
+    {
+      "path": "native-full/capture/control-default-256/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "native-full/requests/control-full-512.json",
+      "sha256": "40aec6fdd810f89cf0ed7c48fc3e8fbca47c565b4bce5091a75f82029a891124",
+      "bytes": 2275
+    },
+    {
+      "path": "native-full/capture/control-full-512/batch-result.json",
+      "sha256": "bbd977e363b3b0e6525e9c4e03c36e13fb14d0dc06dcf47d2207b404f9d0bffe",
+      "bytes": 215
+    },
+    {
+      "path": "native-full/capture/control-full-512/model.json",
+      "sha256": "d8d19f391022a2afe70ef3196c1ca014405736876c12a56ecf714dba6a3a0224",
+      "bytes": 2940
+    },
+    {
+      "path": "native-full/capture/control-full-512/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native-full/capture/control-full-512/captured-settings.json",
+      "sha256": "b0dbd20407ef5dc830f0cbb82067b8c19ffc5a21876a5187d49474780ea92fe9",
+      "bytes": 2122
+    },
+    {
+      "path": "native-full/capture/control-full-512/settings.CFG",
+      "sha256": "849070aa0d22f03dc2f0b5e7409e3db60e3ccb8ebbfd2e6214014342a2f105b5",
+      "bytes": 18448
+    },
+    {
+      "path": "native-full/capture/control-full-512/psf-grid.json",
+      "sha256": "f2070d0a4295e5586a4fe8f37a1690a051bf9b323edf4552045f725f12da4580",
+      "bytes": 594
+    },
+    {
+      "path": "native-full/capture/control-full-512/grid-f64le.bin",
+      "sha256": "fba3ca286ace50345adedc3cf0aba428c9d9add187f274d472e301dcd4350722",
+      "bytes": 8388608
+    },
+    {
+      "path": "native-full/capture/control-full-512/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "native-full/requests/control-native-energy-1024.json",
+      "sha256": "fa1b2d51419abe10963e01475b8aa700aea12163bbc9855f0dc4189f41d8226a",
+      "bytes": 2682
+    },
+    {
+      "path": "native-full/capture/control-native-energy-1024/batch-result.json",
+      "sha256": "19ca341ded95b03f6d3d1eb5be29e764869f7054200717cde2016f1dafca9710",
+      "bytes": 225
+    },
+    {
+      "path": "native-full/capture/control-native-energy-1024/model.json",
+      "sha256": "d8d19f391022a2afe70ef3196c1ca014405736876c12a56ecf714dba6a3a0224",
+      "bytes": 2940
+    },
+    {
+      "path": "native-full/capture/control-native-energy-1024/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native-full/capture/control-native-energy-1024/captured-settings.json",
+      "sha256": "33993bf112b42b6685838d35c593764933645b4b54db56d618a471faf691701d",
+      "bytes": 2542
+    },
+    {
+      "path": "native-full/capture/control-native-energy-1024/settings.CFG",
+      "sha256": "bfa28fd4c29a5773d6a330e5820ebe5b35ff45f9e0e2e42eb2f5ea17f2fc3047",
+      "bytes": 18448
+    },
+    {
+      "path": "native-full/capture/control-native-energy-1024/data.json",
+      "sha256": "35bddc07442e12af3f286bb343bdbc3632cc2dcff11db79e58fc5b5ef31fe9d5",
+      "bytes": 32995
+    },
+    {
+      "path": "native-full/capture/control-native-energy-1024/data.txt",
+      "sha256": "7ce0f0181df96cae269faeef2f58230cb706431e27c5a956dc9c111f634170ec",
+      "bytes": 15328
+    },
+    {
+      "path": "native-full/capture/control-native-energy-1024/result-diagnostics.json",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "path": "native-full/requests/control-native-energy-2048.json",
+      "sha256": "04434324f00d4f6c49e3592ca76e269529b2674ff03eeeb66366a38fd1292548",
+      "bytes": 2682
+    },
+    {
+      "path": "native-full/capture/control-native-energy-2048/batch-result.json",
+      "sha256": "8fb04e38b7587eecec4993b99a0b14753ee2cb2301936780898b3449922ebe9a",
+      "bytes": 225
+    },
+    {
+      "path": "native-full/capture/control-native-energy-2048/model.json",
+      "sha256": "d8d19f391022a2afe70ef3196c1ca014405736876c12a56ecf714dba6a3a0224",
+      "bytes": 2940
+    },
+    {
+      "path": "native-full/capture/control-native-energy-2048/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native-full/capture/control-native-energy-2048/captured-settings.json",
+      "sha256": "35c18c4c7fa698688269b8fde85bc67c04ad633889c432c552cf1680975c1e25",
+      "bytes": 2542
+    },
+    {
+      "path": "native-full/capture/control-native-energy-2048/settings.CFG",
+      "sha256": "88d683b7421abb32c15bfdc067f1a7f7d157ee1ca9b63f3175194cef7dc5e1bb",
+      "bytes": 18448
+    },
+    {
+      "path": "native-full/capture/control-native-energy-2048/data.json",
+      "sha256": "f25f6fe36a28361d9fe7e66a296920fa6f0924ff3d694501aaac7284b4fce9eb",
+      "bytes": 32993
+    },
+    {
+      "path": "native-full/capture/control-native-energy-2048/data.txt",
+      "sha256": "3458a51865e16f526ead87697756354cb7993355d68c421d51c0626d5c0d7e2d",
+      "bytes": 15328
+    },
+    {
+      "path": "native-full/capture/control-native-energy-2048/result-diagnostics.json",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "path": "native-full/requests/grid-full-512.json",
+      "sha256": "8a4647de64ebba60462a530770218c4f75d6a69ff5d43f15fb3552e07358d79d",
+      "bytes": 2241
+    },
+    {
+      "path": "native-full/sources/grid-0.005.ZMX",
+      "sha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "bytes": 6128
+    },
+    {
+      "path": "native-full/capture/grid-full-512/batch-result.json",
+      "sha256": "68ebce8b80d56253abfae0193224c18f99d30cef565b5df74f6ba42239526290",
+      "bytes": 212
+    },
+    {
+      "path": "native-full/capture/grid-full-512/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "native-full/capture/grid-full-512/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "native-full/capture/grid-full-512/captured-settings.json",
+      "sha256": "c37ecc9255c70f62179f4e1548ceb94a2a1a3042d6ae649f177b3f0ce431d4b2",
+      "bytes": 2095
+    },
+    {
+      "path": "native-full/capture/grid-full-512/settings.CFG",
+      "sha256": "e31ba29727a3fefeb8633ba59d0a923d58350b2259f1a74b2e26e86862de5f18",
+      "bytes": 18448
+    },
+    {
+      "path": "native-full/capture/grid-full-512/psf-grid.json",
+      "sha256": "da6e44d99a294119e5aa2a878d18b9033fb02ba339f9de6f23666e2e9111bc86",
+      "bytes": 617
+    },
+    {
+      "path": "native-full/capture/grid-full-512/grid-f64le.bin",
+      "sha256": "6ec81a5a32481f6d7064a68567185dcc009bc0914bffb9ca04610e24a42cdc44",
+      "bytes": 8388608
+    },
+    {
+      "path": "native-full/capture/grid-full-512/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "auto-native/native-jobs.json",
+      "sha256": "76d805b8c031fa1e183c22b1a101f267f277f329b93fbb3b51df0579818e07fe",
+      "bytes": 885
+    },
+    {
+      "path": "auto-native/native.log",
+      "sha256": "b9a4c38715c98b79366ece051c51a8cea8260a047eb376ff8804151217e226a4",
+      "bytes": 208
+    },
+    {
+      "path": "auto-native/host/source-identities.json",
+      "sha256": "aa8fa947b5ce1da5678bb6e1b2b6b483ed040c4840a6806593fde33a608370fd",
+      "bytes": 11383
+    },
+    {
+      "path": "auto-native/requests/energy-native-auto-4096.json",
+      "sha256": "f8855c84cf6c0064a08dd63ffbb27c8c35fd8d8a48eee74ba9856cd1204d060f",
+      "bytes": 2670
+    },
+    {
+      "path": "auto-native/sources/grid-0.005.ZMX",
+      "sha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "bytes": 6128
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-4096/batch-result.json",
+      "sha256": "fb8941140021f6e4c9d1f83e199f08fec1daf27bde02722a9f6e815813bc5998",
+      "bytes": 222
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-4096/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-4096/environment.json",
+      "sha256": "e5c43a2015a4068427d0e28f7c45bf27dfca8a494ffeec24d0a7a91188318664",
+      "bytes": 3520
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-4096/captured-settings.json",
+      "sha256": "2a97ca3fcb51e37ca68555a95c541e5bb473e11ff2992720803fef1a0729bfa1",
+      "bytes": 2530
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-4096/settings.CFG",
+      "sha256": "9ee39d70570bb4d151bfe950ffb3aab48a569819ea1808706770142b8519e5d6",
+      "bytes": 18448
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-4096/data.json",
+      "sha256": "eea186a4d63b4e48fc761572cecb8ab6f29400d4b55274a070986118e0a6239e",
+      "bytes": 472
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-4096/data.txt",
+      "sha256": "7cd11ce222496342b61d27f3e32fdb37b05727b02d6e75f0f52255b9cd65ad36",
+      "bytes": 34
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-4096/result-diagnostics.json",
+      "sha256": "617ffb7b2b044eb4ce420120e86d317b9266f94245f2dda4ad604a86a469e23e",
+      "bytes": 108
+    },
+    {
+      "path": "auto-native/requests/energy-native-auto-8192.json",
+      "sha256": "9fe85bc95bc054587c38f977d8d9460370c2f8ad17670b4d2f42b8382d637ff7",
+      "bytes": 2670
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-8192/batch-result.json",
+      "sha256": "0a9b6c29721bdfa692436581c28353fe77763e7630134a4eca0b858ae5db47db",
+      "bytes": 222
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-8192/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-8192/environment.json",
+      "sha256": "e5c43a2015a4068427d0e28f7c45bf27dfca8a494ffeec24d0a7a91188318664",
+      "bytes": 3520
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-8192/captured-settings.json",
+      "sha256": "2273f7a7bac17f469bb94bbab06c7f89fe556d48b8478f70d6e4b16de009de19",
+      "bytes": 2530
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-8192/settings.CFG",
+      "sha256": "954bfab5165f7fd51e5c4e9e69615ae75c8c3fbcdaef5392349793ef563028a2",
+      "bytes": 18448
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-8192/data.json",
+      "sha256": "eea186a4d63b4e48fc761572cecb8ab6f29400d4b55274a070986118e0a6239e",
+      "bytes": 472
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-8192/data.txt",
+      "sha256": "7cd11ce222496342b61d27f3e32fdb37b05727b02d6e75f0f52255b9cd65ad36",
+      "bytes": 34
+    },
+    {
+      "path": "auto-native/capture/energy-native-auto-8192/result-diagnostics.json",
+      "sha256": "617ffb7b2b044eb4ce420120e86d317b9266f94245f2dda4ad604a86a469e23e",
+      "bytes": 108
+    },
+    {
+      "path": "controls/native-jobs.json",
+      "sha256": "443740edf2f6f12f0822376042d1730b87a8561a6f1d2968a369d0e0b0d4550c",
+      "bytes": 2115
+    },
+    {
+      "path": "controls/native.log",
+      "sha256": "cd9aa42d4f2c94d6fb8422bcf408566197b1bf08c5d936dc1c2e12c0d6917e0f",
+      "bytes": 369
+    },
+    {
+      "path": "controls/host-v2/source-identities.json",
+      "sha256": "0b0629c0c5e9b3d1f21ff56c99212e601d80b3090e9f9b252dc8896634a616f5",
+      "bytes": 11383
+    },
+    {
+      "path": "controls/host-v2/NativeBinaryPsf.cs",
+      "sha256": "44460f8f9e6873e0625921f73a7778c111234bcdff94a264f0579e8ed5b88378",
+      "bytes": 2944
+    },
+    {
+      "path": "controls/requests/defocus-full-256.json",
+      "sha256": "fa7acebe3a2e5deea611443f27b7064c242b87011a92159681b91d60bf179650",
+      "bytes": 2269
+    },
+    {
+      "path": "controls/sources/defocused.ZMX",
+      "sha256": "070bc1e1133cd5e7f2f807dc4be37286bf814d5ee37a7aaecfdb995d759ab88f",
+      "bytes": 311
+    },
+    {
+      "path": "controls/capture/defocus-full-256/batch-result.json",
+      "sha256": "86d03acdc4224c7187dcfbad91543b56bde43c4f73cf318afebc458a28f6df8a",
+      "bytes": 215
+    },
+    {
+      "path": "controls/capture/defocus-full-256/model.json",
+      "sha256": "0d4037dd1c9054d0e9a9e8f22938f668b0f84a80ade788f7c8939c5cf86c9eac",
+      "bytes": 2942
+    },
+    {
+      "path": "controls/capture/defocus-full-256/environment.json",
+      "sha256": "2614872d87fda72f5c876b3e54425ddf10ba841081c20ca793247c383c2572f8",
+      "bytes": 3520
+    },
+    {
+      "path": "controls/capture/defocus-full-256/captured-settings.json",
+      "sha256": "7b0fc4cfbee23934b862566fb9e39e6bfcc6806bc238b4526e63af8ebb8e9bb9",
+      "bytes": 2114
+    },
+    {
+      "path": "controls/capture/defocus-full-256/settings.CFG",
+      "sha256": "e64c1c64679808be38ac085960eaae24a97e96d7429c0369c006655f85174c29",
+      "bytes": 18448
+    },
+    {
+      "path": "controls/capture/defocus-full-256/psf-grid.json",
+      "sha256": "b88ac72cf804fba7faa8e1ca805e5316529c5c6d6c949cac8713633b08ab09df",
+      "bytes": 606
+    },
+    {
+      "path": "controls/capture/defocus-full-256/grid-f64le.bin",
+      "sha256": "c8381c8915bd247b7e60f10c4b03562af945ae35401f60980bb21ae16da3a5ac",
+      "bytes": 2097152
+    },
+    {
+      "path": "controls/capture/defocus-full-256/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "controls/requests/defocus-full-512.json",
+      "sha256": "5e4e881a7bd76629292e3cdbffa44f1f07d206eacac62f20db27f25c4dcb77e9",
+      "bytes": 2273
+    },
+    {
+      "path": "controls/capture/defocus-full-512/batch-result.json",
+      "sha256": "9abee13380fcac92344e9f08042a8def748c53ac37abed0139241fdb0f40b3fd",
+      "bytes": 215
+    },
+    {
+      "path": "controls/capture/defocus-full-512/model.json",
+      "sha256": "0d4037dd1c9054d0e9a9e8f22938f668b0f84a80ade788f7c8939c5cf86c9eac",
+      "bytes": 2942
+    },
+    {
+      "path": "controls/capture/defocus-full-512/environment.json",
+      "sha256": "2614872d87fda72f5c876b3e54425ddf10ba841081c20ca793247c383c2572f8",
+      "bytes": 3520
+    },
+    {
+      "path": "controls/capture/defocus-full-512/captured-settings.json",
+      "sha256": "7efc635a59c1bb23a14f6e2e843b3ef983d1dd170875444b5205f61476a0f622",
+      "bytes": 2120
+    },
+    {
+      "path": "controls/capture/defocus-full-512/settings.CFG",
+      "sha256": "849070aa0d22f03dc2f0b5e7409e3db60e3ccb8ebbfd2e6214014342a2f105b5",
+      "bytes": 18448
+    },
+    {
+      "path": "controls/capture/defocus-full-512/psf-grid.json",
+      "sha256": "770f66a6b05b3f51e6e473cfb1a2afa7edf16ca3474020c1ec523c0814c8bf05",
+      "bytes": 614
+    },
+    {
+      "path": "controls/capture/defocus-full-512/grid-f64le.bin",
+      "sha256": "92931be22858d9184e8aa27506230f2cb704a0b93cae59694e911293d9eaca56",
+      "bytes": 8388608
+    },
+    {
+      "path": "controls/capture/defocus-full-512/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "controls/requests/defocus-energy-1024.json",
+      "sha256": "c06acf392b64281f60f80e3a04d2fc4ca363baf2a9d63fbfe8e9c4f3cc684c88",
+      "bytes": 2680
+    },
+    {
+      "path": "controls/capture/defocus-energy-1024/batch-result.json",
+      "sha256": "baa5c212cadde3f33823e29dc29a8ee2f4a7f9cc6b61f41fd8acc39cc7ff9ebd",
+      "bytes": 218
+    },
+    {
+      "path": "controls/capture/defocus-energy-1024/model.json",
+      "sha256": "0d4037dd1c9054d0e9a9e8f22938f668b0f84a80ade788f7c8939c5cf86c9eac",
+      "bytes": 2942
+    },
+    {
+      "path": "controls/capture/defocus-energy-1024/environment.json",
+      "sha256": "2614872d87fda72f5c876b3e54425ddf10ba841081c20ca793247c383c2572f8",
+      "bytes": 3520
+    },
+    {
+      "path": "controls/capture/defocus-energy-1024/captured-settings.json",
+      "sha256": "635de473aaa7d5e9476694134a1a16062a6f91198f511bea968bc0c7fa2c1a26",
+      "bytes": 2540
+    },
+    {
+      "path": "controls/capture/defocus-energy-1024/settings.CFG",
+      "sha256": "bfa28fd4c29a5773d6a330e5820ebe5b35ff45f9e0e2e42eb2f5ea17f2fc3047",
+      "bytes": 18448
+    },
+    {
+      "path": "controls/capture/defocus-energy-1024/data.json",
+      "sha256": "249d1a119fa4d48158a6bbf77f94a60a83d40f9e1ea732696b3273c5ea2c029c",
+      "bytes": 33704
+    },
+    {
+      "path": "controls/capture/defocus-energy-1024/data.txt",
+      "sha256": "722d6ac9c053e4aca5385a0f32b840b0c25e78431aaf02d77d8a2089a1fc2f3c",
+      "bytes": 15324
+    },
+    {
+      "path": "controls/capture/defocus-energy-1024/result-diagnostics.json",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "path": "controls/requests/defocus-energy-2048.json",
+      "sha256": "62d7b864842382eb0e863c22c426de7291234244cd9f373a2e8ed2d8c9ebd8e2",
+      "bytes": 2680
+    },
+    {
+      "path": "controls/capture/defocus-energy-2048/batch-result.json",
+      "sha256": "8b5ed97d4c458cc8d6ccf21e2aec8ff1e2a22c87cb5f43327f17c55b5db1e642",
+      "bytes": 218
+    },
+    {
+      "path": "controls/capture/defocus-energy-2048/model.json",
+      "sha256": "0d4037dd1c9054d0e9a9e8f22938f668b0f84a80ade788f7c8939c5cf86c9eac",
+      "bytes": 2942
+    },
+    {
+      "path": "controls/capture/defocus-energy-2048/environment.json",
+      "sha256": "2614872d87fda72f5c876b3e54425ddf10ba841081c20ca793247c383c2572f8",
+      "bytes": 3520
+    },
+    {
+      "path": "controls/capture/defocus-energy-2048/captured-settings.json",
+      "sha256": "60f235ea5db919fd388db3a3e9820e5a41d899bc9188b323b54753557c46960f",
+      "bytes": 2540
+    },
+    {
+      "path": "controls/capture/defocus-energy-2048/settings.CFG",
+      "sha256": "88d683b7421abb32c15bfdc067f1a7f7d157ee1ca9b63f3175194cef7dc5e1bb",
+      "bytes": 18448
+    },
+    {
+      "path": "controls/capture/defocus-energy-2048/data.json",
+      "sha256": "e2acb836b74845cfbef36309d8b01309ff2a39c6c11fd3bde419c82189461cfe",
+      "bytes": 33673
+    },
+    {
+      "path": "controls/capture/defocus-energy-2048/data.txt",
+      "sha256": "1e0652a00d8eb655d0e45e2d685ccd4b540ef655cfa2bef3901f9abf79f4628c",
+      "bytes": 15324
+    },
+    {
+      "path": "controls/capture/defocus-energy-2048/result-diagnostics.json",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "path": "controls/requests/inspect-partial-coherence.json",
+      "sha256": "4d155255acb96d5902db3d38293ceec2bb583ea75e96eec90dc6088b94726e91",
+      "bytes": 2382
+    },
+    {
+      "path": "controls/capture/inspect-partial-coherence/batch-result.json",
+      "sha256": "3e16d9f275d23c45d0f287aa4433a55e6bb1294be886e0883f5e05b820fee54d",
+      "bytes": 224
+    },
+    {
+      "path": "controls/capture/inspect-partial-coherence/model.json",
+      "sha256": "0d4037dd1c9054d0e9a9e8f22938f668b0f84a80ade788f7c8939c5cf86c9eac",
+      "bytes": 2942
+    },
+    {
+      "path": "controls/capture/inspect-partial-coherence/environment.json",
+      "sha256": "2614872d87fda72f5c876b3e54425ddf10ba841081c20ca793247c383c2572f8",
+      "bytes": 3520
+    },
+    {
+      "path": "complex-native/native-jobs.json",
+      "sha256": "54488306b8b35122460c64802b147d3dfc9b6ec05b69ffe30762389466858a9d",
+      "bytes": 1669
+    },
+    {
+      "path": "complex-native/native.log",
+      "sha256": "159a6d80ea07fced209af932d9bfa81186873aa7923b3c14119c894736efd7fc",
+      "bytes": 262
+    },
+    {
+      "path": "complex-native/host-v2/source-identities.json",
+      "sha256": "ac08a2953af8fc1681427dac1b146464471e54ff7add2c7a19e337d12e9adabb",
+      "bytes": 11515
+    },
+    {
+      "path": "complex-native/host-v2/NativeBinaryPsf.cs",
+      "sha256": "6028ff75e701b19861377d717c9b66b7f9047d0cf99c3c0081f2e07a651389e2",
+      "bytes": 3080
+    },
+    {
+      "path": "complex-native/requests/control-real.json",
+      "sha256": "6bdda3216209c8cf149fa4e8bd6dc31ebb5549d59107d2c114d93735bc39734a",
+      "bytes": 2326
+    },
+    {
+      "path": "complex-native/sources/focal-control.ZMX",
+      "sha256": "13d8539bcb40652ead312b84afc76ab9c001b0bd09c8dab0c083e7455eec04fa",
+      "bytes": 309
+    },
+    {
+      "path": "complex-native/capture/control-real/batch-result.json",
+      "sha256": "7c9f785a061dc8e394166ae76e0729848de0ab8e45a35efa253359a4e7c7d578",
+      "bytes": 211
+    },
+    {
+      "path": "complex-native/capture/control-real/model.json",
+      "sha256": "d8d19f391022a2afe70ef3196c1ca014405736876c12a56ecf714dba6a3a0224",
+      "bytes": 2940
+    },
+    {
+      "path": "complex-native/capture/control-real/environment.json",
+      "sha256": "2614872d87fda72f5c876b3e54425ddf10ba841081c20ca793247c383c2572f8",
+      "bytes": 3520
+    },
+    {
+      "path": "complex-native/capture/control-real/captured-settings.json",
+      "sha256": "a1296c8649ab843c55cc76f382575bec46d04e697714b871006f173f1d673e7f",
+      "bytes": 2157
+    },
+    {
+      "path": "complex-native/capture/control-real/settings.CFG",
+      "sha256": "76dbf37b5c69ea0ce1c2477ac6b268f4f843945da243b8e9d86227bfed85da1b",
+      "bytes": 18448
+    },
+    {
+      "path": "complex-native/capture/control-real/psf-grid.json",
+      "sha256": "a64c7eb1b371c8b5f97a05c77137a364f40acb4e777a8275adb6831ecd79df43",
+      "bytes": 619
+    },
+    {
+      "path": "complex-native/capture/control-real/grid-f64le.bin",
+      "sha256": "87033650d8ab6d9d0ec6dfecadd841cf226f7ef7b7e4aa4ee4ce1100c894566c",
+      "bytes": 2097152
+    },
+    {
+      "path": "complex-native/capture/control-real/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "complex-native/requests/control-imaginary.json",
+      "sha256": "d5cfdcd5f3425c725556c8f8e1c7982bb675f0c2a22b2ec7a73d7d61575de240",
+      "bytes": 2336
+    },
+    {
+      "path": "complex-native/capture/control-imaginary/batch-result.json",
+      "sha256": "84f6daf1da36f62c8b60773bc18cb37f0a2487220b9eb382d05102d4fd532ac7",
+      "bytes": 216
+    },
+    {
+      "path": "complex-native/capture/control-imaginary/model.json",
+      "sha256": "d8d19f391022a2afe70ef3196c1ca014405736876c12a56ecf714dba6a3a0224",
+      "bytes": 2940
+    },
+    {
+      "path": "complex-native/capture/control-imaginary/environment.json",
+      "sha256": "2614872d87fda72f5c876b3e54425ddf10ba841081c20ca793247c383c2572f8",
+      "bytes": 3520
+    },
+    {
+      "path": "complex-native/capture/control-imaginary/captured-settings.json",
+      "sha256": "7519553fca4071548f1c0c29e64c77a7d620e3f9f86c76355c9e6a3d0efc856d",
+      "bytes": 2172
+    },
+    {
+      "path": "complex-native/capture/control-imaginary/settings.CFG",
+      "sha256": "182d3b5159c345ba448be9da833c519db811c83b8f727426e2c82340f30a29aa",
+      "bytes": 18448
+    },
+    {
+      "path": "complex-native/capture/control-imaginary/psf-grid.json",
+      "sha256": "24867640a548ab38443f3611871667516799b93f6e0ea75c20da43f7db7e6c43",
+      "bytes": 644
+    },
+    {
+      "path": "complex-native/capture/control-imaginary/grid-f64le.bin",
+      "sha256": "d1d83053f71fdc97fb3eaa2f11b605a5d655f1531c42d98422f69997f698da61",
+      "bytes": 2097152
+    },
+    {
+      "path": "complex-native/capture/control-imaginary/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "complex-native/requests/grid-real.json",
+      "sha256": "4348db186d954dd09ecdd8db0a2bc4f2395ed7bf0f51dfb8bab4222115a68e83",
+      "bytes": 2296
+    },
+    {
+      "path": "complex-native/sources/grid-0.005.ZMX",
+      "sha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "bytes": 6128
+    },
+    {
+      "path": "complex-native/capture/grid-real/batch-result.json",
+      "sha256": "802ab204e6ec2fce7cb166561ce5595a3f32001b4182a34e99f60be45d7ff3a6",
+      "bytes": 208
+    },
+    {
+      "path": "complex-native/capture/grid-real/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "complex-native/capture/grid-real/environment.json",
+      "sha256": "2614872d87fda72f5c876b3e54425ddf10ba841081c20ca793247c383c2572f8",
+      "bytes": 3520
+    },
+    {
+      "path": "complex-native/capture/grid-real/captured-settings.json",
+      "sha256": "39db4a8f8efe80eff7b192dc962b4a582c1bb782826024c83b3ee997a4a8b432",
+      "bytes": 2136
+    },
+    {
+      "path": "complex-native/capture/grid-real/settings.CFG",
+      "sha256": "335ccaf1056f47c4babf31da6d8e55d66b5912152b9ed57cd802f4cda3623cbb",
+      "bytes": 18448
+    },
+    {
+      "path": "complex-native/capture/grid-real/psf-grid.json",
+      "sha256": "18dfdcbbb2311dc4e793afb4e195629edf0f9229a561331d92a85c9508b86a85",
+      "bytes": 646
+    },
+    {
+      "path": "complex-native/capture/grid-real/grid-f64le.bin",
+      "sha256": "ef38bc84df328f49e75caad2bee0305fc9c8fbc916f7c9180ea2f4face45ca0b",
+      "bytes": 8388608
+    },
+    {
+      "path": "complex-native/capture/grid-real/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "complex-native/requests/grid-imaginary.json",
+      "sha256": "3da6e703aff6a25bfdf216291e7cbb50d68c1277cdcd37e4c3086f84dd0822f1",
+      "bytes": 2306
+    },
+    {
+      "path": "complex-native/capture/grid-imaginary/batch-result.json",
+      "sha256": "0442d57c0890948d1b85e53ee02981383784a3aaf384e288ff793614a14784c5",
+      "bytes": 213
+    },
+    {
+      "path": "complex-native/capture/grid-imaginary/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "complex-native/capture/grid-imaginary/environment.json",
+      "sha256": "2614872d87fda72f5c876b3e54425ddf10ba841081c20ca793247c383c2572f8",
+      "bytes": 3520
+    },
+    {
+      "path": "complex-native/capture/grid-imaginary/captured-settings.json",
+      "sha256": "39c41d264087393827632e5da860fc0b28499dc391724a6760932e78a4bb453d",
+      "bytes": 2151
+    },
+    {
+      "path": "complex-native/capture/grid-imaginary/settings.CFG",
+      "sha256": "0e41030cac09b9a6b11fd2f4c50408b5b2d05a27d80291545eabf30b17c9a743",
+      "bytes": 18448
+    },
+    {
+      "path": "complex-native/capture/grid-imaginary/psf-grid.json",
+      "sha256": "db9a8751604f0936957f20653bbf76532d97ae966d2fb93492e63bf538fac59c",
+      "bytes": 646
+    },
+    {
+      "path": "complex-native/capture/grid-imaginary/grid-f64le.bin",
+      "sha256": "a1fbef97829ae44d99cbc323f368b0e94951b9080017d81b91a8f6648379b103",
+      "bytes": 8388608
+    },
+    {
+      "path": "complex-native/capture/grid-imaginary/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "refinement/native-jobs.json",
+      "sha256": "f56be1c519abb8a9862c92e9ad6708fc26d4a0d5574f103a4c30e25b92485c0c",
+      "bytes": 446
+    },
+    {
+      "path": "refinement/native.log",
+      "sha256": "bb0b0bf852bd4af9a43d11155f747a9b025c10eb52f3b5e2034ff4dfbc737698",
+      "bytes": 88
+    },
+    {
+      "path": "refinement/host-v2/source-identities.json",
+      "sha256": "76a1d867e9760e3237bb57dc678415a3b203a56b21b7bd09894eb0c428995edc",
+      "bytes": 11427
+    },
+    {
+      "path": "refinement/host-v2/NativeBinaryPsf.cs",
+      "sha256": "6028ff75e701b19861377d717c9b66b7f9047d0cf99c3c0081f2e07a651389e2",
+      "bytes": 3080
+    },
+    {
+      "path": "refinement/requests/grid-full-512-step0.0025.json",
+      "sha256": "511a99dcee49712594f46c4f8a653d439e17637a2c2fad2014f2a43974a55f0d",
+      "bytes": 2255
+    },
+    {
+      "path": "refinement/sources/grid-0.0025.ZMX",
+      "sha256": "ae36eab4f103f0b66f5f236c103c5f3c87165f9682cc62cc9b3db0afa2a44a82",
+      "bytes": 6130
+    },
+    {
+      "path": "refinement/capture/grid-full-512-step0.0025/batch-result.json",
+      "sha256": "4c12c741fbf5f6054e198de6c290612b92c5ac9f52975e1a30ba948a3b11c114",
+      "bytes": 223
+    },
+    {
+      "path": "refinement/capture/grid-full-512-step0.0025/model.json",
+      "sha256": "5e2c4b05d77967a2c870fa75a49654d6d4b2dca05003caf94f792187c33d11f2",
+      "bytes": 4020
+    },
+    {
+      "path": "refinement/capture/grid-full-512-step0.0025/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement/capture/grid-full-512-step0.0025/captured-settings.json",
+      "sha256": "3d99f5a13510a5b97827ad94f553fc0977014c35432645edcb294632b0709ebc",
+      "bytes": 2109
+    },
+    {
+      "path": "refinement/capture/grid-full-512-step0.0025/settings.CFG",
+      "sha256": "e31ba29727a3fefeb8633ba59d0a923d58350b2259f1a74b2e26e86862de5f18",
+      "bytes": 18448
+    },
+    {
+      "path": "refinement/capture/grid-full-512-step0.0025/psf-grid.json",
+      "sha256": "2e6f566444788de2781a9a05473db78e35601309a99fbca4b956afcc3e5e6d4e",
+      "bytes": 645
+    },
+    {
+      "path": "refinement/capture/grid-full-512-step0.0025/grid-f64le.bin",
+      "sha256": "b8c53a074b27398bf0be4c674e59cca01c6f5ecd21ef62c21f476c3211c14247",
+      "bytes": 8388608
+    },
+    {
+      "path": "refinement/capture/grid-full-512-step0.0025/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "refinement-fine/native-jobs.json",
+      "sha256": "a606f1f37ebcb83b02488d6e934751a5e11715d74fd8a04cb670b988f292ed0b",
+      "bytes": 448
+    },
+    {
+      "path": "refinement-fine/native.log",
+      "sha256": "bcb38c487484d12f27d88a6257835a5e885a894c04db6655cabcaa6dfac68502",
+      "bytes": 141
+    },
+    {
+      "path": "refinement-fine/host-v2/source-identities.json",
+      "sha256": "207b6e3a11426b761d51d88348b92ce88ef843775f9e28b13a1e26d073cd0a0c",
+      "bytes": 11537
+    },
+    {
+      "path": "refinement-fine/host-v2/NativeBinaryPsf.cs",
+      "sha256": "6028ff75e701b19861377d717c9b66b7f9047d0cf99c3c0081f2e07a651389e2",
+      "bytes": 3080
+    },
+    {
+      "path": "refinement-fine/requests/grid-full-512-step0.001.json",
+      "sha256": "99d98d72fa052866f629bf4115b8c37f4b9279a6aeb054e9a87932fad9518b33",
+      "bytes": 2224
+    },
+    {
+      "path": "refinement-fine/sources/grid-0.001.ZMX",
+      "sha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "bytes": 6128
+    },
+    {
+      "path": "refinement-fine/capture/grid-full-512-step0.001/batch-result.json",
+      "sha256": "02cb635e81dce3cc62f091eae4b51baa1c2d18905ece9c9b1ad3a446ab3ff8ed",
+      "bytes": 222
+    },
+    {
+      "path": "refinement-fine/capture/grid-full-512-step0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "refinement-fine/capture/grid-full-512-step0.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "refinement-fine/capture/grid-full-512-step0.001/captured-settings.json",
+      "sha256": "c5425056c9e7ba4428a2ffe8a7301d359ee15523e8b8762808a32e363b2e480c",
+      "bytes": 2093
+    },
+    {
+      "path": "refinement-fine/capture/grid-full-512-step0.001/settings.CFG",
+      "sha256": "e31ba29727a3fefeb8633ba59d0a923d58350b2259f1a74b2e26e86862de5f18",
+      "bytes": 18448
+    },
+    {
+      "path": "refinement-fine/capture/grid-full-512-step0.001/psf-grid.json",
+      "sha256": "30331ce77abea17392aaa38723caee3b38b1c3d44b9af9ccb3088d0eae7cec37",
+      "bytes": 645
+    },
+    {
+      "path": "refinement-fine/capture/grid-full-512-step0.001/grid-f64le.bin",
+      "sha256": "0431b04419a2616bc42850e7f2db1544aaf582cc157db23f6e5f87bcf98fe532",
+      "bytes": 8388608
+    },
+    {
+      "path": "refinement-fine/capture/grid-full-512-step0.001/result-diagnostics.json",
+      "sha256": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+      "bytes": 29
+    },
+    {
+      "path": "phase-controls/native-jobs.json",
+      "sha256": "ab5c9253c2f416033c7263c77b10c65cb85a6bf745a7102288920f9a543fee58",
+      "bytes": 1679
+    },
+    {
+      "path": "phase-controls/native.log",
+      "sha256": "0131b9259d7827d2d8921a718e725b081a6fba211197e92c5ccdab5f3d15c75e",
+      "bytes": 282
+    },
+    {
+      "path": "phase-controls/host/source-identities.json",
+      "sha256": "d229efc0595a603349b9bb62a56559e6b49d6924c34b1be7bc9061a15bfcc416",
+      "bytes": 11449
+    },
+    {
+      "path": "phase-controls/requests/wavefront-0.005.json",
+      "sha256": "c66c1629f4b2f7c51742bfd73537c7f829ab50ccf5a1c5180462f6b4ea396c34",
+      "bytes": 2182
+    },
+    {
+      "path": "phase-controls/sources/grid-0.005.ZMX",
+      "sha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "bytes": 6128
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.005/batch-result.json",
+      "sha256": "325318b689150ae16a26b5c2094f00384cbf6739dfba041c33a9d033b588bfa3",
+      "bytes": 214
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.005/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.005/environment.json",
+      "sha256": "e5c43a2015a4068427d0e28f7c45bf27dfca8a494ffeec24d0a7a91188318664",
+      "bytes": 3520
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.005/captured-settings.json",
+      "sha256": "3c930210d6a1703c97c371704879ef793e491e881b7957eb55533e0f67b01da9",
+      "bytes": 2161
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.005/settings.CFG",
+      "sha256": "2770a8b8fa38319536f33128ce2ffb40cb520de07f3c58500a376ca350b6ab76",
+      "bytes": 18448
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.005/data.json",
+      "sha256": "c921be335af5c0dac9e20900d8e57e291be8a93e459f01850180e868cc7dd3a5",
+      "bytes": 61742
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.005/data.txt",
+      "sha256": "9cbbf4e521a2130b5f71e2ebedd43c8b44d5482e3b5f4212fde0e985175d985e",
+      "bytes": 123660
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.005/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "phase-controls/requests/wavefront-0.0025.json",
+      "sha256": "d5a16ab8fe753e7be5a6387883043dc569ccf5e3afba96b80e9b89d5622d96ed",
+      "bytes": 2196
+    },
+    {
+      "path": "phase-controls/sources/grid-0.0025.ZMX",
+      "sha256": "ae36eab4f103f0b66f5f236c103c5f3c87165f9682cc62cc9b3db0afa2a44a82",
+      "bytes": 6130
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0025/batch-result.json",
+      "sha256": "9d0d2a736e42994d8e688f213269ab8b2efc88124ec5d26dc9f5975da9c61434",
+      "bytes": 215
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0025/model.json",
+      "sha256": "5e2c4b05d77967a2c870fa75a49654d6d4b2dca05003caf94f792187c33d11f2",
+      "bytes": 4020
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0025/environment.json",
+      "sha256": "e5c43a2015a4068427d0e28f7c45bf27dfca8a494ffeec24d0a7a91188318664",
+      "bytes": 3520
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0025/captured-settings.json",
+      "sha256": "0bcd2c151be448ac92f8d92337fd01f912f28d99c9dde7a47ab6e6bad3730ee8",
+      "bytes": 2175
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0025/settings.CFG",
+      "sha256": "2770a8b8fa38319536f33128ce2ffb40cb520de07f3c58500a376ca350b6ab76",
+      "bytes": 18448
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0025/data.json",
+      "sha256": "31837c87ddbf1bd6b9914f4cf32768683c1850c671189764c030c57dcd01230c",
+      "bytes": 61723
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0025/data.txt",
+      "sha256": "12980a1d07801acf43238127c02f9c64858e08bc64f07234ac9e454918a7d697",
+      "bytes": 123688
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0025/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "phase-controls/requests/wavefront-0.001.json",
+      "sha256": "8fede6a038643f38a678a4b366170f8f57e0c50ea1d435c8b6d3971945b97906",
+      "bytes": 2182
+    },
+    {
+      "path": "phase-controls/sources/grid-0.001.ZMX",
+      "sha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "bytes": 6128
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.001/batch-result.json",
+      "sha256": "c80e97d3b8fafae5e1848c2d8c537879a44dd5347edbe5abeda97772915bd737",
+      "bytes": 214
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.001/environment.json",
+      "sha256": "e5c43a2015a4068427d0e28f7c45bf27dfca8a494ffeec24d0a7a91188318664",
+      "bytes": 3520
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.001/captured-settings.json",
+      "sha256": "ab9c9fd61c0fc93ee650020c26f3c3ab8c92cdea28e45f00d8424277bc07c7f6",
+      "bytes": 2161
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.001/settings.CFG",
+      "sha256": "2770a8b8fa38319536f33128ce2ffb40cb520de07f3c58500a376ca350b6ab76",
+      "bytes": 18448
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.001/data.json",
+      "sha256": "c75257b1d159083051e36e80bbaf72ef78b02e4069c36c90d15c31a13cd9b59a",
+      "bytes": 61704
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.001/data.txt",
+      "sha256": "ad9636a4a1831e136fcb7a6904ecf9e6adb4d6baaf644938c03ec8b5076280f2",
+      "bytes": 123660
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.001/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "phase-controls/requests/wavefront-0.0005.json",
+      "sha256": "7f1ed0bcbe3e17d0f688aab58007dac168badfce8b4ec4c8f13d784aa6178c93",
+      "bytes": 2187
+    },
+    {
+      "path": "phase-controls/sources/grid-0.0005.ZMX",
+      "sha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69",
+      "bytes": 6130
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0005/batch-result.json",
+      "sha256": "2f524d94343c324015383a8ad0c78f7c47f6f24cf2fcda8de50f98fa3910527c",
+      "bytes": 215
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0005/model.json",
+      "sha256": "8060b39dfd02f8e093de71684b967681fc4fddd32ff169c737434a7e740a436e",
+      "bytes": 4020
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0005/environment.json",
+      "sha256": "e5c43a2015a4068427d0e28f7c45bf27dfca8a494ffeec24d0a7a91188318664",
+      "bytes": 3520
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0005/captured-settings.json",
+      "sha256": "f761fb9f71a245c90bc2601af9356ea14219f8e12e4e24c1bbd6d63e49d5e7a9",
+      "bytes": 2166
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0005/settings.CFG",
+      "sha256": "2770a8b8fa38319536f33128ce2ffb40cb520de07f3c58500a376ca350b6ab76",
+      "bytes": 18448
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0005/data.json",
+      "sha256": "71b98b130c8cff24be426c2f452dc7bed8e456e99a90b74ac2fbe25c6758840e",
+      "bytes": 61700
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0005/data.txt",
+      "sha256": "d0779ba8a28b41ba601dad1ab2e33044ddc6241b61ff209b1470a8534abf92cc",
+      "bytes": 123670
+    },
+    {
+      "path": "phase-controls/capture/wavefront-0.0005/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "phase-controls-128/native-jobs.json",
+      "sha256": "fa27c29ebcfb0098730a8d8bf87892fcc30918d830c73fdcc30b3e4035efd446",
+      "bytes": 1711
+    },
+    {
+      "path": "phase-controls-128/native.log",
+      "sha256": "0131b9259d7827d2d8921a718e725b081a6fba211197e92c5ccdab5f3d15c75e",
+      "bytes": 282
+    },
+    {
+      "path": "phase-controls-128/host/source-identities.json",
+      "sha256": "7f679bc1155bac943ac354a89bcd3de927a4a98b78150fef9012e17108c11ed2",
+      "bytes": 11537
+    },
+    {
+      "path": "phase-controls-128/requests/wavefront-0.005.json",
+      "sha256": "c2c1e4851dea24cf85ca1908cb06c6aeb32f08824f8cd9ef6964cfb3fd92ba9d",
+      "bytes": 2186
+    },
+    {
+      "path": "phase-controls-128/sources/grid-0.005.ZMX",
+      "sha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+      "bytes": 6128
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.005/batch-result.json",
+      "sha256": "c09ae8842e7d2572f4ad0a4e5d12cb570ecee7722e2e1cec35c275e58fa15918",
+      "bytes": 214
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.005/model.json",
+      "sha256": "260edb04e8fab6c20cdde7e804151307b43d6966c1e8a4f0212fe71fda03eaed",
+      "bytes": 4012
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.005/environment.json",
+      "sha256": "e5c43a2015a4068427d0e28f7c45bf27dfca8a494ffeec24d0a7a91188318664",
+      "bytes": 3520
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.005/captured-settings.json",
+      "sha256": "15703391b1642e082de99a57bd0a8e74da0b5b19df32ae4ebaf448699b22744c",
+      "bytes": 2167
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.005/settings.CFG",
+      "sha256": "d34ecd0aeef8644e4b560b245ce0706e0b62d99adcce35c92a89d92393514506",
+      "bytes": 18448
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.005/data.json",
+      "sha256": "4f2a4a0ac010ca2b0c157bf8b5e294f3a06201057ea2d3b06cb0b70bd94f6551",
+      "bytes": 249768
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.005/data.txt",
+      "sha256": "ea156be8cbb3dfa097913928157e9719bb5c34b6ec1f813c3c554b7d0bd3c4be",
+      "bytes": 492432
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.005/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "phase-controls-128/requests/wavefront-0.0025.json",
+      "sha256": "930b9d15ec62e614bc179918499237c322772172c8b8229223ddd60f00db9f2a",
+      "bytes": 2200
+    },
+    {
+      "path": "phase-controls-128/sources/grid-0.0025.ZMX",
+      "sha256": "ae36eab4f103f0b66f5f236c103c5f3c87165f9682cc62cc9b3db0afa2a44a82",
+      "bytes": 6130
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0025/batch-result.json",
+      "sha256": "3807f5dc0a9c55349b48b725ac1e9ac2ce9ac03c27784b1d622120eddfca5fb1",
+      "bytes": 215
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0025/model.json",
+      "sha256": "5e2c4b05d77967a2c870fa75a49654d6d4b2dca05003caf94f792187c33d11f2",
+      "bytes": 4020
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0025/environment.json",
+      "sha256": "e5c43a2015a4068427d0e28f7c45bf27dfca8a494ffeec24d0a7a91188318664",
+      "bytes": 3520
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0025/captured-settings.json",
+      "sha256": "2b15739e380db38b1b2d7e281b2792fa0ce20d7955807c37e87fd1a984d27bbd",
+      "bytes": 2181
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0025/settings.CFG",
+      "sha256": "d34ecd0aeef8644e4b560b245ce0706e0b62d99adcce35c92a89d92393514506",
+      "bytes": 18448
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0025/data.json",
+      "sha256": "b82bdc0705ad1b69075d8d8a9118526511ca3c7ee59af39be987ad82d4427405",
+      "bytes": 249813
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0025/data.txt",
+      "sha256": "30946a91b18253343d28eafa70fe4c76d8410ffc92fb866822db4266400ffc66",
+      "bytes": 492460
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0025/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "phase-controls-128/requests/wavefront-0.001.json",
+      "sha256": "6430d4e8766888e58f577bc21f4ccdffb18e74703730d20196632ccfa44d5efe",
+      "bytes": 2186
+    },
+    {
+      "path": "phase-controls-128/sources/grid-0.001.ZMX",
+      "sha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+      "bytes": 6128
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.001/batch-result.json",
+      "sha256": "5c0524dfd5fb6d6d9d518cd99ef10f9ccc3d9ca8728bebaf82987a87963fec56",
+      "bytes": 214
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.001/model.json",
+      "sha256": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+      "bytes": 4020
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.001/environment.json",
+      "sha256": "e5c43a2015a4068427d0e28f7c45bf27dfca8a494ffeec24d0a7a91188318664",
+      "bytes": 3520
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.001/captured-settings.json",
+      "sha256": "809ec64cc9bbc0f55a452db3d8723c9f639f2758c05492a694c340af8489f284",
+      "bytes": 2167
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.001/settings.CFG",
+      "sha256": "d34ecd0aeef8644e4b560b245ce0706e0b62d99adcce35c92a89d92393514506",
+      "bytes": 18448
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.001/data.json",
+      "sha256": "d41b823d4f7f11012418641d77523ddaf22e08e27592714e7a74b6f24beb71ba",
+      "bytes": 249749
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.001/data.txt",
+      "sha256": "4da05bec332fd6698caa83e261b8a8d9806f326336643d4e6d48d54ad6156ce2",
+      "bytes": 492432
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.001/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "phase-controls-128/requests/wavefront-0.0005.json",
+      "sha256": "48370454c502bcf689c6013c29c4b1de0610207ad833a5ec1d48303b0eb3821a",
+      "bytes": 2191
+    },
+    {
+      "path": "phase-controls-128/sources/grid-0.0005.ZMX",
+      "sha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69",
+      "bytes": 6130
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0005/batch-result.json",
+      "sha256": "ab6e5da4e9723031bdf2144cfefffb292b5c0aa48d9d2ab1c92200b1908569a8",
+      "bytes": 215
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0005/model.json",
+      "sha256": "8060b39dfd02f8e093de71684b967681fc4fddd32ff169c737434a7e740a436e",
+      "bytes": 4020
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0005/environment.json",
+      "sha256": "e5c43a2015a4068427d0e28f7c45bf27dfca8a494ffeec24d0a7a91188318664",
+      "bytes": 3520
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0005/captured-settings.json",
+      "sha256": "6aec0c9434469f87c0777964380519ee76dbd09acb36e76d0dad64680c844ed1",
+      "bytes": 2172
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0005/settings.CFG",
+      "sha256": "d34ecd0aeef8644e4b560b245ce0706e0b62d99adcce35c92a89d92393514506",
+      "bytes": 18448
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0005/data.json",
+      "sha256": "c935e0061b7defc271150fa36c082e7e53f9934e47f459f53f216ba8964071fc",
+      "bytes": 249749
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0005/data.txt",
+      "sha256": "40fada0c1dcb8eef99ae1b740e68bb60c09c4494875ffbd3aed0eeafb12bf5c4",
+      "bytes": 492442
+    },
+    {
+      "path": "phase-controls-128/capture/wavefront-0.0005/result-diagnostics.json",
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5",
+      "bytes": 45
+    },
+    {
+      "path": "reproduce/NativeBinaryPsf.cs",
+      "sha256": "6028ff75e701b19861377d717c9b66b7f9047d0cf99c3c0081f2e07a651389e2",
+      "bytes": 3080
+    },
+    {
+      "path": "reproduce/Run-BinaryNative.ps1",
+      "sha256": "2043474d74ceace7875d6eab3b357df505f64a3c17f88ac4665a6031e37605f0",
+      "bytes": 3586
+    },
+    {
+      "path": "reproduce/Prepare.py",
+      "sha256": "5fe167ce8970611019b897f3fe5e1c848fca5e90f85f24df9ca23f8ad88b88a3",
+      "bytes": 2391
+    },
+    {
+      "path": "reproduce/Corrected.py",
+      "sha256": "83048f93b1fdb578852790dbaca9d61ad4eb92e6af773693be9705286601ae90",
+      "bytes": 1190
+    },
+    {
+      "path": "reproduce/Controls.py",
+      "sha256": "9d66eaf5bbb7a0bc2f014e482e59bbe119c9fbd30015e3705944d9e89cac580f",
+      "bytes": 1134
+    },
+    {
+      "path": "reproduce/Complex.py",
+      "sha256": "791da448bdf3d1d7e4b83ee984773b3e62d4751b1be8d03bb4478c6eeabc366f",
+      "bytes": 777
+    },
+    {
+      "path": "reproduce/Refine.py",
+      "sha256": "2a371449041cd501d76d460b24d6f5f809a019650bcdd13f5249c1d048a5af79",
+      "bytes": 750
+    },
+    {
+      "path": "reproduce/ReadNativePsf.py",
+      "sha256": "c2db1179ecc16114a4e049601ea9af6361d2e50746904fdb84744fcd9002aed8",
+      "bytes": 3584
+    },
+    {
+      "path": "reproduce/BoundedReadout.py",
+      "sha256": "a19a32dae7cd3fe0b1604e373680424d430d2197c37bafce9f9822aef528eb2d",
+      "bytes": 12079
+    },
+    {
+      "path": "reproduce/IdealFromComplex.py",
+      "sha256": "f662338d55d7014faab99c83f91ac2a85ea19827d7ea066834446e70821772a7",
+      "bytes": 3479
+    },
+    {
+      "path": "reproduce/CompareProduct.py",
+      "sha256": "cb3788f291aed51c9cc035292240bc98ecf8f3a83a89243cdbc560023b34a766",
+      "bytes": 3007
+    },
+    {
+      "path": "reproduce/AliasDiagnostic.py",
+      "sha256": "36d0fb01ca77d333b84368370bc4e12824f7f0a2c9e3f3a387edbc0f44239e15",
+      "bytes": 1679
+    },
+    {
+      "path": "reproduce/ExportReferences.py",
+      "sha256": "6040d2dd44af5e57e36958209dfed859069e2b402290c2e60f9034413f5dc9d4",
+      "bytes": 3819
+    },
+    {
+      "path": "reproduce/PhaseCheck.py",
+      "sha256": "ff6571f050f1694c85bc16b4ebd5313414adfee1207416abe8d1ca83c5eb1e52",
+      "bytes": 1256
+    },
+    {
+      "path": "reproduce/PhaseAlignment.py",
+      "sha256": "ac570f54aab1446b64ecadfeac504e36cbe0aca866d1c4bfb7e5d27331c3ee06",
+      "bytes": 1411
+    },
+    {
+      "path": "reproduce/PropagatePhaseDiagnostic.py",
+      "sha256": "55bc8ded469285a6d7534b30c6f58e753645b7449cfc4eb6e3b21ccc0db2776d",
+      "bytes": 2373
+    },
+    {
+      "path": "reproduce/CheckReadoutMath.py",
+      "sha256": "59e276df8f729a8da793bac3548fe49d3c9f8a39a287176ff1afeefe03b1b424",
+      "bytes": 1337
+    },
+    {
+      "path": "reproduce/RebaseRequests.py",
+      "sha256": "1e8ca2ee8d48215bf402d4c8d3baee2933249056387c06dfe25dfd985d059bd5",
+      "bytes": 1682
+    },
+    {
+      "path": "reproduce/Run-BinaryNative-Portable.ps1",
+      "sha256": "59097be78cc2321b9f32f09757c876e82d58c4d57f33681b399044c60a22e05b",
+      "bytes": 3592
+    },
+    {
+      "path": "reproduce/Archive.py",
+      "sha256": "10c356bd2c11b4aa350cf5b76861dbc492513a9cb79e649350b558ab12ed2218",
+      "bytes": 4885
+    },
+    {
+      "path": "reproduce/portable-replay.json",
+      "sha256": "231b603f2d8bb3135b6840048d7c6edb7107a44a8397cc3465cee2b2ac746adc",
+      "bytes": 144
+    },
+    {
+      "path": "reproduce/math-self-check.json",
+      "sha256": "43963f5f2628fbed5d22d3b729dba9d69b81d0d176c6c1e793c253788e67075c",
+      "bytes": 216
+    },
+    {
+      "path": "historical/profile-8192-window317-step.005/data.txt",
+      "sha256": "750c027a91df1cc0d8c61758e7fca4393e986bd607d2352ce8db1e9eed80c481",
+      "bytes": 2272468
+    },
+    {
+      "path": "historical/profile-8192-window317-step.005/data.json",
+      "sha256": "aff7ae1e6ed304ac20ab01924e51de038e525c8af13eaf9eada842e5c60fff01",
+      "bytes": 400
+    },
+    {
+      "path": "historical/profile-8192-window317-step.005/captured-settings.json",
+      "sha256": "fb35609de9a5c11422c2fc84192264de75cb8132ff97b3ce331081ead8c24df3",
+      "bytes": 2616
+    },
+    {
+      "path": "historical/profile-8192-window317-step.005/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "historical/profile-8192-window317-step.005/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "historical/profile-8192-step.001/data.txt",
+      "sha256": "3325adbe48754774180fc3bde12de825a50c7432d0c3a5d3ff210e3002caac13",
+      "bytes": 2272468
+    },
+    {
+      "path": "historical/profile-8192-step.001/data.json",
+      "sha256": "b628e3c19220952267f1ec373d19a6e5ec5cbcbd5689623a27a030b85c70e312",
+      "bytes": 400
+    },
+    {
+      "path": "historical/profile-8192-step.001/captured-settings.json",
+      "sha256": "b3cdf78b7c6b6253ce20399b6a799c75ec89866fbc017f99656f472898b6efb9",
+      "bytes": 2616
+    },
+    {
+      "path": "historical/profile-8192-step.001/environment.json",
+      "sha256": "ebad7dc27f857b6a7e1570d1988f824877414d58543eea21a13941078348e640",
+      "bytes": 3520
+    },
+    {
+      "path": "historical/profile-8192-step.001/result-diagnostics.json",
+      "sha256": "8f3ce117c72c81f4e77b0ee1c29dfdd964f0b53690a0c6aa5658146a240c7b5c",
+      "bytes": 45
+    },
+    {
+      "path": "product/requests/profile-8192-window317.json",
+      "sha256": "ecf542846de6728d16f2a0fd1a087f95e9296ab0d9672ad012e7101f5ae40c48",
+      "bytes": 3121
+    },
+    {
+      "path": "product/capture/profile-8192-window317/data.json",
+      "sha256": "ee067627097501424565d34f8a3abfc067df0d39e8e22ceed3d88ef02643e8d4",
+      "bytes": 21265058
+    },
+    {
+      "path": "product/capture/profile-8192-window317/provenance.json",
+      "sha256": "742eb8e6f75b7bfdb11e3361feff23eebe542bc22541c0e8150e2e4989d155ff",
+      "bytes": 494
+    },
+    {
+      "path": "product/capture/profile-8192-window317/execution.json",
+      "sha256": "75160e5b314e4ade67f56be6f1dc1f6b5257ff3a957490b0ded38a212d4c0ad4",
+      "bytes": 114
+    },
+    {
+      "path": "product/requests/profile-16384-window317.json",
+      "sha256": "3c2fa222df995b0ce0d53bfe97de362aa2773a878550aa9cc4dc572cb9354cbf",
+      "bytes": 3126
+    },
+    {
+      "path": "product/capture/profile-16384-window317/data.json",
+      "sha256": "d973808e2058049b0ad145d75134766d99cbc73ca200f236caf29e37b0f5b8d3",
+      "bytes": 42526440
+    },
+    {
+      "path": "product/capture/profile-16384-window317/provenance.json",
+      "sha256": "c6de81f1e5c3c0f26bc09d53084a10c32e7b7fd54512c99329ad48c1623cbd1c",
+      "bytes": 494
+    },
+    {
+      "path": "product/capture/profile-16384-window317/execution.json",
+      "sha256": "1d4d6d829db497c5b46294240425baa8006b5884a6a7ef0a83e127732155f923",
+      "bytes": 115
+    },
+    {
+      "path": "product/requests/energy-65536.json",
+      "sha256": "9194c30e7a1d9bef9715b0f506abb89229c6de6bb105259249bc184ffcd7c5a2",
+      "bytes": 2714
+    },
+    {
+      "path": "product/capture/energy-65536/data.json",
+      "sha256": "99e2449e3dd7273d9d419f673d1b3fe96e0d8b870d0d54b6d41fe6d09eeffb2b",
+      "bytes": 414225
+    },
+    {
+      "path": "product/capture/energy-65536/provenance.json",
+      "sha256": "c3b7a2a85cd817d56f76f1f76446b1d7a9bebda4e701cf7b879d7e13f808cc16",
+      "bytes": 501
+    },
+    {
+      "path": "product/capture/energy-65536/execution.json",
+      "sha256": "474191683f2c0b7d15891c608952a483047aa42a51e84fe9de64482c7f6f6236",
+      "bytes": 115
+    },
+    {
+      "path": "product/requests/energy-131072.json",
+      "sha256": "4106025a14ef546583918bf7dbea10fe0035783056d4e04775942a399f8768a3",
+      "bytes": 2719
+    },
+    {
+      "path": "product/capture/energy-131072/data.json",
+      "sha256": "bd14688a41015c00c9a143df9d401758d4634a6e097b580695d9a02155954410",
+      "bytes": 414250
+    },
+    {
+      "path": "product/capture/energy-131072/provenance.json",
+      "sha256": "d820db1b6298cbd92b0fae4a986d13d13fcc66a11d9ef47011f00196c6e61050",
+      "bytes": 501
+    },
+    {
+      "path": "product/capture/energy-131072/execution.json",
+      "sha256": "7b357cb19c0153243758b462946d86ba65cc835e3a7cc0140c02a3e0c5b24cc0",
+      "bytes": 115
+    },
+    {
+      "path": "historical/grid-495-1024-step.005/psf-grid.json",
+      "sha256": "7fe59a2b1abf6215c773164216516ab684a9ee82e0562fd78943628208ecc569",
+      "bytes": 1495
+    },
+    {
+      "path": "historical/grid-495-1024-step.001/psf-grid.json",
+      "sha256": "6d84ebdbca74be581c1790b19d76b36c4085dd672a8c1d9ce41f9d586d0f24bc",
+      "bytes": 1495
+    },
+    {
+      "path": "historical/grid-495-2048-step.005/psf-grid.json",
+      "sha256": "da0c1d430bd132c9f984d0c8c3c12cce59101c92855bec9e32f8ed9dd5541def",
+      "bytes": 1495
+    }
+  ],
+  "zipSha256": "8a6e64399d514d2e94ddadaaf884449d8d2c6a092a9cfa5020d2e76eaa86e421",
+  "zipBytes": 67479459,
+  "canceledControls": [
+    "first attempt at 512 used historical canonical fields; stopped after readback exposed mismatch",
+    "un-stretched 1024 native full-grid duplicate stopped in favor of exact 512-only step refinement"
+  ],
+  "externalHistoricalFullPsfText": [
+    {
+      "nx": 2048,
+      "ny": 2048,
+      "dx": 0.25,
+      "dy": 0.25,
+      "minX": -255.75,
+      "minY": -255.75,
+      "source": "D:\\Projects\\opticalsystem\\artifacts\\validation\\incomparable-grid-native-current-runner-20261101\\job-grid-495-1024-step.005\\grid-495-1024-step.005\\data.txt",
+      "sourceSha256": "ac10fc411af2cc541bd6cb1a25407f361625107d045467c9c7514b94d92d92cb",
+      "arraySha256": "f4abe8a2c064a73142fd403e813943343f18fc6d9fcf60d8dbf2eb50573d4a74",
+      "apiCropMaxAbsolute": 4.999957480244501e-10,
+      "textReadout": {
+        "dx": 0,
+        "dy": 0,
+        "xSign": 1,
+        "ySign": -1,
+        "maxAbsolute": 4.999957480244501e-10
+      },
+      "header": [
+        "FFT PSF 数据列表",
+        "",
+        "文件 : D:\\Projects\\opticalsystem\\artifacts\\validation\\incomparable-native-20261101\\grid-step.005.ZMX",
+        "题目: Grid Grin Lens",
+        "日期 : 2026/11/1",
+        "",
+        "",
+        "FFT PSF",
+        "0.5500 μm对于0.0000 (度)。",
+        "数据间隔是 0.250 µm.",
+        "数据区是 32.000 µm 宽.",
+        "面: 像面",
+        "参考坐标: -4.32415E-02, 8.76227E-02",
+        "光瞳网格尺寸: 1024 by 1024",
+        "像方网格尺寸: 2048 by 2048",
+        "中心点是: 行 1025, 列 1024",
+        "值没有归一化.",
+        ""
+      ],
+      "storage": "npy; apply textReadout signs before interpreting min axes"
+    },
+    {
+      "nx": 2048,
+      "ny": 2048,
+      "dx": 0.25,
+      "dy": 0.25,
+      "minX": -255.75,
+      "minY": -255.75,
+      "source": "D:\\Projects\\opticalsystem\\artifacts\\validation\\incomparable-grid-native-current-runner-20261101\\job-grid-495-1024-step.001\\grid-495-1024-step.001\\data.txt",
+      "sourceSha256": "15ca4bdc61e80187c3f8874b793225277d36fb758110da7c7e3e96b2a856b549",
+      "arraySha256": "00bec6530d7c94c6288b096188736d71df5f1b8bb8070664f8930e5b714dea07",
+      "apiCropMaxAbsolute": 4.999482001179472e-10,
+      "textReadout": {
+        "dx": 0,
+        "dy": 0,
+        "xSign": 1,
+        "ySign": -1,
+        "maxAbsolute": 4.999482001179472e-10
+      },
+      "header": [
+        "FFT PSF 数据列表",
+        "",
+        "文件 : D:\\Projects\\opticalsystem\\artifacts\\validation\\incomparable-native-20261101\\grid-step.001.ZMX",
+        "题目: Grid Grin Lens",
+        "日期 : 2026/11/1",
+        "",
+        "",
+        "FFT PSF",
+        "0.5500 μm对于0.0000 (度)。",
+        "数据间隔是 0.250 µm.",
+        "数据区是 32.000 µm 宽.",
+        "面: 像面",
+        "参考坐标: -4.32379E-02, 8.76157E-02",
+        "光瞳网格尺寸: 1024 by 1024",
+        "像方网格尺寸: 2048 by 2048",
+        "中心点是: 行 1025, 列 1024",
+        "值没有归一化.",
+        ""
+      ],
+      "storage": "npy; apply textReadout signs before interpreting min axes"
+    },
+    {
+      "nx": 4096,
+      "ny": 4096,
+      "dx": 0.25,
+      "dy": 0.25,
+      "minX": -511.75,
+      "minY": -511.75,
+      "source": "D:\\Projects\\opticalsystem\\artifacts\\validation\\incomparable-grid-native-current-runner-20261101\\job-grid-495-2048-step.005\\grid-495-2048-step.005\\data.txt",
+      "sourceSha256": "98ff171ea17524bcacf6c8c091fe8fe83d89c6e139256861ffdfcbba132d8c31",
+      "arraySha256": "68555a1087df71ce55e69f6684ad25e8dbb0a07be8a9dd64b790ff0c4b0bf071",
+      "apiCropMaxAbsolute": 4.999682272023218e-10,
+      "textReadout": {
+        "dx": 0,
+        "dy": 0,
+        "xSign": 1,
+        "ySign": -1,
+        "maxAbsolute": 4.999682272023218e-10
+      },
+      "header": [
+        "FFT PSF 数据列表",
+        "",
+        "文件 : D:\\Projects\\opticalsystem\\artifacts\\validation\\incomparable-native-20261101\\grid-step.005.ZMX",
+        "题目: Grid Grin Lens",
+        "日期 : 2026/11/1",
+        "",
+        "",
+        "FFT PSF",
+        "0.5500 μm对于0.0000 (度)。",
+        "数据间隔是 0.250 µm.",
+        "数据区是 32.000 µm 宽.",
+        "面: 像面",
+        "参考坐标: -4.32415E-02, 8.76227E-02",
+        "光瞳网格尺寸: 2048 by 2048",
+        "像方网格尺寸: 4096 by 4096",
+        "中心点是: 行 2049, 列 2048",
+        "值没有归一化.",
+        ""
+      ],
+      "storage": "npy; apply textReadout signs before interpreting min axes"
+    }
+  ]
+}

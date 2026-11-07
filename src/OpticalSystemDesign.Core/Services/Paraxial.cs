@@ -35,7 +35,7 @@ public sealed partial class Paraxial
     {
         EnsureComputable();
         var matrix = TraceMatrix(0, _optic.SurfaceGroup.Items.Count,
-            PrimaryWavelengthNanometers(), out var determinant);
+            PrimaryWavelengthNanometers(), out var determinant, gridFocalConvention: true);
         return FocalLength(matrix, determinant);
     }
 
@@ -44,7 +44,7 @@ public sealed partial class Paraxial
     {
         EnsureComputable();
         var matrix = TraceMatrix(0, _optic.SurfaceGroup.Items.Count,
-            PrimaryWavelengthNanometers(), out var determinant);
+            PrimaryWavelengthNanometers(), out var determinant, gridFocalConvention: true);
         return -Math.CopySign(1, determinant) * matrix.C;
     }
 
@@ -95,7 +95,7 @@ public sealed partial class Paraxial
         }
 
         var matrix = TraceMatrix(startIndex, endIndex + 1,
-            PrimaryWavelengthNanometers(), out var determinant);
+            PrimaryWavelengthNanometers(), out var determinant, gridFocalConvention: true);
         return FocalLength(matrix, determinant);
     }
 
@@ -210,7 +210,7 @@ public sealed partial class Paraxial
         }
 
         var matrix = TraceMatrix(0, _optic.SurfaceGroup.Items.Count,
-            PrimaryWavelengthNanometers(), out var determinant);
+            PrimaryWavelengthNanometers(), out var determinant, gridFocalConvention: true);
         var effectiveFocalLength = FocalLength(matrix, determinant);
         var axialFocalLength = Math.Abs(matrix.C) < 1e-12 ? 0 : -1.0 / matrix.C;
         var matrixStart = positions[0];
@@ -241,15 +241,18 @@ public sealed partial class Paraxial
             lastReference);
     }
 
-    public double EstimateExitPupilLocation()
-    {
-        EnsureComputable();
-        return EstimateExitPupilLocation(PrimaryWavelengthNanometers() / 1000.0);
-    }
+    public double EstimateExitPupilLocation() => EstimateExitPupilLocation(out _);
 
-    public double EstimateExitPupilLocation(double wavelengthMicrometers)
+    internal double EstimateExitPupilLocation(out bool isAtInfinity) =>
+        EstimateExitPupilLocation(PrimaryWavelengthNanometers() / 1000.0, out isAtInfinity);
+
+    public double EstimateExitPupilLocation(double wavelengthMicrometers) =>
+        EstimateExitPupilLocation(wavelengthMicrometers, out _);
+
+    internal double EstimateExitPupilLocation(double wavelengthMicrometers, out bool isAtInfinity)
     {
         EnsureComputable();
+        isAtInfinity = false;
         if (HasGridGradientPupil)
             return GridGradientPupil(wavelengthMicrometers).ImageAxialDistanceMillimeters;
         if (HasNonaxialPupil)
@@ -270,13 +273,26 @@ public sealed partial class Paraxial
             stopIndex + 1);
         var finalHeight = trace.Heights[^1][0];
         var finalSlope = trace.Slopes[^1][0];
-        return Math.Abs(finalSlope) <= 1e-12 ? 0 : -finalHeight / finalSlope;
+        if (!(Math.Abs(finalSlope) <= 1e-12)) return -finalHeight / finalSlope;
+        isAtInfinity = double.IsFinite(finalHeight) && Math.Abs(finalHeight) > 1e-12;
+        return 0;
     }
 
     public double EstimateExitPupilDiameter()
     {
         EnsureComputable();
         return EstimateExitPupilDiameter(PrimaryWavelengthNanometers() / 1000.0);
+    }
+
+    internal double ExitPupilFNumber()
+    {
+        var distance = EstimateExitPupilLocation(out var atInfinity);
+        var diameter = EstimateExitPupilDiameter();
+        var value = Math.Abs(distance / diameter);
+        if (atInfinity || !double.IsFinite(value) || value <= 0)
+            throw new OpticalSystemDesign.Core.Analysis.AnalysisDataUnavailableException("Working F-number",
+                "the exit-pupil method requires a finite nonzero pupil distance and diameter");
+        return value;
     }
 
     public double EstimateExitPupilDiameter(double wavelengthMicrometers)
@@ -587,7 +603,9 @@ public sealed partial class Paraxial
 
     internal bool HasNonaxialPupil => _optic.SurfaceGroup.Items.Any(surface =>
         Math.Abs(surface.CoordinateSystem.RotationXDegrees) > 1e-12
-        || Math.Abs(surface.CoordinateSystem.RotationYDegrees) > 1e-12);
+        || Math.Abs(surface.CoordinateSystem.RotationYDegrees) > 1e-12
+        || surface.Geometry is TiltedPlaneGeometry plane
+            && (Math.Abs(plane.TangentX) > 1e-12 || Math.Abs(plane.TangentY) > 1e-12));
 
     private static double FocalLength(RayMatrix matrix, double determinant)
     {
@@ -638,11 +656,12 @@ public sealed partial class Paraxial
         int endSurfaceExclusive,
         double wavelengthNanometers,
         out double determinant,
-        bool includeTrailingTranslation = true)
+        bool includeTrailingTranslation = true,
+        bool gridFocalConvention = false)
     {
         if (HasGradientIndex)
             return TraceGradientMatrix(startSurfaceInclusive, endSurfaceExclusive, wavelengthNanometers,
-                includeTrailingTranslation, out determinant);
+                includeTrailingTranslation, gridFocalConvention, out determinant);
         var matrix = RayMatrix.Identity;
         var currentIndex = startSurfaceInclusive <= 0
             ? 1.0

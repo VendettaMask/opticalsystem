@@ -292,7 +292,7 @@ public static partial class WavefrontEngine
         };
     }
 
-    private static bool RequiresGeometricPupilReference(Optic optic)
+    internal static bool RequiresGeometricPupilReference(Optic optic)
     {
         if (optic.Paraxial.HasNonaxialPupil) return true;
         var frame = optic.SurfaceGroup.Items[^1].CoordinateSystem;

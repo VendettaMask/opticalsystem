@@ -1,6 +1,8 @@
 using OpticalSystemDesign.Validation;
 using System.Text.Json;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.FileIO;
@@ -13,6 +15,43 @@ namespace OpticalSystemDesign.Tests;
 public sealed class GridGradientModelTests
 {
     private static JsonDocument Fixture() => JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","grid-gradient-native-v1.json")));
+
+    [Fact]
+    public async Task SampleFocalScalarsMatchTheConvergedGridGradientReference()
+    {
+        var source = SequentialExampleCatalog.Examples.Single(example => example.RelativePath == "GRINs/Grid GRIN.ZMX");
+        var optic = await new ZemaxZmxImporter().ImportFileAsync(source.FilePath);
+        var result = new FirstOrderAnalysis(optic).GenerateData();
+
+        const double nativeFocalLength = 10893.5332489438;
+        const double nativeEntrancePupil = 0.356012369686086;
+        Assert.InRange(Math.Abs((double)result.Values["EffectiveFocalLength"] / nativeFocalLength - 1), 0, 1e-6);
+        Assert.InRange(Math.Abs((double)result.Values["FNumber"] / (nativeFocalLength / nativeEntrancePupil) - 1), 0, 1e-6);
+        Assert.Equal((double)result.Values["EffectiveFocalLength"], optic.Paraxial.EstimateCardinalPoints().EffectiveFocalLength);
+    }
+
+    [Fact]
+    public void GridFocalProbeMatrixReproducesTheIndependentAffineControl()
+    {
+        const int transverse = 11, axial = 21;
+        var values = new double[transverse * transverse * axial * 11];
+        for (var x = 0; x < transverse; x++)
+        for (var y = 0; y < transverse; y++)
+        for (var z = 0; z < axial; z++)
+            values[((x * transverse + y) * axial + z) * 11] = 1.5 + 2 * (.19 * z) + .02 * (.1 * y - .5);
+        var profile = new GridGradientIndexProfile(transverse, transverse, axial,
+            new(-.5, -.5, 0), new(.1, .1, .19), values);
+        var material = new GradientIndexMaterial("Affine Grid", profile, 10);
+        var result = GridGradientFocalTransport.Between(material, profile, 0, 3.8, 550, default);
+        const double exitIndex = 9.1;
+
+        // PARY/PATY at the entrance and after refraction into air, with
+        // independent pupil and field displacements, at a 0.00025 mm native step.
+        Assert.InRange(Math.Abs(result.A - .9999225883098056), 0, 1e-8);
+        Assert.InRange(Math.Abs(result.B - 13.591627396485997), 0, 1e-8);
+        Assert.InRange(Math.Abs(result.C * exitIndex / -.00013362524618676028 - 1), 0, 1e-6);
+        Assert.InRange(Math.Abs(result.D * exitIndex - 39.500144359607376), 0, 1e-7);
+    }
 
     [Fact]
     public void ConvergedSampleRaysUseTheOriginalExplicitRayBoundsAndPortableGrid()

@@ -1,0 +1,80 @@
+[
+  {
+    "index": 1137,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 1,
+    "scope": "primary",
+    "analysis": "PSF",
+    "verdict": "Incomparable",
+    "priorVerdict": "Error",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]",
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request, String workbenchPath) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 139\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+    "requestFingerprint": "1a2ad6ea9197f1950bedbd350213492d1ae111393074604c1663f81d11594b40",
+    "metrics": "[]"
+  },
+  {
+    "index": 1139,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 1,
+    "scope": "primary",
+    "analysis": "MTF",
+    "verdict": "Incomparable",
+    "priorVerdict": "Error",
+    "reason": "Native focal FFT MTF has no image-plane frequency scale in the verified collimated contact-pupil prescription.",
+    "error": "System.IO.InvalidDataException: Native focal FFT MTF has no image-plane frequency scale in the verified collimated contact-pupil prescription.\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeFocalImageDomain.Validate(String path, CanonicalAnalysisRequest request, String workbenchPath) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeFocalImageDomain.cs:line 34\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request, String workbenchPath) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 140\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+    "requestFingerprint": "7c798a02d1cdf8cdc88b89f4a9ee235aef93e532aef05d5fa0cf0837e3c10ec7",
+    "metrics": "[]"
+  },
+  {
+    "index": 1148,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 1,
+    "scope": "primary",
+    "analysis": "Field Curvature and Distortion",
+    "verdict": "Incomparable",
+    "priorVerdict": "Error",
+    "reason": "Native field curvature and distortion have no finite focal plane or nonzero field domain in the verified collimated contact-pupil prescription.",
+    "error": "System.IO.InvalidDataException: Native field curvature and distortion have no finite focal plane or nonzero field domain in the verified collimated contact-pupil prescription.\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeFocalImageDomain.Validate(String path, CanonicalAnalysisRequest request, String workbenchPath) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeFocalImageDomain.cs:line 34\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request, String workbenchPath) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 140\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+    "requestFingerprint": "aa709338184fa063e3b0172918eeb1cb47a1d10ce7e83809a7dde8a61f355d63",
+    "metrics": "[]"
+  },
+  {
+    "index": 1159,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 2,
+    "scope": "primary",
+    "analysis": "PSF",
+    "verdict": "Incomparable",
+    "priorVerdict": "Error",
+    "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]",
+    "error": "System.IO.InvalidDataException: Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"计算终止; 无效的结果!\"}]\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeReferenceDiagnostics.Validate(JsonElement report) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeReferenceDiagnostics.cs:line 16\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request, String workbenchPath) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 139\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+    "requestFingerprint": "d8e41491ef57e8df4bca15aea70240fc0713502e68ac2f2bf1a5f83bbe30d2dc",
+    "metrics": "[]"
+  },
+  {
+    "index": 1161,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 2,
+    "scope": "primary",
+    "analysis": "MTF",
+    "verdict": "Incomparable",
+    "priorVerdict": "Error",
+    "reason": "Native focal FFT MTF has no image-plane frequency scale in the verified collimated contact-pupil prescription.",
+    "error": "System.IO.InvalidDataException: Native focal FFT MTF has no image-plane frequency scale in the verified collimated contact-pupil prescription.\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeFocalImageDomain.Validate(String path, CanonicalAnalysisRequest request, String workbenchPath) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeFocalImageDomain.cs:line 34\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request, String workbenchPath) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 140\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+    "requestFingerprint": "f8e11427127b621b00c7ee65578fe1de184888fb209648a94be46149df175496",
+    "metrics": "[]"
+  },
+  {
+    "index": 1170,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 2,
+    "scope": "primary",
+    "analysis": "Field Curvature and Distortion",
+    "verdict": "Incomparable",
+    "priorVerdict": "Error",
+    "reason": "Native field curvature and distortion have no finite focal plane or nonzero field domain in the verified collimated contact-pupil prescription.",
+    "error": "System.IO.InvalidDataException: Native field curvature and distortion have no finite focal plane or nonzero field domain in the verified collimated contact-pupil prescription.\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.NativeFocalImageDomain.Validate(String path, CanonicalAnalysisRequest request, String workbenchPath) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\NativeFocalImageDomain.cs:line 34\r\n   at OpticalSystemDesign.ZemaxComparison.Normalization.ResultNormalizer.Zemax(String path, AnalysisComparisonEntry entry, CanonicalAnalysisRequest request, String workbenchPath) in D:\\Projects\\opticalsystem\\tools\\OpticalSystemDesign.ZemaxComparison\\Normalization\\ResultNormalizer.cs:line 140\r\n   at Program.<Main>$(String[] args) in D:\\Projects\\opticalsystem\\tools\\diagnostics\\ExampleAccuracy20261031\\Program.cs:line 166",
+    "requestFingerprint": "cfbf272455ca41f6c55aa8014b84afd746a713198f0a51316da3c94fdb6d1cb0",
+    "metrics": "[]"
+  }
+]

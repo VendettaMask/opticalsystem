@@ -88,6 +88,7 @@ public static class OpticSnapshotValidator
         "circular",
         "annular",
         "circular_obscuration",
+        "spider_obscuration",
         "offset_radial",
         "rectangular",
         "elliptical",
@@ -981,6 +982,13 @@ public static class OpticSnapshotValidator
             foreach (var key in new[] { "outerRadius", "innerRadius", "offsetX", "offsetY" }) RequireNumberKey(component, key, path);
             if (component.Numbers["innerRadius"] < 0 || component.Numbers["outerRadius"] < component.Numbers["innerRadius"])
                 Invalid(path, "circular obscuration radii must be nonnegative and ordered");
+        }
+        if (role == ComponentRole.Aperture && component.Kind == "spider_obscuration")
+        {
+            foreach (var key in new[] { "armWidth", "armCount", "offsetX", "offsetY" }) RequireNumberKey(component, key, path);
+            var count = component.Numbers["armCount"];
+            if (component.Numbers["armWidth"] <= 0 || count is < 1 or > SpiderObscurationAperture.MaximumArmCount
+                || count != Math.Truncate(count)) Invalid(path, "spider arm width and count must be positive");
         }
         var children = component.Children;
         if (role == ComponentRole.Material && component.Kind == "uniaxial")

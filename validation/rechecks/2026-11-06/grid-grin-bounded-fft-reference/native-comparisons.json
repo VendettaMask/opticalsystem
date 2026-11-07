@@ -1,0 +1,461 @@
+{
+  "grids": {
+    "control-default-256": {
+      "cx": 0.0033575479061909164,
+      "cy": 0.0033575479061909164,
+      "discreteX": 0.003414768581755017,
+      "discreteY": 0.0034147685817550594,
+      "sum": 41.49817951559284,
+      "total": 9.751093725265152,
+      "edge4FractionUpperBound": 0.0002182443922956143,
+      "window": [
+        -123.60963479514912,
+        124.09437846101245,
+        -123.60963479514912,
+        124.09437846101245
+      ],
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 1.13361323661465e-08,
+        "nrmse": 7.092682477732784e-09,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.8904655450130392
+    },
+    "control-full-256": {
+      "cx": 0.0030329007863656443,
+      "cy": 0.0030329007863656443,
+      "discreteX": 0.0034535911248646583,
+      "discreteY": 0.0034535911248645725,
+      "sum": 5.178971491791297,
+      "total": 9.735489509453343,
+      "edge4FractionUpperBound": 7.937328885384041e-05,
+      "window": [
+        -349.62084393457025,
+        350.991906067647,
+        -349.62084393457025,
+        350.991906067647
+      ],
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 7.361005510686525e-07,
+        "nrmse": 4.5694835758693395e-07,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.8906173805560433
+    },
+    "control-full-512": {
+      "cx": 0.001509754040853295,
+      "cy": 0.001509754040853295,
+      "discreteX": 0.0017216784434425764,
+      "discreteY": 0.0017216784434425222,
+      "sum": 5.133309508540206,
+      "total": 9.725784688327636,
+      "edge4FractionUpperBound": 1.9667280254862638e-05,
+      "window": [
+        -703.3710679156118,
+        704.7475279311022,
+        -703.3710679156118,
+        704.7475279311022
+      ],
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 7.486448889704178e-07,
+        "nrmse": 4.6504703364473505e-07,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.8907232885266336
+    },
+    "grid-full-512": {
+      "cx": 3.628091791220129,
+      "cy": -8.006594074253314,
+      "discreteX": 3.6282210584138666,
+      "discreteY": -8.006649968574308,
+      "sum": 5.674388904221524,
+      "total": 2.164416922968864,
+      "edge4FractionUpperBound": 0.00013817969809680732,
+      "window": [
+        -315.59623373202635,
+        316.2138388861007,
+        -315.59623373202635,
+        316.2138388861007
+      ],
+      "profileCoverage": "grid-full-512 does not cover physical interval (np.float64(-317.37639), np.float64(317.37639))",
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 4.0680561187462355e-11,
+        "nrmse": 3.639399472586447e-08,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.00039833063949478033
+    },
+    "grid-495-1024-step.001": {
+      "cx": 2.947219147717874,
+      "cy": 1.3666774280151799,
+      "discreteX": 2.9472124019123758,
+      "discreteY": 1.3671606331782797,
+      "sum": 34.631327982648145,
+      "total": 2.164457998915509,
+      "edge4FractionUpperBound": 0.002496225962810299,
+      "window": [
+        -255.75,
+        256.0,
+        -255.75,
+        256.0
+      ],
+      "profileCoverage": "grid-495-1024-step.001 does not cover physical interval (np.float64(-317.37639), np.float64(317.37639))",
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 2.02379828390456e-12,
+        "nrmse": 1.6896963920493277e-09,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.0003962052603929076
+    },
+    "grid-495-1024-step.005": {
+      "cx": 2.941283285244708,
+      "cy": 1.3942899182688393,
+      "discreteX": 2.9412754164713095,
+      "discreteY": 1.3947973148159671,
+      "sum": 34.62218038287187,
+      "total": 2.1638862739294917,
+      "edge4FractionUpperBound": 0.0025251993621260202,
+      "window": [
+        -255.75,
+        256.0,
+        -255.75,
+        256.0
+      ],
+      "profileCoverage": "grid-495-1024-step.005 does not cover physical interval (np.float64(-317.37639), np.float64(317.37639))",
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 2.1435589848267655e-12,
+        "nrmse": 1.6974454458718259e-09,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.00041796398377485274
+    },
+    "grid-495-2048-step.005": {
+      "cx": 3.680678519800722,
+      "cy": -8.210001316366004,
+      "discreteX": 3.6806789718537587,
+      "discreteY": -8.210004787185417,
+      "sum": 34.62453832907138,
+      "total": 2.164033645566961,
+      "edge4FractionUpperBound": 4.758429852949487e-06,
+      "window": [
+        -511.75,
+        512.0,
+        -511.75,
+        512.0
+      ],
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 1.8355898398492165e-12,
+        "nrmse": 1.6036132028535791e-09,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.0003983778100551365
+    },
+    "defocus-full-256": {
+      "cx": 0.0030931001796261626,
+      "cy": 0.0030931001796261626,
+      "discreteX": 0.003523575090313101,
+      "discreteY": 0.0035235750903097568,
+      "sum": 5.178971491791296,
+      "total": 9.735489509453341,
+      "edge4FractionUpperBound": 8.079051464469469e-05,
+      "window": [
+        -349.62084393457025,
+        350.991906067647,
+        -349.62084393457025,
+        350.991906067647
+      ],
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 5.2789435366421e-09,
+        "nrmse": 1.8302132280620666e-07,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.014636360131598093
+    },
+    "defocus-full-512": {
+      "cx": 0.0015149318993508132,
+      "cy": 0.0015149318993508132,
+      "discreteX": 0.0017280342430164835,
+      "discreteY": 0.0017280342430163105,
+      "sum": 5.133309508540208,
+      "total": 9.72578468832764,
+      "edge4FractionUpperBound": 1.9796174996508737e-05,
+      "window": [
+        -703.3710679156118,
+        704.7475279311022,
+        -703.3710679156118,
+        704.7475279311022
+      ],
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 5.343323755246238e-09,
+        "nrmse": 1.84289797563661e-07,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.01467821694222011
+    },
+    "grid-full-512-step0.0025": {
+      "cx": 3.625657630235253,
+      "cy": -8.003553009526797,
+      "discreteX": 3.625793960807854,
+      "discreteY": -8.00362132751073,
+      "sum": 5.674388904221523,
+      "total": 2.164637563632886,
+      "edge4FractionUpperBound": 0.00013687934708412063,
+      "window": [
+        -315.6123192623414,
+        316.2299558949488,
+        -315.6123192623414,
+        316.2299558949488
+      ],
+      "profileCoverage": "grid-full-512-step0.0025 does not cover physical interval (np.float64(-317.37639), np.float64(317.37639))",
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 4.897071360617303e-11,
+        "nrmse": 4.0744660651357215e-08,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.0004239894313889765
+    },
+    "grid-full-512-step0.001": {
+      "cx": 3.6274935001160884,
+      "cy": -8.006459657064113,
+      "discreteX": 3.6276227083517854,
+      "discreteY": -8.00652535537874,
+      "sum": 5.674143258350963,
+      "total": 2.1648400292267747,
+      "edge4FractionUpperBound": 0.0001364369100772053,
+      "window": [
+        -315.63391105449006,
+        316.25158994109375,
+        -315.63391105449006,
+        316.25158994109375
+      ],
+      "profileCoverage": "grid-full-512-step0.001 does not cover physical interval (np.float64(-317.37639), np.float64(317.37639))",
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 5.111756737298176e-11,
+        "nrmse": 4.473217535810449e-08,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.0003979999768891708
+    }
+  },
+  "profileComparisons": {
+    "matched-control": {
+      "count": 1025,
+      "coverage": 1,
+      "maxAbsolute": 0.00015722476493451598,
+      "nrmse": 2.762615795233095e-05,
+      "pointwise": false,
+      "verdict": "Pass"
+    },
+    "control-full-256~control-full-512": {
+      "count": 1025,
+      "coverage": 1,
+      "maxAbsolute": 0.0004024343206490699,
+      "nrmse": 0.00010549205175783398,
+      "pointwise": false,
+      "verdict": "Pass"
+    },
+    "grid-495-2048-step.005~native-cross-8192": {
+      "count": 32769,
+      "coverage": 1,
+      "maxAbsolute": 3.3307600552696343e-06,
+      "nrmse": 0.011754288718330067,
+      "pointwise": true,
+      "verdict": "Pass"
+    }
+  },
+  "energyComparisons": {
+    "control-full-256~control-full-512": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 0.00033937270385542284,
+      "nrmse": 0.00019714223180703305,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "grid-full-512~grid-full-512-step0.0025": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 2.5658791894196177e-05,
+      "nrmse": 0.027703038064312305,
+      "pointwise": false,
+      "verdict": "Difference"
+    },
+    "grid-full-512~grid-full-512-step0.001": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 7.151038740146236e-07,
+      "nrmse": 0.0009529987189541395,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "grid-full-512-step0.0025~grid-full-512-step0.001": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 2.598945449980571e-05,
+      "nrmse": 0.0299686712831753,
+      "pointwise": false,
+      "verdict": "Difference"
+    },
+    "grid-full-512-step0.001~grid-495-2048-step.005": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 2.2527653375032026e-06,
+      "nrmse": 0.0026870796948309265,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "grid-495-1024-step.001~grid-full-512-step0.001": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 3.356191740095982e-06,
+      "nrmse": 0.0035925416855027356,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "grid-full-512~grid-495-2048-step.005": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 1.842042202054758e-06,
+      "nrmse": 0.002146075423602565,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "grid-full-512-step0.0025~grid-495-2048-step.005": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 2.5611621333839992e-05,
+      "nrmse": 0.02833770500917271,
+      "pointwise": false,
+      "verdict": "Difference"
+    },
+    "grid-495-1024-step.005~grid-495-1024-step.001": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 2.1758723381945142e-05,
+      "nrmse": 0.02552910416959512,
+      "pointwise": false,
+      "verdict": "Difference"
+    },
+    "grid-495-1024-step.005~grid-495-2048-step.005": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 1.958622019260811e-05,
+      "nrmse": 0.021921678661819138,
+      "pointwise": false,
+      "verdict": "Difference"
+    },
+    "control-full-256~native-energy-512": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 0.0010486504502187355,
+      "nrmse": 0.0003962218850413283,
+      "pointwise": false,
+      "verdict": "Pass"
+    },
+    "control-full-512~native-energy-512": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 0.0013747332867035111,
+      "nrmse": 0.0005413509769540252,
+      "pointwise": false,
+      "verdict": "Pass"
+    },
+    "control-full-256~native-energy-1024": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 0.0009282801301321864,
+      "nrmse": 0.00036446859511180164,
+      "pointwise": false,
+      "verdict": "Pass"
+    },
+    "control-full-512~native-energy-1024": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 0.0012558972922441236,
+      "nrmse": 0.0005454957681210398,
+      "pointwise": false,
+      "verdict": "Pass"
+    },
+    "control-full-256~native-energy-2048": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 0.0006895179143164842,
+      "nrmse": 0.00029859258351529585,
+      "pointwise": false,
+      "verdict": "Pass"
+    },
+    "control-full-512~native-energy-2048": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 0.00038896222711901074,
+      "nrmse": 0.00013101657691811692,
+      "pointwise": false,
+      "verdict": "Pass"
+    },
+    "defocus-full-256~native-defocus-1024": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 7.87561230996478e-05,
+      "nrmse": 0.0028979606880544895,
+      "pointwise": false,
+      "verdict": "Pass"
+    },
+    "defocus-full-512~native-defocus-1024": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 0.00012247482050722902,
+      "nrmse": 0.004671904041788316,
+      "pointwise": false,
+      "verdict": "Close"
+    },
+    "defocus-full-256~native-defocus-2048": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 6.481251354419244e-05,
+      "nrmse": 0.0027874946325149186,
+      "pointwise": false,
+      "verdict": "Pass"
+    },
+    "defocus-full-512~native-defocus-2048": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 2.4858603543638676e-05,
+      "nrmse": 0.001044269382625827,
+      "pointwise": false,
+      "verdict": "Pass"
+    }
+  }
+}

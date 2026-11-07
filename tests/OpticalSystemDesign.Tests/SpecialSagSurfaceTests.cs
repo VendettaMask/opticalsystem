@@ -12,6 +12,57 @@ namespace OpticalSystemDesign.Tests;
 public sealed class SpecialSagSurfaceTests
 {
     [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    public async Task CollimatedGridSagUsesTypedFocalApplicabilityInFixedAndAdaptiveAnalyses(int configuration)
+    {
+        var source = Path.Combine(AppContext.BaseDirectory, "Fixtures", "reference-closure", "Grid Sag Example.zmx");
+        var imported = await new ZemaxZmxImporter().ImportConfigurationSetFileAsync(source);
+        var optic = Optic.FromSnapshot(imported.Configurations[configuration].ToSnapshot());
+        var runtime = new OpticalSystemDesign.Application.Runtime.WorkbenchRuntime(optic);
+        foreach (var name in new[] { "PSF", "MTF", "Field Curvature and Distortion" })
+        {
+            Check(runtime.BuildAnalysisData(name, new Dictionary<string, string>()));
+            if (name != "Field Curvature and Distortion")
+                Check(runtime.BuildAnalysisData(name, new Dictionary<string, string> { ["FourierSamplingMode"] = "Adaptive" }));
+        }
+        var section = runtime.BuildAnalysisData("FFT PSF Cross Section", new Dictionary<string, string> { ["Sampling"] = "32" });
+        Assert.Equal(OpticalSystemDesign.Core.Analysis.AnalysisOutcome.Success, section.Outcome);
+        Assert.NotEmpty(section.PlotSeries);
+        var huygensSettings = new Dictionary<string, string>
+        {
+            ["PupilSampling"] = "32", ["ImageSampling"] = "32", ["ImageDeltaMicrometers"] = "0.25",
+            ["FieldNumber"] = "1", ["WavelengthNumber"] = "1", ["UseRayAiming"] = "False"
+        };
+        var huygens = runtime.BuildAnalysisData("Huygens PSF", huygensSettings);
+        Assert.Equal(OpticalSystemDesign.Core.Analysis.AnalysisOutcome.Success, huygens.Outcome);
+        Assert.Equal("Collimated contact-pupil readout", huygens.Values["PropagationModel"]);
+        Assert.All(Assert.Single(huygens.PlotSeries).Points, point => Assert.Equal(1, point.Value!.Value, 12));
+        huygensSettings["ImageDeltaMicrometers"] = "500";
+        var outsidePupil = Assert.Throws<OpticalSystemDesign.Core.Analysis.AnalysisDataUnavailableException>(
+            () => runtime.BuildAnalysisData("Huygens PSF", huygensSettings));
+        Assert.Contains("outside the clear pupil", outsidePupil.Reason);
+
+        var afocal = optic.Clone();
+        afocal.ImageSpaceAfocal = true;
+        Assert.False(OpticalSystemDesign.Core.Analysis.FocalImageDomain.IsCollimatedContactPupil(afocal));
+        var finite = optic.Clone();
+        finite.SurfaceGroup.Items[0].Thickness = 10;
+        Assert.False(OpticalSystemDesign.Core.Analysis.FocalImageDomain.IsCollimatedContactPupil(finite));
+        var powered = optic.Clone();
+        powered.SurfaceGroup.Items[1].InteractionModel = new ParaxialLensInteractionModel(.1, .1);
+        Assert.False(OpticalSystemDesign.Core.Analysis.FocalImageDomain.IsCollimatedContactPupil(powered));
+
+        static void Check(OpticalSystemDesign.Core.Analysis.AnalysisData result)
+        {
+            Assert.Equal(OpticalSystemDesign.Core.Analysis.AnalysisOutcome.NotApplicable, result.Outcome);
+            Assert.Equal(OpticalSystemDesign.Core.Analysis.FocalImageDomain.CollimatedContactPupil,
+                result.Values[OpticalSystemDesign.Core.Analysis.FocalImageDomain.ResultKey]);
+            Assert.Empty(result.PlotSeries);
+        }
+    }
+
+    [Theory]
     [InlineData(0, 2, 3)]
     [InlineData(1, 3, 2)]
     public async Task GridSagConfigurationsIgnoreOnlyTheSelectedSurfaceAndPassNeutralOutsideRays(
@@ -21,7 +72,7 @@ public sealed class SpecialSagSurfaceTests
         var imported = await new ZemaxZmxImporter().ImportConfigurationSetFileAsync(source);
         var optic = Optic.FromSnapshot(imported.Configurations[configuration].ToSnapshot());
         var reference = optic.SurfaceGroup.Items[ignored];
-        Assert.IsType<CoordinateReferenceInteractionModel>(reference.InteractionModel);
+        Assert.True(Assert.IsType<CoordinateReferenceInteractionModel>(reference.InteractionModel).IsIgnoredSurface);
         Assert.Null(reference.PhysicalAperture);
         Assert.Equal(0, reference.Thickness);
 
@@ -38,6 +89,44 @@ public sealed class SpecialSagSurfaceTests
             Assert.Equal(0, hit.Position.Z, 10);
             Assert.Equal(1, hit.Intensity, 10);
         }
+        var report = new OpticalSystemDesign.Core.Analysis.SingleRayTraceAnalysis(
+            optic, fieldNumber: 1, px: 0, py: .8, useRayAiming: false).GenerateData();
+        Assert.Equal(new[] { ignored }, Assert.IsType<int[]>(report.Values["IgnoredSurfaceNumbers"]));
+        var rows = Assert.IsType<double[][]>(report.Values["RealRayData"]);
+        Assert.Equal(new[] { 1d, active, 4 }, rows.Select(row => row[0]));
+    }
+
+    [Fact]
+    public void IgnoredReferenceLengthIsReportedWithTheNextPhysicalHit()
+    {
+        const string source = """
+            MODE SEQ
+            ENPD 2
+            SURF 0
+              TYPE STANDARD
+              DISZ 20
+            SURF 1
+              STOP
+              TYPE STANDARD
+              DISZ 6
+            SURF 2
+              TYPE STANDARD
+              DISZ 9
+            SURF 3
+              TYPE STANDARD
+              DISZ 4
+            SURF 4
+              TYPE STANDARD
+            MNUM 1
+            IGNR 2 1 1
+            """;
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var report = new OpticalSystemDesign.Core.Analysis.SingleRayTraceAnalysis(
+            optic, fieldNumber: 1, px: 0, py: 0, useRayAiming: false).GenerateData();
+        var rows = Assert.IsType<double[][]>(report.Values["RealRayData"]);
+        Assert.Equal(new[] { 1d, 3, 4 }, rows.Select(row => row[0]));
+        Assert.Equal(6, rows[1][11], 10);
+        Assert.Equal(4, rows[2][11], 10);
     }
 
     [Theory]

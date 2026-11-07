@@ -1,12 +1,33 @@
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Backend;
+using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class FftSamplingReferenceRepairTests
 {
+    [Fact]
+    public void CoaxialGrinRoundTripRetainsItsEnergyReferenceAcrossVirtualAirGaps()
+    {
+        var root = ProductDependencyArchitectureTests.RepositoryRoot();
+        var source = Path.Combine(root, "src/OpticalSystemDesign.App/Assets/SequentialExamples/Interconnects/Optical interconnect.ZMX");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+        var data = new DiffractionEncircledEnergyAnalysis(optic, 32, 64, numPoints: 401,
+            wavelengthNumber: 1, fieldNumber: 1, reference: "centroid", maximumDistanceMicrometers: 5).GenerateData();
+
+        Assert.Equal(AnalysisOutcome.Success, data.Outcome);
+        Assert.Equal(2, data.PlotSeries.Count);
+        Assert.All(data.PlotSeries, series =>
+        {
+            Assert.Equal(0, series.Points[0].Y);
+            Assert.InRange(series.Points[^1].Y, .8, 1);
+            Assert.All(series.Points.Zip(series.Points.Skip(1)), pair => Assert.True(pair.First.Y <= pair.Second.Y));
+        });
+    }
+
     [Fact]
     public void VertexPlotMatchesImageLocalReferenceUsedByEnergyOperand()
     {

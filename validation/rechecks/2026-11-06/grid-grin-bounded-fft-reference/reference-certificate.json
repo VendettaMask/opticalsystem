@@ -1,0 +1,106 @@
+{
+  "profile": {
+    "index": 499,
+    "status": "Pass",
+    "scope": "bounded independent native FFT PSF readout",
+    "nativeDirectIntegrationStep": {
+      "count": 32769,
+      "coverage": 1,
+      "maxAbsolute": 3.0000000000000018e-06,
+      "nrmse": 0.010329540429125402,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "nativeHigherEffectiveSampling": {
+      "count": 32769,
+      "coverage": 1,
+      "maxAbsolute": 3.3307600552696343e-06,
+      "nrmse": 0.011754288718330067,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "minPositionUm": -317.37639,
+    "maxPositionUm": 317.37639,
+    "sampleCount": 32769
+  },
+  "energy": {
+    "index": 502,
+    "status": "Open",
+    "scope": "bounded independent native full PSF integration",
+    "actualCase": "grid-full-512-step0.001",
+    "actualStep": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 2.598945449980571e-05,
+      "nrmse": 0.0299686712831753,
+      "pointwise": false,
+      "verdict": "Difference"
+    },
+    "earlierStep": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 2.5658791894196177e-05,
+      "nrmse": 0.027703038064312305,
+      "pointwise": false,
+      "verdict": "Difference"
+    },
+    "actualSampling": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 1.842042202054758e-06,
+      "nrmse": 0.002146075423602565,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "finerVsDenserNative": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 2.2527653375032026e-06,
+      "nrmse": 0.0026870796948309265,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "idealChecks": {
+      "linearComplexMaxAbs": 4.0657581468206416e-20,
+      "linearComplexNrmse": 2.6588645993065068e-17,
+      "zeroPhaseFluxRelError": 2.220446049250313e-16,
+      "pupilPeak": 5.411518959256701e-06,
+      "pupilSignificantNodes": 184791,
+      "centroid": [
+        0.0006753063627797928,
+        0.0007663550378538275
+      ],
+      "zeroPhaseAt5": 0.9476098010946972,
+      "quadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 6.179024991670445e-07,
+        "nrmse": 2.4870875465322714e-07,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "pupilDecimation": {
+        "0": {
+          "count": 2001,
+          "coverage": 1,
+          "maxAbsolute": 3.544732062288336e-05,
+          "nrmse": 1.3730616753320189e-05,
+          "pointwise": true,
+          "verdict": "Pass"
+        },
+        "1": {
+          "count": 2001,
+          "coverage": 1,
+          "maxAbsolute": 7.16950354742174e-05,
+          "nrmse": 2.7812371015439173e-05,
+          "pointwise": true,
+          "verdict": "Pass"
+        }
+      }
+    },
+    "actualAt5": 0.0003979999768891708,
+    "idealAt5": 0.9476098010946972
+  },
+  "coreSha256": "b805b00bc0652d28b6e4a1952b56bde77339fceca3be031ac3c12f93045c3c6e",
+  "originalMatrixModified": false
+}

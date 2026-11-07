@@ -22,7 +22,10 @@ public sealed class TiltedPlaneGeometry : IGeometry
         var v = new Vector3D(-TangentX / scale, -TangentY / scale, 1 / scale);
         return v / v.Length;
     }
-    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction)
+    public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction) =>
+        DistanceToIntersection(origin, direction, 0);
+
+    internal IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction, double coordinateScale)
     {
         if (!double.IsFinite(origin.X) || !double.IsFinite(origin.Y) || !double.IsFinite(origin.Z)
             || !double.IsFinite(direction.X) || !double.IsFinite(direction.Y) || !double.IsFinite(direction.Z)
@@ -32,8 +35,19 @@ public sealed class TiltedPlaneGeometry : IGeometry
         var numerator = normal.X * origin.X + normal.Y * origin.Y + normal.Z * origin.Z;
         if (denominator == 0) return IntersectionResult.Failure(IntersectionStatus.NoRoot);
         var distance = -numerator / denominator;
-        if (!double.IsFinite(distance) || distance < 0)
+        if (!double.IsFinite(distance))
             return IntersectionResult.Failure(IntersectionStatus.NoRoot);
+        if (distance < 0)
+        {
+            // A launch on a translated tilted object can round a few ulps
+            // behind the plane after the world-to-local coordinate round trip.
+            var localScale = Math.Max(Math.Abs(origin.X), Math.Max(Math.Abs(origin.Y), Math.Abs(origin.Z)));
+            var scale = Math.Max(1, Math.Max(localScale, coordinateScale));
+            var roundoff = 16 * 2.2204460492503131e-16 * scale;
+            if (-distance * direction.Length > roundoff)
+                return IntersectionResult.Failure(IntersectionStatus.NoRoot);
+            distance = 0;
+        }
         var point = origin + distance * direction;
         return new(IntersectionStatus.Success, distance, point, normal,
             Math.Abs(point.Z - Sag(point.X, point.Y)), 0, direction.Length / Math.Abs(denominator));

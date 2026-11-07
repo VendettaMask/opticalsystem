@@ -268,7 +268,11 @@ public sealed class ZemaxZmxImporter : IOpticalFormatImporter
 public sealed record ZemaxZmxImportResult(
     Optic ActiveOptic,
     IReadOnlyList<Optic> Configurations,
-    int ActiveConfigurationIndex);
+    int ActiveConfigurationIndex)
+{
+    /// <summary>The source ZMX number for each imported surface, in each configuration's order.</summary>
+    public IReadOnlyList<IReadOnlyList<int>> SourceSurfaceNumbers { get; init; } = [];
+}
 
 public sealed class ZemaxZmxExporter : IOpticalFormatExporter
 {
@@ -295,6 +299,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             $"RAIM 0 {(optic.RayAimingEnabled ? 1 : 0)} 1 1 0 0 0 0 0 1",
             $"FTYP {FieldTypeCode(optic.FieldDefinition)} {(optic.ObjectSpaceTelecentric ? 1 : 0)} {optic.Fields.Count} {optic.Wavelengths.Count} 0 0 {(optic.ImageSpaceAfocal ? 1 : 0)}",
             $"ROPD {(int)optic.ReferenceOpd}",
+            $"GLRS {optic.GlobalReferenceSurfaceNumber} {(optic.UseExitPupilFNumber ? 1 : 0)}",
             $"XFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.X)))}",
             $"YFLN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.Y)))}",
             $"FWGN {string.Join(" ", optic.Fields.Select(field => FormatDouble(field.Weight)))}",
@@ -508,6 +513,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         OffsetRadialAperture offset => surface.SemiDiameterDefinesPhysicalAperture ? offset.OuterRadius : surface.SemiDiameter,
         RectangularAperture => surface.SemiDiameter,
         CircularObscurationAperture => surface.SemiDiameter,
+        SpiderObscurationAperture => surface.SemiDiameter,
         _ => throw new NotSupportedException(
             $"Zemax ZMX export cannot losslessly map physical aperture '{surface.PhysicalAperture.Kind}'.")
     };
@@ -532,6 +538,12 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             lines.Add($"  OBSC {FormatDouble(obscuration.InnerRadius)} {FormatDouble(obscuration.OuterRadius)} 0");
             if (obscuration.OffsetX != 0 || obscuration.OffsetY != 0)
                 lines.Add($"  OBDC {FormatDouble(obscuration.OffsetX)} {FormatDouble(obscuration.OffsetY)}");
+        }
+        if (surface.PhysicalAperture is SpiderObscurationAperture spider)
+        {
+            lines.Add($"  SPID {FormatDouble(spider.ArmWidth)} {spider.ArmCount} 0");
+            if (spider.OffsetX != 0 || spider.OffsetY != 0)
+                lines.Add($"  OBDC {FormatDouble(spider.OffsetX)} {FormatDouble(spider.OffsetY)}");
         }
         if (surface.PhysicalAperture is CircularAperture)
         {

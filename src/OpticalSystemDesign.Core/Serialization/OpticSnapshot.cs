@@ -28,7 +28,9 @@ public sealed record OpticSnapshot(
     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     OpticalSystemDesign.Core.Domain.ReferenceOpdMode? ReferenceOpd = null,
     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-    bool HasImportedSurfaceTiltDecenter = false);
+    bool HasImportedSurfaceTiltDecenter = false,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    bool UseExitPupilFNumber = false);
 
 public sealed record PolarizationSnapshot(bool Unpolarized, double Jx, double Jy,
     double XPhaseDegrees, double YPhaseDegrees, string ReferenceAxis);

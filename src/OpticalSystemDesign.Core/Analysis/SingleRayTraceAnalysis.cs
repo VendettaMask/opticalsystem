@@ -3,6 +3,8 @@ using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Interactions;
+using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Visualization;
 
@@ -137,9 +139,16 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
                 ["CompoundPortOpticalPathLengths"] = history.Where(sample =>
                     Optic.SurfaceGroup.Items.Any(surface => surface.Number == sample.SurfaceNumber && surface.Geometry is PolygonGroupGeometry))
                     .Select(sample => new[] { (double)sample.SurfaceNumber, sample.SegmentOpticalPathLength }).ToArray(),
+                ["GradientSegmentEndSurfaces"] = reportHistory
+                    .Where(sample => !sample.Vignetted && sample.SegmentLength > 0
+                        && Optic.SurfaceGroup.Items.Any(surface => surface.Number == sample.SurfaceNumber
+                            && surface.MaterialBefore is GradientIndexMaterial))
+                    .Select(sample => sample.SurfaceNumber).ToArray(),
+                ["Gradient9MirrorIndexRatios"] = Gradient9MirrorIndexRatios(history, wavelength.Nanometers),
                 ["PathLengthConvention"] = "Geometric segment lengths; compound-port optical lengths are published separately for mixed-mode report interoperability.",
                 ["VignettedSurface"] = vignettedSurface,
                 ["ShowRaySegments"] = _showRaySegments,
+                ["IgnoredSurfaceNumbers"] = Optic.SurfaceGroup.Items.Where(IsIgnored).Select(surface => surface.Number).ToArray(),
                 ["LayoutAvailable"] = pane is not null,
                 ["LayoutUnavailableReason"] = layoutUnavailableReason ?? string.Empty
             },
@@ -151,6 +160,36 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
             Table: table,
             ReportText: (apertureContinuation ? "被孔径阻挡后的数值为几何延长，不计入实际通光。\n\n" : string.Empty)
                 + BuildZemaxDirectionCosineReport(field, realRows, paraxialRows));
+    }
+
+    private double[][] Gradient9MirrorIndexRatios(IReadOnlyList<RayTraceSample> history, double wavelengthNanometers)
+    {
+        var surfaces = Optic.SurfaceGroup.Items;
+        var ratios = new List<double[]>();
+        for (var i = 2; i + 1 < surfaces.Count; i++)
+        {
+            var mirror = surfaces[i];
+            var returnFace = surfaces[i + 1];
+            if (!mirror.IsReflective || mirror.Thickness != 0 || IsIgnored(mirror) || IsIgnored(returnFace)
+                || mirror.CoordinateSystem != returnFace.CoordinateSystem
+                || mirror.Radius != returnFace.Radius || mirror.Conic != returnFace.Conic
+                || returnFace.InteractionModel is not RefractiveReflectiveInteractionModel { IsReflective: false }
+                || mirror.MaterialBefore is not GradientIndexMaterial { Profile: Gradient9IndexProfile forward }
+                || returnFace.MaterialAfter is not GradientIndexMaterial { Profile: Gradient9IndexProfile backward })
+                continue;
+
+            var coefficients = forward.Coefficients(wavelengthNanometers);
+            if (coefficients != backward.Coefficients(wavelengthNanometers))
+                continue;
+            var reflected = history.FirstOrDefault(sample => sample.SurfaceNumber == mirror.Number);
+            var returned = history.FirstOrDefault(sample => sample.SurfaceNumber == returnFace.Number);
+            if (reflected is not { Vignetted: false, RefractiveIndexBefore: > 0 } ||
+                returned is not { Vignetted: false, SegmentLength: 0, RefractiveIndexAfter: > 0 }
+                || Math.Abs(reflected.RefractiveIndexBefore.Value - returned.RefractiveIndexAfter.Value) > 1e-10)
+                continue;
+            ratios.Add([mirror.Number, reflected.RefractiveIndexBefore.Value / coefficients.BaseIndex]);
+        }
+        return ratios.ToArray();
     }
 
     private AnalysisData GenerateMarginalChief(
@@ -252,11 +291,19 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
     {
         var rows = new List<TraceDisplayRow>(history.Count);
         var incidentDirection = sourceRay.Direction;
+        var firstPhysical = Optic.SurfaceGroup.Items.Skip(1).FirstOrDefault(surface => !IsIgnored(surface));
+        var ignoredPathLength = 0.0;
         foreach (var sample in history)
         {
             var surface = Optic.SurfaceGroup.Items.FirstOrDefault(item => item.Number == sample.SurfaceNumber);
             if (surface is null)
             {
+                continue;
+            }
+            if (IsIgnored(surface))
+            {
+                ignoredPathLength += sample.SegmentLength;
+                incidentDirection = sample.Direction;
                 continue;
             }
 
@@ -272,9 +319,9 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
             var normal = _globalCoordinates
                 ? surface.CoordinateSystem.ToGlobalDirection(localNormal)
                 : localNormal;
-            var pathLength = sample.SegmentLength;
-            if (Optic.SurfaceGroup.Items.Count > 1
-                && ReferenceEquals(surface, Optic.SurfaceGroup.Items[1])
+            var pathLength = sample.SegmentLength + ignoredPathLength;
+            ignoredPathLength = 0;
+            if (ReferenceEquals(surface, firstPhysical)
                 && sample.RefractiveIndexBefore.HasValue
                 && double.IsPositiveInfinity(Optic.SurfaceGroup.Items[0].Thickness))
             {
@@ -306,6 +353,9 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
         return rows;
     }
 
+    private static bool IsIgnored(OpticalSurface surface) =>
+        surface.InteractionModel is CoordinateReferenceInteractionModel { IsIgnoredSurface: true };
+
     private IReadOnlyList<TraceDisplayRow> BuildParaxialRows(
         (double Hx, double Hy) field,
         Wavelength wavelength)
@@ -336,6 +386,7 @@ public sealed class SingleRayTraceAnalysis : BaseAnalysis
         for (var index = 0; index < count; index++)
         {
             var surface = Optic.SurfaceGroup.Items[index];
+            if (IsIgnored(surface)) continue;
             var localPosition = new Vector3D(
                 xTrace.Heights[index][0],
                 yTrace.Heights[index][0],

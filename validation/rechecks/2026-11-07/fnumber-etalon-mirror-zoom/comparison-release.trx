@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="26c4eccc-510d-4ce3-aa8b-5110a0fc2091" name="allen@DESKTOP-SET3SNR 2026-11-07 14:33:25" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-07T14:33:25.6131488+08:00" queuing="2026-11-07T14:33:25.6131499+08:00" start="2026-11-07T14:33:22.8582693+08:00" finish="2026-11-07T14:33:25.6215462+08:00" />
+  <TestSettings name="default" id="84fc4623-23b4-42fd-a4f2-ae5749cd454b">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-07_14_33_25" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="4b1ac514-25b8-4726-9f69-081e2d951e56" testId="df91e918-eedb-724a-49b9-9a98f4c5e613" testName="OpticalSystemDesign.ZemaxComparison.Tests.NativeFocalImageDomainTests.FiniteMtfValuesNeedAValidPhysicalDomainAndIndependentPrescriptionProof" computerName="DESKTOP-SET3SNR" duration="00:00:00.0744116" startTime="2026-11-07T14:33:25.4372548+08:00" endTime="2026-11-07T14:33:25.4981224+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b1ac514-25b8-4726-9f69-081e2d951e56" />
+    <UnitTestResult executionId="d61442cf-ea29-4987-86b8-2595b84e9a67" testId="9e4bef7c-447a-e5cd-af15-b479e52ecf4d" testName="OpticalSystemDesign.ZemaxComparison.Tests.NativeFocalImageDomainTests.CoatedPlaneContactCanBeVerifiedWithAnOffAxisField" computerName="DESKTOP-SET3SNR" duration="00:00:01.1387874" startTime="2026-11-07T14:33:24.2789208+08:00" endTime="2026-11-07T14:33:25.4235133+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d61442cf-ea29-4987-86b8-2595b84e9a67" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.NativeFocalImageDomainTests.CoatedPlaneContactCanBeVerifiedWithAnOffAxisField" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.zemaxcomparison.tests\bin\release\net10.0\opticalsystemdesign.zemaxcomparison.tests.dll" id="9e4bef7c-447a-e5cd-af15-b479e52ecf4d">
+      <Execution id="d61442cf-ea29-4987-86b8-2595b84e9a67" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.ZemaxComparison.Tests\bin\Release\net10.0\OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.NativeFocalImageDomainTests" name="CoatedPlaneContactCanBeVerifiedWithAnOffAxisField" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.ZemaxComparison.Tests.NativeFocalImageDomainTests.FiniteMtfValuesNeedAValidPhysicalDomainAndIndependentPrescriptionProof" storage="d:\projects\opticalsystem\tests\opticalsystemdesign.zemaxcomparison.tests\bin\release\net10.0\opticalsystemdesign.zemaxcomparison.tests.dll" id="df91e918-eedb-724a-49b9-9a98f4c5e613">
+      <Execution id="4b1ac514-25b8-4726-9f69-081e2d951e56" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\tests\OpticalSystemDesign.ZemaxComparison.Tests\bin\Release\net10.0\OpticalSystemDesign.ZemaxComparison.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.ZemaxComparison.Tests.NativeFocalImageDomainTests" name="FiniteMtfValuesNeedAValidPhysicalDomainAndIndependentPrescriptionProof" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="df91e918-eedb-724a-49b9-9a98f4c5e613" executionId="4b1ac514-25b8-4726-9f69-081e2d951e56" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9e4bef7c-447a-e5cd-af15-b479e52ecf4d" executionId="d61442cf-ea29-4987-86b8-2595b84e9a67" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.46]   Discovering: OpticalSystemDesign.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:00.78]   Discovered:  OpticalSystemDesign.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:00.80]   Starting:    OpticalSystemDesign.ZemaxComparison.Tests&#xD;
+[xUnit.net 00:00:02.06]   Finished:    OpticalSystemDesign.ZemaxComparison.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

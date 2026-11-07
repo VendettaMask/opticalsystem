@@ -23,11 +23,12 @@ internal static class AnalysisTrace
     public static IReadOnlyList<AnalysisFieldSample> ScanFieldSamples(
         Optic optic,
         string scanDirection,
-        int count)
+        int count,
+        double? maximumScanMagnitude = null)
     {
         scanDirection = NormalizeScanDirection(scanDirection);
         count = Math.Max(2, count);
-        var maximumField = FieldCoordinates.MaximumRadius(optic.Fields);
+        var maximumField = Math.Min(FieldCoordinates.MaximumRadius(optic.Fields), maximumScanMagnitude ?? double.PositiveInfinity);
         return Enumerable.Range(0, count)
             .Select(index =>
             {
@@ -224,7 +225,8 @@ internal static class AnalysisTrace
         int referenceFieldNumber,
         string distortionType,
         bool symmetricMagnification = false,
-        bool requireUnvignetted = false)
+        bool requireUnvignetted = false,
+        bool allowAxialPointReference = false)
     {
         distortionType = NormalizeDistortionType(distortionType);
         if (UsesCalibratedDistortionReference(distortionType))
@@ -255,6 +257,10 @@ internal static class AnalysisTrace
             .Select(field => Math.Sqrt((field.X * field.X) + (field.Y * field.Y)))
             .DefaultIfEmpty(0)
             .Max();
+        // A scan consisting only of the traced reference point has zero
+        // displacement there. Its report needs no extrapolated field slopes.
+        if (allowAxialPointReference && maximumLinearRadius == 0)
+            return new(0, 0, referenceImage.X, referenceImage.Y, 0, 0, 0, 0);
         var delta = Math.Max(1e-8, Math.Max(1, maximumLinearRadius) * 1e-6);
         // A fourth-order stencil permits a wider angular interval without the
         // cubic field-aberration bias. This avoids amplifying tiny facet/trace

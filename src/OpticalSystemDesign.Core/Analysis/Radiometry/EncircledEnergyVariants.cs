@@ -216,7 +216,7 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
             type: "linear",
             displayAs: "heatmap",
             zemaxCompatible: true,
-            ignoreOpd: ignoreOpd).GenerateData();
+            ignoreOpd: ignoreOpd).GenerateIntermediateGrid();
         var heatmap = source.PlotSeries.FirstOrDefault(
             series => series.Kind == AnalysisSeriesKind.Heatmap);
         if (heatmap is null || heatmap.Points.Count == 0)

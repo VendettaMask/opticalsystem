@@ -26,7 +26,8 @@ internal static class HuygensPsfSynthesis
         double defocus = 0,
         bool useParaxialPupilDefocus = false,
         AfocalHuygensIntegration afocalIntegration = AfocalHuygensIntegration.NativeFiniteCell,
-        long maximumSamplingOperations = AnalysisResourceLimits.MaximumDirectPsfOperations)
+        long maximumSamplingOperations = AnalysisResourceLimits.MaximumDirectPsfOperations,
+        bool contactPupilReadout = false)
     {
         ArgumentNullException.ThrowIfNull(optic);
         ArgumentNullException.ThrowIfNull(wavelengths);
@@ -63,17 +64,24 @@ internal static class HuygensPsfSynthesis
             if (afocalIntegration == AfocalHuygensIntegration.CheckedGaussianPupil && usePolarization)
                 throw new NotSupportedException("Checked afocal pupil integration supports scalar, non-polarized wavelets only.");
             PsfResult psf;
-            try { psf = afocalIntegration == AfocalHuygensIntegration.CheckedGaussianPupil
-                ? DiffractionEngine.ComputeCheckedAfocalHuygensPsf(optic, field, wavelength,
+            try
+            {
+                if (contactPupilReadout)
+                    psf = DiffractionEngine.ComputeContactPupilHuygensPsf(optic, field, wavelength,
+                        pupilSampling, imageSize, pixelPitchMillimeters, referenceWavelength, imageCenterOffset);
+                else if (afocalIntegration == AfocalHuygensIntegration.CheckedGaussianPupil)
+                    psf = DiffractionEngine.ComputeCheckedAfocalHuygensPsf(optic, field, wavelength,
                     pupilSampling, imageSize, pixelPitchMillimeters,
                     new HuygensRefinementOptions(MaximumOperations: remainingSamplingOperations),
                     aimAtStop: optic.RayAimingEnabled, referenceWavelength: referenceWavelength,
-                    imageCenterOffset: imageCenterOffset, defocus: defocus, useParaxialPupilDefocus: useParaxialPupilDefocus)
-                : DiffractionEngine.ComputeHuygensPsf(optic, field, wavelength,
+                    imageCenterOffset: imageCenterOffset, defocus: defocus, useParaxialPupilDefocus: useParaxialPupilDefocus);
+                else
+                    psf = DiffractionEngine.ComputeHuygensPsf(optic, field, wavelength,
                 pupilSampling, imageSize, pixelPitchMillimeters, afocalIntegration, usePolarization,
                 aimAtStop: optic.RayAimingEnabled, referenceWavelength: referenceWavelength,
                 imageCenterOffset: imageCenterOffset, defocus: optic.ImageSpaceAfocal ? defocus : 0,
-                useParaxialPupilDefocus: useParaxialPupilDefocus); }
+                    useParaxialPupilDefocus: useParaxialPupilDefocus);
+            }
             catch (AnalysisDataUnavailableException error) when (error.Data[HuygensSamplingDiagnostics.ExceptionKey] is HuygensSamplingDiagnostics)
             {
                 error.Data[HuygensSamplingDiagnostics.PreviousChecksKey] = samplingChecks.ToArray();

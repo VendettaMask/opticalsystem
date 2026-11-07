@@ -1,11 +1,28 @@
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.FileIO;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class HuygensGeometricCenterTests
 {
+    [Theory]
+    [InlineData(false, .27624278)]
+    [InlineData(true, .27631068)]
+    public void SegmentedPlanarMirrorKeepsNativePeakAtBothCenters(bool useCentroid, double nativePeak)
+    {
+        var root = ProductDependencyArchitectureTests.RepositoryRoot();
+        var source = Path.Combine(root, "src/OpticalSystemDesign.App/Assets/SequentialExamples/Miscellaneous/MEMS DLL Sample.ZMX");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+        var data = new HuygensPsfAnalysis(optic, numRays: 32, imageSize: 32, pixelPitchMillimeters: .00025,
+            wavelengthNumber: 1, fieldNumber: 1, useCentroid: useCentroid).GenerateData();
+        Assert.InRange(Math.Abs(Convert.ToDouble(data.Values["PeakStrehlRatio"]) - nativePeak), 0, 1e-6);
+        if (useCentroid)
+            Assert.InRange(Convert.ToDouble(data.Values["GeometricCenterOffsetXMicrometers"]), -2690, -2688);
+    }
+
     [Fact]
     public void CentroidOptionCentersTheSampledImageOnTheGeometricBeam()
     {

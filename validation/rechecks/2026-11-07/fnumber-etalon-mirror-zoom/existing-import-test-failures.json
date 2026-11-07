@@ -1,0 +1,7 @@
+{
+  "OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxExportRejectsUnmappedGeometryAndAperturesInsteadOfDowngradingToStandard": "Assert.Throws() Failure: No exception was thrown\r\nExpected: typeof(System.NotSupportedException)",
+  "OpticalSystemDesign.Tests.ZemaxImportTests.WorkbenchFilePathImportDetectsBomlessUtf16Zemax": "System.NotSupportedException : Zemax toroidal conic or polynomial terms are not supported (SURF 3).",
+  "OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportPreservesUnsupportedSurfaceTypeAsOpaqueReadOnlyGeometry": "Assert.IsType() Failure: Value is not the exact type\r\nExpected: typeof(OpticalSystemDesign.Core.Geometries.OpaqueGeometryPayload)\r\nActual:   typeof(OpticalSystemDesign.Core.Geometries.EvenAsphereGeometry)",
+  "OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxFixtureMatchesFrozenReferenceReferenceContract": "System.NotSupportedException : Zemax toroidal conic or polynomial terms are not supported (SURF 3).",
+  "OpticalSystemDesign.Tests.ZemaxImportTests.ZemaxImportSupportsFloatingStopMirrorAndCoordinateBreak": "Assert.Equal() Failure: Values differ\r\nExpected: 4\r\nActual:   5"
+}

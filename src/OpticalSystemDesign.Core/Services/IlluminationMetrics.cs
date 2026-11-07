@@ -210,16 +210,19 @@ public static partial class IlluminationMetrics
                 _finiteImageCenter = localHit;
                 // The native finite profile uses the system primary-wavelength
                 // paraxial pupil reference, even for an explicitly selected wave.
-                var axialDistance = localHit.Z - _optic.Paraxial.EstimateExitPupilLocation();
-                if (!double.IsFinite(axialDistance) || Math.Abs(axialDistance) <= 1e-12)
-                    throw Unavailable("the finite image-cosine profile requires a finite nonzero pupil reference distance");
-                var chiefDirection = Normalize(_image.CoordinateSystem.ToLocalDirection(chief.IncidentDirection ?? chief.Direction));
-                if (Math.Abs(chiefDirection.Z) <= 1e-12)
-                    throw Unavailable("the finite image-cosine chief ray is parallel to the pupil reference plane");
-                // Signed chief-ray distance to the scalar pupil-reference plane.
-                // A chord to the paraxial axial pupil point is a different
-                // convention when the actual chief ray misses that point.
-                _finiteReferenceDistance = axialDistance / chiefDirection.Z;
+                var pupilLocation = _optic.Paraxial.EstimateExitPupilLocation(out var pupilAtInfinity);
+                // At infinity the image-point correction tends to zero. Keep
+                // the traced incident directions and the same finite quadrature.
+                if (!pupilAtInfinity)
+                {
+                    var axialDistance = localHit.Z - pupilLocation;
+                    if (!double.IsFinite(axialDistance) || Math.Abs(axialDistance) <= 1e-12)
+                        throw Unavailable("the finite image-cosine profile requires a finite nonzero pupil reference distance");
+                    var chiefDirection = Normalize(_image.CoordinateSystem.ToLocalDirection(chief.IncidentDirection ?? chief.Direction));
+                    if (Math.Abs(chiefDirection.Z) <= 1e-12)
+                        throw Unavailable("the finite image-cosine chief ray is parallel to the pupil reference plane");
+                    _finiteReferenceDistance = axialDistance / chiefDirection.Z;
+                }
             }
 
             if (sampling == IlluminationSamplingKind.UniformImageCosine)
@@ -366,21 +369,8 @@ public static partial class IlluminationMetrics
 
         private double? Clip(Node a, Node b, Node c)
         {
-            var input = new[] { a, b, c };
-            var polygon = new List<Node>(4);
             var crossings = new List<Node>(2);
-            var previous = c;
-            foreach (var current in input)
-            {
-                if (previous.Inside != current.Inside)
-                {
-                    var crossing = Boundary(previous, current);
-                    polygon.Add(crossing);
-                    crossings.Add(crossing);
-                }
-                if (current.Inside) polygon.Add(current);
-                previous = current;
-            }
+            var polygon = ClipToTransmittingPupil(a, b, c, crossings);
             if (crossings.Count == 2)
             {
                 var p = crossings[0];
@@ -393,6 +383,24 @@ public static partial class IlluminationMetrics
             for (var index = 1; index + 1 < polygon.Count; index++)
                 area += Commit(polygon[0], polygon[index], polygon[index + 1]);
             return area;
+        }
+
+        private List<Node> ClipToTransmittingPupil(Node a, Node b, Node c, List<Node>? crossings = null)
+        {
+            var polygon = new List<Node>(4);
+            var previous = c;
+            foreach (var current in new[] { a, b, c })
+            {
+                if (previous.Inside != current.Inside)
+                {
+                    var crossing = Boundary(previous, current);
+                    polygon.Add(crossing);
+                    crossings?.Add(crossing);
+                }
+                if (current.Inside) polygon.Add(current);
+                previous = current;
+            }
+            return polygon;
         }
 
         private Node Boundary(Node a, Node b)

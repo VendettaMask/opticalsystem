@@ -11,7 +11,7 @@ using OpticalSystemDesign.ZemaxComparison.Normalization;
 using OpticalSystemDesign.ZemaxComparison.Workbench;
 using OpticalSystemDesign.ZemaxComparison.Zemax;
 
-if(args.Length!=3)throw new ArgumentException("prepare|compute|worker|compare <repository or worker lens index> <study-root>");
+if(args.Length!=3)throw new ArgumentException("prepare|compute|worker|compare|compare-afocal <repository, worker lens index or scoped afocal policy> <study-root>");
 var mode=args[0];var root=Path.GetFullPath(args[2]);
 string Hash(string p)=>Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(p)));
 var coreHash=Hash(typeof(Optic).Assembly.Location);
@@ -40,10 +40,13 @@ if(mode=="prepare")
   var source=Path.Combine(repository,"src/OpticalSystemDesign.App/Assets/SequentialExamples",id);
   var previous=Path.Combine(prior,"sources",id);
   if(Hash(source)!=expected||Hash(previous)!=expected)throw new InvalidDataException("Source/reference identity differs: "+id);
-  var snapshots=new List<string>();string? error=null;
+  var snapshots=new List<string>();
+  IReadOnlyList<IReadOnlyList<int>> sourceSurfaceNumbers=[];
+  string? error=null;
   try
   {
    var imported=await WorkbenchExecutor.Import(source);
+   sourceSurfaceNumbers=imported.SourceSurfaceNumbers;
    foreach(var optic in imported.Configurations)
    {
     var path=Path.Combine(root,"models",$"{i+1:D3}-c{snapshots.Count+1}.optic.json");
@@ -51,7 +54,7 @@ if(mode=="prepare")
    }
   }
   catch(Exception e){error=e.ToString();}
-  models.Add(new(i+1,id,source,expected,snapshots.ToArray(),error));
+  models.Add(new(i+1,id,source,expected,snapshots.ToArray(),error,sourceSurfaceNumbers));
   Console.WriteLine($"IMPORT {i+1}/95 {id}: {snapshots.Count} configurations; error={error!=null}");
  }
  JsonFiles.Write(Path.Combine(root,"models.json"),models);
@@ -134,12 +137,33 @@ if(mode=="compute")
  });
  JsonFiles.Write(Path.Combine(root,"compute-completed.json"),new{completedLenses=completed,coreSha256=coreHash,completedUtc=DateTimeOffset.UtcNow});return;
 }
-if(mode!="compare")throw new ArgumentException("Unknown mode");
+var supplement=mode=="compare-afocal";
+if(mode!="compare"&&!supplement)throw new ArgumentException("Unknown mode");
+var reportRoot=supplement?Path.Combine(root,"afocal-policy"):root;
+var modelsFinal=JsonFiles.Read<Model[]>(Path.Combine(root,"models.json"));
+ComparisonConfiguration? scopedPolicy=null;
+if(supplement)
+{
+ var policyPath=Path.GetFullPath(args[1]);
+ scopedPolicy=ComparisonConfiguration.Load(policyPath);
+ scopedPolicy.Validate();
+ JsonFiles.Write(Path.Combine(reportRoot,"policy-identity.json"),new{path=policyPath,sha256=Hash(policyPath)});
+}
 var results=new List<object>();
 foreach(var row in all)
 {
  var output=Path.Combine(root,"analyses",$"{row.Index:D4}");
  var effectiveRequest=row.Job is null?row.Run.Request:JsonFiles.Read<WorkbenchJob>(row.Job).Request;
+ var settings=row.Settings;
+ if(scopedPolicy is not null)
+ {
+  if(row.Job is null || effectiveRequest?.ImageSpaceAfocal!=true || settings.AfocalQuantities is not null
+   || scopedPolicy.Analyses.GetValueOrDefault(row.Key)?.AfocalQuantities is not { } afocalQuantities)continue;
+  var quantities=new Dictionary<string,Tolerances>(afocalQuantities);
+  if(quantities.ContainsKey("Distortion"))quantities["Distortion"]=settings.Quantities["Distortion"];
+  settings=settings with {AfocalQuantities=quantities};
+ }
+ var comparisonOutput=supplement?Path.Combine(reportRoot,"analyses",$"{row.Index:D4}"):output;
  var run=new AnalysisRun{Key=row.Key,Directory=row.Run.Directory,Request=effectiveRequest,Support=row.Run.Support,Tolerances=row.Run.Tolerances};
  string? error=null;
  if(row.Job==null){run.Conclusion=Conclusion.Incomparable;run.Reason=row.Snapshot==null?"Current source import/configuration unavailable":"Original matrix has no executable canonical request; see the original blocker and later scoped controls";}
@@ -163,7 +187,8 @@ foreach(var row in all)
    {
     run.ZemaxStatus=run.WorkbenchStatus=CaptureStatus.Captured;
     var entry=AnalysisComparisonRegistry.Get(row.Key);
-    var z=ResultNormalizer.Zemax(Path.Combine(native,"data.json"),entry,effectiveRequest!);
+     var sourceNumbers=row.Key=="Single Ray Trace"?modelsFinal[row.LensIndex-1].SourceSurfaceNumbers?[row.Configuration-1]:null;
+     var z=ResultNormalizer.Zemax(Path.Combine(native,"data.json"),entry,effectiveRequest!,Path.Combine(output,"data.json"),sourceNumbers);
     var raw=JsonFiles.Read<JsonElement>(Path.Combine(output,"data.json"));
     if(raw.TryGetProperty("outcome",out var outcome)&&outcome.GetString() is "Unavailable" or "NotApplicable")
     {
@@ -175,14 +200,14 @@ foreach(var row in all)
     else
     {
      var w=ResultNormalizer.Workbench(Path.Combine(output,"data.json"),entry,effectiveRequest!);
-     ComparisonRunner.Compare(run,entry,row.Settings,w,z,output);
+      ComparisonRunner.Compare(run,entry,settings,w,z,comparisonOutput);
     }
    }
   }
   catch(InvalidDataException e){run.Conclusion=Conclusion.Incomparable;run.Reason=e.Message;error=e.ToString();}
   catch(Exception e){run.Conclusion=Conclusion.Error;run.Reason=e.Message;error=e.ToString();}
  }
- JsonFiles.Write(Path.Combine(output,"comparison.json"),run);
+  JsonFiles.Write(Path.Combine(comparisonOutput,"comparison.json"),run);
  results.Add(new{row.Index,row.LensIndex,row.Lens,row.Configuration,row.Scope,row.Key,run.Conclusion,run.Reason,error,run.Metrics,
   requestFingerprint=effectiveRequest?.Fingerprint,originalRequestFingerprint=row.Run.Request?.Fingerprint,
   originalSurfaceCount=row.Run.Request?.SurfaceCount,effectiveSurfaceCount=effectiveRequest?.SurfaceCount,
@@ -190,9 +215,9 @@ foreach(var row in all)
   referenceConvergence="NotEstablishedByThisReplay"});
  if(results.Count%100==0)Console.WriteLine($"COMPARE {results.Count}/{all.Length}");
 }
-JsonFiles.Write(Path.Combine(root,"results.json"),results);
+ JsonFiles.Write(Path.Combine(reportRoot,"results.json"),results);
+ if(supplement)return;
 var items=results.Select(r=>JsonSerializer.SerializeToElement(r,JsonFiles.Options)).ToArray();
-var modelsFinal=JsonFiles.Read<Model[]>(Path.Combine(root,"models.json"));
 var lenses=modelsFinal.Select(m=>new{m.Index,m.Lens,category=m.Lens.Split('/')[0],configurations=m.Snapshots.Length,importError=m.Error,
  total=items.Count(r=>r.GetProperty("lensIndex").GetInt32()==m.Index),
  counts=items.Where(r=>r.GetProperty("lensIndex").GetInt32()==m.Index).GroupBy(r=>r.GetProperty("conclusion").GetString()!).ToDictionary(g=>g.Key,g=>g.Count())}).ToArray();
@@ -202,6 +227,6 @@ JsonFiles.Write(Path.Combine(root,"summary.json"),new{coreSha256=coreHash,total=
  allExamplesCertified=false,referenceConvergenceChecked=false,freshSourceImport=true,freshNativeCapture=false,completedUtc=DateTimeOffset.UtcNow});
 Console.WriteLine(File.ReadAllText(Path.Combine(root,"summary.json")));
 
-internal sealed record Model(int Index,string Lens,string Source,string SourceSha256,string[] Snapshots,string? Error);
+internal sealed record Model(int Index,string Lens,string Source,string SourceSha256,string[] Snapshots,string? Error,IReadOnlyList<IReadOnlyList<int>>? SourceSurfaceNumbers=null);
 internal sealed record LegacyItem(string Lens,string Unit,int Configuration,string Scope,string Path,string Snapshot,string? WorkbenchJob,AnalysisConfiguration Settings,AnalysisRun Run);
 internal sealed record Row(int Index,int LensIndex,string Lens,int Configuration,string Scope,string Key,string LegacyPath,string? Snapshot,string? Job,AnalysisConfiguration Settings,AnalysisRun Run);

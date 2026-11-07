@@ -60,6 +60,10 @@ public static partial class ExtendedResultNormalizer
             case "Field Curvature":
             case "Field Curvature and Distortion":
                 Require(data.PlotSeries.Count == 2, "Expected selected-wavelength tangential/sagittal field curves");
+                if (r.FieldDefinition == "ParaxialImageHeight")
+                    Require(data.PlotSeries.Concat(data.PlotPanes?.Skip(1).SelectMany(pane => pane.Series) ?? [])
+                        .All(series => series.YQuantity == AnalysisAxisQuantity.FieldHeight && series.YUnit == AnalysisAxisUnit.Millimeter),
+                        "Workbench paraxial image height requires a typed millimeter field axis");
                 Curve(data.PlotSeries[0], "tangential", Field, Defocus, r.MaximumFieldRadius);
                 Curve(data.PlotSeries[1], "sagittal", Field, Defocus, r.MaximumFieldRadius);
                 if (r.CanonicalAnalysisKey == "Field Curvature and Distortion")
@@ -81,10 +85,11 @@ public static partial class ExtendedResultNormalizer
         return result;
     }
 
-    public static NumericResult Zemax(string path, CanonicalAnalysisRequest r)
+    public static NumericResult Zemax(string path, CanonicalAnalysisRequest r, string? workbenchPath = null,
+        IReadOnlyList<int>? sourceSurfaceNumbers = null)
     {
         if (ZemaxAngleScan(path, r) is { } angleScan) return angleScan;
-        if (ZemaxGeometry(path, r) is { } geometry) return geometry;
+        if (ZemaxGeometry(path, r, workbenchPath, sourceSurfaceNumbers) is { } geometry) return geometry;
         if (ZemaxSystemReport(path, r) is { } report) return report;
         if (ZemaxRmsScan(path, r) is { } scan) return scan;
         if (ZemaxDiffraction(path, r) is { } diffraction) return diffraction;
@@ -123,7 +128,15 @@ public static partial class ExtendedResultNormalizer
         {
             case "Field Curvature":
             case "Field Curvature and Distortion":
-                Require(r.FieldDefinition is "ObjectHeight" or "Angle", "Field-coordinate conversion requires an audited native field-type mapping");
+                if (r.FieldDefinition == "ParaxialImageHeight")
+                {
+                    Require(r.FieldScanDirection == "+y" && r.MaximumFieldRadius > 0 && xs[0] == 0
+                        && Math.Abs(xs[^1] - r.MaximumFieldRadius) <= 1e-9 * Math.Max(1, r.MaximumFieldRadius)
+                        && xs.Zip(xs.Skip(1)).All(pair => pair.First < pair.Second),
+                        "Native paraxial image height requires the full positive-Y millimeter field domain");
+                    result.Transformations.Add("Normalize the verified native paraxial image heights by the model's maximum paraxial image height.");
+                }
+                else Require(r.FieldDefinition is "ObjectHeight" or "Angle", "Field-coordinate conversion requires an audited native field-type mapping");
                 Require(rows[0].Length == 5, "Field curvature native contract has five columns");
                 var focus = r.ImageSpaceAfocal ? new Axis("Defocus", "Diopter") : Defocus;
                 Curve(0, "tangential", Field, focus, r.MaximumFieldRadius);

@@ -148,6 +148,10 @@ public struct RotationalSurfaceEquation : ISurfaceEquation
         if (!GeometryIntersectionSolver.IsFinite(origin) || !GeometryIntersectionSolver.IsFiniteNonZero(direction)
             || Math.Abs(direction.Z) < 1e-12 || Math.Abs(direction.Length - 1) > 1e-14) return false;
         var toPlane = -origin.Z / direction.Z;
+        // At grazing incidence a nearby launch may meet the conic long before
+        // its vertex plane. Translating that far magnifies roundoff in both
+        // the discriminant and the recovered hit. Use the original origin.
+        if (Math.Abs(toPlane) > 8 * Math.Max(Math.Abs(Radius), origin.Length)) return false;
         var plane = new Vector3D(origin.X + direction.X * toPlane, origin.Y + direction.Y * toPlane, 0);
         var curvature = 1 / Radius; var r2 = plane.X * plane.X + plane.Y * plane.Y;
         var b = direction.Z - curvature * (plane.X * direction.X + plane.Y * direction.Y);

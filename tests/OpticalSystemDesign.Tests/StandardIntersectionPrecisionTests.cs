@@ -10,6 +10,57 @@ namespace OpticalSystemDesign.Tests;
 public sealed class StandardIntersectionPrecisionTests
 {
     [Fact]
+    public void GrazingParabolicIntersectionPreservesTheFocusToPlaneReflection()
+    {
+        var geometry = new StandardGeometry(-200, -1);
+        var focus = new Vector3D(0, 0, -100);
+        var direction = new Vector3D(-.17453247854137008, -.9846510982134834, .0007929194077886404);
+        var hit = geometry.DistanceToIntersection(focus, direction);
+        Assert.True(hit.IsHit);
+        Assert.InRange(Math.Abs(hit.Point.Z - geometry.Sag(hit.Point.X, hit.Point.Y)), 0, 1e-12);
+        var dot = direction.X * hit.Normal.X + direction.Y * hit.Normal.Y + direction.Z * hit.Normal.Z;
+        var reflected = direction - hit.Normal * (2 * dot);
+        Assert.InRange((reflected - new Vector3D(0, 0, -1)).Length, 0, 1e-13);
+
+        var count = 2 * Vector<double>.Count + 1;
+        double[] Repeat(double value) => Enumerable.Repeat(value, count).ToArray();
+        IBatchedNumericBackend backend = new ManagedCpuBackend();
+        var distances = new double[count];
+        var hits = new bool[count];
+        backend.IntersectStandard(Repeat(focus.X), Repeat(focus.Y), Repeat(focus.Z),
+            Repeat(direction.X), Repeat(direction.Y), Repeat(direction.Z), -200, -1, distances, hits);
+        Assert.All(hits, value => Assert.True(value));
+        Assert.All(distances, value => Assert.InRange(Math.Abs(value - hit.Distance), 0, 1e-12));
+    }
+
+    [Fact]
+    public void TwoForwardConicHitsUseTheSequentialVertexBranchInEveryBatchLane()
+    {
+        const double radius = 1 / .021219123523;
+        const double conic = -.568372493;
+        var geometry = new StandardGeometry(radius, conic);
+        var origin = new Vector3D(0, -150, 178.59 - 36.955461312647415);
+        var direction = new Vector3D(0, .7927005470080939, -.6096112226436352);
+        direction /= direction.Length;
+        var scalar = geometry.DistanceToIntersection(origin, direction);
+        Assert.True(scalar.IsHit);
+        Assert.InRange(scalar.Point.Y, 25.15598680903, 25.15598680906);
+
+        var count = 2 * Vector<double>.Count + 1;
+        double[] Repeat(double value) => Enumerable.Repeat(value, count).ToArray();
+        IBatchedNumericBackend[] backends = [new ManagedCpuBackend(), new ScalarBatchedNumericBackendAdapter(new ManagedCpuBackend())];
+        foreach (var backend in backends)
+        {
+            var hits = new bool[count];
+            var distances = new double[count];
+            backend.IntersectStandard(Repeat(origin.X), Repeat(origin.Y), Repeat(origin.Z),
+                Repeat(direction.X), Repeat(direction.Y), Repeat(direction.Z), radius, conic, distances, hits);
+            Assert.All(hits, hit => Assert.True(hit));
+            Assert.All(distances, distance => Assert.Equal(scalar.Distance, distance, 10));
+        }
+    }
+
+    [Fact]
     public void ZeroAndRepeatedZeroRootsRemainValidAcrossScalarAndVectorPaths()
     {
         var geometry = new StandardGeometry(50);

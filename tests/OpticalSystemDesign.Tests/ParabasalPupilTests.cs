@@ -10,6 +10,21 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class ParabasalPupilTests
 {
+    [Fact]
+    public void DiscontinuousMirrorPencilKeepsItsLimitingConjugateAndChiefBranchWidth()
+    {
+        var root = ProductDependencyArchitectureTests.RepositoryRoot();
+        var source = Path.Combine(root, "src/OpticalSystemDesign.App/Assets/SequentialExamples/Miscellaneous/MEMS DLL Sample.ZMX");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+        var wavelength = optic.Wavelengths[0];
+        foreach (var step in new[] { .001, .0005 })
+        {
+            var pupil = ParabasalPupilEngine.Compute(optic, wavelength, probeStep: step);
+            Assert.InRange(Math.Abs(pupil.ImageAxialDistanceMillimeters - 40), 0, 1e-5);
+            Assert.InRange(Math.Abs(pupil.DiameterMillimeters - 5), 0, 1e-9);
+        }
+    }
+
     [Theory]
     [InlineData(1.2)]
     [InlineData(1.8)]

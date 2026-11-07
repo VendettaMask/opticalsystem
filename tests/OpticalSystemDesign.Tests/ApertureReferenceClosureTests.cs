@@ -12,6 +12,44 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class ApertureReferenceClosureTests
 {
+    [Fact]
+    public void ImportedAnnulusBlocksItsExactInnerEdgeAfterSnapshotAndZmxRoundTrip()
+    {
+        const string source = "MODE SEQ\nUNIT CM\nENPD 15\nSURF 0\nDISZ INFINITY\nSURF 1\nSTOP\nCLAP 5 8 0\nDISZ 1\nSURF 2";
+        var imported = OpticalFormatCatalog.Import(source, ".zmx");
+        var exported = OpticalFormatCatalog.Import(OpticalFormatCatalog.Export(imported, ".zmx"), ".zmx");
+        foreach (var optic in new[] { imported, Optic.FromSnapshot(imported.ToSnapshot()), exported })
+        {
+            var aperture = Assert.IsType<AnnularAperture>(optic.SurfaceGroup.Items[1].PhysicalAperture);
+            Assert.False(aperture.Contains(new(50, 0, 0)));
+            Assert.False(aperture.Contains(new(30, 40, 0)));
+            Assert.True(aperture.Contains(new(50.0000005, 0, 0)));
+            Assert.False(aperture.Contains(new(49.9999995, 0, 0)));
+            var ray = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0, 0, 2d / 3, 0, optic.Wavelengths[0].Micrometers, false).Rays.Single();
+            Assert.Equal(1, optic.SequentialRayTracer.DiagnoseApertures(ray).FirstBlockedSurfaceIndex);
+        }
+
+        Assert.True(new AnnularAperture(80, 50).Contains(new(50, 0, 0)));
+    }
+
+    [Fact]
+    public void SpiderUsesRadialHalfLinesAndPreservesWidthAndOffsetAcrossFormats()
+    {
+        const string source = "MODE SEQ\nUNIT CM\nENPD 1\nSURF 0\nDISZ INFINITY\nSURF 1\nSTOP\nSPID .2 3 0\nOBDC .15 -.05\nDISZ 1\nSURF 2";
+        var original = OpticalFormatCatalog.Import(source, ".zmx");
+        var roundTrip = OpticalFormatCatalog.Import(OpticalFormatCatalog.Export(original, ".zmx"), ".zmx");
+        foreach (var optic in new[] { original, Optic.FromSnapshot(original.ToSnapshot()), roundTrip })
+        {
+            var aperture = Assert.IsType<SpiderObscurationAperture>(optic.SurfaceGroup.Items[1].PhysicalAperture);
+            Assert.Equal(3, aperture.ArmCount);
+            Assert.Equal(2, aperture.ArmWidth, 12);
+            Assert.Equal(1.5, aperture.OffsetX, 12);
+            Assert.Equal(-.5, aperture.OffsetY, 12);
+            Assert.False(aperture.Contains(new(4.5, 0, 0)));
+            Assert.True(aperture.Contains(new(-1.5, -.5, 0)));
+        }
+    }
+
     [Theory] [InlineData(2)] [InlineData(20)]
     public void NativeGeometricPlotOpensAtZeroEvenForAnExactlyFocusedBundle(double diameter)
     {

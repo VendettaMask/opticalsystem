@@ -153,6 +153,18 @@ public sealed class Optic
         }
     }
 
+    /// <summary>Use the paraxial exit pupil's distance and diameter for the working F-number.</summary>
+    public bool UseExitPupilFNumber
+    {
+        get => _state.UseExitPupilFNumber;
+        set
+        {
+            if (_state.UseExitPupilFNumber == value) return;
+            _state.UseExitPupilFNumber = value;
+            InvalidateRayTraceCache();
+        }
+    }
+
     public ObservableCollection<Wavelength> Wavelengths => _state.Wavelengths;
 
     public SurfaceGroup SurfaceGroup => _state.SurfaceGroup;
@@ -611,6 +623,7 @@ public sealed class Optic
             FieldGroupTelecentric: FieldGroupTelecentric,
             RayAimingEnabled: RayAimingEnabled,
             ImageSpaceAfocal: ImageSpaceAfocal,
+            UseExitPupilFNumber: UseExitPupilFNumber,
             ReferenceOpd: ReferenceOpd == ReferenceOpdMode.ExitPupil ? null : ReferenceOpd,
             Polarization: new PolarizationSnapshot(Polarization.Unpolarized, Polarization.Jx, Polarization.Jy,
                 Polarization.XPhaseDegrees, Polarization.YPhaseDegrees, Polarization.ReferenceAxis.ToString()),
@@ -694,6 +707,7 @@ public sealed class Optic
         RayAimingEnabled = snapshot.RayAimingEnabled;
         ImageSpaceAfocal = snapshot.ImageSpaceAfocal;
         ReferenceOpd = snapshot.ReferenceOpd ?? ReferenceOpdMode.ExitPupil;
+        UseExitPupilFNumber = snapshot.UseExitPupilFNumber;
         Polarization = snapshot.Polarization is { } polarization
             ? new(polarization.Unpolarized, polarization.Jx, polarization.Jy, polarization.XPhaseDegrees,
                 polarization.YPhaseDegrees, Enum.Parse<PolarizationReferenceAxis>(polarization.ReferenceAxis)) : new();
@@ -924,6 +938,7 @@ public sealed class Optic
         public bool ImageSpaceAfocal { get; set; }
 
         public ReferenceOpdMode ReferenceOpd { get; set; } = ReferenceOpdMode.ExitPupil;
+        public bool UseExitPupilFNumber { get; set; }
 
         public int GlobalReferenceSurfaceNumber { get; set; } = 1;
         public bool HasImportedSurfaceTiltDecenter { get; set; }

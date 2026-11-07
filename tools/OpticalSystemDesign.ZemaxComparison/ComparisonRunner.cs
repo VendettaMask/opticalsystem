@@ -292,7 +292,9 @@ public sealed class ComparisonRunner
                             continue;
                         }
                         // Persist each side independently, including when the other normalizer rejects an output contract.
-                        var zResult = ResultNormalizer.Zemax(Path.Combine(zDir, "data.json"), entry, request);
+                        var zResult = ResultNormalizer.Zemax(Path.Combine(zDir, "data.json"), entry, request,
+                            wb.ExitCode == 0 ? Path.Combine(wbDir, "data.json") : null,
+                            request.CanonicalAnalysisKey == "Single Ray Trace" ? imported.SourceSurfaceNumbers[c - 1] : null);
                         JsonFiles.Write(Path.Combine(output, "normalized", "zemax", run.Directory + ".json"), zResult);
                         if (wb.ExitCode != 0) continue;
                         var wResult = ResultNormalizer.Workbench(Path.Combine(wbDir, "data.json"), entry, request);
@@ -340,6 +342,9 @@ public sealed class ComparisonRunner
         config = AfocalAnalysisContracts.ComparisonSettings(config, run.Request);
         run.Tolerances = config.Quantities;
         var physicalGaps = new List<string>();
+        var omittedRayLengths = z.UnreportedNativeRayPathSurfaces;
+        if (omittedRayLengths is { Length: > 0 })
+            physicalGaps.Add($"Native geometric ray path length is unreported at surface(s) {string.Join(", ", omittedRayLengths)}; only reported segments were compared.");
         var directory = Path.Combine(output, "comparisons", run.Directory); Directory.CreateDirectory(directory);
         Tolerances T(string key) => config.Quantities.GetValueOrDefault(key) ?? throw new InvalidDataException("No per-quantity tolerance: " + key);
         foreach (var scalar in z.Scalars)
@@ -366,6 +371,13 @@ public sealed class ComparisonRunner
             try
             {
                 var actual = w.Series.Single(s => s.Id == curve.Id);
+                if (curve.Id == "path-length" && omittedRayLengths is { Length: > 0 })
+                {
+                    var measured = Enumerable.Range(0, actual.X.Length).Where(i => !omittedRayLengths.Contains((int)actual.X[i])).ToArray();
+                    actual = actual with { X = measured.Select(i => actual.X[i]).ToArray(), Y = measured.Select(i => actual.Y[i]).ToArray() };
+                    if (!actual.X.SequenceEqual(curve.X))
+                        throw new InvalidDataException("Reported ray path surfaces do not match the Workbench surface sequence.");
+                }
                 var values = ComparisonMetrics.Align(actual, curve, run.Normalizations);
                 var metric = ComparisonMetrics.Calculate(curve.Id, curve.YAxis.Unit, values, T(curve.YAxis.Quantity));
                 if (curve.YAxis.Quantity == "Modulation" && curve.XAxis.Quantity == "SpatialFrequency") metric = metric with { Extra = ComparisonMetrics.MtfStatistics(values) };

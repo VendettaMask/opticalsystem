@@ -35,6 +35,8 @@ public sealed record NumericResult
     public List<ImageResult> Images { get; init; } = [];
     public List<ComplexFieldResult> ComplexFields { get; init; } = [];
     public List<string> Transformations { get; init; } = [];
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int[]? UnreportedNativeRayPathSurfaces { get; init; }
     public string Semantics { get; init; } = "";
 }
 public sealed record CanonicalAnalysisRequest

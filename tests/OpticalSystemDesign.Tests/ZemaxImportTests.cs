@@ -12,6 +12,7 @@ using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Serialization;
@@ -1706,7 +1707,7 @@ public sealed class ZemaxImportTests
         // Preserve the historical bytes. That auxiliary export put the rotation
         // radius in the native aspheric-coefficient slot, not native PARM 1.
         Assert.Throws<NotSupportedException>(() => OpticalFormatCatalog.Import(source, ".zmx"));
-        var nativeSource = source.Replace("  PARM 2 80.0", "  PARM 1 80.0", StringComparison.Ordinal);
+        var nativeSource = Native058ReferenceSource();
         Assert.NotEqual(source, nativeSource);
         var optic = OpticalFormatCatalog.Import(nativeSource, ".zmx");
 
@@ -1891,12 +1892,12 @@ public sealed class ZemaxImportTests
         Assert.Contains("biconic", geometryError.Message, StringComparison.OrdinalIgnoreCase);
 
         var apertureOptic = Optic.CreateCookeTriplet();
-        apertureOptic.SurfaceGroup.Items[1].PhysicalAperture = new RectangularAperture(2, 1);
+        apertureOptic.SurfaceGroup.Items[1].PhysicalAperture = new PolygonAperture([(0, 0), (2, 0), (0, 1)]);
 
         var apertureError = Assert.Throws<NotSupportedException>(() =>
             OpticalFormatCatalog.Export(apertureOptic, ".zmx"));
         Assert.Contains("cannot losslessly map physical aperture", apertureError.Message, StringComparison.Ordinal);
-        Assert.Contains("rectangular", apertureError.Message, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("polygon", apertureError.Message, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
@@ -1981,13 +1982,11 @@ public sealed class ZemaxImportTests
     }
 
     [Fact]
-    public void ZemaxFixtureMatchesFrozenReferenceReferenceContract()
+    public void CorrectedZemaxFixturePreservesTheFrozenPrescription()
     {
         using var expected = JsonDocument.Parse(EvidenceFiles.ReadAllText(
             FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.json")));
-        var optic = OpticalFormatCatalog.Import(
-            EvidenceFiles.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx")),
-            ".zmx");
+        var optic = OpticalFormatCatalog.Import(Native058ReferenceSource(), ".zmx");
         var root = expected.RootElement;
 
         Assert.Equal("0.5.8", root.GetProperty("optiland_version").GetString());
@@ -2040,14 +2039,22 @@ public sealed class ZemaxImportTests
             var expectedSag = expectedSurfaces[index]
                 .GetProperty("geometry")
                 .GetProperty("sag_sample");
-            Assert.Equal(
-                ReadFrozenNumber(expectedSag.GetProperty("z")),
-                optic.SurfaceGroup.Items[index].Geometry.Sag(
-                    expectedSag.GetProperty("x").GetDouble(),
-                    expectedSag.GetProperty("y").GetDouble()),
-                precision: 11);
+            var x = expectedSag.GetProperty("x").GetDouble();
+            var y = expectedSag.GetProperty("y").GetDouble();
+            var sag = ReadFrozenNumber(expectedSag.GetProperty("z"));
+            if (expectedSurfaces[index].GetProperty("geometry").GetProperty("type").GetString() == "ToroidalGeometry")
+            {
+                // Zemax rotates the complete Y-Z profile around the axis at Z = 80 mm.
+                var profile = 100 - Math.Sqrt(100 * 100 - y * y);
+                sag = 80 - Math.Sqrt(Math.Pow(80 - profile, 2) - x * x);
+            }
+            Assert.Equal(sag, optic.SurfaceGroup.Items[index].Geometry.Sag(x, y), precision: 11);
         }
     }
+
+    private static string Native058ReferenceSource() => EvidenceFiles.ReadAllText(
+        FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx"))
+        .Replace("  PARM 2 80.0", "  PARM 1 80.0", StringComparison.Ordinal);
 
     [Fact]
     public void ZemaxImportSupportsFloatingStopMirrorAndCoordinateBreak()
@@ -2087,7 +2094,7 @@ public sealed class ZemaxImportTests
 
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
 
-        Assert.Equal(4, optic.SurfaceGroup.Items.Count);
+        Assert.Equal(5, optic.SurfaceGroup.Items.Count);
         Assert.Equal(ApertureKind.FloatByStopSize, optic.Aperture.Kind);
         Assert.Equal(4, optic.Aperture.Value, precision: 12);
         Assert.Equal(8, optic.Paraxial.EstimateEntrancePupilDiameter(), precision: 12);
@@ -2096,7 +2103,12 @@ public sealed class ZemaxImportTests
         Assert.Equal(
             ApertureKind.FloatByStopSize,
             OpticalFormatCatalog.Import(exported, ".zmx").Aperture.Kind);
-        var mirror = optic.SurfaceGroup.Items[2];
+        var reference = optic.SurfaceGroup.Items[2];
+        Assert.IsType<CoordinateReferenceInteractionModel>(reference.InteractionModel);
+        Assert.Equal("N-BK7", reference.MaterialBefore.Name);
+        Assert.Equal("N-BK7", reference.MaterialAfter.Name);
+        Assert.Equal(3, reference.Thickness, precision: 12);
+        var mirror = optic.SurfaceGroup.Items[3];
         Assert.True(mirror.IsReflective);
         Assert.Equal("MIRROR", mirror.Material);
         Assert.Equal("N-BK7", mirror.MaterialBefore.Name);
@@ -2107,7 +2119,7 @@ public sealed class ZemaxImportTests
         Assert.Equal(2, mirror.CoordinateSystem.Origin.Z, precision: 10);
         Assert.Equal(90, mirror.CoordinateSystem.RotationYDegrees, precision: 10);
 
-        var image = optic.SurfaceGroup.Items[3];
+        var image = optic.SurfaceGroup.Items[4];
         Assert.Equal(6, image.CoordinateSystem.Origin.X, precision: 10);
         Assert.Equal(2, image.CoordinateSystem.Origin.Z, precision: 10);
     }
@@ -2380,7 +2392,7 @@ public sealed class ZemaxImportTests
     [Fact]
     public async Task WorkbenchFilePathImportDetectsBomlessUtf16Zemax()
     {
-        var source = EvidenceFiles.ReadAllText(FrozenHistoryFixture.PathFor("optiland-0.5.8-zemax-reference.zmx"));
+        var source = Native058ReferenceSource();
         var path = Path.Combine(Path.GetTempPath(), $"opticalsystemdesign-zemax-{Guid.NewGuid():N}.zmx");
         try
         {
@@ -2596,7 +2608,7 @@ public sealed class ZemaxImportTests
             SURF 0
               DISZ 20
             SURF 1
-              TYPE BINARY_2
+              TYPE CUSTOM_UNMAPPED
               CURV 0.01
               DISZ 5
               CONI -1
@@ -2608,8 +2620,8 @@ public sealed class ZemaxImportTests
         var optic = OpticalFormatCatalog.Import(source, ".zmx");
 
         var opaque = Assert.IsType<OpaqueGeometryPayload>(optic.SurfaceGroup.Items[1].Geometry);
-        Assert.Equal("Zemax TYPE BINARY_2", opaque.OriginalType);
-        Assert.Equal("BINARY_2", opaque.Payload.Text["zemax.type"]);
+        Assert.Equal("Zemax TYPE CUSTOM_UNMAPPED", opaque.OriginalType);
+        Assert.Equal("CUSTOM_UNMAPPED", opaque.Payload.Text["zemax.type"]);
         Assert.Equal(100, opaque.Payload.Numbers["radius"], precision: 12);
         Assert.Equal(-1, opaque.Payload.Numbers["conic"], precision: 12);
         Assert.Equal(2.5, opaque.Payload.Numbers["parm1"], precision: 12);

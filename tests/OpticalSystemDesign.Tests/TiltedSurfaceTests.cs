@@ -1,4 +1,5 @@
 using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.FileIO;
@@ -8,6 +9,47 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class TiltedSurfaceTests
 {
+    [Fact]
+    public void FocalFftRequiresAFiniteImageScaleAfterPlanarRefraction()
+    {
+        var optic = Import("""
+            MODE SEQ
+            UNIT MM
+            ENPD 2
+            SURF 0
+             DISZ INFINITY
+            SURF 1
+             TYPE TILTSURF
+             PARM 2 .2
+             DISZ 5
+            SURF 2
+            """);
+        foreach (var analysis in new BaseAnalysis[] { new PsfAnalysis(optic), new MtfAnalysis(optic) })
+        {
+            var data = analysis.GenerateData();
+            Assert.Equal(AnalysisOutcome.NotApplicable, data.Outcome);
+            Assert.Equal(FocalImageDomain.CollimatedPlaneTrain, data.Values[FocalImageDomain.ResultKey]);
+        }
+
+        optic.SurfaceGroup.Items[0].Thickness = 25;
+        Assert.False(FocalImageDomain.IsCollimatedPlaneTrain(optic));
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1)]
+    public void CompoundCoordinateBreakUsesTheSelectedLocalAxisOrder(int order)
+    {
+        var optic = Import(FormattableString.Invariant($"MODE SEQ\nUNIT MM\nENPD 2\nSURF 0\nDISZ INFINITY\nSURF 1\nTYPE COORDBRK\nPARM 3 30\nPARM 4 20\nPARM 6 {order}\nDISZ 1\nSURF 2"));
+        var axis = optic.SurfaceGroup.Items[^1].CoordinateSystem.ToGlobalDirection(new(0, 0, 1));
+        var x = Math.PI / 6;
+        var y = Math.PI / 9;
+        var expected = order == 0
+            ? new Vector3D(Math.Sin(y), -Math.Sin(x) * Math.Cos(y), Math.Cos(x) * Math.Cos(y))
+            : new Vector3D(Math.Cos(x) * Math.Sin(y), -Math.Sin(x), Math.Cos(x) * Math.Cos(y));
+        Assert.InRange((axis - expected).Length, 0, 1e-13);
+    }
+
     [Theory]
     [InlineData(.25, -.7, 2, -3)]
     [InlineData(-1, 0, -4, 2)]
@@ -61,5 +103,23 @@ public sealed class TiltedSurfaceTests
         var ray=optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0,1,0,0,.55).Rays.Single();
         Assert.InRange(Math.Abs(ray.Origin.Z-(-10-1.5)),0,1e-12);
     }
+
+    [Theory]
+    [InlineData(.8)]
+    [InlineData(.02)]
+    public void TiltedObjectLaunchSurvivesCoordinateRoundoffWithoutAcceptingBackwardHits(double normalizedHeight)
+    {
+        var optic = Import("MODE SEQ\nUNIT MM\nENPD 2\nFTYP 1 0 1 1 0 0 1\nYFLN 10\nSURF 0\nTYPE TILTSURF\nPARM 2 -.577\nDISZ 100\nSURF 1\nSTOP\nDISZ 5\nSURF 2");
+        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0, 1, 0, normalizedHeight, .55, false);
+        var trace = optic.SequentialRayTracer.Trace(bundle);
+        var history = trace.RayHistories.Single();
+        Assert.Equal(2, history.Last().SurfaceNumber);
+        Assert.All(history, sample => Assert.False(sample.Vignetted));
+
+        var surface = optic.SurfaceGroup.Items[0];
+        var point = surface.CoordinateSystem.ToLocalPoint(bundle.Rays[0].Origin);
+        Assert.False(surface.Geometry.DistanceToIntersection(point + new Vector3D(0, 0, 1e-8), new(0, 0, 1)).IsHit);
+    }
+
     private static Optic Import(string source)=>OpticalFormatCatalog.Import(source,".zmx");
 }

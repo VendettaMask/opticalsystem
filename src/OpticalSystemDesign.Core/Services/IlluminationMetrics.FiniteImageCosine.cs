@@ -36,14 +36,20 @@ public static partial class IlluminationMetrics
             if (!double.IsFinite(deltaL * deltaM) || deltaL <= 0 || deltaM <= 0)
                 throw Unavailable("the finite image-cosine envelope has no area");
 
-            // Retain actual-map fold/overlap checks independently of the finite
-            // polynomial map. Node acceptance and power use shared-Core traces.
-            // An untraceable outer pupil region (for example total internal
-            // reflection) contributes no transmitted area. Only mapped triangles
-            // can establish orientation/overlap; final quadrature samples still
-            // require a real image hit and all physical apertures to transmit.
-            var mesh = ImageCosineSeedMesh(density)
-                .Where(triangle => triangle.A.Mapped && triangle.B.Mapped && triangle.C.Mapped).ToArray();
+            // The inverse only needs to be single-valued on the transmitting
+            // pupil. Clipped or untraceable rays cannot establish a fold or overlap.
+            var mesh = new List<CosineTriangle>();
+            foreach (var triangle in ImageCosineSeedMesh(density))
+            {
+                var (a, b, c) = triangle;
+                if (a.Inside && b.Inside && c.Inside) mesh.Add(triangle);
+                else if (a.Inside || b.Inside || c.Inside)
+                {
+                    var polygon = ClipToTransmittingPupil(a, b, c);
+                    for (var index = 1; index + 1 < polygon.Count; index++)
+                        mesh.Add(new(polygon[0], polygon[index], polygon[index + 1]));
+                }
+            }
             foreach (var triangle in mesh) CheckOrientation(triangle.A, triangle.B, triangle.C);
             if (_orientation == 0) throw Unavailable("the pupil has no invertible image direction-cosine area");
             var pupilMap = new FinitePupilMap(mappingNodes);
@@ -66,10 +72,10 @@ public static partial class IlluminationMetrics
                     }
                     var pupil = pupilMap.Evaluate(l, m);
                     if (pupil.X * pupil.X + pupil.Y * pupil.Y >= 1) continue;
-                    if (!double.IsFinite(pupil.Determinant) || pupil.Determinant == 0 || Math.Sign(pupil.Determinant) != _orientation)
-                        throw NonInjective("the finite pupil-coordinate map folds or is singular");
                     var node = Sample(pupil.X, pupil.Y);
                     if (!node.Inside || node.Weight <= 0) continue;
+                    if (!double.IsFinite(pupil.Determinant) || pupil.Determinant == 0 || Math.Sign(pupil.Determinant) != _orientation)
+                        throw NonInjective("the finite pupil-coordinate map folds or is singular");
                     var distanceToEdge = density * (1 - double.Hypot(node.X, node.Y));
                     var edge = distanceToEdge >= 1 ? 1
                         : distanceToEdge <= 0 ? 0 : Math.Pow(Math.Sin(Math.PI * distanceToEdge / 2), 2);

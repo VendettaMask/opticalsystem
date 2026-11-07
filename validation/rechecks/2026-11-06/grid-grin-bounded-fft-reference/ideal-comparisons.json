@@ -1,0 +1,94 @@
+{
+  "control": {
+    "linearComplexMaxAbs": 1.1102230246251565e-16,
+    "linearComplexNrmse": 3.4322011317344746e-19,
+    "zeroPhaseFluxRelError": 4.440892098500626e-16,
+    "pupilPeak": 1.9756208388486112e-05,
+    "pupilSignificantNodes": 50617,
+    "centroid": [
+      0.0030329007863656443,
+      0.0030329007863656443
+    ],
+    "zeroPhaseAt5": 0.8906173805410584,
+    "quadrature": {
+      "count": 1001,
+      "coverage": 1,
+      "maxAbsolute": 7.361388988380568e-07,
+      "nrmse": 4.568749957099399e-07,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "pupilDecimation": {
+      "0": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 0.00025364693899199153,
+        "nrmse": 0.0001458825395886626,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "1": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 0.00027298932743724524,
+        "nrmse": 0.00015858090299834875,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    },
+    "idealVsNative1024": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 0.0009282801288005293,
+      "nrmse": 0.00036446859094637566,
+      "pointwise": false,
+      "verdict": "Pass"
+    },
+    "idealVsNative2048": {
+      "count": 401,
+      "coverage": 1,
+      "maxAbsolute": 0.0006895179156053421,
+      "nrmse": 0.0002985925870401008,
+      "pointwise": false,
+      "verdict": "Pass"
+    }
+  },
+  "grid": {
+    "linearComplexMaxAbs": 4.0657581468206416e-20,
+    "linearComplexNrmse": 2.6588645993065068e-17,
+    "zeroPhaseFluxRelError": 2.220446049250313e-16,
+    "pupilPeak": 5.411518959256701e-06,
+    "pupilSignificantNodes": 184791,
+    "centroid": [
+      0.0006753063627797928,
+      0.0007663550378538275
+    ],
+    "zeroPhaseAt5": 0.9476098010946972,
+    "quadrature": {
+      "count": 1001,
+      "coverage": 1,
+      "maxAbsolute": 6.179024991670445e-07,
+      "nrmse": 2.4870875465322714e-07,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "pupilDecimation": {
+      "0": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 3.544732062288336e-05,
+        "nrmse": 1.3730616753320189e-05,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "1": {
+        "count": 2001,
+        "coverage": 1,
+        "maxAbsolute": 7.16950354742174e-05,
+        "nrmse": 2.7812371015439173e-05,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    }
+  }
+}

@@ -1,0 +1,1015 @@
+{
+  "559": [
+    {
+      "id": "559-PupilSizePosition-1024",
+      "stage": "native-readback",
+      "settings": {
+        "SampleSize": "S_1024x1024",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "selectors": {
+        "Field": 1,
+        "Wavelength": 2
+      }
+    },
+    {
+      "id": "559-PupilSizePosition-1024",
+      "stage": "core-scale",
+      "value": 200.00000000000003,
+      "pitch": 10.366436759653073
+    },
+    {
+      "id": "559-PupilSizePosition-1024-same-sampling",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 8192,
+          "maxAbsolute": 5.133311927439654e-07,
+          "meanAbsolute": 2.1572682946891437e-07,
+          "rmse": 2.6162601345828187e-07,
+          "nrmse": 2.398434328837772e-06,
+          "maxRelative": "Infinity",
+          "p50": 2.0156243349910823e-07,
+          "p90": 4.3767587273049873e-07,
+          "p95": 4.648871187502145e-07,
+          "pearson": 0.9999999993767313,
+          "worstX": -217.69525,
+          "worstY": null,
+          "coverage": 0.9999996563321216,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "559-PupilSizePosition-128",
+      "stage": "native-readback",
+      "settings": {
+        "SampleSize": "S_128x128",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "selectors": {
+        "Field": 1,
+        "Wavelength": 2
+      }
+    },
+    {
+      "id": "559-PupilSizePosition-128",
+      "stage": "core-scale",
+      "value": 200.00000000000003,
+      "pitch": 28.919057343750005
+    },
+    {
+      "id": "559-PupilSizePosition-128-same-sampling",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 1023,
+          "maxAbsolute": 5.027396321958654e-07,
+          "meanAbsolute": 2.6674144518447813e-07,
+          "rmse": 3.0238413344082167e-07,
+          "nrmse": 2.7549323843698733e-06,
+          "maxRelative": "Infinity",
+          "p50": 2.7951384903672754e-07,
+          "p90": 4.61467556565208e-07,
+          "p95": 4.7515724742822285e-07,
+          "pearson": 0.9999999996684935,
+          "worstX": 853.1121916406255,
+          "worstY": null,
+          "coverage": 0.9999996569088864,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "559-PupilSizePosition-512",
+      "stage": "native-readback",
+      "settings": {
+        "SampleSize": "S_512x512",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "selectors": {
+        "Field": 1,
+        "Wavelength": 2
+      }
+    },
+    {
+      "id": "559-PupilSizePosition-512",
+      "stage": "core-scale",
+      "value": 200.00000000000003,
+      "pitch": 14.631665917968752
+    },
+    {
+      "id": "559-PupilSizePosition-512-same-sampling",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 4095,
+          "maxAbsolute": 5.168754071797899e-07,
+          "meanAbsolute": 2.4231418206578707e-07,
+          "rmse": 2.823110086298867e-07,
+          "nrmse": 2.5842243842214374e-06,
+          "maxRelative": "Infinity",
+          "p50": 2.3894353708142635e-07,
+          "p90": 4.4618930939102035e-07,
+          "p95": 4.709296895858279e-07,
+          "pearson": 0.9999999994450846,
+          "worstX": 226.7909,
+          "worstY": null,
+          "coverage": 0.9999996569406688,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "559-TracingRays-1024",
+      "stage": "native-readback",
+      "settings": {
+        "SampleSize": "S_1024x1024",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "selectors": {
+        "Field": 1,
+        "Wavelength": 2
+      }
+    },
+    {
+      "id": "559-TracingRays-1024",
+      "stage": "core-scale",
+      "value": 7507.088756183287,
+      "pitch": 389.10880420038336
+    },
+    {
+      "id": "559-TracingRays-1024-same-sampling",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 8192,
+          "maxAbsolute": 5.022168062486163e-07,
+          "meanAbsolute": 2.1572551806965079e-07,
+          "rmse": 2.615627594165862e-07,
+          "nrmse": 2.3978544527656825e-06,
+          "maxRelative": "Infinity",
+          "p50": 2.0190453843288114e-07,
+          "p90": 4.3718069406164174e-07,
+          "p95": 4.65042195437564e-07,
+          "pearson": 0.9999999993774141,
+          "worstX": -10505.93652,
+          "worstY": null,
+          "coverage": 0.9999998868327643,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "559-TracingRays-128",
+      "stage": "native-readback",
+      "settings": {
+        "SampleSize": "S_128x128",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "selectors": {
+        "Field": 1,
+        "Wavelength": 2
+      }
+    },
+    {
+      "id": "559-TracingRays-128",
+      "stage": "core-scale",
+      "value": 7507.088756183287,
+      "pitch": 1085.4896511234267
+    },
+    {
+      "id": "559-TracingRays-128-same-sampling",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 1023,
+          "maxAbsolute": 4.980802784654422e-07,
+          "meanAbsolute": 2.6623979008809107e-07,
+          "rmse": 3.0192295630543613e-07,
+          "nrmse": 2.7507307359211026e-06,
+          "maxRelative": "Infinity",
+          "p50": 2.788547064851252e-07,
+          "p90": 4.6254342195930794e-07,
+          "p95": 4.750302916867025e-07,
+          "pearson": 0.999999999669701,
+          "worstX": 50475.26877723934,
+          "worstY": null,
+          "coverage": 0.9999998868324756,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "559-TracingRays-512",
+      "stage": "native-readback",
+      "settings": {
+        "SampleSize": "S_512x512",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "selectors": {
+        "Field": 1,
+        "Wavelength": 2
+      }
+    },
+    {
+      "id": "559-TracingRays-512",
+      "stage": "core-scale",
+      "value": 7507.088756183287,
+      "pitch": 549.2060734850671
+    },
+    {
+      "id": "559-TracingRays-512-same-sampling",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 4095,
+          "maxAbsolute": 4.995390205827491e-07,
+          "meanAbsolute": 2.4221363075221474e-07,
+          "rmse": 2.8229128267209583e-07,
+          "nrmse": 2.5840438163386165e-06,
+          "maxRelative": "Infinity",
+          "p50": 2.378924907984331e-07,
+          "p90": 4.4692544739746915e-07,
+          "p95": 4.725606761452759e-07,
+          "pearson": 0.9999999994450033,
+          "worstX": -67277.73639,
+          "worstY": null,
+          "coverage": 0.9999998868240083,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "core-pupil-512-vs-native-1024",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 1163,
+          "maxAbsolute": 0.00029255269975181353,
+          "meanAbsolute": 3.5943684519437225e-05,
+          "rmse": 5.2544001302248264e-05,
+          "nrmse": 0.0004816926835064288,
+          "maxRelative": 0.39822163851779213,
+          "p50": 2.2843108448318832e-05,
+          "p90": 8.789718081325669e-05,
+          "p95": 0.00010950848125681781,
+          "pearson": 0.9999957282234881,
+          "worstX": -7.315832958984174,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "fixedWindow": true
+    },
+    {
+      "id": "native-pupil-512-1024",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 1163,
+          "maxAbsolute": 0.00029245439321502753,
+          "meanAbsolute": 3.597382391467988e-05,
+          "rmse": 5.258169682206864e-05,
+          "nrmse": 0.00048203825399303863,
+          "maxRelative": 0.398893871795594,
+          "p50": 2.2824565600121707e-05,
+          "p90": 8.806715943336859e-05,
+          "p95": 0.00010936922629531205,
+          "pearson": 0.9999957222438286,
+          "worstX": -7.31584,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "fixedWindow": true
+    }
+  ],
+  "2203": [
+    {
+      "id": "2203-angular-128",
+      "stage": "native-readback",
+      "settings": {
+        "Type": "Modulation",
+        "SampleSize": "S_128x128",
+        "ShowDiffractionLimit": false,
+        "UseDashes": false,
+        "UsePolarization": false,
+        "MaximumFrequency": 50
+      },
+      "selectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      }
+    },
+    {
+      "id": "2203-angular-128-same-sampling",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Dimensionless",
+          "count": 336,
+          "maxAbsolute": 0.00036013437797843264,
+          "meanAbsolute": 1.072577484372886e-05,
+          "rmse": 3.5042155160723755e-05,
+          "nrmse": 3.5042155160723755e-05,
+          "maxRelative": "Infinity",
+          "p50": 3.8284655521475135e-47,
+          "p90": 3.9595558025323774e-05,
+          "p95": 6.578968978251942e-05,
+          "pearson": 0.9999999881644702,
+          "worstX": 9.698996655518394,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": 2.2631654485026037e-06,
+            "workbench.frequency20": 0,
+            "workbench.frequency30": 0,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 4.006226594042961,
+            "workbench.firstCrossing10": 7.985755021642849,
+            "zemax.dc": 1,
+            "zemax.frequency10": 0,
+            "zemax.frequency20": 1.5512806056785408e-18,
+            "zemax.frequency30": 2.69068081111189e-33,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 4.0061409987359005,
+            "zemax.firstCrossing10": 7.985865974409866
+          }
+        },
+        {
+          "id": "sagittal",
+          "unit": "Dimensionless",
+          "count": 336,
+          "maxAbsolute": 0.00036013437797858096,
+          "meanAbsolute": 1.0725774843730339e-05,
+          "rmse": 3.504215516073262e-05,
+          "nrmse": 3.504215516073262e-05,
+          "maxRelative": "Infinity",
+          "p50": 3.8284655521475135e-47,
+          "p90": 3.959555802526826e-05,
+          "p95": 6.57896897826582e-05,
+          "pearson": 0.9999999881644706,
+          "worstX": 9.698996655518394,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": 2.263165448513903e-06,
+            "workbench.frequency20": 0,
+            "workbench.frequency30": 0,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 4.006226594042962,
+            "workbench.firstCrossing10": 7.985755021642849,
+            "zemax.dc": 1,
+            "zemax.frequency10": 0,
+            "zemax.frequency20": 1.5512806056785408e-18,
+            "zemax.frequency30": 2.69068081111189e-33,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 4.0061409987359005,
+            "zemax.firstCrossing10": 7.985865974409866
+          }
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "2203-angular-256",
+      "stage": "native-readback",
+      "settings": {
+        "Type": "Modulation",
+        "SampleSize": "S_256x256",
+        "ShowDiffractionLimit": false,
+        "UseDashes": false,
+        "UsePolarization": false,
+        "MaximumFrequency": 50
+      },
+      "selectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      }
+    },
+    {
+      "id": "2203-angular-256-same-sampling",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Dimensionless",
+          "count": 336,
+          "maxAbsolute": 0.00021084968862205872,
+          "meanAbsolute": 2.635986305821729e-06,
+          "rmse": 1.3186333313520173e-05,
+          "nrmse": 1.3186333313520175e-05,
+          "maxRelative": 1,
+          "p50": 1.480428558102817e-84,
+          "p90": 7.887128658012887e-06,
+          "p95": 1.4504506862701369e-05,
+          "pearson": 0.9999999983226608,
+          "worstX": 9.866220735785953,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": 0.0001822900422067434,
+            "workbench.frequency20": 0,
+            "workbench.frequency30": 0,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 4.02207359440025,
+            "workbench.firstCrossing10": 8.01833761871093,
+            "zemax.dc": 0.9999999999999999,
+            "zemax.frequency10": 0.00022445997993115552,
+            "zemax.frequency20": 4.718842166943158e-34,
+            "zemax.frequency30": 8.228123231430541e-63,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 4.022141123825322,
+            "zemax.firstCrossing10": 8.018295791456177
+          }
+        },
+        {
+          "id": "sagittal",
+          "unit": "Dimensionless",
+          "count": 336,
+          "maxAbsolute": 0.000210849688621963,
+          "meanAbsolute": 2.6359863058193045e-06,
+          "rmse": 1.3186333313515328e-05,
+          "nrmse": 1.318633331351533e-05,
+          "maxRelative": 1,
+          "p50": 1.480428558102817e-84,
+          "p90": 7.887128657985132e-06,
+          "p95": 1.4504506862643256e-05,
+          "pearson": 0.9999999983226607,
+          "worstX": 9.866220735785953,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": 0.0001822900422067625,
+            "workbench.frequency20": 0,
+            "workbench.frequency30": 0,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 4.022073594400251,
+            "workbench.firstCrossing10": 8.018337618710932,
+            "zemax.dc": 0.9999999999999999,
+            "zemax.frequency10": 0.00022445997993115552,
+            "zemax.frequency20": 4.718842166943158e-34,
+            "zemax.frequency30": 8.228123231430541e-63,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 4.022141123825322,
+            "zemax.firstCrossing10": 8.018295791456177
+          }
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "2203-angular-64",
+      "stage": "native-readback",
+      "settings": {
+        "Type": "Modulation",
+        "SampleSize": "S_64x64",
+        "ShowDiffractionLimit": false,
+        "UseDashes": false,
+        "UsePolarization": false,
+        "MaximumFrequency": 50
+      },
+      "selectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      }
+    },
+    {
+      "id": "2203-angular-64-same-sampling",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Dimensionless",
+          "count": 336,
+          "maxAbsolute": 0.0018371490160313006,
+          "meanAbsolute": 3.769906940563653e-05,
+          "rmse": 0.0001388932589884165,
+          "nrmse": 0.0001388932589884165,
+          "maxRelative": 1,
+          "p50": 1.8568487794328696e-26,
+          "p90": 0.00012583768370813666,
+          "p95": 0.0002375905477528112,
+          "pearson": 0.9999998109513673,
+          "worstX": 9.698996655518394,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": 7.298504298434408e-05,
+            "workbench.frequency20": 0,
+            "workbench.frequency30": 0,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 3.972879353339875,
+            "workbench.firstCrossing10": 7.906226832884531,
+            "zemax.dc": 1,
+            "zemax.frequency10": 0.00011093996812976348,
+            "zemax.frequency20": 1.3185914257121004e-11,
+            "zemax.frequency30": 9.86452259612862e-19,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 3.972906012553838,
+            "zemax.firstCrossing10": 7.907131546656106
+          }
+        },
+        {
+          "id": "sagittal",
+          "unit": "Dimensionless",
+          "count": 336,
+          "maxAbsolute": 0.0018371490160313964,
+          "meanAbsolute": 3.7699069405638584e-05,
+          "rmse": 0.0001388932589884248,
+          "nrmse": 0.0001388932589884248,
+          "maxRelative": 1,
+          "p50": 1.8568487794328696e-26,
+          "p90": 0.00012583768370813666,
+          "p95": 0.00023759054775283894,
+          "pearson": 0.9999998109513671,
+          "worstX": 9.698996655518394,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": 7.298504298437801e-05,
+            "workbench.frequency20": 0,
+            "workbench.frequency30": 0,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 3.9728793533398745,
+            "workbench.firstCrossing10": 7.90622683288453,
+            "zemax.dc": 1,
+            "zemax.frequency10": 0.00011093996812976348,
+            "zemax.frequency20": 1.3185914257121004e-11,
+            "zemax.frequency30": 9.86452259612862e-19,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 3.972906012553838,
+            "zemax.firstCrossing10": 7.907131546656106
+          }
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "2203-focal-128",
+      "stage": "native-readback",
+      "settings": {
+        "Type": "Modulation",
+        "SampleSize": "S_128x128",
+        "ShowDiffractionLimit": false,
+        "UseDashes": false,
+        "UsePolarization": false,
+        "MaximumFrequency": 50
+      },
+      "selectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      }
+    },
+    {
+      "id": "2203-focal-256",
+      "stage": "native-readback",
+      "settings": {
+        "Type": "Modulation",
+        "SampleSize": "S_256x256",
+        "ShowDiffractionLimit": false,
+        "UseDashes": false,
+        "UsePolarization": false,
+        "MaximumFrequency": 50
+      },
+      "selectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      }
+    },
+    {
+      "id": "2203-focal-64",
+      "stage": "native-readback",
+      "settings": {
+        "Type": "Modulation",
+        "SampleSize": "S_64x64",
+        "ShowDiffractionLimit": false,
+        "UseDashes": false,
+        "UsePolarization": false,
+        "MaximumFrequency": 50
+      },
+      "selectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      }
+    },
+    {
+      "id": "focal-native-64-256",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Dimensionless",
+          "count": 300,
+          "maxAbsolute": 0.6504970743991401,
+          "meanAbsolute": 0.005152172690169648,
+          "rmse": 0.04933163598584711,
+          "nrmse": 0.04933163598584711,
+          "maxRelative": "Infinity",
+          "p50": 3.5203916753090964e-32,
+          "p90": 6.551664769751793e-08,
+          "p95": 9.794658399937519e-05,
+          "pearson": 0.7795831828532788,
+          "worstX": 0.16722408026755853,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {
+            "workbench.dc": 0.9999999999999999,
+            "workbench.frequency10": 1.456301536797457e-30,
+            "workbench.frequency20": 8.035331557569848e-60,
+            "workbench.frequency30": 1.4011000139874755e-88,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 0.09136425325077535,
+            "workbench.firstCrossing10": 0.16445565585139563,
+            "zemax.dc": 1,
+            "zemax.frequency10": 3.1074794695465956e-08,
+            "zemax.frequency20": 0,
+            "zemax.frequency30": 0,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 0.3248895757018864,
+            "zemax.firstCrossing10": 0.6610096372388006
+          }
+        },
+        {
+          "id": "sagittal",
+          "unit": "Dimensionless",
+          "count": 300,
+          "maxAbsolute": 0.6504970743991401,
+          "meanAbsolute": 0.005152172690169648,
+          "rmse": 0.04933163598584711,
+          "nrmse": 0.04933163598584711,
+          "maxRelative": "Infinity",
+          "p50": 3.5203916753090964e-32,
+          "p90": 6.551664769751793e-08,
+          "p95": 9.794658399937519e-05,
+          "pearson": 0.7795831828532788,
+          "worstX": 0.16722408026755853,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {
+            "workbench.dc": 0.9999999999999999,
+            "workbench.frequency10": 1.456301536797457e-30,
+            "workbench.frequency20": 8.035331557569848e-60,
+            "workbench.frequency30": 1.4011000139874755e-88,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 0.09136425325077535,
+            "workbench.firstCrossing10": 0.16445565585139563,
+            "zemax.dc": 1,
+            "zemax.frequency10": 3.1074794695465956e-08,
+            "zemax.frequency20": 0,
+            "zemax.frequency30": 0,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 0.3248895757018864,
+            "zemax.firstCrossing10": 0.6610096372388006
+          }
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "angular-native-128-256",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Dimensionless",
+          "count": 300,
+          "maxAbsolute": 0.002751686181468316,
+          "meanAbsolute": 0.00032995387684869534,
+          "rmse": 0.0008289794175073278,
+          "nrmse": 0.0008289794175073278,
+          "maxRelative": "Infinity",
+          "p50": 8.165259847318085e-39,
+          "p90": 0.0018760756205210346,
+          "p95": 0.0023786276003103543,
+          "pearson": 0.999994985697144,
+          "worstX": 7.357859531772575,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 0.9999999999999999,
+            "workbench.frequency10": 0.00022445997993115552,
+            "workbench.frequency20": 4.718842166943158e-34,
+            "workbench.frequency30": 8.228123231430541e-63,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 4.022141123825322,
+            "workbench.firstCrossing10": 8.018295791456177,
+            "zemax.dc": 1,
+            "zemax.frequency10": 0,
+            "zemax.frequency20": 1.5512806056785408e-18,
+            "zemax.frequency30": 2.69068081111189e-33,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 4.0061409987359005,
+            "zemax.firstCrossing10": 7.985865974409866
+          }
+        },
+        {
+          "id": "sagittal",
+          "unit": "Dimensionless",
+          "count": 300,
+          "maxAbsolute": 0.002751686181468316,
+          "meanAbsolute": 0.00032995387684869534,
+          "rmse": 0.0008289794175073278,
+          "nrmse": 0.0008289794175073278,
+          "maxRelative": "Infinity",
+          "p50": 8.165259847318085e-39,
+          "p90": 0.0018760756205210346,
+          "p95": 0.0023786276003103543,
+          "pearson": 0.999994985697144,
+          "worstX": 7.357859531772575,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 0.9999999999999999,
+            "workbench.frequency10": 0.00022445997993115552,
+            "workbench.frequency20": 4.718842166943158e-34,
+            "workbench.frequency30": 8.228123231430541e-63,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 4.022141123825322,
+            "workbench.firstCrossing10": 8.018295791456177,
+            "zemax.dc": 1,
+            "zemax.frequency10": 0,
+            "zemax.frequency20": 1.5512806056785408e-18,
+            "zemax.frequency30": 2.69068081111189e-33,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 4.0061409987359005,
+            "zemax.firstCrossing10": 7.985865974409866
+          }
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "angular-circular-pupil-analytic",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Dimensionless",
+          "count": 300,
+          "maxAbsolute": 0.002861491045265535,
+          "meanAbsolute": 0.0003686221397242572,
+          "rmse": 0.0009167890174590473,
+          "nrmse": 0.0009167890174590474,
+          "maxRelative": 1,
+          "p50": 1.3486715377493778e-93,
+          "p90": 0.002102701532981434,
+          "p95": 0.0026505180131265334,
+          "pearson": 0.9999941773969565,
+          "worstX": 7.525083612040134,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": 0.00037484691391866565,
+            "workbench.frequency20": 0,
+            "workbench.frequency30": 0,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 4.040223527663117,
+            "workbench.firstCrossing10": 8.05509905317438,
+            "zemax.dc": 0.9999999999999999,
+            "zemax.frequency10": 0.00022445997993115552,
+            "zemax.frequency20": 4.718842166943158e-34,
+            "zemax.frequency30": 8.228123231430541e-63,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 4.022141123825322,
+            "zemax.firstCrossing10": 8.018295791456177
+          }
+        },
+        {
+          "id": "sagittal",
+          "unit": "Dimensionless",
+          "count": 300,
+          "maxAbsolute": 0.002861491045265535,
+          "meanAbsolute": 0.0003686221397242572,
+          "rmse": 0.0009167890174590473,
+          "nrmse": 0.0009167890174590474,
+          "maxRelative": 1,
+          "p50": 1.3486715377493778e-93,
+          "p90": 0.002102701532981434,
+          "p95": 0.0026505180131265334,
+          "pearson": 0.9999941773969565,
+          "worstX": 7.525083612040134,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench.dc": 1,
+            "workbench.frequency10": 0.00037484691391866565,
+            "workbench.frequency20": 0,
+            "workbench.frequency30": 0,
+            "workbench.frequency50": 0,
+            "workbench.firstCrossing50": 4.040223527663117,
+            "workbench.firstCrossing10": 8.05509905317438,
+            "zemax.dc": 0.9999999999999999,
+            "zemax.frequency10": 0.00022445997993115552,
+            "zemax.frequency20": 4.718842166943158e-34,
+            "zemax.frequency30": 8.228123231430541e-63,
+            "zemax.frequency50": 0,
+            "zemax.firstCrossing50": 4.022141123825322,
+            "zemax.firstCrossing10": 8.018295791456177
+          }
+        }
+      ],
+      "fixedWindow": false
+    }
+  ],
+  "2212": [
+    {
+      "id": "2212-angular",
+      "stage": "native-readback",
+      "settings": {
+        "DisplayAs": "Percent",
+        "Distortion": "F_TanTheta",
+        "ScanType": "Plus_Y",
+        "UseDashes": false,
+        "IgnoreVignette": true,
+        "MaximumCurvature": 0,
+        "MaximumDistortion": 0,
+        "FieldAspectRatio": 1
+      },
+      "selectors": {
+        "Wavelength": 1,
+        "ReferenceField": 1
+      }
+    },
+    {
+      "id": "2212-angular-same-sampling",
+      "conclusion": "Pass",
+      "reason": "Afocal tangential/sagittal vergence in diopters and dimensionless percentage distortion, under the captured wavelength and field scan.",
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Diopter",
+          "count": 111,
+          "maxAbsolute": 3.552255693791107e-12,
+          "meanAbsolute": 8.85289304768492e-13,
+          "rmse": 1.4301409016788777e-12,
+          "nrmse": 1.4301409016788777e-06,
+          "maxRelative": "Infinity",
+          "p50": 2.2204448317548736e-13,
+          "p90": 1.7762970742145617e-12,
+          "p95": 3.552220171548852e-12,
+          "pearson": 0.008261398157427909,
+          "worstX": 0.92,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Diopter",
+          "count": 111,
+          "maxAbsolute": 2.1684038165440411e-16,
+          "meanAbsolute": 7.032266991890177e-17,
+          "rmse": 1.23482550346667e-16,
+          "nrmse": 1.23482550346667e-10,
+          "maxRelative": 1,
+          "p50": 0,
+          "p90": 2.1683683790084738e-16,
+          "p95": 2.1683908370713266e-16,
+          "pearson": null,
+          "worstX": 0.04,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "distortion",
+          "unit": "Percent",
+          "count": 111,
+          "maxAbsolute": 1.0481051438552182e-12,
+          "meanAbsolute": 9.906702111726962e-13,
+          "rmse": 9.953120975737891e-13,
+          "nrmse": 9.953120975737891e-09,
+          "maxRelative": 1,
+          "p50": 9.935608789781868e-13,
+          "p90": 1.0184070580103969e-12,
+          "p95": 1.0254035296890014e-12,
+          "pearson": 0.15878259221494861,
+          "worstX": 0.55,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "fixedWindow": false
+    },
+    {
+      "id": "2212-focal",
+      "stage": "native-readback",
+      "settings": {
+        "DisplayAs": "Percent",
+        "Distortion": "F_TanTheta",
+        "ScanType": "Plus_Y",
+        "UseDashes": false,
+        "IgnoreVignette": true,
+        "MaximumCurvature": 0,
+        "MaximumDistortion": 0,
+        "FieldAspectRatio": 1
+      },
+      "selectors": {
+        "Wavelength": 1,
+        "ReferenceField": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "index": 1131,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 1,
+    "scope": "primary",
+    "analysis": "First Order",
+    "verdict": "Pass",
+    "priorVerdict": "Incomparable",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "error": null,
+    "requestFingerprint": "e4f51b47e7ab75143876da2d12ab6e8668bfe8d01b2641dd1cdd2e098b3d31a7",
+    "metrics": "[{\"id\":\"EffectiveFocalLength:infinite-state\",\"unit\":\"Dimensionless\",\"count\":1,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":0,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{\"workbench\":1,\"zemax\":1}},{\"id\":\"FNumber:infinite-state\",\"unit\":\"Dimensionless\",\"count\":1,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":0,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{\"workbench\":1,\"zemax\":1}}]"
+  },
+  {
+    "index": 1132,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 1,
+    "scope": "primary",
+    "analysis": "Single Ray Trace",
+    "verdict": "Pass",
+    "priorVerdict": "Incomparable",
+    "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+    "error": null,
+    "requestFingerprint": "d98c29bb18e02db79d8ef46ad54c0f712488bda7fef6462384d2ee7c761bd339",
+    "metrics": "[{\"id\":\"x\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"y\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"z\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"l\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"m\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"n\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-x\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-y\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-z\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"incidence\",\"unit\":\"Degree\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"path-length\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}}]"
+  },
+  {
+    "index": 1149,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 1,
+    "scope": "edge",
+    "analysis": "Single Ray Trace",
+    "verdict": "Pass",
+    "priorVerdict": "Incomparable",
+    "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+    "error": null,
+    "requestFingerprint": "d98c29bb18e02db79d8ef46ad54c0f712488bda7fef6462384d2ee7c761bd339",
+    "metrics": "[{\"id\":\"x\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"y\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"z\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"l\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"m\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"n\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-x\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-y\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-z\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"incidence\",\"unit\":\"Degree\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"path-length\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}}]"
+  },
+  {
+    "index": 1153,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 2,
+    "scope": "primary",
+    "analysis": "First Order",
+    "verdict": "Pass",
+    "priorVerdict": "Incomparable",
+    "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+    "error": null,
+    "requestFingerprint": "f248f49c05ee0bb19d6808f5c9032dcbdb1b8ef7d6c7c177ab5551404a60b129",
+    "metrics": "[{\"id\":\"EffectiveFocalLength:infinite-state\",\"unit\":\"Dimensionless\",\"count\":1,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":0,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{\"workbench\":1,\"zemax\":1}},{\"id\":\"FNumber:infinite-state\",\"unit\":\"Dimensionless\",\"count\":1,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":0,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{\"workbench\":1,\"zemax\":1}}]"
+  },
+  {
+    "index": 1154,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 2,
+    "scope": "primary",
+    "analysis": "Single Ray Trace",
+    "verdict": "Pass",
+    "priorVerdict": "Incomparable",
+    "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+    "error": null,
+    "requestFingerprint": "30f52848fcbabad146a890a664acbc12210e9ec66173bc1127044a0da153449d",
+    "metrics": "[{\"id\":\"x\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"y\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"z\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"l\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"m\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"n\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-x\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-y\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-z\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"incidence\",\"unit\":\"Degree\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"path-length\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}}]"
+  },
+  {
+    "index": 1171,
+    "lens": "Miscellaneous/Grid Sag Example.zmx",
+    "configuration": 2,
+    "scope": "edge",
+    "analysis": "Single Ray Trace",
+    "verdict": "Pass",
+    "priorVerdict": "Incomparable",
+    "reason": "Eleven per-surface coordinate, direction, normal and optical-path columns; each column publishes its own physical unit.",
+    "error": null,
+    "requestFingerprint": "30f52848fcbabad146a890a664acbc12210e9ec66173bc1127044a0da153449d",
+    "metrics": "[{\"id\":\"x\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"y\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"z\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"l\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"m\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"n\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-x\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-y\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"normal-z\",\"unit\":\"Dimensionless\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"incidence\",\"unit\":\"Degree\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}},{\"id\":\"path-length\",\"unit\":\"Millimeter\",\"count\":3,\"maxAbsolute\":0,\"meanAbsolute\":0,\"rmse\":0,\"nrmse\":0,\"maxRelative\":0,\"p50\":0,\"p90\":0,\"p95\":0,\"pearson\":null,\"worstX\":1,\"worstY\":null,\"coverage\":1,\"conclusion\":\"Pass\",\"extra\":{}}]"
+  }
+]

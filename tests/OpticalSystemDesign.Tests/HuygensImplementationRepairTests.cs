@@ -2,12 +2,25 @@ using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Materials;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class HuygensImplementationRepairTests
 {
+    [Fact]
+    public void ImageTelecentricPsfUsesTheFiniteConeAtAnInfiniteExitPupil()
+    {
+        const string source = "MODE SEQ\nUNIT MM\nENPD 20\nWAVM 1 .55 1\nPWAV 1\nSURF 0\nDISZ INFINITY\nSURF 1\nSTOP\nDISZ 100\nSURF 2\nTYPE PARAXIAL\nPARM 1 100\nDISZ 100\nSURF 3";
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        Assert.Equal(0, optic.Paraxial.EstimateExitPupilLocation());
+        var psf = DiffractionEngine.ComputeHuygensPsf(optic, (0, 0), optic.Wavelengths[0], 32, 32, .00025);
+        Assert.All(psf.Values.Cast<double>(), intensity => Assert.True(double.IsFinite(intensity)));
+        Assert.Equal(1, psf.StrehlRatio, 10);
+        Assert.InRange(psf.Values[16, 24] / 100, .15, .5);
+    }
+
     [Fact]
     public void FocalPropagationPreservesIndexOverWavelengthAndOpticalPhase()
         => CheckIndexScaling(afocal: false);

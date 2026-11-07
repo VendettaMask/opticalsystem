@@ -1479,7 +1479,8 @@ public static partial class MeritFunctionCatalog
             "CODA" => EvaluateCoatingData(optic, definition),
             "HYLD" => EvaluateHighYield(optic, definition),
             "MNRE" or "MNRI" or "MXRE" or "MXRI" => EvaluateRayAngleRange(optic, definition),
-            "WFNO" => optic.Paraxial.EstimateFNumber(),
+            "WFNO" => optic.UseExitPupilFNumber && !optic.ImageSpaceAfocal
+                ? optic.Paraxial.ExitPupilFNumber() : optic.Paraxial.EstimateFNumber(),
             "ISNA" => EvaluateImageSpaceNumericalAperture(optic, definition),
             "WLEN" => EvaluateWavelengthMicrometers(optic, definition),
             _ when ZemaxOperandRegistry.IsGradientIndexControl(CanonicalType(definition.Type)) => EvaluateGradientIndexControl(optic, definition),

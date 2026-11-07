@@ -3,6 +3,7 @@ using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Raytrace;
@@ -12,6 +13,18 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class CoordinateReferenceMediumTests
 {
+    [Fact]
+    public void GrazingLaunchAtRetainedCoordinateBreakHasZeroSegment()
+    {
+        var reference = new PlaneGeometry(new Vector3D(0, 1, 0));
+        var direction = new Vector3D(0, -1, Math.Cos(Math.PI / 2));
+        var hit = reference.DistanceToIntersection(new Vector3D(0, 0, 0), direction);
+        Assert.Equal(IntersectionStatus.Tangent, hit.Status);
+        Assert.Equal(0, hit.Distance);
+        Assert.False(reference.DistanceToIntersection(new Vector3D(0, 0, .01), direction).IsHit);
+        Assert.False(new PlaneGeometry().DistanceToIntersection(new Vector3D(0, 0, 0), direction).IsHit);
+    }
+
     [Theory]
     [InlineData("bire-tilted-0", false)] [InlineData("bire-tilted-0", true)]
     [InlineData("bire-tilted-1", false)] [InlineData("bire-tilted-1", true)]
