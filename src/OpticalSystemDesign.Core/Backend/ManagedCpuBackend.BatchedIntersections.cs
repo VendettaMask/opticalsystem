@@ -40,7 +40,7 @@ public sealed partial class ManagedCpuBackend
 
         // A distant finite object can put the first spherical surface many radii from the ray
         // origin. Use the scalar surface equation's vertex-plane formulation in that regime.
-        var longLaunch = DistantLaunchThreshold(radius);
+        var longLaunch = DistantLaunchThreshold(radius, conic);
         var surface = new RotationalSurfaceEquation { Kind = 1, Radius = radius, Conic = conic };
         var width = Vector<double>.Count;
         var index = 0;

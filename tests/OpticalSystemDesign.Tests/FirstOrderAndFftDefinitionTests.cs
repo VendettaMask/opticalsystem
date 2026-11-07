@@ -14,6 +14,36 @@ public sealed class FirstOrderAndFftDefinitionTests
     { NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals };
 
     [Fact]
+    public void FirstOrderDistinguishesEquivalentAndImageSpaceFocalLengthInGlass()
+    {
+        var optic = OpticalFormatCatalog.Import("""
+            MODE SEQ
+            UNIT MM
+            GCAT SCHOTT
+            ENPD 10
+            WAVM 1 .5875618 1
+            PWAV 1
+            SURF 0
+              DISZ INFINITY
+            SURF 1
+              STOP
+              CURV .02
+              DISZ 100
+              GLAS N-BK7
+            SURF 2
+              GLAS N-BK7
+            """, ".zmx");
+        var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(optic.Wavelengths[0].Nanometers);
+        var power = (imageIndex - 1) / 50;
+        var values = new FirstOrderAnalysis(optic).GenerateData().Values;
+
+        Assert.Equal(power, Assert.IsType<double>(values["OpticalPowerInverseMillimeters"]), 12);
+        Assert.Equal(1 / power, Assert.IsType<double>(values["EffectiveFocalLength"]), 10);
+        Assert.Equal(imageIndex / power, Assert.IsType<double>(values["ImageSpaceEffectiveFocalLength"]), 10);
+        Assert.Equal(1 / (10 * power), Assert.IsType<double>(values["FNumber"]), 10);
+    }
+
+    [Fact]
     public async Task SamplingPolicyIsNestedAndIsolatedBetweenAsynchronousRequests()
     {
         Assert.False(FftPupilSampling.IsRequired);

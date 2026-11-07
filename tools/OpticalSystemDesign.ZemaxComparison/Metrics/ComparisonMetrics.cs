@@ -18,7 +18,11 @@ public static class ComparisonMetrics
             return new(z.X, null, w.Y, z.Y, 1);
         }
         if (w.Y.Any(v => !double.IsFinite(v)) || z.Y.Any(v => !double.IsFinite(v)))
+        {
+            if (!w.HasClippingMask && !z.HasClippingMask)
+                throw new InvalidDataException("Curve has nonfinite samples and no checked aperture mask.");
             return AlignClippedFan(w, z, log);
+        }
         var a = PhysicalNormalization.Sort(w.X, w.Y); var b = PhysicalNormalization.Sort(z.X, z.Y);
         var lo = Math.Max(a.X[0], b.X[0]); var hi = Math.Min(a.X[^1], b.X[^1]);
         if (hi <= lo) throw new InvalidDataException("No common physical coordinate interval");

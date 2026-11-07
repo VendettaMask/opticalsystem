@@ -86,6 +86,7 @@ internal static partial class ZemaxZmxReader
         ConfigureFields(optic, document, configurationIndex);
         ConfigureWavelengths(optic, document, configurationIndex);
         ApplyCoordinateBreakChiefDecenters(optic, document, configuredSurfaces);
+        ConfigureObjectConeFloatingApertures(optic, configuredSurfaces);
         // Keep the stored prescription when dispersion is unavailable.
         // A ray-based solve must not prevent the rest of the document from importing.
         if (!optic.SurfaceGroup.Items.Any(surface => surface.MaterialAfter is UnresolvedMaterial))
@@ -95,6 +96,19 @@ internal static partial class ZemaxZmxReader
         }
         ConfigureMeritFunction(optic, document, configuredSurfaces);
         return optic;
+    }
+
+    private static void ConfigureObjectConeFloatingApertures(Optic optic, IEnumerable<ZemaxSurface> sourceSurfaces)
+    {
+        if (optic.Aperture.Kind != ApertureKind.ObjectConeAngle) return;
+        foreach (var (source, surface) in sourceSurfaces.Where(IsImportedSurface).Zip(optic.SurfaceGroup.Items))
+        {
+            if (source.CircularAperture || !(source.FloatingAperture || source.SemiDiameterFixed)
+                || surface.PhysicalAperture is not (CircularAperture or OffsetRadialAperture)
+                || surface.Geometry is not StandardGeometry { Conic: > -1 }) continue;
+            surface.SemiDiameterDefinesPhysicalAperture = true;
+            _ = optic.SequentialRayTracer.ResolveFloatingConicEdge(surface, surface.Number);
+        }
     }
 
     private static void InstallConvertedSurfaces(
@@ -237,7 +251,7 @@ internal static partial class ZemaxZmxReader
                         ScaleLength(document, RequiredDouble(tokens, 1, command)));
                     break;
                 case "OBNA":
-                    ReadObjectNumericalAperture(document, tokens);
+                    ReadObjectAperture(document, tokens);
                     break;
                 case "FLOA":
                     document.FloatingStop = true;
@@ -1687,6 +1701,9 @@ internal static partial class ZemaxZmxReader
         optic.Aperture.Value = configuredValue.HasValue
             ? ScaleApertureValue(document, aperture.Kind, configuredValue.Value)
             : aperture.Value;
+        if (optic.Aperture.Kind == ApertureKind.ObjectConeAngle
+            && (!double.IsFinite(optic.Aperture.Value) || optic.Aperture.Value is <= 0 or > 180))
+            throw new InvalidDataException("Zemax object cone half-angle must be in (0, 180] degrees.");
     }
 
     private static void ConfigureFields(
@@ -2201,15 +2218,17 @@ internal static partial class ZemaxZmxReader
         document.UpsertAperture("imageFNO", ApertureKind.FNumber, RequiredDouble(tokens, 1, "FNUM"));
     }
 
-    private static void ReadObjectNumericalAperture(ZemaxDocument document, IReadOnlyList<string> tokens)
+    private static void ReadObjectAperture(ZemaxDocument document, IReadOnlyList<string> tokens)
     {
         var subtype = RequiredInt(tokens, 2, "OBNA");
-        if (subtype != 0)
+        var kind = subtype switch
         {
-            throw new NotSupportedException("Zemax object-cone-angle apertures (OBNA subtype 1) are not supported.");
-        }
+            0 => ApertureKind.NumericalAperture,
+            1 => ApertureKind.ObjectConeAngle,
+            _ => throw new NotSupportedException($"Zemax OBNA subtype {subtype} is not supported.")
+        };
 
-        document.UpsertAperture("objectNA", ApertureKind.NumericalAperture, RequiredDouble(tokens, 1, "OBNA"));
+        document.UpsertAperture("objectNA", kind, RequiredDouble(tokens, 1, "OBNA"));
     }
 
     private static void ReadConfiguration(ZemaxDocument document, IReadOnlyList<string> tokens)

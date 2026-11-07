@@ -73,6 +73,7 @@ internal sealed partial class PrescriptionService : WorkbenchServiceBase, IPresc
                 {
                     ApertureKind.FNumber => "像方 F 数",
                     ApertureKind.NumericalAperture => "物方数值孔径",
+                    ApertureKind.ObjectConeAngle => "物方锥半角 (°)",
                     ApertureKind.FloatByStopSize => "按光阑面尺寸浮动",
                     _ => "入瞳直径"
                 },

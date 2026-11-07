@@ -149,7 +149,7 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
         var synthesis = HuygensPsfSynthesis.Compute(Optic, field, wavelengths, _numRays,
             _imageSize, pixelPitchMillimeters, _usePolarization, referenceWavelength,
             imageCenterOffset: _useCentroid ? geometricCenter : null, afocalIntegration: AfocalIntegration,
-            contactPupilReadout: contactPupilReadout);
+            contactPupilReadout: contactPupilReadout, allowBatchedPlanarPupil: true);
         var values = new double[_imageSize, _imageSize];
         for (var row = 0; row < _imageSize; row++)
         {

@@ -78,6 +78,7 @@ public partial class WorkbenchRuntime
             "入瞳直径" => ApertureKind.EntrancePupilDiameter,
             "像方 F 数" or "F 数" => ApertureKind.FNumber,
             "物方数值孔径" or "数值孔径" => ApertureKind.NumericalAperture,
+            "物方锥半角 (°)" => ApertureKind.ObjectConeAngle,
             "按光阑面尺寸浮动" => ApertureKind.FloatByStopSize,
             _ => ApertureKind.EntrancePupilDiameter
         };
@@ -87,6 +88,7 @@ public partial class WorkbenchRuntime
             or "F 数"
             or "物方数值孔径"
             or "数值孔径"
+            or "物方锥半角 (°)"
             or "按光阑面尺寸浮动";
     }
 

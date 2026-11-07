@@ -237,6 +237,11 @@ public static partial class WavefrontEngine
             useSystemFocalReference: useSystemFocalReference);
     }
 
+    internal static WavefrontResult GenerateChiefRayBatch(Optic optic, (double Hx, double Hy) field,
+        Wavelength wavelength, IReadOnlyList<PupilSample> samples, bool aimAtStop) =>
+        GenerateChiefRay(optic, field, wavelength, samples, aimAtStop, allowGeometricReference: true,
+            useSystemFocalReference: false, allowEmptyGeometricPupil: true);
+
     public static WavefrontReferenceSphere CreateChiefRayReferenceSphere(
         Optic optic,
         (double Hx, double Hy) field,
@@ -270,9 +275,9 @@ public static partial class WavefrontEngine
         // A displaced stop's phase datum is the primary-wavelength geometric pupil
         // plane, while each wavelength keeps its own physical image chief.
         var pupilDistance = geometricPupil
-            ? ParabasalPupilEngine.Compute(optic, optic.Wavelengths.FirstOrDefault(w => w.IsPrimary)
+            ? ParabasalPupilEngine.ReferencePlaneDistance(optic, optic.Wavelengths.FirstOrDefault(w => w.IsPrimary)
                 ?? optic.Wavelengths.FirstOrDefault() ?? wavelength,
-                allowGeometricReference: allowGeometricReference && !usePolarization).ImageAxialDistanceMillimeters
+                allowGeometricReference: allowGeometricReference && !usePolarization)
             : optic.Paraxial.EstimateExitPupilLocation(wavelength.Micrometers);
         // The pupil datum is an image-local plane. The sphere passes through
         // the chosen chief's intersection with that plane, not its axial point;
@@ -317,7 +322,8 @@ public static partial class WavefrontEngine
         bool useCachedFftStopMap = false,
         bool allowGeometricReference = false,
         bool phaseInclusiveAfocalReference = true,
-        bool useSystemFocalReference = true)
+        bool useSystemFocalReference = true,
+        bool allowEmptyGeometricPupil = false)
     {
         var chiefBundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(
             field.Hx,
@@ -413,7 +419,8 @@ public static partial class WavefrontEngine
             aimAtStop,
             resolvedRealImageLaunch);
         var finalSamples = TraceFinalSamples(optic, bundle, usePolarization);
-        if (geometricReferenceUsed && !finalSamples.Any(sample => sample is { Vignetted: false, Intensity: > 0 }))
+        if (geometricReferenceUsed && !allowEmptyGeometricPupil
+            && !finalSamples.Any(sample => sample is { Vignetted: false, Intensity: > 0 }))
             throw new AnalysisDataUnavailableException("Wavefront", "no transmitted pupil rays reached the image surface");
         var (ux, uy) = LaunchTiltDirection(optic, field, aimAtStop);
         var entrancePupilRadius = optic.Paraxial.EstimateEntrancePupilDiameter() / 2;

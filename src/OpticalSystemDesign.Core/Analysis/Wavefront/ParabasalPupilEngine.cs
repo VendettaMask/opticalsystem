@@ -13,7 +13,15 @@ public sealed record ParabasalPupilResult(double ImageAxialDistanceMillimeters, 
 public static class ParabasalPupilEngine
 {
     public static ParabasalPupilResult Compute(Optic optic, Wavelength wavelength, bool useX = false, double probeStep = 1e-3,
-        bool allowGeometricReference = false)
+        bool allowGeometricReference = false) =>
+        Compute(optic, wavelength, useX, probeStep, allowGeometricReference, projectImagePencil: false);
+
+    internal static double ReferencePlaneDistance(Optic optic, Wavelength wavelength, bool allowGeometricReference) =>
+        Compute(optic, wavelength, useX: false, probeStep: 1e-3, allowGeometricReference, projectImagePencil: true)
+            .ImageAxialDistanceMillimeters;
+
+    private static ParabasalPupilResult Compute(Optic optic, Wavelength wavelength, bool useX, double probeStep,
+        bool allowGeometricReference, bool projectImagePencil)
     {
         if (!double.IsFinite(probeStep) || probeStep is < 1e-6 or > .01) throw new ArgumentOutOfRangeException(nameof(probeStep));
         var surfaces = optic.SurfaceGroup.Items;
@@ -45,41 +53,49 @@ public static class ParabasalPupilEngine
             return tracer.TracePupilGeometryProbe(ray, stopIndex + 1, material)
                 ?? throw new AnalysisDataUnavailableException("Parabasal pupil", "the central direction pencil failed");
         }
-        double Height(Vector3D p) => useX ? frame.ToLocalPoint(p).X : frame.ToLocalPoint(p).Y;
-        double Slope(Vector3D d)
+        double Meridian(Vector3D local) => useX ? local.X : local.Y;
+        Vector3D Slopes(Vector3D d)
         {
             var local = frame.ToLocalDirection(d);
             if (Math.Abs(local.Z) <= 1e-12) throw new AnalysisDataUnavailableException("Parabasal pupil", "a probe is parallel to the image plane");
-            return (useX ? local.X : local.Y) / local.Z;
+            return new(local.X / local.Z, local.Y / local.Z, 0);
         }
 
-        (double Height, double Slope) DirectionDifference(double step)
+        (Vector3D Height, Vector3D Slope) DirectionDifference(double step)
         {
             var negative = DirectionProbe(-step);
             var positive = DirectionProbe(step);
-            return (Height(positive.Position) - Height(negative.Position), Slope(positive.Direction) - Slope(negative.Direction));
+            return (frame.ToLocalPoint(positive.Position) - frame.ToLocalPoint(negative.Position),
+                Slopes(positive.Direction) - Slopes(negative.Direction));
         }
         var full = DirectionDifference(probeStep);
         var half = DirectionDifference(probeStep / 2);
         // Extrapolate the two central differences to zero step. A finite pencil
         // alone biases high-index interfaces; an unnecessarily tiny pencil
         // amplifies the spatial integrator's bounded intercept error.
+        var heightDifference = 8 * half.Height - full.Height;
         var slopeDifference = 8 * half.Slope - full.Slope;
-        if (Math.Abs(slopeDifference) <= 1e-15)
+        var meridionalSlope = Meridian(slopeDifference);
+        var slopeMagnitude = projectImagePencil ? slopeDifference.Length : Math.Abs(meridionalSlope);
+        if (slopeMagnitude <= 1e-15)
             throw new AnalysisDataUnavailableException("Parabasal pupil", "the exit pupil is at infinity");
-        var distance = -(8 * half.Height - full.Height) / slopeDifference;
+        // A skew meridional pencil can fan out along both image axes. Its
+        // narrowest section uses both transverse slopes at the same axial plane.
+        var distance = projectImagePencil
+            ? -(heightDifference.X * slopeDifference.X + heightDifference.Y * slopeDifference.Y) / (slopeMagnitude * slopeMagnitude)
+            : -Meridian(heightDifference) / meridionalSlope;
         // The direction difference of a smooth pencil halves with its step.
         // At a mirror-array pixel boundary it can retain a finite angular jump.
         // Extrapolate the intersection of the two limiting branches directly.
         var hasDirectionJump = false;
-        if (Math.Abs(half.Slope) > .75 * Math.Abs(full.Slope)
+        if (Math.Abs(Meridian(half.Slope)) > .75 * Math.Abs(Meridian(full.Slope))
             && surfaces.Any(surface => surface.Geometry is TernaryMirrorArrayGeometry))
         {
             var quarter = DirectionDifference(probeStep / 4);
-            if (Math.Abs(quarter.Slope) > .75 * Math.Abs(half.Slope))
+            if (Math.Abs(Meridian(quarter.Slope)) > .75 * Math.Abs(Meridian(half.Slope)))
             {
-                var coarseLimit = full.Height / full.Slope - 2 * half.Height / half.Slope;
-                var fineLimit = half.Height / half.Slope - 2 * quarter.Height / quarter.Slope;
+                var coarseLimit = Meridian(full.Height) / Meridian(full.Slope) - 2 * Meridian(half.Height) / Meridian(half.Slope);
+                var fineLimit = Meridian(half.Height) / Meridian(half.Slope) - 2 * Meridian(quarter.Height) / Meridian(quarter.Slope);
                 distance = (4 * fineLimit - coarseLimit) / 3;
                 hasDirectionJump = true;
             }
@@ -94,7 +110,7 @@ public static class ParabasalPupilEngine
                 ?? throw new AnalysisDataUnavailableException("Parabasal pupil", "the central height pencil failed");
             pupilEnds.Add(end);
         }
-        double PupilHeight(RayTraceSample end) => Height(end.Position) + distance * Slope(end.Direction);
+        double PupilHeight(RayTraceSample end) => Meridian(frame.ToLocalPoint(end.Position)) + distance * Meridian(Slopes(end.Direction));
         var diameter = Math.Abs(8 * (PupilHeight(pupilEnds[3]) - PupilHeight(pupilEnds[2]))
             - (PupilHeight(pupilEnds[1]) - PupilHeight(pupilEnds[0]))) / (3 * probeStep);
         if (hasDirectionJump)

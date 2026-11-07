@@ -1,0 +1,512 @@
+{
+  "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4",
+  "archiveSha256": "f1d3f0a523a2b16368babc13a736d3b450600e181037d98b27c72caf3af96aa0",
+  "nativeCaptures": 28,
+  "referenceDefinition": "5 micrometers, centroid, monochromatic, FFT, ideal and actual curves",
+  "requests": [
+    {
+      "index": 108,
+      "lens": "Birefringent prisms/Birefringent cube.zmx",
+      "configuration": 1,
+      "frozenVerdict": "Close",
+      "frozenMaximumAbsolute": 0.013214823240686457,
+      "rimNodes": {
+        "native": 101,
+        "workbench": 97
+      },
+      "supplementalVerdict": "Pass",
+      "gates": {
+        "64-cross-tool": "Pass",
+        "128-cross-tool": "Pass",
+        "256-cross-tool": "Pass",
+        "512-cross-tool": "Pass",
+        "64-128-native-convergence": "Close",
+        "64-128-workbench-convergence": "Close",
+        "128-256-native-convergence": "Close",
+        "128-256-workbench-convergence": "Pass",
+        "256-512-native-convergence": "Pass",
+        "256-512-workbench-convergence": "Pass"
+      },
+      "maxAbsolute512": 4.447553436648377e-13,
+      "maxNrmse512": 2.0007114845921855e-13,
+      "readbacks": [
+        {
+          "index": 108,
+          "sampling": 64,
+          "nativeRequestSource": "bf6d27e96ff4b37b47c607404a38d925b90156edcb62afa41410fe1e1e58e627",
+          "frozenNativeModel": "4d2318697c0d2e965fc542b4dc1a97d1607206d3b622b8f28fc6dbc3ef39e4b7",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "04d2b19cf5218629985019f7785c8466accb557b7bda02c7337e973263aaa07f",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 108,
+          "sampling": 128,
+          "nativeRequestSource": "bf6d27e96ff4b37b47c607404a38d925b90156edcb62afa41410fe1e1e58e627",
+          "frozenNativeModel": "4d2318697c0d2e965fc542b4dc1a97d1607206d3b622b8f28fc6dbc3ef39e4b7",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "9fb133e65f1538faed27516840cded215a507b38ed8a91cf47d6273fa34b16cc",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 108,
+          "sampling": 256,
+          "nativeRequestSource": "bf6d27e96ff4b37b47c607404a38d925b90156edcb62afa41410fe1e1e58e627",
+          "frozenNativeModel": "4d2318697c0d2e965fc542b4dc1a97d1607206d3b622b8f28fc6dbc3ef39e4b7",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "e2ad18b75fbd6f01416db9376118e23598baedc2d6bba231c9f8bed6f3557fad",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 108,
+          "sampling": 512,
+          "nativeRequestSource": "bf6d27e96ff4b37b47c607404a38d925b90156edcb62afa41410fe1e1e58e627",
+          "frozenNativeModel": "4d2318697c0d2e965fc542b4dc1a97d1607206d3b622b8f28fc6dbc3ef39e4b7",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "241a6796b33158e2714df2eac5dead6965b087a6ed7d05ac060a3ad45255b6b4",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        }
+      ]
+    },
+    {
+      "index": 368,
+      "lens": "Diffractive components/Dual Zone CD-DVD lens.ZMX",
+      "configuration": 2,
+      "frozenVerdict": "Close",
+      "frozenMaximumAbsolute": 0.013819870571196602,
+      "rimNodes": {
+        "native": 97,
+        "workbench": 101
+      },
+      "supplementalVerdict": "Pass",
+      "gates": {
+        "64-cross-tool": "Close",
+        "128-cross-tool": "Pass",
+        "256-cross-tool": "Pass",
+        "512-cross-tool": "Pass",
+        "64-128-native-convergence": "Close",
+        "64-128-workbench-convergence": "Close",
+        "128-256-native-convergence": "Close",
+        "128-256-workbench-convergence": "Close",
+        "256-512-native-convergence": "Pass",
+        "256-512-workbench-convergence": "Pass"
+      },
+      "maxAbsolute512": 1.0112799486705626e-11,
+      "maxNrmse512": 4.29157842231775e-12,
+      "readbacks": [
+        {
+          "index": 368,
+          "sampling": 64,
+          "nativeRequestSource": "8de9d71b501dbe7cdef693aea929ec984ffc71ce9dea3e77740f092c02537bf9",
+          "frozenNativeModel": "56312cb24dfde6596cda132c0ccf3e8e7c57d4b898665f876e991dbb65f9f993",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "66c9a9af7df8276bbdab2df3538f0d520334bbdd902dbe1ca1169eeec1e1144a",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 368,
+          "sampling": 128,
+          "nativeRequestSource": "8de9d71b501dbe7cdef693aea929ec984ffc71ce9dea3e77740f092c02537bf9",
+          "frozenNativeModel": "56312cb24dfde6596cda132c0ccf3e8e7c57d4b898665f876e991dbb65f9f993",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "97435432479587678ca79918c671b3eddf53040204c4b2e06d9b78355cc2957c",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 368,
+          "sampling": 256,
+          "nativeRequestSource": "8de9d71b501dbe7cdef693aea929ec984ffc71ce9dea3e77740f092c02537bf9",
+          "frozenNativeModel": "56312cb24dfde6596cda132c0ccf3e8e7c57d4b898665f876e991dbb65f9f993",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "e28a02aaf8ac1bb1a6ff549ab2bf2c20e97fc9fb305f6a7c2416ebd60d65ad28",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 368,
+          "sampling": 512,
+          "nativeRequestSource": "8de9d71b501dbe7cdef693aea929ec984ffc71ce9dea3e77740f092c02537bf9",
+          "frozenNativeModel": "56312cb24dfde6596cda132c0ccf3e8e7c57d4b898665f876e991dbb65f9f993",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "e26a487f2859d53e435c7cc8ab0697f3ed2435efffaf143227513580f840ff55",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        }
+      ]
+    },
+    {
+      "index": 712,
+      "lens": "Image Simulation/Example 6, tilted image plane.ZMX",
+      "configuration": 1,
+      "frozenVerdict": "Close",
+      "frozenMaximumAbsolute": 0.013209281217944402,
+      "rimNodes": {
+        "native": 97,
+        "workbench": 101
+      },
+      "supplementalVerdict": "Pass",
+      "gates": {
+        "64-cross-tool": "Pass",
+        "128-cross-tool": "Pass",
+        "256-cross-tool": "Pass",
+        "512-cross-tool": "Pass",
+        "64-128-native-convergence": "Close",
+        "64-128-workbench-convergence": "Close",
+        "128-256-native-convergence": "Close",
+        "128-256-workbench-convergence": "Close",
+        "256-512-native-convergence": "Pass",
+        "256-512-workbench-convergence": "Pass"
+      },
+      "maxAbsolute512": 0.0008408318763125644,
+      "maxNrmse512": 0.00048746674216172025,
+      "readbacks": [
+        {
+          "index": 712,
+          "sampling": 64,
+          "nativeRequestSource": "3d99b357ca4cf3b6f8e6ef7aa8cbe8fd41d3a739d89411b23b0330a8bedca92c",
+          "frozenNativeModel": "f698bc52814c56f5aaafb0ec859a2781eeb4ee8e127189559033c70e5fa09b8b",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "512f0117ac672ca4924cde19553f1a986f1cee1ec6049489a160e0c8950e8a22",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 712,
+          "sampling": 128,
+          "nativeRequestSource": "3d99b357ca4cf3b6f8e6ef7aa8cbe8fd41d3a739d89411b23b0330a8bedca92c",
+          "frozenNativeModel": "f698bc52814c56f5aaafb0ec859a2781eeb4ee8e127189559033c70e5fa09b8b",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "138472e0f9a56a4d258b474d9b8cd910a2cd3ac1f2efe0f631cebd2abee338fd",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 712,
+          "sampling": 256,
+          "nativeRequestSource": "3d99b357ca4cf3b6f8e6ef7aa8cbe8fd41d3a739d89411b23b0330a8bedca92c",
+          "frozenNativeModel": "f698bc52814c56f5aaafb0ec859a2781eeb4ee8e127189559033c70e5fa09b8b",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "32765d14813bf84f85613dd36942abbb3ebcb2d4de626200f5b72b1db93841e8",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 712,
+          "sampling": 512,
+          "nativeRequestSource": "3d99b357ca4cf3b6f8e6ef7aa8cbe8fd41d3a739d89411b23b0330a8bedca92c",
+          "frozenNativeModel": "f698bc52814c56f5aaafb0ec859a2781eeb4ee8e127189559033c70e5fa09b8b",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "159a8400314fad5dce8803c1d189ae0db4366ed7acfcea5acaea2cf60b93ed21",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        }
+      ]
+    },
+    {
+      "index": 742,
+      "lens": "Image Simulation/Example 6, tilted image plane.ZMX",
+      "configuration": 2,
+      "frozenVerdict": "Close",
+      "frozenMaximumAbsolute": 0.013209281217990698,
+      "rimNodes": {
+        "native": 101,
+        "workbench": 97
+      },
+      "supplementalVerdict": "Pass",
+      "gates": {
+        "64-cross-tool": "Pass",
+        "128-cross-tool": "Pass",
+        "256-cross-tool": "Pass",
+        "512-cross-tool": "Pass",
+        "64-128-native-convergence": "Close",
+        "64-128-workbench-convergence": "Close",
+        "128-256-native-convergence": "Close",
+        "128-256-workbench-convergence": "Close",
+        "256-512-native-convergence": "Pass",
+        "256-512-workbench-convergence": "Pass"
+      },
+      "maxAbsolute512": 1.9510726367855113e-11,
+      "maxNrmse512": 1.855313506971537e-11,
+      "readbacks": [
+        {
+          "index": 742,
+          "sampling": 64,
+          "nativeRequestSource": "3d99b357ca4cf3b6f8e6ef7aa8cbe8fd41d3a739d89411b23b0330a8bedca92c",
+          "frozenNativeModel": "afce86100cb6eb5985708fe44a4cd9cc19263e5c6a85d0c78fee7ac7cef1176a",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "fd73a48eb3a9229a87fb7792ddd85b43ee61edc72ee9c91dc9d93f266b3ee04f",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 742,
+          "sampling": 128,
+          "nativeRequestSource": "3d99b357ca4cf3b6f8e6ef7aa8cbe8fd41d3a739d89411b23b0330a8bedca92c",
+          "frozenNativeModel": "afce86100cb6eb5985708fe44a4cd9cc19263e5c6a85d0c78fee7ac7cef1176a",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "4ce1c8fbc7cebe982b6ea81fe4e113620da84d05365e4ed9ae3d8fa78dc8622d",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 742,
+          "sampling": 256,
+          "nativeRequestSource": "3d99b357ca4cf3b6f8e6ef7aa8cbe8fd41d3a739d89411b23b0330a8bedca92c",
+          "frozenNativeModel": "afce86100cb6eb5985708fe44a4cd9cc19263e5c6a85d0c78fee7ac7cef1176a",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "8508fb4ec1293466542485da987895ab251265a0c4519b681b756404ed261449",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 742,
+          "sampling": 512,
+          "nativeRequestSource": "3d99b357ca4cf3b6f8e6ef7aa8cbe8fd41d3a739d89411b23b0330a8bedca92c",
+          "frozenNativeModel": "afce86100cb6eb5985708fe44a4cd9cc19263e5c6a85d0c78fee7ac7cef1176a",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "bf1a0c6a4a4eb2d18270e00d76b916b3fbc5f8a3c4bc64cdb37b185f1f376e52",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        }
+      ]
+    },
+    {
+      "index": 2142,
+      "lens": "Optical testing/Offner refracting compensator.zmx",
+      "configuration": 1,
+      "frozenVerdict": "Close",
+      "frozenMaximumAbsolute": 0.013227034586926867,
+      "rimNodes": {
+        "native": 97,
+        "workbench": 101
+      },
+      "supplementalVerdict": "Pass",
+      "gates": {
+        "64-cross-tool": "Pass",
+        "128-cross-tool": "Pass",
+        "256-cross-tool": "Pass",
+        "512-cross-tool": "Pass",
+        "64-128-native-convergence": "Close",
+        "64-128-workbench-convergence": "Close",
+        "128-256-native-convergence": "Close",
+        "128-256-workbench-convergence": "Close",
+        "256-512-native-convergence": "Pass",
+        "256-512-workbench-convergence": "Pass"
+      },
+      "maxAbsolute512": 0.000847681033148806,
+      "maxNrmse512": 0.0004574775114431846,
+      "readbacks": [
+        {
+          "index": 2142,
+          "sampling": 64,
+          "nativeRequestSource": "4c17ca45d226e81a6cd142d0bd4386983bbdc2e661bb00862a037adfda42bddf",
+          "frozenNativeModel": "e2c5dc5e7a06942b1c7d9a60e4c95d9036a766c78b35cbb5b8ae30e91215cf63",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "036a4f96a2824cf3db46d8c33f1cda5061d86215c0d31ab02bdfc1355e117fc2",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 2142,
+          "sampling": 128,
+          "nativeRequestSource": "4c17ca45d226e81a6cd142d0bd4386983bbdc2e661bb00862a037adfda42bddf",
+          "frozenNativeModel": "e2c5dc5e7a06942b1c7d9a60e4c95d9036a766c78b35cbb5b8ae30e91215cf63",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "3c3812bc24d622fa87490656cd31506851033691315d744364123434ddfd2a4a",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 2142,
+          "sampling": 256,
+          "nativeRequestSource": "4c17ca45d226e81a6cd142d0bd4386983bbdc2e661bb00862a037adfda42bddf",
+          "frozenNativeModel": "e2c5dc5e7a06942b1c7d9a60e4c95d9036a766c78b35cbb5b8ae30e91215cf63",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "ed767396f460275872225c4869eb240b5050eddcc12efb367a3fdd224f0b8fcf",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 2142,
+          "sampling": 512,
+          "nativeRequestSource": "4c17ca45d226e81a6cd142d0bd4386983bbdc2e661bb00862a037adfda42bddf",
+          "frozenNativeModel": "e2c5dc5e7a06942b1c7d9a60e4c95d9036a766c78b35cbb5b8ae30e91215cf63",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "3cf96a8c147e7a503aa6f23c18a7f0c5797c62ffc36e43c72791b7d1d9a81d7d",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        }
+      ]
+    },
+    {
+      "index": 2728,
+      "lens": "Tilted systems & prisms/Tilted mirror.zmx",
+      "configuration": 1,
+      "frozenVerdict": "Close",
+      "frozenMaximumAbsolute": 0.01322774512656999,
+      "rimNodes": {
+        "native": 101,
+        "workbench": 97
+      },
+      "supplementalVerdict": "Pass",
+      "gates": {
+        "64-cross-tool": "Pass",
+        "128-cross-tool": "Pass",
+        "256-cross-tool": "Pass",
+        "512-cross-tool": "Pass",
+        "64-128-native-convergence": "Close",
+        "64-128-workbench-convergence": "Close",
+        "128-256-native-convergence": "Close",
+        "128-256-workbench-convergence": "Close",
+        "256-512-native-convergence": "Pass",
+        "256-512-workbench-convergence": "Pass"
+      },
+      "maxAbsolute512": 1.1053033488472863e-12,
+      "maxNrmse512": 2.812516084857216e-13,
+      "readbacks": [
+        {
+          "index": 2728,
+          "sampling": 64,
+          "nativeRequestSource": "9cc4d6101d4927b36ff3a62f68e54f5e40d8869652ed818e647707b6987f79e6",
+          "frozenNativeModel": "5673b2a02d345d782d613d81d6895262ff807a262fac23945a3fc254f504e76b",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "581b418df0300159fcb9d55a6c74df73c27854bf59d337e7f6ace09632838dc5",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 2728,
+          "sampling": 128,
+          "nativeRequestSource": "9cc4d6101d4927b36ff3a62f68e54f5e40d8869652ed818e647707b6987f79e6",
+          "frozenNativeModel": "5673b2a02d345d782d613d81d6895262ff807a262fac23945a3fc254f504e76b",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "d7bbc8119d0e2a501d774989c22ecb39943ba819d1eafb9c0121f014977bd395",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 2728,
+          "sampling": 256,
+          "nativeRequestSource": "9cc4d6101d4927b36ff3a62f68e54f5e40d8869652ed818e647707b6987f79e6",
+          "frozenNativeModel": "5673b2a02d345d782d613d81d6895262ff807a262fac23945a3fc254f504e76b",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "1ba1f019648b98802bb4de41a0f4735e12e325a7a58f9973a46bfdfe98d891af",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 2728,
+          "sampling": 512,
+          "nativeRequestSource": "9cc4d6101d4927b36ff3a62f68e54f5e40d8869652ed818e647707b6987f79e6",
+          "frozenNativeModel": "5673b2a02d345d782d613d81d6895262ff807a262fac23945a3fc254f504e76b",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "4ba74360755644c489d184adc77c0ca5e22e5b0f272494acefc4bd66b3b337a7",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        }
+      ]
+    },
+    {
+      "index": 2750,
+      "lens": "Tilted systems & prisms/Tilted object.zmx",
+      "configuration": 1,
+      "frozenVerdict": "Close",
+      "frozenMaximumAbsolute": 0.013201001840351445,
+      "rimNodes": {
+        "native": 97,
+        "workbench": 101
+      },
+      "supplementalVerdict": "Pass",
+      "gates": {
+        "64-cross-tool": "Pass",
+        "128-cross-tool": "Pass",
+        "256-cross-tool": "Pass",
+        "512-cross-tool": "Pass",
+        "64-128-native-convergence": "Close",
+        "64-128-workbench-convergence": "Close",
+        "128-256-native-convergence": "Close",
+        "128-256-workbench-convergence": "Close",
+        "256-512-native-convergence": "Pass",
+        "256-512-workbench-convergence": "Pass"
+      },
+      "maxAbsolute512": 0.0008408248130370444,
+      "maxNrmse512": 0.0004693563370134971,
+      "readbacks": [
+        {
+          "index": 2750,
+          "sampling": 64,
+          "nativeRequestSource": "5fe8a4c6cffca20ccee36ab53af33d3078ba1838d2fd10b9ef48315d4afc61a9",
+          "frozenNativeModel": "eb53efc899c7c74fbf7f0d7cabcf06c2027d17bd8480fc13a0195f99b250d67f",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "0a18c0839add2c7953287cdfa7594c2b89162761d85f14a8d48eb5c7312398a6",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 2750,
+          "sampling": 128,
+          "nativeRequestSource": "5fe8a4c6cffca20ccee36ab53af33d3078ba1838d2fd10b9ef48315d4afc61a9",
+          "frozenNativeModel": "eb53efc899c7c74fbf7f0d7cabcf06c2027d17bd8480fc13a0195f99b250d67f",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "d615db2c7dd5e552e9a96a8fa8874d5b54d55acf2d989cfc3f596bddb37f6196",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 2750,
+          "sampling": 256,
+          "nativeRequestSource": "5fe8a4c6cffca20ccee36ab53af33d3078ba1838d2fd10b9ef48315d4afc61a9",
+          "frozenNativeModel": "eb53efc899c7c74fbf7f0d7cabcf06c2027d17bd8480fc13a0195f99b250d67f",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "34d8b95174610743a043244bd1644e87d068d3ae39a5a21b5536c274ef3a1f46",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        },
+        {
+          "index": 2750,
+          "sampling": 512,
+          "nativeRequestSource": "5fe8a4c6cffca20ccee36ab53af33d3078ba1838d2fd10b9ef48315d4afc61a9",
+          "frozenNativeModel": "eb53efc899c7c74fbf7f0d7cabcf06c2027d17bd8480fc13a0195f99b250d67f",
+          "nativeReadbackMatches": true,
+          "coordinateCount": 401,
+          "maximumRadiusMicrometers": 5,
+          "requestFingerprint": "7e4504eec379211faba3bec72bbbc5f0fbef70aac12964417ed89cc623888328",
+          "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3346 @@
+[
+  {
+    "index": 316,
+    "comparisons": [
+      {
+        "index": 316,
+        "key": "Diffraction Encircled Energy",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 2,
+          "pupilSampling": 32,
+          "imageSampling": 64,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "EnergyFraction": {
+              "absolute": 1e-05,
+              "relative": 0.002,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "a909735d353f7d1d2b682f37ec8fb66be0270e146e1e89f37520c9267fe143a8",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 1024,
+              "dataSha256": "f5ed10ac644f703c793135e976cea25714b63f449d7a810f7d8626503d943431",
+              "evidence": {
+                "archive": "../incomparable-coverage/new-numeric-evidence.zip",
+                "member": "sha256/f5ed10ac644f703c793135e976cea25714b63f449d7a810f7d8626503d943431",
+                "sha256": "f5ed10ac644f703c793135e976cea25714b63f449d7a810f7d8626503d943431"
+              }
+            },
+            {
+              "pupil": 2048,
+              "dataSha256": "592062e0469670865bae80b8bd6e9de10d6e78b0c1a116cbc7a2aa2ce6271476",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/592062e0469670865bae80b8bd6e9de10d6e78b0c1a116cbc7a2aa2ce6271476",
+                "sha256": "592062e0469670865bae80b8bd6e9de10d6e78b0c1a116cbc7a2aa2ce6271476"
+              }
+            }
+          ],
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.001438570502129033,
+              "meanAbsolute": 0.0004343723260579789,
+              "rmse": 0.0005700892515648058,
+              "nrmse": 0.0006520344899779235,
+              "maxRelative": 0.9178376080676942,
+              "p50": 0.00031816311983556833,
+              "p90": 0.0010065955110830638,
+              "p95": 0.001125468925762374,
+              "pearson": 0.9999991362595505,
+              "worstX": 1.8624999999999954,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.000536713409175129,
+              "meanAbsolute": 0.0002850658894984454,
+              "rmse": 0.0003327461666330843,
+              "nrmse": 0.004009685073481793,
+              "maxRelative": 0.7946998632362011,
+              "p50": 0.00030250808458033573,
+              "p90": 0.0005034211122245391,
+              "p95": 0.0005153630529249158,
+              "pearson": 0.9999611353195885,
+              "worstX": 2.450000000000001,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success",
+          "coreValidated": false,
+          "coreSampling": 2048,
+          "certificate": null,
+          "dataSha256": "6f28fbdad95cd4b7341ef61ef140f9b834efa0a2c9848633f3ca9726673c479a",
+          "fingerprint": "4cd11f384e30315ee1c8a64bb90078eb56dafe14aca515c09ed05c230926bdf9",
+          "convergence": {
+            "conclusion": "Close",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0014385705022063044,
+                "meanAbsolute": 0.00043437232618661475,
+                "rmse": 0.0005700892516574141,
+                "nrmse": 0.0006520344900837826,
+                "maxRelative": 0.9178376084144731,
+                "p50": 0.0003181631198906354,
+                "p90": 0.001006595511302777,
+                "p95": 0.0011254689258966,
+                "pearson": 0.9999991362595505,
+                "worstX": 1.8625,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              },
+              {
+                "id": "curve:1",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0005367058632553857,
+                "meanAbsolute": 0.00028506255933979403,
+                "rmse": 0.00033274218511431463,
+                "nrmse": 0.00400963742155314,
+                "maxRelative": 0.7947003369866834,
+                "p50": 0.00030250849783462763,
+                "p90": 0.0005034136319984964,
+                "p95": 0.0005153553853420867,
+                "pearson": 0.999961136319529,
+                "worstX": 2.45,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Close",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.4822145167368035e-13,
+              "meanAbsolute": 7.175854689201684e-14,
+              "rmse": 8.173662012441465e-14,
+              "nrmse": 9.348552927292575e-14,
+              "maxRelative": 3.194960441971057e-10,
+              "p50": 8.315570454442422e-14,
+              "p90": 1.0025313912365164e-13,
+              "p95": 1.238315006091284e-13,
+              "pearson": 0.9999999999999971,
+              "worstX": 0.6374999999999997,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 6.17950241532661e-08,
+              "meanAbsolute": 3.4249997960287e-08,
+              "rmse": 3.990899684701611e-08,
+              "nrmse": 4.809146580840031e-07,
+              "maxRelative": 3.6202977362681157e-06,
+              "p50": 3.5794942412903374e-08,
+              "p90": 6.054865930166242e-08,
+              "p95": 6.148409940724686e-08,
+              "pearson": 0.9999999999997068,
+              "worstX": 2.9,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.8699265186560297e-13,
+              "meanAbsolute": 8.971130608221233e-14,
+              "rmse": 1.1041517862372532e-13,
+              "nrmse": 1.2634224504156233e-13,
+              "maxRelative": 1.3867836593560219e-10,
+              "p50": 7.83262343873048e-14,
+              "p90": 1.7685852782278744e-13,
+              "p95": 2.164657342262899e-13,
+              "pearson": 0.9999999999999988,
+              "worstX": 4.6,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 5.431175173487013e-08,
+              "meanAbsolute": 3.0622144064232336e-08,
+              "rmse": 3.543694759607483e-08,
+              "nrmse": 4.2463153000446265e-07,
+              "maxRelative": 3.314118676022599e-06,
+              "p50": 3.2222281188751256e-08,
+              "p90": 5.328000619690687e-08,
+              "p95": 5.4053024833855545e-08,
+              "pearson": 0.9999999999997872,
+              "worstX": 2.950000000000008,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "scopedOutcome": "Open",
+        "stage": "InitialPair"
+      }
+    ]
+  },
+  {
+    "index": 660,
+    "comparisons": [
+      {
+        "index": 660,
+        "key": "Diffraction Encircled Energy",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 32,
+          "imageSampling": 64,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "EnergyFraction": {
+              "absolute": 1e-05,
+              "relative": 0.002,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "5dcc42f43f6bb710eb813ffcd3e638c5ebf64a079fdd8864c1bfd9f7c5659f8f",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 256,
+              "dataSha256": "6616de0f3fbaf52050c7cf20eefc575e988908704635eb874fc8110b0ae78ebf",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/6616de0f3fbaf52050c7cf20eefc575e988908704635eb874fc8110b0ae78ebf",
+                "sha256": "6616de0f3fbaf52050c7cf20eefc575e988908704635eb874fc8110b0ae78ebf"
+              }
+            },
+            {
+              "pupil": 512,
+              "dataSha256": "731f345a2b424cfce9e363e3bd0d69bde11ed87f44beb8e210acb72d8b2c33b8",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/731f345a2b424cfce9e363e3bd0d69bde11ed87f44beb8e210acb72d8b2c33b8",
+                "sha256": "731f345a2b424cfce9e363e3bd0d69bde11ed87f44beb8e210acb72d8b2c33b8"
+              }
+            }
+          ],
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0027475305248371718,
+              "meanAbsolute": 0.0008860376312046071,
+              "rmse": 0.0011236657651568064,
+              "nrmse": 0.003356619555430898,
+              "maxRelative": 0.9765435455493369,
+              "p50": 0.0007174138756560425,
+              "p90": 0.0020591409460437027,
+              "p95": 0.002212217320698484,
+              "pearson": 0.999977955137524,
+              "worstX": 4.400000000000029,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0027475305237180114,
+              "meanAbsolute": 0.0008860376308262707,
+              "rmse": 0.0011236657646426884,
+              "nrmse": 0.0033566195540446456,
+              "maxRelative": 0.9765435456118959,
+              "p50": 0.0007174138756705691,
+              "p90": 0.0020591409450049225,
+              "p95": 0.00221221731945348,
+              "pearson": 0.9999779551375242,
+              "worstX": 4.400000000000029,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success",
+          "coreValidated": false,
+          "coreSampling": 512,
+          "certificate": null,
+          "dataSha256": "7acd33a195d2c98d744a2552ba0b599dde7a988d0baf664bf650a5f00378abc6",
+          "fingerprint": "568aad9453fb1af151e6b97b11101d3d4125a620fd1d87408177c0c738f665f7",
+          "convergence": {
+            "conclusion": "Close",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.002747530524730979,
+                "meanAbsolute": 0.0008860376312106599,
+                "rmse": 0.0011236657651600038,
+                "nrmse": 0.003356619555437814,
+                "maxRelative": 0.9765435456760211,
+                "p50": 0.0007174138756665688,
+                "p90": 0.002059140946079674,
+                "p95": 0.0022122173206859386,
+                "pearson": 0.999977955137523,
+                "worstX": 4.4,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Close",
+                "extra": {}
+              },
+              {
+                "id": "curve:1",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.002747530523596886,
+                "meanAbsolute": 0.0008860376308227337,
+                "rmse": 0.0011236657646360169,
+                "nrmse": 0.003356619554021973,
+                "maxRelative": 0.976543545663783,
+                "p50": 0.0007174138756832031,
+                "p90": 0.0020591409449190468,
+                "p95": 0.0022122173193848127,
+                "pearson": 0.999977955137524,
+                "worstX": 4.4,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Close",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.642086632282826e-13,
+              "meanAbsolute": 1.2141346457635893e-13,
+              "rmse": 1.5488534309138962e-13,
+              "nrmse": 4.626742111321973e-13,
+              "maxRelative": 4.659562001823878e-11,
+              "p50": 1.0119682869458302e-13,
+              "p90": 2.588762537669709e-13,
+              "p95": 2.7373936450914016e-13,
+              "pearson": 1.000000000000002,
+              "worstX": 4.625000000000032,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.906008766956347e-13,
+              "meanAbsolute": 1.0154447915573456e-13,
+              "rmse": 1.2870266145146635e-13,
+              "nrmse": 3.844611838138118e-13,
+              "maxRelative": 1.3399146572161277e-11,
+              "p50": 8.784639682346551e-14,
+              "p90": 2.1509183323331627e-13,
+              "p95": 2.3185620090515613e-13,
+              "pearson": 1.0000000000000009,
+              "worstX": 4.7875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.52884388377106e-13,
+              "meanAbsolute": 1.2463322494070943e-13,
+              "rmse": 1.5747480715635398e-13,
+              "nrmse": 4.737702941331889e-13,
+              "maxRelative": 2.3036437927007735e-11,
+              "p50": 1.0717815523975105e-13,
+              "p90": 2.75696132590042e-13,
+              "p95": 2.877142968316093e-13,
+              "pearson": 1.0000000000000002,
+              "worstX": 4.7375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 4.0378811405616943e-13,
+              "meanAbsolute": 1.3155899248064275e-13,
+              "rmse": 1.6643052920648618e-13,
+              "nrmse": 5.007140011914851e-13,
+              "maxRelative": 3.9341900846347e-11,
+              "p50": 1.099120794378905e-13,
+              "p90": 2.8882451985623447e-13,
+              "p95": 3.162262118827641e-13,
+              "pearson": 1.0000000000000004,
+              "worstX": 4.7375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "scopedOutcome": "Open",
+        "stage": "InitialPair"
+      },
+      {
+        "index": 660,
+        "key": "Diffraction Encircled Energy",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 32,
+          "imageSampling": 64,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "EnergyFraction": {
+              "absolute": 1e-05,
+              "relative": 0.002,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "5dcc42f43f6bb710eb813ffcd3e638c5ebf64a079fdd8864c1bfd9f7c5659f8f",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 512,
+              "dataSha256": "731f345a2b424cfce9e363e3bd0d69bde11ed87f44beb8e210acb72d8b2c33b8",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/731f345a2b424cfce9e363e3bd0d69bde11ed87f44beb8e210acb72d8b2c33b8",
+                "sha256": "731f345a2b424cfce9e363e3bd0d69bde11ed87f44beb8e210acb72d8b2c33b8"
+              }
+            },
+            {
+              "pupil": 1024,
+              "dataSha256": "6c2e1425bdae8f7159d7611e438f48943dbee9d6070f2d73ef632cdd4d938086",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/6c2e1425bdae8f7159d7611e438f48943dbee9d6070f2d73ef632cdd4d938086",
+                "sha256": "6c2e1425bdae8f7159d7611e438f48943dbee9d6070f2d73ef632cdd4d938086"
+              }
+            }
+          ],
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0016481235681252704,
+              "meanAbsolute": 0.00046939184436593193,
+              "rmse": 0.0005920662940556271,
+              "nrmse": 0.0017692782112948768,
+              "maxRelative": 1.0148133282922918,
+              "p50": 0.00039412249588340054,
+              "p90": 0.0010212759065480609,
+              "p95": 0.0011532482379152942,
+              "pearson": 0.9999918219440725,
+              "worstX": 4.837500000000035,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0016481235677567319,
+              "meanAbsolute": 0.00046939184430001943,
+              "rmse": 0.0005920662939652682,
+              "nrmse": 0.0017692782111029496,
+              "maxRelative": 1.0148133291001604,
+              "p50": 0.0003941224958475542,
+              "p90": 0.0010212759064852361,
+              "p95": 0.0011532482377409614,
+              "pearson": 0.9999918219440751,
+              "worstX": 4.837500000000035,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success",
+          "coreValidated": true,
+          "coreSampling": 1024,
+          "certificate": null,
+          "dataSha256": "19de570c03f68fdb3fd9e62019dbca90b03f71024a9bc8464b7ba1c4f708c13a",
+          "fingerprint": "026d95e526f3ebdb2708bfceb5b484082867866490071623638dba9aeeaeb9cd",
+          "convergence": {
+            "conclusion": "Pass",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0016481235680377848,
+                "meanAbsolute": 0.00046939184436650206,
+                "rmse": 0.0005920662940513227,
+                "nrmse": 0.0017692782112809725,
+                "maxRelative": 1.0148133288571768,
+                "p50": 0.0003941224958926848,
+                "p90": 0.0010212759065954952,
+                "p95": 0.001153248237867499,
+                "pearson": 0.9999918219440757,
+                "worstX": 4.8375,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              },
+              {
+                "id": "curve:1",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0016481235677744954,
+                "meanAbsolute": 0.000469391844291574,
+                "rmse": 0.0005920662939569628,
+                "nrmse": 0.0017692782110766976,
+                "maxRelative": 1.014813328857959,
+                "p50": 0.00039412249581922965,
+                "p90": 0.001021275906499322,
+                "p95": 0.0011532482377022146,
+                "pearson": 0.9999918219440749,
+                "worstX": 4.8375,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 7.039646643391961e-13,
+              "meanAbsolute": 1.1976353950419126e-13,
+              "rmse": 1.6543458735479437e-13,
+              "nrmse": 4.943699949483972e-13,
+              "maxRelative": 3.4800632880687935e-10,
+              "p50": 9.585388038857445e-14,
+              "p90": 2.896294315490877e-13,
+              "p95": 3.504245504881709e-13,
+              "pearson": 1.0000000000000004,
+              "worstX": 4.087500000000024,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 4.627409566637652e-13,
+              "meanAbsolute": 1.2844207434786002e-13,
+              "rmse": 1.638999170830181e-13,
+              "nrmse": 4.897839229361284e-13,
+              "maxRelative": 1.4229149114262723e-10,
+              "p50": 1.0605405442731808e-13,
+              "p90": 2.7913782396638e-13,
+              "p95": 3.0837832287744504e-13,
+              "pearson": 0.9999999999999998,
+              "worstX": 4.4625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.642086632282826e-13,
+              "meanAbsolute": 1.2141346457635893e-13,
+              "rmse": 1.5488534309138962e-13,
+              "nrmse": 4.626742111321973e-13,
+              "maxRelative": 4.659562001823878e-11,
+              "p50": 1.0119682869458302e-13,
+              "p90": 2.588762537669709e-13,
+              "p95": 2.7373936450914016e-13,
+              "pearson": 1.000000000000002,
+              "worstX": 4.625000000000032,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.906008766956347e-13,
+              "meanAbsolute": 1.0154447915573456e-13,
+              "rmse": 1.2870266145146635e-13,
+              "nrmse": 3.844611838138118e-13,
+              "maxRelative": 1.3399146572161277e-11,
+              "p50": 8.784639682346551e-14,
+              "p90": 2.1509183323331627e-13,
+              "p95": 2.3185620090515613e-13,
+              "pearson": 1.0000000000000009,
+              "worstX": 4.7875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "scopedOutcome": "SupplementalPass",
+        "stage": "MeterRefinement"
+      }
+    ]
+  },
+  {
+    "index": 682,
+    "comparisons": [
+      {
+        "index": 682,
+        "key": "Diffraction Encircled Energy",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 2,
+          "pupilSampling": 32,
+          "imageSampling": 64,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "EnergyFraction": {
+              "absolute": 1e-05,
+              "relative": 0.002,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "db74b967c16a72dd25b0ab80770283a042d6e015f93430a756ccbef15b10e0f5",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 512,
+              "dataSha256": "a754e2b26decfe5e8d169634db1f41cd3a19a33ad9f5ad85683eb88444024099",
+              "evidence": {
+                "archive": "../incomparable-coverage/new-numeric-evidence.zip",
+                "member": "sha256/a754e2b26decfe5e8d169634db1f41cd3a19a33ad9f5ad85683eb88444024099",
+                "sha256": "a754e2b26decfe5e8d169634db1f41cd3a19a33ad9f5ad85683eb88444024099"
+              }
+            },
+            {
+              "pupil": 1024,
+              "dataSha256": "43c6f6de55536c8e91e767e32b48223a9710c496e2d178a13ec73f4de139c032",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/43c6f6de55536c8e91e767e32b48223a9710c496e2d178a13ec73f4de139c032",
+                "sha256": "43c6f6de55536c8e91e767e32b48223a9710c496e2d178a13ec73f4de139c032"
+              }
+            }
+          ],
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0018948291817496021,
+              "meanAbsolute": 0.00037989843400782955,
+              "rmse": 0.00047652768644230873,
+              "nrmse": 0.0005101030960321073,
+              "maxRelative": 0.7678014378713477,
+              "p50": 0.0003264081918175066,
+              "p90": 0.0007560604610658411,
+              "p95": 0.0010279507146501166,
+              "pearson": 0.9999994626909747,
+              "worstX": 0.6874999999999996,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.002049672325377311,
+              "meanAbsolute": 0.0010712117430506877,
+              "rmse": 0.0012938539453375164,
+              "nrmse": 0.004530256024053669,
+              "maxRelative": 0.6930998036144246,
+              "p50": 0.0012213379246989384,
+              "p90": 0.0019082470549163788,
+              "p95": 0.001973059099999147,
+              "pearson": 0.9999562297115288,
+              "worstX": 2.787500000000006,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success",
+          "coreValidated": false,
+          "coreSampling": 1024,
+          "certificate": null,
+          "dataSha256": "65fc5effd09764486fa9a51c3662a1a9ecaae2a8a50d922c29b9fad37a08e7e8",
+          "fingerprint": "c8add436249b762315a99342ad5c85e3c3c204e48eb8d938ac84d6e7bb062a12",
+          "convergence": {
+            "conclusion": "Close",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0018948291805226392,
+                "meanAbsolute": 0.00037989843399793176,
+                "rmse": 0.0004765276863969315,
+                "nrmse": 0.0005101030959826865,
+                "maxRelative": 0.7678014380088447,
+                "p50": 0.0003264081921710016,
+                "p90": 0.0007560604607707369,
+                "p95": 0.0010279507136851107,
+                "pearson": 0.9999994626909742,
+                "worstX": 0.6875,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              },
+              {
+                "id": "curve:1",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0020496752374498384,
+                "meanAbsolute": 0.0010711979586902373,
+                "rmse": 0.0012938438621183557,
+                "nrmse": 0.004530227461288348,
+                "maxRelative": 0.6931011631338251,
+                "p50": 0.001221304914809103,
+                "p90": 0.0019082521859289936,
+                "p95": 0.001973059615640302,
+                "pearson": 0.9999562305468369,
+                "worstX": 2.7875,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Close",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 1.3870238291247006e-11,
+              "meanAbsolute": 3.5764014655282937e-12,
+              "rmse": 5.068086173526036e-12,
+              "nrmse": 5.42517574870465e-12,
+              "maxRelative": 2.5758125427277306e-10,
+              "p50": 2.3482882305359e-12,
+              "p90": 1.0353828905351747e-11,
+              "p95": 1.1648515485518374e-11,
+              "pearson": 0.9999999999999989,
+              "worstX": 0.9999999999999984,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 8.867745332763466e-07,
+              "meanAbsolute": 4.2713092233237647e-07,
+              "rmse": 4.985961424521535e-07,
+              "nrmse": 1.7457675080355103e-06,
+              "maxRelative": 4.1145028228038855e-06,
+              "p50": 3.760883862322095e-07,
+              "p90": 8.385787983872239e-07,
+              "p95": 8.743378742057106e-07,
+              "pearson": 0.9999999999992892,
+              "worstX": 4.2,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 1.3699708034664582e-11,
+              "meanAbsolute": 3.5580352119065756e-12,
+              "rmse": 5.0369898737284015e-12,
+              "nrmse": 5.390126399669257e-12,
+              "maxRelative": 8.688101618425714e-11,
+              "p50": 2.3157586959143828e-12,
+              "p90": 1.0522693827397234e-11,
+              "p95": 1.155830986476758e-11,
+              "pearson": 1.0000000000000002,
+              "worstX": 0.9874999999999985,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 9.43483585785776e-07,
+              "meanAbsolute": 4.298979513016542e-07,
+              "rmse": 5.139996060045645e-07,
+              "nrmse": 1.8013841007058573e-06,
+              "maxRelative": 4.056005197502016e-06,
+              "p50": 3.688654916580991e-07,
+              "p90": 8.868940569312089e-07,
+              "p95": 9.295230806588561e-07,
+              "pearson": 0.9999999999991099,
+              "worstX": 4.187500000000026,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "scopedOutcome": "Open",
+        "stage": "InitialPair"
+      }
+    ]
+  },
+  {
+    "index": 882,
+    "comparisons": [
+      {
+        "index": 882,
+        "key": "Diffraction Encircled Energy",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 12,
+          "pupilSampling": 32,
+          "imageSampling": 64,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "EnergyFraction": {
+              "absolute": 1e-05,
+              "relative": 0.002,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "a51318f55473d4b6497edeb86ccae2746eb9eaf7af489fd24647bbe2d56f83e1",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 512,
+              "dataSha256": "9e92bbb014b62f8919d3a9ac1c20d020a9059de920c6837db98861073577e6b2",
+              "evidence": {
+                "archive": "../incomparable-coverage/new-numeric-evidence.zip",
+                "member": "sha256/9e92bbb014b62f8919d3a9ac1c20d020a9059de920c6837db98861073577e6b2",
+                "sha256": "9e92bbb014b62f8919d3a9ac1c20d020a9059de920c6837db98861073577e6b2"
+              }
+            },
+            {
+              "pupil": 1024,
+              "dataSha256": "dd626e9cf569782737d9365c8307aa5e0545e1b83d1c9e794b5719d4e408df2c",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/dd626e9cf569782737d9365c8307aa5e0545e1b83d1c9e794b5719d4e408df2c",
+                "sha256": "dd626e9cf569782737d9365c8307aa5e0545e1b83d1c9e794b5719d4e408df2c"
+              }
+            }
+          ],
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0018290911634256668,
+              "meanAbsolute": 0.0006482713527456315,
+              "rmse": 0.0007534090240370877,
+              "nrmse": 0.000945167048045467,
+              "maxRelative": 0.9609080912628906,
+              "p50": 0.0005929618818388827,
+              "p90": 0.0011483596161602216,
+              "p95": 0.0013093058349072928,
+              "pearson": 0.9999988885031249,
+              "worstX": 2.2624999999999984,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0034366945066180987,
+              "meanAbsolute": 0.001612820410118268,
+              "rmse": 0.0019789483814584004,
+              "nrmse": 0.006346953226209187,
+              "maxRelative": 0.926246301841622,
+              "p50": 0.001639167638140468,
+              "p90": 0.0031223302614090676,
+              "p95": 0.0031938001096767366,
+              "pearson": 0.9999971391633105,
+              "worstX": 4.975000000000037,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success",
+          "coreValidated": false,
+          "coreSampling": 1024,
+          "certificate": null,
+          "dataSha256": "08c827deaddea6f496a31f3a69d588983d91ab0d7715e3904da31261c760b792",
+          "fingerprint": "1ac9de93a3620febd257056c9a12fb61180f3eb102bf485952d189bf5c2edccf",
+          "convergence": {
+            "conclusion": "Close",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0018290911632306006,
+                "meanAbsolute": 0.0006482713527078426,
+                "rmse": 0.0007534090239910123,
+                "nrmse": 0.0009451670479879018,
+                "maxRelative": 0.9609080911094151,
+                "p50": 0.0005929618819121574,
+                "p90": 0.0011483596162339405,
+                "p95": 0.0013093058347775077,
+                "pearson": 0.9999988885031252,
+                "worstX": 2.2625,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              },
+              {
+                "id": "curve:1",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0034366945738839028,
+                "meanAbsolute": 0.0016128204421402238,
+                "rmse": 0.0019789484210297604,
+                "nrmse": 0.006346953352650397,
+                "maxRelative": 0.92624630184388,
+                "p50": 0.001639167669538269,
+                "p90": 0.0031223303213807063,
+                "p95": 0.0031938001748413325,
+                "pearson": 0.9999971391632496,
+                "worstX": 4.975,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Close",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.6662005936373134e-13,
+              "meanAbsolute": 1.2534214025590321e-13,
+              "rmse": 1.4550744966166765e-13,
+              "nrmse": 1.825420751246175e-13,
+              "maxRelative": 8.577266530186657e-11,
+              "p50": 1.4832579608992091e-13,
+              "p90": 2.074451721512105e-13,
+              "p95": 2.1921353621223716e-13,
+              "pearson": 1.0000000000000004,
+              "worstX": 2.600000000000003,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.3258506232082254e-11,
+              "meanAbsolute": 1.0774837846022542e-11,
+              "rmse": 1.3422844619741515e-11,
+              "nrmse": 4.3050221906944625e-11,
+              "maxRelative": 1.2590917102750934e-10,
+              "p50": 1.0151421370174774e-11,
+              "p90": 2.215988503806443e-11,
+              "p95": 2.2824242496000124e-11,
+              "pearson": 1.0000000000000022,
+              "worstX": 5,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 4.355404925604489e-13,
+              "meanAbsolute": 1.6853163043512943e-13,
+              "rmse": 1.9759843047154988e-13,
+              "nrmse": 2.477684736825571e-13,
+              "maxRelative": 1.6006009940573038e-10,
+              "p50": 1.8141044222375058e-13,
+              "p90": 3.056443986793056e-13,
+              "p95": 3.2900071555985733e-13,
+              "pearson": 0.9999999999999998,
+              "worstX": 2.174999999999997,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 4.4114323305421976e-11,
+              "meanAbsolute": 2.1832020378870227e-11,
+              "rmse": 2.6543444901093896e-11,
+              "nrmse": 8.602068658264722e-11,
+              "maxRelative": 2.4284385214818603e-10,
+              "p50": 2.2104748587103984e-11,
+              "p90": 4.2066905514559494e-11,
+              "p95": 4.3205924948885865e-11,
+              "pearson": 0.9999999999999998,
+              "worstX": 4.9875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "scopedOutcome": "Open",
+        "stage": "InitialPair"
+      }
+    ]
+  },
+  {
+    "index": 2342,
+    "comparisons": [
+      {
+        "index": 2342,
+        "key": "Diffraction Encircled Energy",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 32,
+          "imageSampling": 64,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "EnergyFraction": {
+              "absolute": 1e-05,
+              "relative": 0.002,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "5dcc42f43f6bb710eb813ffcd3e638c5ebf64a079fdd8864c1bfd9f7c5659f8f",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 256,
+              "dataSha256": "d75bfc25c8ec3d5701f61d26fde1864818a2c61fe66b88bbf4ebfbeb2d940fc0",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/d75bfc25c8ec3d5701f61d26fde1864818a2c61fe66b88bbf4ebfbeb2d940fc0",
+                "sha256": "d75bfc25c8ec3d5701f61d26fde1864818a2c61fe66b88bbf4ebfbeb2d940fc0"
+              }
+            },
+            {
+              "pupil": 512,
+              "dataSha256": "53d79c6328fa70a61fff5e17c0519c729127f552227488cfa7cd289371016b8b",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/53d79c6328fa70a61fff5e17c0519c729127f552227488cfa7cd289371016b8b",
+                "sha256": "53d79c6328fa70a61fff5e17c0519c729127f552227488cfa7cd289371016b8b"
+              }
+            }
+          ],
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0027475305248371718,
+              "meanAbsolute": 0.0008860376312046071,
+              "rmse": 0.0011236657651568064,
+              "nrmse": 0.003356619555430898,
+              "maxRelative": 0.9765435455493369,
+              "p50": 0.0007174138756560425,
+              "p90": 0.0020591409460437027,
+              "p95": 0.002212217320698484,
+              "pearson": 0.999977955137524,
+              "worstX": 4.400000000000029,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0027475305237180114,
+              "meanAbsolute": 0.0008860376308262707,
+              "rmse": 0.0011236657646426884,
+              "nrmse": 0.0033566195540446456,
+              "maxRelative": 0.9765435456118959,
+              "p50": 0.0007174138756705691,
+              "p90": 0.0020591409450049225,
+              "p95": 0.00221221731945348,
+              "pearson": 0.9999779551375242,
+              "worstX": 4.400000000000029,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success",
+          "coreValidated": false,
+          "coreSampling": 512,
+          "certificate": null,
+          "dataSha256": "7acd33a195d2c98d744a2552ba0b599dde7a988d0baf664bf650a5f00378abc6",
+          "fingerprint": "568aad9453fb1af151e6b97b11101d3d4125a620fd1d87408177c0c738f665f7",
+          "convergence": {
+            "conclusion": "Close",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.002747530524730979,
+                "meanAbsolute": 0.0008860376312106599,
+                "rmse": 0.0011236657651600038,
+                "nrmse": 0.003356619555437814,
+                "maxRelative": 0.9765435456760211,
+                "p50": 0.0007174138756665688,
+                "p90": 0.002059140946079674,
+                "p95": 0.0022122173206859386,
+                "pearson": 0.999977955137523,
+                "worstX": 4.4,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Close",
+                "extra": {}
+              },
+              {
+                "id": "curve:1",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.002747530523596886,
+                "meanAbsolute": 0.0008860376308227337,
+                "rmse": 0.0011236657646360169,
+                "nrmse": 0.003356619554021973,
+                "maxRelative": 0.976543545663783,
+                "p50": 0.0007174138756832031,
+                "p90": 0.0020591409449190468,
+                "p95": 0.0022122173193848127,
+                "pearson": 0.999977955137524,
+                "worstX": 4.4,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Close",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.642086632282826e-13,
+              "meanAbsolute": 1.2141346457635893e-13,
+              "rmse": 1.5488534309138962e-13,
+              "nrmse": 4.626742111321973e-13,
+              "maxRelative": 4.659562001823878e-11,
+              "p50": 1.0119682869458302e-13,
+              "p90": 2.588762537669709e-13,
+              "p95": 2.7373936450914016e-13,
+              "pearson": 1.000000000000002,
+              "worstX": 4.625000000000032,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.906008766956347e-13,
+              "meanAbsolute": 1.0154447915573456e-13,
+              "rmse": 1.2870266145146635e-13,
+              "nrmse": 3.844611838138118e-13,
+              "maxRelative": 1.3399146572161277e-11,
+              "p50": 8.784639682346551e-14,
+              "p90": 2.1509183323331627e-13,
+              "p95": 2.3185620090515613e-13,
+              "pearson": 1.0000000000000009,
+              "worstX": 4.7875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.52884388377106e-13,
+              "meanAbsolute": 1.2463322494070943e-13,
+              "rmse": 1.5747480715635398e-13,
+              "nrmse": 4.737702941331889e-13,
+              "maxRelative": 2.3036437927007735e-11,
+              "p50": 1.0717815523975105e-13,
+              "p90": 2.75696132590042e-13,
+              "p95": 2.877142968316093e-13,
+              "pearson": 1.0000000000000002,
+              "worstX": 4.7375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 4.0378811405616943e-13,
+              "meanAbsolute": 1.3155899248064275e-13,
+              "rmse": 1.6643052920648618e-13,
+              "nrmse": 5.007140011914851e-13,
+              "maxRelative": 3.9341900846347e-11,
+              "p50": 1.099120794378905e-13,
+              "p90": 2.8882451985623447e-13,
+              "p95": 3.162262118827641e-13,
+              "pearson": 1.0000000000000004,
+              "worstX": 4.7375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "scopedOutcome": "Open",
+        "stage": "InitialPair"
+      },
+      {
+        "index": 2342,
+        "key": "Diffraction Encircled Energy",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 32,
+          "imageSampling": 64,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "EnergyFraction": {
+              "absolute": 1e-05,
+              "relative": 0.002,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "5dcc42f43f6bb710eb813ffcd3e638c5ebf64a079fdd8864c1bfd9f7c5659f8f",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 512,
+              "dataSha256": "53d79c6328fa70a61fff5e17c0519c729127f552227488cfa7cd289371016b8b",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/53d79c6328fa70a61fff5e17c0519c729127f552227488cfa7cd289371016b8b",
+                "sha256": "53d79c6328fa70a61fff5e17c0519c729127f552227488cfa7cd289371016b8b"
+              }
+            },
+            {
+              "pupil": 1024,
+              "dataSha256": "f22548d2bd27a2c6dd9b08873b6aac50245866998525474c231110f1684b485e",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/f22548d2bd27a2c6dd9b08873b6aac50245866998525474c231110f1684b485e",
+                "sha256": "f22548d2bd27a2c6dd9b08873b6aac50245866998525474c231110f1684b485e"
+              }
+            }
+          ],
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0016481235681252704,
+              "meanAbsolute": 0.00046939184436593193,
+              "rmse": 0.0005920662940556271,
+              "nrmse": 0.0017692782112948768,
+              "maxRelative": 1.0148133282922918,
+              "p50": 0.00039412249588340054,
+              "p90": 0.0010212759065480609,
+              "p95": 0.0011532482379152942,
+              "pearson": 0.9999918219440725,
+              "worstX": 4.837500000000035,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0016481235677567319,
+              "meanAbsolute": 0.00046939184430001943,
+              "rmse": 0.0005920662939652682,
+              "nrmse": 0.0017692782111029496,
+              "maxRelative": 1.0148133291001604,
+              "p50": 0.0003941224958475542,
+              "p90": 0.0010212759064852361,
+              "p95": 0.0011532482377409614,
+              "pearson": 0.9999918219440751,
+              "worstX": 4.837500000000035,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success",
+          "coreValidated": true,
+          "coreSampling": 1024,
+          "certificate": null,
+          "dataSha256": "19de570c03f68fdb3fd9e62019dbca90b03f71024a9bc8464b7ba1c4f708c13a",
+          "fingerprint": "026d95e526f3ebdb2708bfceb5b484082867866490071623638dba9aeeaeb9cd",
+          "convergence": {
+            "conclusion": "Pass",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0016481235680377848,
+                "meanAbsolute": 0.00046939184436650206,
+                "rmse": 0.0005920662940513227,
+                "nrmse": 0.0017692782112809725,
+                "maxRelative": 1.0148133288571768,
+                "p50": 0.0003941224958926848,
+                "p90": 0.0010212759065954952,
+                "p95": 0.001153248237867499,
+                "pearson": 0.9999918219440757,
+                "worstX": 4.8375,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              },
+              {
+                "id": "curve:1",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0016481235677744954,
+                "meanAbsolute": 0.000469391844291574,
+                "rmse": 0.0005920662939569628,
+                "nrmse": 0.0017692782110766976,
+                "maxRelative": 1.014813328857959,
+                "p50": 0.00039412249581922965,
+                "p90": 0.001021275906499322,
+                "p95": 0.0011532482377022146,
+                "pearson": 0.9999918219440749,
+                "worstX": 4.8375,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 7.039646643391961e-13,
+              "meanAbsolute": 1.1976353950419126e-13,
+              "rmse": 1.6543458735479437e-13,
+              "nrmse": 4.943699949483972e-13,
+              "maxRelative": 3.4800632880687935e-10,
+              "p50": 9.585388038857445e-14,
+              "p90": 2.896294315490877e-13,
+              "p95": 3.504245504881709e-13,
+              "pearson": 1.0000000000000004,
+              "worstX": 4.087500000000024,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 4.627409566637652e-13,
+              "meanAbsolute": 1.2844207434786002e-13,
+              "rmse": 1.638999170830181e-13,
+              "nrmse": 4.897839229361284e-13,
+              "maxRelative": 1.4229149114262723e-10,
+              "p50": 1.0605405442731808e-13,
+              "p90": 2.7913782396638e-13,
+              "p95": 3.0837832287744504e-13,
+              "pearson": 0.9999999999999998,
+              "worstX": 4.4625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.642086632282826e-13,
+              "meanAbsolute": 1.2141346457635893e-13,
+              "rmse": 1.5488534309138962e-13,
+              "nrmse": 4.626742111321973e-13,
+              "maxRelative": 4.659562001823878e-11,
+              "p50": 1.0119682869458302e-13,
+              "p90": 2.588762537669709e-13,
+              "p95": 2.7373936450914016e-13,
+              "pearson": 1.000000000000002,
+              "worstX": 4.625000000000032,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.906008766956347e-13,
+              "meanAbsolute": 1.0154447915573456e-13,
+              "rmse": 1.2870266145146635e-13,
+              "nrmse": 3.844611838138118e-13,
+              "maxRelative": 1.3399146572161277e-11,
+              "p50": 8.784639682346551e-14,
+              "p90": 2.1509183323331627e-13,
+              "p95": 2.3185620090515613e-13,
+              "pearson": 1.0000000000000009,
+              "worstX": 4.7875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "scopedOutcome": "SupplementalPass",
+        "stage": "MeterRefinement"
+      }
+    ]
+  },
+  {
+    "index": 2364,
+    "comparisons": [
+      {
+        "index": 2364,
+        "key": "Diffraction Encircled Energy",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 32,
+          "imageSampling": 64,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "EnergyFraction": {
+              "absolute": 1e-05,
+              "relative": 0.002,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "f241a412a84a8859dc011c2c1c40c844a42f64ffbaedc5c0d01da79da06d230b",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 512,
+              "dataSha256": "27e2aae5233c4dbd0a3290c046d04df47f90ab42622968cbe1ee6b2e92abe3e7",
+              "evidence": {
+                "archive": "../incomparable-coverage/new-numeric-evidence.zip",
+                "member": "sha256/27e2aae5233c4dbd0a3290c046d04df47f90ab42622968cbe1ee6b2e92abe3e7",
+                "sha256": "27e2aae5233c4dbd0a3290c046d04df47f90ab42622968cbe1ee6b2e92abe3e7"
+              }
+            },
+            {
+              "pupil": 1024,
+              "dataSha256": "959f3dc5a25053d596c9a48993da37fe30c18d7697c71ddc3864719400bd2ecc",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/959f3dc5a25053d596c9a48993da37fe30c18d7697c71ddc3864719400bd2ecc",
+                "sha256": "959f3dc5a25053d596c9a48993da37fe30c18d7697c71ddc3864719400bd2ecc"
+              }
+            }
+          ],
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0011539216530854768,
+              "meanAbsolute": 0.0004195070795989028,
+              "rmse": 0.0005197016556120858,
+              "nrmse": 0.0015547867599770612,
+              "maxRelative": 0.9683688802715815,
+              "p50": 0.00033928056201296825,
+              "p90": 0.0008861587516989788,
+              "p95": 0.0010162441393468113,
+              "pearson": 0.9999975755905774,
+              "worstX": 4.6625000000000325,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0011496536611863561,
+              "meanAbsolute": 0.00041790385273315006,
+              "rmse": 0.0005175710604378452,
+              "nrmse": 0.001548663933573735,
+              "maxRelative": 0.9684139595626498,
+              "p50": 0.0003392857261812921,
+              "p90": 0.0008834384118804883,
+              "p95": 0.0010118643555859785,
+              "pearson": 0.9999975757303748,
+              "worstX": 4.6625000000000325,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success",
+          "coreValidated": true,
+          "coreSampling": 1024,
+          "certificate": null,
+          "dataSha256": "b152f4a0ab3e47be976415414dc5ec1a1281171f75e34c183f8813d318c5009c",
+          "fingerprint": "713c9aa0a4955b3a3f92c53080ce45b1bed5c87521a0d6b058eb7fa3de84a93a",
+          "convergence": {
+            "conclusion": "Pass",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0008125389208075845,
+                "meanAbsolute": 0.00023423050093168156,
+                "rmse": 0.0002929210597723264,
+                "nrmse": 0.0008763292949606711,
+                "maxRelative": 0.9763009407119181,
+                "p50": 0.0001962468369698378,
+                "p90": 0.000484307920062349,
+                "p95": 0.000582057817118592,
+                "pearson": 0.9999974640044303,
+                "worstX": 1.4875,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              },
+              {
+                "id": "curve:1",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0008129758503003931,
+                "meanAbsolute": 0.00023476237349254664,
+                "rmse": 0.0002935893981278112,
+                "nrmse": 0.0008784712803969474,
+                "maxRelative": 0.9763332192876747,
+                "p50": 0.00019684337628095294,
+                "p90": 0.00048556109723016383,
+                "p95": 0.0005838152575175781,
+                "pearson": 0.9999974641482907,
+                "worstX": 1.4875,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 1.6028844918025698e-13,
+              "meanAbsolute": 4.106907357418995e-14,
+              "rmse": 5.212990593228761e-14,
+              "nrmse": 1.5595656982641634e-13,
+              "maxRelative": 1.4540446169763965e-10,
+              "p50": 3.683164884193957e-14,
+              "p90": 8.833211939673902e-14,
+              "p95": 1.0274420203515433e-13,
+              "pearson": 1.0000000000000002,
+              "worstX": 2.475,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 7.104872246088689e-13,
+              "meanAbsolute": 2.0036698833888616e-13,
+              "rmse": 2.8451005009949754e-13,
+              "nrmse": 8.513042691289748e-13,
+              "maxRelative": 1.2770691357496591e-10,
+              "p50": 1.2283229988696576e-13,
+              "p90": 5.311862061319061e-13,
+              "p95": 6.202538482824593e-13,
+              "pearson": 1.0000000000000007,
+              "worstX": 4.9875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0008987900446211783,
+              "meanAbsolute": 0.0004576120807858533,
+              "rmse": 0.0005544094828656021,
+              "nrmse": 0.0016635835427057438,
+              "maxRelative": 0.0040373207154741474,
+              "p50": 0.00046905325303508993,
+              "p90": 0.0008708469395851126,
+              "p95": 0.0008885235619175286,
+              "pearson": 0.9999999447023264,
+              "worstX": 5,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0008981970372648473,
+              "meanAbsolute": 0.0004573269311518568,
+              "rmse": 0.0005540607656510374,
+              "nrmse": 0.0016627854449961987,
+              "maxRelative": 0.0040305800079578746,
+              "p50": 0.00046877100538461614,
+              "p90": 0.000870287418753668,
+              "p95": 0.0008879440457559701,
+              "pearson": 0.9999999447307765,
+              "worstX": 5,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "scopedOutcome": "SupplementalPass",
+        "stage": "InitialPair"
+      }
+    ]
+  },
+  {
+    "index": 2595,
+    "comparisons": [
+      {
+        "index": 2595,
+        "key": "PSF",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 64,
+          "imageSampling": 128,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "Irradiance": {
+              "absolute": 1e-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "d418837ab6d16823eff196a02795d67b1c1a87852be15334581840cc2c3a4677",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 512,
+              "dataSha256": "4c072cda8473eba940045059f3ff21a8122b720f256f51dce2238aff34b15387",
+              "evidence": {
+                "archive": "../fft-psf-native-window/fixed-window-references.zip",
+                "member": "2595-512/data.json",
+                "sha256": "4c072cda8473eba940045059f3ff21a8122b720f256f51dce2238aff34b15387"
+              }
+            },
+            {
+              "pupil": 1024,
+              "dataSha256": "e4a43cf69e34e1762eda6681dd2334d8cb257b38a3d94265831417373781dfc1",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/e4a43cf69e34e1762eda6681dd2334d8cb257b38a3d94265831417373781dfc1",
+                "sha256": "e4a43cf69e34e1762eda6681dd2334d8cb257b38a3d94265831417373781dfc1"
+              }
+            }
+          ],
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "grid",
+              "unit": "Dimensionless",
+              "count": 16384,
+              "maxAbsolute": 0.016871039209177263,
+              "meanAbsolute": 0.003851132035472558,
+              "rmse": 0.006446922162539085,
+              "nrmse": 0.006446922162539089,
+              "maxRelative": 1407.4828899769589,
+              "p50": 0.0012757832178491681,
+              "p90": 0.013921781935750426,
+              "p95": 0.015669209965865117,
+              "pearson": 0.9997142557150249,
+              "worstX": 0,
+              "worstY": 5.75,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "grid.workbench.peak": 0.9999999999999992,
+                "grid.workbench.pv": 0.9999999999990837,
+                "grid.workbench.rmsAboutZero": 0.2132809934742009,
+                "grid.workbench.rmsAfterPiston": 0.19338090033419778,
+                "grid.workbench.sampleSum": 1473.887152514816,
+                "grid.workbench.integratedEnergy": 92.117947032176,
+                "grid.workbench.centroidX": 0.01685327380323992,
+                "grid.workbench.centroidY": 0.016853274246615743,
+                "grid.workbench.marginalFwhmX": 9.078155920161862,
+                "grid.workbench.marginalFwhmY": 9.078155920161269,
+                "grid.workbench.encircledEnergyRadius50": 4.464656198662027,
+                "grid.workbench.encircledEnergyRadius80": 6.8044932128376345,
+                "grid.workbench.encircledEnergyRadius90": 8.516457399794277,
+                "grid.zemax.peak": 0.9999999999999994,
+                "grid.zemax.pv": 0.9999999997629244,
+                "grid.zemax.rmsAboutZero": 0.2090124640777073,
+                "grid.zemax.rmsAfterPiston": 0.1901428825674308,
+                "grid.zemax.sampleSum": 1421.9098051773783,
+                "grid.zemax.integratedEnergy": 88.86936282358614,
+                "grid.zemax.centroidX": 0.015549243768601199,
+                "grid.zemax.centroidY": 0.015549244136189501,
+                "grid.zemax.marginalFwhmX": 8.895452343880425,
+                "grid.zemax.marginalFwhmY": 8.895452343880475,
+                "grid.zemax.encircledEnergyRadius50": 4.378599238069938,
+                "grid.zemax.encircledEnergyRadius80": 6.725692106432653,
+                "grid.zemax.encircledEnergyRadius90": 8.492779386205077
+              }
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success",
+          "coreValidated": true,
+          "coreSampling": 2048,
+          "certificate": {
+            "protocol": "FourierPhysicalDomainConvergence/v2",
+            "mode": "Adaptive",
+            "requestedPupilSampling": 256,
+            "returnedPupilSampling": 2048,
+            "maximumPupilSampling": 2048,
+            "relativeRmsAccuracy": 0.001,
+            "absoluteAccuracy": 1e-07,
+            "validated": true,
+            "steps": [
+              {
+                "pupilSampling": 256,
+                "phaseResolved": true,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 512,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.01188217017197554,
+                "maximumAbsoluteChange": 0.03126248873324544,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 1024,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.006446922162523658,
+                "maximumAbsoluteChange": 0.01687103922322425,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 2048,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.0030852462771124214,
+                "maximumAbsoluteChange": 0.008104682593736423,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 512,
+                "phaseResolved": true,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": true
+              },
+              {
+                "pupilSampling": 1024,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.0015756137166880165,
+                "maximumAbsoluteChange": 0.004132263274195025,
+                "usesDensePhysicalPupil": true
+              },
+              {
+                "pupilSampling": 2048,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.0007800188687452841,
+                "maximumAbsoluteChange": 0.002052159974811507,
+                "usesDensePhysicalPupil": true
+              }
+            ],
+            "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+            "evaluatedNominalPupilCells": 22151168,
+            "maximumNominalPupilCells": 100000000,
+            "requestedRelativeRmsDeviation": 0.0061792709871378824,
+            "requestedMaximumAbsoluteDeviation": 0.016312097634238742
+          },
+          "dataSha256": "c8af412f294f513b471af09f93c5898b7fe871059519882a151c5e6892a96523",
+          "fingerprint": "e915f407f5d5952fbb999804ff07a7d594813f229209f92e771ca361d8ad7323",
+          "convergence": null
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "grid",
+              "unit": "Dimensionless",
+              "count": 16384,
+              "maxAbsolute": 0.0019206481704472367,
+              "meanAbsolute": 0.00043942657088560824,
+              "rmse": 0.0007302560656200985,
+              "nrmse": 0.000730256065620099,
+              "maxRelative": 6.023149050355405,
+              "p50": 0.00014841223134948178,
+              "p90": 0.0015725890577498874,
+              "p95": 0.0017655215014008422,
+              "pearson": 0.9999960559096039,
+              "worstX": 0,
+              "worstY": -5.75,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "grid.workbench.peak": 0.999999999999767,
+                "grid.workbench.pv": 0.9999999983347544,
+                "grid.workbench.rmsAboutZero": 0.20948654389538351,
+                "grid.workbench.rmsAfterPiston": 0.1905113754914946,
+                "grid.workbench.sampleSum": 1427.3866313799444,
+                "grid.workbench.integratedEnergy": 89.21166446124653,
+                "grid.workbench.centroidX": 0.015660089601369,
+                "grid.workbench.centroidY": 0.015660089989349906,
+                "grid.workbench.marginalFwhmX": 8.915796995473238,
+                "grid.workbench.marginalFwhmY": 8.915796995473308,
+                "grid.workbench.encircledEnergyRadius50": 4.384908370871279,
+                "grid.workbench.encircledEnergyRadius80": 6.729217791985731,
+                "grid.workbench.encircledEnergyRadius90": 8.488498041384954,
+                "grid.zemax.peak": 0.9999999999999994,
+                "grid.zemax.pv": 0.9999999997629244,
+                "grid.zemax.rmsAboutZero": 0.2090124640777073,
+                "grid.zemax.rmsAfterPiston": 0.1901428825674308,
+                "grid.zemax.sampleSum": 1421.9098051773783,
+                "grid.zemax.integratedEnergy": 88.86936282358614,
+                "grid.zemax.centroidX": 0.015549243768601199,
+                "grid.zemax.centroidY": 0.015549244136189501,
+                "grid.zemax.marginalFwhmX": 8.895452343880425,
+                "grid.zemax.marginalFwhmY": 8.895452343880475,
+                "grid.zemax.encircledEnergyRadius50": 4.378599238069938,
+                "grid.zemax.encircledEnergyRadius80": 6.725692106432653,
+                "grid.zemax.encircledEnergyRadius90": 8.492779386205077
+              }
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": null,
+        "scopedOutcome": "SupplementalPass",
+        "stage": "InitialPair"
+      }
+    ]
+  },
+  {
+    "index": 2639,
+    "comparisons": [
+      {
+        "index": 2639,
+        "key": "PSF",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 3,
+          "pupilSampling": 64,
+          "imageSampling": 128,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "Irradiance": {
+              "absolute": 1e-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "5cb795ef03c30075b4f08d51670fb8e5761462dcd5a49590563eebfeaca49f3e",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 512,
+              "dataSha256": "2b0c497de3da5a4c894d58841bd398182ff2804dc025bc2e848b635086d5681d",
+              "evidence": {
+                "archive": "../fft-psf-native-window/fixed-window-references.zip",
+                "member": "2639-512/data.json",
+                "sha256": "2b0c497de3da5a4c894d58841bd398182ff2804dc025bc2e848b635086d5681d"
+              }
+            },
+            {
+              "pupil": 1024,
+              "dataSha256": "ba30d3ef7fc018151dd10dfdab578192f36494db940b961756f6fde03aa18069",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/ba30d3ef7fc018151dd10dfdab578192f36494db940b961756f6fde03aa18069",
+                "sha256": "ba30d3ef7fc018151dd10dfdab578192f36494db940b961756f6fde03aa18069"
+              }
+            }
+          ],
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "grid",
+              "unit": "Dimensionless",
+              "count": 16384,
+              "maxAbsolute": 0.007229200706170613,
+              "meanAbsolute": 0.0012271876903048504,
+              "rmse": 0.0018785455497993772,
+              "nrmse": 0.0023689827533232024,
+              "maxRelative": 10.937657422948398,
+              "p50": 0.0006822871130115343,
+              "p90": 0.003165046285676719,
+              "p95": 0.004334488748795462,
+              "pearson": 0.9999728559409797,
+              "worstX": 0,
+              "worstY": 2.25,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "grid.workbench.peak": 0.8000752091216571,
+                "grid.workbench.pv": 0.800074467903803,
+                "grid.workbench.rmsAboutZero": 0.20054694412150104,
+                "grid.workbench.rmsAfterPiston": 0.17056828714847216,
+                "grid.workbench.sampleSum": 1728.1459392389995,
+                "grid.workbench.integratedEnergy": 108.00912120243747,
+                "grid.workbench.centroidX": 0.020921410635146964,
+                "grid.workbench.centroidY": 1.1919118009013872,
+                "grid.workbench.marginalFwhmX": 10.281944462967779,
+                "grid.workbench.marginalFwhmY": 10.14652385004894,
+                "grid.workbench.encircledEnergyRadius50": 5.500040541163327,
+                "grid.workbench.encircledEnergyRadius80": 8.79434061744894,
+                "grid.workbench.encircledEnergyRadius90": 11.779213763877657,
+                "grid.zemax.peak": 0.7929756124919689,
+                "grid.zemax.pv": 0.7929734735619155,
+                "grid.zemax.rmsAboutZero": 0.19930033424517035,
+                "grid.zemax.rmsAfterPiston": 0.16917209551921572,
+                "grid.zemax.sampleSum": 1726.272333711479,
+                "grid.zemax.integratedEnergy": 107.89202085696743,
+                "grid.zemax.centroidX": 0.02034516845514612,
+                "grid.zemax.centroidY": 1.1985138240285083,
+                "grid.zemax.marginalFwhmX": 10.28107424439741,
+                "grid.zemax.marginalFwhmY": 10.108792697037149,
+                "grid.zemax.encircledEnergyRadius50": 5.532135014654173,
+                "grid.zemax.encircledEnergyRadius80": 8.860432448171311,
+                "grid.zemax.encircledEnergyRadius90": 11.831709416075878
+              }
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success",
+          "coreValidated": true,
+          "coreSampling": 2048,
+          "certificate": {
+            "protocol": "FourierPhysicalDomainConvergence/v1",
+            "mode": "Adaptive",
+            "requestedPupilSampling": 256,
+            "returnedPupilSampling": 2048,
+            "maximumPupilSampling": 2048,
+            "relativeRmsAccuracy": 0.001,
+            "absoluteAccuracy": 1e-07,
+            "validated": true,
+            "steps": [
+              {
+                "pupilSampling": 256,
+                "phaseResolved": true,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 512,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.037932304049457445,
+                "maximumAbsoluteChange": 0.03492806106365076,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 1024,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.008953102367942152,
+                "maximumAbsoluteChange": 0.007229196662696835,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 2048,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.0009152125401116317,
+                "maximumAbsoluteChange": 0.0024193900907574784,
+                "usesDensePhysicalPupil": false
+              }
+            ],
+            "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+            "evaluatedNominalPupilCells": 11141120,
+            "maximumNominalPupilCells": 100000000,
+            "requestedRelativeRmsDeviation": 0.02944476509496493,
+            "requestedMaximumAbsoluteDeviation": 0.033147393952535076
+          },
+          "dataSha256": "3a24405c0ece206d0c0d92a2cee7405b657d3d5b07dbeeff20358c580c2c0855",
+          "fingerprint": "43c620b0a3477adff5d7fa9c788fbc95b905231c45a3f9d2f0019a9f3039470b",
+          "convergence": null
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "grid",
+              "unit": "Dimensionless",
+              "count": 16384,
+              "maxAbsolute": 0.0024194516719671932,
+              "meanAbsolute": 0.0004883355893340258,
+              "rmse": 0.000725113413753268,
+              "nrmse": 0.0009144208249665582,
+              "maxRelative": 2.59776404583157,
+              "p50": 0.00025398570819608205,
+              "p90": 0.0013883357192932045,
+              "p95": 0.0016615148924205723,
+              "pearson": 0.9999941832175996,
+              "worstX": 0,
+              "worstY": -5.75,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "grid.workbench.peak": 0.7922774824492064,
+                "grid.workbench.pv": 0.7922760887875747,
+                "grid.workbench.rmsAboutZero": 0.19964003270313604,
+                "grid.workbench.rmsAfterPiston": 0.16931328854314598,
+                "grid.workbench.sampleSum": 1733.079739236294,
+                "grid.workbench.integratedEnergy": 108.31748370226838,
+                "grid.workbench.centroidX": 0.020251952685980436,
+                "grid.workbench.centroidY": 1.194039027284402,
+                "grid.workbench.marginalFwhmX": 10.296578561001379,
+                "grid.workbench.marginalFwhmY": 10.119105821210221,
+                "grid.workbench.encircledEnergyRadius50": 5.537654665914489,
+                "grid.workbench.encircledEnergyRadius80": 8.877487274583812,
+                "grid.workbench.encircledEnergyRadius90": 11.831286703879892,
+                "grid.zemax.peak": 0.7929756124919689,
+                "grid.zemax.pv": 0.7929734735619155,
+                "grid.zemax.rmsAboutZero": 0.19930033424517035,
+                "grid.zemax.rmsAfterPiston": 0.16917209551921572,
+                "grid.zemax.sampleSum": 1726.272333711479,
+                "grid.zemax.integratedEnergy": 107.89202085696743,
+                "grid.zemax.centroidX": 0.02034516845514612,
+                "grid.zemax.centroidY": 1.1985138240285083,
+                "grid.zemax.marginalFwhmX": 10.28107424439741,
+                "grid.zemax.marginalFwhmY": 10.108792697037149,
+                "grid.zemax.encircledEnergyRadius50": 5.532135014654173,
+                "grid.zemax.encircledEnergyRadius80": 8.860432448171311,
+                "grid.zemax.encircledEnergyRadius90": 11.831709416075878
+              }
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": null,
+        "scopedOutcome": "SupplementalPass",
+        "stage": "InitialPair"
+      }
+    ]
+  },
+  {
+    "index": 2677,
+    "comparisons": [
+      {
+        "index": 2677,
+        "key": "PSF",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 64,
+          "imageSampling": 128,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "Irradiance": {
+              "absolute": 1e-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "60908232a6df8ced150b02b42cc24892885ac185ace6b565e8a043a13be19d25",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 512,
+              "dataSha256": "341589b6c4fce177cf75991ad60a7ac2addad6bd7f97375cf818c4d78527028a",
+              "evidence": {
+                "archive": "../fft-psf-native-window/fixed-window-references.zip",
+                "member": "2677-512/data.json",
+                "sha256": "341589b6c4fce177cf75991ad60a7ac2addad6bd7f97375cf818c4d78527028a"
+              }
+            },
+            {
+              "pupil": 1024,
+              "dataSha256": "ba6bfdd103e358b70ad1696cc0b8911f79ad4f79b68317fd60c5519fcea24490",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/ba6bfdd103e358b70ad1696cc0b8911f79ad4f79b68317fd60c5519fcea24490",
+                "sha256": "ba6bfdd103e358b70ad1696cc0b8911f79ad4f79b68317fd60c5519fcea24490"
+              }
+            }
+          ],
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "grid",
+              "unit": "Dimensionless",
+              "count": 16384,
+              "maxAbsolute": 0.0002400380337203821,
+              "meanAbsolute": 9.540139752729712e-06,
+              "rmse": 1.4647109074670646e-05,
+              "nrmse": 0.0008742109829074431,
+              "maxRelative": 0.8312284954333474,
+              "p50": 6.5049041442577445e-06,
+              "p90": 2.1435940851190394e-05,
+              "p95": 2.7414456335407594e-05,
+              "pearson": 0.9998065240384933,
+              "worstX": 0,
+              "worstY": 0,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "grid.workbench.peak": 0.016514623439368666,
+                "grid.workbench.pv": 0.016514088180219298,
+                "grid.workbench.rmsAboutZero": 0.0006781065349780539,
+                "grid.workbench.rmsAfterPiston": 0.000570963119998,
+                "grid.workbench.sampleSum": 5.993713922405574,
+                "grid.workbench.integratedEnergy": 0.37460712015034836,
+                "grid.workbench.centroidX": 0.08038427353739744,
+                "grid.workbench.centroidY": 0.08038427355131653,
+                "grid.workbench.marginalFwhmX": 4.444078792998891,
+                "grid.workbench.marginalFwhmY": 4.444078793665016,
+                "grid.workbench.encircledEnergyRadius50": 9.506588359569369,
+                "grid.workbench.encircledEnergyRadius80": 14.905801515472584,
+                "grid.workbench.encircledEnergyRadius90": 16.514441404009492,
+                "grid.zemax.peak": 0.016754661473089048,
+                "grid.zemax.pv": 0.016754369177969883,
+                "grid.zemax.rmsAboutZero": 0.0006872452551407774,
+                "grid.zemax.rmsAfterPiston": 0.0005795919058931237,
+                "grid.zemax.sampleSum": 6.05053962409368,
+                "grid.zemax.integratedEnergy": 0.378158726505855,
+                "grid.zemax.centroidX": 0.08111970170433012,
+                "grid.zemax.centroidY": 0.08111970167446217,
+                "grid.zemax.marginalFwhmX": 4.431675795074467,
+                "grid.zemax.marginalFwhmY": 4.431675795623612,
+                "grid.zemax.encircledEnergyRadius50": 9.47770878402249,
+                "grid.zemax.encircledEnergyRadius80": 14.88041764123799,
+                "grid.zemax.encircledEnergyRadius90": 16.506075694500733
+              }
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success fixed",
+          "coreValidated": true,
+          "coreSampling": 2048,
+          "certificate": {
+            "protocol": "FourierPhysicalDomainConvergence/v2",
+            "mode": "Adaptive",
+            "requestedPupilSampling": 256,
+            "returnedPupilSampling": 0,
+            "maximumPupilSampling": 2048,
+            "relativeRmsAccuracy": 0.001,
+            "absoluteAccuracy": 1e-07,
+            "validated": false,
+            "steps": [
+              {
+                "pupilSampling": 256,
+                "phaseResolved": false,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 512,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.06421085855954763,
+                "maximumAbsoluteChange": 0.0010604181496901184,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 1024,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.014326641736312267,
+                "maximumAbsoluteChange": 0.0002400380322865013,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 2048,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.00451662550405145,
+                "maximumAbsoluteChange": 7.533427459884001e-05,
+                "usesDensePhysicalPupil": false
+              }
+            ],
+            "reason": "FFT PSF has no valid data: FFT image delta is too large: the sampling grid does not cover the full pupil..",
+            "evaluatedNominalPupilCells": 11665408,
+            "maximumNominalPupilCells": 100000000,
+            "requestedRelativeRmsDeviation": null,
+            "requestedMaximumAbsoluteDeviation": null
+          },
+          "dataSha256": "6733e5def0b61de9f58960f833d68a89a572bae93c2ec3279387ef74ec7248e5",
+          "fingerprint": "6397bc51985e7662252e341ebea3000dc5a19bd04c7b43c2726ee70328d33bf6",
+          "convergence": {
+            "conclusion": "Pass",
+            "metrics": [
+              {
+                "id": "grid",
+                "unit": "Dimensionless",
+                "count": 16384,
+                "maxAbsolute": 7.533427459884001e-05,
+                "meanAbsolute": 3.548880737478539e-06,
+                "rmse": 5.320689072823824e-06,
+                "nrmse": 0.0003189990226017784,
+                "maxRelative": 0.20588150429174032,
+                "p50": 2.4215506760091217e-06,
+                "p90": 8.233201035834858e-06,
+                "p95": 1.0748187262963309e-05,
+                "pearson": 0.9999687332921184,
+                "worstX": 0,
+                "worstY": 0,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {
+                  "grid.workbench.peak": 0.016754661469484615,
+                  "grid.workbench.pv": 0.016754369174361954,
+                  "grid.workbench.rmsAboutZero": 0.000687245255030375,
+                  "grid.workbench.rmsAfterPiston": 0.0005795919057875065,
+                  "grid.workbench.sampleSum": 6.0505396234433,
+                  "grid.workbench.integratedEnergy": 0.37815872646520626,
+                  "grid.workbench.centroidX": 0.08111970169393701,
+                  "grid.workbench.centroidY": 0.08111970170606025,
+                  "grid.workbench.marginalFwhmX": 4.431675796121249,
+                  "grid.workbench.marginalFwhmY": 4.431675795844024,
+                  "grid.workbench.encircledEnergyRadius50": 9.47770878402878,
+                  "grid.workbench.encircledEnergyRadius80": 14.880417641256473,
+                  "grid.workbench.encircledEnergyRadius90": 16.506075694486007,
+                  "grid.zemax.peak": 0.016679327194885775,
+                  "grid.zemax.pv": 0.016678959119942258,
+                  "grid.zemax.rmsAboutZero": 0.0006845606228125677,
+                  "grid.zemax.rmsAfterPiston": 0.0005770962182004472,
+                  "grid.zemax.sampleSum": 6.032854917196816,
+                  "grid.zemax.integratedEnergy": 0.377053432324801,
+                  "grid.zemax.centroidX": 0.08114137291059749,
+                  "grid.zemax.centroidY": 0.08114137289205801,
+                  "grid.zemax.marginalFwhmX": 4.423694422573194,
+                  "grid.zemax.marginalFwhmY": 4.42369442287176,
+                  "grid.zemax.encircledEnergyRadius50": 9.479202943207644,
+                  "grid.zemax.encircledEnergyRadius80": 14.88685558903437,
+                  "grid.zemax.encircledEnergyRadius90": 16.51209005359818
+                }
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "grid",
+              "unit": "Dimensionless",
+              "count": 16384,
+              "maxAbsolute": 7.533427820327274e-05,
+              "meanAbsolute": 3.548880750316199e-06,
+              "rmse": 5.320689137416283e-06,
+              "nrmse": 0.0003175647055574505,
+              "maxRelative": 0.25925792222817545,
+              "p50": 2.421550591732359e-06,
+              "p90": 8.233200922059505e-06,
+              "p95": 1.0748187383848214e-05,
+              "pearson": 0.999968733291994,
+              "worstX": 0,
+              "worstY": 0,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "grid.workbench.peak": 0.016679327194885775,
+                "grid.workbench.pv": 0.016678959119942258,
+                "grid.workbench.rmsAboutZero": 0.0006845606228125677,
+                "grid.workbench.rmsAfterPiston": 0.0005770962182004472,
+                "grid.workbench.sampleSum": 6.032854917196816,
+                "grid.workbench.integratedEnergy": 0.377053432324801,
+                "grid.workbench.centroidX": 0.08114137291059749,
+                "grid.workbench.centroidY": 0.08114137289205801,
+                "grid.workbench.marginalFwhmX": 4.423694422573194,
+                "grid.workbench.marginalFwhmY": 4.42369442287176,
+                "grid.workbench.encircledEnergyRadius50": 9.479202943207644,
+                "grid.workbench.encircledEnergyRadius80": 14.88685558903437,
+                "grid.workbench.encircledEnergyRadius90": 16.51209005359818,
+                "grid.zemax.peak": 0.016754661473089048,
+                "grid.zemax.pv": 0.016754369177969883,
+                "grid.zemax.rmsAboutZero": 0.0006872452551407774,
+                "grid.zemax.rmsAfterPiston": 0.0005795919058931237,
+                "grid.zemax.sampleSum": 6.05053962409368,
+                "grid.zemax.integratedEnergy": 0.378158726505855,
+                "grid.zemax.centroidX": 0.08111970170433012,
+                "grid.zemax.centroidY": 0.08111970167446217,
+                "grid.zemax.marginalFwhmX": 4.431675795074467,
+                "grid.zemax.marginalFwhmY": 4.431675795623612,
+                "grid.zemax.encircledEnergyRadius50": 9.47770878402249,
+                "grid.zemax.encircledEnergyRadius80": 14.88041764123799,
+                "grid.zemax.encircledEnergyRadius90": 16.506075694500733
+              }
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": null,
+        "scopedOutcome": "SupplementalPass",
+        "stage": "InitialPair"
+      }
+    ]
+  },
+  {
+    "index": 2794,
+    "comparisons": [
+      {
+        "index": 2794,
+        "key": "Diffraction Encircled Energy",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 32,
+          "imageSampling": 64,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "EnergyFraction": {
+              "absolute": 1e-05,
+              "relative": 0.002,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "caa439f92eab26d0e1abdebd528c014f30fd985857c79a3fce8a80e4166bc2ce",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 512,
+              "dataSha256": "21b1554de536004a145102e4bc46381a3c4f52ef621f4bd20f47f23aa3a01863",
+              "evidence": {
+                "archive": "../incomparable-coverage/new-numeric-evidence.zip",
+                "member": "sha256/21b1554de536004a145102e4bc46381a3c4f52ef621f4bd20f47f23aa3a01863",
+                "sha256": "21b1554de536004a145102e4bc46381a3c4f52ef621f4bd20f47f23aa3a01863"
+              }
+            },
+            {
+              "pupil": 1024,
+              "dataSha256": "b020ac3f5c2c5228541ecdb7c88a386880d61b3f8b9ea91fc13cfcfb07fa44c3",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/b020ac3f5c2c5228541ecdb7c88a386880d61b3f8b9ea91fc13cfcfb07fa44c3",
+                "sha256": "b020ac3f5c2c5228541ecdb7c88a386880d61b3f8b9ea91fc13cfcfb07fa44c3"
+              }
+            }
+          ],
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.002680586790310746,
+              "meanAbsolute": 0.0014376684179377669,
+              "rmse": 0.001742531967202521,
+              "nrmse": 0.0044043057816802,
+              "maxRelative": 0.8722695118417251,
+              "p50": 0.0015879883932946037,
+              "p90": 0.002633309253548266,
+              "p95": 0.0026647416352273967,
+              "pearson": 0.999997681431648,
+              "worstX": 3.937500000000022,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0009728411575247453,
+              "meanAbsolute": 0.0004345101328310136,
+              "rmse": 0.0005586313313311464,
+              "nrmse": 0.0062567046412280135,
+              "maxRelative": 0.8838684216815086,
+              "p50": 0.0003966054881290454,
+              "p90": 0.0009207270521815192,
+              "p95": 0.0009373522121137595,
+              "pearson": 0.9999959970168896,
+              "worstX": 4.962500000000037,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success",
+          "coreValidated": false,
+          "coreSampling": 1024,
+          "certificate": null,
+          "dataSha256": "26e1949ea850069c4447e303fd185297d468ea7376a7251692a2d9e910e3ff24",
+          "fingerprint": "c87b762964802d4b6d8523bf24987a65673a42ea841837a1587706ec9f5c3a36",
+          "convergence": {
+            "conclusion": "Close",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0026805867904162173,
+                "meanAbsolute": 0.0014376684179970318,
+                "rmse": 0.0017425319672718547,
+                "nrmse": 0.004404305781854569,
+                "maxRelative": 0.8722695112448877,
+                "p50": 0.0015879883934442063,
+                "p90": 0.0026333092536391933,
+                "p95": 0.0026647416353494102,
+                "pearson": 0.9999976814316484,
+                "worstX": 3.9375,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Close",
+                "extra": {}
+              },
+              {
+                "id": "curve:1",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0009728412586213625,
+                "meanAbsolute": 0.0004345102006079062,
+                "rmse": 0.0005586314038352473,
+                "nrmse": 0.006256705454495028,
+                "maxRelative": 0.8838684210123061,
+                "p50": 0.00039660558390408607,
+                "p90": 0.0009207271513747423,
+                "p95": 0.000937352309086717,
+                "pearson": 0.9999959970180149,
+                "worstX": 4.9625,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Close",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.7672308888782027e-13,
+              "meanAbsolute": 7.360692924047205e-14,
+              "rmse": 8.59781355803193e-14,
+              "nrmse": 2.173125123451316e-13,
+              "maxRelative": 2.689326547458292e-10,
+              "p50": 6.900383042740543e-14,
+              "p90": 1.3225878725542373e-13,
+              "p95": 1.5946965969959592e-13,
+              "pearson": 1.0000000000000042,
+              "worstX": 1.5,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.5745781334917126e-11,
+              "meanAbsolute": 1.5566533321276623e-11,
+              "rmse": 2.079695065841929e-11,
+              "nrmse": 2.329271031001106e-10,
+              "maxRelative": 4.902527651236612e-10,
+              "p50": 1.4468572173687022e-11,
+              "p90": 3.4705183171723775e-11,
+              "p95": 3.5487474070450276e-11,
+              "pearson": 0.9999999999999993,
+              "worstX": 3.937500000000022,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 1.3117285035946225e-13,
+              "meanAbsolute": 2.8337144971491124e-14,
+              "rmse": 3.8434159909044895e-14,
+              "nrmse": 9.764478632839567e-14,
+              "maxRelative": 9.54369321814656e-11,
+              "p50": 2.2787327580431338e-14,
+              "p90": 6.300515664747763e-14,
+              "p95": 8.808925811010226e-14,
+              "pearson": 1.0000000000000016,
+              "worstX": 1.6374999999999962,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 1.3246820307344365e-10,
+              "meanAbsolute": 8.623982492871902e-11,
+              "rmse": 9.821221599426224e-11,
+              "nrmse": 1.1115283852792995e-09,
+              "maxRelative": 2.5568830322946735e-09,
+              "p50": 1.107095561059257e-10,
+              "p90": 1.3144577093449072e-10,
+              "p95": 1.3216925123793466e-10,
+              "pearson": 0.9999999999999989,
+              "worstX": 3.525,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "scopedOutcome": "Open",
+        "stage": "InitialPair"
+      }
+    ]
+  },
+  {
+    "index": 2860,
+    "comparisons": [
+      {
+        "index": 2860,
+        "key": "Diffraction Encircled Energy",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 32,
+          "imageSampling": 64,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "EnergyFraction": {
+              "absolute": 1e-05,
+              "relative": 0.002,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "572cae9a93aafe85875620c7745c08e32d8a041306b1d54dc14bf049b1262e8f",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 1024,
+              "dataSha256": "d71f3040204e6fd25fffec96b207d96f3fafe86bad302ae341c9f724e9c1af93",
+              "evidence": {
+                "archive": "../incomparable-coverage/new-numeric-evidence.zip",
+                "member": "sha256/d71f3040204e6fd25fffec96b207d96f3fafe86bad302ae341c9f724e9c1af93",
+                "sha256": "d71f3040204e6fd25fffec96b207d96f3fafe86bad302ae341c9f724e9c1af93"
+              }
+            },
+            {
+              "pupil": 2048,
+              "dataSha256": "aab85d8cb3fe711d3c145d00684942e419c929caa169177d86d4917659cf3ebf",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/aab85d8cb3fe711d3c145d00684942e419c929caa169177d86d4917659cf3ebf",
+                "sha256": "aab85d8cb3fe711d3c145d00684942e419c929caa169177d86d4917659cf3ebf"
+              }
+            }
+          ],
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0013930628040262905,
+              "meanAbsolute": 0.0005199306525483674,
+              "rmse": 0.0006804170431888283,
+              "nrmse": 0.0007669761418600548,
+              "maxRelative": 0.8784729818650592,
+              "p50": 0.0003141092020375047,
+              "p90": 0.0012898882342735618,
+              "p95": 0.001367312993928782,
+              "pearson": 0.9999976001869416,
+              "worstX": 2.800000000000006,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0011558227340033866,
+              "meanAbsolute": 0.0006409703735682582,
+              "rmse": 0.0007514723840873335,
+              "nrmse": 0.0023298220393657624,
+              "maxRelative": 0.8592774913065435,
+              "p50": 0.0005835036968814683,
+              "p90": 0.001115952878243176,
+              "p95": 0.001134003344696044,
+              "pearson": 0.9999927950754157,
+              "worstX": 5,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success",
+          "coreValidated": true,
+          "coreSampling": 2048,
+          "certificate": null,
+          "dataSha256": "8fa213488615964e30ea542113bf12dd66015649410b9d1fd4d8705c9841154e",
+          "fingerprint": "50fa473bf9228a156f77dad25dd3d7ebfdebcc6f222f1c0ee054ef2985a3e683",
+          "convergence": {
+            "conclusion": "Pass",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.001393062803904499,
+                "meanAbsolute": 0.0005199306525188526,
+                "rmse": 0.0006804170430842033,
+                "nrmse": 0.0007669761417421345,
+                "maxRelative": 0.8784729807957302,
+                "p50": 0.00031410920214086646,
+                "p90": 0.0012898882340912632,
+                "p95": 0.0013673129936829787,
+                "pearson": 0.9999976001869403,
+                "worstX": 2.8,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              },
+              {
+                "id": "curve:1",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.001155823046222193,
+                "meanAbsolute": 0.0006409704710980487,
+                "rmse": 0.000751472543739511,
+                "nrmse": 0.0023298225346160576,
+                "maxRelative": 0.8592774963142373,
+                "p50": 0.0005835035070324013,
+                "p90": 0.0011159531593829541,
+                "p95": 0.001134003629219782,
+                "pearson": 0.9999927950765428,
+                "worstX": 5,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 8.748557434046234e-14,
+              "meanAbsolute": 9.109620869257411e-15,
+              "rmse": 1.4222488740516838e-14,
+              "nrmse": 1.6031799395745613e-14,
+              "maxRelative": 9.504422144578976e-11,
+              "p50": 6.6058269965196814e-15,
+              "p90": 2.0039525594484076e-14,
+              "p95": 3.042011087472929e-14,
+              "pearson": 1.0000000000000002,
+              "worstX": 1.1375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 4.7134185443553633e-11,
+              "meanAbsolute": 2.1646179877163972e-11,
+              "rmse": 2.6184454103575882e-11,
+              "nrmse": 8.118078528376442e-11,
+              "maxRelative": 6.423265624389231e-10,
+              "p50": 1.938826876823896e-11,
+              "p90": 4.4638182039591356e-11,
+              "p95": 4.648527396344804e-11,
+              "pearson": 0.9999999999999991,
+              "worstX": 3.1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 7.477352070850429e-13,
+              "meanAbsolute": 2.331025146141543e-13,
+              "rmse": 2.6573056302733616e-13,
+              "nrmse": 2.995996761852646e-13,
+              "maxRelative": 4.742101503433562e-10,
+              "p50": 2.293165657363261e-13,
+              "p90": 4.0217829067046296e-13,
+              "p95": 4.5449755070592346e-13,
+              "pearson": 1.0000000000000004,
+              "worstX": 1.0749999999999982,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.85748175121725e-10,
+              "meanAbsolute": 2.146127361542046e-10,
+              "rmse": 2.320508482249234e-10,
+              "nrmse": 7.168683306072154e-10,
+              "maxRelative": 2.069638194929583e-09,
+              "p50": 2.570684498603981e-10,
+              "p90": 2.8110687388949174e-10,
+              "p95": 2.844004476365569e-10,
+              "pearson": 0.9999999999999996,
+              "worstX": 2.3625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "scopedOutcome": "SupplementalPass",
+        "stage": "InitialPair"
+      }
+    ]
+  },
+  {
+    "index": 2978,
+    "comparisons": [
+      {
+        "index": 2978,
+        "key": "Diffraction Encircled Energy",
+        "originalPolicy": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 32,
+          "imageSampling": 64,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "EnergyFraction": {
+              "absolute": 1e-05,
+              "relative": 0.002,
+              "nrmse": 0.003,
+              "closeNrmse": 0.01,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "originalRequest": "6f914ddacdd2b824fbd357ec0117f9feb3e0205a1069065c47030563189dade0",
+        "physicalHalfWidthMicrometers": null,
+        "native": {
+          "samples": [
+            {
+              "pupil": 512,
+              "dataSha256": "9faed7d9e328e6392d654ef59b18c8eafc2923defd71f0b7c3ec43b48f6bb496",
+              "evidence": {
+                "archive": "../incomparable-coverage/new-numeric-evidence.zip",
+                "member": "sha256/9faed7d9e328e6392d654ef59b18c8eafc2923defd71f0b7c3ec43b48f6bb496",
+                "sha256": "9faed7d9e328e6392d654ef59b18c8eafc2923defd71f0b7c3ec43b48f6bb496"
+              }
+            },
+            {
+              "pupil": 1024,
+              "dataSha256": "4fff9ea2203a9e09e2081dbc8b055aef273f80aaab20bbb7bd9d5b637b421c65",
+              "evidence": {
+                "archive": "new-numeric-evidence.zip",
+                "member": "sha256/4fff9ea2203a9e09e2081dbc8b055aef273f80aaab20bbb7bd9d5b637b421c65",
+                "sha256": "4fff9ea2203a9e09e2081dbc8b055aef273f80aaab20bbb7bd9d5b637b421c65"
+              }
+            }
+          ],
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0018156517006541195,
+              "meanAbsolute": 0.0004826570424563086,
+              "rmse": 0.0006195619309638248,
+              "nrmse": 0.0007376236244975579,
+              "maxRelative": 0.9056016037003476,
+              "p50": 0.0003772742319890776,
+              "p90": 0.0010776524868752468,
+              "p95": 0.0012206034169245372,
+              "pearson": 0.9999991084499199,
+              "worstX": 1.4749999999999968,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.00022145387582512763,
+              "meanAbsolute": 0.00011628203290931467,
+              "rmse": 0.000135050982321953,
+              "nrmse": 0.001451647672170403,
+              "maxRelative": 0.9380822914706775,
+              "p50": 0.00012369475608666608,
+              "p90": 0.00020091165550803307,
+              "p95": 0.0002086767223133893,
+              "pearson": 0.9999960243184237,
+              "worstX": 2.6125000000000034,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "core": {
+          "coreOutcome": "Success/Success",
+          "coreValidated": true,
+          "coreSampling": 1024,
+          "certificate": null,
+          "dataSha256": "ffa8298acbe16d6490da4e2eec72f8bd4948d1987cc7a7624364e1e9c3fc6871",
+          "fingerprint": "cca5b6946e97a0941937f263964b11e8ba8a33626c6a1d888773ce6360419e54",
+          "convergence": {
+            "conclusion": "Pass",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.0018156517005629147,
+                "meanAbsolute": 0.00048265704240336863,
+                "rmse": 0.0006195619309183818,
+                "nrmse": 0.0007376236244435867,
+                "maxRelative": 0.9056016039188665,
+                "p50": 0.00037727423201872057,
+                "p90": 0.0010776524867928128,
+                "p95": 0.0012206034166238888,
+                "pearson": 0.9999991084499196,
+                "worstX": 1.475,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              },
+              {
+                "id": "curve:1",
+                "unit": "Dimensionless",
+                "count": 401,
+                "maxAbsolute": 0.00022145235388752564,
+                "meanAbsolute": 0.00011628154133280833,
+                "rmse": 0.00013505026774891996,
+                "nrmse": 0.0014516394640508863,
+                "maxRelative": 0.9380823478792932,
+                "p50": 0.000123696503668079,
+                "p90": 0.00020091071097203157,
+                "p95": 0.00020867547341433743,
+                "pearson": 0.9999960244269075,
+                "worstX": 2.6125,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        },
+        "cross": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.818612093198226e-13,
+              "meanAbsolute": 8.233727563685209e-14,
+              "rmse": 1.09216604091965e-13,
+              "nrmse": 1.3002856266572943e-13,
+              "maxRelative": 2.7558944328550836e-10,
+              "p50": 7.238654120556021e-14,
+              "p90": 1.8074430840897548e-13,
+              "p95": 2.1649348980190553e-13,
+              "pearson": 0.9999999999999996,
+              "worstX": 1.6124999999999963,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.379080795729017e-08,
+              "meanAbsolute": 9.535313224020994e-09,
+              "rmse": 1.3267471295882052e-08,
+              "nrmse": 1.4261054226426082e-07,
+              "maxRelative": 4.2696073101363936e-07,
+              "p50": 5.932934320912464e-09,
+              "p90": 2.5458880191508992e-08,
+              "p95": 2.963880723835799e-08,
+              "pearson": 1.000000000000001,
+              "worstX": 5,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "sameSamplingCoarse": {
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.8832491949515315e-13,
+              "meanAbsolute": 1.209970826634018e-13,
+              "rmse": 1.4547764640910514e-13,
+              "nrmse": 1.7316167051451266e-13,
+              "maxRelative": 1.230637839211166e-10,
+              "p50": 1.1957448919908131e-13,
+              "p90": 2.302047441560262e-13,
+              "p95": 2.448874436566939e-13,
+              "pearson": 0.9999999999999994,
+              "worstX": 4.925,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 4.063496712725101e-08,
+              "meanAbsolute": 9.699183015948042e-09,
+              "rmse": 1.4535562888438773e-08,
+              "nrmse": 1.5632414002220057e-07,
+              "maxRelative": 4.495874408967614e-07,
+              "p50": 4.474187062508683e-09,
+              "p90": 2.881348938610362e-08,
+              "p95": 3.4670961650273835e-08,
+              "pearson": 0.9999999999999977,
+              "worstX": 5,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        "scopedOutcome": "SupplementalPass",
+        "stage": "InitialPair"
+      }
+    ]
+  }
+]

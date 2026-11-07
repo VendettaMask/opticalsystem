@@ -42,6 +42,53 @@ public sealed class FiniteIlluminationGridTests
     }
 
     [Theory]
+    [InlineData("original-20")]
+    [InlineData("image-only")]
+    [InlineData("image-flipped")]
+    [InlineData("image-half")]
+    [InlineData("image-mixed")]
+    [InlineData("image-x-steep")]
+    public void NativeTiltedPlaneUsesTransverseOffsetsInTheProjectedXAxis(string name)
+    {
+        var root = ProductDependencyArchitectureTests.RepositoryRoot();
+        var evidence = Path.Combine(root, "validation/rechecks/2026-11-07/tilted-illumination");
+        using var controls = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(evidence, "controls.json")));
+        var control = controls.RootElement.EnumerateArray().Single(item => item.GetProperty("name").GetString() == name);
+        var source = Path.Combine(name == "original-20" ? root : evidence, control.GetProperty("source").GetString()!);
+        Assert.Equal(control.GetProperty("sourceSha256").GetString(),
+            Convert.ToHexStringLower(SHA256.HashData(EvidenceFiles.ReadAllBytes(source))));
+
+        var capture = Path.Combine(evidence, "controls", name, "data.json");
+        var capturedBytes = EvidenceFiles.ReadAllBytes(capture);
+        Assert.Equal(control.GetProperty("dataSha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(capturedBytes)));
+        using var native = JsonDocument.Parse(capturedBytes);
+        var series = native.RootElement.GetProperty("dataSeries")[0];
+        var radius = control.GetProperty("maxObjectHeightMm").GetDouble();
+        var fields = series.GetProperty("x").EnumerateArray().Select(value => (0d, value.GetDouble() / radius)).ToArray();
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+        var results = IlluminationMetrics.EvaluateFields(optic, fields, .55, control.GetProperty("rayDensity").GetInt32(),
+            sampling: IlluminationSamplingKind.FiniteImageCosine, includeScalarTransmission: false);
+        var expected = series.GetProperty("y").EnumerateArray().Select(row => row[1].GetDouble()).ToArray();
+        Assert.All(results.Zip(expected), pair => Assert.InRange(Math.Abs(pair.First.EffectiveFNumber / pair.Second - 1), 0, 1e-8));
+    }
+
+    [Theory]
+    [InlineData(IlluminationSamplingKind.AdaptivePupil)]
+    [InlineData(IlluminationSamplingKind.UniformImageCosine)]
+    public void PhysicalQuadraturesAreInvariantToEquivalentTiltedPlaneCoordinates(IlluminationSamplingKind sampling)
+    {
+        var root = ProductDependencyArchitectureTests.RepositoryRoot();
+        var tilted = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(root,
+            "src/OpticalSystemDesign.App/Assets/SequentialExamples/Tilted systems & prisms/Tilted object.zmx")), ".zmx");
+        var rotated = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(Path.Combine(root,
+            "validation/rechecks/2026-11-07/tilted-illumination/controls/rotated-frame.zmx")), ".zmx");
+        var fields = new[] { (0d, 0d), (0d, .4), (0d, 1d) };
+        var left = IlluminationMetrics.EvaluateFields(tilted, fields, .55, 20, sampling: sampling, includeScalarTransmission: false);
+        var right = IlluminationMetrics.EvaluateFields(rotated, fields, .55, 20, sampling: sampling, includeScalarTransmission: false);
+        Assert.All(left.Zip(right), pair => Assert.InRange(Math.Abs(pair.First.ProjectedCosineArea - pair.Second.ProjectedCosineArea), 0, 1e-10));
+    }
+
+    [Theory]
     [InlineData(.3, 5)]
     [InlineData(.3, 10)]
     [InlineData(.3, 18)]

@@ -57,6 +57,9 @@ public sealed class DiffractionEncircledEnergyAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        if (FocalImageDomain.IsCollimatedPlaneAtImage(Optic))
+            return FocalImageDomain.NotApplicable(Name, "Focal FFT energy requires a finite image diffraction scale.",
+                FocalImageDomain.CollimatedPlaneTrain);
         var allFields = SpotAnalysisEngine.DefinedFields(Optic);
         if (allFields.Count == 0)
         {

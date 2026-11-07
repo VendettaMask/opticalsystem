@@ -3,6 +3,7 @@ using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Propagation;
 using OpticalSystemDesign.Core.Rays;
@@ -203,7 +204,8 @@ public static partial class IlluminationMetrics
         internal IlluminationMetricResult Evaluate(int density, IlluminationSamplingKind sampling)
         {
             _boundaryChordAngle = 2 * Math.PI / (24 * density);
-            var chief = PrepareFrame();
+            var chief = PrepareFrame(sampling == IlluminationSamplingKind.FiniteImageCosine
+                && _image.Geometry is TiltedPlaneGeometry);
             var localHit = _image.CoordinateSystem.ToLocalPoint(chief.Position);
             if (sampling == IlluminationSamplingKind.FiniteImageCosine)
             {
@@ -316,6 +318,10 @@ public static partial class IlluminationMetrics
                 if (_finiteReferenceDistance is { } distance)
                 {
                     var offset = _image.CoordinateSystem.ToLocalPoint(image.Position) - _finiteImageCenter;
+                    // The native finite profile reads a TILTSURF intercept in its unchanged
+                    // XY coordinates, then applies that transverse offset in the tangent frame.
+                    if (_image.Geometry is TiltedPlaneGeometry)
+                        offset = _tangentX * offset.X + _tangentY * offset.Y;
                     referenceDirection -= (offset - direction * Dot(direction, offset)) / distance;
                 }
                 node = new(x, y, Dot(referenceDirection, _tangentX), Dot(referenceDirection, _tangentY),

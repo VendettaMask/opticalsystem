@@ -1184,6 +1184,7 @@ internal static partial class UiLocalization
         Add("入瞳直径", "Entrance Pupil Diameter", "入射瞳径");
         Add("像方 F 数", "Image-Space F/#", "像側 F ナンバー");
         Add("物方数值孔径", "Object-Space Numerical Aperture", "物体側開口数");
+        Add("物方锥半角 (°)", "Object Cone Half-Angle (°)", "物体側光束の半角 (°)");
         Add("按光阑面尺寸浮动", "Float by Stop Surface Size", "絞り面サイズに連動");
         Add("光瞳切趾", "Pupil Apodization", "瞳アポダイゼーション");
         Add("切趾参数", "Apodization Parameter", "アポダイゼーション係数");

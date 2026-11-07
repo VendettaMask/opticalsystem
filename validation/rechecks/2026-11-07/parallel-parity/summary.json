@@ -1,0 +1,106 @@
+{
+  "lenses": 95,
+  "configurations": 115,
+  "originalRequests": 3024,
+  "executedRequests": 2904,
+  "oldVerdicts": {
+    "Incomparable": 433,
+    "Pass": 2518,
+    "Close": 22,
+    "Difference": 31,
+    "Error": 20
+  },
+  "currentVerdicts": {
+    "Incomparable": 427,
+    "Pass": 2526,
+    "Close": 20,
+    "Difference": 31,
+    "Error": 20
+  },
+  "changedVerdicts": [
+    {
+      "index": 1140,
+      "lens": "Miscellaneous/Grid Sag Example.zmx",
+      "configuration": 1,
+      "analysis": "Huygens MTF",
+      "before": "Incomparable",
+      "after": "Pass",
+      "reason": ""
+    },
+    {
+      "index": 1145,
+      "lens": "Miscellaneous/Grid Sag Example.zmx",
+      "configuration": 1,
+      "analysis": "Huygens Through Focus MTF",
+      "before": "Incomparable",
+      "after": "Pass",
+      "reason": ""
+    },
+    {
+      "index": 1162,
+      "lens": "Miscellaneous/Grid Sag Example.zmx",
+      "configuration": 2,
+      "analysis": "Huygens MTF",
+      "before": "Incomparable",
+      "after": "Pass",
+      "reason": ""
+    },
+    {
+      "index": 1167,
+      "lens": "Miscellaneous/Grid Sag Example.zmx",
+      "configuration": 2,
+      "analysis": "Huygens Through Focus MTF",
+      "before": "Incomparable",
+      "after": "Pass",
+      "reason": ""
+    },
+    {
+      "index": 2153,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "analysis": "Spot Diagram",
+      "before": "Close",
+      "after": "Pass",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated."
+    },
+    {
+      "index": 2170,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "configuration": 1,
+      "analysis": "Spot Diagram",
+      "before": "Close",
+      "after": "Pass",
+      "reason": "Compare native RMS/GEO spot metrics only; point ordering and ray correspondence are not equated."
+    },
+    {
+      "index": 2204,
+      "lens": "Polarization/Etalon.ZMX",
+      "configuration": 1,
+      "analysis": "Huygens MTF",
+      "before": "Incomparable",
+      "after": "Pass",
+      "reason": ""
+    },
+    {
+      "index": 2209,
+      "lens": "Polarization/Etalon.ZMX",
+      "configuration": 1,
+      "analysis": "Huygens Through Focus MTF",
+      "before": "Incomparable",
+      "after": "Pass",
+      "reason": ""
+    }
+  ],
+  "lostOriginalPasses": [],
+  "remainingRequests": 498,
+  "originalErrorsByAnalysis": {
+    "FFT PSF Cross Section": 9,
+    "MTF": 8,
+    "PSF": 3
+  },
+  "fullReplayCompletedUtc": "2026-11-07T12:56:27.1560621+00:00",
+  "fullReplaySha256": "ef11fa7a4dfcef5eb109b9fb1cf2e5fdf5610b0d5a120f7dd5cd5afb341bbff2",
+  "finalScopeSha256": "67da7af9b99276fcbce181aba0f30bf5d032c80272d169a3ae7f394cf08e1f46",
+  "runtimeOutput": "D:/Projects/opticalsystem/artifacts/validation/pp1107",
+  "runIdentity": "run-identities.json"
+}

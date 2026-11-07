@@ -439,8 +439,11 @@ public sealed class FieldCurvatureAnalysis : BaseAnalysis
                 {
                     var components = FieldCurvatureMetrics.GeneralizedImagePlaneDeltas(
                         workingOptic, field.Hx, field.Hy, wavelength.Micrometers, _parabasalDelta);
+                    // The focal scan displays a parallel fan at zero displacement.
+                    // Retain a finite focus on the other axis of a cylindrical system.
                     (tangentialDelta, sagittalDelta) = scanUsesX
-                        ? (components.Sagittal, components.Tangential) : (components.Tangential, components.Sagittal);
+                        ? (components.Sagittal ?? 0, components.Tangential ?? 0)
+                        : (components.Tangential ?? 0, components.Sagittal ?? 0);
                 }
                 else
                 {

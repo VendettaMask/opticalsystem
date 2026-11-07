@@ -1,6 +1,8 @@
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Apodization;
+using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Services;
 
@@ -60,23 +62,7 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             };
         var fields = fieldIndices.Select(index => allFields[index]).ToArray();
         var wavelengths = AnalysisTrace.SelectWavelengths(analysisOptic, _settings.WavelengthNumber);
-        IReadOnlyList<PupilSample>? importanceSamples = null;
-        if (analysisOptic.Apodization is ZemaxApodization { Type: ZemaxApodizationType.Gaussian, Factor: > 0 } gaussian
-            && _settings.Pattern.Equals("hexapolar", StringComparison.OrdinalIgnoreCase))
-        {
-            // Inverse cumulative intensity of a truncated Gaussian disk.
-            // Equal-flux sampling replaces illumination weighting; compensate
-            // the generator's physical apodization to avoid applying it twice.
-            var exponent = 2 * gaussian.Factor;
-            var enclosed = -double.ExpM1(-exponent);
-            importanceSamples = ApertureSampler.GenerateHexapolarRings(_settings.RayDensity).Select(sample =>
-            {
-                var radiusSquared = sample.X * sample.X + sample.Y * sample.Y;
-                var mappedSquared = radiusSquared >= 1 ? 1 : -double.LogP1(-radiusSquared * enclosed) / exponent;
-                var scale = radiusSquared > 0 ? Math.Sqrt(mappedSquared / radiusSquared) : 1;
-                return new PupilSample(sample.X * scale, sample.Y * scale, sample.Weight);
-            }).ToArray();
-        }
+        var importanceSamples = CreateHexapolarImportanceSamples(analysisOptic);
         var result = SpotAnalysisEngine.Generate(
             analysisOptic,
             fields,
@@ -198,6 +184,41 @@ public sealed class SpotDiagramAnalysis : BaseAnalysis
             ["IgnoreLateralColor"] = _settings.IgnoreLateralColor,
             ["MaximumGeometricSpotRadius"] = maximumRadius
         }, firstSeries, firstSeries is null ? null : new[] { firstSeries }, PlotPanes: panes, PlotPaneColumns: 3);
+    }
+
+    private IReadOnlyList<PupilSample>? CreateHexapolarImportanceSamples(Optic optic)
+    {
+        if (!_settings.Pattern.Equals("hexapolar", StringComparison.OrdinalIgnoreCase)
+            || optic.Apodization is not ZemaxApodization apodization) return null;
+
+        Func<double, double> radiusScale;
+        if (apodization is { Type: ZemaxApodizationType.Gaussian, Factor: > 0 })
+        {
+            var exponent = 2 * apodization.Factor;
+            var enclosed = -double.ExpM1(-exponent);
+            radiusScale = u => Math.Sqrt((-double.LogP1(-u * enclosed) / exponent) / u);
+        }
+        else if (apodization.Type == ZemaxApodizationType.CosineCubed
+            && optic.Aperture.Kind != ApertureKind.ObjectConeAngle)
+        {
+            var hypotenuse = double.Hypot(1, optic.SequentialRayTracer.RayGenerator.ApodizationMarginalSlope());
+            if (!(hypotenuse > 1) || !double.IsFinite(hypotenuse)) return null;
+            // Equal solid angle in a finite planar pupil. Invert the normalized
+            // radial CDF of (1 + slope² r²)^(-3/2), keeping the edge at r = 1.
+            var edgeCosine = 1 / hypotenuse;
+            radiusScale = u => Math.Sqrt((2 - u * (1 - edgeCosine)) / (1 + edgeCosine))
+                / (hypotenuse * (1 - u) + u);
+        }
+        else return null;
+
+        // SpotAnalysisEngine compensates the physical apodization in the
+        // statistics, because the remapped nodes already represent equal flux.
+        return ApertureSampler.GenerateHexapolarRings(_settings.RayDensity).Select(sample =>
+        {
+            var u = sample.X * sample.X + sample.Y * sample.Y;
+            var scale = u >= 1 ? 1 / Math.Sqrt(u) : u > 0 ? radiusScale(u) : 1;
+            return new PupilSample(sample.X * scale, sample.Y * scale, sample.Weight);
+        }).ToArray();
     }
 
     private bool IsColorByField()
@@ -362,12 +383,21 @@ public sealed class RayFanAnalysis : BaseAnalysis
 
             var reference = waves[Math.Min(primaryIndex, waves.Count - 1)];
             var center = _numPoints / 2;
+            var geometricChief = _zemaxCompatible
+                && (reference.X[center].Intensity <= 0 || reference.Y[center].Intensity <= 0)
+                && reference.X.Concat(reference.Y).Any(sample => sample.Intensity > 0)
+                    ? GeometricChief(analysisOptic, targetSurface, field, reference.Wavelength)
+                    : null;
             var xOffset = reference.X[center].Intensity > 0
                 ? reference.X[center].Value
-                : reference.X.Where(point => point.Intensity > 0).Select(point => point.Value).DefaultIfEmpty(0).Average();
+                : geometricChief is { } xChief
+                    ? AberrationValue(targetSurface, xChief.Position, xChief.Direction, _sagittalComponent, true, imageSpace)
+                    : reference.X.Where(point => point.Intensity > 0).Select(point => point.Value).DefaultIfEmpty(0).Average();
             var yOffset = reference.Y[center].Intensity > 0
                 ? reference.Y[center].Value
-                : reference.Y.Where(point => point.Intensity > 0).Select(point => point.Value).DefaultIfEmpty(0).Average();
+                : geometricChief is { } yChief
+                    ? AberrationValue(targetSurface, yChief.Position, yChief.Direction, _tangentialComponent, true, imageSpace)
+                    : reference.Y.Where(point => point.Intensity > 0).Select(point => point.Value).DefaultIfEmpty(0).Average();
             waves = waves.Select(wave => wave with
             {
                 X = wave.X.Select(point => point with { Value = point.Value - xOffset }).ToArray(),
@@ -541,21 +571,34 @@ public sealed class RayFanAnalysis : BaseAnalysis
                 return new RayFanSample(double.NaN, 0);
             }
 
-            if (imageSpace.Kind == ImageSpaceCoordinateKind.AfocalAngle)
-            {
-                var angle = ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(
-                    targetSurface,
-                    sample.Direction);
-                var angleValue = component == RayFanAberrationComponent.Y ? angle.Y : angle.X;
-                return new RayFanSample(angleValue, sample.Intensity);
-            }
-
-            var position = localCoordinates
-                ? targetSurface.CoordinateSystem.ToLocalPoint(sample.Position)
-                : sample.Position;
-            var value = component == RayFanAberrationComponent.Y ? position.Y : position.X;
-            return new RayFanSample(value, sample.Intensity);
+            return new RayFanSample(AberrationValue(targetSurface, sample.Position, sample.Direction,
+                component, localCoordinates, imageSpace), sample.Intensity);
         }).ToArray();
+    }
+
+    private static RayTraceSample GeometricChief(
+        Optic optic, OpticalSurface surface, (double Hx, double Hy) field, Wavelength wavelength)
+    {
+        // Only the reference intercept bypasses apertures. Its sample remains
+        // absent from the physical fan and contributes no transmitted power.
+        var ray = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(field.Hx, field.Hy, 0, 0,
+            wavelength.Micrometers, aimAtStop: optic.RayAimingEnabled).Rays.Single();
+        var chief = optic.SequentialRayTracer.TraceToSurface(ray, optic.SurfaceGroup.Items.IndexOf(surface));
+        return chief is { Vignetted: false, Intensity: > 0 } && chief.SurfaceNumber == surface.Number
+            ? chief
+            : throw new AnalysisDataUnavailableException("Ray Fan", "the geometric chief ray did not reach the selected surface");
+    }
+
+    private static double AberrationValue(OpticalSurface surface, Vector3D position, Vector3D direction,
+        RayFanAberrationComponent component, bool localCoordinates, ImageSpaceCoordinateDescriptor imageSpace)
+    {
+        if (imageSpace.Kind == ImageSpaceCoordinateKind.AfocalAngle)
+        {
+            var angle = ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(surface, direction);
+            return component == RayFanAberrationComponent.Y ? angle.Y : angle.X;
+        }
+        var point = localCoordinates ? surface.CoordinateSystem.ToLocalPoint(position) : position;
+        return component == RayFanAberrationComponent.Y ? point.Y : point.X;
     }
 
     private Optic ResolveAnalysisOptic()

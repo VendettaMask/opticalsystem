@@ -1,0 +1,174 @@
+{
+  "frozenIndex": 950,
+  "frozenSettingsPreserved": true,
+  "original32PublishedPointsEqual": true,
+  "threshold": {
+    "absolute": 1e-05,
+    "relative": 0.002,
+    "nrmse": 0.003,
+    "closeNrmse": 0.01,
+    "minimumCoverage": 0.95
+  },
+  "nativeReferencePolicy": "Original capture reused, six-decimal text, common physical range only",
+  "samplingConvergenceEstablished": false,
+  "rows": [
+    {
+      "pupilSampling": 1024,
+      "imageSampling": 32,
+      "imageDeltaMicrometers": 0.25,
+      "requestFingerprint": "17e040ac337233b4d6f63e984aaa5e97481bdcfcc57ddb5d1f14c2d472f2ff2f",
+      "snapshotSha256": "91293cb8f215c3c32073b0280ec3d640bca5926ab3e1c36340da05eda9059823",
+      "applicationAndCoreSha256": "cda4b3c3f4ca640c9431249a17cae391096ffa165847357f4b98e3c581e99644:c13b87e55f35ede94e38a9632c1f96a04e941c9e3f4f093bd1f4713fb0925b40",
+      "coreOutputSha256": "986b8be0d353fe1bed62858c6c92ef758287af2ef8156cb3b30c5de4c3c9a8e6",
+      "nativeReportSha256": "5d1958abbcc5100bd17893b008bda16477415035c60d7568fb5bc2d77426840e",
+      "nativeSettingsSha256": "9b1cbe965029f8ddb2a991c7cfce0e0e11fce478c2497fed50c0f274a951ec83",
+      "nativeReportSource": "validation/rechecks/2026-11-07/dense-huygens-conic/numeric-controls.zip::native/950-1024/data.txt",
+      "nativeTextDecimals": 6,
+      "comparedPoints": 32,
+      "nativePoints": 33,
+      "physicalCoverage": 0.96875,
+      "maximumAbsoluteNativeError": 4.5871891438110146e-07,
+      "absolutePointGatePass": true,
+      "maximumAbsoluteDifferenceFromIndependentFiniteSum": 7.99714637502065e-15,
+      "corePeakStrehl": 1.641264397821749e-05,
+      "coreCenterStrehl": 1.641264397821749e-05,
+      "coreCentroidXMicrometers": -0.1311278052057694,
+      "coreCentroidYMicrometers": -0.13112780520576583,
+      "nativeTextPeak": 1.6e-05,
+      "work": [
+        {
+          "sources": 818753,
+          "imageSize": 32,
+          "fourierSize": 256,
+          "taylorOrder": 11,
+          "estimatedOperations": 88708290,
+          "workingBytes": 164628512,
+          "absoluteFieldErrorBound": 1.9896648203055508e-07,
+          "usesAdaptiveSourceOrders": false,
+          "method": "CompensatedFourierMoments",
+          "certifiesPupilSampling": false
+        }
+      ]
+    },
+    {
+      "pupilSampling": 2048,
+      "imageSampling": 32,
+      "imageDeltaMicrometers": 0.25,
+      "requestFingerprint": "30b7468e933226853b71dcbfe812f8043283a557c3cd32cfe380b359f59c671d",
+      "snapshotSha256": "91293cb8f215c3c32073b0280ec3d640bca5926ab3e1c36340da05eda9059823",
+      "applicationAndCoreSha256": "cda4b3c3f4ca640c9431249a17cae391096ffa165847357f4b98e3c581e99644:c13b87e55f35ede94e38a9632c1f96a04e941c9e3f4f093bd1f4713fb0925b40",
+      "coreOutputSha256": "81080ebbc58de67023d31ea5cb5d42fe6910761a57533890c91c084dce327b43",
+      "nativeReportSha256": "ce4b7302d0e532a24593c07ebd007d96a31dc64f23d1e3d9031c1b66301e9a9f",
+      "nativeSettingsSha256": "0b486c4f7773bc53d91d069a629ce9ad0e7ff837e612f7df7e37956fe6f267e3",
+      "nativeReportSource": "validation/rechecks/2026-11-07/dense-huygens-conic/numeric-controls.zip::native/950-2048/data.txt",
+      "nativeTextDecimals": 6,
+      "comparedPoints": 32,
+      "nativePoints": 33,
+      "physicalCoverage": 0.96875,
+      "maximumAbsoluteNativeError": 4.777891050423121e-07,
+      "absolutePointGatePass": true,
+      "maximumAbsoluteDifferenceFromIndependentFiniteSum": 3.2086497426587514e-16,
+      "corePeakStrehl": 4.842079499249516e-06,
+      "coreCenterStrehl": 4.842079499249516e-06,
+      "coreCentroidXMicrometers": -0.04234020513402914,
+      "coreCentroidYMicrometers": -0.04234020513403136,
+      "nativeTextPeak": 5e-06,
+      "work": [
+        {
+          "sources": 3284573,
+          "imageSize": 32,
+          "fourierSize": 256,
+          "taylorOrder": 10,
+          "estimatedOperations": 210427140,
+          "workingBytes": 115359744,
+          "absoluteFieldErrorBound": 3.085152075022192e-06,
+          "usesAdaptiveSourceOrders": false,
+          "pupilBatchSize": 32768,
+          "method": "BatchedPupilCompensatedFourierMoments",
+          "certifiesPupilSampling": false
+        }
+      ]
+    },
+    {
+      "pupilSampling": 4096,
+      "imageSampling": 32,
+      "imageDeltaMicrometers": 0.25,
+      "requestFingerprint": "4de9be84d91cb333425894d2607e786c0d6a57e105c2f23da986178c9ea021d3",
+      "snapshotSha256": "91293cb8f215c3c32073b0280ec3d640bca5926ab3e1c36340da05eda9059823",
+      "applicationAndCoreSha256": "cda4b3c3f4ca640c9431249a17cae391096ffa165847357f4b98e3c581e99644:c13b87e55f35ede94e38a9632c1f96a04e941c9e3f4f093bd1f4713fb0925b40",
+      "coreOutputSha256": "9cd0c0f0f34729fcc947f435eb9687a7053167467e96a784d09ad3d17e4174bf",
+      "nativeReportSha256": "41c37bf8c9b3cf285bb700d8346e8e6a5386a61d7304f5b13c8da01c74e3ae53",
+      "nativeSettingsSha256": "bbe918c33bb87557f5db038444ec5486f23429e0234a6b109395ce51584f09bf",
+      "nativeReportSource": "validation/rechecks/2026-11-07/residual-reference-followup/native/950-4096/data.txt",
+      "nativeTextDecimals": 6,
+      "comparedPoints": 32,
+      "nativePoints": 33,
+      "physicalCoverage": 0.96875,
+      "maximumAbsoluteNativeError": 3.14406263730449e-07,
+      "absolutePointGatePass": true,
+      "maximumAbsoluteDifferenceFromIndependentFiniteSum": 2.736241468524899e-16,
+      "corePeakStrehl": 1.2794443876932289e-06,
+      "coreCenterStrehl": 1.2794443876932289e-06,
+      "coreCentroidXMicrometers": -0.08054301311912938,
+      "coreCentroidYMicrometers": -0.08054301311912848,
+      "nativeTextPeak": 1e-06,
+      "work": [
+        {
+          "sources": 13157549,
+          "imageSize": 32,
+          "fourierSize": 256,
+          "taylorOrder": 10,
+          "estimatedOperations": 754323790,
+          "workingBytes": 115359744,
+          "absoluteFieldErrorBound": 1.2359453146796125e-05,
+          "usesAdaptiveSourceOrders": false,
+          "pupilBatchSize": 32768,
+          "method": "BatchedPupilCompensatedFourierMoments",
+          "certifiesPupilSampling": false
+        }
+      ]
+    }
+  ],
+  "logarithmicDisplayVerification": [
+    {
+      "pupilSampling": 1024,
+      "nativeSelector": "X_Logarithmic",
+      "same33PrintedLinearPoints": true,
+      "linearReportSha256": "5d1958abbcc5100bd17893b008bda16477415035c60d7568fb5bc2d77426840e",
+      "logReportSha256": "5d1958abbcc5100bd17893b008bda16477415035c60d7568fb5bc2d77426840e"
+    },
+    {
+      "pupilSampling": 2048,
+      "nativeSelector": "X_Logarithmic",
+      "same33PrintedLinearPoints": true,
+      "linearReportSha256": "ce4b7302d0e532a24593c07ebd007d96a31dc64f23d1e3d9031c1b66301e9a9f",
+      "logReportSha256": "ce4b7302d0e532a24593c07ebd007d96a31dc64f23d1e3d9031c1b66301e9a9f"
+    },
+    {
+      "pupilSampling": 4096,
+      "nativeSelector": "X_Logarithmic",
+      "same33PrintedLinearPoints": true,
+      "linearReportSha256": "41c37bf8c9b3cf285bb700d8346e8e6a5386a61d7304f5b13c8da01c74e3ae53",
+      "logReportSha256": "41c37bf8c9b3cf285bb700d8346e8e6a5386a61d7304f5b13c8da01c74e3ae53"
+    }
+  ],
+  "archiveSha256": "87b1debdfe3cfc2783e6262d53450362a88bdf8a284ddbc669ab249ebc868971",
+  "elapsedMeasuredSeconds": [
+    {
+      "pupilSampling": 32,
+      "wallSeconds": 1.1759047
+    },
+    {
+      "pupilSampling": 1024,
+      "wallSeconds": 13.1028145
+    },
+    {
+      "pupilSampling": 2048,
+      "wallSeconds": 58.8273606
+    },
+    {
+      "pupilSampling": 4096,
+      "wallSeconds": 235.4992003
+    }
+  ]
+}

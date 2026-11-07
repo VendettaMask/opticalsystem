@@ -103,8 +103,9 @@ public sealed class ObjectivesEnergy32RepairTests
         {
             var path = Path.GetFullPath(Path.Combine(Fixtures, file.GetProperty("path").GetString()!));
             Assert.StartsWith(Path.GetFullPath(Fixtures) + Path.DirectorySeparatorChar, path);
-            Assert.Equal(file.GetProperty("bytes").GetInt64(), new FileInfo(path).Length);
-            Assert.Equal(file.GetProperty("sha256").GetString(), Hash(path));
+            var bytes = EvidenceFiles.ReadAllBytes(path);
+            Assert.Equal(file.GetProperty("bytes").GetInt64(), bytes.LongLength);
+            Assert.Equal(file.GetProperty("sha256").GetString(), Convert.ToHexStringLower(SHA256.HashData(bytes)));
         }
     }
 

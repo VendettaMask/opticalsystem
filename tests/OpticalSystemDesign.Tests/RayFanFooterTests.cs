@@ -167,6 +167,9 @@ public sealed class RayFanFooterTests
         }));
     }
 
-    private static StackPanel Left(Border footer) =>
-        Assert.IsType<StackPanel>(Assert.IsAssignableFrom<Grid>(footer.Child).Children[0]);
+    private static StackPanel Left(Border footer)
+    {
+        var summaryHost = Assert.IsType<Grid>(Assert.IsAssignableFrom<Grid>(footer.Child).Children[0]);
+        return Assert.Single(summaryHost.Children.OfType<StackPanel>());
+    }
 }

@@ -1,0 +1,86 @@
+{
+  "hubble": {
+    "key": "First Order",
+    "lens": "Telescopes/Hubble.zmx",
+    "sourceSha256": "07a84224ec7c4422de621b38aae3665a894005afbd201ae9a146afff17b2dbcf",
+    "sourceProbeUnit": "Meters",
+    "scaleReceipt": {
+      "originalUnit": "Meters",
+      "convertedUnit": "Millimeters",
+      "method": "OpticStudio.Tools.OpenScale.ScaleByUnits",
+      "savedInput": false
+    },
+    "convertedModelUnit": "Millimeters",
+    "cliOptIn": true,
+    "sourceUnchanged": true,
+    "verdict": "Pass",
+    "metrics": [
+      {
+        "id": "EffectiveFocalLength",
+        "unit": "Millimeter",
+        "count": 1,
+        "maxAbsolute": 1.6007106751203537e-10,
+        "meanAbsolute": 1.6007106751203537e-10,
+        "rmse": 1.6007106751203537e-10,
+        "nrmse": 2.7790185896675367e-15,
+        "maxRelative": 2.7790185896675367e-15,
+        "p50": 1.6007106751203537e-10,
+        "p90": 1.6007106751203537e-10,
+        "p95": 1.6007106751203537e-10,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 57599.854893804346,
+          "zemax": 57599.854893804506
+        }
+      },
+      {
+        "id": "FNumber",
+        "unit": "Dimensionless",
+        "count": 1,
+        "maxAbsolute": 6.750155989720952e-14,
+        "meanAbsolute": 6.750155989720952e-14,
+        "rmse": 6.750155989720952e-14,
+        "nrmse": 2.812572081162102e-15,
+        "maxRelative": 2.812572081162102e-15,
+        "p50": 6.750155989720952e-14,
+        "p90": 6.750155989720952e-14,
+        "p95": 6.750155989720952e-14,
+        "pearson": null,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {
+          "workbench": 23.999939539085144,
+          "zemax": 23.99993953908521
+        }
+      }
+    ]
+  },
+  "oap": {
+    "index": 2605,
+    "lens": "Tilted systems & prisms/OAP using Chebyshev Polynomial surface.zmx",
+    "key": "RMS vs Field",
+    "sourceSha256": "1e0db932a67d31dcae4f3633811e65081401e0b0cdf8136789ac0ea76b6fa8c7",
+    "exactFrozenCanonicalRequest": true,
+    "referenceAvailable": false,
+    "coreOutputAvailable": true,
+    "verdict": "Incomparable",
+    "nativeDiagnostics": {
+      "seriesCount": 1,
+      "gridCount": 0,
+      "messages": [
+        {
+          "errorCode": "Success",
+          "text": "计算终止; 无效的结果!"
+        }
+      ]
+    },
+    "nativeReportSha256": "50eac756bc4eb170cb7d3c90b20bb7cfb5ece7a3b0e5c4840d6ab06ca700b2a3",
+    "nativeReportText": "计算终止; 无效的结果!\r\n\r\n"
+  }
+}

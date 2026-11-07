@@ -13,6 +13,8 @@ public static class SequentialOpticalAssemblyConverter
     public static NonSequentialDocument Convert(Optic optic,NonSequentialTraceSettings? settings=null)
     {
         ArgumentNullException.ThrowIfNull(optic);
+        if (optic.Aperture.Kind == ApertureKind.ObjectConeAngle)
+            throw new NotSupportedException("完整 NSC 转换尚不支持物方锥半角发射。");
         Capabilities.OpticCapabilityPreflight.EnsureSupported(optic,Capabilities.OpticCapabilityOperation.Conversion,"完整顺序光学组件");
         if(!optic.Polarization.Unpolarized||optic.Apodization is not (null or Apodization.UniformApodization))
             throw new NotSupportedException("完整 NSC 转换当前只支持无额外瞳面加权的非偏振标量光学系统。");

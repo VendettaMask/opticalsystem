@@ -1,0 +1,113 @@
+{
+  "lenses": 95,
+  "configurations": 115,
+  "frozenRequests": 3024,
+  "executedRequests": 2904,
+  "nativeReferenceFilesVerified": 30700,
+  "originalPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "assemblies": [
+    {
+      "path": "D:\\Projects\\opticalsystem\\artifacts\\validation\\pq1107\\bin\\OpticalSystemDesign.Core.dll",
+      "sha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\artifacts\\validation\\pq1107\\bin\\OpticalSystemDesign.ZemaxComparison.dll",
+      "sha256": "f570f8e98079067609b8da5e1ce53b6b60eba59e768fcb4f9fb237053f2e3381"
+    },
+    {
+      "path": "D:\\Projects\\opticalsystem\\artifacts\\validation\\pq1107\\bin\\ExampleAccuracy20261031.dll",
+      "sha256": "d4f2d5001411e436f4e18cc74cbfbe00a6900c4fac9925bf0d3b66c318c7a5a7"
+    }
+  ],
+  "workbenchApplicationSha256": "804dabed58c6da13f04ba4226ed2a72d470a1e8bf1745a18518e07da7b8fd20e",
+  "startedUtc": "2026-11-07T13:14:52.792508+00:00",
+  "completedUtc": "2026-11-07T13:29:20.1096341+00:00",
+  "previousCounts": {
+    "Pass": 2526,
+    "Close": 20,
+    "Difference": 31,
+    "Incomparable": 427,
+    "Error": 20
+  },
+  "frozenCounts": {
+    "Pass": 2526,
+    "Close": 20,
+    "Difference": 31,
+    "Incomparable": 427,
+    "Error": 20
+  },
+  "changes": [],
+  "previousPassLost": 0,
+  "supplemental": {
+    "numericalResiduals": {
+      "同源加密参考已通过": 19,
+      "等效参考已通过": 7,
+      "细步长参考已通过": 13,
+      "细步长及独立弧长已通过": 4,
+      "独立解析已通过，原生操作数仍偏离": 1,
+      "近轴光线独立参考已通过": 1,
+      "截线同档绝对通过，强度相对收敛未证实": 1,
+      "同档已通过，双侧采样未收敛": 1,
+      "物理归一化域不同": 1,
+      "有焦舍入差异已定位": 2,
+      "同档照度数值差异未解决": 1
+    },
+    "incomparableCoverage": {
+      "IndependentNumericalPass": 287,
+      "ScopeNotApplicable": 20,
+      "ConvergedComparisonNotEstablished": 63,
+      "ConfirmedNativeReferenceUnavailable": 53,
+      "IndependentClose": 2,
+      "MissingNativeReference": 2
+    },
+    "explicitOpdIsSubsetOfIncomparable": true,
+    "explicitOpdPreviouslyOpen": 22,
+    "explicitOpdCurvePass": 22,
+    "explicitOpdPointwiseOpen": [
+      458,
+      466
+    ],
+    "fixedFftAdaptivePass": 20,
+    "independentOpen": 129
+  },
+  "tests": {
+    "core": {
+      "total": "311",
+      "executed": "311",
+      "passed": "311",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    },
+    "comparison": {
+      "total": "93",
+      "executed": "93",
+      "passed": "93",
+      "failed": "0",
+      "error": "0",
+      "timeout": "0",
+      "aborted": "0",
+      "inconclusive": "0",
+      "passedButRunAborted": "0",
+      "notRunnable": "0",
+      "notExecuted": "0",
+      "disconnected": "0",
+      "warning": "0",
+      "completed": "0",
+      "inProgress": "0",
+      "pending": "0"
+    }
+  },
+  "resultSha256": "0402866d75548127dcd800f4cbb2e27f10db092295ae9226309bc6a7f3e63003",
+  "requestMappingSha256": "e8506c565fe31fc62ae539b49e93fe87cdf763a8e611810b5fce2ce708853cb4"
+}

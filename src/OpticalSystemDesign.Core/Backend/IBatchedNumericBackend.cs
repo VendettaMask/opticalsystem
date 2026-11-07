@@ -180,7 +180,7 @@ internal sealed class ScalarBatchedNumericBackendAdapter : IBatchedNumericBacken
         }
 
         var conicFactor = 1.0 + conic;
-        var longLaunch = DistantLaunchThreshold(radius);
+        var longLaunch = DistantLaunchThreshold(radius, conic);
         var surface = new RotationalSurfaceEquation { Kind = 1, Radius = radius, Conic = conic };
         for (var index = 0; index < originX.Length; index++)
         {

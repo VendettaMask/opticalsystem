@@ -45,7 +45,9 @@ public sealed partial class OpticalSurface
         CoordinateSystem? materialBeforeCoordinates = null,
         bool allowVirtualIntersection = false,
         bool ignoreMaterialAbsorption = false,
-        Func<RealRay, SurfaceInteractionContext, double>? surfacePhaseOpticalPath = null)
+        Func<RealRay, SurfaceInteractionContext, double>? surfacePhaseOpticalPath = null,
+        bool useObjectConeIntersection = false,
+        FloatingConicEdge? floatingConicEdge = null)
     {
         OpticCapabilityPreflight.EnsureSurfaceSupported(this, OpticCapabilityOperation.RayTrace);
         var ray = inputRay.Normalize();
@@ -136,7 +138,9 @@ public sealed partial class OpticalSurface
                     var coordinateScale = Math.Max(Math.Abs(vertex.X), Math.Max(Math.Abs(vertex.Y), Math.Abs(vertex.Z)));
                     return tilted.DistanceToIntersection(localOrigin, direction, coordinateScale);
                 }
-                var hit = Geometry.DistanceToIntersection(localOrigin, direction);
+                var hit = useObjectConeIntersection && Geometry is StandardGeometry standard
+                    ? standard.IntersectFromObjectCone(localOrigin, direction)
+                    : Geometry.DistanceToIntersection(localOrigin, direction);
                 if (hit.IsHit || Geometry is not GridSagGeometry grid
                     || !IsNeutralGridReference(grid, materialBefore, materialAfter))
                     return hit;
@@ -175,7 +179,7 @@ public sealed partial class OpticalSurface
         };
         var vignetted = !ignorePhysicalAperture
             && PhysicalAperture is not null
-            && !PhysicalAperture.Contains(localHit);
+            && !(floatingConicEdge?.Contains(localHit) ?? PhysicalAperture.Contains(localHit));
         if (vignetted)
         {
             var stopped = propagated with { Intensity = 0 };

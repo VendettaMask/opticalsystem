@@ -75,6 +75,9 @@ public sealed class ExitPupilFNumberTests
         var data = new FieldCurvatureAndDistortionAnalysis(optic).GenerateData();
         Assert.Equal(AnalysisOutcome.NotApplicable, data.Outcome);
         Assert.Equal(FocalImageDomain.CollimatedPlaneTrain, data.Values[FocalImageDomain.ResultKey]);
+        var energy = new DiffractionEncircledEnergyAnalysis(optic).GenerateData();
+        Assert.Equal(AnalysisOutcome.NotApplicable, energy.Outcome);
+        Assert.Equal(FocalImageDomain.CollimatedPlaneTrain, energy.Values[FocalImageDomain.ResultKey]);
         var separated = OpticalFormatCatalog.Import(plane.Replace("DISZ 0", "DISZ 10"), ".zmx");
         Assert.False(FocalImageDomain.IsCollimatedPlaneAtImage(separated));
     }

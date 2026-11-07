@@ -1443,24 +1443,12 @@ public static partial class DiffractionEngine
         if (!optic.ImageSpaceAfocal)
         {
             var pupilDistance = Math.Abs(optic.Paraxial.EstimateExitPupilLocation());
-            var halfWidth = (imageSize / 2d) * pixelPitchMillimeters;
-            var cornerX = halfWidth + Math.Abs(imageCenterOffset?.X ?? 0);
-            var cornerY = halfWidth + Math.Abs(imageCenterOffset?.Y ?? 0);
-            var corner = Math.Sqrt(cornerX * cornerX + cornerY * cornerY);
-            // The plane-wave reference is adequate when the phase curvature
-            // across the requested image is no more than a quarter wavelength.
-            var curvature = corner * corner / (Math.Sqrt(pupilDistance * pupilDistance + corner * corner) + pupilDistance);
-            var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
             if (double.IsFinite(pupilDistance) && pupilDistance > 0)
             {
-                // A flat mirror array in an otherwise planar train sends
-                // piecewise collimated wavelets. A large centroid offset
-                // changes their phase tilt, not their propagation curvature.
-                var segmentedPlaneTrain = optic.SurfaceGroup.Items.Any(surface => surface.Geometry is TernaryMirrorArrayGeometry)
-                    && FocalImageDomain.IsCollimatedPlaneTrain(optic, allowSegmentedMirrors: true);
                 return ComputeFocusedHuygensPsf(optic, field, wavelength, numRays, imageSize,
                     pixelPitchMillimeters, aimAtStop, referenceWavelength, imageCenterOffset,
-                    spherical: !segmentedPlaneTrain && curvature * imageIndex > wavelength.Micrometers * .001 / 4,
+                    spherical: UsesSphericalFocusedHuygens(optic, wavelength, pupilDistance,
+                        imageSize, pixelPitchMillimeters, imageCenterOffset),
                     usePolarization: usePolarization);
             }
             if (!usePolarization && pupilDistance == 0)
@@ -1642,19 +1630,37 @@ public static partial class DiffractionEngine
 
     private static IReadOnlyList<PupilSample> HuygensPupilSamples(int count)
     {
+        HuygensFourierSum.ValidatePupilTraceWork(count);
+        return HuygensPupilNodes(count).ToArray();
+    }
+
+    private static IEnumerable<PupilSample> HuygensPupilNodes(int count)
+    {
         var nativeGrid = count >= 8 && count % 2 == 0;
         var radius = nativeGrid ? count / 2d - 1 : (count - 1) / 2d;
         // Cell centers stop half a radial cell inside the endpoint boundary.
         var limit = nativeGrid ? 1 - .5 / radius : 1;
-        var samples = new List<PupilSample>();
         for (var row = 0; row < count; row++)
             for (var column = 0; column < count; column++)
             {
                 var x = nativeGrid ? (column - count / 2d) / radius : -1 + 2d * column / (count - 1);
                 var y = nativeGrid ? (row - count / 2d) / radius : -1 + 2d * row / (count - 1);
-                if (x * x + y * y <= limit * limit) samples.Add(new(x, y, 1));
+                if (x * x + y * y <= limit * limit) yield return new(x, y, 1);
             }
-        return samples;
+    }
+
+    private static bool UsesSphericalFocusedHuygens(Optic optic, Wavelength wavelength, double pupilDistance,
+        int imageSize, double pitch, (double X, double Y)? imageCenterOffset)
+    {
+        var extent = imageSize / 2d * pitch
+            + Math.Max(Math.Abs(imageCenterOffset?.X ?? 0), Math.Abs(imageCenterOffset?.Y ?? 0));
+        // Test a quarter wavelength at the larger image-axis extent.
+        var curvature = extent * extent / (Math.Sqrt(pupilDistance * pupilDistance + extent * extent) + pupilDistance);
+        var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
+        // A flat mirror array in a planar train sends piecewise collimated wavelets.
+        var segmentedPlaneTrain = optic.SurfaceGroup.Items.Any(surface => surface.Geometry is TernaryMirrorArrayGeometry)
+            && FocalImageDomain.IsCollimatedPlaneTrain(optic, allowSegmentedMirrors: true);
+        return !segmentedPlaneTrain && curvature * imageIndex > wavelength.Micrometers * .001 / 4;
     }
 
     private static PsfResult ComputePlanarHuygensPsf(
@@ -1751,27 +1757,25 @@ public static partial class DiffractionEngine
             + frame.TangentY * (imageCenterOffset?.Y ?? 0);
         var pupilDiameter = Math.Abs(optic.Paraxial.EstimateExitPupilDiameter());
         var pupilDistance = Math.Abs(optic.Paraxial.EstimateExitPupilLocation());
-        var intervals = pupilSampling >= 8 && pupilSampling % 2 == 0 ? pupilSampling - 2 : pupilSampling - 1;
         var wavelengthMillimeters = wavelength.Micrometers * .001;
         // The finite sampling footprint is the transform of a rectangular
         // pupil cell. Its first zero is half the pupil interval count times
         // the paraxial Airy radius (1.22 lambda R/D), in the image medium.
-        var halfExtent = limitingPupilRatio.HasValue
-            ? .61 * wavelengthMillimeters * limitingPupilRatio.Value * intervals / wavefront.ImageRefractiveIndex
-            : .61 * wavelengthMillimeters * pupilDistance * intervals / (wavefront.ImageRefractiveIndex * pupilDiameter);
-        // The scalar paraxial pupil is an axial plane relative to the image
-        // vertex, as in the shared reference-sphere construction. Recover its
-        // ray positions and optical paths from that sphere before applying
-        // spherical phase and inverse-distance amplitude. A sphere-centered
-        // source with a lens-datum obliquity gives a different field.
-        var pupilPlaneZ = optic.SurfaceGroup.Items[^1].CoordinateSystem.Origin.Z
-            + optic.Paraxial.EstimateExitPupilLocation();
-        var emitters = wavefront.Samples.Select((sample, index) =>
+        var halfExtent = FocusedHuygensHalfExtent(pupilSampling, wavelengthMillimeters, pupilDistance,
+            pupilDiameter, wavefront.ImageRefractiveIndex, limitingPupilRatio);
+        // The exit-pupil distance is measured from the image vertex in its
+        // local frame. Recover the emitter on that plane before evaluating
+        // spherical propagation, including when the image frame is folded.
+        var imageCoordinates = optic.SurfaceGroup.Items[^1].CoordinateSystem;
+        var pupilPlaneZ = spherical ? optic.Paraxial.EstimateExitPupilLocation() : 0;
+        var emitters = wavefront.Samples.Select((sample, index) => (sample, index))
+            .Where(item => item.sample.Intensity > 0 && item.sample.ImageDirection is { Length: > 0 })
+            .Select(item =>
         {
+            var (sample, index) = item;
             var pupil = new Vector3D(sample.PupilX, sample.PupilY, sample.PupilZ);
             var direction = sample.ImageDirection ?? Vector3D.Zero;
-            var shift = spherical && Math.Abs(direction.Z) > 1e-14
-                ? (pupil.Z - pupilPlaneZ) / direction.Z : 0;
+            var shift = spherical ? HuygensPupilPlaneShift(imageCoordinates, pupilPlaneZ, pupil, direction) : 0;
             return (Pupil: pupil - direction * shift, Direction: direction,
                 OpticalPath: -sample.OpdWaves * wavelengthMillimeters,
                 Path: -sample.OpdWaves * wavelengthMillimeters
@@ -1832,7 +1836,7 @@ public static partial class DiffractionEngine
                         vectorSum += emitter.VectorField * propagation;
                     }
                 }
-                var footprint = Sinc(Math.PI * x / halfExtent) * Sinc(Math.PI * y / halfExtent);
+                var footprint = HuygensCellSinc(Math.PI * x / halfExtent) * HuygensCellSinc(Math.PI * y / halfExtent);
                 values[row, column] = (vectorFields is null ? sum.Magnitude * sum.Magnitude : vectorSum.SquaredNorm) * footprint * footprint
                     / (idealAmplitude * idealAmplitude) * 100;
             }
@@ -1847,8 +1851,26 @@ public static partial class DiffractionEngine
                 : useUnpolarizedPower ? HuygensPolarizationMode.UnpolarizedMeanPower : HuygensPolarizationMode.None
         };
 
-        static double Sinc(double argument) => Math.Abs(argument) < 1e-8
-            ? 1 - argument * argument / 6 : Math.Sin(argument) / argument;
+    }
+
+    private static double FocusedHuygensHalfExtent(int pupilSampling, double wavelengthMillimeters,
+        double pupilDistance, double pupilDiameter, double imageIndex, double? limitingPupilRatio = null)
+    {
+        var intervals = pupilSampling >= 8 && pupilSampling % 2 == 0 ? pupilSampling - 2 : pupilSampling - 1;
+        return limitingPupilRatio.HasValue
+            ? .61 * wavelengthMillimeters * limitingPupilRatio.Value * intervals / imageIndex
+            : .61 * wavelengthMillimeters * pupilDistance * intervals / (imageIndex * pupilDiameter);
+    }
+
+    private static double HuygensCellSinc(double argument) => Math.Abs(argument) < 1e-8
+        ? 1 - argument * argument / 6 : Math.Sin(argument) / argument;
+
+    internal static double HuygensPupilPlaneShift(
+        CoordinateSystem imageCoordinates, double pupilPlaneZ, Vector3D pupil, Vector3D direction)
+    {
+        var axialDirection = imageCoordinates.ToLocalDirection(direction).Z;
+        return Math.Abs(axialDirection) > 1e-14
+            ? (imageCoordinates.ToLocalPoint(pupil).Z - pupilPlaneZ) / axialDirection : 0;
     }
 
     public static double DefaultHuygensImageDeltaMillimeters(
@@ -2354,31 +2376,36 @@ public static partial class DiffractionEngine
             : pupilSampling >= 8 && pupilSampling % 2 == 0
             ? HuygensPupilSamples(pupilSampling) : SpotAnalysisEngine.CreatePupilSamples(pupilSampling, "uniform");
         var useWeights = wavelengths.Any(wavelength => wavelength.Weight > 0);
-        var projected = new List<SpotRayData>();
-        foreach (var wavelength in wavelengths)
+        var found = false;
+        var centroid = SpotAnalysisEngine.Centroid(ProjectedRays());
+        if (!found)
+            throw new AnalysisDataUnavailableException("Huygens PSF", "no valid geometric centroid rays");
+        return centroid;
+
+        IEnumerable<SpotRayData> ProjectedRays()
         {
-            ComputationCancellation.ThrowIfCancellationRequested();
-            if (useWeights && wavelength.Weight <= 0) continue;
-            var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
-                field.Hx, field.Hy, wavelength.Micrometers, pupilSamples, aimAtStop: aimAtStop);
-            var samples = optic.SequentialRayTracer.TraceFinalSamples(bundle);
-            for (var index = 0; index < samples.Count; index++)
+            foreach (var wavelength in wavelengths)
             {
-                if (samples[index] is not { Vignetted: false, Intensity: > 0 } sample) continue;
-                var delta = sample.Position - frame.Center;
-                var coordinates = optic.ImageSpaceAfocal
-                    ? ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(imageSurface, sample.Direction)
-                    : (X: Dot(delta, frame.TangentX), Y: Dot(delta, frame.TangentY));
-                var weight = bundle.Rays[index].Intensity * (useWeights ? Math.Max(0, wavelength.Weight) : 1);
-                if (double.IsFinite(coordinates.X) && double.IsFinite(coordinates.Y)
-                    && double.IsFinite(weight) && weight > 0)
-                    projected.Add(new SpotRayData(coordinates.X - chiefAngle.X,
-                        coordinates.Y - chiefAngle.Y, weight));
+                ComputationCancellation.ThrowIfCancellationRequested();
+                if (useWeights && wavelength.Weight <= 0) continue;
+                var bundle = optic.SequentialRayTracer.RayGenerator.GenerateNormalizedPupilSamples(
+                    field.Hx, field.Hy, wavelength.Micrometers, pupilSamples, aimAtStop: aimAtStop);
+                var samples = WavefrontEngine.TraceFinalSamples(optic, bundle, usePolarization: false);
+                for (var index = 0; index < samples.Count; index++)
+                {
+                    if (samples[index] is not { Vignetted: false, Intensity: > 0 } sample) continue;
+                    var delta = sample.Position - frame.Center;
+                    var coordinates = optic.ImageSpaceAfocal
+                        ? ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(imageSurface, sample.Direction)
+                        : (X: Dot(delta, frame.TangentX), Y: Dot(delta, frame.TangentY));
+                    var weight = bundle.Rays[index].Intensity * (useWeights ? Math.Max(0, wavelength.Weight) : 1);
+                    if (!double.IsFinite(coordinates.X) || !double.IsFinite(coordinates.Y)
+                        || !double.IsFinite(weight) || weight <= 0) continue;
+                    found = true;
+                    yield return new SpotRayData(coordinates.X - chiefAngle.X, coordinates.Y - chiefAngle.Y, weight);
+                }
             }
         }
-        if (projected.Count == 0)
-            throw new AnalysisDataUnavailableException("Huygens PSF", "no valid geometric centroid rays");
-        return SpotAnalysisEngine.Centroid(projected);
     }
 
     private static double[,] HuygensFarFieldSummation(

@@ -1,0 +1,54 @@
+﻿index,lens,configuration,analysis,frozenVerdict,state,reason,evidence
+108,Birefringent prisms/Birefringent cube.zmx,1,Diffraction Encircled Energy,Close,衍射能量参考待收敛,仍需保留原物理半径、归一化及遮挡条件，分别检查双方瞳和径向采样收敛。,README.md
+125,Birefringent prisms/Birefringent cube.zmx,2,First Order,Difference,等效参考已通过,原生默认近轴模式给出不同折射率约定。保持实光线模式的中心顶点普通折射率对照为100 mm和F/5。,../curvature-image-space-reference/README.md
+347,Diffractive components/Dual Zone CD-DVD lens.ZMX,1,Huygens Through Focus MTF,Close,通焦参考待收敛,仍需在固定焦点、频率和像面采样下，对原生和Core分别检查通焦瞳采样收敛。,README.md
+368,Diffractive components/Dual Zone CD-DVD lens.ZMX,2,Diffraction Encircled Energy,Close,衍射能量参考待收敛,仍需保留原物理半径、归一化及遮挡条件，分别检查双方瞳和径向采样收敛。,README.md
+369,Diffractive components/Dual Zone CD-DVD lens.ZMX,2,Huygens Through Focus MTF,Difference,通焦参考待收敛,仍需在固定焦点、频率和像面采样下，对原生和Core分别检查通焦瞳采样收敛。,README.md
+444,Diffractive components/Sample Spectrometer.ZMX,1,Huygens PSF,Difference,同源加密参考已通过,原低瞳采样参考与双方独立收敛档分开。保留物理窗口、原门槛和冻结判定。,../huygens-image-local-pupil/README.md; ../dense-huygens-conic/README.md
+446,Diffractive components/Sample Spectrometer.ZMX,1,Huygens MTF,Difference,同源加密参考已通过,原低瞳采样参考与双方独立收敛档分开。保留物理窗口、原门槛和冻结判定。,../huygens-image-local-pupil/README.md; ../dense-huygens-conic/README.md
+448,Diffractive components/Sample Spectrometer.ZMX,1,Huygens PSF Cross Section,Difference,同源加密参考已通过,原低瞳采样参考与双方独立收敛档分开。保留物理窗口、原门槛和冻结判定。,../huygens-image-local-pupil/README.md; ../dense-huygens-conic/README.md
+451,Diffractive components/Sample Spectrometer.ZMX,1,Huygens Through Focus MTF,Difference,同源加密参考已通过,原低瞳采样参考与双方独立收敛档分开。保留物理窗口、原门槛和冻结判定。,../huygens-image-local-pupil/README.md; ../dense-huygens-conic/README.md
+489,GRINs/Grid GRIN.ZMX,1,First Order,Difference,细步长参考已通过,冻结1 mm网格积分的焦距与0.00025 mm收敛参考不同；细档与Core的EFL和F数相对差约8.04e-9。,../../2026-11-06/grid-grin-focal-arc-fft/README.md
+490,GRINs/Grid GRIN.ZMX,1,Single Ray Trace,Difference,细步长及独立弧长已通过,原生逐面报告缺网格体弧长且旧积分量不同；独立深度分段弧长验证约4.37e-9 mm。,../../2026-11-06/grid-grin-focal-arc-fft/README.md
+493,GRINs/Grid GRIN.ZMX,1,Optical Path Difference,Difference,细步长参考已通过,波前、光程差和场曲在原采样物理范围下与双档收敛积分参考通过。,../../2026-11-06/grid-grin-refined-reference/README.md
+494,GRINs/Grid GRIN.ZMX,1,Wavefront,Difference,细步长参考已通过,波前、光程差和场曲在原采样物理范围下与双档收敛积分参考通过。,../../2026-11-06/grid-grin-refined-reference/README.md
+496,GRINs/Grid GRIN.ZMX,1,Huygens PSF,Difference,细步长参考已通过,Huygens、几何能量及RMS曲线保留各自原窗口和阈值；细步长专项通过。,../../2026-11-06/grid-grin-diffraction-reference/README.md
+498,GRINs/Grid GRIN.ZMX,1,Huygens MTF,Close,细步长参考已通过,Huygens、几何能量及RMS曲线保留各自原窗口和阈值；细步长专项通过。,../../2026-11-06/grid-grin-diffraction-reference/README.md
+500,GRINs/Grid GRIN.ZMX,1,Huygens PSF Cross Section,Difference,细步长参考已通过,Huygens、几何能量及RMS曲线保留各自原窗口和阈值；细步长专项通过。,../../2026-11-06/grid-grin-diffraction-reference/README.md
+501,GRINs/Grid GRIN.ZMX,1,Encircled Energy,Difference,细步长参考已通过,Huygens、几何能量及RMS曲线保留各自原窗口和阈值；细步长专项通过。,../../2026-11-06/grid-grin-diffraction-reference/README.md
+503,GRINs/Grid GRIN.ZMX,1,Huygens Through Focus MTF,Difference,细步长参考已通过,Huygens、几何能量及RMS曲线保留各自原窗口和阈值；细步长专项通过。,../../2026-11-06/grid-grin-diffraction-reference/README.md
+505,GRINs/Grid GRIN.ZMX,1,RMS vs Field,Close,细步长参考已通过,Huygens、几何能量及RMS曲线保留各自原窗口和阈值；细步长专项通过。,../../2026-11-06/grid-grin-diffraction-reference/README.md
+506,GRINs/Grid GRIN.ZMX,1,Field Curvature and Distortion,Difference,细步长参考已通过,波前、光程差和场曲在原采样物理范围下与双档收敛积分参考通过。,../../2026-11-06/grid-grin-refined-reference/README.md
+507,GRINs/Grid GRIN.ZMX,1,Single Ray Trace,Difference,细步长及独立弧长已通过,原生逐面报告缺网格体弧长且旧积分量不同；独立深度分段弧长验证约4.37e-9 mm。,../../2026-11-06/grid-grin-focal-arc-fft/README.md
+510,GRINs/Grid GRIN.ZMX,1,Optical Path Difference,Difference,细步长参考已通过,波前、光程差和场曲在原采样物理范围下与双档收敛积分参考通过。,../../2026-11-06/grid-grin-refined-reference/README.md
+511,GRINs/Grid GRIN.ZMX,1,Single Ray Trace,Difference,细步长及独立弧长已通过,原生逐面报告缺网格体弧长且旧积分量不同；独立深度分段弧长验证约4.37e-9 mm。,../../2026-11-06/grid-grin-focal-arc-fft/README.md
+514,GRINs/Grid GRIN.ZMX,1,Optical Path Difference,Difference,细步长参考已通过,波前、光程差和场曲在原采样物理范围下与双档收敛积分参考通过。,../../2026-11-06/grid-grin-refined-reference/README.md
+515,GRINs/Grid GRIN.ZMX,1,Single Ray Trace,Difference,细步长及独立弧长已通过,原生逐面报告缺网格体弧长且旧积分量不同；独立深度分段弧长验证约4.37e-9 mm。,../../2026-11-06/grid-grin-focal-arc-fft/README.md
+518,GRINs/Grid GRIN.ZMX,1,Optical Path Difference,Difference,细步长参考已通过,波前、光程差和场曲在原采样物理范围下与双档收敛积分参考通过。,../../2026-11-06/grid-grin-refined-reference/README.md
+600,"Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX",1,Optical Path Difference,Close,等效参考已通过,原生 PARAXIAL Mode 1 的准直相位偏离平面波不变量。保持逐面位置和方向的 Mode 0/3 独立对照均通过，原冻结四Close两Difference保留。,../../../../docs/OFFAXIS_OPD_SAMPLING_REPAIR_2026-11-04.md
+604,"Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX",1,Optical Path Difference,Close,等效参考已通过,原生 PARAXIAL Mode 1 的准直相位偏离平面波不变量。保持逐面位置和方向的 Mode 0/3 独立对照均通过，原冻结四Close两Difference保留。,../../../../docs/OFFAXIS_OPD_SAMPLING_REPAIR_2026-11-04.md
+608,"Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX",1,Optical Path Difference,Difference,等效参考已通过,原生 PARAXIAL Mode 1 的准直相位偏离平面波不变量。保持逐面位置和方向的 Mode 0/3 独立对照均通过，原冻结四Close两Difference保留。,../../../../docs/OFFAXIS_OPD_SAMPLING_REPAIR_2026-11-04.md
+690,"Image Simulation/Example 5, spatially varying resolution.ZMX",1,Optical Path Difference,Close,等效参考已通过,原生 PARAXIAL Mode 1 的准直相位偏离平面波不变量。保持逐面位置和方向的 Mode 0/3 独立对照均通过，原冻结四Close两Difference保留。,../../../../docs/OFFAXIS_OPD_SAMPLING_REPAIR_2026-11-04.md
+694,"Image Simulation/Example 5, spatially varying resolution.ZMX",1,Optical Path Difference,Close,等效参考已通过,原生 PARAXIAL Mode 1 的准直相位偏离平面波不变量。保持逐面位置和方向的 Mode 0/3 独立对照均通过，原冻结四Close两Difference保留。,../../../../docs/OFFAXIS_OPD_SAMPLING_REPAIR_2026-11-04.md
+698,"Image Simulation/Example 5, spatially varying resolution.ZMX",1,Optical Path Difference,Difference,等效参考已通过,原生 PARAXIAL Mode 1 的准直相位偏离平面波不变量。保持逐面位置和方向的 Mode 0/3 独立对照均通过，原冻结四Close两Difference保留。,../../../../docs/OFFAXIS_OPD_SAMPLING_REPAIR_2026-11-04.md
+712,"Image Simulation/Example 6, tilted image plane.ZMX",1,Diffraction Encircled Energy,Close,衍射能量参考待收敛,仍需保留原物理半径、归一化及遮挡条件，分别检查双方瞳和径向采样收敛。,README.md
+742,"Image Simulation/Example 6, tilted image plane.ZMX",2,Diffraction Encircled Energy,Close,衍射能量参考待收敛,仍需保留原物理半径、归一化及遮挡条件，分别检查双方瞳和径向采样收敛。,README.md
+825,Interconnects/GRIN interconnect.ZMX,1,First Order,Close,一阶量接近待定位,EFFL差2.570689e-6 mm，相对差1.245966e-6；F数相对差相同。待用细步长近轴探针对照。,README.md
+847,Interconnects/Optical interconnect.ZMX,1,First Order,Difference,近轴光线独立参考已通过,冻结原生 EFFL 操作数与收敛近轴探针不同。原处方及净零空气段移除对照的独立焦距通过原阈值。,../optical-interconnect-reference/README.md
+860,Interconnects/Optical interconnect.ZMX,1,Diffraction Encircled Energy,Close,同源加密参考已通过,原32档原生接近。256到512档以及双档积分步长验证通过，Core同档结果满足原门槛。,../optical-interconnect-reference/README.md
+950,Miscellaneous/Axicon model.zmx,1,Huygens PSF Cross Section,Difference,原生参考未收敛,原生1024到2048档未通过原阈值，无法从该参考隔离实现偏差。,../dense-huygens-conic/README.md
+953,Miscellaneous/Axicon model.zmx,1,Huygens Through Focus MTF,Close,通焦参考待收敛,仍需在固定焦点、频率和像面采样下，对原生和Core分别检查通焦瞳采样收敛。,README.md
+954,Miscellaneous/Axicon model.zmx,1,Relative Illumination,Close,物理范围不同,镜头只有轴上视场，原生输出却覆盖0到1e-6度并用该区间最大值归一。其轴上0.9935457747333409与单点域值1的物理范围不同。,README.md
+2142,Optical testing/Offner refracting compensator.zmx,1,Diffraction Encircled Energy,Close,衍射能量参考待收敛,仍需保留原物理半径、归一化及遮挡条件，分别检查双方瞳和径向采样收敛。,README.md
+2153,Optical testing/Twyman Green Interferometer.zmx,1,Spot Diagram,Close,本轮修复,有限物距余弦立方六角点列改用等固角分布与等通量统计。原20环按冻结阈值复验。,README.md
+2158,Optical testing/Twyman Green Interferometer.zmx,1,Huygens PSF,Difference,同源加密参考已通过,32档冻结结果与512到1024档的独立收敛结果分开。原固定像面窗口、间距、焦点及门槛均保留。,../../../../docs/HUYGENS_COMMON_REPAIR_2026-11-02.md
+2160,Optical testing/Twyman Green Interferometer.zmx,1,Huygens MTF,Close,同源加密参考已通过,32档冻结结果与512到1024档的独立收敛结果分开。原固定像面窗口、间距、焦点及门槛均保留。,../../../../docs/HUYGENS_COMMON_REPAIR_2026-11-02.md
+2162,Optical testing/Twyman Green Interferometer.zmx,1,Huygens PSF Cross Section,Difference,同源加密参考已通过,32档冻结结果与512到1024档的独立收敛结果分开。原固定像面窗口、间距、焦点及门槛均保留。,../../../../docs/HUYGENS_COMMON_REPAIR_2026-11-02.md
+2165,Optical testing/Twyman Green Interferometer.zmx,1,Huygens Through Focus MTF,Difference,同源加密参考已通过,32档冻结结果与512到1024档的独立收敛结果分开。原固定像面窗口、间距、焦点及门槛均保留。,../../../../docs/HUYGENS_COMMON_REPAIR_2026-11-02.md
+2170,Optical testing/Twyman Green Interferometer.zmx,1,Spot Diagram,Close,本轮修复,有限物距余弦立方六角点列改用等固角分布与等通量统计。原20环按冻结阈值复验。,README.md
+2216,Polarization/Etalon.ZMX,1,Optical Path Difference,Difference,有焦舍入差异已定位,10^10 mm尺度的原生有焦参考出现1.907e-6 mm量化残差，独立无焦参考逐点通过。,../curvature-image-space-reference/README.md
+2220,Polarization/Etalon.ZMX,1,Optical Path Difference,Difference,有焦舍入差异已定位,10^10 mm尺度的原生有焦参考出现1.907e-6 mm量化残差，独立无焦参考逐点通过。,../curvature-image-space-reference/README.md
+2278,Telescopes/Flat-field Schmidt.zmx,1,Diffraction Encircled Energy,Difference,同源加密参考已通过,原32档的瞳孔遮挡有格点相位差。双方固定物理窗口加密达到原阈值。,../huygens-image-local-pupil/README.md
+2728,Tilted systems & prisms/Tilted mirror.zmx,1,Diffraction Encircled Energy,Close,衍射能量参考待收敛,仍需保留原物理半径、归一化及遮挡条件，分别检查双方瞳和径向采样收敛。,README.md
+2750,Tilted systems & prisms/Tilted object.zmx,1,Diffraction Encircled Energy,Close,衍射能量参考待收敛,仍需保留原物理半径、归一化及遮挡条件，分别检查双方瞳和径向采样收敛。,README.md
+2752,Tilted systems & prisms/Tilted object.zmx,1,Relative Illumination,Close,同档照度差异待定位,保持10度物理域，最大差0.008285；缺逐场强光瞳或双侧采样收敛控制。,README.md

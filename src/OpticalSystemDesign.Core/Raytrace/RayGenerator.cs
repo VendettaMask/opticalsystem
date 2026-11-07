@@ -438,12 +438,19 @@ public sealed partial class RayGenerator
             return _optic.Apodization?.Intensity(pupilX, pupilY) ?? 1;
         }
 
+        return cosine.Intensity(pupilX, pupilY, ApodizationMarginalSlope(apertureRadius));
+    }
+
+    internal double ApodizationMarginalSlope(double? apertureRadius = null)
+    {
+        if (_optic.Aperture.Kind == ApertureKind.ObjectConeAngle)
+            return Math.Tan(DegreesToRadians(_optic.Aperture.Value));
+
         var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
-        var marginalSlope = ObjectConjugate.IsInfinite(objectSurface)
+        return ObjectConjugate.IsInfinite(objectSurface)
             ? 0
-            : apertureRadius / (_optic.Paraxial.EstimateEntrancePupilLocation()
+            : (apertureRadius ?? EntrancePupilRadius()) / (_optic.Paraxial.EstimateEntrancePupilLocation()
                 - (objectSurface?.CoordinateSystem.Origin.Z ?? 0));
-        return cosine.Intensity(pupilX, pupilY, marginalSlope);
     }
 
     private static Vector3D Normalize(Vector3D vector)
@@ -459,6 +466,7 @@ public sealed partial class RayGenerator
 
     private double EntrancePupilRadius()
     {
+        if (_optic.Aperture.Kind == ApertureKind.ObjectConeAngle) return 0;
         return _optic.Paraxial.EstimateEntrancePupilDiameter() / 2.0;
     }
 
@@ -489,6 +497,12 @@ public sealed partial class RayGenerator
                     pupilY * apertureRadius,
                     0)
                 : fieldRayContext.BaseOrigin;
+
+        if (_optic.Aperture.Kind == ApertureKind.ObjectConeAngle)
+        {
+            var pupilCenter = fieldRayContext?.EntrancePupilGlobalCenter ?? EntrancePupilGlobalCenter();
+            return (origin, ObjectConeDirection(pupilCenter - origin, pupilX, pupilY, aimAtStop));
+        }
 
         if (_optic.ObjectSpaceTelecentric || _optic.FieldGroupTelecentric)
         {
@@ -558,6 +572,36 @@ public sealed partial class RayGenerator
                 pupilY,
                 effectiveWavelength,
                 paraxialStopTarget);
+    }
+
+    private Vector3D ObjectConeDirection(Vector3D toPupil, double pupilX, double pupilY, bool aimAtStop)
+    {
+        if (ObjectConjugate.IsInfinite(_optic.SurfaceGroup.Items.FirstOrDefault()) || !(toPupil.Z > 0))
+            throw new InvalidOperationException("Object cone angle requires a finite object and a real entrance pupil.");
+        if (_optic.ObjectSpaceTelecentric || _optic.FieldGroupTelecentric || aimAtStop)
+            throw new NotSupportedException("Object cone angle with object-space telecentricity or ray aiming is not supported.");
+        var halfAngle = _optic.Aperture.Value;
+        if (halfAngle is <= 0 or > 180)
+            throw new InvalidOperationException("Object cone half-angle must be in (0, 180] degrees.");
+
+        var axis = Normalize(toPupil);
+        var radius = Math.Sqrt(pupilX * pupilX + pupilY * pupilY);
+        if (radius == 0) return axis;
+        var radians = DegreesToRadians(halfAngle);
+        var theta = _optic.Apodization is ZemaxApodization { Type: ZemaxApodizationType.CosineCubed }
+            ? 2 * Math.Asin(Math.Min(1, radius * Math.Sin(radians / 2)))
+            : radius * radians;
+        var (sine, cosine) = Math.SinCos(theta);
+
+        // The native Y pupil basis stays in the YZ plane for a two-axis
+        // field. Complete that basis around the same chief direction.
+        var yz = Math.Sqrt(axis.Y * axis.Y + axis.Z * axis.Z);
+        var pitchSine = axis.Y / yz;
+        var pitchCosine = axis.Z / yz;
+        var transverse = new Vector3D(yz * pupilX,
+            pitchCosine * pupilY - axis.X * pitchSine * pupilX,
+            -pitchSine * pupilY - axis.X * pitchCosine * pupilX);
+        return axis * cosine + transverse * (sine / radius);
     }
 
     private (Vector3D Origin, Vector3D Direction) AimInfiniteRayAtStop(

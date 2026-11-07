@@ -5,6 +5,7 @@ using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Backend;
+using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.FileIO;
 
 namespace OpticalSystemDesign.Tests;
@@ -41,8 +42,8 @@ public sealed class HuygensSphericalNativeTests
         var pitch = properties.GetProperty("ImageDelta").GetDouble();
         Assert.Contains(pupilCount.ToString(CultureInfo.InvariantCulture), properties.GetProperty("PupilSampleSize").GetString());
         var distance = Math.Abs(optic.Paraxial.EstimateExitPupilLocation());
-        var cornerSquared = 2 * Math.Pow(16 * pitch / 1000, 2);
-        var curvature = cornerSquared / (Math.Sqrt(distance * distance + cornerSquared) + distance);
+        var extentSquared = Math.Pow(16 * pitch / 1000, 2);
+        var curvature = extentSquared / (Math.Sqrt(distance * distance + extentSquared) + distance);
         Assert.Equal(spherical, curvature > optic.Wavelengths[0].Micrometers / 4000);
         var parameters = new Dictionary<string, string>
         {
@@ -83,6 +84,23 @@ public sealed class HuygensSphericalNativeTests
             surface.CoordinateSystem = surface.CoordinateSystem with { Origin = surface.CoordinateSystem.Origin + delta };
         var actual = DiffractionEngine.ComputeHuygensPsf(shifted, (0, hy), shifted.Wavelengths[0], 32, 32, .004, aimAtStop: true);
         Assert.InRange(actual.Values.Cast<double>().Zip(baseline.Values.Cast<double>(), (a, b) => Math.Abs(a - b) / 100).Max(), 0, 1e-7);
+    }
+
+    [Theory]
+    [InlineData(-30, -1.5)]
+    [InlineData(90, 1.5)]
+    public void SphericalEmitterUsesTheImageLocalPupilPlane(double angle, double pupilPlaneZ)
+    {
+        var image = new CoordinateSystem(new Vector3D(2, -1, 3), RotationXDegrees: angle);
+        var pupil = image.ToGlobalPoint(new Vector3D(.1, .3, -.25));
+        var localDirection = new Vector3D(0, .6, .8);
+        var direction = image.ToGlobalDirection(localDirection);
+
+        var shift = DiffractionEngine.HuygensPupilPlaneShift(image, pupilPlaneZ, pupil, direction);
+        Assert.Equal((-.25 - pupilPlaneZ) / .8, shift, 13);
+        var emitter = image.ToLocalPoint(pupil - direction * shift);
+        Assert.Equal(pupilPlaneZ, emitter.Z, 13);
+        Assert.Equal(.3 - localDirection.Y * shift, emitter.Y, 13);
     }
 
     private static Optic Import(string root)

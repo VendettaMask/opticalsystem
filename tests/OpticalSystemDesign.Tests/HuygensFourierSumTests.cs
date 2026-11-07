@@ -1,6 +1,8 @@
 using System.Numerics;
+using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Domain;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -66,8 +68,107 @@ public sealed class HuygensFourierSumTests
     {
         HuygensFourierSum.ValidateCandidateWork(512, 32);
         HuygensFourierSum.ValidateCandidateWork(1024, 32);
+        HuygensFourierSum.ValidateCandidateWork(2048, 32);
+        var clippedPlan = HuygensFourierSum.CreatePlan(1_200_000, 32);
+        Assert.NotNull(clippedPlan);
+        Assert.InRange(clippedPlan.Work, 1, AnalysisResourceLimits.MaximumDirectPsfOperations);
+        Assert.InRange(clippedPlan.Remainder, 0, 1e-10);
+        Assert.Null(HuygensFourierSum.CreatePlan(3_290_000, 32));
         Assert.Throws<ArgumentOutOfRangeException>(() => HuygensFourierSum.ValidateCandidateWork(8192, 1024));
         Assert.Null(HuygensFourierSum.CreatePlan(int.MaxValue, 1024));
         Assert.Throws<ArgumentException>(() => HuygensFourierSum.Evaluate([new(Complex.One, double.NaN, 0)], 8));
+    }
+
+    [Fact]
+    public void DenseSourcesUseOnlyTheirRequiredMomentsWithoutChangingTheField()
+    {
+        const int count = 700_000;
+        const int size = 64;
+        HuygensFourierEmitter[] pattern =
+        [
+            new(new(.3, .2), Math.PI / 16, .004),
+            new(new(-.3, -.2), Math.PI / 16, .004),
+            new(new(.2, -.15), .47, -.071),
+            new(new(.4, .3), -.31, .22)
+        ];
+        var emitters = Enumerable.Range(0, count).Select(i =>
+        {
+            var source = pattern[i % pattern.Length];
+            return source with { Weight = source.Weight * (pattern.Length / (double)count) };
+        }).ToArray();
+        Assert.Null(HuygensFourierSum.CreatePlan(count, size));
+        var actual = HuygensFourierSum.Evaluate(emitters, size);
+        Assert.True(actual.Diagnostics.UsesAdaptiveSourceOrders);
+        Assert.InRange(actual.Diagnostics.EstimatedOperations, 1, AnalysisResourceLimits.MaximumDirectPsfOperations);
+        for (var row = 0; row < size; row++)
+            for (var column = 0; column < size; column++)
+            {
+                var expected = pattern.Aggregate(Complex.Zero, (sum, e) => sum + e.Weight * Complex.Exp(
+                    Complex.ImaginaryOne * (e.PhaseStepX * (column - size / 2) + e.PhaseStepY * (row - size / 2))));
+                Assert.InRange((expected - actual.Field[row, column]).Magnitude, 0, actual.Diagnostics.AbsoluteFieldErrorBound);
+            }
+    }
+
+    [Fact]
+    public void DenseWorstCaseResidualsStillRespectTheBudget()
+    {
+        var emitters = Enumerable.Repeat(new HuygensFourierEmitter(Complex.One, .02454, .02454), 700_000).ToArray();
+        Assert.Throws<ArgumentOutOfRangeException>(() => HuygensFourierSum.Evaluate(emitters, 64));
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(.45)]
+    public void BatchedPlanarPupilPreservesTheFullImageAndItsNormalization(double hy)
+    {
+        var optic = new Optic("Planar propagation control");
+        optic.Aperture.Value = 4;
+        optic.Fields.Add(new FieldPoint());
+        optic.Fields.Add(new FieldPoint { YAngleDegrees = 3 });
+        optic.Wavelengths.Add(new Wavelength { Nanometers = 550, IsPrimary = true });
+        optic.SurfaceGroup.ImportLegacySurfaces([
+            new OpticalSurface { Thickness = double.PositiveInfinity },
+            new OpticalSurface { IsStop = true, SemiDiameter = 2.2, Thickness = 4 },
+            new OpticalSurface { Radius = 50, SemiDiameter = 5, Thickness = 4, Material = "N-BK7" },
+            new OpticalSurface { Radius = -50, SemiDiameter = 5, Thickness = 47, Material = "Air" },
+            new OpticalSurface { SemiDiameter = 10 }
+        ]);
+        var wave = optic.Wavelengths[0];
+        const int pupil = 32, image = 16;
+        const double pitch = .00025;
+        var plan = Assert.IsType<HuygensFourierSum.Plan>(HuygensFourierSum.CreateBatchedPlan(pupil, image, hy != 0));
+        var batched = DiffractionEngine.ComputeBatchedPlanarHuygens(optic, (0, hy), wave, wave, pupil, image, pitch, plan);
+        var direct = DiffractionEngine.ComputeHuygensPsf(optic, (0, hy), wave, pupil, image, pitch,
+            aimAtStop: optic.RayAimingEnabled, referenceWavelength: wave);
+        var checkedSum = Assert.Single(batched.HuygensFourierChecks!);
+        Assert.Equal(HuygensFourierSum.PupilBatchSize, checkedSum.PupilBatchSize);
+        Assert.False(checkedSum.CertifiesPupilSampling);
+        Assert.Equal(direct.SampleSpacingMicrometers, batched.SampleSpacingMicrometers);
+        for (var row = 0; row < image; row++)
+            for (var column = 0; column < image; column++)
+                Assert.InRange(Math.Abs(direct.Values[row, column] - batched.Values[row, column]), 0, 1e-8);
+        Assert.InRange(Math.Abs(direct.PeakStrehlRatio - batched.PeakStrehlRatio), 0, 1e-10);
+    }
+
+    [Fact]
+    public void BatchedPlansHaveSeparateAggregateTraceAndWorkingSetLimits()
+    {
+        Assert.NotNull(HuygensFourierSum.CreateBatchedPlan(4096, 32, separateNormalizer: false));
+        Assert.Null(HuygensFourierSum.CreateBatchedPlan(4096, 32, separateNormalizer: true));
+        Assert.Null(HuygensFourierSum.CreateBatchedPlan(4096, 256, separateNormalizer: false));
+        Assert.Throws<ArgumentOutOfRangeException>(() => HuygensFourierSum.ValidateCandidateWork(4096, 32));
+    }
+
+    [Theory]
+    [InlineData("Huygens PSF", "4096 x 4096")]
+    [InlineData("Huygens PSF Cross Section", "4096")]
+    public void FiniteImageAnalysisOffersTheHighPupilSetting(string analysis, string option)
+    {
+        var optic = Optic.CreateBlank();
+        var runtime = new WorkbenchRuntime(optic);
+        IReadOnlyList<string> PupilOptions() => runtime.GetAnalysisParameters(analysis).Single(p => p.Key == "PupilSampling").Choices!;
+        Assert.Contains(option, PupilOptions());
+        optic.ImageSpaceAfocal = true;
+        Assert.DoesNotContain(option, PupilOptions());
     }
 }

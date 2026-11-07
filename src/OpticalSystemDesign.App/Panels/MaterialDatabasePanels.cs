@@ -1057,6 +1057,7 @@ internal sealed class LensLibraryPanel : UserControl
             "EntrancePupilDiameter" => $"EPD {value} mm",
             "FNumber" => $"像方 F/{value}",
             "NumericalAperture" => $"物方 NA {value}",
+            "ObjectConeAngle" => $"{value}°",
             "FloatByStopSize" => $"浮动光阑 {value}",
             _ => value
         };

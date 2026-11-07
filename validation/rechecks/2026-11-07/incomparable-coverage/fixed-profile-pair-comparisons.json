@@ -1,0 +1,320 @@
+[
+  {
+    "index": 1295,
+    "key": "FFT PSF Cross Section",
+    "originalPolicy": {
+      "field": 1,
+      "wavelength": 2,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "originalRequest": "3ce29400f8410f724e535be1dca2c0e33c22c94840dd335353e5e3eed0982cf0",
+    "physicalHalfWidthMicrometers": 175,
+    "native": {
+      "samples": [
+        {
+          "pupil": 512,
+          "dataSha256": "c0339e24c6c8690173a6cd61b025a574e4b9393af1c816baf7ef678ee0745597"
+        },
+        {
+          "pupil": 1024,
+          "dataSha256": "c0339e24c6c8690173a6cd61b025a574e4b9393af1c816baf7ef678ee0745597"
+        }
+      ],
+      "conclusion": "Close",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 4097,
+          "maxAbsolute": 5.400000000000001E-05,
+          "meanAbsolute": 5.803147231340021E-06,
+          "rmse": 1.0459048792294624E-05,
+          "nrmse": 0.006844927220088105,
+          "maxRelative": "Infinity",
+          "p50": 2.0000000000000003E-06,
+          "p90": 1.600000000000001E-05,
+          "p95": 2.249999999999995E-05,
+          "pearson": 0.9993979244069662,
+          "worstX": -27.17285,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ],
+      "reason": ""
+    },
+    "core": {
+      "coreOutcome": "Unavailable",
+      "coreValidated": false,
+      "coreSampling": 0,
+      "certificate": {
+        "protocol": "FourierPhysicalDomainConvergence/v1",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 1024,
+        "returnedPupilSampling": 0,
+        "maximumPupilSampling": 2048,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1E-07,
+        "validated": false,
+        "steps": [
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.015032816239669402,
+            "maximumAbsoluteChange": 4.6692093349659145E-05,
+            "usesDensePhysicalPupil": false
+          }
+        ],
+        "reason": "The declared pupil-sampling budget did not establish result convergence.",
+        "evaluatedNominalPupilCells": 10485760,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": null,
+        "requestedMaximumAbsoluteDeviation": null
+      },
+      "dataSha256": "faedcba6dff1a8db51ebdaf9de3ee5a872d28a884b48132ff0bba134eb825685",
+      "fingerprint": "c6fb82f7c0875232080e9a77f7e85057379d58665bbbe1a85fdd41048d1f24cf",
+      "convergence": null
+    },
+    "cross": null,
+    "sameSamplingCoarse": null,
+    "scopedOutcome": "Open"
+  },
+  {
+    "index": 2231,
+    "key": "FFT PSF Cross Section",
+    "originalPolicy": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "originalRequest": "b3461b869ac51b64d0a380dec52d73853c2f5159e39d99fc9879196be95e6d92",
+    "physicalHalfWidthMicrometers": 145,
+    "native": {
+      "samples": [
+        {
+          "pupil": 512,
+          "dataSha256": "80f79cf07d2d47544771c111de797227c07fef2bed4ea8b01e786ea17a6b7829"
+        },
+        {
+          "pupil": 1024,
+          "dataSha256": "80f79cf07d2d47544771c111de797227c07fef2bed4ea8b01e786ea17a6b7829"
+        }
+      ],
+      "conclusion": "Difference",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 4097,
+          "maxAbsolute": 4.000000000000001E-05,
+          "meanAbsolute": 1.1100073465616554E-05,
+          "rmse": 1.3681530097559677E-05,
+          "nrmse": 0.028151296497036373,
+          "maxRelative": 5.250000000000001,
+          "p50": 9.999999999999999E-06,
+          "p90": 2.2500000000000178E-05,
+          "p95": 2.6500000000000007E-05,
+          "pearson": 0.967995002618696,
+          "worstX": -37.80762,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "reason": ""
+    },
+    "core": {
+      "coreOutcome": "Unavailable",
+      "coreValidated": false,
+      "coreSampling": 0,
+      "certificate": {
+        "protocol": "FourierPhysicalDomainConvergence/v1",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 1024,
+        "returnedPupilSampling": 0,
+        "maximumPupilSampling": 2048,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1E-07,
+        "validated": false,
+        "steps": [
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.013181554381441675,
+            "maximumAbsoluteChange": 2.246030010226781E-05,
+            "usesDensePhysicalPupil": false
+          }
+        ],
+        "reason": "The declared pupil-sampling budget did not establish result convergence.",
+        "evaluatedNominalPupilCells": 10485760,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": null,
+        "requestedMaximumAbsoluteDeviation": null
+      },
+      "dataSha256": "63ff53757f11f26cb91b3f8304993b3481f54d9c877ed01432c10588830a0754",
+      "fingerprint": "02be5a06fcde0fdd6b8bd38166b3b565309f1728281ec558c084e17e7f6b7633",
+      "convergence": null
+    },
+    "cross": null,
+    "sameSamplingCoarse": null,
+    "scopedOutcome": "Open"
+  },
+  {
+    "index": 2879,
+    "key": "FFT PSF Cross Section",
+    "originalPolicy": {
+      "field": 1,
+      "wavelength": 1,
+      "pupilSampling": 32,
+      "imageSampling": 32,
+      "rayCount": 20,
+      "vignettedPupil": true,
+      "rmsFieldMethod": "GQ",
+      "rmsFieldRayDensity": 6,
+      "rmsFieldRemoveVignettingFactors": true,
+      "imageDeltaMicrometers": 0.25,
+      "maximumFrequency": 50,
+      "quantities": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "workbenchSettings": {}
+    },
+    "originalRequest": "0fa14981b54e40797d707272f0afb2787e321e547c2d52fccbf9934cb60f0e08",
+    "physicalHalfWidthMicrometers": 250,
+    "native": {
+      "samples": [
+        {
+          "pupil": 512,
+          "dataSha256": "13494ec0430377edddc526560ec57ac5f29c762df84a2c1fab87ae8ffcc051b5"
+        },
+        {
+          "pupil": 1024,
+          "dataSha256": "13494ec0430377edddc526560ec57ac5f29c762df84a2c1fab87ae8ffcc051b5"
+        }
+      ],
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 4097,
+          "maxAbsolute": 0.00032450000000000187,
+          "meanAbsolute": 1.4479023856809318E-05,
+          "rmse": 2.8268829555050416E-05,
+          "nrmse": 0.0015532323931346382,
+          "maxRelative": "Infinity",
+          "p50": 7.0000000000000075E-06,
+          "p90": 3.5999999999999574E-05,
+          "p95": 5.299999999999999E-05,
+          "pearson": 0.999839907853729,
+          "worstX": -0.12207,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "reason": ""
+    },
+    "core": {
+      "coreOutcome": "Unavailable",
+      "coreValidated": false,
+      "coreSampling": 0,
+      "certificate": {
+        "protocol": "FourierPhysicalDomainConvergence/v1",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 1024,
+        "returnedPupilSampling": 0,
+        "maximumPupilSampling": 2048,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1E-07,
+        "validated": false,
+        "steps": [
+          {
+            "pupilSampling": 1024,
+            "phaseResolved": true,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 2048,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0071494789855894424,
+            "maximumAbsoluteChange": 0.00012919333095789964,
+            "usesDensePhysicalPupil": false
+          }
+        ],
+        "reason": "The declared pupil-sampling budget did not establish result convergence.",
+        "evaluatedNominalPupilCells": 10485760,
+        "maximumNominalPupilCells": 100000000,
+        "requestedRelativeRmsDeviation": null,
+        "requestedMaximumAbsoluteDeviation": null
+      },
+      "dataSha256": "99f90c831de6bc4a1ca32ccfe81b69d50f8d12fbacea3f576917a8292efa521f",
+      "fingerprint": "98942252304877a4aabcd44171c245c28dbb0798129187b5db28deb503eaea42",
+      "convergence": null
+    },
+    "cross": null,
+    "sameSamplingCoarse": null,
+    "scopedOutcome": "Open"
+  }
+]

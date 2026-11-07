@@ -3,8 +3,22 @@ namespace OpticalSystemDesign.Core.Backend;
 // Scalar and SIMD roots share identical explicit-sag branch and tolerance checks.
 internal static class StandardIntersectionValidation
 {
-    // Far finite-conjugate launches need the surface equation's vertex-plane coordinates.
-    internal static double DistantLaunchThreshold(double radius) => Math.Max(1000, 64 * Math.Abs(radius));
+    // Near the axis the raw discriminant subtracts terms of order
+    // ((1+k) * originZ)^2 to resolve a quantity of order radius^2. When
+    // those scales differ by 2^26, use the vertex-plane equation even
+    // for a short propagation to a conic with a very small vertex radius.
+    internal static double DistantLaunchThreshold(double radius, double conic)
+    {
+        var scale = Math.Abs(radius);
+        var cancellationLimit = (1 << 26) * scale / Math.Max(1, Math.Abs(1 + conic));
+        return Math.Min(NominalDistantLaunchThreshold(scale), cancellationLimit);
+    }
+
+    internal static bool RequiresPreciseVertexPoint(double radius, double conic) =>
+        double.IsFinite(radius) && Math.Abs(radius) >= 1e-12
+        && DistantLaunchThreshold(radius, conic) < NominalDistantLaunchThreshold(Math.Abs(radius));
+
+    private static double NominalDistantLaunchThreshold(double radius) => Math.Max(1000, 64 * radius);
 
     // Called only after both ordinary roots fail the unchanged explicit-sag
     // validation. Preserve every already accepted ordinary intersection.

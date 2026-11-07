@@ -1,0 +1,75 @@
+{
+  "frozenIncomparable": 433,
+  "frozenIncomparableByReason": {
+    "MissingAfocalCanonicalRequest": 75,
+    "MissingAfocalAngleTolerance": 12,
+    "MissingAfocalDefocusTolerance": 3,
+    "HistoricalAfocalAngularUnit": 1,
+    "NativeReportInvalid": 46,
+    "NativeReportLowSampling": 85,
+    "CheckedFanMaskMismatch": 120,
+    "NativeApiMissingBuffer": 25,
+    "MissingNativeSegmentArcLength": 8,
+    "MissingMeterCanonicalRequest": 44,
+    "FocalDomainNotApplicable": 7,
+    "NonfiniteHuygensCurves": 6,
+    "UnprovenFirstOrderInfinity": 1
+  },
+  "supplementalMeterRequests": 44,
+  "supplementalCounts": {
+    "Pass": 32,
+    "Incomparable": 10,
+    "Close": 2
+  },
+  "originalVerdictsRewritten": false,
+  "frozenPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "nativeCaptureArchiveSha256": "1f9a147e43d1bd510d5d8bfc141d4f7d3401c71f017223d4dd6870b25ecde44d",
+  "capturedMetadataPaths": 402,
+  "uniqueNativePayloads": 248,
+  "analysisTool": [
+    {
+      "path": "C:\\Users\\19851\\.codex\\visualizations\\2026\\10\\31\\01a19047-3b40-7d12-9041-a6ae0a92356a\\precision-incomparable-20261107\\meter-bin\\OpticalSystemDesign.Core.dll",
+      "sha256": "c0cedacf0d9dac5de3d6e943a7831ea9cd966a55b7c194ddb1f65e3807c9a95b"
+    },
+    {
+      "path": "C:\\Users\\19851\\.codex\\visualizations\\2026\\10\\31\\01a19047-3b40-7d12-9041-a6ae0a92356a\\precision-incomparable-20261107\\meter-bin\\OpticalSystemDesign.ZemaxComparison.dll",
+      "sha256": "c93df2665569b7546dbb5fcc7bcdf48400a27efe354e88e99933eca3732f30d6"
+    },
+    {
+      "path": "C:\\Users\\19851\\.codex\\visualizations\\2026\\10\\31\\01a19047-3b40-7d12-9041-a6ae0a92356a\\precision-incomparable-20261107\\meter-bin\\SequentialCorpus20261019.dll",
+      "sha256": "857dc0eab114e81e8081abd5a500d7fd5fe0f10cfbb29764bc2dc3e589548fdc"
+    }
+  ],
+  "testsPassed": 26,
+  "afocalCoverage": {
+    "independentRequests": 170,
+    "independentResults": {
+      "Pass": 162,
+      "Incomparable": 8
+    },
+    "mappedFrozenGaps": 76,
+    "mappedIndependentResults": {
+      "Pass": 71,
+      "Incomparable": 5
+    },
+    "exactFieldWavelengthAndSourceSelectors": 73,
+    "allFieldEncircledEnergySelectorMappings": 3,
+    "preservesFrozenRowsAndThresholds": true,
+    "usesPreviousAfocalSavedSnapshots": true,
+    "coreSha256": "c0cedacf0d9dac5de3d6e943a7831ea9cd966a55b7c194ddb1f65e3807c9a95b",
+    "historicalReferenceLedgerSha256": "4c8f88f7fbe2030d8e67970769049981c7b2ff5662b74ae2de0570844d960716",
+    "historicalNativeArchiveSha256": "235f113b4633fce7341e837da03850ac3c8cff14a48c32f4b4731e7250d7f4b1",
+    "resumedAfterDiskFull": 11,
+    "independentAuditSha256": "16f511101114546926735e146eb29f3da3d4c3ebaa5e4ea3a5c5bff599639f46"
+  },
+  "meterExplicitFanCoverage": {
+    "comparedAnalyses": 8,
+    "explicitPass": 8,
+    "reportedPointsPass": 8,
+    "plotOmissionsAtStartOfTransmittedSegment": 16,
+    "distinctNativeOmittedPupilPoints": 8,
+    "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4",
+    "preservedBuiltInVerdicts": true,
+    "nativeEvidenceSha256": "1ca1914e112b850883a2b09ac6d73e9ed3eddb3e37d3f73642fc545edbcfe23f"
+  }
+}

@@ -37,6 +37,8 @@ internal static class AnalysisSurfacePreparation
         }
         if (stop > index)
         {
+            if (source.Aperture.Kind == ApertureKind.ObjectConeAngle)
+                throw new NotSupportedException("An intermediate surface before the stop needs the original object-cone pupil.");
             var pupilZ = source.Paraxial.EstimateEntrancePupilLocation();
             var firstZ = source.SurfaceGroup.Items[1].CoordinateSystem.Origin.Z;
             var pupilDiameter = source.Paraxial.EstimateEntrancePupilDiameter();

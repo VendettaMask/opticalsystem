@@ -16,6 +16,8 @@ public sealed partial class SequentialRayTracer
 {
     internal SequentialGpuSurface[] GpuSurfaces(double wavelength)
     {
+        if (_optic.Aperture.Kind == ApertureKind.ObjectConeAngle)
+            throw new NotSupportedException("CUDA design propagation does not support object cone apertures.");
         var surfaces = _optic.SurfaceGroup.Items;
         if (surfaces.Count is < 2 or > 128
             || !_optic.Polarization.Unpolarized)

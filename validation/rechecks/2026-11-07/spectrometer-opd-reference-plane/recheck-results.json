@@ -1,0 +1,3233 @@
+{
+  "coreSha256": "c13b87e55f35ede94e38a9632c1f96a04e941c9e3f4f093bd1f4713fb0925b40",
+  "scope": "Original physical pupil lattice; immutable reported values and separately recorded exact nested sample readbacks.",
+  "reports": [
+    {
+      "id": 458,
+      "lens": "Diffractive components/Sample Spectrometer.ZMX",
+      "configuration": 1,
+      "field": 2,
+      "wavelength": 1,
+      "primaryWavelength": 2,
+      "originalWave": {
+        "wavelength": 1,
+        "primary": 2,
+        "field": 2,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.4,
+        "opd": 458,
+        "primaryMicrometers": 0.55,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Diffractive components\\Sample Spectrometer.ZMX",
+        "fan": 457
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "f09efb8f42aa66c548d7bb6b8f484b83d951ddba1ec51b3124576fb492afc015",
+      "coreDataSha256": "ba81186d26150b4bb3dfbe8f2f674bc3dcb3df81947148381a70ffa773ae60dd",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "74cd91ed7cbf9bab9107530dcd6634677bf1c50df7f8c3124ae1555d1d05eee1",
+          "nativeModelSha256": "4cdd941aa03cecd407667166ad79d39f90136b28c3ef07ba6d1e1dccb7326b21",
+          "settingsReadbackSha256": "2d271c431dc165d9eb8d919bfaba1df979eaa8b9f9b68ed91f364171dfd7d87e"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "e91aab92eedb1374436a53dd0fd87b22c8d037da33274637ad5a5f5fff6f7800",
+          "nativeModelSha256": "4cdd941aa03cecd407667166ad79d39f90136b28c3ef07ba6d1e1dccb7326b21",
+          "settingsReadbackSha256": "24fbc1742bfa00ddc3d76cfc76338b94a802a473ae45d1f3287f7622008c62c1"
+        },
+        {
+          "factor": 8,
+          "rayCount": 160,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "306d12bfd39d1e0f170769172de8c46528af51767542480bd7197893aa0744dc",
+          "nativeModelSha256": "4cdd941aa03cecd407667166ad79d39f90136b28c3ef07ba6d1e1dccb7326b21",
+          "settingsReadbackSha256": "4d139c6f1922e4b9c2a33e8c312137adf2aec6f9cdaacd6ff4b87c22b57a12f9"
+        },
+        {
+          "factor": 16,
+          "rayCount": 320,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "3662bb521994d852dde9964de702b6a9b2a3d9fe4efc2475945a909fbb125349",
+          "nativeModelSha256": "4cdd941aa03cecd407667166ad79d39f90136b28c3ef07ba6d1e1dccb7326b21",
+          "settingsReadbackSha256": "10ecc887d27bbeb74cff63c146ff9aa38afbf3bd1aca608461e5bd346da92d54"
+        },
+        {
+          "factor": 32,
+          "rayCount": 640,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "8d197448cff6612c8142c97d0f4b9663b7376f16ab5fc271ed975781bbf1d3cd",
+          "nativeModelSha256": "4cdd941aa03cecd407667166ad79d39f90136b28c3ef07ba6d1e1dccb7326b21",
+          "settingsReadbackSha256": "9f0fe0a68f32d5b9b57e2d917eb50fa86ae9f4e7bf4fa5016f947ae03bcdb677"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 0.005172932418048504,
+          "meanAbsolute": 0.00074038306562985,
+          "rmse": 0.0013611695683005871,
+          "nrmse": 8.453576522811257E-06,
+          "maxRelative": 3.212662188583932E-05,
+          "p50": 0.0002548090365444011,
+          "p90": 0.0018446588130842656,
+          "p95": 0.00273540834200503,
+          "pearson": 0.9999999999567928,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 13,
+          "maxAbsolute": 5.230964918379044E-05,
+          "meanAbsolute": 1.9924618398243092E-05,
+          "rmse": 2.6773260656750313E-05,
+          "nrmse": 4.691746310381152E-06,
+          "maxRelative": 9.174365991425499E-06,
+          "p50": 1.2607335603043168E-05,
+          "p90": 4.838617489593134E-05,
+          "p95": 5.1844769653186514E-05,
+          "pearson": 0.9999999999999977,
+          "worstX": 0.30000000000000004,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 13,
+          "originalReported": 12,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 14,
+              "x": -0.30000000000000004,
+              "core": -5.617317078243644,
+              "readbacks": [
+                {
+                  "factor": 8,
+                  "x": -0.30000000000000004,
+                  "value": -5.617265543393678
+                },
+                {
+                  "factor": 16,
+                  "x": -0.30000000000000004,
+                  "value": -5.617265543393678
+                },
+                {
+                  "factor": 32,
+                  "x": -0.30000000000000004,
+                  "value": -5.617265543393678
+                }
+              ],
+              "absoluteErrorWaves": 5.1534849966117235E-05,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 466,
+      "lens": "Diffractive components/Sample Spectrometer.ZMX",
+      "configuration": 1,
+      "field": 2,
+      "wavelength": 3,
+      "primaryWavelength": 2,
+      "originalWave": {
+        "wavelength": 3,
+        "primary": 2,
+        "field": 2,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.7,
+        "opd": 466,
+        "primaryMicrometers": 0.55,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Diffractive components\\Sample Spectrometer.ZMX",
+        "fan": 465
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "379015e5758b7662b08573fb11e5eef9a32aed57e47e016ac4acdc7d5d476a64",
+      "coreDataSha256": "58ff1f6f528f6d3dafd4eaf8c92e9a1cdb16933beb91a374f87b5d1103c5503d",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "a4c2a0a5815c96d6632a2184eda231868f57627782093d15a8ca223dce52e23b",
+          "nativeModelSha256": "4cdd941aa03cecd407667166ad79d39f90136b28c3ef07ba6d1e1dccb7326b21",
+          "settingsReadbackSha256": "4d72378c0e778a1d301a4c0304006efa870e514f5ae0883bf474f966aa953bd8"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "5035cfba8554ad6d16246233a46759007bba2ac9ce12d1e3e4a5e33c2d31d1e9",
+          "nativeModelSha256": "4cdd941aa03cecd407667166ad79d39f90136b28c3ef07ba6d1e1dccb7326b21",
+          "settingsReadbackSha256": "85cfcef958a85472c4352a5c39f677f1f0f17758e5fbf6e7228e198dd1ae831c"
+        },
+        {
+          "factor": 8,
+          "rayCount": 160,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "b37baf988db193dd41dc3629cfc17d9b2aa0304c39e203aaa669f0717a2b583f",
+          "nativeModelSha256": "4cdd941aa03cecd407667166ad79d39f90136b28c3ef07ba6d1e1dccb7326b21",
+          "settingsReadbackSha256": "72522a3bbe6bb1b27e9e3ca4d55f36dfe63d3e5bc94fc9844e98ce4219531985"
+        },
+        {
+          "factor": 16,
+          "rayCount": 320,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "5aec5a2c621ddd66744765e57d338be2fc1f9e5b65d3502bb7cbff2c0869003f",
+          "nativeModelSha256": "4cdd941aa03cecd407667166ad79d39f90136b28c3ef07ba6d1e1dccb7326b21",
+          "settingsReadbackSha256": "2f3bbf227b7d925cf5a58e23bfd18105d98c8bbc721599fb1e7be9005ae47588"
+        },
+        {
+          "factor": 32,
+          "rayCount": 640,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "d5b5d8edd6c3d0acb479fdf74d3b5e1cf64006078ff5736f7dbfda08f6f11430",
+          "nativeModelSha256": "4cdd941aa03cecd407667166ad79d39f90136b28c3ef07ba6d1e1dccb7326b21",
+          "settingsReadbackSha256": "5a291f474336f852ce0ac3f07c2a2ffb66f6147915dd483c1b36ffb1aeb74b6d"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 0.0027719997987531997,
+          "meanAbsolute": 0.0004099562319164176,
+          "rmse": 0.0007431377678952743,
+          "nrmse": 8.221378425219788E-06,
+          "maxRelative": 3.066680274470285E-05,
+          "p50": 0.00014434006656571796,
+          "p90": 0.0010315593669290024,
+          "p95": 0.001515304978028098,
+          "pearson": 0.9999999999627694,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 13,
+          "maxAbsolute": 3.0459907797819596E-05,
+          "meanAbsolute": 1.1537355799313655E-05,
+          "rmse": 1.5504889615465203E-05,
+          "nrmse": 4.6614171340245755E-06,
+          "maxRelative": 9.17043437030606E-06,
+          "p50": 7.317714616261739E-06,
+          "p90": 2.7908916361507614E-05,
+          "p95": 2.9992988217486527E-05,
+          "pearson": 0.9999999999999977,
+          "worstX": 0.30000000000000004,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 13,
+          "originalReported": 12,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 14,
+              "x": -0.30000000000000004,
+              "core": -3.2367039000393203,
+              "readbacks": [
+                {
+                  "factor": 8,
+                  "x": -0.30000000000000004,
+                  "value": -3.236674218330823
+                },
+                {
+                  "factor": 16,
+                  "x": -0.30000000000000004,
+                  "value": -3.236674218330823
+                },
+                {
+                  "factor": 32,
+                  "x": -0.30000000000000004,
+                  "value": -3.236674218330823
+                }
+              ],
+              "absoluteErrorWaves": 2.968170849726448E-05,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1542,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 1,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 1,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.46,
+        "opd": 1542,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src/OpticalSystemDesign.App/Assets/SequentialExamples\\Objectives/Apochromat4.zmx",
+        "fan": 1541
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "52a22abc62935a32116d493e6adf07fa3caf2917a02a27670d375869060724aa",
+      "coreDataSha256": "9ba3ac62be98ac8af4da2ad983d0ca4332da583b7e583cd2808d12a4a7d3cc55",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "fc5c2064cee8d231b3da9957267118d3d284796f174df7bc27e798eacbb80d01",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "63ccf780ff6b7b06ae94399dd2c9720913b9dfd26d62cda54452a363617a3644"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "9183bb7b314614e0054fdcfcf8e3f5ed83f336a392dc9f02245bbd4973c6f913",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "568fc92a63077d62afec561edc3ae82bfc4577a982058a0f34914839ccaa114d"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 0.00017528543688882792,
+          "meanAbsolute": 2.4042733961651294E-05,
+          "rmse": 5.070803571318057E-05,
+          "nrmse": 6.160090662078838E-06,
+          "maxRelative": 2.1293946172255536E-05,
+          "p50": 4.729371483741529E-07,
+          "p90": 9.063329787180055E-05,
+          "p95": 0.00012865250126172783,
+          "pearson": 0.9999999999985385,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 1.1431411373052924E-05,
+          "meanAbsolute": 2.9458256904806785E-06,
+          "rmse": 4.4912867542041965E-06,
+          "nrmse": 3.179619634768518E-06,
+          "maxRelative": 8.092901220535757E-06,
+          "p50": 1.3236082519463288E-06,
+          "p90": 8.00338249784538E-06,
+          "p95": 9.583216346031875E-06,
+          "pearson": 0.999999999999061,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": 0.11787784665281843,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": 0.11787828567361881
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": 0.11787828567361881
+                }
+              ],
+              "absoluteErrorWaves": 4.390208003801632E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1546,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 2,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 2,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.48,
+        "opd": 1546,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Apochromat4.zmx",
+        "fan": 1545
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "b568a001cac743001f949aceccd00a1dc164e8835dcfb304f0105e1824d5c4d1",
+      "coreDataSha256": "4f7beb30bf63afb36e4b343d1efe3eb60ba366090688693ecf15fda8ae5856d8",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "fb528fd8f267edab44bf141fe8949a1e22514d5e39110682173388cb04335591",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "d39432d97f1e6ccf57a9ef6d19b6c60dcb3b3d1b5bfce61548eda286eea3b1e3"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "89bd83ab51eb91dd74cf71e92bd449c904376c905dabb0beb9a70d9a2f690cb0",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "cb843ed321b189d135d574407452ba04fbea73df1260e30c2326b3d335d91c09"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 0.00014318699143167635,
+          "meanAbsolute": 1.9620279473887187E-05,
+          "rmse": 4.1396018870129426E-05,
+          "nrmse": 5.242424754239066E-06,
+          "maxRelative": 1.8133314479380763E-05,
+          "p50": 4.4557413317325434E-07,
+          "p90": 7.39481045845203E-05,
+          "p95": 0.00010504220558247285,
+          "pearson": 0.9999999999989304,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 9.334950405559539E-06,
+          "meanAbsolute": 2.4082114287517126E-06,
+          "rmse": 3.6716453499749724E-06,
+          "nrmse": 2.7075223681011935E-06,
+          "maxRelative": 6.883722314939824E-06,
+          "p50": 1.0803907537493274E-06,
+          "p90": 6.547170213311304E-06,
+          "p95": 7.834264718509232E-06,
+          "pearson": 0.9999999999993278,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": 0.09280238747096566,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": 0.09280281924965254
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": 0.09280281924965254
+                }
+              ],
+              "absoluteErrorWaves": 4.317786868879292E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1550,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 3,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 3,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.5,
+        "opd": 1550,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Apochromat4.zmx",
+        "fan": 1549
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "0f7f5d825d99fe29327712e0412042ebdf19e350742c4c7d7c0629b3226d838e",
+      "coreDataSha256": "3898f29e5506965f946b6134f01c871508529535d044a27ecd92da548584af43",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "4326e2c399c044b88e4cbfac62da5707b9c277da2664fc92aad524f2fa28d215",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "05926509775ecb95049cf4cc8167771e939d04a5600982861bc3d54f508d4f25"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "294d46cccd74a972b43b116b68a70670fc717c9db8f90e8a9b7c239780e92109",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "7da5d564b476315e175ecf4b6654cf6888100f59cfe20dc9884aeb6bf239fbf5"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 0.0001167557077685899,
+          "meanAbsolute": 1.5985482069991175E-05,
+          "rmse": 3.373681189734926E-05,
+          "nrmse": 4.446283145592836E-06,
+          "maxRelative": "Infinity",
+          "p50": 4.0844261306460794E-07,
+          "p90": 6.0237701848819845E-05,
+          "p95": 8.561789277550243E-05,
+          "pearson": 0.9999999999992224,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 7.609791907725594E-06,
+          "meanAbsolute": 1.9651750300732045E-06,
+          "rmse": 2.9961203283007577E-06,
+          "nrmse": 2.297051004616709E-06,
+          "maxRelative": "Infinity",
+          "p50": 8.806105844527679E-07,
+          "p90": 5.34557109688194E-06,
+          "p95": 6.392512297281883E-06,
+          "pearson": 0.9999999999995207,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": 0.07231830046094956,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": 0.07231870920421102
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": 0.07231870920421102
+                }
+              ],
+              "absoluteErrorWaves": 4.0874326145967643E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1554,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 4,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 4,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.52,
+        "opd": 1554,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Apochromat4.zmx",
+        "fan": 1553
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "2c33f9e4dcd9d4ec6b00be4c8934142268249016f4c64d91f6222321c02d7f7c",
+      "coreDataSha256": "f66340dc5e49c58d2218461d2903a5fe49c1589f6112ea65bbd00a8bb12deb5a",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "34c0efaca28d413f8642c028b05ed496cc38a6283f26e8a9019d43eb6e56c25d",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "5cde8dac228ab4977ea91a1474f39a0185e03e7a9f81c7faf2d5d601988be9fd"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "ab09276ec0e128298f61636c5cc4210f9d8202e587f76f1905d42c237d34ace7",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "0d17a2508b6b30c06116219ec70df77d3e26779742bb0b0e6e8bb57e0012a56e"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 9.478701114673527E-05,
+          "meanAbsolute": 1.2968971621800081E-05,
+          "rmse": 2.737654576062878E-05,
+          "nrmse": 3.7492764205600292E-06,
+          "maxRelative": 1.2981283649703687E-05,
+          "p50": 3.665849675066335E-07,
+          "p90": 4.8861797855703785E-05,
+          "p95": 6.94842532233508E-05,
+          "pearson": 0.9999999999994411,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 6.1758931302335895E-06,
+          "meanAbsolute": 1.5964451298276528E-06,
+          "rmse": 2.4337784604098743E-06,
+          "nrmse": 1.9376781237759106E-06,
+          "maxRelative": 4.917001776413209E-06,
+          "p50": 7.147516553063227E-07,
+          "p90": 4.344254870281006E-06,
+          "p95": 5.192239800555498E-06,
+          "pearson": 0.9999999999996623,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": 0.05493256541610181,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": 0.05493294154856032
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": 0.05493294154856032
+                }
+              ],
+              "absoluteErrorWaves": 3.761324585127568E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1558,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 5,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 5,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.54,
+        "opd": 1558,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Apochromat4.zmx",
+        "fan": 1557
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "d83cb7e229bfed0e71b37788c54d81da774b66b717ce058c2440e7d7f05f0a6f",
+      "coreDataSha256": "fa790401c33c221732d2f83841e24fdfb073ef9ee03c695d1766f642656a84e8",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "62741a75054374cfc47b0fa5d959ea8da73c650d4e6e224ac5f97ccd3f179eac",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "40a6a7c5d71b6ba0a981e1a9d988a025e1665f0cc4eeb654790def9f2fcea227"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "ad7a5bcb10b3f7db2f4fad3c3ec2f635695754bdeba100f0c1e9b26fd3d868e0",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "8dc2bd4fd67380e5092450d2252a47eb81e9bb4af9fa579dbfc3991799add064"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 7.638852061209178E-05,
+          "meanAbsolute": 1.0445727779413824E-05,
+          "rmse": 2.2053981695503744E-05,
+          "nrmse": 3.1343343052870248E-06,
+          "maxRelative": 1.0856414228974239E-05,
+          "p50": 3.2169769034751106E-07,
+          "p90": 3.934821661926159E-05,
+          "p95": 5.5980439542890863E-05,
+          "pearson": 0.9999999999996053,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 4.974885523978401E-06,
+          "meanAbsolute": 1.2870835324865153E-06,
+          "rmse": 1.962071700038882E-06,
+          "nrmse": 1.620618438590869E-06,
+          "maxRelative": 4.10912160339422E-06,
+          "p50": 5.758598330962705E-07,
+          "p90": 3.5037832717410566E-06,
+          "p95": 4.1857176160675635E-06,
+          "pearson": 0.999999999999765,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": 0.039929480028572724,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": 0.03992981737518427
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": 0.03992981737518427
+                }
+              ],
+              "absoluteErrorWaves": 3.3734661154805057E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1562,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 6,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 6,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.58,
+        "opd": 1562,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Apochromat4.zmx",
+        "fan": 1561
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "8822799d60434cae5a336456b740d3364344960de540c70d71d78604f5c2592b",
+      "coreDataSha256": "4a60f042fd2833c00dc168ed1c6c4cad50952b5e0f108c60169249559887309d",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "37e76e819550bd66bc328d337cd1793c5e1a4e9648eb40e2de00ec6c200363c8",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "36e77c2bf3814f1828e7efc1af068afd04745f2f375706c9f2a44b0fb4ce319e"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "6b051f0d9a37114a778c2592e9a474d95a6fc28a2aa472337bdb2815f7f73a75",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "4c232e6e65e4064d6fdf5467f5278df59165358989f5fbf3863b41d3c7b017f5"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 4.77338770039637E-05,
+          "meanAbsolute": 6.521411513059133E-06,
+          "rmse": 1.3772185966897217E-05,
+          "nrmse": 2.100002856704705E-06,
+          "maxRelative": 1.5934868023068066E-05,
+          "p50": 2.1127379658952838E-07,
+          "p90": 2.455761195903073E-05,
+          "p95": 3.496412837376005E-05,
+          "pearson": 0.9999999999998191,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 3.1051077418187134E-06,
+          "meanAbsolute": 8.043972686340608E-07,
+          "rmse": 1.2262668959214313E-06,
+          "nrmse": 1.0868610672662077E-06,
+          "maxRelative": 2.7521094514369737E-06,
+          "p50": 3.593656981437654E-07,
+          "p90": 2.1914477894569018E-06,
+          "p95": 2.615817907170026E-06,
+          "pearson": 0.9999999999998958,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": 0.015740654088970445,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": 0.01574090491821288
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": 0.01574090491821288
+                }
+              ],
+              "absoluteErrorWaves": 2.508292424353853E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1566,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 7,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 7,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.6,
+        "opd": 1566,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Apochromat4.zmx",
+        "fan": 1565
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "cdacd93271782ed43fa94e0b115cd831e4a36e8cf3a061bb2568685ebdd14701",
+      "coreDataSha256": "79b3f4c7be7d66f649119c1ada132c3339dbb4046a9141447110448ab5495d6b",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "c614b3a0d9214437b078ba740d8dcebc260513ef64d04582e4c5ae0fea005c99",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "d51d58dc0fd2bb6b3a11bc92a83214ea4607527ee5de38cd5f029bb2d9483618"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "d7c60738b5cc6235d38994e76cc76d6aef830f2e459faedaabff252f982865bd",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "84549aa467f850d15377c6f1915211737252648b9ea319e3461b4181742f2a2c"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 3.653146192927892E-05,
+          "meanAbsolute": 4.989201846797998E-06,
+          "rmse": 1.0537215732429002E-05,
+          "nrmse": 1.661353265688556E-06,
+          "maxRelative": "Infinity",
+          "p50": 1.6541830983457517E-07,
+          "p90": 1.8784711120201087E-05,
+          "p95": 2.6753136261881125E-05,
+          "pearson": 0.9999999999998858,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 2.3752266820054047E-06,
+          "meanAbsolute": 6.15733980789758E-07,
+          "rmse": 9.385753308388029E-07,
+          "nrmse": 8.602872349018322E-07,
+          "maxRelative": "Infinity",
+          "p50": 2.748944590846847E-07,
+          "p90": 1.6777838377501908E-06,
+          "p95": 2.002070361384334E-06,
+          "pearson": 0.999999999999935,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": 0.006179999972507252,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": 0.00618020608171103
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": 0.00618020608171103
+                }
+              ],
+              "absoluteErrorWaves": 2.0610920377795577E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1570,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 8,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 8,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.62,
+        "opd": 1570,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Apochromat4.zmx",
+        "fan": 1569
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "dc2053e3dc3235524e8855e9329cbc54cbfecc730996726702852618cb8b9431",
+      "coreDataSha256": "82ae5c739485a80a93300a851d35d2711b11406091fc25602c4d0f3f609c5eb3",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "8e850921e0c8ded75a2d5a9bd92fe0a9126b899335b9e685cf2409574a2cf91f",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "19baddb8e1d29c573cc62a71ff1dd82f81fa67131403908a1ef9bdb08aa3eb54"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "ba0828d87e4521a92e3996b6d95024e08cf9bc78ad0d1e469a1a962b1c91f3db",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "e72e54acbb8b16f59af430c466463a4b711fb67a359f9460c4c207a17a52322e"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 2.693923041618973E-05,
+          "meanAbsolute": 3.678045035844235E-06,
+          "rmse": 7.768575673324168E-06,
+          "nrmse": 1.2650791536241661E-06,
+          "maxRelative": "Infinity",
+          "p50": 1.2442330431933213E-07,
+          "p90": 1.3846122169836055E-05,
+          "p95": 1.9724992607139657E-05,
+          "pearson": 0.999999999999933,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 1.750873997785618E-06,
+          "meanAbsolute": 4.541250619673159E-07,
+          "rmse": 6.922153835072858E-07,
+          "nrmse": 6.553419076369788E-07,
+          "maxRelative": "Infinity",
+          "p50": 2.0268043515736522E-07,
+          "p90": 1.2377468225910349E-06,
+          "p95": 1.4764290148239212E-06,
+          "pearson": 0.9999999999999627,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": -0.0018721436558716813,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": -0.0018719821062449587
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": -0.0018719821062449587
+                }
+              ],
+              "absoluteErrorWaves": 1.6154962672264815E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1574,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 9,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 9,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.64,
+        "opd": 1574,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Apochromat4.zmx",
+        "fan": 1573
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "9f02a9ec5779ab41fee13317387193de81b511448b551563615ca784bbe58416",
+      "coreDataSha256": "434c6cdc308f1a3c9b83af52ec8513602bc5877a6466ea674ab994d9619ec52c",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "c0727eeec44f5f1633684c69c79e7b76f7ebf936a980edf2b5092daa04936c62",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "3916ddfe831ce58b835e289fbf6b81a50d3be12e5c191c044eadfa4c3658611b"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "1bd3cbeb09b7285748af52b06cc4d5ec412ac7bc19d353dbc45280eefa289378",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "ed08766657b00f76b53bfa6680644ce0c2e62c39be1f3e8a8df9d424f3330b92"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 1.8688879263706326E-05,
+          "meanAbsolute": 2.5509586793042055E-06,
+          "rmse": 5.388277802310481E-06,
+          "nrmse": 9.053295582103409E-07,
+          "maxRelative": "Infinity",
+          "p50": 8.786398800197937E-08,
+          "p90": 9.601898928757183E-06,
+          "p95": 1.368199449505169E-05,
+          "pearson": 0.9999999999999654,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 1.2142474525855818E-06,
+          "meanAbsolute": 3.1513402515300933E-07,
+          "rmse": 4.803177573123364E-07,
+          "nrmse": 4.6908006578103176E-07,
+          "maxRelative": "Infinity",
+          "p50": 1.4057461791838755E-07,
+          "p90": 8.590489430915227E-07,
+          "p95": 1.0244062542685839E-06,
+          "pearson": 0.9999999999999807,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": -0.008533317513714778,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": -0.008533199159777016
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": -0.008533199159777016
+                }
+              ],
+              "absoluteErrorWaves": 1.1835393776138403E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1578,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 10,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 10,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.66,
+        "opd": 1578,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Apochromat4.zmx",
+        "fan": 1577
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "36ef846a3d654dc987b7fc5916b16c1095ce01743595514c091ae525f7ac49aa",
+      "coreDataSha256": "b7ecf7924e9b335a28bdcb7a541ba00191b04f93154d7b3da168048f17832248",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "1ab3de0628b1ef20371d6f3ae1588338468853ca547ac0e4519ad5fe907f4f79",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "d4dad157c23d09cbf8035dae7ad340c97f1b644ae30650fe7ef3656b0526c638"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "d931a90b16d635db155fe8b530f30d9ebd69d93f99c0ba80d4b9993f793d1fa6",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "d0521873bd3a46d9278f4e0bbca48120c7e728ecb7bd74c5c57da8d3147676b4"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 1.1562321807545572E-05,
+          "meanAbsolute": 1.5778215760733519E-06,
+          "rmse": 3.3329804166805772E-06,
+          "nrmse": 5.772030012272708E-07,
+          "maxRelative": "Infinity",
+          "p50": 5.519312384905106E-08,
+          "p90": 5.938373227509787E-06,
+          "p95": 8.463606180120204E-06,
+          "pearson": 0.9999999999999859,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 7.510793333942445E-07,
+          "meanAbsolute": 1.9501778387734504E-07,
+          "rmse": 2.9723908299131086E-07,
+          "nrmse": 2.990446321106043E-07,
+          "maxRelative": "Infinity",
+          "p50": 8.698454415090318E-08,
+          "p90": 5.317315611153006E-07,
+          "p95": 6.339191798154786E-07,
+          "pearson": 0.9999999999999921,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": -0.01391508845388802,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": -0.01391501167490081
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": -0.01391501167490081
+                }
+              ],
+              "absoluteErrorWaves": 7.677898720970244E-08,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1582,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 11,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 11,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.68,
+        "opd": 1582,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Apochromat4.zmx",
+        "fan": 1581
+      },
+      "rawCurrentAndChief": "Close",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "1058ef2766b1a8c06932a8767e039a71d35b36a226d9dd83c823070acc1c8bea",
+      "coreDataSha256": "c4333740ae46a935be7239e592fbe64685d0508590794c0175fca083fd694628",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "204d663a9baa87e64f9e81cc2fb901d2f8992502d3339d4b1c955e005e5c41b5",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "f0524f126050518d81449d86d359bd1ae1ff91e67a21e6038e5f72510725882c"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "aaeb7afd4ec352e24713d1cc5af06ebe1d5661c004f75d3f3bef3b765520951e",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "39bb6053669c0ad78cd56552bbb1e4b6be88bf99795dc4382ba46782676546c5"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 5.381528229264632E-06,
+          "meanAbsolute": 7.342794662650378E-07,
+          "rmse": 1.5510622277145504E-06,
+          "nrmse": 2.7659266278075806E-07,
+          "maxRelative": 2.055652627575061E-06,
+          "p50": 2.605814359429859E-08,
+          "p90": 2.7631352108148384E-06,
+          "p95": 3.9388167239362536E-06,
+          "pearson": 0.9999999999999967,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 3.4964710871054905E-07,
+          "meanAbsolute": 9.08865795418216E-08,
+          "rmse": 1.384544184609887E-07,
+          "nrmse": 1.4330376237869062E-07,
+          "maxRelative": 3.6189344291074874E-07,
+          "p50": 4.060828470708877E-08,
+          "p90": 2.47695981392404E-07,
+          "p95": 2.9521679223432074E-07,
+          "pearson": 0.9999999999999983,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": -0.018124269431668234,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": -0.018124232174542742
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": -0.018124232174542742
+                }
+              ],
+              "absoluteErrorWaves": 3.725712549237925E-08,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1590,
+      "lens": "Objectives/Apochromat4.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 13,
+      "primaryWavelength": 12,
+      "originalWave": {
+        "wavelength": 13,
+        "primary": 12,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.44,
+        "opd": 1590,
+        "primaryMicrometers": 0.7,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Apochromat4.zmx",
+        "fan": 1589
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "f9e2cc8d19b43d38aea0cb85cac428bfa7c359795024d00319507cc9bb1ec6b2",
+      "coreDataSha256": "3688f30c916e84c5f58ed9a5f59a259ddaf3aac30013469e5e2dbd139a1215d0",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "0aab96846d2ba30501aac040d8d0c643079f9f7174f0b12546710a26176b65bf",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "33defa08b0fbdea0d79b47cbd7c22d36ed1ab90beb31c5bb214742edec95424a"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "fbe2c0026c1634b1bfad74f786b6567dbd28b1952bc29d617aff40896c538509",
+          "nativeModelSha256": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "settingsReadbackSha256": "99f4b1aa350193c41262db40e4dc0ed75287fd0a26b85137d99f9f54377eb110"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 0.00021475483664268324,
+          "meanAbsolute": 2.9495429279312355E-05,
+          "rmse": 6.217615442698353E-05,
+          "nrmse": 7.229983164366015E-06,
+          "maxRelative": 2.4972175711126585E-05,
+          "p50": 5.126190191911961E-07,
+          "p90": 0.00011120919427831669,
+          "p95": 0.00015771989063262373,
+          "pearson": 0.9999999999980048,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 1.4020519089275041E-05,
+          "meanAbsolute": 3.610233268158549E-06,
+          "rmse": 5.502639839192193E-06,
+          "nrmse": 3.726463542057804E-06,
+          "maxRelative": 9.494888772254983E-06,
+          "p50": 1.626845501756513E-06,
+          "p90": 9.797780768483477E-06,
+          "p95": 1.1739874728800004E-05,
+          "pearson": 0.9999999999986943,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": 0.15078007342885577,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": 0.15078049411153638
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": 0.15078049411153638
+                }
+              ],
+              "absoluteErrorWaves": 4.2068268060746483E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 1688,
+      "lens": "Objectives/Double Gauss 5 degree field.zmx",
+      "configuration": 1,
+      "field": 2,
+      "wavelength": 5,
+      "primaryWavelength": 3,
+      "originalWave": {
+        "wavelength": 5,
+        "primary": 3,
+        "field": 2,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.644,
+        "opd": 1688,
+        "primaryMicrometers": 0.546,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Double Gauss 5 degree field.zmx",
+        "fan": 1687
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "ae4c1212212e4fd461c1532a92b2c3fb77445208005f1e2afe7c3dc045a65f7f",
+      "coreDataSha256": "a3fd4e4ef338a141cb89ec199056f0b64407d483524217e3d599c5f503dd0a48",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "dff6adb483887a3de944d2825aa3e61c807f979f9c88aba8c03a12b70c8af496",
+          "nativeModelSha256": "1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+          "settingsReadbackSha256": "773ccedaf3f5d61d73caf3b47b2ea14219cf6c0f2a11c85e96fb9b1ed54ad1d3"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "c85887c3cf98906cfcc9df1df2ce50a5a5b89f14a505500d1190fa83646e3665",
+          "nativeModelSha256": "1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+          "settingsReadbackSha256": "381b707fed13366e9e9ab780791bd1394fc905cd98c3e231bebc4d0980a6488f"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 0.00020780663594166526,
+          "meanAbsolute": 3.064433055881503E-05,
+          "rmse": 5.24950860383794E-05,
+          "nrmse": 3.646713723438463E-06,
+          "maxRelative": 2.1699411360558298E-05,
+          "p50": 2.2038552142666923E-05,
+          "p90": 8.718113022281317E-05,
+          "p95": 0.00010331679038877428,
+          "pearson": 0.9999999999781085,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 1.9527675543251632E-05,
+          "meanAbsolute": 8.312568427829015E-06,
+          "rmse": 9.642766414572685E-06,
+          "nrmse": 1.5226003699744623E-06,
+          "maxRelative": 1.2855546360408779E-05,
+          "p50": 7.4617398181375805E-06,
+          "p90": 1.332599731096451E-05,
+          "p95": 1.9299405414230364E-05,
+          "pearson": 0.999999999997995,
+          "worstX": -0.9,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": -7.123189151182823,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": -0.9500000000000001,
+                  "value": -7.123145618049892
+                },
+                {
+                  "factor": 4,
+                  "x": -0.9500000000000001,
+                  "value": -7.123145618049892
+                }
+              ],
+              "absoluteErrorWaves": 4.353313293048444E-05,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 2040,
+      "lens": "Objectives/Wide angle lens 210 degree field.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 3,
+      "primaryWavelength": 2,
+      "originalWave": {
+        "wavelength": 3,
+        "primary": 2,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.656,
+        "opd": 2040,
+        "primaryMicrometers": 0.587,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Objectives\\Wide angle lens 210 degree field.zmx",
+        "fan": 2039
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "2bdd7669d610132043f2247ca71c5b3f61bf3785566a5d6cc163f9f5fbae2e4f",
+      "coreDataSha256": "f1706e625163135a8f83e2b71f43942d4b3eb727966806a020e427d82e115da7",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "d619e4b0e88de607b59e09a2f0f78d8ba9d4e4524d5dc137e559bfe720865cda",
+          "nativeModelSha256": "76db47b5ca233a001e3561731239b4240df58236999b6e70a1250de272e0a877",
+          "settingsReadbackSha256": "698d67a9bea320ea0371a67a3755f9930010293b4b8a073b32aa85061763bc9a"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "f86f9b4e40183b83650656c76df551d2c6e5daad34002725aab74b1607f4687a",
+          "nativeModelSha256": "76db47b5ca233a001e3561731239b4240df58236999b6e70a1250de272e0a877",
+          "settingsReadbackSha256": "f8715eee5013c393d45c7eed3784d0894d058a8b36c82d327b18b1e665cffb03"
+        },
+        {
+          "factor": 8,
+          "rayCount": 160,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "3da4fa08c98c3485253b780c6dfa558c4089eaedb6fb5cdd05445eb68950513c",
+          "nativeModelSha256": "76db47b5ca233a001e3561731239b4240df58236999b6e70a1250de272e0a877",
+          "settingsReadbackSha256": "3b6be9718d5244a4c843c72cbe862e15e638981825f2c94e74941115417d94a9"
+        },
+        {
+          "factor": 16,
+          "rayCount": 320,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "6422c3f5d7afa36ec00d74c4153ef3b3fbef0bc9853e5af8ca196dc32dd12f31",
+          "nativeModelSha256": "76db47b5ca233a001e3561731239b4240df58236999b6e70a1250de272e0a877",
+          "settingsReadbackSha256": "dc029cc97c43202eff32223cb1668d7c49396193250ba6c33e56794ee55ca750"
+        },
+        {
+          "factor": 32,
+          "rayCount": 640,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "de3c755067b3af1d6d65ae6a0f37bb0a2c749ca4c728a6ec20bb960651140380",
+          "nativeModelSha256": "76db47b5ca233a001e3561731239b4240df58236999b6e70a1250de272e0a877",
+          "settingsReadbackSha256": "97b774eab3bdb8061b6be483d41d04c9b197402334ef592bde0238a7d13575e8"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 40,
+          "maxAbsolute": 9.370336484515462E-07,
+          "meanAbsolute": 4.050486614249172E-07,
+          "rmse": 5.18077845796405E-07,
+          "nrmse": 1.6330791829285345E-07,
+          "maxRelative": "Infinity",
+          "p50": 3.646324432671211E-07,
+          "p90": 8.486747212099744E-07,
+          "p95": 9.049025079699291E-07,
+          "pearson": 0.9999999999999579,
+          "worstX": 0.45,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 41,
+          "maxAbsolute": 1.1007161984100122E-05,
+          "meanAbsolute": 2.2860069125679698E-06,
+          "rmse": 3.6816290582865637E-06,
+          "nrmse": 1.1059874126229895E-06,
+          "maxRelative": "Infinity",
+          "p50": 9.739147157628025E-07,
+          "p90": 6.051777642568368E-06,
+          "p95": 8.008163915551592E-06,
+          "pearson": 0.999999999999348,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 40,
+          "originalReported": 39,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 1,
+              "x": -0.9500000000000001,
+              "core": -2.8301864831768753,
+              "readbacks": [
+                {
+                  "factor": 8,
+                  "x": -0.9500000000000001,
+                  "value": -2.8301865348875435
+                },
+                {
+                  "factor": 16,
+                  "x": -0.9500000000000001,
+                  "value": -2.8301865348875435
+                },
+                {
+                  "factor": 32,
+                  "x": -0.9500000000000001,
+                  "value": -2.8301865348875435
+                }
+              ],
+              "absoluteErrorWaves": 5.171066819187331E-08,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 41,
+          "originalReported": 41,
+          "recovered": 0,
+          "repeatedMax": 0,
+          "added": []
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 2286,
+      "lens": "Telescopes/Flat-field Schmidt.zmx",
+      "configuration": 1,
+      "field": 3,
+      "wavelength": 1,
+      "primaryWavelength": 2,
+      "originalWave": {
+        "wavelength": 1,
+        "primary": 2,
+        "field": 3,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.4861,
+        "opd": 2286,
+        "primaryMicrometers": 0.5876,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Telescopes\\Flat-field Schmidt.zmx",
+        "fan": 2285
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "d659099202900b2183c2be5243fec6fdacccc46601f716549d25eafabd91a12a",
+      "coreDataSha256": "3f45692938ad9f4f510151984bfdbf9448bc91292a4eccd01c3ffce840c859ba",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "471ab878cb6059b362b46fff778e24d1c9b671ed78b19116aa5134ec78f91f48",
+          "nativeModelSha256": "9fcf63baeb511b99896eacb1cfa2e344675a2f73c7d09a387ca5562fab50c09c",
+          "settingsReadbackSha256": "38ba110d9dfebeeeb5c2313382fb078ce1fa6d4980a017593b61c0a4fdf149ae"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "c13a3c38949035229952c6a58e85137d6de4a1aa212c2cacc72a7028ea74ad54",
+          "nativeModelSha256": "9fcf63baeb511b99896eacb1cfa2e344675a2f73c7d09a387ca5562fab50c09c",
+          "settingsReadbackSha256": "11e8bc129d3c48dd7b1f96fd6006c6fceaecc2fa982d7639cb079ae43a3a023c"
+        },
+        {
+          "factor": 8,
+          "rayCount": 160,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "3721b02020572e3bcf0bfb14a54a1e555198a049edbdfe4f0d2268bac6d2bbeb",
+          "nativeModelSha256": "9fcf63baeb511b99896eacb1cfa2e344675a2f73c7d09a387ca5562fab50c09c",
+          "settingsReadbackSha256": "4de0638b0902776096e77932260130c3660064e7dced6f2699a6021ac9a7ff56"
+        },
+        {
+          "factor": 16,
+          "rayCount": 320,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "784ed222735b8d1902f295eb619f637adb652a4c30c867e6ef4d1a7aa1123166",
+          "nativeModelSha256": "9fcf63baeb511b99896eacb1cfa2e344675a2f73c7d09a387ca5562fab50c09c",
+          "settingsReadbackSha256": "e7a16f59dd00d1e714f2e19e48d4bdb700c9ad9134d98f35565c1641e3063647"
+        },
+        {
+          "factor": 32,
+          "rayCount": 640,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "444bc631bcf2cf58b2be608a46eb1f756bc15f744254782157f329ac425f541f",
+          "nativeModelSha256": "9fcf63baeb511b99896eacb1cfa2e344675a2f73c7d09a387ca5562fab50c09c",
+          "settingsReadbackSha256": "5ccc8fa9b66b17b8be894197214c368d7b39941733ad4be46d6715cbdace4b2c"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 36,
+          "maxAbsolute": 6.721967607425938E-06,
+          "meanAbsolute": 3.474604638659002E-06,
+          "rmse": 4.074984225345632E-06,
+          "nrmse": 1.4009916173463242E-06,
+          "maxRelative": 4.488074440366578E-06,
+          "p50": 3.67964818831501E-06,
+          "p90": 6.293671839796566E-06,
+          "p95": 6.601923401128307E-06,
+          "pearson": 0.9999999999990754,
+          "worstX": 0.8,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 38,
+          "maxAbsolute": 5.728729794762799E-06,
+          "meanAbsolute": 3.1925667362925785E-06,
+          "rmse": 3.7071772378187537E-06,
+          "nrmse": 1.2098716728113843E-06,
+          "maxRelative": 4.505312211162876E-06,
+          "p50": 3.1517573528816456E-06,
+          "p90": 5.55851449330902E-06,
+          "p95": 5.684790474591583E-06,
+          "pearson": 0.9999999999988451,
+          "worstX": -0.75,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 36,
+          "originalReported": 35,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 22,
+              "x": 0.1,
+              "core": 0.03544507411572886,
+              "readbacks": [
+                {
+                  "factor": 4,
+                  "x": 0.1,
+                  "value": 0.03544491503631164
+                },
+                {
+                  "factor": 8,
+                  "x": 0.1,
+                  "value": 0.03544491503631164
+                },
+                {
+                  "factor": 16,
+                  "x": 0.1,
+                  "value": 0.03544491503631164
+                },
+                {
+                  "factor": 32,
+                  "x": 0.1,
+                  "value": 0.03544491503631164
+                }
+              ],
+              "absoluteErrorWaves": 1.5907941721543528E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 38,
+          "originalReported": 37,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 22,
+              "x": 0.1,
+              "core": 0.0356007488400232,
+              "readbacks": [
+                {
+                  "factor": 4,
+                  "x": 0.1,
+                  "value": 0.035600588551873785
+                },
+                {
+                  "factor": 8,
+                  "x": 0.1,
+                  "value": 0.035600588551873785
+                },
+                {
+                  "factor": 16,
+                  "x": 0.1,
+                  "value": 0.035600588551873785
+                },
+                {
+                  "factor": 32,
+                  "x": 0.1,
+                  "value": 0.035600588551873785
+                }
+              ],
+              "absoluteErrorWaves": 1.6028814941310143E-07,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 2294,
+      "lens": "Telescopes/Flat-field Schmidt.zmx",
+      "configuration": 1,
+      "field": 3,
+      "wavelength": 3,
+      "primaryWavelength": 2,
+      "originalWave": {
+        "wavelength": 3,
+        "primary": 2,
+        "field": 3,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.6563,
+        "opd": 2294,
+        "primaryMicrometers": 0.5876,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Telescopes\\Flat-field Schmidt.zmx",
+        "fan": 2293
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "dfd830aa97f780fe06142f87e56cb286dc12fdc4935cb3f206acbd1996feef16",
+      "coreDataSha256": "375d05c036bd97966c59bdef7ff946c9fe9bbad0172b13c20218932c75178468",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "f4abca790c837318367bd07a412b1ee1bbeea09fe9b8cf45107eebe00a15b499",
+          "nativeModelSha256": "9fcf63baeb511b99896eacb1cfa2e344675a2f73c7d09a387ca5562fab50c09c",
+          "settingsReadbackSha256": "2df174fdcd78e4d55b1797aad262816903cb64786545bf9d224b55aaf55540c0"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "c73a02f01d3898205d109cdf222582a92a447032fd4f882e882b2664b8d4e544",
+          "nativeModelSha256": "9fcf63baeb511b99896eacb1cfa2e344675a2f73c7d09a387ca5562fab50c09c",
+          "settingsReadbackSha256": "7b9cb076c25c7cdac41b5e50f665164feb2bc9c759d838ade01348543db452da"
+        },
+        {
+          "factor": 8,
+          "rayCount": 160,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "5e055418bd43750fafe8d332c09edbfa2f9c318c5d2c6de290c2f40ebde55028",
+          "nativeModelSha256": "9fcf63baeb511b99896eacb1cfa2e344675a2f73c7d09a387ca5562fab50c09c",
+          "settingsReadbackSha256": "c44516a6c1b921c6e7d9729fb7f6be34f8ec68aa1ec81745ad0abe3543fd598b"
+        },
+        {
+          "factor": 16,
+          "rayCount": 320,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "94126ed39222c839b923e55bb9257f61f8d08f1881705f40fa5b6fa868f9fa30",
+          "nativeModelSha256": "9fcf63baeb511b99896eacb1cfa2e344675a2f73c7d09a387ca5562fab50c09c",
+          "settingsReadbackSha256": "366556a004be94925609368f2a335214b696ed90b4b40ad73ff3b6c69e03d93b"
+        },
+        {
+          "factor": 32,
+          "rayCount": 640,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "22525546ce93a208010bcba67b97fd28a470676934c939c81c8a4f87e173a8f0",
+          "nativeModelSha256": "9fcf63baeb511b99896eacb1cfa2e344675a2f73c7d09a387ca5562fab50c09c",
+          "settingsReadbackSha256": "398ff785849ea024c2cc1016d35ad1c15e977b99c6e7f03ae98c3bebdf9d4db0"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 36,
+          "maxAbsolute": 5.159744167482216E-07,
+          "meanAbsolute": 1.448417908190554E-07,
+          "rmse": 1.7564082280284376E-07,
+          "nrmse": 3.635686600685339E-07,
+          "maxRelative": 1.0680440021473013E-06,
+          "p50": 1.4090612977801786E-07,
+          "p90": 2.3937545193253307E-07,
+          "p95": 2.474747682751355E-07,
+          "pearson": 0.9999999999994066,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 38,
+          "maxAbsolute": 1.0561548419163458E-06,
+          "meanAbsolute": 3.7709078506126477E-07,
+          "rmse": 5.039109561609225E-07,
+          "nrmse": 1.2732697516669504E-06,
+          "maxRelative": 2.6686659554574645E-06,
+          "p50": 2.5776171283520277E-07,
+          "p90": 9.01806403108552E-07,
+          "p95": 9.824279470688201E-07,
+          "pearson": 0.9999999999994436,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 36,
+          "originalReported": 35,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 22,
+              "x": 0.1,
+              "core": -0.011936802779905392,
+              "readbacks": [
+                {
+                  "factor": 4,
+                  "x": 0.1,
+                  "value": -0.011936792059182152
+                },
+                {
+                  "factor": 8,
+                  "x": 0.1,
+                  "value": -0.011936792059182152
+                },
+                {
+                  "factor": 16,
+                  "x": 0.1,
+                  "value": -0.011936792059182152
+                },
+                {
+                  "factor": 32,
+                  "x": 0.1,
+                  "value": -0.011936792059182152
+                }
+              ],
+              "absoluteErrorWaves": 1.0720723239709962E-08,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 38,
+          "originalReported": 37,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 22,
+              "x": 0.1,
+              "core": -0.011785945300452006,
+              "readbacks": [
+                {
+                  "factor": 4,
+                  "x": 0.1,
+                  "value": -0.011785934704286299
+                },
+                {
+                  "factor": 8,
+                  "x": 0.1,
+                  "value": -0.011785934704286299
+                },
+                {
+                  "factor": 16,
+                  "x": 0.1,
+                  "value": -0.011785934704286299
+                },
+                {
+                  "factor": 32,
+                  "x": 0.1,
+                  "value": -0.011785934704286299
+                }
+              ],
+              "absoluteErrorWaves": 1.0596165707019156E-08,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 2316,
+      "lens": "Telescopes/Houghton.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 1,
+      "primaryWavelength": 3,
+      "originalWave": {
+        "wavelength": 1,
+        "primary": 3,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.40466,
+        "opd": 2316,
+        "primaryMicrometers": 0.58767,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Telescopes\\Houghton.zmx",
+        "fan": 2315
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "2da63943aa3c8ca5f0d150841f9e71d20d131ebcc6997c3b179704db4bb1246e",
+      "coreDataSha256": "6eb2a62d1da3c46bb6da36ba8fd1d28aaabface90a635799bcecc730719068fa",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "e51fd3e472f3f29ba725657727e16846a387aaa9d447232dac29e5518cdfcd18",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "44f7228a074380daddd28432178d9f8bb08042fec483515bf066aa6cd27a51d0"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "c49c015e20e467c1cd85483c6be53828a2481c22370a49de6dc3b94f4d6d376a",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "4b887df85a9bb257c865039f7f84ab83710d232114eb7830a58467988ea8612e"
+        },
+        {
+          "factor": 8,
+          "rayCount": 160,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "7e9b11ffb684b67af40bbc2b6b8ee9d8744d75f8c861f38b95b2da3eb7af7c94",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "48bc998abfeb6d947ce34f6e21d540784eb6292f71d8f0415d2379426ee77f8e"
+        },
+        {
+          "factor": 16,
+          "rayCount": 320,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "de0e159066432b7d65034fdab03853364e8a06cee7b6c5f32a02ebd474ab8c5c",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "de87d6beef4d03eebf96fc41dd69cc5ea24d3952481f141b433e0efdba4c30f1"
+        },
+        {
+          "factor": 32,
+          "rayCount": 640,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "9720ce2e41c14c74cc239d79031d2dcc3fe2a8a510e3764aae46fd2db71a328b",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "be19cd271b0b6ac370157cf6dc0afaaac26679ac04898a515d4ff27efc2455ea"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 27,
+          "maxAbsolute": 7.440628779775693E-09,
+          "meanAbsolute": 2.675878700525744E-09,
+          "rmse": 3.0558810812198195E-09,
+          "nrmse": 2.155357628056624E-08,
+          "maxRelative": 9.511224597060869E-07,
+          "p50": 2.6821381626102037E-09,
+          "p90": 4.125488455020144E-09,
+          "p95": 4.791962472661115E-09,
+          "pearson": 0.9999999999999998,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 28,
+          "maxAbsolute": 4.664110972441016E-09,
+          "meanAbsolute": 2.6307153596137387E-09,
+          "rmse": 2.8179041789234786E-09,
+          "nrmse": 2.8002863950839375E-08,
+          "maxRelative": 3.1823897363310707E-06,
+          "p50": 2.54166611368678E-09,
+          "p90": 3.782648863581706E-09,
+          "p95": 4.1707028948512194E-09,
+          "pearson": 0.9999999999999997,
+          "worstX": -0.9500000000000001,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 27,
+          "originalReported": 26,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 27,
+              "x": 0.35000000000000003,
+              "core": 0.02572234686625774,
+              "readbacks": [
+                {
+                  "factor": 4,
+                  "x": 0.35000000000000003,
+                  "value": 0.025722349909452963
+                },
+                {
+                  "factor": 8,
+                  "x": 0.35000000000000003,
+                  "value": 0.025722349909452963
+                },
+                {
+                  "factor": 16,
+                  "x": 0.35000000000000003,
+                  "value": 0.025722349909452963
+                },
+                {
+                  "factor": 32,
+                  "x": 0.35000000000000003,
+                  "value": 0.025722349909452963
+                }
+              ],
+              "absoluteErrorWaves": 3.0431952235954185E-09,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 28,
+          "originalReported": 27,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 27,
+              "x": 0.35000000000000003,
+              "core": 0.014913872363361714,
+              "readbacks": [
+                {
+                  "factor": 4,
+                  "x": 0.35000000000000003,
+                  "value": 0.014913873818564334
+                },
+                {
+                  "factor": 8,
+                  "x": 0.35000000000000003,
+                  "value": 0.014913873818564334
+                },
+                {
+                  "factor": 16,
+                  "x": 0.35000000000000003,
+                  "value": 0.014913873818564334
+                },
+                {
+                  "factor": 32,
+                  "x": 0.35000000000000003,
+                  "value": 0.014913873818564334
+                }
+              ],
+              "absoluteErrorWaves": 1.455202619862761E-09,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 2320,
+      "lens": "Telescopes/Houghton.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 2,
+      "primaryWavelength": 3,
+      "originalWave": {
+        "wavelength": 2,
+        "primary": 3,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.48613,
+        "opd": 2320,
+        "primaryMicrometers": 0.58767,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Telescopes\\Houghton.zmx",
+        "fan": 2319
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "00bcbbe4db9decbb5b56f64611b00737c9bc5d3bb77e60ba6270e50ec986d787",
+      "coreDataSha256": "01e4be98915fcd546f53c7bef49484e2b5aa1e01e637d74a833c89be91c02e36",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "bd683fadec2b0c488c966a0a1a2ffbffe2043b5483780737b956d102ff0109ed",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "134e859aa4cf44b59d447fc1e87e07a560740d3256c2c4f3cfe5b6d4970fb40d"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "c5c5db124d011fc95e17d50ef1e3e66d7b2fa1da0718822df7b2d00957ebec42",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "f031091503b162a09036c7a5c9cd807090b416bb48d270efdf187a0c6d778122"
+        },
+        {
+          "factor": 8,
+          "rayCount": 160,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "382bd81432ff26f207ca31edaa92927e515b6ecf92877e64e76ccfdec92fafa8",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "0a32f89da27dad31b8b8e6209bd2b1274ab32d7d577a0acfb29791a75ab519f3"
+        },
+        {
+          "factor": 16,
+          "rayCount": 320,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "a1214e47fb553e18f639fce8f06fdcb057344f463d7942670053c1c7bf4eadd2",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "b8b17c486cabe3241a0263ee32e30f441a7dbead01fe4dd5b8625f194b8c1fe5"
+        },
+        {
+          "factor": 32,
+          "rayCount": 640,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "bf2b1647be96f56f1d399fd6971ec0117724ea53c1d825d307b21717cec2453b",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "900b18698a1f53a77f5640f2562bd69d1676960d5da4553cf3b03bbcce9cfd03"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 27,
+          "maxAbsolute": 2.9397055761881674E-09,
+          "meanAbsolute": 7.83698185372256E-10,
+          "rmse": 1.07591876620327E-09,
+          "nrmse": 1.5586436171684587E-08,
+          "maxRelative": 1.6875065060642015E-06,
+          "p50": 4.508218477347614E-10,
+          "p90": 1.81717288577632E-09,
+          "p95": 2.197174140934968E-09,
+          "pearson": 0.9999999999999984,
+          "worstX": 1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 28,
+          "maxAbsolute": 2.511721726439209E-09,
+          "meanAbsolute": 7.704884038571756E-10,
+          "rmse": 1.0064388596170453E-09,
+          "nrmse": 7.135867648126283E-08,
+          "maxRelative": 2.2516024050717562E-07,
+          "p50": 5.778010500612218E-10,
+          "p90": 1.443360729547205E-09,
+          "p95": 2.137795377527006E-09,
+          "pearson": 0.9999999999999154,
+          "worstX": -0.55,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 27,
+          "originalReported": 26,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 27,
+              "x": 0.35000000000000003,
+              "core": 0.000919612463168415,
+              "readbacks": [
+                {
+                  "factor": 4,
+                  "x": 0.35000000000000003,
+                  "value": 0.0009196133209631779
+                },
+                {
+                  "factor": 8,
+                  "x": 0.35000000000000003,
+                  "value": 0.0009196133209631779
+                },
+                {
+                  "factor": 16,
+                  "x": 0.35000000000000003,
+                  "value": 0.0009196133209631779
+                },
+                {
+                  "factor": 32,
+                  "x": 0.35000000000000003,
+                  "value": 0.0009196133209631779
+                }
+              ],
+              "absoluteErrorWaves": 8.577947629550414E-10,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 28,
+          "originalReported": 27,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 27,
+              "x": 0.35000000000000003,
+              "core": -0.006081710510325525,
+              "readbacks": [
+                {
+                  "factor": 4,
+                  "x": 0.35000000000000003,
+                  "value": -0.006081711341628224
+                },
+                {
+                  "factor": 8,
+                  "x": 0.35000000000000003,
+                  "value": -0.006081711341628224
+                },
+                {
+                  "factor": 16,
+                  "x": 0.35000000000000003,
+                  "value": -0.006081711341628224
+                },
+                {
+                  "factor": 32,
+                  "x": 0.35000000000000003,
+                  "value": -0.006081711341628224
+                }
+              ],
+              "absoluteErrorWaves": 8.313026994208328E-10,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 2328,
+      "lens": "Telescopes/Houghton.zmx",
+      "configuration": 1,
+      "field": 4,
+      "wavelength": 4,
+      "primaryWavelength": 3,
+      "originalWave": {
+        "wavelength": 4,
+        "primary": 3,
+        "field": 4,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.65627,
+        "opd": 2328,
+        "primaryMicrometers": 0.58767,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Telescopes\\Houghton.zmx",
+        "fan": 2327
+      },
+      "rawCurrentAndChief": "Difference",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "8bf322abec7a904510c0454a781c0f5476170d836aba119df1a44e283de86a2d",
+      "coreDataSha256": "a1db7cd017299e35eeaf298ee620bdce8f869dae5b8802f8669ce378ad9d9e55",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "9f5a0e32698a48b8aa49437d4b019fa6dbc7bb95fd51b221fc6ba4eeaa54313a",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "67af7f7f6c53cefc4864afeaeeed41460d3625a2895ec213276d099e6f78264c"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "8016af5db6377314bb983dadce5267457eefa513ad4e4b0ead12a4303b867dce",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "5d2cd5a340eba4af5390cadc7aa23cf73d9897f1a1ce42f2bdfd6bc135bdfc89"
+        },
+        {
+          "factor": 8,
+          "rayCount": 160,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "41d52518c2fa4992f1f633bbe179a7b59da6a6fd6f14d95b2cc47b46c9da37ae",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "528d98d1fdb66260471163fedf009f4a2b955a950958b372877bdf25ae29553f"
+        },
+        {
+          "factor": 16,
+          "rayCount": 320,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "021dd97c635aeb1c08646482409fc7b417ba43c98f6c78ad8338604caace3299",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "caccf157a5efcf7de3c95b7987b4fde96f0da2754e11d60d8a02e5638e2b8a63"
+        },
+        {
+          "factor": 32,
+          "rayCount": 640,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "4b45185ab014ff0bd2b81df7f33294f756cf5210edc9c1c7f72b15685413d3a8",
+          "nativeModelSha256": "0bdc9fed1a86aaadb2d1eda6f2ac61f48af38dbdb8fe3bf48bc5679109bc3575",
+          "settingsReadbackSha256": "fae90e375c7238ea65057b6e40c9524b8f5eb1df786ce156ac46bfbe3c6afdf7"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 27,
+          "maxAbsolute": 1.7187843301402772E-09,
+          "meanAbsolute": 5.322767806825826E-10,
+          "rmse": 6.461304926938235E-10,
+          "nrmse": 7.291933181274645E-09,
+          "maxRelative": 2.0483809834928657E-07,
+          "p50": 5.54883129028072E-10,
+          "p90": 8.627755988810382E-10,
+          "p95": 1.0310675915489729E-09,
+          "pearson": 0.9999999999999998,
+          "worstX": -0.65,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 28,
+          "maxAbsolute": 1.0623981867852184E-09,
+          "meanAbsolute": 4.055045313050763E-10,
+          "rmse": 5.005102402990296E-10,
+          "nrmse": 1.1289131167155636E-08,
+          "maxRelative": 1.6340616930596334E-07,
+          "p50": 3.5762894382007637E-10,
+          "p90": 8.620989122229417E-10,
+          "p95": 9.922934406884212E-10,
+          "pearson": 0.9999999999999997,
+          "worstX": -0.35000000000000003,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 27,
+          "originalReported": 26,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 27,
+              "x": 0.35000000000000003,
+              "core": -0.014544162065630372,
+              "readbacks": [
+                {
+                  "factor": 4,
+                  "x": 0.35000000000000003,
+                  "value": -0.014544161204208147
+                },
+                {
+                  "factor": 8,
+                  "x": 0.35000000000000003,
+                  "value": -0.014544161204208147
+                },
+                {
+                  "factor": 16,
+                  "x": 0.35000000000000003,
+                  "value": -0.014544161204208147
+                },
+                {
+                  "factor": 32,
+                  "x": 0.35000000000000003,
+                  "value": -0.014544161204208147
+                }
+              ],
+              "absoluteErrorWaves": 8.614222252179005E-10,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 28,
+          "originalReported": 27,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 27,
+              "x": 0.35000000000000003,
+              "core": -0.018210697789577547,
+              "readbacks": [
+                {
+                  "factor": 4,
+                  "x": 0.35000000000000003,
+                  "value": -0.018210698851975734
+                },
+                {
+                  "factor": 8,
+                  "x": 0.35000000000000003,
+                  "value": -0.018210698851975734
+                },
+                {
+                  "factor": 16,
+                  "x": 0.35000000000000003,
+                  "value": -0.018210698851975734
+                },
+                {
+                  "factor": 32,
+                  "x": 0.35000000000000003,
+                  "value": -0.018210698851975734
+                }
+              ],
+              "absoluteErrorWaves": 1.0623981867852184E-09,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    },
+    {
+      "id": 2492,
+      "lens": "Telescopes/Schmidt-Cassegrain.zmx",
+      "configuration": 1,
+      "field": 3,
+      "wavelength": 3,
+      "primaryWavelength": 2,
+      "originalWave": {
+        "wavelength": 3,
+        "primary": 2,
+        "field": 3,
+        "referenceOPD": "ExitPupil",
+        "selectedMicrometers": 0.65,
+        "opd": 2492,
+        "primaryMicrometers": 0.55,
+        "input": "D:\\Projects\\opticalsystem\\src\\OpticalSystemDesign.App\\Assets\\SequentialExamples\\Telescopes\\Schmidt-Cassegrain.zmx",
+        "fan": 2491
+      },
+      "rawCurrentAndChief": "Close",
+      "rawBatchUse": "Physical mask and separate OPD diagnostic. A non-primary CurrentAndChief difference is insufficient to establish a monochromatic plot implementation error.",
+      "originalReportedKnots": "Pass",
+      "originalNativeSha256": "84e11fdb91a48ba29674770833df2c162e6ec0c005977e35dadd0e5108026d3c",
+      "coreDataSha256": "737b455230160c49db18bbb8a9abe215e107e731e0a8173ca8d305c0991979c2",
+      "sampleStages": [
+        {
+          "factor": 2,
+          "rayCount": 40,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "ba33b6933eaf32c76a95afe82549a5002ad3167391b35368dfa2ae0259ff5075",
+          "nativeModelSha256": "aa8fc84e8083bf84e3181c5d7a9c30eb18ee0132af147be3802694c5903cc121",
+          "settingsReadbackSha256": "de514dc6a65a999fbb804fa69dba3b345eb03aa636a45a7cd2dccdcb555387ae"
+        },
+        {
+          "factor": 4,
+          "rayCount": 80,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "e7345163cfafcbfd206bf6b76c0d64094595c686f22c266ddb89fde940a670ba",
+          "nativeModelSha256": "aa8fc84e8083bf84e3181c5d7a9c30eb18ee0132af147be3802694c5903cc121",
+          "settingsReadbackSha256": "17fef0e5d5671175da9c9238250197443561bb699c866a434fa9ff6eee59d63f"
+        },
+        {
+          "factor": 8,
+          "rayCount": 160,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "bcfda776675feae69d25cdaef4d4284092ec285bf437edc74f34147268307b75",
+          "nativeModelSha256": "aa8fc84e8083bf84e3181c5d7a9c30eb18ee0132af147be3802694c5903cc121",
+          "settingsReadbackSha256": "6ae5f2ecd43cf7727222a8dd475569d15846626fd536afaa49a9169a32ecc0dc"
+        },
+        {
+          "factor": 16,
+          "rayCount": 320,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "84e4478ba8b8add45413d08985149beaae8fc1c4686c57958d3a759e1fb55405",
+          "nativeModelSha256": "aa8fc84e8083bf84e3181c5d7a9c30eb18ee0132af147be3802694c5903cc121",
+          "settingsReadbackSha256": "845af7168ea3b57957606bdd8d2d30120e9d068dc797a23661f579e3ed93ad78"
+        },
+        {
+          "factor": 32,
+          "rayCount": 640,
+          "referenceMode": "ExitPupil",
+          "nativeDataSha256": "8a4374b3650f724a498306f6c69c137dec25c27d1bcc624c3e8ddf88fd352852",
+          "nativeModelSha256": "aa8fc84e8083bf84e3181c5d7a9c30eb18ee0132af147be3802694c5903cc121",
+          "settingsReadbackSha256": "eb17c272d53d8bce7b583eb954a8c3662a9be4b2c311846ad23557ffca73d515"
+        }
+      ],
+      "conclusion": "Pass",
+      "failures": [],
+      "metrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 18,
+          "maxAbsolute": 1.0881552048314092E-08,
+          "meanAbsolute": 2.744091745113561E-09,
+          "rmse": 3.6812021001585535E-09,
+          "nrmse": 2.2669755691285745E-08,
+          "maxRelative": 2.182755640052965E-07,
+          "p50": 1.866541116113396E-09,
+          "p90": 5.2831585314883085E-09,
+          "p95": 6.470892204013527E-09,
+          "pearson": 0.9999999999999964,
+          "worstX": 0.55,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 20,
+          "maxAbsolute": 1.0188089760720942E-08,
+          "meanAbsolute": 3.6333329733739817E-09,
+          "rmse": 4.752686514202123E-09,
+          "nrmse": 7.9772860578678E-09,
+          "maxRelative": 2.435543987490126E-08,
+          "p50": 2.6816155684894483E-09,
+          "p90": 7.985543915012276E-09,
+          "p95": 1.0188089760720942E-08,
+          "pearson": 0.9999999999999993,
+          "worstX": -0.75,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "axes": [
+        {
+          "axis": "tangential",
+          "physicalNodes": 18,
+          "originalReported": 17,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 29,
+              "x": 0.45,
+              "core": -0.1097742474834936,
+              "readbacks": [
+                {
+                  "factor": 2,
+                  "x": 0.45,
+                  "value": -0.10977424614302743
+                },
+                {
+                  "factor": 4,
+                  "x": 0.45,
+                  "value": -0.10977424614302743
+                },
+                {
+                  "factor": 8,
+                  "x": 0.45,
+                  "value": -0.10977424614302743
+                },
+                {
+                  "factor": 16,
+                  "x": 0.45,
+                  "value": -0.10977424614302743
+                },
+                {
+                  "factor": 32,
+                  "x": 0.45,
+                  "value": -0.10977424614302743
+                }
+              ],
+              "absoluteErrorWaves": 1.340466168620047E-09,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        },
+        {
+          "axis": "sagittal",
+          "physicalNodes": 20,
+          "originalReported": 19,
+          "recovered": 1,
+          "repeatedMax": 0,
+          "added": [
+            {
+              "knot": 31,
+              "x": 0.55,
+              "core": -0.3178270008692589,
+              "readbacks": [
+                {
+                  "factor": 8,
+                  "x": 0.55,
+                  "value": -0.3178270086100755
+                },
+                {
+                  "factor": 16,
+                  "x": 0.55,
+                  "value": -0.3178270086100755
+                },
+                {
+                  "factor": 32,
+                  "x": 0.55,
+                  "value": -0.3178270086100755
+                }
+              ],
+              "absoluteErrorWaves": 7.74081659882242E-09,
+              "converged": true,
+              "addedNodePass": true
+            }
+          ]
+        }
+      ],
+      "addedPointwiseConclusion": "Pass",
+      "pointwiseDeviations": []
+    }
+  ]
+}

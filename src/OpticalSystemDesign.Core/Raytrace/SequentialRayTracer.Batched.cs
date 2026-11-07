@@ -44,6 +44,7 @@ public sealed partial class SequentialRayTracer
                 ComputationCancellation.ThrowIfCancellationRequested();
                 var surface = surfaces[surfaceIndex];
                 var allowReferenceBacktrack = AllowsReferenceBacktrack(surfaces, surfaceIndex);
+                var floatingConicEdge = ResolveFloatingConicEdge(surface, surfaceIndex);
                 NormalizePendingDirections(
                     states,
                     active,
@@ -89,7 +90,7 @@ public sealed partial class SequentialRayTracer
                         cumulativeOpticalPaths[rayIndex],
                         stopBeforeInteraction: request.StopAtIncidentSurfaceIndex == surfaceIndex,
                         allowVirtualIntersection: allowReferenceBacktrack,
-                        sourceRay: bundle.Rays[rayIndex], phaseTrace: phaseTrace);
+                        sourceRay: bundle.Rays[rayIndex], phaseTrace: phaseTrace, floatingConicEdge: floatingConicEdge);
                     var slot = surfaceSlots[surfaceIndex];
                     if (slot >= 0)
                     {

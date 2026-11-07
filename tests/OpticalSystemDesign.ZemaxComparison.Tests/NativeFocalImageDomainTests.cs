@@ -34,6 +34,19 @@ public sealed class NativeFocalImageDomainTests
 
             File.WriteAllText(model, prescription.Replace("\"Radius\":null,\"Thickness\":0", "\"Radius\":50,\"Thickness\":0"));
             Assert.Equal(2, ResultNormalizer.Zemax(native, entry, request, workbench).Series.Count);
+
+            var energyEntry = AnalysisComparisonRegistry.Get("Diffraction Encircled Energy");
+            var energy = request with { CanonicalAnalysisKey = energyEntry.CanonicalAnalysisKey };
+            var fft = energy with { ZemaxSettings = new() { ["UseHuygensPSF"] = false } };
+            var huygens = energy with { ZemaxSettings = new() { ["UseHuygensPSF"] = true } };
+            File.WriteAllText(native, """{"dataSeries":[{"x":[0,1],"y":[[0],[0.8]]},{"x":[0,1],"y":[[0],[0.6]]}]}""");
+            Assert.Equal(2, ResultNormalizer.Zemax(native, energyEntry, fft, workbench).Series.Count);
+
+            File.WriteAllText(model, prescription);
+            Assert.Equal(2, ResultNormalizer.Zemax(native, energyEntry, energy, workbench).Series.Count);
+            Assert.Equal(2, ResultNormalizer.Zemax(native, energyEntry, huygens, workbench).Series.Count);
+            var fftError = Assert.Throws<InvalidDataException>(() => ResultNormalizer.Zemax(native, energyEntry, fft, workbench));
+            Assert.Contains("no finite image diffraction scale", fftError.Message);
         }
         finally
         {

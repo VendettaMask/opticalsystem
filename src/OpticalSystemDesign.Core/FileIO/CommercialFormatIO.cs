@@ -366,7 +366,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
                 $"  MEMA {FormatDouble(opticSurface.MechanicalSemiDiameter)} " +
                 $"{opticSurface.MechanicalSemiDiameterSolveCode} 0 0 1 \"\"");
             lines.Add($"  CONI {FormatDouble(surface.Conic)}");
-            WriteSurfaceAperture(lines, opticSurface);
+            WriteSurfaceAperture(lines, opticSurface, optic.Aperture.Kind == ApertureKind.ObjectConeAngle);
             WriteSurfaceParameters(lines, opticSurface.Geometry, opticSurface.SemiDiameter);
             if (opticSurface.MaterialAfter is Materials.UniaxialMaterial && opticSurface.InteractionModel is not Interactions.BirefringentInteractionModel { IsExit: false })
                 throw new NotSupportedException("Crystal material requires a declared entry surface for ZMX export.");
@@ -475,6 +475,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
     {
         ApertureKind.FNumber => $"FNUM {FormatDouble(optic.Aperture.Value)} 0",
         ApertureKind.NumericalAperture => $"OBNA {FormatDouble(optic.Aperture.Value)} 0",
+        ApertureKind.ObjectConeAngle => $"OBNA {FormatDouble(optic.Aperture.Value)} 1",
         ApertureKind.FloatByStopSize => "FLOA",
         _ => $"ENPD {FormatDouble(optic.Aperture.Value)}"
     };
@@ -518,7 +519,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
             $"Zemax ZMX export cannot losslessly map physical aperture '{surface.PhysicalAperture.Kind}'.")
     };
 
-    private static void WriteSurfaceAperture(List<string> lines, OpticalSurface surface)
+    private static void WriteSurfaceAperture(List<string> lines, OpticalSurface surface, bool objectCone)
     {
         if (surface.PhysicalAperture is OffsetRadialAperture offset)
         {
@@ -547,7 +548,8 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         }
         if (surface.PhysicalAperture is CircularAperture)
         {
-            lines.Add($"  FLAP 0 {FormatDouble(ZemaxSemiDiameter(surface))} 0");
+            var type = objectCone && !surface.SemiDiameterDefinesPhysicalAperture ? "CLAP" : "FLAP";
+            lines.Add($"  {type} 0 {FormatDouble(ZemaxSemiDiameter(surface))} 0");
         }
         if (surface.PhysicalAperture is AnnularAperture annular)
         {

@@ -7,7 +7,8 @@ public enum ApertureKind
     EntrancePupilDiameter,
     FNumber,
     NumericalAperture,
-    FloatByStopSize
+    FloatByStopSize,
+    ObjectConeAngle
 }
 
 public sealed class SystemAperture : OpticalSystemDesign.Core.Domain.NotifyObject

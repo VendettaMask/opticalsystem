@@ -1,0 +1,956 @@
+{
+  "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4",
+  "results": [
+    {
+      "index": 445,
+      "originalRequest": "5ddc3bafcf1350559e2a16468a22dc2e9e31cb026123e9576bc649da1136e9f5",
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 2,
+      "maximumFrequency": 50,
+      "originalQuantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "observed": [
+        {
+          "side": "core",
+          "sampling": 256,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 4.27337 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "6847e7fa09a2abbb7947f4acdf7300f607435acddd5c648177948ff18a805607"
+        },
+        {
+          "side": "native",
+          "sampling": 256,
+          "status": "Unavailable",
+          "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+          "fullAxis": false,
+          "settingsMatch": true,
+          "payloadSha256": "2ce2899bee5893c2b55bfe6d102fc451d6cf87852dfc02f81cab09bca11fcc93",
+          "evidence": "fft-mtf-payload/native/445-256/data.json"
+        },
+        {
+          "side": "core",
+          "sampling": 512,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 2.23563 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "65dddbba42963aa64ebb766f729d212c287a1cc083a4e0e1cbd1f919c074dfd9"
+        },
+        {
+          "side": "native",
+          "sampling": 512,
+          "status": "ValidFullAxis",
+          "reason": null,
+          "fullAxis": true,
+          "settingsMatch": true,
+          "payloadSha256": "893cd16f64a1ab5d7d82382ef32224dba177df7023975cbe3c33384ff0a48b37",
+          "evidence": "fft-mtf-payload/native/445-512/data.json"
+        },
+        {
+          "side": "core",
+          "sampling": 1024,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 1.13465 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "06f820a411ca0b3a2bd720607b2aee4d3b127e3ebeff3c3e25f3114828e60e55"
+        },
+        {
+          "side": "core",
+          "sampling": 2048,
+          "status": "Unavailable",
+          "reason": "FFT MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 0.571348 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "9c1e950aa549bbf3708ceff4295362e989cb623e3810ead413cd729b64ebf8b7"
+        }
+      ],
+      "comparisons": [],
+      "sourceSha256": "2f85aa23896797969b375d24a4d5e43a103aa39e498b07dca22d8c6adc247b0f",
+      "frozenVerdict": "Incomparable"
+    },
+    {
+      "index": 947,
+      "originalRequest": "cb3b9bd83143614f50158e2bfaf3b9a15671bbf7ed62d5fd36d2777299906d04",
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "maximumFrequency": 50,
+      "originalQuantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "observed": [
+        {
+          "side": "core",
+          "sampling": 256,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 104.231 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "a90d97c61174b0982adc288718dbcb5d3208a9ee59593fcd4cf3c62d35fbe909"
+        },
+        {
+          "side": "native",
+          "sampling": 256,
+          "status": "Unavailable",
+          "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+          "fullAxis": false,
+          "settingsMatch": true,
+          "payloadSha256": "17af31501d015cdd637a47451b6764af79c8c61ac60005f8b03a40b33b3c190f",
+          "evidence": "fft-mtf-payload/native/947-256/data.json"
+        },
+        {
+          "side": "core",
+          "sampling": 512,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 51.9275 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "f54ca08538e9290bf3f09cffe9b830141c219a3103058161f0d646ed679aafda"
+        },
+        {
+          "side": "native",
+          "sampling": 512,
+          "status": "Unavailable",
+          "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+          "fullAxis": false,
+          "settingsMatch": true,
+          "payloadSha256": "c24f376fca8a0695c28bbff67f55150d8f5638f0239975124744cdb396780743",
+          "evidence": "fft-mtf-payload/native/947-512/data.json"
+        }
+      ],
+      "comparisons": [],
+      "sourceSha256": "2306d27415b9adcd38497a6b9885c9727577a0ea7d7409e46dcb2bb8ca9b705f",
+      "frozenVerdict": "Incomparable"
+    },
+    {
+      "index": 1073,
+      "originalRequest": "edd441fda3387120f73a1cb9a8c285e0b0d839e5dc64fa3e20af040d7c59ad64",
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "maximumFrequency": 50,
+      "originalQuantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "observed": [
+        {
+          "side": "core",
+          "sampling": 256,
+          "status": "Unavailable",
+          "reason": "OpticalSystemDesign.Core.Analysis.AnalysisDataUnavailableException: Fourier MTF has no valid data: the image-plane pupil frequency scale is not finite and positive.",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": null
+        },
+        {
+          "side": "core",
+          "sampling": 512,
+          "status": "Unavailable",
+          "reason": "OpticalSystemDesign.Core.Analysis.AnalysisDataUnavailableException: Fourier MTF has no valid data: the image-plane pupil frequency scale is not finite and positive.",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": null
+        }
+      ],
+      "comparisons": [],
+      "sourceSha256": "adc9e96bd53e9356794b2b9d29608dd304774755a3c15a7873cbc24f4b42e4c8",
+      "frozenVerdict": "Incomparable"
+    },
+    {
+      "index": 1205,
+      "originalRequest": "7c798a02d1cdf8cdc88b89f4a9ee235aef93e532aef05d5fa0cf0837e3c10ec7",
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "maximumFrequency": 50,
+      "originalQuantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "observed": [
+        {
+          "side": "core",
+          "sampling": 256,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 4.69547 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "c3b15e0596043f425676ccee2d0d9ef2d1b666dac9d5f002fef58855c58e0645"
+        },
+        {
+          "side": "native",
+          "sampling": 256,
+          "status": "Unavailable",
+          "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+          "fullAxis": false,
+          "settingsMatch": true,
+          "payloadSha256": "c610de6d3c03d82def711c43833b220fd8d6c0c49d0d56fca7003a093cb22792",
+          "evidence": "fft-mtf-payload/native/1205-256/data.json"
+        },
+        {
+          "side": "core",
+          "sampling": 512,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 2.35571 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "87d7baefd409610be72226f178ec8b4aa4ff7075fc9cee3ce5359041dbc891ce"
+        },
+        {
+          "side": "native",
+          "sampling": 512,
+          "status": "Unavailable",
+          "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+          "fullAxis": false,
+          "settingsMatch": true,
+          "payloadSha256": "0bb7d5f024b1bc16627b4d418e48ce1a998fed3451fe3aaa0b8917ef7543091b",
+          "evidence": "fft-mtf-payload/native/1205-512/data.json"
+        },
+        {
+          "side": "core",
+          "sampling": 1024,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 1.17798 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "df4f0fdbe82829b94d54528cdc391e67c988698bfc5ad751132d208365bd9e06"
+        },
+        {
+          "side": "core",
+          "sampling": 2048,
+          "status": "Unavailable",
+          "reason": "FFT MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 0.589047 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "9a4cec34aa89391ec30e6f90a1e4aad564dde9087053e1053b4079b8b41dde76"
+        }
+      ],
+      "comparisons": [],
+      "sourceSha256": "8badb1a5aa3a642738a051da8d1b83d3525af6e727d6a1eafe3fe7438194751a",
+      "frozenVerdict": "Incomparable"
+    },
+    {
+      "index": 1249,
+      "originalRequest": "7c798a02d1cdf8cdc88b89f4a9ee235aef93e532aef05d5fa0cf0837e3c10ec7",
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "maximumFrequency": 50,
+      "originalQuantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "observed": [
+        {
+          "side": "core",
+          "sampling": 256,
+          "status": "Unavailable",
+          "reason": "OpticalSystemDesign.Core.Analysis.AnalysisDataUnavailableException: Fourier MTF has no valid data: the image-plane pupil frequency scale is not finite and positive.",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": null
+        },
+        {
+          "side": "core",
+          "sampling": 512,
+          "status": "Unavailable",
+          "reason": "OpticalSystemDesign.Core.Analysis.AnalysisDataUnavailableException: Fourier MTF has no valid data: the image-plane pupil frequency scale is not finite and positive.",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": null
+        }
+      ],
+      "comparisons": [],
+      "sourceSha256": "de9dad5c977a8dde3598ca4247b6e5300587af54b302eca6898bf84bf228caf5",
+      "frozenVerdict": "Incomparable"
+    },
+    {
+      "index": 1367,
+      "originalRequest": "15549f8f64241044016f717cfb0a943e99f2433f3be2ac9fc095dda6bdf4286b",
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "maximumFrequency": 50,
+      "originalQuantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "observed": [
+        {
+          "side": "core",
+          "sampling": 256,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 26.782 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "a140c39ffcd6e4c8ce8293780de297613d9ae473008c5ee861c888e413a9c8c2"
+        },
+        {
+          "side": "native",
+          "sampling": 256,
+          "status": "Unavailable",
+          "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+          "fullAxis": false,
+          "settingsMatch": true,
+          "payloadSha256": "a86e026a040c39be3b8d73438cd2611983b21669a114eb227768f7856d13a336",
+          "evidence": "fft-mtf-payload/native/1367-256/data.json"
+        },
+        {
+          "side": "core",
+          "sampling": 512,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 13.4113 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "5835356251abdd98219902f539b6cc359050d7b00c065823bcb1d0b482a60229"
+        },
+        {
+          "side": "native",
+          "sampling": 512,
+          "status": "Unavailable",
+          "reason": "Native report emitted diagnostics; numerical reference requires review: [{\"ErrorCode\":\"Success\",\"Text\":\"取样太低, 数据不准确!\"}]",
+          "fullAxis": false,
+          "settingsMatch": true,
+          "payloadSha256": "ad638932a1e5903ace6f101a9931058c464a620388b00f02d3315f48f6e7ff24",
+          "evidence": "fft-mtf-payload/native/1367-512/data.json"
+        }
+      ],
+      "comparisons": [],
+      "sourceSha256": "eb5b15894ed4861de0db6052b0e3c6ec646694d5701f8673c45e33b43a597ea2",
+      "frozenVerdict": "Incomparable"
+    },
+    {
+      "index": 2159,
+      "originalRequest": "ec336a69a2313634b09ce6f5874c8483cd3f0f8f83d60d150e74e548c3d124f2",
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "maximumFrequency": 50,
+      "originalQuantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "observed": [
+        {
+          "side": "core",
+          "sampling": 256,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 7.83984 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "9857f051048a7f0d620d4e894d014bb03c6cc8281095e89b12ba9b47d6051e50"
+        },
+        {
+          "side": "native",
+          "sampling": 256,
+          "status": "ValidFullAxis",
+          "reason": null,
+          "fullAxis": true,
+          "settingsMatch": true,
+          "payloadSha256": "305eeab134da52c87a20cbba1d301f13617f48c8e2620f3c0f00697af3739e4b",
+          "evidence": "fft-mtf-payload/native/2159-256/data.json"
+        },
+        {
+          "side": "core",
+          "sampling": 512,
+          "status": "Unavailable",
+          "reason": "MTF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 4.5213 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+          "fullAxis": false,
+          "settingsMatch": false,
+          "payloadSha256": "4596a902028cfc765b837fda7e5c20643074eb22a12a8286b7c7de637c713545"
+        },
+        {
+          "side": "native",
+          "sampling": 512,
+          "status": "ValidFullAxis",
+          "reason": null,
+          "fullAxis": true,
+          "settingsMatch": true,
+          "payloadSha256": "c92daf1ac51b95cb7733bc9e751d459e32a465b21ac4bc871d36be476923332b",
+          "evidence": "fft-mtf-payload/native/2159-512/data.json"
+        }
+      ],
+      "comparisons": [
+        {
+          "left": "native",
+          "nl": 256,
+          "right": "native",
+          "nr": 512,
+          "conclusion": "Difference",
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Dimensionless",
+              "count": 300,
+              "maxAbsolute": 0.0754568664082989,
+              "meanAbsolute": 0.018156314955133437,
+              "rmse": 0.02532082251905448,
+              "nrmse": 0.02532082251905448,
+              "maxRelative": 0.4897858045378768,
+              "p50": 0.01084587057118989,
+              "p90": 0.046982731768069684,
+              "p95": 0.05891226043464964,
+              "pearson": 0.9928233360732646,
+              "worstX": 9.698996655518394,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {
+                "workbench.dc": 0.9999999999999999,
+                "workbench.frequency10": 0.20686086491769332,
+                "workbench.frequency20": 0.18006678568120518,
+                "workbench.frequency30": 0.13369690706928705,
+                "workbench.frequency50": 0.04351860426558672,
+                "workbench.firstCrossing50": 3.5516823408625293,
+                "workbench.firstCrossing10": 34.5187508596919,
+                "zemax.dc": 1,
+                "zemax.frequency10": 0.28153483221383685,
+                "zemax.frequency20": 0.1877775715227547,
+                "zemax.frequency30": 0.11780915571280533,
+                "zemax.frequency50": 0.039792246638550875,
+                "zemax.firstCrossing50": 3.9483082756961148,
+                "zemax.firstCrossing10": 35.38664375921415
+              }
+            },
+            {
+              "id": "sagittal",
+              "unit": "Dimensionless",
+              "count": 300,
+              "maxAbsolute": 0.0877572047051631,
+              "meanAbsolute": 0.024698705237675454,
+              "rmse": 0.03466680431489208,
+              "nrmse": 0.03466680431489208,
+              "maxRelative": 0.3820516545039795,
+              "p50": 0.014580678745932087,
+              "p90": 0.06871694905471781,
+              "p95": 0.07469145956472753,
+              "pearson": 0.9846612133732054,
+              "worstX": 9.866220735785953,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Difference",
+              "extra": {
+                "workbench.dc": 0.9999999999999999,
+                "workbench.frequency10": 0.20638695495806245,
+                "workbench.frequency20": 0.20555750979838242,
+                "workbench.frequency30": 0.12405925649233046,
+                "workbench.frequency50": 0.0310458175344238,
+                "workbench.firstCrossing50": 3.442634303463252,
+                "workbench.firstCrossing10": 40.132447001157274,
+                "zemax.dc": 1,
+                "zemax.frequency10": 0.29374554988246715,
+                "zemax.frequency20": 0.21443319542056316,
+                "zemax.frequency30": 0.1554660618420962,
+                "zemax.frequency50": 0.03479494083326257,
+                "zemax.firstCrossing50": 3.9244024675953373,
+                "zemax.firstCrossing10": 33.84349096895584
+              }
+            }
+          ]
+        }
+      ],
+      "sourceSha256": "975be62693a8c3d8870c2ee3fd01e2f51de37d558afe7265cd939fe262f49051",
+      "frozenVerdict": "Incomparable"
+    },
+    {
+      "index": 2921,
+      "originalRequest": "503601893b523a92b0636375a909709d1c26102133e66e046cecceb3a9016fac",
+      "configuration": 3,
+      "field": 1,
+      "wavelength": 1,
+      "maximumFrequency": 50,
+      "originalQuantities": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "observed": [
+        {
+          "side": "core",
+          "sampling": 256,
+          "status": "ValidFullAxis",
+          "reason": null,
+          "fullAxis": true,
+          "settingsMatch": true,
+          "payloadSha256": "bac2b0da638375e51118d73c4e5075e591c5aa1dd9624ac663c31822de07965a",
+          "evidence": "fft-mtf-payload/core/2921-256/data.json"
+        },
+        {
+          "side": "native",
+          "sampling": 256,
+          "status": "ValidFullAxis",
+          "reason": null,
+          "fullAxis": true,
+          "settingsMatch": true,
+          "payloadSha256": "a274468e62cf375c6b98039f4c73414edf949a6406568fd2026bb914bf9f81bc",
+          "evidence": "fft-mtf-payload/native/2921-256/data.json"
+        },
+        {
+          "side": "core",
+          "sampling": 512,
+          "status": "ValidFullAxis",
+          "reason": null,
+          "fullAxis": true,
+          "settingsMatch": true,
+          "payloadSha256": "d61d689b5ba69e62f8e4f9f8c711de39b691553d27e9325d374d1fe799e1c131",
+          "evidence": "fft-mtf-payload/core/2921-512/data.json"
+        },
+        {
+          "side": "native",
+          "sampling": 512,
+          "status": "ValidFullAxis",
+          "reason": null,
+          "fullAxis": true,
+          "settingsMatch": true,
+          "payloadSha256": "a279c67b0f16d38f17dbefbf9fe310b5d2387d90bf624263b7b858f739ce25c9",
+          "evidence": "fft-mtf-payload/native/2921-512/data.json"
+        }
+      ],
+      "comparisons": [
+        {
+          "left": "core",
+          "nl": 256,
+          "right": "core",
+          "nr": 512,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Dimensionless",
+              "count": 300,
+              "maxAbsolute": 0.03882936729313946,
+              "meanAbsolute": 0.0009740959855845037,
+              "rmse": 0.0038501687301149383,
+              "nrmse": 0.0038501687301149383,
+              "maxRelative": 0.060470343750881325,
+              "p50": 0.0003729651467525106,
+              "p90": 0.0010043090339676933,
+              "p95": 0.0014973842212990694,
+              "pearson": 0.9997698814901381,
+              "worstX": 0.5016722408026756,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "workbench.dc": 1,
+                "workbench.frequency10": 0.049505089259281654,
+                "workbench.frequency20": 0.01838253614729658,
+                "workbench.frequency30": 0.020971848765080642,
+                "workbench.frequency50": 0.008610571114898082,
+                "workbench.firstCrossing50": 1.3990220812472565,
+                "workbench.firstCrossing10": 2.3378635987865426,
+                "zemax.dc": 1,
+                "zemax.frequency10": 0.051211902803175016,
+                "zemax.frequency20": 0.018091553974425648,
+                "zemax.frequency30": 0.020620600037486544,
+                "zemax.frequency50": 0.00903208045815436,
+                "zemax.firstCrossing50": 1.383652364293718,
+                "zemax.firstCrossing10": 2.334869250472685
+              }
+            },
+            {
+              "id": "sagittal",
+              "unit": "Dimensionless",
+              "count": 300,
+              "maxAbsolute": 0.034303549566402136,
+              "meanAbsolute": 0.001042985951155074,
+              "rmse": 0.003700665197733608,
+              "nrmse": 0.003700665197733608,
+              "maxRelative": 4.119550329373376,
+              "p50": 0.0004016477211191569,
+              "p90": 0.000786705771559143,
+              "p95": 0.0017389084176468704,
+              "pearson": 0.9997977893424135,
+              "worstX": 0.5016722408026756,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "workbench.dc": 1,
+                "workbench.frequency10": 0.07529961653961903,
+                "workbench.frequency20": 0.04315159775491384,
+                "workbench.frequency30": 0.026341936788386425,
+                "workbench.frequency50": 0.0003811748320544456,
+                "workbench.firstCrossing50": 1.978204030127903,
+                "workbench.firstCrossing10": 4.891678348895029,
+                "zemax.dc": 1,
+                "zemax.frequency10": 0.07458685451594377,
+                "zemax.frequency20": 0.04280497174737813,
+                "zemax.frequency30": 0.025816953571521858,
+                "zemax.frequency50": 0.00020031096266972674,
+                "zemax.firstCrossing50": 1.9825751277146626,
+                "zemax.firstCrossing10": 4.9027448950673485
+              }
+            }
+          ]
+        },
+        {
+          "left": "native",
+          "nl": 256,
+          "right": "native",
+          "nr": 512,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Dimensionless",
+              "count": 300,
+              "maxAbsolute": 0.03883606972129594,
+              "meanAbsolute": 0.0009742775222272663,
+              "rmse": 0.0038509093657234997,
+              "nrmse": 0.0038509093657234997,
+              "maxRelative": 0.05989132387939549,
+              "p50": 0.00037189270202426985,
+              "p90": 0.0010069823540144861,
+              "p95": 0.0014869978646068688,
+              "pearson": 0.9997698159394826,
+              "worstX": 0.5016722408026756,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "workbench.dc": 0.9999999999999999,
+                "workbench.frequency10": 0.04979352469252958,
+                "workbench.frequency20": 0.018407114144690408,
+                "workbench.frequency30": 0.020912961151870888,
+                "workbench.frequency50": 0.008656892017479092,
+                "workbench.firstCrossing50": 1.3997277785415885,
+                "workbench.firstCrossing10": 2.3387369000137883,
+                "zemax.dc": 1,
+                "zemax.frequency10": 0.0515052461505186,
+                "zemax.frequency20": 0.018127538866954035,
+                "zemax.frequency30": 0.02054041860675729,
+                "zemax.frequency50": 0.00908615248466104,
+                "zemax.firstCrossing50": 1.3843551644522125,
+                "zemax.firstCrossing10": 2.335771258159648
+              }
+            },
+            {
+              "id": "sagittal",
+              "unit": "Dimensionless",
+              "count": 300,
+              "maxAbsolute": 0.034305055713633625,
+              "meanAbsolute": 0.0010463462805377162,
+              "rmse": 0.003701299938477089,
+              "nrmse": 0.003701299938477089,
+              "maxRelative": 8.00411242246328,
+              "p50": 0.00041205380807832377,
+              "p90": 0.0007883306212907962,
+              "p95": 0.0017420326872404084,
+              "pearson": 0.9997977422641897,
+              "worstX": 0.5016722408026756,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "workbench.dc": 1,
+                "workbench.frequency10": 0.07528650552045218,
+                "workbench.frequency20": 0.043136557715262244,
+                "workbench.frequency30": 0.026327537320395715,
+                "workbench.frequency50": 0.00038425901244444,
+                "workbench.firstCrossing50": 1.978274457556835,
+                "workbench.firstCrossing10": 4.89191510350751,
+                "zemax.dc": 1,
+                "zemax.frequency10": 0.07457378305338364,
+                "zemax.frequency20": 0.0427898071243834,
+                "zemax.frequency30": 0.025802343634472962,
+                "zemax.frequency50": 0.00020401096274266274,
+                "zemax.firstCrossing50": 1.9826631624297044,
+                "zemax.firstCrossing10": 4.9029676167841325
+              }
+            }
+          ]
+        },
+        {
+          "left": "core",
+          "nl": 256,
+          "right": "native",
+          "nr": 256,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Dimensionless",
+              "count": 336,
+              "maxAbsolute": 0.0004987111355263529,
+              "meanAbsolute": 0.00011073811852261495,
+              "rmse": 0.0001424307271722533,
+              "nrmse": 0.00014243072717225332,
+              "maxRelative": 0.015100991673349946,
+              "p50": 9.040133266398614E-05,
+              "p90": 0.00024031359163875776,
+              "p95": 0.0002719290906405287,
+              "pearson": 0.9999995279177123,
+              "worstX": 1.8394648829431437,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "workbench.dc": 1,
+                "workbench.frequency10": 0.049505089259281654,
+                "workbench.frequency20": 0.01838253614729658,
+                "workbench.frequency30": 0.020971848765080642,
+                "workbench.frequency50": 0.008610571114898082,
+                "workbench.firstCrossing50": 1.3990220812472565,
+                "workbench.firstCrossing10": 2.3378635987865426,
+                "zemax.dc": 0.9999999999999999,
+                "zemax.frequency10": 0.04979352469252958,
+                "zemax.frequency20": 0.018407114144690408,
+                "zemax.frequency30": 0.020912961151870888,
+                "zemax.frequency50": 0.008656892017479092,
+                "zemax.firstCrossing50": 1.3997277785415885,
+                "zemax.firstCrossing10": 2.3387369000137883
+              }
+            },
+            {
+              "id": "sagittal",
+              "unit": "Dimensionless",
+              "count": 336,
+              "maxAbsolute": 0.0005480373994867832,
+              "meanAbsolute": 1.8372637360936045E-05,
+              "rmse": 4.600706740575944E-05,
+              "nrmse": 4.600706740575944E-05,
+              "maxRelative": 0.7251550129950075,
+              "p50": 1.3400969891558696E-05,
+              "p90": 2.2717043711963092E-05,
+              "p95": 2.799803636091558E-05,
+              "pearson": 0.9999999629649047,
+              "worstX": 7.6923076923076925,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "workbench.dc": 1,
+                "workbench.frequency10": 0.07529961653961903,
+                "workbench.frequency20": 0.04315159775491384,
+                "workbench.frequency30": 0.026341936788386425,
+                "workbench.frequency50": 0.0003811748320544456,
+                "workbench.firstCrossing50": 1.978204030127903,
+                "workbench.firstCrossing10": 4.891678348895029,
+                "zemax.dc": 1,
+                "zemax.frequency10": 0.07528650552045218,
+                "zemax.frequency20": 0.043136557715262244,
+                "zemax.frequency30": 0.026327537320395715,
+                "zemax.frequency50": 0.00038425901244444,
+                "zemax.firstCrossing50": 1.9782744575568352,
+                "zemax.firstCrossing10": 4.89191510350751
+              }
+            }
+          ]
+        },
+        {
+          "left": "core",
+          "nl": 512,
+          "right": "native",
+          "nr": 512,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Dimensionless",
+              "count": 336,
+              "maxAbsolute": 0.00042121542469480966,
+              "meanAbsolute": 0.00011120096188001442,
+              "rmse": 0.00014217248277759663,
+              "nrmse": 0.00014217248277759663,
+              "maxRelative": 0.015837374069578875,
+              "p50": 9.30413059566336E-05,
+              "p90": 0.0002358769060816189,
+              "p95": 0.0002741174194955641,
+              "pearson": 0.9999995408945649,
+              "worstX": 1.6722408026755853,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "workbench.dc": 1,
+                "workbench.frequency10": 0.051211902803175016,
+                "workbench.frequency20": 0.018091553974425648,
+                "workbench.frequency30": 0.020620600037486544,
+                "workbench.frequency50": 0.00903208045815436,
+                "workbench.firstCrossing50": 1.383652364293718,
+                "workbench.firstCrossing10": 2.334869250472685,
+                "zemax.dc": 1,
+                "zemax.frequency10": 0.0515052461505186,
+                "zemax.frequency20": 0.018127538866954035,
+                "zemax.frequency30": 0.02054041860675729,
+                "zemax.frequency50": 0.00908615248466104,
+                "zemax.firstCrossing50": 1.3843551644522125,
+                "zemax.firstCrossing10": 2.335771258159648
+              }
+            },
+            {
+              "id": "sagittal",
+              "unit": "Dimensionless",
+              "count": 336,
+              "maxAbsolute": 0.0003296906117093019,
+              "meanAbsolute": 1.3897978423286705E-05,
+              "rmse": 2.448272068611037E-05,
+              "nrmse": 2.448272068611037E-05,
+              "maxRelative": 0.8910475805382626,
+              "p50": 1.2978944923096227E-05,
+              "p90": 1.9530362861619466E-05,
+              "p95": 2.240099329202036E-05,
+              "pearson": 0.9999999898639427,
+              "worstX": 7.6923076923076925,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {
+                "workbench.dc": 1,
+                "workbench.frequency10": 0.07458685451594377,
+                "workbench.frequency20": 0.04280497174737813,
+                "workbench.frequency30": 0.025816953571521858,
+                "workbench.frequency50": 0.00020031096266972674,
+                "workbench.firstCrossing50": 1.9825751277146626,
+                "workbench.firstCrossing10": 4.9027448950673485,
+                "zemax.dc": 1,
+                "zemax.frequency10": 0.07457378305338364,
+                "zemax.frequency20": 0.0427898071243834,
+                "zemax.frequency30": 0.025802343634472962,
+                "zemax.frequency50": 0.00020401096274266274,
+                "zemax.firstCrossing50": 1.9826631624297044,
+                "zemax.firstCrossing10": 4.9029676167841325
+              }
+            }
+          ]
+        }
+      ],
+      "sourceSha256": "ad2b7a0922cf0dbc29d560a8507ce38254b0862c3f0d94329d91d22b48d30af6",
+      "frozenVerdict": "Incomparable"
+    }
+  ],
+  "verifiedPayloads": [
+    {
+      "case": "445-256",
+      "side": "native",
+      "requestSha256": "da034c1f1ea77ee7b194cfecf7f935f0ead89662aeb711d8930c82ec54addf88",
+      "dataSha256": "2ce2899bee5893c2b55bfe6d102fc451d6cf87852dfc02f81cab09bca11fcc93"
+    },
+    {
+      "case": "445-512",
+      "side": "native",
+      "requestSha256": "16ccd9826ef4ad24f209518997fa74949db4ddf362050ed30cd5b18872e75a89",
+      "dataSha256": "893cd16f64a1ab5d7d82382ef32224dba177df7023975cbe3c33384ff0a48b37"
+    },
+    {
+      "case": "947-256",
+      "side": "native",
+      "requestSha256": "728fc5d786c9f943cbf72f05e636e75654ba7bba0e57bff9bd6ae81617ce9303",
+      "dataSha256": "17af31501d015cdd637a47451b6764af79c8c61ac60005f8b03a40b33b3c190f"
+    },
+    {
+      "case": "947-512",
+      "side": "native",
+      "requestSha256": "70afac36e1582b0964f816c8d0807a2a826fa92d5f21c7d845dec432940fe7ce",
+      "dataSha256": "c24f376fca8a0695c28bbff67f55150d8f5638f0239975124744cdb396780743"
+    },
+    {
+      "case": "1205-256",
+      "side": "native",
+      "requestSha256": "721d7509033096ee3252e3c0e0dfcbc3fc646626046619f19e93fc3e91fa83dc",
+      "dataSha256": "c610de6d3c03d82def711c43833b220fd8d6c0c49d0d56fca7003a093cb22792"
+    },
+    {
+      "case": "1205-512",
+      "side": "native",
+      "requestSha256": "2047e6cf6d238951ef7248e875c21d2f9fb0d6263eebb3dc0d1a9de428aa0505",
+      "dataSha256": "0bb7d5f024b1bc16627b4d418e48ce1a998fed3451fe3aaa0b8917ef7543091b"
+    },
+    {
+      "case": "1367-256",
+      "side": "native",
+      "requestSha256": "32f993f56974738de7efb4859fc1ab1207f23d5c9674afda8ce4b2f75936dbc1",
+      "dataSha256": "a86e026a040c39be3b8d73438cd2611983b21669a114eb227768f7856d13a336"
+    },
+    {
+      "case": "1367-512",
+      "side": "native",
+      "requestSha256": "6bee915172876aed30c4db0925472a0e67696a104dd64648e406cd0cc755a950",
+      "dataSha256": "ad638932a1e5903ace6f101a9931058c464a620388b00f02d3315f48f6e7ff24"
+    },
+    {
+      "case": "2159-256",
+      "side": "native",
+      "requestSha256": "9715c1740dc9d84fdb208388323b2e57ec241ff11699fae15107e6133d298b21",
+      "dataSha256": "305eeab134da52c87a20cbba1d301f13617f48c8e2620f3c0f00697af3739e4b"
+    },
+    {
+      "case": "2159-512",
+      "side": "native",
+      "requestSha256": "c1b21290bc0dbe157ad4290d3333d297a683117fa95474c3a79ff0d1bc389f1a",
+      "dataSha256": "c92daf1ac51b95cb7733bc9e751d459e32a465b21ac4bc871d36be476923332b"
+    },
+    {
+      "case": "2921-256",
+      "side": "core",
+      "requestSha256": "2d4875a9fed141e4f906276f55ba6d42e231f4b69da5c75574b6980f27035701",
+      "dataSha256": "bac2b0da638375e51118d73c4e5075e591c5aa1dd9624ac663c31822de07965a"
+    },
+    {
+      "case": "2921-256",
+      "side": "native",
+      "requestSha256": "4c1c77905e617c2fc2c205470734ee89c9b54e790449b7906f3421dc0047d5aa",
+      "dataSha256": "a274468e62cf375c6b98039f4c73414edf949a6406568fd2026bb914bf9f81bc"
+    },
+    {
+      "case": "2921-512",
+      "side": "core",
+      "requestSha256": "eb5abf3052e4b43a1097f698ccd602cb7850f04a40901ca9c0343111e7b4c740",
+      "dataSha256": "d61d689b5ba69e62f8e4f9f8c711de39b691553d27e9325d374d1fe799e1c131"
+    },
+    {
+      "case": "2921-512",
+      "side": "native",
+      "requestSha256": "bdef64fce02a95060ab2f5cf852fc0d2d5216f295000215d661ccf2d8a6828a4",
+      "dataSha256": "a279c67b0f16d38f17dbefbf9fe310b5d2387d90bf624263b7b858f739ce25c9"
+    }
+  ]
+}

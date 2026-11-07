@@ -85,6 +85,23 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                 .ToArray();
         var tangential = fields.Select(_ => new double[focus.Length]).ToArray();
         var sagittal = fields.Select(_ => new double[focus.Length]).ToArray();
+        var contactPupilFields = _method == MtfComputationMethod.Huygens && !_settings.UsePolarization
+            ? fields.Select(field => FocalImageDomain.IsCollimatedContactPupil(Optic, field)).ToArray()
+            : null;
+        if (contactPupilFields is not null)
+        {
+            // In the contact-pupil plane-wave readout, translating the detector
+            // along its normal adds the same phase to every wavelet. Preserve
+            // the finite image window and its OTF at each requested focus.
+            for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
+            {
+                if (!contactPupilFields[fieldIndex]) continue;
+                var value = MtfMethodEvaluator.EvaluatePolychromatic(
+                    Optic, _method, fields[fieldIndex], wavelengths, _spatialFrequency, _settings, _dataType);
+                Array.Fill(tangential[fieldIndex], value.Tangential);
+                Array.Fill(sagittal[fieldIndex], value.Sagittal);
+            }
+        }
         var originalCoordinateSystem = imageSurface.CoordinateSystem;
         if (_method == MtfComputationMethod.Fourier && _settings.ZemaxCompatible)
         {
@@ -122,7 +139,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                 }
             }
         }
-        else
+        else if (contactPupilFields?.All(contact => contact) != true)
         {
             var previous = Optic.SurfaceGroup.Items[^2];
             var originalThickness = previous.Thickness;
@@ -143,6 +160,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                     };
                     for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
                     {
+                        if (contactPupilFields?[fieldIndex] == true) continue;
                         var value = MtfMethodEvaluator.EvaluatePolychromatic(
                             Optic,
                             _method,
@@ -922,17 +940,22 @@ internal static class MtfMethodEvaluator
                     new[] { wavelength },
                     settings)
             };
-        var psf = DiffractionEngine.ComputeHuygensPsf(
-            optic,
-            field,
-            wavelength,
-            Math.Max(2, resolvedSettings.PupilSampling),
-            Math.Max(4, resolvedSettings.ImageSize),
-            resolvedSettings.PixelPitchMillimeters,
-            usePolarization: resolvedSettings.UsePolarization,
-            aimAtStop: resolvedSettings.UseZemaxHuygensSemantics && optic.RayAimingEnabled,
-            defocus: optic.ImageSpaceAfocal ? defocus : 0,
-            useParaxialPupilDefocus: resolvedSettings.UseZemaxHuygensSemantics);
+        var pupilSampling = Math.Max(2, resolvedSettings.PupilSampling);
+        var imageSize = Math.Max(4, resolvedSettings.ImageSize);
+        var psf = !resolvedSettings.UsePolarization && FocalImageDomain.IsCollimatedContactPupil(optic, field)
+            ? DiffractionEngine.ComputeContactPupilHuygensPsf(optic, field, wavelength, pupilSampling,
+                imageSize, resolvedSettings.PixelPitchMillimeters, wavelength, imageCenterOffset: null)
+            : DiffractionEngine.ComputeHuygensPsf(
+                optic,
+                field,
+                wavelength,
+                pupilSampling,
+                imageSize,
+                resolvedSettings.PixelPitchMillimeters,
+                usePolarization: resolvedSettings.UsePolarization,
+                aimAtStop: resolvedSettings.UseZemaxHuygensSemantics && optic.RayAimingEnabled,
+                defocus: optic.ImageSpaceAfocal ? defocus : 0,
+                useParaxialPupilDefocus: resolvedSettings.UseZemaxHuygensSemantics);
         return SampleHuygensMtf(
             DiffractionEngine.ComputePsfMtf(psf), psf.GridSize, spatialFrequency,
             resolvedSettings.UseZemaxHuygensSemantics);
@@ -1060,7 +1083,8 @@ internal static class MtfMethodEvaluator
         return HuygensPsfSynthesis.Compute(optic, field, wavelengths, pupilSampling,
             imageSize, pixelPitchMillimeters, settings.UsePolarization,
             referenceWavelength, imageCenterOffset, defocus,
-            useParaxialPupilDefocus: settings.UseZemaxHuygensSemantics).Psf;
+            useParaxialPupilDefocus: settings.UseZemaxHuygensSemantics,
+            contactPupilReadout: !settings.UsePolarization && FocalImageDomain.IsCollimatedContactPupil(optic, field)).Psf;
     }
 
     internal static double ResolveHuygensImageDeltaMillimeters(

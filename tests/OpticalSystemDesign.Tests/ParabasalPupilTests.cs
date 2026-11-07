@@ -10,6 +10,30 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class ParabasalPupilTests
 {
+    [Theory]
+    [InlineData(1, -5.617265543393678, -161.01700441553783)]
+    [InlineData(3, -3.236674218330823, -90.39089669143986)]
+    public void SkewSpectrometerPencilMeetsNativePointTolerance(int wavelength, double sagittal, double tangential)
+    {
+        var root = ProductDependencyArchitectureTests.RepositoryRoot();
+        var source = Path.Combine(root, "src/OpticalSystemDesign.App/Assets/SequentialExamples/Diffractive components/Sample Spectrometer.ZMX");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+        var result = new OpticalSystemDesign.Application.Runtime.WorkbenchRuntime(optic).BuildAnalysisData("Optical Path Difference",
+            new Dictionary<string, string>
+            {
+                ["NumberOfRays"] = "20", ["FieldNumber"] = "2", ["WavelengthNumber"] = wavelength.ToString(),
+                ["VignettedPupil"] = "True", ["CheckApertures"] = "True", ["UseRayAiming"] = "False"
+            });
+        var panes = result.PlotPanes!;
+        Assert.Equal(2, panes.Count);
+        VerifyPoint(panes[0].Series.Single().Points.Single(p => p.X == -1).Y, tangential);
+        VerifyPoint(panes[1].Series.Single().Points.Single(p => Math.Abs(p.X + .30) < 1e-12).Y, sagittal);
+
+        // Native monochromatic plot values at the original physical pupil knots.
+        static void VerifyPoint(double actual, double expected) =>
+            Assert.InRange(Math.Abs(actual - expected), 0, 1e-5 + .001 * Math.Abs(expected));
+    }
+
     [Fact]
     public void DiscontinuousMirrorPencilKeepsItsLimitingConjugateAndChiefBranchWidth()
     {

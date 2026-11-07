@@ -103,6 +103,7 @@ var identity=JsonFiles.Read<JsonElement>(Path.Combine(root,"identity.json"));
 if(identity.GetProperty("coreSha256").GetString()!=coreHash)throw new InvalidDataException("Frozen Core changed");
 if(mode=="rays"){RayRecheck.Run(root);return;}
 if(mode=="regressions"){RegressionProbe.Run(root);return;}
+if(mode=="compare-explicit-fans"){FanCoverageProbe.Run(root,args[1]);return;}
 var all=JsonFiles.Read<Row[]>(Path.Combine(root,"rows.json"));
 if(mode=="worker")
 {
@@ -166,6 +167,7 @@ foreach(var row in all)
  var comparisonOutput=supplement?Path.Combine(reportRoot,"analyses",$"{row.Index:D4}"):output;
  var run=new AnalysisRun{Key=row.Key,Directory=row.Run.Directory,Request=effectiveRequest,Support=row.Run.Support,Tolerances=row.Run.Tolerances};
  string? error=null;
+ string? coreError=null;
  if(row.Job==null){run.Conclusion=Conclusion.Incomparable;run.Reason=row.Snapshot==null?"Current source import/configuration unavailable":"Original matrix has no executable canonical request; see the original blocker and later scoped controls";}
  else
  {
@@ -174,6 +176,8 @@ foreach(var row in all)
   try
   {
    var executed=JsonFiles.Read<JsonElement>(completion);
+   var coreSucceeded=executed.GetProperty("exitCode").GetInt32()==0;
+   if(!coreSucceeded)coreError=executed.GetProperty("error").GetString();
    var native=Path.Combine(row.LegacyPath,"native");
    var captured=JsonFiles.Read<JsonElement>(Path.Combine(native,"batch-result.json"));
    if(captured.GetProperty("exitCode").GetInt32()!=0)
@@ -181,26 +185,36 @@ foreach(var row in all)
     run.Conclusion=Conclusion.Incomparable;run.Reason="Original native capture failed; no valid numeric authority";
     error=File.Exists(Path.Combine(native,"error.json"))?File.ReadAllText(Path.Combine(native,"error.json")):"Native completion failed";
    }
-   else if(executed.GetProperty("exitCode").GetInt32()!=0)
-   {run.Conclusion=Conclusion.Error;run.Reason="Current Core computation failed";error=executed.GetProperty("error").GetString();}
    else
    {
-    run.ZemaxStatus=run.WorkbenchStatus=CaptureStatus.Captured;
     var entry=AnalysisComparisonRegistry.Get(row.Key);
-     var sourceNumbers=row.Key=="Single Ray Trace"?modelsFinal[row.LensIndex-1].SourceSurfaceNumbers?[row.Configuration-1]:null;
-     var z=ResultNormalizer.Zemax(Path.Combine(native,"data.json"),entry,effectiveRequest!,Path.Combine(output,"data.json"),sourceNumbers);
-    var raw=JsonFiles.Read<JsonElement>(Path.Combine(output,"data.json"));
-    if(raw.TryGetProperty("outcome",out var outcome)&&outcome.GetString() is "Unavailable" or "NotApplicable")
+    var sourceNumbers=row.Key=="Single Ray Trace"?modelsFinal[row.LensIndex-1].SourceSurfaceNumbers?[row.Configuration-1]:null;
+    var workbenchPath=coreSucceeded?Path.Combine(output,"data.json"):null;
+    run.WorkbenchStatus=coreSucceeded?CaptureStatus.Captured:CaptureStatus.Failed;
+    // Validate the independent native authority even when Core produced no result.
+    var z=ResultNormalizer.Zemax(Path.Combine(native,"data.json"),entry,effectiveRequest!,workbenchPath,sourceNumbers);
+    run.ZemaxStatus=CaptureStatus.Captured;
+    if(workbenchPath is null)
     {
-     var numericNative=z.Scalars.Count+z.Series.Count+z.Grids.Count>0;
-     run.Conclusion=numericNative?Conclusion.Error:Conclusion.Incomparable;
-     run.Reason="Core returned "+outcome.GetString()+(numericNative?" with numeric native reference":" without numeric native reference");
-     error=raw.TryGetProperty("outcomeReason",out var why)?why.GetString():null;
+     run.Conclusion=Conclusion.Error;
+     run.Reason="Current Core computation failed";
+     error=coreError;
     }
     else
     {
-     var w=ResultNormalizer.Workbench(Path.Combine(output,"data.json"),entry,effectiveRequest!);
+     var raw=JsonFiles.Read<JsonElement>(workbenchPath);
+     if(raw.TryGetProperty("outcome",out var outcome)&&outcome.GetString() is "Unavailable" or "NotApplicable")
+     {
+      var numericNative=z.Scalars.Count+z.Series.Count+z.Grids.Count>0;
+      run.Conclusion=numericNative?Conclusion.Error:Conclusion.Incomparable;
+      run.Reason="Core returned "+outcome.GetString()+(numericNative?" with numeric native reference":" without numeric native reference");
+      error=raw.TryGetProperty("outcomeReason",out var why)?why.GetString():null;
+     }
+     else
+     {
+      var w=ResultNormalizer.Workbench(workbenchPath,entry,effectiveRequest!);
       ComparisonRunner.Compare(run,entry,settings,w,z,comparisonOutput);
+     }
     }
    }
   }
@@ -208,7 +222,7 @@ foreach(var row in all)
   catch(Exception e){run.Conclusion=Conclusion.Error;run.Reason=e.Message;error=e.ToString();}
  }
   JsonFiles.Write(Path.Combine(comparisonOutput,"comparison.json"),run);
- results.Add(new{row.Index,row.LensIndex,row.Lens,row.Configuration,row.Scope,row.Key,run.Conclusion,run.Reason,error,run.Metrics,
+ results.Add(new{row.Index,row.LensIndex,row.Lens,row.Configuration,row.Scope,row.Key,run.Conclusion,run.Reason,error,coreError,run.Metrics,
   requestFingerprint=effectiveRequest?.Fingerprint,originalRequestFingerprint=row.Run.Request?.Fingerprint,
   originalSurfaceCount=row.Run.Request?.SurfaceCount,effectiveSurfaceCount=effectiveRequest?.SurfaceCount,
   nativeReference=Path.Combine(row.LegacyPath,"native"),coreSha256=coreHash,

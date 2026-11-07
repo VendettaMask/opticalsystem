@@ -9,7 +9,10 @@ internal static class NativeFocalImageDomain
     internal static void Validate(string path, CanonicalAnalysisRequest request, string? workbenchPath)
     {
         if (workbenchPath is null || request.ImageSpaceAfocal || request.Surface != -1
-            || request.CanonicalAnalysisKey is not ("PSF" or "MTF" or "Field Curvature and Distortion"))
+            || request.CanonicalAnalysisKey is not ("PSF" or "MTF" or "Field Curvature and Distortion" or "Diffraction Encircled Energy"))
+            return;
+        if (request.CanonicalAnalysisKey == "Diffraction Encircled Energy"
+            && (!bool.TryParse(request.ZemaxSettings.GetValueOrDefault("UseHuygensPSF")?.ToString(), out var huygens) || huygens))
             return;
 
         var actual = JsonFiles.Read<AnalysisData>(workbenchPath);
@@ -35,6 +38,7 @@ internal static class NativeFocalImageDomain
         {
             "PSF" => "Native focal FFT PSF has no finite diffraction image in the verified collimated contact-pupil prescription.",
             "MTF" => "Native focal FFT MTF has no image-plane frequency scale in the verified collimated contact-pupil prescription.",
+            "Diffraction Encircled Energy" => "Native focal FFT energy has no finite image diffraction scale in the verified collimated contact-pupil prescription.",
             _ => "Native field curvature and distortion have no finite focus or valid image-height reference in the verified collimated contact-pupil prescription."
         });
     }

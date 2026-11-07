@@ -176,6 +176,8 @@ FCGS/FCGT 使用固定 X/Y 分量及主光线/+0.001 归一瞳傍轴射线，保
 
 四文件原矩阵 EFNO 最大相对差降至 **1.091237101e-9**，RELI 最大绝对差降至 **3.528987436e-9**，全部进入同设置 1e-8 数值身份回归。该新增严格边界不修改冻结值或旧门槛，不是任意系统的商业误差规格；旧离线报告因原本无照度验收目标仍显示 Difference，其非零原始差值保留。产品 21 场 RI 最大差 **1.240449521e-9**，通过原门槛；场曲原门槛保持。实现、剩余输入底噪与限定认证见[逆映射修复](ILLUMINATION_INVERSE_REPAIR_2026-10-16.md)，[传输阶段](ILLUMINATION_TRANSMISSION_REPAIR_2026-10-16.md)、[来源恢复](ZEMAX_NATIVE_DIFFRACTION_ADAPTER_REPAIR_2026-10-16.md)和[有限网格阶段](ILLUMINATION_FINITE_GRID_REPAIR_2026-10-16.md)保留历史范围。
 
+2026-11-07 扩展了原生有限配置的倾斜像面约定。`TILTSURF` 的像面切面基底以本地 X 轴投影为准，有限像点修正将未旋转的横向截点偏移作为切面坐标。正反倾角、混合 X/Y 倾角及陡倾像面均有独立原生数据。自适应物理积分和均匀单元中心模式继续使用真实像面位移。 [倾斜像面复验](../validation/rechecks/2026-11-07/tilted-illumination/README.md)
+
 ## 参考边界
 
 2026-10-13 共享计算收敛：正式 Core 与 Application 的 `Through Focus MTF` 旧名称统一解析到 `Fourier Through Focus MTF`；公开目录只列后者，旧英文/中文产品入口仍可打开。比较工具只把旧英文机器键作为回放/命令行兼容别名，执行目录不重复列项，仍拒绝本地化显示名作为工具键。默认比较容差文件属于冻结指纹清单，保留原始旧键记录；此前误删该行已恢复，不能把冻结参数记录当成第二个执行入口。`MtfThroughFocusAnalysis` 的 `DeltaFocus` 是 ±范围、步数是计算平面数，符合 [Ansys FFT Through Focus MTF 定义](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/FFT_Through_Focus_MTF.html)。Core 默认仍为通用设置，不注入捕获预设；Application 保留产品预设。直接构造旧 `ThroughFocusMtfAnalysis` 的采样自相关/逐步离焦语义留给显式兼容调用和冻结历史回归，不能代表当前产品 FFT 入口。

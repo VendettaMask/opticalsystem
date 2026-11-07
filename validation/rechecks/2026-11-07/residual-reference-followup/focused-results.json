@@ -1,0 +1,2129 @@
+{
+  "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4",
+  "comparisons": [
+    {
+      "index": 347,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "frozen",
+      "rightSide": "Zemax",
+      "rightLevel": "frozen",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.007556054210654639,
+          "meanAbsolute": 0.004037487964860525,
+          "rmse": 0.004302889613827333,
+          "nrmse": 0.004577031309240051,
+          "maxRelative": 0.009092692852082054,
+          "p50": 0.003753283242125094,
+          "p90": 0.006144125117096166,
+          "p95": 0.0067794934218225345,
+          "pearson": 0.9997099526185439,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.007556054210833829,
+          "meanAbsolute": 0.004037487965204034,
+          "rmse": 0.0043028896141338955,
+          "nrmse": 0.004577031309568202,
+          "maxRelative": 0.009092692852299663,
+          "p50": 0.0037532832424801432,
+          "p90": 0.006144125117371946,
+          "p95": 0.006779493422055598,
+          "pearson": 0.9997099526185499,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "7fbe3b4ff5c7353b13617630b3268168db721b6bdb7e60f26ae0d7eb816b6f8f",
+      "left": "ebeaf374b659154bc4f85d07b6894d05579d711a84323b472f09ad9967166cd2",
+      "right": "ec9b530db98eb4e7c42f43292167c62acf333536b411aacd18f50918b98d1194",
+      "leftText": "e374857b27c7e95f918fd55e52b8eae8b259a2d7b4cd636751e15fd9331fc048",
+      "rightText": "9327449ef01f5597ef794d0df72d8028613853a3160bb3ae3dedbb38e7348a32"
+    },
+    {
+      "index": 347,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "128",
+      "rightSide": "Core",
+      "rightLevel": "256",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.0021998873031695565,
+          "meanAbsolute": 0.0007108004360332374,
+          "rmse": 0.0009450762204871204,
+          "nrmse": 0.001006799184706719,
+          "maxRelative": 0.0027025342096444033,
+          "p50": 0.0005633103152788976,
+          "p90": 0.0017140492471894309,
+          "p95": 0.0019550974264056498,
+          "pearson": 0.9999411890836635,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.0021998873031694455,
+          "meanAbsolute": 0.0007108004360331275,
+          "rmse": 0.0009450762204870495,
+          "nrmse": 0.0010067991847066435,
+          "maxRelative": 0.0027025342096442663,
+          "p50": 0.0005633103152790087,
+          "p90": 0.0017140492471894309,
+          "p95": 0.0019550974264054277,
+          "pearson": 0.999941189083663,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "7fbe3b4ff5c7353b13617630b3268168db721b6bdb7e60f26ae0d7eb816b6f8f",
+      "left": "11dcecbeb24dfa2d0197ede0bc99058b49bd8e3f8f0755145c4a9d3575f961f5",
+      "right": "0a58f255a8c0126542ac9834654cf8725259826916dc1c8de99587cf1bab892f",
+      "leftText": "3050d204db4d73934eca4e6a4edcb0793a604ba6f405b25f3cb4fe359c498b56",
+      "rightText": "ccb3c70b13b5602d01c4f37b48fdbebb25d8e246bfb8f8b4532d632686f82067"
+    },
+    {
+      "index": 347,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Zemax",
+      "leftLevel": "128",
+      "rightSide": "Zemax",
+      "rightLevel": "256",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.0018493894806997924,
+          "meanAbsolute": 0.0005512362637731882,
+          "rmse": 0.0007612601421295653,
+          "nrmse": 0.0008110133036903576,
+          "maxRelative": 0.0022722749590902576,
+          "p50": 0.000379635629403019,
+          "p90": 0.001418691732081645,
+          "p95": 0.0016323599455926319,
+          "pearson": 0.9999521887913018,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.0018493894806322908,
+          "meanAbsolute": 0.0005512362637755186,
+          "rmse": 0.0007612601421220413,
+          "nrmse": 0.000811013303683229,
+          "maxRelative": 0.002272274959008656,
+          "p50": 0.0003796356294294423,
+          "p90": 0.0014186917320508918,
+          "p95": 0.0016323599455441151,
+          "pearson": 0.9999521887913052,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "7fbe3b4ff5c7353b13617630b3268168db721b6bdb7e60f26ae0d7eb816b6f8f",
+      "left": "73025be6102d90b12ad20b73ff36326a6876697f7d0f5d9326e39b52deded6a1",
+      "right": "f48f6e90ff9f7dba407f71527cb98fd13b4cfc8b01ec15154d8467a1633e800c",
+      "leftText": "731b32ece18115a24b3f5d0320af0ae5dc72a5f07917d22df656b5a922af73da",
+      "rightText": "d8689e72c7a0c3f33cdd368679fc7ac5fdf29eb7daebd45bd82172bb8053230c"
+    },
+    {
+      "index": 347,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "128",
+      "rightSide": "Zemax",
+      "rightLevel": "128",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.00046619636361233674,
+          "meanAbsolute": 0.0002458828209005882,
+          "rmse": 0.00026203310627233897,
+          "nrmse": 0.0002791303854580004,
+          "maxRelative": 0.0005714992491072998,
+          "p50": 0.00023050863341522732,
+          "p90": 0.0003785990987049681,
+          "p95": 0.0004194020684164079,
+          "pearson": 0.99999903348921,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.00046619636415790033,
+          "meanAbsolute": 0.00024588282176536084,
+          "rmse": 0.000262033107049918,
+          "nrmse": 0.0002791303862866142,
+          "maxRelative": 0.0005714992497764757,
+          "p50": 0.00023050863444784575,
+          "p90": 0.0003785990994988886,
+          "p95": 0.00041940206909769066,
+          "pearson": 0.999999033489209,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "7fbe3b4ff5c7353b13617630b3268168db721b6bdb7e60f26ae0d7eb816b6f8f",
+      "left": "11dcecbeb24dfa2d0197ede0bc99058b49bd8e3f8f0755145c4a9d3575f961f5",
+      "right": "73025be6102d90b12ad20b73ff36326a6876697f7d0f5d9326e39b52deded6a1",
+      "leftText": "3050d204db4d73934eca4e6a4edcb0793a604ba6f405b25f3cb4fe359c498b56",
+      "rightText": "731b32ece18115a24b3f5d0320af0ae5dc72a5f07917d22df656b5a922af73da"
+    },
+    {
+      "index": 347,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "256",
+      "rightSide": "Zemax",
+      "rightLevel": "256",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.00011569854114257261,
+          "meanAbsolute": 6.100308396427608E-05,
+          "rmse": 6.499457705949446E-05,
+          "nrmse": 6.92423834453252E-05,
+          "maxRelative": 0.00014215442478999237,
+          "p50": 5.7315798192236755E-05,
+          "p90": 9.400186039920655E-05,
+          "p95": 0.00010410830087176358,
+          "pearson": 0.9999999417240617,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.00011569854162074567,
+          "meanAbsolute": 6.10030848409316E-05,
+          "rmse": 6.499457784331788E-05,
+          "nrmse": 6.92423842804522E-05,
+          "maxRelative": 0.00014215442537758902,
+          "p50": 5.7315799247725785E-05,
+          "p90": 9.400186116936826E-05,
+          "p95": 0.00010410830150962556,
+          "pearson": 0.9999999417240617,
+          "worstX": -0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "7fbe3b4ff5c7353b13617630b3268168db721b6bdb7e60f26ae0d7eb816b6f8f",
+      "left": "0a58f255a8c0126542ac9834654cf8725259826916dc1c8de99587cf1bab892f",
+      "right": "f48f6e90ff9f7dba407f71527cb98fd13b4cfc8b01ec15154d8467a1633e800c",
+      "leftText": "ccb3c70b13b5602d01c4f37b48fdbebb25d8e246bfb8f8b4532d632686f82067",
+      "rightText": "d8689e72c7a0c3f33cdd368679fc7ac5fdf29eb7daebd45bd82172bb8053230c"
+    },
+    {
+      "index": 369,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "frozen",
+      "rightSide": "Zemax",
+      "rightLevel": "frozen",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.03222574954608748,
+          "meanAbsolute": 0.013504964443375012,
+          "rmse": 0.015292273439294995,
+          "nrmse": 0.01611436615884254,
+          "maxRelative": 0.044737353041417495,
+          "p50": 0.011083608587741156,
+          "p90": 0.025159512688384254,
+          "p95": 0.02901255686015921,
+          "pearson": 0.9981874886935895,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.03222574954693391,
+          "meanAbsolute": 0.01350496444476619,
+          "rmse": 0.0152922734405463,
+          "nrmse": 0.016114366160186067,
+          "maxRelative": 0.044737353042645124,
+          "p50": 0.011083608589899319,
+          "p90": 0.025159512689880613,
+          "p95": 0.029012556861305577,
+          "pearson": 0.998187488693289,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "977ca44e8a7faaef76c3447d49e08b4865eed151485fe0633f38ef68668ebafd",
+      "left": "b31660a29d85920526471117d750e7ab7290ad729350195d6f7448c94db2daab",
+      "right": "3715b8b4b9684179522489db40d8da9014a14a83cfe16b21cf0ea994d6158f0c",
+      "leftText": "e374857b27c7e95f918fd55e52b8eae8b259a2d7b4cd636751e15fd9331fc048",
+      "rightText": "c20d4b3df85d324b390cd11dcabc88b07ca3ae7c94105801cd654dde71266fd0"
+    },
+    {
+      "index": 369,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "128",
+      "rightSide": "Core",
+      "rightLevel": "256",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.003939711810185598,
+          "meanAbsolute": 0.0017119550290021124,
+          "rmse": 0.00192312281818491,
+          "nrmse": 0.0020382182191559187,
+          "maxRelative": 0.005738951334326609,
+          "p50": 0.0014946097265370328,
+          "p90": 0.0029181360863183015,
+          "p95": 0.003422005722244603,
+          "pearson": 0.9999944679892461,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.0039397118101897055,
+          "meanAbsolute": 0.0017119550290024279,
+          "rmse": 0.001923122818185585,
+          "nrmse": 0.0020382182191566343,
+          "maxRelative": 0.005738951334332593,
+          "p50": 0.001494609726537699,
+          "p90": 0.002918136086320966,
+          "p95": 0.003422005722247823,
+          "pearson": 0.9999944679892463,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "977ca44e8a7faaef76c3447d49e08b4865eed151485fe0633f38ef68668ebafd",
+      "left": "7205cfbda6c397366ac79287f0d075431f63a4520ce6a607f4d0c701d44ed42b",
+      "right": "774b924dfffd04b054eb00e7cf78a2e986fbd939ccbe3645359892883b57fbb2",
+      "leftText": "3050d204db4d73934eca4e6a4edcb0793a604ba6f405b25f3cb4fe359c498b56",
+      "rightText": "ccb3c70b13b5602d01c4f37b48fdbebb25d8e246bfb8f8b4532d632686f82067"
+    },
+    {
+      "index": 369,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Zemax",
+      "leftLevel": "128",
+      "rightSide": "Zemax",
+      "rightLevel": "256",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.0025014093694580852,
+          "meanAbsolute": 0.001062834033476347,
+          "rmse": 0.0012350642547978975,
+          "nrmse": 0.0013091569043509534,
+          "maxRelative": 0.0036462625028251135,
+          "p50": 0.0009345755746005269,
+          "p90": 0.001996163131352202,
+          "p95": 0.002138949569197246,
+          "pearson": 0.9999983992128323,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.002501409370168739,
+          "meanAbsolute": 0.0010628340335520324,
+          "rmse": 0.0012350642549944038,
+          "nrmse": 0.0013091569045609926,
+          "maxRelative": 0.003646262503881727,
+          "p50": 0.0009345755743362938,
+          "p90": 0.0019961631317166884,
+          "p95": 0.0021389495696588767,
+          "pearson": 0.999998399212829,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "977ca44e8a7faaef76c3447d49e08b4865eed151485fe0633f38ef68668ebafd",
+      "left": "37d8262c6155aad86636a17ee44e27c55467801973204a40704b3309fe36029d",
+      "right": "92d739593627749e64e0c3354e4245c3ddecfddf29be4870c8b0b5278f320010",
+      "leftText": "352b377fac2dbcfcd60919885578fc9bc06288de949164b2c68003596f94e298",
+      "rightText": "fe573c39e2672b3115895ce2aede85c03779335623f373622ea327d21ad2d194"
+    },
+    {
+      "index": 369,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "128",
+      "rightSide": "Zemax",
+      "rightLevel": "128",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0019045614484748397,
+          "meanAbsolute": 0.0008562611709617826,
+          "rmse": 0.0009401832438872355,
+          "nrmse": 0.000996190492023921,
+          "maxRelative": 0.002766161144643678,
+          "p50": 0.000709882259193606,
+          "p90": 0.001510866010419831,
+          "p95": 0.001725689652563239,
+          "pearson": 0.9999957403956775,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0019045614516639553,
+          "meanAbsolute": 0.0008562611725266489,
+          "rmse": 0.000940183245603666,
+          "nrmse": 0.0009961904938440192,
+          "maxRelative": 0.0027661611492883057,
+          "p50": 0.0007098822612853772,
+          "p90": 0.001510866013055967,
+          "p95": 0.0017256896554961483,
+          "pearson": 0.9999957403956552,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "977ca44e8a7faaef76c3447d49e08b4865eed151485fe0633f38ef68668ebafd",
+      "left": "7205cfbda6c397366ac79287f0d075431f63a4520ce6a607f4d0c701d44ed42b",
+      "right": "37d8262c6155aad86636a17ee44e27c55467801973204a40704b3309fe36029d",
+      "leftText": "3050d204db4d73934eca4e6a4edcb0793a604ba6f405b25f3cb4fe359c498b56",
+      "rightText": "352b377fac2dbcfcd60919885578fc9bc06288de949164b2c68003596f94e298"
+    },
+    {
+      "index": 369,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "256",
+      "rightSide": "Zemax",
+      "rightLevel": "256",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0004662590077473272,
+          "meanAbsolute": 0.00021104017422722294,
+          "rmse": 0.0002310793619999911,
+          "nrmse": 0.0002449420271375315,
+          "maxRelative": 0.0006796579389649603,
+          "p50": 0.00017516466151401566,
+          "p90": 0.0003701112887482205,
+          "p95": 0.00042257710153427154,
+          "pearson": 0.9999997545690708,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0004662590116429888,
+          "meanAbsolute": 0.00021104017585811975,
+          "rmse": 0.00023107936382114866,
+          "nrmse": 0.0002449420290682683,
+          "maxRelative": 0.0006796579446474605,
+          "p50": 0.00017516466283012955,
+          "p90": 0.0003701112916202453,
+          "p95": 0.0004225771049572723,
+          "pearson": 0.9999997545690664,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "977ca44e8a7faaef76c3447d49e08b4865eed151485fe0633f38ef68668ebafd",
+      "left": "774b924dfffd04b054eb00e7cf78a2e986fbd939ccbe3645359892883b57fbb2",
+      "right": "92d739593627749e64e0c3354e4245c3ddecfddf29be4870c8b0b5278f320010",
+      "leftText": "ccb3c70b13b5602d01c4f37b48fdbebb25d8e246bfb8f8b4532d632686f82067",
+      "rightText": "fe573c39e2672b3115895ce2aede85c03779335623f373622ea327d21ad2d194"
+    },
+    {
+      "index": 825,
+      "key": "First Order",
+      "leftSide": "Core",
+      "leftLevel": "frozen",
+      "rightSide": "Zemax",
+      "rightLevel": "frozen",
+      "conclusion": "Close",
+      "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 2.57068912468128E-06,
+          "meanAbsolute": 2.57068912468128E-06,
+          "rmse": 2.57068912468128E-06,
+          "nrmse": 1.2459656652335065E-06,
+          "maxRelative": 1.2459656652335065E-06,
+          "p50": 2.57068912468128E-06,
+          "p90": 2.57068912468128E-06,
+          "p95": 2.57068912468128E-06,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench": 2.063212815089806,
+            "zemax": 2.0632102444006812
+          }
+        },
+        {
+          "id": "FNumber",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 2.478402997496687E-06,
+          "meanAbsolute": 2.478402997496687E-06,
+          "rmse": 2.478402997496687E-06,
+          "nrmse": 1.2459656652522427E-06,
+          "maxRelative": 1.2459656652522427E-06,
+          "p50": 2.478402997496687E-06,
+          "p90": 2.478402997496687E-06,
+          "p95": 2.478402997496687E-06,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench": 1.9891447690895874,
+            "zemax": 1.9891422906865899
+          }
+        }
+      ],
+      "settings": {
+        "EffectiveFocalLength": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-06,
+          "closeNrmse": 1E-05,
+          "minimumCoverage": 0.95
+        },
+        "FNumber": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-06,
+          "closeNrmse": 1E-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "689d54fbfeb701eb6cafa86a8a34eb9f8c3a0037e09decb53bf34a7564cd2d80",
+      "left": "2f9d9cdddab3908def951174fc21a9bdfe4bad9e3205305d6152fa3957020637",
+      "right": "337fa3c6180e27651536ad8bd04e39d7a7148a4a6f5ef739165cb32d94462986",
+      "leftText": "cb8c577e8d702b09429cbee194a75968e7bee62828b858fa51f883638b2308a6",
+      "rightText": "4da2ac2fed21accc3576d7753f8c3ccfeed7fb7fdeb2f2c80d605b2552de24f9"
+    },
+    {
+      "index": 825,
+      "key": "First Order",
+      "leftSide": "Zemax",
+      "leftLevel": "0.0125",
+      "rightSide": "Zemax",
+      "rightLevel": "0.00625",
+      "conclusion": "Pass",
+      "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 2.424727085781342E-12,
+          "meanAbsolute": 2.424727085781342E-12,
+          "rmse": 2.424727085781342E-12,
+          "nrmse": 1.1752205477551298E-12,
+          "maxRelative": 1.1752205477551298E-12,
+          "p50": 2.424727085781342E-12,
+          "p90": 2.424727085781342E-12,
+          "p95": 2.424727085781342E-12,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 2.0632102547986686,
+            "zemax": 2.0632102548010933
+          }
+        },
+        {
+          "id": "FNumber",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 2.3376856006507296E-12,
+          "meanAbsolute": 2.3376856006507296E-12,
+          "rmse": 2.3376856006507296E-12,
+          "nrmse": 1.1752229087944342E-12,
+          "maxRelative": 1.1752229087944342E-12,
+          "p50": 2.3376856006507296E-12,
+          "p90": 2.3376856006507296E-12,
+          "p95": 2.3376856006507296E-12,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1.989142300711296,
+            "zemax": 1.9891423007136337
+          }
+        }
+      ],
+      "settings": {
+        "EffectiveFocalLength": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-06,
+          "closeNrmse": 1E-05,
+          "minimumCoverage": 0.95
+        },
+        "FNumber": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-06,
+          "closeNrmse": 1E-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "689d54fbfeb701eb6cafa86a8a34eb9f8c3a0037e09decb53bf34a7564cd2d80",
+      "left": "88dd213f4f4f560d3beb2a81515f1f0964c7745d1e05e7c31215b572ad5be01f",
+      "right": "f9ec76bab533573f9dd27af68a3ab24d4ffcfe0054392bac787377994f5bc542",
+      "leftText": "48dc5a0a4847a967472a8baeb9ec3a23c19c0586426556b1b17e4f2e102d21bb",
+      "rightText": "c017316f91d0522458d28ab1098909189c6a6e9299750447b4164d1c39bb4776"
+    },
+    {
+      "index": 825,
+      "key": "First Order",
+      "leftSide": "Core",
+      "leftLevel": "frozen",
+      "rightSide": "Zemax",
+      "rightLevel": "0.00625",
+      "conclusion": "Close",
+      "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 2.560288712594172E-06,
+          "meanAbsolute": 2.560288712594172E-06,
+          "rmse": 2.560288712594172E-06,
+          "nrmse": 1.2409247708208005E-06,
+          "maxRelative": 1.2409247708208005E-06,
+          "p50": 2.560288712594172E-06,
+          "p90": 2.560288712594172E-06,
+          "p95": 2.560288712594172E-06,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench": 2.063212815089806,
+            "zemax": 2.0632102548010933
+          }
+        },
+        {
+          "id": "FNumber",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 2.468375953634805E-06,
+          "meanAbsolute": 2.468375953634805E-06,
+          "rmse": 2.468375953634805E-06,
+          "nrmse": 1.2409247708166676E-06,
+          "maxRelative": 1.2409247708166676E-06,
+          "p50": 2.468375953634805E-06,
+          "p90": 2.468375953634805E-06,
+          "p95": 2.468375953634805E-06,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench": 1.9891447690895874,
+            "zemax": 1.9891423007136337
+          }
+        }
+      ],
+      "settings": {
+        "EffectiveFocalLength": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-06,
+          "closeNrmse": 1E-05,
+          "minimumCoverage": 0.95
+        },
+        "FNumber": {
+          "absolute": 1E-08,
+          "relative": 1E-06,
+          "nrmse": 1E-06,
+          "closeNrmse": 1E-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "689d54fbfeb701eb6cafa86a8a34eb9f8c3a0037e09decb53bf34a7564cd2d80",
+      "left": "2f9d9cdddab3908def951174fc21a9bdfe4bad9e3205305d6152fa3957020637",
+      "right": "f9ec76bab533573f9dd27af68a3ab24d4ffcfe0054392bac787377994f5bc542",
+      "leftText": "cb8c577e8d702b09429cbee194a75968e7bee62828b858fa51f883638b2308a6",
+      "rightText": "c017316f91d0522458d28ab1098909189c6a6e9299750447b4164d1c39bb4776"
+    },
+    {
+      "index": 950,
+      "key": "Huygens PSF Cross Section",
+      "leftSide": "Core",
+      "leftLevel": "frozen",
+      "rightSide": "Zemax",
+      "rightLevel": "frozen",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 32,
+          "maxAbsolute": 0.0005810311444453906,
+          "meanAbsolute": 0.0001093307080841293,
+          "rmse": 0.00021894453367679213,
+          "nrmse": 0.016888655791174954,
+          "maxRelative": 0.05117483131273332,
+          "p50": 8.351251193743433E-06,
+          "p90": 0.0004446239813331103,
+          "p95": 0.0005772076063761504,
+          "pearson": 0.9998183895643727,
+          "worstX": 3.75,
+          "worstY": null,
+          "coverage": 0.96875,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "fcd592c173cbc3bd9174369c0fcfb831a1a14e076bdd0f1d950017ac8112ef3e",
+      "left": "73e02674fd7a5a01962b559a0cb9a555c3310384e9021e14833896685c606d5a",
+      "right": "0824b8f1911a69e012bec3c6c169c35731b7ca7301f7537e170b157d3a801abb",
+      "leftText": "92f23d2a2b64c91a9e86a9817ab4eb09b9030b2f14e9284b50687d7ac958acf3",
+      "rightText": "b03e78ee86e0b20fd75369d49c5cd652626d1eb64d07f8409a17fe62e4691e46"
+    },
+    {
+      "index": 950,
+      "key": "Huygens PSF Cross Section",
+      "leftSide": "Zemax",
+      "leftLevel": "2048",
+      "rightSide": "Zemax",
+      "rightLevel": "4096",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 33,
+          "maxAbsolute": 4.000000000000001E-06,
+          "meanAbsolute": 8.484848484848486E-07,
+          "rmse": 1.3026778945578596E-06,
+          "nrmse": 0.13026778945578596,
+          "maxRelative": "Infinity",
+          "p50": 1E-06,
+          "p90": 2.0000000000000003E-06,
+          "p95": 3E-06,
+          "pearson": 0.9082951062292476,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "fcd592c173cbc3bd9174369c0fcfb831a1a14e076bdd0f1d950017ac8112ef3e",
+      "left": "0824b8f1911a69e012bec3c6c169c35731b7ca7301f7537e170b157d3a801abb",
+      "right": "0824b8f1911a69e012bec3c6c169c35731b7ca7301f7537e170b157d3a801abb",
+      "leftText": "ce4b7302d0e532a24593c07ebd007d96a31dc64f23d1e3d9031c1b66301e9a9f",
+      "rightText": "41c37bf8c9b3cf285bb700d8346e8e6a5386a61d7304f5b13c8da01c74e3ae53"
+    },
+    {
+      "index": 950,
+      "key": "Huygens PSF Cross Section",
+      "leftSide": "Core",
+      "leftLevel": "1024",
+      "rightSide": "Zemax",
+      "rightLevel": "4096",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 32,
+          "maxAbsolute": 1.541264397821749E-05,
+          "meanAbsolute": 2.9069385278460734E-06,
+          "rmse": 4.944889394737731E-06,
+          "nrmse": 0.4944889394737731,
+          "maxRelative": "Infinity",
+          "p50": 1.1349584488331623E-06,
+          "p90": 7.541281085618952E-06,
+          "p95": 1.3019944931721725E-05,
+          "pearson": 0.918451103211526,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 0.96875,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "fcd592c173cbc3bd9174369c0fcfb831a1a14e076bdd0f1d950017ac8112ef3e",
+      "left": "f2071692196cc4010b38950061028768165c36a5efd1d0ad4959ed23da7363c8",
+      "right": "0824b8f1911a69e012bec3c6c169c35731b7ca7301f7537e170b157d3a801abb",
+      "leftText": "9574868dad105810bf651fb4a6de9968373e2ad1b9269e79bf1be4303700d000",
+      "rightText": "41c37bf8c9b3cf285bb700d8346e8e6a5386a61d7304f5b13c8da01c74e3ae53"
+    },
+    {
+      "index": 953,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "frozen",
+      "rightSide": "Zemax",
+      "rightLevel": "frozen",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.007379438833135854,
+          "meanAbsolute": 0.004778902261541113,
+          "rmse": 0.005231880766483211,
+          "nrmse": 0.009461214054245494,
+          "maxRelative": 0.013710796884221768,
+          "p50": 0.00539096490905927,
+          "p90": 0.007320519835720229,
+          "p95": 0.0073756452301524614,
+          "pearson": 0.9465400662648682,
+          "worstX": 0.0094,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.007379438837971097,
+          "meanAbsolute": 0.004778902260999045,
+          "rmse": 0.005231880766309707,
+          "nrmse": 0.009461214054013609,
+          "maxRelative": 0.013710796896232532,
+          "p50": 0.005390964901162143,
+          "p90": 0.007320519841847306,
+          "p95": 0.007375645234712358,
+          "pearson": 0.9465400662809967,
+          "worstX": 0.0094,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "aeed636b51416b673a1f5e6fffbc5820cbdb22b3457df211125091b13a8a2563",
+      "left": "d7334e55f7d03d7ee041d941017c2c0636fedd8a1524e9f86cc86ba87c19e554",
+      "right": "2ea8260f51a425eca074d2d4acdc160c9819c298c0be6a14ad32e72355fab245",
+      "leftText": "e374857b27c7e95f918fd55e52b8eae8b259a2d7b4cd636751e15fd9331fc048",
+      "rightText": "360548f381ae0d8184adbfc97a2c7ebcb668ff367199edde8bf1bdccc062a074"
+    },
+    {
+      "index": 953,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "128",
+      "rightSide": "Core",
+      "rightLevel": "256",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.060859902627058204,
+          "meanAbsolute": 0.035280142819272796,
+          "rmse": 0.03887943792733004,
+          "nrmse": 0.060639384939815716,
+          "maxRelative": 0.09633453489293232,
+          "p50": 0.033124219305230684,
+          "p90": 0.05893780564220508,
+          "p95": 0.06016719720877339,
+          "pearson": 0.3108275023998601,
+          "worstX": 0.0052,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.06085990262556673,
+          "meanAbsolute": 0.035280142818963404,
+          "rmse": 0.03887943792679626,
+          "nrmse": 0.06063938493901059,
+          "maxRelative": 0.09633453489061036,
+          "p50": 0.033124219305479485,
+          "p90": 0.05893780564135398,
+          "p95": 0.06016719720763919,
+          "pearson": 0.31082750240903495,
+          "worstX": 0.0052,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "aeed636b51416b673a1f5e6fffbc5820cbdb22b3457df211125091b13a8a2563",
+      "left": "2a6d9e40128a1ff7c8df584745aeaf8b2b42fd014745ab61eacdcde718e391f5",
+      "right": "f078fbb9d4e5eb33fb66ee0a372c4870e309eee563c1a60e00f4993cbf1c6e18",
+      "leftText": "3050d204db4d73934eca4e6a4edcb0793a604ba6f405b25f3cb4fe359c498b56",
+      "rightText": "ccb3c70b13b5602d01c4f37b48fdbebb25d8e246bfb8f8b4532d632686f82067"
+    },
+    {
+      "index": 953,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Zemax",
+      "leftLevel": "128",
+      "rightSide": "Zemax",
+      "rightLevel": "256",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.06048194970251897,
+          "meanAbsolute": 0.03524776616831531,
+          "rmse": 0.038771497467300395,
+          "nrmse": 0.06046404393748724,
+          "maxRelative": 0.09573221036415469,
+          "p50": 0.033571449564471556,
+          "p90": 0.05852658129750943,
+          "p95": 0.05980174843284569,
+          "pearson": 0.3098065169910111,
+          "worstX": 0.0052,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.06048194970984144,
+          "meanAbsolute": 0.03524776617643731,
+          "rmse": 0.038771497474808216,
+          "nrmse": 0.06046404394977455,
+          "maxRelative": 0.09573221037651032,
+          "p50": 0.03357144958102154,
+          "p90": 0.058526581305609615,
+          "p95": 0.05980174843946251,
+          "pearson": 0.3098065166924327,
+          "worstX": 0.0052,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "aeed636b51416b673a1f5e6fffbc5820cbdb22b3457df211125091b13a8a2563",
+      "left": "313e7a1fb56b64f3dade37ac5e044815431d5ff35bec20669fdbbca03afff9c3",
+      "right": "eef6cb43588024eaa01d0549f761116267ca421dadee2a7038986388faca7bad",
+      "leftText": "10ed6e8e27e67b72b04f769291b33a43e3ada4dc4a3e0f523dd85951e082d9e4",
+      "rightText": "61acbc219dcad0cf36ba6eddaaf6d5244b0b3b63c3b2fcfd6e00768b8b0a8305"
+    },
+    {
+      "index": 953,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "128",
+      "rightSide": "Zemax",
+      "rightLevel": "128",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0005608213056522704,
+          "meanAbsolute": 0.0004948532910987518,
+          "rmse": 0.0004994411755220257,
+          "nrmse": 0.0008180822356070501,
+          "maxRelative": 0.0009190618685087324,
+          "p50": 0.0005191371499445041,
+          "p90": 0.0005586612616293896,
+          "p95": 0.0005602353274680949,
+          "pearson": 0.9999995928254931,
+          "worstX": -0.002,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.0005608212976583316,
+          "meanAbsolute": 0.0004948532826622356,
+          "rmse": 0.0004994411673771285,
+          "nrmse": 0.0008180822222775038,
+          "maxRelative": 0.0009190618564963873,
+          "p50": 0.0005191371428184266,
+          "p90": 0.0005586612542456515,
+          "p95": 0.0005602353191967279,
+          "pearson": 0.9999995928253483,
+          "worstX": -0.002,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "aeed636b51416b673a1f5e6fffbc5820cbdb22b3457df211125091b13a8a2563",
+      "left": "2a6d9e40128a1ff7c8df584745aeaf8b2b42fd014745ab61eacdcde718e391f5",
+      "right": "313e7a1fb56b64f3dade37ac5e044815431d5ff35bec20669fdbbca03afff9c3",
+      "leftText": "3050d204db4d73934eca4e6a4edcb0793a604ba6f405b25f3cb4fe359c498b56",
+      "rightText": "10ed6e8e27e67b72b04f769291b33a43e3ada4dc4a3e0f523dd85951e082d9e4"
+    },
+    {
+      "index": 953,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "256",
+      "rightSide": "Zemax",
+      "rightLevel": "256",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.00013451444215317743,
+          "meanAbsolute": 7.313834190991568E-05,
+          "rmse": 7.786709806366924E-05,
+          "nrmse": 0.00012143352581563694,
+          "maxRelative": 0.0002359705885881873,
+          "p50": 6.004593725561502E-05,
+          "p90": 0.00011856112674691887,
+          "p95": 0.0001273899792720967,
+          "pearson": 0.999999727380898,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 0.00013451443084377956,
+          "meanAbsolute": 7.313833144665955E-05,
+          "rmse": 7.786708888191045E-05,
+          "nrmse": 0.0001214335114978719,
+          "maxRelative": 0.00023597056875382814,
+          "p50": 6.0045930009300363E-05,
+          "p90": 0.00011856111821455516,
+          "p95": 0.00012738996924714361,
+          "pearson": 0.9999997273808708,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "aeed636b51416b673a1f5e6fffbc5820cbdb22b3457df211125091b13a8a2563",
+      "left": "f078fbb9d4e5eb33fb66ee0a372c4870e309eee563c1a60e00f4993cbf1c6e18",
+      "right": "eef6cb43588024eaa01d0549f761116267ca421dadee2a7038986388faca7bad",
+      "leftText": "ccb3c70b13b5602d01c4f37b48fdbebb25d8e246bfb8f8b4532d632686f82067",
+      "rightText": "61acbc219dcad0cf36ba6eddaaf6d5244b0b3b63c3b2fcfd6e00768b8b0a8305"
+    },
+    {
+      "index": 953,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "256",
+      "rightSide": "Core",
+      "rightLevel": "512",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.15936545040824435,
+          "meanAbsolute": 0.14449394546242267,
+          "rmse": 0.14500947805139774,
+          "nrmse": 0.1844506314190825,
+          "maxRelative": 0.21503680522550306,
+          "p50": 0.1453160319011163,
+          "p90": 0.15814197766508653,
+          "p95": 0.15906017260936323,
+          "pearson": 0.9691501671422571,
+          "worstX": -0.0031999999999999997,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.15936545040943817,
+          "meanAbsolute": 0.14449394546296745,
+          "rmse": 0.14500947805193354,
+          "nrmse": 0.18445063142000856,
+          "maxRelative": 0.21503680522770258,
+          "p50": 0.14531603190187348,
+          "p90": 0.1581419776649977,
+          "p95": 0.15906017260991756,
+          "pearson": 0.9691501671390457,
+          "worstX": -0.0031999999999999997,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "aeed636b51416b673a1f5e6fffbc5820cbdb22b3457df211125091b13a8a2563",
+      "left": "f078fbb9d4e5eb33fb66ee0a372c4870e309eee563c1a60e00f4993cbf1c6e18",
+      "right": "430aebffd9b7a8293817c15eaed919c92fbbc17c27e97e905b882567509788be",
+      "leftText": "ccb3c70b13b5602d01c4f37b48fdbebb25d8e246bfb8f8b4532d632686f82067",
+      "rightText": "552ece490fa97b6421f1b9eb24657c4a8de078bc44572d4d2b2cc1b0aca5a2f4"
+    },
+    {
+      "index": 953,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "512",
+      "rightSide": "Core",
+      "rightLevel": "1024",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.2337459788721391,
+          "meanAbsolute": 0.15896552846669337,
+          "rmse": 0.16973921938129785,
+          "nrmse": 0.24913215348804574,
+          "maxRelative": 0.42700833983048375,
+          "p50": 0.16898434262434536,
+          "p90": 0.23045146674022543,
+          "p95": 0.23268243554871182,
+          "pearson": -0.04340501970960925,
+          "worstX": 0.00020000000000000052,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.23374597887168125,
+          "meanAbsolute": 0.15896552846641518,
+          "rmse": 0.16973921938104697,
+          "nrmse": 0.24913215348775208,
+          "maxRelative": 0.42700833982978464,
+          "p50": 0.16898434262371653,
+          "p90": 0.23045146673996864,
+          "p95": 0.23268243554816492,
+          "pearson": -0.04340501974848239,
+          "worstX": 0.00020000000000000052,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "aeed636b51416b673a1f5e6fffbc5820cbdb22b3457df211125091b13a8a2563",
+      "left": "430aebffd9b7a8293817c15eaed919c92fbbc17c27e97e905b882567509788be",
+      "right": "932ebc47e706063d3461f13b1ab322426f7d6c7698c12113aad58652d252ffb7",
+      "leftText": "552ece490fa97b6421f1b9eb24657c4a8de078bc44572d4d2b2cc1b0aca5a2f4",
+      "rightText": "f5ad642494fb65e6cd1c751b769d7b9778435023e57e5b8717ddec1ee3a797a2"
+    },
+    {
+      "index": 953,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Zemax",
+      "leftLevel": "256",
+      "rightSide": "Zemax",
+      "rightLevel": "512",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.15933380583235357,
+          "meanAbsolute": 0.14444013842506567,
+          "rmse": 0.14495611680953144,
+          "nrmse": 0.1843785674352525,
+          "maxRelative": 0.2149871916785347,
+          "p50": 0.14521370096813502,
+          "p90": 0.15811009077918803,
+          "p95": 0.15902859191464513,
+          "pearson": 0.9691033102250023,
+          "worstX": -0.0031999999999999997,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.1593338058501338,
+          "meanAbsolute": 0.14444013843829148,
+          "rmse": 0.14495611682264914,
+          "nrmse": 0.18437856745158862,
+          "maxRelative": 0.21498719170425917,
+          "p50": 0.14521370097744102,
+          "p90": 0.1581100907941183,
+          "p95": 0.15902859193103536,
+          "pearson": 0.9691033102109435,
+          "worstX": -0.0031999999999999997,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "aeed636b51416b673a1f5e6fffbc5820cbdb22b3457df211125091b13a8a2563",
+      "left": "eef6cb43588024eaa01d0549f761116267ca421dadee2a7038986388faca7bad",
+      "right": "f23742eb234d546b44993e8f36e508f83c2826b5952040bd66eb8e9a18e51b6f",
+      "leftText": "61acbc219dcad0cf36ba6eddaaf6d5244b0b3b63c3b2fcfd6e00768b8b0a8305",
+      "rightText": "ab3202729b902864d21d10861159e1c54fe26fc5af399ec6218ca9c72cef943f"
+    },
+    {
+      "index": 953,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Zemax",
+      "leftLevel": "512",
+      "rightSide": "Zemax",
+      "rightLevel": "1024",
+      "conclusion": "Difference",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.23375373592648885,
+          "meanAbsolute": 0.1589773332511972,
+          "rmse": 0.16974918057454788,
+          "nrmse": 0.24914528785040044,
+          "maxRelative": 0.42701527449909954,
+          "p50": 0.16899720470218726,
+          "p90": 0.23045903738597284,
+          "p95": 0.23269049481047488,
+          "pearson": -0.04334562855009773,
+          "worstX": 0.00020000000000000052,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 101,
+          "maxAbsolute": 0.2337537359540408,
+          "meanAbsolute": 0.15897733327023159,
+          "rmse": 0.16974918059468183,
+          "nrmse": 0.2491452878794281,
+          "maxRelative": 0.42701527456967703,
+          "p50": 0.1689972047144358,
+          "p90": 0.23045903741477414,
+          "p95": 0.232690494836843,
+          "pearson": -0.043345628654270184,
+          "worstX": 0.00020000000000000052,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Difference",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "aeed636b51416b673a1f5e6fffbc5820cbdb22b3457df211125091b13a8a2563",
+      "left": "f23742eb234d546b44993e8f36e508f83c2826b5952040bd66eb8e9a18e51b6f",
+      "right": "11f53a767c988d266e14a274d65149e476141fd3c640f044fe57c6af1fe04e0c",
+      "leftText": "ab3202729b902864d21d10861159e1c54fe26fc5af399ec6218ca9c72cef943f",
+      "rightText": "eaf23ee5f7702f16abe1da41afd075acd3eca1aabb1f6e3b0e08b605f30f5734"
+    },
+    {
+      "index": 953,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "512",
+      "rightSide": "Zemax",
+      "rightLevel": "512",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 2.2914922716887887E-05,
+          "meanAbsolute": 1.9160297535509088E-05,
+          "rmse": 1.9260698119396553E-05,
+          "nrmse": 2.4498862174429393E-05,
+          "maxRelative": 3.4959713109473004E-05,
+          "p50": 1.8901926137071534E-05,
+          "p90": 2.20017491882607E-05,
+          "p95": 2.250560118005618E-05,
+          "pearson": 0.9999999990704627,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 2.291492130612749E-05,
+          "meanAbsolute": 1.9160299645765502E-05,
+          "rmse": 1.9260700114204673E-05,
+          "nrmse": 2.4498864711701692E-05,
+          "maxRelative": 3.495972233978607E-05,
+          "p50": 1.8901929370818138E-05,
+          "p90": 2.200175301507734E-05,
+          "p95": 2.2505600064653964E-05,
+          "pearson": 0.9999999990704618,
+          "worstX": 0.01,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "aeed636b51416b673a1f5e6fffbc5820cbdb22b3457df211125091b13a8a2563",
+      "left": "430aebffd9b7a8293817c15eaed919c92fbbc17c27e97e905b882567509788be",
+      "right": "f23742eb234d546b44993e8f36e508f83c2826b5952040bd66eb8e9a18e51b6f",
+      "leftText": "552ece490fa97b6421f1b9eb24657c4a8de078bc44572d4d2b2cc1b0aca5a2f4",
+      "rightText": "ab3202729b902864d21d10861159e1c54fe26fc5af399ec6218ca9c72cef943f"
+    },
+    {
+      "index": 953,
+      "key": "Huygens Through Focus MTF",
+      "leftSide": "Core",
+      "leftLevel": "1024",
+      "rightSide": "Zemax",
+      "rightLevel": "1024",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 9.118696367105272E-06,
+          "meanAbsolute": 7.457905184335249E-06,
+          "rmse": 7.584861863002599E-06,
+          "nrmse": 1.113249905399928E-05,
+          "maxRelative": 1.6685366571810104E-05,
+          "p50": 7.773499530461248E-06,
+          "p90": 9.025557335196055E-06,
+          "p95": 9.101368485825433E-06,
+          "pearson": 0.9999999998104006,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "curve:1",
+          "unit": "Dimensionless",
+          "count": 128,
+          "maxAbsolute": 9.118671324137573E-06,
+          "meanAbsolute": 7.457887933246671E-06,
+          "rmse": 7.584843605031701E-06,
+          "nrmse": 1.1132472256277076E-05,
+          "maxRelative": 1.668531990739354E-05,
+          "p50": 7.773480816597456E-06,
+          "p90": 9.025533400752738E-06,
+          "p95": 9.101343467010636E-06,
+          "pearson": 0.9999999998104007,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Modulation": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "aeed636b51416b673a1f5e6fffbc5820cbdb22b3457df211125091b13a8a2563",
+      "left": "932ebc47e706063d3461f13b1ab322426f7d6c7698c12113aad58652d252ffb7",
+      "right": "11f53a767c988d266e14a274d65149e476141fd3c640f044fe57c6af1fe04e0c",
+      "leftText": "f5ad642494fb65e6cd1c751b769d7b9778435023e57e5b8717ddec1ee3a797a2",
+      "rightText": "eaf23ee5f7702f16abe1da41afd075acd3eca1aabb1f6e3b0e08b605f30f5734"
+    },
+    {
+      "index": 954,
+      "key": "Relative Illumination",
+      "leftSide": "Core",
+      "leftLevel": "frozen",
+      "rightSide": "Zemax",
+      "rightLevel": "frozen",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 0.006454225266659064,
+          "meanAbsolute": 0.006454225266659064,
+          "rmse": 0.006454225266659064,
+          "nrmse": 0.006496152900847796,
+          "maxRelative": 0.006496152900847796,
+          "p50": 0.006454225266659064,
+          "p90": 0.006454225266659064,
+          "p95": 0.006454225266659064,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench": 1,
+            "zemax": 0.9935457747333409
+          }
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "c1b73502b1defca450bbf99dc22735993ddad70614d143981373ae8fc2fb43c9",
+      "left": "c2bbf727781700612464e432df44e85909f829bda007bcf973de6e85b5bef524",
+      "right": "b3dd2e942c3bd98551552710a87b55f310699f588d0e2fdcd42bf45fbf82eaac",
+      "leftText": "4b466038aa092e846fc306e8e20bdfb061c8ce5a0ce9e85cad5c026428ef9386",
+      "rightText": "f241793b1bb1e2cb3373b43e6ecb9004b0eb0881ec841ec01ec3a1d9867f1e86"
+    },
+    {
+      "index": 954,
+      "key": "Relative Illumination",
+      "leftSide": "Zemax",
+      "leftLevel": "frozen",
+      "rightSide": "Zemax",
+      "rightLevel": "80",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 0.00033811426312946313,
+          "meanAbsolute": 0.00033811426312946313,
+          "rmse": 0.00033811426312946313,
+          "nrmse": 0.00034042655588197,
+          "maxRelative": 0.00034042655588197,
+          "p50": 0.00033811426312946313,
+          "p90": 0.00033811426312946313,
+          "p95": 0.00033811426312946313,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 0.9935457747333409,
+            "zemax": 0.9932076604702115
+          }
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "c1b73502b1defca450bbf99dc22735993ddad70614d143981373ae8fc2fb43c9",
+      "left": "b3dd2e942c3bd98551552710a87b55f310699f588d0e2fdcd42bf45fbf82eaac",
+      "right": "8b7038b01539b4fc52b2cc424ea3f13fd27591b09f3579c4ffca19519fbaf069",
+      "leftText": "f241793b1bb1e2cb3373b43e6ecb9004b0eb0881ec841ec01ec3a1d9867f1e86",
+      "rightText": "3d8d7b6fb759b706b256f1899ddc6ec0a7855b581b95b2b0b9be14ff8c7cfe26"
+    },
+    {
+      "index": 954,
+      "key": "Relative Illumination",
+      "leftSide": "Core",
+      "leftLevel": "80",
+      "rightSide": "Zemax",
+      "rightLevel": "80",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 0.006792339529788527,
+          "meanAbsolute": 0.006792339529788527,
+          "rmse": 0.006792339529788527,
+          "nrmse": 0.006838790919688285,
+          "maxRelative": 0.006838790919688285,
+          "p50": 0.006792339529788527,
+          "p90": 0.006792339529788527,
+          "p95": 0.006792339529788527,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench": 1,
+            "zemax": 0.9932076604702115
+          }
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "c1b73502b1defca450bbf99dc22735993ddad70614d143981373ae8fc2fb43c9",
+      "left": "4278e34b674c9abc05933a5d060737b614401d782c713a0a7dc0067cb34b51a2",
+      "right": "8b7038b01539b4fc52b2cc424ea3f13fd27591b09f3579c4ffca19519fbaf069",
+      "leftText": "7de964e4e6c3de72c08f78374aee6bba2d4125d9a4d81b0c9a6790118eaa7646",
+      "rightText": "3d8d7b6fb759b706b256f1899ddc6ec0a7855b581b95b2b0b9be14ff8c7cfe26"
+    },
+    {
+      "index": 2752,
+      "key": "Relative Illumination",
+      "leftSide": "Core",
+      "leftLevel": "frozen",
+      "rightSide": "Zemax",
+      "rightLevel": "frozen",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 21,
+          "maxAbsolute": 0.008285089237718979,
+          "meanAbsolute": 0.005916935381945583,
+          "rmse": 0.006374320514145288,
+          "nrmse": 0.006374320514145288,
+          "maxRelative": 0.011094103949581373,
+          "p50": 0.00665655342529925,
+          "p90": 0.008186037384960598,
+          "p95": 0.008267109624483626,
+          "pearson": 0.9998739661765149,
+          "worstX": 0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "982b45fcc7faa80621e79b92ca561ab55aa67fe249a32fb61d9f9c7065e00b5c",
+      "left": "cbe6af400466b68298dc825565caf07ebb3135d600dd7ad3c2026caa30136eac",
+      "right": "48855848ca7c8ac723893531ee923a9a75759ed2260fb2d8f049c32abbcd256a",
+      "leftText": "6fbf7114e7820e7203bfcb1eea0d47ba4b42224a7a164ef92fedab41087e93bd",
+      "rightText": "1fc0aa952a86b2a6c425e6d2bb48cd4b687ee9dfd77c8fa2c0215e6f916c8a88"
+    },
+    {
+      "index": 2752,
+      "key": "Relative Illumination",
+      "leftSide": "Core",
+      "leftLevel": "frozen",
+      "rightSide": "Core",
+      "rightLevel": "80",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 21,
+          "maxAbsolute": 0.00019030490583571424,
+          "meanAbsolute": 0.00010571891351525882,
+          "rmse": 0.00012067088289351849,
+          "nrmse": 0.00012067088289351849,
+          "maxRelative": 0.0003087972225485455,
+          "p50": 0.0001074890450772914,
+          "p90": 0.00017962708490792956,
+          "p95": 0.00018518883703000366,
+          "pearson": 0.9999999985131578,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "982b45fcc7faa80621e79b92ca561ab55aa67fe249a32fb61d9f9c7065e00b5c",
+      "left": "cbe6af400466b68298dc825565caf07ebb3135d600dd7ad3c2026caa30136eac",
+      "right": "cce041fcac9059b3e7179525e20d7bceba799fa2570b365c7188d1a2a4106f7e",
+      "leftText": "6fbf7114e7820e7203bfcb1eea0d47ba4b42224a7a164ef92fedab41087e93bd",
+      "rightText": "1f924f7747e22077e0de4ab1b030fee7784fad6f8f4196c91795b62d2c13c6da"
+    },
+    {
+      "index": 2752,
+      "key": "Relative Illumination",
+      "leftSide": "Core",
+      "leftLevel": "40",
+      "rightSide": "Core",
+      "rightLevel": "80",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 21,
+          "maxAbsolute": 3.245227027137698E-05,
+          "meanAbsolute": 1.976307456801118E-05,
+          "rmse": 2.1819717058890027E-05,
+          "nrmse": 2.1819717058890027E-05,
+          "maxRelative": 5.265850021673632E-05,
+          "p50": 1.994782436676168E-05,
+          "p90": 3.119718759270196E-05,
+          "p95": 3.185047952469766E-05,
+          "pearson": 0.9999999998956136,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "982b45fcc7faa80621e79b92ca561ab55aa67fe249a32fb61d9f9c7065e00b5c",
+      "left": "58372e90a4a5ecf19a37f8cf59547d6c6f481ff8a4302dc1d355da7e3354f15c",
+      "right": "cce041fcac9059b3e7179525e20d7bceba799fa2570b365c7188d1a2a4106f7e",
+      "leftText": "e996a3da8bf13db0243fee433557820806e5cc3ecd9e8fefd144666fc626df15",
+      "rightText": "1f924f7747e22077e0de4ab1b030fee7784fad6f8f4196c91795b62d2c13c6da"
+    },
+    {
+      "index": 2752,
+      "key": "Relative Illumination",
+      "leftSide": "Zemax",
+      "leftLevel": "frozen",
+      "rightSide": "Zemax",
+      "rightLevel": "80",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 21,
+          "maxAbsolute": 0.00012475122076660572,
+          "meanAbsolute": 5.6682642976509035E-05,
+          "rmse": 6.939526495467752E-05,
+          "nrmse": 6.939526495467752E-05,
+          "maxRelative": 0.00020403952613842784,
+          "p50": 5.102131372070051E-05,
+          "p90": 0.00011230613609247708,
+          "p95": 0.0001185235091138992,
+          "pearson": 0.9999999994411065,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "982b45fcc7faa80621e79b92ca561ab55aa67fe249a32fb61d9f9c7065e00b5c",
+      "left": "48855848ca7c8ac723893531ee923a9a75759ed2260fb2d8f049c32abbcd256a",
+      "right": "32c6520b0616b0eecacb79b7b49248ee9e068a0f462e3fe3496e854bd3ffb798",
+      "leftText": "1fc0aa952a86b2a6c425e6d2bb48cd4b687ee9dfd77c8fa2c0215e6f916c8a88",
+      "rightText": "fa3c6c0f844da2f5a6aa18c64365175affb0cb4123f53bfd9213bc920f182042"
+    },
+    {
+      "index": 2752,
+      "key": "Relative Illumination",
+      "leftSide": "Zemax",
+      "leftLevel": "40",
+      "rightSide": "Zemax",
+      "rightLevel": "80",
+      "conclusion": "Pass",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 21,
+          "maxAbsolute": 1.3877882870438896E-05,
+          "meanAbsolute": 6.481118133484456E-06,
+          "rmse": 8.136704552840994E-06,
+          "nrmse": 8.136704552840994E-06,
+          "maxRelative": 2.2698268019249313E-05,
+          "p50": 5.5641071534662245E-06,
+          "p90": 1.3203178195975163E-05,
+          "p95": 1.3547763701327042E-05,
+          "pearson": 0.9999999999709472,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "982b45fcc7faa80621e79b92ca561ab55aa67fe249a32fb61d9f9c7065e00b5c",
+      "left": "dd9646c52ef0290ee3d31e74262ed93bf1c84494fb13c571c4ebee519357904b",
+      "right": "32c6520b0616b0eecacb79b7b49248ee9e068a0f462e3fe3496e854bd3ffb798",
+      "leftText": "392935f0e904254999602bdd204fac6a1c908635fa10de78d46b3ad64ed9fde9",
+      "rightText": "fa3c6c0f844da2f5a6aa18c64365175affb0cb4123f53bfd9213bc920f182042"
+    },
+    {
+      "index": 2752,
+      "key": "Relative Illumination",
+      "leftSide": "Core",
+      "leftLevel": "80",
+      "rightSide": "Zemax",
+      "rightLevel": "80",
+      "conclusion": "Close",
+      "reason": "",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 21,
+          "maxAbsolute": 0.008346700477023461,
+          "meanAbsolute": 0.005965971652484333,
+          "rmse": 0.006426213264318063,
+          "nrmse": 0.006426213264318063,
+          "maxRelative": 0.01118217035774767,
+          "p50": 0.0067024719706649805,
+          "p90": 0.008245270281188044,
+          "p95": 0.008330705205431999,
+          "pearson": 0.9998728272461885,
+          "worstX": 0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ],
+      "settings": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "originalRequest": "982b45fcc7faa80621e79b92ca561ab55aa67fe249a32fb61d9f9c7065e00b5c",
+      "left": "cce041fcac9059b3e7179525e20d7bceba799fa2570b365c7188d1a2a4106f7e",
+      "right": "32c6520b0616b0eecacb79b7b49248ee9e068a0f462e3fe3496e854bd3ffb798",
+      "leftText": "1f924f7747e22077e0de4ab1b030fee7784fad6f8f4196c91795b62d2c13c6da",
+      "rightText": "fa3c6c0f844da2f5a6aa18c64365175affb0cb4123f53bfd9213bc920f182042"
+    }
+  ]
+}

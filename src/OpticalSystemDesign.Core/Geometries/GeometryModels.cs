@@ -188,6 +188,37 @@ public sealed partial class StandardGeometry : NotifyObject, IGeometry
         return RotationalSurfaceEquation.StandardNormal(Radius, Conic, localPoint);
     }
 
+    internal IntersectionResult IntersectFromObjectCone(Vector3D origin, Vector3D direction)
+    {
+        var k = 1 + Conic;
+        if (!(k > 0) || Math.Abs(Radius) < 1e-12 || !double.IsFinite(Radius))
+            return DistanceToIntersection(origin, direction);
+
+        // A launch inside a closed conic has one forward exit. The exit can be
+        // beyond the equator where the vertex sag is on the other branch.
+        var c = ImplicitConic(origin);
+        if (!(c < 0)) return DistanceToIntersection(origin, direction);
+        var a = direction.X * direction.X + direction.Y * direction.Y + k * direction.Z * direction.Z;
+        var b = origin.X * direction.X + origin.Y * direction.Y + (k * origin.Z - Radius) * direction.Z;
+        var root = Math.Sqrt(b * b - a * c);
+        var distance = b >= 0 ? -c / (b + root) : (root - b) / a;
+        if (!double.IsFinite(distance)) return IntersectionResult.Failure(IntersectionStatus.InvalidInput);
+        var point = origin + direction * distance;
+        var normal = SurfaceNormal(point);
+        if (!GeometryIntersectionSolver.IsFiniteNonZero(normal))
+            return IntersectionResult.Failure(IntersectionStatus.InvalidNormal);
+        var residual = point.X * point.X + point.Y * point.Y + point.Z * (k * point.Z - 2 * Radius);
+        var incidence = Math.Abs(normal.X * direction.X + normal.Y * direction.Y + normal.Z * direction.Z);
+        return new IntersectionResult(IntersectionStatus.Success, distance, point, normal,
+            Math.Abs(residual), 0, 1 / incidence);
+    }
+
+    internal bool IsInsideClosedConic(Vector3D point) =>
+        Conic > -1 && double.IsFinite(Radius) && Math.Abs(Radius) >= 1e-12 && ImplicitConic(point) < 0;
+
+    private double ImplicitConic(Vector3D point) =>
+        point.X * point.X + point.Y * point.Y + point.Z * ((1 + Conic) * point.Z - 2 * Radius);
+
     public IGeometry Clone() => new StandardGeometry(Radius, Conic);
 
     internal static IntersectionResult NewtonSolveDistance(

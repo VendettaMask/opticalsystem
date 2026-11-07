@@ -8,7 +8,7 @@ public static partial class IlluminationMetrics
 {
     private sealed partial class Integrator
     {
-        private RayTraceSample PrepareFrame()
+        private RayTraceSample PrepareFrame(bool nativeTiltedCoordinates = false)
         {
             var source = _generate(0, 0);
             var chief = _optic.SequentialRayTracer.DiagnoseApertures(source, _cancellation, stopAtIncidentImage: true,
@@ -16,6 +16,15 @@ public static partial class IlluminationMetrics
                 ?? throw Unavailable("the geometric chief ray does not reach the image surface");
             var localHit = _image.CoordinateSystem.ToLocalPoint(chief.Position);
             var normal = Normalize(_image.Geometry.SurfaceNormal(localHit));
+            if (nativeTiltedCoordinates)
+            {
+                // Keep the projected local X axis even for a steep TILTSURF.
+                // Form it from the two perpendicular directions without cancellation.
+                var yzLength = double.Hypot(normal.Y, normal.Z);
+                _tangentY = new(0, normal.Z / yzLength, -normal.Y / yzLength);
+                _tangentX = Normalize(Cross(_tangentY, normal));
+                return chief;
+            }
             var reference = Math.Abs(normal.X) < 0.95 ? new Vector3D(1, 0, 0) : new Vector3D(0, 1, 0);
             _tangentX = Normalize(reference - normal * Dot(reference, normal));
             _tangentY = Normalize(Cross(normal, _tangentX));

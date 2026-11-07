@@ -9,6 +9,51 @@ namespace OpticalSystemDesign.Tests;
 public sealed class OpticalTestingPropagationTests
 {
     [Theory]
+    [InlineData(3, 95.90430662169119, 178.86933890284584)]
+    [InlineData(6, 82.4380986931127, 180.29841267200146)]
+    [InlineData(20, 70.5569320837674, 180.29841267200146)]
+    public async Task CosineCubedHexapolarSpotMatchesNativeFoldedImage(int rings, double rms, double geo)
+    {
+        var optic = (await Import("Twyman Green Interferometer")).Configurations[0];
+        AssertNativeSpot(optic, rings, rms, geo);
+    }
+
+    [Theory]
+    [InlineData(2, 3, 7758.337011131683)]
+    [InlineData(2, 6, 7147.11529054331)]
+    [InlineData(2, 20, 6659.328908431681)]
+    [InlineData(0, 6, 7607.497338023296)]
+    public void FinitePlaneSpotRetainsTheNativePupilRadialDistribution(int apodization, int rings, double rms)
+    {
+        var optic = new ZemaxZmxImporter().Import($"""
+            MODE SEQ
+            UNIT MM
+            ENPD 10
+            GFAC 0 {apodization}
+            WAVM 1 0.55 1
+            SURF 0
+              DISZ 5
+            SURF 1
+              STOP
+              DISZ 5
+            SURF 2
+              DISZ 0
+            """);
+        AssertNativeSpot(optic, rings, rms, 10000);
+    }
+
+    private static void AssertNativeSpot(Optic optic, int rings, double rms, double geo)
+    {
+        var analysis = new SpotDiagramAnalysis(optic, new SpotDiagramSettings(
+            RayDensity: rings, WavelengthNumber: 1, FieldNumber: 1, Reference: "chief")).GenerateData();
+        Assert.Equal(1 + 3 * rings * (rings + 1), analysis.Values["RayCount"]);
+        Assert.Equal(0, analysis.Values["VignettedRayCount"]);
+        var metrics = Assert.Single(analysis.PlotPanes!).Metrics!;
+        Assert.Equal(rms, metrics[0].Value, 7);
+        Assert.Equal(geo, metrics[1].Value, 7);
+    }
+
+    [Theory]
     [InlineData("Double-pass null test", 1)]
     [InlineData("Mach Zender Interferometer", 1)]
     [InlineData("Mach Zender Interferometer", 2)]

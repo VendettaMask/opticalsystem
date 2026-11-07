@@ -11,6 +11,39 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class CoupledFieldCurvatureNativeTests
 {
+    [Fact]
+    public void CylinderRetainsItsFiniteFocusWhenTheOtherAxisIsCollimated()
+    {
+        var optic = ReadMenuExample("Miscellaneous/Cylinder.zmx");
+        var wave = optic.Wavelengths[0].Micrometers;
+        var scan = new FieldCurvatureAnalysis(optic, 101, parabasalDelta: .001, wavelengthNumber: 1,
+            parabasalRayPair: ParabasalRayPair.ChiefAndPositive).GenerateData();
+
+        Assert.InRange(Math.Abs(scan.PlotSeries[0].Points[0].X - 2.38912114), 0, 1e-6);
+        Assert.All(scan.PlotSeries[1].Points, point => Assert.Equal(0, point.X));
+        Assert.InRange(Math.Abs(FieldCurvatureMetrics.Evaluate(optic, wave, 0, 0, sagittal: false) - 2.38912114), 0, 1e-6);
+        Assert.Throws<InvalidOperationException>(() => FieldCurvatureMetrics.Evaluate(optic, wave, 0, 0, sagittal: true));
+    }
+
+    [Theory]
+    [InlineData(.2, .287995000824009, .3976450542567905)]
+    [InlineData(1, -.671690917997223, .5262492511697363)]
+    public void TiltedDetectorUsesItsNativeTransverseIntercepts(double hy, double tangential, double sagittal)
+    {
+        var optic = ReadMenuExample("Tilted systems & prisms/Tilted object.zmx");
+        var wave = optic.Wavelengths[0].Micrometers;
+
+        Assert.InRange(Math.Abs(FieldCurvatureMetrics.Evaluate(optic, wave, 0, hy, sagittal: false) - tangential), 0, 1e-8);
+        Assert.InRange(Math.Abs(FieldCurvatureMetrics.Evaluate(optic, wave, 0, hy, sagittal: true) - sagittal), 0, 1e-8);
+    }
+
+    private static OpticalSystemDesign.Core.Optic ReadMenuExample(string file)
+    {
+        var root = ProductDependencyArchitectureTests.RepositoryRoot();
+        var source = Path.Combine(root, "src/OpticalSystemDesign.App/Assets/SequentialExamples", file);
+        return OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+    }
+
     public static IEnumerable<object[]> NativeCases()
     {
         using var fixture=JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory,"Fixtures","field-curvature-coupled-native-v1.json")));

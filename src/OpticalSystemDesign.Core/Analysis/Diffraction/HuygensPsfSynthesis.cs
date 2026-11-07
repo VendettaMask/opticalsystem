@@ -27,20 +27,27 @@ internal static class HuygensPsfSynthesis
         bool useParaxialPupilDefocus = false,
         AfocalHuygensIntegration afocalIntegration = AfocalHuygensIntegration.NativeFiniteCell,
         long maximumSamplingOperations = AnalysisResourceLimits.MaximumDirectPsfOperations,
-        bool contactPupilReadout = false)
+        bool contactPupilReadout = false,
+        bool allowBatchedPlanarPupil = false)
     {
         ArgumentNullException.ThrowIfNull(optic);
         ArgumentNullException.ThrowIfNull(wavelengths);
         if (wavelengths.Count == 0)
             throw new ArgumentException("Huygens synthesis requires a wavelength.", nameof(wavelengths));
-        if (afocalIntegration == AfocalHuygensIntegration.NativeFiniteCell)
-            HuygensFourierSum.ValidateCandidateWork(pupilSampling, imageSize);
-        else AnalysisResourceLimits.ValidateDirectPsfWork(pupilSampling, imageSize);
         referenceWavelength ??= wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0];
         var weightScale = wavelengths.Max(w => w.Weight);
         var contributors = weightScale > 0
             ? wavelengths.Where(wavelength => wavelength.Weight > 0).ToArray()
             : wavelengths.ToArray();
+        var batchedPlan = allowBatchedPlanarPupil && !optic.ImageSpaceAfocal && !contactPupilReadout
+            && !usePolarization && contributors.Length == 1 && imageCenterOffset is null && defocus == 0
+            && afocalIntegration == AfocalHuygensIntegration.NativeFiniteCell
+            ? DiffractionEngine.TryPlanBatchedHuygens(optic, field, contributors[0], pupilSampling,
+                imageSize, pixelPitchMillimeters) : null;
+        if (afocalIntegration != AfocalHuygensIntegration.NativeFiniteCell)
+            AnalysisResourceLimits.ValidateDirectPsfWork(pupilSampling, imageSize);
+        else if (batchedPlan is null)
+            HuygensFourierSum.ValidateCandidateWork(pupilSampling, imageSize);
         var shortest = contributors.Min(w => w.Nanometers);
         var values = new double[imageSize, imageSize];
         var idealPeakWeight = 0.0;
@@ -66,7 +73,10 @@ internal static class HuygensPsfSynthesis
             PsfResult psf;
             try
             {
-                if (contactPupilReadout)
+                if (batchedPlan is not null)
+                    psf = DiffractionEngine.ComputeBatchedPlanarHuygens(optic, field, wavelength,
+                        referenceWavelength, pupilSampling, imageSize, pixelPitchMillimeters, batchedPlan);
+                else if (contactPupilReadout)
                     psf = DiffractionEngine.ComputeContactPupilHuygensPsf(optic, field, wavelength,
                         pupilSampling, imageSize, pixelPitchMillimeters, referenceWavelength, imageCenterOffset);
                 else if (afocalIntegration == AfocalHuygensIntegration.CheckedGaussianPupil)

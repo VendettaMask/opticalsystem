@@ -1,0 +1,97 @@
+{
+  "nativeVersion": "OpticStudio 2026 R1",
+  "nativeEvidence": "../object-cone/numeric-controls.zip",
+  "nativeEntries": [
+    "native/menu-huygens-psf-512/data.json",
+    "native/menu-huygens-psf-1024/data.json"
+  ],
+  "inputSha256": "7abbd48e52c9f2c9473411d28fa8afac3ec212c89f62783fda74c2364ba7383c",
+  "imageSize": 64,
+  "pixelPitchMicrometers": 0.25,
+  "rawPhysicalAxesMatched": true,
+  "gridTolerance": {
+    "absolute": 1e-05,
+    "relative": 0.001,
+    "nrmse": 0.01,
+    "closeNrmse": 0.03,
+    "referenceScale": "peak"
+  },
+  "profiles": [
+    {
+      "pupilSampling": 512,
+      "axisErrorMicrometers": 0.0,
+      "coreVsZemax": {
+        "points": 4096,
+        "coverage": 1,
+        "maxAbs": 2.5405957837509874e-08,
+        "nrmse": 2.262640991008327e-09,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "summationChecks": [
+        {
+          "sources": 203477,
+          "imageSize": 64,
+          "fourierSize": 128,
+          "taylorOrder": 18,
+          "estimatedOperations": 55106631,
+          "workingBytes": 96230048,
+          "absoluteFieldErrorBound": 1.8024092878200671e-07,
+          "usesAdaptiveSourceOrders": false,
+          "method": "CompensatedFourierMoments",
+          "certifiesPupilSampling": false
+        }
+      ]
+    },
+    {
+      "pupilSampling": 1024,
+      "axisErrorMicrometers": 0.0,
+      "coreVsZemax": {
+        "points": 4096,
+        "coverage": 1,
+        "maxAbs": 6.297045523906419e-09,
+        "nrmse": 5.613094145965359e-10,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "summationChecks": [
+        {
+          "sources": 818753,
+          "imageSize": 64,
+          "fourierSize": 128,
+          "taylorOrder": 16,
+          "estimatedOperations": 90319867,
+          "workingBytes": 98387553,
+          "absoluteFieldErrorBound": 2.6431638499070298e-05,
+          "usesAdaptiveSourceOrders": true,
+          "method": "AdaptiveCompensatedFourierMoments",
+          "certifiesPupilSampling": false
+        }
+      ]
+    }
+  ],
+  "coreRefinement": {
+    "points": 4096,
+    "coverage": 1,
+    "maxAbs": 0.002811327618964854,
+    "nrmse": 0.00012620897319895713,
+    "pointwise": false,
+    "verdict": "Pass"
+  },
+  "zemaxRefinement": {
+    "points": 4096,
+    "coverage": 1,
+    "maxAbs": 0.00281134148417983,
+    "nrmse": 0.00012621004761064812,
+    "pointwise": false,
+    "verdict": "Pass"
+  },
+  "provenance": {
+    "canonicalAnalysisKey": "Huygens PSF",
+    "requestFingerprint": "6fbcb2da7820536ffd5f8606cfbbe8448700dde7c7c59bf4bccd680b68ecf9d3",
+    "settingsTranslation": null,
+    "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+    "snapshotSha256": "923029dfd801a2ad21fa36bef27037a36239f42d22ee0a0bb795218c6b95290d",
+    "codeFingerprint": "0904e9a2e18806492d34365ef936d778584b454a15fa2b6635df497fe70f1840:c12d0443f68c67184e4f37dd55f09f019fd2c1013f0f366aa70614f23ccacb1f"
+  }
+}

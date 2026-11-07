@@ -1,0 +1,33 @@
+{
+  "index": 1241,
+  "frozenVerdict": "Incomparable",
+  "physicalAxis": "On the boundary between rows with different mirror normals",
+  "scope": "One-sided pupil direction limits; global two-sided first-order derivative does not exist",
+  "sourceSha256": "de9dad5c977a8dde3598ca4247b6e5300587af54b302eca6898bf84bf228caf5",
+  "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4",
+  "rays": 13,
+  "nativeSurface": 3,
+  "workbenchSurface": 2,
+  "signedIndexDirectionComparison": "Negate native outgoing L,M,N after the reflection",
+  "maximumPositionErrorMillimeters": 3.247402347028583e-15,
+  "maximumDirectionComponentError": 2.220446049250313e-16,
+  "steps": [
+    {
+      "normalizedPupilStep": 0.01,
+      "negativeToPositiveDirectionJump": 0.30076746636087054,
+      "negativeToPositiveAngleDegrees": 17.298330210575084
+    },
+    {
+      "normalizedPupilStep": 0.001,
+      "negativeToPositiveDirectionJump": 0.30076746636087054,
+      "negativeToPositiveAngleDegrees": 17.298330210575084
+    },
+    {
+      "normalizedPupilStep": 0.0001,
+      "negativeToPositiveDirectionJump": 0.30076746636087054,
+      "negativeToPositiveAngleDegrees": 17.298330210575084
+    }
+  ],
+  "oneSidedDirectionConstant": true,
+  "archiveSha256": "06b63821f95513d040f2b6cfe96f6479974886445faab75ef85d527dbf16c16c"
+}

@@ -89,6 +89,29 @@ public sealed class ComparisonTests
         Assert.Equal([0.5, 1, 1.5], match.X); Assert.Equal(match.Zemax, match.Workbench); Assert.Equal(0.5, match.Coverage);
         Assert.True(log.Count >= 2); Assert.Throws<InvalidDataException>(() => ComparisonMetrics.Align(w with { XAxis = new("FieldHeight", "Micrometer") }, z, []));
     }
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void NonfiniteModulationCannotBeInterpretedAsAFanMask(bool nonfiniteWorkbench)
+    {
+        var axis = new Axis("SpatialFrequency", "CyclesPerMillimeter");
+        var valid = new Series1DResult("tangential", "", [0, 1], [1, .8], axis, Modulation);
+        var nonfinite = valid with { Y = [1, double.NaN] };
+        var error = Assert.Throws<InvalidDataException>(() => ComparisonMetrics.Align(
+            nonfiniteWorkbench ? nonfinite : valid, nonfiniteWorkbench ? valid : nonfinite, []));
+        Assert.Contains("nonfinite samples", error.Message);
+    }
+    [Fact]
+    public void NativeLengthConversionRequiresExplicitCliOptIn()
+    {
+        Assert.False(ComparisonOptions.Parse(["--input", "cm.zmx"]).NormalizeNativeLength);
+        Assert.True(ComparisonOptions.Parse(["--input", "cm.zmx", "--normalize-native-length"]).NormalizeNativeLength);
+        Assert.NotNull(AfocalAnalysisContracts.BlockReason("CM", false, "First Order"));
+        Assert.Null(AfocalAnalysisContracts.BlockReason("CM", false, "First Order", normalizeNativeLength: true));
+        Assert.Equal("CM", NativeLengthUnitContract.Configure(Request("First Order"), "CM").NativeLensUnit);
+        Assert.Null(AfocalAnalysisContracts.BlockReason("METER", false, "First Order", normalizeNativeLength: true));
+        Assert.Equal("M", NativeLengthUnitContract.Configure(Request("First Order"), "METER").NativeLensUnit);
+    }
     [Fact]
     public void InterpolationRejectsExtrapolationDuplicatesAndNonfinite()
     {

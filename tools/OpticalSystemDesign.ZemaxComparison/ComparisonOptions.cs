@@ -17,6 +17,7 @@ public sealed record ComparisonOptions
     public bool ListAnalyses { get; init; }
     public bool CaptureScreenshots { get; init; }
     public bool KeepRaw { get; init; }
+    public bool NormalizeNativeLength { get; init; }
     public List<string> Analyses { get; init; } = [];
 
     public static ComparisonOptions Parse(string[] args)
@@ -42,6 +43,7 @@ public sealed record ComparisonOptions
                 "--list-analyses" => o with { ListAnalyses = true },
                 "--capture-screenshots" => o with { CaptureScreenshots = true },
                 "--keep-raw" => o with { KeepRaw = true },
+                "--normalize-native-length" => o with { NormalizeNativeLength = true },
                 "--analysis" => AddAnalysis(o, Value()),
                 "--all" => All(o),
                 _ => throw new ArgumentException($"Unknown argument: {args[i]}")

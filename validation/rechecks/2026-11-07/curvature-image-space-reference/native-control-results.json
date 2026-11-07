@@ -1,0 +1,3434 @@
+{
+  "analysisControls": {
+    "608": [
+      {
+        "id": "608-focal-20",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 3,
+          "Surface": 0,
+          "Wavelength": 3
+        }
+      },
+      {
+        "id": "608-focal-20-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 5.9720945069230424e-06,
+            "meanAbsolute": 1.5350376907049214e-06,
+            "rmse": 2.2959412730898694e-06,
+            "nrmse": 5.325994936199025e-07,
+            "maxRelative": 3.032975485420403e-06,
+            "p50": 8.60122239432215e-07,
+            "p90": 4.682986014081791e-06,
+            "p95": 5.149086837352712e-06,
+            "pearson": 0.9999999999994105,
+            "worstX": 0.8,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.02862751313603709,
+            "meanAbsolute": 0.006075636111669017,
+            "rmse": 0.010265852448317105,
+            "nrmse": 0.013471583157630881,
+            "maxRelative": 0.11238238246257241,
+            "p50": 0.0012180712427661833,
+            "p90": 0.018997330026653825,
+            "p95": 0.0234589298128397,
+            "pearson": 0.999668648546796,
+            "worstX": 1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "608-focal-37",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 37,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 3,
+          "Surface": 0,
+          "Wavelength": 3
+        }
+      },
+      {
+        "id": "608-focal-37-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 111,
+            "maxAbsolute": 5.388444359155642e-06,
+            "meanAbsolute": 1.5161943912452898e-06,
+            "rmse": 2.1891029330296714e-06,
+            "nrmse": 5.078157387032649e-07,
+            "maxRelative": 8.674985189930314e-06,
+            "p50": 1.1442804648265081e-06,
+            "p90": 4.351006493541476e-06,
+            "p95": 5.168384384912628e-06,
+            "pearson": 0.9999999999994512,
+            "worstX": 0.7567567567567568,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 111,
+            "maxAbsolute": 0.02862751313603709,
+            "meanAbsolute": 0.005478303102804389,
+            "rmse": 0.009426849658130745,
+            "nrmse": 0.01237628841814877,
+            "maxRelative": 0.11238238246257241,
+            "p50": 0.0013235460324519943,
+            "p90": 0.01833723634480422,
+            "p95": 0.02307100178092053,
+            "pearson": 0.9997408312313903,
+            "worstX": 1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "608-focal-80",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 80,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 3,
+          "Surface": 0,
+          "Wavelength": 3
+        }
+      },
+      {
+        "id": "608-focal-80-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 243,
+            "maxAbsolute": 5.9720945069230424e-06,
+            "meanAbsolute": 1.546751663948751e-06,
+            "rmse": 2.2717090473387756e-06,
+            "nrmse": 5.26978238705596e-07,
+            "maxRelative": 8.538225689442678e-06,
+            "p50": 9.372298760412789e-07,
+            "p90": 4.656387892332249e-06,
+            "p95": 5.149086837352712e-06,
+            "pearson": 0.9999999999994377,
+            "worstX": 0.8,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 243,
+            "maxAbsolute": 0.02862751313603709,
+            "meanAbsolute": 0.005419442922443346,
+            "rmse": 0.009328107531374134,
+            "nrmse": 0.012241007451147411,
+            "maxRelative": 0.11238238246257241,
+            "p50": 0.0013584609557584781,
+            "p90": 0.017983751173692664,
+            "p95": 0.02345776903009294,
+            "pearson": 0.9997588102502029,
+            "worstX": 1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "608-mode0",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 3,
+          "Surface": 0,
+          "Wavelength": 3
+        }
+      },
+      {
+        "id": "608-mode0-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 5.535819318502888e-06,
+            "meanAbsolute": 1.3737425680126398e-06,
+            "rmse": 2.205558161465632e-06,
+            "nrmse": 5.116330736803314e-07,
+            "maxRelative": 2.4124263890967196e-06,
+            "p50": 5.36987962873603e-07,
+            "p90": 4.817191221473394e-06,
+            "p95": 5.293759910429685e-06,
+            "pearson": 0.9999999999994588,
+            "worstX": 0.75,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 3.7760412231468976e-06,
+            "meanAbsolute": 3.3062929456842975e-07,
+            "rmse": 8.024933395296423e-07,
+            "nrmse": 1.0698825487834643e-06,
+            "maxRelative": 1.67000654258108e-05,
+            "p50": 1.122240431694621e-07,
+            "p90": 5.027322625972275e-07,
+            "p95": 1.5459670386630542e-06,
+            "pearson": 0.9999999999961782,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "608-mode3",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 3,
+          "Surface": 0,
+          "Wavelength": 3
+        }
+      },
+      {
+        "id": "608-mode3-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 5.535819318502888e-06,
+            "meanAbsolute": 1.3737425680126398e-06,
+            "rmse": 2.205558161465632e-06,
+            "nrmse": 5.116330736803314e-07,
+            "maxRelative": 2.4124263890967196e-06,
+            "p50": 5.36987962873603e-07,
+            "p90": 4.817191221473394e-06,
+            "p95": 5.293759910429685e-06,
+            "pearson": 0.9999999999994588,
+            "worstX": 0.75,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 3.7760412231468976e-06,
+            "meanAbsolute": 3.3062929456842975e-07,
+            "rmse": 8.024933395296423e-07,
+            "nrmse": 1.0698825487834643e-06,
+            "maxRelative": 1.67000654258108e-05,
+            "p50": 1.122240431694621e-07,
+            "p90": 5.027322625972275e-07,
+            "p95": 1.5459670386630542e-06,
+            "pearson": 0.9999999999961782,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "native-mode0-vs-mode3",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": 1,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": 1,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "native-focal-20-vs-focal-80",
+        "conclusion": "Close",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 161,
+            "maxAbsolute": 0.012645067096453078,
+            "meanAbsolute": 0.0019461925533542377,
+            "rmse": 0.002998377837461795,
+            "nrmse": 0.0006955467618577813,
+            "maxRelative": 0.7552420212020456,
+            "p50": 0.0014431058440766975,
+            "p90": 0.004299094386390756,
+            "p95": 0.007046362772052506,
+            "pearson": 0.9999975995794796,
+            "worstX": -0.9750000000000001,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 161,
+            "maxAbsolute": 0.014700620676072196,
+            "meanAbsolute": 0.001842362969934894,
+            "rmse": 0.0035674328347199127,
+            "nrmse": 0.004681439591513956,
+            "maxRelative": 0.7501984429228205,
+            "p50": 0.0007527994653747302,
+            "p90": 0.0060518390805726074,
+            "p95": 0.008562757352510886,
+            "pearson": 0.9999388272696814,
+            "worstX": -0.9750000000000001,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Close",
+            "extra": {}
+          }
+        ]
+      }
+    ],
+    "698": [
+      {
+        "id": "698-focal-20",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 3,
+          "Surface": 0,
+          "Wavelength": 3
+        }
+      },
+      {
+        "id": "698-focal-20-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 5.9720945069230424e-06,
+            "meanAbsolute": 1.5350376907049214e-06,
+            "rmse": 2.2959412730898694e-06,
+            "nrmse": 5.325994936199025e-07,
+            "maxRelative": 3.032975485420403e-06,
+            "p50": 8.60122239432215e-07,
+            "p90": 4.682986014081791e-06,
+            "p95": 5.149086837352712e-06,
+            "pearson": 0.9999999999994105,
+            "worstX": 0.8,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.02862751313603709,
+            "meanAbsolute": 0.006075636111669017,
+            "rmse": 0.010265852448317105,
+            "nrmse": 0.013471583157630881,
+            "maxRelative": 0.11238238246257241,
+            "p50": 0.0012180712427661833,
+            "p90": 0.018997330026653825,
+            "p95": 0.0234589298128397,
+            "pearson": 0.999668648546796,
+            "worstX": 1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "698-focal-37",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 37,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 3,
+          "Surface": 0,
+          "Wavelength": 3
+        }
+      },
+      {
+        "id": "698-focal-37-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 111,
+            "maxAbsolute": 5.388444359155642e-06,
+            "meanAbsolute": 1.5161943912452898e-06,
+            "rmse": 2.1891029330296714e-06,
+            "nrmse": 5.078157387032649e-07,
+            "maxRelative": 8.674985189930314e-06,
+            "p50": 1.1442804648265081e-06,
+            "p90": 4.351006493541476e-06,
+            "p95": 5.168384384912628e-06,
+            "pearson": 0.9999999999994512,
+            "worstX": 0.7567567567567568,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 111,
+            "maxAbsolute": 0.02862751313603709,
+            "meanAbsolute": 0.005478303102804389,
+            "rmse": 0.009426849658130745,
+            "nrmse": 0.01237628841814877,
+            "maxRelative": 0.11238238246257241,
+            "p50": 0.0013235460324519943,
+            "p90": 0.01833723634480422,
+            "p95": 0.02307100178092053,
+            "pearson": 0.9997408312313903,
+            "worstX": 1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "698-focal-80",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 80,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 3,
+          "Surface": 0,
+          "Wavelength": 3
+        }
+      },
+      {
+        "id": "698-focal-80-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 243,
+            "maxAbsolute": 5.9720945069230424e-06,
+            "meanAbsolute": 1.546751663948751e-06,
+            "rmse": 2.2717090473387756e-06,
+            "nrmse": 5.26978238705596e-07,
+            "maxRelative": 8.538225689442678e-06,
+            "p50": 9.372298760412789e-07,
+            "p90": 4.656387892332249e-06,
+            "p95": 5.149086837352712e-06,
+            "pearson": 0.9999999999994377,
+            "worstX": 0.8,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 243,
+            "maxAbsolute": 0.02862751313603709,
+            "meanAbsolute": 0.005419442922443346,
+            "rmse": 0.009328107531374134,
+            "nrmse": 0.012241007451147411,
+            "maxRelative": 0.11238238246257241,
+            "p50": 0.0013584609557584781,
+            "p90": 0.017983751173692664,
+            "p95": 0.02345776903009294,
+            "pearson": 0.9997588102502029,
+            "worstX": 1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "698-mode0",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 3,
+          "Surface": 0,
+          "Wavelength": 3
+        }
+      },
+      {
+        "id": "698-mode0-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 5.535819318502888e-06,
+            "meanAbsolute": 1.3737425680126398e-06,
+            "rmse": 2.205558161465632e-06,
+            "nrmse": 5.116330736803314e-07,
+            "maxRelative": 2.4124263890967196e-06,
+            "p50": 5.36987962873603e-07,
+            "p90": 4.817191221473394e-06,
+            "p95": 5.293759910429685e-06,
+            "pearson": 0.9999999999994588,
+            "worstX": 0.75,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 3.7760412231468976e-06,
+            "meanAbsolute": 3.3062929456842975e-07,
+            "rmse": 8.024933395296423e-07,
+            "nrmse": 1.0698825487834643e-06,
+            "maxRelative": 1.67000654258108e-05,
+            "p50": 1.122240431694621e-07,
+            "p90": 5.027322625972275e-07,
+            "p95": 1.5459670386630542e-06,
+            "pearson": 0.9999999999961782,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "698-mode3",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 3,
+          "Surface": 0,
+          "Wavelength": 3
+        }
+      },
+      {
+        "id": "698-mode3-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 5.535819318502888e-06,
+            "meanAbsolute": 1.3737425680126398e-06,
+            "rmse": 2.205558161465632e-06,
+            "nrmse": 5.116330736803314e-07,
+            "maxRelative": 2.4124263890967196e-06,
+            "p50": 5.36987962873603e-07,
+            "p90": 4.817191221473394e-06,
+            "p95": 5.293759910429685e-06,
+            "pearson": 0.9999999999994588,
+            "worstX": 0.75,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 3.7760412231468976e-06,
+            "meanAbsolute": 3.3062929456842975e-07,
+            "rmse": 8.024933395296423e-07,
+            "nrmse": 1.0698825487834643e-06,
+            "maxRelative": 1.67000654258108e-05,
+            "p50": 1.122240431694621e-07,
+            "p90": 5.027322625972275e-07,
+            "p95": 1.5459670386630542e-06,
+            "pearson": 0.9999999999961782,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "native-mode0-vs-mode3",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": 1,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": 1,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "native-focal-20-vs-focal-80",
+        "conclusion": "Close",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 161,
+            "maxAbsolute": 0.012645067096453078,
+            "meanAbsolute": 0.0019461925533542377,
+            "rmse": 0.002998377837461795,
+            "nrmse": 0.0006955467618577813,
+            "maxRelative": 0.7552420212020456,
+            "p50": 0.0014431058440766975,
+            "p90": 0.004299094386390756,
+            "p95": 0.007046362772052506,
+            "pearson": 0.9999975995794796,
+            "worstX": -0.9750000000000001,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 161,
+            "maxAbsolute": 0.014700620676072196,
+            "meanAbsolute": 0.001842362969934894,
+            "rmse": 0.0035674328347199127,
+            "nrmse": 0.004681439591513956,
+            "maxRelative": 0.7501984429228205,
+            "p50": 0.0007527994653747302,
+            "p90": 0.0060518390805726074,
+            "p95": 0.008562757352510886,
+            "pearson": 0.9999388272696814,
+            "worstX": -0.9750000000000001,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Close",
+            "extra": {}
+          }
+        ]
+      }
+    ],
+    "1082": [
+      {
+        "id": "1082-recapture",
+        "stage": "native-readback",
+        "settings": {
+          "DisplayAs": "Percent",
+          "Distortion": "F_TanTheta",
+          "ScanType": "Plus_Y",
+          "UseDashes": false,
+          "IgnoreVignette": true,
+          "MaximumCurvature": 0,
+          "MaximumDistortion": 0,
+          "FieldAspectRatio": 1
+        },
+        "selectors": {
+          "Wavelength": 1,
+          "ReferenceField": 1
+        }
+      },
+      {
+        "id": "native-recapture-vs-frozen",
+        "conclusion": "Pass",
+        "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Millimeter",
+            "count": 101,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": 1,
+            "worstX": 0,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Millimeter",
+            "count": 101,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": 0,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "distortion",
+            "unit": "Percent",
+            "count": 101,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": 1,
+            "worstX": 0,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      }
+    ],
+    "2208": [
+      {
+        "id": "2208-angular-1024",
+        "stage": "native-readback",
+        "settings": {
+          "HuygensSample": "S_64x64",
+          "SampleSize": "S_1024x1024",
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": true,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "UsePolarization": false,
+          "HuygensDelta": 0,
+          "RadiusMaximum": 5
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2208-angular-128",
+        "stage": "native-readback",
+        "settings": {
+          "HuygensSample": "S_64x64",
+          "SampleSize": "S_128x128",
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": true,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "UsePolarization": false,
+          "HuygensDelta": 0,
+          "RadiusMaximum": 5
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2208-angular-128-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 786,
+            "maxAbsolute": 0.0006293937220599455,
+            "meanAbsolute": 0.0001391830875806409,
+            "rmse": 0.00019819123215848033,
+            "nrmse": 0.00019819123215848033,
+            "maxRelative": 0.0010017281833950508,
+            "p50": 0.00010754901997411803,
+            "p90": 0.0003373366223501373,
+            "p95": 0.0003766366985660241,
+            "pearson": 0.9999971706714207,
+            "worstX": 0.075,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 786,
+            "maxAbsolute": 0.0006293937220599455,
+            "meanAbsolute": 0.0001391830875806409,
+            "rmse": 0.00019819123215848033,
+            "nrmse": 0.00019819123215848033,
+            "maxRelative": 0.0010017281833950508,
+            "p50": 0.00010754901997411803,
+            "p90": 0.0003373366223501373,
+            "p95": 0.0003766366985660241,
+            "pearson": 0.9999971706714207,
+            "worstX": 0.075,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2208-angular-256",
+        "stage": "native-readback",
+        "settings": {
+          "HuygensSample": "S_64x64",
+          "SampleSize": "S_256x256",
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": true,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "UsePolarization": false,
+          "HuygensDelta": 0,
+          "RadiusMaximum": 5
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2208-angular-256-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 786,
+            "maxAbsolute": 0.00042145235729451613,
+            "meanAbsolute": 0.00020229340476936165,
+            "rmse": 0.0002503089405615573,
+            "nrmse": 0.0002503089405615573,
+            "maxRelative": 0.0010527042279027802,
+            "p50": 0.0002342459873014846,
+            "p90": 0.00038214956557058866,
+            "p95": 0.00039512027420304796,
+            "pearson": 0.9999980159168298,
+            "worstX": 1.7249999999999959,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 786,
+            "maxAbsolute": 0.00042145235729451613,
+            "meanAbsolute": 0.00020229340476936165,
+            "rmse": 0.0002503089405615573,
+            "nrmse": 0.0002503089405615573,
+            "maxRelative": 0.0010527042279027802,
+            "p50": 0.0002342459873014846,
+            "p90": 0.00038214956557058866,
+            "p95": 0.00039512027420304796,
+            "pearson": 0.9999980159168298,
+            "worstX": 1.7249999999999959,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2208-angular-512",
+        "stage": "native-readback",
+        "settings": {
+          "HuygensSample": "S_64x64",
+          "SampleSize": "S_512x512",
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": true,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "UsePolarization": false,
+          "HuygensDelta": 0,
+          "RadiusMaximum": 5
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2208-angular-512-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 786,
+            "maxAbsolute": 0.00020741173190907958,
+            "meanAbsolute": 5.8423352080145806e-05,
+            "rmse": 6.757893302184931e-05,
+            "nrmse": 6.762688932622275e-05,
+            "maxRelative": 0.0005958684672128731,
+            "p50": 6.936277138902547e-05,
+            "p90": 9.450135960564765e-05,
+            "p95": 9.866368421568295e-05,
+            "pearson": 0.9999997256591875,
+            "worstX": 0.0625,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 786,
+            "maxAbsolute": 0.00020741173190907958,
+            "meanAbsolute": 5.8423352080145806e-05,
+            "rmse": 6.757893302184931e-05,
+            "nrmse": 6.762688932622275e-05,
+            "maxRelative": 0.0005958684672128731,
+            "p50": 6.936277138902547e-05,
+            "p90": 9.450135960564765e-05,
+            "p95": 9.866368421568295e-05,
+            "pearson": 0.9999997256591875,
+            "worstX": 0.0625,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2208-angular-64",
+        "stage": "native-readback",
+        "settings": {
+          "HuygensSample": "S_64x64",
+          "SampleSize": "S_64x64",
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": true,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "UsePolarization": false,
+          "HuygensDelta": 0,
+          "RadiusMaximum": 5
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2208-angular-64-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 786,
+            "maxAbsolute": 2.802202914153895e-13,
+            "meanAbsolute": 3.194661456493312e-14,
+            "rmse": 6.540324588058922e-14,
+            "nrmse": 6.540324588058922e-14,
+            "maxRelative": 2.838523747452732e-13,
+            "p50": 0,
+            "p90": 1.2667644710973036e-13,
+            "p95": 1.7352785874891197e-13,
+            "pearson": 0.9999999999999565,
+            "worstX": 1.2624999999999975,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 786,
+            "maxAbsolute": 2.802202914153895e-13,
+            "meanAbsolute": 3.194661456493312e-14,
+            "rmse": 6.540324588058922e-14,
+            "nrmse": 6.540324588058922e-14,
+            "maxRelative": 2.838523747452732e-13,
+            "p50": 0,
+            "p90": 1.2667644710973036e-13,
+            "p95": 1.7352785874891197e-13,
+            "pearson": 0.9999999999999565,
+            "worstX": 1.2624999999999975,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2208-focal-128",
+        "stage": "native-readback",
+        "settings": {
+          "HuygensSample": "S_64x64",
+          "SampleSize": "S_128x128",
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": true,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "UsePolarization": false,
+          "HuygensDelta": 0,
+          "RadiusMaximum": 5
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2208-focal-32",
+        "stage": "native-readback",
+        "settings": {
+          "HuygensSample": "S_64x64",
+          "SampleSize": "S_32x32",
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": true,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "UsePolarization": false,
+          "HuygensDelta": 0,
+          "RadiusMaximum": 5
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2208-focal-64",
+        "stage": "native-readback",
+        "settings": {
+          "HuygensSample": "S_64x64",
+          "SampleSize": "S_64x64",
+          "Type": "Encircled",
+          "ReferTo": "Centroid",
+          "ScatterRays": false,
+          "ShowDiffractionLimit": true,
+          "UseDashes": false,
+          "UseHuygensPSF": false,
+          "UsePolarization": false,
+          "HuygensDelta": 0,
+          "RadiusMaximum": 5
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "native-focal-32-vs-focal-128",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 401,
+            "maxAbsolute": 0.008177512458565265,
+            "meanAbsolute": 0.007796326282000559,
+            "rmse": 0.007944973132974976,
+            "nrmse": 0.7090083641053565,
+            "maxRelative": 4.62237791601099,
+            "p50": 0.008177512458565265,
+            "p90": 0.008177512458565265,
+            "p95": 0.008177512458565265,
+            "pearson": 0.6160675205065951,
+            "worstX": 0.3875000000000002,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 401,
+            "maxAbsolute": 0.008177512458565265,
+            "meanAbsolute": 0.007796326282000559,
+            "rmse": 0.007944973132974976,
+            "nrmse": 0.7090083641053565,
+            "maxRelative": 4.62237791601099,
+            "p50": 0.008177512458565265,
+            "p90": 0.008177512458565265,
+            "p95": 0.008177512458565265,
+            "pearson": 0.6160675205065951,
+            "worstX": 0.3875000000000002,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "native-angular-128-vs-angular-256",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 401,
+            "maxAbsolute": 0.12688161629484457,
+            "meanAbsolute": 0.0025531872303915467,
+            "rmse": 0.010408800837129263,
+            "nrmse": 0.010408800837129263,
+            "maxRelative": 0.8888886847509123,
+            "p50": 0.0010216673646776808,
+            "p90": 0.004076562338496625,
+            "p95": 0.004257757720155353,
+            "pearson": 0.996912691682879,
+            "worstX": 0.05,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 401,
+            "maxAbsolute": 0.12688161629484457,
+            "meanAbsolute": 0.0025531872303915467,
+            "rmse": 0.010408800837129263,
+            "nrmse": 0.010408800837129263,
+            "maxRelative": 0.8888886847509123,
+            "p50": 0.0010216673646776808,
+            "p90": 0.004076562338496625,
+            "p95": 0.004257757720155353,
+            "pearson": 0.996912691682879,
+            "worstX": 0.05,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "native-angular-256-vs-angular-512",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 401,
+            "maxAbsolute": 0.016761783380920187,
+            "meanAbsolute": 0.0014971408223473182,
+            "rmse": 0.001965300068247393,
+            "nrmse": 0.001965300068247393,
+            "maxRelative": 0.1303082151439623,
+            "p50": 0.0012879936508555234,
+            "p90": 0.0029814993317904825,
+            "p95": 0.003118945121955319,
+            "pearson": 0.9999300288579772,
+            "worstX": 0.025,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 401,
+            "maxAbsolute": 0.016761783380920187,
+            "meanAbsolute": 0.0014971408223473182,
+            "rmse": 0.001965300068247393,
+            "nrmse": 0.001965300068247393,
+            "maxRelative": 0.1303082151439623,
+            "p50": 0.0012879936508555234,
+            "p90": 0.0029814993317904825,
+            "p95": 0.003118945121955319,
+            "pearson": 0.9999300288579772,
+            "worstX": 0.025,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "native-angular-512-vs-angular-1024",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 401,
+            "maxAbsolute": 0.00286144286495163,
+            "meanAbsolute": 0.0007544161770875319,
+            "rmse": 0.0010270654996105987,
+            "nrmse": 0.0010277943401457823,
+            "maxRelative": 0.03179176821165803,
+            "p50": 0.000551671863514902,
+            "p90": 0.0019342013782848166,
+            "p95": 0.002027971602417633,
+            "pearson": 0.9999737573323447,
+            "worstX": 0.025,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 401,
+            "maxAbsolute": 0.00286144286495163,
+            "meanAbsolute": 0.0007544161770875319,
+            "rmse": 0.0010270654996105987,
+            "nrmse": 0.0010277943401457823,
+            "maxRelative": 0.03179176821165803,
+            "p50": 0.000551671863514902,
+            "p90": 0.0019342013782848166,
+            "p95": 0.002027971602417633,
+            "pearson": 0.9999737573323447,
+            "worstX": 0.025,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "core-512-vs-native-1024",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 786,
+            "maxAbsolute": 0.002944480020416751,
+            "meanAbsolute": 0.0007328734566528731,
+            "rmse": 0.0010268461802334105,
+            "nrmse": 0.0010296665851351118,
+            "maxRelative": 0.030234685627038013,
+            "p50": 0.00047475065556251694,
+            "p90": 0.001968169275148701,
+            "p95": 0.0021129044985654932,
+            "pearson": 0.9999533391411762,
+            "worstX": 0.025,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 786,
+            "maxAbsolute": 0.002944480020416751,
+            "meanAbsolute": 0.0007328734566528731,
+            "rmse": 0.0010268461802334105,
+            "nrmse": 0.0010296665851351118,
+            "maxRelative": 0.030234685627038013,
+            "p50": 0.00047475065556251694,
+            "p90": 0.001968169275148701,
+            "p95": 0.0021129044985654932,
+            "pearson": 0.9999533391411762,
+            "worstX": 0.025,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      }
+    ],
+    "2216": [
+      {
+        "id": "2216-absolute-20",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 2,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2216-absolute-20-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 8.633094239485217e-13,
+            "meanAbsolute": 4.52097375929326e-13,
+            "rmse": 5.197794593923412e-13,
+            "nrmse": 5.9559406127066806e-15,
+            "maxRelative": 1.4573856212104427e-13,
+            "p50": 4.263256414560601e-13,
+            "p90": 8.384404281969182e-13,
+            "p95": 8.562039965909207e-13,
+            "pearson": 0.9999999999999998,
+            "worstX": 0.35000000000000003,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2216-afocal-20",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 2,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2216-afocal-20-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2216-focal-20",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 2,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2216-focal-20-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.0009121537694981691,
+            "meanAbsolute": 0.00047992703315110854,
+            "rmse": 0.0005448924449726866,
+            "nrmse": 0.5973690656044373,
+            "maxRelative": 1,
+            "p50": 0.000499391086539428,
+            "p90": 0.00082892192174073,
+            "p95": 0.0009121537694981683,
+            "pearson": 0.30665215764035963,
+            "worstX": -0.05,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2216-focal-37",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 37,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 2,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2216-focal-37-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 111,
+            "maxAbsolute": 0.0009504872280829717,
+            "meanAbsolute": 0.000522339828045897,
+            "rmse": 0.0006686472387434024,
+            "nrmse": 0.7034784045357352,
+            "maxRelative": 1,
+            "p50": 0.0008454483387170965,
+            "p90": 0.0009373573669120728,
+            "p95": 0.0009439222974981728,
+            "pearson": null,
+            "worstX": -0.02702702702702703,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 111,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2216-focal-80",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 80,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 2,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2216-focal-80-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 243,
+            "maxAbsolute": 0.000952071415463094,
+            "meanAbsolute": 0.00048207157004235933,
+            "rmse": 0.0005555841860502308,
+            "nrmse": 0.5835530581285132,
+            "maxRelative": 1.0000000027577476,
+            "p50": 0.0004959945307213828,
+            "p90": 0.0008715568123637302,
+            "p95": 0.0009121537694981691,
+            "pearson": 0.04990148324996927,
+            "worstX": -0.5750000000000001,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 243,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      }
+    ],
+    "2220": [
+      {
+        "id": "2220-absolute-20",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 2,
+          "Surface": 0,
+          "Wavelength": 2
+        }
+      },
+      {
+        "id": "2220-absolute-20-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 8.668621376273222e-13,
+            "meanAbsolute": 4.543396624315198e-13,
+            "rmse": 5.215910046523307e-13,
+            "nrmse": 5.9778938294539314e-15,
+            "maxRelative": 1.4576771274853123e-13,
+            "p50": 4.334310688136611e-13,
+            "p90": 8.526512829121202e-13,
+            "p95": 8.597567102697212e-13,
+            "pearson": 1.0000000000000002,
+            "worstX": 0.8999999999999999,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2220-afocal-20",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 2,
+          "Surface": 0,
+          "Wavelength": 2
+        }
+      },
+      {
+        "id": "2220-afocal-20-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2220-focal-20",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 20,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 2,
+          "Surface": 0,
+          "Wavelength": 2
+        }
+      },
+      {
+        "id": "2220-focal-20-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.0009119713569855207,
+            "meanAbsolute": 0.00047983105734205933,
+            "rmse": 0.0005447834773804512,
+            "nrmse": 0.5973690656044373,
+            "maxRelative": 1,
+            "p50": 0.0004992912183089432,
+            "p90": 0.0008287561539331626,
+            "p95": 0.0009119713569855197,
+            "pearson": 0.30665215764035947,
+            "worstX": -0.05,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2220-focal-37",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 37,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 2,
+          "Surface": 0,
+          "Wavelength": 2
+        }
+      },
+      {
+        "id": "2220-focal-37-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 111,
+            "maxAbsolute": 0.0009502971496451988,
+            "meanAbsolute": 0.0005222353705260399,
+            "rmse": 0.0006685135226672613,
+            "nrmse": 0.7034784045357352,
+            "maxRelative": 1,
+            "p50": 0.0008452792659566291,
+            "p90": 0.0009371699141839631,
+            "p95": 0.0009437335319152314,
+            "pearson": null,
+            "worstX": -0.02702702702702703,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 111,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      },
+      {
+        "id": "2220-focal-80",
+        "stage": "native-readback",
+        "settings": {
+          "NumberOfRays": 80,
+          "PlotScale": 0,
+          "CheckApertures": true,
+          "VignettedPupil": true,
+          "UseDashes": false,
+          "Sagittal": "Aberration_X",
+          "Tangential": "Aberration_Y"
+        },
+        "selectors": {
+          "Field": 2,
+          "Surface": 0,
+          "Wavelength": 2
+        }
+      },
+      {
+        "id": "2220-focal-80-core-vs-native",
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 243,
+            "maxAbsolute": 0.0009518810202195257,
+            "meanAbsolute": 0.0004819751653688181,
+            "rmse": 0.0005554730803235936,
+            "nrmse": 0.5835530581285134,
+            "maxRelative": 1.0000000027577474,
+            "p50": 0.0004958953417341372,
+            "p90": 0.0008713825184306507,
+            "p95": 0.0009119713569855207,
+            "pearson": 0.049901483249969306,
+            "worstX": -0.5750000000000001,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 243,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": null,
+            "worstX": -1,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      }
+    ],
+    "2745": [
+      {
+        "id": "2745-actual-128",
+        "stage": "native-readback",
+        "settings": {
+          "Type": "Modulation",
+          "SampleSize": "S_128x128",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "MaximumFrequency": 50
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2745-actual-128-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 1.819433055139097e-05,
+            "meanAbsolute": 6.392951671922059e-06,
+            "rmse": 6.968338451529642e-06,
+            "nrmse": 6.968338451529642e-06,
+            "maxRelative": 2.549801779080271e-05,
+            "p50": 7.261958467619234e-06,
+            "p90": 9.066124247558704e-06,
+            "p95": 9.098299506044016e-06,
+            "pearson": 0.9999999999368923,
+            "worstX": 49.83277591973244,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9422830152957578,
+              "workbench.frequency20": 0.8832053289178061,
+              "workbench.frequency30": 0.8244340123532473,
+              "workbench.frequency50": 0.7126616780012063,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9422868722932355,
+              "zemax.frequency20": 0.8832117939958094,
+              "zemax.frequency30": 0.8244420708576566,
+              "zemax.frequency50": 0.71267078106319,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 1.72890076163279e-05,
+            "meanAbsolute": 4.938122908356078e-06,
+            "rmse": 5.531407858368442e-06,
+            "nrmse": 5.531407858368442e-06,
+            "maxRelative": 2.109272238841985e-05,
+            "p50": 5.3478143208773865e-06,
+            "p90": 7.74779881179688e-06,
+            "p95": 7.960285080627072e-06,
+            "pearson": 0.9999999999253941,
+            "worstX": 49.83277591973244,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9647832795621543,
+              "workbench.frequency20": 0.928268388076747,
+              "workbench.frequency30": 0.8917343299679528,
+              "workbench.frequency50": 0.8190470924674191,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.964785808681701,
+              "zemax.frequency20": 0.9282729725488964,
+              "zemax.frequency30": 0.8917404883950073,
+              "zemax.frequency50": 0.8190552569169969,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "2745-actual-256",
+        "stage": "native-readback",
+        "settings": {
+          "Type": "Modulation",
+          "SampleSize": "S_256x256",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "MaximumFrequency": 50
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2745-actual-256-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 9.756327014942556e-06,
+            "meanAbsolute": 6.373877385744078e-06,
+            "rmse": 6.923504263086106e-06,
+            "nrmse": 6.923504263086107e-06,
+            "maxRelative": 1.3658736126241816e-05,
+            "p50": 7.302010607279641e-06,
+            "p90": 9.075023905125157e-06,
+            "p95": 9.115284356181474e-06,
+            "pearson": 0.9999999999509852,
+            "worstX": 49.83277591973244,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9424285309351244,
+              "workbench.frequency20": 0.8833766897706673,
+              "workbench.frequency30": 0.8246454227399947,
+              "workbench.frequency50": 0.7134027178476272,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 0.9999999999999999,
+              "zemax.frequency10": 0.9424323813842778,
+              "zemax.frequency20": 0.8833831600010505,
+              "zemax.frequency30": 0.8246535003465536,
+              "zemax.frequency50": 0.7134118408727359,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 8.804878543267058e-06,
+            "meanAbsolute": 4.915102439482669e-06,
+            "rmse": 5.4735616210426405e-06,
+            "nrmse": 5.473561621042641e-06,
+            "maxRelative": 1.0738902515811212e-05,
+            "p50": 5.346286245377918e-06,
+            "p90": 7.794320051990322e-06,
+            "p95": 8.008308548301812e-06,
+            "pearson": 0.9999999999696575,
+            "worstX": 49.83277591973244,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9649165302648159,
+              "workbench.frequency20": 0.9284211240704023,
+              "workbench.frequency30": 0.8919027969743837,
+              "workbench.frequency50": 0.8192975107256032,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 0.9999999999999998,
+              "zemax.frequency10": 0.9649190504579392,
+              "zemax.frequency20": 0.9284257040046319,
+              "zemax.frequency30": 0.8919089583556764,
+              "zemax.frequency50": 0.8193056950257469,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "2745-actual-64",
+        "stage": "native-readback",
+        "settings": {
+          "Type": "Modulation",
+          "SampleSize": "S_64x64",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "MaximumFrequency": 50
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2745-actual-64-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.648716504862538e-05,
+            "meanAbsolute": 6.617396180376302e-06,
+            "rmse": 7.918347054122245e-06,
+            "nrmse": 7.918347054122245e-06,
+            "maxRelative": 6.523737694302433e-05,
+            "p50": 7.177750848241793e-06,
+            "p90": 8.951095587073077e-06,
+            "p95": 9.020063979292559e-06,
+            "pearson": 0.9999999992994067,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9417292652224191,
+              "workbench.frequency20": 0.8824826580612088,
+              "workbench.frequency30": 0.8234469029344466,
+              "workbench.frequency50": 0.7107488389010851,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9417331421823754,
+              "zemax.frequency20": 0.882489117353052,
+              "zemax.frequency30": 0.8234549196397211,
+              "zemax.frequency50": 0.7107578645126698,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.558016243805252e-05,
+            "meanAbsolute": 5.201822701326689e-06,
+            "rmse": 6.689295132634462e-06,
+            "nrmse": 6.689295132634462e-06,
+            "maxRelative": 5.563361613498104e-05,
+            "p50": 5.275903300905327e-06,
+            "p90": 7.649241401841422e-06,
+            "p95": 7.903141798187852e-06,
+            "pearson": 0.9999999982353083,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9642179591342412,
+              "workbench.frequency20": 0.9276831567837148,
+              "workbench.frequency30": 0.891045120634708,
+              "workbench.frequency50": 0.8180357336637538,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9642205225407271,
+              "zemax.frequency20": 0.9276877557229724,
+              "zemax.frequency30": 0.8910512779026053,
+              "zemax.frequency50": 0.8180438592197571,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "2745-flat",
+        "stage": "native-readback",
+        "settings": {
+          "Type": "Modulation",
+          "SampleSize": "S_64x64",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "MaximumFrequency": 50
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2745-flat-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.5580163771097304e-05,
+            "meanAbsolute": 5.201822997798861e-06,
+            "rmse": 6.6892955286562036e-06,
+            "nrmse": 6.6892955286562036e-06,
+            "maxRelative": 5.563361776205239e-05,
+            "p50": 5.275903136536808e-06,
+            "p90": 7.649242423413138e-06,
+            "p95": 7.90314298862449e-06,
+            "pearson": 0.9999999982353074,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9642179591341642,
+              "workbench.frequency20": 0.927683156783929,
+              "workbench.frequency30": 0.8910451206344167,
+              "workbench.frequency50": 0.8180357336623721,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9642205225407283,
+              "zemax.frequency20": 0.9276877557230951,
+              "zemax.frequency30": 0.8910512779025167,
+              "zemax.frequency50": 0.8180438592197228,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.558016377154139e-05,
+            "meanAbsolute": 5.201822996121301e-06,
+            "rmse": 6.689295527117527e-06,
+            "nrmse": 6.689295527117527e-06,
+            "maxRelative": 5.56336177625944e-05,
+            "p50": 5.275903133428184e-06,
+            "p90": 7.649242420193492e-06,
+            "p95": 7.90314298698691e-06,
+            "pearson": 0.9999999982353062,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9642179591341642,
+              "workbench.frequency20": 0.9276831567839291,
+              "workbench.frequency30": 0.8910451206344169,
+              "workbench.frequency50": 0.8180357336623721,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9642205225407302,
+              "zemax.frequency20": 0.9276877557230901,
+              "zemax.frequency30": 0.8910512779025169,
+              "zemax.frequency50": 0.8180438592197234,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "2745-x",
+        "stage": "native-readback",
+        "settings": {
+          "Type": "Modulation",
+          "SampleSize": "S_64x64",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "MaximumFrequency": 50
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2745-x-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.558016231193118e-05,
+            "meanAbsolute": 5.201822809056651e-06,
+            "rmse": 6.6892951980183105e-06,
+            "nrmse": 6.6892951980183105e-06,
+            "maxRelative": 5.563361598106978e-05,
+            "p50": 5.275903369461599e-06,
+            "p90": 7.649241440199628e-06,
+            "p95": 7.903141780229994e-06,
+            "pearson": 0.9999999982353074,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9642179591339513,
+              "workbench.frequency20": 0.927683156783452,
+              "workbench.frequency30": 0.8910451206345041,
+              "workbench.frequency50": 0.8180357336634692,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9642205225406479,
+              "zemax.frequency20": 0.9276877557229218,
+              "zemax.frequency30": 0.891051277902454,
+              "zemax.frequency50": 0.8180438592193283,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.590517569591501e-05,
+            "meanAbsolute": 5.5454429875841026e-06,
+            "rmse": 6.99665055826078e-06,
+            "nrmse": 6.996650558260781e-06,
+            "maxRelative": 5.751183267944196e-05,
+            "p50": 5.710776385781102e-06,
+            "p90": 8.050825939021067e-06,
+            "p95": 8.279704310887315e-06,
+            "pearson": 0.9999999985890239,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.959934959350506,
+              "workbench.frequency20": 0.9190229890574717,
+              "workbench.frequency30": 0.8780729099586885,
+              "workbench.frequency50": 0.7968025081352921,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 0.9999999999999999,
+              "zemax.frequency10": 0.9599377882637682,
+              "zemax.frequency20": 0.9190279974498546,
+              "zemax.frequency30": 0.8780795172566584,
+              "zemax.frequency50": 0.7968109781905098,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "2745-xy",
+        "stage": "native-readback",
+        "settings": {
+          "Type": "Modulation",
+          "SampleSize": "S_64x64",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "MaximumFrequency": 50
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2745-xy-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.6249863672964686e-05,
+            "meanAbsolute": 5.8152915992238875e-06,
+            "rmse": 7.240526554753999e-06,
+            "nrmse": 7.240526554753999e-06,
+            "maxRelative": 5.929135603597384e-05,
+            "p50": 6.061527577760906e-06,
+            "p90": 8.333430196461045e-06,
+            "p95": 8.538806728269899e-06,
+            "pearson": 0.999999998805364,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9562023091186657,
+              "workbench.frequency20": 0.9114981067278487,
+              "workbench.frequency30": 0.8667958250616895,
+              "workbench.frequency50": 0.778554800972981,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9562053615304634,
+              "zemax.frequency20": 0.9115034558470637,
+              "zemax.frequency30": 0.8668027837260432,
+              "zemax.frequency50": 0.7785634975481998,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.590517369795766e-05,
+            "meanAbsolute": 5.5454418110688685e-06,
+            "rmse": 6.99664930904995e-06,
+            "nrmse": 6.99664930904995e-06,
+            "maxRelative": 5.751183017628481e-05,
+            "p50": 5.710775194622819e-06,
+            "p90": 8.050823715521904e-06,
+            "p95": 8.279702196634098e-06,
+            "pearson": 0.9999999985890252,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9599349593508494,
+              "workbench.frequency20": 0.9190229890583029,
+              "workbench.frequency30": 0.8780729099602377,
+              "workbench.frequency50": 0.7968025081377965,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9599377882637404,
+              "zemax.frequency20": 0.9190279974497688,
+              "zemax.frequency30": 0.8780795172566476,
+              "zemax.frequency50": 0.7968109781910239,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "2745-y",
+        "stage": "native-readback",
+        "settings": {
+          "Type": "Modulation",
+          "SampleSize": "S_64x64",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "MaximumFrequency": 50
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2745-y-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.590517533986649e-05,
+            "meanAbsolute": 5.5454429383992405e-06,
+            "rmse": 6.996650478933415e-06,
+            "nrmse": 6.996650478933415e-06,
+            "maxRelative": 5.7511832233370074e-05,
+            "p50": 5.710776447787058e-06,
+            "p90": 8.050825703598274e-06,
+            "p95": 8.279704013347544e-06,
+            "pearson": 0.9999999985890258,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9599349593504873,
+              "workbench.frequency20": 0.9190229890574418,
+              "workbench.frequency30": 0.8780729099586634,
+              "workbench.frequency50": 0.7968025081356541,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9599377882637664,
+              "zemax.frequency20": 0.9190279974498623,
+              "zemax.frequency30": 0.8780795172566606,
+              "zemax.frequency50": 0.7968109781905112,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.558016232902862e-05,
+            "meanAbsolute": 5.201822916389775e-06,
+            "rmse": 6.6892952899227075e-06,
+            "nrmse": 6.6892952899227075e-06,
+            "maxRelative": 5.563361600193867e-05,
+            "p50": 5.275903580181929e-06,
+            "p90": 7.649241508533855e-06,
+            "p95": 7.90314181978169e-06,
+            "pearson": 0.9999999982353083,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9642179591338961,
+              "workbench.frequency20": 0.927683156783325,
+              "workbench.frequency30": 0.8910451206342714,
+              "workbench.frequency50": 0.8180357336634486,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.964220522540649,
+              "zemax.frequency20": 0.9276877557229215,
+              "zemax.frequency30": 0.8910512779024551,
+              "zemax.frequency50": 0.8180438592193232,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "2745-yneg",
+        "stage": "native-readback",
+        "settings": {
+          "Type": "Modulation",
+          "SampleSize": "S_64x64",
+          "ShowDiffractionLimit": false,
+          "UseDashes": false,
+          "UsePolarization": false,
+          "MaximumFrequency": 50
+        },
+        "selectors": {
+          "Field": 1,
+          "Surface": 0,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "2745-yneg-core-vs-native",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.590517533953342e-05,
+            "meanAbsolute": 5.545442937864615e-06,
+            "rmse": 6.996650478254097e-06,
+            "nrmse": 6.996650478254097e-06,
+            "maxRelative": 5.7511832232952805e-05,
+            "p50": 5.710776444456389e-06,
+            "p90": 8.050825701877429e-06,
+            "p95": 8.279704011765476e-06,
+            "pearson": 0.9999999985890256,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9599349593504873,
+              "workbench.frequency20": 0.9190229890574416,
+              "workbench.frequency30": 0.8780729099586634,
+              "workbench.frequency50": 0.7968025081356542,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9599377882637673,
+              "zemax.frequency20": 0.9190279974498582,
+              "zemax.frequency30": 0.8780795172566609,
+              "zemax.frequency50": 0.7968109781905109,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Dimensionless",
+            "count": 336,
+            "maxAbsolute": 4.5580162330360885e-05,
+            "meanAbsolute": 5.201822915883897e-06,
+            "rmse": 6.689295290013924e-06,
+            "nrmse": 6.689295290013924e-06,
+            "maxRelative": 5.56336160035647e-05,
+            "p50": 5.275903581236641e-06,
+            "p90": 7.649241508145277e-06,
+            "p95": 7.90314182053109e-06,
+            "pearson": 0.9999999982353065,
+            "worstX": 49.66555183946488,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9642179591338961,
+              "workbench.frequency20": 0.9276831567833251,
+              "workbench.frequency30": 0.8910451206342714,
+              "workbench.frequency50": 0.8180357336634486,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9642205225406488,
+              "zemax.frequency20": 0.9276877557229203,
+              "zemax.frequency30": 0.8910512779024546,
+              "zemax.frequency50": 0.8180438592193245,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "native-actual-64-vs-actual-128",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Dimensionless",
+            "count": 300,
+            "maxAbsolute": 0.0019129165505202828,
+            "meanAbsolute": 0.0009043964987487907,
+            "rmse": 0.0009797825922991713,
+            "nrmse": 0.0009797825922991713,
+            "maxRelative": 0.0026913758482741117,
+            "p50": 0.0008517411542954267,
+            "p90": 0.0014106865165212428,
+            "p95": 0.0016707341590835425,
+            "pearson": 0.9999991997714204,
+            "worstX": 50,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.9422868722932355,
+              "workbench.frequency20": 0.8832117939958094,
+              "workbench.frequency30": 0.8244420708576566,
+              "workbench.frequency50": 0.71267078106319,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9417331421823754,
+              "zemax.frequency20": 0.882489117353052,
+              "zemax.frequency30": 0.8234549196397211,
+              "zemax.frequency50": 0.7107578645126698,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Dimensionless",
+            "count": 300,
+            "maxAbsolute": 0.001011397697239791,
+            "meanAbsolute": 0.0006627627224415326,
+            "rmse": 0.0006901653812343225,
+            "nrmse": 0.0006901653812343225,
+            "maxRelative": 0.0012363612119825128,
+            "p50": 0.0006426498768783429,
+            "p90": 0.0009226028833650535,
+            "p95": 0.000969620532199017,
+            "pearson": 0.9999991744504203,
+            "worstX": 50,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 1,
+              "workbench.frequency10": 0.964785808681701,
+              "workbench.frequency20": 0.9282729725488964,
+              "workbench.frequency30": 0.8917404883950073,
+              "workbench.frequency50": 0.8190552569169969,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9642205225407271,
+              "zemax.frequency20": 0.9276877557229724,
+              "zemax.frequency30": 0.8910512779026053,
+              "zemax.frequency50": 0.8180438592197571,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          }
+        ]
+      },
+      {
+        "id": "native-actual-128-vs-actual-256",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Dimensionless",
+            "count": 300,
+            "maxAbsolute": 0.0007930225643938416,
+            "meanAbsolute": 0.000321719190754014,
+            "rmse": 0.0004003362738041019,
+            "nrmse": 0.0004003362738041019,
+            "maxRelative": 0.0010655028306688552,
+            "p50": 0.00017756484011172136,
+            "p90": 0.0007541979274873879,
+            "p95": 0.000765827749882253,
+            "pearson": 0.9999991538097831,
+            "worstX": 43.979933110367895,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 0.9999999999999999,
+              "workbench.frequency10": 0.9424323813842778,
+              "workbench.frequency20": 0.8833831600010505,
+              "workbench.frequency30": 0.8246535003465536,
+              "workbench.frequency50": 0.7134118408727359,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.9422868722932355,
+              "zemax.frequency20": 0.8832117939958094,
+              "zemax.frequency30": 0.8244420708576566,
+              "zemax.frequency50": 0.71267078106319,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Dimensionless",
+            "count": 300,
+            "maxAbsolute": 0.0002504381087500285,
+            "meanAbsolute": 0.00015558009811133866,
+            "rmse": 0.00015882013743492062,
+            "nrmse": 0.00015882013743492062,
+            "maxRelative": 0.00030576460700917994,
+            "p50": 0.0001612341980927745,
+            "p90": 0.0001788509729175436,
+            "p95": 0.00018393046460762346,
+            "pearson": 0.9999999554879612,
+            "worstX": 50,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {
+              "workbench.dc": 0.9999999999999998,
+              "workbench.frequency10": 0.9649190504579392,
+              "workbench.frequency20": 0.9284257040046319,
+              "workbench.frequency30": 0.8919089583556764,
+              "workbench.frequency50": 0.8193056950257469,
+              "workbench.firstCrossing50": null,
+              "workbench.firstCrossing10": null,
+              "zemax.dc": 1,
+              "zemax.frequency10": 0.964785808681701,
+              "zemax.frequency20": 0.9282729725488964,
+              "zemax.frequency30": 0.8917404883950073,
+              "zemax.frequency50": 0.8190552569169969,
+              "zemax.firstCrossing50": null,
+              "zemax.firstCrossing10": null
+            }
+          }
+        ]
+      }
+    ],
+    "2754": [
+      {
+        "id": "2754-recapture",
+        "stage": "native-readback",
+        "settings": {
+          "DisplayAs": "Percent",
+          "Distortion": "F_TanTheta",
+          "ScanType": "Plus_Y",
+          "UseDashes": false,
+          "IgnoreVignette": true,
+          "MaximumCurvature": 0,
+          "MaximumDistortion": 0,
+          "FieldAspectRatio": 1
+        },
+        "selectors": {
+          "Wavelength": 1,
+          "ReferenceField": 1
+        }
+      },
+      {
+        "id": "native-recapture-vs-frozen",
+        "conclusion": "Pass",
+        "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Millimeter",
+            "count": 101,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": 1,
+            "worstX": 0,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "sagittal",
+            "unit": "Millimeter",
+            "count": 101,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": 1,
+            "worstX": 0,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          },
+          {
+            "id": "distortion",
+            "unit": "Percent",
+            "count": 101,
+            "maxAbsolute": 0,
+            "meanAbsolute": 0,
+            "rmse": 0,
+            "nrmse": 0,
+            "maxRelative": 0,
+            "p50": 0,
+            "p90": 0,
+            "p95": 0,
+            "pearson": 1,
+            "worstX": 0,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      }
+    ],
+    "2770": [
+      {
+        "id": "2770-4096",
+        "stage": "native-readback",
+        "settings": {
+          "PupilSampleSize": "S_4096x4096",
+          "ImageSampleSize": "S_32x32",
+          "Type": "X_Linear",
+          "Normalize": false,
+          "UseCentroid": false,
+          "UsePolarization": false,
+          "ImageDelta": 0.25,
+          "Configuration": 2,
+          "RowCol": 0
+        },
+        "selectors": {
+          "Field": 1,
+          "Wavelength": 1
+        }
+      },
+      {
+        "id": "native-2048-4096",
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 33,
+            "maxAbsolute": 0.00021799999999999597,
+            "meanAbsolute": 0.00010215151515151436,
+            "rmse": 0.00012850669125368273,
+            "nrmse": 0.0029487538149078184,
+            "maxRelative": 0.006133088009812957,
+            "p50": 0.0001010000000000004,
+            "p90": 0.0002099999999999949,
+            "p95": 0.00021599999999999397,
+            "pearson": 0.9999999107277573,
+            "worstX": 0,
+            "worstY": null,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        ]
+      }
+    ]
+  },
+  "firstOrderControls": {
+    "333": {
+      "acrylic": {
+        "EFFL": 2.657345149066423,
+        "EPDI": 2.50943815028
+      },
+      "air": {
+        "EFFL": 2.657345149066423,
+        "EPDI": 2.50943815028
+      },
+      "scalars": {
+        "EffectiveFocalLength": 2.657345149066423,
+        "FNumber": 1.0589402846090947
+      },
+      "nativeIndexReadback": [
+        {
+          "column": 2,
+          "cell": {
+            "Col": 2,
+            "IsActive": true,
+            "IsReadOnly": false,
+            "Header": "面",
+            "DataType": "Integer",
+            "IntegerValue": 0,
+            "DoubleValue": "Unavailable: 调用的目标发生了异常。",
+            "Value": "0",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 3,
+          "cell": {
+            "Col": 3,
+            "IsActive": true,
+            "IsReadOnly": false,
+            "Header": "波",
+            "DataType": "Integer",
+            "IntegerValue": 0,
+            "DoubleValue": "Unavailable: 调用的目标发生了异常。",
+            "Value": "0",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 4,
+          "cell": {
+            "Col": 4,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 5,
+          "cell": {
+            "Col": 5,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 6,
+          "cell": {
+            "Col": 6,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 7,
+          "cell": {
+            "Col": 7,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 8,
+          "cell": {
+            "Col": 8,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 9,
+          "cell": {
+            "Col": 9,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        }
+      ]
+    },
+    "355": {
+      "acrylic": {
+        "EFFL": 2.639506916643101,
+        "EPDI": 3.460687253487
+      },
+      "air": {
+        "EFFL": 2.639506916643101,
+        "EPDI": 3.460687253487
+      },
+      "scalars": {
+        "EffectiveFocalLength": 2.639506916643101,
+        "FNumber": 0.7627117746579166
+      },
+      "nativeIndexReadback": [
+        {
+          "column": 2,
+          "cell": {
+            "Col": 2,
+            "IsActive": true,
+            "IsReadOnly": false,
+            "Header": "面",
+            "DataType": "Integer",
+            "IntegerValue": 0,
+            "DoubleValue": "Unavailable: 调用的目标发生了异常。",
+            "Value": "0",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 3,
+          "cell": {
+            "Col": 3,
+            "IsActive": true,
+            "IsReadOnly": false,
+            "Header": "波",
+            "DataType": "Integer",
+            "IntegerValue": 0,
+            "DoubleValue": "Unavailable: 调用的目标发生了异常。",
+            "Value": "0",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 4,
+          "cell": {
+            "Col": 4,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 5,
+          "cell": {
+            "Col": 5,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 6,
+          "cell": {
+            "Col": 6,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 7,
+          "cell": {
+            "Col": 7,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 8,
+          "cell": {
+            "Col": 8,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        },
+        {
+          "column": 9,
+          "cell": {
+            "Col": 9,
+            "IsActive": false,
+            "IsReadOnly": true,
+            "Header": " ",
+            "DataType": "Double",
+            "IntegerValue": "Unavailable: 调用的目标发生了异常。",
+            "DoubleValue": null,
+            "Value": "",
+            "Solve": "None"
+          }
+        }
+      ]
+    },
+    "125": {
+      "reference": {
+        "convention": "CenteredVertexOrdinaryIndexV1",
+        "surfaces": [
+          {
+            "surface": 2,
+            "originalParaxIgnore": 0,
+            "actualParaxIgnore": 1
+          }
+        ],
+        "realRayModeChanged": false,
+        "savedInput": false
+      },
+      "scalars": {
+        "EffectiveFocalLength": 100,
+        "FNumber": 5
+      }
+    }
+  },
+  "etalonRounding": {
+    "2216": {
+      "rayCount": 82,
+      "wavelengthMillimeters": 0.0009999,
+      "workingScaleMillimeters": 10000000000.0,
+      "ulpMillimeters": 1.9073486328125e-06,
+      "maxFocalResidualWaves": 0.0009121537694981691,
+      "maxRoundingModelResidualWaves": 0.0,
+      "maxAbsoluteAnalyticResidualWaves": 1.4210854715202004e-14
+    },
+    "2220": {
+      "rayCount": 82,
+      "wavelengthMillimeters": 0.0010001,
+      "workingScaleMillimeters": 10000000000.0,
+      "ulpMillimeters": 1.9073486328125e-06,
+      "maxFocalResidualWaves": 0.0009119713569855207,
+      "maxRoundingModelResidualWaves": 6.938243382603737e-15,
+      "maxAbsoluteAnalyticResidualWaves": 1.4210854715202004e-14
+    }
+  }
+}

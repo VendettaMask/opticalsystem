@@ -1,0 +1,958 @@
+{
+  "comparedAnalyses": 8,
+  "explicitPass": 8,
+  "reportedPointsPass": 8,
+  "plotOmissionsAtStartOfTransmittedSegment": 16,
+  "distinctNativeOmittedPupilPoints": 8,
+  "nativeGroups": [
+    {
+      "index": 650,
+      "sourceSha256": "f62da96ae3351e40a088dedc731603c1ebfe0641ada8a8aea125a615204cea7d",
+      "receipt": {
+        "originalUnit": "Meters",
+        "convertedUnit": "Millimeters",
+        "method": "OpticStudio.Tools.OpenScale.ScaleByUnits",
+        "savedInput": false
+      },
+      "requestedPoints": 83,
+      "physicalModelReadback": "Millimeters",
+      "modelSha256": "939ed6f30180c3509a3e19469ed36adf4f3917d24beb80982bedc792801dd46e",
+      "nativePointReferenceSha256": "70b2051ccf21d60265919c0531ecf88f92e642066188a88f49e109cdf7d91da9"
+    },
+    {
+      "index": 667,
+      "sourceSha256": "f62da96ae3351e40a088dedc731603c1ebfe0641ada8a8aea125a615204cea7d",
+      "receipt": {
+        "originalUnit": "Meters",
+        "convertedUnit": "Millimeters",
+        "method": "OpticStudio.Tools.OpenScale.ScaleByUnits",
+        "savedInput": false
+      },
+      "requestedPoints": 83,
+      "physicalModelReadback": "Millimeters",
+      "modelSha256": "939ed6f30180c3509a3e19469ed36adf4f3917d24beb80982bedc792801dd46e",
+      "nativePointReferenceSha256": "143f7b1ef3d9c263c0e4e78a6b13c675e0811058f7c9ade327a8509b093bf2ae"
+    },
+    {
+      "index": 2332,
+      "sourceSha256": "07a84224ec7c4422de621b38aae3665a894005afbd201ae9a146afff17b2dbcf",
+      "receipt": {
+        "originalUnit": "Meters",
+        "convertedUnit": "Millimeters",
+        "method": "OpticStudio.Tools.OpenScale.ScaleByUnits",
+        "savedInput": false
+      },
+      "requestedPoints": 83,
+      "physicalModelReadback": "Millimeters",
+      "modelSha256": "939ed6f30180c3509a3e19469ed36adf4f3917d24beb80982bedc792801dd46e",
+      "nativePointReferenceSha256": "2c6dcfc33d36181f11ab76962f0fbdb77a5856b56bafc4306699b20c49cebace"
+    },
+    {
+      "index": 2349,
+      "sourceSha256": "07a84224ec7c4422de621b38aae3665a894005afbd201ae9a146afff17b2dbcf",
+      "receipt": {
+        "originalUnit": "Meters",
+        "convertedUnit": "Millimeters",
+        "method": "OpticStudio.Tools.OpenScale.ScaleByUnits",
+        "savedInput": false
+      },
+      "requestedPoints": 83,
+      "physicalModelReadback": "Millimeters",
+      "modelSha256": "939ed6f30180c3509a3e19469ed36adf4f3917d24beb80982bedc792801dd46e",
+      "nativePointReferenceSha256": "4edd5e6a321aaecff8e0ab2939cf3ba2ed51fb04495530f68ed7323b4880d1c6"
+    }
+  ],
+  "coreSha256": "8493d6a0ee91e5073e512a3f77ad9a3b61f0af4f032ae67be786fdefedea83e4",
+  "preservedBuiltInVerdicts": true,
+  "nativeEvidenceSha256": "1ca1914e112b850883a2b09ac6d73e9ed3eddb3e37d3f73642fc545edbcfe23f",
+  "cases": [
+    {
+      "index": 650,
+      "lens": "Image Simulation/Example 4, a diffraction limited system.ZMX",
+      "key": "Ray Fan",
+      "configuration": 1,
+      "physical": "Pass",
+      "reason": "",
+      "physicalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 34,
+          "maxAbsolute": 3.922169054815239e-09,
+          "meanAbsolute": 1.2394771129801827e-09,
+          "rmse": 1.735423269968087e-09,
+          "nrmse": 1.3609151084300513e-06,
+          "maxRelative": 4.752702565104347e-05,
+          "p50": 8.277821825214545e-10,
+          "p90": 3.4887576917257177e-09,
+          "p95": 3.7097274049478674e-09,
+          "pearson": 0.9999999999935438,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Micrometer",
+          "count": 34,
+          "maxAbsolute": 3.922169054815239e-09,
+          "meanAbsolute": 1.2394771129801827e-09,
+          "rmse": 1.735423269968087e-09,
+          "nrmse": 1.3609151084300513e-06,
+          "maxRelative": 4.752702565104347e-05,
+          "p50": 8.277821825214545e-10,
+          "p90": 3.4887576917257177e-09,
+          "p95": 3.7097274049478674e-09,
+          "pearson": 0.9999999999935438,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "reportedKnots": "Pass",
+      "reportedMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 33,
+          "maxAbsolute": 3.922169054815239e-09,
+          "meanAbsolute": 1.1948939513387312e-09,
+          "rmse": 1.6790158065902176e-09,
+          "nrmse": 1.3166804998088535e-06,
+          "maxRelative": 4.752702565104347e-05,
+          "p50": 7.247535795722941e-10,
+          "p90": 3.490177658942986e-09,
+          "p95": 3.726069070322281e-09,
+          "pearson": 0.9999999999945817,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Micrometer",
+          "count": 33,
+          "maxAbsolute": 3.922169054815239e-09,
+          "meanAbsolute": 1.1948939513387312e-09,
+          "rmse": 1.6790158065902176e-09,
+          "nrmse": 1.3166804998088535e-06,
+          "maxRelative": 4.752702565104347e-05,
+          "p50": 7.247535795722941e-10,
+          "p90": 3.490177658942986e-09,
+          "p95": 3.726069070322281e-09,
+          "pearson": 0.9999999999945817,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "masks": [
+        {
+          "id": "tangential",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        },
+        {
+          "id": "sagittal",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        }
+      ]
+    },
+    {
+      "index": 651,
+      "lens": "Image Simulation/Example 4, a diffraction limited system.ZMX",
+      "key": "Optical Path Difference",
+      "configuration": 1,
+      "physical": "Pass",
+      "reason": "",
+      "physicalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 34,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 7.382956990862594e-09,
+          "rmse": 9.389766864067205e-09,
+          "nrmse": 0.0009389766864067204,
+          "maxRelative": 0.14285714285714285,
+          "p50": 5.4569682106375694e-09,
+          "p90": 1.2732925824820995e-08,
+          "p95": 1.5916157281026224e-08,
+          "pearson": 0.9999798765449859,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 34,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 7.382956990862594e-09,
+          "rmse": 9.389766864067205e-09,
+          "nrmse": 0.0009389766864067204,
+          "maxRelative": 0.14285714285714285,
+          "p50": 5.4569682106375694e-09,
+          "p90": 1.2732925824820995e-08,
+          "p95": 1.5916157281026224e-08,
+          "pearson": 0.9999798765449859,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "reportedKnots": "Pass",
+      "reportedMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 33,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 7.441320287233049e-09,
+          "rmse": 9.483516861152595e-09,
+          "nrmse": 0.0009483516861152594,
+          "maxRelative": 0.14285714285714285,
+          "p50": 5.4569682106375694e-09,
+          "p90": 1.2732925824820995e-08,
+          "p95": 1.6370904631912695e-08,
+          "pearson": 0.9999794318373034,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 33,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 7.441320287233049e-09,
+          "rmse": 9.483516861152595e-09,
+          "nrmse": 0.0009483516861152594,
+          "maxRelative": 0.14285714285714285,
+          "p50": 5.4569682106375694e-09,
+          "p90": 1.2732925824820995e-08,
+          "p95": 1.6370904631912695e-08,
+          "pearson": 0.9999794318373034,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "masks": [
+        {
+          "id": "tangential",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        },
+        {
+          "id": "sagittal",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        }
+      ]
+    },
+    {
+      "index": 667,
+      "lens": "Image Simulation/Example 4, a diffraction limited system.ZMX",
+      "key": "Ray Fan",
+      "configuration": 1,
+      "physical": "Pass",
+      "reason": "",
+      "physicalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 34,
+          "maxAbsolute": 4.533262654149439e-09,
+          "meanAbsolute": 1.3680037494957693e-09,
+          "rmse": 1.8244132465835126e-09,
+          "nrmse": 1.7881458657550075e-10,
+          "maxRelative": 8.381140016516838e-10,
+          "p50": 1.0587086762825493e-09,
+          "p90": 3.2827074392116624e-09,
+          "p95": 4.082068016941775e-09,
+          "pearson": 1,
+          "worstX": 0.55,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Micrometer",
+          "count": 34,
+          "maxAbsolute": 4.4274859334336725e-09,
+          "meanAbsolute": 1.3874386868153847e-09,
+          "rmse": 1.7411484858590334e-09,
+          "nrmse": 1.7093463437957757e-10,
+          "maxRelative": 5.064235660895216e-10,
+          "p50": 9.434604208991004e-10,
+          "p90": 2.5406215797829646e-09,
+          "p95": 3.850188434739719e-09,
+          "pearson": 1.0000000000000002,
+          "worstX": -0.95,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "reportedKnots": "Pass",
+      "reportedMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 33,
+          "maxAbsolute": 4.533262654149439e-09,
+          "meanAbsolute": 1.4185016797538e-09,
+          "rmse": 1.8616006003341277e-09,
+          "nrmse": 1.8245939747522732e-10,
+          "maxRelative": 8.381140016516838e-10,
+          "p50": 1.1368683772161603e-09,
+          "p90": 3.490185918053613e-09,
+          "p95": 4.092726157978177e-09,
+          "pearson": 1.0000000000000002,
+          "worstX": 0.55,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Micrometer",
+          "count": 33,
+          "maxAbsolute": 4.4274859334336725e-09,
+          "meanAbsolute": 1.252011369999626e-09,
+          "rmse": 1.6118388468709316e-09,
+          "nrmse": 1.5823985501888388e-10,
+          "maxRelative": 5.064235660895216e-10,
+          "p50": 8.723439748337114e-10,
+          "p90": 2.411265498380999e-09,
+          "p95": 3.3212790739867133e-09,
+          "pearson": 0.9999999999999997,
+          "worstX": -0.9500000000000001,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "masks": [
+        {
+          "id": "tangential",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        },
+        {
+          "id": "sagittal",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        }
+      ]
+    },
+    {
+      "index": 668,
+      "lens": "Image Simulation/Example 4, a diffraction limited system.ZMX",
+      "key": "Optical Path Difference",
+      "configuration": 1,
+      "physical": "Pass",
+      "reason": "",
+      "physicalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 34,
+          "maxAbsolute": 1.815436689867056e-08,
+          "meanAbsolute": 6.3001891285640504e-09,
+          "rmse": 8.198202440532336e-09,
+          "nrmse": 3.853799712566239e-08,
+          "maxRelative": 1.0622174381706682e-06,
+          "p50": 4.89386309254769e-09,
+          "p90": 1.6005241576522163e-08,
+          "p95": 1.7207923974638106e-08,
+          "pearson": 0.9999999999999911,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 34,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 8.238952004295937e-09,
+          "rmse": 1.041197953933535e-08,
+          "nrmse": 4.941394905164797e-08,
+          "maxRelative": 7.727808053612441e-07,
+          "p50": 7.275957614183426e-09,
+          "p90": 1.7098500393331048e-08,
+          "p95": 1.9463186617940658e-08,
+          "pearson": 0.9999999999999909,
+          "worstX": -0.45,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "reportedKnots": "Pass",
+      "reportedMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 33,
+          "maxAbsolute": 1.815436689867056e-08,
+          "meanAbsolute": 6.464081795084811e-09,
+          "rmse": 8.392071768506537e-09,
+          "nrmse": 3.9449335392607986e-08,
+          "maxRelative": 1.0622174381706682e-06,
+          "p50": 4.956035581926699e-09,
+          "p90": 1.651869752095081e-08,
+          "p95": 1.7217871572938748e-08,
+          "pearson": 0.9999999999999907,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 33,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 8.157891870448084e-09,
+          "rmse": 1.048282839093111e-08,
+          "nrmse": 4.975018881565197e-08,
+          "maxRelative": 7.727808053612441e-07,
+          "p50": 7.275957614183426e-09,
+          "p90": 1.7462298274040225e-08,
+          "p95": 1.9645085558295243e-08,
+          "pearson": 0.9999999999999909,
+          "worstX": -0.45,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "masks": [
+        {
+          "id": "tangential",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        },
+        {
+          "id": "sagittal",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        }
+      ]
+    },
+    {
+      "index": 2332,
+      "lens": "Telescopes/Hubble.zmx",
+      "key": "Ray Fan",
+      "configuration": 1,
+      "physical": "Pass",
+      "reason": "",
+      "physicalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 34,
+          "maxAbsolute": 3.922169054815239e-09,
+          "meanAbsolute": 1.2394771129801827e-09,
+          "rmse": 1.735423269968087e-09,
+          "nrmse": 1.3609151084300513e-06,
+          "maxRelative": 4.752702565104347e-05,
+          "p50": 8.277821825214545e-10,
+          "p90": 3.4887576917257177e-09,
+          "p95": 3.7097274049478674e-09,
+          "pearson": 0.9999999999935438,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Micrometer",
+          "count": 34,
+          "maxAbsolute": 3.922169054815239e-09,
+          "meanAbsolute": 1.2394771129801827e-09,
+          "rmse": 1.735423269968087e-09,
+          "nrmse": 1.3609151084300513e-06,
+          "maxRelative": 4.752702565104347e-05,
+          "p50": 8.277821825214545e-10,
+          "p90": 3.4887576917257177e-09,
+          "p95": 3.7097274049478674e-09,
+          "pearson": 0.9999999999935438,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "reportedKnots": "Pass",
+      "reportedMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 33,
+          "maxAbsolute": 3.922169054815239e-09,
+          "meanAbsolute": 1.1948939513387312e-09,
+          "rmse": 1.6790158065902176e-09,
+          "nrmse": 1.3166804998088535e-06,
+          "maxRelative": 4.752702565104347e-05,
+          "p50": 7.247535795722941e-10,
+          "p90": 3.490177658942986e-09,
+          "p95": 3.726069070322281e-09,
+          "pearson": 0.9999999999945817,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Micrometer",
+          "count": 33,
+          "maxAbsolute": 3.922169054815239e-09,
+          "meanAbsolute": 1.1948939513387312e-09,
+          "rmse": 1.6790158065902176e-09,
+          "nrmse": 1.3166804998088535e-06,
+          "maxRelative": 4.752702565104347e-05,
+          "p50": 7.247535795722941e-10,
+          "p90": 3.490177658942986e-09,
+          "p95": 3.726069070322281e-09,
+          "pearson": 0.9999999999945817,
+          "worstX": -1,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "masks": [
+        {
+          "id": "tangential",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        },
+        {
+          "id": "sagittal",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        }
+      ]
+    },
+    {
+      "index": 2333,
+      "lens": "Telescopes/Hubble.zmx",
+      "key": "Optical Path Difference",
+      "configuration": 1,
+      "physical": "Pass",
+      "reason": "",
+      "physicalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 34,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 7.382956990862594e-09,
+          "rmse": 9.389766864067205e-09,
+          "nrmse": 0.0009389766864067204,
+          "maxRelative": 0.14285714285714285,
+          "p50": 5.4569682106375694e-09,
+          "p90": 1.2732925824820995e-08,
+          "p95": 1.5916157281026224e-08,
+          "pearson": 0.9999798765449859,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 34,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 7.382956990862594e-09,
+          "rmse": 9.389766864067205e-09,
+          "nrmse": 0.0009389766864067204,
+          "maxRelative": 0.14285714285714285,
+          "p50": 5.4569682106375694e-09,
+          "p90": 1.2732925824820995e-08,
+          "p95": 1.5916157281026224e-08,
+          "pearson": 0.9999798765449859,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "reportedKnots": "Pass",
+      "reportedMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 33,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 7.441320287233049e-09,
+          "rmse": 9.483516861152595e-09,
+          "nrmse": 0.0009483516861152594,
+          "maxRelative": 0.14285714285714285,
+          "p50": 5.4569682106375694e-09,
+          "p90": 1.2732925824820995e-08,
+          "p95": 1.6370904631912695e-08,
+          "pearson": 0.9999794318373034,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 33,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 7.441320287233049e-09,
+          "rmse": 9.483516861152595e-09,
+          "nrmse": 0.0009483516861152594,
+          "maxRelative": 0.14285714285714285,
+          "p50": 5.4569682106375694e-09,
+          "p90": 1.2732925824820995e-08,
+          "p95": 1.6370904631912695e-08,
+          "pearson": 0.9999794318373034,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "masks": [
+        {
+          "id": "tangential",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        },
+        {
+          "id": "sagittal",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        }
+      ]
+    },
+    {
+      "index": 2349,
+      "lens": "Telescopes/Hubble.zmx",
+      "key": "Ray Fan",
+      "configuration": 1,
+      "physical": "Pass",
+      "reason": "",
+      "physicalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 34,
+          "maxAbsolute": 4.533262654149439e-09,
+          "meanAbsolute": 1.3680037494957693e-09,
+          "rmse": 1.8244132465835126e-09,
+          "nrmse": 1.7881458657550075e-10,
+          "maxRelative": 8.381140016516838e-10,
+          "p50": 1.0587086762825493e-09,
+          "p90": 3.2827074392116624e-09,
+          "p95": 4.082068016941775e-09,
+          "pearson": 1,
+          "worstX": 0.55,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Micrometer",
+          "count": 34,
+          "maxAbsolute": 4.4274859334336725e-09,
+          "meanAbsolute": 1.3874386868153847e-09,
+          "rmse": 1.7411484858590334e-09,
+          "nrmse": 1.7093463437957757e-10,
+          "maxRelative": 5.064235660895216e-10,
+          "p50": 9.434604208991004e-10,
+          "p90": 2.5406215797829646e-09,
+          "p95": 3.850188434739719e-09,
+          "pearson": 1.0000000000000002,
+          "worstX": -0.95,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "reportedKnots": "Pass",
+      "reportedMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Micrometer",
+          "count": 33,
+          "maxAbsolute": 4.533262654149439e-09,
+          "meanAbsolute": 1.4185016797538e-09,
+          "rmse": 1.8616006003341277e-09,
+          "nrmse": 1.8245939747522732e-10,
+          "maxRelative": 8.381140016516838e-10,
+          "p50": 1.1368683772161603e-09,
+          "p90": 3.490185918053613e-09,
+          "p95": 4.092726157978177e-09,
+          "pearson": 1.0000000000000002,
+          "worstX": 0.55,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Micrometer",
+          "count": 33,
+          "maxAbsolute": 4.4274859334336725e-09,
+          "meanAbsolute": 1.252011369999626e-09,
+          "rmse": 1.6118388468709316e-09,
+          "nrmse": 1.5823985501888388e-10,
+          "maxRelative": 5.064235660895216e-10,
+          "p50": 8.723439748337114e-10,
+          "p90": 2.411265498380999e-09,
+          "p95": 3.3212790739867133e-09,
+          "pearson": 0.9999999999999997,
+          "worstX": -0.9500000000000001,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "masks": [
+        {
+          "id": "tangential",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        },
+        {
+          "id": "sagittal",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        }
+      ]
+    },
+    {
+      "index": 2350,
+      "lens": "Telescopes/Hubble.zmx",
+      "key": "Optical Path Difference",
+      "configuration": 1,
+      "physical": "Pass",
+      "reason": "",
+      "physicalMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 34,
+          "maxAbsolute": 1.815436689867056e-08,
+          "meanAbsolute": 6.3001891285640504e-09,
+          "rmse": 8.198202440532336e-09,
+          "nrmse": 3.853799712566239e-08,
+          "maxRelative": 1.0622174381706682e-06,
+          "p50": 4.89386309254769e-09,
+          "p90": 1.6005241576522163e-08,
+          "p95": 1.7207923974638106e-08,
+          "pearson": 0.9999999999999911,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 34,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 8.238952004295937e-09,
+          "rmse": 1.041197953933535e-08,
+          "nrmse": 4.941394905164797e-08,
+          "maxRelative": 7.727808053612441e-07,
+          "p50": 7.275957614183426e-09,
+          "p90": 1.7098500393331048e-08,
+          "p95": 1.9463186617940658e-08,
+          "pearson": 0.9999999999999909,
+          "worstX": -0.45,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "reportedKnots": "Pass",
+      "reportedMetrics": [
+        {
+          "id": "tangential",
+          "unit": "Wave",
+          "count": 33,
+          "maxAbsolute": 1.815436689867056e-08,
+          "meanAbsolute": 6.464081795084811e-09,
+          "rmse": 8.392071768506537e-09,
+          "nrmse": 3.9449335392607986e-08,
+          "maxRelative": 1.0622174381706682e-06,
+          "p50": 4.956035581926699e-09,
+          "p90": 1.651869752095081e-08,
+          "p95": 1.7217871572938748e-08,
+          "pearson": 0.9999999999999907,
+          "worstX": -0.4,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        },
+        {
+          "id": "sagittal",
+          "unit": "Wave",
+          "count": 33,
+          "maxAbsolute": 2.1827872842550278e-08,
+          "meanAbsolute": 8.157891870448084e-09,
+          "rmse": 1.048282839093111e-08,
+          "nrmse": 4.975018881565197e-08,
+          "maxRelative": 7.727808053612441e-07,
+          "p50": 7.275957614183426e-09,
+          "p90": 1.7462298274040225e-08,
+          "p95": 1.9645085558295243e-08,
+          "pearson": 0.9999999999999909,
+          "worstX": -0.45,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ],
+      "masks": [
+        {
+          "id": "tangential",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        },
+        {
+          "id": "sagittal",
+          "knots": 41,
+          "physicalMismatches": [],
+          "omitted": [
+            24
+          ],
+          "extra": [],
+          "allOmissionsAtSegmentStart": true
+        }
+      ]
+    }
+  ]
+}

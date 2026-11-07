@@ -897,7 +897,9 @@ public partial class WorkbenchRuntime
                     "PupilSampling",
                     "光瞳采样",
                     "32 x 32",
-                    new[] { "16 x 16", "32 x 32", "64 x 64", "128 x 128" }),
+                    CurrentOptic.ImageSpaceAfocal ? new[] { "16 x 16", "32 x 32", "64 x 64", "128 x 128" }
+                        : new[] { "16 x 16", "32 x 32", "64 x 64", "128 x 128", "256 x 256", "512 x 512",
+                            "1024 x 1024", "2048 x 2048", "4096 x 4096" }),
                 ChoiceParameter(
                     "ImageSampling",
                     "像面采样",
@@ -942,7 +944,9 @@ public partial class WorkbenchRuntime
             {
                 ChoiceParameter("AfocalIntegration", "无焦瞳孔积分（标量）", "原生有限单元",
                     CurrentOptic.ImageSpaceAfocal ? new[] { "原生有限单元", "高阶圆瞳积分", "收敛校验圆瞳积分" } : new[] { "原生有限单元" }),
-                ChoiceParameter("PupilSampling", "光瞳采样", "32", new[] { "16", "32", "64", "128" }),
+                ChoiceParameter("PupilSampling", "光瞳采样", "32",
+                    CurrentOptic.ImageSpaceAfocal ? new[] { "16", "32", "64", "128" }
+                        : new[] { "16", "32", "64", "128", "256", "512", "1024", "2048", "4096" }),
                 ChoiceParameter("ImageSampling", "像面采样", "32", new[] { "16", "32", "64", "128" }),
                 DoubleParameter("ImageDeltaMicrometers", "像面采样间距 (µm，0 为自动)", "0", 0, 1000, 0.1),
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),

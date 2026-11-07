@@ -69,7 +69,9 @@ public static class FieldCurvatureMetrics
         if (!double.IsFinite(hx) || !double.IsFinite(hy) || Math.Abs(hx) > 1 || Math.Abs(hy) > 1)
             throw new ArgumentOutOfRangeException(nameof(hx), "Hx/Hy 必须为 [-1,1] 内的有限坐标。");
         var image = optic.SurfaceGroup.Items.LastOrDefault() ?? throw new InvalidOperationException("未定义像面。");
-        if (image.Geometry is not PlaneGeometry && !(image.Geometry is StandardGeometry standard && double.IsInfinity(standard.Radius)))
+        if (image.Geometry is not PlaneGeometry
+            && !(image.Geometry is StandardGeometry standard && double.IsInfinity(standard.Radius))
+            && !(!optic.ImageSpaceAfocal && image.Geometry is TiltedPlaneGeometry))
             throw new NotSupportedException("FCGS/FCGT 当前需要平面像面。");
         if (image.CoordinateSystem.RotationXDegrees != 0 || image.CoordinateSystem.RotationYDegrees != 0)
             throw new NotSupportedException("FCGS/FCGT 当前尚未支持倾斜像面。");
@@ -95,9 +97,14 @@ public static class FieldCurvatureMetrics
         if (rayPair == ParabasalRayPair.ChiefAndPositive)
         {
             var components = GeneralizedImagePlaneDeltas(optic, hx, hy, wavelength, pupilDelta, requireUnvignetted);
-            if (axisY == 0 && axisX != 0) return components.Sagittal;
-            if (axisX == 0 && axisY != 0) return components.Tangential;
-            throw new ArgumentException("Generalized curvature requires a Cartesian X or Y component.");
+            var component = (axisX, axisY) switch
+            {
+                (not 0, 0) => components.Sagittal,
+                (0, not 0) => components.Tangential,
+                _ => throw new ArgumentException("Generalized curvature requires a Cartesian X or Y component.")
+            };
+            return component ?? (requireUnvignetted
+                ? throw new InvalidOperationException("傍轴光线平行，没有有限场曲焦点。") : 0);
         }
         var firstDelta = -pupilDelta;
         var first = AnalysisTrace.FinalSample(optic, hx, hy, firstDelta * axisX, firstDelta * axisY,
@@ -129,7 +136,7 @@ public static class FieldCurvatureMetrics
     // |p + z a|^2, hence z = -(p dot a)/(a dot a). Retain both output
     // coordinates of that one pupil perturbation, including rotated/coupled
     // systems. Mixing rows of the two responses gives an unrelated focus.
-    internal static (double Sagittal, double Tangential) GeneralizedImagePlaneDeltas(
+    internal static (double? Sagittal, double? Tangential) GeneralizedImagePlaneDeltas(
         Optic optic, double hx, double hy, double wavelength, double pupilDelta, bool requireUnvignetted = false)
     {
         var chief = AnalysisTrace.FinalSample(optic, hx, hy, 0, 0, wavelength, requireUnvignetted);
@@ -149,23 +156,24 @@ public static class FieldCurvatureMetrics
         var ayy = ySlopeY - chief.Direction.Y / chief.Direction.Z;
         var xPosition = xRay.Position - chief.Position;
         var yPosition = yRay.Position - chief.Position;
-        // Bring both intercepts to the chief's image-Z plane before forming the
-        // response, retaining the established treatment of nonzero local sag.
-        var pxx = xPosition.X - xSlopeX * xPosition.Z;
-        var pyx = xPosition.Y - xSlopeY * xPosition.Z;
-        var pxy = yPosition.X - ySlopeX * yPosition.Z;
-        var pyy = yPosition.Y - ySlopeY * yPosition.Z;
-        var sagittalPower = axx * axx + ayx * ayx;
-        var tangentialPower = axy * axy + ayy * ayy;
-        if (sagittalPower <= 1e-30 || tangentialPower <= 1e-30)
+        // A declared TILTSURF detector supplies transverse intercepts directly
+        // in the unchanged image frame, as in the native FCGS/FCGT operands.
+        // Other image surfaces retain the chief-Z projection of their sag.
+        var tiltedDetector = optic.SurfaceGroup.Items[^1].Geometry is TiltedPlaneGeometry;
+        var xSag = tiltedDetector ? 0 : xPosition.Z;
+        var ySag = tiltedDetector ? 0 : yPosition.Z;
+        var pxx = xPosition.X - xSlopeX * xSag;
+        var pyx = xPosition.Y - xSlopeY * xSag;
+        var pxy = yPosition.X - ySlopeX * ySag;
+        var pyy = yPosition.Y - ySlopeY * ySag;
+        return (FocusDelta(pxx, pyx, axx, ayx), FocusDelta(pxy, pyy, axy, ayy));
+
+        static double? FocusDelta(double px, double py, double ax, double ay)
         {
-            if (requireUnvignetted) throw new InvalidOperationException("傍轴光线平行，没有有限场曲焦点。");
-            return (0, 0);
+            var power = ax * ax + ay * ay;
+            if (power <= 1e-30) return null;
+            var delta = -(px * ax + py * ay) / power;
+            return double.IsFinite(delta) ? delta : throw new InvalidOperationException("场曲焦点不是有限数值。");
         }
-        var sagittal = -(pxx * axx + pyx * ayx) / sagittalPower;
-        var tangential = -(pxy * axy + pyy * ayy) / tangentialPower;
-        if (!double.IsFinite(sagittal) || !double.IsFinite(tangential))
-            throw new InvalidOperationException("场曲焦点不是有限数值。");
-        return (sagittal, tangential);
     }
 }

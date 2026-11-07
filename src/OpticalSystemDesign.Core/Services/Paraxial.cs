@@ -48,6 +48,19 @@ public sealed partial class Paraxial
         return -Math.CopySign(1, determinant) * matrix.C;
     }
 
+    internal (double EquivalentLength, double ImageSpaceLength, double OpticalPower) EstimateFirstOrderFocalLengths()
+    {
+        EnsureComputable();
+        var matrix = TraceMatrix(0, _optic.SurfaceGroup.Items.Count,
+            PrimaryWavelengthNanometers(), out var determinant, gridFocalConvention: true);
+        // The transfer matrix uses image-space slopes. The determinant's
+        // magnitude is 1/n' for this air-referenced system, so f' = n' * f.
+        var inverseImageIndex = Math.Abs(determinant);
+        var power = -Math.CopySign(1, determinant) * matrix.C / inverseImageIndex;
+        var imageSpaceLength = power == 0 ? double.PositiveInfinity : FocalLength(matrix, determinant);
+        return (imageSpaceLength * inverseImageIndex, imageSpaceLength, power);
+    }
+
     internal double ParaxialImageHeightObjectSlope(double imageHeight)
     {
         EnsureComputable();
@@ -115,9 +128,24 @@ public sealed partial class Paraxial
         {
             ApertureKind.FNumber => Math.Abs(EstimateEffectiveFocalLength()) / Math.Max(1e-12, _optic.Aperture.Value),
             ApertureKind.NumericalAperture => EntrancePupilDiameterFromObjectNumericalAperture(),
+            ApertureKind.ObjectConeAngle => EntrancePupilDiameterFromObjectCone(),
             ApertureKind.FloatByStopSize => EntrancePupilDiameterFromStop(fallbackDiameter),
             _ => _optic.Aperture.Diameter(fallbackDiameter)
         };
+    }
+
+    private double EntrancePupilDiameterFromObjectCone()
+    {
+        var objectSurface = _optic.SurfaceGroup.Items.FirstOrDefault();
+        if (objectSurface is null || ObjectConjugate.IsInfinite(objectSurface))
+            throw new InvalidOperationException("Object cone angle requires a finite object surface.");
+        var distance = EstimateEntrancePupilLocation() - objectSurface.CoordinateSystem.Origin.Z;
+        if (!(distance > 0) || _optic.Aperture.Value is <= 0 or > 180)
+            throw new InvalidOperationException("Object cone angle requires a real entrance pupil and a half-angle in (0, 180] degrees.");
+
+        // EPDI is the magnitude of the marginal-ray intercept on the paraxial
+        // pupil plane. This scalar is separate from the angular launch domain.
+        return 2 * distance * Math.Abs(Math.Tan(_optic.Aperture.Value * Math.PI / 180));
     }
 
     private double EntrancePupilDiameterFromStop(double stopDiameter)

@@ -116,6 +116,50 @@ public sealed class StandardIntersectionPrecisionTests
         }
     }
 
+    [Theory]
+    [InlineData(1e-8)]
+    [InlineData(-1e-8)]
+    public void TinyConicVertexDoesNotLoseAxialOrNearAxialBatchRays(double radius)
+    {
+        const double conic = -33.163437;
+        const double launchDistance = 20;
+        var geometry = new StandardGeometry(radius, conic);
+        var count = 2 * Vector<double>.Count + 1;
+        var x = Enumerable.Range(0, count).Select(i => i * 1e-9).ToArray();
+        var zero = new double[count];
+        var z = Enumerable.Repeat(-launchDistance, count).ToArray();
+        var dz = Enumerable.Repeat(1d, count).ToArray();
+        IBatchedNumericBackend[] backends = [new ManagedCpuBackend(), new ScalarBatchedNumericBackendAdapter(new ManagedCpuBackend())];
+        foreach (var backend in backends)
+        {
+            var distances = new double[count];
+            var hits = new bool[count];
+            backend.IntersectStandard(x, zero, z, zero, zero, dz, radius, conic, distances, hits);
+            for (var i = 0; i < count; i++)
+            {
+                Assert.True(hits[i]);
+                Assert.Equal(launchDistance + geometry.Sag(x[i], 0), distances[i], 13);
+            }
+        }
+    }
+
+    [Theory]
+    [InlineData(0, 0)]
+    [InlineData(1e-12, -1.7010451109524027)]
+    [InlineData(1e-10, -41.04928370264171)]
+    public void AxiconNearAxisTraceRetainsThePreciseVertexHit(double pupilX, double nativeImageX)
+    {
+        var root = ProductDependencyArchitectureTests.RepositoryRoot();
+        var source = Path.Combine(root, "src/OpticalSystemDesign.App/Assets/SequentialExamples/Miscellaneous/Axicon model.zmx");
+        var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
+        var bundle = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0, 0, pupilX, 0,
+            optic.Wavelengths[0].Micrometers, aimAtStop: false);
+        var image = optic.SequentialRayTracer.TraceFinalSamples(bundle).Single();
+        Assert.NotNull(image);
+        Assert.False(image.Vignetted);
+        Assert.InRange(Math.Abs(image.Position.X - nativeImageX), 0, 1e-7);
+    }
+
     [Fact]
     public void PetzvalGaussianScanRetainsEveryRayConfirmedByTheNativePupilAudit()
     {

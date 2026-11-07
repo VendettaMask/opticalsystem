@@ -101,9 +101,12 @@ public partial class WorkbenchRuntime
     private void ApplySystemApertureValue(ApertureKind kind, double value)
     {
         CurrentOptic.Aperture.Kind = kind;
-        CurrentOptic.Aperture.Value = kind == ApertureKind.FloatByStopSize
-            ? CurrentOptic.SurfaceGroup.ApertureRadius()
-            : Math.Max(0.001, value);
+        CurrentOptic.Aperture.Value = kind switch
+        {
+            ApertureKind.FloatByStopSize => CurrentOptic.SurfaceGroup.ApertureRadius(),
+            ApertureKind.ObjectConeAngle => Math.Clamp(value, 0.001, 180),
+            _ => Math.Max(0.001, value)
+        };
     }
 
     private void ApplyFieldDefinitionValue(string fieldDefinitionName, bool objectSpaceTelecentric)

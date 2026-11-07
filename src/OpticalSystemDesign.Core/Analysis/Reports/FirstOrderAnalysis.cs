@@ -33,12 +33,14 @@ public sealed class FirstOrderAnalysis : BaseAnalysis
                 values["EntrancePupilDiameter"] = Optic.Aperture.Value;
             return new AnalysisData(Name, values, ReportText: reason);
         }
-        var power = Optic.Paraxial.EstimateOpticalPower();
+        var (effective, imageSpace, power) = Optic.Paraxial.EstimateFirstOrderFocalLengths();
         var zeroPower = power == 0;
+        var diameter = zeroPower ? 0 : Optic.Paraxial.EstimateEntrancePupilDiameter();
         return new AnalysisData(Name, new Dictionary<string, object>
         {
-            ["EffectiveFocalLength"] = zeroPower ? double.PositiveInfinity : Optic.Paraxial.EstimateEffectiveFocalLength(),
-            ["FNumber"] = zeroPower ? double.PositiveInfinity : Optic.Paraxial.EstimateFNumber(),
+            ["EffectiveFocalLength"] = effective,
+            ["ImageSpaceEffectiveFocalLength"] = imageSpace,
+            ["FNumber"] = zeroPower ? double.PositiveInfinity : diameter > 0 ? Math.Abs(effective) / diameter : 0,
             ["OpticalPowerInverseMillimeters"] = power,
             ["EffectiveFocalLengthStatus"] = zeroPower ? "Infinite" : "Finite",
             ["CardinalParametersApplicable"] = true,

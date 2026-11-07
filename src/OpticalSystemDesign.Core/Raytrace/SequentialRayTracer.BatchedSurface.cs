@@ -33,10 +33,15 @@ public sealed partial class SequentialRayTracer
         bool[]? hasFinalOpticalPath,
         bool allowReferenceBacktrack)
     {
-        if ((surfaceIndex == 0 && ObjectConjugate.IsInfinite(surface))
+        if (_optic.Aperture.Kind == ApertureKind.ObjectConeAngle
+            || (surfaceIndex == 0 && ObjectConjugate.IsInfinite(surface))
             || surface.MaterialAfter is GradientIndexMaterial
             || !request.UseBatchedBackend
             || surface.Geometry is not (PlaneGeometry or StandardGeometry)
+            // Reconstructing the hit from the distance would lose the local
+            // vertex sag again before evaluating the surface normal.
+            || surface.Geometry is StandardGeometry vertex
+                && StandardIntersectionValidation.RequiresPreciseVertexPoint(vertex.Radius, vertex.Conic)
             || surface.PhysicalAperture is not (null or CircularAperture)
             || surface.InteractionModel is not RefractiveReflectiveInteractionModel
             || surface.CoatingModel is not (NoneCoatingModel or SimpleCoatingModel)

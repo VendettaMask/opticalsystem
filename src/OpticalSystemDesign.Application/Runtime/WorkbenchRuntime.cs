@@ -131,6 +131,7 @@ public partial class WorkbenchRuntime
         "入瞳直径",
         "像方 F 数",
         "物方数值孔径",
+        "物方锥半角 (°)",
         "按光阑面尺寸浮动"
     };
 

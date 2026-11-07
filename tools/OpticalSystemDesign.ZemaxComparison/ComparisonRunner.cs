@@ -97,6 +97,7 @@ public sealed class ComparisonRunner
             ["expectedZemaxVersion"] = version,
             ["toolAssemblySha256"] = JsonFiles.Hash(EvidenceFiles.ReadAllBytes(Assembly.GetExecutingAssembly().Location)),
             ["settingsOrigin"] = "CapturedSettings",
+            ["normalizeNativeLength"] = options.NormalizeNativeLength,
             ["originalFileUnchanged"] = null
         };
         var git = await ProcessIsolation.Run("git", ["rev-parse", "HEAD"], Directory.GetCurrentDirectory(), 10, ct);
@@ -111,6 +112,8 @@ public sealed class ComparisonRunner
             if (configs.Any(n => n > imported.Configurations.Count)) throw new ArgumentException("Configuration index exceeds imported configuration count");
             var text = EvidenceFiles.ReadAllText(snapshotInput);
             var headers = text.Split('\n').Select(l => l.Trim()).Where(l => new[] { "VERS ", "MODE ", "UNIT ", "GCAT ", "RAIM ", "APOD ", "FTYP ", "AFCL " }.Any(prefix => l.StartsWith(prefix, StringComparison.Ordinal))).ToArray();
+            var lensUnit = headers.SingleOrDefault(h => h.StartsWith("UNIT ", StringComparison.Ordinal))
+                ?.Split(' ', StringSplitOptions.RemoveEmptyEntries)[1] ?? "UNKNOWN";
             manifest["zmxHeaderRecords"] = headers;
             manifest["zmxFileVersion"] = headers.FirstOrDefault(h => h.StartsWith("VERS ", StringComparison.Ordinal));
             manifest["configurationCount"] = imported.Configurations.Count;
@@ -207,6 +210,8 @@ public sealed class ComparisonRunner
                     var clock = Stopwatch.StartNew(); Console.WriteLine($"c{c} {entry.CanonicalAnalysisKey}");
                     try
                     {
+                        if (options.NormalizeNativeLength && NativeLengthUnitContract.IsSupported(lensUnit))
+                            request = NativeLengthUnitContract.Configure(request, lensUnit);
                         request = AfocalAnalysisContracts.Configure(request, optic.ImageSpaceAfocal, text);
                         request = ExtendedAnalysisContracts.Configure(entry, request, Math.Max(1, snapshot.Wavelengths.FindIndex(w => w.IsPrimary) + 1));
                         if (request.SourceImagePath is { } sourceImage)
@@ -244,8 +249,8 @@ public sealed class ComparisonRunner
                         if (wb.Cancelled) continue;
                         if (entry.ZemaxSettingsMapper == "unimplemented") { if (wb.ExitCode == 0) run.Conclusion = Conclusion.Incomparable; continue; }
                         if (zemax is null) { run.ZemaxStatus = CaptureStatus.Failed; run.Conclusion = Conclusion.Error; run.Reason = "ZOS-API setup failed; see probe log"; continue; }
-                        var lensUnit = headers.Single(h => h.StartsWith("UNIT ", StringComparison.Ordinal)).Split(' ', StringSplitOptions.RemoveEmptyEntries)[1];
-                        if (AfocalAnalysisContracts.BlockReason(lensUnit, optic.ImageSpaceAfocal, run.Key) is { } blockReason)
+                        if (AfocalAnalysisContracts.BlockReason(lensUnit, optic.ImageSpaceAfocal, run.Key,
+                                normalizeNativeLength: options.NormalizeNativeLength) is { } blockReason)
                         { run.Conclusion = Conclusion.Incomparable; run.Reason = blockReason; continue; }
                         var zDir = Path.Combine(output, "raw", "zemax", run.Directory);
                         var z = await zemax.Capture(snapshotInput, zDir, version, entry.ZemaxSettingsMapper, entry.ZemaxAnalysisType, request, c, options.Timeout, options.CaptureScreenshots, ct);
@@ -262,6 +267,7 @@ public sealed class ComparisonRunner
                                 else if (code is "AnalysisUnavailableForProgramMode" or "SequentialOnly" or "NonSequentialOnly") { run.Support = SupportStatus.NotApplicableToModel; run.Conclusion = Conclusion.Skipped; }
                                 else if (code is "NotYetImplemented" or "FeatureNotSupported") { run.Support = SupportStatus.UnsupportedByZosApi; run.Conclusion = Conclusion.Skipped; }
                                 else if (code == "UnsupportedFieldMapping") { run.Support = SupportStatus.NotApplicableToModel; run.Conclusion = Conclusion.Incomparable; }
+                                else if (code == "NativeInvalidResult" && wb.ExitCode == 0) run.Conclusion = Conclusion.Incomparable;
                                 else run.Support = SupportStatus.Failed;
                                 run.Reason = code + ": " + error.GetProperty("error").GetString();
                             }

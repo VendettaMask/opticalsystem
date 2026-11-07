@@ -1,0 +1,188 @@
+[
+  {
+    "label": "32-vs-product-32",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 36,
+        "maxAbsolute": 1.734723475976807E-17,
+        "meanAbsolute": 3.2134547723389812E-18,
+        "rmse": 5.793919782825444E-18,
+        "nrmse": 4.277524149659443E-16,
+        "maxRelative": 2.7782657780328705E-15,
+        "p50": 9.75781955236954E-19,
+        "p90": 9.540979117872439E-18,
+        "p95": 1.6479873021779667E-17,
+        "pearson": 1,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    ],
+    "axesMatch": true,
+    "leftCount": 32,
+    "rightCount": 32,
+    "leftPeak": 0.013545031144445389,
+    "rightPeak": 0.01354503114444539,
+    "roundingMatches": 32
+  },
+  {
+    "label": "1024-vs-product-1024",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 36,
+        "maxAbsolute": 7.99714637502065E-15,
+        "meanAbsolute": 1.3422378856274733E-15,
+        "rmse": 2.50509548809849E-15,
+        "nrmse": 1.5263204949934935E-10,
+        "maxRelative": 1.892384914224428E-09,
+        "p50": 6.311822178165069E-16,
+        "p90": 3.891891293627777E-15,
+        "p95": 6.7873008408536E-15,
+        "pearson": 1.0000000000000009,
+        "worstX": 0.25,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    ],
+    "axesMatch": true,
+    "leftCount": 32,
+    "rightCount": 32,
+    "leftPeak": 1.6412643978217487E-05,
+    "rightPeak": 1.641264397821749E-05,
+    "roundingMatches": 32
+  },
+  {
+    "label": "1024-vs-native-1024",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 36,
+        "maxAbsolute": 4.5871892076508883E-07,
+        "meanAbsolute": 2.9144549118179914E-07,
+        "rmse": 3.2689582074088963E-07,
+        "nrmse": 0.020430988796305602,
+        "maxRelative": "Infinity",
+        "p50": 2.903992127042763E-07,
+        "p90": 4.520815793692243E-07,
+        "p95": 4.537409147181906E-07,
+        "pearson": 0.9973502972053455,
+        "worstX": 0.5,
+        "worstY": null,
+        "coverage": 0.96875,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    ],
+    "axesMatch": true,
+    "leftCount": 32,
+    "rightCount": 33,
+    "leftPeak": 1.6412643978217487E-05,
+    "rightPeak": 1.6E-05,
+    "roundingMatches": 32
+  },
+  {
+    "label": "2048-vs-native-2048",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 36,
+        "maxAbsolute": 4.777891049458339E-07,
+        "meanAbsolute": 2.467316325733589E-07,
+        "rmse": 2.8629010367290913E-07,
+        "nrmse": 0.02862901036729091,
+        "maxRelative": "Infinity",
+        "p50": 2.6370183028398297E-07,
+        "p90": 4.434804551773258E-07,
+        "p95": 4.645073608701581E-07,
+        "pearson": 0.9774172328849167,
+        "worstX": -3.75,
+        "worstY": null,
+        "coverage": 0.96875,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    ],
+    "axesMatch": true,
+    "leftCount": 32,
+    "rightCount": 33,
+    "leftPeak": 4.842079499249516E-06,
+    "rightPeak": 5E-06,
+    "roundingMatches": 32
+  },
+  {
+    "label": "4096-vs-native-4096",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 36,
+        "maxAbsolute": 3.14406263966183E-07,
+        "meanAbsolute": 1.3435931040358815E-07,
+        "rmse": 1.6742238042023107E-07,
+        "nrmse": 0.016742238042023107,
+        "maxRelative": "Infinity",
+        "p50": 8.726832565897267E-08,
+        "p90": 2.8284002457075345E-07,
+        "p95": 2.9327831207775403E-07,
+        "pearson": 0.9259970711414838,
+        "worstX": -0.75,
+        "worstY": null,
+        "coverage": 0.96875,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    ],
+    "axesMatch": true,
+    "leftCount": 32,
+    "rightCount": 33,
+    "leftPeak": 1.279444387693229E-06,
+    "rightPeak": 1E-06,
+    "roundingMatches": 32
+  },
+  {
+    "label": "2048-vs-4096",
+    "conclusion": "Pass",
+    "metrics": [
+      {
+        "id": "curve:0",
+        "unit": "Dimensionless",
+        "count": 32,
+        "maxAbsolute": 3.5626351115562868E-06,
+        "meanAbsolute": 8.164841692639864E-07,
+        "rmse": 1.2174155462889672E-06,
+        "nrmse": 0.12174155462889671,
+        "maxRelative": 29.214296846224055,
+        "p50": 4.769550724767373E-07,
+        "p90": 1.8532985038641026E-06,
+        "p95": 3.0533917099243397E-06,
+        "pearson": 0.992279198101964,
+        "worstX": 0,
+        "worstY": null,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      }
+    ],
+    "axesMatch": true,
+    "leftCount": 32,
+    "rightCount": 32,
+    "leftPeak": 4.842079499249516E-06,
+    "rightPeak": 1.279444387693229E-06,
+    "roundingMatches": 17
+  }
+]

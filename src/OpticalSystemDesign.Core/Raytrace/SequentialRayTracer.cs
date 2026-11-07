@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.Coatings;
@@ -229,14 +230,17 @@ public sealed partial class SequentialRayTracer
         bool ignoreMaterialAbsorption = false,
         RealRay? sourceRay = null,
         bool geometryOnly = false,
-        ParaxialPhaseTrace? phaseTrace = null)
+        ParaxialPhaseTrace? phaseTrace = null,
+        FloatingConicEdge? floatingConicEdge = null)
     {
-        if (surfaceIndex == 0 && ObjectConjugate.IsInfinite(surface))
+        var objectCone = _optic.Aperture.Kind == ApertureKind.ObjectConeAngle;
+        if (surfaceIndex == 0 && (ObjectConjugate.IsInfinite(surface)
+            || objectCone && Math.Abs(surface.CoordinateSystem.ToLocalPoint(ray.Origin).Z) <= 1e-12))
         {
             if (surface.MaterialAfter is GradientIndexMaterial)
                 throw new NotSupportedException("无限远物方的 GRIN 体坐标和传播边界尚未定义。");
-            // An infinite object has no finite intercept plane. Keep the launch
-            // point; advancing to its placeholder Z can jump past a concave face.
+            // Keep the launch point for infinite objects and cone rays emitted
+            // on the object plane, including rays tangent to that plane.
             return new SurfaceRayTraceStateResult(
                 ray,
                 new RayTraceSampleValue(surface.Number, surface.Label, ray.Origin,
@@ -256,6 +260,8 @@ public sealed partial class SequentialRayTracer
         return surface.TraceRayState(ray, materialBefore, surface.MaterialAfter,
             cumulativePathLength, cumulativeOpticalPathLength, ignorePhysicalAperture, stopBeforeInteraction, bypassCoating,
             allowVirtualIntersection: allowVirtualIntersection, ignoreMaterialAbsorption: ignoreMaterialAbsorption,
+            useObjectConeIntersection: objectCone,
+            floatingConicEdge: ignorePhysicalAperture ? null : floatingConicEdge ?? ResolveFloatingConicEdge(surface, surfaceIndex),
             surfacePhaseOpticalPath: surface.InteractionModel is not ParaxialLensInteractionModel ? null
                 : geometryOnly ? static (_, _) => 0
                 : sourceRay is null ? null

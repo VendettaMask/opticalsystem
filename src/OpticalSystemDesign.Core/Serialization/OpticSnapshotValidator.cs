@@ -270,12 +270,14 @@ public static class OpticSnapshotValidator
             return;
         }
 
-        if (!Enum.TryParse<ApertureKind>(aperture.Kind, ignoreCase: false, out _))
+        if (!Enum.TryParse<ApertureKind>(aperture.Kind, ignoreCase: false, out var kind))
         {
             Invalid("$.aperture.kind", $"'{aperture.Kind}' is not a supported aperture kind");
         }
 
         RequireFinitePositive(aperture.Value, "$.aperture.value");
+        if (kind == ApertureKind.ObjectConeAngle && aperture.Value > 180)
+            Invalid("$.aperture.value", "object cone half-angle must not exceed 180 degrees");
     }
 
     private static void ValidateGlassCatalogs(IReadOnlyList<string>? catalogs)
