@@ -15,12 +15,8 @@ See the [implementation report](../../../../docs/INITIAL_STRUCTURE_DSEARCH_R2_20
 
 All 32 retained evaluations exactly match fresh Core calculations. Scaled regularization lowers final merit relative to dogleg in all eight cases, but three retained candidates still fail. The 62 mm `----` case has a physically accepted intermediate point and an unaccepted final point; incumbent retention is essential. These are independent mechanism checks, not additional passing tests or a complete search protocol. No wall-time speed claim is made.
 
-The standalone probe adds no package or optical formulas. It uses the existing test friend-assembly identity and current default Release test assemblies; `-p:AuditBinaries=/absolute/path` can select a retained binary directory. From the repository root:
+The standalone probe added no package or optical formulas. Its source and recorded results remain, but the old local test assemblies, frozen v9/v10 binaries and bulk restart checkpoints were retired on 2026-11-08. Its former default command is no longer a maintained replay entry point. See the [retirement ledger](../../../../validation/rechecks/2026-11-08/legacy-task-retirement/summary.json).
 
-```sh
-dotnet run --project labs/InitialStructure/benchmarks/dsearch-r2-20260926/probe/Probe.csproj -c Release -- labs/InitialStructure/benchmarks/dsearch-r1-20260926/inputs.json artifacts/validation/new-r2-ablation.json
-```
-
-`history/History.csproj` captures a real v9 checkpoint using frozen v9 assemblies, then verifies its independent continuation using v10. `history-capture.json` and `history-upgrade.json` preserve source/binary hashes, exact budget charges and export/reload status. The source checkpoint remains untouched. Raw checkpoints and TRX files live under `artifacts/validation/dsearch-r2-20260926`.
+`history/History.csproj` describes the original v9 capture and independent v10 continuation. `history-capture.json` and `history-upgrade.json` preserve source/binary hashes, exact budget charges and export/reload status. The small history-comparison records, original incomplete 43/60 summary, selected exports and TRX files remain under `artifacts/validation/dsearch-r2-20260926`; the retired bulk checkpoint directories no longer provide a full execution environment.
 
 `interrupted.json` records the incomplete 43/60 protocol and its raw summary hash; `source-freeze.json` preserves the v10 source identity. `archive_results.py` and `verify_evidence.py` were prepared for a complete v10 60+15 archive, which was never produced. They are not evidence of a passing full protocol and their frozen-source checks do not apply to the current v11 tree.

@@ -16,7 +16,7 @@
 | Mystic | 0.2658934 | 0.2659274 | 0.0118027 | 无 |
 | Cayman | 0.0549350 | 0.0549327 | 0.0139164 | 无 |
 
-[全精度原文件身份](../validation/rechecks/2026-11-01/xyz-angular/full-precision/sources.json)、[全精度结果](../validation/rechecks/2026-11-01/xyz-angular/final-precision/)、[正式原模型复算](../validation/rechecks/2026-11-01/xyz-angular/final-calibration/summary.json)。MAT诊断沿用显式标记的来源SHA占位符，只作精度排查，不正式导出。正式配对CSV/SHA拟合仍只有上一阶段的Garnet Red和Krylon Blue两例通过，其校准内容未改变。
+[全精度原文件身份](../validation/rechecks/2026-11-01/xyz-angular/full-precision/sources.json)、[全精度结果](../validation/rechecks/2026-11-01/xyz-angular/final-mat/)、[正式原模型复算](../validation/rechecks/2026-11-01/xyz-angular/final-calibration/summary.json)。MAT诊断沿用显式标记的来源SHA占位符，只作精度排查，不正式导出。正式配对CSV/SHA拟合仍只有上一阶段的Garnet Red和Krylon Blue两例通过，其校准内容未改变。
 
 独立诊断比较固定近邻数量/幂次、正值重心插值、局部径向基、对数/平方根响应、绝对XYZ强度，以及明确加入角度条件的不同模型。剩余三种没有非负、有限且同时通过原门槛的候选。Cayman某有符号候选NRMSE虽约0.011996，仍超限且53项负预测，不裁剪为零。溢出、奇异和失败也保留；严格JSON汇总将非有限值编码为失败字符串，未丢弃原实验输出。[探索清单与失败分类](../validation/rechecks/2026-11-01/xyz-angular/exploration-finite.json)
 

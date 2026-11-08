@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-08",
+  "timezone": "Asia/Shanghai",
+  "decision": "User requested deletion of verified redundant files and retirement of obsolete large task outputs under the current product direction.",
+  "currentDirection": "Managed AutoLens plus native retrieval/topology/SPC; optical Core and acceptance gates unchanged.",
+  "deletedFiles": 6010,
+  "allocatedBytesRemoved": 9841786880,
+  "phases": [
+    {
+      "phase": "confirmed",
+      "deletedFiles": 2911,
+      "allocatedBytesRemoved": 793440256,
+      "categories": {
+        "verified_archive_extraction_duplicate": {
+          "files": 1690,
+          "allocated_bytes": 35012608
+        },
+        "rebuildable_preview_output": {
+          "files": 1220,
+          "allocated_bytes": 687792128
+        },
+        "verified_extracted_tool_download": {
+          "files": 1,
+          "allocated_bytes": 70635520
+        }
+      },
+      "trackedFilesUnchangedBeforeDocumentationEdits": 31746,
+      "unexpectedMissingFiles": 0,
+      "unexpectedChangedFiles": 0,
+      "activeProcesses": [],
+      "openWorkspaceFiles": []
+    },
+    {
+      "phase": "legacy",
+      "deletedFiles": 3039,
+      "allocatedBytesRemoved": 8939950080,
+      "categories": {
+        "retired_legacy_or_preview_compiled_dependency": {
+          "files": 2655,
+          "allocated_bytes": 5807673344
+        },
+        "retired_old_search_execution_environment": {
+          "files": 100,
+          "allocated_bytes": 61566976
+        },
+        "retired_s4_dsearch_bulk_restart_checkpoint": {
+          "files": 268,
+          "allocated_bytes": 2739228672
+        },
+        "retired_old_search_family_restart": {
+          "files": 16,
+          "allocated_bytes": 331481088
+        }
+      },
+      "trackedFilesUnchangedBeforeDocumentationEdits": 31746,
+      "unexpectedMissingFiles": 0,
+      "unexpectedChangedFiles": 0,
+      "activeProcesses": [],
+      "openWorkspaceFiles": []
+    },
+    {
+      "phase": "legacy-records",
+      "deletedFiles": 60,
+      "allocatedBytesRemoved": 108396544,
+      "categories": {
+        "retired_hybrid_v3_full_candidate_history": {
+          "files": 60,
+          "allocated_bytes": 108396544
+        }
+      },
+      "trackedFilesUnchangedBeforeDocumentationEdits": 31746,
+      "unexpectedMissingFiles": 0,
+      "unexpectedChangedFiles": 0,
+      "activeProcesses": [],
+      "openWorkspaceFiles": []
+    }
+  ],
+  "directories": [
+    {
+      "path": "artifacts/validation/initial-structure-s4-20260925",
+      "beforeAllocatedBytes": 888991744,
+      "afterAllocatedBytes": 13303808
+    },
+    {
+      "path": "artifacts/validation/initial-structure-s4-v7-20260926",
+      "beforeAllocatedBytes": 777162752,
+      "afterAllocatedBytes": 6225920
+    },
+    {
+      "path": "artifacts/validation/initial-structure-s4-v8-20260926",
+      "beforeAllocatedBytes": 677498880,
+      "afterAllocatedBytes": 6254592
+    },
+    {
+      "path": "artifacts/validation/dsearch-r2-20260926",
+      "beforeAllocatedBytes": 563073024,
+      "afterAllocatedBytes": 3878912
+    },
+    {
+      "path": "artifacts/validation/stage-recovery-20260927",
+      "beforeAllocatedBytes": 176480256,
+      "afterAllocatedBytes": 4509696
+    },
+    {
+      "path": "artifacts/validation/field-continuation-20260927",
+      "beforeAllocatedBytes": 255549440,
+      "afterAllocatedBytes": 63909888
+    },
+    {
+      "path": "artifacts/previews",
+      "beforeAllocatedBytes": 731496448,
+      "afterAllocatedBytes": 43704320
+    }
+  ],
+  "duplicateExtractionChecks": [
+    {
+      "archive": "third_party/coating-reference/TFStudio-8b942b3.tar.gz",
+      "archive_sha256": "055391199312d1ce1a3d30e5640aad1375b58b77ec88f2c3b55cda56d721cbe6",
+      "extracted": ".tmp/coating-upstream",
+      "files_verified": 1679,
+      "extra_files": 0
+    },
+    {
+      "archive": "third_party/coating-reference/tmmcore-0.4.2.tgz",
+      "archive_sha256": "fc16f4a16149c971178b6a354ecf094dc0511a2bdfa0630c977178c29b262f44",
+      "extracted": ".tmp/coating-upstream/tmmcore",
+      "files_verified": 11,
+      "extra_files": 0
+    },
+    {
+      "archive": "artifacts/tools/powershell/download.tar.gz",
+      "archive_sha256": "c16a3f433966c6fd5a9c8a660a95c92cb5dbc4b1813416501d1ba30ca160da32",
+      "extracted": "artifacts/tools/powershell/runtime",
+      "files_verified": 578,
+      "extra_files": 0
+    }
+  ],
+  "historicalSummaryChecks": [
+    {
+      "raw_summary": "artifacts/validation/initial-structure-s4-20260925/holdout/summary.json",
+      "raw_sha256": "0bdd39ec81ce067ca0c6c29071c4b3f6ee1de62d6dac448988a79d499a21985b",
+      "committed_summary": "labs/InitialStructure/benchmarks/s2-s4-20260926/v6-holdout.json",
+      "committed_sha256": "3b96fa2833611edd81225f8a7a81d38bfac678aab6176812eae3bff44538f19c",
+      "completed": 15,
+      "expected": 15,
+      "all_original_fields_match_except_declared_residual_arrays": true
+    },
+    {
+      "raw_summary": "artifacts/validation/initial-structure-s4-20260925/legacy/summary.json",
+      "raw_sha256": "0220a7c0b45d70699b60a4dd17d02cb83ce2a16543d198b4ca99ca9face7daef",
+      "committed_summary": "labs/InitialStructure/benchmarks/s2-s4-20260926/v6-legacy.json",
+      "committed_sha256": "97ba2cfad852558326701b87a73ba742da36d0c6d7132d8b7df364acdbd0687d",
+      "completed": 60,
+      "expected": 60,
+      "all_original_fields_match_except_declared_residual_arrays": true
+    },
+    {
+      "raw_summary": "artifacts/validation/initial-structure-s4-20260925/original/summary.json",
+      "raw_sha256": "8677e1da9fb882fe63587f21730d3050460ccbdd1d4d045c19338ad8b785d1b7",
+      "committed_summary": "labs/InitialStructure/benchmarks/s2-s4-20260926/v6-original.json",
+      "committed_sha256": "7ba40358d8ea643356aad0de917e609cc65db6f1480a5b91b6b82e50282cfb61",
+      "completed": 60,
+      "expected": 60,
+      "all_original_fields_match_except_declared_residual_arrays": true
+    },
+    {
+      "raw_summary": "artifacts/validation/initial-structure-s4-v7-20260926/holdout/summary.json",
+      "raw_sha256": "121b5d29aabe207cdf48559c7ba396b5066a1553f5e81558bbd857a595404d7c",
+      "committed_summary": "labs/InitialStructure/benchmarks/s2-s4-20260926/v7-holdout.json",
+      "committed_sha256": "26aa0111ff7bd2a565a42d9798d6bf22366dcc7e7c0fdff7d391d7ff6a41a44a",
+      "completed": 15,
+      "expected": 15,
+      "all_original_fields_match_except_declared_residual_arrays": true
+    },
+    {
+      "raw_summary": "artifacts/validation/initial-structure-s4-v7-20260926/original/summary.json",
+      "raw_sha256": "c613baf63cbcf76f6cb19f11dbe5be744e46cc378462ffcd08ec023540863598",
+      "committed_summary": "labs/InitialStructure/benchmarks/s2-s4-20260926/v7-original.json",
+      "committed_sha256": "15b775929a47ce4e2c245e92342e2ea0a35e7dcb3ace2fdb77ba99d22513fa9f",
+      "completed": 60,
+      "expected": 60,
+      "all_original_fields_match_except_declared_residual_arrays": true
+    },
+    {
+      "raw_summary": "artifacts/validation/initial-structure-s4-v8-20260926/holdout/summary.json",
+      "raw_sha256": "376962f5285f1a9c5c34e690e208e5c633e282b363435649e3ce325f69829fe2",
+      "committed_summary": "labs/InitialStructure/benchmarks/dsearch-v8-20260926/holdout.json",
+      "committed_sha256": "a7cee0e1cd8ec5dc224f731658060b9373df0512a432aa415421ed9142abc96c",
+      "completed": 15,
+      "expected": 15,
+      "all_original_fields_match_except_declared_residual_arrays": true
+    },
+    {
+      "raw_summary": "artifacts/validation/initial-structure-s4-v8-20260926/original/summary.json",
+      "raw_sha256": "a69de705a232e713b571444665e0630276bd5e5d20d5bf5b7f749e2cf0ecb233",
+      "committed_summary": "labs/InitialStructure/benchmarks/dsearch-v8-20260926/original.json",
+      "committed_sha256": "e671d7430b87b84f4ba921433508a2464ec8dcf55409334a7373578b8388ee87",
+      "completed": 60,
+      "expected": 60,
+      "all_original_fields_match_except_declared_residual_arrays": true
+    },
+    {
+      "raw_summary": "artifacts/validation/dsearch-r2-20260926/original/summary.json",
+      "raw_sha256": "c750b5bd7a2cf7c4006b8bcc80ba1ce16239bc8e677c02716f1ba04a21738623",
+      "completed": 43,
+      "expected": 60,
+      "disposition": "Keep the original incomplete 43/60 run record and all exported results; do not promote it to a completed gate."
+    }
+  ],
+  "preserved": [
+    "All original tracked source, current regression inputs, numerical reference corpora and theme/reference images.",
+    "Original per-seed summaries, selected prescriptions and STAROPT exports, small source/hash manifests, useful failure and incomplete-run records.",
+    "Historical diagnostic source programs, with README defaults explicitly retired instead of claiming obsolete full replay is still available.",
+    "PowerShell runtime and authoritative upstream source archives/licenses."
+  ],
+  "retiredCapabilities": [
+    "Local full replay/resumption of the removed September bulk S4/DSearch/hybrid task checkpoints.",
+    "Local execution of retired legacy and old preview binaries without rebuilding or supplying an external historical environment."
+  ],
+  "productCompatibility": "No product changes to reading, viewing or exporting user-saved historical records.",
+  "validationScope": "File hashes, archive-entry comparison, consumer-path audit and documentation/storage verification only; no optical recomputation, full test suite, application launch or foreground interaction.",
+  "deletionLedger": {
+    "path": "deleted-files.json",
+    "sha256": "671ac66dbc8e536cb935dd307d7ab1cda7099265f4cad0c7c47640973499d52e"
+  },
+  "verification": {
+    "ledger": "checks.json",
+    "frozenReferencesMatched": 2668,
+    "originalTrackedFilesUnchangedPerDeletionPhase": 31746,
+    "documentationStrictPassed": true,
+    "knownPreexistingLfsPointers": 9,
+    "knownPreexistingLfsPayloadBytes": 199809581,
+    "allLfsPointersSameAsBeforeAndHead": true,
+    "productCodeChanged": false
+  }
+}

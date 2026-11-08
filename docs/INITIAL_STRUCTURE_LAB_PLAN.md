@@ -1,6 +1,6 @@
 # 初始结构内置模块：范围与后续计划
 
-核对：2026-11-02。本页描述当前产品边界；具体操作见[模块指南](../labs/InitialStructure/README.md)，阶段工作见[搜索实施计划](INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md)。早期平板生成和上游对齐报告保留原身份，不能作为现在尚未实现的功能清单。
+产品能力核对：2026-11-02；历史任务存储范围更新：2026-11-08。本页描述当前产品边界；具体操作见[模块指南](../labs/InitialStructure/README.md)，阶段工作见[搜索实施计划](INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md)。早期平板生成和上游对齐报告保留原身份，不能作为现在尚未实现的功能清单。
 
 ## 当前入口与能力
 
@@ -36,4 +36,6 @@
 
 ## 历史方法与验收
 
-[平板生成提案](INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL.md)及 [P5 困难规格](INITIAL_STRUCTURE_P5_2026-09-07.md)仍被原试验消费，保留当时目标、失败和来源；[自主拓扑首版计划](AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)记录 M0–M6 及后续实施沿革，不再替代上面的当前能力表。旧原生/混合记录按原协议查看和导出，不自动转换为当前可续跑状态。外部数值依据遵循仓库声明的 Zemax 捕获版本、输入和设置；Optiland 仅为现存历史辅助数据，不新增对照。
+[平板生成提案](INITIAL_STRUCTURE_FROM_FLAT_PROPOSAL.md)及 [P5 困难规格](INITIAL_STRUCTURE_P5_2026-09-07.md)保留当时目标、失败和来源。其中仍被当前回归读取的规格、固定输入和数值结果继续保留；[自主拓扑首版计划](AUTONOMOUS_TOPOLOGY_V1_IMPLEMENTATION_PLAN.md)记录 M0–M6 及后续实施沿革，不再替代上面的当前能力表。旧原生/混合记录按原协议查看和导出，不自动转换为当前可续跑状态。外部数值依据遵循仓库声明的 Zemax 捕获版本、输入和设置；Optiland 仅为现存历史辅助数据，不新增对照。
+
+按用户 2026-11-08 的退役决定，9 月 S4/DSearch 的批量检查点、旧 hybrid 全候选历史及本地旧执行/预览依赖已删除。保留原始逐种子汇总、导出处方、来源哈希、失败与中断记录；DSearch-R2 仍如实标为 43/60 中断。历史回放程序保留源码，但依赖已退役的默认路径不再是可执行维护入口；不再要求恢复整批旧运行环境。当前托管训练、自主检索/拓扑/SPC 的实现、检查点和验收标准均未改变。清理边界和校验见[退役账目](../validation/rechecks/2026-11-08/legacy-task-retirement/summary.json)。

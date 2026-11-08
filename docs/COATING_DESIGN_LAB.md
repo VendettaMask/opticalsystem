@@ -64,7 +64,7 @@
 - `components/windows/design/designEditor/`：真实层操作、剪贴板、厚度单元格、拖动及键盘处理。借鉴操作范围，使用 Avalonia 重建必要界面。
 - `utils/materials/riiDatabase/formulas.js`：实际支持 1–5 公式，6–9 明确拒绝；不据上游介绍推断全公式支持。膜材料采用独立固定来源的 CC0 数据，仍由正式 Core 插值。
 
-完整源归档与许可证保存在 `third_party/coating-reference`，展开目录在 `.tmp/coating-upstream`。它们不属于产品运行依赖。Node 仅用于离线生成固定上游数值参考，不引入 Electron、WASM 或 Python 产品计算。
+完整源归档与许可证保存在 `third_party/coating-reference`。2026-11-08 已逐文件核对并删除 `.tmp/coating-upstream` 的重复解压副本，需要审阅时可从保留归档临时解压。它们不属于产品运行依赖。Node 仅用于离线生成固定上游数值参考，不引入 Electron、WASM 或 Python 产品计算。
 
 ## 计算契约
 

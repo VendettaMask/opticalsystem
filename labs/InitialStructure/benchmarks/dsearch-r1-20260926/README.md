@@ -10,11 +10,6 @@ The original target-hinge audit had 4/8 derivative failures; it differs in both 
 
 The same executable imports the real frozen v8 `03-50mm-monochrome/101` checkpoint through its checksum-verifying store, creates a separate v9 run, spends its 120-evaluation budget, verifies current objective metadata and checks that the source file hash remains unchanged.
 
-Both small console projects stay outside the product and laboratory solutions, use the existing test friend-assembly identity, and add no package or runtime optical implementation. Default reference paths expect retained v8 binaries and the current Release test output. Override either with `-p:AuditBinaries=/absolute/path` if needed. From the repository root:
-
-```sh
-dotnet run --project labs/InitialStructure/benchmarks/dsearch-r1-20260926/capture-v8/Capture.csproj -c Release -- labs/InitialStructure/benchmarks/dsearch-route-audit-20260926/residual-ablation.json labs/InitialStructure/benchmarks/dsearch-r1-20260926/inputs.json
-dotnet run --project labs/InitialStructure/benchmarks/dsearch-r1-20260926/replay-v9/Replay.csproj -c Release -- labs/InitialStructure/benchmarks/dsearch-r1-20260926/inputs.json artifacts/validation/initial-structure-s4-v8-20260926/original/03-50mm-monochrome/101/checkpoint.json labs/InitialStructure/benchmarks/dsearch-r1-20260926/results.json
-```
+Both small console projects stay outside the product and laboratory solutions, use the historical test friend-assembly identity, and add no runtime optical implementation. They now remain source records only: the local v8 binaries, Release test binaries and bulk checkpoint used by their former default commands were retired on 2026-11-08. The original input/result snapshots and failure observations above remain unchanged. This directory no longer advertises an executable default recapture/replay command; see the [retirement ledger](../../../../validation/rechecks/2026-11-08/legacy-task-retirement/summary.json) and [current product scope](../../../../docs/INITIAL_STRUCTURE_LAB_PLAN.md).
 
 TRX files live under `artifacts/validation/dsearch-r1-20260926`. Final full laboratory tests pass **183/183**; the final objective subset passes **4/4** and is included in that total. Both default laboratory Debug/Release builds have zero warnings/errors. `verification.json` records final source/binary hashes and test evidence. Formal Core is unchanged; its frozen assembly identity is included in the result. The v8 acceptance evidence and prior audit are preserved separately.

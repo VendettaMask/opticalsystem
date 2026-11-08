@@ -1,0 +1,154 @@
+{
+  "date": "2026-11-08",
+  "sourceChanges": {
+    "modifiedTrackedFiles": [
+      "AGENTS.md",
+      "docs/COATING_DESIGN_LAB.md",
+      "docs/CURRENT_STATUS.md",
+      "docs/INITIAL_STRUCTURE_LAB_PLAN.md",
+      "docs/INITIAL_STRUCTURE_S2_S4_2026-09-23.md",
+      "docs/XYZ_MEASURED_ANGULAR_2026-11-01.md",
+      "labs/InitialStructure/benchmarks/README.md",
+      "labs/InitialStructure/benchmarks/dsearch-r1-20260926/README.md",
+      "labs/InitialStructure/benchmarks/dsearch-r2-20260926/README.md",
+      "labs/InitialStructure/benchmarks/dsearch-v8-20260926/README.md",
+      "labs/InitialStructure/benchmarks/s2-s4-20260926/README.md"
+    ],
+    "productCodeChanged": false,
+    "originalTrackedFileHashesVerifiedPerDeletionPhase": 31746
+  },
+  "frozenReferences": {
+    "count": 2668,
+    "matched": 2668,
+    "unchanged": true,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10"
+  },
+  "evidenceAliases": {
+    "groups": 2702,
+    "matched": 2693,
+    "mismatches": [
+      {
+        "path": "validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/new-real-nbf-green.coating.json",
+        "expectedSha256": "0e6bea0e2a5eb71aae112aab6b88c9e4d7f3bae52bdd3de170379fc2ba2850f6",
+        "expectedBytes": 10830316,
+        "actualSha256": "0a56731c525c941d7a8b55a3b8472ba7c6e8089ed0ccef3a7ac3a3e750d780e2",
+        "actualBytes": 133,
+        "gitLfsPointer": true,
+        "sameAsBeforeCleanup": true,
+        "headBlobSha256": "0a56731c525c941d7a8b55a3b8472ba7c6e8089ed0ccef3a7ac3a3e750d780e2",
+        "sameAsHead": true
+      },
+      {
+        "path": "validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/si-ti-real-nbf2-96.coating.json",
+        "expectedSha256": "1c34336615d63a1c862e62a6f2d2a5ad0777b1054b74bbd5b3dc775fa784e253",
+        "expectedBytes": 11299768,
+        "actualSha256": "18c943f5b97957837de0c17bbeb4838b637d183b4966a900b264979a0e94e50d",
+        "actualBytes": 133,
+        "gitLfsPointer": true,
+        "sameAsBeforeCleanup": true,
+        "headBlobSha256": "18c943f5b97957837de0c17bbeb4838b637d183b4966a900b264979a0e94e50d",
+        "sameAsHead": true
+      },
+      {
+        "path": "validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/hf-ti-new-real-nbf-green.coating.json",
+        "expectedSha256": "48c84fad42c184008361ae4ad97b270e07b7e52561c96d32b982a935a1ab48f4",
+        "expectedBytes": 13998145,
+        "actualSha256": "056b047658b048d0311772e5e3eee486665bcf3d01ce1092c8ec0970852f5bb4",
+        "actualBytes": 133,
+        "gitLfsPointer": true,
+        "sameAsBeforeCleanup": true,
+        "headBlobSha256": "056b047658b048d0311772e5e3eee486665bcf3d01ce1092c8ec0970852f5bb4",
+        "sameAsHead": true
+      },
+      {
+        "path": "validation/rechecks/2026-11-01/coating-topology-feedback/paired-final.json",
+        "expectedSha256": "4c3e6bf100ee309fa9b27ebd0396ed0ad47eadbc8b47b9b95b17291975b412fb",
+        "expectedBytes": 38459205,
+        "actualSha256": "36198287c6cb63f77f3df9e1dbfe6560ade9b3d469582995b089e2fe551171c7",
+        "actualBytes": 133,
+        "gitLfsPointer": true,
+        "sameAsBeforeCleanup": true,
+        "headBlobSha256": "36198287c6cb63f77f3df9e1dbfe6560ade9b3d469582995b089e2fe551171c7",
+        "sameAsHead": true
+      },
+      {
+        "path": "validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/correction-real-nbf-red.coating.json",
+        "expectedSha256": "78b59720cbc8a86b1cba6c8a1aca70088d46223871997f5714db821c0eb48de3",
+        "expectedBytes": 12131230,
+        "actualSha256": "640752108c3c113612acc6c192b6cce8f238eef9bea096fe91cb04ec515ef695",
+        "actualBytes": 133,
+        "gitLfsPointer": true,
+        "sameAsBeforeCleanup": true,
+        "headBlobSha256": "640752108c3c113612acc6c192b6cce8f238eef9bea096fe91cb04ec515ef695",
+        "sameAsHead": true
+      },
+      {
+        "path": "validation/rechecks/2026-11-01/coating-phase-order/reference-inputs.json",
+        "expectedSha256": "7e948003a3e160df9f871704fe536567e5ff4797fa55075007021b4a2d9e4d2d",
+        "expectedBytes": 15728005,
+        "actualSha256": "ffd0385b21f04321cbf2fc93ba177c63f6cdbf128b68394af74007514c9d6805",
+        "actualBytes": 133,
+        "gitLfsPointer": true,
+        "sameAsBeforeCleanup": true,
+        "headBlobSha256": "ffd0385b21f04321cbf2fc93ba177c63f6cdbf128b68394af74007514c9d6805",
+        "sameAsHead": true
+      },
+      {
+        "path": "validation/rechecks/2026-11-01/coating-feedback-resampled/fine-inputs/new550.coating.json",
+        "expectedSha256": "96fbcb148cf8c442b63dadf0dcec4da9704ae404e6721b230a6c8004f2c1bdcb",
+        "expectedBytes": 12203813,
+        "actualSha256": "c3f87b258c2ffaedfe2e3ff3729c6d0dc6f5384afd5ed5e3f67219267f0ae672",
+        "actualBytes": 133,
+        "gitLfsPointer": true,
+        "sameAsBeforeCleanup": true,
+        "headBlobSha256": "c3f87b258c2ffaedfe2e3ff3729c6d0dc6f5384afd5ed5e3f67219267f0ae672",
+        "sameAsHead": true
+      },
+      {
+        "path": "validation/rechecks/2026-11-01/coating-feedback-resampled/formal-final-all/si-nb-new-real-nbf-green.coating.json",
+        "expectedSha256": "a3dc24d3df4b09ae75dd95f270c5034ee55cb2217709961092ae6fd7dab2f594",
+        "expectedBytes": 13639355,
+        "actualSha256": "b9fe01a6138e8577884f3ad2986667d9a5f4870d7def0e449f2268824c4b42a1",
+        "actualBytes": 133,
+        "gitLfsPointer": true,
+        "sameAsBeforeCleanup": true,
+        "headBlobSha256": "b9fe01a6138e8577884f3ad2986667d9a5f4870d7def0e449f2268824c4b42a1",
+        "sameAsHead": true
+      },
+      {
+        "path": "validation/rechecks/2026-11-01/initial-product-m36/runtimes/final-ui/OpticalSystemDesign.App.dll",
+        "expectedSha256": "effefda92a873054bd121a45afeb1724a5bdf3e9f310829b737c9b25cfd86005",
+        "expectedBytes": 71519744,
+        "actualSha256": "48b9cde9220d95e86f140d23431bbb805de25c64b76a92aa7acd53cba50da46c",
+        "actualBytes": 133,
+        "gitLfsPointer": true,
+        "sameAsBeforeCleanup": true,
+        "headBlobSha256": "48b9cde9220d95e86f140d23431bbb805de25c64b76a92aa7acd53cba50da46c",
+        "sameAsHead": true
+      }
+    ],
+    "missingLfsPayloadBytes": 199809581
+  },
+  "documentation": {
+    "strictCheckPassed": true,
+    "documents": 1891,
+    "brokenLinks": [],
+    "fenceIssues": [],
+    "guideRepeatedParagraphGroups": 0,
+    "lifecycleIssues": [],
+    "repairedPreexistingLinks": [
+      {
+        "Path": "docs/XYZ_MEASURED_ANGULAR_2026-11-01.md",
+        "Category": "Historical",
+        "Line": 19,
+        "Target": "../validation/rechecks/2026-11-01/xyz-angular/final-precision/",
+        "Resolved": "validation/rechecks/2026-11-01/xyz-angular/final-precision/",
+        "Issue": "MissingFile"
+      }
+    ],
+    "beforeReportSha256": "a7abe64a8cf024668328231fcd77e40e91d746e2a7f028b15d64317c4bf78981",
+    "afterReportSha256": "30258477b5f2df58c93ee6b13911479e5eb5c1a0679b209126a86f15d2955d55"
+  },
+  "productTests": "Not rerun: no product computation or implementation changes; verification was scoped to deletion, references and documentation."
+}
