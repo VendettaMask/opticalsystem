@@ -37,6 +37,7 @@ internal static class NativeSurfaceModelControls
             if (code != "SSAG" && code != "SSLP" && code != "OPTH" && code != "OPDX" && code != "INDX"
                 && code != "REAX" && code != "REAY" && code != "REAZ" && code != "REAA" && code != "REAB" && code != "REAC"
                 && code != "EFFL" && code != "EFLX" && code != "EFLY" && code != "EXPP" && code != "EXPD" && code != "EPDI" && code != "FCGS" && code != "FCGT"
+                && code != "RSCE" && code != "RELI" && code != "EFNO" && code != "SFNO" && code != "TFNO"
                 && code != "PARY" && code != "PATY" && code != "PARX" && code != "PATX")
                 throw new InvalidOperationException("Undeclared model-control operand.");
             var type = Host.EnumValue<MeritOperandType>(code);

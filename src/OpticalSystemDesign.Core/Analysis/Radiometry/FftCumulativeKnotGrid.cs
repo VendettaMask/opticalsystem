@@ -10,6 +10,7 @@ internal sealed class FftCumulativeKnotGrid : IEnergyImageGrid
     private readonly double[] _values;
     private readonly double _maximum;
     internal int FourierSampling { get; }
+    internal int WindowSize { get; }
     internal double ImagePitch { get; }
     internal double BinWidth { get; }
     internal FftCumulativeKnotGrid(Complex[,] image, int firstX, int firstY, double imagePitch,
@@ -28,7 +29,7 @@ internal sealed class FftCumulativeKnotGrid : IEnergyImageGrid
             || (firstY + height - 1) * imagePitch < center.Y + maximumDistance + binWidth / 2
             || type.StartsWith("X", StringComparison.OrdinalIgnoreCase) || type.StartsWith("Y", StringComparison.OrdinalIgnoreCase))
             throw new ArgumentException("The complete radial/square bins must lie inside the evaluated image window.");
-        _maximum = maximumDistance; FourierSampling = fourierSampling; ImagePitch = imagePitch; BinWidth = binWidth;
+        _maximum = maximumDistance; FourierSampling = fourierSampling; WindowSize = width; ImagePitch = imagePitch; BinWidth = binWidth;
         var slopeChanges = new double[knotCount + 1]; var offsetChanges = new double[knotCount + 1];
         var step = maximumDistance / (knotCount - 1);
         var windowPower = 0d;

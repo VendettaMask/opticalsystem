@@ -1,3 +1,4 @@
+using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
 
 namespace OpticalSystemDesign.Core.Analysis;
@@ -281,6 +282,13 @@ public static partial class DiffractionEngine
     {
         if (!TryWorkingPupilDirections(optic, field, wavelength, optic.RayAimingEnabled, 1, out var directions)) return null;
         var chief = directions[0];
+        if (UsesVirtualImageExitPupilScale(optic, chief))
+        {
+            // The selected exit-pupil scale is also the Fourier conjugate
+            // scale for a virtual image. The traced cone can be much slower.
+            var aperture = .5 / optic.Paraxial.ExitPupilFNumber();
+            return (aperture, aperture, aperture);
+        }
         var index = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
         var numericalApertures = directions.Skip(1).Select(direction =>
             index * optic.Backend.Current.Cross(chief, direction).Length / (chief.Length * direction.Length)).ToArray();
@@ -290,5 +298,15 @@ public static partial class DiffractionEngine
         if (!double.IsFinite(rms) || .5 / rms > 10000) return null;
         return (rms, (numericalApertures[0] + numericalApertures[1]) / 2,
             (numericalApertures[2] + numericalApertures[3]) / 2);
+    }
+
+    private static bool UsesVirtualImageExitPupilScale(Optic optic, Vector3D chief)
+    {
+        if (!optic.UseExitPupilFNumber) return false;
+        var surfaces = optic.SurfaceGroup.Items;
+        var imageGap = surfaces[^1].CoordinateSystem.Origin - surfaces[^2].CoordinateSystem.Origin;
+        // A folded real image can have negative global thickness while still
+        // lying in the direction of propagation along the outgoing chief.
+        return optic.Backend.Current.Dot(imageGap, chief) < -1e-12;
     }
 }

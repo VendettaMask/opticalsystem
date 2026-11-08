@@ -11,9 +11,12 @@ public static partial class DiffractionEngine
     {
         private readonly Complex[] _input, _output, _kernel;
         public int Size => _kernel.Length;
-        public PhysicalFourierInterval(int count, int length, double step, double first, double center)
+        public PhysicalFourierInterval(int count, int length, double step, double first, double center, int? boundedSize = null)
         {
-            var size = AnalysisResourceLimits.RoundUpPowerOfTwo(checked(count + length - 1), nameof(length));
+            var required = checked(count + length - 1);
+            var size = boundedSize ?? AnalysisResourceLimits.RoundUpPowerOfTwo(required, nameof(length));
+            if (size < required || !BitOperations.IsPow2(size))
+                throw new ArgumentOutOfRangeException(nameof(boundedSize), "Fourier convolution requires sufficient power-of-two padding.");
             _input = new Complex[count]; _output = new Complex[length]; _kernel = new Complex[size];
             for (var j = 0; j < count; j++)
                 _input[j] = Complex.FromPolarCoordinates(1, -2 * Math.PI * (first * j + step * j * (double)j / 2));
@@ -23,11 +26,12 @@ public static partial class DiffractionEngine
                 _kernel[(d + size) % size] = Complex.FromPolarCoordinates(1, Math.PI * step * d * (double)d);
             Fft(_kernel);
         }
-        public Complex[] Evaluate(Complex[] input)
+        public Complex[] Evaluate(Complex[] input, Complex[]? scratch = null)
         {
             ComputationCancellation.ThrowIfCancellationRequested();
             if (input.Length != _input.Length) throw new ArgumentException("Fourier interval source length differs.");
-            var buffer = new Complex[Size];
+            var buffer = scratch ?? new Complex[Size];
+            Array.Clear(buffer, input.Length, buffer.Length - input.Length);
             for (var j = 0; j < input.Length; j++) buffer[j] = input[j] * _input[j];
             Fft(buffer);
             for (var j = 0; j < Size; j++) buffer[j] = Complex.Conjugate(buffer[j] * _kernel[j]);
@@ -38,7 +42,8 @@ public static partial class DiffractionEngine
         }
     }
 
-    internal static Complex[,] PhysicalFourierWindow(Complex[,] pupil, int length, double stepX, double stepY)
+    internal static Complex[,] PhysicalFourierWindow(Complex[,] pupil, int length, double stepX, double stepY,
+        bool nativeCenteredOutput = false)
     {
         ArgumentNullException.ThrowIfNull(pupil);
         var n = pupil.GetLength(0);
@@ -49,7 +54,7 @@ public static partial class DiffractionEngine
             || (long)(n + length + 1) * planSize * (3 * (int)Math.Log2(planSize) + 2)
                 + 2L * (n + length) * (n + length) > AnalysisResourceLimits.MaximumDirectFourierOperations)
             throw new ArgumentException("Physical Fourier window exceeds shared storage or transform work bounds.");
-        var first = -length / 2;
+        var first = nativeCenteredOutput ? -(length - 1) / 2 : -length / 2;
         var xPlan = new PhysicalFourierInterval(n, length, stepX, first * stepX, (n - 1) / 2d);
         var yPlan = new PhysicalFourierInterval(n, length, stepY, first * stepY, (n - 1) / 2d);
         var intermediate = new Complex[n, length]; var input = new Complex[n];

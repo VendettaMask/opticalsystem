@@ -1,3 +1,4 @@
+using System.Numerics;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Raytrace;
@@ -64,15 +65,45 @@ public sealed class PsfAnalysis : BaseAnalysis
         && !_usePolarization && !_normalize && _imageDeltaMicrometers > 0 && _displaySize.HasValue
         && !_type.Contains("对数", StringComparison.Ordinal) && !_type.Contains("log", StringComparison.OrdinalIgnoreCase);
 
-    public override AnalysisData GenerateData() => GenerateData(denseDisplaySize: null);
+    internal bool SupportsStreamedPhysicalPupil => SupportsDensePhysicalPupil && _displaySize <= 128
+        && !Optic.RayAimingEnabled && (_wavelengthNumber != 0 || Optic.Wavelengths.Count == 1);
 
-    internal AnalysisData GenerateDensePhysicalPupil(int displaySize) => GenerateData(displaySize);
+    internal bool SupportsPhysicalPsfWindow => SupportsDensePhysicalPupil && _displaySize <= 128;
+
+    public override AnalysisData GenerateData()
+    {
+        try { return GenerateData(denseDisplaySize: null); }
+        catch (InvalidOperationException error) when (error.Data[DiffractionEngine.InsufficientFftPupilNodesKey] is true
+            && SupportsPhysicalPsfWindow && _requestedRays is >= 4 and <= DiffractionEngine.MaximumPhysicalPsfWindowSampling
+            && BitOperations.IsPow2(_requestedRays) && _displaySize is { } displaySize)
+        {
+            // A narrow image pitch can leave almost no samples in the stretched
+            // pupil. Keep the selected density and evaluate the original image
+            // frequencies directly from the full, unstretched pupil.
+            var transformSize = Math.Max(_requestedRays, _gridSize ?? 2 * _requestedRays);
+            return GenerateData(Math.Min(displaySize, transformSize), physicalPsfWindow: true, interpolateNativePupil: false);
+        }
+    }
+
+    // The explicit validation modes keep their established baseline, fallback
+    // sequence and convergence certificates separate from a fixed finite sum.
+    internal AnalysisData GenerateSamplingValidationBaseline() => GenerateData(denseDisplaySize: null);
+
+    internal AnalysisData GenerateDensePhysicalPupil(int? displaySize) => GenerateData(displaySize ?? _displaySize
+        ?? throw new InvalidOperationException("Dense pupil refinement requires a fixed output size."));
+
+    internal AnalysisData GenerateStreamedPhysicalPupil(int displaySize, long maximumTraceNodes, bool physicalWindow = false) =>
+        GenerateData(displaySize, streamedMaximumTraceNodes: maximumTraceNodes, physicalPsfWindow: physicalWindow);
+
+    internal AnalysisData GeneratePhysicalPsfWindow(int displaySize) =>
+        GenerateData(displaySize, physicalPsfWindow: true);
 
     // Profile and energy contracts consume the historical intermediate grid.
     // Their own calibration is separate from a direct focal-plane image request.
     internal AnalysisData GenerateIntermediateGrid() => GenerateData(denseDisplaySize: null, requireFocalImage: false);
 
-    private AnalysisData GenerateData(int? denseDisplaySize, bool requireFocalImage = true)
+    private AnalysisData GenerateData(int? denseDisplaySize, bool requireFocalImage = true,
+        long? streamedMaximumTraceNodes = null, bool physicalPsfWindow = false, bool interpolateNativePupil = true)
     {
         var analysisOptic = ResolveAnalysisOptic();
         if (requireFocalImage && FocalImageDomain.IsCollimatedContactPupil(analysisOptic))
@@ -104,9 +135,13 @@ public sealed class PsfAnalysis : BaseAnalysis
             : _fieldNumber <= 0
                 ? allFields[^1]
                 : allFields[Math.Clamp(_fieldNumber - 1, 0, allFields.Count - 1)];
+        if (requireFocalImage && !_ignoreOpd && !_usePolarization && wavelengths.Length == 1
+            && FocalImageDomain.CheckFftImageDomain(Name, analysisOptic, field, wavelengths[0]) is { } outsideDomain)
+            return outsideDomain;
         var pupilSampling = _requestedRays;
         var densePhysicalPupil = denseDisplaySize.HasValue;
-        var transformSize = densePhysicalPupil ? DiffractionEngine.DensePupilPaddingFactor * pupilSampling
+        var transformSize = physicalPsfWindow ? pupilSampling : streamedMaximumTraceNodes.HasValue ? 2 * pupilSampling
+            : densePhysicalPupil ? DiffractionEngine.DensePupilPaddingFactor * pupilSampling
             : Math.Max(pupilSampling, _gridSize ?? (_requestedRays * 2));
         var displaySize = denseDisplaySize ?? Math.Min(transformSize, _displaySize ?? transformSize);
         var croppedReadout = densePhysicalPupil || transformSize > AnalysisResourceLimits.MaximumFftGridSize && _displaySize.HasValue;
@@ -115,7 +150,13 @@ public sealed class PsfAnalysis : BaseAnalysis
         // Native scalar FFT display excludes surface/material attenuation.
         // The shared engine retains launch apodization, clipping and polarized
         // transmission; general-purpose callers retain their normal defaults.
-        var results = densePhysicalPupil
+        var streamed = streamedMaximumTraceNodes is { } maximumTraceNodes
+            ? DiffractionEngine.ComputeStreamedFocalFftPsf(analysisOptic, field, wavelengths.Single(), pupilSampling,
+                displaySize, _imageDeltaMicrometers, maximumTraceNodes, physicalWindow: physicalPsfWindow)
+            : ((PsfResult Psf, StreamedFourierPupilDiagnostics Diagnostics)?)null;
+        var results = streamed is { } window ? new[] { (Wavelength: wavelengths[0], Result: window.Psf) }
+            : physicalPsfWindow ? DiffractionEngine.ComputePhysicalPsfWindowSpectrum(analysisOptic, field, wavelengths,
+                pupilSampling, displaySize, _imageDeltaMicrometers, interpolateNativePupil) : densePhysicalPupil
             ? DiffractionEngine.ComputeDenseFftPsfSpectrum(analysisOptic, field, wavelengths,
                 pupilSampling, transformSize, displaySize, _imageDeltaMicrometers)
             : DiffractionEngine.ComputeFftPsfSpectrum(analysisOptic, field, wavelengths,
@@ -231,7 +272,7 @@ public sealed class PsfAnalysis : BaseAnalysis
                 ? "复色光 Polarization-weighted scalar FFT PSF（Experimental）"
                 : "Polarization-weighted scalar FFT PSF（Experimental）"
             : wavelengths.Length > 1 ? "复色光FFT PSF" : "FFT PSF";
-        return new AnalysisData(Name, new Dictionary<string, object>
+        var resultValues = new Dictionary<string, object>
         {
             ["Method"] = "FFT",
             ["PupilSampling"] = pupilSampling,
@@ -272,7 +313,10 @@ public sealed class PsfAnalysis : BaseAnalysis
                 : string.Empty,
             ["Normalized"] = _normalize,
             ["UnaberratedPeakRatio"] = idealPeak
-        }, series, new[] { series }, new AnalysisPlotOptions(
+        };
+        if (streamed is { } resolvedWindow) resultValues["StreamedFourierPupil"] = resolvedWindow.Diagnostics;
+        if (physicalPsfWindow) resultValues["PhysicalFourierWindow"] = true;
+        return new AnalysisData(Name, resultValues, series, new[] { series }, new AnalysisPlotOptions(
             Title: title,
             EqualAspect: true,
             XMinimum: -xExtent / 2,
@@ -371,7 +415,17 @@ public sealed class MtfAnalysis : BaseAnalysis
 
     public override string Name => "MTF";
 
-    public override AnalysisData GenerateData()
+    internal bool SupportsStreamedPhysicalPupil => _zemaxCompatible && _maximumFrequency.HasValue
+        && _dataType == FftMtfDataType.Modulation && !_usePolarization
+        && !Optic.ImageSpaceAfocal && !Optic.RayAimingEnabled
+        && (_wavelengthNumber != 0 || Optic.Wavelengths.Count == 1)
+        && (_fieldNumber > 0 || SpotAnalysisEngine.DefinedFields(Optic).Count == 1);
+
+    public override AnalysisData GenerateData() => GenerateData(null);
+
+    internal AnalysisData GenerateStreamedPhysicalPupil(long maximumTraceNodes) => GenerateData(maximumTraceNodes);
+
+    private AnalysisData GenerateData(long? streamedMaximumTraceNodes)
     {
         var analysisOptic = ResolveAnalysisOptic();
         if (FocalImageDomain.IsCollimatedContactPupil(analysisOptic))
@@ -394,7 +448,11 @@ public sealed class MtfAnalysis : BaseAnalysis
             ? Enumerable.Range(0, allFields.Count).ToArray()
             : new[] { Math.Clamp(_fieldNumber - 1, 0, Math.Max(0, allFields.Count - 1)) };
         var fields = fieldIndices.Select(index => allFields[index]).ToArray();
+        if (!_usePolarization && fields.Length == 1 && wavelengths.Count == 1
+            && FocalImageDomain.CheckFftImageDomain(Name, analysisOptic, fields[0], wavelengths[0]) is { } outsideDomain)
+            return outsideDomain;
         var series = new List<AnalysisSeries>();
+        StreamedFourierPupilDiagnostics? streamedDiagnostics = null;
         var cutoff = 0.0;
         IReadOnlyList<AnalysisPoint>? diffractionLimit = null;
         var yAxisLabel = MtfDataTypeSupport.Label(_dataType, "Modulation");
@@ -406,6 +464,14 @@ public sealed class MtfAnalysis : BaseAnalysis
             var field = fields[fieldIndex];
             var wavelengthResults = wavelengths.Select(wavelength =>
             {
+                if (streamedMaximumTraceNodes.HasValue)
+                {
+                    var streamed = DiffractionEngine.ComputeStreamedFocalFftMtf(analysisOptic, field, wavelength,
+                        pupilSampling, _maximumFrequency!.Value, streamedMaximumTraceNodes.Value);
+                    streamed.Phase.EnforceForCurrentRequest(Name);
+                    streamedDiagnostics = streamed.Diagnostics;
+                    return (wavelength, streamed.Mtf);
+                }
                 if (gridSize > AnalysisResourceLimits.MaximumFftGridSize)
                     return (wavelength, DiffractionEngine.ComputeFftMtfFromPupil(
                         analysisOptic, field, wavelength, pupilSampling, gridSize, _usePolarization,
@@ -505,6 +571,7 @@ public sealed class MtfAnalysis : BaseAnalysis
             ["ZemaxCompatible"] = _zemaxCompatible,
             ["PlotPointCount"] = series.FirstOrDefault()?.Points.Count ?? 0
         };
+        if (streamedDiagnostics is not null) values["StreamedFourierPupil"] = streamedDiagnostics;
         var (yMinimum, yMaximum) = _dataType switch
         {
             FftMtfDataType.Real or FftMtfDataType.Imaginary => (-1.0, 1.0),

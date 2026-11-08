@@ -1,0 +1,200 @@
+{
+  "index": 2499,
+  "lens": "Telescopes/Unobscured Gregorian.zmx",
+  "originalRequest": "9d1450404b2166c238240f718088f2cd6cec9493df047efbde16ff96342026bf",
+  "sourceSha256": "2f826fada9a0f05cc105101172c858d5fdbe1ee87000f1ebd44b5e79597ee398",
+  "frozenVerdict": "Incomparable",
+  "frozenArchiveSha256": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+  "frozenRequestMember": "run/analyses/2499-082-unobscured-gregorian-c1-primary-f1-w1-psf/workbench/request.json",
+  "frozenRequestSha256": "4877e070fdcfafafc8d0cc47bc22451590e1eeab0ad280149f0c10df6fa3aae0",
+  "frozenComparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "frozenWavefrontMember": "run/analyses/2498-082-unobscured-gregorian-c1-primary-f1-w1-wavefront/native/data.json",
+  "frozenWavefrontSha256": "266ab781f5d2ce22aaead7ed1eb086335511a859749a50e1de0218de993daaaa",
+  "nativeRayArchiveSha256": "d88be0ec6bbedd3e34a57a635fbb843cc25e2db01c88efa567cba7cbf10a1155",
+  "nativeRayMemberSha256": "1ae35d38fb90b9769702a5ce3a8e54013fd873cffaa4b5def733fd79cb5ef60f",
+  "workbenchArchiveSha256": "f10be7c6b1d57b5c12e1995232efbdc4e121727084ddf0c6e7de3e2082cb68e5",
+  "workbenchDataSha256": "452406b0f51e90c851bb39c2d8e2a429e4727580e7bc5b626f2a3417c257994b",
+  "workbenchRequestSha256": "46efae9168ee4a82533b27def9e967c42f33033dc28d73af4e8d3e39ef0ed143",
+  "workbenchProvenance": {
+    "canonicalAnalysisKey": "PSF",
+    "requestFingerprint": "7a5fd425bf78a485050b74b76a03d467f31c37cb9e6a57ad46b08c83197757e4",
+    "settingsTranslation": null,
+    "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+    "snapshotSha256": "f567af557bf512c6c7ab14e9134de95a8236b44a7b5e1480950a1079904791f4",
+    "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+  },
+  "workbenchCertificate": {
+    "protocol": "FourierPhysicalDomainConvergence/v2",
+    "mode": "Adaptive",
+    "requestedPupilSampling": 64,
+    "returnedPupilSampling": 2048,
+    "maximumPupilSampling": 2048,
+    "relativeRmsAccuracy": 0.001,
+    "absoluteAccuracy": 1e-07,
+    "validated": true,
+    "steps": [
+      {
+        "pupilSampling": 64,
+        "phaseResolved": false,
+        "relativeRmsChange": null,
+        "maximumAbsoluteChange": null,
+        "usesDensePhysicalPupil": false,
+        "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+      },
+      {
+        "pupilSampling": 128,
+        "phaseResolved": false,
+        "relativeRmsChange": null,
+        "maximumAbsoluteChange": null,
+        "usesDensePhysicalPupil": false,
+        "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+      },
+      {
+        "pupilSampling": 256,
+        "phaseResolved": false,
+        "relativeRmsChange": null,
+        "maximumAbsoluteChange": null,
+        "usesDensePhysicalPupil": false,
+        "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+      },
+      {
+        "pupilSampling": 512,
+        "phaseResolved": true,
+        "relativeRmsChange": null,
+        "maximumAbsoluteChange": null,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 1024,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.08379125739806229,
+        "maximumAbsoluteChange": 0.11298237981707238,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 2048,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.038564730256065445,
+        "maximumAbsoluteChange": 0.0383295309711964,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 128,
+        "phaseResolved": true,
+        "relativeRmsChange": null,
+        "maximumAbsoluteChange": null,
+        "usesDensePhysicalPupil": true
+      },
+      {
+        "pupilSampling": 256,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.08379125739667145,
+        "maximumAbsoluteChange": 0.11298237981006787,
+        "usesDensePhysicalPupil": true
+      },
+      {
+        "pupilSampling": 512,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.03856473025599565,
+        "maximumAbsoluteChange": 0.038329530971196846,
+        "usesDensePhysicalPupil": true
+      },
+      {
+        "pupilSampling": 1024,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.014828052215923714,
+        "maximumAbsoluteChange": 0.020039033692964003,
+        "usesDensePhysicalPupil": true
+      },
+      {
+        "pupilSampling": 2048,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.0008278829430469302,
+        "maximumAbsoluteChange": 0.0011111854221176332,
+        "usesDensePhysicalPupil": true
+      }
+    ],
+    "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+    "evaluatedNominalPupilCells": 22700032,
+    "maximumNominalPupilCells": 100000000,
+    "requestedRelativeRmsDeviation": null,
+    "requestedMaximumAbsoluteDeviation": null
+  },
+  "apertureCertificate": {
+    "radialIntervals": 1024,
+    "radiusRangeMm": [
+      50.0,
+      150.0
+    ],
+    "signedSecondarySagMarginsMm": [
+      39.051047374536225,
+      26.13671969389796,
+      3.7908950822160907
+    ],
+    "upperReflectionSlopeParameter": 0.49248018692908624
+  },
+  "nativeRays": 3001,
+  "maximumNativeInterceptResidualMm": 1.5418777365994174e-12,
+  "maximumNativeDirectionResidual": 8.326672684688674e-15,
+  "nativeWavefrontNodes": 2999,
+  "maximumNativeOpdResidualWaves": 1.2826859019376968e-10,
+  "referenceSphereRadiusMm": 185.36397976229182,
+  "referenceSphereRichardsonChangeMm": 1.0524843219172908e-09,
+  "edgeNumericalApertures": [
+    [
+      0.04031445733433038,
+      0.04031445733433038
+    ],
+    [
+      0.04035159878777142,
+      0.04011734462212324
+    ]
+  ],
+  "axisRmsNumericalApertures": [
+    0.04031445733433038,
+    0.04023464218965714
+  ],
+  "workingFNumber": 12.4147819774564,
+  "originalGate": {
+    "absolute": 1e-05,
+    "relative": 0.001,
+    "nrmse": 0.01,
+    "closeNrmse": 0.03,
+    "minimumCoverage": 0.95
+  },
+  "imageGrid": {
+    "rows": 128,
+    "columns": 128,
+    "pixelPitchMicrometers": 0.25,
+    "first": -15.75,
+    "last": 16.0
+  },
+  "independentQuadratureConvergence": {
+    "count": 16384,
+    "coverage": 1,
+    "maximumAbsolute": 2.663314013773288e-12,
+    "nrmse": 2.5681691574387184e-12,
+    "conclusion": "Pass"
+  },
+  "nonlinearDirectionMapControl": {
+    "count": 16384,
+    "coverage": 1,
+    "maximumAbsolute": 0.00015634827784982708,
+    "nrmse": 7.32638884543707e-05,
+    "conclusion": "Pass"
+  },
+  "workbenchVersusIndependentFftReference": {
+    "count": 16384,
+    "coverage": 1,
+    "maximumAbsolute": 0.0006139459874928699,
+    "nrmse": 0.000439096675155559,
+    "conclusion": "Pass"
+  },
+  "workbenchVersusExactDirectionControl": {
+    "count": 16384,
+    "coverage": 1,
+    "maximumAbsolute": 0.0007674921245257593,
+    "nrmse": 0.00047022214317228887,
+    "conclusion": "Pass"
+  }
+}

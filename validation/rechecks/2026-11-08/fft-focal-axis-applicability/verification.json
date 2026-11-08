@@ -1,0 +1,380 @@
+{
+  "originalComparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "originalOpenLedgerSha256": "e83c9688167bc43ee8cd456c1801c9804e1cd6ee64176598d07db9d0493ac41b",
+  "sourceCaptureArchiveSha256": "2971d38551b5c4ed5923be7185f1c8190985e58e2b63ec61dafbec37d5a80cad",
+  "noNewNativeCapture": true,
+  "domains": [
+    {
+      "lens": "Miscellaneous/Cylinder.zmx",
+      "sourceSha256": "adc9e96bd53e9356794b2b9d29608dd304774755a3c15a7873cbc24f4b42e4c8",
+      "requestIndices": [
+        1071,
+        1075,
+        1078
+      ],
+      "configuration": 1,
+      "field": 1,
+      "wavelengthMicrometers": 0.55,
+      "rays": 13,
+      "geometricReason": "CylinderInvarianceAlongX",
+      "rawArchiveEntry": "cylinder-axis/point-reference.json",
+      "rawArchiveEntrySha256": "7e056b699edc488a0474d84d41ebe38ac5e327b12fd2598ebdaf92077832056d",
+      "nativeModelSha256": "d4606948110189f8fade9104163193016a5d1e5ab5b4b339c3171a0c096c738d",
+      "sagittalFocalScale": "NoFinitePointConjugateAlongX",
+      "zones": [
+        {
+          "zone": 1,
+          "sagittalMinusInterceptXmm": -5,
+          "sagittalPlusInterceptXmm": 5,
+          "sagittalSpanMm": 10,
+          "sagittalMinusL": 0,
+          "sagittalPlusL": 0,
+          "sagittalDirectionDelta": 0,
+          "tangentialMinusM": 0.12230764031214028,
+          "tangentialPlusM": -0.12230764031214028
+        },
+        {
+          "zone": 0.99,
+          "sagittalMinusInterceptXmm": -4.95,
+          "sagittalPlusInterceptXmm": 4.95,
+          "sagittalSpanMm": 9.9,
+          "sagittalMinusL": 0,
+          "sagittalPlusL": 0,
+          "sagittalDirectionDelta": 0,
+          "tangentialMinusM": 0.12098211027334271,
+          "tangentialPlusM": -0.12098211027334271
+        },
+        {
+          "zone": 0.95,
+          "sagittalMinusInterceptXmm": -4.75,
+          "sagittalPlusInterceptXmm": 4.75,
+          "sagittalSpanMm": 9.5,
+          "sagittalMinusL": 0,
+          "sagittalPlusL": 0,
+          "sagittalDirectionDelta": 0,
+          "tangentialMinusM": 0.11571310240287859,
+          "tangentialPlusM": -0.11571310240287859
+        }
+      ]
+    },
+    {
+      "lens": "Miscellaneous/MEMS DLL Sample.ZMX",
+      "sourceSha256": "de9dad5c977a8dde3598ca4247b6e5300587af54b302eca6898bf84bf228caf5",
+      "requestIndices": [
+        1247,
+        1251,
+        1254
+      ],
+      "configuration": 1,
+      "field": 1,
+      "wavelengthMicrometers": 0.55,
+      "rays": 13,
+      "geometricReason": "PlanarRowAddressedMirrorNormalIndependentOfX",
+      "rawArchiveEntry": "mems-original/point-reference.json",
+      "rawArchiveEntrySha256": "8c4d9713107f3be7e6bfbb3d19a2106f3027d85e617de6f92b961647aa82bf08",
+      "nativeModelSha256": "834b5d885f1716d8f610f599bfcff225b9f75ad6b7da1624b2afc6c733043dc4",
+      "sagittalFocalScale": "NoFinitePointConjugateAlongX",
+      "zones": [
+        {
+          "zone": 1,
+          "sagittalMinusInterceptXmm": -2.5,
+          "sagittalPlusInterceptXmm": 2.5,
+          "sagittalSpanMm": 5.0,
+          "sagittalMinusL": 0,
+          "sagittalPlusL": 0,
+          "sagittalDirectionDelta": 0,
+          "tangentialMinusM": -0.25692160745149817,
+          "tangentialPlusM": 0
+        },
+        {
+          "zone": 0.99,
+          "sagittalMinusInterceptXmm": -2.475,
+          "sagittalPlusInterceptXmm": 2.475,
+          "sagittalSpanMm": 4.95,
+          "sagittalMinusL": 0,
+          "sagittalPlusL": 0,
+          "sagittalDirectionDelta": 0,
+          "tangentialMinusM": -0.25692160745149817,
+          "tangentialPlusM": 0
+        },
+        {
+          "zone": 0.95,
+          "sagittalMinusInterceptXmm": -2.375,
+          "sagittalPlusInterceptXmm": 2.375,
+          "sagittalSpanMm": 4.75,
+          "sagittalMinusL": 0,
+          "sagittalPlusL": 0,
+          "sagittalDirectionDelta": 0,
+          "tangentialMinusM": -0.25692160745149817,
+          "tangentialPlusM": 0
+        }
+      ]
+    }
+  ],
+  "requests": [
+    {
+      "index": 1071,
+      "lens": "Miscellaneous/Cylinder.zmx",
+      "analysis": "PSF",
+      "canonicalRequestFingerprint": "95f8864b2eaf436cda037c1e24e9bb2a0db43ecbcef5cdeebdffd2290409f283",
+      "frozenOriginalRequestFingerprint": "95f8864b2eaf436cda037c1e24e9bb2a0db43ecbcef5cdeebdffd2290409f283",
+      "surfaceSelector": -1,
+      "frozenSurfaceCount": 5,
+      "effectiveSurfaceCount": 5,
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "snapshotSha256": "e3a0a6856857ecdfbecdb638d9148dab2cc92e71b9e01b691c0c2f054c43d1f6",
+      "sourceSha256": "adc9e96bd53e9356794b2b9d29608dd304774755a3c15a7873cbc24f4b42e4c8",
+      "frozenNativeCapturedSettingsSha256": "7ef4ac4ad15d273f01cfb4295b23d415940fd69bbe5671ae98abb6cd01bd1eab",
+      "frozenNativePayloadFile": "data.json",
+      "frozenNativePayloadSha256": "cfdb2b0dd950155e467297be0a95de8744ca3d90a1e20172a8073c6c4b70ab01",
+      "frozenNativeObservation": {
+        "ErrorCode": "Success",
+        "Text": "计算终止; 无效的结果!"
+      },
+      "nativeCapturedProperties": {
+        "SampleSize": "PsfS_64x64",
+        "OutputSize": "PsfS_128x128",
+        "Rotation": "CW0",
+        "ImageDelta": 0.25,
+        "UsePolarization": false,
+        "Type": "Linear",
+        "Normalize": false
+      },
+      "originalComparisonTolerances": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "frozenVerdict": "Incomparable",
+      "previousIndependentStatus": "ConfirmedNativeReferenceUnavailable",
+      "coordinateDependency": "Finite two-dimensional image grid on both physical axes",
+      "independentApplicability": "NotApplicableFocalFftCoordinateDomain"
+    },
+    {
+      "index": 1075,
+      "lens": "Miscellaneous/Cylinder.zmx",
+      "analysis": "FFT PSF Cross Section",
+      "canonicalRequestFingerprint": "a695cba71c1817c42977b4ad369bb48e593c99bf22cfd310d2cf2ac30421f754",
+      "frozenOriginalRequestFingerprint": "a695cba71c1817c42977b4ad369bb48e593c99bf22cfd310d2cf2ac30421f754",
+      "surfaceSelector": -1,
+      "frozenSurfaceCount": 5,
+      "effectiveSurfaceCount": 5,
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "snapshotSha256": "e3a0a6856857ecdfbecdb638d9148dab2cc92e71b9e01b691c0c2f054c43d1f6",
+      "sourceSha256": "adc9e96bd53e9356794b2b9d29608dd304774755a3c15a7873cbc24f4b42e4c8",
+      "frozenNativeCapturedSettingsSha256": "b3ef0d7334d2bcb3246f1d69a80338d1df4d8cb3ae74ac595f5450b704e84492",
+      "frozenNativePayloadFile": "error.json",
+      "frozenNativePayloadSha256": "3cf1d65231e84f4e52b0fa2241c1b11fa77a9187c65ae0ade467ca300f5bb8ba",
+      "frozenNativeObservation": "NativeInvalidResult",
+      "nativeCapturedProperties": {
+        "SampleSize": "S_32x32",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "originalComparisonTolerances": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "frozenVerdict": "Incomparable",
+      "previousIndependentStatus": "ConfirmedNativeReferenceUnavailable",
+      "coordinateDependency": "Sagittal X coordinate of the central two-dimensional PSF row",
+      "independentApplicability": "NotApplicableFocalFftCoordinateDomain"
+    },
+    {
+      "index": 1078,
+      "lens": "Miscellaneous/Cylinder.zmx",
+      "analysis": "Diffraction Encircled Energy",
+      "canonicalRequestFingerprint": "acb1fea663ef2e507b16e04bb318a2cf8a2efa546b5b3dee9ebf36e76c15438f",
+      "frozenOriginalRequestFingerprint": "acb1fea663ef2e507b16e04bb318a2cf8a2efa546b5b3dee9ebf36e76c15438f",
+      "surfaceSelector": -1,
+      "frozenSurfaceCount": 5,
+      "effectiveSurfaceCount": 5,
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "snapshotSha256": "e3a0a6856857ecdfbecdb638d9148dab2cc92e71b9e01b691c0c2f054c43d1f6",
+      "sourceSha256": "adc9e96bd53e9356794b2b9d29608dd304774755a3c15a7873cbc24f4b42e4c8",
+      "frozenNativeCapturedSettingsSha256": "491aadf6133b06160dfec2d69ce3d5688d326e568d7ffb754965c52ef121c974",
+      "frozenNativePayloadFile": "data.json",
+      "frozenNativePayloadSha256": "fd5b3bb8d8621eb2c6c2a1a20dea1dbec6fcba9c6ea01055b7e5180ed54cb043",
+      "frozenNativeObservation": {
+        "ErrorCode": "Success",
+        "Text": "取样太低, 数据不准确!"
+      },
+      "nativeCapturedProperties": {
+        "HuygensSample": "S_64x64",
+        "SampleSize": "S_32x32",
+        "Type": "Encircled",
+        "ReferTo": "Centroid",
+        "ScatterRays": false,
+        "ShowDiffractionLimit": true,
+        "UseDashes": false,
+        "UseHuygensPSF": false,
+        "UsePolarization": false,
+        "HuygensDelta": 0,
+        "RadiusMaximum": 5
+      },
+      "originalComparisonTolerances": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "frozenVerdict": "Incomparable",
+      "previousIndependentStatus": "ConfirmedNativeReferenceUnavailable",
+      "coordinateDependency": "Finite physical circular radius about the PSF centroid",
+      "independentApplicability": "NotApplicableFocalFftCoordinateDomain"
+    },
+    {
+      "index": 1247,
+      "lens": "Miscellaneous/MEMS DLL Sample.ZMX",
+      "analysis": "PSF",
+      "canonicalRequestFingerprint": "1a2ad6ea9197f1950bedbd350213492d1ae111393074604c1663f81d11594b40",
+      "frozenOriginalRequestFingerprint": "df01725b51a16777e9344306e1161b2d72d761cf6b4a830a02c013c04529044a",
+      "surfaceSelector": -1,
+      "frozenSurfaceCount": 4,
+      "effectiveSurfaceCount": 5,
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "snapshotSha256": "38fde31d32173353184108ad53686676d82c460c0c57d42026388e397e64fc03",
+      "sourceSha256": "de9dad5c977a8dde3598ca4247b6e5300587af54b302eca6898bf84bf228caf5",
+      "frozenNativeCapturedSettingsSha256": "b07cb910f3497adc72303708a461e66860482443c492b444bbb2ed07ef255237",
+      "frozenNativePayloadFile": "data.json",
+      "frozenNativePayloadSha256": "ca43245f21739905c54e562a5ebc887031d922f98240663974a97db00886a050",
+      "frozenNativeObservation": {
+        "ErrorCode": "Success",
+        "Text": "计算终止; 无效的结果!"
+      },
+      "nativeCapturedProperties": {
+        "SampleSize": "PsfS_64x64",
+        "OutputSize": "PsfS_128x128",
+        "Rotation": "CW0",
+        "ImageDelta": 0.25,
+        "UsePolarization": false,
+        "Type": "Linear",
+        "Normalize": false
+      },
+      "originalComparisonTolerances": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "frozenVerdict": "Incomparable",
+      "previousIndependentStatus": "ConfirmedNativeReferenceUnavailable",
+      "coordinateDependency": "Finite two-dimensional image grid on both physical axes",
+      "independentApplicability": "NotApplicableFocalFftCoordinateDomain"
+    },
+    {
+      "index": 1251,
+      "lens": "Miscellaneous/MEMS DLL Sample.ZMX",
+      "analysis": "FFT PSF Cross Section",
+      "canonicalRequestFingerprint": "d107cf22e6df2940547dafa9f283af476e5283d785504585666c38f59e9a3ae2",
+      "frozenOriginalRequestFingerprint": "6a1e82e0865ae9e51471b57348ebd264bcb6bae5e26fa97f240c91de623712f5",
+      "surfaceSelector": -1,
+      "frozenSurfaceCount": 4,
+      "effectiveSurfaceCount": 5,
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "snapshotSha256": "38fde31d32173353184108ad53686676d82c460c0c57d42026388e397e64fc03",
+      "sourceSha256": "de9dad5c977a8dde3598ca4247b6e5300587af54b302eca6898bf84bf228caf5",
+      "frozenNativeCapturedSettingsSha256": "d99e7d0a97f8f9e4635ff9455270518803e8e84ef98f7a07c8b4fc58d583fe00",
+      "frozenNativePayloadFile": "error.json",
+      "frozenNativePayloadSha256": "3cf1d65231e84f4e52b0fa2241c1b11fa77a9187c65ae0ade467ca300f5bb8ba",
+      "frozenNativeObservation": "NativeInvalidResult",
+      "nativeCapturedProperties": {
+        "SampleSize": "S_32x32",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "originalComparisonTolerances": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "frozenVerdict": "Incomparable",
+      "previousIndependentStatus": "ConfirmedNativeReferenceUnavailable",
+      "coordinateDependency": "Sagittal X coordinate of the central two-dimensional PSF row",
+      "independentApplicability": "NotApplicableFocalFftCoordinateDomain"
+    },
+    {
+      "index": 1254,
+      "lens": "Miscellaneous/MEMS DLL Sample.ZMX",
+      "analysis": "Diffraction Encircled Energy",
+      "canonicalRequestFingerprint": "9d37596306c421158977c5a80c8e709a23436e0abcb166881af684ec866be28d",
+      "frozenOriginalRequestFingerprint": "4913230ecec2145042d407471e37340d41ad24e701cff351d59934ca1243790a",
+      "surfaceSelector": -1,
+      "frozenSurfaceCount": 4,
+      "effectiveSurfaceCount": 5,
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "snapshotSha256": "38fde31d32173353184108ad53686676d82c460c0c57d42026388e397e64fc03",
+      "sourceSha256": "de9dad5c977a8dde3598ca4247b6e5300587af54b302eca6898bf84bf228caf5",
+      "frozenNativeCapturedSettingsSha256": "0ff5a3fda38a6d606259bb667e72ffec4df632ab580f436ae65181fad3785729",
+      "frozenNativePayloadFile": "data.json",
+      "frozenNativePayloadSha256": "c9d40158e5c5a7e7e53f50b7fe011c58e74b324880911c81b6c7f8b56fef29b7",
+      "frozenNativeObservation": {
+        "ErrorCode": "Success",
+        "Text": "取样太低, 数据不准确!"
+      },
+      "nativeCapturedProperties": {
+        "HuygensSample": "S_64x64",
+        "SampleSize": "S_32x32",
+        "Type": "Encircled",
+        "ReferTo": "Centroid",
+        "ScatterRays": false,
+        "ShowDiffractionLimit": true,
+        "UseDashes": false,
+        "UseHuygensPSF": false,
+        "UsePolarization": false,
+        "HuygensDelta": 0,
+        "RadiusMaximum": 5
+      },
+      "originalComparisonTolerances": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "frozenVerdict": "Incomparable",
+      "previousIndependentStatus": "ConfirmedNativeReferenceUnavailable",
+      "coordinateDependency": "Finite physical circular radius about the PSF centroid",
+      "independentApplicability": "NotApplicableFocalFftCoordinateDomain"
+    }
+  ]
+}

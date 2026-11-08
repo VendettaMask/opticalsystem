@@ -1,0 +1,954 @@
+{
+  "id": 1295,
+  "request": "3ce29400f8410f724e535be1dca2c0e33c22c94840dd335353e5e3eed0982cf0",
+  "coreHash": "a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd",
+  "nativeLog": [
+    {
+      "n": 1024,
+      "diagnostics": {
+        "seriesCount": 0,
+        "gridCount": 0,
+        "messages": []
+      },
+      "batch": {
+        "id": "1295-1024",
+        "exitCode": 0,
+        "startedUtc": "2026-11-07T13:30:13.4473582Z",
+        "completedUtc": "2026-11-07T13:30:14.7150876Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      },
+      "captured": {
+        "origin": "CapturedSettings",
+        "properties": {
+          "SampleSize": "S_1024x1024",
+          "Type": "X_Linear",
+          "UsePolarization": false,
+          "Normalize": false,
+          "PlotScale": 175,
+          "RowCol": 0
+        },
+        "selectors": {
+          "Field": 1,
+          "Wavelength": 2
+        },
+        "request": {
+          "canonicalAnalysisKey": "FFT PSF Cross Section",
+          "configuration": 1,
+          "field": 1,
+          "wavelength": 2,
+          "surface": -1,
+          "pupilSampling": 1024,
+          "imageSampling": 32,
+          "rayCount": 20,
+          "gridSize": 32,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "focusMinimum": -0.1,
+          "focusMaximum": 0.1,
+          "reference": "ChiefRay",
+          "polarization": false,
+          "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+          "deleteVignetted": true,
+          "useRayAiming": false,
+          "normalization": "NativePhysical",
+          "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+          "outputUnits": "TypedAxes",
+          "settingsOrigin": "CapturedSettings",
+          "workbenchSettings": {
+            "Sampling": "32",
+            "Row": "\u4E2D\u5FC3",
+            "GraphScaleMicrometers": "0",
+            "UsePolarization": "False",
+            "WavelengthNumber": "2",
+            "FieldNumber": "1",
+            "Type": "X-\u7EBF\u6027",
+            "Normalized": "False",
+            "SurfaceNumber": "-1",
+            "UseRayAiming": "False",
+            "PupilSampling": "32",
+            "ImageSampling": "32",
+            "ImageDeltaMicrometers": "0.25",
+            "UseCentroid": "False",
+            "Frequency": "50",
+            "SpatialFrequency": "50",
+            "MaximumFrequency": "50",
+            "DeltaFocus": "0.01",
+            "NumberOfSteps": "5",
+            "Steps": "5",
+            "UseDashes": "False",
+            "FieldDensity": "10",
+            "FieldPointCount": "10",
+            "ScanType": "\u002By",
+            "RemoveVignettingFactors": "True",
+            "Frequency1": "10",
+            "Frequency2": "20",
+            "Frequency3": "30",
+            "Frequency4": "40",
+            "Frequency5": "50",
+            "Frequency6": "60",
+            "NumRays": "32",
+            "Distribution": "uniform",
+            "ScaleByDiffractionLimit": "False",
+            "PlotPointCount": "128",
+            "ProfileType": "X",
+            "Spread": "\u7EBF",
+            "UseCoherentPsf": "False"
+          },
+          "zemaxSettings": {
+            "Wavelength": 2,
+            "UsePolarization": false,
+            "Field": 1,
+            "SampleSize": "S_1024x1024",
+            "Type": "X_Linear",
+            "Normalize": false,
+            "RowCol": 0,
+            "PlotScale": 175
+          },
+          "zemaxCfgSettings": {},
+          "wavelengthScope": "Selected",
+          "wavelengthCount": 3,
+          "fieldDefinition": "Angle",
+          "maximumFieldRadius": 20,
+          "surfaceCount": 8,
+          "fieldCount": 3,
+          "definedFields": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              14
+            ],
+            [
+              0,
+              20
+            ]
+          ],
+          "fieldScanDirection": "\u002By",
+          "primaryWavelengthMicrometers": 0.55,
+          "zemaxSettingsMode": "TypedProperties",
+          "sourceImagePath": null,
+          "sourceImageSha256": null,
+          "zosApiPath": "D:\\Program Files\\ANSYS Inc\\v261\\Zemax OpticStudio",
+          "input": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\sources/Miscellaneous/Optimization demo 2.zmx",
+          "zemaxVersion": "2026 R1",
+          "adapter": "contract",
+          "analysisType": "FftPsfCrossSection",
+          "captureScreenshots": false
+        }
+      },
+      "source": "6a40b596ea7f4a8ee47f9038613fa887bbdea38ae195b1404e3c9da848dd2af9",
+      "modelHash": "995647c8e1a2cd469e9b987b3f6e7f22f9a7692b55a39374797a96a7d69b0c3c",
+      "hash": "c0339e24c6c8690173a6cd61b025a574e4b9393af1c816baf7ef678ee0745597",
+      "textHash": "c44676ea050427357b6368844099f6ee82e78004c6e29191b72599d9b88ba086"
+    },
+    {
+      "n": 2048,
+      "diagnostics": {
+        "seriesCount": 0,
+        "gridCount": 0,
+        "messages": []
+      },
+      "batch": {
+        "id": "1295-2048",
+        "exitCode": 0,
+        "startedUtc": "2026-11-08T04:19:54.5319359Z",
+        "completedUtc": "2026-11-08T04:19:56.8511978Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      },
+      "captured": {
+        "origin": "CapturedSettings",
+        "properties": {
+          "SampleSize": "S_2048x2048",
+          "Type": "X_Linear",
+          "UsePolarization": false,
+          "Normalize": false,
+          "PlotScale": 175,
+          "RowCol": 0
+        },
+        "selectors": {
+          "Field": 1,
+          "Wavelength": 2
+        },
+        "request": {
+          "canonicalAnalysisKey": "FFT PSF Cross Section",
+          "configuration": 1,
+          "field": 1,
+          "wavelength": 2,
+          "surface": -1,
+          "pupilSampling": 2048,
+          "imageSampling": 32,
+          "rayCount": 20,
+          "gridSize": 32,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "focusMinimum": -0.1,
+          "focusMaximum": 0.1,
+          "reference": "ChiefRay",
+          "polarization": false,
+          "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+          "deleteVignetted": true,
+          "useRayAiming": false,
+          "normalization": "NativePhysical",
+          "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+          "outputUnits": "TypedAxes",
+          "settingsOrigin": "CapturedSettings",
+          "workbenchSettings": {
+            "Sampling": "32",
+            "Row": "\u4E2D\u5FC3",
+            "GraphScaleMicrometers": "0",
+            "UsePolarization": "False",
+            "WavelengthNumber": "2",
+            "FieldNumber": "1",
+            "Type": "X-\u7EBF\u6027",
+            "Normalized": "False",
+            "SurfaceNumber": "-1",
+            "UseRayAiming": "False",
+            "PupilSampling": "32",
+            "ImageSampling": "32",
+            "ImageDeltaMicrometers": "0.25",
+            "UseCentroid": "False",
+            "Frequency": "50",
+            "SpatialFrequency": "50",
+            "MaximumFrequency": "50",
+            "DeltaFocus": "0.01",
+            "NumberOfSteps": "5",
+            "Steps": "5",
+            "UseDashes": "False",
+            "FieldDensity": "10",
+            "FieldPointCount": "10",
+            "ScanType": "\u002By",
+            "RemoveVignettingFactors": "True",
+            "Frequency1": "10",
+            "Frequency2": "20",
+            "Frequency3": "30",
+            "Frequency4": "40",
+            "Frequency5": "50",
+            "Frequency6": "60",
+            "NumRays": "32",
+            "Distribution": "uniform",
+            "ScaleByDiffractionLimit": "False",
+            "PlotPointCount": "128",
+            "ProfileType": "X",
+            "Spread": "\u7EBF",
+            "UseCoherentPsf": "False"
+          },
+          "zemaxSettings": {
+            "Wavelength": 2,
+            "UsePolarization": false,
+            "Field": 1,
+            "SampleSize": "S_2048x2048",
+            "Type": "X_Linear",
+            "Normalize": false,
+            "RowCol": 0,
+            "PlotScale": 175
+          },
+          "zemaxCfgSettings": {},
+          "wavelengthScope": "Selected",
+          "wavelengthCount": 3,
+          "fieldDefinition": "Angle",
+          "maximumFieldRadius": 20,
+          "surfaceCount": 8,
+          "fieldCount": 3,
+          "definedFields": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              14
+            ],
+            [
+              0,
+              20
+            ]
+          ],
+          "fieldScanDirection": "\u002By",
+          "primaryWavelengthMicrometers": 0.55,
+          "zemaxSettingsMode": "TypedProperties",
+          "sourceImagePath": null,
+          "sourceImageSha256": null,
+          "zosApiPath": "D:\\Program Files\\ANSYS Inc\\v261\\Zemax OpticStudio",
+          "input": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\sources/Miscellaneous/Optimization demo 2.zmx",
+          "zemaxVersion": "2026 R1",
+          "adapter": "contract",
+          "analysisType": "FftPsfCrossSection",
+          "captureScreenshots": false
+        }
+      },
+      "source": "6a40b596ea7f4a8ee47f9038613fa887bbdea38ae195b1404e3c9da848dd2af9",
+      "modelHash": "995647c8e1a2cd469e9b987b3f6e7f22f9a7692b55a39374797a96a7d69b0c3c",
+      "hash": "c0339e24c6c8690173a6cd61b025a574e4b9393af1c816baf7ef678ee0745597",
+      "textHash": "f6c1ef6b364ee4ce41789f5aac82be339c98309be26ec5eb2f314853e0db6bff"
+    },
+    {
+      "n": 4096,
+      "diagnostics": {
+        "seriesCount": 0,
+        "gridCount": 0,
+        "messages": []
+      },
+      "batch": {
+        "id": "1295-4096",
+        "exitCode": 0,
+        "startedUtc": "2026-11-08T04:19:56.8531955Z",
+        "completedUtc": "2026-11-08T04:20:04.4502436Z",
+        "semantics": "Persistent application; source reloaded for every request; no lens saved"
+      },
+      "captured": {
+        "origin": "CapturedSettings",
+        "properties": {
+          "SampleSize": "S_4096x4096",
+          "Type": "X_Linear",
+          "UsePolarization": false,
+          "Normalize": false,
+          "PlotScale": 175,
+          "RowCol": 0
+        },
+        "selectors": {
+          "Field": 1,
+          "Wavelength": 2
+        },
+        "request": {
+          "canonicalAnalysisKey": "FFT PSF Cross Section",
+          "configuration": 1,
+          "field": 1,
+          "wavelength": 2,
+          "surface": -1,
+          "pupilSampling": 4096,
+          "imageSampling": 32,
+          "rayCount": 20,
+          "gridSize": 32,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "focusMinimum": -0.1,
+          "focusMaximum": 0.1,
+          "reference": "ChiefRay",
+          "polarization": false,
+          "apodization": "{\r\n  \u0022kind\u0022: \u0022zemax_pupil\u0022,\r\n  \u0022numbers\u0022: {\r\n    \u0022type\u0022: 0,\r\n    \u0022factor\u0022: 0\r\n  },\r\n  \u0022text\u0022: {},\r\n  \u0022children\u0022: null\r\n}",
+          "deleteVignetted": true,
+          "useRayAiming": false,
+          "normalization": "NativePhysical",
+          "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+          "outputUnits": "TypedAxes",
+          "settingsOrigin": "CapturedSettings",
+          "workbenchSettings": {
+            "Sampling": "32",
+            "Row": "\u4E2D\u5FC3",
+            "GraphScaleMicrometers": "0",
+            "UsePolarization": "False",
+            "WavelengthNumber": "2",
+            "FieldNumber": "1",
+            "Type": "X-\u7EBF\u6027",
+            "Normalized": "False",
+            "SurfaceNumber": "-1",
+            "UseRayAiming": "False",
+            "PupilSampling": "32",
+            "ImageSampling": "32",
+            "ImageDeltaMicrometers": "0.25",
+            "UseCentroid": "False",
+            "Frequency": "50",
+            "SpatialFrequency": "50",
+            "MaximumFrequency": "50",
+            "DeltaFocus": "0.01",
+            "NumberOfSteps": "5",
+            "Steps": "5",
+            "UseDashes": "False",
+            "FieldDensity": "10",
+            "FieldPointCount": "10",
+            "ScanType": "\u002By",
+            "RemoveVignettingFactors": "True",
+            "Frequency1": "10",
+            "Frequency2": "20",
+            "Frequency3": "30",
+            "Frequency4": "40",
+            "Frequency5": "50",
+            "Frequency6": "60",
+            "NumRays": "32",
+            "Distribution": "uniform",
+            "ScaleByDiffractionLimit": "False",
+            "PlotPointCount": "128",
+            "ProfileType": "X",
+            "Spread": "\u7EBF",
+            "UseCoherentPsf": "False"
+          },
+          "zemaxSettings": {
+            "Wavelength": 2,
+            "UsePolarization": false,
+            "Field": 1,
+            "SampleSize": "S_4096x4096",
+            "Type": "X_Linear",
+            "Normalize": false,
+            "RowCol": 0,
+            "PlotScale": 175
+          },
+          "zemaxCfgSettings": {},
+          "wavelengthScope": "Selected",
+          "wavelengthCount": 3,
+          "fieldDefinition": "Angle",
+          "maximumFieldRadius": 20,
+          "surfaceCount": 8,
+          "fieldCount": 3,
+          "definedFields": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              14
+            ],
+            [
+              0,
+              20
+            ]
+          ],
+          "fieldScanDirection": "\u002By",
+          "primaryWavelengthMicrometers": 0.55,
+          "zemaxSettingsMode": "TypedProperties",
+          "sourceImagePath": null,
+          "sourceImageSha256": null,
+          "zosApiPath": "D:\\Program Files\\ANSYS Inc\\v261\\Zemax OpticStudio",
+          "input": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\sources/Miscellaneous/Optimization demo 2.zmx",
+          "zemaxVersion": "2026 R1",
+          "adapter": "contract",
+          "analysisType": "FftPsfCrossSection",
+          "captureScreenshots": false
+        }
+      },
+      "source": "6a40b596ea7f4a8ee47f9038613fa887bbdea38ae195b1404e3c9da848dd2af9",
+      "modelHash": "995647c8e1a2cd469e9b987b3f6e7f22f9a7692b55a39374797a96a7d69b0c3c",
+      "hash": "c0339e24c6c8690173a6cd61b025a574e4b9393af1c816baf7ef678ee0745597",
+      "textHash": "ba148f55bb8af44b1ff539f1217408784a0955ebbca763c60a642f3bb137ed86"
+    }
+  ],
+  "coreLog": [
+    {
+      "n": 1024,
+      "outcome": "Success",
+      "hash": "5b848a83011296b42ac88524340694c083bcfb2326d6545facb9aabdf2e4e35e",
+      "provenance": {
+        "canonicalAnalysisKey": "FFT PSF Cross Section",
+        "requestFingerprint": "11ad680deb00b7a2d411b44ee7bf47525f047c3f020f6b2c93f3dd2fbad592f6",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "123faeb75b57174d0acd4f04456dead0b31c80e3da57350ec7bd61eb59223404",
+        "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+      }
+    },
+    {
+      "n": 2048,
+      "outcome": "Success",
+      "hash": "833e9666788db281a20d8ffacc37a802d1532375637ef7fb1273752c705522c4",
+      "provenance": {
+        "canonicalAnalysisKey": "FFT PSF Cross Section",
+        "requestFingerprint": "efe1fbfa30fb28cac5e94217d185bfae1ef165d5e630575624faedf61a693dd1",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "123faeb75b57174d0acd4f04456dead0b31c80e3da57350ec7bd61eb59223404",
+        "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+      }
+    },
+    {
+      "n": 4096,
+      "outcome": "Success",
+      "hash": "b3b823cbfbfa736b52dbac5aab1c3323647b2d2622e7e25ebb3c6ca721caf491",
+      "provenance": {
+        "canonicalAnalysisKey": "FFT PSF Cross Section",
+        "requestFingerprint": "cd0c2b4835af51114ae9685cef3ed15b310707fcff1b93f683815ebb7b21ae62",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "123faeb75b57174d0acd4f04456dead0b31c80e3da57350ec7bd61eb59223404",
+        "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+      }
+    }
+  ],
+  "nativePairs": [
+    {
+      "a": 1024,
+      "b": 2048,
+      "conclusion": "Close",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 8193,
+          "maxAbsolute": 4.700000000000006E-05,
+          "meanAbsolute": 3.6757043950733736E-06,
+          "rmse": 7.379367438035093E-06,
+          "nrmse": 0.00488053401986448,
+          "maxRelative": "Infinity",
+          "p50": 1E-06,
+          "p90": 1.0499590403744688E-05,
+          "p95": 1.699999999999987E-05,
+          "pearson": 0.999692815627098,
+          "worstX": -75.70801,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "a": 2048,
+      "b": 4096,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 16385,
+          "maxAbsolute": 1.4000000000000015E-05,
+          "meanAbsolute": 1.425149534505063E-06,
+          "rmse": 2.6423986559630576E-06,
+          "nrmse": 0.0017430070289993784,
+          "maxRelative": "Infinity",
+          "p50": 9.999999999999972E-07,
+          "p90": 4.000000000000097E-06,
+          "p95": 6.000000000000037E-06,
+          "pearson": 0.9999601794682588,
+          "worstX": -0.42725,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    }
+  ],
+  "corePairs": [
+    {
+      "a": 1024,
+      "b": 2048,
+      "conclusion": "Close",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 8193,
+          "maxAbsolute": 4.6724528406198946E-05,
+          "meanAbsolute": 3.66182082134751E-06,
+          "rmse": 7.370591623866014E-06,
+          "nrmse": 0.004873546432646059,
+          "maxRelative": 9.048043944379971,
+          "p50": 8.925310358848932E-07,
+          "p90": 1.0398042279611005E-05,
+          "p95": 1.656182948508211E-05,
+          "pearson": 0.9996934592051093,
+          "worstX": 75.665283203125,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "a": 2048,
+      "b": 4096,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 16385,
+          "maxAbsolute": 1.3872721564019965E-05,
+          "meanAbsolute": 1.4075015341170607E-06,
+          "rmse": 2.617788839132867E-06,
+          "nrmse": 0.001726509873014005,
+          "maxRelative": 3.022248441861529,
+          "p50": 4.676509374661273E-07,
+          "p90": 4.302201811624049E-06,
+          "p95": 6.196279147745762E-06,
+          "pearson": 0.9999609004307184,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    }
+  ],
+  "cross": [
+    {
+      "a": 1024,
+      "b": 1024,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 8129,
+          "maxAbsolute": 4.998368478430665E-07,
+          "meanAbsolute": 2.52053960500154E-07,
+          "rmse": 2.896398364826735E-07,
+          "nrmse": 0.0001895548668080324,
+          "maxRelative": "Infinity",
+          "p50": 2.560625224397181E-07,
+          "p90": 4.4856108828334376E-07,
+          "p95": 4.768799972609638E-07,
+          "pearson": 0.9999995214461259,
+          "worstX": -30.67626953125,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "a": 1024,
+      "b": 2048,
+      "conclusion": "Close",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 12225,
+          "maxAbsolute": 4.7186355370249346E-05,
+          "meanAbsolute": 3.6939153793540635E-06,
+          "rmse": 7.365558592234001E-06,
+          "nrmse": 0.004871401185339947,
+          "maxRelative": "Infinity",
+          "p50": 9.642063407138905E-07,
+          "p90": 1.043137895499638E-05,
+          "p95": 1.6681165107932966E-05,
+          "pearson": 0.9996936856788512,
+          "worstX": 75.62256,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "a": 1024,
+      "b": 4096,
+      "conclusion": "Close",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 20417,
+          "maxAbsolute": 4.541073806695289E-05,
+          "meanAbsolute": 3.5312309024719806E-06,
+          "rmse": 6.992009651457878E-06,
+          "nrmse": 0.004612143569563244,
+          "maxRelative": "Infinity",
+          "p50": 8.78206176310789E-07,
+          "p90": 9.926566804706173E-06,
+          "p95": 1.4948680788727373E-05,
+          "pearson": 0.9997221288418772,
+          "worstX": 75.6012,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "a": 2048,
+      "b": 1024,
+      "conclusion": "Close",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 12225,
+          "maxAbsolute": 4.6852439395188316E-05,
+          "meanAbsolute": 3.7053526662739666E-06,
+          "rmse": 7.367096235904364E-06,
+          "nrmse": 0.004821398060146835,
+          "maxRelative": "Infinity",
+          "p50": 9.840543266996775E-07,
+          "p90": 1.040222770146075E-05,
+          "p95": 1.6707387709548512E-05,
+          "pearson": 0.9996938702125522,
+          "worstX": 75.7080078125,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "a": 2048,
+      "b": 2048,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 16321,
+          "maxAbsolute": 4.999875608714954E-07,
+          "meanAbsolute": 2.5245605602334143E-07,
+          "rmse": 2.899728700774044E-07,
+          "nrmse": 0.00019178099872844205,
+          "maxRelative": "Infinity",
+          "p50": 2.5336314671411475E-07,
+          "p90": 4.501655054926842E-07,
+          "p95": 4.758839099080472E-07,
+          "pearson": 0.9999995171322505,
+          "worstX": 172.94922,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "a": 2048,
+      "b": 4096,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 24513,
+          "maxAbsolute": 1.395937941073538E-05,
+          "meanAbsolute": 1.4772391627098246E-06,
+          "rmse": 2.633962696855025E-06,
+          "nrmse": 0.0017374424121734994,
+          "maxRelative": "Infinity",
+          "p50": 5.872621735895055E-07,
+          "p90": 4.292099976702017E-06,
+          "p95": 6.199091899518914E-06,
+          "pearson": 0.9999604224735745,
+          "worstX": 0.1708984375,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "a": 4096,
+      "b": 1024,
+      "conclusion": "Close",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 20417,
+          "maxAbsolute": 4.485577814067332E-05,
+          "meanAbsolute": 3.537770215506547E-06,
+          "rmse": 6.992525939824355E-06,
+          "nrmse": 0.004576260431822222,
+          "maxRelative": "Infinity",
+          "p50": 8.832252821935329E-07,
+          "p90": 1.0030703324526656E-05,
+          "p95": 1.5028086632035966E-05,
+          "pearson": 0.9997223862061491,
+          "worstX": 75.579833984375,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "a": 4096,
+      "b": 2048,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 24513,
+          "maxAbsolute": 1.426342348026272E-05,
+          "meanAbsolute": 1.4667133589790812E-06,
+          "rmse": 2.62400653521678E-06,
+          "nrmse": 0.0017354540576830556,
+          "maxRelative": "Infinity",
+          "p50": 5.748092896682996E-07,
+          "p90": 4.260876596977588E-06,
+          "p95": 6.155517126865131E-06,
+          "pearson": 0.9999607392719242,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "a": 4096,
+      "b": 4096,
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 32705,
+          "maxAbsolute": 5.002174858548719E-07,
+          "meanAbsolute": 2.5701346195975954E-07,
+          "rmse": 2.947324054207824E-07,
+          "nrmse": 0.0001944145154490649,
+          "maxRelative": "Infinity",
+          "p50": 2.5845994390244246E-07,
+          "p90": 4.543914501251907E-07,
+          "p95": 4.7575928461482534E-07,
+          "pearson": 0.9999994996425876,
+          "worstX": -82.35168,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      ]
+    }
+  ],
+  "autoWindow": {
+    "extent": [
+      -40.828720325126945,
+      40.82872032512696
+    ],
+    "autoValidation": {
+      "protocol": "FourierPhysicalDomainConvergence/v2",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 32,
+      "returnedPupilSampling": 2048,
+      "maximumPupilSampling": 4096,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1E-07,
+      "validated": true,
+      "steps": [
+        {
+          "pupilSampling": 32,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": 1.630561528902782,
+          "maximumAbsoluteChange": 0.0030178704877143955,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.6379125087504824,
+          "maximumAbsoluteChange": 0.0005746092372470829,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.055522684716386037,
+          "maximumAbsoluteChange": 6.956985866385445E-05,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0673623845370994,
+          "maximumAbsoluteChange": 6.0190162013682206E-05,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.01667996618262325,
+          "maximumAbsoluteChange": 5.3217625017166375E-05,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.015032816239669528,
+          "maximumAbsoluteChange": 2.5484687597110504E-05,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 4096,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.01578712202804087,
+          "maximumAbsoluteChange": 1.3872721564019965E-05,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.07983685226568153,
+          "maximumAbsoluteChange": 9.888950196143052E-05,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.03616091894561981,
+          "maximumAbsoluteChange": 4.034067893172338E-05,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.006532094214808404,
+          "maximumAbsoluteChange": 1.631450823671486E-05,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.005243317688245297,
+          "maximumAbsoluteChange": 4.553397190574398E-06,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0005983591143836527,
+          "maximumAbsoluteChange": 1.4491930764080983E-06,
+          "usesDensePhysicalPupil": true
+        }
+      ],
+      "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+      "evaluatedNominalPupilCells": 55920640,
+      "maximumNominalPupilCells": 100000000,
+      "requestedRelativeRmsDeviation": 3.466438352256306,
+      "requestedMaximumAbsoluteDeviation": 0.003085884166804853
+    },
+    "autoCross": {
+      "id": "curve:0",
+      "unit": "Dimensionless",
+      "count": 201,
+      "maxAbsolute": 1.0060969518535545E-05,
+      "meanAbsolute": 2.343524348602636E-06,
+      "rmse": 3.1000197528236638E-06,
+      "nrmse": 0.00352675739797914,
+      "maxRelative": 0.06263331027873442,
+      "p50": 1.8505404914116274E-06,
+      "p90": 5.484350280824681E-06,
+      "p95": 6.054051508314724E-06,
+      "pearson": 0.9996982604859376,
+      "worstX": 7.105427357601002E-15,
+      "worstY": null,
+      "coverage": 1,
+      "conclusion": "Pass",
+      "extra": {}
+    },
+    "hash": "13324c13ecb84dd86ce2792cfa6fe57ebcfffb97a3aeb1c548366834aaa99714"
+  },
+  "conclusion": "SupplementalPass"
+}

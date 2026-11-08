@@ -1,0 +1,365 @@
+{
+  "nativeArchiveSha256": "1ca1914e112b850883a2b09ac6d73e9ed3eddb3e37d3f73642fc545edbcfe23f",
+  "studies": [
+    {
+      "index": 653,
+      "nativeIndex": 650,
+      "lensName": "Image Simulation/Example 4, a diffraction limited system.ZMX",
+      "sourceSha256": "f62da96ae3351e40a088dedc731603c1ebfe0641ada8a8aea125a615204cea7d",
+      "nativeSha256": "70b2051ccf21d60265919c0531ecf88f92e642066188a88f49e109cdf7d91da9",
+      "originalRequestSha256": "9f6b0ab31fbf5acef2cbba8c9ae67823fe0cc8041b3d91b6856fdeaec504508a",
+      "lens": {
+        "outer": 1.2,
+        "inner": 0.200000003,
+        "outerClear": 1.21000004,
+        "obstruction": 0.155000001,
+        "firstZ": 5,
+        "secondZ": 0.09392900000000015,
+        "imageZ": 6.500128538997,
+        "radii": [
+          -11.04000000547584,
+          -1.3580000000679,
+          -0.6310792011298269
+        ],
+        "conics": [
+          -1.0022985,
+          -1.49686,
+          0
+        ],
+        "secondaryRadius": 0.1405593540651,
+        "detectorRadius": 0.0803785311192,
+        "wavelengthMicrometers": 0.5
+      },
+      "epsilon": 0.16666666916666667,
+      "nativeValidNodes": 68,
+      "nativeMaskNodes": 83,
+      "nativeWorkingFNumber": 23.999942075602817,
+      "nativeAngularSine": 0.020833383615049467,
+      "maximumNativeDirectionResidual": 7.216449660063518e-16,
+      "maximumNativeOpdResidualWaves": 3.3016299466637156e-8,
+      "maximumSecondaryRayHeightMeters": 0.13362862312164503,
+      "maximumImageRayHeightMeters": 1.2751811273581382e-9,
+      "independentQuadraturePhasePeakToValleyWaves": 0.000004476919648322024,
+      "physicalGrid": {
+        "rows": 128,
+        "columns": 128,
+        "pixelPitchMicrometers": 0.25
+      },
+      "originalGate": {
+        "absolute": 0.00001,
+        "relative": 0.001,
+        "nrmse": 0.01,
+        "closeNrmse": 0.03,
+        "minimumCoverage": 0.95
+      },
+      "independentQuadratureConvergence": {
+        "count": 16384,
+        "coverage": 1,
+        "maximumAbsolute": 2.6402383057622103e-10,
+        "nrmse": 1.4566890398271587e-10,
+        "conclusion": "Pass"
+      },
+      "annulusVersusTraced": {
+        "count": 16384,
+        "coverage": 1,
+        "maximumAbsolute": 4.6465276071216977e-11,
+        "nrmse": 1.2990901255725538e-11,
+        "conclusion": "Pass"
+      },
+      "realAngleMappingControl": {
+        "count": 16384,
+        "coverage": 1,
+        "maximumAbsolute": 4.86326532378456e-8,
+        "nrmse": 2.6553386464707775e-8,
+        "conclusion": "Pass"
+      },
+      "workbench": [
+        {
+          "n": 512,
+          "snapshotSha256": "81bf982d0fc15198a5a7ddb6ce02cd44e8bb423d70983847e132e1c7a3f66cce",
+          "codeFingerprint": "15672c9cee7a7563b791fe6db1074e8419602aaa471c5c80de5e426f9985a062:95228e3b0ebbd5e77bd6b9f3783bf6e963daced6915790c4b186e7444d40636d",
+          "requestFingerprint": "59b4240e3559c3d032409cbdafb9d7c9ab3d76ed0114d6747d661c42404ee728",
+          "dataSha256": "85757f524ed6b238bca6772c9670ffd405dd642f1a963340f704438e717720ad",
+          "versusAnalytic": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0028780033851683665,
+            "nrmse": 0.0014338719349047508,
+            "conclusion": "Pass"
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0028780033924709833,
+            "nrmse": 0.001433871934465498,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "n": 1024,
+          "snapshotSha256": "81bf982d0fc15198a5a7ddb6ce02cd44e8bb423d70983847e132e1c7a3f66cce",
+          "codeFingerprint": "15672c9cee7a7563b791fe6db1074e8419602aaa471c5c80de5e426f9985a062:95228e3b0ebbd5e77bd6b9f3783bf6e963daced6915790c4b186e7444d40636d",
+          "requestFingerprint": "b565baaee0efe3d2be4672b5fbf7f541749dbc7f2c56fc39a48076356246e18d",
+          "dataSha256": "9c314d79e022025c7c77ee88de38692ebed4418e7b4957ed22817bd5cfe36110",
+          "versusAnalytic": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.00042949953911617864,
+            "nrmse": 0.00017082954450551896,
+            "conclusion": "Pass"
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.00042949953433357897,
+            "nrmse": 0.00017082954125298162,
+            "conclusion": "Pass"
+          },
+          "versusPrior": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.002813295692076445,
+            "nrmse": 0.0013706130660542974,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "n": 2048,
+          "snapshotSha256": "81bf982d0fc15198a5a7ddb6ce02cd44e8bb423d70983847e132e1c7a3f66cce",
+          "codeFingerprint": "15672c9cee7a7563b791fe6db1074e8419602aaa471c5c80de5e426f9985a062:95228e3b0ebbd5e77bd6b9f3783bf6e963daced6915790c4b186e7444d40636d",
+          "requestFingerprint": "6b9ec5db809bb2c1b85c71694310dbe864188cae4db768f99b609ad8224c7aec",
+          "dataSha256": "bb95d97fc1d72ebf04ff7268d814886b6c86ccda3b6b35d4d124dd27052e248c",
+          "versusAnalytic": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.00043448576817531337,
+            "nrmse": 0.00019006677017369735,
+            "conclusion": "Pass"
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0004344857789647105,
+            "nrmse": 0.00019006677266344602,
+            "conclusion": "Pass"
+          },
+          "versusPrior": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0007226882942052842,
+            "nrmse": 0.0002824590536973775,
+            "conclusion": "Pass"
+          }
+        }
+      ]
+    },
+    {
+      "index": 2335,
+      "nativeIndex": 2332,
+      "lensName": "Telescopes/Hubble.zmx",
+      "sourceSha256": "07a84224ec7c4422de621b38aae3665a894005afbd201ae9a146afff17b2dbcf",
+      "nativeSha256": "2c6dcfc33d36181f11ab76962f0fbdb77a5856b56bafc4306699b20c49cebace",
+      "originalRequestSha256": "3b6f7e35a23abe9b893d8f599425df0b26403d995c19a9cad22515339fa37428",
+      "lens": {
+        "outer": 1.2,
+        "inner": 0.200000003,
+        "outerClear": 1.21000004,
+        "obstruction": 0.155000001,
+        "firstZ": 5,
+        "secondZ": 0.09392900000000015,
+        "imageZ": 6.500128538996868,
+        "radii": [
+          -11.04000000547584,
+          -1.3580000000679,
+          -0.6310792011298269
+        ],
+        "conics": [
+          -1.0022985,
+          -1.49686,
+          0
+        ],
+        "secondaryRadius": 0.14055935406510345,
+        "detectorRadius": 0.08037853111901624,
+        "wavelengthMicrometers": 0.5
+      },
+      "epsilon": 0.16666666916666667,
+      "nativeValidNodes": 68,
+      "nativeMaskNodes": 83,
+      "nativeWorkingFNumber": 23.999942075602817,
+      "nativeAngularSine": 0.020833383615049467,
+      "maximumNativeDirectionResidual": 7.216449660063518e-16,
+      "maximumNativeOpdResidualWaves": 3.303468758176037e-8,
+      "maximumSecondaryRayHeightMeters": 0.13362862312164503,
+      "maximumImageRayHeightMeters": 1.2751837641378216e-9,
+      "independentQuadraturePhasePeakToValleyWaves": 0.000004476960449124981,
+      "physicalGrid": {
+        "rows": 128,
+        "columns": 128,
+        "pixelPitchMicrometers": 0.25
+      },
+      "originalGate": {
+        "absolute": 0.00001,
+        "relative": 0.001,
+        "nrmse": 0.01,
+        "closeNrmse": 0.03,
+        "minimumCoverage": 0.95
+      },
+      "independentQuadratureConvergence": {
+        "count": 16384,
+        "coverage": 1,
+        "maximumAbsolute": 2.640212770632644e-10,
+        "nrmse": 1.4566712855849035e-10,
+        "conclusion": "Pass"
+      },
+      "annulusVersusTraced": {
+        "count": 16384,
+        "coverage": 1,
+        "maximumAbsolute": 4.645439588557565e-11,
+        "nrmse": 1.2988884990953946e-11,
+        "conclusion": "Pass"
+      },
+      "realAngleMappingControl": {
+        "count": 16384,
+        "coverage": 1,
+        "maximumAbsolute": 4.86326532378456e-8,
+        "nrmse": 2.655338645905905e-8,
+        "conclusion": "Pass"
+      },
+      "workbench": [
+        {
+          "n": 128,
+          "snapshotSha256": "ce4b85e43db1ffcbc0725d1fda7bead082a854d9fd1c28880de4f32d1c83ff86",
+          "codeFingerprint": "15672c9cee7a7563b791fe6db1074e8419602aaa471c5c80de5e426f9985a062:95228e3b0ebbd5e77bd6b9f3783bf6e963daced6915790c4b186e7444d40636d",
+          "requestFingerprint": "d218d4f2f495d50ed4299439b1b30754bac86e9b5564e59a8072cae1759bdab1",
+          "dataSha256": "022a08374d852a0d2d0c5bbb1d67fcd948db2100c730442bdeec6777e9683eef",
+          "versusAnalytic": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.026077181982118502,
+            "nrmse": 0.01379117123228397,
+            "conclusion": "Close"
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.026077181983928444,
+            "nrmse": 0.01379117123197006,
+            "conclusion": "Close"
+          }
+        },
+        {
+          "n": 256,
+          "snapshotSha256": "ce4b85e43db1ffcbc0725d1fda7bead082a854d9fd1c28880de4f32d1c83ff86",
+          "codeFingerprint": "15672c9cee7a7563b791fe6db1074e8419602aaa471c5c80de5e426f9985a062:95228e3b0ebbd5e77bd6b9f3783bf6e963daced6915790c4b186e7444d40636d",
+          "requestFingerprint": "c3779bdac126235c20dcb3c12c02681e9c9d35f237bb8866563e7aa7aa3127ee",
+          "dataSha256": "557589a11607e0b64fa02401d15f56829a025277cbac874bf89c39f44ae722e9",
+          "versusAnalytic": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.011837620906640672,
+            "nrmse": 0.005531984337043287,
+            "conclusion": "Pass"
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.011837620897188844,
+            "nrmse": 0.005531984335000371,
+            "conclusion": "Pass"
+          },
+          "versusPrior": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.024858621706613397,
+            "nrmse": 0.00967084971497608,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "n": 512,
+          "snapshotSha256": "ce4b85e43db1ffcbc0725d1fda7bead082a854d9fd1c28880de4f32d1c83ff86",
+          "codeFingerprint": "15672c9cee7a7563b791fe6db1074e8419602aaa471c5c80de5e426f9985a062:95228e3b0ebbd5e77bd6b9f3783bf6e963daced6915790c4b186e7444d40636d",
+          "requestFingerprint": "59b4240e3559c3d032409cbdafb9d7c9ab3d76ed0114d6747d661c42404ee728",
+          "dataSha256": "85757f524ed6b238bca6772c9670ffd405dd642f1a963340f704438e717720ad",
+          "versusAnalytic": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0028780033851683665,
+            "nrmse": 0.0014338719349047508,
+            "conclusion": "Pass"
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0028780033924700812,
+            "nrmse": 0.001433871934463752,
+            "conclusion": "Pass"
+          },
+          "versusPrior": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.010971991854896196,
+            "nrmse": 0.0046887208625235694,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "n": 1024,
+          "snapshotSha256": "ce4b85e43db1ffcbc0725d1fda7bead082a854d9fd1c28880de4f32d1c83ff86",
+          "codeFingerprint": "15672c9cee7a7563b791fe6db1074e8419602aaa471c5c80de5e426f9985a062:95228e3b0ebbd5e77bd6b9f3783bf6e963daced6915790c4b186e7444d40636d",
+          "requestFingerprint": "b565baaee0efe3d2be4672b5fbf7f541749dbc7f2c56fc39a48076356246e18d",
+          "dataSha256": "9c314d79e022025c7c77ee88de38692ebed4418e7b4957ed22817bd5cfe36110",
+          "versusAnalytic": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.00042949953911617864,
+            "nrmse": 0.00017082954450551896,
+            "conclusion": "Pass"
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.00042949953433276365,
+            "nrmse": 0.00017082954125278936,
+            "conclusion": "Pass"
+          },
+          "versusPrior": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.002813295692076445,
+            "nrmse": 0.0013706130660542974,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "n": 2048,
+          "snapshotSha256": "ce4b85e43db1ffcbc0725d1fda7bead082a854d9fd1c28880de4f32d1c83ff86",
+          "codeFingerprint": "15672c9cee7a7563b791fe6db1074e8419602aaa471c5c80de5e426f9985a062:95228e3b0ebbd5e77bd6b9f3783bf6e963daced6915790c4b186e7444d40636d",
+          "requestFingerprint": "6b9ec5db809bb2c1b85c71694310dbe864188cae4db768f99b609ad8224c7aec",
+          "dataSha256": "bb95d97fc1d72ebf04ff7268d814886b6c86ccda3b6b35d4d124dd27052e248c",
+          "versusAnalytic": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.00043448576817531337,
+            "nrmse": 0.00019006677017369735,
+            "conclusion": "Pass"
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0004344857789667922,
+            "nrmse": 0.00019006677266517427,
+            "conclusion": "Pass"
+          },
+          "versusPrior": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0007226882942052842,
+            "nrmse": 0.0002824590536973775,
+            "conclusion": "Pass"
+          }
+        }
+      ]
+    }
+  ]
+}

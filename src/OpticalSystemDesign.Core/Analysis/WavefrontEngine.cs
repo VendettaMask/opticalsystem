@@ -238,8 +238,10 @@ public static partial class WavefrontEngine
     }
 
     internal static WavefrontResult GenerateChiefRayBatch(Optic optic, (double Hx, double Hy) field,
-        Wavelength wavelength, IReadOnlyList<PupilSample> samples, bool aimAtStop) =>
-        GenerateChiefRay(optic, field, wavelength, samples, aimAtStop, allowGeometricReference: true,
+        Wavelength wavelength, IReadOnlyList<PupilSample> samples, bool aimAtStop,
+        WavefrontReferenceSphere? referenceSphere = null, Wavelength? referenceWavelength = null) =>
+        GenerateChiefRay(optic, field, wavelength, samples, aimAtStop, referenceSphere: referenceSphere,
+            referenceWavelength: referenceWavelength, allowGeometricReference: true,
             useSystemFocalReference: false, allowEmptyGeometricPupil: true);
 
     public static WavefrontReferenceSphere CreateChiefRayReferenceSphere(

@@ -1,0 +1,233 @@
+{
+  "frozenIndex": 1095,
+  "sourceLensSha256": "c22e0ae7f6655dba582da1a61b9fafab7b93fc6a396c388692249e73848d58da",
+  "sourceSnapshotSha256": "ec9f50cd848bc62dc56ba20e9b7cc46d30f9f5d06d92ea5b1fe069a345363604",
+  "frozenRequestSha256": "9e175221d323e900340d38daafb4cabdeefd1b15b437a83fea3ce5770c0e6842",
+  "physicalAxis": {
+    "quantity": "SpatialFrequency",
+    "unit": "CyclesPerMillimeter",
+    "start": 0,
+    "end": 50
+  },
+  "originalTolerance": {
+    "absolute": 0.001,
+    "relative": 0.001,
+    "nrmse": 0.01,
+    "closeNrmse": 0.03,
+    "minimumCoverage": 0.95
+  },
+  "native": [
+    {
+      "n": 256,
+      "folder": "artifacts/validation/ic2/h/n/1095-256",
+      "hashes": {
+        "data": "d09b9d21449bb6a1106335bb952a2dfd90a6ab8badd41dbba89ed27624e3f9a4",
+        "captured-settings": "0183dd1aca071cdf0dc0e8527cae557f09267d409bab1171ea14db8ccc4a2e64",
+        "result-diagnostics": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+        "batch-result": "52b765cafa0f93a1ad609d305c2de40145ee20c6fd074ef8c3e519226dc2d19c",
+        "model": "c933152c0beafcfef5f895c03283e1a148d2c003386d8c02c5c69c670bb3abb8"
+      }
+    },
+    {
+      "n": 512,
+      "folder": "artifacts/validation/ic2/h/n/1095-512",
+      "hashes": {
+        "data": "aa2cf34d1c0760651db160bfe24314c72923f31cb5e0ed25232bbbddda4196eb",
+        "captured-settings": "4f4b61302618ee099e6700a2d02f2bf5ebc9013d944c0d44b6cbd9ab5b32a0f7",
+        "result-diagnostics": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+        "batch-result": "a87b1755b7de668ea2a95f9f9a5dcc9371f0dc434b97c64dbfe4711f2ff0a88a",
+        "model": "c933152c0beafcfef5f895c03283e1a148d2c003386d8c02c5c69c670bb3abb8"
+      }
+    },
+    {
+      "n": 1024,
+      "folder": "artifacts/validation/streamed-mtf-frontier-20261108/native/1095-1024",
+      "hashes": {
+        "data": "5c89ec5c5089f3fd37702dc657602befc4ea1682f7e5963df8a6d5da70b89755",
+        "captured-settings": "9a131b726466672fb4d6cfc87b033c14bbb97f64f0da2d4bb9309bab76133c3a",
+        "result-diagnostics": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+        "batch-result": "f2e7edbc2bd23312cdbcaacb56e3ae45ad4c9d79b733c2eacd1ca666a13e501f",
+        "model": "c933152c0beafcfef5f895c03283e1a148d2c003386d8c02c5c69c670bb3abb8"
+      }
+    },
+    {
+      "n": 2048,
+      "folder": "artifacts/validation/streamed-mtf-frontier-20261108/native/1095-2048",
+      "hashes": {
+        "data": "23da76f80f95827294a1a36ee328ac7bd58fc5b0a5b49d56c39129499c7d9ac0",
+        "captured-settings": "f6c918059167c5da11e7ca41b2e8d9b1233ecfee49d743a4137e6e75786f830b",
+        "result-diagnostics": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+        "batch-result": "21fe90f3ed8e1c74925cf2203a55b1125c574da8832d597e6d6d26cc20446be4",
+        "model": "c933152c0beafcfef5f895c03283e1a148d2c003386d8c02c5c69c670bb3abb8"
+      }
+    }
+  ],
+  "nativePairwise": [
+    {
+      "lowerSampling": 256,
+      "higherSampling": 512,
+      "pass": false,
+      "comparison": [
+        {
+          "direction": "Tangential",
+          "coordinates": 300,
+          "coverage": 1,
+          "maximumAbsoluteError": 0.14959934272608022,
+          "nrmse": 0.0448230226807907,
+          "pointwisePass": false,
+          "pass": false
+        },
+        {
+          "direction": "Sagittal",
+          "coordinates": 300,
+          "coverage": 1,
+          "maximumAbsoluteError": 0.07517110225707413,
+          "nrmse": 0.012641679399266898,
+          "pointwisePass": false,
+          "pass": false
+        }
+      ]
+    },
+    {
+      "lowerSampling": 512,
+      "higherSampling": 1024,
+      "pass": true,
+      "comparison": [
+        {
+          "direction": "Tangential",
+          "coordinates": 300,
+          "coverage": 1,
+          "maximumAbsoluteError": 0.02803181152043932,
+          "nrmse": 0.005298164844775311,
+          "pointwisePass": false,
+          "pass": true
+        },
+        {
+          "direction": "Sagittal",
+          "coordinates": 300,
+          "coverage": 1,
+          "maximumAbsoluteError": 0.014245486983249567,
+          "nrmse": 0.0016302605711600083,
+          "pointwisePass": false,
+          "pass": true
+        }
+      ]
+    },
+    {
+      "lowerSampling": 1024,
+      "higherSampling": 2048,
+      "pass": true,
+      "comparison": [
+        {
+          "direction": "Tangential",
+          "coordinates": 300,
+          "coverage": 1,
+          "maximumAbsoluteError": 0.006215919234928591,
+          "nrmse": 0.0008465915523116334,
+          "pointwisePass": false,
+          "pass": true
+        },
+        {
+          "direction": "Sagittal",
+          "coordinates": 300,
+          "coverage": 1,
+          "maximumAbsoluteError": 0.003287136800221191,
+          "nrmse": 0.0002815240418778304,
+          "pointwisePass": false,
+          "pass": true
+        }
+      ]
+    }
+  ],
+  "nativeConverged": true,
+  "product": {
+    "outcome": "Success",
+    "outcomeReason": null,
+    "rawSha256": "0093fe5c3969b3298310420db78538429b0ffa1fc148358373e4160d37ebba19",
+    "coreSha256": "4b6460ecd48b48fbf1da825b3f5fad6c65dd3d5e68e2d90c8f1256a3f0c7d994",
+    "applicationSha256": "a538798cb201339807ede9da6b125cbc4d57f5c6f282dae7d4f8dabfeaa4a430",
+    "wallSeconds": 1639.1132666,
+    "certificate": {
+      "Protocol": "FourierPhysicalDomainConvergence/v1",
+      "Mode": "Adaptive",
+      "RequestedPupilSampling": 64,
+      "ReturnedPupilSampling": 2048,
+      "MaximumPupilSampling": 6144,
+      "RelativeRmsAccuracy": 0.001,
+      "AbsoluteAccuracy": 1E-07,
+      "Validated": true,
+      "Steps": [
+        {
+          "PupilSampling": 64,
+          "PhaseResolved": false,
+          "RelativeRmsChange": null,
+          "MaximumAbsoluteChange": null,
+          "UsesDensePhysicalPupil": false
+        },
+        {
+          "PupilSampling": 128,
+          "PhaseResolved": false,
+          "RelativeRmsChange": 0.1872246612065886,
+          "MaximumAbsoluteChange": 0.4599244683919714,
+          "UsesDensePhysicalPupil": false
+        },
+        {
+          "PupilSampling": 256,
+          "PhaseResolved": true,
+          "RelativeRmsChange": 0.05342273208557653,
+          "MaximumAbsoluteChange": 0.14515211515522497,
+          "UsesDensePhysicalPupil": false
+        },
+        {
+          "PupilSampling": 512,
+          "PhaseResolved": true,
+          "RelativeRmsChange": 0.04482928396312128,
+          "MaximumAbsoluteChange": 0.14959565959327936,
+          "UsesDensePhysicalPupil": false
+        },
+        {
+          "PupilSampling": 1024,
+          "PhaseResolved": true,
+          "RelativeRmsChange": 0.005298160441084733,
+          "MaximumAbsoluteChange": 0.028031613488171625,
+          "UsesDensePhysicalPupil": false
+        },
+        {
+          "PupilSampling": 2048,
+          "PhaseResolved": true,
+          "RelativeRmsChange": 0.0008465353764926999,
+          "MaximumAbsoluteChange": 0.006215907827931799,
+          "UsesDensePhysicalPupil": false
+        }
+      ],
+      "Reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+      "EvaluatedNominalPupilCells": 11182080,
+      "MaximumNominalPupilCells": 100000000,
+      "RequestedRelativeRmsDeviation": 0.209785354714137,
+      "RequestedMaximumAbsoluteDeviation": 0.5677024845116825
+    },
+    "diagnostics": null,
+    "nativeReferenceSampling": 2048,
+    "cross": [
+      {
+        "direction": "Tangential",
+        "coordinates": 300,
+        "coverage": 1,
+        "maximumAbsoluteError": 4.7696960133288154E-05,
+        "nrmse": 2.933569659441888E-06,
+        "pointwisePass": true,
+        "pass": true
+      },
+      {
+        "direction": "Sagittal",
+        "coordinates": 300,
+        "coverage": 1,
+        "maximumAbsoluteError": 1.0682146502525962E-05,
+        "nrmse": 1.006771093366504E-06,
+        "pointwisePass": true,
+        "pass": true
+      }
+    ],
+    "independentCrossPass": true
+  }
+}

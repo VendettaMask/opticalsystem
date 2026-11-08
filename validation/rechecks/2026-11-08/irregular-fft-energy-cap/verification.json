@@ -1,0 +1,93 @@
+{
+  "index": 1210,
+  "lens": "Miscellaneous/Irregular surface.ZMX",
+  "sourceSha256": "8badb1a5aa3a642738a051da8d1b83d3525af6e727d6a1eafe3fe7438194751a",
+  "frozenVerdict": "Incomparable",
+  "frozenRequestMember": "run/analyses/1210-038-irregular-surface-c1-primary-f1-w1-diffraction-encircled-energy/workbench/request.json",
+  "frozenRequestSha256": "bfa62f9558af2e16aab86e38d0f1af0a18ee6e74279c41f5ead8762d116005c7",
+  "frozenArchiveSha256": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+  "nativeWavefrontMember": "run/analyses/1202-038-irregular-surface-c1-primary-f1-w1-wavefront/native/data.json",
+  "nativeWavefrontSha256": "6f90ac14547a0e9a768a9ee207a708f9078e160776d68eed83e1ac096458f4d7",
+  "nominalPupilSampling": 262144,
+  "normalizedPupilStepXY": [
+    0.0020022902162739526,
+    0.001907856548865241
+  ],
+  "illuminatedNodes": 822375,
+  "nativeSphereControl": {
+    "sphereRadiusMm": 112.49382121987884,
+    "byAxis": [
+      {
+        "direction": "X",
+        "startXY": [
+          0.8830099853768131,
+          -0.4655169979231188
+        ],
+        "neighborXY": [
+          0.885012275593087,
+          -0.4655169979231188
+        ],
+        "maximumFilteredPhaseStepWaves": 0.39721018580179646
+      },
+      {
+        "direction": "Y",
+        "startXY": [
+          0.06607557713704043,
+          -0.997808975056521
+        ],
+        "neighborXY": [
+          0.06607557713704043,
+          -0.9959011185076557
+        ],
+        "maximumFilteredPhaseStepWaves": 1.148790995946996
+      }
+    ]
+  },
+  "nominalEnergySphereControl": {
+    "sphereRadiusMm": 112.44364940018173,
+    "byAxis": [
+      {
+        "direction": "X",
+        "startXY": [
+          0.8830099853768131,
+          -0.4655169979231188
+        ],
+        "neighborXY": [
+          0.885012275593087,
+          -0.4655169979231188
+        ],
+        "maximumFilteredPhaseStepWaves": 0.3971955248169934
+      },
+      {
+        "direction": "Y",
+        "startXY": [
+          0.06607557713704043,
+          -0.997808975056521
+        ],
+        "neighborXY": [
+          0.06607557713704043,
+          -0.9959011185076557
+        ],
+        "maximumFilteredPhaseStepWaves": 1.1487331927243645
+      }
+    ]
+  },
+  "formalPhaseSampling": {
+    "status": "UndersampledPhase",
+    "connectedEdges": 1642702,
+    "maximumStepWaves": 1.1487331930094342,
+    "criterion": "LocalUnwrappedPupilPhaseStep/v1",
+    "certifiesConvergence": false
+  },
+  "formalDataSha256": "753ed2e7296e9dc2b0923743aa7cb1d7199c0f1a53ac0d46b4c234f9d90f7fe6",
+  "formalRequestSha256": "acbfe94ebbfc945bac7092e4e89fe24eedfb2a526e5d55922cf0e565007de474",
+  "formalProvenance": {
+    "canonicalAnalysisKey": "Diffraction Encircled Energy",
+    "requestFingerprint": "1118dab712930dc1e924e2703db1760ddccd383c8bf808a28db053ae8e9be6fa",
+    "settingsTranslation": null,
+    "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+    "snapshotSha256": "2c2de8fc8135d6ac0c8d01012aa1b6b08a4b5d2a67ae498d9b7236407ea74565",
+    "codeFingerprint": "9bd3f3365e4de038e1af7b2738e4eb99f355fe23f46adf788f71ab2c7eb00e0b:a0e1ccb72df9dca18a1e155039b05a7d1b0f605a32cc346c0076a3355d8ddafc"
+  },
+  "independentOutcome": "Open"
+}

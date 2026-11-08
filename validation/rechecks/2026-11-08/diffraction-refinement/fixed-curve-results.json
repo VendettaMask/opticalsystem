@@ -1,0 +1,3821 @@
+{
+  "coreHash": "91e8ab41e472e9aff0ae01f5ce28d4f42a112b4a884d076083febffab7d5435b",
+  "results": [
+    {
+      "id": 316,
+      "original": "a909735d353f7d1d2b682f37ec8fb66be0270e146e1e89f37520c9267fe143a8",
+      "policy": {
+        "field": 1,
+        "wavelength": 2,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "vignettedPupil": true,
+        "rmsFieldMethod": "GQ",
+        "rmsFieldRayDensity": 6,
+        "rmsFieldRemoveVignettingFactors": true,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "quantities": {
+          "EnergyFraction": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          }
+        },
+        "workbenchSettings": {}
+      },
+      "nativeLog": [
+        {
+          "sample": 2048,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "316-2048",
+            "exitCode": 0,
+            "startedUtc": "2026-11-07T14:18:37.0291780Z",
+            "completedUtc": "2026-11-07T14:20:07.9685352Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "b75f6d3f4a48543a91a1756889fb67b02571d826a6617f9269ab14ea4aabf360",
+          "sourceHash": "d7ef329ca119263563b1e04a4fa2e3ce5d1d458e9fd85c5d3c917d876ac23b91",
+          "modelHash": "3a25dc74a0f1f553bfd76adcf0cf8e7d9a2ed53b36c695cb2ba4030831aedbac",
+          "hash": "592062e0469670865bae80b8bd6e9de10d6e78b0c1a116cbc7a2aa2ce6271476",
+          "textHash": "e5479a275655082583a7eec654c982e0529531244ec15462feba72b70ab164bb"
+        },
+        {
+          "sample": 4096,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "316-4096",
+            "exitCode": 0,
+            "startedUtc": "2026-11-08T03:26:34.0540077Z",
+            "completedUtc": "2026-11-08T03:27:56.0385078Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "7295077e63ac9b714b5a3f91ff2cc33eb5109336e00c8ca05ef6589dbdde512e",
+          "sourceHash": "d7ef329ca119263563b1e04a4fa2e3ce5d1d458e9fd85c5d3c917d876ac23b91",
+          "modelHash": "3a25dc74a0f1f553bfd76adcf0cf8e7d9a2ed53b36c695cb2ba4030831aedbac",
+          "hash": "ad8114a0ac40aa77677dd1a10b54d107402a54b283beaaed1ab523401eb7282c",
+          "textHash": "94108fcc7cf3330b4dc88871a6310d55b5d382110afc6e6d75a6144e0b524c53"
+        }
+      ],
+      "coreLog": [
+        {
+          "sample": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "6f28fbdad95cd4b7341ef61ef140f9b834efa0a2c9848633f3ca9726673c479a"
+        },
+        {
+          "sample": 4096,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "282ea6393d0c9459d8afe2e4c9c55e12e112327897acc1522a2eb85d729b4001"
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0008070288404947168,
+              "meanAbsolute": 0.00022358289287103115,
+              "rmse": 0.0002982041892913635,
+              "nrmse": 0.00034114503177079975,
+              "maxRelative": 0.7866400848448566,
+              "p50": 0.00016314135305717237,
+              "p90": 0.0005358289712822373,
+              "p95": 0.0006210142059067669,
+              "pearson": 0.9999997835130998,
+              "worstX": 1.387499999999997,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0005598140868501855,
+              "meanAbsolute": 0.00017623317666201795,
+              "rmse": 0.00023548061889066725,
+              "nrmse": 0.002818912064999261,
+              "maxRelative": 0.8159492731825478,
+              "p50": 0.0001390846095085073,
+              "p90": 0.00046051947783805336,
+              "p95": 0.000516740322917944,
+              "pearson": 0.9999912317818127,
+              "worstX": 4.987500000000037,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "coreConvergence": [
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0008060208010289838,
+              "meanAbsolute": 0.0002235112517263239,
+              "rmse": 0.0002981728255975693,
+              "nrmse": 0.0003411091517641213,
+              "maxRelative": 0.7871057947070654,
+              "p50": 0.0001631415818619114,
+              "p90": 0.0005378218865622619,
+              "p95": 0.0006197121513358828,
+              "pearson": 0.9999997833737998,
+              "worstX": 1.3875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0005598634963107224,
+              "meanAbsolute": 0.00017623784758254165,
+              "rmse": 0.00023548855070904852,
+              "nrmse": 0.002819007098855185,
+              "maxRelative": 0.816421405012818,
+              "p50": 0.0001391116271127167,
+              "p90": 0.0004605133999561889,
+              "p95": 0.0005167943891720012,
+              "pearson": 0.9999912314374263,
+              "worstX": 4.9875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "cross": [
+        {
+          "a": 2048,
+          "b": 2048,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.4822145167368035E-13,
+              "meanAbsolute": 7.175854689201684E-14,
+              "rmse": 8.173662012441465E-14,
+              "nrmse": 9.348552927292575E-14,
+              "maxRelative": 3.194960441971057E-10,
+              "p50": 8.315570454442422E-14,
+              "p90": 1.0025313912365164E-13,
+              "p95": 1.238315006091284E-13,
+              "pearson": 0.9999999999999971,
+              "worstX": 0.6374999999999997,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 6.17950241532661E-08,
+              "meanAbsolute": 3.4249997960287E-08,
+              "rmse": 3.990899684701611E-08,
+              "nrmse": 4.809146580840031E-07,
+              "maxRelative": 3.6202977362681157E-06,
+              "p50": 3.5794942412903374E-08,
+              "p90": 6.054865930166242E-08,
+              "p95": 6.148409940724686E-08,
+              "pearson": 0.9999999999997068,
+              "worstX": 2.9,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 2048,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.000806020800972751,
+              "meanAbsolute": 0.0002251477073184592,
+              "rmse": 0.00029996834886654943,
+              "nrmse": 0.0003430861199818401,
+              "maxRelative": 0.4404360376189035,
+              "p50": 0.00016690934832058746,
+              "p90": 0.0005379301048043794,
+              "p95": 0.0006202022996267265,
+              "pearson": 0.9999997758006495,
+              "worstX": 1.387499999999997,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0005598563940866219,
+              "meanAbsolute": 0.0001784194658297762,
+              "rmse": 0.00023686360033754492,
+              "nrmse": 0.0028542731305809107,
+              "maxRelative": 0.44946892876808586,
+              "p50": 0.00014065596219405268,
+              "p90": 0.0004623527002406702,
+              "p95": 0.0005167799262793885,
+              "pearson": 0.9999913985752548,
+              "worstX": 4.9875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0008070288405508386,
+              "meanAbsolute": 0.00022523779411316733,
+              "rmse": 0.00030001109358538037,
+              "nrmse": 0.00034321212688523796,
+              "maxRelative": 0.7866400842740321,
+              "p50": 0.00016689668784558576,
+              "p90": 0.0005406664279818396,
+              "p95": 0.0006245887348324125,
+              "pearson": 0.9999997759753585,
+              "worstX": 1.387499999999997,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.000559821189074286,
+              "meanAbsolute": 0.00017840344061393192,
+              "rmse": 0.00023686306530505902,
+              "nrmse": 0.0028354611758989283,
+              "maxRelative": 0.815942775553131,
+              "p50": 0.0001406506024165359,
+              "p90": 0.0004624011914639084,
+              "p95": 0.0005167547858105706,
+              "pearson": 0.9999914050279147,
+              "worstX": 4.9875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 1.0440593302685208E-05,
+              "meanAbsolute": 9.168028561752029E-07,
+              "rmse": 1.920242091696462E-06,
+              "nrmse": 2.196753341849811E-06,
+              "maxRelative": 0.0012857365642239018,
+              "p50": 1.8699746329176037E-07,
+              "p90": 2.776451988123485E-06,
+              "p95": 4.722707612578314E-06,
+              "pearson": 0.9999999999791079,
+              "worstX": 1.137499999999998,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.943743109840331E-07,
+              "meanAbsolute": 6.550332900346314E-08,
+              "rmse": 8.830963284476608E-08,
+              "nrmse": 1.0571447053880329E-06,
+              "maxRelative": 0.00118905337257454,
+              "p50": 5.058096761052788E-08,
+              "p90": 1.5041594168124783E-07,
+              "p95": 1.8146008213225373E-07,
+              "pearson": 0.999999999994891,
+              "worstX": 1.7875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "adaptive": null,
+      "autoWindow": null
+    },
+    {
+      "id": 682,
+      "original": "db74b967c16a72dd25b0ab80770283a042d6e015f93430a756ccbef15b10e0f5",
+      "policy": {
+        "field": 1,
+        "wavelength": 2,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "vignettedPupil": true,
+        "rmsFieldMethod": "GQ",
+        "rmsFieldRayDensity": 6,
+        "rmsFieldRemoveVignettingFactors": true,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "quantities": {
+          "EnergyFraction": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          }
+        },
+        "workbenchSettings": {}
+      },
+      "nativeLog": [
+        {
+          "sample": 1024,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "682-1024",
+            "exitCode": 0,
+            "startedUtc": "2026-11-07T14:20:07.9685352Z",
+            "completedUtc": "2026-11-07T14:20:20.8518734Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "73f22de8c41c02695ce75430e75c4dc0de4c71f5c816dc41cff67603ad8696f6",
+          "sourceHash": "2e26c4d9d56ce1b5fd0feb6300c8467c53ef6e55fd70cb669b218fb407ab359a",
+          "modelHash": "072630daa2d0ea8415c4efd5f80a16a2762ba14bd0b1acabe6bac49e64c63ca1",
+          "hash": "43c6f6de55536c8e91e767e32b48223a9710c496e2d178a13ec73f4de139c032",
+          "textHash": "d1b36d8aa5c431a19ba31da4004146f703a7e84209ded419fc28edac42e3995a"
+        },
+        {
+          "sample": 2048,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "682-2048",
+            "exitCode": 0,
+            "startedUtc": "2026-11-08T03:27:56.0395051Z",
+            "completedUtc": "2026-11-08T03:28:12.5468387Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "0ec3e29987b635e33d72209d4c87a1839242d2a049cfe967d94461aaf2ba7d72",
+          "sourceHash": "2e26c4d9d56ce1b5fd0feb6300c8467c53ef6e55fd70cb669b218fb407ab359a",
+          "modelHash": "072630daa2d0ea8415c4efd5f80a16a2762ba14bd0b1acabe6bac49e64c63ca1",
+          "hash": "5e3a0ab359e50264285c0c900201f04aed695616e800574efe1baf66c665326c",
+          "textHash": "a825416fcd0717d80f3cb29c9ce088467db4cd74114937c56573595d20af7a71"
+        },
+        {
+          "sample": 4096,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "682-4096",
+            "exitCode": 0,
+            "startedUtc": "2026-11-08T03:28:12.5478388Z",
+            "completedUtc": "2026-11-08T03:29:30.5570912Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "f0402d275b880e307072e6214a04a290182a9105103563d20f7b5d69c935b539",
+          "sourceHash": "2e26c4d9d56ce1b5fd0feb6300c8467c53ef6e55fd70cb669b218fb407ab359a",
+          "modelHash": "072630daa2d0ea8415c4efd5f80a16a2762ba14bd0b1acabe6bac49e64c63ca1",
+          "hash": "ae988959a882a52f2c3bbaa3fa24b21b9b7fcd94ef62ba783c0c6ec4e6a50354",
+          "textHash": "21d96af46ef8c4dce3da4e1f55d180a02aa7857ec616cebaf47cd1826e330842"
+        }
+      ],
+      "coreLog": [
+        {
+          "sample": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "40f88f950b584a1fcb7fcec165c8a691575b91040d56ed7ce29631334391d099"
+        },
+        {
+          "sample": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "69e3b7203b49d53209490c93d6e0b22e762589a0dad9ad41d142bf929500ee99"
+        },
+        {
+          "sample": 4096,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "2dca72c9343c9639c5e627f1650e01423a2cb4fda653fe855efdd36821a1d248"
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "a": 1024,
+          "b": 2048,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0015106478256564637,
+              "meanAbsolute": 0.0003180792618293619,
+              "rmse": 0.0004546338423687481,
+              "nrmse": 0.0004865988178843909,
+              "maxRelative": 0.8331169199048066,
+              "p50": 0.00021055657433455277,
+              "p90": 0.0008717094898152422,
+              "p95": 0.0010512106171461921,
+              "pearson": 0.9999992807534359,
+              "worstX": 0.9499999999999986,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0023710581875293624,
+              "meanAbsolute": 0.0013911276220839616,
+              "rmse": 0.0016140536811756433,
+              "nrmse": 0.005694977482084429,
+              "maxRelative": 0.8620096008883992,
+              "p50": 0.0013000742514503172,
+              "p90": 0.0023529921850965196,
+              "p95": 0.00236180571550465,
+              "pearson": 0.999996639805369,
+              "worstX": 3.862500000000021,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0007636641969911429,
+              "meanAbsolute": 0.00015755119015291332,
+              "rmse": 0.00023240257378452279,
+              "nrmse": 0.0002487551807786589,
+              "maxRelative": 0.7155340212467289,
+              "p50": 9.492565359592309E-05,
+              "p90": 0.0004155391895060978,
+              "p95": 0.0005725886484596598,
+              "pearson": 0.9999998305168158,
+              "worstX": 0.9499999999999986,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0009446112385351479,
+              "meanAbsolute": 0.0005289928392827213,
+              "rmse": 0.0005909058729023248,
+              "nrmse": 0.0020816847120997666,
+              "maxRelative": 0.6909409903411128,
+              "p50": 0.0005839203095598655,
+              "p90": 0.0008886312601977808,
+              "p95": 0.0009133074020400145,
+              "pearson": 0.9999948484322466,
+              "worstX": 2.800000000000006,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "coreConvergence": [
+        {
+          "a": 1024,
+          "b": 2048,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.001510647825876732,
+              "meanAbsolute": 0.00031807926198330433,
+              "rmse": 0.000454633842479387,
+              "nrmse": 0.00048659881800193445,
+              "maxRelative": 0.833116919602622,
+              "p50": 0.00021055657451929388,
+              "p90": 0.0008717094909108103,
+              "p95": 0.0010512106166807311,
+              "pearson": 0.9999992807534355,
+              "worstX": 0.95,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0023709223192246442,
+              "meanAbsolute": 0.0013910221177861565,
+              "rmse": 0.0016139489895295267,
+              "nrmse": 0.005694614683310747,
+              "maxRelative": 0.8620079793981367,
+              "p50": 0.0012999391312501218,
+              "p90": 0.0023528568432368002,
+              "p95": 0.0023616645235080835,
+              "pearson": 0.9999966398541937,
+              "worstX": 3.8625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0007645065402179796,
+              "meanAbsolute": 0.00015763482173941317,
+              "rmse": 0.00023268568819532974,
+              "nrmse": 0.00024905821604715155,
+              "maxRelative": 0.7130470143690046,
+              "p50": 9.487112455064395E-05,
+              "p90": 0.00041863929811336575,
+              "p95": 0.0005686152974945791,
+              "pearson": 0.9999998298137299,
+              "worstX": 0.95,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.000944818629864369,
+              "meanAbsolute": 0.0005289723862978934,
+              "rmse": 0.0005908865689331062,
+              "nrmse": 0.0020816190924169142,
+              "maxRelative": 0.6883514281833291,
+              "p50": 0.0005834072576870603,
+              "p90": 0.0008880722803252944,
+              "p95": 0.0009136105047232168,
+              "pearson": 0.999994848317225,
+              "worstX": 2.8,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "cross": [
+        {
+          "a": 1024,
+          "b": 1024,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 1.3870238291247006E-11,
+              "meanAbsolute": 3.5764014655282937E-12,
+              "rmse": 5.068086173526036E-12,
+              "nrmse": 5.42517574870465E-12,
+              "maxRelative": 2.5758125427277306E-10,
+              "p50": 2.3482882305359E-12,
+              "p90": 1.0353828905351747E-11,
+              "p95": 1.1648515485518374E-11,
+              "pearson": 0.9999999999999989,
+              "worstX": 0.9999999999999984,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 8.867745374674385E-07,
+              "meanAbsolute": 4.271309776406747E-07,
+              "rmse": 4.985961968388584E-07,
+              "nrmse": 1.745767698463262E-06,
+              "maxRelative": 4.1145032853325215E-06,
+              "p50": 3.760884267831055E-07,
+              "p90": 8.385788794057492E-07,
+              "p95": 8.743379259906758E-07,
+              "pearson": 0.9999999999992901,
+              "worstX": 4.2,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 1024,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0015106478374786736,
+              "meanAbsolute": 0.0003197752188708904,
+              "rmse": 0.0004570088754347678,
+              "nrmse": 0.0004892090195511648,
+              "maxRelative": 0.4544810595282728,
+              "p50": 0.00021069500449893974,
+              "p90": 0.0008841641799545163,
+              "p95": 0.0010551139809712173,
+              "pearson": 0.9999992418023166,
+              "worstX": 0.9499999999999986,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0023717267683450727,
+              "meanAbsolute": 0.0014110207245505565,
+              "rmse": 0.0016272413849953843,
+              "nrmse": 0.005697567421368996,
+              "maxRelative": 0.4629465661357681,
+              "p50": 0.0013780342616683816,
+              "p90": 0.002355241764971122,
+              "p95": 0.0023625348691318493,
+              "pearson": 0.9999965470944994,
+              "worstX": 3.862500000000021,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 1024,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.000746141297260805,
+              "meanAbsolute": 0.00017262082488395016,
+              "rmse": 0.00023585094428738918,
+              "nrmse": 0.00025246863992583253,
+              "maxRelative": 0.6815505144366003,
+              "p50": 0.00011628511734335101,
+              "p90": 0.000440445293727762,
+              "p95": 0.0005383436133377315,
+              "pearson": 0.9999997721185908,
+              "worstX": 0.9499999999999986,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.002111010570190225,
+              "meanAbsolute": 0.0008760878292347973,
+              "rmse": 0.0012005486579669945,
+              "nrmse": 0.0042035600768723196,
+              "maxRelative": 0.6819066072979233,
+              "p50": 0.0005026339307961578,
+              "p90": 0.0020526430942661156,
+              "p95": 0.0020970878046324,
+              "pearson": 0.9999952036677486,
+              "worstX": 4.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.001510647814054411,
+              "meanAbsolute": 0.0003197752118618949,
+              "rmse": 0.00045700886566729356,
+              "nrmse": 0.000489140827347432,
+              "maxRelative": 0.83311691943263,
+              "p50": 0.00021069500001530406,
+              "p90": 0.0008841641624802721,
+              "p95": 0.0010551139592803876,
+              "pearson": 0.9999992418023461,
+              "worstX": 0.9499999999999986,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0023702537384089617,
+              "meanAbsolute": 0.0014102733439968567,
+              "rmse": 0.0016263764568887947,
+              "nrmse": 0.00573845678579139,
+              "maxRelative": 0.8620054657716812,
+              "p50": 0.001377460695070748,
+              "p90": 0.0023536595980724606,
+              "p95": 0.002361034681676713,
+              "pearson": 0.9999965472864641,
+              "worstX": 3.8625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 2048,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 1.3625434114317159E-11,
+              "meanAbsolute": 3.73313574908165E-12,
+              "rmse": 5.172137838812604E-12,
+              "nrmse": 5.535787096685228E-12,
+              "maxRelative": 9.273387243130115E-11,
+              "p50": 2.5883184484598587E-12,
+              "p90": 1.0523637516968165E-11,
+              "p95": 1.1623424445161845E-11,
+              "pearson": 0.9999999999999993,
+              "worstX": 0.9749999999999985,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 7.457612531680535E-07,
+              "meanAbsolute": 3.2025176166658E-07,
+              "rmse": 3.9360900988981234E-07,
+              "nrmse": 1.3887979527640603E-06,
+              "maxRelative": 3.2029958791623915E-06,
+              "p50": 2.3691813893361724E-07,
+              "p90": 7.011444095456065E-07,
+              "p95": 7.347125145981681E-07,
+              "pearson": 0.9999999999994322,
+              "worstX": 4.2,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 2048,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0007645065283956587,
+              "meanAbsolute": 0.00015834909725876873,
+              "rmse": 0.00023370172658630038,
+              "nrmse": 0.00025013312537828803,
+              "maxRelative": 0.41624485987875065,
+              "p50": 9.561158320481322E-05,
+              "p90": 0.00042008737646714867,
+              "p95": 0.0005717760123241517,
+              "pearson": 0.9999998209538536,
+              "worstX": 0.9499999999999986,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0009445846344661168,
+              "meanAbsolute": 0.0005346986664790258,
+              "rmse": 0.000594103822444254,
+              "nrmse": 0.0020962176972799985,
+              "maxRelative": 0.40770704880956915,
+              "p50": 0.0005914088127381908,
+              "p90": 0.0008888348499439952,
+              "p95": 0.0009136307967308396,
+              "pearson": 0.9999949053473965,
+              "worstX": 2.800000000000006,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 1024,
+          "b": 4096,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0007469836170632682,
+              "meanAbsolute": 0.00017257160710628769,
+              "rmse": 0.00023586778466529035,
+              "nrmse": 0.000252464215257256,
+              "maxRelative": 2.144774440209676,
+              "p50": 0.00011585964762805823,
+              "p90": 0.00044374363953975093,
+              "p95": 0.0005386178033899708,
+              "pearson": 0.9999997721274597,
+              "worstX": 0.9499999999999986,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.002109363150822885,
+              "meanAbsolute": 0.0008753211530370302,
+              "rmse": 0.0011996888979655584,
+              "nrmse": 0.004226348311456923,
+              "maxRelative": 2.148541366312532,
+              "p50": 0.0005018133417487233,
+              "p90": 0.002051184261379374,
+              "p95": 0.002095436558862046,
+              "pearson": 0.9999952054940928,
+              "worstX": 4.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0007636642088134638,
+              "meanAbsolute": 0.00015829625102991595,
+              "rmse": 0.00023346687996820913,
+              "nrmse": 0.0002498943750346236,
+              "maxRelative": 0.7155340210876409,
+              "p50": 9.560692471272114E-05,
+              "p90": 0.0004174085029363117,
+              "p95": 0.0005734380575583009,
+              "pearson": 0.9999998216592138,
+              "worstX": 0.95,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0009448452339334001,
+              "meanAbsolute": 0.0005353578928536726,
+              "rmse": 0.0005946676510601617,
+              "nrmse": 0.0020949369684075563,
+              "maxRelative": 0.6909387076473462,
+              "p50": 0.0005921141715423336,
+              "p90": 0.0008897242740744243,
+              "p95": 0.0009136870551045839,
+              "pearson": 0.9999949081480968,
+              "worstX": 2.8,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.5459625478244097E-05,
+              "meanAbsolute": 1.355142842450691E-06,
+              "rmse": 3.2613983544478174E-06,
+              "nrmse": 3.490881034751761E-06,
+              "maxRelative": 0.00463241172806829,
+              "p50": 1.3968809087216982E-07,
+              "p90": 4.741064584062871E-06,
+              "p95": 8.091270565557807E-06,
+              "pearson": 0.999999999924901,
+              "worstX": 0.375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.6208629438327635E-06,
+              "meanAbsolute": 5.021766740182331E-07,
+              "rmse": 6.098117955843572E-07,
+              "nrmse": 2.1482878244060012E-06,
+              "maxRelative": 0.0045795240298187895,
+              "p50": 4.3800953239414575E-07,
+              "p90": 9.333115806031689E-07,
+              "p95": 1.0499485108769746E-06,
+              "pearson": 0.9999999999838287,
+              "worstX": 0.375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "adaptive": null,
+      "autoWindow": null
+    },
+    {
+      "id": 882,
+      "original": "a51318f55473d4b6497edeb86ccae2746eb9eaf7af489fd24647bbe2d56f83e1",
+      "policy": {
+        "field": 1,
+        "wavelength": 12,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "vignettedPupil": true,
+        "rmsFieldMethod": "GQ",
+        "rmsFieldRayDensity": 6,
+        "rmsFieldRemoveVignettingFactors": true,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "quantities": {
+          "EnergyFraction": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          }
+        },
+        "workbenchSettings": {}
+      },
+      "nativeLog": [
+        {
+          "sample": 1024,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "882-1024",
+            "exitCode": 0,
+            "startedUtc": "2026-11-07T14:20:20.8528731Z",
+            "completedUtc": "2026-11-07T14:20:32.7965984Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "31de281636be13abe11cdb5986f595ee3b2aa07be554f0c490ec4b6cb68bc677",
+          "sourceHash": "b08f276f4be00fb0d578d3df88feece2a0897e34b1f62169cb2c4dec7de0b40e",
+          "modelHash": "30be0d8f23277e79baf30785358593d1f74e4448844eeec74787231f352c59d5",
+          "hash": "dd626e9cf569782737d9365c8307aa5e0545e1b83d1c9e794b5719d4e408df2c",
+          "textHash": "ad43ec16386aa7cd4821257bf7a1c1d34ef10243f6b898d0d0e755506a25b44e"
+        },
+        {
+          "sample": 2048,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "882-2048",
+            "exitCode": 0,
+            "startedUtc": "2026-11-08T03:29:30.5580897Z",
+            "completedUtc": "2026-11-08T03:29:46.7957258Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "3f1170b5d6144fd3bceee85b3ae2d3269b2d50234d4ba79f0ba1a787e75d4fb6",
+          "sourceHash": "b08f276f4be00fb0d578d3df88feece2a0897e34b1f62169cb2c4dec7de0b40e",
+          "modelHash": "30be0d8f23277e79baf30785358593d1f74e4448844eeec74787231f352c59d5",
+          "hash": "987f73428c419940ca3cb295fea19eaaadbd549e6a6851724135c829321a6d4d",
+          "textHash": "955a7a8cfddbc15a0dd9acbd4b6a9719f1adde7ffbdb0c6def8a8cb7aa0f37c8"
+        },
+        {
+          "sample": 4096,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "882-4096",
+            "exitCode": 0,
+            "startedUtc": "2026-11-08T03:29:46.7957258Z",
+            "completedUtc": "2026-11-08T03:31:02.5218097Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "623e448abb5ab5026b1a79eaec309a97e861732170cfcb3a3e8c7305e1425d77",
+          "sourceHash": "b08f276f4be00fb0d578d3df88feece2a0897e34b1f62169cb2c4dec7de0b40e",
+          "modelHash": "30be0d8f23277e79baf30785358593d1f74e4448844eeec74787231f352c59d5",
+          "hash": "9a35503c9615454c951fe826c3ed6509d72e9ee0f7f6fbb3180c7774fe756cb9",
+          "textHash": "921c9d9188335d25b94bd2d2fc587ca3b35465d8262fb90782a7014b12b69986"
+        },
+        {
+          "sample": 8192,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "882-8192",
+            "exitCode": 0,
+            "startedUtc": "2026-11-08T03:44:14.6675084Z",
+            "completedUtc": "2026-11-08T03:49:35.9207884Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "e3666dec9f9d74a4693422b0b0f203b6685608df7fa39c30d590cffadb9e794b",
+          "sourceHash": "b08f276f4be00fb0d578d3df88feece2a0897e34b1f62169cb2c4dec7de0b40e",
+          "modelHash": "30be0d8f23277e79baf30785358593d1f74e4448844eeec74787231f352c59d5",
+          "hash": "6f9a53bfb0d3b6858ba5d65f32b319f6b33adc00419a2d1aed03e3fe91313e91",
+          "textHash": "864cdd92f8cad4f34204cbe4c7983e2f1a0006eac6ffce9b27e8f647425fa059"
+        }
+      ],
+      "coreLog": [
+        {
+          "sample": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "08c827deaddea6f496a31f3a69d588983d91ab0d7715e3904da31261c760b792"
+        },
+        {
+          "sample": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "f2ef771d9cbe5b24594c2f8dacb5db40081477d061f70e96997e9619d72a226f"
+        },
+        {
+          "sample": 4096,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "15ed295df1c32754be70a3ff94ec92d13610fa998cf98f107e6504728765ab2c"
+        },
+        {
+          "sample": 8192,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "4365047034c89d81abf1cadbe9ebd619333ab33f1fe0f0cb4a198e6d40a20ea2"
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "a": 1024,
+          "b": 2048,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0015382764961839879,
+              "meanAbsolute": 0.0006491858511916764,
+              "rmse": 0.0007513923615270941,
+              "nrmse": 0.0009419056672955223,
+              "maxRelative": 0.9905250610693754,
+              "p50": 0.0006859857558322302,
+              "p90": 0.0011214151516628634,
+              "p95": 0.001226729925514869,
+              "pearson": 0.9999993398336591,
+              "worstX": 3.137500000000011,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.002083022652317301,
+              "meanAbsolute": 0.0010594404450867505,
+              "rmse": 0.0012690508217822485,
+              "nrmse": 0.004094601980998888,
+              "maxRelative": 1.0156869446164625,
+              "p50": 0.00112418158360722,
+              "p90": 0.0019254392974041301,
+              "p95": 0.0019769016296926067,
+              "pearson": 0.9999985066516544,
+              "worstX": 4.325000000000028,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0008350575333682109,
+              "meanAbsolute": 0.00034558725735351123,
+              "rmse": 0.00039568836444753877,
+              "nrmse": 0.0004961749273778634,
+              "maxRelative": 0.8607178396088603,
+              "p50": 0.00035190586911951205,
+              "p90": 0.0005992809451923486,
+              "p95": 0.0006565411629998463,
+              "pearson": 0.9999998019607921,
+              "worstX": 3.0625000000000098,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.001691621598931048,
+              "meanAbsolute": 0.0008281943999196026,
+              "rmse": 0.0010062355897024354,
+              "nrmse": 0.003230208676766905,
+              "maxRelative": 0.8423266549281908,
+              "p50": 0.0008632398666803959,
+              "p90": 0.0015570512125459013,
+              "p95": 0.0015878567937404608,
+              "pearson": 0.9999992187637141,
+              "worstX": 4.762500000000034,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 8192,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0006815914743066864,
+              "meanAbsolute": 0.0003215936363264031,
+              "rmse": 0.0003707814451716137,
+              "nrmse": 0.0004647756993911142,
+              "maxRelative": 0.8216761717503709,
+              "p50": 0.00035947266219513163,
+              "p90": 0.0005468977330749247,
+              "p95": 0.0005833891533552071,
+              "pearson": 0.9999998761752132,
+              "worstX": 3.2500000000000124,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0011520379777222312,
+              "meanAbsolute": 0.0005902982589701443,
+              "rmse": 0.0007112985870344781,
+              "nrmse": 0.0022914436118177902,
+              "maxRelative": 0.8353691993222244,
+              "p50": 0.0006124845074483437,
+              "p90": 0.001089164454007474,
+              "p95": 0.0011054563535610185,
+              "pearson": 0.9999996059493497,
+              "worstX": 4.712500000000033,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "coreConvergence": [
+        {
+          "a": 1024,
+          "b": 2048,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.001538276496154456,
+              "meanAbsolute": 0.0006491858512885331,
+              "rmse": 0.0007513923616428208,
+              "nrmse": 0.0009419056674405485,
+              "maxRelative": 0.9905250591841472,
+              "p50": 0.0006859857559322613,
+              "p90": 0.0011214151517837667,
+              "p95": 0.0012267299255976916,
+              "pearson": 0.999999339833659,
+              "worstX": 3.1375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0020830226638034466,
+              "meanAbsolute": 0.0010594404505504694,
+              "rmse": 0.0012690508286602928,
+              "nrmse": 0.004094602003048682,
+              "maxRelative": 1.0156869411982865,
+              "p50": 0.0011241815886222223,
+              "p90": 0.0019254393097490885,
+              "p95": 0.0019769016419733387,
+              "pearson": 0.9999985066516515,
+              "worstX": 4.325,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0008352777341850137,
+              "meanAbsolute": 0.000345544522734723,
+              "rmse": 0.0003956359330689278,
+              "nrmse": 0.0004961091808516092,
+              "maxRelative": 0.8612554933193596,
+              "p50": 0.0003520908749538032,
+              "p90": 0.000597662310683339,
+              "p95": 0.0006576260858242589,
+              "pearson": 0.999999802049977,
+              "worstX": 3.0625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0016917516814105027,
+              "meanAbsolute": 0.0008282091030701748,
+              "rmse": 0.0010062487907884572,
+              "nrmse": 0.0032302510547805537,
+              "maxRelative": 0.8428589705907505,
+              "p50": 0.0008630831130370664,
+              "p90": 0.0015564676998093274,
+              "p95": 0.001587929392839471,
+              "pearson": 0.9999992186994073,
+              "worstX": 4.7625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 8192,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0006812798325942504,
+              "meanAbsolute": 0.00032152025290682325,
+              "rmse": 0.00037077515799906983,
+              "nrmse": 0.00046476781840090145,
+              "maxRelative": 0.8216417612568648,
+              "p50": 0.00035972916683324474,
+              "p90": 0.0005470678287132769,
+              "p95": 0.0005827778050745414,
+              "pearson": 0.9999998759741435,
+              "worstX": 3.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0011528017992007977,
+              "meanAbsolute": 0.0005903216044795426,
+              "rmse": 0.0007113246162479159,
+              "nrmse": 0.0022915274647297332,
+              "maxRelative": 0.8353346295015329,
+              "p50": 0.0006123210643618759,
+              "p90": 0.0010892030542135611,
+              "p95": 0.0011049831808696564,
+              "pearson": 0.9999996058241598,
+              "worstX": 4.7125,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "cross": [
+        {
+          "a": 1024,
+          "b": 1024,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.6662005936373134E-13,
+              "meanAbsolute": 1.2534214025590321E-13,
+              "rmse": 1.4550744966166765E-13,
+              "nrmse": 1.825420751246175E-13,
+              "maxRelative": 8.577266530186657E-11,
+              "p50": 1.4832579608992091E-13,
+              "p90": 2.074451721512105E-13,
+              "p95": 2.1921353621223716E-13,
+              "pearson": 1.0000000000000004,
+              "worstX": 2.600000000000003,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.3258506232082254E-11,
+              "meanAbsolute": 1.0774837846022542E-11,
+              "rmse": 1.3422844619741515E-11,
+              "nrmse": 4.3050221906944625E-11,
+              "maxRelative": 1.2590917102750934E-10,
+              "p50": 1.0151421370174774E-11,
+              "p90": 2.215988503806443E-11,
+              "p95": 2.2824242496000124E-11,
+              "pearson": 1.0000000000000022,
+              "worstX": 5,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 1024,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0015382764960377715,
+              "meanAbsolute": 0.0006565740371829266,
+              "rmse": 0.0007570369740391538,
+              "nrmse": 0.0009497183856117935,
+              "maxRelative": 0.4976199896101306,
+              "p50": 0.0006948826447997214,
+              "p90": 0.001124866802612312,
+              "p95": 0.001231060127441952,
+              "pearson": 0.9999993293987085,
+              "worstX": 3.137500000000011,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0020830226423838583,
+              "meanAbsolute": 0.0010737356011426952,
+              "rmse": 0.0012784707712443588,
+              "nrmse": 0.004100356665282785,
+              "maxRelative": 0.5038912147341639,
+              "p50": 0.001141542409193931,
+              "p90": 0.0019294133593991403,
+              "p95": 0.0019799521725951397,
+              "pearson": 0.9999985085997117,
+              "worstX": 4.325000000000028,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 1024,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0009555218587941061,
+              "meanAbsolute": 0.0003520807926142126,
+              "rmse": 0.0004089959224609767,
+              "nrmse": 0.0005130937596468776,
+              "maxRelative": 0.7300854115982078,
+              "p50": 0.00034087791469011863,
+              "p90": 0.0006443030512937598,
+              "p95": 0.0007343956622186815,
+              "pearson": 0.9999996468635081,
+              "worstX": 3.5250000000000163,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0004949106499329003,
+              "meanAbsolute": 0.00023717920232435208,
+              "rmse": 0.00027383971408740363,
+              "nrmse": 0.0008782684142121892,
+              "maxRelative": 0.7307939494106798,
+              "p50": 0.00025203039449616174,
+              "p90": 0.00040928612586428603,
+              "p95": 0.00043213904265804876,
+              "pearson": 0.9999996875720863,
+              "worstX": 4.812500000000035,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 8192,
+          "b": 1024,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0014078489059550225,
+              "meanAbsolute": 0.0006460966642002212,
+              "rmse": 0.0007430812932116698,
+              "nrmse": 0.0009322106982463069,
+              "maxRelative": 0.8518289412647407,
+              "p50": 0.0007000358742909052,
+              "p90": 0.0011156431041225434,
+              "p95": 0.0011751666753351125,
+              "pearson": 0.9999994216917045,
+              "worstX": 3.5250000000000163,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0015840624320964114,
+              "meanAbsolute": 0.0008343090363574887,
+              "rmse": 0.00098230310757185,
+              "nrmse": 0.0031504772616271102,
+              "maxRelative": 0.8533204537951561,
+              "p50": 0.0008883183734462938,
+              "p90": 0.0014677241182953493,
+              "p95": 0.0015068450316294835,
+              "pearson": 0.999999029891158,
+              "worstX": 4.812500000000035,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0015382764963005613,
+              "meanAbsolute": 0.0006565740373173509,
+              "rmse": 0.0007570369741866582,
+              "nrmse": 0.0009489814547615088,
+              "maxRelative": 0.9905250608986428,
+              "p50": 0.0006948826455732138,
+              "p90": 0.0011248668028319697,
+              "p95": 0.0012310601276117605,
+              "pearson": 0.9999993293987086,
+              "worstX": 3.1375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0020830226737367785,
+              "meanAbsolute": 0.0010737356171445383,
+              "rmse": 0.00127847079097179,
+              "nrmse": 0.0041249955821395234,
+              "maxRelative": 1.015686944362669,
+              "p50": 0.0011415424242861572,
+              "p90": 0.0019294133911081368,
+              "p95": 0.0019799522064989084,
+              "pearson": 0.999998508599693,
+              "worstX": 4.325000000000028,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 2048,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 8.429090758710345E-13,
+              "meanAbsolute": 9.012033907697067E-14,
+              "rmse": 1.489419302839516E-13,
+              "nrmse": 1.8670571517026255E-13,
+              "maxRelative": 8.613282832655924E-10,
+              "p50": 4.796163466380676E-14,
+              "p90": 2.2312707237404084E-13,
+              "p95": 3.2276958883414864E-13,
+              "pearson": 0.9999999999999986,
+              "worstX": 1.0625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 1.093869439472428E-11,
+              "meanAbsolute": 5.232380679400424E-12,
+              "rmse": 6.428927631296917E-12,
+              "nrmse": 2.074298315164218E-11,
+              "maxRelative": 1.5698779401460655E-09,
+              "p50": 5.151698512229075E-12,
+              "p90": 1.033120811122501E-11,
+              "p95": 1.060780630002256E-11,
+              "pearson": 0.9999999999999994,
+              "worstX": 4.8875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 2048,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0008352777339755146,
+              "meanAbsolute": 0.00034879922033654253,
+              "rmse": 0.0003980997458017483,
+              "nrmse": 0.0004990367561862054,
+              "maxRelative": 0.4627282474380075,
+              "p50": 0.00035395390585235553,
+              "p90": 0.0005990427557402977,
+              "p95": 0.0006576998611839135,
+              "pearson": 0.9999997993711178,
+              "worstX": 3.0625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0016917516918897868,
+              "meanAbsolute": 0.0008395672525606798,
+              "rmse": 0.0010137200868578244,
+              "nrmse": 0.0032707754524732725,
+              "maxRelative": 0.45736487841534834,
+              "p50": 0.0008781977964526511,
+              "p90": 0.0015579359689180117,
+              "p95": 0.0015910391403495538,
+              "pearson": 0.9999992183899807,
+              "worstX": 4.762500000000034,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 8192,
+          "b": 2048,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.00033784277769534354,
+              "meanAbsolute": 0.00010320190939423832,
+              "rmse": 0.0001288549047539603,
+              "nrmse": 0.00016152568386497171,
+              "maxRelative": 0.705061794262284,
+              "p50": 9.121578955467724E-05,
+              "p90": 0.00021553336302678958,
+              "p95": 0.0002443564715168753,
+              "pearson": 0.9999999006677343,
+              "worstX": 1.2999999999999974,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0005520594743426144,
+              "meanAbsolute": 0.00024482698302365316,
+              "rmse": 0.0002997636556448471,
+              "nrmse": 0.0009671896800091008,
+              "maxRelative": 0.7043399536726289,
+              "p50": 0.0002534230225879758,
+              "p90": 0.0004699941617563458,
+              "p95": 0.0005016706416124395,
+              "pearson": 0.9999998598850607,
+              "worstX": 4.762500000000034,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 1024,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0009548653113361505,
+              "meanAbsolute": 0.0003520267168841011,
+              "rmse": 0.00040896803138178606,
+              "nrmse": 0.0005128270161647095,
+              "maxRelative": 2.7038054910026177,
+              "p50": 0.0003401914147544427,
+              "p90": 0.000645236033631813,
+              "p95": 0.0007347284140991339,
+              "pearson": 0.9999996468748186,
+              "worstX": 3.525,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0004945507014854633,
+              "meanAbsolute": 0.0002371961509544133,
+              "rmse": 0.0002738541519304427,
+              "nrmse": 0.0008791241999261372,
+              "maxRelative": 2.7135537855901024,
+              "p50": 0.00025182056993919635,
+              "p90": 0.0004091790466350387,
+              "p95": 0.0004319008466475843,
+              "pearson": 0.9999996875181142,
+              "worstX": 4.8125,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0008350575335775989,
+              "meanAbsolute": 0.00034883916146496676,
+              "rmse": 0.00039814921597251866,
+              "nrmse": 0.0004992607214936428,
+              "maxRelative": 0.8607178412115493,
+              "p50": 0.000354035817565615,
+              "p90": 0.0005997947335099479,
+              "p95": 0.0006565708627965516,
+              "pearson": 0.9999997992860185,
+              "worstX": 3.0625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0016916215884515973,
+              "meanAbsolute": 0.0008395534182035991,
+              "rmse": 0.00101370726373017,
+              "nrmse": 0.0032541941792887347,
+              "maxRelative": 0.8423266578204188,
+              "p50": 0.0008782479384575465,
+              "p90": 0.001558286918364099,
+              "p95": 0.001591130694631418,
+              "pearson": 0.9999992184510822,
+              "worstX": 4.7625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 4.835345923631662E-06,
+              "meanAbsolute": 4.651324164715295E-07,
+              "rmse": 7.228974575951233E-07,
+              "nrmse": 9.064800124327573E-07,
+              "maxRelative": 0.0002888652899831373,
+              "p50": 2.908757442687815E-07,
+              "p90": 1.1268577576120653E-06,
+              "p95": 1.5183345195429743E-06,
+              "pearson": 0.999999999996441,
+              "worstX": 1.5749999999999964,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 1.33076925212805E-06,
+              "meanAbsolute": 1.6845017331670707E-07,
+              "rmse": 2.441368978655593E-07,
+              "nrmse": 7.837261312109767E-07,
+              "maxRelative": 0.0002888516043965282,
+              "p50": 1.1544584564704419E-07,
+              "p90": 4.009501779200786E-07,
+              "p95": 5.115060075326638E-07,
+              "pearson": 0.999999999996888,
+              "worstX": 1.5749999999999964,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 8192,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.000681441271413119,
+              "meanAbsolute": 0.00032539326820381066,
+              "rmse": 0.00037327424449905137,
+              "nrmse": 0.00046806865654220947,
+              "maxRelative": 0.45120321900160354,
+              "p50": 0.00036151905433218223,
+              "p90": 0.0005484067888139599,
+              "p95": 0.0005839827925566976,
+              "pearson": 0.9999998747460254,
+              "worstX": 3.2500000000000124,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0011526868760313724,
+              "meanAbsolute": 0.0005985237595295123,
+              "rmse": 0.0007166124421967234,
+              "nrmse": 0.0023004629853606295,
+              "maxRelative": 0.4552976158537805,
+              "p50": 0.0006292593490470968,
+              "p90": 0.0010901604193988557,
+              "p95": 0.0011054325658868408,
+              "pearson": 0.9999996061976447,
+              "worstX": 4.7125,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 1024,
+          "b": 8192,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0014091177725632509,
+              "meanAbsolute": 0.0006460553095309742,
+              "rmse": 0.0007430522829166034,
+              "nrmse": 0.000931418357023999,
+              "maxRelative": 5.747134207757651,
+              "p50": 0.0006998155388973915,
+              "p90": 0.0011159130051322519,
+              "p95": 0.0011753568666070385,
+              "pearson": 0.9999994220874154,
+              "worstX": 3.525,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.001583715155492993,
+              "meanAbsolute": 0.0008343012761162747,
+              "rmse": 0.0009822911889418539,
+              "nrmse": 0.0031644444553586733,
+              "maxRelative": 5.8157422380985215,
+              "p50": 0.0008882124088182841,
+              "p90": 0.0014677269130012327,
+              "p95": 0.0015067256173580401,
+              "pearson": 0.9999990299509322,
+              "worstX": 4.8125,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 8192,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0003388012636254406,
+              "meanAbsolute": 0.00010308878615442147,
+              "rmse": 0.00012874941945303396,
+              "nrmse": 0.0001613877993403565,
+              "maxRelative": 2.3896253536858696,
+              "p50": 8.928253731810276E-05,
+              "p90": 0.00021531664540799106,
+              "p95": 0.00024257073957931197,
+              "pearson": 0.9999999008481629,
+              "worstX": 1.2999999999999974,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0005520520580046262,
+              "meanAbsolute": 0.0002448373016187298,
+              "rmse": 0.00029976924924946256,
+              "nrmse": 0.0009657046193159389,
+              "maxRelative": 2.381349602853852,
+              "p50": 0.0002534432866493838,
+              "p90": 0.000470087906872238,
+              "p95": 0.0005021408082364898,
+              "pearson": 0.999999860072276,
+              "worstX": 4.7625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 8192,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0006814300354878178,
+              "meanAbsolute": 0.000325303714654623,
+              "rmse": 0.0003732077198667024,
+              "nrmse": 0.00046781704229812744,
+              "maxRelative": 0.8211499527347628,
+              "p50": 0.00036135410288562486,
+              "p90": 0.0005478122155260778,
+              "p95": 0.0005837878502720772,
+              "pearson": 0.9999998749705841,
+              "worstX": 3.25,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0011521529008915454,
+              "meanAbsolute": 0.0005985294240030035,
+              "rmse": 0.0007166143730391371,
+              "nrmse": 0.002308568380661983,
+              "maxRelative": 0.8348390499843402,
+              "p50": 0.0006289436233376106,
+              "p90": 0.001090179431610383,
+              "p95": 0.0011054650327278204,
+              "pearson": 0.9999996061185907,
+              "worstX": 4.7125,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 8192,
+          "b": 8192,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 7.942897140289507E-06,
+              "meanAbsolute": 7.515802863356287E-07,
+              "rmse": 1.2088377863070078E-06,
+              "nrmse": 1.5152819400690415E-06,
+              "maxRelative": 0.00037629853933617404,
+              "p50": 4.0176617665133724E-07,
+              "p90": 1.804449419051668E-06,
+              "p95": 2.4029771511849263E-06,
+              "pearson": 0.9999999999900323,
+              "worstX": 1.55,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.198190205297823E-06,
+              "meanAbsolute": 2.7210926149000643E-07,
+              "rmse": 4.087617950331802E-07,
+              "nrmse": 1.3168233721495529E-06,
+              "maxRelative": 0.0003780071079727569,
+              "p50": 1.674665688778526E-07,
+              "p90": 6.400279653206997E-07,
+              "p95": 9.086585219205724E-07,
+              "pearson": 0.9999999999911887,
+              "worstX": 1.55,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "adaptive": null,
+      "autoWindow": null
+    },
+    {
+      "id": 2794,
+      "original": "caa439f92eab26d0e1abdebd528c014f30fd985857c79a3fce8a80e4166bc2ce",
+      "policy": {
+        "field": 1,
+        "wavelength": 1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "vignettedPupil": true,
+        "rmsFieldMethod": "GQ",
+        "rmsFieldRayDensity": 6,
+        "rmsFieldRemoveVignettingFactors": true,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "quantities": {
+          "EnergyFraction": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          }
+        },
+        "workbenchSettings": {}
+      },
+      "nativeLog": [
+        {
+          "sample": 1024,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "2794-1024",
+            "exitCode": 0,
+            "startedUtc": "2026-11-07T14:20:44.5764737Z",
+            "completedUtc": "2026-11-07T14:20:58.2399880Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "1596b2b79e9d6497a2d58205d3bde48e5070074ed83281d42ecc04bb92ff5a3f",
+          "sourceHash": "1e753355a9b8394cb29d87c65b4580e1c33280149eb88aeb23840fcda4532cae",
+          "modelHash": "ac51e2cb047acd6256f4484e227a51eda77d5aaef07daeabe05a9727e0a7be66",
+          "hash": "b020ac3f5c2c5228541ecdb7c88a386880d61b3f8b9ea91fc13cfcfb07fa44c3",
+          "textHash": "3bb13e8afac60e26bf442a247dad25d99890ad00ab4bdce5849adc613f3403e2"
+        },
+        {
+          "sample": 2048,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "2794-2048",
+            "exitCode": 0,
+            "startedUtc": "2026-11-08T03:31:02.5218097Z",
+            "completedUtc": "2026-11-08T03:31:18.9515914Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "a4c644010f4418013be39519c6bee5566fc32c5b7be2d0c6d0e6b68c3a32e3a7",
+          "sourceHash": "1e753355a9b8394cb29d87c65b4580e1c33280149eb88aeb23840fcda4532cae",
+          "modelHash": "ac51e2cb047acd6256f4484e227a51eda77d5aaef07daeabe05a9727e0a7be66",
+          "hash": "911e6e630c42993369ae692cf9a37aec5d63132ecce04123188625a69b78c3ee",
+          "textHash": "7304f42b3ad19c2469e5b02c7d083156d536e16bee4e313c07da0937d48a9d20"
+        },
+        {
+          "sample": 4096,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 2,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "2794-4096",
+            "exitCode": 0,
+            "startedUtc": "2026-11-08T03:31:18.9525917Z",
+            "completedUtc": "2026-11-08T03:32:38.0531667Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "1abaab95ee3e5c0227e4037dd11647975e5f756706c7024dad9044e840549444",
+          "sourceHash": "1e753355a9b8394cb29d87c65b4580e1c33280149eb88aeb23840fcda4532cae",
+          "modelHash": "ac51e2cb047acd6256f4484e227a51eda77d5aaef07daeabe05a9727e0a7be66",
+          "hash": "44f5bcddb9e6ae3e5f89093f0012fa4e0e2af223774f35635a7c23b96897291f",
+          "textHash": "aee3e5a42b7ad98dd2d87106f598afe073e96d0e511cf63cfe460ab46f92c925"
+        }
+      ],
+      "coreLog": [
+        {
+          "sample": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "26e1949ea850069c4447e303fd185297d468ea7376a7251692a2d9e910e3ff24"
+        },
+        {
+          "sample": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "476509e4aacfed4a78e1f444be3f20fc0fb68a863745d1333f893159d40cc22f"
+        },
+        {
+          "sample": 4096,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "f018b2355fab3623c4e46121c8863c3100788e4f9ade0b886ea2b70c674bc120"
+        },
+        {
+          "sample": 8192,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "a2f44428f579d4214f9e90e37aa5ec51d70c6bbff6b632c1dae9993ee649fec0"
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "a": 1024,
+          "b": 2048,
+          "conclusion": "Difference",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.001377975949916066,
+              "meanAbsolute": 0.0008557686558676498,
+              "rmse": 0.0009526439525469352,
+              "nrmse": 0.0024000691981863323,
+              "maxRelative": 0.9218246409538651,
+              "p50": 0.0010718899762386658,
+              "p90": 0.001218414861266004,
+              "p95": 0.0012650597669945363,
+              "pearson": 0.9999993354734937,
+              "worstX": 2.375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.001212242466512664,
+              "meanAbsolute": 0.000792690403888305,
+              "rmse": 0.0008982271629388844,
+              "nrmse": 0.010186641088129318,
+              "maxRelative": 0.9921322041423708,
+              "p50": 0.0010320100254435638,
+              "p90": 0.0011831062866734798,
+              "p95": 0.001190528122359466,
+              "pearson": 0.9999882710592077,
+              "worstX": 3.275000000000013,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Difference",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0013615519654344155,
+              "meanAbsolute": 0.0008726667538657266,
+              "rmse": 0.0009843825744725483,
+              "nrmse": 0.0024884831806275738,
+              "maxRelative": 0.7992549455168602,
+              "p50": 0.001102231521191821,
+              "p90": 0.0012888377367804016,
+              "p95": 0.001316345307836364,
+              "pearson": 0.9999998946758025,
+              "worstX": 4.900000000000036,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0007856911928816185,
+              "meanAbsolute": 0.000507339986540241,
+              "rmse": 0.0005733517822729743,
+              "nrmse": 0.006455539380392077,
+              "maxRelative": 0.7937278122170991,
+              "p50": 0.0006401342772952845,
+              "p90": 0.0007657460424105936,
+              "p95": 0.000772791588239917,
+              "pearson": 0.9999917583523531,
+              "worstX": 3.275000000000013,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "coreConvergence": [
+        {
+          "a": 1024,
+          "b": 2048,
+          "conclusion": "Difference",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0013779759501345024,
+              "meanAbsolute": 0.0008557686558512543,
+              "rmse": 0.0009526439525182989,
+              "nrmse": 0.0024000691981141743,
+              "maxRelative": 0.9218246396007501,
+              "p50": 0.0010718899761923695,
+              "p90": 0.001218414861261452,
+              "p95": 0.0012650597669564,
+              "pearson": 0.9999993354734925,
+              "worstX": 2.375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0012122424964119832,
+              "meanAbsolute": 0.0007926904295642499,
+              "rmse": 0.0008982271909368516,
+              "nrmse": 0.01018664141386642,
+              "maxRelative": 0.9921322068914197,
+              "p50": 0.0010320100591271614,
+              "p90": 0.0011831063156809568,
+              "p95": 0.0011905281506479348,
+              "pearson": 0.9999882710588495,
+              "worstX": 3.275,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Difference",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0013615418414908431,
+              "meanAbsolute": 0.0008726569479937982,
+              "rmse": 0.0009843859712032957,
+              "nrmse": 0.002488491767438689,
+              "maxRelative": 0.7997441105442564,
+              "p50": 0.0011022917192923254,
+              "p90": 0.0012888357573722087,
+              "p95": 0.001316325372720084,
+              "pearson": 0.9999998946562131,
+              "worstX": 4.9,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0007856673443266959,
+              "meanAbsolute": 0.0005073427167585332,
+              "rmse": 0.0005733531865957277,
+              "nrmse": 0.006455555184181772,
+              "maxRelative": 0.7942144147075458,
+              "p50": 0.0006401186940167003,
+              "p90": 0.0007657461974563129,
+              "p95": 0.0007727859261365683,
+              "pearson": 0.9999917584175071,
+              "worstX": 3.275,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 8192,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.000320738760403283,
+              "meanAbsolute": 0.0001387178480806424,
+              "rmse": 0.00017456740321971574,
+              "nrmse": 0.0004414427034123683,
+              "maxRelative": 0.7895552606366314,
+              "p50": 0.00010986073427832199,
+              "p90": 0.00030651807137732634,
+              "p95": 0.00031713446458736527,
+              "pearson": 0.9999996911254846,
+              "worstX": 4.0625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 401,
+              "maxAbsolute": 0.0005755300258716428,
+              "meanAbsolute": 0.0003456013329350028,
+              "rmse": 0.00040145581002772534,
+              "nrmse": 0.004549458433433763,
+              "maxRelative": 0.7874968855205089,
+              "p50": 0.0004087288610046605,
+              "p90": 0.0005585471763631111,
+              "p95": 0.0005640074525244815,
+              "pearson": 0.9999994698540638,
+              "worstX": 4.975,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "cross": [
+        {
+          "a": 1024,
+          "b": 1024,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 2.7672308888782027E-13,
+              "meanAbsolute": 7.360692924047205E-14,
+              "rmse": 8.59781355803193E-14,
+              "nrmse": 2.173125123451316E-13,
+              "maxRelative": 2.689326547458292E-10,
+              "p50": 6.900383042740543E-14,
+              "p90": 1.3225878725542373E-13,
+              "p95": 1.5946965969959592E-13,
+              "pearson": 1.0000000000000042,
+              "worstX": 1.5,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 3.5745781334917126E-11,
+              "meanAbsolute": 1.5566533321276623E-11,
+              "rmse": 2.079695065841929E-11,
+              "nrmse": 2.329271031001106E-10,
+              "maxRelative": 4.902527651236612E-10,
+              "p50": 1.4468572173687022E-11,
+              "p90": 3.4705183171723775E-11,
+              "p95": 3.5487474070450276E-11,
+              "pearson": 0.9999999999999993,
+              "worstX": 3.937500000000022,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 1024,
+          "conclusion": "Difference",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0013779759501023059,
+              "meanAbsolute": 0.0008648745664849929,
+              "rmse": 0.0009578813868124123,
+              "nrmse": 0.002421076117687909,
+              "maxRelative": 0.47966116176100343,
+              "p50": 0.0010752421042234395,
+              "p90": 0.0012179958243468958,
+              "p95": 0.0012647600752933308,
+              "pearson": 0.9999993345969138,
+              "worstX": 2.375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0012122425257505703,
+              "meanAbsolute": 0.000802987279559646,
+              "rmse": 0.0009044222238129981,
+              "nrmse": 0.010129583515977501,
+              "maxRelative": 0.4980252832581441,
+              "p50": 0.0010568923296844328,
+              "p90": 0.0011834116729637773,
+              "p95": 0.0011906389520405358,
+              "pearson": 0.999988078063298,
+              "worstX": 3.275000000000013,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Difference",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 1024,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.00041811052782336766,
+              "meanAbsolute": 0.00012749491838141768,
+              "rmse": 0.00015137377691578355,
+              "nrmse": 0.00038260210625304944,
+              "maxRelative": 0.7108817663630848,
+              "p50": 0.00012596939106438929,
+              "p90": 0.000211481020206551,
+              "p95": 0.000258742449613103,
+              "pearson": 0.9999994645004349,
+              "worstX": 1.825,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0004835834444635728,
+              "meanAbsolute": 0.00028939521652691214,
+              "rmse": 0.0003297350556619957,
+              "nrmse": 0.003693052532911092,
+              "maxRelative": 0.7202259035335656,
+              "p50": 0.0003441147833592381,
+              "p90": 0.00045178320394911875,
+              "p95": 0.00045858974624501947,
+              "pearson": 0.9999995392167365,
+              "worstX": 4.9625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 8192,
+          "b": 1024,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0005278763606810788,
+              "meanAbsolute": 0.00024587141356293535,
+              "rmse": 0.0002957286552846221,
+              "nrmse": 0.0007474637199164764,
+              "maxRelative": 0.838441293210436,
+              "p50": 0.00021763540381850022,
+              "p90": 0.0005012695448914362,
+              "p95": 0.0005199230515800651,
+              "pearson": 0.9999986292752009,
+              "worstX": 4.125,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0010523312678996366,
+              "meanAbsolute": 0.0006395620401353188,
+              "rmse": 0.0007336987864895296,
+              "nrmse": 0.008217470709624797,
+              "maxRelative": 0.8434827502454834,
+              "p50": 0.000766934961800976,
+              "p90": 0.0010097559871564826,
+              "p95": 0.001022788875745844,
+              "pearson": 0.9999982487621084,
+              "worstX": 4.9625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "conclusion": "Difference",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0013779759499482624,
+              "meanAbsolute": 0.0008648745664002885,
+              "rmse": 0.0009578813867238816,
+              "nrmse": 0.0024132642690331166,
+              "maxRelative": 0.9218246414707065,
+              "p50": 0.0010752421041461124,
+              "p90": 0.0012179958242458655,
+              "p95": 0.001264760075156468,
+              "pearson": 0.9999993345969111,
+              "worstX": 2.375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.001212242437174077,
+              "meanAbsolute": 0.0008029872230687201,
+              "rmse": 0.0009044221572857995,
+              "nrmse": 0.010256897462639901,
+              "maxRelative": 0.9921322046735702,
+              "p50": 0.001056892267510462,
+              "p90": 0.0011834115767569015,
+              "p95": 0.0011906388652787488,
+              "pearson": 0.9999880780637252,
+              "worstX": 3.275000000000013,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Difference",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 2048,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 6.266653862496696E-13,
+              "meanAbsolute": 7.571346771285249E-14,
+              "rmse": 1.2004904125071135E-13,
+              "nrmse": 3.024487852017695E-13,
+              "maxRelative": 9.730109210141194E-10,
+              "p50": 3.3584246494910985E-14,
+              "p90": 2.0346918594427166E-13,
+              "p95": 2.746032568001766E-13,
+              "pearson": 0.9999999999999982,
+              "worstX": 1.025,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 7.11268821618205E-11,
+              "meanAbsolute": 4.123923035587589E-11,
+              "rmse": 4.773284803338564E-11,
+              "nrmse": 5.41330090084798E-10,
+              "maxRelative": 1.113304359607844E-09,
+              "p50": 4.8195454571686724E-11,
+              "p90": 6.795004836579466E-11,
+              "p95": 6.941957425565803E-11,
+              "pearson": 1.0000000000000004,
+              "worstX": 5,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 2048,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0013615418414423819,
+              "meanAbsolute": 0.0008838412301849868,
+              "rmse": 0.0009909465089695771,
+              "nrmse": 0.00249656777526332,
+              "maxRelative": 0.4443654544475196,
+              "p50": 0.0011185476283414597,
+              "p90": 0.0012889029244303185,
+              "p95": 0.0013163253727170865,
+              "pearson": 0.999999891957133,
+              "worstX": 4.9,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0007856672850887897,
+              "meanAbsolute": 0.0005139912491023669,
+              "rmse": 0.0005772330814946629,
+              "nrmse": 0.006546301946761671,
+              "maxRelative": 0.44265301254438194,
+              "p50": 0.000641283741507858,
+              "p90": 0.0007658407317110566,
+              "p95": 0.0007731694373855937,
+              "pearson": 0.9999916490919799,
+              "worstX": 3.275000000000013,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 8192,
+          "b": 2048,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0015898387811923986,
+              "meanAbsolute": 0.0009669694411429363,
+              "rmse": 0.0011192870839458356,
+              "nrmse": 0.0028199060592617856,
+              "maxRelative": 0.6895124963311754,
+              "p50": 0.001118547461037206,
+              "p90": 0.0015788805550479568,
+              "p95": 0.0015871255867143663,
+              "pearson": 0.9999997155213218,
+              "worstX": 4.1375,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.00030730657437356285,
+              "meanAbsolute": 0.00016414761434538526,
+              "rmse": 0.00018924986653602195,
+              "nrmse": 0.002146250465273449,
+              "maxRelative": 0.6881969462602325,
+              "p50": 0.00016781750102945643,
+              "p90": 0.00028449393499480405,
+              "p95": 0.00029130896524962036,
+              "pearson": 0.9999950931357147,
+              "worstX": 2.6875,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 1024,
+          "b": 4096,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.00041800426510466004,
+              "meanAbsolute": 0.00012748456693242917,
+              "rmse": 0.00015135866642219318,
+              "nrmse": 0.00038262917833106264,
+              "maxRelative": 2.457852490582335,
+              "p50": 0.00012610857880680781,
+              "p90": 0.00021158563366224098,
+              "p95": 0.0002587554163918336,
+              "pearson": 0.9999994645897424,
+              "worstX": 1.8249999999999955,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.00048354194795806327,
+              "meanAbsolute": 0.0002893967279427878,
+              "rmse": 0.00032973599857254475,
+              "nrmse": 0.003712596332184287,
+              "maxRelative": 2.573342941136349,
+              "p50": 0.00034416005042368567,
+              "p90": 0.00045179000415353915,
+              "p95": 0.0004585767045593124,
+              "pearson": 0.9999995393311463,
+              "worstX": 4.9625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0013615519654828212,
+              "meanAbsolute": 0.0008838497551043549,
+              "rmse": 0.0009909421816933915,
+              "nrmse": 0.0025050656280051473,
+              "maxRelative": 0.7992549472675549,
+              "p50": 0.0011186979187223778,
+              "p90": 0.001288896985655208,
+              "p95": 0.0013163453078394033,
+              "pearson": 0.9999998919862453,
+              "worstX": 4.900000000000036,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.0007856912521195247,
+              "meanAbsolute": 0.0005139886063112253,
+              "rmse": 0.00057723191527086,
+              "nrmse": 0.006499226959542365,
+              "maxRelative": 0.7937278102201342,
+              "p50": 0.0006412404085727567,
+              "p90": 0.000765832693645066,
+              "p95": 0.000773189578683893,
+              "pearson": 0.9999916489775612,
+              "worstX": 3.275,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 1.7049454261036656E-06,
+              "meanAbsolute": 1.809718682488928E-07,
+              "rmse": 3.235303100255745E-07,
+              "nrmse": 8.178728025059312E-07,
+              "maxRelative": 0.0011088803007298681,
+              "p50": 6.691650850099151E-08,
+              "p90": 5.331532243468828E-07,
+              "p95": 7.216953545295668E-07,
+              "pearson": 0.9999999999972694,
+              "worstX": 0.4375000000000002,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 4.0503389975039134E-07,
+              "meanAbsolute": 2.97507530954081E-08,
+              "rmse": 4.748852624029273E-08,
+              "nrmse": 5.346875351911546E-07,
+              "maxRelative": 0.00027120754544321006,
+              "p50": 1.813347358207984E-08,
+              "p90": 6.808457716014904E-08,
+              "p95": 9.214232959779949E-08,
+              "pearson": 0.999999999998599,
+              "worstX": 0.7749999999999992,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 8192,
+          "b": 4096,
+          "conclusion": "Close",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.000320738964049716,
+              "meanAbsolute": 0.00014084226506680687,
+              "rmse": 0.0001762073383280867,
+              "nrmse": 0.00044544571298160907,
+              "maxRelative": 0.44135382350268315,
+              "p50": 0.00011216408631182367,
+              "p90": 0.0003070622665859446,
+              "p95": 0.0003172960062489266,
+              "pearson": 0.9999996847672128,
+              "worstX": 4.0625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "curve:1",
+              "unit": "Dimensionless",
+              "count": 786,
+              "maxAbsolute": 0.000575549063400585,
+              "meanAbsolute": 0.00035025802204440075,
+              "rmse": 0.0004042988469680356,
+              "nrmse": 0.004552121766679451,
+              "maxRelative": 0.44071019057275646,
+              "p50": 0.00041851531852510684,
+              "p90": 0.000558743378302029,
+              "p95": 0.0005640204679707127,
+              "pearson": 0.9999994587457522,
+              "worstX": 4.975000000000037,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Close",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "adaptive": null,
+      "autoWindow": null
+    },
+    {
+      "id": 2879,
+      "original": "0fa14981b54e40797d707272f0afb2787e321e547c2d52fccbf9934cb60f0e08",
+      "policy": {
+        "field": 1,
+        "wavelength": 1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "vignettedPupil": true,
+        "rmsFieldMethod": "GQ",
+        "rmsFieldRayDensity": 6,
+        "rmsFieldRemoveVignettingFactors": true,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "quantities": {
+          "Irradiance": {
+            "absolute": 1E-05,
+            "relative": 0.002,
+            "nrmse": 0.003,
+            "closeNrmse": 0.01,
+            "minimumCoverage": 0.95
+          }
+        },
+        "workbenchSettings": {}
+      },
+      "nativeLog": [
+        {
+          "sample": 512,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 0,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "2879-512",
+            "exitCode": 0,
+            "startedUtc": "2026-11-07T13:30:18.6196510Z",
+            "completedUtc": "2026-11-07T13:30:19.7718716Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "06f84f6c33c3a79251d1188e7b6f339ad7c9bcd728aeb6994b0cc452ef3cce22",
+          "sourceHash": "ad2b7a0922cf0dbc29d560a8507ce38254b0862c3f0d94329d91d22b48d30af6",
+          "modelHash": "be3e7e1a5bfe78907b4d5477273b595d058135efa5cb7af1661ef244fc670a6f",
+          "hash": "13494ec0430377edddc526560ec57ac5f29c762df84a2c1fab87ae8ffcc051b5",
+          "textHash": "3050d9dbd2728907f3ae9176f8f27eb0e89a801a3757f6817795e72f21ec419c"
+        },
+        {
+          "sample": 1024,
+          "valid": true,
+          "diagnostics": {
+            "seriesCount": 0,
+            "gridCount": 0,
+            "messages": []
+          },
+          "batch": {
+            "id": "2879-1024",
+            "exitCode": 0,
+            "startedUtc": "2026-11-07T13:30:19.7738717Z",
+            "completedUtc": "2026-11-07T13:30:22.1410585Z",
+            "semantics": "Persistent application; source reloaded for every request; no lens saved"
+          },
+          "captureHash": "5fa0c12e3b01ead95e95588b4c8172d7f0e08aea4ede9a073c286e2ef3b58fcf",
+          "sourceHash": "ad2b7a0922cf0dbc29d560a8507ce38254b0862c3f0d94329d91d22b48d30af6",
+          "modelHash": "be3e7e1a5bfe78907b4d5477273b595d058135efa5cb7af1661ef244fc670a6f",
+          "hash": "13494ec0430377edddc526560ec57ac5f29c762df84a2c1fab87ae8ffcc051b5",
+          "textHash": "8c2170b1e2aec4ff2789a5c2b78c902b71b4a06c33e4f12e9b57e23561d8623c"
+        }
+      ],
+      "coreLog": [
+        {
+          "sample": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "63ebae2b1372c1cd88db17b6c2614cfbc14ef661c2dc32fd3d7c9e0e86900c8d"
+        },
+        {
+          "sample": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "5d2b35cb1ae0b200e6d307b1ef01d3fdf8fcabf291e66497abfdd138aebc4d6d"
+        },
+        {
+          "sample": 4096,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "6cd8ae809c39cc74f0a21491a45d38ab0b73c0a7fe3916b50281626cb4ada723"
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "a": 512,
+          "b": 1024,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 4097,
+              "maxAbsolute": 0.00032450000000000187,
+              "meanAbsolute": 1.4479023856809318E-05,
+              "rmse": 2.8268829555050416E-05,
+              "nrmse": 0.0015532323931346382,
+              "maxRelative": "Infinity",
+              "p50": 7.0000000000000075E-06,
+              "p90": 3.5999999999999574E-05,
+              "p95": 5.299999999999999E-05,
+              "pearson": 0.999839907853729,
+              "worstX": -0.12207,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "coreConvergence": [
+        {
+          "a": 1024,
+          "b": 2048,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 8193,
+              "maxAbsolute": 0.0001291933301923419,
+              "meanAbsolute": 6.7642612970033274E-06,
+              "rmse": 1.3851435107159695E-05,
+              "nrmse": 0.0007665298470478653,
+              "maxRelative": 4.78316321318941,
+              "p50": 2.765834301835979E-06,
+              "p90": 1.72644056834406E-05,
+              "p95": 2.3577635346489715E-05,
+              "pearson": 0.9999548272072962,
+              "worstX": 0,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 4096,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 16385,
+              "maxAbsolute": 0.0001381451115230574,
+              "meanAbsolute": 2.9471073633647708E-06,
+              "rmse": 9.714085558728299E-06,
+              "nrmse": 0.0005336111727983218,
+              "maxRelative": 6.7420639156932385,
+              "p50": 1.1466247600943995E-06,
+              "p90": 5.578473845285715E-06,
+              "p95": 8.609674946422037E-06,
+              "pearson": 0.9999955822171019,
+              "worstX": -0.030517578125,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "cross": [
+        {
+          "a": 1024,
+          "b": 512,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 6017,
+              "maxAbsolute": 0.00032438296292412044,
+              "meanAbsolute": 1.4424097278058434E-05,
+              "rmse": 2.786741085972709E-05,
+              "nrmse": 0.0015535405764147113,
+              "maxRelative": "Infinity",
+              "p50": 7.2627697371037E-06,
+              "p90": 3.6025663324465506E-05,
+              "p95": 5.2981464432676134E-05,
+              "pearson": 0.9998382066836663,
+              "worstX": 0.1220703125,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 512,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 10113,
+              "maxAbsolute": 0.0001959564321578587,
+              "meanAbsolute": 1.029226325139541E-05,
+              "rmse": 1.7282008016634135E-05,
+              "nrmse": 0.0009634300377207122,
+              "maxRelative": "Infinity",
+              "p50": 6.365392511548747E-06,
+              "p90": 2.426456873370306E-05,
+              "p95": 3.277236442995154E-05,
+              "pearson": 0.9999368363362778,
+              "worstX": 0.1220703125,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 512,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 18305,
+              "maxAbsolute": 0.00032956900815423254,
+              "meanAbsolute": 1.1061865607250372E-05,
+              "rmse": 2.4197400448649164E-05,
+              "nrmse": 0.0013489463958439717,
+              "maxRelative": "Infinity",
+              "p50": 6.058534946743873E-06,
+              "p90": 2.5211695637016238E-05,
+              "p95": 3.4820438747376614E-05,
+              "pearson": 0.9999271701872677,
+              "worstX": 0.1220703125,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 1024,
+          "b": 1024,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 8065,
+              "maxAbsolute": 4.998381306419797E-07,
+              "meanAbsolute": 2.494882469914194E-07,
+              "rmse": 2.884867782797817E-07,
+              "nrmse": 1.5850921883504487E-05,
+              "maxRelative": "Infinity",
+              "p50": 2.4622662234729587E-07,
+              "p90": 4.525360015460954E-07,
+              "p95": 4.773687945051097E-07,
+              "pearson": 0.9999999750030322,
+              "worstX": 28.32031,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 2048,
+          "b": 1024,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 12161,
+              "maxAbsolute": 0.0001296858948080168,
+              "meanAbsolute": 6.755255665366048E-06,
+              "rmse": 1.3879368548067299E-05,
+              "nrmse": 0.0007626026674762251,
+              "maxRelative": "Infinity",
+              "p50": 2.7403812430247163E-06,
+              "p90": 1.7306643160505187E-05,
+              "p95": 2.3651015009670015E-05,
+              "pearson": 0.9999547143538938,
+              "worstX": 0,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        },
+        {
+          "a": 4096,
+          "b": 1024,
+          "conclusion": "Pass",
+          "metrics": [
+            {
+              "id": "curve:0",
+              "unit": "Dimensionless",
+              "count": 20353,
+              "maxAbsolute": 8.233943957568733E-05,
+              "meanAbsolute": 6.025330220815405E-06,
+              "rmse": 1.1213217169210365E-05,
+              "nrmse": 0.000616110833473097,
+              "maxRelative": "Infinity",
+              "p50": 2.9200277157124316E-06,
+              "p90": 1.565878393264023E-05,
+              "p95": 2.0228997604980676E-05,
+              "pearson": 0.9999641883769327,
+              "worstX": -5.92041015625,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ],
+          "reason": ""
+        }
+      ],
+      "adaptive": {
+        "validation": {
+          "protocol": "FourierPhysicalDomainConvergence/v2",
+          "mode": "Adaptive",
+          "requestedPupilSampling": 32,
+          "returnedPupilSampling": 2048,
+          "maximumPupilSampling": 4096,
+          "relativeRmsAccuracy": 0.001,
+          "absoluteAccuracy": 1E-07,
+          "validated": true,
+          "steps": [
+            {
+              "pupilSampling": 32,
+              "phaseResolved": false,
+              "relativeRmsChange": null,
+              "maximumAbsoluteChange": null,
+              "usesDensePhysicalPupil": false,
+              "unavailableReason": "the requested physical range exceeds the independent Fourier interval; increase pupil sampling"
+            },
+            {
+              "pupilSampling": 64,
+              "phaseResolved": false,
+              "relativeRmsChange": null,
+              "maximumAbsoluteChange": null,
+              "usesDensePhysicalPupil": false,
+              "unavailableReason": "the requested physical range exceeds the independent Fourier interval; increase pupil sampling"
+            },
+            {
+              "pupilSampling": 128,
+              "phaseResolved": false,
+              "relativeRmsChange": null,
+              "maximumAbsoluteChange": null,
+              "usesDensePhysicalPupil": false,
+              "unavailableReason": "the requested physical range exceeds the independent Fourier interval; increase pupil sampling"
+            },
+            {
+              "pupilSampling": 256,
+              "phaseResolved": false,
+              "relativeRmsChange": null,
+              "maximumAbsoluteChange": null,
+              "usesDensePhysicalPupil": false,
+              "unavailableReason": "the requested physical range exceeds the independent Fourier interval; increase pupil sampling"
+            },
+            {
+              "pupilSampling": 512,
+              "phaseResolved": false,
+              "relativeRmsChange": null,
+              "maximumAbsoluteChange": null,
+              "usesDensePhysicalPupil": false,
+              "unavailableReason": "the requested physical range exceeds the independent Fourier interval; increase pupil sampling"
+            },
+            {
+              "pupilSampling": 1024,
+              "phaseResolved": true,
+              "relativeRmsChange": null,
+              "maximumAbsoluteChange": null,
+              "usesDensePhysicalPupil": false
+            },
+            {
+              "pupilSampling": 2048,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.007149478943214491,
+              "maximumAbsoluteChange": 0.0001291933301923419,
+              "usesDensePhysicalPupil": false
+            },
+            {
+              "pupilSampling": 4096,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.0073670399328988985,
+              "maximumAbsoluteChange": 0.00013411273952053382,
+              "usesDensePhysicalPupil": false
+            },
+            {
+              "pupilSampling": 64,
+              "phaseResolved": false,
+              "relativeRmsChange": null,
+              "maximumAbsoluteChange": null,
+              "usesDensePhysicalPupil": true,
+              "unavailableReason": "the requested physical range exceeds the independent Fourier interval; increase pupil sampling"
+            },
+            {
+              "pupilSampling": 128,
+              "phaseResolved": false,
+              "relativeRmsChange": null,
+              "maximumAbsoluteChange": null,
+              "usesDensePhysicalPupil": true,
+              "unavailableReason": "the requested physical range exceeds the independent Fourier interval; increase pupil sampling"
+            },
+            {
+              "pupilSampling": 256,
+              "phaseResolved": true,
+              "relativeRmsChange": null,
+              "maximumAbsoluteChange": null,
+              "usesDensePhysicalPupil": true
+            },
+            {
+              "pupilSampling": 512,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.001808289464938585,
+              "maximumAbsoluteChange": 7.391176929146199E-05,
+              "usesDensePhysicalPupil": true
+            },
+            {
+              "pupilSampling": 1024,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.0018568319981633631,
+              "maximumAbsoluteChange": 3.397857788732181E-05,
+              "usesDensePhysicalPupil": true
+            },
+            {
+              "pupilSampling": 2048,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.0004615776180657291,
+              "maximumAbsoluteChange": 8.442613620127798E-06,
+              "usesDensePhysicalPupil": true
+            }
+          ],
+          "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+          "evaluatedNominalPupilCells": 55920640,
+          "maximumNominalPupilCells": 100000000,
+          "requestedRelativeRmsDeviation": null,
+          "requestedMaximumAbsoluteDeviation": null
+        },
+        "hash": "674495692105550b9a89d89fcbeed447210c4f8494d123eaeb88a409bb7a3de7",
+        "cross": [
+          {
+            "a": 2048,
+            "b": 512,
+            "conclusion": "Pass",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 6017,
+                "maxAbsolute": 0.00041513446047310165,
+                "meanAbsolute": 1.2340409815985259E-05,
+                "rmse": 2.9146045320403736E-05,
+                "nrmse": 0.001624821346883919,
+                "maxRelative": "Infinity",
+                "p50": 6.404760729861837E-06,
+                "p90": 2.813540730734129E-05,
+                "p95": 3.931586045907322E-05,
+                "pearson": 0.9999000926338046,
+                "worstX": -0.1220703125,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          },
+          {
+            "a": 2048,
+            "b": 1024,
+            "conclusion": "Pass",
+            "metrics": [
+              {
+                "id": "curve:0",
+                "unit": "Dimensionless",
+                "count": 8065,
+                "maxAbsolute": 9.077773637967274E-05,
+                "meanAbsolute": 5.626784897419328E-06,
+                "rmse": 1.0823854977392487E-05,
+                "nrmse": 0.0005947173064501367,
+                "maxRelative": "Infinity",
+                "p50": 2.872066345213512E-06,
+                "p90": 1.3394333262812565E-05,
+                "p95": 1.8155661412245985E-05,
+                "pearson": 0.9999803415918798,
+                "worstX": 0,
+                "worstY": null,
+                "coverage": 1,
+                "conclusion": "Pass",
+                "extra": {}
+              }
+            ],
+            "reason": ""
+          }
+        ]
+      },
+      "autoWindow": {
+        "requestedRange": [
+          -58.565983719493346,
+          58.565983719493346
+        ],
+        "autoValidation": {
+          "protocol": "FourierPhysicalDomainConvergence/v2",
+          "mode": "Adaptive",
+          "requestedPupilSampling": 32,
+          "returnedPupilSampling": 2048,
+          "maximumPupilSampling": 4096,
+          "relativeRmsAccuracy": 0.001,
+          "absoluteAccuracy": 1E-07,
+          "validated": true,
+          "steps": [
+            {
+              "pupilSampling": 32,
+              "phaseResolved": false,
+              "relativeRmsChange": null,
+              "maximumAbsoluteChange": null,
+              "usesDensePhysicalPupil": false
+            },
+            {
+              "pupilSampling": 64,
+              "phaseResolved": false,
+              "relativeRmsChange": 1.0207186927913252,
+              "maximumAbsoluteChange": 0.02682562055185979,
+              "usesDensePhysicalPupil": false
+            },
+            {
+              "pupilSampling": 128,
+              "phaseResolved": false,
+              "relativeRmsChange": 0.379823941642133,
+              "maximumAbsoluteChange": 0.007234397522843484,
+              "usesDensePhysicalPupil": false
+            },
+            {
+              "pupilSampling": 256,
+              "phaseResolved": false,
+              "relativeRmsChange": 0.11805145944875738,
+              "maximumAbsoluteChange": 0.0020110811735875693,
+              "usesDensePhysicalPupil": false
+            },
+            {
+              "pupilSampling": 512,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.05030278038757335,
+              "maximumAbsoluteChange": 0.0009023293084227911,
+              "usesDensePhysicalPupil": false
+            },
+            {
+              "pupilSampling": 1024,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.014371076965088922,
+              "maximumAbsoluteChange": 0.0002622934510983395,
+              "usesDensePhysicalPupil": false
+            },
+            {
+              "pupilSampling": 2048,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.007149478943214491,
+              "maximumAbsoluteChange": 0.0001291933301923419,
+              "usesDensePhysicalPupil": false
+            },
+            {
+              "pupilSampling": 4096,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.0073670399328988985,
+              "maximumAbsoluteChange": 0.00013411273952053382,
+              "usesDensePhysicalPupil": false
+            },
+            {
+              "pupilSampling": 64,
+              "phaseResolved": false,
+              "relativeRmsChange": null,
+              "maximumAbsoluteChange": null,
+              "usesDensePhysicalPupil": true
+            },
+            {
+              "pupilSampling": 128,
+              "phaseResolved": false,
+              "relativeRmsChange": 0.060005550975079966,
+              "maximumAbsoluteChange": 0.0017210726345002268,
+              "usesDensePhysicalPupil": true
+            },
+            {
+              "pupilSampling": 256,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.0012855108021356187,
+              "maximumAbsoluteChange": 7.028102754662736E-05,
+              "usesDensePhysicalPupil": true
+            },
+            {
+              "pupilSampling": 512,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.001808289464938585,
+              "maximumAbsoluteChange": 7.372877016052727E-05,
+              "usesDensePhysicalPupil": true
+            },
+            {
+              "pupilSampling": 1024,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.0018568319981633631,
+              "maximumAbsoluteChange": 3.397857788732181E-05,
+              "usesDensePhysicalPupil": true
+            },
+            {
+              "pupilSampling": 2048,
+              "phaseResolved": true,
+              "relativeRmsChange": 0.0004615776180657291,
+              "maximumAbsoluteChange": 8.442613620127798E-06,
+              "usesDensePhysicalPupil": true
+            }
+          ],
+          "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+          "evaluatedNominalPupilCells": 55920640,
+          "maximumNominalPupilCells": 100000000,
+          "requestedRelativeRmsDeviation": 1.9034703509378093,
+          "requestedMaximumAbsoluteDeviation": 0.03481595311679209
+        },
+        "hash": "765b47ebf28521d282bc7ed3699086563932c6293e5c9520f3ef2218bac12ade",
+        "autoCross": {
+          "id": "curve:0",
+          "unit": "Dimensionless",
+          "count": 201,
+          "maxAbsolute": 9.093337013897293E-05,
+          "meanAbsolute": 1.2515526721060247E-05,
+          "rmse": 2.0828169533940568E-05,
+          "nrmse": 0.0011444049194472838,
+          "maxRelative": 0.8091331110436134,
+          "p50": 6.338171315647994E-06,
+          "p90": 2.9064122025695624E-05,
+          "p95": 5.872060901963502E-05,
+          "pearson": 0.9999855366978359,
+          "worstX": -0.5856598371949318,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {}
+        }
+      }
+    }
+  ]
+}

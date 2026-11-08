@@ -1,0 +1,248 @@
+{
+  "frozenIndex": 2882,
+  "configuration": 1,
+  "status": "FormalIndependentScalarFftEnergyPass",
+  "originalNativeEnergyUsable": false,
+  "originalNativeDiagnosticSha256": "124624395009fce08c028b7cfade398d2d6360db10a14698653f46fb82ac2f61",
+  "frozenRequestSha256": "3ff08f53e7bb1ca860ee5af0789dada7bf72dac2395c4faecbbb4035d53cf023",
+  "sourceSnapshotSha256": "ff827e9f06d95d28f23aa06368f3faf11b18f68633120bc055c5a754b5382c71",
+  "originalTolerance": {
+    "absolute": 1e-05,
+    "relative": 0.002,
+    "nrmse": 0.003,
+    "closeNrmse": 0.01,
+    "minimumCoverage": 0.95
+  },
+  "independentReceiptSha256": "b0bfedc330c5828972b8b0633a71d7004742ed696860bc7a57dcfa72f3409ba1",
+  "independentPayloadSha256": "db23a49551e4bd4897d9165e9910bf3b08821e9898f92e4076d2ae45632f1fc7",
+  "physicalReference": {
+    "frozenIndex": 2882,
+    "radiusCount": 401,
+    "radiusRangeMicrometers": [
+      0,
+      5
+    ],
+    "actualCentroidMicrometers": [
+      0,
+      0
+    ],
+    "idealCentroidMicrometers": [
+      0,
+      0
+    ],
+    "centroidReason": "Axially symmetric pupil phase and amplitude on the folded axis",
+    "parsevalTotalPowerSquareMicrometers": 19.40968491528182,
+    "quadratureOrdersPupilAndImage": [
+      [
+        96,
+        48
+      ],
+      [
+        144,
+        72
+      ]
+    ],
+    "actualBetweenQuadratures": {
+      "coordinates": 401,
+      "maximumAbsolute": 1.139346950118636e-11,
+      "peakNormalizedRms": 6.552760594581132e-10,
+      "relativeL2": 1.0415239165357813e-09
+    },
+    "idealBetweenQuadratures": {
+      "coordinates": 401,
+      "maximumAbsolute": 1.1102230246251565e-15,
+      "peakNormalizedRms": 6.487608572578784e-16,
+      "relativeL2": 9.008724174765499e-16
+    },
+    "idealVersusAiry": {
+      "coordinates": 401,
+      "maximumAbsolute": 6.938893903907228e-16,
+      "peakNormalizedRms": 2.1205974391004076e-16,
+      "relativeL2": 2.9446717077408357e-16
+    },
+    "actualEnergyAt5Micrometers": 0.012546464206082159,
+    "idealEnergyAt5Micrometers": 0.8379676198948228
+  },
+  "formal": [
+    {
+      "nominalPupilSampling": 32768,
+      "requestSha256": "d101f0a8817a9a964c58a0c1e84d7834b01b2d0b6442e1a90fc7a4dbd9862c0a",
+      "dataSha256": "fc213948c6b10d67297354ea0f01f97929fc338c251e75073a7e6140d0b668e1",
+      "provenanceSha256": "ff9fa124249bf41731e5b9402f6b5e825c1955294e0212934b366d0183052963",
+      "provenance": {
+        "canonicalAnalysisKey": "Diffraction Encircled Energy",
+        "requestFingerprint": "31d9207b3e36f20995e4909a4acc29d71cecd31d0c4921cdff0774692eb9b7bd",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "ff827e9f06d95d28f23aa06368f3faf11b18f68633120bc055c5a754b5382c71",
+        "codeFingerprint": "9bd3f3365e4de038e1af7b2738e4eb99f355fe23f46adf788f71ab2c7eb00e0b:a0e1ccb72df9dca18a1e155039b05a7d1b0f605a32cc346c0076a3355d8ddafc"
+      },
+      "fourierSize": [
+        65536
+      ],
+      "distanceBinWidthMicrometers": [
+        0.021568960539017343
+      ],
+      "versusIndependent": {
+        "ideal": {
+          "coordinates": 401,
+          "coverage": 1,
+          "maximumAbsolute": 0.00018246703235963446,
+          "peakNormalizedRms": 0.00011070029612080104,
+          "pointwisePass": true,
+          "nrmsePass": true,
+          "acceptanceBranch": "Both",
+          "pass": true
+        },
+        "actual": {
+          "coordinates": 401,
+          "coverage": 1,
+          "maximumAbsolute": 6.951086232408199e-05,
+          "peakNormalizedRms": 0.0033611934824495284,
+          "pointwisePass": false,
+          "nrmsePass": false,
+          "acceptanceBranch": "Neither",
+          "pass": false
+        }
+      }
+    },
+    {
+      "nominalPupilSampling": 65536,
+      "requestSha256": "28506bbe7b6ed9e67c077336b6c83ffff19f7bc094319259c0fab9d25db3d782",
+      "dataSha256": "58f6d06e846954575c10f8761bd258f9030eed1fa8c97f8cf0c882e0f9093f25",
+      "provenanceSha256": "ec3406e120a1d0f4a5ac96c41d09530e7289afc5674433000bec3a85508e933b",
+      "provenance": {
+        "canonicalAnalysisKey": "Diffraction Encircled Energy",
+        "requestFingerprint": "61bd761b8aebf9eec69776b1e687746c6b976fb6359f5c619a530623ae72b972",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "ff827e9f06d95d28f23aa06368f3faf11b18f68633120bc055c5a754b5382c71",
+        "codeFingerprint": "9bd3f3365e4de038e1af7b2738e4eb99f355fe23f46adf788f71ab2c7eb00e0b:a0e1ccb72df9dca18a1e155039b05a7d1b0f605a32cc346c0076a3355d8ddafc"
+      },
+      "fourierSize": [
+        131072
+      ],
+      "distanceBinWidthMicrometers": [
+        0.015251558260284216
+      ],
+      "versusIndependent": {
+        "ideal": {
+          "coordinates": 401,
+          "coverage": 1,
+          "maximumAbsolute": 6.122531788299579e-05,
+          "peakNormalizedRms": 3.456063015431004e-05,
+          "pointwisePass": true,
+          "nrmsePass": true,
+          "acceptanceBranch": "Both",
+          "pass": true
+        },
+        "actual": {
+          "coordinates": 401,
+          "coverage": 1,
+          "maximumAbsolute": 1.9864035294560323e-05,
+          "peakNormalizedRms": 0.0009633305702673081,
+          "pointwisePass": true,
+          "nrmsePass": true,
+          "acceptanceBranch": "Both",
+          "pass": true
+        }
+      }
+    },
+    {
+      "nominalPupilSampling": 131072,
+      "requestSha256": "b01ed0a19b7a4ea3bea4dc8a1dddbe11e8271a41c3ee5bffc73bf8f581a9f761",
+      "dataSha256": "8f5ec44e35ea4f5344031114c70dc4d93fd14a219c3f4c3123a83cad2aa7cc0a",
+      "provenanceSha256": "9469c7722af7cb0ace2c27abcaf2adf9ebd865743f3208f3254c27c1f7483882",
+      "provenance": {
+        "canonicalAnalysisKey": "Diffraction Encircled Energy",
+        "requestFingerprint": "1d7a56c57704e4dcec087138c2b0e62b56898f521c58dc9ba538f81b02b7fb7b",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "ff827e9f06d95d28f23aa06368f3faf11b18f68633120bc055c5a754b5382c71",
+        "codeFingerprint": "9bd3f3365e4de038e1af7b2738e4eb99f355fe23f46adf788f71ab2c7eb00e0b:a0e1ccb72df9dca18a1e155039b05a7d1b0f605a32cc346c0076a3355d8ddafc"
+      },
+      "fourierSize": [
+        262144
+      ],
+      "distanceBinWidthMicrometers": [
+        0.010784480269508671
+      ],
+      "versusIndependent": {
+        "ideal": {
+          "coordinates": 401,
+          "coverage": 1,
+          "maximumAbsolute": 3.1303323907161396e-05,
+          "peakNormalizedRms": 1.6145602819022007e-05,
+          "pointwisePass": true,
+          "nrmsePass": true,
+          "acceptanceBranch": "Both",
+          "pass": true
+        },
+        "actual": {
+          "coordinates": 401,
+          "coverage": 1,
+          "maximumAbsolute": 8.655299481394318e-06,
+          "peakNormalizedRms": 0.0004215543095511613,
+          "pointwisePass": true,
+          "nrmsePass": true,
+          "acceptanceBranch": "Both",
+          "pass": true
+        }
+      }
+    }
+  ],
+  "betweenFormalTiers": [
+    {
+      "lower": 32768,
+      "higher": 65536,
+      "curves": {
+        "ideal": {
+          "coordinates": 401,
+          "coverage": 1,
+          "maximumAbsolute": 0.00013446120007842843,
+          "peakNormalizedRms": 7.795532164314466e-05,
+          "pointwisePass": true,
+          "nrmsePass": true,
+          "acceptanceBranch": "Both",
+          "pass": true
+        },
+        "actual": {
+          "coordinates": 401,
+          "coverage": 1,
+          "maximumAbsolute": 4.964682702952167e-05,
+          "peakNormalizedRms": 0.0024017327685567167,
+          "pointwisePass": false,
+          "nrmsePass": true,
+          "acceptanceBranch": "NormalizedRms",
+          "pass": true
+        }
+      }
+    },
+    {
+      "lower": 65536,
+      "higher": 131072,
+      "curves": {
+        "ideal": {
+          "coordinates": 401,
+          "coverage": 1,
+          "maximumAbsolute": 4.3754940745377446e-05,
+          "peakNormalizedRms": 2.0630246942563546e-05,
+          "pointwisePass": true,
+          "nrmsePass": true,
+          "acceptanceBranch": "Both",
+          "pass": true
+        },
+        "actual": {
+          "coordinates": 401,
+          "coverage": 1,
+          "maximumAbsolute": 1.1211237345053887e-05,
+          "peakNormalizedRms": 0.0005422322194103919,
+          "pointwisePass": true,
+          "nrmsePass": true,
+          "acceptanceBranch": "Both",
+          "pass": true
+        }
+      }
+    }
+  ]
+}

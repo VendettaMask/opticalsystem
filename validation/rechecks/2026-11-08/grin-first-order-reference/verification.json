@@ -1,0 +1,597 @@
+{
+  "index": 825,
+  "lens": "Interconnects/GRIN interconnect.ZMX",
+  "canonicalRequestFingerprint": "689d54fbfeb701eb6cafa86a8a34eb9f8c3a0037e09decb53bf34a7564cd2d80",
+  "configuration": 1,
+  "wavelength": 1,
+  "sourceSha256": "4ebef758aa869859bd2ef45149ed73a255905f78d928932816e5d29fee00b6b7",
+  "frozenSourceSha256": "4ebef758aa869859bd2ef45149ed73a255905f78d928932816e5d29fee00b6b7",
+  "frozenNativeReportSha256": "337fa3c6180e27651536ad8bd04e39d7a7148a4a6f5ef739165cb32d94462986",
+  "snapshotSha256": "ddabbbbb7e185b8fe00b6e6394dec08a8b555f6343f3791a006d234bc08af029",
+  "nativeRayCaptureSha256": "3851c80594e5ee7d0a504f5eddae02fe00a1f24c94e27eb93730535b314acf3e",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "coreSha256": "c13b87e55f35ede94e38a9632c1f96a04e941c9e3f4f093bd1f4713fb0925b40",
+  "workbenchReportSha256": "2f9d9cdddab3908def951174fc21a9bdfe4bad9e3205305d6152fa3957020637",
+  "originalStep": 0.1,
+  "objectDistance": 2.5406992524,
+  "rodLength": 4,
+  "baseIndex": 1.5,
+  "radialQuadratic": -0.083,
+  "analyticEfl": 2.0632128150776143,
+  "analyticError": 2.1760371282653068E-14,
+  "directRayCount": 96,
+  "nativeSurfaceRecords": 192,
+  "nativeCaptureStatus": "Host.Main exit 0; post-capture native batch teardown returned FRU__delta_init internal error",
+  "originalTolerances": {
+    "EffectiveFocalLength": {
+      "absolute": 1E-08,
+      "relative": 1E-06,
+      "nrmse": 1E-06,
+      "closeNrmse": 1E-05,
+      "minimumCoverage": 0.95
+    },
+    "FNumber": {
+      "absolute": 1E-08,
+      "relative": 1E-06,
+      "nrmse": 1E-06,
+      "closeNrmse": 1E-05,
+      "minimumCoverage": 0.95
+    }
+  },
+  "records": [
+    {
+      "maximumStep": 0.1,
+      "nativeBuiltInEfl": 2.0632102444006812,
+      "nativeBuiltInEpdi": 1.0372361263751149,
+      "perturbations": [
+        {
+          "height": 0.02,
+          "c": -0.4847030264154623,
+          "focalLength": 2.063118952227981
+        },
+        {
+          "height": 0.01,
+          "c": -0.48468648982751517,
+          "focalLength": 2.0631893419514724
+        },
+        {
+          "height": 0.005,
+          "c": -0.48468235594176223,
+          "focalLength": 2.063206939020814
+        },
+        {
+          "height": 0.0025,
+          "c": -0.48468132248619217,
+          "focalLength": 2.0632113382675037
+        },
+        {
+          "height": 0.00125,
+          "c": -0.4846810641232913,
+          "focalLength": 2.063212438077886
+        },
+        {
+          "height": 0.000625,
+          "c": -0.48468099953262817,
+          "focalLength": 2.0632127130304005
+        }
+      ],
+      "extrapolations": [
+        {
+          "height": 0.02,
+          "fineHeight": 0.01,
+          "c": -0.4846809776315328,
+          "focalLength": 2.0632128062600104
+        },
+        {
+          "height": 0.01,
+          "fineHeight": 0.005,
+          "c": -0.4846809779798446,
+          "focalLength": 2.0632128047773
+        },
+        {
+          "height": 0.005,
+          "fineHeight": 0.0025,
+          "c": -0.4846809780010021,
+          "focalLength": 2.0632128046872356
+        },
+        {
+          "height": 0.0025,
+          "fineHeight": 0.00125,
+          "c": -0.4846809780023244,
+          "focalLength": 2.063212804681607
+        },
+        {
+          "height": 0.00125,
+          "fineHeight": 0.000625,
+          "c": -0.4846809780024071,
+          "focalLength": 2.063212804681255
+        }
+      ],
+      "directRayEfl": 2.063212804681255,
+      "directRayFNumber": 1.989144759054697,
+      "directRayEpdi": 1.0372361263751149
+    },
+    {
+      "maximumStep": 0.00625,
+      "nativeBuiltInEfl": 2.0632102548010933,
+      "nativeBuiltInEpdi": 1.0372361263751149,
+      "perturbations": [
+        {
+          "height": 0.02,
+          "c": -0.48470302397286913,
+          "focalLength": 2.0631189626247806
+        },
+        {
+          "height": 0.01,
+          "c": -0.48468648738702125,
+          "focalLength": 2.0631893523400455
+        },
+        {
+          "height": 0.005,
+          "c": -0.48468235349961947,
+          "focalLength": 2.0632069494165837
+        },
+        {
+          "height": 0.0025,
+          "c": -0.4846813200439516,
+          "focalLength": 2.0632113486637333
+        },
+        {
+          "height": 0.00125,
+          "c": -0.4846810616810547,
+          "focalLength": 2.06321244847411
+        },
+        {
+          "height": 0.000625,
+          "c": -0.48468099709039253,
+          "focalLength": 2.063212723426623
+        }
+      ],
+      "extrapolations": [
+        {
+          "height": 0.02,
+          "fineHeight": 0.01,
+          "c": -0.48468097519173864,
+          "focalLength": 2.0632128166458408
+        },
+        {
+          "height": 0.01,
+          "fineHeight": 0.005,
+          "c": -0.4846809755371522,
+          "focalLength": 2.063212815175468
+        },
+        {
+          "height": 0.005,
+          "fineHeight": 0.0025,
+          "c": -0.48468097555872897,
+          "focalLength": 2.0632128150836193
+        },
+        {
+          "height": 0.0025,
+          "fineHeight": 0.00125,
+          "c": -0.484680975560089,
+          "focalLength": 2.0632128150778297
+        },
+        {
+          "height": 0.00125,
+          "fineHeight": 0.000625,
+          "c": -0.4846809755601718,
+          "focalLength": 2.063212815077477
+        }
+      ],
+      "directRayEfl": 2.063212815077477,
+      "directRayFNumber": 1.989144769077701,
+      "directRayEpdi": 1.0372361263751149
+    },
+    {
+      "maximumStep": 0.003125,
+      "nativeBuiltInEfl": 2.0632102548012377,
+      "nativeBuiltInEpdi": 1.0372361263751149,
+      "perturbations": [
+        {
+          "height": 0.02,
+          "c": -0.48470302397283305,
+          "focalLength": 2.063118962624934
+        },
+        {
+          "height": 0.01,
+          "c": -0.48468648738698705,
+          "focalLength": 2.063189352340191
+        },
+        {
+          "height": 0.005,
+          "c": -0.4846823534995827,
+          "focalLength": 2.06320694941674
+        },
+        {
+          "height": 0.0025,
+          "c": -0.4846813200439248,
+          "focalLength": 2.0632113486638475
+        },
+        {
+          "height": 0.00125,
+          "c": -0.48468106168101904,
+          "focalLength": 2.0632124484742618
+        },
+        {
+          "height": 0.000625,
+          "c": -0.484680997090358,
+          "focalLength": 2.06321272342677
+        }
+      ],
+      "extrapolations": [
+        {
+          "height": 0.02,
+          "fineHeight": 0.01,
+          "c": -0.484680975191705,
+          "focalLength": 2.063212816645984
+        },
+        {
+          "height": 0.01,
+          "fineHeight": 0.005,
+          "c": -0.48468097553711464,
+          "focalLength": 2.063212815175628
+        },
+        {
+          "height": 0.005,
+          "fineHeight": 0.0025,
+          "c": -0.48468097555870543,
+          "focalLength": 2.0632128150837192
+        },
+        {
+          "height": 0.0025,
+          "fineHeight": 0.00125,
+          "c": -0.48468097556005046,
+          "focalLength": 2.0632128150779936
+        },
+        {
+          "height": 0.00125,
+          "fineHeight": 0.000625,
+          "c": -0.4846809755601376,
+          "focalLength": 2.0632128150776228
+        }
+      ],
+      "directRayEfl": 2.0632128150776228,
+      "directRayFNumber": 1.9891447690778417,
+      "directRayEpdi": 1.0372361263751149
+    },
+    {
+      "maximumStep": 0.0015625,
+      "nativeBuiltInEfl": 2.0632102548012523,
+      "nativeBuiltInEpdi": 1.0372361263751149,
+      "perturbations": [
+        {
+          "height": 0.02,
+          "c": -0.4847030239728298,
+          "focalLength": 2.063118962624948
+        },
+        {
+          "height": 0.01,
+          "c": -0.48468648738698267,
+          "focalLength": 2.06318935234021
+        },
+        {
+          "height": 0.005,
+          "c": -0.48468235349958105,
+          "focalLength": 2.063206949416747
+        },
+        {
+          "height": 0.0025,
+          "c": -0.48468132004392034,
+          "focalLength": 2.0632113486638666
+        },
+        {
+          "height": 0.00125,
+          "c": -0.4846810616810162,
+          "focalLength": 2.0632124484742738
+        },
+        {
+          "height": 0.000625,
+          "c": -0.4846809970903549,
+          "focalLength": 2.0632127234267834
+        }
+      ],
+      "extrapolations": [
+        {
+          "height": 0.02,
+          "fineHeight": 0.01,
+          "c": -0.4846809751917003,
+          "focalLength": 2.063212816646004
+        },
+        {
+          "height": 0.01,
+          "fineHeight": 0.005,
+          "c": -0.4846809755371138,
+          "focalLength": 2.0632128151756315
+        },
+        {
+          "height": 0.005,
+          "fineHeight": 0.0025,
+          "c": -0.4846809755587001,
+          "focalLength": 2.063212815083742
+        },
+        {
+          "height": 0.0025,
+          "fineHeight": 0.00125,
+          "c": -0.48468097556004813,
+          "focalLength": 2.063212815078004
+        },
+        {
+          "height": 0.00125,
+          "fineHeight": 0.000625,
+          "c": -0.48468097556013445,
+          "focalLength": 2.063212815077636
+        }
+      ],
+      "directRayEfl": 2.063212815077636,
+      "directRayFNumber": 1.9891447690778545,
+      "directRayEpdi": 1.0372361263751149
+    }
+  ],
+  "workbench": [
+    {
+      "id": "EffectiveFocalLength",
+      "value": 2.063212815089806,
+      "unit": "Millimeter"
+    },
+    {
+      "id": "FNumber",
+      "value": 1.9891447690895874,
+      "unit": "Dimensionless"
+    }
+  ],
+  "comparisons": [
+    {
+      "check": "native-step",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 1.3322676295501878E-14,
+          "meanAbsolute": 1.3322676295501878E-14,
+          "rmse": 1.3322676295501878E-14,
+          "nrmse": 6.457247743975729E-15,
+          "maxRelative": 6.457247743975729E-15,
+          "p50": 1.3322676295501878E-14,
+          "p90": 1.3322676295501878E-14,
+          "p95": 1.3322676295501878E-14,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 2.0632128150776228,
+            "zemax": 2.063212815077636
+          }
+        },
+        {
+          "id": "FNumber",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 1.2878587085651816E-14,
+          "meanAbsolute": 1.2878587085651816E-14,
+          "rmse": 1.2878587085651816E-14,
+          "nrmse": 6.474434282438973E-15,
+          "maxRelative": 6.474434282438973E-15,
+          "p50": 1.2878587085651816E-14,
+          "p90": 1.2878587085651816E-14,
+          "p95": 1.2878587085651816E-14,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1.9891447690778417,
+            "zemax": 1.9891447690778545
+          }
+        }
+      ]
+    },
+    {
+      "check": "native-height",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 3.6770586575585185E-13,
+          "meanAbsolute": 3.6770586575585185E-13,
+          "rmse": 3.6770586575585185E-13,
+          "nrmse": 1.7822003773373011E-13,
+          "maxRelative": 1.7822003773373011E-13,
+          "p50": 3.6770586575585185E-13,
+          "p90": 3.6770586575585185E-13,
+          "p95": 3.6770586575585185E-13,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 2.063212815078004,
+            "zemax": 2.063212815077636
+          }
+        },
+        {
+          "id": "FNumber",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 3.5438318946034997E-13,
+          "meanAbsolute": 3.5438318946034997E-13,
+          "rmse": 3.5438318946034997E-13,
+          "nrmse": 1.781585709443552E-13,
+          "maxRelative": 1.781585709443552E-13,
+          "p50": 3.5438318946034997E-13,
+          "p90": 3.5438318946034997E-13,
+          "p95": 3.5438318946034997E-13,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1.989144769078209,
+            "zemax": 1.9891447690778545
+          }
+        }
+      ]
+    },
+    {
+      "check": "workbench-native",
+      "conclusion": "Pass",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 1.2169820706731116E-11,
+          "meanAbsolute": 1.2169820706731116E-11,
+          "rmse": 1.2169820706731116E-11,
+          "nrmse": 5.898480572530362E-12,
+          "maxRelative": 5.898480572530362E-12,
+          "p50": 1.2169820706731116E-11,
+          "p90": 1.2169820706731116E-11,
+          "p95": 1.2169820706731116E-11,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 2.063212815089806,
+            "zemax": 2.063212815077636
+          }
+        },
+        {
+          "id": "FNumber",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 1.1732836924238654E-11,
+          "meanAbsolute": 1.1732836924238654E-11,
+          "rmse": 1.1732836924238654E-11,
+          "nrmse": 5.898432887656471E-12,
+          "maxRelative": 5.898432887656471E-12,
+          "p50": 1.1732836924238654E-11,
+          "p90": 1.1732836924238654E-11,
+          "p95": 1.1732836924238654E-11,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 1.9891447690895874,
+            "zemax": 1.9891447690778545
+          }
+        }
+      ]
+    },
+    {
+      "check": "workbench-built-in",
+      "conclusion": "Close",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 2.560288553610235E-06,
+          "meanAbsolute": 2.560288553610235E-06,
+          "rmse": 2.560288553610235E-06,
+          "nrmse": 1.2409246937641194E-06,
+          "maxRelative": 1.2409246937641194E-06,
+          "p50": 2.560288553610235E-06,
+          "p90": 2.560288553610235E-06,
+          "p95": 2.560288553610235E-06,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench": 2.063212815089806,
+            "zemax": 2.0632102548012523
+          }
+        },
+        {
+          "id": "FNumber",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 2.4683758004240275E-06,
+          "meanAbsolute": 2.4683758004240275E-06,
+          "rmse": 2.4683758004240275E-06,
+          "nrmse": 1.2409246937930341E-06,
+          "maxRelative": 1.2409246937930341E-06,
+          "p50": 2.4683758004240275E-06,
+          "p90": 2.4683758004240275E-06,
+          "p95": 2.4683758004240275E-06,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench": 1.9891447690895874,
+            "zemax": 1.989142300713787
+          }
+        }
+      ]
+    },
+    {
+      "check": "workbench-frozen",
+      "conclusion": "Close",
+      "metrics": [
+        {
+          "id": "EffectiveFocalLength",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 2.57068912468128E-06,
+          "meanAbsolute": 2.57068912468128E-06,
+          "rmse": 2.57068912468128E-06,
+          "nrmse": 1.2459656652335065E-06,
+          "maxRelative": 1.2459656652335065E-06,
+          "p50": 2.57068912468128E-06,
+          "p90": 2.57068912468128E-06,
+          "p95": 2.57068912468128E-06,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench": 2.063212815089806,
+            "zemax": 2.0632102444006812
+          }
+        },
+        {
+          "id": "FNumber",
+          "unit": "Dimensionless",
+          "count": 1,
+          "maxAbsolute": 2.478402997496687E-06,
+          "meanAbsolute": 2.478402997496687E-06,
+          "rmse": 2.478402997496687E-06,
+          "nrmse": 1.2459656652522427E-06,
+          "maxRelative": 1.2459656652522427E-06,
+          "p50": 2.478402997496687E-06,
+          "p90": 2.478402997496687E-06,
+          "p95": 2.478402997496687E-06,
+          "pearson": null,
+          "worstX": 0,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Close",
+          "extra": {
+            "workbench": 1.9891447690895874,
+            "zemax": 1.9891422906865899
+          }
+        }
+      ]
+    }
+  ],
+  "independentPass": true,
+  "frozenVerdict": "Close"
+}

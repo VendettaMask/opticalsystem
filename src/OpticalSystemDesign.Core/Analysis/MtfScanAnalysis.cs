@@ -21,7 +21,10 @@ public sealed record MtfComputationSettings(
     bool UsePolarization = false,
     bool ZemaxCompatible = false,
     bool UseZemaxHuygensSemantics = false,
-    bool RequireValidData = false);
+    bool RequireValidData = false)
+{
+    public bool UseCheckedFocusedPupil { get; init; }
+}
 
 public sealed class MtfThroughFocusAnalysis : BaseAnalysis
 {
@@ -66,6 +69,15 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
 
     public override AnalysisData GenerateData()
     {
+        try { return GenerateDataCore(); }
+        catch (AnalysisDataUnavailableException error) when (_settings.UseCheckedFocusedPupil)
+        { return AnalysisData.Unavailable(Name, error.Reason); }
+    }
+
+    private AnalysisData GenerateDataCore()
+    {
+        if (_settings.UseCheckedFocusedPupil && (_method != MtfComputationMethod.Huygens || Optic.ImageSpaceAfocal))
+            return AnalysisData.Unavailable(Name, "checked focal pupil integration requires focal Huygens MTF");
         var wavelengths = MtfMethodEvaluator.SelectWavelengths(Optic, _wavelengthNumber);
         var imageSurface = Optic.SurfaceGroup.Items.LastOrDefault();
         if (wavelengths.Count == 0 || imageSurface is null)
@@ -85,7 +97,10 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                 .ToArray();
         var tangential = fields.Select(_ => new double[focus.Length]).ToArray();
         var sagittal = fields.Select(_ => new double[focus.Length]).ToArray();
+        var checkedPupils = new List<FocusedHuygensSamplingDiagnostics>();
+        long checkedOperations = 0;
         var contactPupilFields = _method == MtfComputationMethod.Huygens && !_settings.UsePolarization
+            && !_settings.UseCheckedFocusedPupil
             ? fields.Select(field => FocalImageDomain.IsCollimatedContactPupil(Optic, field)).ToArray()
             : null;
         if (contactPupilFields is not null)
@@ -161,14 +176,10 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                     for (var fieldIndex = 0; fieldIndex < fields.Length; fieldIndex++)
                     {
                         if (contactPupilFields?[fieldIndex] == true) continue;
-                        var value = MtfMethodEvaluator.EvaluatePolychromatic(
-                            Optic,
-                            _method,
-                            fields[fieldIndex],
-                            wavelengths,
-                            _spatialFrequency,
-                            _settings,
-                            _dataType);
+                        var value = _settings.UseCheckedFocusedPupil
+                            ? CheckedPupilValue(fields[fieldIndex])
+                            : MtfMethodEvaluator.EvaluatePolychromatic(
+                                Optic, _method, fields[fieldIndex], wavelengths, _spatialFrequency, _settings, _dataType);
                         tangential[fieldIndex][focusIndex] = value.Tangential;
                         sagittal[fieldIndex][focusIndex] = value.Sagittal;
                     }
@@ -248,7 +259,7 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
                 wavelengths,
                 _settings)).ToArray()
             : Array.Empty<double>();
-        return new AnalysisData(Name, new Dictionary<string, object>
+        var resultValues = new Dictionary<string, object>
         {
             ["Method"] = MtfMethodEvaluator.MethodName(_method),
             ["FrequencyInput"] = _frequencyInput,
@@ -286,7 +297,9 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             ["WavelengthsMicrometers"] = wavelengths.Select(item => item.Micrometers).ToArray(),
             ["RawTangential"] = tangential,
             ["RawSagittal"] = sagittal
-        }, series.FirstOrDefault(), series, new AnalysisPlotOptions(
+        };
+        if (checkedPupils.Count > 0) resultValues["FocusedHuygensSampling"] = checkedPupils.ToArray();
+        return new AnalysisData(Name, resultValues, series.FirstOrDefault(), series, new AnalysisPlotOptions(
             Title: $"{MtfMethodEvaluator.MethodName(_method)} Through-Focus MTF at {_spatialFrequency:0.###} {frequencyUnitLabel}, {wavelengthLabel}",
             XMinimum: -_deltaFocus,
             XMaximum: _deltaFocus,
@@ -295,6 +308,18 @@ public sealed class MtfThroughFocusAnalysis : BaseAnalysis
             ShowLegend: true,
             DottedGrid: true,
             GridOpacity: 0.35));
+
+        (double Tangential, double Sagittal) CheckedPupilValue((double Hx, double Hy) field)
+        {
+            var psf = MtfMethodEvaluator.ComputeHuygensPolychromaticPsf(Optic, field, wavelengths, _settings);
+            var diagnostics = psf.FocusedHuygensSampling!;
+            checkedOperations += diagnostics.CumulativeKernelEvaluations;
+            if (checkedOperations > 4 * AnalysisResourceLimits.MaximumDirectPsfOperations)
+                throw new AnalysisDataUnavailableException(Name, "checked focal Huygens integration exceeded its cumulative focus-scan work limit");
+            checkedPupils.Add(diagnostics);
+            return MtfMethodEvaluator.SampleHuygensMtf(DiffractionEngine.ComputePsfMtf(psf), psf.GridSize,
+                _spatialFrequency, _settings.UseZemaxHuygensSemantics);
+        }
     }
 
     private double DisplayValue(double value)
@@ -1076,7 +1101,7 @@ internal static class MtfMethodEvaluator
         // centroid, including field scans whose settings expose no center
         // selector. A chief-centered cropped PSF gives a different MTF for
         // asymmetric off-axis images. Keep the spectral mixture unchanged.
-        var imageCenterOffset = settings.UseZemaxHuygensSemantics
+        var imageCenterOffset = settings.UseZemaxHuygensSemantics && !settings.UseCheckedFocusedPupil
             ? DiffractionEngine.HuygensGeometricCenterOffset(optic, field, wavelengths,
                 referenceWavelength, pupilSampling, optic.RayAimingEnabled)
             : ((double X, double Y)?)null;
@@ -1084,7 +1109,9 @@ internal static class MtfMethodEvaluator
             imageSize, pixelPitchMillimeters, settings.UsePolarization,
             referenceWavelength, imageCenterOffset, defocus,
             useParaxialPupilDefocus: settings.UseZemaxHuygensSemantics,
-            contactPupilReadout: !settings.UsePolarization && FocalImageDomain.IsCollimatedContactPupil(optic, field)).Psf;
+            contactPupilReadout: !settings.UseCheckedFocusedPupil && !settings.UsePolarization
+                && FocalImageDomain.IsCollimatedContactPupil(optic, field),
+            useCheckedFocusedPupil: settings.UseCheckedFocusedPupil).Psf;
     }
 
     internal static double ResolveHuygensImageDeltaMillimeters(

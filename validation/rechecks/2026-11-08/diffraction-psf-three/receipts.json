@@ -1,0 +1,702 @@
+{
+  "coreSha256": "a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd",
+  "comparisonSha256": "b8664e51f3d4ae94997ff8969724df0bb6a292bd9fb8f2ba74b17ea6e04c1ee8",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "cases": [
+    {
+      "index": 2565,
+      "lens": "Tilted systems & prisms/Lens pivoted about a point.zmx",
+      "request": "ee6484a574cb06bf20bebe73eb3e5c5709058abacf4eb290d41fbe7beaa9b250",
+      "sourceSha256": "5c9cf177112ee81f9ac34992fb5264cf4d4caf9d0a7f41a42a4d609ba04c2f7c",
+      "native": [
+        {
+          "sample": 512,
+          "valid": true,
+          "properties": {
+            "SampleSize": "PsfS_512x512",
+            "OutputSize": "PsfS_128x128",
+            "Rotation": "CW0",
+            "ImageDelta": 0.25,
+            "UsePolarization": false,
+            "Type": "Linear",
+            "Normalize": false
+          },
+          "selectors": {
+            "Field": 1,
+            "Surface": 0,
+            "Wavelength": 2
+          },
+          "payloads": [
+            {
+              "logicalPath": "native/2565-512/batch-result.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "2565-512/batch-result.json",
+              "bytes": 207,
+              "sha256": "e2a1b090a2da34132d8f4883840cd86e38903edb80a0914b204e439904727054"
+            },
+            {
+              "logicalPath": "native/2565-512/captured-settings.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "2565-512/captured-settings.json",
+              "bytes": 1918,
+              "sha256": "9e83c29c2d94d69dce738239e195b22e2add0687a7316942c8f42f45fbcdaca6"
+            },
+            {
+              "logicalPath": "native/2565-512/model.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "2565-256/model.json",
+              "bytes": 7167,
+              "sha256": "552bbe14af634b758ef23445f2c7956362de91bd28efc8a43cff4d4326551c91"
+            },
+            {
+              "logicalPath": "native/2565-512/data.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "2565-512/data.json",
+              "bytes": 366438,
+              "sha256": "c2b9a358d88f24c74a20cc72b30ffbd22268643c302fe0ed09df553b193a7794"
+            },
+            {
+              "logicalPath": "native/2565-512/result-diagnostics.json",
+              "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+              "member": "native/1011-256/result-diagnostics.json",
+              "bytes": 45,
+              "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+            },
+            {
+              "logicalPath": "native/2565-512/settings.CFG",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "1291-512/settings.CFG",
+              "bytes": 18448,
+              "sha256": "51b840b8db9439bde60ae2d277455f7bffbba3e5700483e0273b32779db1f85f"
+            }
+          ],
+          "textSha256": "8eeff23d6eabc3d8a5aad04186abf532ea7691f79278e2165c7bdf19b5a6637a"
+        },
+        {
+          "sample": 1024,
+          "valid": true,
+          "properties": {
+            "SampleSize": "PsfS_1024x1024",
+            "OutputSize": "PsfS_128x128",
+            "Rotation": "CW0",
+            "ImageDelta": 0.25,
+            "UsePolarization": false,
+            "Type": "Linear",
+            "Normalize": false
+          },
+          "selectors": {
+            "Field": 1,
+            "Surface": 0,
+            "Wavelength": 2
+          },
+          "payloads": [
+            {
+              "logicalPath": "native/2565-1024/batch-result.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/845aec517925d931f8e14d764d7ab8c1877dc6d4229ee2345a0471a18ffd5154",
+              "bytes": 208,
+              "sha256": "845aec517925d931f8e14d764d7ab8c1877dc6d4229ee2345a0471a18ffd5154"
+            },
+            {
+              "logicalPath": "native/2565-1024/captured-settings.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/c56ed77fe65a5dfff597d67254f5eb8d26d6675050e5fd7699560701dd3da852",
+              "bytes": 1917,
+              "sha256": "c56ed77fe65a5dfff597d67254f5eb8d26d6675050e5fd7699560701dd3da852"
+            },
+            {
+              "logicalPath": "native/2565-1024/model.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "2565-256/model.json",
+              "bytes": 7167,
+              "sha256": "552bbe14af634b758ef23445f2c7956362de91bd28efc8a43cff4d4326551c91"
+            },
+            {
+              "logicalPath": "native/2565-1024/data.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/815f71a9dd1430e2c030667dba7205fc9e2458b6225dd459ff7bf6b1909c44fb",
+              "bytes": 366495,
+              "sha256": "815f71a9dd1430e2c030667dba7205fc9e2458b6225dd459ff7bf6b1909c44fb"
+            },
+            {
+              "logicalPath": "native/2565-1024/result-diagnostics.json",
+              "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+              "member": "native/1011-256/result-diagnostics.json",
+              "bytes": 45,
+              "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+            },
+            {
+              "logicalPath": "native/2565-1024/settings.CFG",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/cfbdd47a3c2b9424e9e25ddc0dbc809bc3e070483a1c3d035b3cc8c8cc1a6aba",
+              "bytes": 18448,
+              "sha256": "cfbdd47a3c2b9424e9e25ddc0dbc809bc3e070483a1c3d035b3cc8c8cc1a6aba"
+            }
+          ],
+          "textSha256": "75d714f35419dd6d3fcd4c9ef30797f186ac426633d480cb43b362a8d35c4f93"
+        }
+      ],
+      "core": [
+        {
+          "sample": 1024,
+          "outcome": "Success",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "fa5ce893d1315d610570e017e42a125e681e5c8926b0cb84540fb9e97d7562eb",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "f9a93348fbf338b0ab0f54822b1f7845323f9f789669717a84557a02728ff786",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          },
+          "payloads": [
+            {
+              "logicalPath": "core/2565-1024/data.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/ccb67189abea8493b3a577c7d178a2fb6484fc258d3cca94a3b861e4863c09e3",
+              "bytes": 9910026,
+              "sha256": "ccb67189abea8493b3a577c7d178a2fb6484fc258d3cca94a3b861e4863c09e3"
+            },
+            {
+              "logicalPath": "core/2565-1024/provenance.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/44486e86ff6a236772cd793f161a652ad098cf71d4f4ea735dd67afb8d781abe",
+              "bytes": 476,
+              "sha256": "44486e86ff6a236772cd793f161a652ad098cf71d4f4ea735dd67afb8d781abe"
+            },
+            {
+              "logicalPath": "core/2565-1024/job.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/0b9f17b868b69317193566e187a2a26cfe85910e03e169ff7e9f1df129debf82",
+              "bytes": 2160,
+              "sha256": "0b9f17b868b69317193566e187a2a26cfe85910e03e169ff7e9f1df129debf82"
+            }
+          ]
+        },
+        {
+          "sample": 2048,
+          "outcome": "Success",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "c5f293b442296af2fb522b58267b07a9d5ef695ae40bc45888f4a10ac43f5d3b",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "f9a93348fbf338b0ab0f54822b1f7845323f9f789669717a84557a02728ff786",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          },
+          "payloads": [
+            {
+              "logicalPath": "core/2565-2048/data.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/789091ab02874f67771fdb86b6fdcb0290fed8d6dde9147814505a0ed891f536",
+              "bytes": 9909864,
+              "sha256": "789091ab02874f67771fdb86b6fdcb0290fed8d6dde9147814505a0ed891f536"
+            },
+            {
+              "logicalPath": "core/2565-2048/provenance.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/97db566bd863d13c5b54217729615cfa2e070182a64dc2255f368743f725759e",
+              "bytes": 476,
+              "sha256": "97db566bd863d13c5b54217729615cfa2e070182a64dc2255f368743f725759e"
+            },
+            {
+              "logicalPath": "core/2565-2048/job.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/132f378fcc3cdc16e09624c5bb8962567afa1e260e4566c07800cefd61b97143",
+              "bytes": 2160,
+              "sha256": "132f378fcc3cdc16e09624c5bb8962567afa1e260e4566c07800cefd61b97143"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2831,
+      "lens": "Zoom systems/Mirror zoom.zmx",
+      "request": "f8fbb19bb01efe413fd8c84ee5798f4dea736a490e09a84ad597ba62ad92b679",
+      "sourceSha256": "1e753355a9b8394cb29d87c65b4580e1c33280149eb88aeb23840fcda4532cae",
+      "native": [
+        {
+          "sample": 512,
+          "valid": true,
+          "properties": {
+            "SampleSize": "PsfS_512x512",
+            "OutputSize": "PsfS_128x128",
+            "Rotation": "CW0",
+            "ImageDelta": 0.25,
+            "UsePolarization": false,
+            "Type": "Linear",
+            "Normalize": false
+          },
+          "selectors": {
+            "Field": 1,
+            "Surface": 0,
+            "Wavelength": 1
+          },
+          "payloads": [
+            {
+              "logicalPath": "native/2831-512/batch-result.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "2831-512/batch-result.json",
+              "bytes": 207,
+              "sha256": "e3e095b48258d48e08024669de37b8afd6636004747511b3cc34daad8e14b917"
+            },
+            {
+              "logicalPath": "native/2831-512/captured-settings.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "2831-512/captured-settings.json",
+              "bytes": 1896,
+              "sha256": "d390d5181eb5c6e65480e7d66ea82e7621e5f504dfb0315a2dc1bb028d55df94"
+            },
+            {
+              "logicalPath": "native/2831-512/model.json",
+              "archive": "../../2026-11-07/fan-physical-coverage/native-explicit-rays.zip",
+              "member": "2828/model.json",
+              "bytes": 5547,
+              "sha256": "bb95c8ecb93f0ef0848783343891d3ceed244cc36764fb21b2ed1606aac38cc4"
+            },
+            {
+              "logicalPath": "native/2831-512/data.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "2831-512/data.json",
+              "bytes": 359222,
+              "sha256": "636af0965f04bac53a2f1b20886623dca25de4afa365ebd5993468be1ba96e53"
+            },
+            {
+              "logicalPath": "native/2831-512/result-diagnostics.json",
+              "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+              "member": "native/1011-256/result-diagnostics.json",
+              "bytes": 45,
+              "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+            },
+            {
+              "logicalPath": "native/2831-512/settings.CFG",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "1071-512/settings.CFG",
+              "bytes": 18448,
+              "sha256": "2894edd8e8e0ad67dd8bb7193409911700a9120605619d23249e24fd36a84ce5"
+            },
+            {
+              "logicalPath": "native/2831-512/unit-normalization.json",
+              "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+              "member": "native/875-256/unit-normalization.json",
+              "bytes": 131,
+              "sha256": "e8eeb42ce0fa7133684b403441e543c79de6db27593fcca9ea2eff90cb42e877"
+            }
+          ],
+          "textSha256": "eb207fe0dd23dd5c5a30c355399a7539de05eddcf16ef1aec9385aa741c67731"
+        },
+        {
+          "sample": 1024,
+          "valid": true,
+          "properties": {
+            "SampleSize": "PsfS_1024x1024",
+            "OutputSize": "PsfS_128x128",
+            "Rotation": "CW0",
+            "ImageDelta": 0.25,
+            "UsePolarization": false,
+            "Type": "Linear",
+            "Normalize": false
+          },
+          "selectors": {
+            "Field": 1,
+            "Surface": 0,
+            "Wavelength": 1
+          },
+          "payloads": [
+            {
+              "logicalPath": "native/2831-1024/batch-result.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/d78acc63f3799bf2fdf5b46778648da9e7566f0455dc2572fbe03f47bce427f2",
+              "bytes": 208,
+              "sha256": "d78acc63f3799bf2fdf5b46778648da9e7566f0455dc2572fbe03f47bce427f2"
+            },
+            {
+              "logicalPath": "native/2831-1024/captured-settings.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/e2e3a2f0ff8b030a1e4845d8d7566d9cef45045760ec34ae2c22ae42a38f358e",
+              "bytes": 1895,
+              "sha256": "e2e3a2f0ff8b030a1e4845d8d7566d9cef45045760ec34ae2c22ae42a38f358e"
+            },
+            {
+              "logicalPath": "native/2831-1024/model.json",
+              "archive": "../../2026-11-07/fan-physical-coverage/native-explicit-rays.zip",
+              "member": "2828/model.json",
+              "bytes": 5547,
+              "sha256": "bb95c8ecb93f0ef0848783343891d3ceed244cc36764fb21b2ed1606aac38cc4"
+            },
+            {
+              "logicalPath": "native/2831-1024/data.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/12f9bb465a8d4749e3cab5bd8bc148b85fa3bfd893a7709a2a91f38851759123",
+              "bytes": 359168,
+              "sha256": "12f9bb465a8d4749e3cab5bd8bc148b85fa3bfd893a7709a2a91f38851759123"
+            },
+            {
+              "logicalPath": "native/2831-1024/result-diagnostics.json",
+              "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+              "member": "native/1011-256/result-diagnostics.json",
+              "bytes": 45,
+              "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+            },
+            {
+              "logicalPath": "native/2831-1024/settings.CFG",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703",
+              "bytes": 18448,
+              "sha256": "17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703"
+            },
+            {
+              "logicalPath": "native/2831-1024/unit-normalization.json",
+              "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+              "member": "native/875-256/unit-normalization.json",
+              "bytes": 131,
+              "sha256": "e8eeb42ce0fa7133684b403441e543c79de6db27593fcca9ea2eff90cb42e877"
+            }
+          ],
+          "textSha256": "0aa54501f6289b2485ecce37d76f2a3923a59374f51edca677fe679e794b8a9c"
+        }
+      ],
+      "core": [
+        {
+          "sample": 1024,
+          "outcome": "Success",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "e7a8e339a9cadca45e8d1228c083dd735c70958d6dae6540ffc8adde75ecdf0b",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "a634b352de132a0214e98f43d9d1effdfa6ea75c353287647851e4c7c18ba3b2",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          },
+          "payloads": [
+            {
+              "logicalPath": "core/2831-1024/data.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/714078d19046106e095a36f5a04ae6d229d461648afc5d4dd7b1923bba7090dd",
+              "bytes": 9900153,
+              "sha256": "714078d19046106e095a36f5a04ae6d229d461648afc5d4dd7b1923bba7090dd"
+            },
+            {
+              "logicalPath": "core/2831-1024/provenance.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/57e8a63b25c032f258635b5da5e66d030172ec2ebc1e91640197f8add3c466c0",
+              "bytes": 476,
+              "sha256": "57e8a63b25c032f258635b5da5e66d030172ec2ebc1e91640197f8add3c466c0"
+            },
+            {
+              "logicalPath": "core/2831-1024/job.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/ea8034b54e17f2fd9510532ecb2bd121d923656a2f837de8872ec0a499465f6c",
+              "bytes": 2103,
+              "sha256": "ea8034b54e17f2fd9510532ecb2bd121d923656a2f837de8872ec0a499465f6c"
+            }
+          ]
+        },
+        {
+          "sample": 2048,
+          "outcome": "Success",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "b0ef426b917fcc3599fad1b53039143396ae79ac35c0c4db84d9c6830c52d80e",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "a634b352de132a0214e98f43d9d1effdfa6ea75c353287647851e4c7c18ba3b2",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          },
+          "payloads": [
+            {
+              "logicalPath": "core/2831-2048/data.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/36d3d1342faa70787aa4f7fccc224ffb100f5ca144f9633b1a995aceb9bc411d",
+              "bytes": 9900438,
+              "sha256": "36d3d1342faa70787aa4f7fccc224ffb100f5ca144f9633b1a995aceb9bc411d"
+            },
+            {
+              "logicalPath": "core/2831-2048/provenance.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/bfa54b26de12e8af7b148773718ca6d9e2a158b7967eba673d90bf08cfd4ba87",
+              "bytes": 476,
+              "sha256": "bfa54b26de12e8af7b148773718ca6d9e2a158b7967eba673d90bf08cfd4ba87"
+            },
+            {
+              "logicalPath": "core/2831-2048/job.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/c973a3e5f747745e5573a176edfb5082b5d800ca6e41e87a3c04ea81cc31aa73",
+              "bytes": 2103,
+              "sha256": "c973a3e5f747745e5573a176edfb5082b5d800ca6e41e87a3c04ea81cc31aa73"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "index": 3001,
+      "lens": "Zoom systems/Zoom lens.zmx",
+      "request": "383d6674067b4d2981280f7d3de2f31d6e3a805e441e957f1d91f5d7bd819921",
+      "sourceSha256": "7103aaf9130acc1b94a864267348ce1df6a7651910adc07379a9321a4670adc9",
+      "native": [
+        {
+          "sample": 512,
+          "valid": true,
+          "properties": {
+            "SampleSize": "PsfS_512x512",
+            "OutputSize": "PsfS_128x128",
+            "Rotation": "CW0",
+            "ImageDelta": 0.25,
+            "UsePolarization": false,
+            "Type": "Linear",
+            "Normalize": false
+          },
+          "selectors": {
+            "Field": 1,
+            "Surface": 0,
+            "Wavelength": 1
+          },
+          "payloads": [
+            {
+              "logicalPath": "native/3001-512/batch-result.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "3001-512/batch-result.json",
+              "bytes": 207,
+              "sha256": "d4f00dafc50ba383248bc42109e35fa8257e5d0b94814b2cc743bdc873e448d0"
+            },
+            {
+              "logicalPath": "native/3001-512/captured-settings.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "3001-512/captured-settings.json",
+              "bytes": 1894,
+              "sha256": "6a00e9d1fc27e0ba6346c71170b48ecdbc2387add50700a165a624299a051db5"
+            },
+            {
+              "logicalPath": "native/3001-512/model.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "3001-256/model.json",
+              "bytes": 9618,
+              "sha256": "23e2a5db13c988e53126bd652779eab341c7cf117dcc1e9d74e68bf76ad5cadd"
+            },
+            {
+              "logicalPath": "native/3001-512/data.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "3001-512/data.json",
+              "bytes": 359819,
+              "sha256": "974f78ba3257106ca49a988be2ccf41d6fb3cfa18229d6dfab1428bdf7bf501f"
+            },
+            {
+              "logicalPath": "native/3001-512/result-diagnostics.json",
+              "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+              "member": "native/1011-256/result-diagnostics.json",
+              "bytes": 45,
+              "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+            },
+            {
+              "logicalPath": "native/3001-512/settings.CFG",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "1071-512/settings.CFG",
+              "bytes": 18448,
+              "sha256": "2894edd8e8e0ad67dd8bb7193409911700a9120605619d23249e24fd36a84ce5"
+            }
+          ],
+          "textSha256": "d2ad23d7e084c9bd9d3efd6cca9db849ef7b024c684a0f60e7f47cf159316be7"
+        },
+        {
+          "sample": 1024,
+          "valid": true,
+          "properties": {
+            "SampleSize": "PsfS_1024x1024",
+            "OutputSize": "PsfS_128x128",
+            "Rotation": "CW0",
+            "ImageDelta": 0.25,
+            "UsePolarization": false,
+            "Type": "Linear",
+            "Normalize": false
+          },
+          "selectors": {
+            "Field": 1,
+            "Surface": 0,
+            "Wavelength": 1
+          },
+          "payloads": [
+            {
+              "logicalPath": "native/3001-1024/batch-result.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/5572c21d4e153db73710c1c8c052d5bc981a2b7cb3693ab3db493c94b3e37ff6",
+              "bytes": 208,
+              "sha256": "5572c21d4e153db73710c1c8c052d5bc981a2b7cb3693ab3db493c94b3e37ff6"
+            },
+            {
+              "logicalPath": "native/3001-1024/captured-settings.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/2853498460c6c96f34a4bb2c23e73390b338299d5adb394ac0c440c450d3b96a",
+              "bytes": 1893,
+              "sha256": "2853498460c6c96f34a4bb2c23e73390b338299d5adb394ac0c440c450d3b96a"
+            },
+            {
+              "logicalPath": "native/3001-1024/model.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "3001-256/model.json",
+              "bytes": 9618,
+              "sha256": "23e2a5db13c988e53126bd652779eab341c7cf117dcc1e9d74e68bf76ad5cadd"
+            },
+            {
+              "logicalPath": "native/3001-1024/data.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/201e8ce5fa9e86483775ce2d17eab1e2bc75b4694619f6a19b326c20f0ede79e",
+              "bytes": 359943,
+              "sha256": "201e8ce5fa9e86483775ce2d17eab1e2bc75b4694619f6a19b326c20f0ede79e"
+            },
+            {
+              "logicalPath": "native/3001-1024/result-diagnostics.json",
+              "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+              "member": "native/1011-256/result-diagnostics.json",
+              "bytes": 45,
+              "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+            },
+            {
+              "logicalPath": "native/3001-1024/settings.CFG",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703",
+              "bytes": 18448,
+              "sha256": "17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703"
+            }
+          ],
+          "textSha256": "3d4b9b6945cc84987013243c0280e9125351961ea436874dae5ba1c21bdd70b8"
+        },
+        {
+          "sample": 2048,
+          "valid": true,
+          "properties": {
+            "SampleSize": "PsfS_2048x2048",
+            "OutputSize": "PsfS_128x128",
+            "Rotation": "CW0",
+            "ImageDelta": 0.25,
+            "UsePolarization": false,
+            "Type": "Linear",
+            "Normalize": false
+          },
+          "selectors": {
+            "Field": 1,
+            "Surface": 0,
+            "Wavelength": 1
+          },
+          "payloads": [
+            {
+              "logicalPath": "native/3001-2048/batch-result.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/79757f5c5d8613e88c45293ccae9434163618b509d2b47fb699de4cd2bdb11d8",
+              "bytes": 208,
+              "sha256": "79757f5c5d8613e88c45293ccae9434163618b509d2b47fb699de4cd2bdb11d8"
+            },
+            {
+              "logicalPath": "native/3001-2048/captured-settings.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/1a44a01dfe43c7c141fd38a01d5909ba95f16f092f968ae78ac3aabf34da3a26",
+              "bytes": 1893,
+              "sha256": "1a44a01dfe43c7c141fd38a01d5909ba95f16f092f968ae78ac3aabf34da3a26"
+            },
+            {
+              "logicalPath": "native/3001-2048/model.json",
+              "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+              "member": "3001-256/model.json",
+              "bytes": 9618,
+              "sha256": "23e2a5db13c988e53126bd652779eab341c7cf117dcc1e9d74e68bf76ad5cadd"
+            },
+            {
+              "logicalPath": "native/3001-2048/data.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/95bba8e687e670384d406be2c00759bd59d2b1a8bff1189b06d882fc303dd133",
+              "bytes": 360111,
+              "sha256": "95bba8e687e670384d406be2c00759bd59d2b1a8bff1189b06d882fc303dd133"
+            },
+            {
+              "logicalPath": "native/3001-2048/result-diagnostics.json",
+              "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+              "member": "native/1011-256/result-diagnostics.json",
+              "bytes": 45,
+              "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+            },
+            {
+              "logicalPath": "native/3001-2048/settings.CFG",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/d187b46d617833ec0d6cd81ab2a31fa5690f07d793ac06df46547f812bb5bc8b",
+              "bytes": 18448,
+              "sha256": "d187b46d617833ec0d6cd81ab2a31fa5690f07d793ac06df46547f812bb5bc8b"
+            }
+          ],
+          "textSha256": "23887e98ee30f1f49c0f7cb9bf81c82e6a634b1201ee7a8e0213908062014502"
+        }
+      ],
+      "core": [
+        {
+          "sample": 1024,
+          "outcome": "Success",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "25b7062cb25f0718420a1b0cb033df237427c53a102dad049ef5df1b29d90660",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "6cf90bfe51ff497781c8cfa342b7fb21cf4a9ee08e3250d306c4799936f44054",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          },
+          "payloads": [
+            {
+              "logicalPath": "core/3001-1024/data.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/5757cae82228894234fd20557d8f93e6696b9e2e1843a67def2eff57d8ae7f98",
+              "bytes": 9902517,
+              "sha256": "5757cae82228894234fd20557d8f93e6696b9e2e1843a67def2eff57d8ae7f98"
+            },
+            {
+              "logicalPath": "core/3001-1024/provenance.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/614c6e3a065435710938c40cae7181a0c01b6b92de7e4e9959f2cc895086a6f8",
+              "bytes": 476,
+              "sha256": "614c6e3a065435710938c40cae7181a0c01b6b92de7e4e9959f2cc895086a6f8"
+            },
+            {
+              "logicalPath": "core/3001-1024/job.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/f1813e68dc068c3eec7caadfea221818df8a9074c747e28b4d718088ee0a5fc3",
+              "bytes": 2096,
+              "sha256": "f1813e68dc068c3eec7caadfea221818df8a9074c747e28b4d718088ee0a5fc3"
+            }
+          ]
+        },
+        {
+          "sample": 2048,
+          "outcome": "Success",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "8cfa2c98a1ecde754f98e30cd5112d2c56c25892a6d0c7630ec90f80a40d0ef7",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "6cf90bfe51ff497781c8cfa342b7fb21cf4a9ee08e3250d306c4799936f44054",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          },
+          "payloads": [
+            {
+              "logicalPath": "core/3001-2048/data.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/9b83dad72860f81c8cf257342957f47a434aa0d8df342ae455130084592ba4f6",
+              "bytes": 9902646,
+              "sha256": "9b83dad72860f81c8cf257342957f47a434aa0d8df342ae455130084592ba4f6"
+            },
+            {
+              "logicalPath": "core/3001-2048/provenance.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/02b51ab6d248a7541dd4394d170244d4e460dfcdfeedd80d890f85eb43421297",
+              "bytes": 476,
+              "sha256": "02b51ab6d248a7541dd4394d170244d4e460dfcdfeedd80d890f85eb43421297"
+            },
+            {
+              "logicalPath": "core/3001-2048/job.json",
+              "archive": "numeric-evidence.zip",
+              "member": "sha256/8523546ba7d3a7e6ebfb07de5f9250d19e53a22bd3212db859f6682469429bda",
+              "bytes": 2096,
+              "sha256": "8523546ba7d3a7e6ebfb07de5f9250d19e53a22bd3212db859f6682469429bda"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

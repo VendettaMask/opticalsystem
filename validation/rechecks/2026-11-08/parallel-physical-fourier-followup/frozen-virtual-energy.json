@@ -1,0 +1,25 @@
+{
+  "fullReplayCoreSha256": "58be34eb2ee3a836f3115f381acec0bd6b59aec72fc2faa518404c6407ee16ef",
+  "replayedCoreSha256": "85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96",
+  "snapshotCount": 115,
+  "exitPupilSnapshots": [
+    "016-c1.optic.json"
+  ],
+  "affectedExecutableIndices": [
+    562
+  ],
+  "requestFingerprint": "45ac3bb64a42f487ab1663f1be040bf9f1a5428faf2302737e04d04641ec5e21",
+  "originalVerdict": "Incomparable",
+  "currentVerdict": "Incomparable",
+  "originalNativeDiagnostics": [
+    {
+      "ErrorCode": "Success",
+      "Text": "取样太低, 数据不准确!"
+    }
+  ],
+  "nativeDataSha256": "3a84cb2cdd3710252b8443e8bbb6a7c498ffc6c8a561c144704787044425105c",
+  "workbenchOutcome": "Unavailable",
+  "workbenchReason": "Diffraction Encircled Energy: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 0.562648 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+  "workbenchDataSha256": "017fc41f03362669bfa8b464f8c89e65a55d223400c556cde680a142700f1063",
+  "fixedReplayPreservesOriginalSettings": true
+}

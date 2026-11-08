@@ -116,8 +116,9 @@ public sealed partial class AnalysisPanel
                     "Display",
                     "Rotation",
                     "ImageDeltaMicrometers",
-                    null,
-                    "UsePolarization"
+                    "FourierSamplingMode",
+                    "UsePolarization",
+                    "FourierMaximumSampling"
                 },
                 new[]
                 {
@@ -126,7 +127,8 @@ public sealed partial class AnalysisPanel
                     "Type",
                     "DisplayAs",
                     "SurfaceNumber",
-                    "Normalized"
+                    "Normalized",
+                    "FourierRelativeAccuracy"
                 }));
             return;
         }
@@ -139,14 +141,17 @@ public sealed partial class AnalysisPanel
                     "Sampling",
                     "Row",
                     "GraphScaleMicrometers",
-                    "UsePolarization"
+                    "UsePolarization",
+                    "FourierSamplingMode",
+                    "FourierMaximumSampling"
                 },
                 new[]
                 {
                     "WavelengthNumber",
                     "FieldNumber",
                     "Type",
-                    "Normalized"
+                    "Normalized",
+                    "FourierRelativeAccuracy"
                 }));
             return;
         }
@@ -189,7 +194,8 @@ public sealed partial class AnalysisPanel
                     "FieldNumber",
                     "Type",
                     "DisplayAs",
-                    "Normalized"
+                    "Normalized",
+                    "UseCheckedFocusedPupil"
                 }));
             return;
         }
@@ -914,6 +920,12 @@ public sealed partial class AnalysisPanel
         var automationTarget = control is FilePathInput file ? file.Input : control;
         AutomationProperties.SetName(automationTarget, descriptor.DisplayName);
         AutomationProperties.SetAutomationId(automationTarget, $"analysis-parameter-{descriptor.Key}");
+        if (descriptor.Key == "UseCheckedFocusedPupil")
+        {
+            const string help = "用于单波长、轴上、同轴系统的标量平面传播。固定像面网格，自动细化圆瞳积分并校验收敛。";
+            ToolTip.SetTip(control, help);
+            AutomationProperties.SetHelpText(automationTarget, help);
+        }
         if (AnalysisKey == "Interferogram")
         {
             var help = descriptor.Key switch

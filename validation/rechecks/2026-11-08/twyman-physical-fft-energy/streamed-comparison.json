@@ -1,0 +1,164 @@
+{
+  "index": 2164,
+  "frozenVerdict": "Incomparable",
+  "originalGate": {
+    "closeNrmse": 0.01,
+    "nrmse": 0.003,
+    "absolute": 1e-05,
+    "relative": 0.002,
+    "minimumCoverage": 0.95
+  },
+  "independentReferenceSha256": "8379b19342459ed210c5bb502289d48f1d18e1a2902367ac4ba7c64daf6eca58",
+  "frozenRequestSha256": "58aca9fef788f4a450762aaa0fedd09e5e5bf786ae3fbe696793782905b09f6f",
+  "formalReplays": [
+    {
+      "outcome": "Unavailable",
+      "reason": "The two phase-resolved streamed pupils did not meet the declared output accuracy.",
+      "adaptation": {
+        "FourierMaximumSampling": "6144",
+        "FourierRelativeAccuracy": "0.001",
+        "FourierSamplingMode": "Adaptive"
+      },
+      "dataSha256": "6226f56313af1743b9c1bf005e095472733e6bed0ad07f7a642ede6ec319603d",
+      "requestSha256": "ca1bacad1ff2a48c0794d9c1c4817f3f5d5e330cefa4910305ad2b3e7dafd389",
+      "certificate": {
+        "protocol": "FourierPhysicalDomainConvergence/v3",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 32,
+        "returnedPupilSampling": 0,
+        "maximumPupilSampling": 6144,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1e-07,
+        "validated": false,
+        "steps": [
+          {
+            "pupilSampling": 32,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 5120,
+            "phaseResolved": true,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false,
+            "usesStreamedPhysicalPupil": true,
+            "maximumPupilPhaseStepWaves": 0.4909051237560078
+          },
+          {
+            "pupilSampling": 5888,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0031740601835611236,
+            "maximumAbsoluteChange": 0.0004769814204927253,
+            "usesDensePhysicalPupil": false,
+            "usesStreamedPhysicalPupil": true,
+            "maximumPupilPhaseStepWaves": 0.42751219583889366
+          }
+        ],
+        "reason": "The two phase-resolved streamed pupils did not meet the declared output accuracy.",
+        "evaluatedNominalPupilCells": 2048,
+        "maximumNominalPupilCells": 100000000,
+        "evaluatedStreamedPupilNodes": 95564948,
+        "requestedRelativeRmsDeviation": null,
+        "requestedMaximumAbsoluteDeviation": null
+      },
+      "provenance": {
+        "canonicalAnalysisKey": "Diffraction Encircled Energy",
+        "requestFingerprint": "bab33684f42264e2fab15c30e8200f7538d3e44b33ca6df70f1cf54337083a39",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+        "codeFingerprint": "0f3cdc7cdbdfb43ef9b2b9eefe55bdbcd14137cb6d3ad78708a2c9b4d9b1ca7f:6de151a0e5719a89592ab0ac7809c539eb79144d7683a6670a313575243c3046"
+      },
+      "independentOutcome": "Open"
+    },
+    {
+      "outcome": "Success",
+      "reason": null,
+      "adaptation": {
+        "FourierMaximumSampling": "6144",
+        "FourierRelativeAccuracy": "0.004",
+        "FourierSamplingMode": "Adaptive"
+      },
+      "dataSha256": "e370ea1aa389ebee736dd4652591f1187f67447b908ce3e9e8fc95490421db36",
+      "requestSha256": "88958ce7447b06972b2895e776ac2a548fbc014f0c19d2b226eab03ad0550350",
+      "certificate": {
+        "protocol": "FourierPhysicalDomainConvergence/v3",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 32,
+        "returnedPupilSampling": 5888,
+        "maximumPupilSampling": 6144,
+        "relativeRmsAccuracy": 0.004,
+        "absoluteAccuracy": 1e-07,
+        "validated": true,
+        "steps": [
+          {
+            "pupilSampling": 32,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 5120,
+            "phaseResolved": true,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false,
+            "usesStreamedPhysicalPupil": true,
+            "maximumPupilPhaseStepWaves": 0.4909051237560078
+          },
+          {
+            "pupilSampling": 5888,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.0031740601835611236,
+            "maximumAbsoluteChange": 0.0004769814204927253,
+            "usesDensePhysicalPupil": false,
+            "usesStreamedPhysicalPupil": true,
+            "maximumPupilPhaseStepWaves": 0.42751219583889366
+          }
+        ],
+        "reason": "Two streamed phase-resolved pupils agree on both requested energy curves.",
+        "evaluatedNominalPupilCells": 2048,
+        "maximumNominalPupilCells": 100000000,
+        "evaluatedStreamedPupilNodes": 95564948,
+        "requestedRelativeRmsDeviation": 12.480322550943717,
+        "requestedMaximumAbsoluteDeviation": 0.9555324703362305
+      },
+      "provenance": {
+        "canonicalAnalysisKey": "Diffraction Encircled Energy",
+        "requestFingerprint": "78432c128c37e58805272b87ea9360ff1455b77d13db060987544e42b38a32b1",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+        "codeFingerprint": "0f3cdc7cdbdfb43ef9b2b9eefe55bdbcd14137cb6d3ad78708a2c9b4d9b1ca7f:6de151a0e5719a89592ab0ac7809c539eb79144d7683a6670a313575243c3046"
+      },
+      "productCentroidMicrometers": [
+        2.8485111174897385e-05,
+        -0.5159316653217187
+      ],
+      "components": {
+        "DiffractionLimit": {
+          "count": 401,
+          "coverage": 1,
+          "nrmse": 8.875591816305012e-05,
+          "maximumAbsolute": 0.00048280056611232913,
+          "pointwisePass": false,
+          "conclusion": "Pass"
+        },
+        "Actual": {
+          "count": 401,
+          "coverage": 1,
+          "nrmse": 0.0021315878969012923,
+          "maximumAbsolute": 0.0002532631731569368,
+          "pointwisePass": false,
+          "conclusion": "Pass"
+        }
+      },
+      "independentOutcome": "SupplementalPass"
+    }
+  ],
+  "independentOutcome": "SupplementalPass"
+}

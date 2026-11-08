@@ -1,0 +1,110 @@
+{
+  "lensesImported": 95,
+  "configurationsImported": 115,
+  "requests": 3024,
+  "originalFixedRequestsExecuted": 2904,
+  "withoutCanonicalRequest": 120,
+  "explicitHistoricalFixedMode": 324,
+  "applicationSha256": "e7c13100c29e111ef8503666819ccb66cdbb3589a4139121af94561a6f973a44",
+  "coreSha256": "c442b28fe1f75a065de59ae660002cecfd677d32b50871dca36c042ed7881cc9",
+  "frozenReference": {
+    "archiveSha256": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+    "filesVerified": 30700,
+    "comparisonFilesVerified": 8715,
+    "allMatched": true,
+    "pathScopeSha256": "2906518ffdd8d2d9d047a9c9bd1f1a6e003e94395b2bc83b6b27bc0b4c69c887"
+  },
+  "originalFrozenClassifications": {
+    "Incomparable": 427,
+    "Pass": 2527,
+    "Close": 19,
+    "Difference": 31,
+    "Error": 20
+  },
+  "currentFixedDirectComparisons": {
+    "Incomparable": 427,
+    "Pass": 2527,
+    "Close": 19,
+    "Difference": 31,
+    "Error": 20
+  },
+  "fixedWorkbenchOutcomes": {
+    "NoCanonicalRequest": 120,
+    "Success": 2770,
+    "Unavailable": 96,
+    "NotApplicable": 38
+  },
+  "currentFixedDirectVerdictChanges": [],
+  "byteIdenticalToPreviousFixedFullReplay": 2869,
+  "defaultControls": {
+    "run": 20,
+    "success": 20,
+    "byteIdentical": 19,
+    "recomparedAgainstBothNativeTiers": 16
+  },
+  "acceptanceWithRecordedScopedReferences": {
+    "IndependentNumericalPass": 454,
+    "DirectPass": 2527,
+    "ScopeNotApplicable": 43
+  },
+  "lensesWithOpenItems": [],
+  "additionalCurrentScopedControls": {
+    "lenses": [
+      2,
+      19,
+      28,
+      35,
+      76
+    ],
+    "rows": 9,
+    "byteIdentical": 6,
+    "recomparedAgainstNative": 3,
+    "receipt": {
+      "path": "validation/rechecks/2026-11-08/menu-all95-current-replay/lens-supplement-controls.json",
+      "sha256": "9ddc8fc878c9e5022b974f92a5eda8dfdb5214b3be1754c63eb51143c367ff61"
+    }
+  },
+  "sources": {
+    "previousFrozenMatrix": {
+      "path": "validation/rechecks/2026-11-08/parallel-focal-fft-applicability/frozen-replay.csv",
+      "sha256": "a9ed4e1cfea1db8525fc9878bf30b629a42f92442110256a929af752535a7b71"
+    },
+    "differenceAcceptance": {
+      "path": "validation/rechecks/2026-11-08/menu-frozen-differences-disposition/by-request.csv",
+      "sha256": "74695200d1f079a3dbb2ab2790581306d48e48710dbb6b805f0f3c1e127d9ead"
+    },
+    "closeAcceptance": {
+      "path": "validation/rechecks/2026-11-08/menu-frozen-close-disposition/by-request.csv",
+      "sha256": "db4e9a364cb60cd4f3a3afbaefb3fc8756222b275847516f9b1f595c944aa942"
+    },
+    "incomparableAcceptance": {
+      "path": "validation/rechecks/2026-11-08/menu-frozen-incomparable-disposition/by-request.csv",
+      "sha256": "e115963e393c3e5454bd52ac40b5fdbbfc1740e8e4ff0d790d454176a7514fe1"
+    },
+    "previousDefaultRecovery": {
+      "path": "validation/rechecks/2026-11-08/fft-default-phase-recovery/by-request.csv",
+      "sha256": "706568d1d2d6a39e732130130ce03b99a561ca5c531896a115eb801b3b9b612b"
+    },
+    "newFixedWindowAcceptance": {
+      "path": "validation/rechecks/2026-11-08/fft-fixed-physical-window/verification.json",
+      "sha256": "886e91970de51882c3975bb09e48e803eb92a0374130224d3824fcc18b01207a"
+    }
+  },
+  "requestLedger": {
+    "path": "validation/rechecks/2026-11-08/menu-all95-current-replay/by-request.csv",
+    "sha256": "ff6d3339465533bf77a8db2d2a7342ff8a1fda6111f205b2c7b4697eb9ef0eaa"
+  },
+  "lensLedger": {
+    "path": "validation/rechecks/2026-11-08/menu-all95-current-replay/by-lens.csv",
+    "sha256": "abd7b5ccfa9201d923e1b8bba6efd4b23ecb7546bf7940805985e9d2520bc906"
+  },
+  "directComparatorResults": {
+    "path": "artifacts/validation/menu-all95-fixed-current-20261108/full/results.json",
+    "sha256": "3f71e461d57220d8f089b3df748fe398659538ee3eb5e704fa19d0b7d71f5d71"
+  },
+  "evidenceArchive": {
+    "sha256": "c893641ba87784b2256529ecc388c449e0d76fe0e2e415907411b860c1864ef3",
+    "entries": 142,
+    "contentsVerified": true
+  }
+}

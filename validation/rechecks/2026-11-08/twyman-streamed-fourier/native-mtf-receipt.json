@@ -1,0 +1,69 @@
+{
+  "frozenRequest": 2159,
+  "status": "NativeConverged; product independent sampling still open",
+  "sourceLensSha256": "975be62693a8c3d8870c2ee3fd01e2f51de37d558afe7265cd939fe262f49051",
+  "physicalAxis": {
+    "quantity": "SpatialFrequency",
+    "unit": "CyclesPerMillimeter",
+    "start": 0,
+    "end": 50
+  },
+  "originalTolerance": {
+    "absolute": 0.001,
+    "relative": 0.001,
+    "nrmse": 0.01,
+    "closeNrmse": 0.03,
+    "minimumCoverage": 0.95
+  },
+  "settings": {
+    "field": 1,
+    "wavelength": 1,
+    "modulation": true,
+    "polarized": false,
+    "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 2,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}"
+  },
+  "nativeStages": [
+    {
+      "pupilSampling": 1024,
+      "archiveManifest": "native-mtf-payloads.json",
+      "files": {
+        "data": "9c484c678ed648b1867bb65a3173177c18e9ce7f87cb333ea3cc6415e7976cd3",
+        "settings": "429324532c2fd836ba1c1e2ae05b318f9a5f41d0b9168ab52d462f9d4e673472",
+        "model": "3f3785e175832abb2bdf7dbaa052e6c3b9359c02c045e069db853b05f410d5b1",
+        "diagnostics": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+        "batch": "b1cd12a4677b856cf9a6dc7aa781133d1d987fa9cc8c40ba11168059f4ab83b3"
+      }
+    },
+    {
+      "pupilSampling": 2048,
+      "archiveManifest": "native-mtf-payloads.json",
+      "files": {
+        "data": "c8e1172e79e10a14219de8e3948baa5721143c796fbe9f2b7d957e59a39c5403",
+        "settings": "79a160aae2263183f742df6c07a64af782daab3897cade67117a80b48d57f36d",
+        "model": "3f3785e175832abb2bdf7dbaa052e6c3b9359c02c045e069db853b05f410d5b1",
+        "diagnostics": "37fb91b5595c069b7c1a1f2951c072804a60e999871ca0fd7f7a8e17537597f1",
+        "batch": "99dd1b2aff68eccf63d0d10bd54f33fa36facc484dcafe2b653c33d6b9cea584"
+      }
+    }
+  ],
+  "convergence": [
+    {
+      "direction": "Tangential",
+      "coordinates": 300,
+      "coverage": 1,
+      "maximumAbsoluteError": 0.005394515794525878,
+      "nrmse": 0.0007114872699679506,
+      "pointwisePass": false,
+      "pass": true
+    },
+    {
+      "direction": "Sagittal",
+      "coordinates": 300,
+      "coverage": 1,
+      "maximumAbsoluteError": 0.003445907897456024,
+      "nrmse": 0.0005158190386585133,
+      "pointwisePass": false,
+      "pass": true
+    }
+  ]
+}

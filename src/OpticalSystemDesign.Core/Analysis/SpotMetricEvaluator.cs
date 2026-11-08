@@ -52,6 +52,8 @@ public sealed class AnalysisDataUnavailableException : InvalidOperationException
     public string AnalysisName { get; }
 
     public string Reason { get; }
+
+    internal bool CanRetryAtHigherSampling { get; init; }
 }
 
 public static class SpotMetricEvaluator

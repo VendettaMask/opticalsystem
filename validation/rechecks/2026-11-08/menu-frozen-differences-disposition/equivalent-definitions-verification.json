@@ -1,0 +1,1261 @@
+{
+  "frozenReplay": {
+    "path": "validation\\rechecks\\2026-11-08\\parallel-focal-fft-applicability\\frozen-replay.csv",
+    "sha256": "a9ed4e1cfea1db8525fc9878bf30b629a42f92442110256a929af752535a7b71"
+  },
+  "rows": {
+    "125": {
+      "index": 125,
+      "lens": "Birefringent prisms/Birefringent cube.zmx",
+      "analysis": "First Order",
+      "frozenVerdict": "Difference",
+      "configuration": 2,
+      "formalOutcome": "Success",
+      "formalProvenance": {
+        "canonicalAnalysisKey": "First Order",
+        "requestFingerprint": "b49049d7b153388bc06569052503c1ce75629d29a43d81c603be3761747541f5",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "411232c631a051b4cb612786590d51a1e1f8628e75ce1877e41ae1f4637092c7",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+      "originalRequest": {
+        "path": "artifacts\\validation\\focal-fft-domain-20261108\\full\\analyses\\0125\\request.json",
+        "sha256": "e0ab6c876640c28e5a14ca397698f943aef0fff4bf0a7f2d484605c65f43e323"
+      },
+      "formalData": {
+        "path": "artifacts\\validation\\menu-31-differences-20261108\\formal\\0125\\data.json",
+        "sha256": "9d626fa628bfcdfe16728510f67f0a912205c6bf980f437e94b4838a574b4f7a"
+      },
+      "nativeSource": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\sources\\Birefringent prisms\\Birefringent cube.zmx",
+        "sha256": "bf6d27e96ff4b37b47c607404a38d925b90156edcb62afa41410fe1e1e58e627"
+      },
+      "frozenNativeData": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\0125-004-birefringent-cube-c2-primary-f1-w2-first-order\\native\\data.json",
+        "sha256": "5c55b43fef2407fd006a54347d1715d3d59116c4b5ecdc9d158def88dc78a949"
+      },
+      "originalPolicy": {
+        "EffectiveFocalLength": {
+          "absolute": 1e-08,
+          "relative": 1e-06,
+          "nrmse": 1e-06,
+          "closeNrmse": 1e-05,
+          "minimumCoverage": 0.95
+        },
+        "FNumber": {
+          "absolute": 1e-08,
+          "relative": 1e-06,
+          "nrmse": 1e-06,
+          "closeNrmse": 1e-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "references": [
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/125-ordinary-index/data.json",
+          "sha256": "4d12dc65a4f3c3c78c9392550f9a65eb0e1d7077a0f2289e16ef88ab462f84b6"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/125-ordinary-index/captured-settings.json",
+          "sha256": "c19dabf080b5d36a14bd9e65e2aef041fcef2aec20b987f2a2f26147c9dd9b0e"
+        }
+      ],
+      "modeSpecificEquivalence": "Ordinary-index centered vertex convention with native paraxial Ignore surface 2 only, real ray mode unchanged",
+      "workbench": {
+        "EffectiveFocalLength": 100,
+        "FNumber": 5
+      },
+      "frozenNative": {
+        "EffectiveFocalLength": -0.036662647018213756,
+        "FNumber": 0.0018331323509106878
+      },
+      "frozenNativeMetrics": {
+        "EffectiveFocalLength": {
+          "verdict": "Difference",
+          "coverage": 1,
+          "coordinates": 1,
+          "finitePairs": 1,
+          "maxAbsolute": 100.03666264701822,
+          "nrmse": 2728.571742169099,
+          "pointwisePass": false,
+          "nrmsePass": false
+        },
+        "FNumber": {
+          "verdict": "Difference",
+          "coverage": 1,
+          "coordinates": 1,
+          "finitePairs": 1,
+          "maxAbsolute": 4.998166867649089,
+          "nrmse": 2726.5717421690983,
+          "pointwisePass": false,
+          "nrmsePass": false
+        }
+      },
+      "equivalentNative": {
+        "EffectiveFocalLength": 100,
+        "FNumber": 5
+      },
+      "equivalentMetrics": {
+        "EffectiveFocalLength": {
+          "verdict": "Pass",
+          "coverage": 1,
+          "coordinates": 1,
+          "finitePairs": 1,
+          "maxAbsolute": 0.0,
+          "nrmse": 0.0,
+          "pointwisePass": true,
+          "nrmsePass": false
+        },
+        "FNumber": {
+          "verdict": "Pass",
+          "coverage": 1,
+          "coordinates": 1,
+          "finitePairs": 1,
+          "maxAbsolute": 0.0,
+          "nrmse": 0.0,
+          "pointwisePass": true,
+          "nrmsePass": false
+        }
+      },
+      "equivalentVerdict": "Pass"
+    },
+    "608": {
+      "index": 608,
+      "lens": "Image Simulation/Example 2, Double Gauss Experimental Arrangement.ZMX",
+      "analysis": "Optical Path Difference",
+      "frozenVerdict": "Difference",
+      "configuration": 1,
+      "formalOutcome": "Success",
+      "formalProvenance": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "requestFingerprint": "81c9358f8d482f0d9f0cebd5fcb8847df2a6c776241eee8bce6f9f5ef0c1ea28",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "93158af04dd1309a47f8bc74b913d9edcd9eb246d80c258fa053ac5d5fd2d20a",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+      "originalRequest": {
+        "path": "artifacts\\validation\\focal-fft-domain-20261108\\full\\analyses\\0608\\request.json",
+        "sha256": "8b072ffa4a422006c0de805c0bd483082a7ebc8f71110e27490cd82242f8229c"
+      },
+      "formalData": {
+        "path": "artifacts\\validation\\menu-31-differences-20261108\\formal\\0608\\data.json",
+        "sha256": "2196a9e8a127ac315104db3b0c50100eb2a5c3ef23ef471010b6ad407407ddb0"
+      },
+      "nativeSource": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\sources\\Image Simulation\\Example 2, Double Gauss Experimental Arrangement.ZMX",
+        "sha256": "3962d9e97f2ddc49ed8ace0b15d72014e03d7292d9cbb32880c196ab8da3b04a"
+      },
+      "frozenNativeData": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\0608-017-example-2,-double-gauss-experimental-arrangement-c1-edge-f3-w3-optical-path-difference\\native\\data.json",
+        "sha256": "26e18729b23222433a3ce2667350b890bcc03a91d5d14eda1de74bcc07d90a56"
+      },
+      "originalPolicy": {
+        "WavefrontError": {
+          "absolute": 1e-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "references": [
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "controls/608-mode0.zmx",
+          "sha256": "85ab5e3c78e6f9a9cd048242590c7a2b512df840453f5131c1a1ed046741b185"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/608-mode0/captured-settings.json",
+          "sha256": "2c857c828a6d82a5bd5c3f17dccdd6c42fb708ca76afc022e7e3012f0543555d"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/608-mode0/data.json",
+          "sha256": "96a779faae70ab9221336a97a4b96dfdfa825e2c64021fe8441a1a34ab44c589"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "controls/608-mode3.zmx",
+          "sha256": "3c9f593c3ff3dd453dc54e6df51172d7be443f328b5d84d05b9d9d4059f4022a"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/608-mode3/captured-settings.json",
+          "sha256": "45a40e2d358f0a52d51b7021e683af6fb7911eacc63fe5722377882c66252ef2"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/608-mode3/data.json",
+          "sha256": "9cb497d161c9e5aa43d0f770e761b86c353864ab21c309ac28002773259fceba"
+        },
+        {
+          "path": "validation\\rechecks\\2026-11-04\\offaxis-opd-sampling\\equivalent-source-controls.json",
+          "sha256": "976614c851908533c2a3de03a9f13e04a608070f2e49aeeadfbf2354c63bd140"
+        },
+        {
+          "path": "validation\\rechecks\\2026-11-04\\offaxis-opd-sampling\\plane-controls.json",
+          "sha256": "0a884d4bb126e6ba8434318df3f76c427b642d5aa1a1caec5b2b81008c0d6c31"
+        }
+      ],
+      "priorIndependentPlaneGeometryControls": [
+        {
+          "positionDirectionOperands": 540,
+          "originalSourceSha256": "3962d9e97f2ddc49ed8ace0b15d72014e03d7292d9cbb32880c196ab8da3b04a",
+          "mode": 0,
+          "controlledSourceSha256": "058b1b886c314bf13e2b54d7070ad97189b55397071d36d7654270303146a6ad",
+          "name": "native-mode0",
+          "maximumPositionDirectionDifference": 0.0,
+          "onlyPhaseAlgorithmFlagChanged": true
+        },
+        {
+          "positionDirectionOperands": 540,
+          "originalSourceSha256": "3962d9e97f2ddc49ed8ace0b15d72014e03d7292d9cbb32880c196ab8da3b04a",
+          "mode": 3,
+          "controlledSourceSha256": "7fd58a9c834c0079d73d0499e730f318c2e875ced09639df98a01fdc1129c2ca",
+          "name": "native-mode3",
+          "maximumPositionDirectionDifference": 0.0,
+          "onlyPhaseAlgorithmFlagChanged": true
+        }
+      ],
+      "modeSpecificEquivalence": "PerfectCollimationPhaseReference/v1 for this exact conjugate. Only the first PARAXIAL surface phase algorithm changes in the independent native controls.",
+      "frozenNativeMetrics": {
+        "tangential": {
+          "verdict": "Pass",
+          "coverage": 1,
+          "coordinates": 41,
+          "finitePairs": 41,
+          "maxAbsolute": 5.9720945069230424e-06,
+          "nrmse": 5.597135685296716e-07,
+          "pointwisePass": true,
+          "nrmsePass": true
+        },
+        "sagittal": {
+          "verdict": "Difference",
+          "coverage": 1,
+          "coordinates": 41,
+          "finitePairs": 41,
+          "maxAbsolute": 0.02862751313603709,
+          "nrmse": 0.013885992149527644,
+          "pointwisePass": false,
+          "nrmsePass": false
+        }
+      },
+      "equivalentMetrics": {
+        "0": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 5.535819318502888e-06,
+            "nrmse": 5.278034001054566e-07,
+            "pointwisePass": true,
+            "nrmsePass": true
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 3.7760412231468976e-06,
+            "nrmse": 1.214757111016976e-06,
+            "pointwisePass": true,
+            "nrmsePass": true
+          }
+        },
+        "3": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 5.535819318502888e-06,
+            "nrmse": 5.278034001054566e-07,
+            "pointwisePass": true,
+            "nrmsePass": true
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 3.7760412231468976e-06,
+            "nrmse": 1.214757111016976e-06,
+            "pointwisePass": true,
+            "nrmsePass": true
+          }
+        }
+      },
+      "equivalentVerdict": "Pass"
+    },
+    "698": {
+      "index": 698,
+      "lens": "Image Simulation/Example 5, spatially varying resolution.ZMX",
+      "analysis": "Optical Path Difference",
+      "frozenVerdict": "Difference",
+      "configuration": 1,
+      "formalOutcome": "Success",
+      "formalProvenance": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "requestFingerprint": "81c9358f8d482f0d9f0cebd5fcb8847df2a6c776241eee8bce6f9f5ef0c1ea28",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "0cd48fa4834d1aeec2f775c55edfeaab1e78a548dfc81b76c0797ebe709435cb",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+      "originalRequest": {
+        "path": "artifacts\\validation\\focal-fft-domain-20261108\\full\\analyses\\0698\\request.json",
+        "sha256": "bd39813c1aa117aef776d4142d2d241fa321d97b17d7711d7bd89a583d33b2a7"
+      },
+      "formalData": {
+        "path": "artifacts\\validation\\menu-31-differences-20261108\\formal\\0698\\data.json",
+        "sha256": "c1b244e56645a6960222834480bcf4d89fcbb23951665a803d0469b4e543850e"
+      },
+      "nativeSource": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\sources\\Image Simulation\\Example 5, spatially varying resolution.ZMX",
+        "sha256": "2e26c4d9d56ce1b5fd0feb6300c8467c53ef6e55fd70cb669b218fb407ab359a"
+      },
+      "frozenNativeData": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\0698-020-example-5,-spatially-varying-resolution-c1-edge-f3-w3-optical-path-difference\\native\\data.json",
+        "sha256": "4047c6a550884061d37affb10c2dbb741c346c1fa6ee314cba2a44471db03812"
+      },
+      "originalPolicy": {
+        "WavefrontError": {
+          "absolute": 1e-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "references": [
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "controls/698-mode0.zmx",
+          "sha256": "66ece38c8cac399e8df042f38020a6b22f2b8034a54dd20f348e501184b284e7"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/698-mode0/captured-settings.json",
+          "sha256": "715c17d88b4f19905a30f52694c7177b62d313cd43aa6fe9fe2cd4707b298d5c"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/698-mode0/data.json",
+          "sha256": "d536c8187369dfbc1c296c2f51e7d86d61b188a79bccf3f95a819669508ae5bf"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "controls/698-mode3.zmx",
+          "sha256": "722ef277de1d517c00a7ed6c22c3f3bc656131194fa036b53edefab2a8d5e1c8"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/698-mode3/captured-settings.json",
+          "sha256": "5b18d44f182f7da2bc32ad156b0ec342e4a6f3dbd88eda0be0876788b8da5c0d"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/698-mode3/data.json",
+          "sha256": "951980372f2f538f4f565f1ee626e1d3c71aaee822d13da5b49a2746bc05504d"
+        },
+        {
+          "path": "validation\\rechecks\\2026-11-04\\offaxis-opd-sampling\\equivalent-source-controls.json",
+          "sha256": "976614c851908533c2a3de03a9f13e04a608070f2e49aeeadfbf2354c63bd140"
+        },
+        {
+          "path": "validation\\rechecks\\2026-11-04\\offaxis-opd-sampling\\plane-controls.json",
+          "sha256": "0a884d4bb126e6ba8434318df3f76c427b642d5aa1a1caec5b2b81008c0d6c31"
+        }
+      ],
+      "priorIndependentPlaneGeometryControls": [
+        {
+          "positionDirectionOperands": 540,
+          "originalSourceSha256": "2e26c4d9d56ce1b5fd0feb6300c8467c53ef6e55fd70cb669b218fb407ab359a",
+          "mode": 0,
+          "controlledSourceSha256": "f49a324c61c1a8b33b3cb2f9e10a04423ba2bb25ed3633d8b9c34d556d5d4b4c",
+          "name": "native-mode0-example5",
+          "maximumPositionDirectionDifference": 0.0,
+          "onlyPhaseAlgorithmFlagChanged": true
+        }
+      ],
+      "modeSpecificEquivalence": "PerfectCollimationPhaseReference/v1 for this exact conjugate. Only the first PARAXIAL surface phase algorithm changes in the independent native controls.",
+      "frozenNativeMetrics": {
+        "tangential": {
+          "verdict": "Pass",
+          "coverage": 1,
+          "coordinates": 41,
+          "finitePairs": 41,
+          "maxAbsolute": 5.9720945069230424e-06,
+          "nrmse": 5.597138182325211e-07,
+          "pointwisePass": true,
+          "nrmsePass": true
+        },
+        "sagittal": {
+          "verdict": "Difference",
+          "coverage": 1,
+          "coordinates": 41,
+          "finitePairs": 41,
+          "maxAbsolute": 0.02862751313603709,
+          "nrmse": 0.013885992159126035,
+          "pointwisePass": false,
+          "nrmsePass": false
+        }
+      },
+      "equivalentMetrics": {
+        "0": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 5.535819318502888e-06,
+            "nrmse": 5.278036939223271e-07,
+            "pointwisePass": true,
+            "nrmsePass": true
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 3.7760412231468976e-06,
+            "nrmse": 1.2147613300918676e-06,
+            "pointwisePass": true,
+            "nrmsePass": true
+          }
+        },
+        "3": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 5.535819318502888e-06,
+            "nrmse": 5.278036939223271e-07,
+            "pointwisePass": true,
+            "nrmsePass": true
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 3.7760412231468976e-06,
+            "nrmse": 1.2147613300918676e-06,
+            "pointwisePass": true,
+            "nrmsePass": true
+          }
+        }
+      },
+      "equivalentVerdict": "Pass"
+    },
+    "847": {
+      "index": 847,
+      "lens": "Interconnects/Optical interconnect.ZMX",
+      "analysis": "First Order",
+      "frozenVerdict": "Difference",
+      "configuration": 1,
+      "formalOutcome": "Success",
+      "formalProvenance": {
+        "canonicalAnalysisKey": "First Order",
+        "requestFingerprint": "90d597bb0726494acd4ac477164e78f3329b10664f15de0eace6acfbf30176c2",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "27a3c6e6f4be5b46e5ab5fbddfcbc6becba75940cc501bb38e1cd6ed488671ce",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+      "originalRequest": {
+        "path": "artifacts\\validation\\focal-fft-domain-20261108\\full\\analyses\\0847\\request.json",
+        "sha256": "8a1c2bffe4f4114bdd8caf9719086e00be4ff14621f1f64db98d4d7ed0e24955"
+      },
+      "formalData": {
+        "path": "artifacts\\validation\\menu-31-differences-20261108\\formal\\0847\\data.json",
+        "sha256": "33fe0aa1f4e6f0206d7bafdd7af1995c60575561e31430bba678dc862d433d6c"
+      },
+      "nativeSource": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\sources\\Interconnects\\Optical interconnect.ZMX",
+        "sha256": "ce3178977e7fe160560a0333b2bdcfcaa549915c87ff8e7003433d36e59225ff"
+      },
+      "frozenNativeData": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\0847-026-optical-interconnect-c1-primary-f1-w1-first-order\\native\\data.json",
+        "sha256": "654b3541bd702af16b88e1c204235052dbcaa3b76936bbc19a0e6216c32261df"
+      },
+      "originalPolicy": {
+        "EffectiveFocalLength": {
+          "absolute": 1e-08,
+          "relative": 1e-06,
+          "nrmse": 1e-06,
+          "closeNrmse": 1e-05,
+          "minimumCoverage": 0.95
+        },
+        "FNumber": {
+          "absolute": 1e-08,
+          "relative": 1e-06,
+          "nrmse": 1e-06,
+          "closeNrmse": 1e-05,
+          "minimumCoverage": 0.95
+        }
+      },
+      "references": [
+        {
+          "path": "validation\\rechecks\\2026-11-07\\optical-interconnect-reference\\first-order.json",
+          "sha256": "1dcd84e2b6b1eb85ac5ff64b9ed7bb958d9634324c0a16d50fa9890d794aa7bf"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\optical-interconnect-reference\\native-controls.zip",
+          "member": "native-first-order/original-rays-frozen/model-controls.json",
+          "sha256": "b379117907508138eb993d70f06aafdb58133dc20e1ff2d4e1e1d2627e18e79a"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\optical-interconnect-reference\\native-controls.zip",
+          "member": "native-first-order/original-rays-fine/model-controls.json",
+          "sha256": "b22704dc15f6b6ad333fcc3a44492d9dfb42f286050a4afbb5d33bdfceac6af7"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\optical-interconnect-reference\\native-controls.zip",
+          "member": "native-first-order/collimated-0.002/model-controls.json",
+          "sha256": "efd480887d68b38bd31975f62c04794ff8150fc9f032ea1d6ffff4e82ffaec7c"
+        }
+      ],
+      "modeSpecificEquivalence": "Two original-prescription near-axis real-ray focal length limits; F-number is that limit divided by the entrance-pupil diameter derived from original object aperture. Collimated net-zero-air removal is an additional altered-prescription control.",
+      "independentEntrancePupilDiameterMm": 4082482.9046386303,
+      "frozenNative": {
+        "EffectiveFocalLength": 2.42420724377846,
+        "FNumber": 5.938070778016017e-07
+      },
+      "frozenNativeMetrics": {
+        "EffectiveFocalLength": {
+          "verdict": "Difference",
+          "coverage": 1,
+          "coordinates": 1,
+          "finitePairs": 1,
+          "maxAbsolute": 0.00040578550924497137,
+          "nrmse": 0.00016738895170220633,
+          "pointwisePass": false,
+          "nrmsePass": false
+        },
+        "FNumber": {
+          "verdict": "Pass",
+          "coverage": 1,
+          "coordinates": 1,
+          "finitePairs": 1,
+          "maxAbsolute": 9.939674426660902e-11,
+          "nrmse": 0.0001673889517022879,
+          "pointwisePass": true,
+          "nrmsePass": false
+        }
+      },
+      "workbench": {
+        "EffectiveFocalLength": 2.424613029287705,
+        "FNumber": 5.939064745458683e-07
+      },
+      "equivalentMetrics": {
+        "frozen": {
+          "referenceEflMm": 2.42461329113881,
+          "referenceFNumber": 5.939065386860278e-07,
+          "EffectiveFocalLength": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 1,
+            "finitePairs": 1,
+            "maxAbsolute": 2.6185110479914897e-07,
+            "nrmse": 1.0799705905932771e-07,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "FNumber": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 1,
+            "finitePairs": 1,
+            "maxAbsolute": 6.41401595150956e-14,
+            "nrmse": 1.0799705902716735e-07,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "fine": {
+          "referenceEflMm": 2.4246136165589327,
+          "referenceFNumber": 5.939066183973531e-07,
+          "EffectiveFocalLength": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 1,
+            "finitePairs": 1,
+            "maxAbsolute": 5.872712276477898e-07,
+            "nrmse": 2.422122946258376e-07,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "FNumber": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 1,
+            "finitePairs": 1,
+            "maxAbsolute": 1.4385148483588196e-13,
+            "nrmse": 2.422122946264898e-07,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "collimatedSmallestProbe": {
+          "referenceEflMm": 2.4246130310176675,
+          "referenceFNumber": 5.939064749696208e-07,
+          "EffectiveFocalLength": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 1,
+            "finitePairs": 1,
+            "maxAbsolute": 1.7299623955580046e-09,
+            "nrmse": 7.135004115819251e-10,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "FNumber": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 1,
+            "finitePairs": 1,
+            "maxAbsolute": 4.237524781820789e-16,
+            "nrmse": 7.135003507138974e-10,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        }
+      },
+      "equivalentVerdict": "Pass"
+    },
+    "950": {
+      "index": 950,
+      "lens": "Miscellaneous/Axicon model.zmx",
+      "analysis": "Huygens PSF Cross Section",
+      "frozenVerdict": "Difference",
+      "configuration": 1,
+      "formalOutcome": "Success",
+      "formalProvenance": {
+        "canonicalAnalysisKey": "Huygens PSF Cross Section",
+        "requestFingerprint": "fcd592c173cbc3bd9174369c0fcfb831a1a14e076bdd0f1d950017ac8112ef3e",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "91293cb8f215c3c32073b0280ec3d640bca5926ab3e1c36340da05eda9059823",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+      "originalRequest": {
+        "path": "artifacts\\validation\\focal-fft-domain-20261108\\full\\analyses\\0950\\request.json",
+        "sha256": "6db3ad289559b385944ca665d912d1ead7a4e7461ba8081627f36b2f6e74a920"
+      },
+      "formalData": {
+        "path": "artifacts\\validation\\menu-31-differences-20261108\\formal\\0950\\data.json",
+        "sha256": "73e02674fd7a5a01962b559a0cb9a555c3310384e9021e14833896685c606d5a"
+      },
+      "nativeSource": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\sources\\Miscellaneous\\Axicon model.zmx",
+        "sha256": "2306d27415b9adcd38497a6b9885c9727577a0ea7d7409e46dcb2bb8ca9b705f"
+      },
+      "frozenNativeData": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\0950-029-axicon-model-c1-primary-f1-w1-huygens-psf-cross-section\\native\\data.json",
+        "sha256": "0824b8f1911a69e012bec3c6c169c35731b7ca7301f7537e170b157d3a801abb"
+      },
+      "originalPolicy": {
+        "Irradiance": {
+          "absolute": 1e-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "references": [
+        {
+          "path": "validation\\rechecks\\2026-11-08\\axicon-continuum\\native-results.json",
+          "sha256": "d35d963dad2e25b1f533cd41d144e186091e5b29563b724e3218a317f28fe3a5"
+        },
+        {
+          "path": "validation\\rechecks\\2026-11-08\\axicon-continuum\\verification.json",
+          "sha256": "332b274c98c71b7b75b314a6101c9e82805a6323b87d444ab7292dce3e152bbb"
+        },
+        {
+          "path": "validation\\rechecks\\2026-11-08\\axicon-continuum\\identity.json",
+          "sha256": "25f62a5b4aa5b1a042076ac04932b6bacc346e1d1ab7e83b9be528c963e62e0b"
+        },
+        {
+          "path": "artifacts\\precision-recheck-20261108\\axicon-continuum\\native-ray-phase.bin.gz",
+          "sha256": "f10932ba1ddb438722f7af7add2402b86c7d7c7c27a8e3113449bc20261cdb41"
+        }
+      ],
+      "modeSpecificEquivalence": "Same original window, pitch, scalar propagation scope and ideal normalization. Validated continuum mode is an explicit opt-in and distinct from the original fixed 32-node rule.",
+      "checkedFormalData": {
+        "path": "artifacts\\validation\\menu-31-differences-20261108\\definitions\\0950-checked\\data.json",
+        "sha256": "c7988c6e7c6422f086e8e560dd7b9a4ebe978a8de5ced56031ee5484f5f1b441"
+      },
+      "checkedRequest": {
+        "path": "artifacts\\validation\\menu-31-differences-20261108\\definitions\\0950-checked\\request.json",
+        "sha256": "363880f189664bcc6d40d0bad7fe531c5a9e7a194c4f869deac41556e813de39"
+      },
+      "checkedProvenance": {
+        "canonicalAnalysisKey": "Huygens PSF Cross Section",
+        "requestFingerprint": "1a8285c28cc5f263f5678da2997b1c1fcc1e40a52853e3797c23eaa29b719839",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "91293cb8f215c3c32073b0280ec3d640bca5926ab3e1c36340da05eda9059823",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "checkedSampling": {
+        "coarsePanels": 8192,
+        "finePanels": 8193,
+        "coarseNodes": 65536,
+        "fineNodes": 98316,
+        "cumulativeKernelEvaluations": 22120020,
+        "maximumPhaseStepWaves": 0.3242698520272715,
+        "peakRelativeIntensityDisagreement": 9.932738427414934e-06,
+        "relativeReferenceAmplitudeDisagreement": 6.661338147750932e-16
+      },
+      "fixedVersusContinuum": {
+        "verdict": "Difference",
+        "coverage": 1,
+        "coordinates": 32,
+        "finitePairs": 32,
+        "maxAbsolute": 0.013545031120149402,
+        "nrmse": 586.5131082354402,
+        "pointwisePass": false,
+        "nrmsePass": false
+      },
+      "equivalentMetrics": {
+        "checkedVersusIndependentContinuum": {
+          "verdict": "Pass",
+          "coverage": 1,
+          "coordinates": 32,
+          "finitePairs": 32,
+          "maxAbsolute": 1.3451795024267022e-16,
+          "nrmse": 3.8966227106505146e-12,
+          "pointwisePass": true,
+          "nrmsePass": true
+        },
+        "independentContinuumTiers": {
+          "verdict": "Pass",
+          "coverage": 1,
+          "coordinates": 32,
+          "finitePairs": 32,
+          "maxAbsolute": 1.1787196932432498e-16,
+          "nrmse": 3.3580390362445066e-12,
+          "pointwisePass": true,
+          "nrmsePass": true
+        }
+      },
+      "relativeToIndependentPeakMaxDifference": 2.78451637589835e-07,
+      "originalNativeText": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\0950-029-axicon-model-c1-primary-f1-w1-huygens-psf-cross-section\\native\\data.txt",
+        "sha256": "b03e78ee86e0b20fd75369d49c5cd652626d1eb64d07f8409a17fe62e4691e46"
+      },
+      "frozenNativeMetrics": {
+        "verdict": "Difference",
+        "coverage": 0.96875,
+        "coordinates": 32,
+        "finitePairs": 32,
+        "maxAbsolute": 0.0005810311444453906,
+        "nrmse": 0.016888655791174954,
+        "pointwisePass": false,
+        "nrmsePass": false
+      },
+      "frozenNativeTextCoordinates": 33,
+      "equivalentVerdict": "Pass"
+    },
+    "2216": {
+      "index": 2216,
+      "lens": "Polarization/Etalon.ZMX",
+      "analysis": "Optical Path Difference",
+      "frozenVerdict": "Difference",
+      "configuration": 1,
+      "formalOutcome": "Success",
+      "formalProvenance": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "requestFingerprint": "5db3cc1ab05953becc6f17baf88f3dd75749b947c797ee3c1582b9571f3c74a2",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "6fc1506ce90c3f72d4549b3099389e063ca4c6275abd8f7eced9870a6400957f",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+      "originalRequest": {
+        "path": "artifacts\\validation\\focal-fft-domain-20261108\\full\\analyses\\2216\\request.json",
+        "sha256": "977c4d40ed0e72f7d44062d5da36989a3c68630bb15429bdb073bc0417f100ae"
+      },
+      "formalData": {
+        "path": "artifacts\\validation\\menu-31-differences-20261108\\formal\\2216\\data.json",
+        "sha256": "15c1a26c720358c81d1bfbbef2f1a96ad80f0c564238b3a0e795415bb3b853a2"
+      },
+      "nativeSource": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\sources\\Polarization\\Etalon.ZMX",
+        "sha256": "4e0986acbda55315669b6ca8a35da5462a09cbfc015ebf4cb355119ea7ce1d64"
+      },
+      "frozenNativeData": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\2216-071-etalon-c1-edge-f2-w1-optical-path-difference\\native\\data.json",
+        "sha256": "44dc8655631417f324cc5559d0cf3d1493673c6c00829a45cda42ab70bd911b0"
+      },
+      "originalPolicy": {
+        "WavefrontError": {
+          "absolute": 1e-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "references": [
+        {
+          "path": "validation\\rechecks\\2026-11-08\\wavefront-directional-f-number\\verification.json",
+          "sha256": "bb433971caedd79e87df3cae4317f1d4b9b7236efeebc4abb581b18880423286"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/2216-absolute-rays/point-reference.json",
+          "sha256": "c2e952f6710178fe92eb2b646f04a8b67a2404956b682a581eced22240a87c18"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/2216-rays/point-reference.json",
+          "sha256": "e01784a089be80005d567d39311050fbef480ac95fccc58a180a559a7a597ff5"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "controls/etalon-absolute.zmx",
+          "sha256": "a960957451d829c3a4aa0f29e9116e055ac8eda764e899023a9957a1d5588755"
+        }
+      ],
+      "modeSpecificEquivalence": "Original focal request, same native Absolute and ExitPupil rays. Stable plane and all sign/radius surrogate controls for the collapsed zero-radius sphere; frozen numerics include ULP quantization.",
+      "frozenNativeMetrics": {
+        "tangential": {
+          "verdict": "Difference",
+          "coverage": 1,
+          "coordinates": 41,
+          "finitePairs": 41,
+          "maxAbsolute": 0.0009121537694981691,
+          "nrmse": 0.5994395597497173,
+          "pointwisePass": false,
+          "nrmsePass": false
+        },
+        "sagittal": {
+          "verdict": "Pass",
+          "coverage": 1,
+          "coordinates": 41,
+          "finitePairs": 41,
+          "maxAbsolute": 0.0,
+          "nrmse": 0.0,
+          "pointwisePass": true,
+          "nrmsePass": true
+        }
+      },
+      "equivalentMetrics": {
+        "plane:0": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.7765344928495354e-12,
+            "nrmse": 3.923708303399555e-08,
+            "pointwisePass": true,
+            "nrmsePass": true
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 0.0,
+            "nrmse": 0.0,
+            "pointwisePass": true,
+            "nrmsePass": true
+          }
+        },
+        "8589934592:-1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.4548937805358622e-06,
+            "nrmse": 0.06829095353361145,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.4553370565423395e-06,
+            "nrmse": 0.06831176037294878,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "8589934592:1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.4548937805358622e-06,
+            "nrmse": 0.06829095353361146,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.4553370565423395e-06,
+            "nrmse": 0.06831176037294878,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "10000000000:-1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.249744241311066e-06,
+            "nrmse": 0.058661482407906806,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.2501250125012502e-06,
+            "nrmse": 0.058679355346800764,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "10000000000:1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.249744241311066e-06,
+            "nrmse": 0.058661482407906806,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.2501250125012502e-06,
+            "nrmse": 0.058679355346800764,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "17179869184:-1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 7.274468902679311e-07,
+            "nrmse": 0.03414547676682264,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 7.276685282711698e-07,
+            "nrmse": 0.03415588018647439,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "17179869184:1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 7.274468902679311e-07,
+            "nrmse": 0.034145476766822634,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 7.276685282711698e-07,
+            "nrmse": 0.03415588018647439,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        }
+      },
+      "equivalentVerdict": "Pass"
+    },
+    "2220": {
+      "index": 2220,
+      "lens": "Polarization/Etalon.ZMX",
+      "analysis": "Optical Path Difference",
+      "frozenVerdict": "Difference",
+      "configuration": 1,
+      "formalOutcome": "Success",
+      "formalProvenance": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "requestFingerprint": "2c040f2ce62997628e1843b1c91dd39e967a6cbb37ac3ae01894f4ab06bd1f70",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "6fc1506ce90c3f72d4549b3099389e063ca4c6275abd8f7eced9870a6400957f",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+      "originalRequest": {
+        "path": "artifacts\\validation\\focal-fft-domain-20261108\\full\\analyses\\2220\\request.json",
+        "sha256": "33fd7a65d0223b233b4d3bb9c286e7cf7d15748f7b1ddbf18412a79fa6dd278b"
+      },
+      "formalData": {
+        "path": "artifacts\\validation\\menu-31-differences-20261108\\formal\\2220\\data.json",
+        "sha256": "36c4eb65860e54991d7ce553ee7414b59266c0f48273ea885335164fa8d31cc0"
+      },
+      "nativeSource": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\sources\\Polarization\\Etalon.ZMX",
+        "sha256": "4e0986acbda55315669b6ca8a35da5462a09cbfc015ebf4cb355119ea7ce1d64"
+      },
+      "frozenNativeData": {
+        "path": "artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\2220-071-etalon-c1-edge-f2-w2-optical-path-difference\\native\\data.json",
+        "sha256": "02e574dfe1d0c8d4c6765883214be90a3531c0c22884051a6e84ad419d6acbe0"
+      },
+      "originalPolicy": {
+        "WavefrontError": {
+          "absolute": 1e-05,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "references": [
+        {
+          "path": "validation\\rechecks\\2026-11-08\\wavefront-directional-f-number\\verification.json",
+          "sha256": "bb433971caedd79e87df3cae4317f1d4b9b7236efeebc4abb581b18880423286"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/2220-absolute-rays/point-reference.json",
+          "sha256": "0d031cd5e67ad5374052dfc14162a1c7b95757db143f53fae738f07a037e934f"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "native/2220-rays/point-reference.json",
+          "sha256": "03d1d47ecda8562ca2cf8b3c2710bd016cee2b9e881c575e6f7817713e254b09"
+        },
+        {
+          "archive": "validation\\rechecks\\2026-11-07\\curvature-image-space-reference\\native-controls.zip",
+          "member": "controls/etalon-absolute.zmx",
+          "sha256": "a960957451d829c3a4aa0f29e9116e055ac8eda764e899023a9957a1d5588755"
+        }
+      ],
+      "modeSpecificEquivalence": "Original focal request, same native Absolute and ExitPupil rays. Stable plane and all sign/radius surrogate controls for the collapsed zero-radius sphere; frozen numerics include ULP quantization.",
+      "frozenNativeMetrics": {
+        "tangential": {
+          "verdict": "Difference",
+          "coverage": 1,
+          "coordinates": 41,
+          "finitePairs": 41,
+          "maxAbsolute": 0.0009119713569855207,
+          "nrmse": 0.5994395597497173,
+          "pointwisePass": false,
+          "nrmsePass": false
+        },
+        "sagittal": {
+          "verdict": "Pass",
+          "coverage": 1,
+          "coordinates": 41,
+          "finitePairs": 41,
+          "maxAbsolute": 0.0,
+          "nrmse": 0.0,
+          "pointwisePass": true,
+          "nrmsePass": true
+        }
+      },
+      "equivalentMetrics": {
+        "plane:0": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.7761792214781026e-12,
+            "nrmse": 3.922923640205194e-08,
+            "pointwisePass": true,
+            "nrmsePass": true
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 0.0,
+            "nrmse": 0.0,
+            "pointwisePass": true,
+            "nrmsePass": true
+          }
+        },
+        "8589934592:-1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.454602830874721e-06,
+            "nrmse": 0.06827729670858725,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.4550460182348616e-06,
+            "nrmse": 0.0682980993869728,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "8589934592:1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.454602830874721e-06,
+            "nrmse": 0.06827729670858725,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.4550460182348616e-06,
+            "nrmse": 0.0682980993869728,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "10000000000:-1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.2494943174551892e-06,
+            "nrmse": 0.05864975128453755,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.24987501249875e-06,
+            "nrmse": 0.05866762064920116,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "10000000000:1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.2494943174551892e-06,
+            "nrmse": 0.05864975128453755,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 1.24987501249875e-06,
+            "nrmse": 0.05866762064920116,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "17179869184:-1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 7.273014154373605e-07,
+            "nrmse": 0.034138648354310526,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 7.275230091174308e-07,
+            "nrmse": 0.0341490496934864,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        },
+        "17179869184:1": {
+          "tangential": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 7.273014154373605e-07,
+            "nrmse": 0.034138648354310526,
+            "pointwisePass": true,
+            "nrmsePass": false
+          },
+          "sagittal": {
+            "verdict": "Pass",
+            "coverage": 1,
+            "coordinates": 41,
+            "finitePairs": 41,
+            "maxAbsolute": 7.275230091174308e-07,
+            "nrmse": 0.0341490496934864,
+            "pointwisePass": true,
+            "nrmsePass": false
+          }
+        }
+      },
+      "equivalentVerdict": "Pass"
+    }
+  }
+}

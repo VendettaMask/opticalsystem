@@ -1,0 +1,137 @@
+{
+  "menuLenses": 95,
+  "configurations": 115,
+  "frozenRequests": 3024,
+  "executedRequests": 2904,
+  "frozen": {
+    "Pass": 2527,
+    "Close": 19,
+    "Difference": 31,
+    "Incomparable": 427,
+    "Error": 20
+  },
+  "changedFrozenVerdicts": [],
+  "previousPassLost": 0,
+  "independentOpenBefore": 117,
+  "independentOpenAfter": 81,
+  "resolvedIndependentIndices": [
+    316,
+    682,
+    794,
+    825,
+    882,
+    950,
+    953,
+    967,
+    989,
+    1070,
+    1071,
+    1073,
+    1075,
+    1078,
+    1146,
+    1168,
+    1246,
+    1247,
+    1249,
+    1251,
+    1254,
+    2166,
+    2210,
+    2216,
+    2220,
+    2227,
+    2565,
+    2605,
+    2765,
+    2787,
+    2809,
+    2831,
+    2875,
+    2879,
+    2971,
+    3001
+  ],
+  "independentlyPassed": 25,
+  "independentlyNotApplicable": 11,
+  "verifiedAxiconFocusedProductIndices": [
+    950,
+    953
+  ],
+  "nativeReferenceIntegrity": {
+    "verifiedFiles": 30700,
+    "allMatched": true,
+    "archiveSha256": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+    "receiptSha256": "97fd26a90a7805a53ca6a7ea5a4e74a2e1e54eaebb2d8b3fea02bb213e2f2017"
+  },
+  "identity": {
+    "coreSha256": "9bd6baecb884ccec369841f6dd80d2b4597b2ad91f4c8734c9170af841417e55",
+    "repository": "D:\\Projects\\opticalsystem",
+    "prior": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1",
+    "policy": "D:\\Projects\\opticalsystem\\tools/OpticalSystemDesign.ZemaxComparison/comparison-settings.json",
+    "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "repositoryPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+    "indexSha256": "218771ebb8b001af026ab58cb98be8ffd0b2db2f15fc73d61c60c61ab28d1aaa",
+    "baselineItemsSha256": "c821fd62168f37949f6a2a64031347d236e4fa6d52b90498304c616094a8b03c",
+    "baselineResultsSha256": "40019bc134d22ec56dd86fca273e987caaa2670a9b7dfe41a49951d4e4e0bc6b",
+    "nativeReference": "FrozenOpticStudio2026R1_20261021",
+    "freshNativeCapture": false,
+    "freshSourceImport": true,
+    "lensCount": 95,
+    "requests": 3024,
+    "eligible": 2904,
+    "startedUtc": "2026-11-08T11:56:34.512241+08:00",
+    "assemblies": [
+      {
+        "path": "D:\\Projects\\opticalsystem\\artifacts\\validation\\precision-combined-20261108\\bin\\OpticalSystemDesign.Core.dll",
+        "sha256": "9bd6baecb884ccec369841f6dd80d2b4597b2ad91f4c8734c9170af841417e55"
+      },
+      {
+        "path": "D:\\Projects\\opticalsystem\\artifacts\\validation\\precision-combined-20261108\\bin\\OpticalSystemDesign.ZemaxComparison.dll",
+        "sha256": "5881fce53cb829e72ecdc576364b5a68ee5bd7086afd6be6b9980dd8e23f13e9"
+      },
+      {
+        "path": "D:\\Projects\\opticalsystem\\artifacts\\validation\\precision-combined-20261108\\bin\\ExampleAccuracy20261031.dll",
+        "sha256": "72f66900195039b1a9fa5b67bb58562ca5ddd31e7ee2753c6e455f2467e4deda"
+      }
+    ]
+  },
+  "frozenResultSha256": "179e18620317750cf44af3c08207494b2da1ada13fda164bc49e5a3fb25512f4",
+  "remainingByAnalysis": {
+    "Diffraction Encircled Energy": 36,
+    "PSF": 23,
+    "FFT PSF Cross Section": 16,
+    "MTF": 6
+  },
+  "remainingByEvidenceStatus": {
+    "ConvergedComparisonNotEstablished": 44,
+    "ConfirmedNativeReferenceUnavailable": 37
+  },
+  "subsequentAdaptiveChange": {
+    "coreSha256": "a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd",
+    "frozenExecutableUsingAdaptive": 0,
+    "tests": {
+      "product": {
+        "total": 205,
+        "passed": 205,
+        "failed": 0,
+        "receipt": "../fft-adaptive-coarse-retry/focused-product-final.trx",
+        "receiptSha256": "c01cbd727b0ba965668539369e467c4d8a1670b1efb22cb43cf2cd6cca8d18d9"
+      },
+      "comparison": {
+        "total": 82,
+        "passed": 82,
+        "failed": 0,
+        "receipt": "../fft-adaptive-coarse-retry/focused-comparison.trx",
+        "receiptSha256": "3f7e4656ec63472035d0ba1acc5667a743c4113ce585c2d1d73886c4703eb716"
+      },
+      "analysisParameters": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "receipt": "../fft-adaptive-coarse-retry/gui-descriptor-complete.trx",
+        "receiptSha256": "72a7e31587fdc4e2bd62a1e62e16f9387c2d65bec340ba28a90778f2e84a528e"
+      }
+    }
+  }
+}

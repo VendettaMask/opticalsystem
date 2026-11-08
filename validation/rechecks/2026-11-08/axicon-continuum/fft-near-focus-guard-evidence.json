@@ -1,0 +1,837 @@
+{
+  "nativeOriginalDiagnostics": {
+    "945": {
+      "capturedSettingsSha256": "9a4e22d39cb15777754556bba643fba594af2223fa44d8bd6c2b1b6d2fe49e4d",
+      "nativeProperties": {
+        "SampleSize": "PsfS_64x64",
+        "OutputSize": "PsfS_128x128",
+        "Rotation": "CW0",
+        "ImageDelta": 0.25,
+        "UsePolarization": false,
+        "Type": "Linear",
+        "Normalize": false
+      },
+      "nativeSelectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      },
+      "apiSha256": "c897d568c0003dcd4e860c3885b01ba035bc3330736ca2091ed54edcc03ac0aa",
+      "textSha256": "7cd11ce222496342b61d27f3e32fdb37b05727b02d6e75f0f52255b9cd65ad36",
+      "warning": "\u53d6\u6837\u592a\u4f4e, \u6570\u636e\u4e0d\u51c6\u786e!",
+      "apiGridDescriptorShapesNxNyValueRows": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "apiSeriesShapesXRowsYRowsChannels": [],
+      "textIsWarningOnly": true
+    },
+    "947": {
+      "capturedSettingsSha256": "b9125c7cad9b172841e474f7374b71a739a0ffd97d75948e59dde60fc4921ec8",
+      "nativeProperties": {
+        "Type": "Modulation",
+        "SampleSize": "S_64x64",
+        "ShowDiffractionLimit": false,
+        "UseDashes": false,
+        "UsePolarization": false,
+        "MaximumFrequency": 50
+      },
+      "nativeSelectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      },
+      "apiSha256": "20183b6969563c25aa7875e9241ca9ba87adaa1637e902b5f7cf3525e9048409",
+      "textSha256": "d1944abfde431517c041c05ef75bb94eb3ce2a224bdf379280ff500f7ad25fd6",
+      "warning": "\u53d6\u6837\u592a\u4f4e, \u6570\u636e\u4e0d\u51c6\u786e!",
+      "apiGridDescriptorShapesNxNyValueRows": [],
+      "apiSeriesShapesXRowsYRowsChannels": [
+        [
+          300,
+          300,
+          2
+        ]
+      ],
+      "textIsWarningOnly": false
+    },
+    "949": {
+      "capturedSettingsSha256": "8d60d53e6f517c5340c9a25484e5663abb3b5cd383cf69229f9ac2eee0fc86cd",
+      "nativeProperties": {
+        "SampleSize": "S_32x32",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "nativeSelectors": {
+        "Field": 1,
+        "Wavelength": 1
+      },
+      "apiSha256": "3cf1d65231e84f4e52b0fa2241c1b11fa77a9187c65ae0ade467ca300f5bb8ba",
+      "apiOutcome": "CaptureFailure",
+      "errorCode": "NativeInvalidResult",
+      "apiFirstLine": "CaptureFailure: OpticStudio returned a null data-series buffer; no numerical reference is available.",
+      "textExists": false
+    },
+    "952": {
+      "capturedSettingsSha256": "56a21b485fa74ebf550b0901168728037664f18107fd2ad77de05055a1f67e7d",
+      "nativeProperties": {
+        "HuygensSample": "S_64x64",
+        "SampleSize": "S_32x32",
+        "Type": "Encircled",
+        "ReferTo": "Centroid",
+        "ScatterRays": false,
+        "ShowDiffractionLimit": true,
+        "UseDashes": false,
+        "UseHuygensPSF": false,
+        "UsePolarization": false,
+        "HuygensDelta": 0,
+        "RadiusMaximum": 5
+      },
+      "nativeSelectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      },
+      "apiSha256": "05e461a8625c1635d4c997f23a351f6f44f5bd03ca43f1fa07285ccdfe397a44",
+      "textSha256": "7cd11ce222496342b61d27f3e32fdb37b05727b02d6e75f0f52255b9cd65ad36",
+      "warning": "\u53d6\u6837\u592a\u4f4e, \u6570\u636e\u4e0d\u51c6\u786e!",
+      "apiGridDescriptorShapesNxNyValueRows": [],
+      "apiSeriesShapesXRowsYRowsChannels": [],
+      "textIsWarningOnly": true
+    }
+  },
+  "centralProbeNormalizedRadii": [
+    0.125,
+    0.0625,
+    0.03125,
+    0.015625,
+    0.0078125,
+    0.00390625,
+    0.001953125,
+    0.0009765625,
+    0.00048828125,
+    0.000244140625
+  ],
+  "axicon": {
+    "case": "Axicon",
+    "sourcePsfReceiptSha256": "cb3bee6f520fe2e0868d0918e0f453d0951994b17d46f903db2d41802a9237ea",
+    "pairedOperatorReceiptSha256": "978953252a8eda5eeb5c3a382cc170d279e326606ae2c1334878f0c55a943f13",
+    "nativeRaySha256": "f10932ba1ddb438722f7af7add2402b86c7d7c7c27a8e3113449bc20261cdb41",
+    "wavelengthMicrometers": 0.55,
+    "transverseMissInChiefNormalPlaneWaves": {
+      "p05": 77209.93801614188,
+      "median": 81217.24814903972,
+      "p95": 86737.77612272005,
+      "max": 87431.37982299332,
+      "rms": 81582.83248694087
+    },
+    "requestMapResidualSine": {
+      "p05": 0.00209806431754417,
+      "median": 0.025167678198674433,
+      "p95": 0.06971182220836657,
+      "max": 0.09094869707990014,
+      "rms": 0.0361117434502805
+    },
+    "bestAffineMapResidualSine": {
+      "p05": 0.0019585753941553487,
+      "median": 0.01950075926095395,
+      "p95": 0.06324348353297413,
+      "max": 0.09094866202498707,
+      "rms": 0.029760442779669237
+    },
+    "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+      "p05": 0.056976738739064677,
+      "median": 0.5672948148641148,
+      "p95": 1.8398104300501563,
+      "max": 2.6457792589087146,
+      "rms": 0.8657583354085588
+    },
+    "bestAffineMapSinePerUnitPupil": 0.2771111380459784,
+    "transportSagAfterPistonTiltWaves": {
+      "p05": 21.31906969161271,
+      "median": 206.76543836337473,
+      "p95": 410.4874910827664,
+      "max": 468.88990862032006,
+      "rms": 234.94955696913607
+    },
+    "opposingCentralRaySineGap": [
+      0.22015310356380022,
+      0.2010146347906744,
+      0.1914540746172415,
+      0.1866754142400192,
+      0.18428642056402356,
+      0.18309199931136969,
+      0.1824948065140023,
+      0.18219621443916337,
+      0.18204691946603213,
+      0.18197227224345397
+    ],
+    "smallestSampledNormalizedRadius": 1.2118574066913977e-06,
+    "smallestSampledRadiusDirectionSine": 0.09094899784417218,
+    "roundedConicTip": {
+      "sourceLensSha256": "2306d27415b9adcd38497a6b9885c9727577a0ea7d7409e46dcb2bb8ca9b705f",
+      "surface": 3,
+      "curvaturePerMillimeter": 100000000.0,
+      "conic": -33.163437,
+      "surfaceSlopeTransitionRadiusMillimeters": 1.763269820174168e-09,
+      "paraxialFootprintGainBeforeSurface": 0.9451428969606522,
+      "paraxialEstimateOfNormalizedLaunchTransitionRadius": 2.4874825113315825e-11,
+      "sampledPlateauIsMathematicalDiscontinuity": false
+    }
+  },
+  "controlProbePlansRadialAndAzimuthal": [
+    [
+      48,
+      128
+    ],
+    [
+      96,
+      256
+    ]
+  ],
+  "controlsCoarse": [
+    {
+      "case": "Twyman Green #2157",
+      "independentReceiptSha256": "3c9875e9a0ca279fb11d344611dcce8eb996d9b5a9aecbc035a4be4315f812b0",
+      "wavelengthMicrometers": 0.55,
+      "acceptedAreaProbes": 6144,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 22.027444513401502,
+        "median": 104.82167201087725,
+        "p95": 187.65197831502556,
+        "max": 281.7717033213357,
+        "rms": 117.64914897817128
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 22.0328770117658,
+        "median": 104.81722644357006,
+        "p95": 187.83922812484872,
+        "max": 281.25440047948905,
+        "rms": 117.65785499269955
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 0.19588654511479825,
+        "median": 2.061184709674046,
+        "p95": 4.518444374486756,
+        "max": 12.566412184499303,
+        "rms": 2.5141954303505045
+      },
+      "opposingCentralRaySineGap": [
+        0.1047604979703747,
+        0.05212993780997067,
+        0.026033423465834756,
+        0.013012760708771,
+        0.0065058862325849225,
+        0.003252881343459746,
+        0.0016264329498881273,
+        0.0008132155097064214,
+        0.0004066076341982729,
+        0.00020330380201726128
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 0.00088135383570994,
+        "median": 0.004898279026879111,
+        "p95": 0.008636655101984341,
+        "max": 0.009998499975111359,
+        "rms": 0.0054106405477162035
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.025639384311561892,
+        "median": 0.14249538987284685,
+        "p95": 0.25124814842136267,
+        "max": 0.2908654538214213,
+        "rms": 0.15740045229719862
+      }
+    },
+    {
+      "case": "Scanning mirror #2875",
+      "independentReceiptSha256": "143904046c52ae17bfb3e96b75e9e8fc0b032c38c37d186b0031f0593ed53b22",
+      "wavelengthMicrometers": 0.55,
+      "acceptedAreaProbes": 6144,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 29.676232470778963,
+        "median": 249.53004490538765,
+        "p95": 343.2401943171511,
+        "max": 415.10355392665065,
+        "rms": 250.88293429221142
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 29.676232470778963,
+        "median": 249.53004490538765,
+        "p95": 343.2401943171511,
+        "max": 415.10355392665065,
+        "rms": 250.88293429221142
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 0.006224184664836652,
+        "median": 0.04937145913158242,
+        "p95": 0.07877123121112062,
+        "max": 0.13629845595617235,
+        "rms": 0.05545080824493293
+      },
+      "opposingCentralRaySineGap": [
+        0.01654360428410572,
+        0.008265855910039163,
+        0.004132185347244344,
+        0.0020659998686044833,
+        0.001032988334329681,
+        0.0005164927171887274,
+        0.00025824617734798857,
+        0.00012912306601821726,
+        6.456153017713721e-05,
+        3.22807647345722e-05
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 0.00010247365460514303,
+        "median": 0.0006902434289726028,
+        "p95": 0.0012154658851085145,
+        "max": 0.001432168883447408,
+        "rms": 0.0007293060892254881
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.0029810517703314334,
+        "median": 0.02007980884283935,
+        "p95": 0.035359007566793145,
+        "max": 0.04166309479119732,
+        "rms": 0.021216177141105106
+      }
+    },
+    {
+      "case": "Scanning mirror #2897",
+      "independentReceiptSha256": "c6b3269bd5316cf041312c6551a8dda4a8f9904051bf6401eff39552625e80e8",
+      "wavelengthMicrometers": 0.55,
+      "acceptedAreaProbes": 6144,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 98.94075942735489,
+        "median": 273.96264103655943,
+        "p95": 605.960753122101,
+        "max": 822.012498453441,
+        "rms": 336.4165106915598
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 100.42023484195776,
+        "median": 281.8072760442669,
+        "p95": 615.2712518171618,
+        "max": 832.3515026864909,
+        "rms": 344.1666046543371
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 0.008520736385370006,
+        "median": 0.08381666432362311,
+        "p95": 0.2973840716328076,
+        "max": 0.6638352164967138,
+        "rms": 0.13793702039706815
+      },
+      "opposingCentralRaySineGap": [
+        0.01606118721955475,
+        0.00802478609188745,
+        0.004011667762391237,
+        0.002005743241236225,
+        0.0010028602912631709,
+        0.0005014287294822159,
+        0.00025071418772306173,
+        0.0001253570717342946,
+        6.267853310124342e-05,
+        3.133926620488371e-05
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 0.00014026435218974343,
+        "median": 0.0007339426963829202,
+        "p95": 0.0016082693333803282,
+        "max": 0.002751520408338597,
+        "rms": 0.0008755706798801569
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.004080417518247082,
+        "median": 0.021351060258412224,
+        "p95": 0.04678601697106408,
+        "max": 0.08004423006075917,
+        "rms": 0.025471147051059108
+      }
+    },
+    {
+      "case": "Scanning mirror #2919",
+      "independentReceiptSha256": "c6b3269bd5316cf041312c6551a8dda4a8f9904051bf6401eff39552625e80e8",
+      "wavelengthMicrometers": 0.55,
+      "acceptedAreaProbes": 6144,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 98.94075942733298,
+        "median": 273.962641036553,
+        "p95": 605.960753122103,
+        "max": 822.0124984534984,
+        "rms": 336.416510691565
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 100.42023484195084,
+        "median": 281.80727604434423,
+        "p95": 615.2712518171676,
+        "max": 832.3515026865273,
+        "rms": 344.1666046543425
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 0.00852073638573316,
+        "median": 0.0838166643270311,
+        "p95": 0.2973840716449167,
+        "max": 0.6638352165238166,
+        "rms": 0.13793702040268604
+      },
+      "opposingCentralRaySineGap": [
+        0.016061187219554737,
+        0.008024786091887467,
+        0.004011667762391239,
+        0.0020057432412362267,
+        0.00100286029126317,
+        0.0005014287294822165,
+        0.00025071418772306195,
+        0.00012535707173429454,
+        6.267853310124342e-05,
+        3.133926620488371e-05
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 0.00014026435218976712,
+        "median": 0.0007339426963829232,
+        "p95": 0.001608269333380457,
+        "max": 0.0027515204083385135,
+        "rms": 0.0008755706798801585
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.0040804175182477705,
+        "median": 0.02135106025841231,
+        "p95": 0.04678601697106784,
+        "max": 0.08004423006075675,
+        "rms": 0.025471147051059153
+      }
+    },
+    {
+      "case": "Sample Spectrometer #443",
+      "independentReceiptSha256": "5346aad874ff04c9db665953c4d646e31bb158211cbe6fdcb69194ea7edb1a4f",
+      "wavelengthMicrometers": 0.55,
+      "acceptedAreaProbes": 2400,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 16.461143349168438,
+        "median": 82.48793114162864,
+        "p95": 153.72823919751238,
+        "max": 162.9668060462266,
+        "rms": 94.8756726193336
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 16.460864287061412,
+        "median": 82.4864959905077,
+        "p95": 153.6448041182173,
+        "max": 163.03166900659494,
+        "rms": 94.8780515476141
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 2.8023574618424627,
+        "median": 24.849962288040512,
+        "p95": 65.13290083982568,
+        "max": 89.46621092498611,
+        "rms": 31.083705701819973
+      },
+      "opposingCentralRaySineGap": [
+        0.02311095284597467,
+        0.011555846104824219,
+        0.00577796926537289,
+        0.0028889904093918756,
+        0.001444495926786798,
+        0.0007222480536548242,
+        0.0003611240381101118,
+        0.00018056202046538882,
+        9.02810104090141e-05,
+        4.514050522655243e-05
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 4.138092844738828e-05,
+        "median": 0.00012722703042452533,
+        "p95": 0.0003635858866457308,
+        "max": 0.0006311096590430231,
+        "rms": 0.0001860332896447313
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.0012038088275603861,
+        "median": 0.003701149975986191,
+        "p95": 0.010577043975148533,
+        "max": 0.018359553717615214,
+        "rms": 0.0054118775169376375
+      }
+    },
+    {
+      "case": "Toroid #1365 conditional only",
+      "independentReceiptSha256": "cf6c4fa72002448f203d21932529d4ff1aa00ee7a04814377f6e933c1cd8f2ca",
+      "wavelengthMicrometers": 0.5,
+      "acceptedAreaProbes": 6144,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 1679.3796476267764,
+        "median": 16121.118937683146,
+        "p95": 35158.47270025111,
+        "max": 39777.79175501609,
+        "rms": 20002.729805232575
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 1679.3796476267764,
+        "median": 16121.118937683146,
+        "p95": 35158.47270025111,
+        "max": 39777.79175501609,
+        "rms": 20002.729805232575
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 53.47387696322755,
+        "median": 479.6882699293382,
+        "p95": 1259.1813383634835,
+        "max": 1782.1833658685305,
+        "rms": 602.0117054053774
+      },
+      "opposingCentralRaySineGap": [
+        0.019711652078933387,
+        0.009850843741835483,
+        0.004924799470206153,
+        0.002462321947083233,
+        0.0012311512504162275,
+        0.0006155744098292234,
+        0.0003077870529926184,
+        0.00015389350750607175,
+        7.694675137925644e-05,
+        3.847337539290581e-05
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 0.00011294986083063538,
+        "median": 0.0010570483081323357,
+        "p95": 0.0025238089147174283,
+        "max": 0.005278423506522375,
+        "rms": 0.0013127394861281985
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.003614395546580332,
+        "median": 0.03382554586023474,
+        "p95": 0.0807618852709577,
+        "max": 0.168909552208716,
+        "rms": 0.04200766355610235
+      }
+    }
+  ],
+  "controls": [
+    {
+      "case": "Twyman Green #2157",
+      "independentReceiptSha256": "3c9875e9a0ca279fb11d344611dcce8eb996d9b5a9aecbc035a4be4315f812b0",
+      "wavelengthMicrometers": 0.55,
+      "acceptedAreaProbes": 24576,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 22.178338640402142,
+        "median": 104.91094264722545,
+        "p95": 187.41880489794247,
+        "max": 304.69813617233393,
+        "rms": 117.70383249371406
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 22.185782390005944,
+        "median": 104.85854190682112,
+        "p95": 187.56279226327513,
+        "max": 304.13704682627167,
+        "rms": 117.71241572578863
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 0.21840369732867568,
+        "median": 2.07088850349711,
+        "p95": 4.517428458511821,
+        "max": 15.085056015477534,
+        "rms": 2.527048931337736
+      },
+      "opposingCentralRaySineGap": [
+        0.1047604979703747,
+        0.05212993780997067,
+        0.026033423465834756,
+        0.013012760708771,
+        0.0065058862325849225,
+        0.003252881343459746,
+        0.0016264329498881273,
+        0.0008132155097064214,
+        0.0004066076341982729,
+        0.00020330380201726128
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 0.0008596222241512425,
+        "median": 0.004940238376914587,
+        "p95": 0.00867273170950616,
+        "max": 0.01023062887257667,
+        "rms": 0.005409214729942959
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.025007191975308873,
+        "median": 0.1437160255102425,
+        "p95": 0.25229764973108826,
+        "max": 0.29761829447495763,
+        "rms": 0.157358973961977
+      }
+    },
+    {
+      "case": "Scanning mirror #2875",
+      "independentReceiptSha256": "143904046c52ae17bfb3e96b75e9e8fc0b032c38c37d186b0031f0593ed53b22",
+      "wavelengthMicrometers": 0.55,
+      "acceptedAreaProbes": 24576,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 29.779845565902136,
+        "median": 249.28710434703297,
+        "p95": 352.0618043672637,
+        "max": 424.2927317404337,
+        "rms": 250.8962543875278
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 29.779845565902136,
+        "median": 249.28710434703297,
+        "p95": 352.0618043672637,
+        "max": 424.2927317404337,
+        "rms": 250.8962543875278
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 0.005159225553657137,
+        "median": 0.0506162928089237,
+        "p95": 0.07876987839165299,
+        "max": 0.14591147433058216,
+        "rms": 0.05554897161319883
+      },
+      "opposingCentralRaySineGap": [
+        0.01654360428410572,
+        0.008265855910039163,
+        0.004132185347244344,
+        0.0020659998686044833,
+        0.001032988334329681,
+        0.0005164927171887274,
+        0.00025824617734798857,
+        0.00012912306601821726,
+        6.456153017713721e-05,
+        3.22807647345722e-05
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 8.269435476932684e-05,
+        "median": 0.0007006444422375789,
+        "p95": 0.0012418495629742381,
+        "max": 0.0014596129784701292,
+        "rms": 0.0007293794562820093
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.0024056539569258712,
+        "median": 0.02038238377418411,
+        "p95": 0.036126532741068744,
+        "max": 0.042461468464585574,
+        "rms": 0.02121831145547663
+      }
+    },
+    {
+      "case": "Scanning mirror #2897",
+      "independentReceiptSha256": "c6b3269bd5316cf041312c6551a8dda4a8f9904051bf6401eff39552625e80e8",
+      "wavelengthMicrometers": 0.55,
+      "acceptedAreaProbes": 24576,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 95.0248623030471,
+        "median": 274.8230442566905,
+        "p95": 604.3824112899073,
+        "max": 833.1887881759338,
+        "rms": 336.44309405660397
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 96.92149618821166,
+        "median": 281.94054495421085,
+        "p95": 616.4069987689613,
+        "max": 843.8991092590957,
+        "rms": 344.1935577040577
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 0.008414931162948561,
+        "median": 0.08384101599036978,
+        "p95": 0.29597035596322735,
+        "max": 0.6860265473421852,
+        "rms": 0.13809759356141008
+      },
+      "opposingCentralRaySineGap": [
+        0.01606118721955475,
+        0.00802478609188745,
+        0.004011667762391237,
+        0.002005743241236225,
+        0.0010028602912631709,
+        0.0005014287294822159,
+        0.00025071418772306173,
+        0.0001253570717342946,
+        6.267853310124342e-05,
+        3.133926620488371e-05
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 0.00013661817809588393,
+        "median": 0.0007341955882434857,
+        "p95": 0.0016034823913327113,
+        "max": 0.0027927299974414028,
+        "rms": 0.0008756657040768376
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.003974346999152987,
+        "median": 0.021358417112537765,
+        "p95": 0.046646760475133414,
+        "max": 0.08124305447102262,
+        "rms": 0.02547391139132617
+      }
+    },
+    {
+      "case": "Scanning mirror #2919",
+      "independentReceiptSha256": "c6b3269bd5316cf041312c6551a8dda4a8f9904051bf6401eff39552625e80e8",
+      "wavelengthMicrometers": 0.55,
+      "acceptedAreaProbes": 24576,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 95.02486230306839,
+        "median": 274.82304425669076,
+        "p95": 604.3824112899176,
+        "max": 833.1887881759866,
+        "rms": 336.4430940566088
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 96.9214961882242,
+        "median": 281.94054495419715,
+        "p95": 616.4069987689842,
+        "max": 843.8991092591097,
+        "rms": 344.19355770406275
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 0.008414931163277375,
+        "median": 0.08384101599378412,
+        "p95": 0.2959703559752969,
+        "max": 0.6860265473701842,
+        "rms": 0.13809759356703305
+      },
+      "opposingCentralRaySineGap": [
+        0.016061187219554737,
+        0.008024786091887467,
+        0.004011667762391239,
+        0.0020057432412362267,
+        0.00100286029126317,
+        0.0005014287294822165,
+        0.00025071418772306195,
+        0.00012535707173429454,
+        6.267853310124342e-05,
+        3.133926620488371e-05
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 0.00013661817809588908,
+        "median": 0.0007341955882435801,
+        "p95": 0.001603482391332575,
+        "max": 0.0027927299974412506,
+        "rms": 0.0008756657040768373
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.003974346999153136,
+        "median": 0.021358417112540513,
+        "p95": 0.04664676047512945,
+        "max": 0.08124305447101819,
+        "rms": 0.025473911391326178
+      }
+    },
+    {
+      "case": "Sample Spectrometer #443",
+      "independentReceiptSha256": "5346aad874ff04c9db665953c4d646e31bb158211cbe6fdcb69194ea7edb1a4f",
+      "wavelengthMicrometers": 0.55,
+      "acceptedAreaProbes": 9576,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 20.04990054339621,
+        "median": 82.95717547484992,
+        "p95": 153.4318709504138,
+        "max": 163.41623923244003,
+        "rms": 94.92405797122672
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 20.04944191928236,
+        "median": 82.95622851616166,
+        "p95": 153.46082219466044,
+        "max": 163.48210283721235,
+        "rms": 94.9264270764067
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 2.831754097918095,
+        "median": 24.6352834379633,
+        "p95": 64.83290263747679,
+        "max": 91.0289738704937,
+        "rms": 31.016042793160615
+      },
+      "opposingCentralRaySineGap": [
+        0.02311095284597467,
+        0.011555846104824219,
+        0.00577796926537289,
+        0.0028889904093918756,
+        0.001444495926786798,
+        0.0007222480536548242,
+        0.0003611240381101118,
+        0.00018056202046538882,
+        9.02810104090141e-05,
+        4.514050522655243e-05
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 4.1944219777883294e-05,
+        "median": 0.0001280227760275359,
+        "p95": 0.00036255430667420476,
+        "max": 0.0006350773977225022,
+        "rms": 0.00018583038877491393
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.0012201954844475139,
+        "median": 0.003724298938982862,
+        "p95": 0.010547034375976864,
+        "max": 0.01847497884283643,
+        "rms": 0.005405974946179314
+      }
+    },
+    {
+      "case": "Toroid #1365 conditional only",
+      "independentReceiptSha256": "cf6c4fa72002448f203d21932529d4ff1aa00ee7a04814377f6e933c1cd8f2ca",
+      "wavelengthMicrometers": 0.5,
+      "acceptedAreaProbes": 24576,
+      "transverseMissInChiefNormalPlaneWaves": {
+        "p05": 1659.4601458316206,
+        "median": 16137.291104665806,
+        "p95": 35135.62795707194,
+        "max": 39891.32977226916,
+        "rms": 20002.72998233242
+      },
+      "transverseMissOnRequestedImageWaves": {
+        "p05": 1659.4601458316206,
+        "median": 16137.291104665806,
+        "p95": 35135.62795707194,
+        "max": 39891.32977226916,
+        "rms": 20002.72998233242
+      },
+      "transportSagAfterPistonTiltWaves": {
+        "p05": 54.38579079263668,
+        "median": 479.58781586223915,
+        "p95": 1256.75685663489,
+        "max": 1795.8610859786359,
+        "rms": 602.0608029607655
+      },
+      "opposingCentralRaySineGap": [
+        0.019711652078933387,
+        0.009850843741835483,
+        0.004924799470206153,
+        0.002462321947083233,
+        0.0012311512504162275,
+        0.0006155744098292234,
+        0.0003077870529926184,
+        0.00015389350750607175,
+        7.694675137925644e-05,
+        3.847337539290581e-05
+      ],
+      "bestAffineMapResidualSine": {
+        "p05": 0.0001257854168083828,
+        "median": 0.0010588214958813385,
+        "p95": 0.0025126305556961094,
+        "max": 0.00535785919218214,
+        "rms": 0.0013128679670193128
+      },
+      "bestAffineMapWorstAzimuthKernelErrorAt16MicrometersWaves": {
+        "p05": 0.004025133337868249,
+        "median": 0.03388228786820283,
+        "p95": 0.0804041777822755,
+        "max": 0.1714514941498285,
+        "rms": 0.04201177494461801
+      }
+    }
+  ]
+}

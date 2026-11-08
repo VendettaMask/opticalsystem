@@ -1,0 +1,71 @@
+{
+  "scope": "FFT cumulative energy and exit pupil F-number directed product tests",
+  "baselineCoreSha256": "0b62ce3b2a11ab5d10ecb3d42f4ff059586a0f87d432694f0bd1daa98917b27e",
+  "patchedCoreSha256": "85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96",
+  "baseline": {
+    "sha256": "4046a5dd2056f457e5a99adea61cb3e0d67eb0a7dc8b19873add34be7ddefc1c",
+    "total": 164,
+    "passed": 124,
+    "failed": 40,
+    "onlyReplacedFromHead": [
+      "DiffractionEngine.CumulativeEnergy.cs",
+      "DiffractionEngine.CumulativeEnergy32.cs"
+    ]
+  },
+  "patched": {
+    "sha256": "184101580973302aa6228fa796c048c7a31dbc877be10fbd884da8b23346bf86",
+    "total": 164,
+    "passed": 126,
+    "failed": 38
+  },
+  "focused": {
+    "sha256": "8c75180b7f863f69ef6e0b9b996e00d3695dfc7cbb5364a0702625179e6c910a",
+    "total": 7,
+    "passed": 7,
+    "failed": 0
+  },
+  "fixed": [
+    "OpticalSystemDesign.Tests.ExitPupilFNumberTests.VirtualImageEnergyUsesTheSelectedExitPupilScale(imageDistance: -300, fNumber: 150)",
+    "OpticalSystemDesign.Tests.ExitPupilFNumberTests.VirtualImageEnergyUsesTheSelectedExitPupilScale(imageDistance: -600, fNumber: 300)"
+  ],
+  "preexistingFailureMessages": {
+    "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"0852-all-waves\", series: 0)": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 1E-10)\r\nActual: 0.00035872230972033847",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0852-n512-primary\", series: 1)": "matrix/0852-n512-primary/1: unchanged strict limit 1e-8, measured 0.00020565686217438578",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0308-n512-poly\", series: 0)": "matrix/0308-n512-poly/0: unchanged strict limit 1e-8, measured 0.00021856870055995354",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0852-n512-poly\", series: 0)": "matrix/0852-n512-poly/0: unchanged strict limit 1e-8, measured 0.00011394182242093474",
+    "OpticalSystemDesign.Tests.CumulativeEnergyHighSamplingTests.SharedFftExtentClosesTheCapturedHighSamplingResiduals(id: \"base128\", series: 1)": "base128/1: limit 1E-08, measured 0.0008605176157594761",
+    "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"isolate-w8\", series: 0)": "isolate-w8/0: limit 1E-08, measured 0.006512277176643927",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"controls/base-fnum-minus\", series: 1)": "controls/base-fnum-minus/1: unchanged strict limit 1e-8, measured 0.00025331559095939307",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"controls/base-fnum-plus\", series: 1)": "controls/base-fnum-plus/1: unchanged strict limit 1e-8, measured 0.00025331558358508726",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0852-n256-primary\", series: 0)": "matrix/0852-n256-primary/0: unchanged strict limit 1e-8, measured 1.2449800574821213E-07",
+    "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"isolate-w8\", series: 1)": "isolate-w8/1: limit 1E-08, measured 0.006504698149101442",
+    "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"apo-poly64\", series: 0)": "apo-poly64/0: limit 1E-08, measured 0.0008000485931298632",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0852-n512-poly\", series: 1)": "matrix/0852-n512-poly/1: unchanged strict limit 1e-8, measured 0.00043466082811999837",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0308-n512-poly\", series: 1)": "matrix/0308-n512-poly/1: unchanged strict limit 1e-8, measured 0.00011689906483250535",
+    "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"0308-all-waves\", series: 0)": "0308-all-waves/0: limit 1E-08, measured 0.0017338472916789511",
+    "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"0308-all-waves\", series: 1)": "0308-all-waves/1: limit 1E-08, measured 0.0009228656967504179",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0360-n512-primary\", series: 0)": "matrix/0360-n512-primary/0: unchanged strict limit 1e-8, measured 0.0008655493242596476",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0852-n256-poly\", series: 1)": "matrix/0852-n256-poly/1: unchanged strict limit 1e-8, measured 0.00033971871798601784",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0472-n512-primary\", series: 0)": "matrix/0472-n512-primary/0: unchanged strict limit 1e-8, measured 0.0008202415480705879",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0360-n512-poly\", series: 0)": "matrix/0360-n512-poly/0: unchanged strict limit 1e-8, measured 0.0008655493242596476",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0852-n256-primary\", series: 1)": "matrix/0852-n256-primary/1: unchanged strict limit 1e-8, measured 2.1016405702036923E-06",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0308-n512-primary\", series: 1)": "matrix/0308-n512-primary/1: unchanged strict limit 1e-8, measured 0.00025004750631078316",
+    "OpticalSystemDesign.Tests.HighSamplingPolychromaticEnergyTests.ReferenceCutoffClosesTheCapturedHighSamplingSpectrum(id: \"0014-poly128\", series: 1)": "0014-poly128/1: limit 1E-08, measured 0.00037573215451623573",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"controls/base-fnum-plus\", series: 0)": "controls/base-fnum-plus/0: unchanged strict limit 1e-8, measured 0.00023924875360568327",
+    "OpticalSystemDesign.Tests.HighSamplingPolychromaticEnergyTests.ReferenceCutoffClosesTheCapturedHighSamplingSpectrum(id: \"isolate-w8\", series: 0)": "isolate-w8/0: limit 1E-08, measured 0.0032316081097792477",
+    "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"apo-poly64\", series: 1)": "apo-poly64/1: limit 1E-08, measured 0.0007993713699919778",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0308-n512-primary\", series: 0)": "matrix/0308-n512-primary/0: unchanged strict limit 1e-8, measured 0.0005052055657178445",
+    "OpticalSystemDesign.Tests.HighSamplingPolychromaticEnergyTests.ReferenceCutoffClosesTheCapturedHighSamplingSpectrum(id: \"isolate-w8\", series: 1)": "isolate-w8/1: limit 1E-08, measured 0.0032286683775002165",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0852-n512-primary\", series: 0)": "matrix/0852-n512-primary/0: unchanged strict limit 1e-8, measured 0.0003068828199792015",
+    "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"0852-all-waves\", series: 1)": "Assert.InRange() Failure: Value not in range\r\nRange:  (0 - 1E-10)\r\nActual: 0.00035872230972033847",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0360-n512-poly\", series: 1)": "matrix/0360-n512-poly/1: unchanged strict limit 1e-8, measured 0.0008653705731419897",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0360-n512-primary\", series: 1)": "matrix/0360-n512-primary/1: unchanged strict limit 1e-8, measured 0.0008653705731419897",
+    "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"0014-all-waves\", series: 1)": "0014-all-waves/1: limit 1E-08, measured 0.0007993713699919778",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0852-n256-poly\", series: 0)": "matrix/0852-n256-poly/0: unchanged strict limit 1e-8, measured 1.23066891131167E-07",
+    "OpticalSystemDesign.Tests.CumulativeEnergyHighSamplingTests.SharedFftExtentClosesTheCapturedHighSamplingResiduals(id: \"base128\", series: 0)": "base128/0: limit 1E-08, measured 0.0012336842978976413",
+    "OpticalSystemDesign.Tests.PolychromaticCumulativeEnergyTests.ReferenceConeAndExplicitIntervalCloseTheCapturedPolychromaticCurves(id: \"0014-all-waves\", series: 0)": "0014-all-waves/0: limit 1E-08, measured 0.0008000485931298632",
+    "OpticalSystemDesign.Tests.HighSamplingPolychromaticEnergyTests.ReferenceCutoffClosesTheCapturedHighSamplingSpectrum(id: \"0014-poly128\", series: 0)": "0014-poly128/0: limit 1E-08, measured 0.00037600211477943266",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"matrix/0472-n512-primary\", series: 1)": "matrix/0472-n512-primary/1: unchanged strict limit 1e-8, measured 0.0005414597361946083",
+    "OpticalSystemDesign.Tests.ExpandedSamplingEnergyTests.ExpandedPhysicalGridPreservesFrozenEnergyAcrossLensesAndPerturbations(id: \"controls/base-fnum-minus\", series: 0)": "controls/base-fnum-minus/0: unchanged strict limit 1e-8, measured 0.00023924875402451157"
+  }
+}

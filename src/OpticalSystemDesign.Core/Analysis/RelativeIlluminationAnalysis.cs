@@ -47,7 +47,7 @@ public sealed class RelativeIlluminationAnalysis : BaseAnalysis
             return new AnalysisData(Name, new Dictionary<string, object>
             {
                 ["Status"] = reason,
-                ["ImageSpaceAfocal"] = true
+                ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal
             }, Outcome: AnalysisOutcome.NotApplicable, OutcomeReason: reason);
 
         if (Optic.SurfaceGroup.Items.Count == 0 || Optic.Wavelengths.Count == 0)

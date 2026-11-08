@@ -45,8 +45,52 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
 
     internal AnalysisData GenerateDensePhysicalPupil() => GenerateBoundedProfiles(densePhysicalPupil: true);
 
+    internal bool SupportsStreamedPhysicalPupil => SupportsDensePhysicalPupil && !Optic.RayAimingEnabled
+        && Optic.Wavelengths.Count > 0
+        && (_wavelengthNumber != 0 || Optic.Wavelengths.Count == 1);
+
+    internal AnalysisData GenerateStreamedPhysicalPupil(AnalysisData domain, long maximumTraceNodes)
+    {
+        if (domain.PlotSeries.Count != 1 || domain.PlotSeries[0].XUnit != AnalysisAxisUnit.Micrometer)
+            throw new AnalysisDataUnavailableException(Name, "streamed Fourier axes require one finite image-height profile");
+        var template = domain.PlotSeries[0];
+        var wavelengths = Optic.Wavelengths;
+        var wave = wavelengths[Math.Clamp(_wavelengthNumber - 1, 0, wavelengths.Count - 1)];
+        var fields = SpotAnalysisEngine.DefinedFields(Optic);
+        var field = fields.Count == 0 ? (0d, 0d) : fields[Math.Clamp(_fieldNumber - 1, 0, fields.Count - 1)];
+        var (values, strehl, fNumber, idealPeak, phase, diagnostics) = DiffractionEngine.ComputeStreamedFocalFftAxis(
+            Optic, field, wave, _sampling, template.Points.Select(point => point.X).ToArray(),
+            _type.StartsWith("X", StringComparison.OrdinalIgnoreCase), maximumTraceNodes);
+        phase.EnforceForCurrentRequest(Name);
+        var series = template with { Points = template.Points.Select((point, index) => point with { Y = values[index] }).ToArray() };
+        var metadata = new Dictionary<string, object>
+        {
+            ["Method"] = "FFT", ["PupilSampling"] = _sampling, ["WorkingFNumber"] = fNumber,
+            ["UnaberratedPeakRatio"] = idealPeak, ["StrehlRatio"] = strehl, ["AxisFourierReadout"] = true,
+            ["StreamedFourierPupil"] = diagnostics, ["WavelengthNumber"] = _wavelengthNumber,
+            ["FieldNumber"] = _fieldNumber, ["UsePolarization"] = false, ["Normalized"] = false,
+            ["UseRayAiming"] = false, ["Row"] = _row, ["ProfileType"] = _type,
+            ["GraphScaleMicrometers"] = _graphScaleMicrometers, ["ProfileIdealPeak"] = 1d
+        };
+        return domain with { Values = metadata, Series = null, SeriesList = [series] };
+    }
+
     public override AnalysisData GenerateData()
     {
+        // Retain the coincident-plane profile calibration, which has its own
+        // numeric reference. A separated plane train has no focal image scale.
+        if (FocalImageDomain.IsCollimatedPlaneTrain(Optic) && !FocalImageDomain.IsCollimatedPlaneAtImage(Optic))
+            return FocalImageDomain.NotApplicable(Name, "Focal FFT PSF cross section has no finite image-height scale for parallel image rays.",
+                FocalImageDomain.CollimatedPlaneTrain);
+        if (!_usePolarization && (_wavelengthNumber != 0 || Optic.Wavelengths.Count == 1))
+        {
+            var waves = AnalysisTrace.SelectWavelengths(Optic, _wavelengthNumber);
+            var fields = SpotAnalysisEngine.DefinedFields(Optic);
+            var field = fields.Count == 0 ? (0d, 0d) : fields[Math.Clamp(_fieldNumber - 1, 0, fields.Count - 1)];
+            if (waves.Length == 1 && FocalImageDomain.CheckFftImageDomain(Name, Optic, field, waves[0],
+                    requireSagittalScale: _type.StartsWith("X", StringComparison.OrdinalIgnoreCase)) is { } outsideDomain)
+                return outsideDomain;
+        }
         if ((_gridSize ?? 2 * _sampling) > AnalysisResourceLimits.MaximumFftGridSize)
             return GenerateBoundedProfiles();
         var source = new PsfAnalysis(
@@ -236,6 +280,7 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
     public override string Name => "Huygens PSF Cross Section";
 
     public AfocalHuygensIntegration AfocalIntegration { get; init; } = AfocalHuygensIntegration.NativeFiniteCell;
+    public bool UseCheckedFocusedPupil { get; init; }
 
     public override AnalysisData GenerateData()
     {
@@ -250,7 +295,7 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
             displayAs: "截面",
             usePolarization: _usePolarization,
             normalize: false,
-            useCentroid: _useCentroid) { AfocalIntegration = AfocalIntegration }.GenerateData();
+            useCentroid: _useCentroid) { AfocalIntegration = AfocalIntegration, UseCheckedFocusedPupil = UseCheckedFocusedPupil }.GenerateData();
         var extentKey = Optic.ImageSpaceAfocal ? "ImageExtentMilliradians" : "ImageExtentMicrometers";
         var graphScaleMicrometers = source.Values.TryGetValue(extentKey, out var extent)
             ? Convert.ToDouble(extent) / 2
@@ -500,7 +545,8 @@ internal static class PsfProfilePresentation
         var minimum = graphScale > 0 ? -graphScale : x[0];
         var maximum = graphScale > 0 ? graphScale : points[^1].X;
         if (minimum < x[0] - Math.Abs(spacing) * 1e-10 || maximum > points[^1].X + Math.Abs(spacing) * 1e-10)
-            throw new AnalysisDataUnavailableException("FFT PSF Cross Section", "the requested physical range exceeds the independent Fourier interval; increase pupil sampling");
+            throw new AnalysisDataUnavailableException("FFT PSF Cross Section", "the requested physical range exceeds the independent Fourier interval; increase pupil sampling")
+            { CanRetryAtHigherSampling = true };
         var coordinates = Enumerable.Range(0, count).Select(i => minimum + (maximum - minimum) * i / (count - 1.0)).ToArray();
         var values = MtfThroughFocusAnalysis.CubicSplineInterpolate(x, y, coordinates.Select(v => Math.Min(v, x[^1])).ToArray());
         return coordinates.Select((v, i) => new AnalysisPoint(v, Math.Max(0, values[i]))).ToArray();

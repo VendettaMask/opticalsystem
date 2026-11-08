@@ -1,0 +1,454 @@
+{
+  "nativeWavefrontSha256": "b4af1c138e217ad97dc16d196c710910d5c4de196e47c5a0282f32837ea3ce75",
+  "nativeWavefrontSettingsSha256": "a8b17430d79d706a3531093bd04c50e1b1e74de8bd10e321ae6f42cd864a988a",
+  "nativePsfSettingsSha256": "d65ca87b56d80ce5aec0616ec55a30c225be95f7409881e8479623e7f8ec4ba8",
+  "nativePrescriptionSha256": "bb84a0d1f697d04406da47483cf43eb467314f39b46c3f8a82a9ada603daf2e5",
+  "sourceSha256": "8b9d3cb3c43ae2356462247afa6e3a5b84d4fc5626aa435d04bfa5f9c2db3bc9",
+  "finiteNativePupilNodes": 3001,
+  "nativeWavefrontMaximumFitErrorWaves": 4.58833690625271e-08,
+  "nativeMeridianMaximumHoldoutErrorWaves": 4.828976056525658e-08,
+  "nativeWorkingFNumber": 200.0,
+  "axisMicrometers": [
+    -15.75,
+    -15.5,
+    -15.25,
+    -15.0,
+    -14.75,
+    -14.5,
+    -14.25,
+    -14.0,
+    -13.75,
+    -13.5,
+    -13.25,
+    -13.0,
+    -12.75,
+    -12.5,
+    -12.25,
+    -12.0,
+    -11.75,
+    -11.5,
+    -11.25,
+    -11.0,
+    -10.75,
+    -10.5,
+    -10.25,
+    -10.0,
+    -9.75,
+    -9.5,
+    -9.25,
+    -9.0,
+    -8.75,
+    -8.5,
+    -8.25,
+    -8.0,
+    -7.75,
+    -7.5,
+    -7.25,
+    -7.0,
+    -6.75,
+    -6.5,
+    -6.25,
+    -6.0,
+    -5.75,
+    -5.5,
+    -5.25,
+    -5.0,
+    -4.75,
+    -4.5,
+    -4.25,
+    -4.0,
+    -3.75,
+    -3.5,
+    -3.25,
+    -3.0,
+    -2.75,
+    -2.5,
+    -2.25,
+    -2.0,
+    -1.75,
+    -1.5,
+    -1.25,
+    -1.0,
+    -0.75,
+    -0.5,
+    -0.25,
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0,
+    1.25,
+    1.5,
+    1.75,
+    2.0,
+    2.25,
+    2.5,
+    2.75,
+    3.0,
+    3.25,
+    3.5,
+    3.75,
+    4.0,
+    4.25,
+    4.5,
+    4.75,
+    5.0,
+    5.25,
+    5.5,
+    5.75,
+    6.0,
+    6.25,
+    6.5,
+    6.75,
+    7.0,
+    7.25,
+    7.5,
+    7.75,
+    8.0,
+    8.25,
+    8.5,
+    8.75,
+    9.0,
+    9.25,
+    9.5,
+    9.75,
+    10.0,
+    10.25,
+    10.5,
+    10.75,
+    11.0,
+    11.25,
+    11.5,
+    11.75,
+    12.0,
+    12.25,
+    12.5,
+    12.75,
+    13.0,
+    13.25,
+    13.5,
+    13.75,
+    14.0,
+    14.25,
+    14.5,
+    14.75,
+    15.0,
+    15.25,
+    15.5,
+    15.75,
+    16.0
+  ],
+  "nativePupilPhaseFitDegree": 10,
+  "coarseReferenceFitDegree": 8,
+  "wavelengthMicrometers": 0.5875618,
+  "pupilReferenceConvergence": {
+    "nodes": 16384,
+    "maxAbsolute": 4.445359635951718e-10,
+    "nrmse": 3.76242436864818e-09,
+    "pointwise": true,
+    "verdict": "Pass"
+  },
+  "quadratureConvergence": {
+    "nodes": 16384,
+    "maxAbsolute": 7.771561172376096e-16,
+    "nrmse": 4.437573729404342e-15,
+    "pointwise": true,
+    "verdict": "Pass"
+  },
+  "originalTolerance": {
+    "absolute": 1e-05,
+    "relative": 0.001,
+    "nrmse": 0.01,
+    "closeNrmse": 0.03,
+    "minimumCoverage": 0.95
+  },
+  "core": [
+    {
+      "n": 64,
+      "sha256": "a800f817a6a10490e7eac225a2961b628a367aaece05b235cc7996b3010e1140",
+      "phase": {
+        "Status": "ResolvedAtNodes",
+        "ConnectedEdges": 5876,
+        "MaximumStepWaves": 0.2937425581318682,
+        "Criterion": "LocalUnwrappedPupilPhaseStep/v1",
+        "CertifiesConvergence": false
+      },
+      "comparison": {
+        "nodes": 16384,
+        "maxAbsolute": 0.0011367375824379022,
+        "nrmse": 0.010068025667006065,
+        "pointwise": false,
+        "verdict": "Close"
+      }
+    },
+    {
+      "n": 128,
+      "sha256": "7d390732e936ab3b18ea203319d02e298ec126ded13cfe31a30cbce68bfb9d12",
+      "phase": {
+        "Status": "ResolvedAtNodes",
+        "ConnectedEdges": 24652,
+        "MaximumStepWaves": 0.15433706118693602,
+        "Criterion": "LocalUnwrappedPupilPhaseStep/v1",
+        "CertifiesConvergence": false
+      },
+      "comparison": {
+        "nodes": 16384,
+        "maxAbsolute": 0.00018854487474001536,
+        "nrmse": 0.0016717306221687104,
+        "pointwise": false,
+        "verdict": "Pass"
+      }
+    },
+    {
+      "n": 256,
+      "sha256": "189eb9f9eaa88f7e4e409096f00aaf60d57be6cc44216ab386b689bcbea01834",
+      "phase": {
+        "Status": "ResolvedAtNodes",
+        "ConnectedEdges": 100724,
+        "MaximumStepWaves": 0.07903123666156059,
+        "Criterion": "LocalUnwrappedPupilPhaseStep/v1",
+        "CertifiesConvergence": false
+      },
+      "comparison": {
+        "nodes": 16384,
+        "maxAbsolute": 0.00020643117423267687,
+        "nrmse": 0.00183600847740778,
+        "pointwise": false,
+        "verdict": "Pass"
+      }
+    },
+    {
+      "n": 512,
+      "sha256": "40748f47d12a41b4c6af601879369715b1b991eb3f267379fd3855f67202eaad",
+      "phase": {
+        "Status": "ResolvedAtNodes",
+        "ConnectedEdges": 407516,
+        "MaximumStepWaves": 0.040026368902884024,
+        "Criterion": "LocalUnwrappedPupilPhaseStep/v1",
+        "CertifiesConvergence": false
+      },
+      "comparison": {
+        "nodes": 16384,
+        "maxAbsolute": 6.5898694550092785e-06,
+        "nrmse": 5.8418544538096704e-05,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    },
+    {
+      "n": 1024,
+      "sha256": "3c8b89a77c9490f6ea0fd8d24016ab4f269bd3a77f74010b1866464bc74ce1e9",
+      "phase": {
+        "Status": "ResolvedAtNodes",
+        "ConnectedEdges": 1638452,
+        "MaximumStepWaves": 0.020107112698809937,
+        "Criterion": "LocalUnwrappedPupilPhaseStep/v1",
+        "CertifiesConvergence": false
+      },
+      "comparison": {
+        "nodes": 16384,
+        "maxAbsolute": 2.035581057274749e-05,
+        "nrmse": 0.00018128022325164102,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    }
+  ],
+  "coreConvergence": [
+    {
+      "n": [
+        64,
+        128
+      ],
+      "comparison": {
+        "nodes": 16384,
+        "maxAbsolute": 0.0009481927076978869,
+        "nrmse": 0.008381798681499518,
+        "pointwise": false,
+        "verdict": "Pass"
+      }
+    },
+    {
+      "n": [
+        128,
+        256
+      ],
+      "comparison": {
+        "nodes": 16384,
+        "maxAbsolute": 1.79563733550131e-05,
+        "nrmse": 0.00016400589363314678,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    },
+    {
+      "n": [
+        256,
+        512
+      ],
+      "comparison": {
+        "nodes": 16384,
+        "maxAbsolute": 0.0001998413047776676,
+        "nrmse": 0.0017774826239358367,
+        "pointwise": false,
+        "verdict": "Pass"
+      }
+    },
+    {
+      "n": [
+        512,
+        1024
+      ],
+      "comparison": {
+        "nodes": 16384,
+        "maxAbsolute": 1.3765941117738212e-05,
+        "nrmse": 0.00012283912623612002,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    }
+  ],
+  "formal": {
+    "sha256": "84aba295f3994722f05b18dcbd3692fa618bfa6505b4c7dbfb10d3cf0acb87b3",
+    "provenance": {
+      "canonicalAnalysisKey": "PSF",
+      "requestFingerprint": "22ef1be2784ad3eb7a66d45dfc608936ab2f2914bc02ece0460da6c74b1f6dd7",
+      "settingsTranslation": null,
+      "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+      "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+      "codeFingerprint": "bcad33bd01595cec4edbeb914f06f44af2d9be7940a96ce4eb838ee96395d62f:58be34eb2ee3a836f3115f381acec0bd6b59aec72fc2faa518404c6407ee16ef"
+    },
+    "onlyChangedWorkbenchSettings": {
+      "FourierSamplingMode": "Adaptive",
+      "FourierMaximumSampling": "2048",
+      "FourierRelativeAccuracy": "0.001"
+    },
+    "certificate": {
+      "protocol": "FourierPhysicalDomainConvergence/v2",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 64,
+      "returnedPupilSampling": 1024,
+      "maximumPupilSampling": 2048,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1e-07,
+      "validated": true,
+      "steps": [
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": false,
+          "relativeRmsChange": 27.0916773239192,
+          "maximumAbsoluteChange": 0.5097331761157808,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.8547206698770387,
+          "maximumAbsoluteChange": 0.1106948419279754,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": true,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": false,
+          "relativeRmsChange": 27.091677323920297,
+          "maximumAbsoluteChange": 0.5097331761157896,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.854720669877028,
+          "maximumAbsoluteChange": 0.11069484192796342,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.5956088172927605,
+          "maximumAbsoluteChange": 0.04834347540144959,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.25813881513577663,
+          "maximumAbsoluteChange": 0.02824277808725227,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "usesPhysicalPsfWindow": true
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.00012625393327083683,
+          "maximumAbsoluteChange": 1.37659411178076e-05,
+          "usesDensePhysicalPupil": false,
+          "usesPhysicalPsfWindow": true
+        }
+      ],
+      "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+      "evaluatedNominalPupilCells": 26353664,
+      "maximumNominalPupilCells": 100000000,
+      "requestedRelativeRmsDeviation": null,
+      "requestedMaximumAbsoluteDeviation": null
+    },
+    "comparison": {
+      "nodes": 16384,
+      "maxAbsolute": 2.035581057344138e-05,
+      "nrmse": 0.0001812802232519913,
+      "pointwise": true,
+      "verdict": "Pass"
+    },
+    "sameTierControl": {
+      "nodes": 16384,
+      "maxAbsolute": 1.7069679003611782e-15,
+      "nrmse": 1.3215373044742195e-15,
+      "pointwise": true,
+      "verdict": "Pass"
+    }
+  }
+}

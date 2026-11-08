@@ -1,4 +1,5 @@
 using OpticalSystemDesign.Core.Services;
+using System.Text.Json.Serialization;
 
 namespace OpticalSystemDesign.Core.Analysis;
 
@@ -31,6 +32,17 @@ public sealed record FourierValidationStep(int PupilSampling, bool PhaseResolved
     double? RelativeRmsChange, double? MaximumAbsoluteChange)
 {
     public bool UsesDensePhysicalPupil { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool UsesStreamedPhysicalPupil { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public bool UsesPhysicalPsfWindow { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public double? MaximumPupilPhaseStepWaves { get; init; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? UnavailableReason { get; init; }
 }
 
 public sealed record FourierValidationReport(string Protocol, FourierSamplingMode Mode,
@@ -40,6 +52,8 @@ public sealed record FourierValidationReport(string Protocol, FourierSamplingMod
 {
     public long EvaluatedNominalPupilCells { get; init; }
     public long MaximumNominalPupilCells { get; init; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public long EvaluatedStreamedPupilNodes { get; init; }
     public double? RequestedRelativeRmsDeviation { get; init; }
     public double? RequestedMaximumAbsoluteDeviation { get; init; }
 }
@@ -53,6 +67,7 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
 {
     public const string Protocol = "FourierPhysicalDomainConvergence/v1";
     public const string DensePupilProtocol = "FourierPhysicalDomainConvergence/v2";
+    public const string StreamedPupilProtocol = "FourierPhysicalDomainConvergence/v3";
     private readonly string name;
     private readonly int requested;
     private readonly Func<int, BaseAnalysis> create;
@@ -76,27 +91,182 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
         var sourceCount = Math.Max(1L, Optic.Fields.Count) * Math.Max(1L, Optic.Wavelengths.Count);
         (double Rms, double Max)? requestedError = null;
         AnalysisData? original = null;
+        var originalSampling = 0;
         var supportsDensePupil = false;
+        var supportsPhysicalPsfWindow = false;
+        var supportsStreamedPsf = false;
+        var supportsStreamedProfile = false;
+        DiffractionEncircledEnergyAnalysis? streamedEnergy = null;
         var usedDensePupil = false;
+        var usedStreamedPupil = false;
+        var allowStreamedPupil = options.Mode == FourierSamplingMode.Adaptive && name is "PSF" or "MTF"
+            && options.MaximumPupilSampling > AnalysisResourceLimits.MaximumFftGridSize;
+        var allowStreamedProfile = options.Mode == FourierSamplingMode.Adaptive && name == "FFT PSF Cross Section"
+            && options.MaximumPupilSampling > AnalysisResourceLimits.MaximumFftGridSize;
+        var allowStreamedEnergy = options.Mode == FourierSamplingMode.Adaptive && name == "Diffraction Encircled Energy";
+        var streamedNodes = 0L;
+        var physicalSamplingEstimate = 0d;
+        var normalizedPupilEstimate = 0d;
+        var retryWithPhysicalWindow = false;
         if (source is null) return Unavailable("The optical source cannot be identified losslessly for Fourier validation.");
-        var result = Scan(requested, options.MaximumPupilSampling, densePhysicalPupil: false);
+        var denseLimit = Math.Min(options.MaximumPupilSampling, AnalysisResourceLimits.MaximumFftGridSize);
+        if (allowStreamedEnergy)
+        {
+            var initial = Scan(requested, requested, densePhysicalPupil: false);
+            if (initial is not null) return initial;
+            return original is null || streamedEnergy is null ? Unavailable("No original physical energy interval is available.")
+                : StreamedPupil(original, energy: streamedEnergy);
+        }
+        var result = Scan(requested, allowStreamedPupil ? denseLimit : options.MaximumPupilSampling, densePhysicalPupil: false);
         if (result is not null) return result;
 
-        var denseLimit = Math.Min(options.MaximumPupilSampling, AnalysisResourceLimits.MaximumFftGridSize);
         if (options.Mode == FourierSamplingMode.Adaptive && supportsDensePupil && requested <= denseLimit / 4)
         {
             usedDensePupil = true;
             result = Scan(checked(requested * 2), denseLimit, densePhysicalPupil: true);
-            if (result is not null) return result;
+            var canStream = allowStreamedPupil || allowStreamedProfile && supportsStreamedProfile;
+            if (result is not null && (!canStream || result.Outcome != AnalysisOutcome.Unavailable)) return result;
+        }
+        if (allowStreamedPupil && original is not null && physicalSamplingEstimate > 0 && (name == "MTF" || supportsStreamedPsf))
+        {
+            result = StreamedPupil(original);
+            return retryWithPhysicalWindow ? StreamedPupil(original, forcePhysicalWindow: true) : result;
+        }
+        if (allowStreamedProfile && supportsStreamedProfile && original is not null)
+            return StreamedPupil(original, profile: true);
+        if (result is null && options.Mode == FourierSamplingMode.Adaptive && supportsPhysicalPsfWindow
+            && original?.Values.GetValueOrDefault("DisplaySize") is int)
+        {
+            var limit = Math.Min(denseLimit, DiffractionEngine.MaximumPhysicalPsfWindowSampling);
+            if (requested <= limit / 4)
+            {
+                var first = requested;
+                while (first <= limit / 4) first *= 2;
+                usedDensePupil = true;
+                result = Scan(first, limit, densePhysicalPupil: false, physicalPsfWindow: true);
+                if (result is not null) return result;
+            }
         }
         return Unavailable("The declared pupil-sampling budget did not establish result convergence.");
 
-        AnalysisData? Scan(int first, int last, bool densePhysicalPupil)
+        AnalysisData StreamedPupil(AnalysisData domain, bool profile = false, bool forcePhysicalWindow = false,
+            DiffractionEncircledEnergyAnalysis? energy = null)
+        {
+            const int increment = 256;
+            var displaySize = domain.Values.GetValueOrDefault("DisplaySize") as int?;
+            if (name == "PSF" && displaySize is null)
+                return Unavailable("Streamed pupil refinement requires a fixed physical image window.");
+            var maximumSampling = profile || energy is not null ? DiffractionEngine.MaximumStreamedPhysicalPsfSampling
+                : name == "PSF" ? DiffractionEngine.MaximumStreamedPsfSampling : DiffractionEngine.MaximumStreamedMtfSampling;
+            var limit = Math.Min(options.MaximumPupilSampling, maximumSampling);
+            limit -= limit % increment;
+            var symmetricEnergy = limit > 4096 && energy?.UsesSagittalCentroidSymmetry == true;
+            if (symmetricEnergy) limit = Math.Min(limit, DiffractionEngine.MaximumSymmetricCentroidEnergySampling);
+            // Use the observed unresolved grid step to plan a lower trial,
+            // with a margin for phase curvature. Both trials still enforce
+            // every actual pupil edge and compare the full physical result.
+            var lower = symmetricEnergy ? (7 * limit / 8 / increment) * increment : profile || energy is not null
+                ? Math.Max(profile ? AnalysisResourceLimits.MaximumFftGridSize : increment, (3 * limit / 4 / increment) * increment)
+                : LowerTrial(physicalSamplingEstimate);
+            var physicalWindow = false;
+            if ((forcePhysicalWindow || lower >= limit) && name == "PSF" && normalizedPupilEstimate > 0)
+            {
+                // A narrow image pitch can stretch the source lattice so far
+                // that it wastes the nominal budget on empty samples. Read the
+                // same physical image frequencies from an unstretched pupil.
+                physicalWindow = true;
+                limit = Math.Min(limit, DiffractionEngine.MaximumStreamedPhysicalPsfSampling);
+                lower = LowerTrial(normalizedPupilEstimate);
+            }
+            if (lower >= limit || !double.IsFinite(lower))
+                return Unavailable("The streamed pupil budget cannot fit two distinct phase-resolved trials.");
+            usedStreamedPupil = true;
+            AnalysisData? previous = null;
+            var candidates = new List<int> { (int)lower, limit };
+            for (var trial = 0; trial < candidates.Count; trial++)
+            {
+                var n = candidates[trial];
+                ComputationCancellation.ThrowIfCancellationRequested();
+                try
+                {
+                    var phase = new List<FftPupilSampling>();
+                    AnalysisData data;
+                    var remaining = options.MaximumNominalPupilCells - work - streamedNodes;
+                    using (FftPupilSampling.RequireResolvedResults())
+                    using (FftPupilSampling.ObserveForValidation(phase))
+                        data = energy is not null ? energy.GenerateStreamedPhysicalPupil(n, remaining) : create(n) switch
+                        {
+                            PsfAnalysis { SupportsStreamedPhysicalPupil: true } psf when displaySize.HasValue
+                                => psf.GenerateStreamedPhysicalPupil(displaySize.Value, remaining, physicalWindow),
+                            MtfAnalysis { SupportsStreamedPhysicalPupil: true } mtf
+                                => mtf.GenerateStreamedPhysicalPupil(remaining),
+                            FftPsfCrossSectionAnalysis { SupportsStreamedPhysicalPupil: true } section when profile
+                                => section.GenerateStreamedPhysicalPupil(domain, remaining),
+                            _ => Unavailable("Streamed refinement requires one scalar focal field and wavelength with a fixed Fourier interval.")
+                        };
+                    if (data.Outcome != AnalysisOutcome.Success && (energy is null || phase.Count == 0)) return data;
+                    if (PupilSourceIdentity.Capture(Optic)?.Fingerprint != source)
+                        return Unavailable("The optical source changed during streamed Fourier validation.");
+                    if (data.Values.GetValueOrDefault("StreamedFourierPupil") is not StreamedFourierPupilDiagnostics diagnostics)
+                        return Unavailable("Streamed pupil diagnostics are unavailable.");
+                    streamedNodes += diagnostics.TracedNodes;
+                    var resolved = phase.Count == 1 && phase[0].Status == FftPhaseSamplingStatus.ResolvedAtNodes;
+                    var projected = data.Outcome == AnalysisOutcome.Success ? Project(data, domain) : null;
+                    var error = previous is null || projected is null ? ((double Rms, double Max)?)null : Difference(previous, projected);
+                    steps.Add(new(n, resolved, error?.Rms, error?.Max)
+                    {
+                        UsesStreamedPhysicalPupil = true,
+                        UsesPhysicalPsfWindow = physicalWindow,
+                        MaximumPupilPhaseStepWaves = phase.Count == 1 ? phase[0].MaximumStepWaves : null
+                    });
+                    if (!resolved)
+                    {
+                        if ((profile || energy is not null) && trial == 0 && phase.Count == 1
+                            && phase[0].Status == FftPhaseSamplingStatus.UndersampledPhase)
+                        {
+                            var refinedLower = LowerTrial(n * phase[0].MaximumStepWaves / FftPupilSampling.MaximumAdjacentStepWaves);
+                            if (refinedLower > n && refinedLower < limit)
+                            {
+                                candidates.Insert(1, (int)refinedLower);
+                                continue;
+                            }
+                        }
+                        return Unavailable("Streamed Fourier pupil phase remains unresolved.");
+                    }
+                    if (projected is null) return data;
+                    if (error is { } delta && Accept(delta))
+                    {
+                        if (originalSampling == requested) requestedError = Difference(domain, projected);
+                        return Attach(projected, true, n,
+                            name == "MTF"
+                                ? "Two streamed phase-resolved pupil densities agree over the requested physical frequency interval."
+                                : profile
+                                ? "Two streamed phase-resolved pupil densities agree on the requested physical image axis."
+                                : energy is not null
+                                ? "Two streamed phase-resolved pupils agree on both requested energy curves."
+                                : "Two streamed phase-resolved pupil densities agree over every requested physical image node.");
+                    }
+                    previous = projected;
+                }
+                catch (InvalidOperationException error) { return Unavailable(error.Message); }
+            }
+            retryWithPhysicalWindow = !physicalWindow && name == "PSF" && normalizedPupilEstimate > 0;
+            return Unavailable("The two phase-resolved streamed pupils did not meet the declared output accuracy.");
+
+            static double LowerTrial(double estimate) => Math.Max(AnalysisResourceLimits.MaximumFftGridSize,
+                Math.Ceiling(estimate * (17d / 16) / increment) * increment);
+        }
+
+        AnalysisData? Scan(int first, int last, bool densePhysicalPupil, bool physicalPsfWindow = false)
         {
             AnalysisData? previous = null;
             var previousResolved = false;
             for (var n = first; n <= last; n = checked(n * 2))
             {
+                // Eligible profiles can use the remaining ray budget directly on
+                // the original axis once the bounded dense source is exhausted.
+                if (!densePhysicalPupil && allowStreamedProfile && supportsStreamedProfile && n > denseLimit)
+                    break;
                 ComputationCancellation.ThrowIfCancellationRequested();
                 // Conservative nominal-cell accounting includes both actual and
                 // ideal scalar pupils and all defined fields/wavelengths. It is
@@ -106,34 +276,65 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                     return Unavailable("The total declared Fourier pupil-cell budget was exhausted.");
                 work += nextWork;
                 var phase = new List<FftPupilSampling>(); AnalysisData data;
+                var canRetryDisconnectedPsf = false;
                 try
                 {
                     using (FftPupilSampling.RequireResolvedResults())
                     using (FftPupilSampling.ObserveForValidation(phase))
                     {
                         var analysis = create(n);
-                        if (densePhysicalPupil)
+                        canRetryDisconnectedPsf = options.Mode == FourierSamplingMode.Adaptive
+                            && analysis is PsfAnalysis { SupportsDensePhysicalPupil: true };
+                        if (physicalPsfWindow && analysis is PsfAnalysis { SupportsPhysicalPsfWindow: true } physical
+                            && original?.Values.GetValueOrDefault("DisplaySize") is int displaySize)
+                        {
+                            data = physical.GeneratePhysicalPsfWindow(displaySize);
+                        }
+                        else if (densePhysicalPupil)
                         {
                             if (analysis is FftPsfCrossSectionAnalysis { SupportsDensePhysicalPupil: true } section)
                                 data = section.GenerateDensePhysicalPupil();
-                            else if (analysis is PsfAnalysis { SupportsDensePhysicalPupil: true } psf
-                                && original?.Values.GetValueOrDefault("DisplaySize") is int displaySize)
-                                data = psf.GenerateDensePhysicalPupil(displaySize);
+                            else if (analysis is PsfAnalysis { SupportsDensePhysicalPupil: true } psf)
+                                data = psf.GenerateDensePhysicalPupil(original?.Values.GetValueOrDefault("DisplaySize") as int?);
                             else
                                 return Unavailable("Dense pupil refinement requires an eligible scalar focal FFT analysis.");
                         }
                         else
                         {
                             if (n == requested)
+                            {
+                                if (allowStreamedEnergy)
+                                {
+                                    if (analysis is not DiffractionEncircledEnergyAnalysis { SupportsStreamedPhysicalPupil: true } selectedEnergy)
+                                        return Unavailable("Adaptive energy requires a scalar focal radial analysis with a selected field and wavelength and a positive maximum radius.");
+                                    streamedEnergy = selectedEnergy;
+                                }
                                 supportsDensePupil = analysis is FftPsfCrossSectionAnalysis { SupportsDensePhysicalPupil: true }
                                     or PsfAnalysis { SupportsDensePhysicalPupil: true };
-                            data = analysis.GenerateData();
+                                supportsPhysicalPsfWindow = analysis is PsfAnalysis { SupportsPhysicalPsfWindow: true };
+                                supportsStreamedPsf = analysis is PsfAnalysis { SupportsStreamedPhysicalPupil: true };
+                                supportsStreamedProfile = analysis is FftPsfCrossSectionAnalysis { SupportsStreamedPhysicalPupil: true };
+                            }
+                            data = analysis is PsfAnalysis directPsf
+                                ? directPsf.GenerateSamplingValidationBaseline() : analysis.GenerateData();
                         }
                     }
                 }
-                catch (ArgumentException) when (densePhysicalPupil)
+                catch (InvalidOperationException unavailable) when (options.Mode == FourierSamplingMode.Adaptive
+                    && (unavailable is AnalysisDataUnavailableException { CanRetryAtHigherSampling: true }
+                        || unavailable.Data[DiffractionEngine.InsufficientFftPupilNodesKey] is true))
+                {
+                    var reason = unavailable is AnalysisDataUnavailableException dataUnavailable
+                        ? dataUnavailable.Reason : unavailable.Message;
+                    steps.Add(new(n, false, null, null) { UsesDensePhysicalPupil = densePhysicalPupil,
+                        UsesPhysicalPsfWindow = physicalPsfWindow, UnavailableReason = reason });
+                    previous = null;
+                    previousResolved = false;
+                    continue;
+                }
+                catch (ArgumentException) when (densePhysicalPupil || physicalPsfWindow)
                 { return Unavailable("Dense Fourier pupil sampling exceeds its physical coverage or allocation limit."); }
-                catch (AnalysisDataUnavailableException unavailable) when (densePhysicalPupil)
+                catch (AnalysisDataUnavailableException unavailable) when (densePhysicalPupil || physicalPsfWindow)
                 { return Unavailable(unavailable.Message); }
                 catch (ArgumentOutOfRangeException) when (n > requested)
                 { return Unavailable("The refined Fourier grid exceeds the existing backend allocation limit."); }
@@ -153,20 +354,55 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                     return Unavailable("This protocol requires linear scalar intensity or modulation without peak normalization.");
                 if (data.Table is not null || data.PlotPanes is { Count: > 0 })
                     return Unavailable("This validation protocol requires a scalar Fourier plot without result tables or panes.");
-                original ??= data;
+                if (original is null)
+                {
+                    original = data;
+                    originalSampling = n;
+                }
                 AnalysisData projected;
                 try { projected = Project(data, original); }
                 catch (InvalidOperationException e) { return Unavailable(e.Message); }
                 var resolved = phase.Count > 0 && phase.All(p => p.Status == FftPhaseSamplingStatus.ResolvedAtNodes);
+                if (allowStreamedPupil && !densePhysicalPupil && phase.Count == 1
+                    && phase[0].Status == FftPhaseSamplingStatus.UndersampledPhase)
+                {
+                    physicalSamplingEstimate = n * phase[0].MaximumStepWaves / FftPupilSampling.MaximumAdjacentStepWaves;
+                    if (supportsStreamedPsf && data.Values.GetValueOrDefault("PupilGridStretchX") is double[] { Length: 1 } stretchX
+                        && data.Values.GetValueOrDefault("PupilGridStretchY") is double[] { Length: 1 } stretchY)
+                    {
+                        var stretch = Math.Min(stretchX[0], stretchY[0]);
+                        normalizedPupilEstimate = double.IsFinite(stretch) && stretch > 1 ? physicalSamplingEstimate / stretch : 0;
+                    }
+                }
                 if (phase.Any(p => p.Status is FftPhaseSamplingStatus.NoConnectedSamples or FftPhaseSamplingStatus.UnverifiedNodeOrder))
-                    return Unavailable("The physical pupil adjacency cannot be verified.");
+                {
+                    if (!canRetryDisconnectedPsf || phase.Any(p => p.Status == FftPhaseSamplingStatus.UnverifiedNodeOrder)
+                        || data.Values.GetValueOrDefault("DisplaySize") is not int displaySize
+                        || data.Values.GetValueOrDefault("RequestedDisplaySize") is not int requestedDisplaySize
+                        || displaySize != requestedDisplaySize)
+                        return Unavailable("The physical pupil adjacency cannot be verified.");
+
+                    // Keep the full original image coordinates, but exclude a disconnected pupil's intensity.
+                    if (n == requested) originalSampling = 0;
+                    steps.Add(new(n, false, null, null)
+                    {
+                        UsesDensePhysicalPupil = densePhysicalPupil,
+                        UsesPhysicalPsfWindow = physicalPsfWindow,
+                        UnavailableReason = "The sampled pupil has no connected illuminated nodes."
+                    });
+                    previous = null;
+                    previousResolved = false;
+                    continue;
+                }
                 var error = previous is null ? ((double Rms, double Max)?)null : Difference(previous, projected);
-                steps.Add(new(n, resolved, error?.Rms, error?.Max) { UsesDensePhysicalPupil = densePhysicalPupil });
+                steps.Add(new(n, resolved, error?.Rms, error?.Max) { UsesDensePhysicalPupil = densePhysicalPupil,
+                    UsesPhysicalPsfWindow = physicalPsfWindow });
                 if (previousResolved && resolved && error is { } delta && Accept(delta))
                 {
                     var candidate = options.Mode == FourierSamplingMode.ValidateRequested ? Project(original, original) : projected;
                     var originalError = Difference(candidate, projected);
-                    requestedError = Difference(Project(original, original), projected);
+                    if (originalSampling == requested)
+                        requestedError = Difference(Project(original, original), projected);
                     if (!Accept(originalError)) return Unavailable("The requested finite sum differs from the resolved reference beyond the declared accuracy.");
                     return Attach(candidate, true, options.Mode == FourierSamplingMode.ValidateRequested ? requested : n,
                         "Two independently sampled phase-resolved outputs agree over every requested physical node.");
@@ -181,10 +417,12 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
         {
             var values = new Dictionary<string, object>(data.Values)
             {
-                ["FourierSamplingValidation"] = new FourierValidationReport(usedDensePupil ? DensePupilProtocol : Protocol, options.Mode, requested, actual,
+                ["FourierSamplingValidation"] = new FourierValidationReport(usedStreamedPupil ? StreamedPupilProtocol
+                    : usedDensePupil ? DensePupilProtocol : Protocol, options.Mode, requested, actual,
                     options.MaximumPupilSampling, options.RelativeRmsAccuracy, options.AbsoluteAccuracy, valid, steps.ToArray(), reason)
                 {
                     EvaluatedNominalPupilCells = work, MaximumNominalPupilCells = options.MaximumNominalPupilCells,
+                    EvaluatedStreamedPupilNodes = streamedNodes,
                     RequestedRelativeRmsDeviation = requestedError?.Rms, RequestedMaximumAbsoluteDeviation = requestedError?.Max
                 }
             };

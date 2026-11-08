@@ -1,0 +1,219 @@
+{
+  "classification": "OriginalApplicabilityDiagnosticOnly",
+  "nativeRaySha256": "f10932ba1ddb438722f7af7add2402b86c7d7c7c27a8e3113449bc20261cdb41",
+  "fftModelSha256": "cb3bee6f520fe2e0868d0918e0f453d0951994b17d46f903db2d41802a9237ea",
+  "vendorDefinitions": {
+    "fftPsf": "https://ansyshelp.ansys.com/public/views/secured/zemax/v26103/en/opticstudio_user_guide/OpticStudio_Help/topics/FFT_PSF.html",
+    "fftMtf": "https://ansyshelp.ansys.com/public/views/secured/zemax/v26103/en/opticstudio_user_guide/OpticStudio_Help/topics/FFT_MTF.html",
+    "fftCrossSection": "https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v252/en/OpticStudio_User_Guide/OpticStudio_Help/topics/FFT_Cross_Section.html",
+    "fftEncircledEnergy": "https://ansyshelp.ansys.com/public/views/secured/zemax/v26103/en/opticstudio_user_guide/OpticStudio_Help/topics/Diffraction_enclosed_energy.html"
+  },
+  "rayImageDisplacementMillimeters": [
+    42.29730422881527,
+    48.08726023371766
+  ],
+  "rayImageDisplacementWavelengths": [
+    76904.18950693685,
+    87431.38224312301
+  ],
+  "referencePhaseTransportDifference": {
+    "commonPistonWaves": 3801.313938071373,
+    "peakToValleyWaves": 785.6106276823884,
+    "pistonRemovedWeightedRmsWaves": 234.94955696913607,
+    "minimumAndMaximumWaves": [
+      3484.5932190093044,
+      4270.203846691693
+    ],
+    "scope": "Reference-transport phase difference. Rotational symmetry makes best-fit tilt zero."
+  },
+  "transverseFourierMapDifference": {
+    "measuredSineRange": [
+      0.09094899784417218,
+      0.24818433846402482
+    ],
+    "sineErrorWeightedRms": 0.0361117434502805,
+    "sineErrorMaximum": 0.09094869707990014,
+    "atHalfPupilMeasuredSine": 0.16800456891655255,
+    "atHalfPupilLinearSine": 0.12409226959690893,
+    "maximumKernelPhaseErrorAt16MicrometersWaves": 2.645780278688004
+  },
+  "fftTwoQuadratures": {
+    "coordinates": 16384,
+    "maximumAbsolute": 2.4537897213127758e-17,
+    "peakNormalizedRms": 2.626287838587777e-09,
+    "relativeL2": 1.0047067240014281e-07
+  },
+  "huygensTwoQuadratures": {
+    "coordinates": 16384,
+    "maximumAbsolute": 1.1787199186499667e-16,
+    "peakNormalizedRms": 5.913592686943235e-09,
+    "relativeL2": 2.262232202521869e-07
+  },
+  "huygensPreviousValidatedLineSha256": "d35d963dad2e25b1f533cd41d144e186091e5b29563b724e3218a317f28fe3a5",
+  "huygensVersusPreviousValidatedLine": {
+    "coordinates": 32,
+    "maximumAbsolute": 2.0524418948972e-23,
+    "peakNormalizedRms": 1.4412527568214268e-14,
+    "relativeL2": 5.145234146770202e-14
+  },
+  "fullWindowFftVersusHuygens": {
+    "coordinates": 16384,
+    "maximumAbsolute": 2.0782967090276256e-10,
+    "peakNormalizedRms": 0.011244859664901245,
+    "relativeL2": 0.43016969536885963
+  },
+  "shared32WindowFftVersusHuygens": {
+    "coordinates": 1024,
+    "maximumAbsolute": 2.0782967090276256e-10,
+    "peakNormalizedRms": 0.039337463275187536,
+    "relativeL2": 0.4301785726430408
+  },
+  "sharedCentralXLineFftVersusHuygens": {
+    "coordinates": 32,
+    "maximumAbsolute": 2.0782967090276256e-10,
+    "peakNormalizedRms": 0.12050709391424141,
+    "relativeL2": 0.43020713167832514
+  },
+  "centerAndSharedWindowPeak": {
+    "fft": [
+      6.909223594823855e-10,
+      6.909223594823855e-10
+    ],
+    "huygens": [
+      4.83092688579623e-10,
+      4.83092688579623e-10
+    ]
+  },
+  "spherePhaseWithNativeSineVersusFft": {
+    "coordinates": 16384,
+    "maximumAbsolute": 3.0573238793187624e-15,
+    "peakNormalizedRms": 1.4042836390129519e-06,
+    "relativeL2": 5.372195666413246e-05
+  },
+  "planePhaseWithLinearSineVersusFft": {
+    "coordinates": 16384,
+    "maximumAbsolute": 2.0782967090276256e-10,
+    "peakNormalizedRms": 0.007862400521856423,
+    "relativeL2": 0.3007822126362665
+  },
+  "commonIdealScaledIrradianceIntegralWithin5Micrometers": {
+    "fft": 2.5240797470361297e-09,
+    "huygens": 1.7649044184367546e-09,
+    "fullPlaneEnergyFraction": false
+  },
+  "originalNativeDiagnostics": [
+    {
+      "frozenIndex": 945,
+      "capturedProperties": {
+        "SampleSize": "PsfS_64x64",
+        "OutputSize": "PsfS_128x128",
+        "Rotation": "CW0",
+        "ImageDelta": 0.25,
+        "UsePolarization": false,
+        "Type": "Linear",
+        "Normalize": false
+      },
+      "capturedSelectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      },
+      "configuration": 1,
+      "settingsSha256": "9a4e22d39cb15777754556bba643fba594af2223fa44d8bd6c2b1b6d2fe49e4d",
+      "diagnosticPayloadSha256": "c897d568c0003dcd4e860c3885b01ba035bc3330736ca2091ed54edcc03ac0aa",
+      "diagnostics": [
+        {
+          "ErrorCode": "Success",
+          "Text": "\u53d6\u6837\u592a\u4f4e, \u6570\u636e\u4e0d\u51c6\u786e!"
+        }
+      ],
+      "returnedSeries": 0,
+      "returnedGrids": 1,
+      "usableNumericReference": false
+    },
+    {
+      "frozenIndex": 947,
+      "capturedProperties": {
+        "Type": "Modulation",
+        "SampleSize": "S_64x64",
+        "ShowDiffractionLimit": false,
+        "UseDashes": false,
+        "UsePolarization": false,
+        "MaximumFrequency": 50
+      },
+      "capturedSelectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      },
+      "configuration": 1,
+      "settingsSha256": "b9125c7cad9b172841e474f7374b71a739a0ffd97d75948e59dde60fc4921ec8",
+      "diagnosticPayloadSha256": "20183b6969563c25aa7875e9241ca9ba87adaa1637e902b5f7cf3525e9048409",
+      "diagnostics": [
+        {
+          "ErrorCode": "Success",
+          "Text": "\u53d6\u6837\u592a\u4f4e, \u6570\u636e\u4e0d\u51c6\u786e!"
+        }
+      ],
+      "returnedSeries": 1,
+      "returnedGrids": 0,
+      "usableNumericReference": false
+    },
+    {
+      "frozenIndex": 949,
+      "capturedProperties": {
+        "SampleSize": "S_32x32",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "capturedSelectors": {
+        "Field": 1,
+        "Wavelength": 1
+      },
+      "configuration": 1,
+      "settingsSha256": "8d60d53e6f517c5340c9a25484e5663abb3b5cd383cf69229f9ac2eee0fc86cd",
+      "diagnosticPayloadSha256": "3cf1d65231e84f4e52b0fa2241c1b11fa77a9187c65ae0ade467ca300f5bb8ba",
+      "diagnostics": "NativeInvalidResult",
+      "returnedSeries": 0,
+      "returnedGrids": 0,
+      "usableNumericReference": false
+    },
+    {
+      "frozenIndex": 952,
+      "capturedProperties": {
+        "HuygensSample": "S_64x64",
+        "SampleSize": "S_32x32",
+        "Type": "Encircled",
+        "ReferTo": "Centroid",
+        "ScatterRays": false,
+        "ShowDiffractionLimit": true,
+        "UseDashes": false,
+        "UseHuygensPSF": false,
+        "UsePolarization": false,
+        "HuygensDelta": 0,
+        "RadiusMaximum": 5
+      },
+      "capturedSelectors": {
+        "Field": 1,
+        "Surface": 0,
+        "Wavelength": 1
+      },
+      "configuration": 1,
+      "settingsSha256": "56a21b485fa74ebf550b0901168728037664f18107fd2ad77de05055a1f67e7d",
+      "diagnosticPayloadSha256": "05e461a8625c1635d4c997f23a351f6f44f5bd03ca43f1fa07285ccdfe397a44",
+      "diagnostics": [
+        {
+          "ErrorCode": "Success",
+          "Text": "\u53d6\u6837\u592a\u4f4e, \u6570\u636e\u4e0d\u51c6\u786e!"
+        }
+      ],
+      "returnedSeries": 0,
+      "returnedGrids": 0,
+      "usableNumericReference": false
+    }
+  ],
+  "rawGridPayloadSha256": "828ac141a5049baeeb2b35ccdca9788608b4f0b735c95fe79dbe47acbb88413b"
+}

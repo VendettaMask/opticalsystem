@@ -49,6 +49,7 @@ public static partial class DiffractionEngine
             }
             else if (!TryWorkingPupilDirections(optic, field, wavelength, optic.RayAimingEnabled, 1, out directions)) return null;
             var chief = directions[0];
+            if (UsesVirtualImageExitPupilScale(optic, chief)) return optic.Paraxial.ExitPupilFNumber();
             var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
             var squared = directions.Skip(1).Select(d =>
             {

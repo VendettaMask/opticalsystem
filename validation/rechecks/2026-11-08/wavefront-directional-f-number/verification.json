@@ -1,0 +1,2323 @@
+{
+  "coreSha256": "9bd6baecb884ccec369841f6dd80d2b4597b2ad91f4c8734c9170af841417e55",
+  "originalPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "etalonEvidenceArchiveSha256": "8cabeb89a1af2faea053145e9c8ba71080328136ebd150cb7bc6cbec5b3ca323",
+  "wavefront": [
+    {
+      "index": 1070,
+      "request": "91a65e919f5cc37babb1e278e704d663a514bf005927aed4bd47d679f7985b03",
+      "nativeX": 10000,
+      "nativeY": 4.0880520523816335,
+      "nativeProjectionX": 0.00040880520523816336,
+      "workbenchProjectionX": 0.00040880520523816364,
+      "workbenchX": 10000,
+      "workbenchY": 4.088052052381636,
+      "projectionAbsoluteError": 2.710505431213761E-19,
+      "metric": {
+        "id": "Wavefront",
+        "unit": "Wave",
+        "count": 63,
+        "maxAbsolute": 9.36610788926373E-11,
+        "meanAbsolute": 4.665009714500626E-11,
+        "rmse": 5.291840845936423E-11,
+        "nrmse": 3.58679707286515E-12,
+        "maxRelative": "Infinity",
+        "p50": 5.1674220458153286E-11,
+        "p90": 7.428280213161997E-11,
+        "p95": 8.074234614241505E-11,
+        "pearson": 1.0000000000000004,
+        "worstX": 0,
+        "worstY": -0.5161290322580645,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      },
+      "sourceSha256": "adc9e96bd53e9356794b2b9d29608dd304774755a3c15a7873cbc24f4b42e4c8",
+      "meridianSha256": "9033bc43f4d223510b1954f2f5cd85ef07ae1e29d85ff41c16323ab3c1ba4322",
+      "nativeOperandsSha256": "eeea50bd824533a8efcd1580d78784eb2e31eac11c227088f4222561dd900f3e",
+      "workbenchSha256": "22ec925888a9f16eb990aff4884f2030a2282764e323417dea017fa0c22e4fab"
+    },
+    {
+      "index": 1246,
+      "request": "f74e74253c13a45bde209d55abb6ebe3d495152714770567225f06e361bdfd36",
+      "nativeX": 10000,
+      "nativeY": 1.6815367820173848,
+      "nativeProjectionX": 0.0001681536782017385,
+      "workbenchProjectionX": 0.000168153678201737,
+      "workbenchX": 10000,
+      "workbenchY": 1.6815367820173701,
+      "projectionAbsoluteError": 1.4907779871675686E-18,
+      "metric": {
+        "id": "Wavefront",
+        "unit": "Wave",
+        "count": 63,
+        "maxAbsolute": 0.02379397203355893,
+        "meanAbsolute": 0.009311833443508567,
+        "rmse": 0.01330399038577447,
+        "nrmse": 4.470149235040262E-05,
+        "maxRelative": "Infinity",
+        "p50": 0.0007269822918090085,
+        "p90": 0.02180831865291566,
+        "p95": 0.02278466926383089,
+        "pearson": 0.9999999959691295,
+        "worstX": 0,
+        "worstY": -0.6774193548387096,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      },
+      "sourceSha256": "de9dad5c977a8dde3598ca4247b6e5300587af54b302eca6898bf84bf228caf5",
+      "meridianSha256": "d5916bcdc082d5a41d1f1f66f1277ff1958115e79f74bf025456e538943cc421",
+      "nativeOperandsSha256": "6ffa150552d32d612ddc563ce2f60c23edf5f259b61555a2d0e6ca7c3be3f777",
+      "workbenchSha256": "9c1ad94fc3bbaaeb121148d716c92e1c6b9456115b9fbc916dc2f16fed09f3a5"
+    }
+  ],
+  "mtf": [
+    {
+      "index": 1073,
+      "request": "edd441fda3387120f73a1cb9a8c285e0b0d839e5dc64fa3e20af040d7c59ad64",
+      "sagittalAngularSpan": 0,
+      "tangentialAngularSpan": 0.12230764031214028,
+      "nativeImageRays": 13,
+      "nativeRaySha256": "7e056b699edc488a0474d84d41ebe38ac5e327b12fd2598ebdaf92077832056d",
+      "nativeFrozenSha256": "fb60c295f7a5e133791d2c326032297e7c312b91e934209235b17ec4abe84ab9",
+      "nativeFrozenDiagnostics": [
+        {
+          "ErrorCode": "Success",
+          "Text": "\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!"
+        }
+      ],
+      "workbenchUnavailableReason": "Fourier MTF has no valid data: the image-plane pupil frequency scale is not finite and positive.",
+      "zeroSagittalFrequencySupport": true,
+      "wavelengthMicrometers": 0.55
+    },
+    {
+      "index": 1249,
+      "request": "7c798a02d1cdf8cdc88b89f4a9ee235aef93e532aef05d5fa0cf0837e3c10ec7",
+      "sagittalAngularSpan": 0,
+      "tangentialAngularSpan": 0.25692160745149817,
+      "nativeImageRays": 13,
+      "nativeRaySha256": "8c4d9713107f3be7e6bfbb3d19a2106f3027d85e617de6f92b961647aa82bf08",
+      "nativeFrozenSha256": "2fa77b63f6f5c4ee61124b45b17c4991c80c6bb42c2f76b16b3b7d2731c6b438",
+      "nativeFrozenDiagnostics": [
+        {
+          "ErrorCode": "Success",
+          "Text": "\u53D6\u6837\u592A\u4F4E, \u6570\u636E\u4E0D\u51C6\u786E!"
+        }
+      ],
+      "workbenchUnavailableReason": "Fourier MTF has no valid data: the image-plane pupil frequency scale is not finite and positive.",
+      "zeroSagittalFrequencySupport": true,
+      "wavelengthMicrometers": 0.55
+    }
+  ],
+  "etalon": [
+    {
+      "index": 2216,
+      "request": "5db3cc1ab05953becc6f17baf88f3dd75749b947c797ee3c1582b9571f3c74a2",
+      "wave": 0.0009999,
+      "roundingScale": 10000000000,
+      "ulp": 1.9073486328125E-06,
+      "minSurrogateRadius": 8589934592,
+      "maxSagWaves": 1.4553370565423395E-06,
+      "minimumNonChiefTransverseDistance": 0.24996192378909782,
+      "nonChiefRaysMissingZeroRadiusSphere": 80,
+      "maxStablePlaneResidual": 0,
+      "maxOriginalNativeResidual": 0.0009121537694981691,
+      "maxQuantizationModelResidual": 1.2915937850493941E-14,
+      "comparisons": [
+        {
+          "radius": 8589934592,
+          "sign": -1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.4548937805358622E-06,
+              "meanAbsolute": 4.360365677591675E-07,
+              "rmse": 6.185011209140024E-07,
+              "nrmse": 0.06185011209140023,
+              "maxRelative": 1.0000015075000592,
+              "p50": 2.94615990558512E-07,
+              "p90": 1.1784621856995552E-06,
+              "p95": 1.3130416369336156E-06,
+              "pearson": 0.127578437679394,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.4553370565423395E-06,
+              "meanAbsolute": 4.361694491916936E-07,
+              "rmse": 6.186896227864177E-07,
+              "nrmse": 0.06186896227864177,
+              "maxRelative": 1,
+              "p50": 2.947057539498237E-07,
+              "p90": 1.1788230157992948E-06,
+              "p95": 1.3134416935294614E-06,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        },
+        {
+          "radius": 8589934592,
+          "sign": 1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.4548937805358622E-06,
+              "meanAbsolute": 4.360366279806757E-07,
+              "rmse": 6.1850123565732E-07,
+              "nrmse": 0.061850123565731996,
+              "maxRelative": 1.0000015075000592,
+              "p50": 2.94615990558512E-07,
+              "p90": 1.1784628963133525E-06,
+              "p95": 1.3130416369336156E-06,
+              "pearson": -0.127578437679394,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.4553370565423395E-06,
+              "meanAbsolute": 4.361694491916936E-07,
+              "rmse": 6.186896227864177E-07,
+              "nrmse": 0.06186896227864177,
+              "maxRelative": 1,
+              "p50": 2.947057539498237E-07,
+              "p90": 1.1788230157992948E-06,
+              "p95": 1.3134416935294614E-06,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        },
+        {
+          "radius": 10000000000,
+          "sign": -1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.249744241311066E-06,
+              "meanAbsolute": 3.745525554313295E-07,
+              "rmse": 5.31288409283256E-07,
+              "nrmse": 0.053128840928325594,
+              "maxRelative": 1.0000017549610456,
+              "p50": 2.5307320886549077E-07,
+              "p90": 1.0122910589274702E-06,
+              "p95": 1.127894177783237E-06,
+              "pearson": 0.12757843767939392,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.2501250125012502E-06,
+              "meanAbsolute": 3.746667039585315E-07,
+              "rmse": 5.314503392484481E-07,
+              "nrmse": 0.053145033924844806,
+              "maxRelative": 1,
+              "p50": 2.531503150315031E-07,
+              "p90": 1.0126012601260124E-06,
+              "p95": 1.1282378237823782E-06,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        },
+        {
+          "radius": 10000000000,
+          "sign": 1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.249744241311066E-06,
+              "meanAbsolute": 3.745526156528377E-07,
+              "rmse": 5.312885240265736E-07,
+              "nrmse": 0.053128852402657356,
+              "maxRelative": 1.0000017549610456,
+              "p50": 2.5307320886549077E-07,
+              "p90": 1.0122917695412675E-06,
+              "p95": 1.127894177783237E-06,
+              "pearson": -0.12757843767939392,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.2501250125012502E-06,
+              "meanAbsolute": 3.746667039585315E-07,
+              "rmse": 5.314503392484481E-07,
+              "nrmse": 0.053145033924844806,
+              "maxRelative": 1,
+              "p50": 2.531503150315031E-07,
+              "p90": 1.0126012601260124E-06,
+              "p95": 1.1282378237823782E-06,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        },
+        {
+          "radius": 17179869184,
+          "sign": -1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 7.274468902679311E-07,
+              "meanAbsolute": 2.1801826882420669E-07,
+              "rmse": 3.0925053177136237E-07,
+              "nrmse": 0.030925053177136234,
+              "maxRelative": 1.0000030150001185,
+              "p50": 1.47307995279256E-07,
+              "p90": 5.892302045825312E-07,
+              "p95": 6.565208184668078E-07,
+              "pearson": 0.127578437679394,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 7.276685282711698E-07,
+              "meanAbsolute": 2.180847245958468E-07,
+              "rmse": 3.0934481139320886E-07,
+              "nrmse": 0.030934481139320884,
+              "maxRelative": 1,
+              "p50": 1.4735287697491185E-07,
+              "p90": 5.894115078996474E-07,
+              "p95": 6.567208467647307E-07,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        },
+        {
+          "radius": 17179869184,
+          "sign": 1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 7.274468902679311E-07,
+              "meanAbsolute": 2.1801832904571491E-07,
+              "rmse": 3.092506465146801E-07,
+              "nrmse": 0.030925064651468007,
+              "maxRelative": 1.0000030150001185,
+              "p50": 1.47307995279256E-07,
+              "p90": 5.892309151963284E-07,
+              "p95": 6.565208184668078E-07,
+              "pearson": -0.127578437679394,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 7.276685282711698E-07,
+              "meanAbsolute": 2.180847245958468E-07,
+              "rmse": 3.0934481139320886E-07,
+              "nrmse": 0.030934481139320884,
+              "maxRelative": 1,
+              "p50": 1.4735287697491185E-07,
+              "p90": 5.894115078996474E-07,
+              "p95": 6.567208467647307E-07,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        }
+      ],
+      "passesEveryTestedSurrogate": true,
+      "nodes": [
+        {
+          "index": 0,
+          "px": -1,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 1,
+          "px": -0.95,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 22.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 2,
+          "px": -0.9,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 20.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 3,
+          "px": -0.85,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 18.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 4,
+          "px": -0.8,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 16,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 5,
+          "px": -0.75,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 14.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 6,
+          "px": -0.7,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 12.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 7,
+          "px": -0.65,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 10.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 8,
+          "px": -0.6,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 9,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 9,
+          "px": -0.55,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 7.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 10,
+          "px": -0.5,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 6.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 11,
+          "px": -0.45,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 5.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 12,
+          "px": -0.4,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 4,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 13,
+          "px": -0.35,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 3.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 14,
+          "px": -0.3,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 2.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 15,
+          "px": -0.25,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 1.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 16,
+          "px": -0.2,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 1,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 17,
+          "px": -0.15,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 18,
+          "px": -0.1,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 19,
+          "px": -0.05,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 20,
+          "px": 0,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 21,
+          "px": 0.05,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 22,
+          "px": 0.1,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 23,
+          "px": 0.15,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 24,
+          "px": 0.2,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 1,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 25,
+          "px": 0.25,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 1.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 26,
+          "px": 0.3,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 2.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 27,
+          "px": 0.35,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 3.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 28,
+          "px": 0.4,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 4,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 29,
+          "px": 0.45,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 5.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 30,
+          "px": 0.5,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 6.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 31,
+          "px": 0.55,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 7.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 32,
+          "px": 0.6,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 9,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 33,
+          "px": 0.65,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 10.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 34,
+          "px": 0.7,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 12.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 35,
+          "px": 0.75,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 14.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 36,
+          "px": 0.8,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 16,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 37,
+          "px": 0.85,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 18.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 38,
+          "px": 0.9,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 20.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 39,
+          "px": 0.95,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 22.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 40,
+          "px": 1,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 41,
+          "px": 0,
+          "py": -1,
+          "axial": -0.08726203218641758,
+          "transverseSquared": 24.992385337738696,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0008323184775518379,
+          "absoluteWaves": 87.27075926234382
+        },
+        {
+          "index": 42,
+          "px": 0,
+          "py": -0.95,
+          "axial": -0.0828989305770967,
+          "transverseSquared": 22.555627767309172,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.00016306713970203553,
+          "absoluteWaves": 82.90722129922662
+        },
+        {
+          "index": 43,
+          "px": 0,
+          "py": -0.9,
+          "axial": -0.07853582896777582,
+          "transverseSquared": 20.243832123568342,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0007490866297952662,
+          "absoluteWaves": 78.54368333610944
+        },
+        {
+          "index": 44,
+          "px": 0,
+          "py": -0.85,
+          "axial": -0.07417272735845494,
+          "transverseSquared": 18.056998406516207,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0002462989874586072,
+          "absoluteWaves": 74.18014537299224
+        },
+        {
+          "index": 45,
+          "px": 0,
+          "py": -0.8,
+          "axial": -0.06980962574913406,
+          "transverseSquared": 15.995126616152765,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0006658547820386944,
+          "absoluteWaves": 69.81660740987505
+        },
+        {
+          "index": 46,
+          "px": 0,
+          "py": -0.75,
+          "axial": -0.06544652413981318,
+          "transverseSquared": 14.058216752478017,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.00032953083521517894,
+          "absoluteWaves": 65.45306944675787
+        },
+        {
+          "index": 47,
+          "px": 0,
+          "py": -0.7,
+          "axial": -0.0610834225304923,
+          "transverseSquared": 12.24626881549196,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0005826229342821228,
+          "absoluteWaves": 61.08953148364067
+        },
+        {
+          "index": 48,
+          "px": 0,
+          "py": -0.65,
+          "axial": -0.05672032092117142,
+          "transverseSquared": 10.559282805194599,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.00041276268297175066,
+          "absoluteWaves": 56.725993520523474
+        },
+        {
+          "index": 49,
+          "px": 0,
+          "py": -0.6,
+          "axial": -0.05235721931185054,
+          "transverseSquared": 8.997258721585931,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0004993910865255511,
+          "absoluteWaves": 52.362455557406285
+        },
+        {
+          "index": 50,
+          "px": 0,
+          "py": -0.55,
+          "axial": -0.04799411770252967,
+          "transverseSquared": 7.560196564665956,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0004959945307213828,
+          "absoluteWaves": 47.9989175942891
+        },
+        {
+          "index": 51,
+          "px": 0,
+          "py": -0.5,
+          "axial": -0.04363101609320879,
+          "transverseSquared": 6.248096334434674,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.00041615923877591894,
+          "absoluteWaves": 43.63537963117191
+        },
+        {
+          "index": 52,
+          "px": 0,
+          "py": -0.45,
+          "axial": -0.03926791448388791,
+          "transverseSquared": 5.060958030892086,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0005792263784779544,
+          "absoluteWaves": 39.27184166805472
+        },
+        {
+          "index": 53,
+          "px": 0,
+          "py": -0.4,
+          "axial": -0.03490481287456703,
+          "transverseSquared": 3.9987816540381913,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0003329273910193472,
+          "absoluteWaves": 34.90830370493752
+        },
+        {
+          "index": 54,
+          "px": 0,
+          "py": -0.35,
+          "axial": -0.03054171126524615,
+          "transverseSquared": 3.06156720387299,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0006624582262345262,
+          "absoluteWaves": 30.544765741820335
+        },
+        {
+          "index": 55,
+          "px": 0,
+          "py": -0.3,
+          "axial": -0.02617860965592527,
+          "transverseSquared": 2.2493146803964827,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.00024969554326277556,
+          "absoluteWaves": 26.181227778703143
+        },
+        {
+          "index": 56,
+          "px": 0,
+          "py": -0.25,
+          "axial": -0.021815508046604395,
+          "transverseSquared": 1.5620240836086685,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0007456900739876281,
+          "absoluteWaves": 21.817689815585954
+        },
+        {
+          "index": 57,
+          "px": 0,
+          "py": -0.2,
+          "axial": -0.017452406437283515,
+          "transverseSquared": 0.9996954135095478,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0001664636955096736,
+          "absoluteWaves": 17.45415185246876
+        },
+        {
+          "index": 58,
+          "px": 0,
+          "py": -0.15,
+          "axial": -0.013089304827962635,
+          "transverseSquared": 0.5623286700991207,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0008289219217441998,
+          "absoluteWaves": 13.090613889351571
+        },
+        {
+          "index": 59,
+          "px": 0,
+          "py": -0.1,
+          "axial": -0.008726203218641758,
+          "transverseSquared": 0.24992385337738696,
+          "planeWaves": 0,
+          "nativeReportedWaves": 8.32318477548368E-05,
+          "absoluteWaves": 8.72707592623438
+        },
+        {
+          "index": 60,
+          "px": 0,
+          "py": -0.05,
+          "axial": -0.004363101609320879,
+          "transverseSquared": 0.06248096334434674,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0009121537694981691,
+          "absoluteWaves": 4.36353796311719
+        },
+        {
+          "index": 61,
+          "px": 0,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 62,
+          "px": 0,
+          "py": 0.05,
+          "axial": 0.004363101609320879,
+          "transverseSquared": 0.06248096334434674,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0009121537694981691,
+          "absoluteWaves": -4.36353796311719
+        },
+        {
+          "index": 63,
+          "px": 0,
+          "py": 0.1,
+          "axial": 0.008726203218641758,
+          "transverseSquared": 0.24992385337738696,
+          "planeWaves": 0,
+          "nativeReportedWaves": -8.32318477548368E-05,
+          "absoluteWaves": -8.72707592623438
+        },
+        {
+          "index": 64,
+          "px": 0,
+          "py": 0.15,
+          "axial": 0.013089304827962635,
+          "transverseSquared": 0.5623286700991207,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0008289219217441998,
+          "absoluteWaves": -13.090613889351571
+        },
+        {
+          "index": 65,
+          "px": 0,
+          "py": 0.2,
+          "axial": 0.017452406437283515,
+          "transverseSquared": 0.9996954135095478,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0001664636955096736,
+          "absoluteWaves": -17.45415185246876
+        },
+        {
+          "index": 66,
+          "px": 0,
+          "py": 0.25,
+          "axial": 0.021815508046604395,
+          "transverseSquared": 1.5620240836086685,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0007456900739876281,
+          "absoluteWaves": -21.817689815585954
+        },
+        {
+          "index": 67,
+          "px": 0,
+          "py": 0.3,
+          "axial": 0.02617860965592527,
+          "transverseSquared": 2.2493146803964827,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.00024969554326277556,
+          "absoluteWaves": -26.181227778703143
+        },
+        {
+          "index": 68,
+          "px": 0,
+          "py": 0.35,
+          "axial": 0.03054171126524615,
+          "transverseSquared": 3.06156720387299,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0006624582262345262,
+          "absoluteWaves": -30.544765741820335
+        },
+        {
+          "index": 69,
+          "px": 0,
+          "py": 0.4,
+          "axial": 0.03490481287456703,
+          "transverseSquared": 3.9987816540381913,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0003329273910193472,
+          "absoluteWaves": -34.90830370493752
+        },
+        {
+          "index": 70,
+          "px": 0,
+          "py": 0.45,
+          "axial": 0.03926791448388791,
+          "transverseSquared": 5.060958030892086,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0005792263784779544,
+          "absoluteWaves": -39.27184166805472
+        },
+        {
+          "index": 71,
+          "px": 0,
+          "py": 0.5,
+          "axial": 0.04363101609320879,
+          "transverseSquared": 6.248096334434674,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.00041615923877591894,
+          "absoluteWaves": -43.63537963117191
+        },
+        {
+          "index": 72,
+          "px": 0,
+          "py": 0.55,
+          "axial": 0.04799411770252967,
+          "transverseSquared": 7.560196564665956,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0004959945307213828,
+          "absoluteWaves": -47.9989175942891
+        },
+        {
+          "index": 73,
+          "px": 0,
+          "py": 0.6,
+          "axial": 0.05235721931185054,
+          "transverseSquared": 8.997258721585931,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0004993910865255511,
+          "absoluteWaves": -52.362455557406285
+        },
+        {
+          "index": 74,
+          "px": 0,
+          "py": 0.65,
+          "axial": 0.05672032092117142,
+          "transverseSquared": 10.559282805194599,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.00041276268297175066,
+          "absoluteWaves": -56.725993520523474
+        },
+        {
+          "index": 75,
+          "px": 0,
+          "py": 0.7,
+          "axial": 0.0610834225304923,
+          "transverseSquared": 12.24626881549196,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0005826229342821228,
+          "absoluteWaves": -61.08953148364067
+        },
+        {
+          "index": 76,
+          "px": 0,
+          "py": 0.75,
+          "axial": 0.06544652413981318,
+          "transverseSquared": 14.058216752478017,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.00032953083521517894,
+          "absoluteWaves": -65.45306944675787
+        },
+        {
+          "index": 77,
+          "px": 0,
+          "py": 0.8,
+          "axial": 0.06980962574913406,
+          "transverseSquared": 15.995126616152765,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0006658547820386944,
+          "absoluteWaves": -69.81660740987505
+        },
+        {
+          "index": 78,
+          "px": 0,
+          "py": 0.85,
+          "axial": 0.07417272735845494,
+          "transverseSquared": 18.056998406516207,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0002462989874586072,
+          "absoluteWaves": -74.18014537299224
+        },
+        {
+          "index": 79,
+          "px": 0,
+          "py": 0.9,
+          "axial": 0.07853582896777582,
+          "transverseSquared": 20.243832123568342,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0007490866297952662,
+          "absoluteWaves": -78.54368333610944
+        },
+        {
+          "index": 80,
+          "px": 0,
+          "py": 0.95,
+          "axial": 0.0828989305770967,
+          "transverseSquared": 22.555627767309172,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.00016306713970203553,
+          "absoluteWaves": -82.90722129922662
+        },
+        {
+          "index": 81,
+          "px": 0,
+          "py": 1,
+          "axial": 0.08726203218641758,
+          "transverseSquared": 24.992385337738696,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0008323184775518379,
+          "absoluteWaves": -87.27075926234382
+        }
+      ],
+      "workbenchSha256": "15c1a26c720358c81d1bfbbef2f1a96ad80f0c564238b3a0e795415bb3b853a2"
+    },
+    {
+      "index": 2220,
+      "request": "2c040f2ce62997628e1843b1c91dd39e967a6cbb37ac3ae01894f4ab06bd1f70",
+      "wave": 0.0010001,
+      "roundingScale": 10000000000,
+      "ulp": 1.9073486328125E-06,
+      "minSurrogateRadius": 8589934592,
+      "maxSagWaves": 1.4550460182348616E-06,
+      "minimumNonChiefTransverseDistance": 0.24996192378909782,
+      "nonChiefRaysMissingZeroRadiusSphere": 80,
+      "maxStablePlaneResidual": 0,
+      "maxOriginalNativeResidual": 0.0009119713569855207,
+      "maxQuantizationModelResidual": 6.075760554391518E-15,
+      "comparisons": [
+        {
+          "radius": 8589934592,
+          "sign": -1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.454602830874721E-06,
+              "meanAbsolute": 4.3594936916547495E-07,
+              "rmse": 6.183774330586049E-07,
+              "nrmse": 0.06183774330586048,
+              "maxRelative": 1.0000015075000592,
+              "p50": 2.9455707325213093E-07,
+              "p90": 1.1782265168293023E-06,
+              "p95": 1.3127790548644357E-06,
+              "pearson": 0.12757843767939392,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.4550460182348616E-06,
+              "meanAbsolute": 4.36082224024372E-07,
+              "rmse": 6.185658972344157E-07,
+              "nrmse": 0.06185658972344156,
+              "maxRelative": 1,
+              "p50": 2.946468186925594E-07,
+              "p90": 1.1785872747702376E-06,
+              "p95": 1.3131790314569627E-06,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        },
+        {
+          "radius": 8589934592,
+          "sign": 1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.454602830874721E-06,
+              "meanAbsolute": 4.3594942937494017E-07,
+              "rmse": 6.183775477789762E-07,
+              "nrmse": 0.061837754777897616,
+              "maxRelative": 1.0000015075000592,
+              "p50": 2.9455707325213093E-07,
+              "p90": 1.178227227300991E-06,
+              "p95": 1.3127790548644357E-06,
+              "pearson": -0.12757843767939392,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.4550460182348616E-06,
+              "meanAbsolute": 4.36082224024372E-07,
+              "rmse": 6.185658972344157E-07,
+              "nrmse": 0.06185658972344156,
+              "maxRelative": 1,
+              "p50": 2.946468186925594E-07,
+              "p90": 1.1785872747702376E-06,
+              "p95": 1.3131790314569627E-06,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        },
+        {
+          "radius": 10000000000,
+          "sign": -1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.2494943174551892E-06,
+              "meanAbsolute": 3.74477652410545E-07,
+              "rmse": 5.311821622261049E-07,
+              "nrmse": 0.05311821622261049,
+              "maxRelative": 1.0000017549610454,
+              "p50": 2.530225992846758E-07,
+              "p90": 1.0120886209594817E-06,
+              "p95": 1.1276686215033083E-06,
+              "pearson": 0.12757843767939386,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.24987501249875E-06,
+              "meanAbsolute": 3.7459177811032457E-07,
+              "rmse": 5.313440598085423E-07,
+              "nrmse": 0.05313440598085423,
+              "maxRelative": 1,
+              "p50": 2.5309969003099685E-07,
+              "p90": 1.0123987601239874E-06,
+              "p95": 1.128012198780122E-06,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        },
+        {
+          "radius": 10000000000,
+          "sign": 1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.2494943174551892E-06,
+              "meanAbsolute": 3.7447771262001013E-07,
+              "rmse": 5.311822769464763E-07,
+              "nrmse": 0.05311822769464762,
+              "maxRelative": 1.0000017549610454,
+              "p50": 2.530225992846758E-07,
+              "p90": 1.0120893314311704E-06,
+              "p95": 1.1276686215033083E-06,
+              "pearson": -0.12757843767939386,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 1.24987501249875E-06,
+              "meanAbsolute": 3.7459177811032457E-07,
+              "rmse": 5.313440598085423E-07,
+              "nrmse": 0.05313440598085423,
+              "maxRelative": 1,
+              "p50": 2.5309969003099685E-07,
+              "p90": 1.0123987601239874E-06,
+              "p95": 1.128012198780122E-06,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        },
+        {
+          "radius": 17179869184,
+          "sign": -1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 7.273014154373605E-07,
+              "meanAbsolute": 2.1797466953037122E-07,
+              "rmse": 3.091886878494002E-07,
+              "nrmse": 0.03091886878494002,
+              "maxRelative": 1.0000030150001185,
+              "p50": 1.4727853662606547E-07,
+              "p90": 5.891123703250404E-07,
+              "p95": 6.563895274322178E-07,
+              "pearson": 0.12757843767939392,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 7.275230091174308E-07,
+              "meanAbsolute": 2.18041112012186E-07,
+              "rmse": 3.0928294861720784E-07,
+              "nrmse": 0.03092829486172078,
+              "maxRelative": 1,
+              "p50": 1.473234093462797E-07,
+              "p90": 5.892936373851188E-07,
+              "p95": 6.565895157284813E-07,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        },
+        {
+          "radius": 17179869184,
+          "sign": 1,
+          "metrics": [
+            {
+              "id": "tangential",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 7.273014154373605E-07,
+              "meanAbsolute": 2.1797472973983636E-07,
+              "rmse": 3.0918880256977156E-07,
+              "nrmse": 0.030918880256977154,
+              "maxRelative": 1.0000030150001185,
+              "p50": 1.4727853662606547E-07,
+              "p90": 5.89113080796729E-07,
+              "p95": 6.563895274322178E-07,
+              "pearson": -0.12757843767939392,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            },
+            {
+              "id": "sagittal",
+              "unit": "Wave",
+              "count": 59,
+              "maxAbsolute": 7.275230091174308E-07,
+              "meanAbsolute": 2.18041112012186E-07,
+              "rmse": 3.0928294861720784E-07,
+              "nrmse": 0.03092829486172078,
+              "maxRelative": 1,
+              "p50": 1.473234093462797E-07,
+              "p90": 5.892936373851188E-07,
+              "p95": 6.565895157284813E-07,
+              "pearson": null,
+              "worstX": -1,
+              "worstY": null,
+              "coverage": 1,
+              "conclusion": "Pass",
+              "extra": {}
+            }
+          ]
+        }
+      ],
+      "passesEveryTestedSurrogate": true,
+      "nodes": [
+        {
+          "index": 0,
+          "px": -1,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 1,
+          "px": -0.95,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 22.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 2,
+          "px": -0.9,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 20.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 3,
+          "px": -0.85,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 18.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 4,
+          "px": -0.8,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 16,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 5,
+          "px": -0.75,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 14.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 6,
+          "px": -0.7,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 12.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 7,
+          "px": -0.65,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 10.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 8,
+          "px": -0.6,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 9,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 9,
+          "px": -0.55,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 7.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 10,
+          "px": -0.5,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 6.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 11,
+          "px": -0.45,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 5.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 12,
+          "px": -0.4,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 4,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 13,
+          "px": -0.35,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 3.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 14,
+          "px": -0.3,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 2.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 15,
+          "px": -0.25,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 1.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 16,
+          "px": -0.2,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 1,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 17,
+          "px": -0.15,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 18,
+          "px": -0.1,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 19,
+          "px": -0.05,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 20,
+          "px": 0,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 21,
+          "px": 0.05,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 22,
+          "px": 0.1,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 23,
+          "px": 0.15,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 24,
+          "px": 0.2,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 1,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 25,
+          "px": 0.25,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 1.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 26,
+          "px": 0.3,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 2.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 27,
+          "px": 0.35,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 3.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 28,
+          "px": 0.4,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 4,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 29,
+          "px": 0.45,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 5.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 30,
+          "px": 0.5,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 6.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 31,
+          "px": 0.55,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 7.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 32,
+          "px": 0.6,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 9,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 33,
+          "px": 0.65,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 10.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 34,
+          "px": 0.7,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 12.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 35,
+          "px": 0.75,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 14.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 36,
+          "px": 0.8,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 16,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 37,
+          "px": 0.85,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 18.0625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 38,
+          "px": 0.9,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 20.25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 39,
+          "px": 0.95,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 22.5625,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 40,
+          "px": 1,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 25,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 41,
+          "px": 0,
+          "py": -1,
+          "axial": -0.08726203218641758,
+          "transverseSquared": 24.992385337738696,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0008321520305010325,
+          "absoluteWaves": 87.25330685573199
+        },
+        {
+          "index": 42,
+          "px": 0,
+          "py": -0.95,
+          "axial": -0.0828989305770967,
+          "transverseSquared": 22.555627767309172,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0001630345295351118,
+          "absoluteWaves": 82.8906415129454
+        },
+        {
+          "index": 43,
+          "px": 0,
+          "py": -0.9,
+          "axial": -0.07853582896777582,
+          "transverseSquared": 20.243832123568342,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0007489368274495417,
+          "absoluteWaves": 78.5279761701588
+        },
+        {
+          "index": 44,
+          "px": 0,
+          "py": -0.85,
+          "axial": -0.07417272735845494,
+          "transverseSquared": 18.056998406516207,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0002462497325866027,
+          "absoluteWaves": 74.1653108273722
+        },
+        {
+          "index": 45,
+          "px": 0,
+          "py": -0.8,
+          "axial": -0.06980962574913406,
+          "transverseSquared": 15.995126616152765,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0006657216243980507,
+          "absoluteWaves": 69.8026454845856
+        },
+        {
+          "index": 46,
+          "px": 0,
+          "py": -0.75,
+          "axial": -0.06544652413981318,
+          "transverseSquared": 14.058216752478017,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0003294649356380936,
+          "absoluteWaves": 65.439980141799
+        },
+        {
+          "index": 47,
+          "px": 0,
+          "py": -0.7,
+          "axial": -0.0610834225304923,
+          "transverseSquared": 12.24626881549196,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0005825064213465599,
+          "absoluteWaves": 61.07731479901239
+        },
+        {
+          "index": 48,
+          "px": 0,
+          "py": -0.65,
+          "axial": -0.05672032092117142,
+          "transverseSquared": 10.559282805194599,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.00041268013868958446,
+          "absoluteWaves": 56.71464945622579
+        },
+        {
+          "index": 49,
+          "px": 0,
+          "py": -0.6,
+          "axial": -0.05235721931185054,
+          "transverseSquared": 8.997258721585931,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.000499291218295069,
+          "absoluteWaves": 52.351984113439194
+        },
+        {
+          "index": 50,
+          "px": 0,
+          "py": -0.55,
+          "axial": -0.04799411770252967,
+          "transverseSquared": 7.560196564665956,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0004958953417341372,
+          "absoluteWaves": 47.9893187706526
+        },
+        {
+          "index": 51,
+          "px": 0,
+          "py": -0.5,
+          "axial": -0.04363101609320879,
+          "transverseSquared": 6.248096334434674,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.00041607601525051627,
+          "absoluteWaves": 43.626653427865996
+        },
+        {
+          "index": 52,
+          "px": 0,
+          "py": -0.45,
+          "axial": -0.03926791448388791,
+          "transverseSquared": 5.060958030892086,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.000579110544785628,
+          "absoluteWaves": 39.2639880850794
+        },
+        {
+          "index": 53,
+          "px": 0,
+          "py": -0.4,
+          "axial": -0.03490481287456703,
+          "transverseSquared": 3.9987816540381913,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.00033286081219902536,
+          "absoluteWaves": 34.9013227422928
+        },
+        {
+          "index": 54,
+          "px": 0,
+          "py": -0.35,
+          "axial": -0.03054171126524615,
+          "transverseSquared": 3.06156720387299,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.000662325747837119,
+          "absoluteWaves": 30.538657399506196
+        },
+        {
+          "index": 55,
+          "px": 0,
+          "py": -0.3,
+          "axial": -0.02617860965592527,
+          "transverseSquared": 2.2493146803964827,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0002496456091475345,
+          "absoluteWaves": 26.175992056719597
+        },
+        {
+          "index": 56,
+          "px": 0,
+          "py": -0.25,
+          "axial": -0.021815508046604395,
+          "transverseSquared": 1.5620240836086685,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0007455409508851407,
+          "absoluteWaves": 21.813326713932998
+        },
+        {
+          "index": 57,
+          "px": 0,
+          "py": -0.2,
+          "axial": -0.017452406437283515,
+          "transverseSquared": 0.9996954135095478,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.00016643040609951268,
+          "absoluteWaves": 17.4506613711464
+        },
+        {
+          "index": 58,
+          "px": 0,
+          "py": -0.15,
+          "axial": -0.013089304827962635,
+          "transverseSquared": 0.5623286700991207,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0008287561539366316,
+          "absoluteWaves": 13.087996028359798
+        },
+        {
+          "index": 59,
+          "px": 0,
+          "py": -0.1,
+          "axial": -0.008726203218641758,
+          "transverseSquared": 0.24992385337738696,
+          "planeWaves": 0,
+          "nativeReportedWaves": 8.321520304975634E-05,
+          "absoluteWaves": 8.7253306855732
+        },
+        {
+          "index": 60,
+          "px": 0,
+          "py": -0.05,
+          "axial": -0.004363101609320879,
+          "transverseSquared": 0.06248096334434674,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0009119713569855207,
+          "absoluteWaves": 4.3626653427866
+        },
+        {
+          "index": 61,
+          "px": 0,
+          "py": 0,
+          "axial": 0,
+          "transverseSquared": 0,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0,
+          "absoluteWaves": 0
+        },
+        {
+          "index": 62,
+          "px": 0,
+          "py": 0.05,
+          "axial": 0.004363101609320879,
+          "transverseSquared": 0.06248096334434674,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0009119713569855207,
+          "absoluteWaves": -4.3626653427866
+        },
+        {
+          "index": 63,
+          "px": 0,
+          "py": 0.1,
+          "axial": 0.008726203218641758,
+          "transverseSquared": 0.24992385337738696,
+          "planeWaves": 0,
+          "nativeReportedWaves": -8.321520304975634E-05,
+          "absoluteWaves": -8.7253306855732
+        },
+        {
+          "index": 64,
+          "px": 0,
+          "py": 0.15,
+          "axial": 0.013089304827962635,
+          "transverseSquared": 0.5623286700991207,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0008287561539366316,
+          "absoluteWaves": -13.087996028359798
+        },
+        {
+          "index": 65,
+          "px": 0,
+          "py": 0.2,
+          "axial": 0.017452406437283515,
+          "transverseSquared": 0.9996954135095478,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.00016643040609951268,
+          "absoluteWaves": -17.4506613711464
+        },
+        {
+          "index": 66,
+          "px": 0,
+          "py": 0.25,
+          "axial": 0.021815508046604395,
+          "transverseSquared": 1.5620240836086685,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0007455409508851407,
+          "absoluteWaves": -21.813326713932998
+        },
+        {
+          "index": 67,
+          "px": 0,
+          "py": 0.3,
+          "axial": 0.02617860965592527,
+          "transverseSquared": 2.2493146803964827,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0002496456091475345,
+          "absoluteWaves": -26.175992056719597
+        },
+        {
+          "index": 68,
+          "px": 0,
+          "py": 0.35,
+          "axial": 0.03054171126524615,
+          "transverseSquared": 3.06156720387299,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.000662325747837119,
+          "absoluteWaves": -30.538657399506196
+        },
+        {
+          "index": 69,
+          "px": 0,
+          "py": 0.4,
+          "axial": 0.03490481287456703,
+          "transverseSquared": 3.9987816540381913,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.00033286081219902536,
+          "absoluteWaves": -34.9013227422928
+        },
+        {
+          "index": 70,
+          "px": 0,
+          "py": 0.45,
+          "axial": 0.03926791448388791,
+          "transverseSquared": 5.060958030892086,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.000579110544785628,
+          "absoluteWaves": -39.2639880850794
+        },
+        {
+          "index": 71,
+          "px": 0,
+          "py": 0.5,
+          "axial": 0.04363101609320879,
+          "transverseSquared": 6.248096334434674,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.00041607601525051627,
+          "absoluteWaves": -43.626653427865996
+        },
+        {
+          "index": 72,
+          "px": 0,
+          "py": 0.55,
+          "axial": 0.04799411770252967,
+          "transverseSquared": 7.560196564665956,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0004958953417341372,
+          "absoluteWaves": -47.9893187706526
+        },
+        {
+          "index": 73,
+          "px": 0,
+          "py": 0.6,
+          "axial": 0.05235721931185054,
+          "transverseSquared": 8.997258721585931,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.000499291218295069,
+          "absoluteWaves": -52.351984113439194
+        },
+        {
+          "index": 74,
+          "px": 0,
+          "py": 0.65,
+          "axial": 0.05672032092117142,
+          "transverseSquared": 10.559282805194599,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.00041268013868958446,
+          "absoluteWaves": -56.71464945622579
+        },
+        {
+          "index": 75,
+          "px": 0,
+          "py": 0.7,
+          "axial": 0.0610834225304923,
+          "transverseSquared": 12.24626881549196,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0005825064213465599,
+          "absoluteWaves": -61.07731479901239
+        },
+        {
+          "index": 76,
+          "px": 0,
+          "py": 0.75,
+          "axial": 0.06544652413981318,
+          "transverseSquared": 14.058216752478017,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0003294649356380936,
+          "absoluteWaves": -65.439980141799
+        },
+        {
+          "index": 77,
+          "px": 0,
+          "py": 0.8,
+          "axial": 0.06980962574913406,
+          "transverseSquared": 15.995126616152765,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0006657216243980507,
+          "absoluteWaves": -69.8026454845856
+        },
+        {
+          "index": 78,
+          "px": 0,
+          "py": 0.85,
+          "axial": 0.07417272735845494,
+          "transverseSquared": 18.056998406516207,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0002462497325866027,
+          "absoluteWaves": -74.1653108273722
+        },
+        {
+          "index": 79,
+          "px": 0,
+          "py": 0.9,
+          "axial": 0.07853582896777582,
+          "transverseSquared": 20.243832123568342,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0007489368274495417,
+          "absoluteWaves": -78.5279761701588
+        },
+        {
+          "index": 80,
+          "px": 0,
+          "py": 0.95,
+          "axial": 0.0828989305770967,
+          "transverseSquared": 22.555627767309172,
+          "planeWaves": 0,
+          "nativeReportedWaves": 0.0001630345295351118,
+          "absoluteWaves": -82.8906415129454
+        },
+        {
+          "index": 81,
+          "px": 0,
+          "py": 1,
+          "axial": 0.08726203218641758,
+          "transverseSquared": 24.992385337738696,
+          "planeWaves": 0,
+          "nativeReportedWaves": -0.0008321520305010325,
+          "absoluteWaves": -87.25330685573199
+        }
+      ],
+      "workbenchSha256": "36c4eb65860e54991d7ce553ee7414b59266c0f48273ea885335164fa8d31cc0"
+    }
+  ]
+}

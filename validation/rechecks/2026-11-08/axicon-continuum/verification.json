@@ -1,0 +1,279 @@
+{
+  "scope": "Axisymmetric planar continuum reconstruction, not the frozen finite-cell setting",
+  "wavelengthMicrometers": 0.55,
+  "pixelPitchMicrometers": 0.25,
+  "grid": 32,
+  "sectionXMicrometers": [
+    -4.0,
+    -3.75,
+    -3.5,
+    -3.25,
+    -3.0,
+    -2.75,
+    -2.5,
+    -2.25,
+    -2.0,
+    -1.75,
+    -1.5,
+    -1.25,
+    -1.0,
+    -0.75,
+    -0.5,
+    -0.25,
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0,
+    1.25,
+    1.5,
+    1.75,
+    2.0,
+    2.25,
+    2.5,
+    2.75,
+    3.0,
+    3.25,
+    3.5,
+    3.75
+  ],
+  "focusMillimeters": [
+    -0.01,
+    -0.005,
+    0,
+    0.005,
+    0.01
+  ],
+  "frequencyCyclesPerMillimeter": 50,
+  "originalThresholds": {
+    "mtf": {
+      "absolute": 1E-05,
+      "closeNrmse": 0.01,
+      "relative": 0.002,
+      "nrmse": 0.003
+    },
+    "minimumCoverage": 0.95,
+    "section": {
+      "absolute": 1E-05,
+      "closeNrmse": 0.01,
+      "relative": 0.002,
+      "nrmse": 0.003
+    }
+  },
+  "checks": [
+    {
+      "comparison": "Core 65536 versus 131072",
+      "section": {
+        "points": 32,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 4.656098305762321E-15,
+        "referencePeak": 4.830926963953356E-10,
+        "maximumErrorRelativeToReferencePeak": 9.638105358463204E-06,
+        "nrmse": 1.3036282048172202E-10,
+        "pointwisePass": true,
+        "pass": true
+      },
+      "peakRelativeDifference": 9.6381053584782E-06,
+      "additionalPeakRelativeCurvePass": true,
+      "throughFocusTangential": {
+        "points": 101,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 2.7180000472526444E-08,
+        "referencePeak": 0.6933057254250735,
+        "maximumErrorRelativeToReferencePeak": 3.920348480587274E-08,
+        "nrmse": 3.063003517981196E-08,
+        "pointwisePass": true,
+        "pass": true
+      },
+      "throughFocusSagittal": {
+        "points": 101,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 2.7180000472526444E-08,
+        "referencePeak": 0.6933057254250735,
+        "maximumErrorRelativeToReferencePeak": 3.920348480587274E-08,
+        "nrmse": 3.063003515873281E-08,
+        "pointwisePass": true,
+        "pass": true
+      }
+    },
+    {
+      "comparison": "Core 98292 versus 131072",
+      "section": {
+        "points": 32,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 8.857819025168596E-17,
+        "referencePeak": 4.830926963953356E-10,
+        "maximumErrorRelativeToReferencePeak": 1.8335650882868784E-07,
+        "nrmse": 2.55332431383226E-12,
+        "pointwisePass": true,
+        "pass": true
+      },
+      "peakRelativeDifference": 1.8335650886491806E-07,
+      "additionalPeakRelativeCurvePass": true,
+      "throughFocusTangential": {
+        "points": 101,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 3.0311174237240834E-08,
+        "referencePeak": 0.6933057254250735,
+        "maximumErrorRelativeToReferencePeak": 4.371978064750109E-08,
+        "nrmse": 3.522360345603526E-08,
+        "pointwisePass": true,
+        "pass": true
+      },
+      "throughFocusSagittal": {
+        "points": 101,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 3.0311174237240834E-08,
+        "referencePeak": 0.6933057254250735,
+        "maximumErrorRelativeToReferencePeak": 4.371978064750109E-08,
+        "nrmse": 3.522360345603526E-08,
+        "pointwisePass": true,
+        "pass": true
+      }
+    },
+    {
+      "comparison": "OpticStudio 98292 versus 131072",
+      "section": {
+        "points": 32,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 1.1787196932432498E-16,
+        "referencePeak": 4.830926885796158E-10,
+        "maximumErrorRelativeToReferencePeak": 2.4399452136377994E-07,
+        "nrmse": 3.3580390362445074E-12,
+        "pointwisePass": true,
+        "pass": true
+      },
+      "peakRelativeDifference": 2.4399452136503186E-07,
+      "additionalPeakRelativeCurvePass": true,
+      "throughFocusTangential": {
+        "points": 101,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 2.3631120393829974E-08,
+        "referencePeak": 0.6933057271617418,
+        "maximumErrorRelativeToReferencePeak": 3.408470385867309E-08,
+        "nrmse": 2.428829414229206E-08,
+        "pointwisePass": true,
+        "pass": true
+      },
+      "throughFocusSagittal": {
+        "points": 101,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 2.3631120393829974E-08,
+        "referencePeak": 0.6933057271617418,
+        "maximumErrorRelativeToReferencePeak": 3.408470385867309E-08,
+        "nrmse": 2.428829414229206E-08,
+        "pointwisePass": true,
+        "pass": true
+      }
+    },
+    {
+      "comparison": "Core 65536 versus OpticStudio 131072",
+      "section": {
+        "points": 32,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 4.6639140254877974E-15,
+        "referencePeak": 4.830926885796158E-10,
+        "maximumErrorRelativeToReferencePeak": 9.654284024046379E-06,
+        "nrmse": 1.3058982994950238E-10,
+        "pointwisePass": true,
+        "pass": true
+      },
+      "peakRelativeDifference": 9.654284023996595E-06,
+      "additionalPeakRelativeCurvePass": true,
+      "throughFocusTangential": {
+        "points": 101,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 2.3653112801724774E-08,
+        "referencePeak": 0.6933057271617418,
+        "maximumErrorRelativeToReferencePeak": 3.4116424940777566E-08,
+        "nrmse": 2.7347765170785128E-08,
+        "pointwisePass": true,
+        "pass": true
+      },
+      "throughFocusSagittal": {
+        "points": 101,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 2.3653112801724774E-08,
+        "referencePeak": 0.6933057271617418,
+        "maximumErrorRelativeToReferencePeak": 3.4116424940777566E-08,
+        "nrmse": 2.734776516224158E-08,
+        "pointwisePass": true,
+        "pass": true
+      }
+    },
+    {
+      "comparison": "Core 131072 versus OpticStudio 131072",
+      "section": {
+        "points": 32,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 7.815719725476581E-18,
+        "referencePeak": 4.830926885796158E-10,
+        "maximumErrorRelativeToReferencePeak": 1.6178509652994915E-08,
+        "nrmse": 2.340091065569672E-13,
+        "pointwisePass": true,
+        "pass": true
+      },
+      "peakRelativeDifference": 1.6178509643083316E-08,
+      "additionalPeakRelativeCurvePass": true,
+      "throughFocusTangential": {
+        "points": 101,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 1.4228708766772513E-08,
+        "referencePeak": 0.6933057271617418,
+        "maximumErrorRelativeToReferencePeak": 2.0522993261604904E-08,
+        "nrmse": 1.2672004127353998E-08,
+        "pointwisePass": true,
+        "pass": true
+      },
+      "throughFocusSagittal": {
+        "points": 101,
+        "coverage": 1.0,
+        "maximumAbsoluteError": 1.4228708766772513E-08,
+        "referencePeak": 0.6933057271617418,
+        "maximumErrorRelativeToReferencePeak": 2.0522993261604904E-08,
+        "nrmse": 1.2672004127353998E-08,
+        "pointwisePass": true,
+        "pass": true
+      }
+    }
+  ],
+  "productCheck": {
+    "coreSha256": "9bd6baecb884ccec369841f6dd80d2b4597b2ad91f4c8734c9170af841417e55",
+    "applicationSha256": "4e762dcb7a43cd85a23f97f9ac04687f67a957cb9a22c05409076fe632e61fab",
+    "section": {
+      "points": 32,
+      "coverage": 1.0,
+      "maximumAbsoluteError": 1.3451795024267022E-16,
+      "referencePeak": 4.830926885796158E-10,
+      "maximumErrorRelativeToReferencePeak": 2.78451637589835E-07,
+      "nrmse": 3.8966227106505146E-12,
+      "pointwisePass": true,
+      "pass": true
+    },
+    "productPeak": 4.830925540616656E-10,
+    "nativePeak": 4.830926885796158E-10,
+    "peakRelativeDifference": 2.78451637636401E-07,
+    "throughFocusTangential": {
+      "points": 101,
+      "coverage": 1.0,
+      "maximumAbsoluteError": 7.145402569630477E-08,
+      "referencePeak": 0.6933057271617418,
+      "maximumErrorRelativeToReferencePeak": 1.0306279451754075E-07,
+      "nrmse": 6.550910303933434E-08,
+      "pointwisePass": true,
+      "pass": true
+    },
+    "throughFocusSagittal": {
+      "points": 101,
+      "coverage": 1.0,
+      "maximumAbsoluteError": 7.145402569630477E-08,
+      "referencePeak": 0.6933057271617418,
+      "maximumErrorRelativeToReferencePeak": 1.0306279451754075E-07,
+      "nrmse": 6.550910299737161E-08,
+      "pointwisePass": true,
+      "pass": true
+    },
+    "pass": true
+  },
+  "continuumChecksPass": true
+}

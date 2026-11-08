@@ -1,0 +1,879 @@
+{
+  "archiveSha256": "2b82b649f01720837fe0ad14f92f799446b73678c277a2e9d0aeed331d53a060",
+  "priorArchives": {
+    "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip": "37b70cf5b45845d002bfa96a80a04fc960de0667892465e80f3c12e78f41be11",
+    "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip": "bcff1037d2da4771629dddc06a8fa1db36af7b9d5ac09676b047faaba829b0d0",
+    "../../2026-11-07/fan-physical-coverage/native-explicit-rays.zip": "31d997aa518e80dcf4af6d0634d2580aa5ee7e785a084f0ac90ad9d4437a2d9c"
+  },
+  "uniqueNewPayloads": 62,
+  "logicalPayloads": [
+    {
+      "logicalPath": "native/2875-512/batch-result.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2875-512/batch-result.json",
+      "bytes": 207,
+      "sha256": "ecbe41315de402c26bb7270f352d5f7b8421a175cac078eed8f8797c88abfdbc"
+    },
+    {
+      "logicalPath": "native/2875-512/captured-settings.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2875-512/captured-settings.json",
+      "bytes": 1864,
+      "sha256": "98ef32002977d54cd3198a0ec3e01e7680d9c154514b38a5f069d20f83a3d144"
+    },
+    {
+      "logicalPath": "native/2875-512/model.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2875-256/model.json",
+      "bytes": 5713,
+      "sha256": "be3e7e1a5bfe78907b4d5477273b595d058135efa5cb7af1661ef244fc670a6f"
+    },
+    {
+      "logicalPath": "native/2875-512/data.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2875-512/data.json",
+      "bytes": 367945,
+      "sha256": "51a3efc605c3b6f93728a9e1b00eb43e0b21d6cb2843a03a33dd1d2eea030f68"
+    },
+    {
+      "logicalPath": "native/2875-512/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2875-512/settings.CFG",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "1071-512/settings.CFG",
+      "bytes": 18448,
+      "sha256": "2894edd8e8e0ad67dd8bb7193409911700a9120605619d23249e24fd36a84ce5"
+    },
+    {
+      "logicalPath": "native/2875-1024/batch-result.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/ce2df9f06809ed6cb2cc3fb37cb0a733bdf59adad17783d234db6ad0eee44a50",
+      "bytes": 208,
+      "sha256": "ce2df9f06809ed6cb2cc3fb37cb0a733bdf59adad17783d234db6ad0eee44a50"
+    },
+    {
+      "logicalPath": "native/2875-1024/captured-settings.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/08c2b9121bdd313a50c9f26632ed0e6a5988eeaf262325f901d9e19722d0d27f",
+      "bytes": 1863,
+      "sha256": "08c2b9121bdd313a50c9f26632ed0e6a5988eeaf262325f901d9e19722d0d27f"
+    },
+    {
+      "logicalPath": "native/2875-1024/model.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2875-256/model.json",
+      "bytes": 5713,
+      "sha256": "be3e7e1a5bfe78907b4d5477273b595d058135efa5cb7af1661ef244fc670a6f"
+    },
+    {
+      "logicalPath": "native/2875-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/59fbb706e6684227f9883a17c2da48880479917113b846ab9acdff24b0925ae3",
+      "bytes": 367757,
+      "sha256": "59fbb706e6684227f9883a17c2da48880479917113b846ab9acdff24b0925ae3"
+    },
+    {
+      "logicalPath": "native/2875-1024/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2875-1024/settings.CFG",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703",
+      "bytes": 18448,
+      "sha256": "17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703"
+    },
+    {
+      "logicalPath": "native/2875-2048/batch-result.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/d7fdedf174724e7a9f0412f19d05f389427e5f60e762d4d2145fe44d188fb284",
+      "bytes": 208,
+      "sha256": "d7fdedf174724e7a9f0412f19d05f389427e5f60e762d4d2145fe44d188fb284"
+    },
+    {
+      "logicalPath": "native/2875-2048/captured-settings.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/98a1d53739935355c5713feb2ca6c72acbaded28773c1d2594324f9bdebda3bc",
+      "bytes": 1863,
+      "sha256": "98a1d53739935355c5713feb2ca6c72acbaded28773c1d2594324f9bdebda3bc"
+    },
+    {
+      "logicalPath": "native/2875-2048/model.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2875-256/model.json",
+      "bytes": 5713,
+      "sha256": "be3e7e1a5bfe78907b4d5477273b595d058135efa5cb7af1661ef244fc670a6f"
+    },
+    {
+      "logicalPath": "native/2875-2048/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/8f40d732a4c8e49e2e2ea9f989939007fe8b752fc83f873a8da77f122a7cbb99",
+      "bytes": 367752,
+      "sha256": "8f40d732a4c8e49e2e2ea9f989939007fe8b752fc83f873a8da77f122a7cbb99"
+    },
+    {
+      "logicalPath": "native/2875-2048/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2875-2048/settings.CFG",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/d187b46d617833ec0d6cd81ab2a31fa5690f07d793ac06df46547f812bb5bc8b",
+      "bytes": 18448,
+      "sha256": "d187b46d617833ec0d6cd81ab2a31fa5690f07d793ac06df46547f812bb5bc8b"
+    },
+    {
+      "logicalPath": "core/2875-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/a3f6845552bda271bd5b1720e9b025415419e145ab52102b3bf8ff9940ead1ad",
+      "bytes": 9920589,
+      "sha256": "a3f6845552bda271bd5b1720e9b025415419e145ab52102b3bf8ff9940ead1ad"
+    },
+    {
+      "logicalPath": "core/2875-1024/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/4d770db9f0016a8ac55eeecf87c7f541b3a4fa1dc31601eeb1bd6541a5ff3504",
+      "bytes": 476,
+      "sha256": "4d770db9f0016a8ac55eeecf87c7f541b3a4fa1dc31601eeb1bd6541a5ff3504"
+    },
+    {
+      "logicalPath": "core/2875-1024/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/0223799a58fe36e6e3cfb30640a397c888f763b6eaef9318849a67d0f99bb343",
+      "bytes": 1991,
+      "sha256": "0223799a58fe36e6e3cfb30640a397c888f763b6eaef9318849a67d0f99bb343"
+    },
+    {
+      "logicalPath": "core/2875-2048/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/24e860c7d681a35f6ab4f05d8279cacfef23286fd2fb31a2175cac0420a85bfc",
+      "bytes": 9920748,
+      "sha256": "24e860c7d681a35f6ab4f05d8279cacfef23286fd2fb31a2175cac0420a85bfc"
+    },
+    {
+      "logicalPath": "core/2875-2048/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/e4c7be9736114c4ea3c1e4c01e4c98172cef5f1dfe43e3157ee7a0abb4e7318d",
+      "bytes": 476,
+      "sha256": "e4c7be9736114c4ea3c1e4c01e4c98172cef5f1dfe43e3157ee7a0abb4e7318d"
+    },
+    {
+      "logicalPath": "core/2875-2048/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/584d203404e3bb8ec3b810b76f8a0ff09868f342c999d1b740168450390c20fd",
+      "bytes": 1991,
+      "sha256": "584d203404e3bb8ec3b810b76f8a0ff09868f342c999d1b740168450390c20fd"
+    },
+    {
+      "logicalPath": "native/2227-512/batch-result.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2227-512/batch-result.json",
+      "bytes": 207,
+      "sha256": "c5a86234d1ce4d3169b8c105ae3f93da5b60e17d6375fb721c28fea4ef7b9706"
+    },
+    {
+      "logicalPath": "native/2227-512/captured-settings.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2227-512/captured-settings.json",
+      "bytes": 1868,
+      "sha256": "f37880910f3511fa0db930e1cc5ea6533cc7786e66b1a15f4237dd97bdc9e931"
+    },
+    {
+      "logicalPath": "native/2227-512/model.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2227-256/model.json",
+      "bytes": 4348,
+      "sha256": "2e9a959b1f97f72d53150060c8685c9a3fde3a34481be252b56e198e8d3832e3"
+    },
+    {
+      "logicalPath": "native/2227-512/data.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2227-512/data.json",
+      "bytes": 374741,
+      "sha256": "e5af5cce9fedd2aea07aa030d3580f4706b2a104727b1dca4aa63c9d37fa00a3"
+    },
+    {
+      "logicalPath": "native/2227-512/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2227-512/settings.CFG",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "1071-512/settings.CFG",
+      "bytes": 18448,
+      "sha256": "2894edd8e8e0ad67dd8bb7193409911700a9120605619d23249e24fd36a84ce5"
+    },
+    {
+      "logicalPath": "native/2227-1024/batch-result.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/cc19fac90cb8f46fa86e04d420c0f53060417e2e81bc78251cdd156b3e646cc9",
+      "bytes": 208,
+      "sha256": "cc19fac90cb8f46fa86e04d420c0f53060417e2e81bc78251cdd156b3e646cc9"
+    },
+    {
+      "logicalPath": "native/2227-1024/captured-settings.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/442d1c4fd395a7f353d6603b10769b58bf31a90aebd49bf293c4f3467ca36a27",
+      "bytes": 1867,
+      "sha256": "442d1c4fd395a7f353d6603b10769b58bf31a90aebd49bf293c4f3467ca36a27"
+    },
+    {
+      "logicalPath": "native/2227-1024/model.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2227-256/model.json",
+      "bytes": 4348,
+      "sha256": "2e9a959b1f97f72d53150060c8685c9a3fde3a34481be252b56e198e8d3832e3"
+    },
+    {
+      "logicalPath": "native/2227-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/93291646d7a58481f4aa674e4fffc576e1c3ee542958bec54ea6fb18b58a8f1c",
+      "bytes": 374921,
+      "sha256": "93291646d7a58481f4aa674e4fffc576e1c3ee542958bec54ea6fb18b58a8f1c"
+    },
+    {
+      "logicalPath": "native/2227-1024/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2227-1024/settings.CFG",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703",
+      "bytes": 18448,
+      "sha256": "17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703"
+    },
+    {
+      "logicalPath": "native/2227-2048/batch-result.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/4303da1800f6b81daeaf069b26b5aa4582bab03f5eb1590d66e3835dfc361476",
+      "bytes": 208,
+      "sha256": "4303da1800f6b81daeaf069b26b5aa4582bab03f5eb1590d66e3835dfc361476"
+    },
+    {
+      "logicalPath": "native/2227-2048/captured-settings.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/38da9b006c9dc9c8f4d2357b074a0996f2af634ed4be7664c957f9e07604bc53",
+      "bytes": 1867,
+      "sha256": "38da9b006c9dc9c8f4d2357b074a0996f2af634ed4be7664c957f9e07604bc53"
+    },
+    {
+      "logicalPath": "native/2227-2048/model.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2227-256/model.json",
+      "bytes": 4348,
+      "sha256": "2e9a959b1f97f72d53150060c8685c9a3fde3a34481be252b56e198e8d3832e3"
+    },
+    {
+      "logicalPath": "native/2227-2048/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/e34fef8c661056b236516dd8824d6217409082321effac5844766bc9d7e4e2ad",
+      "bytes": 374914,
+      "sha256": "e34fef8c661056b236516dd8824d6217409082321effac5844766bc9d7e4e2ad"
+    },
+    {
+      "logicalPath": "native/2227-2048/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2227-2048/settings.CFG",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/d187b46d617833ec0d6cd81ab2a31fa5690f07d793ac06df46547f812bb5bc8b",
+      "bytes": 18448,
+      "sha256": "d187b46d617833ec0d6cd81ab2a31fa5690f07d793ac06df46547f812bb5bc8b"
+    },
+    {
+      "logicalPath": "core/2227-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/e2dcf0ab123a2c264127e25ef191e608b3c14ec9f32a8e0d4097ca38fc5282eb",
+      "bytes": 9949017,
+      "sha256": "e2dcf0ab123a2c264127e25ef191e608b3c14ec9f32a8e0d4097ca38fc5282eb"
+    },
+    {
+      "logicalPath": "core/2227-1024/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/84497535e0442bd579b807f284fa81bc1d51911b3dfdd40a09e06b14aa00202d",
+      "bytes": 476,
+      "sha256": "84497535e0442bd579b807f284fa81bc1d51911b3dfdd40a09e06b14aa00202d"
+    },
+    {
+      "logicalPath": "core/2227-1024/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/3d796fae0a6f0c16c9ae4326f268375b6087aa4cbab5ebd5f701c5397e42ef0f",
+      "bytes": 2035,
+      "sha256": "3d796fae0a6f0c16c9ae4326f268375b6087aa4cbab5ebd5f701c5397e42ef0f"
+    },
+    {
+      "logicalPath": "core/2227-2048/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/415fa7ef3b05ac6c59f27bb52e28d23fe4e29ab16defedbfb87b6111efc89d98",
+      "bytes": 9949058,
+      "sha256": "415fa7ef3b05ac6c59f27bb52e28d23fe4e29ab16defedbfb87b6111efc89d98"
+    },
+    {
+      "logicalPath": "core/2227-2048/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/0f62640b59204fcc1f98033976a734f005c4981195b653cf4543af4dba2eb6e5",
+      "bytes": 476,
+      "sha256": "0f62640b59204fcc1f98033976a734f005c4981195b653cf4543af4dba2eb6e5"
+    },
+    {
+      "logicalPath": "core/2227-2048/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/6cf255baebd03a69a5dfe62a709cb1b9f1636a96eb11361d56267bf86c5f7350",
+      "bytes": 2035,
+      "sha256": "6cf255baebd03a69a5dfe62a709cb1b9f1636a96eb11361d56267bf86c5f7350"
+    },
+    {
+      "logicalPath": "native/2971-512/batch-result.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2971-512/batch-result.json",
+      "bytes": 207,
+      "sha256": "3919cf33aacad87f8769abd1f46b6e232894d65e35f6c788b5a7a2a99ff241d1"
+    },
+    {
+      "logicalPath": "native/2971-512/captured-settings.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2971-512/captured-settings.json",
+      "bytes": 1894,
+      "sha256": "be7224642a807fa350841068af51161e7264df879b5195322449eda59b953aba"
+    },
+    {
+      "logicalPath": "native/2971-512/model.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2971-256/model.json",
+      "bytes": 9625,
+      "sha256": "9ecd943e3e59ed3f66efa3c7275e22db68fa02f82d950ea2ac3c16750c629f7c"
+    },
+    {
+      "logicalPath": "native/2971-512/data.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2971-512/data.json",
+      "bytes": 348581,
+      "sha256": "3f331249e7bfbff192132d3f6fa5199dfafc61a086687a6e2f8d7d263bc7cd3c"
+    },
+    {
+      "logicalPath": "native/2971-512/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2971-512/settings.CFG",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "1071-512/settings.CFG",
+      "bytes": 18448,
+      "sha256": "2894edd8e8e0ad67dd8bb7193409911700a9120605619d23249e24fd36a84ce5"
+    },
+    {
+      "logicalPath": "native/2971-1024/batch-result.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/4a5e6f2e23fecb350dfeecb2e8040f07adab8fd400b3d662ba9271a71a2380d5",
+      "bytes": 208,
+      "sha256": "4a5e6f2e23fecb350dfeecb2e8040f07adab8fd400b3d662ba9271a71a2380d5"
+    },
+    {
+      "logicalPath": "native/2971-1024/captured-settings.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/167d9a84086b758f931fa19828bb447a71b5bc1ad5cc398e6f81c89082f06d3e",
+      "bytes": 1893,
+      "sha256": "167d9a84086b758f931fa19828bb447a71b5bc1ad5cc398e6f81c89082f06d3e"
+    },
+    {
+      "logicalPath": "native/2971-1024/model.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2971-256/model.json",
+      "bytes": 9625,
+      "sha256": "9ecd943e3e59ed3f66efa3c7275e22db68fa02f82d950ea2ac3c16750c629f7c"
+    },
+    {
+      "logicalPath": "native/2971-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/acfc07b9bc90952b13659ef16095796b878c9c0aa4abfc0d5022df3d55dba9c5",
+      "bytes": 348679,
+      "sha256": "acfc07b9bc90952b13659ef16095796b878c9c0aa4abfc0d5022df3d55dba9c5"
+    },
+    {
+      "logicalPath": "native/2971-1024/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2971-1024/settings.CFG",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703",
+      "bytes": 18448,
+      "sha256": "17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703"
+    },
+    {
+      "logicalPath": "core/2971-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/87d384680f7dffd28aee1b19e30618fd0b325a467819ff95b5809ec8017c9ee9",
+      "bytes": 9863205,
+      "sha256": "87d384680f7dffd28aee1b19e30618fd0b325a467819ff95b5809ec8017c9ee9"
+    },
+    {
+      "logicalPath": "core/2971-1024/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/4da503c328140995fe70f5b3adaf058c59883279571870e51b86e9adada0490b",
+      "bytes": 476,
+      "sha256": "4da503c328140995fe70f5b3adaf058c59883279571870e51b86e9adada0490b"
+    },
+    {
+      "logicalPath": "core/2971-1024/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/9325f86583b2395ebc280da2315e1f48150dce330b70c1526ee117eddcaf838c",
+      "bytes": 2099,
+      "sha256": "9325f86583b2395ebc280da2315e1f48150dce330b70c1526ee117eddcaf838c"
+    },
+    {
+      "logicalPath": "core/2971-2048/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/c1f7f330ad62c1dd3bdf6412f05e62108cfdcb7abd52c4e87d3d58c465fac61c",
+      "bytes": 9863044,
+      "sha256": "c1f7f330ad62c1dd3bdf6412f05e62108cfdcb7abd52c4e87d3d58c465fac61c"
+    },
+    {
+      "logicalPath": "core/2971-2048/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/91ed0ec1d60968f6d2404956da9429969780accbcf7368d55640d4449a142a8e",
+      "bytes": 476,
+      "sha256": "91ed0ec1d60968f6d2404956da9429969780accbcf7368d55640d4449a142a8e"
+    },
+    {
+      "logicalPath": "core/2971-2048/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/dd66aa6b311555a02b2befb5b37ee29762ddb72903c707c7c89a37387296a29c",
+      "bytes": 2099,
+      "sha256": "dd66aa6b311555a02b2befb5b37ee29762ddb72903c707c7c89a37387296a29c"
+    },
+    {
+      "logicalPath": "native/989-512/batch-result.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "989-512/batch-result.json",
+      "bytes": 206,
+      "sha256": "49a7ed0d5d39f4fc5f2c3f9e7360ae5119a3ce924c0a6a527ca271c7e1f2c724"
+    },
+    {
+      "logicalPath": "native/989-512/captured-settings.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "989-512/captured-settings.json",
+      "bytes": 1884,
+      "sha256": "c2385ce8f2c25938e38e679ef652458fd729a3dac5ec14ef72f9dd308f9dbd03"
+    },
+    {
+      "logicalPath": "native/989-512/model.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "989-256/model.json",
+      "bytes": 7272,
+      "sha256": "fff953bd31d62a877987258d52c7d9c06be0ceb6c22a58f86a8885cde77a438c"
+    },
+    {
+      "logicalPath": "native/989-512/data.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "989-512/data.json",
+      "bytes": 373352,
+      "sha256": "cb2234095288236f9e54685b6c56d6f9d7d464ced0057743eb37806a86c19609"
+    },
+    {
+      "logicalPath": "native/989-512/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/989-512/settings.CFG",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "1071-512/settings.CFG",
+      "bytes": 18448,
+      "sha256": "2894edd8e8e0ad67dd8bb7193409911700a9120605619d23249e24fd36a84ce5"
+    },
+    {
+      "logicalPath": "native/989-1024/batch-result.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/f980a5294f0a3704dde61e34c840193b5f949e3c641a7a4530c676752782064d",
+      "bytes": 207,
+      "sha256": "f980a5294f0a3704dde61e34c840193b5f949e3c641a7a4530c676752782064d"
+    },
+    {
+      "logicalPath": "native/989-1024/captured-settings.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/99cf8020cf273a6656002f69abffb92045bfe576cae1948f00bc342df65f4868",
+      "bytes": 1883,
+      "sha256": "99cf8020cf273a6656002f69abffb92045bfe576cae1948f00bc342df65f4868"
+    },
+    {
+      "logicalPath": "native/989-1024/model.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "989-256/model.json",
+      "bytes": 7272,
+      "sha256": "fff953bd31d62a877987258d52c7d9c06be0ceb6c22a58f86a8885cde77a438c"
+    },
+    {
+      "logicalPath": "native/989-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/70ebe60cd735f97189b5dc4e63234f2a239123bd9e1c27e21edc935c20fba017",
+      "bytes": 373507,
+      "sha256": "70ebe60cd735f97189b5dc4e63234f2a239123bd9e1c27e21edc935c20fba017"
+    },
+    {
+      "logicalPath": "native/989-1024/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/989-1024/settings.CFG",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703",
+      "bytes": 18448,
+      "sha256": "17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703"
+    },
+    {
+      "logicalPath": "core/989-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/b6321bd4c2a1e8219a4e64bbcc0fe8837e76bd01e747b7726e72fa2e538ec20e",
+      "bytes": 9935008,
+      "sha256": "b6321bd4c2a1e8219a4e64bbcc0fe8837e76bd01e747b7726e72fa2e538ec20e"
+    },
+    {
+      "logicalPath": "core/989-1024/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/dab14615a12251c3dbdd46b8d8762b89e7784ca5348dadde08a4b8928305a36d",
+      "bytes": 476,
+      "sha256": "dab14615a12251c3dbdd46b8d8762b89e7784ca5348dadde08a4b8928305a36d"
+    },
+    {
+      "logicalPath": "core/989-1024/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/32f75e532217de7c313c92bfcfcb24556e9b90271a41a950d0a5bd425c39001a",
+      "bytes": 2083,
+      "sha256": "32f75e532217de7c313c92bfcfcb24556e9b90271a41a950d0a5bd425c39001a"
+    },
+    {
+      "logicalPath": "core/989-2048/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/0b6f8244fa07fd350bb18fbdc3d6b525ea9af3f3cd0823edd5c3440b46fedd1a",
+      "bytes": 9935383,
+      "sha256": "0b6f8244fa07fd350bb18fbdc3d6b525ea9af3f3cd0823edd5c3440b46fedd1a"
+    },
+    {
+      "logicalPath": "core/989-2048/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/d44189ee027e901df0f44afc9a21515fde4d8f700adc59cb83ab96a1e162af82",
+      "bytes": 476,
+      "sha256": "d44189ee027e901df0f44afc9a21515fde4d8f700adc59cb83ab96a1e162af82"
+    },
+    {
+      "logicalPath": "core/989-2048/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/85cc754488aa83a26525a90ecad7442352e11977153f447f032a2ead398acf9d",
+      "bytes": 2083,
+      "sha256": "85cc754488aa83a26525a90ecad7442352e11977153f447f032a2ead398acf9d"
+    },
+    {
+      "logicalPath": "native/2809-512/batch-result.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2809-512/batch-result.json",
+      "bytes": 207,
+      "sha256": "bea031aede952c6abaed97092060e368cfc9a0b99cd1a564020b66bf2b53a8b9"
+    },
+    {
+      "logicalPath": "native/2809-512/captured-settings.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2809-512/captured-settings.json",
+      "bytes": 1896,
+      "sha256": "ef630c1f198947ed8c45c7dadd6119170aea99cb88e3477b9a627ce80f82e632"
+    },
+    {
+      "logicalPath": "native/2809-512/model.json",
+      "archive": "../../2026-11-07/fan-physical-coverage/native-explicit-rays.zip",
+      "member": "2806/model.json",
+      "bytes": 5552,
+      "sha256": "81f4b30e755fbf3a8bce8ad51e41f19260711ba9530ec7efae4436361dce4a86"
+    },
+    {
+      "logicalPath": "native/2809-512/data.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2809-512/data.json",
+      "bytes": 357755,
+      "sha256": "2be775b5384dc03387298e99e288224202de7f15befaeb9b5c1c88db43b8d5bd"
+    },
+    {
+      "logicalPath": "native/2809-512/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2809-512/settings.CFG",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "1071-512/settings.CFG",
+      "bytes": 18448,
+      "sha256": "2894edd8e8e0ad67dd8bb7193409911700a9120605619d23249e24fd36a84ce5"
+    },
+    {
+      "logicalPath": "native/2809-512/unit-normalization.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/875-256/unit-normalization.json",
+      "bytes": 131,
+      "sha256": "e8eeb42ce0fa7133684b403441e543c79de6db27593fcca9ea2eff90cb42e877"
+    },
+    {
+      "logicalPath": "native/2809-1024/batch-result.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/434af2e2de12149293604a1f5db7717fc0d0469e8ca1b798fb3afa215c8098ad",
+      "bytes": 208,
+      "sha256": "434af2e2de12149293604a1f5db7717fc0d0469e8ca1b798fb3afa215c8098ad"
+    },
+    {
+      "logicalPath": "native/2809-1024/captured-settings.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/61d7b6422a76dc701e7a4647d79f6180b3749a9c1dfafb5ce94b6c20118a18eb",
+      "bytes": 1895,
+      "sha256": "61d7b6422a76dc701e7a4647d79f6180b3749a9c1dfafb5ce94b6c20118a18eb"
+    },
+    {
+      "logicalPath": "native/2809-1024/model.json",
+      "archive": "../../2026-11-07/fan-physical-coverage/native-explicit-rays.zip",
+      "member": "2806/model.json",
+      "bytes": 5552,
+      "sha256": "81f4b30e755fbf3a8bce8ad51e41f19260711ba9530ec7efae4436361dce4a86"
+    },
+    {
+      "logicalPath": "native/2809-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/3d89dddbd852d76ad9522da32f8aa0f269e4dd182659e90328714a5e46f1f9cc",
+      "bytes": 357684,
+      "sha256": "3d89dddbd852d76ad9522da32f8aa0f269e4dd182659e90328714a5e46f1f9cc"
+    },
+    {
+      "logicalPath": "native/2809-1024/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2809-1024/settings.CFG",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703",
+      "bytes": 18448,
+      "sha256": "17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703"
+    },
+    {
+      "logicalPath": "native/2809-1024/unit-normalization.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/875-256/unit-normalization.json",
+      "bytes": 131,
+      "sha256": "e8eeb42ce0fa7133684b403441e543c79de6db27593fcca9ea2eff90cb42e877"
+    },
+    {
+      "logicalPath": "core/2809-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/423e94f327bdb00f39301e59bec3db289324fd6538c495deccf02a8ceee2ed59",
+      "bytes": 9883713,
+      "sha256": "423e94f327bdb00f39301e59bec3db289324fd6538c495deccf02a8ceee2ed59"
+    },
+    {
+      "logicalPath": "core/2809-1024/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/71fe84b37218203b40d9f79e3e7713bc8d8441d8f652db176be6177029bcefd1",
+      "bytes": 476,
+      "sha256": "71fe84b37218203b40d9f79e3e7713bc8d8441d8f652db176be6177029bcefd1"
+    },
+    {
+      "logicalPath": "core/2809-1024/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/7066ef4af40b758fff5f6c442ef2061865fc1606098253c3933374e04e0f1ce7",
+      "bytes": 2106,
+      "sha256": "7066ef4af40b758fff5f6c442ef2061865fc1606098253c3933374e04e0f1ce7"
+    },
+    {
+      "logicalPath": "core/2809-2048/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/32583ef90227b0ab3e5ab038fff798db19ff38847abbf720d59de14c95fc48b5",
+      "bytes": 9884253,
+      "sha256": "32583ef90227b0ab3e5ab038fff798db19ff38847abbf720d59de14c95fc48b5"
+    },
+    {
+      "logicalPath": "core/2809-2048/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/be16ef729a775129bac1ad407b6b69d34a382feda146e0d2cdec48bd13c55872",
+      "bytes": 476,
+      "sha256": "be16ef729a775129bac1ad407b6b69d34a382feda146e0d2cdec48bd13c55872"
+    },
+    {
+      "logicalPath": "core/2809-2048/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/1f53fccd4f0591251482752b7f9fcf720c0d2f28ce5a1aad94636666c13b5b8d",
+      "bytes": 2106,
+      "sha256": "1f53fccd4f0591251482752b7f9fcf720c0d2f28ce5a1aad94636666c13b5b8d"
+    },
+    {
+      "logicalPath": "native/2765-512/batch-result.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2765-512/batch-result.json",
+      "bytes": 207,
+      "sha256": "47bf9dca0e6f10ed52e5bd863cfa92d894c5ee1829fc82f3a6dbd6c7538ad240"
+    },
+    {
+      "logicalPath": "native/2765-512/captured-settings.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2765-512/captured-settings.json",
+      "bytes": 1896,
+      "sha256": "86b6633bb8d9c5c93baf6eea1d4c1e3bca6c44c5a5b8038ea2a39ddf69218a23"
+    },
+    {
+      "logicalPath": "native/2765-512/model.json",
+      "archive": "../../2026-11-07/fan-physical-coverage/native-explicit-rays.zip",
+      "member": "2762/model.json",
+      "bytes": 5556,
+      "sha256": "bb8e2fd9a5292631dbf6e582cf40e35ed3a4d03cbb25a25ff6ba37b2f6f5e091"
+    },
+    {
+      "logicalPath": "native/2765-512/data.json",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "2765-512/data.json",
+      "bytes": 360237,
+      "sha256": "0675b33c3316d68df1cf9d3ede4ed0a5026fb6d496806d7960b45cc233e1ee04"
+    },
+    {
+      "logicalPath": "native/2765-512/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2765-512/settings.CFG",
+      "archive": "../../2026-11-07/fft-psf-native-window/fixed-window-references.zip",
+      "member": "1071-512/settings.CFG",
+      "bytes": 18448,
+      "sha256": "2894edd8e8e0ad67dd8bb7193409911700a9120605619d23249e24fd36a84ce5"
+    },
+    {
+      "logicalPath": "native/2765-512/unit-normalization.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/875-256/unit-normalization.json",
+      "bytes": 131,
+      "sha256": "e8eeb42ce0fa7133684b403441e543c79de6db27593fcca9ea2eff90cb42e877"
+    },
+    {
+      "logicalPath": "native/2765-1024/batch-result.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/96067eba81962a07bd6128865d295419776391e2474727ad9f8c04f10ed4325f",
+      "bytes": 208,
+      "sha256": "96067eba81962a07bd6128865d295419776391e2474727ad9f8c04f10ed4325f"
+    },
+    {
+      "logicalPath": "native/2765-1024/captured-settings.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/c44c1b793941707a91b11448b4d0e644e7e55afce50acfd91db5dd8b55126beb",
+      "bytes": 1895,
+      "sha256": "c44c1b793941707a91b11448b4d0e644e7e55afce50acfd91db5dd8b55126beb"
+    },
+    {
+      "logicalPath": "native/2765-1024/model.json",
+      "archive": "../../2026-11-07/fan-physical-coverage/native-explicit-rays.zip",
+      "member": "2762/model.json",
+      "bytes": 5556,
+      "sha256": "bb8e2fd9a5292631dbf6e582cf40e35ed3a4d03cbb25a25ff6ba37b2f6f5e091"
+    },
+    {
+      "logicalPath": "native/2765-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/8537f4bb6f18feb0463c7b8519da07bc3f63f3f07eeade0a9a7de65d0c15ccbe",
+      "bytes": 360023,
+      "sha256": "8537f4bb6f18feb0463c7b8519da07bc3f63f3f07eeade0a9a7de65d0c15ccbe"
+    },
+    {
+      "logicalPath": "native/2765-1024/result-diagnostics.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/1011-256/result-diagnostics.json",
+      "bytes": 45,
+      "sha256": "77bdeece265439e92a7d7609e415d95a227821db8453bbeffafc6fed4c7af9f5"
+    },
+    {
+      "logicalPath": "native/2765-1024/settings.CFG",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703",
+      "bytes": 18448,
+      "sha256": "17945717966b6d6d4b8f8620ba66759481f057cd89a4af84b7e8e8edece93703"
+    },
+    {
+      "logicalPath": "native/2765-1024/unit-normalization.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/875-256/unit-normalization.json",
+      "bytes": 131,
+      "sha256": "e8eeb42ce0fa7133684b403441e543c79de6db27593fcca9ea2eff90cb42e877"
+    },
+    {
+      "logicalPath": "core/2765-1024/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/498b88844ee53813e14fd96a71f4187045b280cdd945d46ea6f8660c515402ca",
+      "bytes": 9892602,
+      "sha256": "498b88844ee53813e14fd96a71f4187045b280cdd945d46ea6f8660c515402ca"
+    },
+    {
+      "logicalPath": "core/2765-1024/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/2e0dcad8d3134ad15ff4a566d11f9abf06c29e2d455943bb724ff9a17b4d3681",
+      "bytes": 476,
+      "sha256": "2e0dcad8d3134ad15ff4a566d11f9abf06c29e2d455943bb724ff9a17b4d3681"
+    },
+    {
+      "logicalPath": "core/2765-1024/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/a88f0839606d081d0e50c93350840cded585b7235a28491faeefbc07052a4b49",
+      "bytes": 2106,
+      "sha256": "a88f0839606d081d0e50c93350840cded585b7235a28491faeefbc07052a4b49"
+    },
+    {
+      "logicalPath": "core/2765-2048/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/c0a368e647d879f888e98a7f720dc0ac78d9ac7b482faac6692a0273340f7f54",
+      "bytes": 9893253,
+      "sha256": "c0a368e647d879f888e98a7f720dc0ac78d9ac7b482faac6692a0273340f7f54"
+    },
+    {
+      "logicalPath": "core/2765-2048/provenance.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/c879b2230b6923edb4f31d3a5b7016b029e5d3d9210d63df295a5c2999a34124",
+      "bytes": 476,
+      "sha256": "c879b2230b6923edb4f31d3a5b7016b029e5d3d9210d63df295a5c2999a34124"
+    },
+    {
+      "logicalPath": "core/2765-2048/job.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/58b274731f0f008a2feff78721db1008f59b316256eeac22643077c2f55134c6",
+      "bytes": 2106,
+      "sha256": "58b274731f0f008a2feff78721db1008f59b316256eeac22643077c2f55134c6"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "index": 2157,
+  "outcome": "Unavailable",
+  "reason": "FFT PSF has no valid data: FFT image delta is too large: the sampling grid does not cover the full pupil..",
+  "certificate": {
+    "protocol": "FourierPhysicalDomainConvergence/v2",
+    "mode": "Adaptive",
+    "requestedPupilSampling": 64,
+    "returnedPupilSampling": 0,
+    "maximumPupilSampling": 2048,
+    "relativeRmsAccuracy": 0.001,
+    "absoluteAccuracy": 1E-07,
+    "validated": false,
+    "steps": [
+      {
+        "pupilSampling": 64,
+        "phaseResolved": false,
+        "relativeRmsChange": null,
+        "maximumAbsoluteChange": null,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 128,
+        "phaseResolved": false,
+        "relativeRmsChange": 2.2875039141441804,
+        "maximumAbsoluteChange": 0.005222878341686319,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 256,
+        "phaseResolved": false,
+        "relativeRmsChange": 0.27162098325292616,
+        "maximumAbsoluteChange": 0.002662171752357576,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 512,
+        "phaseResolved": false,
+        "relativeRmsChange": 0.3198164529519255,
+        "maximumAbsoluteChange": 0.0005571060284522197,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 1024,
+        "phaseResolved": false,
+        "relativeRmsChange": 0.026481175997171168,
+        "maximumAbsoluteChange": 0.0002521353182701469,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 2048,
+        "phaseResolved": false,
+        "relativeRmsChange": 0.011754009723463557,
+        "maximumAbsoluteChange": 0.00011061334560512337,
+        "usesDensePhysicalPupil": false
+      }
+    ],
+    "reason": "FFT PSF has no valid data: FFT image delta is too large: the sampling grid does not cover the full pupil..",
+    "evaluatedNominalPupilCells": 11214848,
+    "maximumNominalPupilCells": 100000000,
+    "requestedRelativeRmsDeviation": null,
+    "requestedMaximumAbsoluteDeviation": null
+  },
+  "paddingProbes": [
+    {
+      "pupilSampling": 1024,
+      "factor": 2,
+      "phase": {
+        "Status": 1,
+        "ConnectedEdges": 1088408,
+        "MaximumStepWaves": 2.8870341576624625,
+        "Criterion": "LocalUnwrappedPupilPhaseStep/v1",
+        "CertifiesConvergence": false
+      },
+      "SampleSpacingMicrometers": 0.25,
+      "PupilGridStretchX": 1.2267764352616513,
+      "PupilGridStretchY": 1.2268982640972235
+    },
+    {
+      "pupilSampling": 1024,
+      "factor": 4,
+      "error": "FFT PSF has no valid data: FFT image delta is too large: the sampling grid does not cover the full pupil.."
+    },
+    {
+      "pupilSampling": 1024,
+      "factor": 8,
+      "error": "FFT PSF has no valid data: FFT image delta is too large: the sampling grid does not cover the full pupil.."
+    },
+    {
+      "pupilSampling": 2048,
+      "factor": 2,
+      "phase": {
+        "Status": 1,
+        "ConnectedEdges": 4356826,
+        "MaximumStepWaves": 1.4796563253712094,
+        "Criterion": "LocalUnwrappedPupilPhaseStep/v1",
+        "CertifiesConvergence": false
+      },
+      "SampleSpacingMicrometers": 0.25,
+      "PupilGridStretchX": 1.2279768035936096,
+      "PupilGridStretchY": 1.2280987516354789
+    },
+    {
+      "pupilSampling": 2048,
+      "factor": 4,
+      "error": "FFT PSF has no valid data: FFT image delta is too large: the sampling grid does not cover the full pupil.."
+    },
+    {
+      "pupilSampling": 2048,
+      "factor": 8,
+      "error": "FFT PSF has no valid data: FFT image delta is too large: the sampling grid does not cover the full pupil.."
+    }
+  ],
+  "provenance": {
+    "canonicalAnalysisKey": "PSF",
+    "requestFingerprint": "c95f4f9d173ab3796a091f1fcfb45ffb959601155f4d765300cb65aece1b71c5",
+    "settingsTranslation": null,
+    "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+    "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+    "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+  }
+}

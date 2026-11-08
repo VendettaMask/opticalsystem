@@ -2,6 +2,8 @@ using System.Collections.Concurrent;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Propagation;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Services;
 
@@ -49,7 +51,37 @@ public sealed partial class SequentialRayTracer
             var model = (ParaxialLensInteractionModel)surface.InteractionModel;
             if (model.OpdMode == 0 && !ParaxialPhaseRules.IsPlaneWavePrefix(owner._optic.SurfaceGroup.Items.Take(surfaceIndex).ToArray()))
                 throw new NotSupportedException("模式 0 目前只验证了平面均匀介质链保持的准直光束；不能代替有限共轭或有像差的旁轴共轭计算。");
-            var infinite = ObjectConjugate.IsInfinite(owner._optic.SurfaceGroup.Items[0]);
+            var objectSurface = owner._optic.SurfaceGroup.Items[0];
+            var infinite = ObjectConjugate.IsInfinite(objectSurface);
+            if (!infinite && surfaceIndex == 1 && surface.IsStop && model.OpdMode == 1 && localRay.Direction.Z > 0
+                && objectSurface is { Geometry: PlaneGeometry, InteractionModel: RefractiveReflectiveInteractionModel, IsReflective: false }
+                && objectSurface.MaterialAfter.PropagationModel is HomogeneousPropagationModel
+                && objectSurface.MaterialAfter.RefractiveIndex(source.WavelengthNanometers)
+                    == owner.ResolveMaterial("Air").RefractiveIndex(source.WavelengthNanometers)
+                && objectSurface.CoordinateSystem.ToLocalPoint(source.Origin).Z == 0)
+            {
+                var objectPoint = surface.CoordinateSystem.ToLocalPoint(source.Origin);
+                if (objectPoint.X == 0 && objectPoint.Y == 0 && objectPoint.Z < 0)
+                {
+                    // The first stop sees the centered point directly. Along the
+                    // chief-to-hit segment, the incident and outgoing slopes are
+                    // t times their endpoint slopes. Integrate t/sqrt(1+t²q²)
+                    // exactly for each direction, including unequal X/Y powers.
+                    var x = localRay.Origin.X;
+                    var y = localRay.Origin.Y;
+                    var before = context.RefractiveIndexBefore;
+                    var after = context.RefractiveIndexAfter;
+                    var sx = localRay.Direction.X / localRay.Direction.Z;
+                    var sy = localRay.Direction.Y / localRay.Direction.Z;
+                    var tx = (before * sx - model.PowerX * x) / after;
+                    var ty = (before * sy - model.PowerY * y) / after;
+                    var phase = Primitive(tx, ty, after) - Primitive(sx, sy, before);
+                    if (double.IsFinite(phase)) return phase;
+
+                    double Primitive(double u, double v, double index) =>
+                        index * (x * u + y * v) / (1 + double.Hypot(1, double.Hypot(u, v)));
+                }
+            }
             var key = new BeamKey(surfaceIndex, infinite ? source.Direction : source.Origin, source.WavelengthNanometers, infinite);
             var beam = new Beam(owner, source, infinite);
             var chief = _chiefs.GetOrAdd(key, _ => new Lazy<Chief>(() =>

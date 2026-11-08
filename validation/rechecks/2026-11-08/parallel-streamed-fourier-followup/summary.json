@@ -1,0 +1,70 @@
+{
+  "menuLenses": 95,
+  "configurations": 115,
+  "frozenRequests": 3024,
+  "frozen": {
+    "Pass": 2527,
+    "Close": 19,
+    "Difference": 31,
+    "Incomparable": 427,
+    "Error": 20
+  },
+  "frozenFullReplay": "../parallel-physical-fourier-followup/frozen-replay.json",
+  "frozenLateFixedReplay": "../parallel-physical-fourier-followup/frozen-virtual-energy.json",
+  "currentCoreFixedControls": "fixed-sampling-controls.json",
+  "currentCoreFocusedTests": "streamed-final-focused.trx",
+  "currentCoreSha256": "a0e1ccb72df9dca18a1e155039b05a7d1b0f605a32cc346c0076a3355d8ddafc",
+  "frozenByLens": "../parallel-precision-followup/by-lens.csv",
+  "previousLedgerSha256": "e67cb7b0e872d23349b225e72f11cfd086cc83fd797649692b24c610fdc37d08",
+  "independentOpenBefore": 46,
+  "independentOpenAfter": 17,
+  "openEligibleForIndependentFollowup": 15,
+  "openExcludedFromIndependentFollowup": [
+    1927,
+    1934
+  ],
+  "resolvedIndependentIndices": [
+    443,
+    447,
+    502,
+    974,
+    996,
+    1095,
+    1100,
+    1122,
+    1205,
+    1207,
+    1298,
+    1634,
+    1994,
+    2231,
+    2234,
+    2438,
+    2684,
+    2772,
+    2794,
+    2816,
+    2838,
+    2882,
+    2897,
+    2901,
+    2904,
+    2919,
+    2923,
+    2926,
+    3008
+  ],
+  "independentResolutions": {
+    "SupplementalPass": 29
+  },
+  "openByAnalysis": {
+    "Diffraction Encircled Energy": 7,
+    "PSF": 3,
+    "MTF": 2,
+    "FFT PSF Cross Section": 5
+  },
+  "openByStatus": {
+    "ConfirmedNativeReferenceUnavailable": 10,
+    "ConvergedComparisonNotEstablished": 7
+  }
+}

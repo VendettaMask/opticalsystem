@@ -1,0 +1,45 @@
+{
+  "menuLenses": 95,
+  "configurations": 115,
+  "frozenRequests": 3024,
+  "frozen": {
+    "Pass": 2527,
+    "Close": 19,
+    "Difference": 31,
+    "Incomparable": 427,
+    "Error": 20
+  },
+  "frozenFullReplay": "frozen-replay.json",
+  "frozenByLens": "../parallel-precision-followup/by-lens.csv",
+  "previousLedgerSha256": "5a334e98e0ec9bc018660821c91c9d07181a151ff2e237ef64fd34bacb34314c",
+  "independentOpenBefore": 54,
+  "independentOpenAfter": 46,
+  "openEligibleForIndependentFollowup": 44,
+  "openExcludedFromIndependentFollowup": [
+    1927,
+    1934
+  ],
+  "resolvedIndependentIndices": [
+    445,
+    555,
+    562,
+    592,
+    1203,
+    1664,
+    2159,
+    2499
+  ],
+  "independentResolutions": {
+    "SupplementalPass": 8
+  },
+  "openByAnalysis": {
+    "PSF": 6,
+    "FFT PSF Cross Section": 10,
+    "Diffraction Encircled Energy": 26,
+    "MTF": 4
+  },
+  "openByStatus": {
+    "ConfirmedNativeReferenceUnavailable": 26,
+    "ConvergedComparisonNotEstablished": 20
+  }
+}

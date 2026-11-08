@@ -1,0 +1,100 @@
+{
+  "status": "ConditionalScalarFftOperatorOnly",
+  "frozenIndex": 947,
+  "nativeRaySha256": "f10932ba1ddb438722f7af7add2402b86c7d7c7c27a8e3113449bc20261cdb41",
+  "referencePsfReceiptSha256": "cb3bee6f520fe2e0868d0918e0f453d0951994b17d46f903db2d41802a9237ea",
+  "nearFocusApplicabilityReceiptSha256": "978953252a8eda5eeb5c3a382cc170d279e326606ae2c1334878f0c55a943f13",
+  "originalNativeSettingsSha256": "b9125c7cad9b172841e474f7374b71a739a0ffd97d75948e59dde60fc4921ec8",
+  "originalWorkbenchRequestSha256": "525c9c44e776151ab2c2470653b9bd3948cd989921f227191a667f5b18754073",
+  "originalNativeResultSha256": "20183b6969563c25aa7875e9241ca9ba87adaa1637e902b5f7cf3525e9048409",
+  "originalNativeMessages": [
+    {
+      "ErrorCode": "Success",
+      "Text": "\u53d6\u6837\u592a\u4f4e, \u6570\u636e\u4e0d\u51c6\u786e!"
+    }
+  ],
+  "wavelengthMicrometers": 0.55,
+  "workingFNumber": 2.0146299266834213,
+  "referenceSphereMm": 463.13906722123454,
+  "radialCarrierWavesPerUnitPupil": -11791.923306524493,
+  "nativePhaseFitHeldout": [
+    {
+      "fitNodes": 4274,
+      "heldoutNodes": 225090,
+      "maxAbsWaves": 9.845280146691948e-10
+    },
+    {
+      "fitNodes": 5699,
+      "heldoutNodes": 223665,
+      "maxAbsWaves": 6.239133654162288e-10
+    }
+  ],
+  "maxDifferenceBetweenPhaseFitsWaves": 1.1955307854805142e-09,
+  "segmentedPlansPanelsAngularOrderDepthOrder": [
+    [
+      96,
+      12,
+      384
+    ],
+    [
+      144,
+      16,
+      448
+    ]
+  ],
+  "directPlansPanelsAngularOrderDepthOrder": [
+    [
+      320,
+      20,
+      384
+    ],
+    [
+      512,
+      22,
+      448
+    ]
+  ],
+  "frequencyRangeCyclesPerMm": [
+    0.0,
+    50.0
+  ],
+  "frequencyCountPerDirection": 300,
+  "sameTangentialSagittalByRotationalSymmetry": true,
+  "directControlCount": 19,
+  "normalizedPupilShiftAtMaximum": 0.11080464596758818,
+  "actualModulationAt50": 0.0004952338171194195,
+  "idealModulationAt50": 0.9294956744760311,
+  "comparisons": {
+    "signedOtfBetweenSegmentedTiers": {
+      "points": 299,
+      "maxAbs": 4.569774246510061e-12,
+      "relativeL2": 1.3812210307029708e-10
+    },
+    "modulationBetweenSegmentedTiers": {
+      "points": 300,
+      "maxAbs": 4.569774246510061e-12,
+      "relativeL2": 1.3814759220589483e-11
+    },
+    "directControlOtfBetweenTiers": {
+      "points": 18,
+      "maxAbs": 3.3801277748990444e-12,
+      "relativeL2": 5.381906895364651e-11
+    },
+    "directControlOtfVersusSegmented": {
+      "points": 18,
+      "maxAbs": 5.753644088946075e-15,
+      "relativeL2": 1.1879750224178422e-13
+    },
+    "segmentedIdealGeometryVersusCircleOverlap": {
+      "points": 300,
+      "maxAbs": 1.6087131626818518e-13,
+      "relativeL2": 7.372848400162292e-14
+    },
+    "directIdealGeometryVersusCircleOverlap": {
+      "points": 19,
+      "maxAbs": 1.6053824936079764e-13,
+      "relativeL2": 9.264741857082127e-14
+    }
+  },
+  "rawPayloadSha256": "53461a8a3e5f4a81a9376dadcda888af3a8f2f5ad111687dbe2049c4e7fde3f7"
+}

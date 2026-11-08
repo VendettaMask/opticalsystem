@@ -519,7 +519,8 @@ internal sealed class WavefrontAdapter : Adapter
     public override void Configure(IAS_ settings)
     {
         var s = (IAS_WavefrontMap)settings; Select(s.Field, s.Wavelength, s.Surface);
-        s.Sampling = Host.Sampling(Host.Int("pupilSampling")); s.RemoveTilt = false; s.UseExitPupil = true;
+        s.Sampling = Host.Sampling(Host.Int("pupilSampling")); s.RemoveTilt = false;
+        s.UseExitPupil = !Host.Request.ContainsKey("useExitPupil") || Convert.ToBoolean(Host.Request["useExitPupil"]);
         s.ReferenceToPrimary = false; s.Subaperture_X = 0; s.Subaperture_Y = 0; s.Subaperture_R = 1;
         s.Rotation = Host.EnumValue<Rotations>("Rotate_0"); s.Polarization = Host.EnumValue<Polarizations>("None");
     }

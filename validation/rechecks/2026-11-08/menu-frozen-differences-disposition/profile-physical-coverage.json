@@ -1,0 +1,65 @@
+[
+  {
+    "index": 448,
+    "outcome": "Pass",
+    "workbenchPoints": 32,
+    "nativeReportedPoints": 33,
+    "nativePrintedAdditionalMicrometers": [
+      4.0
+    ],
+    "maxAbsolute": 6.4039538431714255e-06,
+    "nrmse": 0.0005097603396891864,
+    "pointwisePass": true,
+    "nativeMemberSha256": "16df67780303e513d501d1d47fbfbeb617c483346a80c2e69a1154836c4dd9b1",
+    "archive": "2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+    "entry": "native/448-n1024/data.txt",
+    "gate": {
+      "absolute": 1e-05,
+      "closeNrmse": 0.01,
+      "relative": 0.002,
+      "nrmse": 0.003
+    }
+  },
+  {
+    "index": 2162,
+    "outcome": "Pass",
+    "workbenchPoints": 32,
+    "nativeReportedPoints": 33,
+    "nativePrintedAdditionalMicrometers": [
+      4.0
+    ],
+    "maxAbsolute": 4.455018929972304e-07,
+    "nrmse": 0.009546809373224711,
+    "pointwisePass": true,
+    "nativeMemberSha256": "b06c60f5322307e31c37ea84a06ca20f5bf200f04537b80f84666fef4c274c5e",
+    "archive": "2026-11-02\\huygens-common\\evidence.zip",
+    "entry": "payloads/b06c60f5322307e31c37ea84a06ca20f5bf200f04537b80f84666fef4c274c5e",
+    "gate": {
+      "absolute": 1e-05,
+      "closeNrmse": 0.01,
+      "relative": 0.002,
+      "nrmse": 0.003
+    }
+  },
+  {
+    "index": 500,
+    "outcome": "Pass",
+    "workbenchPoints": 32,
+    "nativeReportedPoints": 33,
+    "nativePrintedAdditionalMicrometers": [
+      4.0
+    ],
+    "maxAbsolute": 8.627949485577602e-06,
+    "nrmse": 0.0004753542826103494,
+    "pointwisePass": true,
+    "nativeMemberSha256": "d5195f46c27a1feeffa4a865a3d1c1f646c05c25038129bc4b81b39ed333278b",
+    "archive": "2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+    "entry": "refinement/captures/500-step0.00025/data.txt",
+    "gate": {
+      "absolute": 1e-05,
+      "closeNrmse": 0.01,
+      "relative": 0.002,
+      "nrmse": 0.003
+    }
+  }
+]

@@ -1,0 +1,170 @@
+{
+  "index": 502,
+  "radiusMicrometers": 5,
+  "sourceSha256": {
+    "grid-0.001.ZMX": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+    "grid-0.0005.ZMX": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69"
+  },
+  "priorArchiveSha256": "8a6e64399d514d2e94ddadaaf884449d8d2c6a092a9cfa5020d2e76eaa86e421",
+  "grids": {
+    "grid-full-512-step0.001": {
+      "cx": 3.6274935001160884,
+      "cy": -8.006459657064113,
+      "discreteX": 3.6276227083517854,
+      "discreteY": -8.00652535537874,
+      "sum": 5.674143258350963,
+      "total": 2.1648400292267747,
+      "edge4FractionUpperBound": 0.0001364369100772053,
+      "window": [
+        -315.63391105449006,
+        316.25158994109375,
+        -315.63391105449006,
+        316.25158994109375
+      ],
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 5.111756737298176e-11,
+        "nrmse": 4.473217535810449e-08,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.0003979999768891708,
+      "rawSha256": {
+        "psf-grid.json": "30331ce77abea17392aaa38723caee3b38b1c3d44b9af9ccb3088d0eae7cec37",
+        "grid-f64le.bin": "0431b04419a2616bc42850e7f2db1544aaf582cc157db23f6e5f87bcf98fe532",
+        "captured-settings.json": "c5425056c9e7ba4428a2ffe8a7301d359ee15523e8b8762808a32e363b2e480c",
+        "model.json": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+        "result-diagnostics.json": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+        "batch-result.json": "02cb635e81dce3cc62f091eae4b51baa1c2d18905ece9c9b1ad3a446ab3ff8ed"
+      }
+    },
+    "grid-256-step0.001": {
+      "cx": -18.067370570650098,
+      "cy": 5.000965590679897,
+      "discreteX": -18.089918408517168,
+      "discreteY": 5.010191767267943,
+      "sum": 5.720295895432823,
+      "total": 2.165364835906029,
+      "edge4FractionUpperBound": 0.04058638695541876,
+      "window": [
+        -156.89043719733948,
+        157.50569381379964,
+        -156.89043719733948,
+        157.50569381379964
+      ],
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 8.348868466142786e-11,
+        "nrmse": 5.962063672199514e-08,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.0005369359619798169,
+      "rawSha256": {
+        "psf-grid.json": "53e3f1e38a3b48a026e0397977b8f514d81fde142dd83864726c4d772ae71e3a",
+        "grid-f64le.bin": "8d3fe20a72d0b7d25139ff21f5cf63ba8c09f7b5dc6c6b82c580ca364f4b301c",
+        "captured-settings.json": "31a2836e4875522954d6ddbf5d8f734189c660f2454fac90e9c3e6cd8938979a",
+        "model.json": "33033047c09a8feaca7a4c07a00e543d1ea9367f62bb1f986a1675546b3d9143",
+        "result-diagnostics.json": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+        "batch-result.json": "01001b4120aff973c3c338e3e0ff700d9585d79ee6e81f73e015014b46c9de08"
+      }
+    },
+    "grid-512-step0.0005": {
+      "cx": 3.627529537326666,
+      "cy": -8.005904103467572,
+      "discreteX": 3.6276589223093514,
+      "discreteY": -8.00597037173074,
+      "sum": 5.674143258350963,
+      "total": 2.1648400292242598,
+      "edge4FractionUpperBound": 0.0001370557423005783,
+      "window": [
+        -315.63391105430674,
+        316.2515899409101,
+        -315.63391105430674,
+        316.2515899409101
+      ],
+      "energyQuadrature": {
+        "count": 1001,
+        "coverage": 1,
+        "maxAbsolute": 5.0200065892375134e-11,
+        "nrmse": 4.4035019893614253e-08,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      "energyAt5": 0.00039794254661741076,
+      "rawSha256": {
+        "psf-grid.json": "42879621bc98d8854847e10a45be4063f7d037e89dd683abf81dc42d676f1d7e",
+        "grid-f64le.bin": "b8b06864df4f67097bb92347f0dd17a372acd1bf3f9061f69a9396370e54390e",
+        "captured-settings.json": "4e2d0cf749e14d7cca246444090cf33793163e928d0c9658a6932484bded5031",
+        "model.json": "8060b39dfd02f8e093de71684b967681fc4fddd32ff169c737434a7e740a436e",
+        "result-diagnostics.json": "9476a0cc0116292aaafa6c880635b50bed7f00a70f42cb0dd3378821dd8653fc",
+        "batch-result.json": "5dfb2f985ed3ed82cdad058897847ed4fb18a831e9b0ec40751a5a2d0ac0adf5"
+      }
+    }
+  },
+  "pairs": {
+    "pupil256To512At0p001": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 0.00013893598509064607,
+      "nrmse": 0.1587779026896551,
+      "pointwise": false,
+      "verdict": "Difference"
+    },
+    "step0p001To0p0005At512": {
+      "count": 2001,
+      "coverage": 1,
+      "maxAbsolute": 6.561624712015334e-08,
+      "nrmse": 9.241454922219341e-05,
+      "pointwise": true,
+      "verdict": "Pass"
+    }
+  },
+  "archived512Reconstruction": {
+    "count": 401,
+    "coverage": 1,
+    "maxAbsolute": 4.87890977618477e-19,
+    "nrmse": 4.796604809865061e-16,
+    "pointwise": true,
+    "verdict": "Pass"
+  },
+  "originalRadiusStepComparison": {
+    "count": 401,
+    "coverage": 1,
+    "maxAbsolute": 6.561606877655992e-08,
+    "nrmse": 9.24347606921223e-05,
+    "pointwise": true,
+    "verdict": "Pass"
+  },
+  "archivedCoreVersusFineNativeActual": {
+    "65536": {
+      "member": "product/capture/energy-65536/data.json",
+      "sha256": "99e2449e3dd7273d9d419f673d1b3fe96e0d8b870d0d54b6d41fe6d09eeffb2b",
+      "comparison": {
+        "count": 401,
+        "coverage": 1,
+        "maxAbsolute": 1.3115502808671393e-06,
+        "nrmse": 0.0020550903954001747,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    },
+    "131072": {
+      "member": "product/capture/energy-131072/data.json",
+      "sha256": "bd14688a41015c00c9a143df9d401758d4634a6e097b580695d9a02155954410",
+      "comparison": {
+        "count": 401,
+        "coverage": 1,
+        "maxAbsolute": 1.667451203629048e-06,
+        "nrmse": 0.0020624390393917604,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    }
+  },
+  "independentOutcome": "SupplementalPass",
+  "priorIndependentIdealCertificateSha256": "aaf698e7c59dd904f08667d6894ad8194df1d1f962d1e43312e94768f2826859",
+  "rawArchiveSha256": "8c4fd29dafc78a5af68b7ab03e23632036f9702ea997e74a5b437221fb5f16c8"
+}

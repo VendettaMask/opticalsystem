@@ -1,0 +1,820 @@
+{
+  "archiveSha256": "754a06e4c47b6fbbe831fa61c5cc1ebbd1086b5ffd603750769fcc47b9c37175",
+  "priorArchives": {
+    "../diffraction-energy-third-cohort/numeric-evidence.zip": "52fa6e750aa4d56ae9dca30ce12aed35abffcac2a550d6a82e4f3a4448747e7c",
+    "../diffraction-energy-second-cohort/numeric-evidence.zip": "42153b2fad3c73e64d03580259a16c7ae45c5b916179b95b20d4454c00ce4ba9",
+    "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip": "49e17ca22b6d4b2057a26b77d8079cfb3046d96bd15537ab80631cd731d06511",
+    "../../../zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip": "cea7405ae877e52e1b910144fcd1ec1cf530b556c5a48e025b3efbf02cf18e15",
+    "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip": "bcff1037d2da4771629dddc06a8fa1db36af7b9d5ac09676b047faaba829b0d0",
+    "../diffraction-energy-followup/numeric-evidence.zip": "16a207f29acda16f7216c20b0c7815514e97211102e2989f7644a028320e6925"
+  },
+  "uniqueNewPayloads": 12,
+  "logicalPayloads": [
+    {
+      "logicalPath": "native/1664-2048/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/8c6fcc4c5146edfb103da56f3f18f1a9ddb12d2b118725d4b2749a4cbeeffac9",
+      "sha256": "8c6fcc4c5146edfb103da56f3f18f1a9ddb12d2b118725d4b2749a4cbeeffac9",
+      "bytes": 33016
+    },
+    {
+      "logicalPath": "native/1664-2048/captured-settings.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/1b38cde7d049682ab9b1b8fa7874a3c419a416b62ae878329b4cc23b9f84054a",
+      "sha256": "1b38cde7d049682ab9b1b8fa7874a3c419a416b62ae878329b4cc23b9f84054a",
+      "bytes": 2464
+    },
+    {
+      "logicalPath": "native/1664-2048/model.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+      "sha256": "1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+      "bytes": 7936
+    },
+    {
+      "logicalPath": "native/1664-2048/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "native/1664-2048/batch-result.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/cde145f0e5fb76d2db1d8a315351b0f099d55616c59fd96b784f27128bd90bf3",
+      "sha256": "cde145f0e5fb76d2db1d8a315351b0f099d55616c59fd96b784f27128bd90bf3",
+      "bytes": 208
+    },
+    {
+      "logicalPath": "native/1664-2048/data.txt",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/cb94abdadca0e80bb00861dc06dc7bc5867eeb9f6f98b37128388149db0ba11c",
+      "sha256": "cb94abdadca0e80bb00861dc06dc7bc5867eeb9f6f98b37128388149db0ba11c",
+      "bytes": 15336
+    },
+    {
+      "logicalPath": "native/1664-2048/unit-normalization.json",
+      "archive": "../../../zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+      "member": "native-sampling-controls/1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf-p256/unit-normalization.json",
+      "sha256": "aa510ce05b17873d4c18234b9a9729fbbf24b22b8998b9b88144a0759424e1eb",
+      "bytes": 126
+    },
+    {
+      "logicalPath": "native/1664-4096/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/56a45c181b91cb85099c8835a0f70d979222cac3e710ae2ef8f39e673ac459fc",
+      "sha256": "56a45c181b91cb85099c8835a0f70d979222cac3e710ae2ef8f39e673ac459fc",
+      "bytes": 33039
+    },
+    {
+      "logicalPath": "native/1664-4096/captured-settings.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/af2fe26cc38f39b1eefd438d96d261e427b86053d2ed7b7385de6e15597c584d",
+      "sha256": "af2fe26cc38f39b1eefd438d96d261e427b86053d2ed7b7385de6e15597c584d",
+      "bytes": 2460
+    },
+    {
+      "logicalPath": "native/1664-4096/model.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+      "sha256": "1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+      "bytes": 7936
+    },
+    {
+      "logicalPath": "native/1664-4096/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "native/1664-4096/batch-result.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/4d9a3cb3f3b5804d5b94d7908e64c4692e999440b57e6c69aa74ef85031f79b2",
+      "sha256": "4d9a3cb3f3b5804d5b94d7908e64c4692e999440b57e6c69aa74ef85031f79b2",
+      "bytes": 208
+    },
+    {
+      "logicalPath": "native/1664-4096/data.txt",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/cb78f82bab9afc70e6739b6d1e3111f3fec9d9b334fa50f3dc247660c3cc999f",
+      "sha256": "cb78f82bab9afc70e6739b6d1e3111f3fec9d9b334fa50f3dc247660c3cc999f",
+      "bytes": 15336
+    },
+    {
+      "logicalPath": "native/1664-4096/unit-normalization.json",
+      "archive": "../../../zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+      "member": "native-sampling-controls/1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf-p256/unit-normalization.json",
+      "sha256": "aa510ce05b17873d4c18234b9a9729fbbf24b22b8998b9b88144a0759424e1eb",
+      "bytes": 126
+    },
+    {
+      "logicalPath": "native/1664-8192/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/8ef1166388ed8d24b3858483063b839e9a070887a230b67de9931c984651493c",
+      "sha256": "8ef1166388ed8d24b3858483063b839e9a070887a230b67de9931c984651493c",
+      "bytes": 32992
+    },
+    {
+      "logicalPath": "native/1664-8192/captured-settings.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/1eddcaa1252052624e813e22a2f834c132a9b9012381ba1d7f7e90a25b03b3fc",
+      "sha256": "1eddcaa1252052624e813e22a2f834c132a9b9012381ba1d7f7e90a25b03b3fc",
+      "bytes": 2460
+    },
+    {
+      "logicalPath": "native/1664-8192/model.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+      "sha256": "1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+      "bytes": 7936
+    },
+    {
+      "logicalPath": "native/1664-8192/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "native/1664-8192/batch-result.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/4f35fc720d8bf7ef88bc7b8250c823fdea11672bd0505e2d45b16a764752a35e",
+      "sha256": "4f35fc720d8bf7ef88bc7b8250c823fdea11672bd0505e2d45b16a764752a35e",
+      "bytes": 208
+    },
+    {
+      "logicalPath": "native/1664-8192/data.txt",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/8dbe65dbe665eb34e6577cfcd662f3b5ff9bcdf40c0bda0cbe17f6805187a5ef",
+      "sha256": "8dbe65dbe665eb34e6577cfcd662f3b5ff9bcdf40c0bda0cbe17f6805187a5ef",
+      "bytes": 15336
+    },
+    {
+      "logicalPath": "native/1664-8192/unit-normalization.json",
+      "archive": "../../../zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+      "member": "native-sampling-controls/1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf-p256/unit-normalization.json",
+      "sha256": "aa510ce05b17873d4c18234b9a9729fbbf24b22b8998b9b88144a0759424e1eb",
+      "bytes": 126
+    },
+    {
+      "logicalPath": "native/1664-1024/data.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/217ac9b5f199f1f59db1bc072a1da44befdcd379ca0d7fd52abc299db7417f59",
+      "sha256": "217ac9b5f199f1f59db1bc072a1da44befdcd379ca0d7fd52abc299db7417f59",
+      "bytes": 33021
+    },
+    {
+      "logicalPath": "native/1664-1024/captured-settings.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/cdc4e59166a4d559bc3483eea25f7c80e03d494a1deb87bb148b593a5328e4f4",
+      "sha256": "cdc4e59166a4d559bc3483eea25f7c80e03d494a1deb87bb148b593a5328e4f4",
+      "bytes": 2464
+    },
+    {
+      "logicalPath": "native/1664-1024/model.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+      "sha256": "1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+      "bytes": 7936
+    },
+    {
+      "logicalPath": "native/1664-1024/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "native/1664-1024/unit-normalization.json",
+      "archive": "../../../zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+      "member": "native-sampling-controls/1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf-p256/unit-normalization.json",
+      "sha256": "aa510ce05b17873d4c18234b9a9729fbbf24b22b8998b9b88144a0759424e1eb",
+      "bytes": 126
+    },
+    {
+      "logicalPath": "native/1664-512/data.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/e133a92d74a5cafec06ef27214a0dcf7ac53612ba226fea5afb24f769350c74d",
+      "sha256": "e133a92d74a5cafec06ef27214a0dcf7ac53612ba226fea5afb24f769350c74d",
+      "bytes": 33002
+    },
+    {
+      "logicalPath": "native/1664-512/captured-settings.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/f689ee46269786088dc2e0eeca9822cb91e3cbbed6d7c9d5c22743747fcbf378",
+      "sha256": "f689ee46269786088dc2e0eeca9822cb91e3cbbed6d7c9d5c22743747fcbf378",
+      "bytes": 2459
+    },
+    {
+      "logicalPath": "native/1664-512/model.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+      "sha256": "1cfa0c9b0876adcff927ab53db4df4c759bd41c0b69a5b7ba46da4e2356bfb8b",
+      "bytes": 7936
+    },
+    {
+      "logicalPath": "native/1664-512/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "native/1664-512/unit-normalization.json",
+      "archive": "../../../zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+      "member": "native-sampling-controls/1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf-p256/unit-normalization.json",
+      "sha256": "aa510ce05b17873d4c18234b9a9729fbbf24b22b8998b9b88144a0759424e1eb",
+      "bytes": 126
+    },
+    {
+      "logicalPath": "core/1664-131072/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/13771436dfa08bd6b0420714ef6fff6e54d7bf2c082dc5e3429574163defd526",
+      "sha256": "13771436dfa08bd6b0420714ef6fff6e54d7bf2c082dc5e3429574163defd526",
+      "bytes": 411933
+    },
+    {
+      "logicalPath": "core/1664-131072/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/9e41ca8668f2e27de7940ff3ced16f61da84ec5f8b7ba565b1b30d3a7b88ca50",
+      "sha256": "9e41ca8668f2e27de7940ff3ced16f61da84ec5f8b7ba565b1b30d3a7b88ca50",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/1664-131072/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/8918b5f88b4f5486e6a9fe1b50892ef891932fc4a44cbc0ce1c2d22eef76ad80",
+      "sha256": "8918b5f88b4f5486e6a9fe1b50892ef891932fc4a44cbc0ce1c2d22eef76ad80",
+      "bytes": 2679
+    },
+    {
+      "logicalPath": "core/1664-16384/data.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/e998ec03042dd60b3a0a9860767adb10bf3ad9d978beb5f753d77b12a11a41a6",
+      "sha256": "e998ec03042dd60b3a0a9860767adb10bf3ad9d978beb5f753d77b12a11a41a6",
+      "bytes": 411849
+    },
+    {
+      "logicalPath": "core/1664-16384/provenance.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/42acc0b972e8e564f16bf0b1f68ef18bc930953b4a4bf46b4d1d67c1bd260508",
+      "sha256": "42acc0b972e8e564f16bf0b1f68ef18bc930953b4a4bf46b4d1d67c1bd260508",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/1664-16384/request.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/0ea8ace163b2b7b7801027b3a7d6579a8fb39da5767ad5dd3e265cff4e2cba93",
+      "sha256": "0ea8ace163b2b7b7801027b3a7d6579a8fb39da5767ad5dd3e265cff4e2cba93",
+      "bytes": 2674
+    },
+    {
+      "logicalPath": "core/1664-32768/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/1bf2478d93f7638d6b4a82ee4f756dcb413cab06d0885661b3d117a4bad488a5",
+      "sha256": "1bf2478d93f7638d6b4a82ee4f756dcb413cab06d0885661b3d117a4bad488a5",
+      "bytes": 411837
+    },
+    {
+      "logicalPath": "core/1664-32768/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/a2528d6f9f9e609c9549896c53e0aa28e58cbf78e58ced37e784613b23ecc776",
+      "sha256": "a2528d6f9f9e609c9549896c53e0aa28e58cbf78e58ced37e784613b23ecc776",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/1664-32768/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/59192b49f076526b5ca9d144a3c7d2bcd0c7fe1d433dcf6682b0b6dba08e62a3",
+      "sha256": "59192b49f076526b5ca9d144a3c7d2bcd0c7fe1d433dcf6682b0b6dba08e62a3",
+      "bytes": 2675
+    },
+    {
+      "logicalPath": "core/1664-65536/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/0bc11491a53fa9b0e821137ca4e92f1a75cd30c0120ea03df19218abf1ce95e8",
+      "sha256": "0bc11491a53fa9b0e821137ca4e92f1a75cd30c0120ea03df19218abf1ce95e8",
+      "bytes": 411907
+    },
+    {
+      "logicalPath": "core/1664-65536/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/156656ed3616de86a96960db790944149d3dceceb8cad57e04b6cf4642160b3b",
+      "sha256": "156656ed3616de86a96960db790944149d3dceceb8cad57e04b6cf4642160b3b",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/1664-65536/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/1dcf1b30ff09c7388bfcd7dececa7b45d19e8fd068f99ba5cebb77f7ade8f3dc",
+      "sha256": "1dcf1b30ff09c7388bfcd7dececa7b45d19e8fd068f99ba5cebb77f7ade8f3dc",
+      "bytes": 2675
+    },
+    {
+      "logicalPath": "core/1664-8192/data.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/c431f671998bda9fd9d81b2f5a9252931d77d7f3e00f8b0e0e845b9eb8e59445",
+      "sha256": "c431f671998bda9fd9d81b2f5a9252931d77d7f3e00f8b0e0e845b9eb8e59445",
+      "bytes": 411916
+    },
+    {
+      "logicalPath": "core/1664-8192/provenance.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/17e19c674c60547af237cf40c279a287ad62df7dbe695594929cd2d6bb41b36c",
+      "sha256": "17e19c674c60547af237cf40c279a287ad62df7dbe695594929cd2d6bb41b36c",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/1664-8192/request.json",
+      "archive": "../diffraction-energy-second-cohort/numeric-evidence.zip",
+      "member": "sha256/c31a850808b0e3f0af8fb975123ffdffe412154a3e4896c8cbfa043c439ef7e0",
+      "sha256": "c31a850808b0e3f0af8fb975123ffdffe412154a3e4896c8cbfa043c439ef7e0",
+      "bytes": 2670
+    },
+    {
+      "logicalPath": "native/2438-1024/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/72e802a35e7072a9ad1df80f17aaa4bc8a766908404402c5e50b6af7142871e8",
+      "sha256": "72e802a35e7072a9ad1df80f17aaa4bc8a766908404402c5e50b6af7142871e8",
+      "bytes": 33103
+    },
+    {
+      "logicalPath": "native/2438-1024/captured-settings.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/45f0be1420b9c10490bda62d07f5597fa3329064e9b3fb624a21b7e1473faff7",
+      "sha256": "45f0be1420b9c10490bda62d07f5597fa3329064e9b3fb624a21b7e1473faff7",
+      "bytes": 2526
+    },
+    {
+      "logicalPath": "native/2438-1024/model.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/2438-512/model.json",
+      "sha256": "be2327c759e5172e59b8ee8f81d37c168d2276d822db8f1a12e07c20437f661e",
+      "bytes": 6583
+    },
+    {
+      "logicalPath": "native/2438-1024/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "native/2438-1024/batch-result.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/3c63f911ef8dbcd5aa6f0e131f31a43eb927fcb5dbffe9c04c53633ec65c1b56",
+      "sha256": "3c63f911ef8dbcd5aa6f0e131f31a43eb927fcb5dbffe9c04c53633ec65c1b56",
+      "bytes": 208
+    },
+    {
+      "logicalPath": "native/2438-1024/data.txt",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/880de16f2d95e57fe5b63daab3e3fe13c4d94d544950904e42da19ef08ee7d9e",
+      "sha256": "880de16f2d95e57fe5b63daab3e3fe13c4d94d544950904e42da19ef08ee7d9e",
+      "bytes": 15390
+    },
+    {
+      "logicalPath": "native/2438-1024/unit-normalization.json",
+      "archive": "../../../zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+      "member": "native-sampling-controls/1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf-p256/unit-normalization.json",
+      "sha256": "aa510ce05b17873d4c18234b9a9729fbbf24b22b8998b9b88144a0759424e1eb",
+      "bytes": 126
+    },
+    {
+      "logicalPath": "native/2438-2048/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/2d56159feb568e12a9fc6376f773f0c655463f8fbc00bd14344e6486ff6c1bf2",
+      "sha256": "2d56159feb568e12a9fc6376f773f0c655463f8fbc00bd14344e6486ff6c1bf2",
+      "bytes": 33104
+    },
+    {
+      "logicalPath": "native/2438-2048/captured-settings.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/beee78c62dbf93f80c9d07a5f600759e5b9b749dd9c51a11143a703cbc8f1d6b",
+      "sha256": "beee78c62dbf93f80c9d07a5f600759e5b9b749dd9c51a11143a703cbc8f1d6b",
+      "bytes": 2526
+    },
+    {
+      "logicalPath": "native/2438-2048/model.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/2438-512/model.json",
+      "sha256": "be2327c759e5172e59b8ee8f81d37c168d2276d822db8f1a12e07c20437f661e",
+      "bytes": 6583
+    },
+    {
+      "logicalPath": "native/2438-2048/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "native/2438-2048/batch-result.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/92a1f0920b24fb4899400f85da5b2baba707decddd3b4b8ba5c4956a7ee10a6e",
+      "sha256": "92a1f0920b24fb4899400f85da5b2baba707decddd3b4b8ba5c4956a7ee10a6e",
+      "bytes": 208
+    },
+    {
+      "logicalPath": "native/2438-2048/data.txt",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/14dc45a0980bb759a7a1bceba207661e72769fd15b8da3247eb8e2acd7e39551",
+      "sha256": "14dc45a0980bb759a7a1bceba207661e72769fd15b8da3247eb8e2acd7e39551",
+      "bytes": 15390
+    },
+    {
+      "logicalPath": "native/2438-2048/unit-normalization.json",
+      "archive": "../../../zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+      "member": "native-sampling-controls/1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf-p256/unit-normalization.json",
+      "sha256": "aa510ce05b17873d4c18234b9a9729fbbf24b22b8998b9b88144a0759424e1eb",
+      "bytes": 126
+    },
+    {
+      "logicalPath": "native/2438-4096/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/b2ab83d3fe7861f54b0d321113ada66aedc26dd133662e4acca971ee6e971499",
+      "sha256": "b2ab83d3fe7861f54b0d321113ada66aedc26dd133662e4acca971ee6e971499",
+      "bytes": 33126
+    },
+    {
+      "logicalPath": "native/2438-4096/captured-settings.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/f35e6dded155604b23d954c959ca94ac69cfd568edf75573cf149a59e3e3acf7",
+      "sha256": "f35e6dded155604b23d954c959ca94ac69cfd568edf75573cf149a59e3e3acf7",
+      "bytes": 2526
+    },
+    {
+      "logicalPath": "native/2438-4096/model.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/2438-512/model.json",
+      "sha256": "be2327c759e5172e59b8ee8f81d37c168d2276d822db8f1a12e07c20437f661e",
+      "bytes": 6583
+    },
+    {
+      "logicalPath": "native/2438-4096/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "native/2438-4096/batch-result.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/8b33de8a90a5d3e55b46a17778dc41be4e220fda5d1110691c6157d957568b9c",
+      "sha256": "8b33de8a90a5d3e55b46a17778dc41be4e220fda5d1110691c6157d957568b9c",
+      "bytes": 208
+    },
+    {
+      "logicalPath": "native/2438-4096/data.txt",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/a3fe2ef5ef827b9e0c400d4b1e84f7389c8dbd65e7ed0d1e553f21ef37dad361",
+      "sha256": "a3fe2ef5ef827b9e0c400d4b1e84f7389c8dbd65e7ed0d1e553f21ef37dad361",
+      "bytes": 15390
+    },
+    {
+      "logicalPath": "native/2438-4096/unit-normalization.json",
+      "archive": "../../../zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+      "member": "native-sampling-controls/1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf-p256/unit-normalization.json",
+      "sha256": "aa510ce05b17873d4c18234b9a9729fbbf24b22b8998b9b88144a0759424e1eb",
+      "bytes": 126
+    },
+    {
+      "logicalPath": "native/2438-512/data.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/2438-512/data.json",
+      "sha256": "a98b6af4c4e80e233685c7fd80f9a9b6907ee7d28d15694e7419cf399d0b3342",
+      "bytes": 33138
+    },
+    {
+      "logicalPath": "native/2438-512/captured-settings.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/2438-512/captured-settings.json",
+      "sha256": "ffd30e5b49ccdcee7dab1bb44bf8c05b153e9c4ad56eb43f8f1e5e448c999cf7",
+      "bytes": 2525
+    },
+    {
+      "logicalPath": "native/2438-512/model.json",
+      "archive": "../../2026-11-07/native-diagnostic-refinement/new-native-controls.zip",
+      "member": "native/2438-512/model.json",
+      "sha256": "be2327c759e5172e59b8ee8f81d37c168d2276d822db8f1a12e07c20437f661e",
+      "bytes": 6583
+    },
+    {
+      "logicalPath": "native/2438-512/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "native/2438-512/unit-normalization.json",
+      "archive": "../../../zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+      "member": "native-sampling-controls/1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf-p256/unit-normalization.json",
+      "sha256": "aa510ce05b17873d4c18234b9a9729fbbf24b22b8998b9b88144a0759424e1eb",
+      "bytes": 126
+    },
+    {
+      "logicalPath": "core/2438-1024/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/c4436d4441bee023e90418208b92e8b71f92afea15b0e4705ec3be0671d00871",
+      "sha256": "c4436d4441bee023e90418208b92e8b71f92afea15b0e4705ec3be0671d00871",
+      "bytes": 412347
+    },
+    {
+      "logicalPath": "core/2438-1024/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/627c830f4f8d5a92d6cf73d38092ddfd8d87dca835ae5ce3accb195f0ef36978",
+      "sha256": "627c830f4f8d5a92d6cf73d38092ddfd8d87dca835ae5ce3accb195f0ef36978",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/2438-1024/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/63fe763ceef9cd757fd01f341b6087556710f4ec5647183c2dd9ca453428a6c0",
+      "sha256": "63fe763ceef9cd757fd01f341b6087556710f4ec5647183c2dd9ca453428a6c0",
+      "bytes": 2676
+    },
+    {
+      "logicalPath": "core/2438-16384/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/cffc46e1872bdcf81f3ebb108af52d8b901837d3b1e4b98a7fc861c5e45a497d",
+      "sha256": "cffc46e1872bdcf81f3ebb108af52d8b901837d3b1e4b98a7fc861c5e45a497d",
+      "bytes": 412401
+    },
+    {
+      "logicalPath": "core/2438-16384/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/eef20e6ba92fb8f0fae9aa939411c3bfe56f2d652b4467a76b4c33f8f9968c64",
+      "sha256": "eef20e6ba92fb8f0fae9aa939411c3bfe56f2d652b4467a76b4c33f8f9968c64",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/2438-16384/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/0f9f5b7b40fe52075f4b58be9b418a5b46575bacaf1f01026bd97fba89f26e62",
+      "sha256": "0f9f5b7b40fe52075f4b58be9b418a5b46575bacaf1f01026bd97fba89f26e62",
+      "bytes": 2680
+    },
+    {
+      "logicalPath": "core/2438-2048/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/d58de5652f9707bcba5bfb7e16be8b97c17995ebece5b460870016c025b9abf1",
+      "sha256": "d58de5652f9707bcba5bfb7e16be8b97c17995ebece5b460870016c025b9abf1",
+      "bytes": 412442
+    },
+    {
+      "logicalPath": "core/2438-2048/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/bdb54206cd370418aa7a9ce40de658b94e435c81f6be5ff47066fd284605a0c1",
+      "sha256": "bdb54206cd370418aa7a9ce40de658b94e435c81f6be5ff47066fd284605a0c1",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/2438-2048/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/f2155ee886d4cb86a9fa96a01037e92c8bf77ae9b7e1531eedb2fac715c6f054",
+      "sha256": "f2155ee886d4cb86a9fa96a01037e92c8bf77ae9b7e1531eedb2fac715c6f054",
+      "bytes": 2676
+    },
+    {
+      "logicalPath": "core/2438-4096/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/0bf1eab976819026ccdead455015b76b936c02f05faeda23851f7be863d3e8d3",
+      "sha256": "0bf1eab976819026ccdead455015b76b936c02f05faeda23851f7be863d3e8d3",
+      "bytes": 412431
+    },
+    {
+      "logicalPath": "core/2438-4096/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/0537982868a7eddbc436f5f8ffe7660ebae4092c3c3d79886ad0d0df67675a8d",
+      "sha256": "0537982868a7eddbc436f5f8ffe7660ebae4092c3c3d79886ad0d0df67675a8d",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/2438-4096/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/ef11e97f9c34ba5c03f731b53510ffc113bcd572a8646dcd72f05ef8ad4c0229",
+      "sha256": "ef11e97f9c34ba5c03f731b53510ffc113bcd572a8646dcd72f05ef8ad4c0229",
+      "bytes": 2676
+    },
+    {
+      "logicalPath": "core/2438-8192/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/ca5581dd3cb24b254c2bf99681da1d3a2fa7ac129639da87081f965285e8aa08",
+      "sha256": "ca5581dd3cb24b254c2bf99681da1d3a2fa7ac129639da87081f965285e8aa08",
+      "bytes": 412425
+    },
+    {
+      "logicalPath": "core/2438-8192/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/7078f976085f796cd66d287a169fbfba245811f5e578da66d7a7fb51dd8dcad1",
+      "sha256": "7078f976085f796cd66d287a169fbfba245811f5e578da66d7a7fb51dd8dcad1",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/2438-8192/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/3aef154309a4a444a656463997580829cd62f45afc57272ffbcddaccbad683fa",
+      "sha256": "3aef154309a4a444a656463997580829cd62f45afc57272ffbcddaccbad683fa",
+      "bytes": 2676
+    },
+    {
+      "logicalPath": "native/1122-2048/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/4d78927a77fe99dad3714874fb83fab2086d479cbc3f8b17e0f28d216906bf0a",
+      "sha256": "4d78927a77fe99dad3714874fb83fab2086d479cbc3f8b17e0f28d216906bf0a",
+      "bytes": 33451
+    },
+    {
+      "logicalPath": "native/1122-2048/captured-settings.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/a6498b7ba22558624a1081c5b62c722faaa1618325dcd54698686981eb3c2d30",
+      "sha256": "a6498b7ba22558624a1081c5b62c722faaa1618325dcd54698686981eb3c2d30",
+      "bytes": 2422
+    },
+    {
+      "logicalPath": "native/1122-2048/model.json",
+      "archive": "../diffraction-energy-followup/numeric-evidence.zip",
+      "member": "sha256/ba4f375a045841a8224c414629fd3dd3a6cb7bf6ec869c585c5cb14eab87bace",
+      "sha256": "ba4f375a045841a8224c414629fd3dd3a6cb7bf6ec869c585c5cb14eab87bace",
+      "bytes": 4953
+    },
+    {
+      "logicalPath": "native/1122-2048/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "native/1122-2048/batch-result.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/ac11e0435c1a60a06ba9a2fa6f9ab46cff8884e1ade40f2d0d32f2fa3ff2cc0b",
+      "sha256": "ac11e0435c1a60a06ba9a2fa6f9ab46cff8884e1ade40f2d0d32f2fa3ff2cc0b",
+      "bytes": 208
+    },
+    {
+      "logicalPath": "native/1122-2048/data.txt",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/d1aa1b1f1f240ed4ae4d8d3aa367c93972947ee4feffa1cfd5e456989818ecc6",
+      "sha256": "d1aa1b1f1f240ed4ae4d8d3aa367c93972947ee4feffa1cfd5e456989818ecc6",
+      "bytes": 15376
+    },
+    {
+      "logicalPath": "native/1122-4096/data.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/26d6093c37116253499b60d6274d86d5d8394de635bfd694f1eb42183a0eb33b",
+      "sha256": "26d6093c37116253499b60d6274d86d5d8394de635bfd694f1eb42183a0eb33b",
+      "bytes": 33460
+    },
+    {
+      "logicalPath": "native/1122-4096/captured-settings.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/5d09b15e78259b4d9466eb2238780449c2bfa573b2ba162cbe069d5d1275b3bd",
+      "sha256": "5d09b15e78259b4d9466eb2238780449c2bfa573b2ba162cbe069d5d1275b3bd",
+      "bytes": 2422
+    },
+    {
+      "logicalPath": "native/1122-4096/model.json",
+      "archive": "../diffraction-energy-followup/numeric-evidence.zip",
+      "member": "sha256/ba4f375a045841a8224c414629fd3dd3a6cb7bf6ec869c585c5cb14eab87bace",
+      "sha256": "ba4f375a045841a8224c414629fd3dd3a6cb7bf6ec869c585c5cb14eab87bace",
+      "bytes": 4953
+    },
+    {
+      "logicalPath": "native/1122-4096/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "native/1122-4096/batch-result.json",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/658cace0902e514c19869ac73deb6c07fc48cc4b96ebbd365577cba1da8ee3f6",
+      "sha256": "658cace0902e514c19869ac73deb6c07fc48cc4b96ebbd365577cba1da8ee3f6",
+      "bytes": 208
+    },
+    {
+      "logicalPath": "native/1122-4096/data.txt",
+      "archive": "numeric-evidence.zip",
+      "member": "sha256/fa694a9ab628afca743e43b388e33e94e1bb21a59c31619d7b9f2142e18a5f4e",
+      "sha256": "fa694a9ab628afca743e43b388e33e94e1bb21a59c31619d7b9f2142e18a5f4e",
+      "bytes": 15376
+    },
+    {
+      "logicalPath": "native/1122-1024/data.json",
+      "archive": "../diffraction-energy-followup/numeric-evidence.zip",
+      "member": "sha256/62c82c2175019eecd4a55ad63c53f4bae1b89f7687da2207d28662946a9b8b81",
+      "sha256": "62c82c2175019eecd4a55ad63c53f4bae1b89f7687da2207d28662946a9b8b81",
+      "bytes": 33462
+    },
+    {
+      "logicalPath": "native/1122-1024/captured-settings.json",
+      "archive": "../diffraction-energy-followup/numeric-evidence.zip",
+      "member": "sha256/c5f1bb498f906d6fb4f019a4415c8dd7437dd925d207e6a59a4cee474a9f2012",
+      "sha256": "c5f1bb498f906d6fb4f019a4415c8dd7437dd925d207e6a59a4cee474a9f2012",
+      "bytes": 2422
+    },
+    {
+      "logicalPath": "native/1122-1024/model.json",
+      "archive": "../diffraction-energy-followup/numeric-evidence.zip",
+      "member": "sha256/ba4f375a045841a8224c414629fd3dd3a6cb7bf6ec869c585c5cb14eab87bace",
+      "sha256": "ba4f375a045841a8224c414629fd3dd3a6cb7bf6ec869c585c5cb14eab87bace",
+      "bytes": 4953
+    },
+    {
+      "logicalPath": "native/1122-1024/result-diagnostics.json",
+      "archive": "../../2026-11-07/incomparable-coverage/new-numeric-evidence.zip",
+      "member": "sha256/4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "sha256": "4020201f1ea1f007396081ac26dc98126608944314066670b63be32979cbffb5",
+      "bytes": 45
+    },
+    {
+      "logicalPath": "core/1122-131072/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/5fda35a8b0ee382d0865c32811d73ad073f22fc40a7bc82bd779409af4334f4d",
+      "sha256": "5fda35a8b0ee382d0865c32811d73ad073f22fc40a7bc82bd779409af4334f4d",
+      "bytes": 412914
+    },
+    {
+      "logicalPath": "core/1122-131072/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/30e6b0402c57f37a063d363972284d620c702ad6c5fcdf7f573548db20b60122",
+      "sha256": "30e6b0402c57f37a063d363972284d620c702ad6c5fcdf7f573548db20b60122",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/1122-131072/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/2d9e048d32356e466843e5ccded0517e334f4145b77c643865a92fbdcf3b5532",
+      "sha256": "2d9e048d32356e466843e5ccded0517e334f4145b77c643865a92fbdcf3b5532",
+      "bytes": 2699
+    },
+    {
+      "logicalPath": "core/1122-16384/data.json",
+      "archive": "../diffraction-energy-followup/numeric-evidence.zip",
+      "member": "sha256/42d2bf72892f09a1007eca6b4111fe7157ba85295a8a553c6d3ef132f9fc3600",
+      "sha256": "42d2bf72892f09a1007eca6b4111fe7157ba85295a8a553c6d3ef132f9fc3600",
+      "bytes": 412937
+    },
+    {
+      "logicalPath": "core/1122-16384/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/8b06c151b5b3ace3424eca13bb7b50430196640921399ad9917188225f03a6b4",
+      "sha256": "8b06c151b5b3ace3424eca13bb7b50430196640921399ad9917188225f03a6b4",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/1122-16384/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/bdcdc7f1752e6984ffb79c6e5ad29894e83837d498a6a26fc983faea33966e15",
+      "sha256": "bdcdc7f1752e6984ffb79c6e5ad29894e83837d498a6a26fc983faea33966e15",
+      "bytes": 2695
+    },
+    {
+      "logicalPath": "core/1122-32768/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/bf4a4f6b747eae8ced3aa7c8b70781a9c4087caa5c799c1515ffc96ee1f1483f",
+      "sha256": "bf4a4f6b747eae8ced3aa7c8b70781a9c4087caa5c799c1515ffc96ee1f1483f",
+      "bytes": 412921
+    },
+    {
+      "logicalPath": "core/1122-32768/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/4f83a5d49bf0de67edea543c8fd1893690142eade9ccaad23509876910a12c7f",
+      "sha256": "4f83a5d49bf0de67edea543c8fd1893690142eade9ccaad23509876910a12c7f",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/1122-32768/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/076652155c1b4e984508f573a45f8dd92b76b0d04e5a0306a8febcfaf77655ed",
+      "sha256": "076652155c1b4e984508f573a45f8dd92b76b0d04e5a0306a8febcfaf77655ed",
+      "bytes": 2695
+    },
+    {
+      "logicalPath": "core/1122-65536/data.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/79b5c27fe0f83653cd0c8620d732b04f61fe5fc29dca0fdefc2c8981164d1562",
+      "sha256": "79b5c27fe0f83653cd0c8620d732b04f61fe5fc29dca0fdefc2c8981164d1562",
+      "bytes": 412864
+    },
+    {
+      "logicalPath": "core/1122-65536/provenance.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/0cd2870fee87fcc87479e8515bb6bbac69aeb669451c4b09149347cf511f62e3",
+      "sha256": "0cd2870fee87fcc87479e8515bb6bbac69aeb669451c4b09149347cf511f62e3",
+      "bytes": 501
+    },
+    {
+      "logicalPath": "core/1122-65536/request.json",
+      "archive": "../diffraction-energy-third-cohort/numeric-evidence.zip",
+      "member": "sha256/3bdfd3a19759b59dae631d03e5877eb1e6931bd8f95d0be62f22ddc4a7aff9df",
+      "sha256": "3bdfd3a19759b59dae631d03e5877eb1e6931bd8f95d0be62f22ddc4a7aff9df",
+      "bytes": 2695
+    }
+  ],
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5"
+}

@@ -91,8 +91,10 @@ public partial class WorkbenchRuntime
         if (canonicalName == "Image Simulation" && settings.TryGetValue("OutputFile", out var destination)
             && !string.IsNullOrWhiteSpace(destination)) LosslessImageOutput.RequirePngOrBmp(destination);
         var analysis = CreateAnalysis(canonicalName, settings);
-        if (settings.TryGetValue("FourierSamplingMode", out var samplingMode)
-            && samplingMode is not ("Fixed" or "固定采样"))
+        var supportsPhaseRecovery = canonicalName is "PSF" or "MTF" or "FFT PSF Cross Section";
+        var samplingMode = settings.GetValueOrDefault("FourierSamplingMode");
+        var automatic = supportsPhaseRecovery && (samplingMode is null or "Automatic" or "按需加密");
+        if (!automatic && samplingMode is not (null or "Fixed" or "固定采样"))
         {
             var mode = samplingMode switch
             {
@@ -100,28 +102,37 @@ public partial class WorkbenchRuntime
                 "Adaptive" or "自适应精度" => FourierSamplingMode.Adaptive,
                 _ => throw new ArgumentException("Unknown Fourier sampling mode.", nameof(settings))
             };
-            if (canonicalName is not ("PSF" or "MTF" or "FFT PSF Cross Section"))
-                throw new NotSupportedException("Result-level Fourier validation is available for FFT PSF, its cross section and FFT MTF.");
-            int SettingInt(string key, int fallback) => settings.TryGetValue(key, out var text)
-                && int.TryParse(text.Split(' ', 'x', '×')[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : fallback;
-            double SettingDouble(string key, double fallback) => settings.TryGetValue(key, out var text)
-                && double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var value) ? value : fallback;
-            var requested = SettingInt("Sampling", SettingInt("NumRays", 64));
+            var adaptiveEnergy = canonicalName == "Diffraction Encircled Energy" && mode == FourierSamplingMode.Adaptive;
+            if (!adaptiveEnergy && !supportsPhaseRecovery)
+                throw new NotSupportedException("Result-level Fourier validation supports FFT PSF, its cross section, FFT MTF and adaptive radial FFT energy.");
+            var samplingKey = adaptiveEnergy ? "PupilSampling" : "Sampling";
+            var requested = SettingInt(samplingKey, SettingInt("NumRays", 64));
             if (!FourierResultValidationAnalysis.CanValidateSource(CurrentOptic))
                 return AnalysisData.Unavailable(canonicalName, "This optical source cannot be identified losslessly for Fourier validation.");
-            var validationOptic = CurrentOptic.Clone();
-            var validationRuntime = new WorkbenchRuntime(validationOptic);
-            analysis = new FourierResultValidationAnalysis(validationOptic, canonicalName, requested, n =>
-            {
-                var refined = new Dictionary<string, string>(settings) { ["Sampling"] = n.ToString(CultureInfo.InvariantCulture) };
-                return validationRuntime.CreateAnalysis(canonicalName, refined);
-            }, new(mode, SettingInt("FourierMaximumSampling", 1024), SettingDouble("FourierRelativeAccuracy", .001)));
+            analysis = CreateFourierValidation(samplingKey, requested, mode, SettingInt("FourierMaximumSampling", 1024));
         }
         using var fftSamplingScope = FftPupilSampling.RequireResolvedResults();
         AnalysisData data;
         try { data = analysis.GenerateData(cancellationToken); }
         catch (FftPupilSamplingException error)
         {
+            if (automatic && !CurrentOptic.ImageSpaceAfocal
+                && error.Diagnostics is { Status: FftPhaseSamplingStatus.UndersampledPhase } measured
+                && double.IsFinite(measured.MaximumStepWaves))
+            {
+                var requested = SettingInt("Sampling", SettingInt("NumRays", 64));
+                var defaultLimit = DefaultFourierRecoveryLimit(canonicalName);
+                var maximum = Math.Min(defaultLimit, SettingInt("FourierMaximumSampling", defaultLimit));
+                if (requested < maximum && FourierResultValidationAnalysis.CanValidateSource(CurrentOptic))
+                {
+                    var refined = CreateFourierValidation("Sampling", requested, FourierSamplingMode.Adaptive, maximum)
+                        .GenerateData(cancellationToken);
+                    return refined with { Values = new Dictionary<string, object>(refined.Values)
+                    {
+                        ["RequestedPupilPhaseSampling"] = measured
+                    } };
+                }
+            }
             data = new AnalysisData(canonicalName, new Dictionary<string, object>
             {
                 ["Status"] = error.Message,
@@ -137,7 +148,25 @@ public partial class WorkbenchRuntime
         }
 
         return data;
+
+        int SettingInt(string key, int fallback) => settings.TryGetValue(key, out var text)
+            && int.TryParse(text.Split(' ', 'x', '×')[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ? value : fallback;
+
+        FourierResultValidationAnalysis CreateFourierValidation(string samplingKey, int requested, FourierSamplingMode mode, int maximum)
+        {
+            var accuracy = settings.TryGetValue("FourierRelativeAccuracy", out var text)
+                && double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var value) ? value : .001;
+            var validationOptic = CurrentOptic.Clone();
+            var validationRuntime = new WorkbenchRuntime(validationOptic);
+            return new FourierResultValidationAnalysis(validationOptic, canonicalName, requested, n =>
+            {
+                var refined = new Dictionary<string, string>(settings) { [samplingKey] = n.ToString(CultureInfo.InvariantCulture) };
+                return validationRuntime.CreateAnalysis(canonicalName, refined);
+            }, new(mode, maximum, accuracy));
+        }
     }
+
+    private static int DefaultFourierRecoveryLimit(string analysis) => analysis == "FFT PSF Cross Section" ? 4096 : 2048;
 
     private Contracts.InterferogramSummaryDto BuildInterferogramSummary(AnalysisData data)
     {
@@ -657,7 +686,8 @@ public partial class WorkbenchRuntime
                 Text("Type", "调制"), Bool("UseDashes", false)),
             "Huygens Through Focus MTF" => new MtfThroughFocusAnalysis(CurrentOptic, MtfComputationMethod.Huygens,
                 Double("SpatialFrequency", 20), Double("DeltaFocus", Double("FocusStep", 0.1)),
-                Int("Steps", Int("FocusPlaneCount", 5)), MtfScanSettings(useHuygensImageSampling: true),
+                Int("Steps", Int("FocusPlaneCount", 5)), MtfScanSettings(useHuygensImageSampling: true) with
+                { UseCheckedFocusedPupil = Bool("UseCheckedFocusedPupil", false) },
                 Int("WavelengthNumber", 0), Int("FieldNumber", 0)),
             "Geometric Through Focus MTF" => new MtfThroughFocusAnalysis(CurrentOptic, MtfComputationMethod.Geometric,
                 Double("SpatialFrequency", 50), Double("DeltaFocus", Double("FocusStep", 0.1)),
@@ -793,7 +823,8 @@ public partial class WorkbenchRuntime
                 Text("DisplayAs", "伪彩色"),
                 Bool("UsePolarization", false),
                 Bool("Normalized", false),
-                Bool("UseCentroid", false)) { AfocalIntegration = AfocalIntegration() },
+                Bool("UseCentroid", false))
+            { AfocalIntegration = AfocalIntegration(), UseCheckedFocusedPupil = Bool("UseCheckedFocusedPupil", false) },
             "Huygens PSF Cross Section" => new HuygensPsfCrossSectionAnalysis(
                 CurrentOptic,
                 Int("PupilSampling", Int("NumRays", 32)),
@@ -805,7 +836,8 @@ public partial class WorkbenchRuntime
                     ? Text("ProfileType", "X")
                     : settings.ContainsKey("NumRays") ? "Both" : "X",
                 Bool("UsePolarization", false),
-                Bool("UseCentroid", false)) { AfocalIntegration = AfocalIntegration() },
+                Bool("UseCentroid", false))
+            { AfocalIntegration = AfocalIntegration(), UseCheckedFocusedPupil = Bool("UseCheckedFocusedPupil", false) },
             "MTF" => new MtfAnalysis(
                 CurrentOptic,
                 Int("Sampling", Int("NumRays", 64)),

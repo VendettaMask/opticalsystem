@@ -1,0 +1,99 @@
+{
+  "status": "ConditionalScalarFftOperatorOnly",
+  "nativeRaySha256": "f10932ba1ddb438722f7af7add2402b86c7d7c7c27a8e3113449bc20261cdb41",
+  "referencePsfReceiptSha256": "cb3bee6f520fe2e0868d0918e0f453d0951994b17d46f903db2d41802a9237ea",
+  "nearFocusApplicabilityReceiptSha256": "978953252a8eda5eeb5c3a382cc170d279e326606ae2c1334878f0c55a943f13",
+  "nativeOriginals": {
+    "949": {
+      "case": "0949-029-axicon-model-c1-primary-f1-w1-fft-psf-cross-section",
+      "workbenchRequestSha256": "2f6999cecebced60a3d9391b4d86846ec83c23bf2bbadfaea65d7c1d9f3f466e",
+      "nativeCapturedSettingsSha256": "8d60d53e6f517c5340c9a25484e5663abb3b5cd383cf69229f9ac2eee0fc86cd",
+      "errorCode": "NativeInvalidResult",
+      "nativePayloadSha256": "3cf1d65231e84f4e52b0fa2241c1b11fa77a9187c65ae0ade467ca300f5bb8ba"
+    },
+    "952": {
+      "case": "0952-029-axicon-model-c1-primary-f1-w1-diffraction-encircled-energy",
+      "workbenchRequestSha256": "a4d3b45b1effc5c10769c6cd2bf452189bf7681942ddb39b51f86373a9d8a961",
+      "nativeCapturedSettingsSha256": "56a21b485fa74ebf550b0901168728037664f18107fd2ad77de05055a1f67e7d",
+      "messages": [
+        {
+          "ErrorCode": "Success",
+          "Text": "\u53d6\u6837\u592a\u4f4e, \u6570\u636e\u4e0d\u51c6\u786e!"
+        }
+      ],
+      "nativePayloadSha256": "05e461a8625c1635d4c997f23a351f6f44f5bd03ca43f1fa07285ccdfe397a44"
+    }
+  },
+  "wavelengthMicrometers": 0.55,
+  "workingFNumber": 2.0146299266834213,
+  "referenceSphereMm": 463.13906722123454,
+  "pupilRayCounts": [
+    98292,
+    131072
+  ],
+  "radialBinQuadratureOrders": [
+    6,
+    10
+  ],
+  "profile": {
+    "xQuantity": "ImageHeight",
+    "xUnit": "Micrometer",
+    "yQuantity": "Irradiance",
+    "yUnit": "Dimensionless",
+    "points": 201,
+    "range": [
+      -16.620696895138227,
+      16.620696895138227
+    ],
+    "centerIdealPeakNormalizedIrradiance": 6.909223590521838e-10,
+    "peakIdealPeakNormalizedIrradiance": 6.909223590521838e-10
+  },
+  "energy": {
+    "xQuantity": "ImageHeight",
+    "xUnit": "Micrometer",
+    "yQuantity": "Fraction",
+    "yUnit": "Dimensionless",
+    "pointsPerCurve": 401,
+    "range": [
+      0,
+      5
+    ],
+    "stepMicrometers": 0.0125,
+    "centroidMicrometers": [
+      0,
+      0
+    ],
+    "centroidBasis": "Exactly zero on every centered finite disk by rotational symmetry",
+    "bothFullPlaneParsevalEnergySquareMicrometers": 1.563241441117234,
+    "actualAt5Micrometers": 1.6146448523369172e-09,
+    "idealAt5Micrometers": 0.9534856713718247,
+    "previousCommonIdealScaledIntegralMaxErrorSquareMicrometers": 1.1764439777234365e-18
+  },
+  "comparisons": {
+    "profileBetweenNativeTiers": {
+      "coordinates": 201,
+      "maxAbs": 2.4689662935245006e-17,
+      "nrmse": 5.916318157505599e-09,
+      "relativeL2": 4.293003887497356e-08
+    },
+    "actualEnergyBetweenNativeTiers": {
+      "coordinates": 401,
+      "maxAbs": 1.3064380745077172e-16,
+      "nrmse": 3.542430834460115e-08,
+      "relativeL2": 6.330784360002644e-08
+    },
+    "idealProfileVersusAiry": {
+      "coordinates": 201,
+      "maxAbs": 4.440892098500626e-16,
+      "nrmse": 5.715411178529153e-17,
+      "relativeL2": 3.5703628000992334e-16
+    },
+    "idealEnergyVersusBesselPrimitive": {
+      "coordinates": 401,
+      "maxAbs": 5.551115123125783e-16,
+      "nrmse": 1.627006200951937e-16,
+      "relativeL2": 1.8416877877484154e-16
+    }
+  },
+  "rawPayloadSha256": "800df896093e0c8437397956c0bf2914ad4f4f069db01dc6ba548d8c44819b1f"
+}

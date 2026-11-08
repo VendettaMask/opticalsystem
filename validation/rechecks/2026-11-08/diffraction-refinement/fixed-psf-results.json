@@ -1,0 +1,503 @@
+{
+  "coreHash": "91e8ab41e472e9aff0ae01f5ce28d4f42a112b4a884d076083febffab7d5435b",
+  "results": [
+    {
+      "id": 967,
+      "original": "9d818240b90a9d7e1d858c3aaf8be207e1de8739c530e7488db855029f1f54bb",
+      "policy": {
+        "field": 1,
+        "wavelength": 1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "vignettedPupil": true,
+        "rmsFieldMethod": "GQ",
+        "rmsFieldRayDensity": 6,
+        "rmsFieldRemoveVignettingFactors": true,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "quantities": {
+          "Irradiance": {
+            "absolute": 1E-05,
+            "relative": 0.001,
+            "nrmse": 0.01,
+            "closeNrmse": 0.03,
+            "minimumCoverage": 0.95
+          }
+        },
+        "workbenchSettings": {}
+      },
+      "nativeStages": [
+        {
+          "sample": 256,
+          "hash": "00eaf692a4a8375cdd94be73011ccc18bc6b067ac0c19bdf02ef51da0ec8342a"
+        },
+        {
+          "sample": 512,
+          "hash": "9fa90efde4b3cf5ca7d5408483f58c3fa93962228996149863c7fec96a7c9a3a"
+        }
+      ],
+      "logs": [
+        {
+          "n": 512,
+          "outcome": "Success",
+          "phase": null,
+          "reason": null,
+          "hash": "8cdb5f465a909c5fcef1ae3c9e649ed072cd3bc824d731ca10a8cdec0ccaf8cd",
+          "requestHash": "cef4e8a6d4f5dde702d014b617f4161b8dcd870fa1355489b695dd2b935456e4"
+        },
+        {
+          "n": 1024,
+          "outcome": "Success",
+          "phase": null,
+          "reason": null,
+          "hash": "4301016c6e56ccdaf20d506904f708d07ce654d0fdc04c45ed8ed191bff2faff",
+          "requestHash": "9998cb89b15f9e67e4f2c8cd84446a2c5f451938b46d71bd6108e3260e939454"
+        },
+        {
+          "n": 2048,
+          "outcome": "Success",
+          "phase": null,
+          "reason": null,
+          "hash": "7aa9a10065e5caa2836ae3f5d890ad9a73764423ae2e184bcb9f043b4517a4fd",
+          "requestHash": "173d52e210878cac3ec803221c105a53ede45416a18ffdf8ca37a237f575ef70"
+        }
+      ],
+      "native": {
+        "id": "grid",
+        "unit": "Dimensionless",
+        "count": 16384,
+        "maxAbsolute": 0.00033308038673195237,
+        "meanAbsolute": 3.907569145485201E-05,
+        "rmse": 5.745577858987329E-05,
+        "nrmse": 0.0024846530977104798,
+        "maxRelative": 154.76990130146265,
+        "p50": 2.5708262507066572E-05,
+        "p90": 9.037665536432516E-05,
+        "p95": 0.00012112815753236261,
+        "pearson": 0.997950356117303,
+        "worstX": -2.5,
+        "worstY": 0,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      },
+      "convergence": [
+        {
+          "a": 512,
+          "b": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 7.740485560552707E-05,
+            "meanAbsolute": 1.2208252873511633E-05,
+            "rmse": 1.7192804039021097E-05,
+            "nrmse": 0.0007459933027056534,
+            "maxRelative": 28.6433923499488,
+            "p50": 8.49558039550308E-06,
+            "p90": 2.830347927312481E-05,
+            "p95": 3.6285498853977965E-05,
+            "pearson": 0.9998144666450288,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 6.608484768241135E-05,
+            "meanAbsolute": 4.010784038896821E-06,
+            "rmse": 5.979918697731401E-06,
+            "nrmse": 0.000260213955724339,
+            "maxRelative": 0.517354667577541,
+            "p50": 2.658044957512323E-06,
+            "p90": 9.071378468023309E-06,
+            "p95": 1.1539458953293495E-05,
+            "pearson": 0.999979214491137,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "cross": [
+        {
+          "sample": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 1.9416057650545326E-10,
+            "meanAbsolute": 2.4885542698013936E-12,
+            "rmse": 6.8748225529731245E-12,
+            "nrmse": 2.9729906323931015E-10,
+            "maxRelative": 2.5367502880542335E-07,
+            "p50": 1.6621755512778724E-12,
+            "p90": 4.049957157831186E-12,
+            "p95": 4.942037892200629E-12,
+            "pearson": 1.0000000000000033,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "sample": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 7.740466144495056E-05,
+            "meanAbsolute": 1.2208252442711956E-05,
+            "rmse": 1.7192803066025057E-05,
+            "nrmse": 0.0007434961712250569,
+            "maxRelative": 0.9691750974467065,
+            "p50": 8.49557740348713E-06,
+            "p90": 2.8303478088064285E-05,
+            "p95": 3.628549531099984E-05,
+            "pearson": 0.9998144666495081,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "sample": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00014348950912736191,
+            "meanAbsolute": 1.5561819353126988E-05,
+            "rmse": 2.218526323254297E-05,
+            "nrmse": 0.0009593931953778414,
+            "maxRelative": 1.608217369100242,
+            "p50": 1.059597414275709E-05,
+            "p90": 3.61967668023627E-05,
+            "p95": 4.624882310416084E-05,
+            "pearson": 0.9996956606770376,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ]
+    },
+    {
+      "id": 2157,
+      "original": "759d9a24b8fb8a2251f719f82dc387579883cbccff0f050c72941d9d13a4ac98",
+      "policy": {
+        "field": 1,
+        "wavelength": 1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "vignettedPupil": true,
+        "rmsFieldMethod": "GQ",
+        "rmsFieldRayDensity": 6,
+        "rmsFieldRemoveVignettingFactors": true,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "quantities": {
+          "Irradiance": {
+            "absolute": 1E-05,
+            "relative": 0.001,
+            "nrmse": 0.01,
+            "closeNrmse": 0.03,
+            "minimumCoverage": 0.95
+          }
+        },
+        "workbenchSettings": {}
+      },
+      "nativeStages": [
+        {
+          "sample": 256,
+          "hash": "67d53ba23b91346eb6a86ae7c6f9704b49bd8ac5158a31be5ccd870a1998a1c8"
+        },
+        {
+          "sample": 512,
+          "hash": "f6cdd466aeed5831a2678ea6fbaa58f84b5910925de0d21aad0227e4a22dd547"
+        }
+      ],
+      "logs": [
+        {
+          "n": 512,
+          "outcome": "Unavailable",
+          "phase": {
+            "status": "UndersampledPhase",
+            "connectedEdges": 271704,
+            "maximumStepWaves": 5.495388608794244,
+            "criterion": "LocalUnwrappedPupilPhaseStep/v1",
+            "certifiesConvergence": false
+          },
+          "reason": "PSF: \u5149\u77B3\u76F8\u4F4D\u5B58\u5728\u6DF7\u53E0\u98CE\u9669\uFF0C\u76F8\u90BB\u5B9E\u9645\u53D7\u5149\u8282\u70B9\u6700\u5927\u76F8\u4F4D\u5DEE 5.49539 \u6CE2\uFF0C\u8D85\u8FC7\u672C\u7A0B\u5E8F\u5C40\u90E8\u76F8\u4F4D\u68C0\u67E5\u7684 0.5 \u6CE2\u754C\u9650\u3002\u5F53\u524D FFT \u6570\u636E\u4E0D\u53EF\u7528\uFF1B\u9700\u8981\u72EC\u7ACB\u52A0\u5BC6\u9A8C\u8BC1\uFF0C\u6216\u4F7F\u7528\u9002\u7528\u7684 Huygens \u5206\u6790\u3002\u6B64\u68C0\u67E5\u4E0D\u4EE3\u8868 Zemax \u7684\u5185\u90E8\u62A5\u9519\u5224\u636E\uFF0C\u4E5F\u4E0D\u6784\u6210\u6536\u655B\u8BA4\u8BC1\u3002",
+          "hash": "e04d7615cd65fee1239733412a6ac3efb118612522832dd991a4e7ae6e708110",
+          "requestHash": "efd85d826ec206ddf65b931b71bad2f35271474492369d1f1998e1e43bd8ba23"
+        },
+        {
+          "n": 1024,
+          "outcome": "Unavailable",
+          "phase": {
+            "status": "UndersampledPhase",
+            "connectedEdges": 1088408,
+            "maximumStepWaves": 2.8870341576624625,
+            "criterion": "LocalUnwrappedPupilPhaseStep/v1",
+            "certifiesConvergence": false
+          },
+          "reason": "PSF: \u5149\u77B3\u76F8\u4F4D\u5B58\u5728\u6DF7\u53E0\u98CE\u9669\uFF0C\u76F8\u90BB\u5B9E\u9645\u53D7\u5149\u8282\u70B9\u6700\u5927\u76F8\u4F4D\u5DEE 2.88703 \u6CE2\uFF0C\u8D85\u8FC7\u672C\u7A0B\u5E8F\u5C40\u90E8\u76F8\u4F4D\u68C0\u67E5\u7684 0.5 \u6CE2\u754C\u9650\u3002\u5F53\u524D FFT \u6570\u636E\u4E0D\u53EF\u7528\uFF1B\u9700\u8981\u72EC\u7ACB\u52A0\u5BC6\u9A8C\u8BC1\uFF0C\u6216\u4F7F\u7528\u9002\u7528\u7684 Huygens \u5206\u6790\u3002\u6B64\u68C0\u67E5\u4E0D\u4EE3\u8868 Zemax \u7684\u5185\u90E8\u62A5\u9519\u5224\u636E\uFF0C\u4E5F\u4E0D\u6784\u6210\u6536\u655B\u8BA4\u8BC1\u3002",
+          "hash": "d04dad44a063d80d4671529ba49e9b4b102e28254e8bb911b42f996f2ceafc53",
+          "requestHash": "f61c94f629d022f5578f26640f6b02b7a22fca32d1cdb28dff7b0669748e5cdf"
+        },
+        {
+          "n": 2048,
+          "outcome": "Unavailable",
+          "phase": {
+            "status": "UndersampledPhase",
+            "connectedEdges": 4356826,
+            "maximumStepWaves": 1.4796563253712094,
+            "criterion": "LocalUnwrappedPupilPhaseStep/v1",
+            "certifiesConvergence": false
+          },
+          "reason": "PSF: \u5149\u77B3\u76F8\u4F4D\u5B58\u5728\u6DF7\u53E0\u98CE\u9669\uFF0C\u76F8\u90BB\u5B9E\u9645\u53D7\u5149\u8282\u70B9\u6700\u5927\u76F8\u4F4D\u5DEE 1.47966 \u6CE2\uFF0C\u8D85\u8FC7\u672C\u7A0B\u5E8F\u5C40\u90E8\u76F8\u4F4D\u68C0\u67E5\u7684 0.5 \u6CE2\u754C\u9650\u3002\u5F53\u524D FFT \u6570\u636E\u4E0D\u53EF\u7528\uFF1B\u9700\u8981\u72EC\u7ACB\u52A0\u5BC6\u9A8C\u8BC1\uFF0C\u6216\u4F7F\u7528\u9002\u7528\u7684 Huygens \u5206\u6790\u3002\u6B64\u68C0\u67E5\u4E0D\u4EE3\u8868 Zemax \u7684\u5185\u90E8\u62A5\u9519\u5224\u636E\uFF0C\u4E5F\u4E0D\u6784\u6210\u6536\u655B\u8BA4\u8BC1\u3002",
+          "hash": "660aaf55f8bbb624c16736761c08256f5f2dde6574dd5e7c0f4ac99da04081a4",
+          "requestHash": "df73c4a3aa790d5cf625dc6c41a3c95f697d4202fa7824fe4c709cd3be21c8f1"
+        }
+      ],
+      "native": {
+        "id": "grid",
+        "unit": "Dimensionless",
+        "count": 16384,
+        "maxAbsolute": 0.0005572610264973866,
+        "meanAbsolute": 2.4958738097924804E-05,
+        "rmse": 4.119604293195821E-05,
+        "nrmse": 0.004216559498832494,
+        "maxRelative": 924.7954731015172,
+        "p50": 1.3881723226978659E-05,
+        "p90": 6.0303927255138105E-05,
+        "p95": 9.219431829009139E-05,
+        "pearson": 0.9904907462945393,
+        "worstX": 0,
+        "worstY": -11.75,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      },
+      "convergence": [],
+      "cross": []
+    },
+    {
+      "id": 2787,
+      "original": "863b0b4f905f6b2112d1792853cc9977865bc3ec1c3ace902e5a25c29f66df7e",
+      "policy": {
+        "field": 1,
+        "wavelength": 1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "vignettedPupil": true,
+        "rmsFieldMethod": "GQ",
+        "rmsFieldRayDensity": 6,
+        "rmsFieldRemoveVignettingFactors": true,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "quantities": {
+          "Irradiance": {
+            "absolute": 1E-05,
+            "relative": 0.001,
+            "nrmse": 0.01,
+            "closeNrmse": 0.03,
+            "minimumCoverage": 0.95
+          }
+        },
+        "workbenchSettings": {}
+      },
+      "nativeStages": [
+        {
+          "sample": 512,
+          "hash": "9e2bb596eefb99b59c43826cd000cc3345aa2ba298ed71757f5ed0a9419e0a2c"
+        },
+        {
+          "sample": 1024,
+          "hash": "28e00906b44003436405ee36f8fe87332b3ad1c1952a62c086f13479884b8fe6"
+        }
+      ],
+      "logs": [
+        {
+          "n": 512,
+          "outcome": "Success",
+          "phase": null,
+          "reason": null,
+          "hash": "57fc50745ad470001808e92bb699a40c38ca7e8730fd426794ea6bc400be8c5d",
+          "requestHash": "c229cad89624e14711f0b29995cccc850866e97ccea883aa0e68a45a2e2ee769"
+        },
+        {
+          "n": 1024,
+          "outcome": "Success",
+          "phase": null,
+          "reason": null,
+          "hash": "aef330b254536a4b61e995f323671c4b741fd49250757879ec25a18ee6b821dd",
+          "requestHash": "5c9f5a8c25ede5a24a66d3ec6ceaca172d1d653a1ed5ea5c132347beae305f06"
+        },
+        {
+          "n": 2048,
+          "outcome": "Success",
+          "phase": null,
+          "reason": null,
+          "hash": "7db3adc2aa5ecd88d624a3f912c1a9e3efbd4eb1be7340b425a37e383198788c",
+          "requestHash": "d8b92e2c282aec2cc00010a6bed53273dbf0dac7c0a3bbc973aef5a891162188"
+        }
+      ],
+      "native": {
+        "id": "grid",
+        "unit": "Dimensionless",
+        "count": 16384,
+        "maxAbsolute": 0.007669895026445439,
+        "meanAbsolute": 0.00047787447638764443,
+        "rmse": 0.0008159293144289065,
+        "nrmse": 0.00555030874989116,
+        "maxRelative": 0.059592481489642204,
+        "p50": 0.0003529148933980701,
+        "p90": 0.0008654194532052448,
+        "p95": 0.000981912281655609,
+        "pearson": 0.9988076567752162,
+        "worstX": 0,
+        "worstY": 0,
+        "coverage": 1,
+        "conclusion": "Pass",
+        "extra": {}
+      },
+      "convergence": [
+        {
+          "a": 512,
+          "b": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.007669894950730366,
+            "meanAbsolute": 0.0004778744773543251,
+            "rmse": 0.0008159293101472982,
+            "nrmse": 0.005550308716383657,
+            "maxRelative": 0.05959247895474759,
+            "p50": 0.0003529149098158643,
+            "p90": 0.0008654194417104698,
+            "p95": 0.0009819122298655586,
+            "pearson": 0.9988076568306663,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0007410483641496768,
+            "meanAbsolute": 8.599639865627259E-05,
+            "rmse": 0.00011571924134430585,
+            "nrmse": 0.0007832248031288748,
+            "maxRelative": 0.022489467865329852,
+            "p50": 6.641008448141604E-05,
+            "p90": 0.0001648763574675218,
+            "p95": 0.00022364648143436382,
+            "pearson": 0.9999637166607624,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "cross": [
+        {
+          "sample": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00766989483466482,
+            "meanAbsolute": 0.00047787447418701413,
+            "rmse": 0.0008159292990085158,
+            "nrmse": 0.005550308644994906,
+            "maxRelative": 0.059592481904949084,
+            "p50": 0.0003529149081814304,
+            "p90": 0.0008654194211456581,
+            "p95": 0.0009819122267991874,
+            "pearson": 0.9988076568379882,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "sample": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 1.1606554606302666E-10,
+            "meanAbsolute": 1.5820360409184333E-11,
+            "rmse": 2.12503141749349E-11,
+            "nrmse": 1.4455394924207516E-10,
+            "maxRelative": 4.447409084502046E-09,
+            "p50": 1.3100426993206682E-11,
+            "p90": 3.084889288462733E-11,
+            "p95": 3.518054077222832E-11,
+            "pearson": 1.0000000000000184,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "sample": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0007410484802152228,
+            "meanAbsolute": 8.59964038473918E-05,
+            "rmse": 0.00011571925124099095,
+            "nrmse": 0.0007871730569495166,
+            "maxRelative": 0.023006879547001032,
+            "p50": 6.641006381303757E-05,
+            "p90": 0.00016487637221939967,
+            "p95": 0.00022364648645772591,
+            "pearson": 0.9999637166577152,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ]
+    }
+  ]
+}

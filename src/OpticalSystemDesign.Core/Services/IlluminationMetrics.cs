@@ -55,9 +55,11 @@ public static partial class IlluminationMetrics
     public static string? RelativeIlluminationNotApplicableReason(Optic optic)
     {
         ArgumentNullException.ThrowIfNull(optic);
-        return optic.ImageSpaceAfocal
-            ? "Relative illumination is not applicable in afocal image space; it requires a finite image conjugate."
-            : null;
+        if (optic.ImageSpaceAfocal)
+            return "Relative illumination is not applicable in afocal image space; it requires a finite image conjugate.";
+        if (FocalImageDomain.IsCollimatedPlaneAtImage(optic) || FocalImageDomain.IsCollimatedContactPupil(optic))
+            return "Relative illumination is not applicable to a collimated pupil coincident with the image; the pupil subtends no positive image-space angular area.";
+        return null;
     }
 
     internal static void RequireRelativeIllumination(Optic optic)

@@ -1,0 +1,552 @@
+{
+  "index": 562,
+  "lens": "Image Simulation/Example 1, A singlet eyepiece.ZMX",
+  "frozenVerdict": "Incomparable",
+  "originalRequest": "45ac3bb64a42f487ab1663f1be040bf9f1a5428faf2302737e04d04641ec5e21",
+  "originalNative32": {
+    "dataSha256": "3a84cb2cdd3710252b8443e8bbb6a7c498ffc6c8a561c144704787044425105c",
+    "diagnostics": [
+      {
+        "ErrorCode": "Success",
+        "Text": "取样太低, 数据不准确!"
+      }
+    ]
+  },
+  "supplementalVerdict": "SupplementalPass",
+  "numerical": {
+    "coreSha256": "85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96",
+    "originalPolicy": {
+      "absolute": 1e-05,
+      "relative": 0.002,
+      "nrmse": 0.003,
+      "closeNrmse": 0.01,
+      "minimumCoverage": 0.95
+    },
+    "worker": [
+      {
+        "n": 32,
+        "outcome": "Unavailable",
+        "reason": "Diffraction Encircled Energy: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 0.562648 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+        "sha256": "017fc41f03362669bfa8b464f8c89e65a55d223400c556cde680a142700f1063",
+        "provenance": {
+          "canonicalAnalysisKey": "Diffraction Encircled Energy",
+          "requestFingerprint": "45ac3bb64a42f487ab1663f1be040bf9f1a5428faf2302737e04d04641ec5e21",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+          "codeFingerprint": "0a35d7b7089296184bf3b020b1da4797671fd5ec87ec338473900eac4a2267ee:85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96"
+        },
+        "pitch": null,
+        "phase": {
+          "status": "UndersampledPhase",
+          "connectedEdges": 172,
+          "maximumStepWaves": 0.5626483773798306,
+          "criterion": "LocalUnwrappedPupilPhaseStep/v1",
+          "certifiesConvergence": false
+        }
+      },
+      {
+        "n": 1024,
+        "outcome": "Success",
+        "reason": null,
+        "sha256": "284f844395344aa4e2234985669020d9a9aebafcb97e61c0dcce3347880cd397",
+        "provenance": {
+          "canonicalAnalysisKey": "Diffraction Encircled Energy",
+          "requestFingerprint": "97472cf68348f9a61215b7c18994b37fdec20dd70694e3e59a4b608ae2cc34fb",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+          "codeFingerprint": "0a35d7b7089296184bf3b020b1da4797671fd5ec87ec338473900eac4a2267ee:85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96"
+        },
+        "pitch": [],
+        "phase": null,
+        "r5": [
+          0.004757611692638051,
+          0.000519311359344121
+        ],
+        "continuum": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 0.0004323150389052698,
+            "nrmse": 0.06353333060738478,
+            "pointwise": false,
+            "verdict": "Difference"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 4.581526327635256e-05,
+            "nrmse": 0.06274049233200368,
+            "pointwise": false,
+            "verdict": "Difference"
+          }
+        ]
+      },
+      {
+        "n": 2048,
+        "outcome": "Success",
+        "reason": null,
+        "sha256": "a2266c2ca050882ce10c49ebb8241f9dd6e8462f27dc12add9965bc59559674b",
+        "provenance": {
+          "canonicalAnalysisKey": "Diffraction Encircled Energy",
+          "requestFingerprint": "f82d6d88293ef049d8ca925523f6845fe575b40ba4bb59a77f24432cab523984",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+          "codeFingerprint": "0a35d7b7089296184bf3b020b1da4797671fd5ec87ec338473900eac4a2267ee:85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96"
+        },
+        "pitch": [
+          2.5966808321635875
+        ],
+        "phase": null,
+        "r5": [
+          0.0046754583337880766,
+          0.0005086130975643288
+        ],
+        "continuum": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 0.0002185486976309581,
+            "nrmse": 0.030151148560858192,
+            "pointwise": false,
+            "verdict": "Difference"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 2.3624341876478827e-05,
+            "nrmse": 0.029631381939042523,
+            "pointwise": false,
+            "verdict": "Difference"
+          }
+        ]
+      },
+      {
+        "n": 4096,
+        "outcome": "Success",
+        "reason": null,
+        "sha256": "b18cd30338c6f54623b6fc7ba966412aae0d8d005677c3eb8ea1c3e3c237d3c2",
+        "provenance": {
+          "canonicalAnalysisKey": "Diffraction Encircled Energy",
+          "requestFingerprint": "f2f042d914ab0ed3915aee219ed3ba6cc96f2b3176edefd7afa09f80f7b05973",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+          "codeFingerprint": "0a35d7b7089296184bf3b020b1da4797671fd5ec87ec338473900eac4a2267ee:85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96"
+        },
+        "pitch": [
+          1.8361306250000005
+        ],
+        "phase": null,
+        "r5": [
+          0.004557970815037249,
+          0.0004978145017848403
+        ],
+        "continuum": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 0.00010962306529871975,
+            "nrmse": 0.014439063857487914,
+            "pointwise": false,
+            "verdict": "Difference"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 1.2087057227853649e-05,
+            "nrmse": 0.01494430128293531,
+            "pointwise": false,
+            "verdict": "Difference"
+          }
+        ]
+      },
+      {
+        "n": 8192,
+        "outcome": "Success",
+        "reason": null,
+        "sha256": "7d6f06154e1e4f40b0c2616fcf86f8e42f1769ded7c398ab4a6941949e55941a",
+        "provenance": {
+          "canonicalAnalysisKey": "Diffraction Encircled Energy",
+          "requestFingerprint": "44f97738e539c749e01d3246216d5501976d12ef119c5a6cd60b82d2291cbb37",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+          "codeFingerprint": "0a35d7b7089296184bf3b020b1da4797671fd5ec87ec338473900eac4a2267ee:85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96"
+        },
+        "pitch": [
+          1.2983404160817937
+        ],
+        "phase": null,
+        "r5": [
+          0.0044615315029209995,
+          0.00048598210060682624
+        ],
+        "continuum": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 6.171496267385864e-05,
+            "nrmse": 0.007502279945953469,
+            "pointwise": false,
+            "verdict": "Close"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 6.585457219036698e-06,
+            "nrmse": 0.007363560791982098,
+            "pointwise": true,
+            "verdict": "Pass"
+          }
+        ]
+      },
+      {
+        "n": 16384,
+        "outcome": "Success",
+        "reason": null,
+        "sha256": "8b9430e4353bb1f9991243b58852f10bb10c4ba28b2b93c54be97c8e243d6325",
+        "provenance": {
+          "canonicalAnalysisKey": "Diffraction Encircled Energy",
+          "requestFingerprint": "c563824245d76af2078e8cd69debd41c2c2e74b555b3783f3398fd2aa76defa5",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+          "codeFingerprint": "0a35d7b7089296184bf3b020b1da4797671fd5ec87ec338473900eac4a2267ee:85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96"
+        },
+        "pitch": [
+          0.9180653125000002
+        ],
+        "phase": null,
+        "r5": [
+          0.00447818415245875,
+          0.0004886649564083514
+        ],
+        "continuum": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 3.793910732888001e-05,
+            "nrmse": 0.0036719926091177044,
+            "pointwise": false,
+            "verdict": "Close"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 4.4789852294137115e-06,
+            "nrmse": 0.003941436810652337,
+            "pointwise": true,
+            "verdict": "Pass"
+          }
+        ]
+      },
+      {
+        "n": 32768,
+        "outcome": "Success",
+        "reason": null,
+        "sha256": "18952afe272d61efd97dacc355cf312b5df351253ab43cedd7aae42b577692fe",
+        "provenance": {
+          "canonicalAnalysisKey": "Diffraction Encircled Energy",
+          "requestFingerprint": "ee849d07eab7a0b77403ab7668a0b5c3ab51e05fd5f237831bc4a4f3f884c523",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+          "codeFingerprint": "0a35d7b7089296184bf3b020b1da4797671fd5ec87ec338473900eac4a2267ee:85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96"
+        },
+        "pitch": [
+          0.6491702080408969
+        ],
+        "phase": null,
+        "r5": [
+          0.004474402546575872,
+          0.0004879782446230368
+        ],
+        "continuum": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 2.0845618124225654e-05,
+            "nrmse": 0.001956818890121406,
+            "pointwise": false,
+            "verdict": "Pass"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 2.5320573705089736e-06,
+            "nrmse": 0.0021047230942913735,
+            "pointwise": true,
+            "verdict": "Pass"
+          }
+        ]
+      },
+      {
+        "n": 65536,
+        "outcome": "Success",
+        "reason": null,
+        "sha256": "999cd976058069e9a6a44dccf113330e55312136b334a7df4a75258771b64349",
+        "provenance": {
+          "canonicalAnalysisKey": "Diffraction Encircled Energy",
+          "requestFingerprint": "16834f4113bbb0cd7dc07f04a52fbe4632aacd2acd7aca48d77ff0032048a3a3",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+          "codeFingerprint": "0a35d7b7089296184bf3b020b1da4797671fd5ec87ec338473900eac4a2267ee:85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96"
+        },
+        "pitch": [
+          0.4590326562500001
+        ],
+        "phase": null,
+        "r5": [
+          0.004451849945511937,
+          0.0004852810743825196
+        ],
+        "continuum": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 1.3148701532207912e-05,
+            "nrmse": 0.001083662311352664,
+            "pointwise": true,
+            "verdict": "Pass"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 1.4910881955895608e-06,
+            "nrmse": 0.0011177845400991196,
+            "pointwise": true,
+            "verdict": "Pass"
+          }
+        ]
+      },
+      {
+        "n": 131072,
+        "outcome": "Success",
+        "reason": null,
+        "sha256": "89d398d0f881e98e48da90d18f4880835f1e177391709a40d3e341e2d5f654f0",
+        "provenance": {
+          "canonicalAnalysisKey": "Diffraction Encircled Energy",
+          "requestFingerprint": "c55cd2df2b8fad2615f77ef2ffd5de358e6433e9205c78037ff9c280c31e62ad",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+          "codeFingerprint": "0a35d7b7089296184bf3b020b1da4797671fd5ec87ec338473900eac4a2267ee:85485632ed975c254ffd51b0570d21b411fd34b736213988328fc44f42910a96"
+        },
+        "pitch": [
+          0.32458510402044843
+        ],
+        "phase": null,
+        "r5": [
+          0.004463193450064676,
+          0.0004864646988979247
+        ],
+        "continuum": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 6.684560254417368e-06,
+            "nrmse": 0.0006052866430016153,
+            "pointwise": true,
+            "verdict": "Pass"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 7.540083249200176e-07,
+            "nrmse": 0.0006168219193473911,
+            "pointwise": true,
+            "verdict": "Pass"
+          }
+        ]
+      }
+    ],
+    "corePairs": [
+      {
+        "a": 1024,
+        "b": 2048,
+        "metrics": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 0.00039640321743414234,
+            "nrmse": 0.04055254068858604,
+            "pointwise": false,
+            "verdict": "Difference"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 4.4075711773877604e-05,
+            "nrmse": 0.04049397429637601,
+            "pointwise": false,
+            "verdict": "Difference"
+          }
+        ]
+      },
+      {
+        "a": 2048,
+        "b": 4096,
+        "metrics": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 0.00020881857488434428,
+            "nrmse": 0.01973518011873089,
+            "pointwise": false,
+            "verdict": "Difference"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 2.1888093645501338e-05,
+            "nrmse": 0.019010943306357834,
+            "pointwise": false,
+            "verdict": "Difference"
+          }
+        ]
+      },
+      {
+        "a": 4096,
+        "b": 8192,
+        "metrics": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 0.00010210124435586633,
+            "nrmse": 0.009981105676253321,
+            "pointwise": false,
+            "verdict": "Close"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 1.1832401178014072e-05,
+            "nrmse": 0.010426956889174738,
+            "pointwise": false,
+            "verdict": "Difference"
+          }
+        ]
+      },
+      {
+        "a": 8192,
+        "b": 16384,
+        "metrics": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 6.22854296690816e-05,
+            "nrmse": 0.005543246825867821,
+            "pointwise": false,
+            "verdict": "Close"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 6.345531799368967e-06,
+            "nrmse": 0.00521492046070247,
+            "pointwise": true,
+            "verdict": "Pass"
+          }
+        ]
+      },
+      {
+        "a": 16384,
+        "b": 32768,
+        "metrics": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 4.307127507495933e-05,
+            "nrmse": 0.0031718805498903643,
+            "pointwise": false,
+            "verdict": "Close"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 4.855176503878902e-06,
+            "nrmse": 0.0032385381268562195,
+            "pointwise": true,
+            "verdict": "Pass"
+          }
+        ]
+      },
+      {
+        "a": 32768,
+        "b": 65536,
+        "metrics": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 2.255260106393507e-05,
+            "nrmse": 0.0017730556220953194,
+            "pointwise": false,
+            "verdict": "Pass"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 2.697170240517177e-06,
+            "nrmse": 0.0018369777886411527,
+            "pointwise": true,
+            "verdict": "Pass"
+          }
+        ]
+      },
+      {
+        "a": 65536,
+        "b": 131072,
+        "metrics": [
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 1.4496004289869368e-05,
+            "nrmse": 0.0010341035994720802,
+            "pointwise": true,
+            "verdict": "Pass"
+          },
+          {
+            "coverage": 1,
+            "nodes": 401,
+            "maxAbsolute": 1.6168226197110303e-06,
+            "nrmse": 0.0010452731607407681,
+            "pointwise": true,
+            "verdict": "Pass"
+          }
+        ]
+      }
+    ],
+    "same1024": [
+      {
+        "coverage": 1,
+        "nodes": 401,
+        "maxAbsolute": 2.851546998527965e-09,
+        "nrmse": 3.02159372439627e-07,
+        "pointwise": true,
+        "verdict": "Pass"
+      },
+      {
+        "coverage": 1,
+        "nodes": 401,
+        "maxAbsolute": 3.1983091641676203e-10,
+        "nrmse": 3.092962803673805e-07,
+        "pointwise": true,
+        "verdict": "Pass"
+      }
+    ],
+    "native1024Sha256": "340e918cdbfd0de0e6a3b501e5e0ff8cdbfe9d93109e1f049b57ee09c1b57237",
+    "independentContinuousReferenceSha256": "becea30586c29c16587bf069e5947e639c1086db4519a625542a25ed1695ecef"
+  },
+  "independent": {
+    "workingFNumber": 200.0,
+    "sourceSha256": "8b9d3cb3c43ae2356462247afa6e3a5b84d4fc5626aa435d04bfa5f9c2db3bc9",
+    "modelSha256": "bb84a0d1f697d04406da47483cf43eb467314f39b46c3f8a82a9ada603daf2e5",
+    "wavefrontSha256": "b4af1c138e217ad97dc16d196c710910d5c4de196e47c5a0282f32837ea3ce75",
+    "wavefrontSettingsSha256": "a8b17430d79d706a3531093bd04c50e1b1e74de8bd10e321ae6f42cd864a988a",
+    "energySettingsSha256": "85baff76600ddb6c8e0643980dd61e2a5a0cb58506f1bb038271fd793595cf89"
+  }
+}

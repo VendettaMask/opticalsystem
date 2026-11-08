@@ -1,0 +1,128 @@
+{
+  "frozenIndex": 2919,
+  "mirrorTiltDegrees": -35,
+  "nativeSourceSha256": "ad2b7a0922cf0dbc29d560a8507ce38254b0862c3f0d94329d91d22b48d30af6",
+  "nativeFanSha256": "bcb6f22dac317e32f7fa867ca72045295ad40b012b2722aa2eac87b4f4f5eb78",
+  "nativeFirstOrderReportSha256": "ec3c3820f76cf14f6d9a06ffa758f436d5c8e7a507fe5f8ebb18a725f3cfa085",
+  "nativeRayReportSha256": "e24640253b32c424d89fd9e14bfaf6f3134d4c20ad5b9a2cfecf1351e5917af7",
+  "nativeWavefrontSha256": "7df0eab119ca30b8ca6ee0d4dced54d72caf9201369c25971fb0d6c083de7df4",
+  "chiefImageLocalXYMm": [
+    0.0,
+    51.612863925748485
+  ],
+  "chiefAngleToImageNormalDegrees": 15.839987086098802,
+  "nativeRayFanChecks": [
+    {
+      "coordinates": 41,
+      "nativeMicrometerRange": [
+        -210.8344399091422,
+        409.5899963037013
+      ],
+      "maxAbsoluteMicrometers": 3.552713678800501e-11
+    },
+    {
+      "coordinates": 41,
+      "nativeMicrometerRange": [
+        -418.2335060162359,
+        418.2335060162359
+      ],
+      "maxAbsoluteMicrometers": 1.865174681370263e-11
+    }
+  ],
+  "nativeSingleRayPositionMaxMm": 2.2374280206349795e-10,
+  "nativeSingleRayDirectionMax": 3.461639308532938e-11,
+  "pupilBoundaryMaximumHitRadiusMm": [
+    12.20774588761456,
+    17.040313516422533,
+    18.679938797012202
+  ],
+  "fitSphereRadiusMm": 228.99197540344986,
+  "fitTangentialPupilStretch": 1.004385554976471,
+  "wavefrontFitNodes": 1001,
+  "wavefrontHoldoutNodes": 1998,
+  "wavefrontHoldoutMaxAbsWaves": 3.7339520364554346e-10,
+  "workingFNumbersFromMarginalRaysTS": [
+    7.3384723417881625,
+    7.309091504812037
+  ],
+  "reportedCombinedWorkingFNumber": 7.323738,
+  "quadratureOrders": [
+    256,
+    320
+  ],
+  "quadratureComparison": {
+    "coordinates": 16384,
+    "maximumAbsolute": 3.1424618766526247e-13,
+    "peakNormalizedRms": 1.3015990361582937e-10,
+    "relativeL2": 4.2636940881341743e-10
+  },
+  "centerRelativeToIdeal": 0.00013778557753815572,
+  "peakRelativeToIdeal": 0.0004650809170323938,
+  "peakPhysicalCoordinatesMicrometers": [
+    -5.75,
+    -4.0
+  ],
+  "status": "ScalarFftContinuumDiagnosticOnly",
+  "encircledEnergy": {
+    "frozenIndex": 2926,
+    "radiusCount": 401,
+    "radiusRangeMicrometers": [
+      0,
+      5
+    ],
+    "actualCentroidMicrometers": [
+      0.0,
+      54.95726367788961
+    ],
+    "idealCentroidMicrometers": [
+      0,
+      0
+    ],
+    "centroidInteriorGradientMicrometers": [
+      -2.1761415171860294e-14,
+      54.9572638833269
+    ],
+    "centroidAgreementMaximumMicrometers": 2.0543729561950386e-07,
+    "encircledEnergyWorkingFNumbersTS": [
+      7.341145927433056,
+      7.309091504812037
+    ],
+    "parsevalTotalPowerSquareMicrometers": 20.666301151326493,
+    "quadratureOrdersPupilTaylorAndAzimuth": [
+      [
+        256,
+        26,
+        64
+      ],
+      [
+        320,
+        30,
+        80
+      ]
+    ],
+    "fourierFieldTaylorRemainderBounds": [
+      8.793251602344879e-13,
+      2.714473937742858e-16
+    ],
+    "actualBetweenQuadratures": {
+      "coordinates": 401,
+      "maximumAbsolute": 9.287308335576006e-14,
+      "peakNormalizedRms": 1.207137220108315e-10,
+      "relativeL2": 2.9662627434572675e-10
+    },
+    "idealBetweenQuadratures": {
+      "coordinates": 401,
+      "maximumAbsolute": 1.0658141036401503e-13,
+      "peakNormalizedRms": 8.193249141001293e-14,
+      "relativeL2": 1.1546336468950307e-13
+    },
+    "idealVersusEllipticalJinc": {
+      "coordinates": 401,
+      "maximumAbsolute": 1.0491607582707729e-13,
+      "peakNormalizedRms": 8.03144760121468e-14,
+      "relativeL2": 1.1318317646695716e-13
+    },
+    "actualEnergyAt5Micrometers": 0.0005253982383360424,
+    "idealEnergyAt5Micrometers": 0.8377934030209424
+  }
+}

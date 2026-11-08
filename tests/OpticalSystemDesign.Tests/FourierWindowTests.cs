@@ -44,6 +44,43 @@ public sealed class FourierWindowTests
         Assert.InRange(Math.Abs(actual.Total - total) / total, 0, 1e-13);
         Assert.InRange(Math.Abs(actual.X - xFirst / total), 0, 1e-13);
         Assert.InRange(Math.Abs(actual.Y - yFirst / total), 0, 1e-13);
+        Assert.InRange(Math.Abs(StreamedMoment(vertical: false) - xFirst / total), 0, 1e-13);
+        Assert.InRange(Math.Abs(StreamedMoment(vertical: true) - yFirst / total), 0, 1e-13);
+
+        double StreamedMoment(bool vertical)
+        {
+            var sum = 0d;
+            for (var line = 0; line < size; line++)
+            {
+                var spectrum = new Complex[logical];
+                for (var k = 0; k < logical; k++)
+                    for (var i = 0; i < size; i++)
+                        spectrum[k] += (vertical ? pupil[i, line] : pupil[line, i])
+                            * Complex.FromPolarCoordinates(1, -2 * Math.PI * k * i / logical);
+                sum += DiffractionEngine.FourierMarginalFirstMoment(spectrum);
+            }
+            return logical * sum / total;
+        }
+    }
+
+    [Fact]
+    public void SymmetricMarginalRetainsItsUnpairedPositiveNyquistBin()
+    {
+        const int size = 8;
+        const int logical = 16;
+        var pupil = new Complex[size, size];
+        for (var row = 0; row < size; row++)
+            for (var column = 1; column < size; column++)
+                pupil[row, column] = Complex.FromPolarCoordinates(1 + .03 * row, .15 * row + .3 * Math.Abs(column - size / 2));
+        var expected = DiffractionEngine.FourierImageMoments(pupil, logical);
+        var nyquistPower = 0d;
+        for (var row = 0; row < size; row++)
+        {
+            var amplitude = Complex.Zero;
+            for (var column = 0; column < size; column++) amplitude += ((column & 1) == 0 ? 1 : -1) * pupil[row, column];
+            nyquistPower += amplitude.Magnitude * amplitude.Magnitude;
+        }
+        Assert.InRange(Math.Abs(expected.X - logical * (double)logical * nyquistPower / (2 * expected.Total)), 0, 1e-13);
     }
 
     [Fact]

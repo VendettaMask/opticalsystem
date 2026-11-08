@@ -75,9 +75,10 @@ public static partial class MeritFunctionCatalog
         // Do not silently call them sagittal/tangential for arbitrary azimuths.
         if (coordinate.X != 0) throw new NotSupportedException("SFNO/TFNO 当前支持轴上及 Y 方向视场；任意方位尚待验证。");
         var wavelength = RequireWavelength(optic, ZemaxIntegerParameter(definition, 1, definition.Wavelength));
-        var axes = DiffractionEngine.WorkingFNumbers(optic, coordinate, wavelength,
-            aimAtStop: optic.RayAimingEnabled, zemaxDirectionalAverage: true, strictFullPupil: true);
-        return CanonicalType(definition.Type) == "TFNO" ? axes.Tangential : axes.Sagittal;
+        var axes = DiffractionEngine.DirectionalWorkingFNumbers(optic, coordinate, wavelength,
+            aimAtStop: optic.RayAimingEnabled, strictFullPupil: true);
+        var value = CanonicalType(definition.Type) == "TFNO" ? axes.Tangential : axes.Sagittal;
+        return double.IsFinite(value) ? value : throw new InvalidOperationException("像方数值孔径必须为正有限值。");
     }
 
 }

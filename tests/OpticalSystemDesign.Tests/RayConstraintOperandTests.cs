@@ -213,6 +213,36 @@ public sealed class RayConstraintOperandTests
     }
 
     [Theory]
+    [InlineData(2, -10, 1.6815367820173848)]
+    [InlineData(54, -10, 1.6815367820173848)]
+    [InlineData(29, -6, 2.0935730106597354)]
+    [InlineData(55, -6, 2.0935730106597354)]
+    [InlineData(29, -0.000001, 1.6815367820173848)]
+    [InlineData(29, -0.00001, 3.3630701765052207)]
+    public async Task DirectionalWorkingFNumberUsesDeflectedMarginalsForProjectedWavefront(
+        int rowStates, double tiltDegrees, double nativeTangential)
+    {
+        var path = Path.Combine(ProductDependencyArchitectureTests.RepositoryRoot(), "src", "OpticalSystemDesign.App",
+            "Assets", "SequentialExamples", "Miscellaneous", "MEMS DLL Sample.ZMX");
+        var optic = await new ZemaxZmxImporter().ImportFileAsync(path);
+        var surface = Assert.Single(optic.SurfaceGroup.Items, item => item.Geometry is TernaryMirrorArrayGeometry);
+        var array = Assert.IsType<TernaryMirrorArrayGeometry>(surface.Geometry);
+        surface.Geometry = new TernaryMirrorArrayGeometry(array.PixelsX, array.PixelsY, array.WidthX, array.WidthY,
+            [array.TiltRadians[0], tiltDegrees * Math.PI / 180, array.TiltRadians[2]],
+            array.AzimuthRadians, array.AddressingMode, [rowStates]);
+
+        Assert.InRange(Math.Abs(nativeTangential - Evaluate(optic, WorkingRow("TFNO", 1))), 0, 1e-7);
+        Invalid(optic, WorkingRow("SFNO", 1));
+        var wavefront = new WavefrontAnalysis(optic, pupilSampling: 64, wavelengthNumber: 1, fieldNumber: 1,
+            useExitPupilShape: true, sampleProjectedExitPupil: true).GenerateData();
+        Assert.Equal(AnalysisOutcome.Success, wavefront.Outcome);
+        var tangential = Assert.IsType<double>(wavefront.Values["ExitPupilWorkingFNumberY"]);
+        Assert.InRange(Math.Abs(nativeTangential - tangential), 0, 1e-7);
+        Assert.Equal(10000d, wavefront.Values["ExitPupilWorkingFNumberX"]);
+        Assert.Equal(nativeTangential / 10000, Assert.IsType<double>(wavefront.Values["ExitPupilDisplayScaleX"]), 10);
+    }
+
+    [Theory]
     [MemberData(nameof(Working))]
     public void RealWorkingFNumberRespondsToFieldAndVignettingButIgnoresPhysicalAperture(string code)
     {

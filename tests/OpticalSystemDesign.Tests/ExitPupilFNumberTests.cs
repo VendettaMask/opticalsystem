@@ -55,6 +55,65 @@ public sealed class ExitPupilFNumberTests
         Assert.InRange(value, 250, 250.001);
     }
 
+    [Theory]
+    [InlineData(-300, 150)]
+    [InlineData(-600, 300)]
+    public void VirtualImageEnergyUsesTheSelectedExitPupilScale(int imageDistance, double fNumber)
+    {
+        var optic = OpticalFormatCatalog.Import(DefocusedLens.Replace("DISZ 300", $"DISZ {imageDistance}"), ".zmx");
+        var wave = optic.Wavelengths[0];
+        foreach (var sampling in new[] { 32, 256 })
+        {
+            var fft = DiffractionEngine.ComputeFftCumulativeEnergySpectrum(optic, (0, 0), [wave], sampling, ignoreOpd: true);
+            Assert.Equal(wave.Micrometers * fNumber / Math.Sqrt(sampling), Assert.Single(fft).Result.SampleSpacingMicrometers, 10);
+        }
+
+        const int boundedSampling = 2048;
+        var energy = new DiffractionEncircledEnergyAnalysis(optic, pupilSampling: boundedSampling,
+            wavelengthNumber: 1, fieldNumber: 1, maximumDistanceMicrometers: 5).GenerateData();
+        Assert.Equal(AnalysisOutcome.Success, energy.Outcome);
+        Assert.Equal(2, energy.PlotSeries.Count);
+        var pitches = Assert.IsType<double[]>(energy.Values["BoundedImagePitch"]);
+        Assert.Equal(wave.Micrometers * fNumber / Math.Sqrt(boundedSampling), Assert.Single(pitches), 10);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void ForwardImageEnergyKeepsTheRayConeScale(bool folded)
+    {
+        const string mirror = """
+            MODE SEQ
+            UNIT MM
+            ENPD 2
+            FTYP 0 0 1 1 0 0 0
+            YFLN 0
+            WAVM 1 .5875618 1
+            GLRS 1 1
+            SURF 0
+              DISZ INFINITY
+            SURF 1
+              CURV -.002
+              GLAS MIRROR
+              STOP
+              DISZ -300
+              DIAM 1 1 0 0 1
+            SURF 2
+            """;
+        var source = folded ? mirror : DefocusedLens;
+        var exitPupil = OpticalFormatCatalog.Import(source, ".zmx");
+        var rayCone = OpticalFormatCatalog.Import(source.Replace("GLRS 1 1", "GLRS 1"), ".zmx");
+        foreach (var sampling in new[] { 32, 256 })
+        {
+            var selected = DiffractionEngine.ComputeFftCumulativeEnergySpectrum(exitPupil, (0, 0),
+                [exitPupil.Wavelengths[0]], sampling, ignoreOpd: true);
+            var traced = DiffractionEngine.ComputeFftCumulativeEnergySpectrum(rayCone, (0, 0),
+                [rayCone.Wavelengths[0]], sampling, ignoreOpd: true);
+            Assert.Equal(Assert.Single(traced).Result.SampleSpacingMicrometers,
+                Assert.Single(selected).Result.SampleSpacingMicrometers, 10);
+        }
+    }
+
     [Fact]
     public void ContactPlaneLacksAFocalCurvatureAndDistortionReference()
     {

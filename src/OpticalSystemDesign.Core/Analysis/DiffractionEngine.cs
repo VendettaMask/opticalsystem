@@ -46,6 +46,7 @@ public sealed record PsfResult(
     public double? HuygensReferenceAmplitude { get; init; }
     public IReadOnlyList<HuygensSamplingDiagnostics>? HuygensSamplingChecks { get; init; }
     public IReadOnlyList<HuygensFourierDiagnostics>? HuygensFourierChecks { get; init; }
+    public FocusedHuygensSamplingDiagnostics? FocusedHuygensSampling { get; init; }
     public double? TangentialFourierFNumber { get; init; }
     public double? SagittalFourierFNumber { get; init; }
     public double PupilGridStretch { get; init; } = 1;
@@ -242,7 +243,8 @@ public static partial class DiffractionEngine
         bool interpolateScalarPupilAmplitude = false,
         int? croppedOutputSize = null,
         Action<WavefrontResult>? observeWavefront = null,
-        bool separatedWindow = false)
+        bool separatedWindow = false,
+        bool interpolateNativePupil = true)
     {
         if (croppedOutputSize is { } crop)
         {
@@ -256,13 +258,14 @@ public static partial class DiffractionEngine
         var pupilAimAtStop = aimAtStop ?? optic.RayAimingEnabled;
         var fallbackUsed = false;
         var workingAxes = (Tangential: double.PositiveInfinity, Sagittal: double.PositiveInfinity);
-        if (!optic.ImageSpaceAfocal && !TryWorkingFNumbersAtPupilZone(optic, field, wavelength, pupilAimAtStop, false, 1, out workingAxes))
+        if (!optic.ImageSpaceAfocal && !TryWorkingFNumbersAtPupilZone(optic, field, wavelength, pupilAimAtStop,
+            WorkingApertureReduction.RootMeanSquare, 1, out workingAxes))
         {
             // A finite sag domain can miss a full-zone probe even when the
             // requested chief is transmitted. Do not replace that real pupil
             // with an aimed chief outside a decentered physical aperture.
             var retainTransmittedChief = !pupilAimAtStop && TransmittedChief(false) && !TransmittedChief(true)
-                && TryWorkingFNumbers(optic, field, wavelength, false, false, out workingAxes);
+                && TryWorkingFNumbers(optic, field, wavelength, false, WorkingApertureReduction.RootMeanSquare, out workingAxes);
             if (!retainTransmittedChief)
             {
                 // A paraxial entrance-pupil launch can miss the real stop in high-NA systems.
@@ -327,7 +330,11 @@ public static partial class DiffractionEngine
                 throw InvalidPupilGrid("FFT image delta is too large: the sampling grid does not cover the full pupil.");
             if (Enumerable.Range(0, pupilSampling).Count(i => Math.Abs(grid.Coordinate(i)) <= 1) < 2
                 || Enumerable.Range(0, pupilSampling).Count(i => Math.Abs(grid.YCoordinate(i)) <= 1) < 2)
-                throw InvalidPupilGrid("FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction.");
+            {
+                var failure = InvalidPupilGrid("FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction.");
+                failure.Data[InsufficientFftPupilNodesKey] = true;
+                throw failure;
+            }
         }
         if (preparedWavefront is not null)
         {
@@ -378,7 +385,7 @@ public static partial class DiffractionEngine
             };
         }
         var interpolationSampling = grid.SourceGrid?.SampleCount ?? pupilSampling;
-        if (zemaxFftSampling && interpolationSampling >= 32
+        if (interpolateNativePupil && zemaxFftSampling && interpolationSampling >= 32
             && (interpolationSampling & (interpolationSampling - 1)) == 0)
         {
             if (interpolateScalarPupilAmplitude)
@@ -543,6 +550,8 @@ public static partial class DiffractionEngine
             : wavelength.Micrometers * fNumber * (pupilSampling - 2) / (gridSize * imageDelta);
         return Math.Abs(stretch - automatic) <= 1e-14 * automatic ? automatic : stretch;
     }
+
+    internal const string InsufficientFftPupilNodesKey = "Diffraction.InsufficientFftPupilNodes";
 
     private static (PupilGridSpecification Grid, double SpacingFNumber) FiniteScalarFourierGrid(
         PupilGridSpecification grid, (double Tangential, double Sagittal) axes, double rmsFNumber, double imageDelta)
@@ -2021,18 +2030,30 @@ public static partial class DiffractionEngine
         return inverseSquared <= 0 ? 10000 : Math.Min(10000, 1 / Math.Sqrt(inverseSquared));
     }
 
+    private enum WorkingApertureReduction { RootMeanSquare, Arithmetic, NonparallelArithmetic }
+
     public static (double Tangential, double Sagittal) WorkingFNumbers(
         Optic optic,
         (double Hx, double Hy) field,
         Wavelength wavelength,
         bool aimAtStop = false,
         bool zemaxDirectionalAverage = false,
-        bool strictFullPupil = false)
+        bool strictFullPupil = false) => WorkingFNumbers(optic, field, wavelength, aimAtStop,
+        zemaxDirectionalAverage ? WorkingApertureReduction.Arithmetic : WorkingApertureReduction.RootMeanSquare,
+        strictFullPupil);
+
+    internal static (double Tangential, double Sagittal) DirectionalWorkingFNumbers(
+        Optic optic, (double Hx, double Hy) field, Wavelength wavelength, bool aimAtStop, bool strictFullPupil = false) =>
+        WorkingFNumbers(optic, field, wavelength, aimAtStop, WorkingApertureReduction.NonparallelArithmetic, strictFullPupil);
+
+    private static (double Tangential, double Sagittal) WorkingFNumbers(
+        Optic optic, (double Hx, double Hy) field, Wavelength wavelength, bool aimAtStop,
+        WorkingApertureReduction reduction, bool strictFullPupil)
     {
         if (strictFullPupil)
-            return TryWorkingFNumbersAtPupilZone(optic, field, wavelength, aimAtStop, zemaxDirectionalAverage, 1, out var strictAxes, strict: true)
+            return TryWorkingFNumbersAtPupilZone(optic, field, wavelength, aimAtStop, reduction, 1, out var strictAxes, strict: true)
                 ? strictAxes : throw new InvalidOperationException("全瞳边缘光线未到达像面，无法计算工作 F 数。");
-        return TryWorkingFNumbers(optic, field, wavelength, aimAtStop, zemaxDirectionalAverage, out var axes)
+        return TryWorkingFNumbers(optic, field, wavelength, aimAtStop, reduction, out var axes)
             ? axes
             : throw new InvalidOperationException("Working-F-number ray did not reach the image surface.");
     }
@@ -2042,7 +2063,7 @@ public static partial class DiffractionEngine
         (double Hx, double Hy) field,
         Wavelength wavelength,
         bool aimAtStop,
-        bool zemaxDirectionalAverage,
+        WorkingApertureReduction reduction,
         out (double Tangential, double Sagittal) axes)
     {
         // OpticStudio's Working F/# ignores surface apertures. If a full-pupil
@@ -2056,7 +2077,7 @@ public static partial class DiffractionEngine
                 field,
                 wavelength,
                 aimAtStop,
-                zemaxDirectionalAverage,
+                reduction,
                 pupilZone,
                 out axes))
             {
@@ -2073,7 +2094,7 @@ public static partial class DiffractionEngine
         (double Hx, double Hy) field,
         Wavelength wavelength,
         bool aimAtStop,
-        bool zemaxDirectionalAverage,
+        WorkingApertureReduction reduction,
         double pupilZone,
         out (double Tangential, double Sagittal) axes,
         bool strict = false)
@@ -2088,13 +2109,18 @@ public static partial class DiffractionEngine
         if (!TryWorkingPupilDirections(optic, field, wavelength, aimAtStop, pupilZone, out var directions)) return false;
         var chief = directions[0];
         var imageIndex = optic.SurfaceGroup.Items[^1].MaterialAfter.RefractiveIndex(wavelength.Nanometers);
+        var directional = reduction == WorkingApertureReduction.NonparallelArithmetic;
         double DirectionalFNumber(IEnumerable<Vector3D> marginalDirections)
         {
             var numericalApertures = marginalDirections.Select(direction =>
             {
-                if (strict)
-                    return imageIndex * optic.Backend.Current.Cross(chief, direction).Length
-                        / (chief.Length * direction.Length * pupilZone);
+                if (strict || directional)
+                {
+                    var sine = optic.Backend.Current.Cross(chief, direction).Length / (chief.Length * direction.Length);
+                    // Directional F/# uses the deflected marginals. Native controls bracket the
+                    // near-parallel angular resolution between 3e-8 and 3e-7 radians.
+                    return directional && sine <= 1e-7 ? 0 : imageIndex * sine / pupilZone;
+                }
                 var dot = Math.Clamp(
                     (chief.X * direction.X) + (chief.Y * direction.Y) + (chief.Z * direction.Z),
                     -1,
@@ -2102,11 +2128,15 @@ public static partial class DiffractionEngine
                 var angle = Math.Acos(dot);
                 return imageIndex * Math.Sin(angle) / pupilZone;
             }).ToArray();
-            var equivalentNumericalAperture = zemaxDirectionalAverage
-                ? numericalApertures.Average()
-                : Math.Sqrt(numericalApertures.Average(value => value * value));
+            var equivalentNumericalAperture = reduction switch
+            {
+                WorkingApertureReduction.NonparallelArithmetic => numericalApertures.Where(value => value != 0).DefaultIfEmpty().Average(),
+                WorkingApertureReduction.Arithmetic => numericalApertures.Average(),
+                _ => Math.Sqrt(numericalApertures.Average(value => value * value))
+            };
             if (strict)
             {
+                if (directional && equivalentNumericalAperture == 0) return double.PositiveInfinity;
                 if (!double.IsFinite(equivalentNumericalAperture) || equivalentNumericalAperture <= 0)
                     throw new InvalidOperationException("像方数值孔径必须为正有限值。");
                 var value = 1 / (2 * equivalentNumericalAperture);

@@ -1,0 +1,1593 @@
+{
+  "rows": [
+    {
+      "index": 347,
+      "lens": "Diffractive components/Dual Zone CD-DVD lens.ZMX",
+      "analysis": "Huygens Through Focus MTF",
+      "frozenVerdict": "Close",
+      "requestFingerprint": "7fbe3b4ff5c7353b13617630b3268168db721b6bdb7e60f26ae0d7eb816b6f8f",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Close",
+        "nrmse": 0.004577031309568202,
+        "maxAbs": 0.007556054210833829,
+        "coverage": 1,
+        "points": [
+          128,
+          128
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ]
+      },
+      "originalReplayIdentity": {
+        "request": "artifacts\\validation\\menu-19-close-20261108\\formal\\0347\\request.json",
+        "requestSha256": "750c384cc2b9b71b7779d158f23c5ebb4b785eda128ab1b9a72dd3148117e26e",
+        "dataSha256": "ebeaf374b659154bc4f85d07b6894d05579d711a84323b472f09ad9967166cd2",
+        "provenance": {
+          "canonicalAnalysisKey": "Huygens Through Focus MTF",
+          "requestFingerprint": "7fbe3b4ff5c7353b13617630b3268168db721b6bdb7e60f26ae0d7eb816b6f8f",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "a34ea3b13b00f4062c2a9999956c252e913b00b003abbea9ed874063039b655b",
+          "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+        },
+        "seconds": 1.9840000000040163,
+        "pupilSampling": 32
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenClose",
+      "coverage": 1,
+      "highestCrossComparison": {
+        "comparison": "current-256-vs-native-256",
+        "verdict": "Pass",
+        "nrmse": 6.92423842804522e-05,
+        "maxAbs": 0.00011569854162074567,
+        "coverage": 1,
+        "points": [
+          128,
+          128
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "currentConvergence": {
+        "comparison": "current-128-vs-current-256",
+        "verdict": "Pass",
+        "nrmse": 0.001006799184706719,
+        "maxAbs": 0.0021998873031695565,
+        "coverage": 1,
+        "points": [
+          101,
+          101
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "nativeConvergence": [
+        {
+          "comparison": "native-128-vs-native-256",
+          "verdict": "Pass",
+          "nrmse": 0.0008110133036903576,
+          "maxAbs": 0.0018493894806997924,
+          "coverage": 1,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-128-vs-native-256",
+          "verdict": "Pass",
+          "nrmse": 0.0008110133036903576,
+          "maxAbs": 0.0018493894806997924,
+          "coverage": 1,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-128-vs-current-256",
+          "verdict": "Pass",
+          "nrmse": 0.001006799184706719,
+          "maxAbs": 0.0021998873031695565,
+          "coverage": 1,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-128-vs-native-128",
+          "verdict": "Pass",
+          "nrmse": 0.0002791303862866142,
+          "maxAbs": 0.00046619636415790033,
+          "coverage": 1,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-256-vs-native-256",
+          "verdict": "Pass",
+          "nrmse": 6.92423842804522e-05,
+          "maxAbs": 0.00011569854162074567,
+          "coverage": 1,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-128-vs-native-256",
+          "verdict": "Pass",
+          "nrmse": 0.0010289281366634392,
+          "maxAbs": 0.002315585844790191,
+          "coverage": 1,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "currentPupilSampling": [
+        128,
+        256
+      ],
+      "nativePupilSampling": [
+        128,
+        256
+      ],
+      "nativeStepsMm": [],
+      "domain": null,
+      "originalGates": {
+        "Modulation": {
+          "absolute": 1e-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "request": "artifacts\\validation\\menu-19-close-20261108\\dense\\current\\347-128\\request.json",
+          "requestSha256": "15a7369e4b58f0e48e3238bbabc8109f72b9e961900fd3370a1abb06321e764f",
+          "dataSha256": "11dcecbeb24dfa2d0197ede0bc99058b49bd8e3f8f0755145c4a9d3575f961f5",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens Through Focus MTF",
+            "requestFingerprint": "9e4a73c4276505f330b3f9e546eead8bb0d0900dba3cb76495f2eed85c3d1b5f",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "a34ea3b13b00f4062c2a9999956c252e913b00b003abbea9ed874063039b655b",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "seconds": 5.98399999999674,
+          "pupilSampling": 128
+        },
+        {
+          "request": "artifacts\\validation\\menu-19-close-20261108\\dense\\current\\347-256\\request.json",
+          "requestSha256": "3047c5365aeab44c68250f166dfa1973614642ecba7a7012c40bb7a57b19cc18",
+          "dataSha256": "0a58f255a8c0126542ac9834654cf8725259826916dc1c8de99587cf1bab892f",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens Through Focus MTF",
+            "requestFingerprint": "9a6c23ede9f716efcce6ae942607f0473c11c4d19b896b79552f2419c4e511aa",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "a34ea3b13b00f4062c2a9999956c252e913b00b003abbea9ed874063039b655b",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "seconds": 12.89100000000326,
+          "pupilSampling": 256
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 347,
+          "tier": 128,
+          "files": {
+            "data.json": {
+              "path": "validation\\rechecks\\2026-11-07\\residual-reference-followup\\native\\347-128\\data.json",
+              "sha256": "73025be6102d90b12ad20b73ff36326a6876697f7d0f5d9326e39b52deded6a1",
+              "bytes": 6321
+            },
+            "captured-settings.json": {
+              "path": "validation\\rechecks\\2026-11-07\\residual-reference-followup\\native\\347-128\\captured-settings.json",
+              "sha256": "27cec20d6ce7ab109ac04e46273d94e0006377cb716f901a4228e05352f4c3b2",
+              "bytes": 2603
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_128x128",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "DeltaFocus": 0.01,
+            "ImageDelta": 0.25,
+            "Frequency": 50,
+            "Configuration": 2,
+            "NumberOfSteps": 5
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        },
+        {
+          "index": 347,
+          "tier": 256,
+          "files": {
+            "data.json": {
+              "path": "validation\\rechecks\\2026-11-07\\residual-reference-followup\\native\\347-256\\data.json",
+              "sha256": "f48f6e90ff9f7dba407f71527cb98fd13b4cfc8b01ec15154d8467a1633e800c",
+              "bytes": 6313
+            },
+            "captured-settings.json": {
+              "path": "validation\\rechecks\\2026-11-07\\residual-reference-followup\\native\\347-256\\captured-settings.json",
+              "sha256": "2cff67dcee38f03e2ead274d563c20e7adb92c69807e6ebf2dd83d6ffabb8ccf",
+              "bytes": 2603
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_256x256",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "DeltaFocus": 0.01,
+            "ImageDelta": 0.25,
+            "Frequency": 50,
+            "Configuration": 2,
+            "NumberOfSteps": 5
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        }
+      ]
+    },
+    {
+      "index": 498,
+      "lens": "GRINs/Grid GRIN.ZMX",
+      "analysis": "Huygens MTF",
+      "frozenVerdict": "Close",
+      "requestFingerprint": "e9b74f9f8a2b03b839ab677f884b63572e3b6a514a241df7ed7b9343e65a26f2",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Close",
+        "nrmse": 0.025997676288844907,
+        "maxAbs": 0.05071461947741829,
+        "coverage": 1,
+        "points": [
+          336,
+          336
+        ],
+        "gateBranches": [
+          {
+            "id": "tangential",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          },
+          {
+            "id": "sagittal",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ]
+      },
+      "originalReplayIdentity": {
+        "request": "artifacts\\validation\\menu-19-close-20261108\\formal\\0498\\request.json",
+        "requestSha256": "1bde222b5d3373425681daefac538d71ae41aad8b8934761d8a84737b2700847",
+        "dataSha256": "ff1b7bb27a7c447f89728641c7ba9f895059d3163b07bd7700e44be8ea6f4533",
+        "provenance": {
+          "canonicalAnalysisKey": "Huygens MTF",
+          "requestFingerprint": "e9b74f9f8a2b03b839ab677f884b63572e3b6a514a241df7ed7b9343e65a26f2",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+          "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+        },
+        "seconds": 2.264999999999418,
+        "pupilSampling": 32
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenClose",
+      "coverage": 1,
+      "highestCrossComparison": {
+        "comparison": "current-original-vs-native-0.001",
+        "verdict": "Pass",
+        "nrmse": 0.0003769313916520899,
+        "maxAbs": 0.0007343572460228875,
+        "coverage": 1,
+        "points": [
+          336,
+          336
+        ],
+        "gateBranches": [
+          {
+            "id": "tangential",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "sagittal",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "currentConvergence": null,
+      "nativeConvergence": [
+        {
+          "comparison": "native-0.005-vs-native-0.001",
+          "verdict": "Pass",
+          "nrmse": 0.00405743616996367,
+          "maxAbs": 0.006499220638810033,
+          "coverage": 1,
+          "points": [
+            300,
+            300
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-0.005-vs-native-0.001",
+          "verdict": "Pass",
+          "nrmse": 0.00405743616996367,
+          "maxAbs": 0.006499220638810033,
+          "coverage": 1,
+          "points": [
+            300,
+            300
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-original-vs-native-0.005",
+          "verdict": "Pass",
+          "nrmse": 0.004152964840620834,
+          "maxAbs": 0.00673997752660882,
+          "coverage": 1,
+          "points": [
+            336,
+            336
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-original-vs-native-0.001",
+          "verdict": "Pass",
+          "nrmse": 0.0003769313916520899,
+          "maxAbs": 0.0007343572460228875,
+          "coverage": 1,
+          "points": [
+            336,
+            336
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "currentPupilSampling": [
+        32
+      ],
+      "nativePupilSampling": [
+        32
+      ],
+      "nativeStepsMm": [
+        0.005,
+        0.001
+      ],
+      "domain": null,
+      "originalGates": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "request": "artifacts\\validation\\menu-19-close-20261108\\formal\\0498\\request.json",
+          "requestSha256": "1bde222b5d3373425681daefac538d71ae41aad8b8934761d8a84737b2700847",
+          "dataSha256": "ff1b7bb27a7c447f89728641c7ba9f895059d3163b07bd7700e44be8ea6f4533",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens MTF",
+            "requestFingerprint": "e9b74f9f8a2b03b839ab677f884b63572e3b6a514a241df7ed7b9343e65a26f2",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "seconds": 2.264999999999418,
+          "pupilSampling": 32
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 498,
+          "tier": "0.005",
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/498-step0.005/data.json",
+              "sha256": "4aa963750a0d8c77c2df596b8185a034dc6457146edc72b0816ac18ec79f5d13",
+              "bytes": 18582
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/498-step0.005/data.txt",
+              "sha256": "228119f215c583ef48252d3442705a0853cf3b32e45b5a620b769928d0448a16",
+              "bytes": 5126
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/498-step0.005/captured-settings.json",
+              "sha256": "f03bf41a45701d1a96d1686822ae4f0883187b6ad8de91b1961a453840374af2",
+              "bytes": 2004
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_32x32",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "MaximumFrequency": 50,
+            "Configuration": 2
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 2
+          },
+          "stepMm": 0.005,
+          "sourceSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+          "originalSourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+          "source": {
+            "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+            "member": "sources/grid-0.005.ZMX"
+          },
+          "onlyLensLineChange": [
+            90,
+            "  PARM 1 1",
+            "  PARM 1 0.005"
+          ],
+          "nativeCapture": {
+            "stage": "native",
+            "id": "498-step0.005",
+            "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+            "requestSha256": "0cdca70f0ce3ea112ca1719985f961cc2093ad64585dbcafe38b95fde69cc259",
+            "originalRequestFingerprint": "e9b74f9f8a2b03b839ab677f884b63572e3b6a514a241df7ed7b9343e65a26f2",
+            "nativeSettingsEqualToOriginal": true,
+            "nativeDataSha256": "4aa963750a0d8c77c2df596b8185a034dc6457146edc72b0816ac18ec79f5d13",
+            "captureStatus": {
+              "id": "498-step0.005",
+              "exitCode": 0,
+              "startedUtc": "2026-11-06T12:42:51.9163743Z",
+              "completedUtc": "2026-11-06T12:42:57.6552970Z",
+              "semantics": "Persistent application; source reloaded for every request; no lens saved"
+            }
+          }
+        },
+        {
+          "index": 498,
+          "tier": "0.001",
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/498-step0.001/data.json",
+              "sha256": "1b9c3d0c2fc71dbd65842820aa67522c457f65198665d340c04e7a058af4e723",
+              "bytes": 18557
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/498-step0.001/data.txt",
+              "sha256": "835d620ed42e5f7f82ac363a3d59c023dcbe19b96a4ef70fe78f8001edbc004d",
+              "bytes": 5126
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/498-step0.001/captured-settings.json",
+              "sha256": "6baf0b6abb5440984144e9a7866393f42f0a6d5d75e8c92ccd9b9e4888f8320c",
+              "bytes": 2004
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_32x32",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "MaximumFrequency": 50,
+            "Configuration": 2
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 2
+          },
+          "stepMm": 0.001,
+          "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+          "originalSourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+          "source": {
+            "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+            "member": "sources/grid-0.001.ZMX"
+          },
+          "onlyLensLineChange": [
+            90,
+            "  PARM 1 1",
+            "  PARM 1 0.001"
+          ],
+          "nativeCapture": {
+            "stage": "native",
+            "id": "498-step0.001",
+            "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+            "requestSha256": "f7852a4fa38be1520e02280f71749ea670109e833a418b0471b15fa48114490d",
+            "originalRequestFingerprint": "e9b74f9f8a2b03b839ab677f884b63572e3b6a514a241df7ed7b9343e65a26f2",
+            "nativeSettingsEqualToOriginal": true,
+            "nativeDataSha256": "1b9c3d0c2fc71dbd65842820aa67522c457f65198665d340c04e7a058af4e723",
+            "captureStatus": {
+              "id": "498-step0.001",
+              "exitCode": 0,
+              "startedUtc": "2026-11-06T12:42:57.6562968Z",
+              "completedUtc": "2026-11-06T12:43:25.2708084Z",
+              "semantics": "Persistent application; source reloaded for every request; no lens saved"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "index": 505,
+      "lens": "GRINs/Grid GRIN.ZMX",
+      "analysis": "RMS vs Field",
+      "frozenVerdict": "Close",
+      "requestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Close",
+        "nrmse": 0.0019187992883093006,
+        "maxAbs": 0.7278660418955951,
+        "coverage": 1,
+        "points": [
+          1
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "originalReplayIdentity": {
+        "request": "artifacts\\validation\\menu-19-close-20261108\\formal\\0505\\request.json",
+        "requestSha256": "dcc8c47a1cb165ac9068f6af821948cffd4e73e8bfa2be1686475c8172145314",
+        "dataSha256": "272e12bb27d7c933bbf2b6d9011c058eb16691f83beb0db61ffaa1687a22b158",
+        "provenance": {
+          "canonicalAnalysisKey": "RMS vs Field",
+          "requestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+          "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+        },
+        "seconds": 4.421999999998661,
+        "pupilSampling": 64
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenClose",
+      "coverage": 1,
+      "highestCrossComparison": {
+        "comparison": "current-original-vs-native-0.0005",
+        "verdict": "Pass",
+        "nrmse": 3.4975126250815485e-07,
+        "maxAbs": 0.00013292720637991806,
+        "coverage": 1,
+        "points": [
+          1
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "currentConvergence": null,
+      "nativeConvergence": [
+        {
+          "comparison": "native-0.005-vs-native-0.001",
+          "verdict": "Pass",
+          "nrmse": 5.4788092915834936e-05,
+          "maxAbs": 0.020822923416801586,
+          "coverage": 1,
+          "points": [
+            1
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "native-0.001-vs-native-0.0005",
+          "verdict": "Pass",
+          "nrmse": 2.1447645573992725e-06,
+          "maxAbs": 0.0008151437650667503,
+          "coverage": 1,
+          "points": [
+            1
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-0.005-vs-native-0.001",
+          "verdict": "Pass",
+          "nrmse": 5.4788092915834936e-05,
+          "maxAbs": 0.020822923416801586,
+          "coverage": 1,
+          "points": [
+            1
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "native-0.001-vs-native-0.0005",
+          "verdict": "Pass",
+          "nrmse": 2.1447645573992725e-06,
+          "maxAbs": 0.0008151437650667503,
+          "coverage": 1,
+          "points": [
+            1
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-original-vs-native-0.005",
+          "verdict": "Pass",
+          "nrmse": 5.727946515294575e-05,
+          "maxAbs": 0.021770994388248255,
+          "coverage": 1,
+          "points": [
+            1
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-original-vs-native-0.001",
+          "verdict": "Pass",
+          "nrmse": 2.4945104697697837e-06,
+          "maxAbs": 0.0009480709714466684,
+          "coverage": 1,
+          "points": [
+            1
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-original-vs-native-0.0005",
+          "verdict": "Pass",
+          "nrmse": 3.4975126250815485e-07,
+          "maxAbs": 0.00013292720637991806,
+          "coverage": 1,
+          "points": [
+            1
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "currentPupilSampling": [
+        64
+      ],
+      "nativePupilSampling": null,
+      "nativeStepsMm": [
+        0.005,
+        0.001,
+        0.0005
+      ],
+      "domain": {
+        "type": "physical single-field scalar",
+        "field": [
+          0,
+          0
+        ],
+        "coverage": 1,
+        "reference": "Centroid",
+        "selectedWavelengthIndex": 2,
+        "wavelengthMicrometers": 0.55,
+        "workbenchMicrometers": 380.0619872969306,
+        "nativeMicrometers": 380.062120224137,
+        "nativeEnumReported": "ChiefRay",
+        "enumInversionControl": {
+          "apiEnum": "Centroid",
+          "physicalReportReference": "ChiefRay",
+          "onAxisMicrometers": 380.07061800306417,
+          "files": {
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "refinement/captures/505-centroid-step0.001/captured-settings.json",
+              "sha256": "07ae4befccf00a5c8e1119dbb3d410b578dbeedc0b23a0a0e42325b648146510"
+            },
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "refinement/captures/505-centroid-step0.001/data.json",
+              "sha256": "112f72649bb6aa048b96540f7a866fa0d60b3d46ac4dceb4fa74d8358f64d1cb"
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "refinement/captures/505-centroid-step0.001/data.txt",
+              "sha256": "5efe587d8ccc814ae4c0c74cc475f120f1b2d68280701bacef7821687f7559a2"
+            }
+          }
+        },
+        "pointDomainNormalizations": [
+          "curve:0: compare the complete point domain at 0; coverage=1 of one requested coordinate"
+        ]
+      },
+      "originalGates": {
+        "Radius": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "request": "artifacts\\validation\\menu-19-close-20261108\\formal\\0505\\request.json",
+          "requestSha256": "dcc8c47a1cb165ac9068f6af821948cffd4e73e8bfa2be1686475c8172145314",
+          "dataSha256": "272e12bb27d7c933bbf2b6d9011c058eb16691f83beb0db61ffaa1687a22b158",
+          "provenance": {
+            "canonicalAnalysisKey": "RMS vs Field",
+            "requestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "seconds": 4.421999999998661,
+          "pupilSampling": 64
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 505,
+          "tier": "0.005",
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/505-step0.005/data.json",
+              "sha256": "945d95589598e0c04d568809a9f8f211209ae1a731ddbe9af497ee393827ab5c",
+              "bytes": 1230
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/505-step0.005/data.txt",
+              "sha256": "0f59db2bd594d515d0d06c5cc854e0f6786eb4988a2248b5187a192bee713546",
+              "bytes": 1334
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/505-step0.005/captured-settings.json",
+              "sha256": "a7519726f583f4806d30f8f0877deee73cec6afb1d39c50b7ac47921e4c8fe3b",
+              "bytes": 2549
+            }
+          },
+          "capturedProperties": {
+            "Data": "SpotRadius",
+            "FieldDensity": "FieldDens_75",
+            "RayDensity": "RayDens_1024x1024",
+            "ReferTo": "ChiefRay",
+            "Method": "GaussQuad",
+            "Orientation": "Plus_Y",
+            "ShowDiffractionLimit": false,
+            "UseDashes": false,
+            "UsePolarization": false,
+            "RemoveVignettingFactors": true,
+            "PlotScale": 0
+          },
+          "capturedSelectors": {
+            "Wavelength": 2
+          },
+          "stepMm": 0.005,
+          "sourceSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+          "originalSourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+          "source": {
+            "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+            "member": "sources/grid-0.005.ZMX"
+          },
+          "onlyLensLineChange": [
+            90,
+            "  PARM 1 1",
+            "  PARM 1 0.005"
+          ],
+          "nativeCapture": {
+            "stage": "native",
+            "id": "505-step0.005",
+            "inputSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f",
+            "requestSha256": "5142e28b70e0dd5da8b3acc671b20d385526b154eeda3c14b2c83a8fa0524453",
+            "originalRequestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb",
+            "nativeSettingsEqualToOriginal": true,
+            "nativeDataSha256": "945d95589598e0c04d568809a9f8f211209ae1a731ddbe9af497ee393827ab5c",
+            "captureStatus": {
+              "id": "505-step0.005",
+              "exitCode": 0,
+              "startedUtc": "2026-11-06T12:46:21.6792451Z",
+              "completedUtc": "2026-11-06T12:46:26.7875035Z",
+              "semantics": "Persistent application; source reloaded for every request; no lens saved"
+            }
+          },
+          "physicalReferenceFromReport": "Centroid"
+        },
+        {
+          "index": 505,
+          "tier": "0.001",
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/505-step0.001/data.json",
+              "sha256": "0235a6002f2bc84ae449174cf6545e5ad0e5768f0cdcd824c9292a6d1038f7ff",
+              "bytes": 1230
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/505-step0.001/data.txt",
+              "sha256": "a1863d37a7b445e8c013a1e9f4249e0ce7e2ca29617c9e8bb1e081c62b84c8fd",
+              "bytes": 1334
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "native/captures/505-step0.001/captured-settings.json",
+              "sha256": "1e6b2001fc38b4963fc67c173822bea94bf8e42224e732766b23163ae5fefa07",
+              "bytes": 2549
+            }
+          },
+          "capturedProperties": {
+            "Data": "SpotRadius",
+            "FieldDensity": "FieldDens_75",
+            "RayDensity": "RayDens_1024x1024",
+            "ReferTo": "ChiefRay",
+            "Method": "GaussQuad",
+            "Orientation": "Plus_Y",
+            "ShowDiffractionLimit": false,
+            "UseDashes": false,
+            "UsePolarization": false,
+            "RemoveVignettingFactors": true,
+            "PlotScale": 0
+          },
+          "capturedSelectors": {
+            "Wavelength": 2
+          },
+          "stepMm": 0.001,
+          "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+          "originalSourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+          "source": {
+            "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+            "member": "sources/grid-0.001.ZMX"
+          },
+          "onlyLensLineChange": [
+            90,
+            "  PARM 1 1",
+            "  PARM 1 0.001"
+          ],
+          "nativeCapture": {
+            "stage": "native",
+            "id": "505-step0.001",
+            "inputSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef",
+            "requestSha256": "b251d45a8d4e27c29cca03818ca7c69211f7f0ed6c7562b3d044b3d3da4e2258",
+            "originalRequestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb",
+            "nativeSettingsEqualToOriginal": true,
+            "nativeDataSha256": "0235a6002f2bc84ae449174cf6545e5ad0e5768f0cdcd824c9292a6d1038f7ff",
+            "captureStatus": {
+              "id": "505-step0.001",
+              "exitCode": 0,
+              "startedUtc": "2026-11-06T12:46:26.7885037Z",
+              "completedUtc": "2026-11-06T12:46:51.9743966Z",
+              "semantics": "Persistent application; source reloaded for every request; no lens saved"
+            }
+          },
+          "physicalReferenceFromReport": "Centroid"
+        },
+        {
+          "index": 505,
+          "tier": "0.0005",
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "refinement/captures/505-step0.0005/data.json",
+              "sha256": "bee99d25d43c6832d3a7ae2c94cb6d4135fc632dc695597f3793f042cd6cd4cc",
+              "bytes": 1203
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "refinement/captures/505-step0.0005/data.txt",
+              "sha256": "46ed951462713a1ccaae6bf4496137ab9392f13f804044ba3dd07042ca6f5a11",
+              "bytes": 1344
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+              "member": "refinement/captures/505-step0.0005/captured-settings.json",
+              "sha256": "af126aae7dece7faa59e54b10f16d2474623c078b5b8571998f3c6e474e981fa",
+              "bytes": 2554
+            }
+          },
+          "capturedProperties": {
+            "Data": "SpotRadius",
+            "FieldDensity": "FieldDens_75",
+            "RayDensity": "RayDens_1024x1024",
+            "ReferTo": "ChiefRay",
+            "Method": "GaussQuad",
+            "Orientation": "Plus_Y",
+            "ShowDiffractionLimit": false,
+            "UseDashes": false,
+            "UsePolarization": false,
+            "RemoveVignettingFactors": true,
+            "PlotScale": 0
+          },
+          "capturedSelectors": {
+            "Wavelength": 2
+          },
+          "stepMm": 0.0005,
+          "sourceSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69",
+          "originalSourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+          "source": {
+            "archive": "validation\\rechecks\\2026-11-06\\grid-grin-diffraction-reference\\native-controls.zip",
+            "member": "sources/grid-0.0005.ZMX"
+          },
+          "onlyLensLineChange": [
+            90,
+            "  PARM 1 1",
+            "  PARM 1 0.0005"
+          ],
+          "nativeCapture": {
+            "stage": "refinement",
+            "id": "505-step0.0005",
+            "inputSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69",
+            "requestSha256": "a1640537c34280edd76167333aab27668eda484cb3d46ec97fa329f5f817a24a",
+            "originalRequestFingerprint": "75c6579d0ad8d9bcc1d2160d883fa1670d1399fcd6f7c5934f9aad136d8270eb",
+            "nativeSettingsEqualToOriginal": true,
+            "nativeDataSha256": "bee99d25d43c6832d3a7ae2c94cb6d4135fc632dc695597f3793f042cd6cd4cc",
+            "captureStatus": {
+              "id": "505-step0.0005",
+              "exitCode": 0,
+              "startedUtc": "2026-11-06T12:49:21.3101989Z",
+              "completedUtc": "2026-11-06T12:50:10.7119329Z",
+              "semantics": "Persistent application; source reloaded for every request; no lens saved"
+            }
+          },
+          "physicalReferenceFromReport": "Centroid"
+        }
+      ]
+    },
+    {
+      "index": 2160,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "analysis": "Huygens MTF",
+      "frozenVerdict": "Close",
+      "requestFingerprint": "665295a97cd8d301a1f822c6e3aa5e7433117809da83334c360937fe5f6025dd",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Close",
+        "nrmse": 0.01074010239191002,
+        "maxAbs": 0.02081695457878452,
+        "coverage": 1,
+        "points": [
+          336,
+          336
+        ],
+        "gateBranches": [
+          {
+            "id": "tangential",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "sagittal",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ]
+      },
+      "originalReplayIdentity": {
+        "request": "artifacts\\validation\\menu-19-close-20261108\\formal\\2160\\request.json",
+        "requestSha256": "733c1b96d97254cc01fbf0d90d5c9504f95abef0fcabee983c025f1aac880aa3",
+        "dataSha256": "24b1320a53c3dacc4c95ef2d823ae63ec1f2f595cbd170009ae832a5ab77f1f5",
+        "provenance": {
+          "canonicalAnalysisKey": "Huygens MTF",
+          "requestFingerprint": "665295a97cd8d301a1f822c6e3aa5e7433117809da83334c360937fe5f6025dd",
+          "settingsTranslation": null,
+          "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+          "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+          "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+        },
+        "seconds": 1.0930000000007567,
+        "pupilSampling": 32
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenClose",
+      "coverage": 1,
+      "highestCrossComparison": {
+        "comparison": "current-1024-vs-native-1024",
+        "verdict": "Pass",
+        "nrmse": 5.085580386917791e-06,
+        "maxAbs": 8.673806891401625e-06,
+        "coverage": 1,
+        "points": [
+          336,
+          336
+        ],
+        "gateBranches": [
+          {
+            "id": "tangential",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "sagittal",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "currentConvergence": {
+        "comparison": "current-512-vs-current-1024",
+        "verdict": "Pass",
+        "nrmse": 0.001964324069761383,
+        "maxAbs": 0.0030898063745966597,
+        "coverage": 1,
+        "points": [
+          300,
+          300
+        ],
+        "gateBranches": [
+          {
+            "id": "tangential",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "sagittal",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "nativeConvergence": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "nrmse": 0.0019495565121308105,
+          "maxAbs": 0.003064553073869436,
+          "coverage": 1,
+          "points": [
+            300,
+            300
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "nrmse": 0.0019495565121308105,
+          "maxAbs": 0.003064553073869436,
+          "coverage": 1,
+          "points": [
+            300,
+            300
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-current-1024",
+          "verdict": "Pass",
+          "nrmse": 0.001964324069761383,
+          "maxAbs": 0.0030898063745966597,
+          "coverage": 1,
+          "points": [
+            300,
+            300
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-512",
+          "verdict": "Pass",
+          "nrmse": 1.9766090641521083e-05,
+          "maxAbs": 3.3927107618625385e-05,
+          "coverage": 1,
+          "points": [
+            336,
+            336
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-1024-vs-native-1024",
+          "verdict": "Pass",
+          "nrmse": 5.085580386917791e-06,
+          "maxAbs": 8.673806891401625e-06,
+          "coverage": 1,
+          "points": [
+            336,
+            336
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-1024",
+          "verdict": "Pass",
+          "nrmse": 0.001955273415271914,
+          "maxAbs": 0.0030984801814880614,
+          "coverage": 1,
+          "points": [
+            336,
+            336
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "currentPupilSampling": [
+        512,
+        1024
+      ],
+      "nativePupilSampling": [
+        512,
+        1024
+      ],
+      "nativeStepsMm": [],
+      "domain": null,
+      "originalGates": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "request": "artifacts\\validation\\menu-19-close-20261108\\dense\\current\\2160-512\\request.json",
+          "requestSha256": "ee854b9841e89f61fcfb4314195095de7ad158eb40ed4ced54e68ebc8238902f",
+          "dataSha256": "8672ae1a370a83fa5cc0bb51626a56f2ccb3e2da2d3bfdd37d5a80c448168100",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens MTF",
+            "requestFingerprint": "20b1e7bdd9b490a950843fe4517444d964838e36b5f2dc60446a5ffb80ab8115",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "seconds": 6.389999999999418,
+          "pupilSampling": 512
+        },
+        {
+          "request": "artifacts\\validation\\menu-19-close-20261108\\dense\\current\\2160-1024\\request.json",
+          "requestSha256": "f681dfcf13d4ced84dc2f84a7dcb6d433f19e739fdc1e31a5763174863cdb8a6",
+          "dataSha256": "0603b854053fb6c1805af96e8c4bc1390a24b29c7d50f4d6115546de4361a012",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens MTF",
+            "requestFingerprint": "cffc9f0efad3012ae3e21ab2eab578e5276ac0e31a27ea2c878097ac4a779650",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "seconds": 18.1559999999954,
+          "pupilSampling": 1024
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 2160,
+          "tier": 512,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/170e83f32a111062d0b05e7d19892da0f955a0f09a1fea876da7cce60cc21c0b",
+              "sha256": "170e83f32a111062d0b05e7d19892da0f955a0f09a1fea876da7cce60cc21c0b",
+              "bytes": 18590
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/47b4b339d4c3dc4af2103bc250e17f8496b727b0e74ea4c1b6b83ab5f67d4ef1",
+              "sha256": "47b4b339d4c3dc4af2103bc250e17f8496b727b0e74ea4c1b6b83ab5f67d4ef1",
+              "bytes": 5152
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/ead8cb34fddd97ed65877400e66e220c2bf7a772ca48b1dd540883e1f73b604a",
+              "sha256": "ead8cb34fddd97ed65877400e66e220c2bf7a772ca48b1dd540883e1f73b604a",
+              "bytes": 1941
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_512x512",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "MaximumFrequency": 50,
+            "Configuration": 2
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        },
+        {
+          "index": 2160,
+          "tier": 1024,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/ac97fe79e8c0591c17058075084776e0148072d6d2c0f5fc5b9e57d3a6ab55ad",
+              "sha256": "ac97fe79e8c0591c17058075084776e0148072d6d2c0f5fc5b9e57d3a6ab55ad",
+              "bytes": 18588
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/fd508763aa0cfaeef0c86edec88fe35fb11dc2c27e5da17e5f91230a03349d18",
+              "sha256": "fd508763aa0cfaeef0c86edec88fe35fb11dc2c27e5da17e5f91230a03349d18",
+              "bytes": 5152
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/414a9147b90ab7cd84dc2af55efe021f84af2e16a1a7e4b5e25bc4c87fcf63a2",
+              "sha256": "414a9147b90ab7cd84dc2af55efe021f84af2e16a1a7e4b5e25bc4c87fcf63a2",
+              "bytes": 1947
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_1024x1024",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "MaximumFrequency": 50,
+            "Configuration": 2
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "Four frozen Close requests of the 95-menu matrix",
+  "refinedPasses": 4,
+  "frozenCloseReproduced": 4,
+  "comparisonCount": 22,
+  "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+  "frozenMatrixSha256": "a9ed4e1cfea1db8525fc9878bf30b629a42f92442110256a929af752535a7b71",
+  "comparisonResultsSha256": "4a1e6502b3d6074c7e955fac2fe8810800bc9c486d54e65c91cd5d764c578903",
+  "comparatorSha256": "5b9d2958d11cf7660938655675f7711a6e4fe9937c636dcc16e46288b616db91",
+  "freshNativeCapture": false
+}

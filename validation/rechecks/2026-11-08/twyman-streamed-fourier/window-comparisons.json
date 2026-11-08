@@ -1,0 +1,90 @@
+[
+  {
+    "label": "Native 256 vs 512",
+    "maxAbsolute": 0.0005572610264973866,
+    "nrmse": 0.004216559498832494,
+    "fullWindow": true,
+    "pointwise": false,
+    "pass": true
+  },
+  {
+    "label": "Core 256 vs native 512",
+    "maxAbsolute": 0.0005554945432931918,
+    "nrmse": 0.004219087565906899,
+    "fullWindow": true,
+    "pointwise": false,
+    "pass": true,
+    "corePhaseStepWaves": 9.783631735961698,
+    "corePhaseGate": false
+  },
+  {
+    "label": "Core 6144 vs native 512",
+    "maxAbsolute": 0.00037482474874108926,
+    "nrmse": 0.00091363861274716,
+    "fullWindow": true,
+    "pointwise": false,
+    "pass": true,
+    "corePhaseStepWaves": 0.5028900857113996,
+    "corePhaseGate": false
+  },
+  {
+    "label": "Core 256 vs Core 6144",
+    "maxAbsolute": 0.0005033358662448863,
+    "nrmse": 0.004455792971637984,
+    "fullWindow": true,
+    "pointwise": false,
+    "pass": true
+  },
+  {
+    "label": "Core 6656 vs native 512",
+    "maxAbsolute": 0.00037501916604472905,
+    "nrmse": 0.0009137450676667456,
+    "fullWindow": true,
+    "pointwise": false,
+    "pass": true,
+    "corePhaseStepWaves": 0.4647307528929616,
+    "corePhaseGate": true
+  },
+  {
+    "label": "Core 6144 vs Core 6656",
+    "maxAbsolute": 5.788097708304615E-07,
+    "nrmse": 5.385023235566314E-06,
+    "fullWindow": true,
+    "pointwise": true,
+    "pass": true
+  },
+  {
+    "label": "Core 8192 vs native 512",
+    "maxAbsolute": 0.0003754947964373957,
+    "nrmse": 0.000914755084167999,
+    "fullWindow": true,
+    "pointwise": false,
+    "pass": true,
+    "corePhaseStepWaves": 0.37784326960635894,
+    "corePhaseGate": true
+  },
+  {
+    "label": "Core 6656 vs Core 8192",
+    "maxAbsolute": 4.7563039266666773E-07,
+    "nrmse": 4.033855929429782E-06,
+    "fullWindow": true,
+    "pointwise": true,
+    "pass": true
+  },
+  {
+    "label": "Formal adaptive 8192 vs native 512",
+    "maxAbsolute": 0.00037549479644555066,
+    "nrmse": 0.0009147550841730484,
+    "fullWindow": true,
+    "pointwise": false,
+    "pass": true
+  },
+  {
+    "label": "Formal adaptive 8192 vs diagnostic 8192",
+    "maxAbsolute": 8.15493506056697E-15,
+    "nrmse": 5.733697988615346E-14,
+    "fullWindow": true,
+    "pointwise": true,
+    "pass": true
+  }
+]

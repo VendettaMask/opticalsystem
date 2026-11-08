@@ -1,0 +1,51 @@
+{
+  "pupilSize": 128,
+  "PupilPhaseSampling": {
+    "Status": "UndersampledPhase",
+    "ConnectedEdges": 24652,
+    "MaximumStepWaves": 12.46603380330668,
+    "Criterion": "LocalUnwrappedPupilPhaseStep/v1",
+    "CertifiesConvergence": false
+  },
+  "cases": [
+    {
+      "blockRows": 13,
+      "lagLimit": 31,
+      "nfft": 128,
+      "maximumComplexOtfDifference": 4.165648664845488E-16
+    },
+    {
+      "blockRows": 24,
+      "lagLimit": 31,
+      "nfft": 128,
+      "maximumComplexOtfDifference": 3.9719106968203295E-16
+    },
+    {
+      "blockRows": 47,
+      "lagLimit": 31,
+      "nfft": 256,
+      "maximumComplexOtfDifference": 9.047210765559601E-17
+    }
+  ],
+  "tangentialFNumber": 1.117570046515541,
+  "sagittalFNumber": 1.1174627085095126,
+  "planned": [
+    {
+      "nominalSampling": 5120,
+      "lastRequestedLag": 158,
+      "haloRows": 182,
+      "proposedRows": 256,
+      "fourierSize": 1024,
+      "complexSlabCells": 2242560
+    },
+    {
+      "nominalSampling": 6144,
+      "lastRequestedLag": 189,
+      "haloRows": 213,
+      "proposedRows": 256,
+      "fourierSize": 1024,
+      "complexSlabCells": 2881536
+    }
+  ],
+  "scope": "Exact same-grid arithmetic control. It does not certify this coarse physical pupil."
+}

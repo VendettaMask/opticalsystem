@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c6ffdf40-9a20-45a0-a00c-6d1f1779a684" name="allen@DESKTOP-SET3SNR 2026-11-08 13:19:13" runUser="DESKTOP-SET3SNR\allen" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-08T13:19:13.3048257+08:00" queuing="2026-11-08T13:19:13.3048261+08:00" start="2026-11-08T13:19:06.0981852+08:00" finish="2026-11-08T13:19:17.6008507+08:00" />
+  <TestSettings name="default" id="d40c316b-89f4-4144-bf5f-29b0f84f9668">
+    <Deployment runDeploymentRoot="allen_DESKTOP-SET3SNR_2026-11-08_13_19_13" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="4c68466e-faa0-453e-9e9e-d83c33d1a3c9" testId="cb1dbdca-db18-d7ae-f15c-c6a2fb532be2" testName="OpticalSystemDesign.Tests.CalculationPathPanelTests.FourierPanelExposesTheOptInAdaptivePupilLimit(name: &quot;MTF&quot;, adaptiveLimit: &quot;6144&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:01.3986991" startTime="2026-11-08T13:19:16.1007151+08:00" endTime="2026-11-08T13:19:17.4997793+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4c68466e-faa0-453e-9e9e-d83c33d1a3c9" />
+    <UnitTestResult executionId="d8d79e18-b3a0-471f-8077-e1b0dd0d1656" testId="68547ed9-915a-54d6-5fdf-6ec8afc4e18a" testName="OpticalSystemDesign.Tests.CalculationPathPanelTests.FourierPanelExposesTheOptInAdaptivePupilLimit(name: &quot;PSF&quot;, adaptiveLimit: &quot;8192&quot;)" computerName="DESKTOP-SET3SNR" duration="00:00:02.3534372" startTime="2026-11-08T13:19:13.7448890+08:00" endTime="2026-11-08T13:19:16.1001857+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d8d79e18-b3a0-471f-8077-e1b0dd0d1656" />
+    <UnitTestResult executionId="438b0f77-ba8f-4438-b8f9-e91e9c8a80a3" testId="e3e686dd-d997-9e3b-acf1-604bca489cfe" testName="OpticalSystemDesign.Tests.StreamedFourierPupilTests.StreamedMtfMatchesDenseComplexCorrelationAcrossBlockBoundaries" computerName="DESKTOP-SET3SNR" duration="00:00:05.1907039" startTime="2026-11-08T13:19:08.0749442+08:00" endTime="2026-11-08T13:19:13.2498038+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="438b0f77-ba8f-4438-b8f9-e91e9c8a80a3" />
+    <UnitTestResult executionId="19030c0a-cb75-4c55-9d9f-1910e5b8093d" testId="5a00468a-2c6e-f00d-a255-614eb8291490" testName="OpticalSystemDesign.Tests.StreamedFourierPupilTests.SmallStreamedWindowMatchesTheSameDensePupilAtEveryImageNode" computerName="DESKTOP-SET3SNR" duration="00:00:00.4924973" startTime="2026-11-08T13:19:13.2894652+08:00" endTime="2026-11-08T13:19:13.7424753+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="19030c0a-cb75-4c55-9d9f-1910e5b8093d" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.CalculationPathPanelTests.FourierPanelExposesTheOptInAdaptivePupilLimit(name: &quot;MTF&quot;, adaptiveLimit: &quot;6144&quot;)" storage="d:\projects\opticalsystem\.tmp\twyman-mtf-20261108\test-build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="cb1dbdca-db18-d7ae-f15c-c6a2fb532be2">
+      <Execution id="4c68466e-faa0-453e-9e9e-d83c33d1a3c9" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\twyman-mtf-20261108\test-build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CalculationPathPanelTests" name="FourierPanelExposesTheOptInAdaptivePupilLimit" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CalculationPathPanelTests.FourierPanelExposesTheOptInAdaptivePupilLimit(name: &quot;PSF&quot;, adaptiveLimit: &quot;8192&quot;)" storage="d:\projects\opticalsystem\.tmp\twyman-mtf-20261108\test-build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="68547ed9-915a-54d6-5fdf-6ec8afc4e18a">
+      <Execution id="d8d79e18-b3a0-471f-8077-e1b0dd0d1656" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\twyman-mtf-20261108\test-build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CalculationPathPanelTests" name="FourierPanelExposesTheOptInAdaptivePupilLimit" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.StreamedFourierPupilTests.SmallStreamedWindowMatchesTheSameDensePupilAtEveryImageNode" storage="d:\projects\opticalsystem\.tmp\twyman-mtf-20261108\test-build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="5a00468a-2c6e-f00d-a255-614eb8291490">
+      <Execution id="19030c0a-cb75-4c55-9d9f-1910e5b8093d" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\twyman-mtf-20261108\test-build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.StreamedFourierPupilTests" name="SmallStreamedWindowMatchesTheSameDensePupilAtEveryImageNode" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.StreamedFourierPupilTests.StreamedMtfMatchesDenseComplexCorrelationAcrossBlockBoundaries" storage="d:\projects\opticalsystem\.tmp\twyman-mtf-20261108\test-build\bin\opticalsystemdesign.tests\release\opticalsystemdesign.tests.dll" id="e3e686dd-d997-9e3b-acf1-604bca489cfe">
+      <Execution id="438b0f77-ba8f-4438-b8f9-e91e9c8a80a3" />
+      <TestMethod codeBase="D:\Projects\opticalsystem\.tmp\twyman-mtf-20261108\test-build\bin\OpticalSystemDesign.Tests\release\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.StreamedFourierPupilTests" name="StreamedMtfMatchesDenseComplexCorrelationAcrossBlockBoundaries" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="cb1dbdca-db18-d7ae-f15c-c6a2fb532be2" executionId="4c68466e-faa0-453e-9e9e-d83c33d1a3c9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="68547ed9-915a-54d6-5fdf-6ec8afc4e18a" executionId="d8d79e18-b3a0-471f-8077-e1b0dd0d1656" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e3e686dd-d997-9e3b-acf1-604bca489cfe" executionId="438b0f77-ba8f-4438-b8f9-e91e9c8a80a3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5a00468a-2c6e-f00d-a255-614eb8291490" executionId="19030c0a-cb75-4c55-9d9f-1910e5b8093d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.16]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.49]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.52]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:10.99]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

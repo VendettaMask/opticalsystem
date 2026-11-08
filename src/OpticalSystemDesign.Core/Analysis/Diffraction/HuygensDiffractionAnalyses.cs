@@ -96,12 +96,15 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
     public override string Name => "Huygens PSF";
 
     public AfocalHuygensIntegration AfocalIntegration { get; init; } = AfocalHuygensIntegration.NativeFiniteCell;
+    public bool UseCheckedFocusedPupil { get; init; }
 
     public override AnalysisData GenerateData()
     {
         try { return GenerateDataCore(); }
         catch (AnalysisDataUnavailableException error) when (error.Data[HuygensSamplingDiagnostics.ExceptionKey] is HuygensSamplingDiagnostics)
         { return HuygensSamplingDiagnostics.Unavailable(Name, error)!; }
+        catch (AnalysisDataUnavailableException error) when (UseCheckedFocusedPupil)
+        { return AnalysisData.Unavailable(Name, error.Reason); }
     }
 
     private AnalysisData GenerateDataCore()
@@ -139,17 +142,18 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
                 imageDeltaWavelength,
                 _numRays);
         var afocalImageSpace = Optic.ImageSpaceAfocal;
-        var contactPupilReadout = !_usePolarization && AfocalIntegration == AfocalHuygensIntegration.NativeFiniteCell
+        var contactPupilReadout = !UseCheckedFocusedPupil && !_usePolarization && AfocalIntegration == AfocalHuygensIntegration.NativeFiniteCell
             && FocalImageDomain.IsCollimatedContactPupil(Optic, field);
         var referenceWavelength = wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
-        var geometricCenter = _useCentroid
+        var geometricCenter = _useCentroid && !UseCheckedFocusedPupil
             ? DiffractionEngine.HuygensGeometricCenterOffset(Optic, field, wavelengths,
                 referenceWavelength, _numRays, Optic.RayAimingEnabled, AfocalIntegration)
             : (X: 0.0, Y: 0.0);
         var synthesis = HuygensPsfSynthesis.Compute(Optic, field, wavelengths, _numRays,
             _imageSize, pixelPitchMillimeters, _usePolarization, referenceWavelength,
             imageCenterOffset: _useCentroid ? geometricCenter : null, afocalIntegration: AfocalIntegration,
-            contactPupilReadout: contactPupilReadout, allowBatchedPlanarPupil: true);
+            contactPupilReadout: contactPupilReadout, allowBatchedPlanarPupil: true,
+            useCheckedFocusedPupil: UseCheckedFocusedPupil);
         var values = new double[_imageSize, _imageSize];
         for (var row = 0; row < _imageSize; row++)
         {
@@ -229,10 +233,11 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
                 ? "复色光 Polarization-weighted scalar Huygens PSF（Experimental）"
                 : "Polarization-weighted scalar Huygens PSF（Experimental）"
             : wavelengths.Length > 1 ? "复色光惠更斯PSF" : "惠更斯PSF";
-        return new AnalysisData(Name, new Dictionary<string, object>
+        var resultValues = new Dictionary<string, object>
         {
             ["Method"] = "Huygens-Fresnel",
-            ["PropagationModel"] = Optic.ImageSpaceAfocal ? "Afocal scalar plane waves"
+            ["PropagationModel"] = UseCheckedFocusedPupil ? "Checked radial planar Huygens"
+                : Optic.ImageSpaceAfocal ? "Afocal scalar plane waves"
                 : contactPupilReadout ? "Collimated contact-pupil readout"
                 : synthesis.Psf.FiniteCellHuygensUsed ? "Finite-cell Auto planar/spherical Huygens"
                     : "Lens-datum scalar Huygens weight (compatibility approximation)",
@@ -240,7 +245,8 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             ["AfocalIntegration"] = synthesis.Psf.AfocalIntegration?.ToString() ?? "NotApplicable",
             ["PupilQuadratureNodeCount"] = synthesis.Psf.PupilQuadratureNodeCount,
             ["GeometricChiefReferenceUsed"] = synthesis.Psf.GeometricChiefReferenceUsed,
-            ["SamplingStatus"] = synthesis.Psf.HuygensSamplingChecks is { Count: > 0 } ? "SamplingStable" : "NotAssessed",
+            ["SamplingStatus"] = UseCheckedFocusedPupil || synthesis.Psf.HuygensSamplingChecks is { Count: > 0 }
+                ? "SamplingStable" : "NotAssessed",
             ["SamplingChecks"] = synthesis.Psf.HuygensSamplingChecks ?? Array.Empty<HuygensSamplingDiagnostics>(),
             ["SummationChecks"] = synthesis.Psf.HuygensFourierChecks ?? Array.Empty<HuygensFourierDiagnostics>(),
             ["ImagePlane"] = "Chief ray tangent plane",
@@ -299,7 +305,10 @@ public sealed class HuygensPsfAnalysis : BaseAnalysis
             ["CentroidYMicrometers"] = afocalImageSpace ? 0 : (geometricCenter.Y + centroidOffsetY) * 1000,
             ["CentroidXMilliradians"] = afocalImageSpace ? geometricCenter.X + centroidOffsetX : 0,
             ["CentroidYMilliradians"] = afocalImageSpace ? geometricCenter.Y + centroidOffsetY : 0
-        }, series, new[] { series }, new AnalysisPlotOptions(
+        };
+        if (synthesis.Psf.FocusedHuygensSampling is { } focusedSampling)
+            resultValues["FocusedHuygensSampling"] = focusedSampling;
+        return new AnalysisData(Name, resultValues, series, new[] { series }, new AnalysisPlotOptions(
             Title: title,
             EqualAspect: true,
             XMinimum: -extent / 2,

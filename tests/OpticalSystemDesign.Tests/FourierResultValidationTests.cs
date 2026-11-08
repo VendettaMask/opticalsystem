@@ -1,5 +1,7 @@
+using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
+using OpticalSystemDesign.Core.FileIO;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -61,12 +63,200 @@ public sealed class FourierResultValidationTests
     }
 
     [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void AdaptiveSamplingCanRecoverAnUnusableCoarseGridWithoutCertifyingTheOriginal(bool insufficientPupilNodes)
+    {
+        var optic = Optic.CreateBlank();
+        BaseAnalysis Create(int sampling) => new Probe(optic, () =>
+        {
+            Risk(true).RequireResolved("test");
+            if (sampling == 8)
+            {
+                if (insufficientPupilNodes)
+                {
+                    var failure = new InvalidOperationException("the pupil contains too few nodes");
+                    failure.Data[DiffractionEngine.InsufficientFftPupilNodesKey] = true;
+                    throw failure;
+                }
+                throw new AnalysisDataUnavailableException("test", "requested range is outside the Fourier interval")
+                { CanRetryAtHigherSampling = true };
+            }
+            return Data(1);
+        });
+
+        var result = new FourierResultValidationAnalysis(optic, "test", 8, Create,
+            new(FourierSamplingMode.Adaptive, 32)).GenerateData();
+        var report = Report(result);
+        Assert.Equal(AnalysisOutcome.Success, result.Outcome);
+        Assert.True(report.Validated);
+        Assert.Equal(32, report.ReturnedPupilSampling);
+        Assert.Equal(new[] { 8, 16, 32 }, report.Steps.Select(step => step.PupilSampling));
+        Assert.False(report.Steps[0].PhaseResolved);
+        Assert.NotNull(report.Steps[0].UnavailableReason);
+        Assert.All(report.Steps.Skip(1), step => Assert.True(step.PhaseResolved));
+        Assert.Null(report.RequestedRelativeRmsDeviation);
+        Assert.Null(report.RequestedMaximumAbsoluteDeviation);
+
+        var single = new FourierResultValidationAnalysis(optic, "test", 8, Create,
+            new(FourierSamplingMode.Adaptive, 16)).GenerateData();
+        Assert.Equal(AnalysisOutcome.Unavailable, single.Outcome);
+        Assert.False(Report(single).Validated);
+        var original = new FourierResultValidationAnalysis(optic, "test", 8, Create,
+            new(FourierSamplingMode.ValidateRequested, 32));
+        if (insufficientPupilNodes)
+            Assert.Throws<InvalidOperationException>(() => original.GenerateData());
+        else
+            Assert.Throws<AnalysisDataUnavailableException>(() => original.GenerateData());
+    }
+
+    [Theory]
     [InlineData(FftPhaseSamplingStatus.NoConnectedSamples)] [InlineData(FftPhaseSamplingStatus.UnverifiedNodeOrder)]
     public void UnknownPupilGeometryCannotBeCertified(FftPhaseSamplingStatus status)
     {
         var optic = Optic.CreateBlank(); var result = new FourierResultValidationAnalysis(optic, "test", 8,
             n => new Probe(optic, () => { new FftPupilSampling(status, 0, 0).RequireResolved("test"); return Data(1); }), new(FourierSamplingMode.Adaptive, 32)).GenerateData();
         Assert.Equal(AnalysisOutcome.Unavailable, result.Outcome);
+    }
+
+    [Theory]
+    [InlineData("Adaptive", 128, AnalysisOutcome.Unavailable)]
+    [InlineData("Adaptive", 256, AnalysisOutcome.Success)]
+    [InlineData("ValidateRequested", 256, AnalysisOutcome.Unavailable)]
+    public async Task FocalPsfRetriesADisconnectedPupilOnlyInAdaptiveMode(
+        string mode, int maximumSampling, AnalysisOutcome expected)
+    {
+        var source = Path.Combine(ProductDependencyArchitectureTests.RepositoryRoot(), "src", "OpticalSystemDesign.App",
+            "Assets", "SequentialExamples", "Telescopes", "Hubble.zmx");
+        var optic = await new ZemaxZmxImporter().ImportFileAsync(source);
+        var data = new WorkbenchRuntime(optic).BuildAnalysisData("PSF", new Dictionary<string, string>
+        {
+            ["Sampling"] = "64", ["Display"] = "128", ["ImageDeltaMicrometers"] = "0.25",
+            ["WavelengthNumber"] = "1", ["FieldNumber"] = "1", ["FourierSamplingMode"] = mode,
+            ["FourierMaximumSampling"] = maximumSampling.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            ["FourierRelativeAccuracy"] = "0.01"
+        });
+
+        Assert.Equal(expected, data.Outcome);
+        var report = Report(data);
+        Assert.Null(report.RequestedRelativeRmsDeviation);
+        Assert.Null(report.RequestedMaximumAbsoluteDeviation);
+        if (mode == "ValidateRequested")
+        {
+            Assert.Empty(report.Steps);
+            return;
+        }
+        var coarse = report.Steps[0];
+        Assert.Equal(64, coarse.PupilSampling);
+        Assert.False(coarse.PhaseResolved);
+        Assert.NotNull(coarse.UnavailableReason);
+        Assert.Null(report.Steps[1].RelativeRmsChange);
+        Assert.True(report.Steps[1].PhaseResolved);
+        if (expected == AnalysisOutcome.Unavailable)
+        {
+            Assert.False(report.Validated);
+            Assert.Empty(data.PlotSeries);
+            return;
+        }
+        Assert.True(report.Validated);
+        Assert.Equal(256, report.ReturnedPupilSampling);
+        var pixels = Assert.Single(data.PlotSeries).Points;
+        Assert.Equal(16384, pixels.Count);
+        Assert.Equal((-15.75, -15.75), (pixels[0].X, pixels[0].Y));
+        Assert.Equal((16.0, 16.0), (pixels[^1].X, pixels[^1].Y));
+    }
+
+    [Theory]
+    [InlineData("Image Simulation", "Example 1, A singlet eyepiece.ZMX", "2", true)]
+    [InlineData("Telescopes", "Unobscured Gregorian.zmx", "1", false)]
+    public async Task FixedPsfEvaluatesTheFineImageWindowAtTheRequestedPupilDensity(
+        string category, string lens, string wavelength, bool aimAtStop)
+    {
+        var source = Path.Combine(ProductDependencyArchitectureTests.RepositoryRoot(), "src", "OpticalSystemDesign.App",
+            "Assets", "SequentialExamples", category, lens);
+        var optic = await new ZemaxZmxImporter().ImportFileAsync(source);
+        var data = new WorkbenchRuntime(optic).BuildAnalysisData("PSF", new Dictionary<string, string>
+        {
+            ["Sampling"] = "64", ["Display"] = "128", ["ImageDeltaMicrometers"] = "0.25",
+            ["WavelengthNumber"] = wavelength, ["FieldNumber"] = "1", ["UseRayAiming"] = aimAtStop.ToString(),
+            ["FourierSamplingMode"] = "Fixed"
+        });
+
+        Assert.Equal(AnalysisOutcome.Success, data.Outcome);
+        Assert.Equal(64, data.Values["PupilSampling"]);
+        Assert.Equal(true, data.Values["PhysicalFourierWindow"]);
+        Assert.Equal(new[] { aimAtStop }, Assert.IsType<bool[]>(data.Values["UseRayAiming"]));
+        Assert.False(data.Values.ContainsKey("FourierSamplingValidation"));
+        var pixels = Assert.Single(data.PlotSeries).Points;
+        Assert.Equal(128 * 128, pixels.Count);
+        for (var index = 0; index < pixels.Count; index++)
+        {
+            var pixel = pixels[index];
+            Assert.Equal(((index % 128 - 63) * .25, (index / 128 - 63) * .25), (pixel.X, pixel.Y));
+            Assert.True(pixel.Value is >= 0 and <= 1.000000000001);
+        }
+        Assert.True(data.Values["StrehlRatio"] is double and > 0);
+    }
+
+    [Fact]
+    public async Task AimedSingletConvergesOnTheOriginalFinePsfWindow()
+    {
+        var source = Path.Combine(ProductDependencyArchitectureTests.RepositoryRoot(), "src", "OpticalSystemDesign.App",
+            "Assets", "SequentialExamples", "Image Simulation", "Example 1, A singlet eyepiece.ZMX");
+        var optic = await new ZemaxZmxImporter().ImportFileAsync(source);
+        var data = new WorkbenchRuntime(optic).BuildAnalysisData("PSF", new Dictionary<string, string>
+        {
+            ["Sampling"] = "64", ["Display"] = "128", ["ImageDeltaMicrometers"] = "0.25",
+            ["WavelengthNumber"] = "2", ["FieldNumber"] = "1", ["UseRayAiming"] = "True",
+            ["FourierSamplingMode"] = "Adaptive", ["FourierMaximumSampling"] = "2048"
+        });
+
+        Assert.Equal(AnalysisOutcome.Success, data.Outcome);
+        var report = Report(data);
+        Assert.True(report.Validated);
+        var physicalSteps = report.Steps.Where(step => step.UsesPhysicalPsfWindow).ToArray();
+        Assert.Equal(new[] { 512, 1024 }, physicalSteps.Select(step => step.PupilSampling));
+        Assert.All(physicalSteps, step => Assert.True(step.PhaseResolved));
+        Assert.Null(report.RequestedRelativeRmsDeviation);
+        var pixels = Assert.Single(data.PlotSeries).Points;
+        Assert.Equal(16384, pixels.Count);
+        Assert.Equal((-15.75, -15.75), (pixels[0].X, pixels[0].Y));
+        Assert.Equal((16.0, 16.0), (pixels[^1].X, pixels[^1].Y));
+    }
+
+    [Fact]
+    public async Task DefaultWorkbenchMtfRecoversMeasuredPhaseRiskWithinTheSelectedBudget()
+    {
+        var source = Path.Combine(ProductDependencyArchitectureTests.RepositoryRoot(), "src", "OpticalSystemDesign.App",
+            "Assets", "SequentialExamples", "Tilted systems & prisms", "Lens pivoted about a point.zmx");
+        var runtime = new WorkbenchRuntime(await new ZemaxZmxImporter().ImportFileAsync(source));
+        var settings = runtime.MergeAnalysisSettings("MTF", new Dictionary<string, string>
+        {
+            ["Sampling"] = "64", ["MaximumFrequency"] = "50", ["WavelengthNumber"] = "2", ["FieldNumber"] = "1",
+            ["SurfaceNumber"] = "-1", ["UseRayAiming"] = "False"
+        });
+        Assert.Equal("按需加密", settings["FourierSamplingMode"]);
+        var data = runtime.BuildAnalysisData("MTF", settings);
+        Assert.Equal(AnalysisOutcome.Success, data.Outcome);
+        var report = Report(data);
+        Assert.True(report.Validated);
+        Assert.Equal(64, report.RequestedPupilSampling);
+        Assert.True(report.ReturnedPupilSampling > 64);
+        Assert.Equal(FftPhaseSamplingStatus.UndersampledPhase,
+            Assert.IsType<FftPupilSampling>(data.Values["RequestedPupilPhaseSampling"]).Status);
+        Assert.Equal(2, data.PlotSeries.Count);
+        Assert.All(data.PlotSeries, series =>
+        {
+            Assert.Equal(300, series.Points.Count);
+            Assert.Equal(0, series.Points[0].X);
+            Assert.Equal(50, series.Points[^1].X);
+        });
+
+        settings["FourierMaximumSampling"] = "64";
+        var insufficient = runtime.BuildAnalysisData("MTF", settings);
+        Assert.Equal(AnalysisOutcome.Unavailable, insufficient.Outcome);
+        Assert.Empty(insufficient.PlotSeries);
+        Assert.False(insufficient.Values.ContainsKey("FourierSamplingValidation"));
     }
 
     [Fact]

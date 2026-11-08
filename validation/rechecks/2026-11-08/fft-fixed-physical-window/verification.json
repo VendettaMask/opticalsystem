@@ -1,0 +1,110 @@
+{
+  "frozenArchiveSha256": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "policy": {
+    "absolute": 1e-05,
+    "relative": 0.001,
+    "nrmse": 0.01,
+    "closeNrmse": 0.03,
+    "minimumCoverage": 0.95
+  },
+  "results": [
+    {
+      "index": 555,
+      "frozenVerdict": "Incomparable",
+      "frozenRequestSha256": "aa139a8c50d28cadfdda792b1e3480f11db6175f3ab578d9164e72baf9d6e793",
+      "originalFixedWorkerExit": 3,
+      "currentFixedWorkerExit": 0,
+      "pupilSampling": 64,
+      "physicalWindow": [
+        128,
+        128
+      ],
+      "pitchMicrometers": 0.25,
+      "axisMicrometers": [
+        -15.75,
+        16.0
+      ],
+      "provenance": {
+        "canonicalAnalysisKey": "PSF",
+        "requestFingerprint": "850299acfd9e2d41371ccfcbbe77a77bc13a14b7af1d34cbaf752ec10d5b0105",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+        "codeFingerprint": "e7c13100c29e111ef8503666819ccb66cdbb3589a4139121af94561a6f973a44:c442b28fe1f75a065de59ae660002cecfd677d32b50871dca36c042ed7881cc9"
+      },
+      "workbenchDataSha256": "7b16e0cfc218cfa3ca16e288fb14670196d386f79a76fc71eaf7673af90d89c3",
+      "referenceScript": "validation/rechecks/2026-11-08/singlet-physical-fft/reference.py",
+      "referenceScriptSha256": "d52e83eeb787df60c544c690227b0ed609a4715a55726f49d64f8e95932d2584",
+      "referenceProofSha256": "7101b74f69d7264fb4313274aaa78468edcd1e72c316692c008f28f56d006c70",
+      "metrics": {
+        "count": 16384,
+        "coverage": 1,
+        "maximumAbsolute": 0.0007599654682671625,
+        "nrmse": 0.006849619741218663,
+        "pointwise": false,
+        "conclusion": "Pass"
+      }
+    },
+    {
+      "index": 2499,
+      "frozenVerdict": "Incomparable",
+      "frozenRequestSha256": "4877e070fdcfafafc8d0cc47bc22451590e1eeab0ad280149f0c10df6fa3aae0",
+      "originalFixedWorkerExit": 3,
+      "currentFixedWorkerExit": 0,
+      "pupilSampling": 64,
+      "physicalWindow": [
+        128,
+        128
+      ],
+      "pitchMicrometers": 0.25,
+      "axisMicrometers": [
+        -15.75,
+        16.0
+      ],
+      "provenance": {
+        "canonicalAnalysisKey": "PSF",
+        "requestFingerprint": "201e565d93116c60bc3485dd9e46f1be2506fa502c4ce0925e7426433cfe96ad",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "f567af557bf512c6c7ab14e9134de95a8236b44a7b5e1480950a1079904791f4",
+        "codeFingerprint": "e7c13100c29e111ef8503666819ccb66cdbb3589a4139121af94561a6f973a44:c442b28fe1f75a065de59ae660002cecfd677d32b50871dca36c042ed7881cc9"
+      },
+      "workbenchDataSha256": "8ed1d785a8674b6ae340aabcfcb6e4c68e297e259c49a282236c836562c1f9d6",
+      "referenceScript": "validation/rechecks/2026-11-08/gregorian-fft-psf-reference/GregorianReference.py",
+      "referenceScriptSha256": "c7049c5badaa9e924930bdc7e3fd74c95b2e24b576413ecec72491231de366a5",
+      "referenceProofSha256": "aeda82420065e923aca15899cd6d8b254cfb78e63db4e0b25490a1b199bebd4b",
+      "metrics": {
+        "count": 16384,
+        "coverage": 1,
+        "maximumAbsolute": 0.0015854720772894293,
+        "nrmse": 0.0012924886109732382,
+        "pointwise": false,
+        "conclusion": "Pass"
+      }
+    }
+  ],
+  "focusedTests": {
+    "passed": 67,
+    "failed": 0,
+    "trxSha256": "c48c8811cfb6e03570162dc2dab5fd86cdeedd9a0f515020c5a99f91ada298fa"
+  },
+  "adjacentReplay": {
+    "fixedPsfRequests": 64,
+    "repaired": 2,
+    "byteIdentical": 62,
+    "receiptSha256": "4217f28735d3f8a311fb43987a618e10462102b0250a9ba797222e3c44ea1402"
+  },
+  "undersamplingControl": {
+    "index": 555,
+    "pupilSampling": 32,
+    "outcome": "Unavailable",
+    "phase": {
+      "status": "UndersampledPhase",
+      "connectedEdges": 1356,
+      "maximumStepWaves": 0.5836057777463758,
+      "criterion": "LocalUnwrappedPupilPhaseStep/v1",
+      "certifiesConvergence": false
+    }
+  }
+}

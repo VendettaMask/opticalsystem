@@ -1,0 +1,49 @@
+{
+  "menuLenses": 95,
+  "configurations": 115,
+  "frozenRequests": 3024,
+  "frozen": {
+    "Pass": 2527,
+    "Close": 19,
+    "Difference": 31,
+    "Incomparable": 427,
+    "Error": 20
+  },
+  "frozenFullReplay": "../parallel-physical-fourier-followup/frozen-replay.json",
+  "frozenByLens": "by-lens.csv",
+  "currentCoreSha256": "6de151a0e5719a89592ab0ac7809c539eb79144d7683a6670a313575243c3046",
+  "currentCoreFixedControls": "fixed-sampling-controls.json",
+  "currentCoreDiodeReplay": "diode-frozen-replay.json",
+  "currentCoreFocusedTests": "streamed-energy-phase-focused.trx",
+  "currentCoreFocusedTestsPassed": 162,
+  "previousLedgerSha256": "072ef100fc0f2cdaeeb508da122c47b05e1ce07c2d0d93c526881644d276110d",
+  "independentOpenBefore": 17,
+  "independentOpenAfter": 10,
+  "openEligibleForIndependentFollowup": 8,
+  "openExcludedFromIndependentFollowup": [
+    1927,
+    1934
+  ],
+  "resolvedIndependentIndices": [
+    450,
+    1097,
+    1210,
+    1991,
+    2161,
+    2164,
+    2572
+  ],
+  "independentResolutions": {
+    "SupplementalPass": 7
+  },
+  "openByAnalysis": {
+    "PSF": 3,
+    "MTF": 2,
+    "FFT PSF Cross Section": 2,
+    "Diffraction Encircled Energy": 3
+  },
+  "openByStatus": {
+    "ConvergedComparisonNotEstablished": 6,
+    "ConfirmedNativeReferenceUnavailable": 4
+  }
+}

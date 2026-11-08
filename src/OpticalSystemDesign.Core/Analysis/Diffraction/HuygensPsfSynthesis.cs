@@ -28,7 +28,8 @@ internal static class HuygensPsfSynthesis
         AfocalHuygensIntegration afocalIntegration = AfocalHuygensIntegration.NativeFiniteCell,
         long maximumSamplingOperations = AnalysisResourceLimits.MaximumDirectPsfOperations,
         bool contactPupilReadout = false,
-        bool allowBatchedPlanarPupil = false)
+        bool allowBatchedPlanarPupil = false,
+        bool useCheckedFocusedPupil = false)
     {
         ArgumentNullException.ThrowIfNull(optic);
         ArgumentNullException.ThrowIfNull(wavelengths);
@@ -39,6 +40,17 @@ internal static class HuygensPsfSynthesis
         var contributors = weightScale > 0
             ? wavelengths.Where(wavelength => wavelength.Weight > 0).ToArray()
             : wavelengths.ToArray();
+        if (useCheckedFocusedPupil)
+        {
+            if (usePolarization || contributors.Length != 1 || contactPupilReadout
+                || imageCenterOffset is { } offset && offset != (0d, 0d)
+                || afocalIntegration != AfocalHuygensIntegration.NativeFiniteCell)
+                throw new AnalysisDataUnavailableException("Huygens PSF",
+                    "checked focal Huygens integration requires one scalar wavelength and an axial image center");
+            var psf = DiffractionEngine.ComputeCheckedFocusedHuygensPsf(optic, field, contributors[0],
+                pupilSampling, imageSize, pixelPitchMillimeters);
+            return new(psf, 1);
+        }
         var batchedPlan = allowBatchedPlanarPupil && !optic.ImageSpaceAfocal && !contactPupilReadout
             && !usePolarization && contributors.Length == 1 && imageCenterOffset is null && defocus == 0
             && afocalIntegration == AfocalHuygensIntegration.NativeFiniteCell

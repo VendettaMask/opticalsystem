@@ -418,7 +418,10 @@ public partial class WorkbenchRuntime
                 ChoiceParameter("Reference", "\u53c2\u7167", "centroid",
                     new[] { "chief", "centroid", "vertex" }),
                 DoubleParameter("MaximumDistanceMicrometers", "\u6700\u5927\u8ddd\u79bb (\u00b5m)",
-                    "0", 0, 1_000_000, 1)
+                    "0", 0, 1_000_000, 1),
+                ChoiceParameter("FourierSamplingMode", "采样策略", "固定采样", new[] { "固定采样", "自适应精度" }),
+                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", "1024", new[] { "512", "1024", "2048", "4096", "6144" }),
+                DoubleParameter("FourierRelativeAccuracy", "验证/自适应相对RMS目标", "0.001", 0.000001, 0.01, 0.001)
             },
             "Geometric Line Edge Spread" => new[]
             {
@@ -625,6 +628,7 @@ public partial class WorkbenchRuntime
             },
             "Huygens Through Focus MTF" => new[]
             {
+                BoolParameter("UseCheckedFocusedPupil", "校验轴对称瞳孔积分", "false"),
                 ChoiceParameter("PupilSampling", "瞳面采样", "64", new[] { "32", "64", "128", "256", "512" }),
                 ChoiceParameter("ImageSampling", "图像采样", "32", new[] { "32", "64", "128", "256", "512" }),
                 DoubleParameter("ImageDeltaMicrometers", "图像间隔 (µm，0 为自动)", "0", 0, 1000, 0.1),
@@ -745,8 +749,8 @@ public partial class WorkbenchRuntime
             },
             "PSF" => new[]
             {
-                ChoiceParameter("FourierSamplingMode", "采样策略", "固定采样", new[] { "固定采样", "验证原采样", "自适应精度" }),
-                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", "1024", new[] { "128", "256", "512", "1024", "2048" }),
+                ChoiceParameter("FourierSamplingMode", "采样策略", "按需加密", new[] { "按需加密", "固定采样", "验证原采样", "自适应精度" }),
+                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", DefaultFourierRecoveryLimit("PSF").ToString(CultureInfo.InvariantCulture), new[] { "128", "256", "512", "1024", "2048", "4096", "8192" }),
                 DoubleParameter("FourierRelativeAccuracy", "验证/自适应相对RMS目标", "0.001", 0.000001, 0.01, 0.001),
                 ChoiceParameter(
                     "Sampling",
@@ -804,8 +808,8 @@ public partial class WorkbenchRuntime
             },
             "FFT PSF Cross Section" => new[]
             {
-                ChoiceParameter("FourierSamplingMode", "采样策略", "固定采样", new[] { "固定采样", "验证原采样", "自适应精度" }),
-                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", "1024", new[] { "128", "256", "512", "1024", "2048", "4096" }),
+                ChoiceParameter("FourierSamplingMode", "采样策略", "按需加密", new[] { "按需加密", "固定采样", "验证原采样", "自适应精度" }),
+                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", DefaultFourierRecoveryLimit("FFT PSF Cross Section").ToString(CultureInfo.InvariantCulture), new[] { "128", "256", "512", "1024", "2048", "4096" }),
                 DoubleParameter("FourierRelativeAccuracy", "验证/自适应相对RMS目标", "0.001", 0.000001, 0.01, 0.001),
                 ChoiceParameter(
                     "Sampling",
@@ -876,8 +880,8 @@ public partial class WorkbenchRuntime
             },
             "MTF" => new[]
             {
-                ChoiceParameter("FourierSamplingMode", "采样策略", "固定采样", new[] { "固定采样", "验证原采样", "自适应精度" }),
-                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", "1024", new[] { "128", "256", "512", "1024", "2048" }),
+                ChoiceParameter("FourierSamplingMode", "采样策略", "按需加密", new[] { "按需加密", "固定采样", "验证原采样", "自适应精度" }),
+                ChoiceParameter("FourierMaximumSampling", "验证/自适应采样上限", DefaultFourierRecoveryLimit("MTF").ToString(CultureInfo.InvariantCulture), new[] { "128", "256", "512", "1024", "2048", "4096", "6144" }),
                 DoubleParameter("FourierRelativeAccuracy", "验证/自适应相对RMS目标", "0.001", 0.000001, 0.01, 0.001),
                 ChoiceParameter("Sampling", "采样", "64", fftSamplingChoices.Concat(new[] { "1024", "2048" }).Distinct().ToArray()),
                 DoubleParameter("MaximumFrequency", "最大频率 (cycles/mm，0 为默认)", "0", 0, 10000, 10),
@@ -893,6 +897,7 @@ public partial class WorkbenchRuntime
             {
                 ChoiceParameter("AfocalIntegration", "无焦瞳孔积分（标量）", "原生有限单元",
                     CurrentOptic.ImageSpaceAfocal ? new[] { "原生有限单元", "高阶圆瞳积分", "收敛校验圆瞳积分" } : new[] { "原生有限单元" }),
+                BoolParameter("UseCheckedFocusedPupil", "校验轴对称瞳孔积分", "false"),
                 ChoiceParameter(
                     "PupilSampling",
                     "光瞳采样",
@@ -944,6 +949,7 @@ public partial class WorkbenchRuntime
             {
                 ChoiceParameter("AfocalIntegration", "无焦瞳孔积分（标量）", "原生有限单元",
                     CurrentOptic.ImageSpaceAfocal ? new[] { "原生有限单元", "高阶圆瞳积分", "收敛校验圆瞳积分" } : new[] { "原生有限单元" }),
+                BoolParameter("UseCheckedFocusedPupil", "校验轴对称瞳孔积分", "false"),
                 ChoiceParameter("PupilSampling", "光瞳采样", "32",
                     CurrentOptic.ImageSpaceAfocal ? new[] { "16", "32", "64", "128" }
                         : new[] { "16", "32", "64", "128", "256", "512", "1024", "2048", "4096" }),

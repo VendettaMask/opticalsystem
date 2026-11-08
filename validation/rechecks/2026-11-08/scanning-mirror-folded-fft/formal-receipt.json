@@ -1,0 +1,408 @@
+[
+  {
+    "frozenIndex": 2897,
+    "configuration": 2,
+    "status": "FormalAdaptiveAndIndependentScalarFftPass",
+    "frozenRequestSha256": "bd939923f2e8069299adbb74009d0a517a72e8b421d1c7eb209b450f075fb856",
+    "formalRequestSha256": "9faae7ccf91969b75e4edaddec60175361451f0c2a0fc08aac3bc1f56db7cacb",
+    "formalDataSha256": "56eef7eb3a44439c376b360596c065ceb89895cc8dbafc9db7d374b529d14f27",
+    "formalProvenanceSha256": "5ca524fb1e612c87470c6fa019f4954435864e99013414d26846ae86c7e31c1d",
+    "provenance": {
+      "canonicalAnalysisKey": "PSF",
+      "requestFingerprint": "748e7106eb72117c7d7ddce2c72e4c3c27900ddb15bca6ab32fac132fd2e2343",
+      "settingsTranslation": null,
+      "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+      "snapshotSha256": "b65f5b92cae4bb085c0aa4228963e08ad8705a634492a21e590656286a1f3562",
+      "codeFingerprint": "b7d649bbf7ab22590d7c84d3f684eaa52526f5c13f9e792e6d70e64beaa5ff57:f6405738822b984a351c1aa2a07323a9e4d81d9352b00db1ed82440c5a0f0694"
+    },
+    "certificate": {
+      "protocol": "FourierPhysicalDomainConvergence/v3",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 64,
+      "returnedPupilSampling": 4096,
+      "maximumPupilSampling": 4096,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1e-07,
+      "validated": true,
+      "steps": [
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": false,
+          "relativeRmsChange": 5.1176812116215675,
+          "maximumAbsoluteChange": 0.1942398734853408,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": false,
+          "relativeRmsChange": 3.273053787553884,
+          "maximumAbsoluteChange": 0.027748281564574186,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": false,
+          "relativeRmsChange": 3.5234136498842377,
+          "maximumAbsoluteChange": 0.005760511944346217,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": false,
+          "relativeRmsChange": 7.906485804033973,
+          "maximumAbsoluteChange": 0.0017036255004935876,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.2347354510528199,
+          "maximumAbsoluteChange": 5.474041308339839e-05,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": false,
+          "relativeRmsChange": 7.9064858049124185,
+          "maximumAbsoluteChange": 0.0017036255005722595,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.23473545103868607,
+          "maximumAbsoluteChange": 5.474041308308923e-05,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.013743508620157495,
+          "maximumAbsoluteChange": 9.834712577580181e-06,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0060144282294304924,
+          "maximumAbsoluteChange": 3.3330162228745012e-06,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "usesStreamedPhysicalPupil": true,
+          "maximumPupilPhaseStepWaves": 0.4235056909155074
+        },
+        {
+          "pupilSampling": 4096,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.013743508513857937,
+          "maximumAbsoluteChange": 9.834712590909282e-06,
+          "usesDensePhysicalPupil": false,
+          "usesStreamedPhysicalPupil": true,
+          "maximumPupilPhaseStepWaves": 0.21371554814984184
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "usesStreamedPhysicalPupil": true,
+          "usesPhysicalPsfWindow": true,
+          "maximumPupilPhaseStepWaves": 0.05374797746588389
+        },
+        {
+          "pupilSampling": 4096,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.00034926286353332604,
+          "maximumAbsoluteChange": 4.0993879703993263e-07,
+          "usesDensePhysicalPupil": false,
+          "usesStreamedPhysicalPupil": true,
+          "usesPhysicalPsfWindow": true,
+          "maximumPupilPhaseStepWaves": 0.026898583510873486
+        }
+      ],
+      "reason": "Two streamed phase-resolved pupil densities agree over every requested physical image node.",
+      "evaluatedNominalPupilCells": 22355968,
+      "maximumNominalPupilCells": 100000000,
+      "evaluatedStreamedPupilNodes": 16705208,
+      "requestedRelativeRmsDeviation": 416.87146511828223,
+      "requestedMaximumAbsoluteDeviation": 0.194323622696508
+    },
+    "diagnostics": {
+      "logicalTransformSize": 8192,
+      "rowsPerTraceBatch": 8,
+      "tracedNodes": 13163761,
+      "transmittedNodes": 13163761,
+      "estimatedButterflies": 449839104,
+      "fourierWorkingCells": 688128
+    },
+    "physicalDomain": {
+      "quantity": "ImageHeight",
+      "unit": "Micrometer",
+      "xRange": [
+        -15.75,
+        16.0
+      ],
+      "yRange": [
+        -15.75,
+        16.0
+      ],
+      "pitch": 0.25,
+      "grid": [
+        128,
+        128
+      ]
+    },
+    "originalTolerance": {
+      "absolute": 1e-05,
+      "relative": 0.001,
+      "nrmse": 0.01,
+      "minimumCoverage": 0.95
+    },
+    "versusIndependentScalarFft": {
+      "coordinates": 16384,
+      "coverage": 1,
+      "maximumAbsolute": 2.2898458529178097e-07,
+      "peakNormalizedRms": 0.00014705555558326716,
+      "relativeL2": 0.0004798571905294927,
+      "pointwisePass": true,
+      "nrmsePass": true
+    },
+    "versusDirectCompact4096": {
+      "coordinates": 16384,
+      "coverage": 1,
+      "maximumAbsolute": 0.0,
+      "peakNormalizedRms": 0.0,
+      "relativeL2": 0.0
+    },
+    "rawArchiveMembers": [
+      "2897-formal-request.json",
+      "2897-formal-data.json",
+      "2897-formal-provenance.json"
+    ],
+    "originalNativeFftUsable": false
+  },
+  {
+    "frozenIndex": 2919,
+    "configuration": 3,
+    "status": "FormalAdaptiveAndIndependentScalarFftPass",
+    "frozenRequestSha256": "43bf1f8408dcf7bd1f8dcd2af24549043a78e9d1572aae7ff91d67005d18eb73",
+    "formalRequestSha256": "c4131cbf9adb5ecb1da45c650eac22be83896d7ba124d83b69b8e96d4b7022ba",
+    "formalDataSha256": "91d064c5249228773c5641916efdb207a4910a6ecf3d201b3a5b076e9962b882",
+    "formalProvenanceSha256": "c00f0d8247d87db6a42e2853b2abf59936dc2288ac8c5070d7a369ef2fcdbf0c",
+    "provenance": {
+      "canonicalAnalysisKey": "PSF",
+      "requestFingerprint": "7001108de38c5e62325d3044cbb25f14537c8d371772ad1ee946dded172e6c6c",
+      "settingsTranslation": null,
+      "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+      "snapshotSha256": "4a4bd44376ade891e7aa888a82353242b4b22313f6948eb47864a80c2e4d3aac",
+      "codeFingerprint": "b7d649bbf7ab22590d7c84d3f684eaa52526f5c13f9e792e6d70e64beaa5ff57:f6405738822b984a351c1aa2a07323a9e4d81d9352b00db1ed82440c5a0f0694"
+    },
+    "certificate": {
+      "protocol": "FourierPhysicalDomainConvergence/v3",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 64,
+      "returnedPupilSampling": 4096,
+      "maximumPupilSampling": 4096,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1e-07,
+      "validated": true,
+      "steps": [
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": false,
+          "relativeRmsChange": 5.117681213033165,
+          "maximumAbsoluteChange": 0.19423987351562283,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": false,
+          "relativeRmsChange": 3.273053787590417,
+          "maximumAbsoluteChange": 0.027748281563488936,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": false,
+          "relativeRmsChange": 3.5234136485266707,
+          "maximumAbsoluteChange": 0.005760511942095162,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": false,
+          "relativeRmsChange": 7.90648579639729,
+          "maximumAbsoluteChange": 0.0017036255009262294,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.23473545264779608,
+          "maximumAbsoluteChange": 5.474041318675663e-05,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": false,
+          "relativeRmsChange": 7.9064857976014835,
+          "maximumAbsoluteChange": 0.0017036255008892529,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.23473545263010154,
+          "maximumAbsoluteChange": 5.474041325302133e-05,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.013743508416009034,
+          "maximumAbsoluteChange": 9.834712603366114e-06,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.00601442789868294,
+          "maximumAbsoluteChange": 3.3330161734416042e-06,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "usesStreamedPhysicalPupil": true,
+          "maximumPupilPhaseStepWaves": 0.42350569101885904
+        },
+        {
+          "pupilSampling": 4096,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.013743508377593201,
+          "maximumAbsoluteChange": 9.83471261568154e-06,
+          "usesDensePhysicalPupil": false,
+          "usesStreamedPhysicalPupil": true,
+          "maximumPupilPhaseStepWaves": 0.21371554840822105
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "usesStreamedPhysicalPupil": true,
+          "usesPhysicalPsfWindow": true,
+          "maximumPupilPhaseStepWaves": 0.053747977465884
+        },
+        {
+          "pupilSampling": 4096,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.00034926284063042544,
+          "maximumAbsoluteChange": 4.09938808823855e-07,
+          "usesDensePhysicalPupil": false,
+          "usesStreamedPhysicalPupil": true,
+          "usesPhysicalPsfWindow": true,
+          "maximumPupilPhaseStepWaves": 0.026898583614225036
+        }
+      ],
+      "reason": "Two streamed phase-resolved pupil densities agree over every requested physical image node.",
+      "evaluatedNominalPupilCells": 22355968,
+      "maximumNominalPupilCells": 100000000,
+      "evaluatedStreamedPupilNodes": 16705208,
+      "requestedRelativeRmsDeviation": 416.87146519588543,
+      "requestedMaximumAbsoluteDeviation": 0.19432362272723724
+    },
+    "diagnostics": {
+      "logicalTransformSize": 8192,
+      "rowsPerTraceBatch": 8,
+      "tracedNodes": 13163761,
+      "transmittedNodes": 13163761,
+      "estimatedButterflies": 449839104,
+      "fourierWorkingCells": 688128
+    },
+    "physicalDomain": {
+      "quantity": "ImageHeight",
+      "unit": "Micrometer",
+      "xRange": [
+        -15.75,
+        16.0
+      ],
+      "yRange": [
+        -15.75,
+        16.0
+      ],
+      "pitch": 0.25,
+      "grid": [
+        128,
+        128
+      ]
+    },
+    "originalTolerance": {
+      "absolute": 1e-05,
+      "relative": 0.001,
+      "nrmse": 0.01,
+      "minimumCoverage": 0.95
+    },
+    "versusIndependentScalarFft": {
+      "coordinates": 16384,
+      "coverage": 1,
+      "maximumAbsolute": 2.2898451764623903e-07,
+      "peakNormalizedRms": 0.00014707571126205903,
+      "relativeL2": 0.00048178111937377614,
+      "pointwisePass": true,
+      "nrmsePass": true
+    },
+    "versusDirectCompact4096": {
+      "coordinates": 16384,
+      "coverage": 1,
+      "maximumAbsolute": 0.0,
+      "peakNormalizedRms": 0.0,
+      "relativeL2": 0.0
+    },
+    "rawArchiveMembers": [
+      "2919-formal-request.json",
+      "2919-formal-data.json",
+      "2919-formal-provenance.json"
+    ],
+    "originalNativeFftUsable": false
+  }
+]

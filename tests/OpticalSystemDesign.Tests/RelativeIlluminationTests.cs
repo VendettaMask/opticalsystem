@@ -3,11 +3,34 @@ using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class RelativeIlluminationTests
 {
+    [Fact]
+    public void CollimatedContactPupilHasNoRelativeImageIllumination()
+    {
+        var optic = new Optic { FieldDefinition = FieldDefinitionKind.Angle };
+        optic.Aperture.Value = 2;
+        optic.Fields.Add(new FieldPoint());
+        optic.Fields.Add(new FieldPoint { Y = 1 });
+        optic.Wavelengths.Add(new Wavelength { Nanometers = 550 });
+        optic.SurfaceGroup.Replace([
+            new OpticalSurface { Thickness = double.PositiveInfinity },
+            new OpticalSurface { IsStop = true, Thickness = 0, SemiDiameter = 1, PhysicalAperture = new CircularAperture(1) },
+            new OpticalSurface { Thickness = 0 }
+        ]);
+
+        var data = new WorkbenchRuntime(optic).BuildAnalysisData("Relative Illumination", new Dictionary<string, string>());
+        Assert.Equal(AnalysisOutcome.NotApplicable, data.Outcome);
+        Assert.Equal(false, data.Values["ImageSpaceAfocal"]);
+        Assert.Empty(data.PlotSeries);
+        Assert.Equal(data.OutcomeReason, Assert.Throws<AnalysisDataUnavailableException>(() =>
+            IlluminationMetrics.RelativeToAxis(optic, (0, 1), .55)).Reason);
+    }
+
     [Theory]
     [InlineData(0.5)]
     [InlineData(0.9)]

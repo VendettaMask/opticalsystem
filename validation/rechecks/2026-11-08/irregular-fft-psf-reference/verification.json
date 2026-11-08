@@ -1,0 +1,237 @@
+{
+  "index": 1203,
+  "lens": "Miscellaneous/Irregular surface.ZMX",
+  "frozenVerdict": "Incomparable",
+  "originalGate": {
+    "absolute": 1e-05,
+    "relative": 0.001,
+    "nrmse": 0.01,
+    "closeNrmse": 0.03,
+    "minimumCoverage": 0.95
+  },
+  "sourceSha256": "8badb1a5aa3a642738a051da8d1b83d3525af6e727d6a1eafe3fe7438194751a",
+  "frozenArchiveSha256": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+  "frozenComparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "frozenRequestMember": "run/analyses/1203-038-irregular-surface-c1-primary-f1-w1-psf/workbench/request.json",
+  "frozenRequestSha256": "32af4cee109b716c226b8e2e26fe7fac020fe256eef95ce6809de94757c955f0",
+  "nativeWavefrontMember": "run/analyses/1202-038-irregular-surface-c1-primary-f1-w1-wavefront/native/data.json",
+  "nativeWavefrontSha256": "6f90ac14547a0e9a768a9ee207a708f9078e160776d68eed83e1ac096458f4d7",
+  "nativeSingleRayMember": "run/analyses/1198-038-irregular-surface-c1-primary-f1-w1-single-ray-trace/native/data.txt",
+  "nativeSingleRaySha256": "72cc984b7d32e2292a63a817ce66ee764e73ce7f31b66408db0833ee0221229d",
+  "nativeRayMaxInterceptDifferenceMm": 4.551337084990337e-11,
+  "nativeRayMaxDirectionDifference": 3.98276689406174e-11,
+  "apertureCertificate": {
+    "maximumPupilHeightMm": 20.0,
+    "lensClearRadiusMm": 24.0,
+    "maxInternalIncidenceDegrees": 30.66880691594285,
+    "criticalIncidenceDegrees": 41.18823199903502
+  },
+  "refractiveIndex": 1.5185223876207927,
+  "workingFNumber": 2.6033607036503095,
+  "nativePhaseNodes": 2869,
+  "referenceSphereRadiusMm": 112.49382121987884,
+  "oppositeEdgeRadiusMm": 112.49382122205077,
+  "nominalParaxialRadiusMm": 112.44364940018173,
+  "maximumNativeOpdResidualWaves": 2.409912269740744e-10,
+  "nominalSphereOpdResidualWaves": 0.009580602710457242,
+  "imageGrid": {
+    "columns": 128,
+    "rows": 128,
+    "pixelPitchMicrometers": 0.25,
+    "first": -15.75,
+    "last": 16.0
+  },
+  "independentQuadratureConvergence": {
+    "count": 16384,
+    "coverage": 1,
+    "maximumAbsolute": 1.4030453638095783e-14,
+    "nrmse": 7.8876433234816e-11,
+    "pointwisePass": true,
+    "conclusion": "Pass"
+  },
+  "nominalSphereControl": {
+    "count": 16384,
+    "coverage": 1,
+    "maximumAbsolute": 6.2522509670283485e-09,
+    "nrmse": 5.0505270742015414e-05,
+    "pointwisePass": true,
+    "conclusion": "Pass"
+  },
+  "workbenchVersusIndependentReference": {
+    "count": 16384,
+    "coverage": 1,
+    "maximumAbsolute": 1.0166508014833472e-07,
+    "nrmse": 0.0006674640788319927,
+    "pointwisePass": true,
+    "conclusion": "Pass"
+  },
+  "workbenchArchiveSha256": "f8eb4679c50178d0152584e8095a58929b3d855e4081480e3cdb17ad542a6840",
+  "workbenchEvidenceManifest": {
+    "default/data.json": "ba371c4e3e0948ec3b700d1e945d810411b9fe42523d955ad6c8bc29130e9ec8",
+    "default/request.json": "3100843605b231187fbc3741570a70e4998c52c6d27d14fffb66556a03219a4f",
+    "default/provenance.json": "80a4f62a8d3e1fdd622889b14f6306e3b788cd76692444994348c29c19c9355b",
+    "refined/data.json": "a4652d6ffdbf0178ca72a7161461ecbf90f34df70cc8ef656b541764f28a8417",
+    "refined/request.json": "b13b34a9724cd680fb13b28900e4caf72cd01364f12231cb18471e4a6bc911f3",
+    "refined/provenance.json": "692f6f1a285604376d8a9647bfee447ee185202914fcd5593ce1c1439fda9a56"
+  },
+  "workbenchProvenance": {
+    "canonicalAnalysisKey": "PSF",
+    "requestFingerprint": "cd157f3d2058a3d5a26d3be41e706e44a860125b040acdf321d81f29172fff23",
+    "settingsTranslation": null,
+    "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+    "snapshotSha256": "2c2de8fc8135d6ac0c8d01012aa1b6b08a4b5d2a67ae498d9b7236407ea74565",
+    "codeFingerprint": "0623e5e3d3255268f0962f61922caab28419684804312a21b63208260acfc5df:c9fbc3db79ee5d557d50f9b4f0ca6ce92cad33bf2cb9dd2c7e29da65306481d0"
+  },
+  "workbenchAdaptiveRefined": {
+    "protocol": "FourierPhysicalDomainConvergence/v3",
+    "mode": "Adaptive",
+    "requestedPupilSampling": 64,
+    "returnedPupilSampling": 8192,
+    "maximumPupilSampling": 8192,
+    "relativeRmsAccuracy": 0.003,
+    "absoluteAccuracy": 1e-07,
+    "validated": true,
+    "steps": [
+      {
+        "pupilSampling": 64,
+        "phaseResolved": false,
+        "relativeRmsChange": null,
+        "maximumAbsoluteChange": null,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 128,
+        "phaseResolved": false,
+        "relativeRmsChange": 1.9214487415707135,
+        "maximumAbsoluteChange": 0.019712778515497024,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 256,
+        "phaseResolved": false,
+        "relativeRmsChange": 3.056597513184294,
+        "maximumAbsoluteChange": 0.005894767528576759,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 512,
+        "phaseResolved": false,
+        "relativeRmsChange": 1.758250962581227,
+        "maximumAbsoluteChange": 0.0019874882018663057,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 1024,
+        "phaseResolved": false,
+        "relativeRmsChange": 1.4343029891497618,
+        "maximumAbsoluteChange": 0.0008781399940885227,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 2048,
+        "phaseResolved": false,
+        "relativeRmsChange": 8.188425574059696,
+        "maximumAbsoluteChange": 0.00037950879154371894,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 7168,
+        "phaseResolved": true,
+        "relativeRmsChange": null,
+        "maximumAbsoluteChange": null,
+        "usesDensePhysicalPupil": false,
+        "usesStreamedPhysicalPupil": true
+      },
+      {
+        "pupilSampling": 8192,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.002079093210801735,
+        "maximumAbsoluteChange": 1.218039224795552e-07,
+        "usesDensePhysicalPupil": false,
+        "usesStreamedPhysicalPupil": true
+      }
+    ],
+    "reason": "Two streamed phase-resolved pupil densities agree over every requested physical image node.",
+    "evaluatedNominalPupilCells": 11214848,
+    "maximumNominalPupilCells": 100000000,
+    "evaluatedStreamedPupilNodes": 11334514,
+    "requestedRelativeRmsDeviation": 576.7529190728152,
+    "requestedMaximumAbsoluteDeviation": 0.019726006952409097
+  },
+  "workbenchAdaptiveDefault": {
+    "protocol": "FourierPhysicalDomainConvergence/v3",
+    "mode": "Adaptive",
+    "requestedPupilSampling": 64,
+    "returnedPupilSampling": 0,
+    "maximumPupilSampling": 8192,
+    "relativeRmsAccuracy": 0.001,
+    "absoluteAccuracy": 1e-07,
+    "validated": false,
+    "steps": [
+      {
+        "pupilSampling": 64,
+        "phaseResolved": false,
+        "relativeRmsChange": null,
+        "maximumAbsoluteChange": null,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 128,
+        "phaseResolved": false,
+        "relativeRmsChange": 1.9214487415707135,
+        "maximumAbsoluteChange": 0.019712778515497024,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 256,
+        "phaseResolved": false,
+        "relativeRmsChange": 3.056597513184294,
+        "maximumAbsoluteChange": 0.005894767528576759,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 512,
+        "phaseResolved": false,
+        "relativeRmsChange": 1.758250962581227,
+        "maximumAbsoluteChange": 0.0019874882018663057,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 1024,
+        "phaseResolved": false,
+        "relativeRmsChange": 1.4343029891497618,
+        "maximumAbsoluteChange": 0.0008781399940885227,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 2048,
+        "phaseResolved": false,
+        "relativeRmsChange": 8.188425574059696,
+        "maximumAbsoluteChange": 0.00037950879154371894,
+        "usesDensePhysicalPupil": false
+      },
+      {
+        "pupilSampling": 7168,
+        "phaseResolved": true,
+        "relativeRmsChange": null,
+        "maximumAbsoluteChange": null,
+        "usesDensePhysicalPupil": false,
+        "usesStreamedPhysicalPupil": true
+      },
+      {
+        "pupilSampling": 8192,
+        "phaseResolved": true,
+        "relativeRmsChange": 0.002079093210801735,
+        "maximumAbsoluteChange": 1.218039224795552e-07,
+        "usesDensePhysicalPupil": false,
+        "usesStreamedPhysicalPupil": true
+      }
+    ],
+    "reason": "The two phase-resolved streamed pupils did not meet the declared output accuracy.",
+    "evaluatedNominalPupilCells": 11214848,
+    "maximumNominalPupilCells": 100000000,
+    "evaluatedStreamedPupilNodes": 11334514,
+    "requestedRelativeRmsDeviation": null,
+    "requestedMaximumAbsoluteDeviation": null
+  }
+}

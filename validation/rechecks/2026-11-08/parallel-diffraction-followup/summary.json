@@ -1,0 +1,73 @@
+{
+  "menuLenses": 95,
+  "configurations": 115,
+  "frozenRequests": 3024,
+  "frozen": {
+    "Pass": 2527,
+    "Close": 19,
+    "Difference": 31,
+    "Incomparable": 427,
+    "Error": 20
+  },
+  "frozenFullReplay": "frozen-replay.json",
+  "frozenByLens": "../parallel-precision-followup/by-lens.csv",
+  "frozenFullReplayCoreSha256": "95228e3b0ebbd5e77bd6b9f3783bf6e963daced6915790c4b186e7444d40636d",
+  "planeEntryPointReplayCoreSha256": "b3ad65f8bba26aa190b657bd4b76770b073a10a77d376276859e84c1da03ea4b",
+  "previousLedgerSha256": "d16f311d45bf0a7486b25b39db377f317fa3905806e05704080d62fc0804aefd",
+  "independentOpenBefore": 81,
+  "independentOpenAfter": 54,
+  "openEligibleForIndependentFollowup": 52,
+  "openExcludedFromIndependentFollowup": [
+    1927,
+    1934
+  ],
+  "resolvedIndependentIndices": [
+    532,
+    653,
+    971,
+    993,
+    1011,
+    1093,
+    1273,
+    1276,
+    1291,
+    1295,
+    1459,
+    1497,
+    1527,
+    1695,
+    1763,
+    1785,
+    1814,
+    1874,
+    1897,
+    1987,
+    2024,
+    2054,
+    2157,
+    2335,
+    2547,
+    2550,
+    2681
+  ],
+  "independentResolutions": {
+    "SupplementalPass": 23,
+    "NotApplicable": 4
+  },
+  "openByAnalysis": {
+    "PSF": 9,
+    "MTF": 6,
+    "FFT PSF Cross Section": 10,
+    "Diffraction Encircled Energy": 29
+  },
+  "openByStatus": {
+    "ConfirmedNativeReferenceUnavailable": 28,
+    "ConvergedComparisonNotEstablished": 26
+  },
+  "lastAdaptiveRetry": {
+    "coreSha256": "c9fbc3db79ee5d557d50f9b4f0ca6ce92cad33bf2cb9dd2c7e29da65306481d0",
+    "verification": "../annular-fft-psf-reference/annulus-adaptive-verification.json",
+    "focusedTests": "../annular-fft-psf-reference/annulus-retry-focused.trx",
+    "passedTests": 50
+  }
+}

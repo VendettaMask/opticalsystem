@@ -1,0 +1,369 @@
+{
+  "nativeArchiveSha256": "1ca1914e112b850883a2b09ac6d73e9ed3eddb3e37d3f73642fc545edbcfe23f",
+  "studies": [
+    {
+      "index": 653,
+      "originalRequestSha256": "9f6b0ab31fbf5acef2cbba8c9ae67823fe0cc8041b3d91b6856fdeaec504508a",
+      "adaptive": [
+        {
+          "n": 512,
+          "snapshotSha256": "81bf982d0fc15198a5a7ddb6ce02cd44e8bb423d70983847e132e1c7a3f66cce",
+          "codeFingerprint": "0623e5e3d3255268f0962f61922caab28419684804312a21b63208260acfc5df:c9fbc3db79ee5d557d50f9b4f0ca6ce92cad33bf2cb9dd2c7e29da65306481d0",
+          "requestFingerprint": "ce0fc5f3df20532f2ee2d96ec578a7d06cf595d90761c0e31fad791686c63041",
+          "dataSha256": "28b284627d5768b0e79169712549362c1a07b5ea669a1f42aa7e6c8933363f9d",
+          "report": {
+            "protocol": "FourierPhysicalDomainConvergence/v2",
+            "mode": "Adaptive",
+            "requestedPupilSampling": 64,
+            "returnedPupilSampling": 512,
+            "maximumPupilSampling": 1024,
+            "relativeRmsAccuracy": 0.001,
+            "absoluteAccuracy": 1e-7,
+            "validated": true,
+            "steps": [
+              {
+                "pupilSampling": 64,
+                "phaseResolved": false,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": false,
+                "unavailableReason": "The sampled pupil has no connected illuminated nodes."
+              },
+              {
+                "pupilSampling": 128,
+                "phaseResolved": true,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 256,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.009670849714978383,
+                "maximumAbsoluteChange": 0.024858621706613397,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 512,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.004688720862577785,
+                "maximumAbsoluteChange": 0.010971991854896196,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 1024,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.001370613066060921,
+                "maximumAbsoluteChange": 0.002813295692076445,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 128,
+                "phaseResolved": true,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": true
+              },
+              {
+                "pupilSampling": 256,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.0013706130660330117,
+                "maximumAbsoluteChange": 0.002813295677630806,
+                "usesDensePhysicalPupil": true
+              },
+              {
+                "pupilSampling": 512,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.00028245905373184616,
+                "maximumAbsoluteChange": 0.0007226882892635705,
+                "usesDensePhysicalPupil": true
+              }
+            ],
+            "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+            "evaluatedNominalPupilCells": 3481600,
+            "maximumNominalPupilCells": 100000000,
+            "requestedRelativeRmsDeviation": null,
+            "requestedMaximumAbsoluteDeviation": null
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0004344857789677081,
+            "nrmse": 0.0001900667726668664,
+            "conclusion": "Pass"
+          },
+          "versusFixed2048": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 1.0291767438275201e-13,
+            "nrmse": 1.6679639836487748e-14,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "n": 2048,
+          "snapshotSha256": "81bf982d0fc15198a5a7ddb6ce02cd44e8bb423d70983847e132e1c7a3f66cce",
+          "codeFingerprint": "0623e5e3d3255268f0962f61922caab28419684804312a21b63208260acfc5df:c9fbc3db79ee5d557d50f9b4f0ca6ce92cad33bf2cb9dd2c7e29da65306481d0",
+          "requestFingerprint": "4b0b11fc4b98867a1d5efd66560c277621cf2cf5be763463c9a26b19d12c9693",
+          "dataSha256": "d3cc1d327dad0f7faad517b85e624291f1f798802a9589e75bc9dfce7eb0eb79",
+          "report": {
+            "protocol": "FourierPhysicalDomainConvergence/v1",
+            "mode": "Adaptive",
+            "requestedPupilSampling": 64,
+            "returnedPupilSampling": 2048,
+            "maximumPupilSampling": 2048,
+            "relativeRmsAccuracy": 0.001,
+            "absoluteAccuracy": 1e-7,
+            "validated": true,
+            "steps": [
+              {
+                "pupilSampling": 64,
+                "phaseResolved": false,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": false,
+                "unavailableReason": "The sampled pupil has no connected illuminated nodes."
+              },
+              {
+                "pupilSampling": 128,
+                "phaseResolved": true,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 256,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.009670849714978383,
+                "maximumAbsoluteChange": 0.024858621706613397,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 512,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.004688720862577785,
+                "maximumAbsoluteChange": 0.010971991854896196,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 1024,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.001370613066060921,
+                "maximumAbsoluteChange": 0.002813295692076445,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 2048,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.0002824590536973436,
+                "maximumAbsoluteChange": 0.0007226882942052842,
+                "usesDensePhysicalPupil": false
+              }
+            ],
+            "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+            "evaluatedNominalPupilCells": 11182080,
+            "maximumNominalPupilCells": 100000000,
+            "requestedRelativeRmsDeviation": null,
+            "requestedMaximumAbsoluteDeviation": null
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0004344857789647105,
+            "nrmse": 0.00019006677266344602,
+            "conclusion": "Pass"
+          },
+          "versusFixed2048": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0,
+            "nrmse": 0,
+            "conclusion": "Pass"
+          }
+        }
+      ]
+    },
+    {
+      "index": 2335,
+      "originalRequestSha256": "3b6f7e35a23abe9b893d8f599425df0b26403d995c19a9cad22515339fa37428",
+      "adaptive": [
+        {
+          "n": 512,
+          "snapshotSha256": "ce4b85e43db1ffcbc0725d1fda7bead082a854d9fd1c28880de4f32d1c83ff86",
+          "codeFingerprint": "0623e5e3d3255268f0962f61922caab28419684804312a21b63208260acfc5df:c9fbc3db79ee5d557d50f9b4f0ca6ce92cad33bf2cb9dd2c7e29da65306481d0",
+          "requestFingerprint": "ce0fc5f3df20532f2ee2d96ec578a7d06cf595d90761c0e31fad791686c63041",
+          "dataSha256": "28b284627d5768b0e79169712549362c1a07b5ea669a1f42aa7e6c8933363f9d",
+          "report": {
+            "protocol": "FourierPhysicalDomainConvergence/v2",
+            "mode": "Adaptive",
+            "requestedPupilSampling": 64,
+            "returnedPupilSampling": 512,
+            "maximumPupilSampling": 1024,
+            "relativeRmsAccuracy": 0.001,
+            "absoluteAccuracy": 1e-7,
+            "validated": true,
+            "steps": [
+              {
+                "pupilSampling": 64,
+                "phaseResolved": false,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": false,
+                "unavailableReason": "The sampled pupil has no connected illuminated nodes."
+              },
+              {
+                "pupilSampling": 128,
+                "phaseResolved": true,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 256,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.009670849714978383,
+                "maximumAbsoluteChange": 0.024858621706613397,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 512,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.004688720862577785,
+                "maximumAbsoluteChange": 0.010971991854896196,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 1024,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.001370613066060921,
+                "maximumAbsoluteChange": 0.002813295692076445,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 128,
+                "phaseResolved": true,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": true
+              },
+              {
+                "pupilSampling": 256,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.0013706130660330117,
+                "maximumAbsoluteChange": 0.002813295677630806,
+                "usesDensePhysicalPupil": true
+              },
+              {
+                "pupilSampling": 512,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.00028245905373184616,
+                "maximumAbsoluteChange": 0.0007226882892635705,
+                "usesDensePhysicalPupil": true
+              }
+            ],
+            "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+            "evaluatedNominalPupilCells": 3481600,
+            "maximumNominalPupilCells": 100000000,
+            "requestedRelativeRmsDeviation": null,
+            "requestedMaximumAbsoluteDeviation": null
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0004344857789697898,
+            "nrmse": 0.00019006677266859468,
+            "conclusion": "Pass"
+          },
+          "versusFixed2048": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 1.0291767438275201e-13,
+            "nrmse": 1.6679639836487748e-14,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "n": 2048,
+          "snapshotSha256": "ce4b85e43db1ffcbc0725d1fda7bead082a854d9fd1c28880de4f32d1c83ff86",
+          "codeFingerprint": "0623e5e3d3255268f0962f61922caab28419684804312a21b63208260acfc5df:c9fbc3db79ee5d557d50f9b4f0ca6ce92cad33bf2cb9dd2c7e29da65306481d0",
+          "requestFingerprint": "4b0b11fc4b98867a1d5efd66560c277621cf2cf5be763463c9a26b19d12c9693",
+          "dataSha256": "d3cc1d327dad0f7faad517b85e624291f1f798802a9589e75bc9dfce7eb0eb79",
+          "report": {
+            "protocol": "FourierPhysicalDomainConvergence/v1",
+            "mode": "Adaptive",
+            "requestedPupilSampling": 64,
+            "returnedPupilSampling": 2048,
+            "maximumPupilSampling": 2048,
+            "relativeRmsAccuracy": 0.001,
+            "absoluteAccuracy": 1e-7,
+            "validated": true,
+            "steps": [
+              {
+                "pupilSampling": 64,
+                "phaseResolved": false,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": false,
+                "unavailableReason": "The sampled pupil has no connected illuminated nodes."
+              },
+              {
+                "pupilSampling": 128,
+                "phaseResolved": true,
+                "relativeRmsChange": null,
+                "maximumAbsoluteChange": null,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 256,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.009670849714978383,
+                "maximumAbsoluteChange": 0.024858621706613397,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 512,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.004688720862577785,
+                "maximumAbsoluteChange": 0.010971991854896196,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 1024,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.001370613066060921,
+                "maximumAbsoluteChange": 0.002813295692076445,
+                "usesDensePhysicalPupil": false
+              },
+              {
+                "pupilSampling": 2048,
+                "phaseResolved": true,
+                "relativeRmsChange": 0.0002824590536973436,
+                "maximumAbsoluteChange": 0.0007226882942052842,
+                "usesDensePhysicalPupil": false
+              }
+            ],
+            "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+            "evaluatedNominalPupilCells": 11182080,
+            "maximumNominalPupilCells": 100000000,
+            "requestedRelativeRmsDeviation": null,
+            "requestedMaximumAbsoluteDeviation": null
+          },
+          "versusNativeTiedConicReference": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0.0004344857789667922,
+            "nrmse": 0.00019006677266517427,
+            "conclusion": "Pass"
+          },
+          "versusFixed2048": {
+            "count": 16384,
+            "coverage": 1,
+            "maximumAbsolute": 0,
+            "nrmse": 0,
+            "conclusion": "Pass"
+          }
+        }
+      ]
+    }
+  ]
+}

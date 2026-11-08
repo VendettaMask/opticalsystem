@@ -1,0 +1,73 @@
+{
+  "frozenIndex": 2875,
+  "mirrorTiltDegrees": -45,
+  "nativeSourceSha256": "ad2b7a0922cf0dbc29d560a8507ce38254b0862c3f0d94329d91d22b48d30af6",
+  "nativeFanSha256": "89f334b8b01f7759a7d258b8fce69a024744531c3ee8b18170b6ad4d1eb906ea",
+  "nativeFirstOrderReportSha256": "eed3b49ce37ad6b22dabeb2314ff665135af69ead39a95e2b950e3518a85619b",
+  "nativeRayReportSha256": "884c49cc42cdcd91a8b834703e8c2d3e3976ad55e1a512fe22ca0e5513bdd2dd",
+  "nativeWavefrontSha256": "b5058dabecf76af1be6c612fcc386202d57f99fa5850b1d066d9d5e4b3850f63",
+  "chiefImageLocalXYMm": [
+    0.0,
+    8.84670417319383e-15
+  ],
+  "chiefAngleToImageNormalDegrees": 0.0,
+  "nativeRayFanChecks": [
+    {
+      "coordinates": 41,
+      "nativeMicrometerRange": [
+        -238.44009090529994,
+        238.44009090529994
+      ],
+      "maxAbsoluteMicrometers": 1.9554136088117957e-11
+    },
+    {
+      "coordinates": 41,
+      "nativeMicrometerRange": [
+        -238.44009090529818,
+        238.44009090529818
+      ],
+      "maxAbsoluteMicrometers": 2.3092638912203256e-11
+    }
+  ],
+  "nativeSingleRayPositionMaxMm": 5.4012350148013866e-14,
+  "nativeSingleRayDirectionMax": 4.2035153136055214e-11,
+  "pupilBoundaryMaximumHitRadiusMm": [
+    14.14213562373095,
+    10.000000000000004,
+    10.44817578430066
+  ],
+  "fitSphereRadiusMm": 219.2367881783101,
+  "fitTangentialPupilStretch": 1.0000000000007723,
+  "wavefrontFitNodes": 1001,
+  "wavefrontHoldoutNodes": 1998,
+  "wavefrontHoldoutMaxAbsWaves": 3.014823946045908e-10,
+  "workingFNumbersFromMarginalRaysTS": [
+    7.098907117514112,
+    7.098907117514114
+  ],
+  "reportedCombinedWorkingFNumber": 7.098907,
+  "quadratureOrders": [
+    256,
+    320
+  ],
+  "quadratureComparison": {
+    "coordinates": 16384,
+    "maximumAbsolute": 1.9462695344252268e-12,
+    "peakNormalizedRms": 1.3118060824191266e-11,
+    "relativeL2": 1.3231458200462505e-10
+  },
+  "centerRelativeToIdeal": 0.01828678102755562,
+  "peakRelativeToIdeal": 0.01828678102755562,
+  "peakPhysicalCoordinatesMicrometers": [
+    0.0,
+    0.0
+  ],
+  "status": "ScalarFftContinuumDiagnosticOnly",
+  "nativeConverged2048Sha256": "8f40d732a4c8e49e2e2ea9f989939007fe8b752fc83f873a8da77f122a7cbb99",
+  "comparisonToNative2048": {
+    "coordinates": 16384,
+    "maximumAbsolute": 5.066780425463241e-05,
+    "peakNormalizedRms": 0.00025167004818896796,
+    "relativeL2": 0.0025408151087939488
+  }
+}

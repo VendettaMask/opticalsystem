@@ -1788,6 +1788,7 @@ public sealed class AnalysisGuiContractTests
                 "DisplayScale",
                 "Apodization",
                 "ReferenceChiefRay",
+                "ReferenceToPrimary",
                 "UseExitPupilShape",
                 "ExitPupilGeometry",
                 "WavelengthNumber",
@@ -2182,6 +2183,9 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             new[]
             {
+                "FourierSamplingMode",
+                "FourierMaximumSampling",
+                "FourierRelativeAccuracy",
                 "Sampling",
                 "Display",
                 "Rotation",
@@ -2215,6 +2219,7 @@ public sealed class AnalysisGuiContractTests
             new[]
             {
                 "AfocalIntegration",
+                "UseCheckedFocusedPupil",
                 "PupilSampling",
                 "ImageSampling",
                 "ImageDeltaMicrometers",
@@ -2231,6 +2236,7 @@ public sealed class AnalysisGuiContractTests
         var integration = huygensPsfDescriptors.Single(item => item.Key == "AfocalIntegration");
         Assert.Equal("原生有限单元", integration.DefaultValue);
         Assert.Equal(new[] { "原生有限单元" }, integration.Choices);
+        Assert.Equal("false", huygensPsfDescriptors.Single(item => item.Key == "UseCheckedFocusedPupil").DefaultValue);
         Assert.Equal("32 x 32", huygensPsfDescriptors.Single(item => item.Key == "PupilSampling").DefaultValue);
         Assert.Equal("32 x 32", huygensPsfDescriptors.Single(item => item.Key == "ImageSampling").DefaultValue);
         Assert.Equal("所有", huygensPsfDescriptors.Single(item => item.Key == "WavelengthNumber").DefaultValue);
@@ -2264,6 +2270,9 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             new[]
             {
+                "FourierSamplingMode",
+                "FourierMaximumSampling",
+                "FourierRelativeAccuracy",
                 "Sampling",
                 "Row",
                 "GraphScaleMicrometers",
@@ -2274,9 +2283,9 @@ public sealed class AnalysisGuiContractTests
                 "Normalized"
             },
             fftCrossSectionDescriptors.Select(item => item.Key));
-        Assert.Equal("64 x 64", fftCrossSectionDescriptors[0].DefaultValue);
-        Assert.Equal("中心", fftCrossSectionDescriptors[1].DefaultValue);
-        Assert.Equal("X-线性", fftCrossSectionDescriptors[6].DefaultValue);
+        Assert.Equal("64 x 64", fftCrossSectionDescriptors.Single(item => item.Key == "Sampling").DefaultValue);
+        Assert.Equal("中心", fftCrossSectionDescriptors.Single(item => item.Key == "Row").DefaultValue);
+        Assert.Equal("X-线性", fftCrossSectionDescriptors.Single(item => item.Key == "Type").DefaultValue);
 
         var fftCrossSection = connector.BuildAnalysisView(
             "FFT PSF截面图",
@@ -2369,6 +2378,9 @@ public sealed class AnalysisGuiContractTests
         Assert.Equal(
             new[]
             {
+                "FourierSamplingMode",
+                "FourierMaximumSampling",
+                "FourierRelativeAccuracy",
                 "Sampling",
                 "MaximumFrequency",
                 "WavelengthNumber",

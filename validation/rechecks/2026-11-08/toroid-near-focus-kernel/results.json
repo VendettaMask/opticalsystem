@@ -1,0 +1,135 @@
+{
+  "status": "SharedPupilSphereKernelSensitivity",
+  "sourceSha256": "eb5b15894ed4861de0db6052b0e3c6ec646694d5701f8673c45e33b43a597ea2",
+  "nativeWavefrontSha256": "d65a4efde00da7d4b75159fdcd5601db0bd4286711b954fc1cfc9e3bb71a08ed",
+  "referenceSphereMm": 166.52646357844446,
+  "referenceFftPayloadSha256": "316c0f86cff77038738afc72fbd9fbb7311991cacfa585f36c7a554f273d038a",
+  "plans": [
+    [
+      172,
+      14,
+      176,
+      true
+    ],
+    [
+      244,
+      18,
+      240,
+      true
+    ]
+  ],
+  "comparisons": {
+    "tangentFullImageConvergence": {
+      "maxAbs": 7.899031160608395e-16,
+      "referencePeak": 4.804814376280082e-07,
+      "peakNormalizedRms": 5.462352803194194e-10,
+      "originalScaleNrmse": 2.6245591277101273e-11,
+      "originalPointwiseGatePass": true,
+      "originalNumericalGatePass": true
+    },
+    "exactFullProfileConvergence": {
+      "maxAbs": 7.331826135391394e-16,
+      "referencePeak": 4.745737690669685e-07,
+      "peakNormalizedRms": 4.730277992577868e-10,
+      "originalScaleNrmse": 2.244865855672212e-11,
+      "originalPointwiseGatePass": true,
+      "originalNumericalGatePass": true
+    },
+    "exactImageControlsConvergence": {
+      "maxAbs": 3.7062921870824935e-16,
+      "referencePeak": 4.0882197967059345e-07,
+      "peakNormalizedRms": 4.3184393248740646e-10,
+      "originalScaleNrmse": 1.7654729138823562e-11,
+      "originalPointwiseGatePass": true,
+      "originalNumericalGatePass": true
+    },
+    "fftVsTangentFullImage": {
+      "maxAbs": 3.595727773940994e-07,
+      "referencePeak": 4.804814376280082e-07,
+      "peakNormalizedRms": 0.3515430327335966,
+      "originalScaleNrmse": 0.016890990175594846,
+      "originalPointwiseGatePass": true,
+      "originalNumericalGatePass": true
+    },
+    "fftVsExactImageControls": {
+      "maxAbs": 2.919617982103646e-07,
+      "referencePeak": 4.0882197967059345e-07,
+      "peakNormalizedRms": 0.44202318944405244,
+      "originalScaleNrmse": 0.018070879536882727,
+      "originalPointwiseGatePass": true,
+      "originalNumericalGatePass": true
+    },
+    "tangentVsExactImageControls": {
+      "maxAbs": 3.359108183829594e-11,
+      "referencePeak": 4.0882197967059345e-07,
+      "peakNormalizedRms": 3.454188269229555e-05,
+      "originalScaleNrmse": 1.4121480863813674e-06,
+      "originalPointwiseGatePass": true,
+      "originalNumericalGatePass": true
+    },
+    "fftVsExactFullProfile": {
+      "maxAbs": 3.609563530541236e-07,
+      "referencePeak": 4.745737690669685e-07,
+      "peakNormalizedRms": 0.3216848622962621,
+      "originalScaleNrmse": 0.015266319755172583,
+      "originalPointwiseGatePass": true,
+      "originalNumericalGatePass": true
+    },
+    "tangentVsExactFullProfile": {
+      "maxAbs": 6.483973841239932e-11,
+      "referencePeak": 4.745737690669685e-07,
+      "peakNormalizedRms": 5.640618274360466e-05,
+      "originalScaleNrmse": 2.676889474331266e-06,
+      "originalPointwiseGatePass": true,
+      "originalNumericalGatePass": true
+    }
+  },
+  "directionAndPhaseWitness": {
+    "spherePrincipalEdgeDirections": [
+      [
+        0.1200969152601705,
+        -7.554331672382975e-18
+      ],
+      [
+        -2.648430105540734e-18,
+        0.1186187581861563
+      ]
+    ],
+    "principalImageEdgeMissMm": [
+      19.99931399410647,
+      0.5618900507534368
+    ],
+    "edgePhaseWaves": [
+      -2410.57959752646,
+      -15.588570498000301
+    ],
+    "fftPsfAndEnergyLinearDirectionScale": 0.08234304487217337,
+    "fftMtfLinearImageDirectionScale": 0.05822498796104335,
+    "sphereGlobalXDirectionAtGlobalXPupilEdge": 0.1185063687170469,
+    "phaseDiscrepancyWavesAt5MicrometerPrincipalRadius": [
+      0.3775387038799713,
+      0.3627571331398294
+    ],
+    "phaseDiscrepancyWavesAt16MicrometerPrincipalRadius": [
+      1.2081238524159081,
+      1.160822826047454
+    ],
+    "phaseDiscrepancyWavesAtProfileEndpointGlobalX": 3.2938413834172886,
+    "mtfLinearCutoffCyclesPerMm": 232.8999518441734,
+    "sphereAxisProjectedSupportEndpointDifferenceOverWavelengthCyclesPerMm": 474.0254748681876
+  },
+  "originalIrradianceGates": {
+    "1365": {
+      "absolute": 1e-05,
+      "relative": 0.001,
+      "nrmse": 0.01
+    },
+    "1369": {
+      "absolute": 1e-05,
+      "relative": 0.002,
+      "nrmse": 0.003
+    }
+  },
+  "normalization": "Same unit-amplitude entrance-pupil measure divided by pi",
+  "payloadSha256": "23a6c152cd87917d0ba3df712b0a086d60ed864c9305c2327b64afd0084ac062"
+}

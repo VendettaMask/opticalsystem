@@ -1,0 +1,380 @@
+{
+  "lens": "Miscellaneous/Toroid.zmx",
+  "sourceSha256": "eb5b15894ed4861de0db6052b0e3c6ec646694d5701f8673c45e33b43a597ea2",
+  "nativeWavefrontMember": "run/analyses/1364-045-toroid-c1-primary-f1-w1-wavefront/native/data.json",
+  "nativeWavefrontSha256": "d65a4efde00da7d4b75159fdcd5601db0bd4286711b954fc1cfc9e3bb71a08ed",
+  "requests": {
+    "1365": {
+      "member": "run/analyses/1365-045-toroid-c1-primary-f1-w1-psf/workbench/request.json",
+      "sha256": "dace72a27ecbaedd439e1a90474937a80ce7af2c2d6291226c3bdf319b04612d",
+      "canonical": {
+        "canonicalAnalysisKey": "PSF",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 128,
+        "rayCount": 20,
+        "gridSize": 128,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "Display": "128",
+          "Rotation": "0",
+          "ImageDeltaMicrometers": "0.25",
+          "UsePolarization": "False",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "Type": "\u7ebf\u6027",
+          "DisplayAs": "\u4f2a\u5f69\u8272",
+          "SurfaceNumber": "-1",
+          "Normalized": "False",
+          "UseRayAiming": "False",
+          "UseCentroid": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 3,
+        "surfaceCount": 4,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            -3
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      }
+    },
+    "1367": {
+      "member": "run/analyses/1367-045-toroid-c1-primary-f1-w1-mtf/workbench/request.json",
+      "sha256": "ac5b217fb9f7c34c81f7d96ed50c0a35ebcb1034a1e56e36078014a88945c41f",
+      "canonical": {
+        "canonicalAnalysisKey": "MTF",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "rayCount": 20,
+        "gridSize": 64,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "64",
+          "MaximumFrequency": "50",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "Type": "\u8c03\u5236",
+          "ShowDiffractionLimit": "false",
+          "UsePolarization": "False",
+          "UseDashes": "false",
+          "UseRayAiming": "False"
+        },
+        "zemaxSettings": {},
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 3,
+        "surfaceCount": 4,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            -3
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      }
+    },
+    "1369": {
+      "member": "run/analyses/1369-045-toroid-c1-primary-f1-w1-fft-psf-cross-section/workbench/request.json",
+      "sha256": "ec9d4dc3f1e4a83e003af28c6d37626daaca2331b9f12b12cadeea3d5bafc561",
+      "canonical": {
+        "canonicalAnalysisKey": "FFT PSF Cross Section",
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "rayCount": 20,
+        "gridSize": 32,
+        "imageDeltaMicrometers": 0.25,
+        "maximumFrequency": 50,
+        "focusMinimum": -0.1,
+        "focusMaximum": 0.1,
+        "reference": "ChiefRay",
+        "polarization": false,
+        "apodization": "{\r\n  \"kind\": \"zemax_pupil\",\r\n  \"numbers\": {\r\n    \"type\": 0,\r\n    \"factor\": 0\r\n  },\r\n  \"text\": {},\r\n  \"children\": null\r\n}",
+        "deleteVignetted": true,
+        "useRayAiming": false,
+        "normalization": "NativePhysical",
+        "coordinateConvention": "LocalSurfaceXY; row=y ascending; column=x ascending",
+        "outputUnits": "TypedAxes",
+        "settingsOrigin": "CapturedSettings",
+        "workbenchSettings": {
+          "Sampling": "32",
+          "Row": "\u4e2d\u5fc3",
+          "GraphScaleMicrometers": "0",
+          "UsePolarization": "False",
+          "WavelengthNumber": "1",
+          "FieldNumber": "1",
+          "Type": "X-\u7ebf\u6027",
+          "Normalized": "False",
+          "SurfaceNumber": "-1",
+          "UseRayAiming": "False",
+          "PupilSampling": "32",
+          "ImageSampling": "32",
+          "ImageDeltaMicrometers": "0.25",
+          "UseCentroid": "False",
+          "Frequency": "50",
+          "SpatialFrequency": "50",
+          "MaximumFrequency": "50",
+          "DeltaFocus": "0.01",
+          "NumberOfSteps": "5",
+          "Steps": "5",
+          "UseDashes": "False",
+          "FieldDensity": "10",
+          "FieldPointCount": "10",
+          "ScanType": "+y",
+          "RemoveVignettingFactors": "True",
+          "Frequency1": "10",
+          "Frequency2": "20",
+          "Frequency3": "30",
+          "Frequency4": "40",
+          "Frequency5": "50",
+          "Frequency6": "60",
+          "NumRays": "32",
+          "Distribution": "uniform",
+          "ScaleByDiffractionLimit": "False",
+          "PlotPointCount": "128",
+          "ProfileType": "X",
+          "Spread": "\u7ebf",
+          "UseCoherentPsf": "False"
+        },
+        "zemaxSettings": {
+          "Wavelength": 1,
+          "UsePolarization": false,
+          "Field": 1,
+          "SampleSize": "S_32x32",
+          "Type": "X_Linear",
+          "Normalize": false,
+          "RowCol": 0,
+          "PlotScale": 0
+        },
+        "zemaxCfgSettings": {},
+        "wavelengthScope": "Selected",
+        "wavelengthCount": 1,
+        "fieldDefinition": "Angle",
+        "maximumFieldRadius": 3,
+        "surfaceCount": 4,
+        "fieldCount": 5,
+        "definedFields": [
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            -3,
+            0
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            0,
+            -3
+          ]
+        ],
+        "fieldScanDirection": "+y",
+        "primaryWavelengthMicrometers": 0.5,
+        "zemaxSettingsMode": "TypedProperties",
+        "sourceImagePath": null,
+        "sourceImageSha256": null
+      }
+    }
+  },
+  "referenceSphereMm": 166.52646357844446,
+  "nativePhaseNodes": 3001,
+  "maxNativePhaseErrorWaves": 3.972218109993264e-10,
+  "workingFNumber": 6.0721582590998855,
+  "psfCurrentCap": {
+    "pupilCount": 8192,
+    "normalizedStep": 0.001482460512475558,
+    "node": [
+      0.6982389013759878,
+      0.6967564408635123
+    ],
+    "neighbor": [
+      0.6997213618884633,
+      0.6967564408635123
+    ],
+    "adjacentFilteredPhaseWaves": 5.008121549281896
+  },
+  "mtfCurrentCap": {
+    "pupilCount": 6144,
+    "normalizedStep": 0.00032562683165092806,
+    "node": [
+      0.6984695538912407,
+      0.6984695538912407
+    ],
+    "neighbor": [
+      0.6987951807228916,
+      0.6984695538912407
+    ],
+    "adjacentFilteredPhaseWaves": 1.1003282032315838
+  },
+  "denseProfileCurrentCap": {
+    "pupilCount": 2048,
+    "normalizedStep": 0.001220703125,
+    "node": [
+      0.6982421875,
+      0.6982421875
+    ],
+    "neighbor": [
+      0.699462890625,
+      0.6982421875
+    ],
+    "adjacentFilteredPhaseWaves": 4.123525716040604
+  },
+  "ordinaryProfileCurrentCap": {
+    "pupilCount": 16384,
+    "normalizedStep": 0.002762473079962095,
+    "node": [
+      0.6961432161504479,
+      0.6933807430704859
+    ],
+    "neighbor": [
+      0.6989056892304101,
+      0.6933807430704859
+    ],
+    "adjacentFilteredPhaseWaves": 9.30457033655739
+  },
+  "nominalSphereControl": {
+    "radiusMm": 166.42133811423807,
+    "witnesses": {
+      "psf": {
+        "pupilCount": 8192,
+        "normalizedStep": 0.001482460512475558,
+        "node": [
+          0.6982389013759878,
+          0.6967564408635123
+        ],
+        "neighbor": [
+          0.6997213618884633,
+          0.6967564408635123
+        ],
+        "adjacentFilteredPhaseWaves": 5.011330013147017
+      },
+      "mtf": {
+        "pupilCount": 6144,
+        "normalizedStep": 0.00032562683165092806,
+        "node": [
+          0.6984695538912407,
+          0.6984695538912407
+        ],
+        "neighbor": [
+          0.6987951807228916,
+          0.6984695538912407
+        ],
+        "adjacentFilteredPhaseWaves": 1.1010331921524994
+      },
+      "denseProfile": {
+        "pupilCount": 2048,
+        "normalizedStep": 0.001220703125,
+        "node": [
+          0.6982421875,
+          0.6982421875
+        ],
+        "neighbor": [
+          0.699462890625,
+          0.6982421875
+        ],
+        "adjacentFilteredPhaseWaves": 4.126167666805941
+      }
+    }
+  },
+  "probe": {
+    "x": 0.69,
+    "y": 0.69,
+    "wavesPerUnitPupilX": 3337.559104011234,
+    "projectedPsfNominalSampling": 81064.74831462331,
+    "projectedUniformFullPupilSampling": 13352.236416044936
+  }
+}

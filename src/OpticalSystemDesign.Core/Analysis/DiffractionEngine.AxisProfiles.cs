@@ -47,7 +47,8 @@ public static partial class DiffractionEngine
         var aiming = optic.RayAimingEnabled;
         var fallback = false;
         var axes = (Tangential: double.PositiveInfinity, Sagittal: double.PositiveInfinity);
-        if (!optic.ImageSpaceAfocal && !TryWorkingFNumbersAtPupilZone(optic, field, wave, aiming, false, 1, out axes))
+        if (!optic.ImageSpaceAfocal && !TryWorkingFNumbersAtPupilZone(optic, field, wave, aiming,
+            WorkingApertureReduction.RootMeanSquare, 1, out axes))
         {
             axes = WorkingFNumbers(optic, field, wave, true); fallback = !aiming; aiming = true;
         }

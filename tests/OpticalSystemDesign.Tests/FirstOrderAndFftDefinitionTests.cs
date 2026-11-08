@@ -130,10 +130,12 @@ public sealed class FirstOrderAndFftDefinitionTests
     [InlineData("PSF")] [InlineData("MTF")] [InlineData("FFT PSF Cross Section")] [InlineData("Diffraction Encircled Energy")]
     public void UnderresolvedRealPupilReturnsTypedUnavailableWithoutNumericCurves(string key)
     {
-        var optic=Toroid();var before=JsonSerializer.Serialize(optic.ToSnapshot(),SnapshotOptions);
+        var path=Path.Combine(AppContext.BaseDirectory,"Fixtures","optical-testing","Twyman Green Interferometer.zmx");
+        var optic=OpticalFormatCatalog.Import(File.ReadAllText(path),".zmx");
+        var before=JsonSerializer.Serialize(optic.ToSnapshot(),SnapshotOptions);
         var settings=new Dictionary<string,string>{{"Sampling","32"},{"PupilSampling","32"},{"ImageSampling","64"},{"Display","64"},
             {"ImageDeltaMicrometers",".25"},{"WavelengthNumber","1"},{"FieldNumber","1"},{"UseRayAiming","False"},{"UsePolarization","False"},
-            {"Normalized","False"},{"MaximumDistanceMicrometers","5"},{"NumPoints","401"},{"MaximumFrequency","50"}};
+            {"Normalized","False"},{"MaximumDistanceMicrometers","5"},{"NumPoints","401"},{"MaximumFrequency","50"},{"FourierSamplingMode","Fixed"}};
         var data=new WorkbenchRuntime(optic).BuildAnalysisData(key,settings);
         Assert.Equal(AnalysisOutcome.Unavailable,data.Outcome);Assert.Empty(data.PlotSeries);
         var diagnostic=Assert.IsType<FftPupilSampling>(data.Values["PupilPhaseSampling"]);
@@ -149,6 +151,36 @@ public sealed class FirstOrderAndFftDefinitionTests
             cellCenteredPupil:true,zemaxFftSampling:true,imageDelta:-1);
         Assert.Equal(FftPhaseSamplingStatus.UndersampledPhase,psf.PupilPhaseSampling!.Status);
         Assert.All(psf.Values.Cast<double>(),v=>Assert.True(double.IsFinite(v)&&v>=0));
+    }
+
+    [Theory]
+    [InlineData("Miscellaneous/Optimization demo 1.zmx", "FFT PSF Cross Section", AnalysisOutcome.NotApplicable)]
+    [InlineData("Miscellaneous/Optimization demo 1.zmx", "Diffraction Encircled Energy", AnalysisOutcome.NotApplicable)]
+    [InlineData("Tilted systems & prisms/Beamsplitter cube.zmx", "FFT PSF Cross Section", AnalysisOutcome.NotApplicable)]
+    [InlineData("Tilted systems & prisms/Beamsplitter cube.zmx", "Diffraction Encircled Energy", AnalysisOutcome.NotApplicable)]
+    [InlineData("Polarization/Etalon.ZMX", "FFT PSF Cross Section", AnalysisOutcome.Success)]
+    public async Task FocalFftUsesThePlaneTrainDomainAndRetainsTheCoincidentPlaneProfile(
+        string relativePath, string analysis, AnalysisOutcome expected)
+    {
+        var path = Path.Combine(ProductDependencyArchitectureTests.RepositoryRoot(), "src", "OpticalSystemDesign.App",
+            "Assets", "SequentialExamples", relativePath);
+        var optic = await new ZemaxZmxImporter().ImportFileAsync(path);
+        var settings = new Dictionary<string, string>
+        {
+            ["Sampling"] = "32", ["PupilSampling"] = "32", ["ImageSampling"] = "64",
+            ["WavelengthNumber"] = "1", ["FieldNumber"] = "1", ["UsePolarization"] = "False",
+            ["Type"] = analysis == "FFT PSF Cross Section" ? "X-线性" : "encircled",
+            ["Reference"] = "centroid", ["MaximumDistanceMicrometers"] = "5"
+        };
+        var result = new WorkbenchRuntime(optic).BuildAnalysisData(analysis, settings);
+        Assert.Equal(expected, result.Outcome);
+        if (expected == AnalysisOutcome.Success)
+            Assert.NotEmpty(Assert.Single(result.PlotSeries).Points);
+        else
+        {
+            Assert.Equal(FocalImageDomain.CollimatedPlaneTrain, result.Values[FocalImageDomain.ResultKey]);
+            Assert.Empty(result.PlotSeries);
+        }
     }
 
     [Fact]

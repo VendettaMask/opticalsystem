@@ -1,0 +1,43 @@
+{
+  "scope": "16 legacy-low FFT differences",
+  "replayed": 16,
+  "accepted": 16,
+  "currentAcceptanceDifferences": 0,
+  "legacyDirectDifferences": 16,
+  "legacyToEachHigherTierDifferences": 16,
+  "nativePairsConverged": 16,
+  "checkedNativeTierSettings": 32,
+  "analysisCounts": {
+    "FFT PSF Cross Section": 8,
+    "MTF": 7,
+    "PSF": 1
+  },
+  "byteIdenticalWithPreviousDefault": 15,
+  "worstWorkbenchToFineNrmse": 0.0024012492486475186,
+  "worstNativePairNrmse": 0.002258386947424917,
+  "legacyToFineCommonProductNodesNrmseRange": [
+    0.01629021375706912,
+    0.4409647553333672
+  ],
+  "oldProfileWithEndpointsOutsideCore": [
+    313,
+    559,
+    791,
+    1119,
+    1767,
+    2569,
+    2813
+  ],
+  "coreProfileWithEndpointsOutsideOld": [
+    2835
+  ],
+  "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+  "applicationSha256": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "frozenArchiveSha256": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+  "reportFileHashes": {
+    "formal-replay.zip": "6d10e59fd6bbdfa470c53f6c295a78e8d18432840e6d6dad0709e3b5401b79be",
+    "by-request.csv": "33535419e509102a884f93d75890905f8b7798a11438a9781241171d9d0c5fd1",
+    "three-way-comparison.json": "26a1fbcf46c6cc535b739f8def9e86ca3bf1ade39d4d67153cd24b6ffa84e0d9"
+  }
+}

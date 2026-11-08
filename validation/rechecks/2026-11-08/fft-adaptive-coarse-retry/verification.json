@@ -1,0 +1,228 @@
+[
+  {
+    "index": 555,
+    "requestFingerprint": "2f0956bb0e9fcbc646527e765b0621ed10cf2fd421b7ff4c580052f6448c68b4",
+    "frozenVerdict": "Incomparable",
+    "outcome": "Unavailable",
+    "physicalPoints": 0,
+    "certificate": {
+      "protocol": "FourierPhysicalDomainConvergence/v2",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 64,
+      "returnedPupilSampling": 0,
+      "maximumPupilSampling": 2048,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1E-07,
+      "validated": false,
+      "steps": [
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": false,
+          "relativeRmsChange": 27.0916773239192,
+          "maximumAbsoluteChange": 0.5097331761157808,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.8547206698770387,
+          "maximumAbsoluteChange": 0.1106948419279754,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": true,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": false,
+          "relativeRmsChange": 27.091677323920297,
+          "maximumAbsoluteChange": 0.5097331761157896,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.854720669877028,
+          "maximumAbsoluteChange": 0.11069484192796342,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.5956088172927605,
+          "maximumAbsoluteChange": 0.04834347540144959,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.25813881513577663,
+          "maximumAbsoluteChange": 0.02824277808725227,
+          "usesDensePhysicalPupil": true
+        }
+      ],
+      "reason": "The declared pupil-sampling budget did not establish result convergence.",
+      "evaluatedNominalPupilCells": 23732224,
+      "maximumNominalPupilCells": 100000000,
+      "requestedRelativeRmsDeviation": null,
+      "requestedMaximumAbsoluteDeviation": null
+    },
+    "provenance": {
+      "canonicalAnalysisKey": "PSF",
+      "requestFingerprint": "825f7226f53903b5e886063b6fdd92266aa130e1c80a3e667193c9fe2a536a94",
+      "settingsTranslation": null,
+      "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+      "snapshotSha256": "ebbc4fa82b9eb49078c7a412a61d696be6c302f061217e85162fd6649b16323b",
+      "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+    },
+    "dataSha256": "ed7996a65d549c6487490f62733e3297e9fe64c5d0f1caecdef2eedfaa69a238"
+  },
+  {
+    "index": 2499,
+    "requestFingerprint": "9d1450404b2166c238240f718088f2cd6cec9493df047efbde16ff96342026bf",
+    "frozenVerdict": "Incomparable",
+    "outcome": "Success",
+    "physicalPoints": 16384,
+    "certificate": {
+      "protocol": "FourierPhysicalDomainConvergence/v2",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 64,
+      "returnedPupilSampling": 2048,
+      "maximumPupilSampling": 2048,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1E-07,
+      "validated": true,
+      "steps": [
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "unavailableReason": "FFT image delta is too small: insufficient pupil samples for two-dimensional diffraction."
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.08379125739806229,
+          "maximumAbsoluteChange": 0.11298237981707238,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.038564730256065445,
+          "maximumAbsoluteChange": 0.0383295309711964,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": true,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.08379125739667145,
+          "maximumAbsoluteChange": 0.11298237981006787,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.03856473025599565,
+          "maximumAbsoluteChange": 0.038329530971196846,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.014828052215923714,
+          "maximumAbsoluteChange": 0.020039033692964003,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": true,
+          "relativeRmsChange": 0.0008278829430469302,
+          "maximumAbsoluteChange": 0.0011111854221176332,
+          "usesDensePhysicalPupil": true
+        }
+      ],
+      "reason": "Two independently sampled phase-resolved outputs agree over every requested physical node.",
+      "evaluatedNominalPupilCells": 22700032,
+      "maximumNominalPupilCells": 100000000,
+      "requestedRelativeRmsDeviation": null,
+      "requestedMaximumAbsoluteDeviation": null
+    },
+    "provenance": {
+      "canonicalAnalysisKey": "PSF",
+      "requestFingerprint": "7a5fd425bf78a485050b74b76a03d467f31c37cb9e6a57ad46b08c83197757e4",
+      "settingsTranslation": null,
+      "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+      "snapshotSha256": "f567af557bf512c6c7ab14e9134de95a8236b44a7b5e1480950a1079904791f4",
+      "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+    },
+    "dataSha256": "452406b0f51e90c851bb39c2d8e2a429e4727580e7bc5b626f2a3417c257994b"
+  }
+]

@@ -1,0 +1,2380 @@
+{
+  "passed": 8,
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "originalGate": {
+    "closeNrmse": 0.01,
+    "nrmse": 0.003,
+    "absolute": 1e-05,
+    "relative": 0.002,
+    "minimumCoverage": 0.95
+  },
+  "archiveSha256": {
+    "validation\\repairs\\2026-10-21\\sequential-corpus-full-evidence.zip": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+    "validation\\rechecks\\2026-11-07\\parallel-refinement\\energy-evidence.zip": "f1d3f0a523a2b16368babc13a736d3b450600e181037d98b27c72caf3af96aa0",
+    "validation\\rechecks\\2026-11-07\\optical-interconnect-reference\\native-controls.zip": "d3f680394fe21472566d40e59b4285918da956b96403a8f96de7144719d5636b"
+  },
+  "rows": [
+    {
+      "index": 108,
+      "lens": "Birefringent prisms/Birefringent cube.zmx",
+      "analysis": "Diffraction Encircled Energy",
+      "frozenVerdict": "Close",
+      "independentOutcome": "SupplementalPass",
+      "originalEffectiveRequestFingerprint": "edc1eed178feea5e7149d14022d533888cdd2133a88fa3aa4fd83e852674e9f9",
+      "originalRequestBridge": null,
+      "sourceSha256": "bf6d27e96ff4b37b47c607404a38d925b90156edcb62afa41410fe1e1e58e627",
+      "sourceControl": {
+        "nativeModelControlMember": "108-64/native/model.json",
+        "frozenNativeModelSha256": "4d2318697c0d2e965fc542b4dc1a97d1607206d3b622b8f28fc6dbc3ef39e4b7"
+      },
+      "nativeArchive": "validation/rechecks/2026-11-07/parallel-refinement/energy-evidence.zip",
+      "nativeArchiveSha256": "f1d3f0a523a2b16368babc13a736d3b450600e181037d98b27c72caf3af96aa0",
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "reference": "Centroid",
+        "maximumRadiusMicrometers": 5,
+        "originalRadiusNodes": 401
+      },
+      "originalWorkbenchVersusOriginalNative": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.013214823240686013,
+            "nrmse": 0.00787952169627094,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.013214823240685902,
+            "nrmse": 0.007832199297341927,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.013214823240686457,
+            "nrmse": 0.007879521696271137,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.013214823240686346,
+            "nrmse": 0.00783219929734212,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        }
+      ],
+      "tiers": [
+        {
+          "sampling": 256,
+          "imageSampling": 512,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "e2ad18b75fbd6f01416db9376118e23598baedc2d6bba231c9f8bed6f3557fad",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "79d441fdafa81aebac433bc48d8917dd39d244728e4bd0227b2ae2447255c4ec",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "5f9b43ca2b255f9563f82c539cd50b9bfb7a2803fdbe065879a86245ddafb5f5",
+          "formalRequestSha256": "568ac7089587fd50f767d81c35e68ff15980932e80825d1135d1dfc0a8d01394",
+          "nativeDataMember": "108-256/native/data.json",
+          "nativeDataSha256": "f2737ebfcd72db4536ca3bfd0ca4f05979e41309edf1fd4a105d5f0b35bd8091",
+          "nativeSettingsMember": "108-256/native/captured-settings.json",
+          "nativeSettingsSha256": "c85e932738ad7d2a1a0b287675be99bad3e917047f9f6e6b9aaed0bc421ce030",
+          "nativeRequestMember": "108-256/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 1.999650445227985e-13,
+                "nrmse": 1.0466915988556989e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 1.999511667349907e-13,
+                "nrmse": 1.0437173220322827e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 1.9853563237859362e-13,
+                "nrmse": 1.0427629410540822e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 1.985217545907858e-13,
+                "nrmse": 1.0398158037481605e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        },
+        {
+          "sampling": 512,
+          "imageSampling": 1024,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "241a6796b33158e2714df2eac5dead6965b087a6ed7d05ac060a3ad45255b6b4",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "79d441fdafa81aebac433bc48d8917dd39d244728e4bd0227b2ae2447255c4ec",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "528d2abbf692a579b8af1a0c6139e8a701e40a4e06cf15c98ca8400359af1f0b",
+          "formalRequestSha256": "2669f35b0164478c68bc869af6250e397877a00866ee9a2f1dac02e1438f7cd0",
+          "nativeDataMember": "108-512/native/data.json",
+          "nativeDataSha256": "5a819867f70f1b9ffe0ea5b13af7cd8b7efbc44580149cba5ed3bca71637db20",
+          "nativeSettingsMember": "108-512/native/captured-settings.json",
+          "nativeSettingsSha256": "89e14c5e764de2b19fcb6ee5e5716bbeb20ef4425c82d217dc81302525137f5d",
+          "nativeRequestMember": "108-512/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 3.715916463420399e-13,
+                "nrmse": 2.0007114845921855e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 3.715916463420399e-13,
+                "nrmse": 1.9896229949141951e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 3.346212196220222e-13,
+                "nrmse": 1.8070438603449199e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 3.3439917501709715e-13,
+                "nrmse": 1.796860184735113e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        }
+      ],
+      "workbenchConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004676436535227202,
+            "nrmse": 0.00206521361510714,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004676436535227202,
+            "nrmse": 0.00206521361510714,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004676436535261785,
+            "nrmse": 0.002065213615114851,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004676436535261785,
+            "nrmse": 0.002065213615114851,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004676436535493711,
+            "nrmse": 0.0020652136151727094,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0046764365354936,
+            "nrmse": 0.0020652136151727003,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004676436535493211,
+            "nrmse": 0.002065213615172856,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0046764365354931,
+            "nrmse": 0.002065213615172847,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeFineStepSamplingConvergence": null
+    },
+    {
+      "index": 368,
+      "lens": "Diffractive components/Dual Zone CD-DVD lens.ZMX",
+      "analysis": "Diffraction Encircled Energy",
+      "frozenVerdict": "Close",
+      "independentOutcome": "SupplementalPass",
+      "originalEffectiveRequestFingerprint": "609952adc2130328306a0af1d5ca31d010da5706fadb4862cc18616895a6e361",
+      "originalRequestBridge": null,
+      "sourceSha256": "8de9d71b501dbe7cdef693aea929ec984ffc71ce9dea3e77740f092c02537bf9",
+      "sourceControl": {
+        "nativeModelControlMember": "368-64/native/model.json",
+        "frozenNativeModelSha256": "56312cb24dfde6596cda132c0ccf3e8e7c57d4b898665f876e991dbb65f9f993"
+      },
+      "nativeArchive": "validation/rechecks/2026-11-07/parallel-refinement/energy-evidence.zip",
+      "nativeArchiveSha256": "f1d3f0a523a2b16368babc13a736d3b450600e181037d98b27c72caf3af96aa0",
+      "originalSettings": {
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "reference": "Centroid",
+        "maximumRadiusMicrometers": 5,
+        "originalRadiusNodes": 401
+      },
+      "originalWorkbenchVersusOriginalNative": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.013381144886142393,
+            "nrmse": 0.004505303677267584,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.013381144886142393,
+            "nrmse": 0.0044851513315288544,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.013819870571196602,
+            "nrmse": 0.004756444036121207,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.013819870571196602,
+            "nrmse": 0.004738623024049537,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        }
+      ],
+      "tiers": [
+        {
+          "sampling": 256,
+          "imageSampling": 512,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "e28a02aaf8ac1bb1a6ff549ab2bf2c20e97fc9fb305f6a7c2416ebd60d65ad28",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "737ed72717e4277628dd67368372c188f308cd3c263cc6e477d01f058244f96c",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "22e45d190ea02b09c9a26e9c5c9113efbaf54cbba9d9eb860fb7d020f0350217",
+          "formalRequestSha256": "422d6db36d964e63adee18c60e3968ab18769bf036e68f95b8e9da3223e690c2",
+          "nativeDataMember": "368-256/native/data.json",
+          "nativeDataSha256": "a13fd906cb2f7a0559ab96dc3cc5c15fdeb43972c512f673b803898835387d19",
+          "nativeSettingsMember": "368-256/native/captured-settings.json",
+          "nativeSettingsSha256": "48fefc563ae35cd3a4e9d518461bcad879e4928ff893f06422e82b98fee74512",
+          "nativeRequestMember": "368-256/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 1.0417222640057844e-12,
+                "nrmse": 2.7450959422602455e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 1.0417222640057844e-12,
+                "nrmse": 2.720150423938472e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 5.753952869724799e-12,
+                "nrmse": 2.3100568108302076e-12,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 5.753952869724799e-12,
+                "nrmse": 2.3069485251690683e-12,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        },
+        {
+          "sampling": 512,
+          "imageSampling": 1024,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "e26a487f2859d53e435c7cc8ab0697f3ed2435efffaf143227513580f840ff55",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "737ed72717e4277628dd67368372c188f308cd3c263cc6e477d01f058244f96c",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "ff1a70f2f8bbef52bd17a9ae60483860f5e944c798a2b534558df154e647ae34",
+          "formalRequestSha256": "65853111bb3680422743a5f17abc1bf6c8d57f478197baa41e77bfee94686a41",
+          "nativeDataMember": "368-512/native/data.json",
+          "nativeDataSha256": "ffb5ff735916bcb4f5ee4c40faa51c55d86cf9185da6a9c57e6962edd633a5cc",
+          "nativeSettingsMember": "368-512/native/captured-settings.json",
+          "nativeSettingsSha256": "d672474ca498b6c7f27c3bcb9d8db314f024ed8f1842147493c5cb2cf8725a2e",
+          "nativeRequestMember": "368-512/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 2.078559546703218e-12,
+                "nrmse": 4.706880405489094e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 2.078559546703218e-12,
+                "nrmse": 4.674608932648087e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 1.0112799486705626e-11,
+                "nrmse": 4.29157842231775e-12,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 1.0112799486705626e-11,
+                "nrmse": 4.280314622277052e-12,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        }
+      ],
+      "workbenchConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004059596559978784,
+            "nrmse": 0.000914863863007925,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004059596559978784,
+            "nrmse": 0.000914863863007925,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.002685653530913934,
+            "nrmse": 0.0007406981217379628,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.002685653530913934,
+            "nrmse": 0.0007406981217379628,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004059596560084033,
+            "nrmse": 0.0009148638630387166,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004059596560084033,
+            "nrmse": 0.0009148638630387152,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.002685653528579912,
+            "nrmse": 0.0007406981228610592,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.002685653528579912,
+            "nrmse": 0.0007406981228610569,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeFineStepSamplingConvergence": null
+    },
+    {
+      "index": 712,
+      "lens": "Image Simulation/Example 6, tilted image plane.ZMX",
+      "analysis": "Diffraction Encircled Energy",
+      "frozenVerdict": "Close",
+      "independentOutcome": "SupplementalPass",
+      "originalEffectiveRequestFingerprint": "99e5fa4492d63bdef1f0edf43a4b277ff2e651954977a30f7808c6ef604b6d4e",
+      "originalRequestBridge": null,
+      "sourceSha256": "3d99b357ca4cf3b6f8e6ef7aa8cbe8fd41d3a739d89411b23b0330a8bedca92c",
+      "sourceControl": {
+        "nativeModelControlMember": "712-64/native/model.json",
+        "frozenNativeModelSha256": "f698bc52814c56f5aaafb0ec859a2781eeb4ee8e127189559033c70e5fa09b8b"
+      },
+      "nativeArchive": "validation/rechecks/2026-11-07/parallel-refinement/energy-evidence.zip",
+      "nativeArchiveSha256": "f1d3f0a523a2b16368babc13a736d3b450600e181037d98b27c72caf3af96aa0",
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "reference": "Centroid",
+        "maximumRadiusMicrometers": 5,
+        "originalRadiusNodes": 401
+      },
+      "originalWorkbenchVersusOriginalNative": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.013209281217944402,
+            "nrmse": 0.007540038280367794,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.013209281217944402,
+            "nrmse": 0.007486933849914535,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.00972522194720421,
+            "nrmse": 0.005818999610401076,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.00972522194720421,
+            "nrmse": 0.005772434779124725,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        }
+      ],
+      "tiers": [
+        {
+          "sampling": 256,
+          "imageSampling": 512,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "32765d14813bf84f85613dd36942abbb3ebcb2d4de626200f5b72b1db93841e8",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "b8790564756f1be78b75196da05c6af597f3273ce878f98a828f1eb52d345cc5",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "121faf529c6c4e098258d07e1813737c6a28285e1fa8dbd303f15383fbc874aa",
+          "formalRequestSha256": "eeb0a8b16c23597f9ec50ff91c84b21f3011cf627beef1f7b74f65b43dd8ac28",
+          "nativeDataMember": "712-256/native/data.json",
+          "nativeDataSha256": "950efcb54fbc096a871ed744d6012a86bcd30dad3784de261d302890521239d3",
+          "nativeSettingsMember": "712-256/native/captured-settings.json",
+          "nativeSettingsSha256": "2abc997cf48003f04353176afc20cea7613559a70ad4dab78c975c602693e8b4",
+          "nativeRequestMember": "712-256/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 2.7189361873070084e-13,
+                "nrmse": 1.4454195278457923e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 2.717825964282383e-13,
+                "nrmse": 1.4388045653709344e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 1.1775802555291648e-11,
+                "nrmse": 9.590645805206673e-12,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 1.1775802555291648e-11,
+                "nrmse": 9.54240088115172e-12,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        },
+        {
+          "sampling": 512,
+          "imageSampling": 1024,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "159a8400314fad5dce8803c1d189ae0db4366ed7acfcea5acaea2cf60b93ed21",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "b8790564756f1be78b75196da05c6af597f3273ce878f98a828f1eb52d345cc5",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "871e389d1ddf36ab8e18a888fa392c61283232457ffd7a5a1023f921d23483e1",
+          "formalRequestSha256": "e0fa67d95ff648e4fcdea35fbbe7bfba2e590780d07deefe04116bf8559f6b35",
+          "nativeDataMember": "712-512/native/data.json",
+          "nativeDataSha256": "5c2e5b7b0ccc666aee0ecb9652270e4e09d544a058a45c3f592d3e434c9826a0",
+          "nativeSettingsMember": "712-512/native/captured-settings.json",
+          "nativeSettingsSha256": "41743b7891441c754ad3c9f9b9ca715c6c68198fd5055ce698981923b7ca060d",
+          "nativeRequestMember": "712-512/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.0008408318763125644,
+                "nrmse": 0.0004874667421617196,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.0008408318763125644,
+                "nrmse": 0.0004840207209246229,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.0006218266185894494,
+                "nrmse": 0.0003690919874562987,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.0006218266185894494,
+                "nrmse": 0.0003661668169275551,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        }
+      ],
+      "workbenchConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004714410147573123,
+            "nrmse": 0.0019828490355967747,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004714410147573123,
+            "nrmse": 0.0019828490355967747,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0034005107688481195,
+            "nrmse": 0.0014059617688106866,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0034005107688481195,
+            "nrmse": 0.0014059617688106866,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003915540400988238,
+            "nrmse": 0.0015214639187423613,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003915540400988071,
+            "nrmse": 0.0015214639187423513,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0027971409315308837,
+            "nrmse": 0.0011467487298164295,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.002797140931530717,
+            "nrmse": 0.0011467487298164188,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeFineStepSamplingConvergence": null
+    },
+    {
+      "index": 742,
+      "lens": "Image Simulation/Example 6, tilted image plane.ZMX",
+      "analysis": "Diffraction Encircled Energy",
+      "frozenVerdict": "Close",
+      "independentOutcome": "SupplementalPass",
+      "originalEffectiveRequestFingerprint": "e77d3aa3e8f5ad90467647cf2b00539fb0b1667670d38d730f61025f343555dc",
+      "originalRequestBridge": null,
+      "sourceSha256": "3d99b357ca4cf3b6f8e6ef7aa8cbe8fd41d3a739d89411b23b0330a8bedca92c",
+      "sourceControl": {
+        "nativeModelControlMember": "742-64/native/model.json",
+        "frozenNativeModelSha256": "afce86100cb6eb5985708fe44a4cd9cc19263e5c6a85d0c78fee7ac7cef1176a"
+      },
+      "nativeArchive": "validation/rechecks/2026-11-07/parallel-refinement/energy-evidence.zip",
+      "nativeArchiveSha256": "f1d3f0a523a2b16368babc13a736d3b450600e181037d98b27c72caf3af96aa0",
+      "originalSettings": {
+        "configuration": 2,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "reference": "Centroid",
+        "maximumRadiusMicrometers": 5,
+        "originalRadiusNodes": 401
+      },
+      "originalWorkbenchVersusOriginalNative": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.013209281217990698,
+            "nrmse": 0.007516313949302284,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.013209281217990698,
+            "nrmse": 0.007463376609126565,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.009725221927253613,
+            "nrmse": 0.005816634329911355,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.009725221927253613,
+            "nrmse": 0.005770088425974854,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        }
+      ],
+      "tiers": [
+        {
+          "sampling": 256,
+          "imageSampling": 512,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "8508fb4ec1293466542485da987895ab251265a0c4519b681b756404ed261449",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "ac5f666b9f1f095f2606e27176609551812c16829531bf91c910e260987933df",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "84c9f3fd8160a47f4101dfd57d9431364113e496f319e9158a5ff4bfc734d54e",
+          "formalRequestSha256": "3f678a0ff8a7eaf75e7dcdb04a76856e8651fd043d8e8fc9c3949929fec461a7",
+          "nativeDataMember": "742-256/native/data.json",
+          "nativeDataSha256": "5c93c1c47867f51f4935e2b3edb163e9ff2f5d4db70030c5c22d4fba933a40c5",
+          "nativeSettingsMember": "742-256/native/captured-settings.json",
+          "nativeSettingsSha256": "db80ed2a020f4ba60c9ffbda2461236f8390fabc5b183bb85a51edc88e920ce2",
+          "nativeRequestMember": "742-256/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.000839986203771792,
+                "nrmse": 0.0004771579540522014,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.000839986203771681,
+                "nrmse": 0.0004737528281272673,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.0006177885571665986,
+                "nrmse": 0.0003656459002748494,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.0006177885571664876,
+                "nrmse": 0.0003626979303165815,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        },
+        {
+          "sampling": 512,
+          "imageSampling": 1024,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "bf1a0c6a4a4eb2d18270e00d76b916b3fbc5f8a3c4bc64cdb37b185f1f376e52",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "ac5f666b9f1f095f2606e27176609551812c16829531bf91c910e260987933df",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "e416c9ba49843d558f7e039a792217e258f9afb121f8f106da21c6180fcd3ccc",
+          "formalRequestSha256": "ddbf1a7f5d5c760c4a897ae64f6bc6d78d1f032539d9d5660c33329d5f39ac90",
+          "nativeDataMember": "742-512/native/data.json",
+          "nativeDataSha256": "cd00d86020cc80d4d9da91500fa5ead4e1ab12eaaeffe7a4ea806a33db2112b0",
+          "nativeSettingsMember": "742-512/native/captured-settings.json",
+          "nativeSettingsSha256": "99a449a3625d474b4219c5dfc22fed0215e6d9d79d9fd8f13022b849f2f7cd2d",
+          "nativeRequestMember": "742-512/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 4.289901767151605e-13,
+                "nrmse": 2.3641960760398005e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 4.289901767151605e-13,
+                "nrmse": 2.35058213064715e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 1.9510726367855113e-11,
+                "nrmse": 1.8553135070614632e-11,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 1.9510726367855113e-11,
+                "nrmse": 1.8427096332029915e-11,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        }
+      ],
+      "workbenchConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004714410147573123,
+            "nrmse": 0.0019828490355967747,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004714410147573123,
+            "nrmse": 0.0019828490355967747,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003400510768490239,
+            "nrmse": 0.0014059617696466503,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003400510768490239,
+            "nrmse": 0.0014059617696466503,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.005511119752740712,
+            "nrmse": 0.002440796704832359,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.005511119752740545,
+            "nrmse": 0.0024407967048323516,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003999914526555626,
+            "nrmse": 0.0017177626750787037,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003999914526555459,
+            "nrmse": 0.0017177626750786957,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeFineStepSamplingConvergence": null
+    },
+    {
+      "index": 860,
+      "lens": "Interconnects/Optical interconnect.ZMX",
+      "analysis": "Diffraction Encircled Energy",
+      "frozenVerdict": "Close",
+      "independentOutcome": "SupplementalPass",
+      "originalEffectiveRequestFingerprint": "d41e5719217d65361f1ca68d961553f90064d3d99866bbdfb1e48d07877f4bad",
+      "originalRequestBridge": null,
+      "sourceSha256": "ce3178977e7fe160560a0333b2bdcfcaa549915c87ff8e7003433d36e59225ff",
+      "sourceControl": {
+        "originalStepMm": 0.1,
+        "fineStepMm": 0.001,
+        "changedStepLines": 2,
+        "originalSourceMember": "native-energy/inputs/ce3178977e7fe160560a0333b2bdcfcaa549915c87ff8e7003433d36e59225ff.ZMX",
+        "fineSourceMember": "native-energy/inputs/a491e9f1c3f8540576ffa6ded0072053d8c3f4bb1470c56823374767ad783a29.ZMX",
+        "fineSourceSha256": "a491e9f1c3f8540576ffa6ded0072053d8c3f4bb1470c56823374767ad783a29"
+      },
+      "nativeArchive": "validation/rechecks/2026-11-07/optical-interconnect-reference/native-controls.zip",
+      "nativeArchiveSha256": "d3f680394fe21472566d40e59b4285918da956b96403a8f96de7144719d5636b",
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "reference": "Centroid",
+        "maximumRadiusMicrometers": 5,
+        "originalRadiusNodes": 401
+      },
+      "originalWorkbenchVersusOriginalNative": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.012345216306995366,
+            "nrmse": 0.004927053792963091,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.012345216306995366,
+            "nrmse": 0.004909998464937509,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.011460988710790598,
+            "nrmse": 0.0042957688653222,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.011460988710790598,
+            "nrmse": 0.004280548380630006,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        }
+      ],
+      "tiers": [
+        {
+          "sampling": 256,
+          "imageSampling": 512,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "a6aeef6d621b47be2a1c72ef7bd9954b163f5eb2a3c459bccf0c1c9f2fff09ad",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "27a3c6e6f4be5b46e5ab5fbddfcbc6becba75940cc501bb38e1cd6ed488671ce",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "f83c286b137acc0394338b1e4538ad13aa0dd20773eda525907c97b3b24efb76",
+          "formalRequestSha256": "e302079f1fe50070179128fa54c4801409a994984c085fdd40ca4e258501b1d1",
+          "nativeDataMember": "native-energy/frozen-256/data.json",
+          "nativeDataSha256": "f558dfee105065c7530e9279d8f69a87bc91e8cf33db55921f07d0a27186a4c3",
+          "nativeSettingsMember": "native-energy/frozen-256/captured-settings.json",
+          "nativeSettingsSha256": "6e325c1445ee865be99c8b7b682b91400735eeec56b39296dc6d5d6cadb82dc6",
+          "nativeRequestMember": "native-energy/requests/frozen-256.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.0014858600948025602,
+                "nrmse": 0.000516430733895888,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.0014858600948024492,
+                "nrmse": 0.0005149802934077113,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.0012281360354557957,
+                "nrmse": 0.0004521808517403889,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.0012281360354556847,
+                "nrmse": 0.0004507912939942004,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              }
+            }
+          ],
+          "fineStepControl": {
+            "nativeDataMember": "native-energy/fine-256/data.json",
+            "dataSha256": "1a0cac4c2d2788b49ed680dcd2e608a3c9fb970459125a9b22644a9706aa844b",
+            "stepConvergence": [
+              {
+                "component": "DiffractionLimit",
+                "comparisonRegistryMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 1.4765823119766708e-08,
+                  "nrmse": 5.503782631595653e-09,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                },
+                "originalRadiusMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 1.4765823119766708e-08,
+                  "nrmse": 5.503782631595655e-09,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                }
+              },
+              {
+                "component": "Actual",
+                "comparisonRegistryMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 4.436774937932597e-05,
+                  "nrmse": 1.9121534869986777e-05,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                },
+                "originalRadiusMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 4.436774937932597e-05,
+                  "nrmse": 1.91215348699868e-05,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                }
+              }
+            ],
+            "crossComparison": [
+              {
+                "component": "DiffractionLimit",
+                "comparisonRegistryMetric": {
+                  "count": 786,
+                  "coverage": 1,
+                  "maximumAbsolute": 0.0014858712761229853,
+                  "nrmse": 0.0005164359742546182,
+                  "pointwisePass": false,
+                  "conclusion": "Pass"
+                },
+                "originalRadiusMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 0.0014858712761228743,
+                  "nrmse": 0.0005149855094700283,
+                  "pointwisePass": false,
+                  "conclusion": "Pass"
+                }
+              },
+              {
+                "component": "Actual",
+                "comparisonRegistryMetric": {
+                  "count": 786,
+                  "coverage": 1,
+                  "maximumAbsolute": 0.001255535244344963,
+                  "nrmse": 0.00046497080843161136,
+                  "pointwisePass": false,
+                  "conclusion": "Pass"
+                },
+                "originalRadiusMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 0.001255535244344963,
+                  "nrmse": 0.00046346509492904367,
+                  "pointwisePass": false,
+                  "conclusion": "Pass"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "sampling": 512,
+          "imageSampling": 1024,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "cfc4d54019019db7144c3018c5085a4b7dd343a0820b762fd73e3e01557c5bf2",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "27a3c6e6f4be5b46e5ab5fbddfcbc6becba75940cc501bb38e1cd6ed488671ce",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "b0178e371115c02a4760be938bb131db2ee24c61c4640a87e020ec9b2e3a195e",
+          "formalRequestSha256": "c40fd310c4c18dac8e1eec5487b1f5b6de7f02e88be6a50a611a366a9841abfb",
+          "nativeDataMember": "native-energy/frozen-512/data.json",
+          "nativeDataSha256": "5911a156d7b869931492d508d9d3951c95d2670153c413f727f69e757d2758d1",
+          "nativeSettingsMember": "native-energy/frozen-512/captured-settings.json",
+          "nativeSettingsSha256": "6805b45dbd9a86cb6c50751b0761741cb8d67d8769c8b504721f30dbae33165c",
+          "nativeRequestMember": "native-energy/requests/frozen-512.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.0006135605995811755,
+                "nrmse": 0.00017653306772299405,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.0006135605995811755,
+                "nrmse": 0.00017616929303985941,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.00041854148344355746,
+                "nrmse": 0.00014207134493874054,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.00041854148344355746,
+                "nrmse": 0.00014178375977768972,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ],
+          "fineStepControl": {
+            "nativeDataMember": "native-energy/fine-512/data.json",
+            "dataSha256": "c5f032c40600f89f70bfaf1f939c31674c9d8957a016b4160fb9bb17463e68bc",
+            "stepConvergence": [
+              {
+                "component": "DiffractionLimit",
+                "comparisonRegistryMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 1.430975149485647e-08,
+                  "nrmse": 5.493341932708025e-09,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                },
+                "originalRadiusMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 1.430975149485647e-08,
+                  "nrmse": 5.4933419327044985e-09,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                }
+              },
+              {
+                "component": "Actual",
+                "comparisonRegistryMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 4.680184279770572e-05,
+                  "nrmse": 2.055160048550199e-05,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                },
+                "originalRadiusMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 4.680184279770572e-05,
+                  "nrmse": 2.0551600485501415e-05,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                }
+              }
+            ],
+            "crossComparison": [
+              {
+                "component": "DiffractionLimit",
+                "comparisonRegistryMetric": {
+                  "count": 786,
+                  "coverage": 1,
+                  "maximumAbsolute": 0.0006135718181836669,
+                  "nrmse": 0.00017653809230644765,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                },
+                "originalRadiusMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 0.0006135718181836669,
+                  "nrmse": 0.0001761742908389033,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                }
+              },
+              {
+                "component": "Actual",
+                "comparisonRegistryMetric": {
+                  "count": 786,
+                  "coverage": 1,
+                  "maximumAbsolute": 0.0004471975308042442,
+                  "nrmse": 0.00015427392434576266,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                },
+                "originalRadiusMetric": {
+                  "count": 401,
+                  "coverage": 1,
+                  "maximumAbsolute": 0.0004471975308042442,
+                  "nrmse": 0.00015390699771091398,
+                  "pointwisePass": true,
+                  "conclusion": "Pass"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "workbenchConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004354554768148333,
+            "nrmse": 0.0014054108298375216,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004354554768148333,
+            "nrmse": 0.0014054108298375216,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0030069559633338905,
+            "nrmse": 0.0010721865879914992,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0030069559633338905,
+            "nrmse": 0.0010721865879914992,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0033968541962376975,
+            "nrmse": 0.0010880858123674896,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003396854196237642,
+            "nrmse": 0.0010880858123674861,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.002224685224441414,
+            "nrmse": 0.0007792081357272314,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.002224685224441414,
+            "nrmse": 0.0007792081357272296,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeFineStepSamplingConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003396856774309731,
+            "nrmse": 0.0010880858077889106,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0033968567743096756,
+            "nrmse": 0.0010880858077889069,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0022207922383945533,
+            "nrmse": 0.0007802230902649676,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0022207922383944423,
+            "nrmse": 0.0007802230902649653,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ]
+    },
+    {
+      "index": 2142,
+      "lens": "Optical testing/Offner refracting compensator.zmx",
+      "analysis": "Diffraction Encircled Energy",
+      "frozenVerdict": "Close",
+      "independentOutcome": "SupplementalPass",
+      "originalEffectiveRequestFingerprint": "d31adf3c3b839c6467219bef655d15b3604a4ad481a6790302187d0fc0dad31f",
+      "originalRequestBridge": null,
+      "sourceSha256": "4c17ca45d226e81a6cd142d0bd4386983bbdc2e661bb00862a037adfda42bddf",
+      "sourceControl": {
+        "nativeModelControlMember": "2142-64/native/model.json",
+        "frozenNativeModelSha256": "e2c5dc5e7a06942b1c7d9a60e4c95d9036a766c78b35cbb5b8ae30e91215cf63"
+      },
+      "nativeArchive": "validation/rechecks/2026-11-07/parallel-refinement/energy-evidence.zip",
+      "nativeArchiveSha256": "f1d3f0a523a2b16368babc13a736d3b450600e181037d98b27c72caf3af96aa0",
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "reference": "Centroid",
+        "maximumRadiusMicrometers": 5,
+        "originalRadiusNodes": 401
+      },
+      "originalWorkbenchVersusOriginalNative": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.0131510233401676,
+            "nrmse": 0.006742915772659282,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0131510233401676,
+            "nrmse": 0.0066860344487171845,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.013227034586926867,
+            "nrmse": 0.006948659509725444,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.013227034586926867,
+            "nrmse": 0.006889909264628974,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        }
+      ],
+      "tiers": [
+        {
+          "sampling": 256,
+          "imageSampling": 512,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "ed767396f460275872225c4869eb240b5050eddcc12efb367a3fdd224f0b8fcf",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "f344d2d33599285e01fb088ff31e567d2f1f89e8d11735d36c3cb9f062a60dde",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "d8811d512751ffdb709decfbf13c9945a718b96e0706d886f4eae2b8de5db36c",
+          "formalRequestSha256": "723a577279b2eebd5b07d289e9e09586ab52ffceddb0a0aa705b39fa2d5bc13b",
+          "nativeDataMember": "2142-256/native/data.json",
+          "nativeDataSha256": "fc6adda3f6f0506e15b1abb732581fd800cb03ed47aa6573912510ff1b327034",
+          "nativeSettingsMember": "2142-256/native/captured-settings.json",
+          "nativeSettingsSha256": "f72bfff396c1707d3f25a62032bbdd1d324790b49e8bbe8647881892ac67a321",
+          "nativeRequestMember": "2142-256/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 2.665645482125001e-13,
+                "nrmse": 1.4688052921044025e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 2.665645482125001e-13,
+                "nrmse": 1.456593101562489e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 2.082188792495998e-07,
+                "nrmse": 1.0265086721416876e-07,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 2.082188792495998e-07,
+                "nrmse": 1.0195719118121174e-07,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        },
+        {
+          "sampling": 512,
+          "imageSampling": 1024,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "3cf96a8c147e7a503aa6f23c18a7f0c5797c62ffc36e43c72791b7d1d9a81d7d",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "f344d2d33599285e01fb088ff31e567d2f1f89e8d11735d36c3cb9f062a60dde",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "983f45a81e41746d248f6a120da168f54ac6c87b83757aca366376ec8d341001",
+          "formalRequestSha256": "89fdc3adef034779930f33d5df34ae00733983fefba8aa30c672f6aa35d5fabd",
+          "nativeDataMember": "2142-512/native/data.json",
+          "nativeDataSha256": "1aa464e8be49e8ba7eb7122ccbd9a290d05dbfa169bd57f1014c163aa3ad59c3",
+          "nativeSettingsMember": "2142-512/native/captured-settings.json",
+          "nativeSettingsSha256": "b393a47b2ba8f83a30d7267c5e7a5f41f9ec3a50f828c47b6f1170032bd4a3c9",
+          "nativeRequestMember": "2142-512/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.0008407891840045423,
+                "nrmse": 0.00043854436630048075,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.0008407891840045423,
+                "nrmse": 0.00043478261238513185,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.000847681033148806,
+                "nrmse": 0.0004574775114431843,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.000847681033148695,
+                "nrmse": 0.0004535611959531246,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        }
+      ],
+      "workbenchConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004736904691432842,
+            "nrmse": 0.0017917083657459129,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004736904691432842,
+            "nrmse": 0.0017917083657459129,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004365505130086933,
+            "nrmse": 0.0015235574874416665,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004365505130086933,
+            "nrmse": 0.0015235574874416665,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003938588393099185,
+            "nrmse": 0.0013771213042898963,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003938588393099018,
+            "nrmse": 0.0013771213042898904,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0035634364969004406,
+            "nrmse": 0.0011190040640588733,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0035634364969003296,
+            "nrmse": 0.0011190040640588611,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeFineStepSamplingConvergence": null
+    },
+    {
+      "index": 2728,
+      "lens": "Tilted systems & prisms/Tilted mirror.zmx",
+      "analysis": "Diffraction Encircled Energy",
+      "frozenVerdict": "Close",
+      "independentOutcome": "SupplementalPass",
+      "originalEffectiveRequestFingerprint": "a4585601b6b4d286a2d0dd91b38a466aa957600e4a4f2c7f4e86bc48c6705431",
+      "originalRequestBridge": {
+        "index": 2728,
+        "originalFingerprint": "5ae9d7c5297efb7a4c81d26ae05d0bdca950ed5de2319f7806bbc2609723e1a1",
+        "effectiveFingerprint": "a4585601b6b4d286a2d0dd91b38a466aa957600e4a4f2c7f4e86bc48c6705431",
+        "originalSurfaceCount": 4,
+        "effectiveSurfaceCount": 5,
+        "explicitSurface": -1
+      },
+      "sourceSha256": "9cc4d6101d4927b36ff3a62f68e54f5e40d8869652ed818e647707b6987f79e6",
+      "sourceControl": {
+        "nativeModelControlMember": "2728-64/native/model.json",
+        "frozenNativeModelSha256": "5673b2a02d345d782d613d81d6895262ff807a262fac23945a3fc254f504e76b"
+      },
+      "nativeArchive": "validation/rechecks/2026-11-07/parallel-refinement/energy-evidence.zip",
+      "nativeArchiveSha256": "f1d3f0a523a2b16368babc13a736d3b450600e181037d98b27c72caf3af96aa0",
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "reference": "Centroid",
+        "maximumRadiusMicrometers": 5,
+        "originalRadiusNodes": 401
+      },
+      "originalWorkbenchVersusOriginalNative": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.01322774512656999,
+            "nrmse": 0.009590903073833035,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.01322774512656999,
+            "nrmse": 0.009543454964694408,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.013227745125065749,
+            "nrmse": 0.009590903073995597,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.013227745125065749,
+            "nrmse": 0.00954345496485238,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        }
+      ],
+      "tiers": [
+        {
+          "sampling": 256,
+          "imageSampling": 512,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "1ba1f019648b98802bb4de41a0f4735e12e325a7a58f9973a46bfdfe98d891af",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "fb6da647e77c5961a33da3be9f3f3811cc81eafcddf85ac458d52b763c912d9c",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "809fd5b647f1e0f533730dfe4562d6034ce7c08ab83c348108356c6c5f4e9797",
+          "formalRequestSha256": "929589964f65552e56396d2092e0c43f2e2ec86f36096ee69a860ca82224118c",
+          "nativeDataMember": "2728-256/native/data.json",
+          "nativeDataSha256": "3f371c2febc935ee7a064683b81a98d7c2fa6b6010968e2e93d8801ee5219328",
+          "nativeSettingsMember": "2728-256/native/captured-settings.json",
+          "nativeSettingsSha256": "7b734fb15649faf07c8b350c93442433a74b7d8f1787c90be40a3d8d4719b6e4",
+          "nativeRequestMember": "2728-256/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.0008395380087231619,
+                "nrmse": 0.0006085464034464317,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.0008395380087231619,
+                "nrmse": 0.0006055878149978483,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.0008395380088563886,
+                "nrmse": 0.0006085464033748434,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.0008395380088563886,
+                "nrmse": 0.0006055878149264359,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        },
+        {
+          "sampling": 512,
+          "imageSampling": 1024,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "4ba74360755644c489d184adc77c0ca5e22e5b0f272494acefc4bd66b3b337a7",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "fb6da647e77c5961a33da3be9f3f3811cc81eafcddf85ac458d52b763c912d9c",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "f6ccb15b0d3ff91882fe415c11a33fbbdcf5d2faaeb8177499aa86a902d307a3",
+          "formalRequestSha256": "c88792bb8f435bb364d11d94f5a9650e6aa83aa5963943bc835c47960c24a420",
+          "nativeDataMember": "2728-512/native/data.json",
+          "nativeDataSha256": "e6d31f5396f525f14fa50cb2501d849daff03ac75b4f9e93dd67598a21dbb5a5",
+          "nativeSettingsMember": "2728-512/native/captured-settings.json",
+          "nativeSettingsSha256": "8f3290926f806db443cbce1e08d571e02a6a95a5eb121ac30026fd92c906232a",
+          "nativeRequestMember": "2728-512/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 2.4280577548552174e-13,
+                "nrmse": 1.4652776944021003e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 2.4280577548552174e-13,
+                "nrmse": 1.4560521097823777e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 9.697798120100742e-14,
+                "nrmse": 4.790858066235736e-14,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 9.686695889854491e-14,
+                "nrmse": 4.7696350633060904e-14,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        }
+      ],
+      "workbenchConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004652664676050189,
+            "nrmse": 0.0024919708511581037,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004652664676050189,
+            "nrmse": 0.0024919708511581037,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004652664676223661,
+            "nrmse": 0.0024919708511745467,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004652664676223661,
+            "nrmse": 0.0024919708511745467,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0038522949089054292,
+            "nrmse": 0.001917366338538187,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003852294908905207,
+            "nrmse": 0.001917366338538186,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0038522949086167158,
+            "nrmse": 0.0019173663385122935,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0038522949086164937,
+            "nrmse": 0.0019173663385122922,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeFineStepSamplingConvergence": null
+    },
+    {
+      "index": 2750,
+      "lens": "Tilted systems & prisms/Tilted object.zmx",
+      "analysis": "Diffraction Encircled Energy",
+      "frozenVerdict": "Close",
+      "independentOutcome": "SupplementalPass",
+      "originalEffectiveRequestFingerprint": "dfdf3bc2a6c9f2f68d6fbfd3840d86eaf6525ffd0dfe48240c05dd96292039ea",
+      "originalRequestBridge": null,
+      "sourceSha256": "5fe8a4c6cffca20ccee36ab53af33d3078ba1838d2fd10b9ef48315d4afc61a9",
+      "sourceControl": {
+        "nativeModelControlMember": "2750-64/native/model.json",
+        "frozenNativeModelSha256": "eb53efc899c7c74fbf7f0d7cabcf06c2027d17bd8480fc13a0195f99b250d67f"
+      },
+      "nativeArchive": "validation/rechecks/2026-11-07/parallel-refinement/energy-evidence.zip",
+      "nativeArchiveSha256": "f1d3f0a523a2b16368babc13a736d3b450600e181037d98b27c72caf3af96aa0",
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "reference": "Centroid",
+        "maximumRadiusMicrometers": 5,
+        "originalRadiusNodes": 401
+      },
+      "originalWorkbenchVersusOriginalNative": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.013201001840351445,
+            "nrmse": 0.007229953037819618,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.013201001840351445,
+            "nrmse": 0.007172841824077615,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 786,
+            "coverage": 1,
+            "maximumAbsolute": 0.011973944693743022,
+            "nrmse": 0.006581339259739053,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.011973944693743022,
+            "nrmse": 0.006527802584704864,
+            "pointwisePass": false,
+            "conclusion": "Close"
+          }
+        }
+      ],
+      "tiers": [
+        {
+          "sampling": 256,
+          "imageSampling": 512,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "34d8b95174610743a043244bd1644e87d068d3ae39a5a21b5536c274ef3a1f46",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "fa0f590a50b1054a5f319b7e8fd13f2d076fd1f3c1fa33ba478bd6f5582b2112",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "493f24056c789861c9fbe34bf03f880cb4a472f9ce102044b7dd5e8c368a51fe",
+          "formalRequestSha256": "6093f17efa624b3eb013a1373bcba98810d05ecb3c93db04f5c08e6efe1a29bc",
+          "nativeDataMember": "2750-256/native/data.json",
+          "nativeDataSha256": "d259a0354006b7cfe3ea0ca6d1a57bcc6ac7f983c74b101bed710dc25d295f18",
+          "nativeSettingsMember": "2750-256/native/captured-settings.json",
+          "nativeSettingsSha256": "b7686bfa3775f997dc668f436da80b904f38bea4060011e781e9753decf75035",
+          "nativeRequestMember": "2750-256/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 2.4513724383723456e-13,
+                "nrmse": 1.2593365636126487e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 2.4513724383723456e-13,
+                "nrmse": 1.251055282532181e-13,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 1.3128942377704789e-11,
+                "nrmse": 1.1249542495355962e-11,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 1.3128942377704789e-11,
+                "nrmse": 1.1174075903374916e-11,
+                "pointwisePass": true,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        },
+        {
+          "sampling": 512,
+          "imageSampling": 1024,
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "7e4504eec379211faba3bec72bbbc5f0fbef70aac12964417ed89cc623888328",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "fa0f590a50b1054a5f319b7e8fd13f2d076fd1f3c1fa33ba478bd6f5582b2112",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "formalDataSha256": "9309607bf5f2f66d8f585cf029231cbff339d48fa6fa93ec1dd6c0a9caea1cec",
+          "formalRequestSha256": "8e4ceba4923452f06f786d1519e68d7234249ad9b745745dea06e798feba9bef",
+          "nativeDataMember": "2750-512/native/data.json",
+          "nativeDataSha256": "e4118ec59a9e7e43f9a3e17f88111863cdca61a0d7d73944b61e8de10b990e35",
+          "nativeSettingsMember": "2750-512/native/captured-settings.json",
+          "nativeSettingsSha256": "e1e2046ce07f0520c367eddf4f8caae0b4599ef1bc68e3f07195e621c184d8d4",
+          "nativeRequestMember": "2750-512/nreq.json",
+          "settingsReadbackEqualsOriginalExceptSampling": true,
+          "crossComparison": [
+            {
+              "component": "DiffractionLimit",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.0008408248130370444,
+                "nrmse": 0.00046935633701349706,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.0008408248130370444,
+                "nrmse": 0.0004656270797157868,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              }
+            },
+            {
+              "component": "Actual",
+              "comparisonRegistryMetric": {
+                "count": 786,
+                "coverage": 1,
+                "maximumAbsolute": 0.0007754024880689547,
+                "nrmse": 0.00043416718745981645,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              },
+              "originalRadiusMetric": {
+                "count": 401,
+                "coverage": 1,
+                "maximumAbsolute": 0.0007754024880689547,
+                "nrmse": 0.000430647377714708,
+                "pointwisePass": false,
+                "conclusion": "Pass"
+              }
+            }
+          ]
+        }
+      ],
+      "workbenchConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004704321794187394,
+            "nrmse": 0.001908799740277429,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004704321794187394,
+            "nrmse": 0.001908799740277429,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004157464949462342,
+            "nrmse": 0.001513355505718783,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.004157464949462342,
+            "nrmse": 0.001513355505718783,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeConvergence": [
+        {
+          "component": "DiffractionLimit",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0039061205970979396,
+            "nrmse": 0.0014644506360696227,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0039061205970978286,
+            "nrmse": 0.0014644506360696156,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        },
+        {
+          "component": "Actual",
+          "comparisonRegistryMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.003417668283702213,
+            "nrmse": 0.00113034997726781,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          },
+          "originalRadiusMetric": {
+            "count": 401,
+            "coverage": 1,
+            "maximumAbsolute": 0.0034176682837021577,
+            "nrmse": 0.0011303499772678013,
+            "pointwisePass": false,
+            "conclusion": "Pass"
+          }
+        }
+      ],
+      "nativeFineStepSamplingConvergence": null
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "menuLenses": 95,
+  "frozenConfigurations": 115,
+  "frozenRequests": 3024,
+  "affectedLenses": 74,
+  "frozenMatrix": {
+    "Incomparable": 427,
+    "Pass": 2527,
+    "Close": 19,
+    "Difference": 31,
+    "Error": 20
+  },
+  "scopeRequests": 427,
+  "frozenReplay": {
+    "path": "validation/rechecks/2026-11-08/parallel-focal-fft-applicability/frozen-replay.csv",
+    "sha256": "a9ed4e1cfea1db8525fc9878bf30b629a42f92442110256a929af752535a7b71"
+  },
+  "originalNativeArchive": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+  "originalNativePayloadsVerified": 3099,
+  "currentCoreSha256": "352cbe8c7e695fb8f27e5fadc54f62121b7330918f172fd9a0b31db7f51608d7",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "currentComparisonAgainstFrozenNative": {
+    "Incomparable": 427
+  },
+  "currentFixedWorkbenchOutcomes": {
+    "NoCanonicalRequest": 120,
+    "Success": 191,
+    "Unavailable": 76,
+    "WorkerError": 2,
+    "NotApplicable": 38
+  },
+  "currentFixedWorkerErrorIndices": [
+    555,
+    2499
+  ],
+  "independentDisposition": {
+    "IndependentNumericalPass": 384,
+    "ScopeNotApplicable": 43,
+    "Open": 0
+  },
+  "evidenceFamilies": {
+    "AfocalMeterAndRayArcs": {
+      "count": 134,
+      "member": "afocal-meter/receipt.json",
+      "sha256": "2137d866f6baac613c92abc732dd56ae539a18334c466568d37aededb4d4cfb7"
+    },
+    "ExplicitPupilFans": {
+      "count": 98,
+      "member": "fan/explicit-fan-coverage/results.json",
+      "sha256": "e3e811231079bf4e20e3547b0abeee2a9f67da5b436156ba16fb96d8bd83cd7b"
+    },
+    "ExactNormalizedPupilOPD": {
+      "count": 22,
+      "member": "opd/raw/dense-results.json",
+      "sha256": "dcca5a3ba6a20e0ef2c5df8f7a1fb12422c2d83bdd4ea1384fae02226aa9bf29"
+    },
+    "SupplementalPrecision": {
+      "count": 87,
+      "member": "followup/receipt.json",
+      "sha256": "245737dc921bebc8d4faf93b156816f8a2be9dd4eaa2ef77cf91baf6f322bbca"
+    },
+    "ArchivedRefinedSampling": {
+      "count": 38,
+      "member": "followup/older-receipt.json",
+      "sha256": "3bfac18bb583b2acc551760a46e41b6ab797be6923660299cb169ef3c632075e"
+    },
+    "ArchivedGridGRIN": {
+      "count": 3,
+      "member": "historical-grid-grin-receipt.json",
+      "sha256": "fb77b690c4a51c922370e6b44c6fbecaa478ff9e24ea8d3cc2bb56f07db70dd6"
+    },
+    "TessarConvergedNative": {
+      "count": 2,
+      "member": "tessar/receipt.json",
+      "sha256": "588caa579e87f98f24208f1854a3a9547ff3d32f15ee28faeabd615ed8e5c5fa"
+    },
+    "PhysicalApplicability": {
+      "count": 43,
+      "member": "applicability/receipt.json",
+      "sha256": "3e89ffa8822e2157d87bf349ac616e498d5f39b19ed93ec4d6dfaefb41ad4deb"
+    }
+  },
+  "tested": {
+    "passed": 167,
+    "failed": 0,
+    "member": "menu-427-focused.trx",
+    "sha256": "93c0253b5fc4a0a7b88f285200c78b158f46bf546006265562e434d90d7c8440"
+  },
+  "applicability": {
+    "rows": 43,
+    "typedNotApplicableOriginalRequests": 38,
+    "frozenWithoutCanonicalJob": 5,
+    "typedNotApplicableCanonicalAlternatives": 3,
+    "canonicalAlternativeCardinalsWithheld": 2,
+    "correctedFormalDiagnostics": 9,
+    "unchangedOriginalFormalDiagnosticPayloads": 29
+  },
+  "originalJobsReplayed": 307,
+  "rowsWithoutCanonicalFrozenJob": 120,
+  "priorSupplementalAncillaryFilesWithoutOriginalBytes": 25,
+  "evidenceArchive": {
+    "path": "validation/rechecks/2026-11-08/menu-frozen-incomparable-disposition/evidence.zip",
+    "sha256": "6f4819c994022812d27320f4ba84b70051378ea583265da34d9e3d10429f7559",
+    "entries": 116,
+    "contentsHashVerified": true
+  },
+  "requestLedger": {
+    "path": "validation/rechecks/2026-11-08/menu-frozen-incomparable-disposition/by-request.csv",
+    "sha256": "e115963e393c3e5454bd52ac40b5fdbbfc1740e8e4ff0d790d454176a7514fe1"
+  },
+  "lensLedger": {
+    "path": "validation/rechecks/2026-11-08/menu-frozen-incomparable-disposition/by-lens.csv",
+    "sha256": "31eca4c5605f264d8542f403e3f89296a019965969aa30e00d08a3672a3e158f"
+  }
+}

@@ -1,0 +1,3446 @@
+{
+  "scope": "Nine frozen Difference diffraction requests of the 95-menu matrix",
+  "rows": [
+    {
+      "index": 369,
+      "lens": "Diffractive components/Dual Zone CD-DVD lens.ZMX",
+      "analysis": "Huygens Through Focus MTF",
+      "configuration": 2,
+      "requestFingerprint": "977ca44e8a7faaef76c3447d49e08b4865eed151485fe0633f38ef68668ebafd",
+      "frozenVerdict": "Difference",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Difference",
+        "coverage": 1,
+        "nrmse": 0.016114366160186067,
+        "maxAbs": 0.03222574954693391,
+        "points": [
+          128,
+          128
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ],
+        "coreDataSha256": "b31660a29d85920526471117d750e7ab7290ad729350195d6f7448c94db2daab",
+        "nativeDataSha256": "3715b8b4b9684179522489db40d8da9014a14a83cfe16b21cf0ea994d6158f0c",
+        "request": "artifacts\\validation\\menu-31-differences-20261108\\formal\\0369\\request.json"
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenDifference",
+      "coverage": 1,
+      "currentPupilSampling": [
+        128,
+        256
+      ],
+      "nativePupilSampling": [
+        128,
+        256
+      ],
+      "currentConvergence": {
+        "comparison": "current-128-vs-current-256",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.0020382182191566343,
+        "maxAbs": 0.0039397118101897055,
+        "points": [
+          101,
+          101
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "nativeConvergence": [
+        {
+          "comparison": "native-128-vs-native-256",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0013091569045609926,
+          "maxAbs": 0.002501409370168739,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "highestCrossComparison": {
+        "comparison": "current-256-vs-native-256",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.0002449420290682683,
+        "maxAbs": 0.0004662590116429888,
+        "points": [
+          128,
+          128
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-128-vs-native-256",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0013091569045609926,
+          "maxAbs": 0.002501409370168739,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-128-vs-current-256",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0020382182191566343,
+          "maxAbs": 0.0039397118101897055,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-128-vs-native-128",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0009961904938440192,
+          "maxAbs": 0.0019045614516639553,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-256-vs-native-256",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0002449420290682683,
+          "maxAbs": 0.0004662590116429888,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-128-vs-native-256",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0022536385472666292,
+          "maxAbs": 0.004405970821832694,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "comparisonDomain": null,
+      "originalGates": {
+        "Modulation": {
+          "absolute": 1e-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "index": 369,
+          "pupilSampling": 128,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "737ed72717e4277628dd67368372c188f308cd3c263cc6e477d01f058244f96c",
+          "frozenRequestSha256": "e49abcc50978660dd494da908064db7f8539ac70b4b6c3c1febd8123094627ac",
+          "requestSha256": "41bf372a1e5e540a4c955a3bb45244cf35e896e3aecad7e0e00ed8cbb0eb437b",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 5.828000000001339,
+          "dataSha256": "7205cfbda6c397366ac79287f0d075431f63a4520ce6a607f4d0c701d44ed42b",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\369-128\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens Through Focus MTF",
+            "requestFingerprint": "516c18f6afdc8c983ed097110084772bd5cb8efb9cc89e0fba9d17cbdf0bae4a",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "737ed72717e4277628dd67368372c188f308cd3c263cc6e477d01f058244f96c",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 128
+        },
+        {
+          "index": 369,
+          "pupilSampling": 256,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "737ed72717e4277628dd67368372c188f308cd3c263cc6e477d01f058244f96c",
+          "frozenRequestSha256": "e49abcc50978660dd494da908064db7f8539ac70b4b6c3c1febd8123094627ac",
+          "requestSha256": "a8f9638aef412e688e90a542d167014b0498a30f4517a67f096d3bcfe9e1da91",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 12.35899999999674,
+          "dataSha256": "774b924dfffd04b054eb00e7cf78a2e986fbd939ccbe3645359892883b57fbb2",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\369-256\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens Through Focus MTF",
+            "requestFingerprint": "1b2d63fa8fa5186e58c5b46f3b0226adc4dc14d06d6ba3e6370d6afcc03404f8",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "737ed72717e4277628dd67368372c188f308cd3c263cc6e477d01f058244f96c",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 256
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 369,
+          "tier": 128,
+          "files": {
+            "data.json": {
+              "path": "validation\\rechecks\\2026-11-07\\residual-reference-followup\\native\\369-128\\data.json",
+              "sha256": "37d8262c6155aad86636a17ee44e27c55467801973204a40704b3309fe36029d",
+              "bytes": 6321
+            },
+            "captured-settings.json": {
+              "path": "validation\\rechecks\\2026-11-07\\residual-reference-followup\\native\\369-128\\captured-settings.json",
+              "sha256": "8107b5036ae4e4b6287df83d9856fd8ce0dbcbbd267da2fad66fd8775a0e2115",
+              "bytes": 2603
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_128x128",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "DeltaFocus": 0.01,
+            "ImageDelta": 0.25,
+            "Frequency": 50,
+            "Configuration": 3,
+            "NumberOfSteps": 5
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        },
+        {
+          "index": 369,
+          "tier": 256,
+          "files": {
+            "data.json": {
+              "path": "validation\\rechecks\\2026-11-07\\residual-reference-followup\\native\\369-256\\data.json",
+              "sha256": "92d739593627749e64e0c3354e4245c3ddecfddf29be4870c8b0b5278f320010",
+              "bytes": 6322
+            },
+            "captured-settings.json": {
+              "path": "validation\\rechecks\\2026-11-07\\residual-reference-followup\\native\\369-256\\captured-settings.json",
+              "sha256": "fa7ff58b81be2a96734f34c93db6b25443cfe04c66f36f55b4460b6601cf6341",
+              "bytes": 2603
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_256x256",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "DeltaFocus": 0.01,
+            "ImageDelta": 0.25,
+            "Frequency": 50,
+            "Configuration": 3,
+            "NumberOfSteps": 5
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        }
+      ],
+      "historicalProof": "validation/rechecks/2026-11-07/residual-reference-followup/focused-results.json"
+    },
+    {
+      "index": 444,
+      "lens": "Diffractive components/Sample Spectrometer.ZMX",
+      "analysis": "Huygens PSF",
+      "configuration": 1,
+      "requestFingerprint": "b5bb60861430b3bc7ede9be1a334d0e7a4a90ea74497fe1142a78451ae60aa78",
+      "frozenVerdict": "Difference",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Difference",
+        "coverage": 1,
+        "nrmse": 0.4451603310070663,
+        "maxAbs": 0.014876332280443884,
+        "points": [
+          1024
+        ],
+        "gateBranches": [
+          {
+            "id": "grid",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ],
+        "coreDataSha256": "2b9f7ffbec7ec4223e882dcde054ed033bb8017d9481891757d03474b840b572",
+        "nativeDataSha256": "b5ef2ef29bae7b0ab64464b21310ef97b3e5225cc480508066932bd164affce8",
+        "request": "artifacts\\validation\\menu-31-differences-20261108\\formal\\0444\\request.json"
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenDifference",
+      "coverage": 1,
+      "currentPupilSampling": [
+        512,
+        1024
+      ],
+      "nativePupilSampling": [
+        512,
+        1024
+      ],
+      "currentConvergence": {
+        "comparison": "current-512-vs-current-1024",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.006334164912005259,
+        "maxAbs": 7.17081874681588e-05,
+        "points": [
+          1024
+        ],
+        "gateBranches": [
+          {
+            "id": "grid",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "nativeConvergence": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.007678543352545892,
+          "maxAbs": 7.879352686780737e-05,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "highestCrossComparison": {
+        "comparison": "current-1024-vs-native-1024",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.0006534542910622275,
+        "maxAbs": 9.206996385628403e-06,
+        "points": [
+          1024
+        ],
+        "gateBranches": [
+          {
+            "id": "grid",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.007678543352545892,
+          "maxAbs": 7.879352686780737e-05,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-current-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.006334164912005259,
+          "maxAbs": 7.17081874681588e-05,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-512",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.002648340426298511,
+          "maxAbs": 3.722203474420009e-05,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-1024-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0006534542910622275,
+          "maxAbs": 9.206996385628403e-06,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0059766708081817835,
+          "maxAbs": 6.952290433053865e-05,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "comparisonDomain": null,
+      "originalGates": {
+        "Irradiance": {
+          "absolute": 1e-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "index": 444,
+          "pupilSampling": 512,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+          "frozenRequestSha256": "15b41346c01b6714d66f77d1390e07f250d065f165c3fa1f15d24b2ca730bdb5",
+          "requestSha256": "8f48c6d330c462f9ef82271eb19323e758a25c2d3b2656b3c3513dfbf7cdb7b1",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 1.7189999999973224,
+          "dataSha256": "ebf0f39b6ba7015b8e754630b771dd49150f0b3e79e2df195da9d9dea2b9c196",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\444-512\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens PSF",
+            "requestFingerprint": "f65fccb20f1226335760c5171838ddcdf02fe52ed821813d25fb5486491c1654",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 512
+        },
+        {
+          "index": 444,
+          "pupilSampling": 1024,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+          "frozenRequestSha256": "15b41346c01b6714d66f77d1390e07f250d065f165c3fa1f15d24b2ca730bdb5",
+          "requestSha256": "d0a3d7c8b6847ce9602938155adc91299f07c64cddbe740f88f8b0ebc42009d5",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 4.093000000000757,
+          "dataSha256": "b5e3723756c1e96041f21bd9efa61e2e81d4b369ec5855f3966086a90f2a4d97",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\444-1024\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens PSF",
+            "requestFingerprint": "bf80ae7fbd403fe6e35f50704113c61faa6968dcfd16907c12c1372a7daea80a",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 1024
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 444,
+          "tier": 512,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/444-n512-d0.25/data.json",
+              "sha256": "9a1aadd71b4f12d1d1196e05b936a7da5a2fe69adae7abbb82773dfa174655b2",
+              "bytes": 22920
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/444-n512-d0.25/data.txt",
+              "sha256": "1b7c3ed96f6255438563169accc3c304254b036335755d3d5b6d5ed56cca9072",
+              "bytes": 27616
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/444-n512-d0.25/captured-settings.json",
+              "sha256": "a71bb676749ba5b2c98419c37423b20e03aa788db2cf9455967b56d88eed1ddb",
+              "bytes": 2208
+            }
+          },
+          "capturedProperties": {
+            "PupilSampleSize": "S_512x512",
+            "ImageSampleSize": "S_32x32",
+            "Type": "Linear",
+            "ShowAsType": "Surface",
+            "Rotation": "Rotate_0",
+            "Normalize": false,
+            "UseCentroid": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "Configuration": 2
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 2
+          }
+        },
+        {
+          "index": 444,
+          "tier": 1024,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/444-n1024-d0.25/data.json",
+              "sha256": "6bf9078193a5fefdbf0386d16400f6fb1e249d8e868076a4fcfd9b4979a6cd63",
+              "bytes": 22889
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/444-n1024-d0.25/data.txt",
+              "sha256": "4874d466942b59e1d20c3d6717f748f74e674668858992d2dba9be6f1d2a97d7",
+              "bytes": 27620
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/444-n1024-d0.25/captured-settings.json",
+              "sha256": "d9e27bd85114d6f5cd9d6cfba0dc59def4c0d4076a426ad965ac5fe852349cdc",
+              "bytes": 2213
+            }
+          },
+          "capturedProperties": {
+            "PupilSampleSize": "S_1024x1024",
+            "ImageSampleSize": "S_32x32",
+            "Type": "Linear",
+            "ShowAsType": "Surface",
+            "Rotation": "Rotate_0",
+            "Normalize": false,
+            "UseCentroid": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "Configuration": 2
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 2
+          }
+        }
+      ],
+      "historicalProof": "validation/rechecks/2026-11-07/huygens-image-local-pupil/native-controls.json"
+    },
+    {
+      "index": 446,
+      "lens": "Diffractive components/Sample Spectrometer.ZMX",
+      "analysis": "Huygens MTF",
+      "configuration": 1,
+      "requestFingerprint": "07669a6ce71bcef15881fd72ed32b378a8ef171a69edbe6cdd94d160c8e9f591",
+      "frozenVerdict": "Difference",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Difference",
+        "coverage": 1,
+        "nrmse": 0.09409016944872914,
+        "maxAbs": 0.13432608190606232,
+        "points": [
+          336,
+          336
+        ],
+        "gateBranches": [
+          {
+            "id": "tangential",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          },
+          {
+            "id": "sagittal",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ],
+        "coreDataSha256": "e341f8159af409572aa4650e511e61ed111be19156b8b0bda73271ff87501a3a",
+        "nativeDataSha256": "f6dc244f0ab6ccb5a241ed3490540de10c7b687b4d9d037829f812d7bea3fe39",
+        "request": "artifacts\\validation\\menu-31-differences-20261108\\formal\\0446\\request.json"
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenDifference",
+      "coverage": 1,
+      "currentPupilSampling": [
+        512,
+        1024
+      ],
+      "nativePupilSampling": [
+        512,
+        1024
+      ],
+      "currentConvergence": {
+        "comparison": "current-512-vs-current-1024",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.00025132048921826423,
+        "maxAbs": 0.0005886902273568584,
+        "points": [
+          300,
+          300
+        ],
+        "gateBranches": [
+          {
+            "id": "tangential",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "sagittal",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "nativeConvergence": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0003382430936062835,
+          "maxAbs": 0.0008092108130668407,
+          "points": [
+            300,
+            300
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "highestCrossComparison": {
+        "comparison": "current-1024-vs-native-1024",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 3.6197031455490094e-05,
+        "maxAbs": 7.422084721953048e-05,
+        "points": [
+          336,
+          336
+        ],
+        "gateBranches": [
+          {
+            "id": "tangential",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "sagittal",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0003382430936062835,
+          "maxAbs": 0.0008092108130668407,
+          "points": [
+            300,
+            300
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-current-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.00025132048921826423,
+          "maxAbs": 0.0005886902273568584,
+          "points": [
+            300,
+            300
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-512",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.000144648243744393,
+          "maxAbs": 0.0002968713581620319,
+          "points": [
+            336,
+            336
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-1024-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 3.6197031455490094e-05,
+          "maxAbs": 7.422084721953048e-05,
+          "points": [
+            336,
+            336
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.00028576840118009657,
+          "maxAbs": 0.0005902164666574672,
+          "points": [
+            336,
+            336
+          ],
+          "gateBranches": [
+            {
+              "id": "tangential",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "sagittal",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "comparisonDomain": null,
+      "originalGates": {
+        "Modulation": {
+          "absolute": 0.001,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "index": 446,
+          "pupilSampling": 512,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+          "frozenRequestSha256": "b0d21292673132515efe8353cabc751be878c78ee9ca61b9f2bc2d7ebf646df7",
+          "requestSha256": "62b16dd930f410e340d336ebe9129d6c12fd16e646dab69fd5ab38d18e07d80e",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 2.2659999999959837,
+          "dataSha256": "7f40708f78948456b2123938b03a73a3282927d8af28bd13d840d52248953abb",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\446-512\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens MTF",
+            "requestFingerprint": "7a5bfb46a977959c1f627d47eb1cf3ddd6d096bc0591402ffa756919a7bde682",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": null
+        },
+        {
+          "index": 446,
+          "pupilSampling": 1024,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+          "frozenRequestSha256": "b0d21292673132515efe8353cabc751be878c78ee9ca61b9f2bc2d7ebf646df7",
+          "requestSha256": "5f25f326e0eb9d6b1642f1f1f18d98ac08d1190203ab894a340de5858ac0e880",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 5.937000000005355,
+          "dataSha256": "68ac204619ef6e12b4c53b2abb7ea215cc0f1d44fc5776f5672840628051bcac",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\446-1024\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens MTF",
+            "requestFingerprint": "498ad7a268ce109b81a066a26f62fd92d99af30912bf5710278d5a85d9e4a2da",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": null
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 446,
+          "tier": 512,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/446-n512/data.json",
+              "sha256": "d94ab05c3e9b8d3848eba6919611fc3b9d4dad97d36267f420cc9d6f415a14ed",
+              "bytes": 18571
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/446-n512/data.txt",
+              "sha256": "c8988e7d6938ab5972e281b4079109849d45be2dd2cabb256036232275ae40cf",
+              "bytes": 5088
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/446-n512/captured-settings.json",
+              "sha256": "dc0008473c20e7a3019f2bd7143404bacf7aee78cfead7ba42b41e0d82bdb7fc",
+              "bytes": 2114
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_512x512",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "MaximumFrequency": 50,
+            "Configuration": 2
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 2
+          }
+        },
+        {
+          "index": 446,
+          "tier": 1024,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/446-n1024/data.json",
+              "sha256": "b996353bb5c0f4fdd45e8aad18f6e9fa9c27c31b413ddb52d7943e4094a8bd47",
+              "bytes": 18566
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/446-n1024/data.txt",
+              "sha256": "51f5adf58f2be84738b52d2d2fc43e03f3b5d8b9f0a05f498f5b397996adfa47",
+              "bytes": 5088
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/446-n1024/captured-settings.json",
+              "sha256": "39b448afa384263f15d54c01ba34fa356afc259efc2742380a62d3d14fb762f8",
+              "bytes": 2119
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_1024x1024",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "MaximumFrequency": 50,
+            "Configuration": 2
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 2
+          }
+        }
+      ],
+      "historicalProof": "validation/rechecks/2026-11-07/huygens-image-local-pupil/native-controls.json"
+    },
+    {
+      "index": 448,
+      "lens": "Diffractive components/Sample Spectrometer.ZMX",
+      "analysis": "Huygens PSF Cross Section",
+      "configuration": 1,
+      "requestFingerprint": "c0c88055d609f857be7672e157fa65d5f29cbcc6766a44b194d0644d1bc5f6dc",
+      "frozenVerdict": "Difference",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Difference",
+        "coverage": 0.96875,
+        "nrmse": 0.35614726928759477,
+        "maxAbs": 0.00032849718458379776,
+        "points": [
+          32
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ],
+        "coreDataSha256": "1007f2bf6e1129a24a276e75c390bf84927fc582555c321f2c4e958e62b0b2ea",
+        "nativeDataSha256": "31828ff27e81aa0d230b6d0c00310ca2b9050f9b07887e77ee04d878977be710",
+        "request": "artifacts\\validation\\menu-31-differences-20261108\\formal\\0448\\request.json"
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenDifference",
+      "coverage": 0.96875,
+      "currentPupilSampling": [
+        512,
+        1024
+      ],
+      "nativePupilSampling": [
+        512,
+        1024
+      ],
+      "currentConvergence": {
+        "comparison": "current-512-vs-current-1024",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.0006802468790747197,
+        "maxAbs": 6.206791868081443e-06,
+        "points": [
+          32
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "nativeConvergence": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0017400531782264177,
+          "maxAbs": 2.2999999999999583e-05,
+          "points": [
+            33
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "highestCrossComparison": {
+        "comparison": "current-1024-vs-native-1024",
+        "verdict": "Pass",
+        "coverage": 0.96875,
+        "nrmse": 0.0005097603396891864,
+        "maxAbs": 6.4039538431714255e-06,
+        "points": [
+          32
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0017400531782264177,
+          "maxAbs": 2.2999999999999583e-05,
+          "points": [
+            33
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-current-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0006802468790747197,
+          "maxAbs": 6.206791868081443e-06,
+          "points": [
+            32
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-512",
+          "verdict": "Pass",
+          "coverage": 0.96875,
+          "nrmse": 0.002083764401181898,
+          "maxAbs": 2.6468177446192266e-05,
+          "points": [
+            32
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-1024-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 0.96875,
+          "nrmse": 0.0005097603396891864,
+          "maxAbs": 6.4039538431714255e-06,
+          "points": [
+            32
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 0.96875,
+          "nrmse": 0.0008979441184610228,
+          "maxAbs": 7.468177446192346e-06,
+          "points": [
+            32
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "comparisonDomain": {
+        "unit": "um",
+        "nativePrintedCount": 33,
+        "nativePrintedRange": [
+          -4.0,
+          4.0
+        ],
+        "productPixelCenters": 32,
+        "productRange": [
+          -4,
+          3.75
+        ],
+        "coverageOfNativeSpan": 0.96875,
+        "minimumCoverage": 0.95
+      },
+      "originalGates": {
+        "Irradiance": {
+          "absolute": 1e-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "index": 448,
+          "pupilSampling": 512,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+          "frozenRequestSha256": "05b5ccbecd487802fb9ec3dba8972212021de67ee015b0b97913ad6692d6fcc8",
+          "requestSha256": "8b0110de4f062677d34d7f3981c58924b856ac60be93a601684d01f22b655b11",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 1.875,
+          "dataSha256": "c155ef23195f30df52cef778b726d8c1be08dff4e71245f1b070e89823e56ff1",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\448-512\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens PSF Cross Section",
+            "requestFingerprint": "a87b711888f6c22c34205f8504519bb05764fee4b60e962c10a513de749d9f0b",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 512
+        },
+        {
+          "index": 448,
+          "pupilSampling": 1024,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+          "frozenRequestSha256": "05b5ccbecd487802fb9ec3dba8972212021de67ee015b0b97913ad6692d6fcc8",
+          "requestSha256": "9b3f0c2a80afddfacc75841005d55ce23994ddd0792e4240aac008f79a2a1475",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 3.4840000000040163,
+          "dataSha256": "2328f314a3193e4129aa4e50d12dd6e3adf8ff5da290abfe51ff2340a33d680f",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\448-1024\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens PSF Cross Section",
+            "requestFingerprint": "7000d1a2abfef6748749e6647afb0145518939d719eb2fececb808fa2f173f4f",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 1024
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 448,
+          "tier": 512,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/448-n512/data.json",
+              "sha256": "31828ff27e81aa0d230b6d0c00310ca2b9050f9b07887e77ee04d878977be710",
+              "bytes": 403
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/448-n512/data.txt",
+              "sha256": "9aef2311023af2d0490e2f95abf68f9de8e4e908f4aa3b66e88a9ce6d15c36be",
+              "bytes": 2690
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/448-n512/captured-settings.json",
+              "sha256": "1b8fa04ea100b9fa7086d2b5f5e4f6f96a595a2eddda5572bc7f3510e0997bb8",
+              "bytes": 2691
+            }
+          },
+          "capturedProperties": {
+            "PupilSampleSize": "S_512x512",
+            "ImageSampleSize": "S_32x32",
+            "Type": "X_Linear",
+            "Normalize": false,
+            "UseCentroid": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "Configuration": 2,
+            "RowCol": 0
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 2
+          }
+        },
+        {
+          "index": 448,
+          "tier": 1024,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/448-n1024/data.json",
+              "sha256": "31828ff27e81aa0d230b6d0c00310ca2b9050f9b07887e77ee04d878977be710",
+              "bytes": 403
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/448-n1024/data.txt",
+              "sha256": "16df67780303e513d501d1d47fbfbeb617c483346a80c2e69a1154836c4dd9b1",
+              "bytes": 2694
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/448-n1024/captured-settings.json",
+              "sha256": "cd4d2ed4417a4b114410ed201071b0856e2f83c561a3900ac3c55c38205fd0e5",
+              "bytes": 2696
+            }
+          },
+          "capturedProperties": {
+            "PupilSampleSize": "S_1024x1024",
+            "ImageSampleSize": "S_32x32",
+            "Type": "X_Linear",
+            "Normalize": false,
+            "UseCentroid": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "Configuration": 2,
+            "RowCol": 0
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 2
+          }
+        }
+      ],
+      "historicalProof": "validation/rechecks/2026-11-07/huygens-image-local-pupil/native-controls.json"
+    },
+    {
+      "index": 451,
+      "lens": "Diffractive components/Sample Spectrometer.ZMX",
+      "analysis": "Huygens Through Focus MTF",
+      "configuration": 1,
+      "requestFingerprint": "a1ed63d8e72ff78e39bd92a25eef73b914bd683a6f81b525c531ab1e96c470f6",
+      "frozenVerdict": "Difference",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Difference",
+        "coverage": 1,
+        "nrmse": 0.3106573563068227,
+        "maxAbs": 0.2143404274008277,
+        "points": [
+          128,
+          128
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ],
+        "coreDataSha256": "1456fd530d1988b59e49cb5a4f889c53affe0af5528a6b683e27e4b78f373fcb",
+        "nativeDataSha256": "2557065ad390f1ddb9c19ebb2963be6debaabe79053bdd016d3a9b99537579cb",
+        "request": "artifacts\\validation\\menu-31-differences-20261108\\formal\\0451\\request.json"
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenDifference",
+      "coverage": 1,
+      "currentPupilSampling": [
+        1024,
+        2048
+      ],
+      "nativePupilSampling": [
+        1024,
+        2048
+      ],
+      "currentConvergence": {
+        "comparison": "current-1024-vs-current-2048",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.001592882329473021,
+        "maxAbs": 0.0017372403546276338,
+        "points": [
+          101,
+          101
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "nativeConvergence": [
+        {
+          "comparison": "native-1024-vs-native-2048",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0016936412608644447,
+          "maxAbs": 0.0018880003359910136,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "highestCrossComparison": {
+        "comparison": "current-2048-vs-native-2048",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 6.87205767997037e-05,
+        "maxAbs": 5.011058526527279e-05,
+        "points": [
+          128,
+          128
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-1024-vs-native-2048",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0016936412608644447,
+          "maxAbs": 0.0018880003359910136,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-1024-vs-current-2048",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.001592882329473021,
+          "maxAbs": 0.0017372403546276338,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-1024-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.00027512159616414623,
+          "maxAbs": 0.00020087056662865255,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-2048-vs-native-2048",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 6.87205767997037e-05,
+          "maxAbs": 5.011058526527279e-05,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-1024-vs-native-2048",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0015475685188691018,
+          "maxAbs": 0.001687129769362361,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "comparisonDomain": null,
+      "originalGates": {
+        "Modulation": {
+          "absolute": 1e-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "index": 451,
+          "pupilSampling": 1024,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+          "frozenRequestSha256": "152bd447dd0ce86a149c3f19097b4c06db9441d260e6a6271e44035ad457753f",
+          "requestSha256": "5a40ef8354a0d166d0eaa5ffae999d7222f2df09a2e65693becfebaf0a7bdd2c",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 25.360000000000582,
+          "dataSha256": "2ab2cbce4645a73ae1fd29951a2ad421f88bb43ee42319591c0f53ab681c4869",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\451-1024\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens Through Focus MTF",
+            "requestFingerprint": "873faf7c6846ca86f5b2a7dee0b42389b9c36a41d6a66aaaedd8a31d8c9d6da1",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 1024
+        },
+        {
+          "index": 451,
+          "pupilSampling": 2048,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+          "frozenRequestSha256": "152bd447dd0ce86a149c3f19097b4c06db9441d260e6a6271e44035ad457753f",
+          "requestSha256": "884a8553b3d729970d815e9e06d7153b29a4879e702f82b33b1f2802cadad6bc",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 86.89099999999598,
+          "dataSha256": "83039f3ef3105d93ea502fb68ce165fb6827a374294131e4ac183ac1856a9453",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\451-2048\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens Through Focus MTF",
+            "requestFingerprint": "5bcbc4c1576ab75ce5d013225b541436dd7530be4f896764311efd94db745ce5",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 2048
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 451,
+          "tier": 1024,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/451-n1024/data.json",
+              "sha256": "afe078dea34012cf2bf3420c6a50baa8de63cd68f6303e8ad2b012db727145f1",
+              "bytes": 6324
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/451-n1024/data.txt",
+              "sha256": "f41cf5953873f3bd333576f0ee986d0f8dc731d806dabae7f613fc14029da530",
+              "bytes": 9640
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/451-n1024/captured-settings.json",
+              "sha256": "75836609024c02efe848e908ddf0c2099302538df360c62c764a14be5c1216b8",
+              "bytes": 2623
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_1024x1024",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "DeltaFocus": 0.01,
+            "ImageDelta": 0.25,
+            "Frequency": 50,
+            "Configuration": 2,
+            "NumberOfSteps": 5
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 2
+          }
+        },
+        {
+          "index": 451,
+          "tier": 2048,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/451-n2048/data.json",
+              "sha256": "a24478416c8cb25ae21bc8312c61df1eec0806698c38f939cd0a4864c152de63",
+              "bytes": 6291
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/451-n2048/data.txt",
+              "sha256": "8d83282127a697da0cc571ee61fa90470fd02aab7c8416c68f6d88d2caadd176",
+              "bytes": 9640
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/451-n2048/captured-settings.json",
+              "sha256": "a2ddc1231478cabb9afaebd9854358101895ffdf415b0a41de7ed032fa71ece8",
+              "bytes": 2623
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_2048x2048",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "DeltaFocus": 0.01,
+            "ImageDelta": 0.25,
+            "Frequency": 50,
+            "Configuration": 2,
+            "NumberOfSteps": 5
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 2
+          }
+        }
+      ],
+      "historicalProof": "validation/rechecks/2026-11-07/dense-huygens-conic/supplemental-results.json"
+    },
+    {
+      "index": 2158,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "analysis": "Huygens PSF",
+      "configuration": 1,
+      "requestFingerprint": "923213c895e4038150604ee0c0596e3fa88de3a5ea979e72c27b7792a2c02230",
+      "frozenVerdict": "Difference",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Difference",
+        "coverage": 1,
+        "nrmse": 0.03510741231743844,
+        "maxAbs": 0.002176051979946832,
+        "points": [
+          1024
+        ],
+        "gateBranches": [
+          {
+            "id": "grid",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ],
+        "coreDataSha256": "ef3e6c0a153f1af3e8453045f6c44025353b234749f6e8adf69be38ce195a031",
+        "nativeDataSha256": "1285d809c3705ebc7de2967e520f8f8d539d0eb6512113a243fbf1e152113055",
+        "request": "artifacts\\validation\\menu-31-differences-20261108\\formal\\2158\\request.json"
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenDifference",
+      "coverage": 1,
+      "currentPupilSampling": [
+        512,
+        1024
+      ],
+      "nativePupilSampling": [
+        512,
+        1024
+      ],
+      "currentConvergence": {
+        "comparison": "current-512-vs-current-1024",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.005510137037726899,
+        "maxAbs": 5.638869907408561e-06,
+        "points": [
+          1024
+        ],
+        "gateBranches": [
+          {
+            "id": "grid",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "nativeConvergence": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.005456380734413369,
+          "maxAbs": 5.472968155055519e-06,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "highestCrossComparison": {
+        "comparison": "current-1024-vs-native-1024",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 5.095302367066641e-05,
+        "maxAbs": 6.480061534878869e-08,
+        "points": [
+          1024
+        ],
+        "gateBranches": [
+          {
+            "id": "grid",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.005456380734413369,
+          "maxAbs": 5.472968155055519e-06,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-current-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.005510137037726899,
+          "maxAbs": 5.638869907408561e-06,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-512",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.00020550191600820255,
+          "maxAbs": 2.6116826204030394e-07,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-1024-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 5.095302367066641e-05,
+          "maxAbs": 6.480061534878869e-08,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.00552784759627028,
+          "maxAbs": 5.695590191462385e-06,
+          "points": [
+            1024
+          ],
+          "gateBranches": [
+            {
+              "id": "grid",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "comparisonDomain": null,
+      "originalGates": {
+        "Irradiance": {
+          "absolute": 1e-05,
+          "relative": 0.001,
+          "nrmse": 0.01,
+          "closeNrmse": 0.03,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "index": 2158,
+          "pupilSampling": 512,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+          "frozenRequestSha256": "ec0cb2610ea6016a9ba312a2de1f6c554fc85782051fcf29db708653e57e74bf",
+          "requestSha256": "7ed823a9c91f19fdbbdb25026dc2c9e9dbc8487c56446ec4f9a51f844f9c0c39",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 3.860000000000582,
+          "dataSha256": "3a7ab5a6364d8b27d3986b11778a597ed2512b76a274db372f650eece90e8c84",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\2158-512\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens PSF",
+            "requestFingerprint": "b8179f7045e853018470ded986382882ec03adc144ee49b2251ed0294e31a3d7",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 512
+        },
+        {
+          "index": 2158,
+          "pupilSampling": 1024,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+          "frozenRequestSha256": "ec0cb2610ea6016a9ba312a2de1f6c554fc85782051fcf29db708653e57e74bf",
+          "requestSha256": "2fec25ed4ba2b940b48c83246fc52d09db9a108572a55bf75786d436a1b939da",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 10.921999999998661,
+          "dataSha256": "bc60cb087756571beaa9ad0ae82dfbaacb1fd2cc469850dbe7d194b0b37af1bf",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\2158-1024\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens PSF",
+            "requestFingerprint": "6675f0abba9cabe845f2dc1b7474043e2d09f13eed823c355f9aca051b61845c",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 1024
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 2158,
+          "tier": 512,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/ebb0e2c5f920de4d78e249601557cf51e74644d746bb73b476a3cd850f6c4e43",
+              "sha256": "ebb0e2c5f920de4d78e249601557cf51e74644d746bb73b476a3cd850f6c4e43",
+              "bytes": 23890
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/30c8cd1376a395f3122e358217c82a5d2f34007d40f24015b110d8b2711ff9cf",
+              "sha256": "30c8cd1376a395f3122e358217c82a5d2f34007d40f24015b110d8b2711ff9cf",
+              "bytes": 27680
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/b0c6e4cac476a98ddf3d9815e99c1588b388d95e5baf301f45481133c70f6170",
+              "sha256": "b0c6e4cac476a98ddf3d9815e99c1588b388d95e5baf301f45481133c70f6170",
+              "bytes": 1996
+            }
+          },
+          "capturedProperties": {
+            "PupilSampleSize": "S_512x512",
+            "ImageSampleSize": "S_32x32",
+            "Type": "Linear",
+            "ShowAsType": "Surface",
+            "Rotation": "Rotate_0",
+            "Normalize": false,
+            "UseCentroid": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "Configuration": 2
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        },
+        {
+          "index": 2158,
+          "tier": 1024,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/756abde45c0ae9711f18caebcede0e20a6f62737a6839b8e0debf6d3175859ce",
+              "sha256": "756abde45c0ae9711f18caebcede0e20a6f62737a6839b8e0debf6d3175859ce",
+              "bytes": 23943
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/29a504890c6da909574af6d73a48cf90d322121287821fb8cd8dd0a14ec2fa5e",
+              "sha256": "29a504890c6da909574af6d73a48cf90d322121287821fb8cd8dd0a14ec2fa5e",
+              "bytes": 27684
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/6c3d01d7be1c23f86289fbfa55a6cec080f61b945af636ce7224b88a6f5c3a20",
+              "sha256": "6c3d01d7be1c23f86289fbfa55a6cec080f61b945af636ce7224b88a6f5c3a20",
+              "bytes": 2002
+            }
+          },
+          "capturedProperties": {
+            "PupilSampleSize": "S_1024x1024",
+            "ImageSampleSize": "S_32x32",
+            "Type": "Linear",
+            "ShowAsType": "Surface",
+            "Rotation": "Rotate_0",
+            "Normalize": false,
+            "UseCentroid": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "Configuration": 2
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        }
+      ],
+      "historicalProof": "validation/rechecks/2026-11-02/huygens-common/high-sampling-results.json"
+    },
+    {
+      "index": 2162,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "analysis": "Huygens PSF Cross Section",
+      "configuration": 1,
+      "requestFingerprint": "fcc72884e291dd699816224c22014a0538c7b0a9ab93821578417e9476a84a62",
+      "frozenVerdict": "Difference",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Difference",
+        "coverage": 0.96875,
+        "nrmse": 0.03682965108078217,
+        "maxAbs": 0.00014836297557046694,
+        "points": [
+          32
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ],
+        "coreDataSha256": "4f26d6c28536051a29d6308016dda9210b373b5e8fbed67f161b7fc50210029c",
+        "nativeDataSha256": "17268852d95b38823ccf336f56387dd50036fa6a3528e8fe5feeee095bc3f22a",
+        "request": "artifacts\\validation\\menu-31-differences-20261108\\formal\\2162\\request.json"
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenDifference",
+      "coverage": 0.96875,
+      "currentPupilSampling": [
+        512,
+        1024
+      ],
+      "nativePupilSampling": [
+        512,
+        1024
+      ],
+      "currentConvergence": {
+        "comparison": "current-512-vs-current-1024",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.02004110019363459,
+        "maxAbs": 1.2591235194205822e-06,
+        "points": [
+          32
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": true,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ]
+      },
+      "nativeConvergence": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.027099532522833154,
+          "maxAbs": 1.0000000000000006e-06,
+          "points": [
+            33
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": false,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "highestCrossComparison": {
+        "comparison": "current-1024-vs-native-1024",
+        "verdict": "Pass",
+        "coverage": 0.96875,
+        "nrmse": 0.009546809373224711,
+        "maxAbs": 4.455018929972304e-07,
+        "points": [
+          32
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": true,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ]
+      },
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.027099532522833154,
+          "maxAbs": 1.0000000000000006e-06,
+          "points": [
+            33
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": false,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-current-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.02004110019363459,
+          "maxAbs": 1.2591235194205822e-06,
+          "points": [
+            32
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": false,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-512",
+          "verdict": "Pass",
+          "coverage": 0.96875,
+          "nrmse": 0.009477991017344712,
+          "maxAbs": 4.965985985134255e-07,
+          "points": [
+            32
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": false,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-1024-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 0.96875,
+          "nrmse": 0.009546809373224711,
+          "maxAbs": 4.455018929972304e-07,
+          "points": [
+            32
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": false,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 0.96875,
+          "nrmse": 0.0236545656352665,
+          "maxAbs": 1.1565558215871342e-06,
+          "points": [
+            32
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": false,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "comparisonDomain": {
+        "unit": "um",
+        "nativePrintedCount": 33,
+        "nativePrintedRange": [
+          -4.0,
+          4.0
+        ],
+        "productPixelCenters": 32,
+        "productRange": [
+          -4,
+          3.75
+        ],
+        "coverageOfNativeSpan": 0.96875,
+        "minimumCoverage": 0.95
+      },
+      "originalGates": {
+        "Irradiance": {
+          "absolute": 1e-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "index": 2162,
+          "pupilSampling": 512,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+          "frozenRequestSha256": "d147d2f0fac3f3e8f7ee061c963d823a5baf8a1053865682e47d5dcaeaf03fb1",
+          "requestSha256": "0c2789f881bf8d40a63b0860cf44247768f6c831482fab33d68204f1935e87b2",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 3.5309999999954016,
+          "dataSha256": "f95f0a59acae7e856c9bd0166fee2620d6683709d6c715198b3913f75490d860",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\2162-512\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens PSF Cross Section",
+            "requestFingerprint": "6d860bec48c5745c2b190fb1a192e894a226264fb19baf3fcd72e6eb47a1277f",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 512
+        },
+        {
+          "index": 2162,
+          "pupilSampling": 1024,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+          "frozenRequestSha256": "d147d2f0fac3f3e8f7ee061c963d823a5baf8a1053865682e47d5dcaeaf03fb1",
+          "requestSha256": "672658611a14e9cf03dc562dac9376f02086aefd2b59984dfe3eba298dc5ffa6",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 11.14100000000326,
+          "dataSha256": "ca5a44f744911ddcb3fa0af684329b113ce4a198733f76f845c2f0e9a66c81ab",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\2162-1024\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens PSF Cross Section",
+            "requestFingerprint": "024ef7dd89a2f3192b21f1f7910af04e266401f0a1bb28e57ea14db89880261b",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 1024
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 2162,
+          "tier": 512,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/83187b6749ae6c443b33c364b501739781bd64d718dc9449285b085916817a81",
+              "sha256": "83187b6749ae6c443b33c364b501739781bd64d718dc9449285b085916817a81",
+              "bytes": 422
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/296989a73e2baa9b324bf69bd359e433d208367ff666e694f1ba57d460f497e1",
+              "sha256": "296989a73e2baa9b324bf69bd359e433d208367ff666e694f1ba57d460f497e1",
+              "bytes": 2754
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/b12f522ad35d64d661ada2bfd4d443007a90129c2827f1878fb5c41b6e50904e",
+              "sha256": "b12f522ad35d64d661ada2bfd4d443007a90129c2827f1878fb5c41b6e50904e",
+              "bytes": 2668
+            }
+          },
+          "capturedProperties": {
+            "PupilSampleSize": "S_512x512",
+            "ImageSampleSize": "S_32x32",
+            "Type": "X_Linear",
+            "Normalize": false,
+            "UseCentroid": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "Configuration": 2,
+            "RowCol": 0
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        },
+        {
+          "index": 2162,
+          "tier": 1024,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/83187b6749ae6c443b33c364b501739781bd64d718dc9449285b085916817a81",
+              "sha256": "83187b6749ae6c443b33c364b501739781bd64d718dc9449285b085916817a81",
+              "bytes": 422
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/b06c60f5322307e31c37ea84a06ca20f5bf200f04537b80f84666fef4c274c5e",
+              "sha256": "b06c60f5322307e31c37ea84a06ca20f5bf200f04537b80f84666fef4c274c5e",
+              "bytes": 2758
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-02\\huygens-common\\evidence.zip",
+              "member": "payloads/2336098c1fe598af04dc4163e7514b177e0ccdc4a1e895de389f78444f64d0c5",
+              "sha256": "2336098c1fe598af04dc4163e7514b177e0ccdc4a1e895de389f78444f64d0c5",
+              "bytes": 2676
+            }
+          },
+          "capturedProperties": {
+            "PupilSampleSize": "S_1024x1024",
+            "ImageSampleSize": "S_32x32",
+            "Type": "X_Linear",
+            "Normalize": false,
+            "UseCentroid": false,
+            "UsePolarization": false,
+            "ImageDelta": 0.25,
+            "Configuration": 2,
+            "RowCol": 0
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        }
+      ],
+      "historicalProof": "validation/rechecks/2026-11-02/huygens-common/high-sampling-results.json"
+    },
+    {
+      "index": 2165,
+      "lens": "Optical testing/Twyman Green Interferometer.zmx",
+      "analysis": "Huygens Through Focus MTF",
+      "configuration": 1,
+      "requestFingerprint": "cf0548ba0d5799d30120c42732a64850a9a7dc19a06a6b937cd926d65f81b2d1",
+      "frozenVerdict": "Difference",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Difference",
+        "coverage": 1,
+        "nrmse": 0.055417957557920526,
+        "maxAbs": 0.04352425212543387,
+        "points": [
+          128,
+          128
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ],
+        "coreDataSha256": "c9c06389e2f4792b02387085fdfb98728f7331db44c8e039894ab2285b69b015",
+        "nativeDataSha256": "f62c19de2fbbd1d1e47f29b65532dcc805a99d21b09fbc88a9bf23fa3fff9d8f",
+        "request": "artifacts\\validation\\menu-31-differences-20261108\\formal\\2165\\request.json"
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenDifference",
+      "coverage": 1,
+      "currentPupilSampling": [
+        512,
+        1024
+      ],
+      "nativePupilSampling": [
+        512,
+        1024
+      ],
+      "currentConvergence": {
+        "comparison": "current-512-vs-current-1024",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.001900589766742647,
+        "maxAbs": 0.0035927994179579814,
+        "points": [
+          101,
+          101
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "nativeConvergence": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0019051226513893348,
+          "maxAbs": 0.0036563580441349997,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "highestCrossComparison": {
+        "comparison": "current-1024-vs-native-1024",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 2.0722581749954537e-05,
+        "maxAbs": 2.4852151036758308e-05,
+        "points": [
+          128,
+          128
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": true,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0019051226513893348,
+          "maxAbs": 0.0036563580441349997,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-current-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.001900589766742647,
+          "maxAbs": 0.0035927994179579814,
+          "points": [
+            101,
+            101
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-512",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 8.837904306396422e-05,
+          "maxAbs": 0.00010066016511167675,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-1024-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 2.0722581749954537e-05,
+          "maxAbs": 2.4852151036758308e-05,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0019008511880062048,
+          "maxAbs": 0.0035719368597273427,
+          "points": [
+            128,
+            128
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "comparisonDomain": null,
+      "originalGates": {
+        "Modulation": {
+          "absolute": 1e-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "index": 2165,
+          "pupilSampling": 512,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+          "frozenRequestSha256": "3740dbd948d80ad7e681738586d18f657e3bd6e7910878cc0c391694bc1c56c1",
+          "requestSha256": "d89dcf9bd05fb1b9a7417451187a57e711990cd1bf23db4a86f3f11c7493569f",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 23.718000000000757,
+          "dataSha256": "e81f62d6a20f031f1f05d2af6c6fc443e165613873390dd5144bf755d2b53543",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\2165-512\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens Through Focus MTF",
+            "requestFingerprint": "1a3e3c4fa9fcbec6abc01a9dee579105fc8ff813548be186ef8e03bddb75eb85",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 512
+        },
+        {
+          "index": 2165,
+          "pupilSampling": 1024,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+          "frozenRequestSha256": "3740dbd948d80ad7e681738586d18f657e3bd6e7910878cc0c391694bc1c56c1",
+          "requestSha256": "03e9ed87fc990c830b3cab4666f8bb44ca63618c33d54f483f82f43ad87fb7f9",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 85.89100000000326,
+          "dataSha256": "2752c3e394af265321d1b845c3e13e3c8e95cf803d286d3ca23f569bd2500ea1",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\2165-1024\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Huygens Through Focus MTF",
+            "requestFingerprint": "25d4838f93586f18aaeba6f0ba079ad2cdd48eca3cb4f6ca4c14c74a538eabc5",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 1024
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 2165,
+          "tier": 512,
+          "files": {
+            "data.json": {
+              "path": "validation\\rechecks\\2026-11-02\\huygens-common\\convergence-first\\2165\\512\\native\\data.json",
+              "sha256": "83865b3bc0a99214cd4660f93e103deee4e405aa4122711e9ce6eb6ae4e9661e",
+              "bytes": 6328
+            },
+            "data.txt": {
+              "path": "validation\\rechecks\\2026-11-02\\huygens-common\\convergence-first\\2165\\512\\native\\data.txt",
+              "sha256": "912cb0aec675ab6d8bab8cf9058b747ca14a3f2bcfaabfe655508adbbeebd3fb",
+              "bytes": 9704
+            },
+            "captured-settings.json": {
+              "path": "validation\\rechecks\\2026-11-02\\huygens-common\\convergence-first\\2165\\512\\native\\captured-settings.json",
+              "sha256": "bd9bdd1cc773fbcf71cd219533d4036f7b28b893b919d170c911a0686af4ffd1",
+              "bytes": 2595
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_512x512",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "DeltaFocus": 0.01,
+            "ImageDelta": 0.25,
+            "Frequency": 50,
+            "Configuration": 2,
+            "NumberOfSteps": 5
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        },
+        {
+          "index": 2165,
+          "tier": 1024,
+          "files": {
+            "data.json": {
+              "path": "validation\\rechecks\\2026-11-02\\huygens-common\\convergence-first\\2165\\1024\\native\\data.json",
+              "sha256": "b469968fff0636038db1f42898314f4ac82f0df103dd8c5821590b7bab8f0cba",
+              "bytes": 6323
+            },
+            "data.txt": {
+              "path": "validation\\rechecks\\2026-11-02\\huygens-common\\convergence-first\\2165\\1024\\native\\data.txt",
+              "sha256": "5e4e64363b552571cf5f2c8de001c3af2fdacb3a86d8cc736a43d66b7480500d",
+              "bytes": 9704
+            },
+            "captured-settings.json": {
+              "path": "validation\\rechecks\\2026-11-02\\huygens-common\\convergence-first\\2165\\1024\\native\\captured-settings.json",
+              "sha256": "9c866a3f74ca81b9e048a4a2da175a9ce15ad0e83cb9b5000b2a606d76148244",
+              "bytes": 2603
+            }
+          },
+          "capturedProperties": {
+            "ImageSampleSize": "S_32x32",
+            "PupilSampleSize": "S_1024x1024",
+            "Type": "Modulation",
+            "UseDashes": false,
+            "UsePolarization": false,
+            "DeltaFocus": 0.01,
+            "ImageDelta": 0.25,
+            "Frequency": 50,
+            "Configuration": 2,
+            "NumberOfSteps": 5
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Wavelength": 1
+          }
+        }
+      ],
+      "historicalProof": "validation/rechecks/2026-11-02/huygens-common/high-sampling-results.json"
+    },
+    {
+      "index": 2278,
+      "lens": "Telescopes/Flat-field Schmidt.zmx",
+      "analysis": "Diffraction Encircled Energy",
+      "configuration": 1,
+      "requestFingerprint": "d4dc3d508ec00e9aa6ccb074714463b7cbd010f64a938cd163dbc9285eca873e",
+      "frozenVerdict": "Difference",
+      "originalReplay": {
+        "comparison": "current-original-vs-frozen-native",
+        "verdict": "Difference",
+        "coverage": 1,
+        "nrmse": 0.011301843302810314,
+        "maxAbs": 0.025529472110884632,
+        "points": [
+          786,
+          786
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": false,
+            "nrmsePass": false,
+            "coveragePass": true
+          }
+        ],
+        "coreDataSha256": "944a1d0fc9658d9944e8584c2c87d23f3c90e94c4785739cd29560d92eb2bc3c",
+        "nativeDataSha256": "dd220076c74a70a108c187c6a42ae42a7e71e770ffce8e266e03799a594ebbb3",
+        "request": "artifacts\\validation\\menu-31-differences-20261108\\formal\\2278\\request.json"
+      },
+      "numericVerdict": "Pass",
+      "status": "ConfirmedRefinedPassFrozenDifference",
+      "coverage": 1,
+      "currentPupilSampling": [
+        256,
+        512
+      ],
+      "nativePupilSampling": [
+        256,
+        512,
+        1024
+      ],
+      "currentConvergence": {
+        "comparison": "current-256-vs-current-512",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.0015728705493426643,
+        "maxAbs": 0.0048639438618577335,
+        "points": [
+          401,
+          401
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "nativeConvergence": [
+        {
+          "comparison": "native-256-vs-native-512",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0013116265977453092,
+          "maxAbs": 0.004070565399340809,
+          "points": [
+            401,
+            401
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0014969076674090731,
+          "maxAbs": 0.0030027504087936085,
+          "points": [
+            401,
+            401
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "highestCrossComparison": {
+        "comparison": "current-512-vs-native-1024",
+        "verdict": "Pass",
+        "coverage": 1,
+        "nrmse": 0.0014231793859831184,
+        "maxAbs": 0.0027040501932945604,
+        "points": [
+          786,
+          786
+        ],
+        "gateBranches": [
+          {
+            "id": "curve:0",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          },
+          {
+            "id": "curve:1",
+            "pointwisePass": false,
+            "nrmsePass": true,
+            "coveragePass": true
+          }
+        ]
+      },
+      "allRefinedComparisons": [
+        {
+          "comparison": "native-256-vs-native-512",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0013116265977453092,
+          "maxAbs": 0.004070565399340809,
+          "points": [
+            401,
+            401
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "native-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0014969076674090731,
+          "maxAbs": 0.0030027504087936085,
+          "points": [
+            401,
+            401
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-256-vs-current-512",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0015728705493426643,
+          "maxAbs": 0.0048639438618577335,
+          "points": [
+            401,
+            401
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-256-vs-native-256",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 8.144296410241079e-11,
+          "maxAbs": 1.5014067766827566e-10,
+          "points": [
+            786,
+            786
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": true,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-512",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0003723418460928072,
+          "maxAbs": 0.0010859840517663533,
+          "points": [
+            786,
+            786
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-256-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0017291918443327115,
+          "maxAbs": 0.004214134778103729,
+          "points": [
+            786,
+            786
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        },
+        {
+          "comparison": "current-512-vs-native-1024",
+          "verdict": "Pass",
+          "coverage": 1,
+          "nrmse": 0.0014231793859831184,
+          "maxAbs": 0.0027040501932945604,
+          "points": [
+            786,
+            786
+          ],
+          "gateBranches": [
+            {
+              "id": "curve:0",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            },
+            {
+              "id": "curve:1",
+              "pointwisePass": false,
+              "nrmsePass": true,
+              "coveragePass": true
+            }
+          ]
+        }
+      ],
+      "comparisonDomain": null,
+      "originalGates": {
+        "EnergyFraction": {
+          "absolute": 1e-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "currentReferences": [
+        {
+          "index": 2278,
+          "pupilSampling": 256,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "5983d0c11a3c67abd8f8089d462c32e6d90a447077d8f04a1546776bd32b82c3",
+          "frozenRequestSha256": "4e7a0a005e5985b123ac4dac84b8c33858a6e6294e1fb81f1f47699fb20fa19a",
+          "requestSha256": "1e26f77b629f22848d4ffc79ec9bbab6335fa087b2527dbf89819844e57773b0",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 1.3430000000007567,
+          "dataSha256": "17931b43cf048e8ef082530f874411a70284cd4428ffd430dd2041fbcbe71cd2",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\2278-256\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "425953d82184973f5943ff5b0c350bdad4291d996fb502eb850105b181019501",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "5983d0c11a3c67abd8f8089d462c32e6d90a447077d8f04a1546776bd32b82c3",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 256
+        },
+        {
+          "index": 2278,
+          "pupilSampling": 512,
+          "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+          "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+          "snapshotSha256": "5983d0c11a3c67abd8f8089d462c32e6d90a447077d8f04a1546776bd32b82c3",
+          "frozenRequestSha256": "4e7a0a005e5985b123ac4dac84b8c33858a6e6294e1fb81f1f47699fb20fa19a",
+          "requestSha256": "a583be3d1932c2052ad6141e595eac46b0d6bde3e9bc79bbe574848c85c9fc52",
+          "exitCode": 0,
+          "output": "",
+          "seconds": 2.5939999999973224,
+          "dataSha256": "1607d8e438e4ce72a0b65528c56239db69234c5c6edca57d26c62878c37f29e8",
+          "outcome": "Success",
+          "reason": null,
+          "execution": "artifacts\\validation\\menu-31-differences-20261108\\diffraction\\current\\2278-512\\execution.json",
+          "provenance": {
+            "canonicalAnalysisKey": "Diffraction Encircled Energy",
+            "requestFingerprint": "81a7d17cf1d3c3c7396122be6190a0e52a2b6def99469262caac5549c837e036",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "5983d0c11a3c67abd8f8089d462c32e6d90a447077d8f04a1546776bd32b82c3",
+            "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+          },
+          "reportedPupilSampling": 512
+        }
+      ],
+      "nativeReferences": [
+        {
+          "index": 2278,
+          "tier": 256,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/2278-selected-s256/data.json",
+              "sha256": "bf5b8416b47f3784aa7ebfb8d4840819d495859ac6387628374637b831d81735",
+              "bytes": 32852
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/2278-selected-s256/data.txt",
+              "sha256": "7154a6f2f721dedc4f64ab90815cae49a2e117a835319f7e84774be6184188ab",
+              "bytes": 15312
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/2278-selected-s256/captured-settings.json",
+              "sha256": "ead996d536ede7f7d5f71be936051ee3e4f00b09f6bcd7e8da1d36cb93ddd46f",
+              "bytes": 2495
+            }
+          },
+          "capturedProperties": {
+            "HuygensSample": "S_64x64",
+            "SampleSize": "S_256x256",
+            "Type": "Encircled",
+            "ReferTo": "Centroid",
+            "ScatterRays": false,
+            "ShowDiffractionLimit": true,
+            "UseDashes": false,
+            "UseHuygensPSF": false,
+            "UsePolarization": false,
+            "HuygensDelta": 0,
+            "RadiusMaximum": 5
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Surface": 0,
+            "Wavelength": 2
+          }
+        },
+        {
+          "index": 2278,
+          "tier": 512,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/2278-selected-s512/data.json",
+              "sha256": "c8908e5726bf7b014c1f7cb13632b0686eef942d1229ff26edfcf835ec3d1c02",
+              "bytes": 32903
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/2278-selected-s512/data.txt",
+              "sha256": "a6cd288aabbdf413bffe9d2379cdd2a413cb848b0c558b84aeebc7c8bac027ed",
+              "bytes": 15312
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/2278-selected-s512/captured-settings.json",
+              "sha256": "9df9c657b403b2a8d59f6c15f36d6e8bb18535b88b445121869aa2355a67c7df",
+              "bytes": 2495
+            }
+          },
+          "capturedProperties": {
+            "HuygensSample": "S_64x64",
+            "SampleSize": "S_512x512",
+            "Type": "Encircled",
+            "ReferTo": "Centroid",
+            "ScatterRays": false,
+            "ShowDiffractionLimit": true,
+            "UseDashes": false,
+            "UseHuygensPSF": false,
+            "UsePolarization": false,
+            "HuygensDelta": 0,
+            "RadiusMaximum": 5
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Surface": 0,
+            "Wavelength": 2
+          }
+        },
+        {
+          "index": 2278,
+          "tier": 1024,
+          "files": {
+            "data.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/2278-selected-s1024/data.json",
+              "sha256": "09e05b7d4c47ef389d1fda310dbb8b5678acf5738227237382da00c13bb8e048",
+              "bytes": 32900
+            },
+            "data.txt": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/2278-selected-s1024/data.txt",
+              "sha256": "83845f6c713dc832b9eea2059b02eabb371f5ea94ba5a384a59e15eb07a2d889",
+              "bytes": 15312
+            },
+            "captured-settings.json": {
+              "archive": "validation\\rechecks\\2026-11-07\\huygens-image-local-pupil\\native-controls.zip",
+              "member": "native/2278-selected-s1024/captured-settings.json",
+              "sha256": "bc349e43cc156ac870727484fa7d3e2d1f8a9788228e6c5358f5a5f25b5890b0",
+              "bytes": 2500
+            }
+          },
+          "capturedProperties": {
+            "HuygensSample": "S_64x64",
+            "SampleSize": "S_1024x1024",
+            "Type": "Encircled",
+            "ReferTo": "Centroid",
+            "ScatterRays": false,
+            "ShowDiffractionLimit": true,
+            "UseDashes": false,
+            "UseHuygensPSF": false,
+            "UsePolarization": false,
+            "HuygensDelta": 0,
+            "RadiusMaximum": 5
+          },
+          "capturedSelectors": {
+            "Field": 1,
+            "Surface": 0,
+            "Wavelength": 2
+          }
+        }
+      ],
+      "historicalProof": "validation/rechecks/2026-11-07/huygens-image-local-pupil/native-controls.json"
+    }
+  ],
+  "verifiedRefinedPasses": 9,
+  "frozenDifferenceReproduced": 9,
+  "comparisonCount": 56,
+  "coreSha256": "08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907",
+  "workerSha256": "035b78a3b3231a51e05590dfb4d2b86f01b1fc000aa9a4a6770bbf897a012a6f",
+  "frozenMatrixSha256": "a9ed4e1cfea1db8525fc9878bf30b629a42f92442110256a929af752535a7b71",
+  "comparisonEvidenceSha256": "b62956ee496781f3d97d4fb4dd281415f7d681867d250ad779ca8c9790a5bbd0",
+  "comparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "freshNativeCapture": false
+}

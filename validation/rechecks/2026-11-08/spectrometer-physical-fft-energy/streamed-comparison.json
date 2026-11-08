@@ -1,0 +1,101 @@
+{
+  "index": 450,
+  "frozenVerdict": "Incomparable",
+  "originalGate": {
+    "closeNrmse": 0.01,
+    "nrmse": 0.003,
+    "absolute": 1e-05,
+    "relative": 0.002,
+    "minimumCoverage": 0.95
+  },
+  "independentReferenceSha256": "7449f5f5c0d7a7473f53eff1c1b45c2c5611c16bf19523839ca0fee5a2e3d57c",
+  "frozenRequestSha256": "08e7567b929c85ad5b1d43cdee5d2536a760d0f6ebf8a42fd230062c4009932b",
+  "formalReplays": [
+    {
+      "outcome": "Success",
+      "reason": null,
+      "adaptation": {
+        "FourierMaximumSampling": "4096",
+        "FourierRelativeAccuracy": "0.001",
+        "FourierSamplingMode": "Adaptive"
+      },
+      "dataSha256": "d870a4d2bac07e842460c15b8ca819463bcd937849e87303f2fb25c1bf0ce814",
+      "requestSha256": "db8808327115d40067d4078b0ee8b2fdfdabbc7101a10b2e9863f6e4ea933d3a",
+      "certificate": {
+        "protocol": "FourierPhysicalDomainConvergence/v3",
+        "mode": "Adaptive",
+        "requestedPupilSampling": 32,
+        "returnedPupilSampling": 4096,
+        "maximumPupilSampling": 4096,
+        "relativeRmsAccuracy": 0.001,
+        "absoluteAccuracy": 1e-07,
+        "validated": true,
+        "steps": [
+          {
+            "pupilSampling": 32,
+            "phaseResolved": false,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false
+          },
+          {
+            "pupilSampling": 3072,
+            "phaseResolved": true,
+            "relativeRmsChange": null,
+            "maximumAbsoluteChange": null,
+            "usesDensePhysicalPupil": false,
+            "usesStreamedPhysicalPupil": true,
+            "maximumPupilPhaseStepWaves": 0.38164017093383507
+          },
+          {
+            "pupilSampling": 4096,
+            "phaseResolved": true,
+            "relativeRmsChange": 0.00040513825401102986,
+            "maximumAbsoluteChange": 0.0003942542986866693,
+            "usesDensePhysicalPupil": false,
+            "usesStreamedPhysicalPupil": true,
+            "maximumPupilPhaseStepWaves": 0.2867332635309481
+          }
+        ],
+        "reason": "Two streamed phase-resolved pupils agree on both requested energy curves.",
+        "evaluatedNominalPupilCells": 2048,
+        "maximumNominalPupilCells": 100000000,
+        "evaluatedStreamedPupilNodes": 61697646,
+        "requestedRelativeRmsDeviation": 362.37373596922674,
+        "requestedMaximumAbsoluteDeviation": 0.10893757971741214
+      },
+      "provenance": {
+        "canonicalAnalysisKey": "Diffraction Encircled Energy",
+        "requestFingerprint": "34a991e53c519ef86748e892eeb8fa14266d11081031a48016fa53691b3e673a",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "3e60a3ac8f18630e9cf9337a82ebd077314046cf0d32802daa13b35e82922478",
+        "codeFingerprint": "6c5d7dbd6eabbc4a2999ee317726310a866b72fc8c5ed5c06374bc23c6f4d781:bd7318827a5d7971d451baf5ee52641248223c0ab3f08759c21ac0abfe3463cd"
+      },
+      "productCentroidMicrometers": [
+        7.432056460447899,
+        -7.123765183357193
+      ],
+      "components": {
+        "DiffractionLimit": {
+          "count": 401,
+          "coverage": 1,
+          "nrmse": 9.692052806932297e-05,
+          "maximumAbsolute": 0.00010050017663365551,
+          "pointwisePass": false,
+          "conclusion": "Pass"
+        },
+        "Actual": {
+          "count": 401,
+          "coverage": 1,
+          "nrmse": 0.00214435799536286,
+          "maximumAbsolute": 6.61645709002488e-07,
+          "pointwisePass": true,
+          "conclusion": "Pass"
+        }
+      },
+      "independentOutcome": "SupplementalPass"
+    }
+  ],
+  "independentOutcome": "SupplementalPass"
+}

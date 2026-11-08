@@ -1,0 +1,3411 @@
+{
+  "passed": 15,
+  "frozenArchiveSha256": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+  "policySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "gridSha256": "d025dcc149a61dae8a368559ae31e1932b0164611accf90bf3c9403b96025e55",
+  "arcArchiveSha256": "cfdd0bce42182a3a3c043d4e27dc0a4e81e16fe8fed51c596c0c67957d00461e",
+  "rows": [
+    {
+      "index": 489,
+      "key": "First Order",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "d8dd1a0d61b206c28a75b9e62e5edf6b81193dca34f17d20005db9109b9975f7",
+      "formalDataSha256": "14f17f23b10aab62511dd967761e5e1477b873bfb1e79b6d66cdbe0903db2577",
+      "formalRequestSha256": "e99e998e585d38b70fc0f3bc81f1ab455ad7e116ab2a0a1c9d5946684c52ae32",
+      "provenance": {
+        "canonicalAnalysisKey": "First Order",
+        "requestFingerprint": "d8dd1a0d61b206c28a75b9e62e5edf6b81193dca34f17d20005db9109b9975f7",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.0005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "refinement/489-step0.0005",
+        "dataSha256": "3512a84fa2167803d47ca801d2e930a98ca8df30148e38d3526a0b2d053e9535",
+        "settingsSha256": "99ee11dd7a2f94a82fd7de13ead3439acb14876e2e9dddf8c32079963c4705c1",
+        "sourceMember": "refinement/sources/grid-0.0005.ZMX",
+        "sourceSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69"
+      },
+      "fine": {
+        "stepMillimeters": "0.00025",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "refinement/489-step0.00025",
+        "dataSha256": "07197230b6582424c7eb0901b977f4496ae395936b98b6c36ba0a28d2dc43714",
+        "settingsSha256": "1fc3a3905b4e7dc94cb39b0c7ebe3c79f51e4441f7472b4289d19a66fdad03bb",
+        "sourceMember": "refinement/sources/grid-0.00025.ZMX",
+        "sourceSha256": "d761106df65f4d07323099b4c97f8045d87dfc087374e670aa134b3e9cd8f31c"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+        "metrics": [
+          {
+            "id": "EffectiveFocalLength",
+            "unit": "Millimeter",
+            "count": 1,
+            "maxAbsolute": 14399.566650292443,
+            "nrmse": 1.3218453848927814,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": {
+              "workbench": 25293.099899236255,
+              "zemax": 10893.533248943811
+            }
+          },
+          {
+            "id": "FNumber",
+            "unit": "Dimensionless",
+            "count": 1,
+            "maxAbsolute": 40446.81555022729,
+            "nrmse": 1.3218453848927814,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": {
+              "workbench": 71045.56485365513,
+              "zemax": 30598.749303427838
+            }
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Pass",
+        "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+        "metrics": [
+          {
+            "id": "EffectiveFocalLength",
+            "unit": "Millimeter",
+            "count": 1,
+            "maxAbsolute": 1.4806955732638016E-05,
+            "nrmse": 1.3592427171481423E-09,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": {
+              "workbench": 10893.533263750767,
+              "zemax": 10893.533248943811
+            }
+          },
+          {
+            "id": "FNumber",
+            "unit": "Dimensionless",
+            "count": 1,
+            "maxAbsolute": 4.159112722845748E-05,
+            "nrmse": 1.3592427198911106E-09,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": {
+              "workbench": 30598.749345018965,
+              "zemax": 30598.749303427838
+            }
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Pass",
+        "reason": "Compare EFL and F-number via native MFE operands; TotalTrack is not equated to optical total length.",
+        "metrics": [
+          {
+            "id": "EffectiveFocalLength",
+            "unit": "Millimeter",
+            "count": 1,
+            "maxAbsolute": 8.760781929595396E-05,
+            "nrmse": 8.04218588165121E-09,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": {
+              "workbench": 10893.533161335992,
+              "zemax": 10893.533248943811
+            }
+          },
+          {
+            "id": "FNumber",
+            "unit": "Dimensionless",
+            "count": 1,
+            "maxAbsolute": 0.00024608082821941935,
+            "nrmse": 8.04218583508745E-09,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": {
+              "workbench": 30598.74905734701,
+              "zemax": 30598.749303427838
+            }
+          }
+        ]
+      },
+      "arc": null,
+      "endpointCoverage": null
+    },
+    {
+      "index": 490,
+      "key": "Single Ray Trace",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "66dc001d79f93a89a49a3eb482e1ad130602a2d677b3b0a2ddf43702c9c61f4c",
+      "formalDataSha256": "80517f5d357d62bcf29814d6bd567620bdd2a64dccefb3bd81ee0e8fe113c4c9",
+      "formalRequestSha256": "0ecf6bbe09da36993e66d519f7fba3dea2669dbb0759242954a980c0711c8233",
+      "provenance": {
+        "canonicalAnalysisKey": "Single Ray Trace",
+        "requestFingerprint": "66dc001d79f93a89a49a3eb482e1ad130602a2d677b3b0a2ddf43702c9c61f4c",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/490-step0.001",
+        "dataSha256": "f04f726d0eb7fec589122aca0f1aefa6ec9bd584c70dee9392f78b2d2faaec1d",
+        "settingsSha256": "97c7345a3b8d1801afa18014debd01a5654a58844dd48ed8a2acc6b37c0d5ac7",
+        "sourceMember": "native/sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "fine": {
+        "stepMillimeters": "0.0005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "refinement/490-step0.0005",
+        "dataSha256": "f7faf82995ce0f4d5c2f446aec66cbac9d5d3df40ca3a2f120c0a9fea50a350e",
+        "settingsSha256": "a1a1dd1ff02a973636394a893826106b2cdcc00922377c184bfd3edd03d10f4d",
+        "sourceMember": "refinement/sources/grid-0.0005.ZMX",
+        "sourceSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0.00028937973600000333,
+            "nrmse": 0.004650488085570279,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0.001298559750000039,
+            "nrmse": 0.0020214118000900995,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.00026130900000000123,
+            "nrmse": 0.00603796198713039,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.0023505464000000142,
+            "nrmse": 0.00858032062241577,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.0005815043999999325,
+            "nrmse": 0.0005065185623571919,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 0.13940161299999865,
+            "nrmse": 0.007104451687822687,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 0.0005378234199999721,
+            "nrmse": 0.0003456490423102765,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Incomparable",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Incomparable",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 9.437929604505513E-12,
+            "nrmse": 1.5383455559633482E-10,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 5.767208932638823E-11,
+            "nrmse": 8.468667480034148E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 2.2392310228269707E-11,
+            "nrmse": 1.1196155114134854E-05,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 9.365383468740163E-12,
+            "nrmse": 2.16402149865302E-10,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 3.981491525362202E-11,
+            "nrmse": 8.497593491933291E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 2.6334490144108713E-11,
+            "nrmse": 2.331095476751362E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 1.7312800082436297E-09,
+            "nrmse": 9.042005950256512E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 2.693545386733831E-11,
+            "nrmse": 1.7356935276934518E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": {
+        "wavelength": 2,
+        "normalizedField": [
+          0,
+          0
+        ],
+        "normalizedPupil": [
+          0,
+          0.8
+        ],
+        "missingBuiltInSurface": 2,
+        "workbenchLengthMm": 3.8039907175726624,
+        "low": {
+          "chords": {
+            "8": 3.8039508053757434,
+            "16": 3.8039801339724146,
+            "32": 3.8039880225027733,
+            "64": 3.803990040526446
+          },
+          "extrapolated": 3.8039907132010033,
+          "stations": 65
+        },
+        "high": {
+          "chords": {
+            "8": 3.803950805375948,
+            "16": 3.803980133972413,
+            "32": 3.803988022502781,
+            "64": 3.8039900405265166
+          },
+          "extrapolated": 3.8039907132010953,
+          "stations": 65
+        },
+        "byExtrapolation": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 4.371567108307772E-09,
+          "meanAbsolute": 4.371567108307772E-09,
+          "rmse": 4.371567108307772E-09,
+          "nrmse": 1.1492055154438208E-09,
+          "maxRelative": 1.1492055154438208E-09,
+          "p50": 4.371567108307772E-09,
+          "p90": 4.371567108307772E-09,
+          "p95": 4.371567108307772E-09,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907175726624,
+            "zemax": 3.8039907132010953
+          }
+        },
+        "byChord": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 6.770461458138755E-07,
+          "meanAbsolute": 6.770461458138755E-07,
+          "rmse": 6.770461458138755E-07,
+          "nrmse": 1.7798315416203467E-07,
+          "maxRelative": 1.7798315416203467E-07,
+          "p50": 6.770461458138755E-07,
+          "p90": 6.770461458138755E-07,
+          "p95": 6.770461458138755E-07,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907175726624,
+            "zemax": 3.8039900405265166
+          }
+        },
+        "referenceConvergence": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 9.192646643896296E-14,
+          "meanAbsolute": 9.192646643896296E-14,
+          "rmse": 9.192646643896296E-14,
+          "nrmse": 2.416579675653465E-14,
+          "maxRelative": 2.416579675653465E-14,
+          "p50": 9.192646643896296E-14,
+          "p90": 9.192646643896296E-14,
+          "p95": 9.192646643896296E-14,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907132010033,
+            "zemax": 3.8039907132010953
+          }
+        }
+      },
+      "endpointCoverage": null
+    },
+    {
+      "index": 493,
+      "key": "Optical Path Difference",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "a076f847d43c2626eaf09203c2d552e9603ae4ac535ec4d682f1f5ca40c63cbc",
+      "formalDataSha256": "c3a6d30d633ef9a469c69bdbb6c029a74c9a78534cbb6b99648c1028710b896e",
+      "formalRequestSha256": "9182930955eb2ef6462d2a671755b566efa3757f6ef54b0f8e77e43d017b7567",
+      "provenance": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "requestFingerprint": "a076f847d43c2626eaf09203c2d552e9603ae4ac535ec4d682f1f5ca40c63cbc",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/493-step0.005",
+        "dataSha256": "f33d559412525b9c5562fdd75a69f4c1fe2203d67ad6f94a259eed829d2889dc",
+        "settingsSha256": "e6f0d545e03ec66d7c509c157fc12f417f8428e159ba3d3b21aa278504b5b55f",
+        "sourceMember": "native/sources/grid-0.005.ZMX",
+        "sourceSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f"
+      },
+      "fine": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/493-step0.001",
+        "dataSha256": "2dbdc52f707b4745a7864a7e8256a2dedd818b8b96ec9f2066bc37c537e05785",
+        "settingsSha256": "ee91f6032289664c2c922d9d170e117d9286721af5a8bb469e1219040d67ac62",
+        "sourceMember": "native/sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 163.3899617148702,
+            "nrmse": 1.1713576051490666,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 135.05940650210914,
+            "nrmse": 1.0558854433207157,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0.03386303933059703,
+            "nrmse": 0.0004954526427916194,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0.033590627401824946,
+            "nrmse": 0.0005080970352157053,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.001974672145799161,
+            "nrmse": 8.564668342057722E-06,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.004534835035180151,
+            "nrmse": 2.0082246914275347E-05,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": null,
+      "endpointCoverage": null
+    },
+    {
+      "index": 494,
+      "key": "Wavefront",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "4ad5d617402cf14f4459471b344d8565e3cef58a177b6b3476d9dac18e48948b",
+      "formalDataSha256": "2994506fd9ca0089ed3085cf08813f28d7112ba93c4327d706df4db09a909aad",
+      "formalRequestSha256": "22c949916a4e08e5dbae4436dc35e6b8bc028427d6d44e2445ad78d03cbe5c26",
+      "provenance": {
+        "canonicalAnalysisKey": "Wavefront",
+        "requestFingerprint": "4ad5d617402cf14f4459471b344d8565e3cef58a177b6b3476d9dac18e48948b",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/494-step0.005",
+        "dataSha256": "3ad38544efdf468f1a31fcc4e1166143210cfe13877933ee1d3d7ae14ab6dc0d",
+        "settingsSha256": "e9e0b82e0e367ebafcd300501af9bab843b19a8211a228cdb1888ce94107c0c7",
+        "sourceMember": "native/sources/grid-0.005.ZMX",
+        "sourceSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f"
+      },
+      "fine": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/494-step0.001",
+        "dataSha256": "7bd9d4625ce9192c6354dd7a9d2c1e4298a9bb454e8acec396858f491035351f",
+        "settingsSha256": "241423a8eff147053787c5c64392d5e423286c5d4ccd55b95595e17c399c77a6",
+        "sourceMember": "native/sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "grid",
+            "unit": "Wave",
+            "count": 2727,
+            "maxAbsolute": 171.0368767659582,
+            "nrmse": 1.31812571519096,
+            "coverage": 0.9985353350421091,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "grid",
+            "unit": "Wave",
+            "count": 2727,
+            "maxAbsolute": 0.03386898397779575,
+            "nrmse": 0.00047389957092185147,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "grid",
+            "unit": "Wave",
+            "count": 2727,
+            "maxAbsolute": 0.006325487601380075,
+            "nrmse": 1.5425071002542705E-05,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": null,
+      "endpointCoverage": null
+    },
+    {
+      "index": 496,
+      "key": "Huygens PSF",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8",
+      "formalDataSha256": "aa63d8729e016be5b55ed19d04af119f8b6a8faf6302f01a03966beca70b0276",
+      "formalRequestSha256": "0a82601370c44db3d5acbb9aef7941341858477875b4b3129cda88977f0b673d",
+      "provenance": {
+        "canonicalAnalysisKey": "Huygens PSF",
+        "requestFingerprint": "8defc9f12782387f4f4a98e9d27066bc8e9f143acafbba9857a3dc9ceb520da8",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.0005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-diffraction-reference/native-controls.zip",
+        "archiveHash": "07aa4d81eb6809c444496197c1129837c8968141492070b82b2df3bbdf805277",
+        "member": "refinement/captures/496-step0.0005",
+        "dataSha256": "813973474683591089f82f71e374ebe0c3e6429ff5f930cc9bfdded29a3ad96d",
+        "settingsSha256": "85c2ba2f971a5291bdfb9a258e3b65456364b2e396af553c1c6d2f76872cfe27",
+        "sourceMember": "sources/grid-0.0005.ZMX",
+        "sourceSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69"
+      },
+      "fine": {
+        "stepMillimeters": "0.00025",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-diffraction-reference/native-controls.zip",
+        "archiveHash": "07aa4d81eb6809c444496197c1129837c8968141492070b82b2df3bbdf805277",
+        "member": "refinement/captures/496-step0.00025",
+        "dataSha256": "97f895a3d7cef32b6c67990318ecc2930a849b23126601e8367623a98e1022ef",
+        "settingsSha256": "6cd7a41dd705f0352d8ceb3aa6e404511452ef1da1f69e4aa3183ddd2c41481d",
+        "sourceMember": "sources/grid-0.00025.ZMX",
+        "sourceSha256": "d761106df65f4d07323099b4c97f8045d87dfc087374e670aa134b3e9cd8f31c"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 1024,
+            "maxAbsolute": 0.009327132454551206,
+            "nrmse": 0.2711890046610008,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 1024,
+            "maxAbsolute": 2.7817007426192766E-05,
+            "nrmse": 0.0008593873658173248,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 1024,
+            "maxAbsolute": 1.1254438270663289E-05,
+            "nrmse": 0.00027471315959274624,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": null,
+      "endpointCoverage": null
+    },
+    {
+      "index": 500,
+      "key": "Huygens PSF Cross Section",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504",
+      "formalDataSha256": "639198c624ad37d453cfed0ab16d77ea901d2e5082e9ed8f7b9ab0d87c42a832",
+      "formalRequestSha256": "138675aec8213703ffc1236bb8490465526072083de360e7d101dd5bdcc3e5b4",
+      "provenance": {
+        "canonicalAnalysisKey": "Huygens PSF Cross Section",
+        "requestFingerprint": "055a3e67faaa8a222469c22829618da8b23c352897902944711fc00f6c5e2504",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.0005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-diffraction-reference/native-controls.zip",
+        "archiveHash": "07aa4d81eb6809c444496197c1129837c8968141492070b82b2df3bbdf805277",
+        "member": "refinement/captures/500-step0.0005",
+        "dataSha256": "971882bbedab0d0374082d78e6a23683d7241e3b75fc410babebce91e7acc971",
+        "settingsSha256": "f3fa867a076c4e62bb1619eec132819525957e5d0879da764bf5720a551fa1fd",
+        "sourceMember": "sources/grid-0.0005.ZMX",
+        "sourceSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69"
+      },
+      "fine": {
+        "stepMillimeters": "0.00025",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-diffraction-reference/native-controls.zip",
+        "archiveHash": "07aa4d81eb6809c444496197c1129837c8968141492070b82b2df3bbdf805277",
+        "member": "refinement/captures/500-step0.00025",
+        "dataSha256": "51ed1ad8978e421bc6ee4d8f7f1c5a733c99a1e491276c845a720d16712869a6",
+        "settingsSha256": "48ad834a8680ddb2a3faef4dcf126778e955b07ce9b3a104690411c49cf182bb",
+        "sourceMember": "sources/grid-0.00025.ZMX",
+        "sourceSha256": "d761106df65f4d07323099b4c97f8045d87dfc087374e670aa134b3e9cd8f31c"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 33,
+            "maxAbsolute": 0.005409,
+            "nrmse": 0.3974335941989007,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 33,
+            "maxAbsolute": 1.4000000000000123E-05,
+            "nrmse": 0.0009915028441583504,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 32,
+            "maxAbsolute": 8.627949485577602E-06,
+            "nrmse": 0.0004753542826103494,
+            "coverage": 0.96875,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": null,
+      "endpointCoverage": {
+        "productNodes": 32,
+        "nativeNodes": 33,
+        "sharedNodes": 32,
+        "productMinimumMicrometers": -4,
+        "productMaximumMicrometers": 3.75,
+        "extraNativeEndpointMicrometers": 4,
+        "originalGateMinimumCoverage": 0.95
+      }
+    },
+    {
+      "index": 501,
+      "key": "Encircled Energy",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "4b88e39454dd3fcb58ee055f333742bcb724a1ef22fb80831756d21b1a771fe7",
+      "formalDataSha256": "3291bdd59fb2c33990c79e7c14e6276ec118cae02fbf07bc7947898c554a2388",
+      "formalRequestSha256": "045f1d341a668cc1da6e8457645b75cb4811efab83061c7fdc21fe419e658403",
+      "provenance": {
+        "canonicalAnalysisKey": "Encircled Energy",
+        "requestFingerprint": "4b88e39454dd3fcb58ee055f333742bcb724a1ef22fb80831756d21b1a771fe7",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 0,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "Centroid",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-diffraction-reference/native-controls.zip",
+        "archiveHash": "07aa4d81eb6809c444496197c1129837c8968141492070b82b2df3bbdf805277",
+        "member": "native/captures/501-step0.005",
+        "dataSha256": "57b95fb7c8bffbaa82f7d6dbeb4ec3b3827ef9551136f6448f6a29f819580b19",
+        "settingsSha256": "8a2faa5229ca02e2b0c462857afb5a272bfef93046c099f7d19da99f1293b81a",
+        "sourceMember": "sources/grid-0.005.ZMX",
+        "sourceSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f"
+      },
+      "fine": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-diffraction-reference/native-controls.zip",
+        "archiveHash": "07aa4d81eb6809c444496197c1129837c8968141492070b82b2df3bbdf805277",
+        "member": "native/captures/501-step0.001",
+        "dataSha256": "0f2e431ab14f59713127e769ca218c8e7dc758d71a26d4c73ae898367ed2963f",
+        "settingsSha256": "331b3b9b8f582f43f00279a7b364d60cfc23e64e79374ff9245d1c092b0f0511",
+        "sourceMember": "sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 396,
+            "maxAbsolute": 0.001220923728172291,
+            "nrmse": 0.0794823403098701,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 396,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 630,
+            "maxAbsolute": 9.540979117872439E-18,
+            "nrmse": 6.779790525342754E-16,
+            "coverage": 0.9999999999999998,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": null,
+      "endpointCoverage": null
+    },
+    {
+      "index": 503,
+      "key": "Huygens Through Focus MTF",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "b94bd6b384ea1642523e9c3bae4e0b547b13b5b26eb9da4a9141f7899eca8252",
+      "formalDataSha256": "4c54c0c3bc1ac2ea26e51cdc90134e367e122f5e06f8666f9a7764060de5efeb",
+      "formalRequestSha256": "666c1c0e572648ed00ba03c4f42fc267e61470be3cb6568a65ab3b78894db02e",
+      "provenance": {
+        "canonicalAnalysisKey": "Huygens Through Focus MTF",
+        "requestFingerprint": "b94bd6b384ea1642523e9c3bae4e0b547b13b5b26eb9da4a9141f7899eca8252",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 32,
+        "imageSampling": 32,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-diffraction-reference/native-controls.zip",
+        "archiveHash": "07aa4d81eb6809c444496197c1129837c8968141492070b82b2df3bbdf805277",
+        "member": "native/captures/503-step0.001",
+        "dataSha256": "560797f46e30a446d47177eb36f16554fc8e6a5cb686e651e0b00f925978c62d",
+        "settingsSha256": "54922e013a4471887b168540caaff7a30bd3d7dffd95ef763ebf91ce47d13f2e",
+        "sourceMember": "sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "fine": {
+        "stepMillimeters": "0.0005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-diffraction-reference/native-controls.zip",
+        "archiveHash": "07aa4d81eb6809c444496197c1129837c8968141492070b82b2df3bbdf805277",
+        "member": "refinement/captures/503-step0.0005",
+        "dataSha256": "1443198c845d73a2d10952d40199bfb0ca874737d8d43375f8e99581dee6d73a",
+        "settingsSha256": "1d714049d1eb6e5e730b799430b7736726be42f33500226c566b8466bba1d601",
+        "sourceMember": "sources/grid-0.0005.ZMX",
+        "sourceSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 101,
+            "maxAbsolute": 0.11525053307594235,
+            "nrmse": 0.06264686926075658,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 101,
+            "maxAbsolute": 0.1269073258473593,
+            "nrmse": 0.18747030295623768,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 101,
+            "maxAbsolute": 0.000363740493946052,
+            "nrmse": 0.00031860736270723224,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 101,
+            "maxAbsolute": 0.0013217653906084648,
+            "nrmse": 0.0015831876168479312,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "curve:0",
+            "unit": "Dimensionless",
+            "count": 128,
+            "maxAbsolute": 0.0012333946042508703,
+            "nrmse": 0.0012531871460340722,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "curve:1",
+            "unit": "Dimensionless",
+            "count": 128,
+            "maxAbsolute": 0.00032573911951239154,
+            "nrmse": 0.0004363983800860832,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": null,
+      "endpointCoverage": null
+    },
+    {
+      "index": 506,
+      "key": "Field Curvature and Distortion",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "9f142a4c7081a1b5107093950a6c9b6eef48cade0945b0eed17dca424fd77e29",
+      "formalDataSha256": "46d53f78febbc8f72a9d4bb7745221d9171b4f82d918a6c47f2fa52f32cbd73f",
+      "formalRequestSha256": "47604af49a8791948cf6309dd476b4f48cad8cf8f382bf947bf842d1cb3e1fe9",
+      "provenance": {
+        "canonicalAnalysisKey": "Field Curvature and Distortion",
+        "requestFingerprint": "9f142a4c7081a1b5107093950a6c9b6eef48cade0945b0eed17dca424fd77e29",
+        "settingsTranslation": {
+          "MaximumCurvature": "0",
+          "MaximumDistortion": "0",
+          "WavelengthNumber": "2",
+          "DistortionType": "F-Tan(Theta)",
+          "DisplayMode": "\u767E\u5206\u6BD4",
+          "ScanDirection": "\u002By",
+          "ReferenceFieldNumber": "1",
+          "ParabasalDelta": "0.001",
+          "ChiefRayParabasal": "true",
+          "IgnoreVignettingFactors": "True",
+          "FieldNumber": "1",
+          "SurfaceNumber": "-1",
+          "UsePolarization": "False",
+          "UseRayAiming": "False",
+          "NumPoints": "101",
+          "DisplayAs": "\u767E\u5206\u6BD4"
+        },
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/506-step0.005",
+        "dataSha256": "39dc2d1d1cffd6262771a9f53ce5eb15252e410ab6a42c31c533467dc36d1f75",
+        "settingsSha256": "f3847c5edfa39504091ed0dcc45d80152dea2d341c046e2e43e0759a78893bc2",
+        "sourceMember": "native/sources/grid-0.005.ZMX",
+        "sourceSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f"
+      },
+      "fine": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/506-step0.001",
+        "dataSha256": "cd9ea36dfca205c9af0bfd0ecb0fe565900e7e9592507283ba1c36bf5845a67c",
+        "settingsSha256": "446086275a73a2d0bd0674f633d807d25b7125df7d9eac9525d182398e8400cd",
+        "sourceMember": "native/sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Millimeter",
+            "count": 1,
+            "maxAbsolute": 0.027877088034050868,
+            "nrmse": 0.010905959619900514,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": {
+              "workbench": -2.5840105238467506,
+              "zemax": -2.5561334358126997
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Millimeter",
+            "count": 1,
+            "maxAbsolute": 0.02879114933768312,
+            "nrmse": 0.010245334936355944,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": {
+              "workbench": -2.838962755881914,
+              "zemax": -2.810171606544231
+            }
+          },
+          {
+            "id": "distortion",
+            "unit": "Percent",
+            "count": 1,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": {
+              "workbench": 0,
+              "zemax": 0
+            }
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Pass",
+        "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Millimeter",
+            "count": 1,
+            "maxAbsolute": 0.0001760880655448105,
+            "nrmse": 6.888844810592796E-05,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": {
+              "workbench": -2.555957347747155,
+              "zemax": -2.5561334358126997
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Millimeter",
+            "count": 1,
+            "maxAbsolute": 0.0005508558652005391,
+            "nrmse": 0.0001960221446682206,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": {
+              "workbench": -2.8096207506790303,
+              "zemax": -2.810171606544231
+            }
+          },
+          {
+            "id": "distortion",
+            "unit": "Percent",
+            "count": 1,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": {
+              "workbench": 0,
+              "zemax": 0
+            }
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Pass",
+        "reason": "Tangential/sagittal curvature in mm and distortion in percent, under one explicit wavelength and field scan.",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Millimeter",
+            "count": 1,
+            "maxAbsolute": 2.89827565502776E-07,
+            "nrmse": 1.1338514705145975E-07,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": {
+              "workbench": -2.556133725640265,
+              "zemax": -2.5561334358126997
+            }
+          },
+          {
+            "id": "sagittal",
+            "unit": "Millimeter",
+            "count": 1,
+            "maxAbsolute": 1.5727766777828833E-07,
+            "nrmse": 5.596728235813981E-08,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": {
+              "workbench": -2.810171449266563,
+              "zemax": -2.810171606544231
+            }
+          },
+          {
+            "id": "distortion",
+            "unit": "Percent",
+            "count": 1,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": {
+              "workbench": 0,
+              "zemax": 0
+            }
+          }
+        ]
+      },
+      "arc": null,
+      "endpointCoverage": null
+    },
+    {
+      "index": 507,
+      "key": "Single Ray Trace",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "13a8dfdaa97766b502f4f2e94e3f84a035c4a8293bc699d11b8abb9e062066ce",
+      "formalDataSha256": "4bf41f74ca252f9c0b700226346946ba5a2a2604715f1e2e85ce00144fbbe451",
+      "formalRequestSha256": "59360ea3df163e74b4b2593b4aa9fce628b21ae43d4d6ea49855b04b0d05e5bb",
+      "provenance": {
+        "canonicalAnalysisKey": "Single Ray Trace",
+        "requestFingerprint": "13a8dfdaa97766b502f4f2e94e3f84a035c4a8293bc699d11b8abb9e062066ce",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/507-step0.001",
+        "dataSha256": "f04f726d0eb7fec589122aca0f1aefa6ec9bd584c70dee9392f78b2d2faaec1d",
+        "settingsSha256": "299d5851cc872dcb7ede54afa7ec9af64e0714ae243b44f67be7ba8d6817e0b5",
+        "sourceMember": "native/sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "fine": {
+        "stepMillimeters": "0.0005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "refinement/507-step0.0005",
+        "dataSha256": "f7faf82995ce0f4d5c2f446aec66cbac9d5d3df40ca3a2f120c0a9fea50a350e",
+        "settingsSha256": "41995ed96b2645964b4680a3fa41d191df376bf37abc4d38f86946fb8adc4026",
+        "sourceMember": "refinement/sources/grid-0.0005.ZMX",
+        "sourceSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0.00028937973600000333,
+            "nrmse": 0.004650488085570279,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0.001298559750000039,
+            "nrmse": 0.0020214118000900995,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.00026130900000000123,
+            "nrmse": 0.00603796198713039,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.0023505464000000142,
+            "nrmse": 0.00858032062241577,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.0005815043999999325,
+            "nrmse": 0.0005065185623571919,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 0.13940161299999865,
+            "nrmse": 0.007104451687822687,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 0.0005378234199999721,
+            "nrmse": 0.0003456490423102765,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Incomparable",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Incomparable",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 9.437929604505513E-12,
+            "nrmse": 1.5383455559633482E-10,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 5.767208932638823E-11,
+            "nrmse": 8.468667480034148E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 2.2392310228269707E-11,
+            "nrmse": 1.1196155114134854E-05,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 9.365383468740163E-12,
+            "nrmse": 2.16402149865302E-10,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 3.981491525362202E-11,
+            "nrmse": 8.497593491933291E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 2.6334490144108713E-11,
+            "nrmse": 2.331095476751362E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 1.7312800082436297E-09,
+            "nrmse": 9.042005950256512E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 2.693545386733831E-11,
+            "nrmse": 1.7356935276934518E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": {
+        "wavelength": 1,
+        "normalizedField": [
+          0,
+          0
+        ],
+        "normalizedPupil": [
+          0,
+          0.8
+        ],
+        "missingBuiltInSurface": 2,
+        "workbenchLengthMm": 3.8039907175726624,
+        "low": {
+          "chords": {
+            "8": 3.8039508053757434,
+            "16": 3.8039801339724146,
+            "32": 3.8039880225027733,
+            "64": 3.803990040526446
+          },
+          "extrapolated": 3.8039907132010033,
+          "stations": 65
+        },
+        "high": {
+          "chords": {
+            "8": 3.803950805375948,
+            "16": 3.803980133972413,
+            "32": 3.803988022502781,
+            "64": 3.8039900405265166
+          },
+          "extrapolated": 3.8039907132010953,
+          "stations": 65
+        },
+        "byExtrapolation": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 4.371567108307772E-09,
+          "meanAbsolute": 4.371567108307772E-09,
+          "rmse": 4.371567108307772E-09,
+          "nrmse": 1.1492055154438208E-09,
+          "maxRelative": 1.1492055154438208E-09,
+          "p50": 4.371567108307772E-09,
+          "p90": 4.371567108307772E-09,
+          "p95": 4.371567108307772E-09,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907175726624,
+            "zemax": 3.8039907132010953
+          }
+        },
+        "byChord": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 6.770461458138755E-07,
+          "meanAbsolute": 6.770461458138755E-07,
+          "rmse": 6.770461458138755E-07,
+          "nrmse": 1.7798315416203467E-07,
+          "maxRelative": 1.7798315416203467E-07,
+          "p50": 6.770461458138755E-07,
+          "p90": 6.770461458138755E-07,
+          "p95": 6.770461458138755E-07,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907175726624,
+            "zemax": 3.8039900405265166
+          }
+        },
+        "referenceConvergence": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 9.192646643896296E-14,
+          "meanAbsolute": 9.192646643896296E-14,
+          "rmse": 9.192646643896296E-14,
+          "nrmse": 2.416579675653465E-14,
+          "maxRelative": 2.416579675653465E-14,
+          "p50": 9.192646643896296E-14,
+          "p90": 9.192646643896296E-14,
+          "p95": 9.192646643896296E-14,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907132010033,
+            "zemax": 3.8039907132010953
+          }
+        }
+      },
+      "endpointCoverage": null
+    },
+    {
+      "index": 510,
+      "key": "Optical Path Difference",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "010ee663be9099e808b56f1889745841f1c20a84a90313b5c687e0f12a8a40e6",
+      "formalDataSha256": "7128c8bca5a562e33d0eded379cb08881531fe69678df6c288ac3d7f58600c1b",
+      "formalRequestSha256": "e8d16d7608ea31dc7f1ba8767702ab05897f882c982978e97a71e2bf1f58c29c",
+      "provenance": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "requestFingerprint": "010ee663be9099e808b56f1889745841f1c20a84a90313b5c687e0f12a8a40e6",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 1,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/510-step0.005",
+        "dataSha256": "5180cf800f072e3eceba36be8c76d378c425d9c144fd6f2e921379ec5150b342",
+        "settingsSha256": "8c4ad2ddbbc3ced675371e5099c1cad68886dacf0b18371966105bcb63c94894",
+        "sourceMember": "native/sources/grid-0.005.ZMX",
+        "sourceSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f"
+      },
+      "fine": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/510-step0.001",
+        "dataSha256": "80bbe22199af0434bf6c2a6b05569a30f5a8dc08eddc72858781e25bac0a83f8",
+        "settingsSha256": "676a48da9ebbe93131e7df52b9a9e5d74ccb2900d6b90a67cd3388975768fc9c",
+        "sourceMember": "native/sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 179.72895788635722,
+            "nrmse": 1.1713576051490666,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 148.56534715232007,
+            "nrmse": 1.0558854433207154,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0.0372493432636567,
+            "nrmse": 0.0004954526427916184,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0.03694969014200744,
+            "nrmse": 0.0005080970352157104,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.00217213936038263,
+            "nrmse": 8.564668342063538E-06,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.004988318538693193,
+            "nrmse": 2.008224691426997E-05,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": null,
+      "endpointCoverage": null
+    },
+    {
+      "index": 511,
+      "key": "Single Ray Trace",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "66dc001d79f93a89a49a3eb482e1ad130602a2d677b3b0a2ddf43702c9c61f4c",
+      "formalDataSha256": "80517f5d357d62bcf29814d6bd567620bdd2a64dccefb3bd81ee0e8fe113c4c9",
+      "formalRequestSha256": "1f63995085b3820f6c5bf82e4135ff2f70f3466fca8bc534aa68efb13406c88b",
+      "provenance": {
+        "canonicalAnalysisKey": "Single Ray Trace",
+        "requestFingerprint": "66dc001d79f93a89a49a3eb482e1ad130602a2d677b3b0a2ddf43702c9c61f4c",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/511-step0.001",
+        "dataSha256": "f04f726d0eb7fec589122aca0f1aefa6ec9bd584c70dee9392f78b2d2faaec1d",
+        "settingsSha256": "97c7345a3b8d1801afa18014debd01a5654a58844dd48ed8a2acc6b37c0d5ac7",
+        "sourceMember": "native/sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "fine": {
+        "stepMillimeters": "0.0005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "refinement/511-step0.0005",
+        "dataSha256": "f7faf82995ce0f4d5c2f446aec66cbac9d5d3df40ca3a2f120c0a9fea50a350e",
+        "settingsSha256": "a1a1dd1ff02a973636394a893826106b2cdcc00922377c184bfd3edd03d10f4d",
+        "sourceMember": "refinement/sources/grid-0.0005.ZMX",
+        "sourceSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0.00028937973600000333,
+            "nrmse": 0.004650488085570279,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0.001298559750000039,
+            "nrmse": 0.0020214118000900995,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.00026130900000000123,
+            "nrmse": 0.00603796198713039,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.0023505464000000142,
+            "nrmse": 0.00858032062241577,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.0005815043999999325,
+            "nrmse": 0.0005065185623571919,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 0.13940161299999865,
+            "nrmse": 0.007104451687822687,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 0.0005378234199999721,
+            "nrmse": 0.0003456490423102765,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Incomparable",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Incomparable",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 9.437929604505513E-12,
+            "nrmse": 1.5383455559633482E-10,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 5.767208932638823E-11,
+            "nrmse": 8.468667480034148E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 2.2392310228269707E-11,
+            "nrmse": 1.1196155114134854E-05,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 9.365383468740163E-12,
+            "nrmse": 2.16402149865302E-10,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 3.981491525362202E-11,
+            "nrmse": 8.497593491933291E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 2.6334490144108713E-11,
+            "nrmse": 2.331095476751362E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 1.7312800082436297E-09,
+            "nrmse": 9.042005950256512E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 2.693545386733831E-11,
+            "nrmse": 1.7356935276934518E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": {
+        "wavelength": 2,
+        "normalizedField": [
+          0,
+          0
+        ],
+        "normalizedPupil": [
+          0,
+          0.8
+        ],
+        "missingBuiltInSurface": 2,
+        "workbenchLengthMm": 3.8039907175726624,
+        "low": {
+          "chords": {
+            "8": 3.8039508053757434,
+            "16": 3.8039801339724146,
+            "32": 3.8039880225027733,
+            "64": 3.803990040526446
+          },
+          "extrapolated": 3.8039907132010033,
+          "stations": 65
+        },
+        "high": {
+          "chords": {
+            "8": 3.803950805375948,
+            "16": 3.803980133972413,
+            "32": 3.803988022502781,
+            "64": 3.8039900405265166
+          },
+          "extrapolated": 3.8039907132010953,
+          "stations": 65
+        },
+        "byExtrapolation": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 4.371567108307772E-09,
+          "meanAbsolute": 4.371567108307772E-09,
+          "rmse": 4.371567108307772E-09,
+          "nrmse": 1.1492055154438208E-09,
+          "maxRelative": 1.1492055154438208E-09,
+          "p50": 4.371567108307772E-09,
+          "p90": 4.371567108307772E-09,
+          "p95": 4.371567108307772E-09,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907175726624,
+            "zemax": 3.8039907132010953
+          }
+        },
+        "byChord": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 6.770461458138755E-07,
+          "meanAbsolute": 6.770461458138755E-07,
+          "rmse": 6.770461458138755E-07,
+          "nrmse": 1.7798315416203467E-07,
+          "maxRelative": 1.7798315416203467E-07,
+          "p50": 6.770461458138755E-07,
+          "p90": 6.770461458138755E-07,
+          "p95": 6.770461458138755E-07,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907175726624,
+            "zemax": 3.8039900405265166
+          }
+        },
+        "referenceConvergence": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 9.192646643896296E-14,
+          "meanAbsolute": 9.192646643896296E-14,
+          "rmse": 9.192646643896296E-14,
+          "nrmse": 2.416579675653465E-14,
+          "maxRelative": 2.416579675653465E-14,
+          "p50": 9.192646643896296E-14,
+          "p90": 9.192646643896296E-14,
+          "p95": 9.192646643896296E-14,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907132010033,
+            "zemax": 3.8039907132010953
+          }
+        }
+      },
+      "endpointCoverage": null
+    },
+    {
+      "index": 514,
+      "key": "Optical Path Difference",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "a076f847d43c2626eaf09203c2d552e9603ae4ac535ec4d682f1f5ca40c63cbc",
+      "formalDataSha256": "c3a6d30d633ef9a469c69bdbb6c029a74c9a78534cbb6b99648c1028710b896e",
+      "formalRequestSha256": "ced34439e2e0ca39b7185770303547c306f76a24e419779cc7d1012c96b71f6c",
+      "provenance": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "requestFingerprint": "a076f847d43c2626eaf09203c2d552e9603ae4ac535ec4d682f1f5ca40c63cbc",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 2,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/514-step0.005",
+        "dataSha256": "f33d559412525b9c5562fdd75a69f4c1fe2203d67ad6f94a259eed829d2889dc",
+        "settingsSha256": "e6f0d545e03ec66d7c509c157fc12f417f8428e159ba3d3b21aa278504b5b55f",
+        "sourceMember": "native/sources/grid-0.005.ZMX",
+        "sourceSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f"
+      },
+      "fine": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/514-step0.001",
+        "dataSha256": "2dbdc52f707b4745a7864a7e8256a2dedd818b8b96ec9f2066bc37c537e05785",
+        "settingsSha256": "ee91f6032289664c2c922d9d170e117d9286721af5a8bb469e1219040d67ac62",
+        "sourceMember": "native/sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 163.3899617148702,
+            "nrmse": 1.1713576051490666,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 135.05940650210914,
+            "nrmse": 1.0558854433207157,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0.03386303933059703,
+            "nrmse": 0.0004954526427916194,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0.033590627401824946,
+            "nrmse": 0.0005080970352157053,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.001974672145799161,
+            "nrmse": 8.564668342057722E-06,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.004534835035180151,
+            "nrmse": 2.0082246914275347E-05,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": null,
+      "endpointCoverage": null
+    },
+    {
+      "index": 515,
+      "key": "Single Ray Trace",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "085226795f7dff27d781f1ea71acbc2b30b812a5275341dce87b4cecf3c43a3a",
+      "formalDataSha256": "143a41a1e3c0938f5401524a380fb2e327f8ad4f26d329f01b9d79acb938dfb0",
+      "formalRequestSha256": "93ad289fc165bf8be760be277546e0bfc61395cc421405b54a7794202e4e5b35",
+      "provenance": {
+        "canonicalAnalysisKey": "Single Ray Trace",
+        "requestFingerprint": "085226795f7dff27d781f1ea71acbc2b30b812a5275341dce87b4cecf3c43a3a",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/515-step0.001",
+        "dataSha256": "f04f726d0eb7fec589122aca0f1aefa6ec9bd584c70dee9392f78b2d2faaec1d",
+        "settingsSha256": "f563cb18102483c74c45a973903bd835b8cbfcb3e4b661dc7e0c0d71a49704eb",
+        "sourceMember": "native/sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "fine": {
+        "stepMillimeters": "0.0005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "refinement/515-step0.0005",
+        "dataSha256": "f7faf82995ce0f4d5c2f446aec66cbac9d5d3df40ca3a2f120c0a9fea50a350e",
+        "settingsSha256": "c3b19bf553f4bac40ae4b61ce528fa2c57a436f4021bb64fba014a8aee472984",
+        "sourceMember": "refinement/sources/grid-0.0005.ZMX",
+        "sourceSha256": "14ce83cd84c5df267a85d6b9bbf4fa5a8bad3e74e05495b6f3f3c914a6619a69"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0.00028937973600000333,
+            "nrmse": 0.004650488085570279,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0.001298559750000039,
+            "nrmse": 0.0020214118000900995,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.00026130900000000123,
+            "nrmse": 0.00603796198713039,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.0023505464000000142,
+            "nrmse": 0.00858032062241577,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0.0005815043999999325,
+            "nrmse": 0.0005065185623571919,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 0.13940161299999865,
+            "nrmse": 0.007104451687822687,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 0.0005378234199999721,
+            "nrmse": 0.0003456490423102765,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Incomparable",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Incomparable",
+        "reason": "Incomplete physical coverage; shared quantities compared separately; Native geometric ray path length is unreported at surface(s) 2; only reported segments were compared.",
+        "metrics": [
+          {
+            "id": "x",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 9.437929604505513E-12,
+            "nrmse": 1.5383455559633482E-10,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "y",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 5.767208932638823E-11,
+            "nrmse": 8.468667480034148E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "z",
+            "unit": "Millimeter",
+            "count": 4,
+            "maxAbsolute": 2.2392310228269707E-11,
+            "nrmse": 1.1196155114134854E-05,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "l",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 9.365383468740163E-12,
+            "nrmse": 2.16402149865302E-10,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "m",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 3.981491525362202E-11,
+            "nrmse": 8.497593491933291E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "n",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 2.6334490144108713E-11,
+            "nrmse": 2.331095476751362E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-x",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-y",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "normal-z",
+            "unit": "Dimensionless",
+            "count": 4,
+            "maxAbsolute": 0,
+            "nrmse": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "incidence",
+            "unit": "Degree",
+            "count": 4,
+            "maxAbsolute": 1.7312800082436297E-09,
+            "nrmse": 9.042005950256512E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "path-length",
+            "unit": "Millimeter",
+            "count": 3,
+            "maxAbsolute": 2.693545386733831E-11,
+            "nrmse": 1.7356935276934518E-11,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": {
+        "wavelength": 3,
+        "normalizedField": [
+          0,
+          0
+        ],
+        "normalizedPupil": [
+          0,
+          0.8
+        ],
+        "missingBuiltInSurface": 2,
+        "workbenchLengthMm": 3.8039907175726624,
+        "low": {
+          "chords": {
+            "8": 3.8039508053757434,
+            "16": 3.8039801339724146,
+            "32": 3.8039880225027733,
+            "64": 3.803990040526446
+          },
+          "extrapolated": 3.8039907132010033,
+          "stations": 65
+        },
+        "high": {
+          "chords": {
+            "8": 3.803950805375948,
+            "16": 3.803980133972413,
+            "32": 3.803988022502781,
+            "64": 3.8039900405265166
+          },
+          "extrapolated": 3.8039907132010953,
+          "stations": 65
+        },
+        "byExtrapolation": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 4.371567108307772E-09,
+          "meanAbsolute": 4.371567108307772E-09,
+          "rmse": 4.371567108307772E-09,
+          "nrmse": 1.1492055154438208E-09,
+          "maxRelative": 1.1492055154438208E-09,
+          "p50": 4.371567108307772E-09,
+          "p90": 4.371567108307772E-09,
+          "p95": 4.371567108307772E-09,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907175726624,
+            "zemax": 3.8039907132010953
+          }
+        },
+        "byChord": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 6.770461458138755E-07,
+          "meanAbsolute": 6.770461458138755E-07,
+          "rmse": 6.770461458138755E-07,
+          "nrmse": 1.7798315416203467E-07,
+          "maxRelative": 1.7798315416203467E-07,
+          "p50": 6.770461458138755E-07,
+          "p90": 6.770461458138755E-07,
+          "p95": 6.770461458138755E-07,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907175726624,
+            "zemax": 3.8039900405265166
+          }
+        },
+        "referenceConvergence": {
+          "id": "unreported-surface-2-arc",
+          "unit": "Millimeter",
+          "count": 1,
+          "maxAbsolute": 9.192646643896296E-14,
+          "meanAbsolute": 9.192646643896296E-14,
+          "rmse": 9.192646643896296E-14,
+          "nrmse": 2.416579675653465E-14,
+          "maxRelative": 2.416579675653465E-14,
+          "p50": 9.192646643896296E-14,
+          "p90": 9.192646643896296E-14,
+          "p95": 9.192646643896296E-14,
+          "pearson": null,
+          "worstX": 2,
+          "worstY": null,
+          "coverage": 1,
+          "conclusion": "Pass",
+          "extra": {
+            "workbench": 3.8039907132010033,
+            "zemax": 3.8039907132010953
+          }
+        }
+      },
+      "endpointCoverage": null
+    },
+    {
+      "index": 518,
+      "key": "Optical Path Difference",
+      "sourceSha256": "66d151a1b114b865ceab7d78e2fcfccdb869005cb67420db1d8cf422ad20dddb",
+      "requestFingerprint": "7602027df7d4ef172b5e81ce72350264504f24189b7b1ae4da9c995d4e8ef494",
+      "formalDataSha256": "b8aca9572376c85278c273bee8705616b73b30724b892a7d1ada98ac4a75d019",
+      "formalRequestSha256": "6efae3b36bfd641f66d9064e9b217eaafc839ea1666a5782dc71cdc449fc67b8",
+      "provenance": {
+        "canonicalAnalysisKey": "Optical Path Difference",
+        "requestFingerprint": "7602027df7d4ef172b5e81ce72350264504f24189b7b1ae4da9c995d4e8ef494",
+        "settingsTranslation": null,
+        "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+        "snapshotSha256": "370a7d84c46cea33825c8314c9c48ce729c106c0a104da5e9f4afb6202c15613",
+        "codeFingerprint": "0243a767111fc93fe1fa9c8ef027f9ea1d007b2e1277bde5c05ba3b36a5d4cf7:08b3c95a23a36f1be1a053515d551447309167c80527e525694cdec46a564907"
+      },
+      "originalSettings": {
+        "configuration": 1,
+        "field": 1,
+        "wavelength": 3,
+        "surface": -1,
+        "pupilSampling": 64,
+        "imageSampling": 64,
+        "imageDeltaMicrometers": 0.25,
+        "reference": "ChiefRay",
+        "useRayAiming": false
+      },
+      "capturePropertyAndSelectorReadbacksEqualToFrozen": true,
+      "frozenVerdict": "Difference",
+      "independentOutcome": "SupplementalPass",
+      "coarse": {
+        "stepMillimeters": "0.005",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/518-step0.005",
+        "dataSha256": "db0737579c0d6ff69127479c9af9464ea2fca53aaaf11486b31b1d7c7392d334",
+        "settingsSha256": "41d9674e08ab634c4c64e3273b7b54b1b1cf863e99d18a81dc2f4d6050fb38ce",
+        "sourceMember": "native/sources/grid-0.005.ZMX",
+        "sourceSha256": "ea70951ba64270ecf05353e8e445520ea2269ac4ceb0214dc6fa6b1599e2048f"
+      },
+      "fine": {
+        "stepMillimeters": "0.001",
+        "archivePath": "D:\\Projects\\opticalsystem\\validation/rechecks/2026-11-06\\grid-grin-refined-reference/native-grid-grin-controls.zip",
+        "archiveHash": "3b42fe02c437f4baeb0885412c33906431f65c50f82994f37601fd991688cb52",
+        "member": "native/518-step0.001",
+        "dataSha256": "8ed2c7b616962cb27160f9891f70f5cfc36b53d6c083dac7e22debff113be54f",
+        "settingsSha256": "46c750a3e8d52ee5ffc3dadee73631fc79363b1c634c1f17bcabb05ca883c5b2",
+        "sourceMember": "native/sources/grid-0.001.ZMX",
+        "sourceSha256": "d89d9c46d559298c7c5bbc8fce9411dd1206938743b9a5818e4565c39a3bbfef"
+      },
+      "oldFine": {
+        "conclusion": "Difference",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 149.77413157196435,
+            "nrmse": 1.1713576051490668,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 123.80445596026674,
+            "nrmse": 1.0558854433207157,
+            "coverage": 1,
+            "conclusion": "Difference",
+            "scalars": null
+          }
+        ]
+      },
+      "coarseFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0.0310411193863806,
+            "nrmse": 0.0004954526427916218,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 41,
+            "maxAbsolute": 0.03079140845167294,
+            "nrmse": 0.0005080970352157057,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "workbenchFine": {
+        "conclusion": "Pass",
+        "reason": "",
+        "metrics": [
+          {
+            "id": "tangential",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.0018101161336474547,
+            "nrmse": 8.564668342053102E-06,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          },
+          {
+            "id": "sagittal",
+            "unit": "Wave",
+            "count": 61,
+            "maxAbsolute": 0.004156932115570555,
+            "nrmse": 2.0082246914248147E-05,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "scalars": null
+          }
+        ]
+      },
+      "arc": null,
+      "endpointCoverage": null
+    }
+  ]
+}

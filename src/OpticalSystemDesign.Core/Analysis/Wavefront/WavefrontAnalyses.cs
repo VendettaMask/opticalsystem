@@ -115,13 +115,15 @@ public sealed class WavefrontAnalysis : BaseAnalysis
             ? fields[Math.Clamp(_fieldNumber - 1, 0, Math.Max(0, fields.Count - 1))]
             : fields.LastOrDefault();
         var geometricShape = _useExitPupilShape && _exitPupilGeometry == ExitPupilGeometryMode.GeometricStopImage;
-        var displayAxes = _useExitPupilShape && !geometricShape && !analysisOptic.ImageSpaceAfocal
-            ? DiffractionEngine.WorkingFNumbers(analysisOptic, field, wavelength, analysisOptic.RayAimingEnabled)
-            : (Tangential: 1d, Sagittal: 1d);
+        var useWorkingFNumber = _useExitPupilShape && !geometricShape && !analysisOptic.ImageSpaceAfocal;
+        var projectedGrid = _sampleProjectedExitPupil && _pupilSampling.HasValue && useWorkingFNumber;
+        var displayAxes = (Tangential: 1d, Sagittal: 1d);
+        if (useWorkingFNumber)
+            displayAxes = projectedGrid
+                ? DiffractionEngine.DirectionalWorkingFNumbers(analysisOptic, field, wavelength, analysisOptic.RayAimingEnabled)
+                : DiffractionEngine.WorkingFNumbers(analysisOptic, field, wavelength, analysisOptic.RayAimingEnabled);
         var displayScaleX = Math.Min(displayAxes.Tangential, displayAxes.Sagittal) / displayAxes.Sagittal;
         var displayScaleY = Math.Min(displayAxes.Tangential, displayAxes.Sagittal) / displayAxes.Tangential;
-        var projectedGrid = _sampleProjectedExitPupil && _pupilSampling.HasValue
-            && _useExitPupilShape && !geometricShape && !analysisOptic.ImageSpaceAfocal;
         var referenceWavelength = _referenceToPrimary
             ? wavelengths.FirstOrDefault(w => w.IsPrimary) ?? wavelengths[0] : wavelength;
         var referenceSphere = _referenceToPrimary && !analysisOptic.ImageSpaceAfocal

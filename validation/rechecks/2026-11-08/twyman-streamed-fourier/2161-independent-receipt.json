@@ -1,0 +1,202 @@
+{
+  "frozenIndex": 2161,
+  "nativeDirectProfileUsable": false,
+  "sourceSha256": "975be62693a8c3d8870c2ee3fd01e2f51de37d558afe7265cd939fe262f49051",
+  "snapshotSha256": "e0a8e954c24b6d12150cae65f55d66898c617110b963c022a43fff0b34e32cf2",
+  "nativeInputsSha256": {
+    "2152": "3e0fc97792935bfc90a8add12ab2114b56ab6dc8a3f5b9aa4edb7286e9c9f783",
+    "2154": "4e92fe494c447bc0d697ac4c943a80b8f05171a176c7103fe223b859af780d62",
+    "2156": "205f538b939381ecf2fdf980e0ccbc71db5dab800937c2fbf131979004a930b7"
+  },
+  "singleRayPositionMaxMm": 1.4975173878717385E-13,
+  "singleRayDirectionMax": 4.343958526220604E-11,
+  "rayFanChecks": [
+    {
+      "direction": "Tangential",
+      "coordinates": 41,
+      "maximumAbsoluteMicrometers": 6.254730067212222E-11,
+      "nativeRangeMicrometers": [
+        -109.0828452764981,
+        180.29841267200592
+      ]
+    },
+    {
+      "direction": "Sagittal",
+      "coordinates": 41,
+      "maximumAbsoluteMicrometers": 3.108624468950438E-11,
+      "nativeRangeMicrometers": [
+        -96.1614955765242,
+        96.1614955765242
+      ]
+    }
+  ],
+  "virtualSphereRadiusMm": 1.169042051681467,
+  "wavefrontPistonWaves": 5.485136098879279E-12,
+  "wavefrontTangentialPupilStretch": 1.000129458604557,
+  "wavefrontFitNodes": 1001,
+  "wavefrontHoldoutNodes": 1998,
+  "wavefrontHoldoutMaximumWaves": 2.962821099572466E-10,
+  "workingFNumbersFromMarginalRaysTS": [
+    1.1175447628852182,
+    1.117433792659609
+  ],
+  "automaticHalfRangeMicrometers": 9.218828789441774,
+  "axisCoordinates": 201,
+  "quadratureOrders": [
+    768,
+    1024
+  ],
+  "betweenIndependentQuadratures": {
+    "coordinates": 201,
+    "maximumAbsolute": 1.1106827263462904E-13,
+    "peakNormalizedRms": 4.3608994422558055E-11,
+    "relativeL2": 7.903480863109042E-11
+  },
+  "coreSphereSensitivity": {
+    "coordinates": 201,
+    "maximumAbsolute": 2.3679528625896937E-08,
+    "peakNormalizedRms": 1.4639020182698452E-05,
+    "relativeL2": 2.6531044203297517E-05
+  },
+  "centerRelativeToIdeal": 0.0006372522852268959,
+  "peakRelativeToIdeal": 0.0007538066395867336,
+  "independentVsNative2157Window": {
+    "coordinates": 16384,
+    "maximumAbsolute": 0.00037613641451893047,
+    "peakNormalizedRms": 0.0009157042231553404,
+    "relativeL2": 0.027741129925140426
+  },
+  "independentPayloadSha256": "1c5c9831cab3a99e12fac3d6128e5438ae5afa8952a2339c6565f04774ac1911",
+  "formal": {
+    "dataSha256": "5685b46ebceecaf841a0ee3da1ba94e6cce49dd42dbbce8d3f4a3be5dc574081",
+    "outcome": "Unavailable",
+    "certificate": {
+      "protocol": "FourierPhysicalDomainConvergence/v3",
+      "mode": "Adaptive",
+      "requestedPupilSampling": 32,
+      "returnedPupilSampling": 0,
+      "maximumPupilSampling": 4096,
+      "relativeRmsAccuracy": 0.001,
+      "absoluteAccuracy": 1E-07,
+      "validated": false,
+      "steps": [
+        {
+          "pupilSampling": 32,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": 89.46449113253269,
+          "maximumAbsoluteChange": 0.011810208060439373,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": false,
+          "relativeRmsChange": 1.0520145635542961,
+          "maximumAbsoluteChange": 0.0015201105090611343,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.34689626028691606,
+          "maximumAbsoluteChange": 0.0008293014047284794,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": false,
+          "relativeRmsChange": 2.461323369722249,
+          "maximumAbsoluteChange": 0.00083597750898523,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.695114223057208,
+          "maximumAbsoluteChange": 0.0005405187818451182,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.38693088185043967,
+          "maximumAbsoluteChange": 0.00026444162160688567,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 4096,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.12076123366445099,
+          "maximumAbsoluteChange": 9.010778003439208E-05,
+          "usesDensePhysicalPupil": false
+        },
+        {
+          "pupilSampling": 64,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 128,
+          "phaseResolved": false,
+          "relativeRmsChange": 1.7472627556329194,
+          "maximumAbsoluteChange": 0.0014531130827164797,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 256,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.5998607323455996,
+          "maximumAbsoluteChange": 0.0003487859044663712,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 512,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.2068504165752351,
+          "maximumAbsoluteChange": 0.00016267429539666304,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 1024,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.018023624459141557,
+          "maximumAbsoluteChange": 4.339551869988643E-05,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 2048,
+          "phaseResolved": false,
+          "relativeRmsChange": 0.019518405996075804,
+          "maximumAbsoluteChange": 1.6939917773938547E-05,
+          "usesDensePhysicalPupil": true
+        },
+        {
+          "pupilSampling": 3072,
+          "phaseResolved": false,
+          "relativeRmsChange": null,
+          "maximumAbsoluteChange": null,
+          "usesDensePhysicalPupil": false,
+          "usesStreamedPhysicalPupil": true,
+          "maximumPupilPhaseStepWaves": 0.8131273405741553
+        }
+      ],
+      "reason": "Streamed Fourier pupil phase remains unresolved.",
+      "evaluatedNominalPupilCells": 55920640,
+      "maximumNominalPupilCells": 100000000,
+      "evaluatedStreamedPupilNodes": 7402121,
+      "requestedRelativeRmsDeviation": null,
+      "requestedMaximumAbsoluteDeviation": null
+    },
+    "archiveMember": "sha256/5685b46ebceecaf841a0ee3da1ba94e6cce49dd42dbbce8d3f4a3be5dc574081"
+  },
+  "independentPayloadArchive": "window-numeric.zip",
+  "independentPayloadMember": "sha256/1c5c9831cab3a99e12fac3d6128e5438ae5afa8952a2339c6565f04774ac1911"
+}

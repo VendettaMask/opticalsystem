@@ -1,0 +1,2535 @@
+{
+  "coreHash": "a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd",
+  "readoutControl": {
+    "id": 967,
+    "pupil": 512,
+    "count": 16384,
+    "coverage": 1,
+    "maxAbsolute": 0,
+    "narrowHash": "9fa90efde4b3cf5ca7d5408483f58c3fa93962228996149863c7fec96a7c9a3a",
+    "wideHash": "e174fdf433662dfa7f82c3ec66d1255dc4c4f6521bc42e462b188ff6b453fd80",
+    "wideSettingsHash": "d4b22ddb07c9887ba71b8739ddc3e0f6f62d59bf19d483fa353097d8f9735775"
+  },
+  "summary": [
+    {
+      "id": 1459,
+      "c": {
+        "id": 1459,
+        "priorMember": "native-sampling-controls/1459-048-apochromat2-c1-primary-f1-w3-psf-p256/data.json",
+        "priorDataSha256": "06b901826f48821bce46e2424ac41798561bbf579aec824e2f1b15d662294215",
+        "requestFingerprint": "8204b82ab05692f8450e6830fe2c56addbb0cca1c2c9a3f0f06f7db4a4c30cb7",
+        "archive": "validation/zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+        "originalNative": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\1459-048-apochromat2-c1-primary-f1-w3-psf/native",
+        "settings": {
+          "field": 1,
+          "wavelength": 3,
+          "pupilSampling": 64,
+          "imageSampling": 128,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "Irradiance": {
+              "absolute": 1e-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "baselineJob": "D:\\Projects\\opticalsystem\\artifacts\\validation\\hf1107\\full\\analyses\\1459\\request.json",
+        "lens": "Objectives/Apochromat2.zmx",
+        "sourceSha256": "f3f970e300f62e1bb1b4db9a689c28de3bb44a7530767e0aeeb40c8aec2150c2"
+      },
+      "coreLog": [
+        {
+          "n": 512,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "4c1196954f3629d9f36c9827098f022ce2101834b76d27ceb8f603cea78730d7",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "f723f83e5cf089214d671714f3b817afedff07ff70a071caab752ff3050cf390",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "81d10baa2841dcf099888c5e298668b43183baf35444e11dab794f6e35448f01",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "2362e0d828ff1b07f39eed1f6dd08e78d09b4046f326045c4dac3509afabfc13",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "e72be97515f51aed23f6124c742d6a3555f0d15bb1625bc756d58f563bac811b",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "81d10baa2841dcf099888c5e298668b43183baf35444e11dab794f6e35448f01",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "6c09b21e6058538ff69eb0ad3dd2428a0b40c4574dba0e9ac6c3c0c4e03b5aa0",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "3d0e2471a9b6cf72eee75d94e0cdf9e56aea3b2f7946b3087f1c190b2531d166",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "81d10baa2841dcf099888c5e298668b43183baf35444e11dab794f6e35448f01",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        }
+      ],
+      "nativeLog": [
+        {
+          "n": 256,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "f3f970e300f62e1bb1b4db9a689c28de3bb44a7530767e0aeeb40c8aec2150c2",
+          "hash": "06b901826f48821bce46e2424ac41798561bbf579aec824e2f1b15d662294215",
+          "modelHash": "2398e79bac5a19b27e0e673f866c7db3efc964ea0808a7bd5ba88e0db8dc7493",
+          "readback": "e5c7d0d37e93fe6ff8d77680e8c7f5de6a6eb046f262ea72ad99c94c1dedc906"
+        },
+        {
+          "n": 512,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "f3f970e300f62e1bb1b4db9a689c28de3bb44a7530767e0aeeb40c8aec2150c2",
+          "hash": "158e487a5b092669f211a73caf0309185ab1feea3c8c13f1d19c5d6a85984a5c",
+          "modelHash": "75bf2b4afc3a1f79676a12304b0481d0a7c80f3830475fbaba77a5579a09fe9e",
+          "readback": "e5b411d0ffd07cc13df84c219c84d57d43b61294ce951197d8f5912a8a21af15"
+        }
+      ],
+      "corePairs": [
+        {
+          "a": 512,
+          "b": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.002563513401406925,
+            "meanAbsolute": 0.00032511248151530724,
+            "rmse": 0.0006057912965850238,
+            "nrmse": 0.0006058568891485578,
+            "maxRelative": 17.567324918883614,
+            "p50": 0.00014164086835144533,
+            "p90": 0.0007638795878246344,
+            "p95": 0.0017800531232455002,
+            "pearson": 0.9999931058930844,
+            "worstX": -2.5,
+            "worstY": 2.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0005255526075997885,
+            "meanAbsolute": 6.494218185805194e-05,
+            "rmse": 0.00012533641923973433,
+            "nrmse": 0.0001253499999929473,
+            "maxRelative": 1.8291311357020428,
+            "p50": 2.8422047634971224e-05,
+            "p90": 0.00013309211676841657,
+            "p95": 0.00037382510358956563,
+            "pearson": 0.9999997185916523,
+            "worstX": -2.5,
+            "worstY": -2.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "nativePairs": [
+        {
+          "a": 256,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0035061932314193744,
+            "meanAbsolute": 0.0006205469908834967,
+            "rmse": 0.0009701452510992236,
+            "nrmse": 0.000970249264648611,
+            "maxRelative": 457.0088831566931,
+            "p50": 0.0003181530015854777,
+            "p90": 0.0018537010926736736,
+            "p95": 0.0023386440387616336,
+            "pearson": 0.9999749327772042,
+            "worstX": -3,
+            "worstY": 3,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "cross": [
+        {
+          "a": 512,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0035061932312603905,
+            "meanAbsolute": 0.0006205469908571543,
+            "rmse": 0.0009701452510541403,
+            "nrmse": 0.0009702469448697719,
+            "maxRelative": 149.02874379185192,
+            "p50": 0.00031815300154626556,
+            "p90": 0.001853701092814811,
+            "p95": 0.0023386440385334663,
+            "pearson": 0.9999749327771981,
+            "worstX": -3,
+            "worstY": 3,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 512,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 9.29700760821106e-13,
+            "meanAbsolute": 7.462268006015246e-14,
+            "rmse": 1.5227791848665058e-13,
+            "nrmse": 1.5229424487362942e-13,
+            "maxRelative": 1.0448297942979046e-07,
+            "p50": 1.6979473382860988e-14,
+            "p90": 1.812527558597843e-13,
+            "p95": 2.750882854840595e-13,
+            "pearson": 0.9999999999999984,
+            "worstX": 0,
+            "worstY": -1,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0021734858855384648,
+            "meanAbsolute": 0.00039085981371686013,
+            "rmse": 0.0006095203792852389,
+            "nrmse": 0.000609584271215862,
+            "maxRelative": 83.77742540837494,
+            "p50": 0.0001975330861964216,
+            "p90": 0.0011034961598814336,
+            "p95": 0.001485413435724214,
+            "pearson": 0.9999883307874803,
+            "worstX": 0,
+            "worstY": 9,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.002563513401697526,
+            "meanAbsolute": 0.00032511248154347286,
+            "rmse": 0.0006057912966719393,
+            "nrmse": 0.0006058562462275688,
+            "maxRelative": 84.24747710679767,
+            "p50": 0.00014164086834824097,
+            "p90": 0.00076387958765845,
+            "p95": 0.0017800531238773914,
+            "pearson": 0.9999931058930764,
+            "worstX": 2.5,
+            "worstY": -2.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0022702147492189087,
+            "meanAbsolute": 0.00041240320574537233,
+            "rmse": 0.0006419597155751844,
+            "nrmse": 0.0006420270079037173,
+            "maxRelative": 91.93867905583804,
+            "p50": 0.00021525331465346853,
+            "p90": 0.0011867718399030903,
+            "p95": 0.00156870118861673,
+            "pearson": 0.9999872420288793,
+            "worstX": 0,
+            "worstY": -9,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.002038607284213456,
+            "meanAbsolute": 0.00026134343288038576,
+            "rmse": 0.0004815289975773945,
+            "nrmse": 0.0004815806244241108,
+            "maxRelative": 43.24241195604281,
+            "p50": 0.00011564142554504922,
+            "p90": 0.000637589022742431,
+            "p95": 0.001402193021229797,
+            "pearson": 0.9999955794006423,
+            "worstX": 2.5,
+            "worstY": 2.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "outcome": "SupplementalPass"
+    },
+    {
+      "id": 1497,
+      "c": {
+        "id": 1497,
+        "priorMember": "native-sampling-controls/1497-049-apochromat3-c1-primary-f1-w2-psf-p256/data.json",
+        "priorDataSha256": "cdd69301fc5df89c1cf4fa8814f3739ee9c2768eb9ee9193a982deef094f8e47",
+        "requestFingerprint": "e85969a6b7532a7a09ca50a027f12ed41a437c01ab0b45874e3572d271889b00",
+        "archive": "validation/zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+        "originalNative": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\1497-049-apochromat3-c1-primary-f1-w2-psf/native",
+        "settings": {
+          "field": 1,
+          "wavelength": 2,
+          "pupilSampling": 64,
+          "imageSampling": 128,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "Irradiance": {
+              "absolute": 1e-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "baselineJob": "D:\\Projects\\opticalsystem\\artifacts\\validation\\hf1107\\full\\analyses\\1497\\request.json",
+        "lens": "Objectives/Apochromat3.zmx",
+        "sourceSha256": "e721af4393533d0afb9000de84e648fb79a35ec853b39ba964580aa4f68bf15c"
+      },
+      "coreLog": [
+        {
+          "n": 512,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "e1c71abd0dd5698173f2d91026c60e4478bd4d919192a813f926558c820627f3",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "0f6b7ece50649d6041ddcb8cd7915ce1d143a6a36b2bc0d4ad91b2f3da325999",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "966d669cb1a87590afa2501631fd4f57a88d59900f388b7fbe746a36126b591b",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "5b1c6f01e192a87e5f003c03f336fb6abc03cdc3ccd217604d715c1023b30dae",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "be719c4d573de30496daa1f8dd271c4d79ff93cc0bdc9e4b6ae0bcfea91598d7",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "966d669cb1a87590afa2501631fd4f57a88d59900f388b7fbe746a36126b591b",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "5aeae143aaf938abdaa7644f365a67ecc47e5f2780af5748055b02d76a24bc5e",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "b08e5ee3c4e48159c67d3a1c8c7d725f5517bfa95128ddda9c27fd2834a5bb95",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "966d669cb1a87590afa2501631fd4f57a88d59900f388b7fbe746a36126b591b",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        }
+      ],
+      "nativeLog": [
+        {
+          "n": 256,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "e721af4393533d0afb9000de84e648fb79a35ec853b39ba964580aa4f68bf15c",
+          "hash": "cdd69301fc5df89c1cf4fa8814f3739ee9c2768eb9ee9193a982deef094f8e47",
+          "modelHash": "d6c18ca3ca02c0ae59263e1cb8e6701fa73f6f3967bde8d3840b38be6056376e",
+          "readback": "3c92822ad6dd304f0038b78a2382320d3dc5304b599f28b28acd5599f8267f90"
+        },
+        {
+          "n": 512,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "e721af4393533d0afb9000de84e648fb79a35ec853b39ba964580aa4f68bf15c",
+          "hash": "9e81955d71b969b912ff22304dc6edc7377e7171158f882e2b074f6600a63342",
+          "modelHash": "f2501d74aba46d4c5ab93fa782eb6a14e096ee8a16c454e96c3dfe37b125ec65",
+          "readback": "411c79be66521afe64cb4dba945554b7733d7dce85b3cf84c8f7553d1baca265"
+        }
+      ],
+      "corePairs": [
+        {
+          "a": 512,
+          "b": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0025807489303046327,
+            "meanAbsolute": 0.00033668769043966736,
+            "rmse": 0.0006684233685008653,
+            "nrmse": 0.000705547649849815,
+            "maxRelative": 0.14926978361397442,
+            "p50": 0.00013179823700026991,
+            "p90": 0.0010170921213947324,
+            "p95": 0.002052880309153015,
+            "pearson": 0.9999949465484107,
+            "worstX": -2.5,
+            "worstY": -2.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0003656660062810735,
+            "meanAbsolute": 5.2588236450298664e-05,
+            "rmse": 9.445157020319925e-05,
+            "nrmse": 9.968483687586933e-05,
+            "maxRelative": 0.024145678548294473,
+            "p50": 2.284006413996991e-05,
+            "p90": 0.00013356690151460835,
+            "p95": 0.00027480753557814993,
+            "pearson": 0.9999998685208086,
+            "worstX": 2.5,
+            "worstY": 2.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "nativePairs": [
+        {
+          "a": 256,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0045874087472852765,
+            "meanAbsolute": 0.0010587081644762523,
+            "rmse": 0.001516069645381807,
+            "nrmse": 0.0015982835933744215,
+            "maxRelative": 1.7091205459059198,
+            "p50": 0.0006211031999783672,
+            "p90": 0.0028409481786161317,
+            "p95": 0.0034583326967531,
+            "pearson": 0.999942400399733,
+            "worstX": 0,
+            "worstY": -4.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "cross": [
+        {
+          "a": 512,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0045874086390782776,
+            "meanAbsolute": 0.001058708143476292,
+            "rmse": 0.0015160696119558502,
+            "nrmse": 0.001600087060419073,
+            "maxRelative": 2.25781664489332,
+            "p50": 0.0006211031843985663,
+            "p90": 0.0028409478297698023,
+            "p95": 0.0034583326934809516,
+            "pearson": 0.9999424003995803,
+            "worstX": 0,
+            "worstY": -4.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 512,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 6.652765005554784e-10,
+            "meanAbsolute": 4.3104286045808116e-11,
+            "rmse": 9.486351549293196e-11,
+            "nrmse": 1.0000780695268768e-10,
+            "maxRelative": 4.091658908843952e-08,
+            "p50": 1.7913625769382102e-11,
+            "p90": 8.184283979695286e-11,
+            "p95": 1.3396316278502227e-10,
+            "pearson": 1.0000000000000135,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.004927388376286441,
+            "meanAbsolute": 0.0009735890467551771,
+            "rmse": 0.0013975843704765042,
+            "nrmse": 0.0014750356114310882,
+            "maxRelative": 2.5043091301777167,
+            "p50": 0.000607117641242147,
+            "p90": 0.0024275451063438085,
+            "p95": 0.0032278084761513046,
+            "pearson": 0.9999407674133858,
+            "worstX": -9.5,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0025807491396525606,
+            "meanAbsolute": 0.00033668771377614085,
+            "rmse": 0.000668423427852549,
+            "nrmse": 0.0007046709242006967,
+            "maxRelative": 0.12988228152753434,
+            "p50": 0.00013179824449714023,
+            "p90": 0.00101709206605161,
+            "p95": 0.0020528807290182438,
+            "pearson": 0.999994946548672,
+            "worstX": -2.5,
+            "worstY": -2.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.004839459263961267,
+            "meanAbsolute": 0.0009749646382698277,
+            "rmse": 0.0013863815077550714,
+            "nrmse": 0.001463211909182291,
+            "maxRelative": 2.542468014726354,
+            "p50": 0.0006149472504832349,
+            "p90": 0.0024561017013955745,
+            "p95": 0.003149138699575764,
+            "pearson": 0.9999423261371522,
+            "worstX": -9.5,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.002218900558886183,
+            "meanAbsolute": 0.0002972593025413759,
+            "rmse": 0.0005793318372579366,
+            "nrmse": 0.0006107480440818618,
+            "maxRelative": 0.1371561067044853,
+            "p50": 0.0001230623991761424,
+            "p90": 0.0008736313146941004,
+            "p95": 0.0017796472771864217,
+            "pearson": 0.9999962848467218,
+            "worstX": -2.25,
+            "worstY": -2.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "outcome": "SupplementalPass"
+    },
+    {
+      "id": 1527,
+      "c": {
+        "id": 1527,
+        "priorMember": "native-sampling-controls/1527-050-apochromat4-c1-primary-f1-w12-psf-p256/data.json",
+        "priorDataSha256": "0e78200ba90c54d1174e5675b5b8411e193b331790c0fa10c65690bf8281cbe3",
+        "requestFingerprint": "05bf4c17567d9a53fed71f0b29bdc602e056f60b2b397ffe025fd194045206c7",
+        "archive": "validation/zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+        "originalNative": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\1527-050-apochromat4-c1-primary-f1-w12-psf/native",
+        "settings": {
+          "field": 1,
+          "wavelength": 12,
+          "pupilSampling": 64,
+          "imageSampling": 128,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "Irradiance": {
+              "absolute": 1e-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "baselineJob": "D:\\Projects\\opticalsystem\\artifacts\\validation\\hf1107\\full\\analyses\\1527\\request.json",
+        "lens": "Objectives/Apochromat4.zmx",
+        "sourceSha256": "437b760e9554783d102ed7da2d071416ffcdcc6d30eedb6e5dd595e05f220ce8"
+      },
+      "coreLog": [
+        {
+          "n": 512,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "15f2b70178a08d804d560734b9c84d9c339db2b98a265ffdc1b7d45bc1079ba6",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "66a06521cb67afcf2ac8e2b84035a5ab450fb3451bab9d55a3ef944d7a1337a7",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "0555f87a929f756ae828f255c6c6021c47d9e172c16604d6560dc0c0086b9acb",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "cb187b6f42ee57904990b650c05b9409359dc29c332bef173c6c8dfbbe62dce9",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "896976a780a63677139e677ea301165ca9d8e6804cd25bc257fe0424b6c4ec36",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "0555f87a929f756ae828f255c6c6021c47d9e172c16604d6560dc0c0086b9acb",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "b30215de6b544f28af4f97ffeeddf9ab094efb37cbb1531e40deb68f14ec0fa6",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "2d76ac11f1c70299b312ef03a9aa397d29705fcb8f0d54e9877598e66fb9dc2f",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "0555f87a929f756ae828f255c6c6021c47d9e172c16604d6560dc0c0086b9acb",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        }
+      ],
+      "nativeLog": [
+        {
+          "n": 256,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "437b760e9554783d102ed7da2d071416ffcdcc6d30eedb6e5dd595e05f220ce8",
+          "hash": "0e78200ba90c54d1174e5675b5b8411e193b331790c0fa10c65690bf8281cbe3",
+          "modelHash": "c9655a69b77b32255fd7531257b9e0444df26e35dac57363accec627bd22e06b",
+          "readback": "3e3ef9127c2736e5a014eefd77eba63b8dc1d6a8a01eee5791a484a83163aa4f"
+        },
+        {
+          "n": 512,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "437b760e9554783d102ed7da2d071416ffcdcc6d30eedb6e5dd595e05f220ce8",
+          "hash": "2dca13c359b8887db4b95cefe268b1bc1d9bc443e1818fbb9261f2afb2913761",
+          "modelHash": "8ab175590edf3d76d25e51a3f2afe7a974be102caefb132f3a2bfc65d188748c",
+          "readback": "835e3fa008f7f13c2e79a4af3612f78433d998c18f913ce265a69eb22fd5a4ea"
+        }
+      ],
+      "corePairs": [
+        {
+          "a": 512,
+          "b": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0008697131333396113,
+            "meanAbsolute": 0.00013519899277663708,
+            "rmse": 0.00021901594645494458,
+            "nrmse": 0.00021913406501612728,
+            "maxRelative": 4.879788889326636,
+            "p50": 6.474635299544371e-05,
+            "p90": 0.00039842543897594446,
+            "p95": 0.0005215835842650974,
+            "pearson": 0.9999989369878898,
+            "worstX": -4,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0005567687260263354,
+            "meanAbsolute": 7.066673052322358e-05,
+            "rmse": 0.00013241960902998212,
+            "nrmse": 0.00013249112481032266,
+            "maxRelative": 0.709652292791718,
+            "p50": 2.496213106186287e-05,
+            "p90": 0.00017303835963576266,
+            "p95": 0.00038064298234406074,
+            "pearson": 0.999999671477244,
+            "worstX": -2.75,
+            "worstY": -2.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "nativePairs": [
+        {
+          "a": 256,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.003626701127074694,
+            "meanAbsolute": 0.0004912081678355366,
+            "rmse": 0.0008933398762697761,
+            "nrmse": 0.0008938174277892335,
+            "maxRelative": 40.227716592461064,
+            "p50": 0.0002484981016180861,
+            "p90": 0.0010396418039221214,
+            "p95": 0.0026464865601570787,
+            "pearson": 0.9999854314086851,
+            "worstX": -2.5,
+            "worstY": -2.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "cross": [
+        {
+          "a": 512,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.003626701127004195,
+            "meanAbsolute": 0.0004912081678012353,
+            "rmse": 0.0008933398762324946,
+            "nrmse": 0.0008938017286211375,
+            "maxRelative": 87.83571769432493,
+            "p50": 0.00024849810183338004,
+            "p90": 0.0010396418040531515,
+            "p95": 0.0026464865597435874,
+            "pearson": 0.9999854314086877,
+            "worstX": 2.5,
+            "worstY": 2.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 512,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 8.651968030903845e-13,
+            "meanAbsolute": 1.4124334361783732e-13,
+            "rmse": 1.8129038941692374e-13,
+            "nrmse": 1.813873015812957e-13,
+            "maxRelative": 7.307825674758412e-08,
+            "p50": 1.2844716609783369e-13,
+            "p90": 2.7298580063117584e-13,
+            "p95": 3.1848707698900457e-13,
+            "pearson": 0.9999999999999989,
+            "worstX": -0.25,
+            "worstY": -0.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.004133822644840135,
+            "meanAbsolute": 0.000543324635479232,
+            "rmse": 0.0010422881741649183,
+            "nrmse": 0.0010428270321020817,
+            "maxRelative": 82.71895243862832,
+            "p50": 0.0002804981578748535,
+            "p90": 0.0012653488459124507,
+            "p95": 0.0031923192116305454,
+            "pearson": 0.9999810201032197,
+            "worstX": 2.5,
+            "worstY": 2.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0008697131333100516,
+            "meanAbsolute": 0.00013519899277288864,
+            "rmse": 0.0002190159464394616,
+            "nrmse": 0.00021913302550509596,
+            "maxRelative": 4.209716626387561,
+            "p50": 6.474635313773614e-05,
+            "p90": 0.00039842543877013323,
+            "p95": 0.0005215835838591943,
+            "pearson": 0.9999989369878887,
+            "worstX": 4,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0036201676575148833,
+            "meanAbsolute": 0.0004957898155658432,
+            "rmse": 0.0009229745447814193,
+            "nrmse": 0.0009234517181501507,
+            "maxRelative": 66.41273124011151,
+            "p50": 0.00026976189533152017,
+            "p90": 0.0011098808416760031,
+            "p95": 0.0028009639542974653,
+            "pearson": 0.9999849577038255,
+            "worstX": 3.5,
+            "worstY": 0.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0006435975388119387,
+            "meanAbsolute": 0.0001273618412895805,
+            "rmse": 0.00019161358231686306,
+            "nrmse": 0.0001917160129368486,
+            "maxRelative": 4.388760130906848,
+            "p50": 7.379471880911842e-05,
+            "p90": 0.00036162743716358636,
+            "p95": 0.0004668590755348383,
+            "pearson": 0.999998908138711,
+            "worstX": 6.5,
+            "worstY": 6.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "outcome": "SupplementalPass"
+    },
+    {
+      "id": 1695,
+      "c": {
+        "id": 1695,
+        "priorMember": "native-sampling-controls/1695-054-doublet-using-mil-number-glasses-c1-primary-f1-w3-psf-p256/data.json",
+        "priorDataSha256": "07410ae6c6adb6c6948c635e6865bfaef7e35d4398028fd8eb1129772c312c8e",
+        "requestFingerprint": "feaf7f8708f87b06f6005645125aef92c6451e2d1b9fba0c4fb62469718b2721",
+        "archive": "validation/zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+        "originalNative": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\1695-054-doublet-using-mil-number-glasses-c1-primary-f1-w3-psf/native",
+        "settings": {
+          "field": 1,
+          "wavelength": 3,
+          "pupilSampling": 64,
+          "imageSampling": 128,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "Irradiance": {
+              "absolute": 1e-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "baselineJob": "D:\\Projects\\opticalsystem\\artifacts\\validation\\hf1107\\full\\analyses\\1695\\request.json",
+        "lens": "Objectives/Doublet using MIL number glasses.zmx",
+        "sourceSha256": "67ec6a470027729b825c63ec2f4261c9bf0ef27d7e3088bec13db14698640745"
+      },
+      "coreLog": [
+        {
+          "n": 512,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "ffa344327506566eadd4e751d8ecf33fb1770f35289f669ffeea410e350ee1d6",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "fe343c0a2caee40dd4962f3259c656b210842875c8224348e3cead40ab9d13a3",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "ce0b4e5bbd06e29ae39ce94bbb42cdcc5d5f7a5d71b202d14b55cb8333fefb1e",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "548181a2958863ca1404596f3ef3a17f675c45ab43160f238f6ca9f32fd0143f",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "bbc44dd0c743dc02967776820212d44b5022bedca437fd7fc6ceedcc287475df",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "ce0b4e5bbd06e29ae39ce94bbb42cdcc5d5f7a5d71b202d14b55cb8333fefb1e",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "ae896379f1d8440ec6b70421db8bb5eabc0d632b73ea5f7cb69a566bbf02f75d",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "7b17b1431883a22e85ec66ddfd7283dd43aacc732c8ec512645b981dd23c7873",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "ce0b4e5bbd06e29ae39ce94bbb42cdcc5d5f7a5d71b202d14b55cb8333fefb1e",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        }
+      ],
+      "nativeLog": [
+        {
+          "n": 256,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "67ec6a470027729b825c63ec2f4261c9bf0ef27d7e3088bec13db14698640745",
+          "hash": "07410ae6c6adb6c6948c635e6865bfaef7e35d4398028fd8eb1129772c312c8e",
+          "modelHash": "03ed7fbdfdfc58c1a9307ab29ce65ba84338a3af22bdff03164f962cc2c89128",
+          "readback": "7be76d5ca8caaf4c8c06fac6fd08d0d5b1b8f700005e37ef74bf70c19c036796"
+        },
+        {
+          "n": 512,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "67ec6a470027729b825c63ec2f4261c9bf0ef27d7e3088bec13db14698640745",
+          "hash": "3461c64f48d9920e4b2de33af44fdedf9d0ba65590e9dee78b49e8e831712801",
+          "modelHash": "aaff9ed00353d5249d90b8739d089984fe0945ed97bad393425086f55c2e09a2",
+          "readback": "7c12ad82c7ffc09ee67fe1956b7dfab7db2db53a671abb508671e244953d375b"
+        }
+      ],
+      "corePairs": [
+        {
+          "a": 512,
+          "b": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0034045507592024293,
+            "meanAbsolute": 0.00038570090001031356,
+            "rmse": 0.0008242926419714681,
+            "nrmse": 0.0008651600875580042,
+            "maxRelative": 0.3567252841072632,
+            "p50": 0.00015795096738169435,
+            "p90": 0.0008480058220246674,
+            "p95": 0.00257096883885977,
+            "pearson": 0.9999900199223035,
+            "worstX": -2.25,
+            "worstY": -2.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00042674175928733224,
+            "meanAbsolute": 8.358823958250372e-05,
+            "rmse": 0.00012479664407882471,
+            "nrmse": 0.0001309764425358241,
+            "maxRelative": 0.31500042888992613,
+            "p50": 5.5327864621812495e-05,
+            "p90": 0.00022429750904317397,
+            "p95": 0.0003073995914822658,
+            "pearson": 0.9999994788719713,
+            "worstX": 0,
+            "worstY": -8.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "nativePairs": [
+        {
+          "a": 256,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0019622753577882013,
+            "meanAbsolute": 0.0005644652612878688,
+            "rmse": 0.0007212804807360496,
+            "nrmse": 0.0007579081070206165,
+            "maxRelative": 2.7678360226028653,
+            "p50": 0.00046291871194861084,
+            "p90": 0.0012599321655855928,
+            "p95": 0.0014430855077399718,
+            "pearson": 0.9999841305132623,
+            "worstX": 0,
+            "worstY": -3.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "cross": [
+        {
+          "a": 512,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0019622753613810495,
+            "meanAbsolute": 0.0005644652616312137,
+            "rmse": 0.000721280481406605,
+            "nrmse": 0.0007581137241322003,
+            "maxRelative": 3.764789375530261,
+            "p50": 0.0004629187099503985,
+            "p90": 0.001259932165605908,
+            "p95": 0.0014430855167217537,
+            "pearson": 0.9999841305132738,
+            "worstX": 3.75,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 512,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 1.6389001267214098e-11,
+            "meanAbsolute": 9.259448217193608e-13,
+            "rmse": 2.2542285912767594e-12,
+            "nrmse": 2.3687014553101976e-12,
+            "maxRelative": 7.132185212434134e-10,
+            "p50": 2.260771864853739e-13,
+            "p90": 2.3130478435384747e-12,
+            "p95": 2.6150764279725403e-12,
+            "pearson": 0.9999999999999952,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0051889852483399945,
+            "meanAbsolute": 0.0007871273972733072,
+            "rmse": 0.001302844782922521,
+            "nrmse": 0.0013693764572991474,
+            "maxRelative": 3.468153869818752,
+            "p50": 0.0004770088675548449,
+            "p90": 0.0015314985117922029,
+            "p95": 0.0036864617790052846,
+            "pearson": 0.9999679896016712,
+            "worstX": 3.5,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00340455076568863,
+            "meanAbsolute": 0.0003857009005404412,
+            "rmse": 0.0008242926433917419,
+            "nrmse": 0.0008661513706103967,
+            "maxRelative": 0.42299912872746004,
+            "p50": 0.00015795096725549506,
+            "p90": 0.0008480058201515803,
+            "p95": 0.0025709688399842123,
+            "pearson": 0.9999900199222949,
+            "worstX": 2.25,
+            "worstY": 2.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.005432835381830758,
+            "meanAbsolute": 0.0008434154095456646,
+            "rmse": 0.0013635890881343034,
+            "nrmse": 0.0014332227593009995,
+            "maxRelative": 5.129723589466045,
+            "p50": 0.0005072130465987002,
+            "p90": 0.0017577448384020482,
+            "p95": 0.0038075057562697518,
+            "pearson": 0.9999637826468649,
+            "worstX": 3.5,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0035304959491054833,
+            "meanAbsolute": 0.0004017565779838662,
+            "rmse": 0.0008523951749269755,
+            "nrmse": 0.0008956809877942983,
+            "maxRelative": 0.4093914745556171,
+            "p50": 0.0001587872794027816,
+            "p90": 0.0008601568243783254,
+            "p95": 0.002618682136269301,
+            "pearson": 0.9999894225566969,
+            "worstX": 0,
+            "worstY": 3.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "outcome": "SupplementalPass"
+    },
+    {
+      "id": 1763,
+      "c": {
+        "id": 1763,
+        "priorMember": "native-aligned-psf/1763-056-even-asphere-c1-primary-f1-w1-psf-p256/data.json",
+        "priorDataSha256": "32a4d91b05eab5169a36d957e22a726813cc5308191aaf355ce95c784820eb0f",
+        "requestFingerprint": "c5481f67e78df62a7a2fa3783f7d8aabc3ac78b17713e1619e506be3e9b839e0",
+        "archive": "validation/zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+        "originalNative": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\1763-056-even-asphere-c1-primary-f1-w1-psf/native",
+        "settings": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 64,
+          "imageSampling": 128,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "Irradiance": {
+              "absolute": 1e-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "baselineJob": "D:\\Projects\\opticalsystem\\artifacts\\validation\\hf1107\\full\\analyses\\1763\\request.json",
+        "lens": "Objectives/Even Asphere.zmx",
+        "sourceSha256": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da"
+      },
+      "coreLog": [
+        {
+          "n": 512,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "5ef61df932b4872cedf2e06472767ce8394e3cd6c01835a1b5d7eb95d6306381",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "f40ba8171ff26320d851e9759bd5d2ea6738460f62193118ccc34172c035c524",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "b8e012ebcdfde3213e1c8fa3ba06c57a5e306fe7057f91af07eb6db61e53e2da",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "38b77982773654a012e77a1a8a04bcefa98de4d415814fd197e1d9e8aad6db14",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "f5ce8dafe86be2f73aa2c99d98aecd10cf7b40cb7eb0f9c1ea8c0e7013ce6487",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "b8e012ebcdfde3213e1c8fa3ba06c57a5e306fe7057f91af07eb6db61e53e2da",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "8eb933f509aedaefa14a774937e7d33a247fdb441fe3aec3e7bea262e5613495",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "0b606f6df2fb514e6d0e444a78de52197e34142d4ca11cec36c4c8f88b3ae9be",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "b8e012ebcdfde3213e1c8fa3ba06c57a5e306fe7057f91af07eb6db61e53e2da",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        }
+      ],
+      "nativeLog": [
+        {
+          "n": 256,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+          "hash": "32a4d91b05eab5169a36d957e22a726813cc5308191aaf355ce95c784820eb0f",
+          "modelHash": "b1425e865103174e7954b99c12152de514cd25f188701b5e7b4be59599e316bf",
+          "readback": "14e0b0c4007aa5ea3805ebf4e0706f767aa33cf1eeaef5259fb660ac8ae3e178"
+        },
+        {
+          "n": 512,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "e7523a0a2b8247667d53cd559eded64442af41318f2d985d61296d5c5d1756da",
+          "hash": "08965f63b8668ec36a3339a63c0656a2a08e90bfdfed15ad5d99b9f5f344410f",
+          "modelHash": "a7557bc3712f97b9eab1accb362100fdbb3dd6258bc383897a842903132eeb81",
+          "readback": "13e2a97531034dc4ccd4f1c6127185a053f7e140d71c0663cbb07f45dfdc4203"
+        }
+      ],
+      "corePairs": [
+        {
+          "a": 512,
+          "b": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 8.154401076848443e-05,
+            "meanAbsolute": 7.23032302489557e-06,
+            "rmse": 1.2179065183446834e-05,
+            "nrmse": 0.000441806020477244,
+            "maxRelative": 0.1438332250523731,
+            "p50": 4.013510101121042e-06,
+            "p90": 1.6870148786980657e-05,
+            "p95": 2.2387415760907633e-05,
+            "pearson": 0.9999872922332198,
+            "worstX": 0,
+            "worstY": 1.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 3.180195589422112e-05,
+            "meanAbsolute": 2.8136662037621303e-06,
+            "rmse": 4.5810190332434396e-06,
+            "nrmse": 0.00016608644688126913,
+            "maxRelative": 0.05309725661057134,
+            "p50": 1.5961575532063513e-06,
+            "p90": 6.532771076876053e-06,
+            "p95": 8.563355906773455e-06,
+            "pearson": 0.9999979325020044,
+            "worstX": 0,
+            "worstY": -2.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "nativePairs": [
+        {
+          "a": 256,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00020200294471851496,
+            "meanAbsolute": 1.90470342903536e-05,
+            "rmse": 2.8500164190349086e-05,
+            "nrmse": 0.0010311801726171164,
+            "maxRelative": 0.6239584632397702,
+            "p50": 1.2853900382926617e-05,
+            "p90": 4.120666781750786e-05,
+            "p95": 5.275036969354477e-05,
+            "pearson": 0.999938766466514,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "cross": [
+        {
+          "a": 512,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00020200271007698306,
+            "meanAbsolute": 1.9047030915430168e-05,
+            "rmse": 2.8500165611834354e-05,
+            "nrmse": 0.0010387723829155028,
+            "maxRelative": 0.4850549194256362,
+            "p50": 1.2853942124051333e-05,
+            "p90": 4.120656732729717e-05,
+            "p95": 5.275035075265452e-05,
+            "pearson": 0.999938766447866,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 512,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 2.3464153189878267e-10,
+            "meanAbsolute": 3.0607230979360366e-11,
+            "rmse": 4.560646065047624e-11,
+            "nrmse": 1.650112527489891e-09,
+            "maxRelative": 5.039592354768599e-07,
+            "p50": 2.000480572752865e-11,
+            "p90": 5.974724250502189e-11,
+            "p95": 7.788375361306166e-11,
+            "pearson": 0.9999999999999759,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00023358583718655068,
+            "meanAbsolute": 2.498834634465782e-05,
+            "rmse": 3.8031257416191745e-05,
+            "nrmse": 0.0013861610640987314,
+            "maxRelative": 0.6938477407317317,
+            "p50": 1.5652829540416886e-05,
+            "p90": 5.6654906796162244e-05,
+            "p95": 7.15133842812464e-05,
+            "pearson": 0.9998911243298801,
+            "worstX": -1,
+            "worstY": 1.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 8.154414659098698e-05,
+            "meanAbsolute": 7.230323223616167e-06,
+            "rmse": 1.2179077831426754e-05,
+            "nrmse": 0.0004406579378507822,
+            "maxRelative": 0.1405962455853458,
+            "p50": 4.013499905424351e-06,
+            "p90": 1.6870159761266546e-05,
+            "p95": 2.2387450380929228e-05,
+            "pearson": 0.9999872921982869,
+            "worstX": 1.75,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00025753804554774946,
+            "meanAbsolute": 2.695206987183699e-05,
+            "rmse": 4.093358297317232e-05,
+            "nrmse": 0.0014919448576346328,
+            "maxRelative": 0.7474437081723045,
+            "p50": 1.6948372686082977e-05,
+            "p90": 6.082506050083949e-05,
+            "p95": 7.712515927284076e-05,
+            "pearson": 0.9998712138634651,
+            "worstX": 1.25,
+            "worstY": 1.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 9.54762791754802e-05,
+            "meanAbsolute": 9.1508054645561e-06,
+            "rmse": 1.463971996421524e-05,
+            "nrmse": 0.0005296877891278145,
+            "maxRelative": 0.17668647835613524,
+            "p50": 5.1373556318338114e-06,
+            "p90": 2.201762689031456e-05,
+            "p95": 2.8232472282975972e-05,
+            "pearson": 0.9999815117469429,
+            "worstX": 1.25,
+            "worstY": 1.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "outcome": "SupplementalPass"
+    },
+    {
+      "id": 1785,
+      "c": {
+        "id": 1785,
+        "priorMember": "native-sampling-controls/1785-057-gaussian-quadrature-over-annular-pupils-c1-primary-f1-w1-psf-p256/data.json",
+        "priorDataSha256": "9dd247fb2fb7825ac65deb3c053799f93bab23d444284e058c4a348debf4d36d",
+        "requestFingerprint": "a7bd7d9ad91bed39ea43fc8a1f879b65b68f52f9145e98a2298bae6ddc77eb19",
+        "archive": "validation/zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+        "originalNative": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\1785-057-gaussian-quadrature-over-annular-pupils-c1-primary-f1-w1-psf/native",
+        "settings": {
+          "field": 1,
+          "wavelength": 1,
+          "pupilSampling": 64,
+          "imageSampling": 128,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "Irradiance": {
+              "absolute": 1e-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "baselineJob": "D:\\Projects\\opticalsystem\\artifacts\\validation\\hf1107\\full\\analyses\\1785\\request.json",
+        "lens": "Objectives/Gaussian Quadrature over Annular Pupils.zmx",
+        "sourceSha256": "dc90e1c94d3100baf109315308a8a44815e6d325653988cce64330b77c93e03b"
+      },
+      "coreLog": [
+        {
+          "n": 512,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "0296ff240861e4b8b2b5a179523bb8619459e22b74535d862cbdc1c43d516ef2",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "22cb4167cf1b6910e2ef515915e2b21684ba42554bc85828137ed38b433a0a4a",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "db70748c04f9d200a68955544fbd66e05301c38883c1cad2910196ad28a8c88d",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "ef338e74c1a5b399a59ea2af388f015d025e6edbfbb1d2c471e0af9475656d49",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "03001fdddb87b2c02e3812163fa5ab5a60f0e2eaac7e1626a125243c4648917a",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "db70748c04f9d200a68955544fbd66e05301c38883c1cad2910196ad28a8c88d",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "023e546d6dea627712f6da1c16eeeaaa1215def9f2b80d2ae3a8b87aed9d5e4e",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "7b6054cab3929f5faf62177d5cebe5da4ad1bc431f160b031166b68b47b4b122",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "db70748c04f9d200a68955544fbd66e05301c38883c1cad2910196ad28a8c88d",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        }
+      ],
+      "nativeLog": [
+        {
+          "n": 256,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "dc90e1c94d3100baf109315308a8a44815e6d325653988cce64330b77c93e03b",
+          "hash": "9dd247fb2fb7825ac65deb3c053799f93bab23d444284e058c4a348debf4d36d",
+          "modelHash": "9b3ace418aeb497bb6fc0be2141ff32ff8a86dfd1953e15308e55db55af5cc2a",
+          "readback": "1c3da87580899d980dc30ec887a0494a6d6cfa7dd5e865564d3dccbc5f79b575"
+        },
+        {
+          "n": 512,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "dc90e1c94d3100baf109315308a8a44815e6d325653988cce64330b77c93e03b",
+          "hash": "23b8f0091dccf7100994f4dd595962c1b44aa0303d2a2408d1b695a882439d39",
+          "modelHash": "ef2229ab96a071c2c5a32b0d70a3c6a381db9a361d06b802df3d167eb375d35c",
+          "readback": "743d303415f73a252c7f6a6a61eb20bb9babc52993427f12d16869d39a0284f1"
+        }
+      ],
+      "corePairs": [
+        {
+          "a": 512,
+          "b": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0038680132528570166,
+            "meanAbsolute": 0.0007450877669319437,
+            "rmse": 0.00125610804363297,
+            "nrmse": 0.001256353259361696,
+            "maxRelative": 48.986188501294556,
+            "p50": 0.00034884458576576755,
+            "p90": 0.002681631976451657,
+            "p95": 0.0034589629999672196,
+            "pearson": 0.999984049300508,
+            "worstX": -3.5,
+            "worstY": -3.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.000378995936781229,
+            "meanAbsolute": 0.00010982903488672566,
+            "rmse": 0.0001434183392714457,
+            "nrmse": 0.00014344639454136988,
+            "maxRelative": 5.197059469625404,
+            "p50": 8.851209156216303e-05,
+            "p90": 0.0002445421605482081,
+            "p95": 0.00029953070999309166,
+            "pearson": 0.9999996838090441,
+            "worstX": 0,
+            "worstY": 5.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "nativePairs": [
+        {
+          "a": 256,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00792891357497924,
+            "meanAbsolute": 0.0018723102753090905,
+            "rmse": 0.002592602420978894,
+            "nrmse": 0.002593108542651244,
+            "maxRelative": 168.17467962943877,
+            "p50": 0.0013368311657097655,
+            "p90": 0.0044635087241779005,
+            "p95": 0.005630868158021874,
+            "pearson": 0.9999106378917496,
+            "worstX": -5.25,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "cross": [
+        {
+          "a": 512,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.007928913574482388,
+            "meanAbsolute": 0.0018723102746607035,
+            "rmse": 0.0025926024199617835,
+            "nrmse": 0.0025931031174600467,
+            "maxRelative": 276.4318053204334,
+            "p50": 0.0013368311670357881,
+            "p90": 0.004463508722572343,
+            "p95": 0.005630868158034854,
+            "pearson": 0.9999106378917553,
+            "worstX": 0,
+            "worstY": 5.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 512,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 1.5064505198836287e-11,
+            "meanAbsolute": 1.3631540342168856e-12,
+            "rmse": 2.6404690828222196e-12,
+            "nrmse": 2.640984548910337e-12,
+            "maxRelative": 3.5325745644251226e-07,
+            "p50": 6.168269020556671e-13,
+            "p90": 2.514751959187961e-12,
+            "p95": 5.806352620929537e-12,
+            "pearson": 1.0000000000000024,
+            "worstX": -0.25,
+            "worstY": -1.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.011426634484553388,
+            "meanAbsolute": 0.0023204109429055047,
+            "rmse": 0.003552438756841624,
+            "nrmse": 0.0035531248231603888,
+            "maxRelative": 448.46088546323256,
+            "p50": 0.0012802840558233629,
+            "p90": 0.0068963434772353616,
+            "p95": 0.008821020902043624,
+            "pearson": 0.999857817090387,
+            "worstX": 0,
+            "worstY": 5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.003868013247707247,
+            "meanAbsolute": 0.0007450877662912346,
+            "rmse": 0.0012561080424447518,
+            "nrmse": 0.00125635325686635,
+            "maxRelative": 36.458164375733006,
+            "p50": 0.00034884458375132685,
+            "p90": 0.002681631976298954,
+            "p95": 0.0034589629960826073,
+            "pearson": 0.9999840493005033,
+            "worstX": 3.25,
+            "worstY": 3.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.011056386355894898,
+            "meanAbsolute": 0.0022388332421169324,
+            "rmse": 0.0034346599980644866,
+            "nrmse": 0.0034353233183079513,
+            "maxRelative": 407.04654121311216,
+            "p50": 0.001281120791803569,
+            "p90": 0.006720755276948098,
+            "p95": 0.008595280699165146,
+            "pearson": 0.9998683922056181,
+            "worstX": 5,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0037237065546667503,
+            "meanAbsolute": 0.0007135239501060426,
+            "rmse": 0.0011825696172983633,
+            "nrmse": 0.0011828004757236793,
+            "maxRelative": 20.658900343044415,
+            "p50": 0.0003497490132916472,
+            "p90": 0.0025236771424895555,
+            "p95": 0.003199511264436669,
+            "pearson": 0.9999856370151768,
+            "worstX": 3.5,
+            "worstY": 3.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "outcome": "SupplementalPass"
+    },
+    {
+      "id": 1897,
+      "c": {
+        "id": 1897,
+        "priorMember": "native-sampling-controls/1897-061-relay-lens-c1-primary-f1-w2-psf-p256/data.json",
+        "priorDataSha256": "9c0504b23cfb676d51eb66a92620021ba76e77cf1a5e1fd2690c9fb8410318d2",
+        "requestFingerprint": "2e685e15188db26e611c368c50b22f03d1ed2334fe3fa2b7fd2f80936d956f8e",
+        "archive": "validation/zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+        "originalNative": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\1897-061-relay-lens-c1-primary-f1-w2-psf/native",
+        "settings": {
+          "field": 1,
+          "wavelength": 2,
+          "pupilSampling": 64,
+          "imageSampling": 128,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "Irradiance": {
+              "absolute": 1e-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "baselineJob": "D:\\Projects\\opticalsystem\\artifacts\\validation\\hf1107\\full\\analyses\\1897\\request.json",
+        "lens": "Objectives/Relay lens.zmx",
+        "sourceSha256": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2"
+      },
+      "coreLog": [
+        {
+          "n": 512,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "754e3d343d0be670c4dfc2610d25824d59995fb5427df1721f2ea870f7786ec5",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "2e1846dae630e116bd0ea9fa55c31a876e7f2a477308beff13ce8e436edee6a4",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "9c74620a2579bdbb9b0723b1566ae35d83431e3e898321ccd5de2a7106cfb5a1",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "957c59d2bff66ec2befd35a214b185e6be0155de95ec0461180354bc58782762",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "bd382f80b84e3854bf196d92f54772f491219990090de7e7256ef266724ea5b4",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "9c74620a2579bdbb9b0723b1566ae35d83431e3e898321ccd5de2a7106cfb5a1",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "3f360dd5a8d3d608aadbaeca274e6cd871cc01413192a4e92726033c034f08d8",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "4949a71f122eb0b000e5f1fea05eea78ef749462175978620e67587b300dc6a1",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "9c74620a2579bdbb9b0723b1566ae35d83431e3e898321ccd5de2a7106cfb5a1",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        }
+      ],
+      "nativeLog": [
+        {
+          "n": 256,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+          "hash": "9c0504b23cfb676d51eb66a92620021ba76e77cf1a5e1fd2690c9fb8410318d2",
+          "modelHash": "faec37e4fcc350fe04f853374296366e9e5cdbdcdf70672ad1e6576108c962d0",
+          "readback": "b111a2f826086faca865e8da460bd809812bb4aa3c8e908c9633a077f8e9bc18"
+        },
+        {
+          "n": 512,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "b7d9b8641d60a6898b54d7533a09b67108ed7085c5e0e28f6ac4fffb4a729ea2",
+          "hash": "089f947ef7ba415adb08e3842e8890b4117f7b687afe44f2d268327b6fb3df9b",
+          "modelHash": "fe3f61503bce61c9e9f03b0bb6877375694c2199b3c850439a8032f29f3c4dbc",
+          "readback": "ec08735a33b9bc825610cd66857fea9840f28648582cc860a9ce39df2f412ad7"
+        }
+      ],
+      "corePairs": [
+        {
+          "a": 512,
+          "b": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0024436579179583084,
+            "meanAbsolute": 0.0004376907373769295,
+            "rmse": 0.0005854320967779322,
+            "nrmse": 0.002168241461892622,
+            "maxRelative": 0.13037780737329288,
+            "p50": 0.0003105960427788393,
+            "p90": 0.0009737937465629301,
+            "p95": 0.001250491675878089,
+            "pearson": 0.9999091339981181,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0006922925867668961,
+            "meanAbsolute": 0.00016140266701876278,
+            "rmse": 0.00022067465458860844,
+            "nrmse": 0.0008194048671426068,
+            "maxRelative": 0.028166831985994147,
+            "p50": 0.0001017028479199239,
+            "p90": 0.0004098780761632219,
+            "p95": 0.0004931111980816035,
+            "pearson": 0.999986061834532,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "nativePairs": [
+        {
+          "a": 256,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.008279229629372387,
+            "meanAbsolute": 0.0012972287923039786,
+            "rmse": 0.001709436750156218,
+            "nrmse": 0.006274386383955651,
+            "maxRelative": 0.5324085510776237,
+            "p50": 0.001013289070894664,
+            "p90": 0.0027062550761470833,
+            "p95": 0.002977939578666925,
+            "pearson": 0.9994689543740094,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "cross": [
+        {
+          "a": 512,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.008279229556805268,
+            "meanAbsolute": 0.0012972287744817132,
+            "rmse": 0.001709436714620731,
+            "nrmse": 0.00608934079465039,
+            "maxRelative": 1.1386190409477013,
+            "p50": 0.0010132893101195929,
+            "p90": 0.002706254968796545,
+            "p95": 0.002977939551995762,
+            "pearson": 0.9994689543887176,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 512,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 2.5169185832729646e-10,
+            "meanAbsolute": 9.636284978409629e-11,
+            "rmse": 1.1485140145515428e-10,
+            "nrmse": 4.215552692444396e-10,
+            "maxRelative": 3.493536870249734e-08,
+            "p50": 9.095717408424964e-11,
+            "p90": 1.915022538115374e-10,
+            "p95": 2.1834275941087776e-10,
+            "pearson": 0.999999999999997,
+            "worstX": 11.5,
+            "worstY": 11.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.010722887474763576,
+            "meanAbsolute": 0.0012648433419293712,
+            "rmse": 0.0017999460154079808,
+            "nrmse": 0.006411752249175259,
+            "maxRelative": 0.8919506626996201,
+            "p50": 0.0009807663669462365,
+            "p90": 0.0024451014266076965,
+            "p95": 0.002616650580009331,
+            "pearson": 0.9995099592156771,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0024436578453911895,
+            "meanAbsolute": 0.00043769072297216967,
+            "rmse": 0.0005854320768342482,
+            "nrmse": 0.002148793777414698,
+            "maxRelative": 0.11534004867520202,
+            "p50": 0.00031059601011673016,
+            "p90": 0.000973793692118112,
+            "p95": 0.0012504915560531446,
+            "pearson": 0.9999091340012124,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.011415180061530472,
+            "meanAbsolute": 0.0012852414938825877,
+            "rmse": 0.0018562861457661534,
+            "nrmse": 0.006612446578033206,
+            "maxRelative": 0.8438700239330255,
+            "p50": 0.0009709401501402926,
+            "p90": 0.002380247880240616,
+            "p95": 0.0026065794400325177,
+            "pearson": 0.9994920446102599,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.0031359504321580856,
+            "meanAbsolute": 0.0005971534843879526,
+            "rmse": 0.0007998910884070912,
+            "nrmse": 0.002935952882310662,
+            "maxRelative": 0.1378221441385691,
+            "p50": 0.00041375751120191484,
+            "p90": 0.001384837431075181,
+            "p95": 0.0017321709258765292,
+            "pearson": 0.9998264285069958,
+            "worstX": 0,
+            "worstY": 0,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "outcome": "SupplementalPass"
+    },
+    {
+      "id": 1987,
+      "c": {
+        "id": 1987,
+        "priorMember": "native-sampling-controls/1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf-p256/data.json",
+        "priorDataSha256": "2b4e60a0ce01c7a3b4b1aa074708f046ac42c59b7a6e225294d3fe985760597f",
+        "requestFingerprint": "e3f24fd6f5628460ff52c6febe270daf8594f015170324d1bcc25376cb742aa0",
+        "archive": "validation/zemax/2026-r1/objectives-repair-2026-10-23/native-evidence.zip",
+        "originalNative": "D:\\Projects\\opticalsystem\\artifacts\\zemax-sequential-corpus\\20261021\\full-v1\\analyses\\1987-064-wide-angle-lens-200-degree-field-c1-primary-f1-w2-psf/native",
+        "settings": {
+          "field": 1,
+          "wavelength": 2,
+          "pupilSampling": 64,
+          "imageSampling": 128,
+          "rayCount": 20,
+          "vignettedPupil": true,
+          "rmsFieldMethod": "GQ",
+          "rmsFieldRayDensity": 6,
+          "rmsFieldRemoveVignettingFactors": true,
+          "imageDeltaMicrometers": 0.25,
+          "maximumFrequency": 50,
+          "quantities": {
+            "Irradiance": {
+              "absolute": 1e-05,
+              "relative": 0.001,
+              "nrmse": 0.01,
+              "closeNrmse": 0.03,
+              "minimumCoverage": 0.95
+            }
+          },
+          "workbenchSettings": {}
+        },
+        "baselineJob": "D:\\Projects\\opticalsystem\\artifacts\\validation\\hf1107\\full\\analyses\\1987\\request.json",
+        "lens": "Objectives/Wide angle lens 200 degree field.zmx",
+        "sourceSha256": "fd8a4a96d1dea380462078281b2db5c39185b087b6c85f36f298abbfd74e5c49"
+      },
+      "coreLog": [
+        {
+          "n": 512,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "90e42f033e38674d3e540493e936e6ff03ae589b7a11e2bef0aee5cd278fb2b5",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "57c8f3619d55963d2d0d4f90b24aab4352fc0c7e0d925b635e7adf5eea58c704",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "43edcd31286bf023163cf1f75d2612c86339befcb92c4490b1d04464a9f5107e",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 1024,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "9bbd27bd2f50bb1f148a8c2251c5c5465fee0d9400837f9241f91ec6692b440b",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "b3eeae5734e9f1bc490ce9fe5fd6ca60929b7266c097112df145978527b6577f",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "43edcd31286bf023163cf1f75d2612c86339befcb92c4490b1d04464a9f5107e",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        },
+        {
+          "n": 2048,
+          "outcome": "Success",
+          "reason": null,
+          "hash": "7115f6423c81fea865ab43c3409c1c9b12c3051e655f4a039ec04208c98738b9",
+          "provenance": {
+            "canonicalAnalysisKey": "PSF",
+            "requestFingerprint": "dad9067031a7b2103ea45faeb1b98e9a7ed4bb1001b1a8b585b484836445720a",
+            "settingsTranslation": null,
+            "executorId": "Application.WorkbenchRuntime.BuildAnalysisData/v1",
+            "snapshotSha256": "43edcd31286bf023163cf1f75d2612c86339befcb92c4490b1d04464a9f5107e",
+            "codeFingerprint": "b511203b2a3d95e8de388105b77d2dc51c2534e67496f38a27701d9853d9c6db:a423ba3e0ccd2d4967c5a2eeb894667d19625e04006eec630f7eb54d6ebac0fd"
+          }
+        }
+      ],
+      "nativeLog": [
+        {
+          "n": 256,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "fd8a4a96d1dea380462078281b2db5c39185b087b6c85f36f298abbfd74e5c49",
+          "hash": "2b4e60a0ce01c7a3b4b1aa074708f046ac42c59b7a6e225294d3fe985760597f",
+          "modelHash": "b25b009fd9d73e426cda19581fdee40c2c1d37791849db170493bbd3a0599a6a",
+          "readback": "66f32607dd6f26f4aba4e99a64a49c2d74daa3a72f8ecd39b1018f07f48e60c2"
+        },
+        {
+          "n": 512,
+          "valid": true,
+          "messages": [],
+          "sourceHash": "fd8a4a96d1dea380462078281b2db5c39185b087b6c85f36f298abbfd74e5c49",
+          "hash": "0a2b1c15549c8c7184fabf7c1f09a03765b640804d3462f105f0ef4b8622e004",
+          "modelHash": "2d1139d1568c52c8668c47df8289e0bfda51745c256e66d303c75cd2b75b45fa",
+          "readback": "3bee97d7e1ad7c6319424e9fd1e6c84106a6c32b3d9e5518852f6f46e3fa0755"
+        }
+      ],
+      "corePairs": [
+        {
+          "a": 512,
+          "b": 1024,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 3.627423993029198e-05,
+            "meanAbsolute": 3.569441548322416e-06,
+            "rmse": 5.614349705656934e-06,
+            "nrmse": 0.0019184788029224151,
+            "maxRelative": 0.20910737434754353,
+            "p50": 2.12982098552428e-06,
+            "p90": 8.540671567290657e-06,
+            "p95": 1.153835444169875e-05,
+            "pearson": 0.9999658966266328,
+            "worstX": -13.25,
+            "worstY": 13.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 2048,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 1.1947097862681933e-05,
+            "meanAbsolute": 8.605069033953981e-07,
+            "rmse": 1.4290380063966848e-06,
+            "nrmse": 0.0004887393885920328,
+            "maxRelative": 0.022538350898591256,
+            "p50": 4.4524262476352145e-07,
+            "p90": 2.328057309759139e-06,
+            "p95": 3.3838172394434333e-06,
+            "pearson": 0.9999977712853463,
+            "worstX": 13.25,
+            "worstY": -13.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "nativePairs": [
+        {
+          "a": 256,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00015017631366587162,
+            "meanAbsolute": 1.3096750801476586e-05,
+            "rmse": 2.1163590753340594e-05,
+            "nrmse": 0.007201271422030775,
+            "maxRelative": 0.41946935660886414,
+            "p50": 7.3718098011476825e-06,
+            "p90": 3.305380085222913e-05,
+            "p95": 4.7342273223272046e-05,
+            "pearson": 0.9995175684471448,
+            "worstX": -11,
+            "worstY": 15.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "cross": [
+        {
+          "a": 512,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00015017635232298081,
+            "meanAbsolute": 1.3096750333471914e-05,
+            "rmse": 2.11635901197377e-05,
+            "nrmse": 0.006948643442472904,
+            "maxRelative": 0.4113276046138078,
+            "p50": 7.371782992502318e-06,
+            "p90": 3.305376953924345e-05,
+            "p95": 4.73421647650783e-05,
+            "pearson": 0.9995175685352105,
+            "worstX": 11,
+            "worstY": -15.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 512,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 2.3625539892491165e-10,
+            "meanAbsolute": 2.0298091268397297e-11,
+            "rmse": 3.312303061262996e-11,
+            "nrmse": 1.1270674080868432e-08,
+            "maxRelative": 1.2162564996331412e-06,
+            "p50": 1.2341906502051723e-11,
+            "p90": 4.336480916109638e-11,
+            "p95": 7.076361590880432e-11,
+            "pearson": 0.9999999999999966,
+            "worstX": 13.75,
+            "worstY": 13.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00014925167236536693,
+            "meanAbsolute": 1.2293347001467584e-05,
+            "rmse": 2.038106041520333e-05,
+            "nrmse": 0.006691715394387062,
+            "maxRelative": 0.354939531020896,
+            "p50": 6.729987691911815e-06,
+            "p90": 3.067731895197612e-05,
+            "p95": 4.54217616297428e-05,
+            "pearson": 0.9995523991264659,
+            "worstX": -11,
+            "worstY": 15.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 1024,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 3.6274092499330446e-05,
+            "meanAbsolute": 3.569442266081926e-06,
+            "rmse": 5.614349047764866e-06,
+            "nrmse": 0.0019103776775022466,
+            "maxRelative": 0.1729425881228057,
+            "p50": 2.1298162202427405e-06,
+            "p90": 8.54069259947016e-06,
+            "p95": 1.153845428401609e-05,
+            "pearson": 0.9999658966257291,
+            "worstX": 13.25,
+            "worstY": -13.25,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 256,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 0.00014934901995385282,
+            "meanAbsolute": 1.247260188519702e-05,
+            "rmse": 2.0595225604756493e-05,
+            "nrmse": 0.006762032270284534,
+            "maxRelative": 0.3518977738024791,
+            "p50": 6.7316088544259155e-06,
+            "p90": 3.2324126320987224e-05,
+            "p95": 4.626491248398415e-05,
+            "pearson": 0.9995429579602962,
+            "worstX": -11,
+            "worstY": -15.5,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        },
+        {
+          "a": 2048,
+          "b": 512,
+          "metric": {
+            "id": "grid",
+            "unit": "Dimensionless",
+            "count": 16384,
+            "maxAbsolute": 2.7042410069332782e-05,
+            "meanAbsolute": 3.0639810216746815e-06,
+            "rmse": 4.686168118604937e-06,
+            "nrmse": 0.0015945483422284907,
+            "maxRelative": 0.15734233436446315,
+            "p50": 1.932152475288893e-06,
+            "p90": 6.939095059750708e-06,
+            "p95": 9.990328275503642e-06,
+            "pearson": 0.9999763103496383,
+            "worstX": -15.25,
+            "worstY": 11.75,
+            "coverage": 1,
+            "conclusion": "Pass",
+            "extra": {}
+          }
+        }
+      ],
+      "outcome": "SupplementalPass"
+    }
+  ]
+}

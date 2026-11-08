@@ -1,0 +1,163 @@
+{
+  "status": "ConditionalNearFocusFftOperatorOnly",
+  "sourceSha256": "eb5b15894ed4861de0db6052b0e3c6ec646694d5701f8673c45e33b43a597ea2",
+  "nativeWavefrontSha256": "d65a4efde00da7d4b75159fdcd5601db0bd4286711b954fc1cfc9e3bb71a08ed",
+  "nativeWavefrontMaximumErrorWaves": 3.972218109993264e-10,
+  "originalNativeDiagnostics": {
+    "1365": {
+      "member": "run/analyses/1365-045-toroid-c1-primary-f1-w1-psf/native/data.json",
+      "sha256": "3e9a852284e5594246c67697011423efbf23b630937909defa6fb7a397aa4029",
+      "messages": [
+        {
+          "ErrorCode": "Success",
+          "Text": "\u53d6\u6837\u592a\u4f4e, \u6570\u636e\u4e0d\u51c6\u786e!"
+        }
+      ],
+      "numericGridValues": 0
+    },
+    "1369": {
+      "member": "run/analyses/1369-045-toroid-c1-primary-f1-w1-fft-psf-cross-section/native/error.json",
+      "sha256": "3cf1d65231e84f4e52b0fa2241c1b11fa77a9187c65ae0ade467ca300f5bb8ba",
+      "errorCode": "NativeInvalidResult"
+    }
+  },
+  "frozenRequestSha256": {
+    "1365": "dace72a27ecbaedd439e1a90474937a80ce7af2c2d6291226c3bdf319b04612d",
+    "1369": "ec9d4dc3f1e4a83e003af28c6d37626daaca2331b9f12b12cadeea3d5bafc561"
+  },
+  "referenceSphereMm": 166.52646357844446,
+  "wavelengthMicrometers": 0.5,
+  "workingFNumbersXY": [
+    6.0721582590998855,
+    6.0721582590998855
+  ],
+  "principalEdgeMissMm": [
+    19.99931399410647,
+    0.5618900507534368
+  ],
+  "principalEdgeMissWavelengths": [
+    39998.62798821294,
+    1123.7801015068735
+  ],
+  "quarterPupilPhaseSymmetryMaxWaves": 1.1446843473095214e-10,
+  "image": {
+    "coordinates": [
+      128,
+      128
+    ],
+    "pixelMicrometers": 0.25,
+    "axisMicrometers": [
+      -15.75,
+      16.0
+    ],
+    "idealNormalizedCenter": 1.754334172151813e-07,
+    "idealNormalizedPeakWithinWindow": 4.818824430070571e-07
+  },
+  "profile": {
+    "coordinates": 201,
+    "axisMicrometers": [
+      -45.541186943249144,
+      45.54118694324913
+    ],
+    "idealNormalizedCenter": 1.7543341721518066e-07,
+    "idealNormalizedPeakWithinWindow": 4.815314185792368e-07
+  },
+  "segmentedPlansPanelsOuterOrderWeakOrder": [
+    [
+      144,
+      12,
+      160
+    ],
+    [
+      211,
+      16,
+      224
+    ],
+    [
+      288,
+      18,
+      288
+    ]
+  ],
+  "directPlansPanelsOuterOrderWeakOrder": [
+    [
+      768,
+      24,
+      224
+    ],
+    [
+      1024,
+      26,
+      288
+    ]
+  ],
+  "principalAxisCarrierEdgeWaves": -2410.57959752646,
+  "maximumPanelCarrierRemainderBoundWaves": [
+    0.07170942745986257,
+    0.033399220318674566,
+    0.017927356864965643
+  ],
+  "comparisons": {
+    "initialFullImageIrradianceConvergence": {
+      "points": 16384,
+      "maxAbs": 1.812285965319528e-15,
+      "peakNormalizedRms": 1.0571817209840276e-09
+    },
+    "fullImageComplexConvergence": {
+      "points": 16384,
+      "maxAbs": 6.460923930654685e-13,
+      "peakNormalizedRms": 3.5787915850303454e-10
+    },
+    "fullImageIrradianceConvergence": {
+      "points": 16384,
+      "maxAbs": 5.560805709437964e-16,
+      "peakNormalizedRms": 3.734855090541924e-10
+    },
+    "profileIrradianceConvergence": {
+      "points": 201,
+      "maxAbs": 6.729944110709393e-16,
+      "peakNormalizedRms": 4.437186309984342e-10
+    },
+    "directProfileIrradianceConvergence": {
+      "points": 201,
+      "maxAbs": 2.8534798281499587e-16,
+      "peakNormalizedRms": 2.534011530722796e-10
+    },
+    "directSelectedComplexConvergence": {
+      "points": 15,
+      "maxAbs": 5.030237135597266e-13,
+      "peakNormalizedRms": 4.3848377424715427e-10
+    },
+    "directVersusSegmentedFullImageComplex": {
+      "points": 16384,
+      "maxAbs": 4.993166518162709e-13,
+      "peakNormalizedRms": 3.299103949785783e-10
+    },
+    "directVersusSegmentedFullImageIrradiance": {
+      "points": 16384,
+      "maxAbs": 5.501617164666202e-16,
+      "peakNormalizedRms": 3.073305040068675e-10
+    },
+    "directVersusSegmentedProfileComplex": {
+      "points": 201,
+      "maxAbs": 4.2337584453300863e-13,
+      "peakNormalizedRms": 3.557383058558063e-10
+    },
+    "directVersusSegmentedSelectedComplex": {
+      "points": 15,
+      "maxAbs": 3.3121966360670014e-13,
+      "peakNormalizedRms": 3.418715557672797e-10
+    },
+    "directVersusSegmentedProfileIrradiance": {
+      "points": 201,
+      "maxAbs": 4.0644484221259497e-16,
+      "peakNormalizedRms": 3.357397582621028e-10
+    },
+    "directVersusSegmentedSelectedIrradiance": {
+      "points": 15,
+      "maxAbs": 2.5128545281367064e-16,
+      "peakNormalizedRms": 2.7620864841544455e-10
+    }
+  },
+  "payloadSha256": "316c0f86cff77038738afc72fbd9fbb7311991cacfa585f36c7a554f273d038a"
+}

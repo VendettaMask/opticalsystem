@@ -7,7 +7,7 @@ using OpticalSystemDesign.Core.Propagation;
 
 namespace OpticalSystemDesign.Core.Analysis;
 
-public static class FocalImageDomain
+public static partial class FocalImageDomain
 {
     public const string ResultKey = "FocalImageDomain";
     public const string CollimatedContactPupil = "CollimatedContactPupil";

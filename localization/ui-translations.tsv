@@ -1457,3 +1457,6 @@ RMS 点列半径 (mm)	RMS spot radius (mm)	RMS スポット半径 (mm)
 评价值	Criterion value	評価値
 先运行包含 Monte Carlo 的公差分析。	Run a tolerance analysis with Monte Carlo first.	先にモンテカルロを含む公差解析を実行してください。
 本次没有可定位的最差试验。	There is no worst trial to locate in this run.	この解析で移動できる最悪の試行はありません。
+校验轴对称瞳孔积分	Check rotational pupil integral	回転対称瞳の積分を検証
+用于单波长、轴上、同轴系统的标量平面传播。固定像面网格，自动细化圆瞳积分并校验收敛。	For scalar planar propagation in on-axis, coaxial systems at one wavelength. The circular pupil integral is refined and checked for convergence on the same image grid.	単一波長の軸上・同軸系におけるスカラー平面伝搬用です。同じ像面グリッド上で円形瞳の積分を細分化し、収束を確認します。
+按需加密	Refine when needed	必要に応じてサンプリングを細分化

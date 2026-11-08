@@ -1,0 +1,313 @@
+{
+  "openingUnavailableItems": 37,
+  "originalOpenLedgerSha256": "d16f311d45bf0a7486b25b39db377f317fa3905806e05704080d62fc0804aefd",
+  "originalComparisonPolicySha256": "30c27e7976710867d0edc6dd4099edac54ca9e070245dea679b3afdd88fd28f5",
+  "nativeArchiveSha256": "1dc562461d4e39ac9bf54f3c2309a0bb81fdeccfb092554cd8e9c14aa80760ad",
+  "firstOrderReportSha256": "3969010a1e11c3fe7b314fbd776ea604c45b5be28357b88f599c28bf62e969ac",
+  "allConfirmedByAnalyticConstantNormalPropagation": true,
+  "domains": [
+    {
+      "lens": "Miscellaneous/Optimization demo 1.zmx",
+      "sourceSha256": "02a7985cfcccc0b3b19524b3d81326bfd5e0f08377d22d8ad028f13a54fabf05",
+      "geometry": "UniformPlaneMirror",
+      "objectAtInfinity": true,
+      "constantNormalSequence": true,
+      "geometricImageAngularJacobian": "ZeroTwoByTwo",
+      "requestIndices": [
+        1273,
+        1276
+      ],
+      "nativeModelArchiveEntry": "run/analyses/1263-041-optimization-demo-1-c1-primary-f1-w1-first-order/native/model.json",
+      "nativeModelSha256": "791692ceb26d2fcb59f56f0436741cdd75cb723f18432101c42e6d8961cee4e3",
+      "nativeSurfaceTypes": [
+        "Standard",
+        "Standard",
+        "Standard"
+      ],
+      "firstOrderIndex": 1263,
+      "firstOrderArchiveEntry": "run/analyses/1263-041-optimization-demo-1-c1-primary-f1-w1-first-order/native/data.json",
+      "firstOrderArchiveSha256": "dc94bd6b72ed950ad783abe481a33ed123abc6d8214659060980ab32cdb5848c",
+      "firstOrderComparison": "Pass",
+      "frozenEFFLMillimeters": -10000000000,
+      "existingPsfAndMtfDiagnosis": [
+        {
+          "index": 1269,
+          "key": "PSF",
+          "outcome": "NotApplicable",
+          "reason": "Focal FFT PSF requires converging or diverging image rays with a finite diffraction scale.",
+          "dataSha256": "9a9efc9af8bf095483c7de86d339cf0cd5f2b7902ba1254f12ebb9bd12572174"
+        },
+        {
+          "index": 1271,
+          "key": "MTF",
+          "outcome": "NotApplicable",
+          "reason": "Focal FFT MTF has no finite image-plane frequency scale for parallel image rays.",
+          "dataSha256": "dc39e51b2b6facb915856626adda3d924d3b05cba3b73c4cf50b806b4552239c"
+        }
+      ]
+    },
+    {
+      "lens": "Tilted systems & prisms/Beamsplitter cube.zmx",
+      "sourceSha256": "b7a37c131d5d2b9cbdf91a8363dbf9e9447facecf2cbcfeb3553938c50e5d1a4",
+      "geometry": "HomogeneousPlaneInterfaceTrain",
+      "objectAtInfinity": true,
+      "constantNormalSequence": true,
+      "geometricImageAngularJacobian": "ZeroTwoByTwo",
+      "requestIndices": [
+        2547,
+        2550
+      ],
+      "nativeModelArchiveEntry": "run/analyses/2537-084-beamsplitter-cube-c1-primary-f1-w1-first-order/native/model.json",
+      "nativeModelSha256": "4995fd1f33c53c481121f1bcbd904b40e27f9024acd21893f643a6deaad54a27",
+      "nativeSurfaceTypes": [
+        "Standard",
+        "Standard",
+        "Standard",
+        "Tilted",
+        "Standard",
+        "Standard"
+      ],
+      "firstOrderIndex": 2537,
+      "firstOrderArchiveEntry": "run/analyses/2537-084-beamsplitter-cube-c1-primary-f1-w1-first-order/native/data.json",
+      "firstOrderArchiveSha256": "95b862129cbdd39dfc91e4c1b6471bd6a30ada8304df1d42d65b0c692078f062",
+      "firstOrderComparison": "Pass",
+      "frozenEFFLMillimeters": 10000000000,
+      "existingPsfAndMtfDiagnosis": [
+        {
+          "index": 2543,
+          "key": "PSF",
+          "outcome": "NotApplicable",
+          "reason": "Focal FFT PSF requires converging or diverging image rays with a finite diffraction scale.",
+          "dataSha256": "9a9efc9af8bf095483c7de86d339cf0cd5f2b7902ba1254f12ebb9bd12572174"
+        },
+        {
+          "index": 2545,
+          "key": "MTF",
+          "outcome": "NotApplicable",
+          "reason": "Focal FFT MTF has no finite image-plane frequency scale for parallel image rays.",
+          "dataSha256": "dc39e51b2b6facb915856626adda3d924d3b05cba3b73c4cf50b806b4552239c"
+        }
+      ]
+    }
+  ],
+  "nativeFlatMirrorRayAudit": {
+    "archiveEntry": "run/rays/041-optimization-demo-1-c1-w1/native/ray-audit.json",
+    "sha256": "cc62562b0c830bea6a0a5861b2ddc889d091f226452713354ea0338ce078710f",
+    "validCount": 72,
+    "commonImageLocalDirection": [
+      0,
+      0,
+      1
+    ],
+    "xRangeMm": [
+      -19.65944818250579,
+      19.65944818250579
+    ],
+    "yRangeMm": [
+      -19.65944818250579,
+      19.65944818250579
+    ]
+  },
+  "nativeCubeImageEvidence": {
+    "singleRayIndex": 2538,
+    "singleRayArchiveEntry": "run/analyses/2538-084-beamsplitter-cube-c1-primary-f1-w1-single-ray-trace/native/data.txt",
+    "singleRaySha256": "d477a8f4c6689c9e2123eb3507432ccad88e0eb295cbd779e6eec056691dac54",
+    "normalizedPupil": [
+      0,
+      0.8
+    ],
+    "edgeImageInterceptMm": [
+      0.0,
+      1.3548415236,
+      0.0
+    ],
+    "edgeImageDirection": [
+      0.0,
+      -0.1931158077,
+      0.9811759704
+    ],
+    "rayFanIndex": 2540,
+    "rayFanArchiveEntry": "run/analyses/2540-084-beamsplitter-cube-c1-primary-f1-w1-ray-fan/native/data.json",
+    "rayFanSha256": "0508ffc4a744b333e95ae09936a4ab40a44ceb3297f75ade71f1ea52c5eaa7cb",
+    "fans": [
+      {
+        "nativeDescription": "子午光扇，视场号1 = 0.0000 (度)",
+        "points": 41,
+        "leftInterceptRelativeToChiefMicrometers": -5564.125666844064,
+        "rightInterceptRelativeToChiefMicrometers": 5564.125666844064,
+        "maxAbsoluteResidualFromLinearInterceptMicrometers": 0
+      },
+      {
+        "nativeDescription": "弧矢光扇，视场号1 = 0.0000 (度)",
+        "points": 41,
+        "leftInterceptRelativeToChiefMicrometers": -5000,
+        "rightInterceptRelativeToChiefMicrometers": 5000,
+        "maxAbsoluteResidualFromLinearInterceptMicrometers": 0
+      }
+    ]
+  },
+  "requests": [
+    {
+      "index": 1273,
+      "key": "FFT PSF Cross Section",
+      "lens": "Miscellaneous/Optimization demo 1.zmx",
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "surfaceSelector": -1,
+      "sourceSha256": "02a7985cfcccc0b3b19524b3d81326bfd5e0f08377d22d8ad028f13a54fabf05",
+      "frozenCanonicalFingerprint": "c3eaafe3c139c37b4214521fb7061ed4a09fcb2dd87ee1efce3c851af0db8671",
+      "replayCanonicalFingerprint": "c3eaafe3c139c37b4214521fb7061ed4a09fcb2dd87ee1efce3c851af0db8671",
+      "capturedProperties": {
+        "SampleSize": "S_32x32",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "settingsArchiveEntry": "run/analyses/1273-041-optimization-demo-1-c1-primary-f1-w1-fft-psf-cross-section/native/captured-settings.json",
+      "settingsSha256": "a37f2dd7bdbee243486ccec8c989bdfb0226ee8770d20f41d5977effe7958bd8",
+      "payloadArchiveEntry": "run/analyses/1273-041-optimization-demo-1-c1-primary-f1-w1-fft-psf-cross-section/native/error.json",
+      "payloadSha256": "3cf1d65231e84f4e52b0fa2241c1b11fa77a9187c65ae0ade467ca300f5bb8ba",
+      "frozenVerdict": "Incomparable",
+      "currentWorkbenchOutcome": "Unavailable",
+      "currentWorkbenchOutcomeReason": "PSF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 227.295 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+      "currentWorkbenchSha256": "b3025435f53516ea0aa19a61632bae9d0eff4bdf154134cd51325c077f000a2c",
+      "originalComparisonTolerances": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "independentApplicability": "NotApplicableFocalFftCoordinateDomain"
+    },
+    {
+      "index": 1276,
+      "key": "Diffraction Encircled Energy",
+      "lens": "Miscellaneous/Optimization demo 1.zmx",
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "surfaceSelector": -1,
+      "sourceSha256": "02a7985cfcccc0b3b19524b3d81326bfd5e0f08377d22d8ad028f13a54fabf05",
+      "frozenCanonicalFingerprint": "ab42c5a585d50605bbe49d58d0aecd870cb1656693b498f8cc73ec61fd3bfa82",
+      "replayCanonicalFingerprint": "ab42c5a585d50605bbe49d58d0aecd870cb1656693b498f8cc73ec61fd3bfa82",
+      "capturedProperties": {
+        "HuygensSample": "S_64x64",
+        "SampleSize": "S_32x32",
+        "Type": "Encircled",
+        "ReferTo": "Centroid",
+        "ScatterRays": false,
+        "ShowDiffractionLimit": true,
+        "UseDashes": false,
+        "UseHuygensPSF": false,
+        "UsePolarization": false,
+        "HuygensDelta": 0,
+        "RadiusMaximum": 5
+      },
+      "settingsArchiveEntry": "run/analyses/1276-041-optimization-demo-1-c1-primary-f1-w1-diffraction-encircled-energy/native/captured-settings.json",
+      "settingsSha256": "acbcc80258e59179141f82efeaf9eab1d64bf618ccb8b2b09b66f1c93f78fd6a",
+      "payloadArchiveEntry": "run/analyses/1276-041-optimization-demo-1-c1-primary-f1-w1-diffraction-encircled-energy/native/data.json",
+      "payloadSha256": "c11b2180dabe6fc5f630a6bdfa70858885f6cb05200fe0e68d434b13bb3328f7",
+      "frozenVerdict": "Incomparable",
+      "currentWorkbenchOutcome": "Unavailable",
+      "currentWorkbenchOutcomeReason": "Diffraction Encircled Energy: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 513.09 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+      "currentWorkbenchSha256": "de9b83d8107792ff541d2c8cac6e4788085d824732d85b87e4e712063799f8f8",
+      "originalComparisonTolerances": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "independentApplicability": "NotApplicableFocalFftCoordinateDomain"
+    },
+    {
+      "index": 2547,
+      "key": "FFT PSF Cross Section",
+      "lens": "Tilted systems & prisms/Beamsplitter cube.zmx",
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "surfaceSelector": -1,
+      "sourceSha256": "b7a37c131d5d2b9cbdf91a8363dbf9e9447facecf2cbcfeb3553938c50e5d1a4",
+      "frozenCanonicalFingerprint": "10d11c5a454ac4dc7335f48c2db0062921300e3000be59eebf3e104ef87cdb76",
+      "replayCanonicalFingerprint": "10d11c5a454ac4dc7335f48c2db0062921300e3000be59eebf3e104ef87cdb76",
+      "capturedProperties": {
+        "SampleSize": "S_32x32",
+        "Type": "X_Linear",
+        "UsePolarization": false,
+        "Normalize": false,
+        "PlotScale": 0,
+        "RowCol": 0
+      },
+      "settingsArchiveEntry": "run/analyses/2547-084-beamsplitter-cube-c1-primary-f1-w1-fft-psf-cross-section/native/captured-settings.json",
+      "settingsSha256": "1ff64e0cb19812bd20f3e8b4420f442728618e603860a159702f687140a2eab3",
+      "payloadArchiveEntry": "run/analyses/2547-084-beamsplitter-cube-c1-primary-f1-w1-fft-psf-cross-section/native/error.json",
+      "payloadSha256": "3cf1d65231e84f4e52b0fa2241c1b11fa77a9187c65ae0ade467ca300f5bb8ba",
+      "frozenVerdict": "Incomparable",
+      "currentWorkbenchOutcome": "Unavailable",
+      "currentWorkbenchOutcomeReason": "PSF: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 95.8496 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+      "currentWorkbenchSha256": "5e53838f1aec3a1b071e1a33954a97a2c43ab20595e256d2d4a4738581cb5155",
+      "originalComparisonTolerances": {
+        "Irradiance": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "independentApplicability": "NotApplicableFocalFftCoordinateDomain"
+    },
+    {
+      "index": 2550,
+      "key": "Diffraction Encircled Energy",
+      "lens": "Tilted systems & prisms/Beamsplitter cube.zmx",
+      "configuration": 1,
+      "field": 1,
+      "wavelength": 1,
+      "surfaceSelector": -1,
+      "sourceSha256": "b7a37c131d5d2b9cbdf91a8363dbf9e9447facecf2cbcfeb3553938c50e5d1a4",
+      "frozenCanonicalFingerprint": "2dc6fbc1770273a2cd8249ce6f664cfe4af1ed5475efc9b396c76a07c102e3ed",
+      "replayCanonicalFingerprint": "2dc6fbc1770273a2cd8249ce6f664cfe4af1ed5475efc9b396c76a07c102e3ed",
+      "capturedProperties": {
+        "HuygensSample": "S_64x64",
+        "SampleSize": "S_32x32",
+        "Type": "Encircled",
+        "ReferTo": "Centroid",
+        "ScatterRays": false,
+        "ShowDiffractionLimit": true,
+        "UseDashes": false,
+        "UseHuygensPSF": false,
+        "UsePolarization": false,
+        "HuygensDelta": 0,
+        "RadiusMaximum": 5
+      },
+      "settingsArchiveEntry": "run/analyses/2550-084-beamsplitter-cube-c1-primary-f1-w1-diffraction-encircled-energy/native/captured-settings.json",
+      "settingsSha256": "17a34b1cf62ccb98843fb59ec7c90796c6c0f3fa21f86a39413325d723b14eec",
+      "payloadArchiveEntry": "run/analyses/2550-084-beamsplitter-cube-c1-primary-f1-w1-diffraction-encircled-energy/native/data.json",
+      "payloadSha256": "5ccdfcec73e70710d233399bdf705f9126d85261f79f677a152c464db0fbd3a0",
+      "frozenVerdict": "Incomparable",
+      "currentWorkbenchOutcome": "Unavailable",
+      "currentWorkbenchOutcomeReason": "Diffraction Encircled Energy: 光瞳相位存在混叠风险，相邻实际受光节点最大相位差 215.385 波，超过本程序局部相位检查的 0.5 波界限。当前 FFT 数据不可用；需要独立加密验证，或使用适用的 Huygens 分析。此检查不代表 Zemax 的内部报错判据，也不构成收敛认证。",
+      "currentWorkbenchSha256": "ec589feeb126162c3a0e4744a331888fc575cb2aa94e698db4ce3e87edcca7b0",
+      "originalComparisonTolerances": {
+        "EnergyFraction": {
+          "absolute": 1E-05,
+          "relative": 0.002,
+          "nrmse": 0.003,
+          "closeNrmse": 0.01,
+          "minimumCoverage": 0.95
+        }
+      },
+      "independentApplicability": "NotApplicableFocalFftCoordinateDomain"
+    }
+  ]
+}
