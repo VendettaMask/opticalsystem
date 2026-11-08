@@ -1208,22 +1208,8 @@ public static partial class DiffractionEngine
         ComputationCancellation.ThrowIfCancellationRequested();
         ValidatePsfGrid(psf);
         AnalysisResourceLimits.ValidateFftGrid(psf.GridSize, psf.GridSize);
-        var complex = new Complex[psf.GridSize, psf.GridSize];
+        var shifted = ComputeCenteredPsfTransform(psf);
         var center = psf.GridSize / 2;
-        for (var row = 0; row < psf.GridSize; row++)
-        {
-            for (var column = 0; column < psf.GridSize; column++)
-            {
-                // PSF arrays store the physical origin at N/2. Move it to the
-                // DFT origin before transforming so interpolation and spectral
-                // combination retain physical phase, not an alternating sign.
-                complex[(row - center + psf.GridSize) % psf.GridSize,
-                    (column - center + psf.GridSize) % psf.GridSize] = new Complex(psf.Values[row, column], 0);
-            }
-        }
-
-        Fft2D(complex);
-        var shifted = FftShift(complex);
         var dc = shifted[center, center];
         var normalization = dc.Magnitude <= 1e-30 ? Complex.One : dc;
         var tangentialOtf = Enumerable.Range(center, psf.GridSize - center)
@@ -1235,11 +1221,56 @@ public static partial class DiffractionEngine
         return CreateFftMtfResult(psf, optic, wavelength, tangentialOtf, sagittalOtf);
     }
 
+    internal static Complex[,] ComputeCenteredPsfTransform(PsfResult psf, bool doubleTransformSize = false)
+    {
+        ValidatePsfGrid(psf);
+        var size = doubleTransformSize ? checked(2 * psf.GridSize) : psf.GridSize;
+        AnalysisResourceLimits.ValidateMtfTransformWork(size);
+        var complex = new Complex[size, size];
+        var center = psf.GridSize / 2;
+        for (var row = 0; row < psf.GridSize; row++)
+        {
+            ComputationCancellation.ThrowIfCancellationRequested();
+            for (var column = 0; column < psf.GridSize; column++)
+            {
+                // PSF arrays store the physical origin at N/2. Move it to the
+                // DFT origin before transforming so interpolation and spectral
+                // combination retain physical phase, not an alternating sign.
+                complex[(row - center + size) % size,
+                    (column - center + size) % size] = new Complex(psf.Values[row, column], 0);
+            }
+        }
+
+        Transform2D(complex);
+        return FftShift(complex);
+    }
+
     private static MtfResult CreateFftMtfResult(PsfResult psf, Optic optic, Wavelength wavelength,
         Complex[] tangentialOtf, Complex[] sagittalOtf)
     {
         var tangential = tangentialOtf.Select(value => value.Magnitude).ToArray();
         var sagittal = sagittalOtf.Select(value => value.Magnitude).ToArray();
+        var (tangentialStep, sagittalStep, cutoff) = FftMtfFrequencyScale(psf, optic, wavelength);
+        var tangentialFrequency = Enumerable.Range(0, tangential.Length)
+            .Select(index => index * tangentialStep)
+            .ToArray();
+        var sagittalFrequency = Enumerable.Range(0, sagittal.Length)
+            .Select(index => index * sagittalStep)
+            .ToArray();
+        return new MtfResult(
+            tangentialFrequency,
+            tangential,
+            sagittal,
+            cutoff,
+            tangentialOtf,
+            sagittalOtf,
+            tangentialFrequency,
+            sagittalFrequency);
+    }
+
+    internal static (double TangentialStep, double SagittalStep, double Cutoff) FftMtfFrequencyScale(
+        PsfResult psf, Optic optic, Wavelength wavelength)
+    {
         var sampleCount = psf.FrequencySampleCount > 0
             ? psf.FrequencySampleCount
             : psf.PupilSampling - 1;
@@ -1261,26 +1292,12 @@ public static partial class DiffractionEngine
         var sagittalStep = optic.ImageSpaceAfocal
             ? afocalCutoff / sampleCount
             : 1 / (sampleCount * wavelength.Micrometers * 1e-3 * sagittalFNumber);
-        var tangentialFrequency = Enumerable.Range(0, tangential.Length)
-            .Select(index => index * tangentialStep)
-            .ToArray();
-        var sagittalFrequency = Enumerable.Range(0, sagittal.Length)
-            .Select(index => index * sagittalStep)
-            .ToArray();
         var cutoff = optic.ImageSpaceAfocal
             ? afocalCutoff
             : Math.Min(
                 1 / (wavelength.Micrometers * 1e-3 * tangentialFNumber),
                 1 / (wavelength.Micrometers * 1e-3 * sagittalFNumber));
-        return new MtfResult(
-            tangentialFrequency,
-            tangential,
-            sagittal,
-            cutoff,
-            tangentialOtf,
-            sagittalOtf,
-            tangentialFrequency,
-            sagittalFrequency);
+        return (tangentialStep, sagittalStep, cutoff);
     }
 
     public static PsfResult ComputeMmdftPsf(

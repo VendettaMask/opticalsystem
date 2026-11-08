@@ -20,7 +20,11 @@ public sealed record SequentialFailureDiagnostic(SurfaceTraceFailure Failure, bo
 
 public sealed partial class SequentialRayTracer
 {
-    public SequentialFailureDiagnostic DiagnoseFirstFailure(RealRay sourceRay, CancellationToken token = default)
+    public SequentialFailureDiagnostic DiagnoseFirstFailure(RealRay sourceRay, CancellationToken token = default) =>
+        DiagnoseFirstFailure(sourceRay, token, ignoreScalarTransmission: false);
+
+    internal SequentialFailureDiagnostic DiagnoseFirstFailure(RealRay sourceRay, CancellationToken token,
+        bool ignoreScalarTransmission)
     {
         ArgumentNullException.ThrowIfNull(sourceRay);
         int? at = null;
@@ -39,7 +43,8 @@ public sealed partial class SequentialRayTracer
                 at = index; token.ThrowIfCancellationRequested();
                 var surface = _optic.SurfaceGroup.Items[index];
                 var trace = TraceSequentialSurface(surface, index, ray, material, path, opticalPath,
-                    allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index), sourceRay: sourceRay);
+                    allowVirtualIntersection: AllowsReferenceBacktrack(_optic.SurfaceGroup.Items, index),
+                    bypassCoating: ignoreScalarTransmission, ignoreMaterialAbsorption: ignoreScalarTransmission, sourceRay: sourceRay);
                 var failure = trace.Failure;
                 if (trace.InteractionKind == RayInteractionKind.TotalInternalReflection) failure = SurfaceTraceFailure.TotalInternalReflection;
                 if (failure == SurfaceTraceFailure.None && (!trace.Ray.CanTrace || trace.StopTracing)) failure = SurfaceTraceFailure.Extinguished;

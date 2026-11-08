@@ -54,13 +54,13 @@ public partial class WorkbenchRuntime
         var rows = data.Values
             .Where(item => item.Value is not IReadOnlyList<AnalysisSeries>)
             .Where(item => canonicalName != "Interferogram" || item.Key is not ("ContourLevels" or "FieldIsAngular"))
-            .Select(item => new AnalysisRow(DisplayAnalysisKey(item.Key), FormatAnalysisValue(item.Value)))
+            .Select(item => FormatAnalysisRow(canonicalName, item))
             .ToArray();
         var plotSeries = data.PlotSeries;
-        return new AnalysisView(
+        var view = new AnalysisView(
             DisplayAnalysisName(data.Name),
             rows,
-            data.ReportText ?? FormatAnalysisData(data),
+            data.ReportText ?? FormatAnalysisData(canonicalName, data),
             plotSeries.FirstOrDefault(),
             plotSeries,
             data.PlotOptions ?? new AnalysisPlotOptions(),
@@ -69,7 +69,15 @@ public partial class WorkbenchRuntime
             data.Table,
             InterferogramSummary: canonicalName == "Interferogram" ? BuildInterferogramSummary(data) : null,
             Outcome: data.Outcome,
-            OutcomeReason: data.OutcomeReason);
+            OutcomeReason: data.OutcomeReason,
+            ReportSections: data.ReportSections);
+        if (data.Outcome != AnalysisOutcome.Success) return view;
+        return canonicalName switch
+        {
+            "Y-Ybar" => FormatYYbarView(view, data),
+            "Angle vs Image Height" => FormatIncidentAngleView(view, data),
+            _ => view
+        };
     }
 
     /// <summary>Runs the same canonical request as the UI and preserves unrounded, typed numerical output.</summary>
@@ -202,6 +210,7 @@ public partial class WorkbenchRuntime
     {
         var merged = GetAnalysisParameters(analysisName)
             .ToDictionary(parameter => parameter.Key, parameter => parameter.DefaultValue);
+        saved = MigrateAnalysisSettings(analysisName, saved);
         if (saved is not null)
         {
             foreach (var item in saved)
@@ -214,6 +223,23 @@ public partial class WorkbenchRuntime
         }
 
         return merged;
+    }
+
+    private static readonly string[] FourierFieldFrequencyKeys = Enumerable.Range(1, 6)
+        .Select(slot => $"Frequency{slot}").ToArray();
+
+    internal static IReadOnlyDictionary<string, string>? MigrateAnalysisSettings(
+        string analysisName, IReadOnlyDictionary<string, string>? saved)
+    {
+        if (WorkbenchAnalysisCatalog.CanonicalKey(analysisName) != "Fourier MTF vs Field"
+            || saved is null || !saved.TryGetValue("SpatialFrequency", out var frequency)
+            || FourierFieldFrequencyKeys.Any(saved.ContainsKey))
+            return saved;
+
+        var migrated = new Dictionary<string, string>(saved);
+        foreach (var key in FourierFieldFrequencyKeys) migrated[key] = "0";
+        migrated["Frequency1"] = frequency;
+        return migrated;
     }
 
     private BaseAnalysis CreateAnalysis(
@@ -473,7 +499,7 @@ public partial class WorkbenchRuntime
                 Bool("ChiefRayParabasal", !CurrentOptic.ImageSpaceAfocal) ? ParabasalRayPair.ChiefAndPositive : ParabasalRayPair.Symmetric),
             "Grid Distortion" => new GridDistortionAnalysis(
                 CurrentOptic,
-                Int("NumPoints", 12),
+                Int("NumPoints", 13),
                 Int("WavelengthNumber", 1),
                 Int("ReferenceFieldNumber", 1),
                 Text("DisplayMode", "截面"),
@@ -694,9 +720,12 @@ public partial class WorkbenchRuntime
                 Int("Steps", Int("FocusPlaneCount", 5)), MtfScanSettings(),
                 Int("WavelengthNumber", 0), Int("FieldNumber", 0)),
             "Fourier MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Fourier,
-                Double("Frequency1", Double("SpatialFrequency", 20)), Int("FieldDensity", Int("FieldPointCount", 21)), MtfScanSettings(),
+                Double("SpatialFrequency", 20), Int("FieldDensity", Int("FieldPointCount", 21)), MtfScanSettings(),
                 Int("WavelengthNumber", 0),
-                settings.ContainsKey("Frequency1") ? Enumerable.Range(1, 6).Select(i => Double("Frequency" + i, i * 10)).ToArray() : null,
+                FourierFieldFrequencyKeys.Any(settings.ContainsKey)
+                    ? FourierFieldFrequencyKeys.Select((key, index) => Double(key, (index + 1) * 10))
+                        .Where(frequency => frequency != 0).ToArray()
+                    : null,
                 Text("ScanType", "+y"), Bool("RemoveVignettingFactors", true), zemaxCompatibleOutput: true),
             "Huygens MTF vs Field" => new MtfVsFieldAnalysis(CurrentOptic, MtfComputationMethod.Huygens,
                 Double("Frequency1", 10), Int("FieldDensity", 10),
@@ -720,6 +749,27 @@ public partial class WorkbenchRuntime
                 Int("WavelengthNumber", 0),
                 settings.ContainsKey("Frequency1") ? Enumerable.Range(1, 6).Select(i => Double("Frequency" + i, i * 10)).ToArray() : null,
                 Text("ScanType", "+y"), Bool("RemoveVignettingFactors", true), zemaxCompatibleOutput: true),
+            "FFT Surface MTF" => new MtfSurfaceAnalysis(CurrentOptic, MtfComputationMethod.Fourier, MtfScanSettings(),
+                Int("FieldNumber", 1), Int("WavelengthNumber", 0), Text("ShowAs", "表面"),
+                Enum.Parse<FftMtfDataType>(Text("Type", "Modulation")), Double("Rotation", 0), Double("DisplayScale", 1)),
+            "Huygens Surface MTF" => new MtfSurfaceAnalysis(CurrentOptic, MtfComputationMethod.Huygens,
+                MtfScanSettings(useHuygensImageSampling: true) with
+                {
+                    PupilSampling = Int("Sampling", 32),
+                    ImageSize = Int("ImageSampling", 32)
+                },
+                Int("FieldNumber", 1), Int("WavelengthNumber", 0), Text("ShowAs", "伪彩色")),
+            "FFT MTF Map" or "Geometric MTF Map" => new MtfFieldMapAnalysis(CurrentOptic,
+                name == "FFT MTF Map" ? MtfComputationMethod.Fourier : MtfComputationMethod.Geometric,
+                MtfScanSettings() with
+                {
+                    PupilSampling = Int("Sampling", 32),
+                    GeometricRayCount = Int("Sampling", 32)
+                },
+                new MtfFieldMapSettings(Double("SpatialFrequency", 20),
+                    Int("XFieldSamples", 9), Int("YFieldSamples", 9), Double("XFieldWidth", 0), Double("YFieldWidth", 0),
+                    Int("ReferenceFieldNumber", 0), Int("WavelengthNumber", 0), Text("Data", "Average"), Text("ShowAs", "伪彩色"),
+                    Bool("RemoveVignettingFactors", true), Bool("FixedColorScale", false))),
             "Angle vs Image Height" => new IncidentAngleVsImageHeightAnalysis(
                 CurrentOptic,
                 Int("FieldDensity", 20),
@@ -741,7 +791,8 @@ public partial class WorkbenchRuntime
                 Int(
                     "ReferenceSurfaceNumber",
                     CurrentOptic.SurfaceGroup.Items.LastOrDefault()?.Number ?? 0)),
-            "Vignetting Diagram" => new VignettingDiagramAnalysis(CurrentOptic),
+            "Vignetting Diagram" => new VignettingDiagramAnalysis(CurrentOptic,
+                Int("RayDensity", 10), Int("FieldDensity", 21)),
             "Relative Illumination" => new RelativeIlluminationAnalysis(
                 CurrentOptic,
                 Int("RayDensity", 10),
@@ -877,8 +928,8 @@ public partial class WorkbenchRuntime
                 OptionalFrequency()),
             "Contrast Loss Map" => new ContrastLossMapAnalysis(
                 CurrentOptic,
-                Int("Sampling", 13),
-                Double("Frequency", 100),
+                Int("Sampling", 49),
+                Double("Frequency", 0),
                 Bool("Normalize", false),
                 LeadingInt("WavelengthNumber", 0),
                 LeadingInt("FieldNumber", 1),

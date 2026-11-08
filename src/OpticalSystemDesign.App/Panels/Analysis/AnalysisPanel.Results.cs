@@ -1,5 +1,6 @@
 using System.Globalization;
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Data;
@@ -31,6 +32,16 @@ public sealed partial class AnalysisPanel
         DateTimeOffset generatedAt,
         SceneDto? cardinalScene = null)
     {
+        if (view.Outcome == AnalysisOutcome.Success &&
+            (view.PresentationKind == AnalysisPresentationKind.YYbar || AnalysisKey == "Angle vs Image Height"))
+        {
+            var source = string.IsNullOrWhiteSpace(document.Path) ? document.Name : document.Path;
+            var date = generatedAt.LocalDateTime.ToString("yyyy/M/d", CultureInfo.InvariantCulture);
+            var lineEnd = view.ReportText.IndexOf(Environment.NewLine, StringComparison.Ordinal);
+            var identity = $"文件：{source}{Environment.NewLine}日期：{date}{Environment.NewLine}";
+            view = view with { ReportText = view.ReportText.Insert(
+                lineEnd < 0 ? 0 : lineEnd + Environment.NewLine.Length, identity) };
+        }
         _view = view;
         _resultHost.Content = BuildResultContent(view, document, generatedAt, cardinalScene);
         if (_resultHost.Content is TabControl tabs)
@@ -46,6 +57,9 @@ public sealed partial class AnalysisPanel
         DateTimeOffset generatedAt,
         SceneDto? cardinalScene = null)
     {
+        if (view.PresentationKind == AnalysisPresentationKind.TextReport)
+            return BuildReportTextBox(view.ReportText);
+
         if (IsCardinalPointsView(view) && cardinalScene?.TwoDimensional is not null)
         {
             return new ResponsiveAnalysisPlotHost { Child = new UniformDiagramPage(
@@ -77,14 +91,19 @@ public sealed partial class AnalysisPanel
                 ? BuildPairedFanPanePlot(
                     view.PlotPanes,
                     defaultSquareCells: IsRayFanView(view) || IsPupilAberrationView(view))
-                : BuildPanePlot(view.PlotPanes, view.PlotPaneColumns,
-                    alignTitleRows: view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion)
+                : view.PresentationKind == AnalysisPresentationKind.ContrastLossMap && view.PlotPanes.Count >= 2
+                    ? BuildPanePlot([view.PlotPanes[1], view.PlotPanes[0], .. view.PlotPanes.Skip(2)],
+                        view.PlotPaneColumns, pupilCircles: true)
+                    : BuildPanePlot(view.PlotPanes, view.PlotPaneColumns,
+                        alignTitleRows: view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion)
             : IsSeidelDiagramView(view)
                 ? BuildSeidelDiagramPlot(view)
                 : view.PresentationKind == AnalysisPresentationKind.Interferogram
                     ? BuildInterferogramPlot(view)
                 : IsWavefrontMapView(view)
                     ? BuildWavefrontMapPlot(view)
+                : view.PresentationKind == AnalysisPresentationKind.MtfGrid
+                    ? BuildMtfGridPlot(view)
                 : IsFftPsfView(view)
                     ? BuildFftPsfPlot(view)
                 : IsHuygensPsfView(view)
@@ -99,16 +118,6 @@ public sealed partial class AnalysisPanel
             preservePlotGeometry: view.PlotOptions.EqualAspect || view.PlotPanes.Any(pane => pane.PlotOptions.EqualAspect));
         AnalysisArtwork.SetKind(plotPage, AnalysisArtwork.For(view));
         var resultsGrid = BuildResultsGrid(view);
-        var report = new TextBox
-        {
-            IsReadOnly = true,
-            AcceptsReturn = true,
-            TextWrapping = TextWrapping.NoWrap,
-            Classes = { ProductFonts.NumericClass },
-            Text = view.ReportText
-        };
-        report.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
-        report.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
         var resultTabs = new AnalysisResultTabs
         {
             TabStripPlacement = Avalonia.Controls.Dock.Bottom,
@@ -116,12 +125,27 @@ public sealed partial class AnalysisPanel
             {
                 AnalysisResultTab("绘图", new ResponsiveAnalysisPlotHost { Child = plotPage }),
                 AnalysisResultTab("数据", resultsGrid),
-                AnalysisResultTab("文本", report)
+                AnalysisResultTab("文本", BuildReportTextBox(view.ReportText))
             },
             SelectedIndex = DefaultResultTab(view)
         };
         resultTabs.BindThemeResource(TabControl.BackgroundProperty, ThemeResourceBindings.PlotBackground);
         return resultTabs;
+    }
+
+    private static TextBox BuildReportTextBox(string text)
+    {
+        var report = new TextBox
+        {
+            IsReadOnly = true,
+            AcceptsReturn = true,
+            TextWrapping = TextWrapping.NoWrap,
+            Classes = { ProductFonts.NumericClass },
+            Text = text
+        };
+        report.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
+        report.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
+        return report;
     }
 
     private static int DefaultResultTab(AnalysisViewDto view)
@@ -202,6 +226,34 @@ public sealed partial class AnalysisPanel
             MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
             MinWidth = DisplayTypography.Scale(360)
         };
+    }
+
+    private static Control BuildMtfGridPlot(AnalysisViewDto view)
+    {
+        var series = view.Series.FirstOrDefault();
+        var range = (series?.ValueMaximum ?? 1) - (series?.ValueMinimum ?? 0);
+        var digits = Math.Clamp((int)Math.Ceiling(-Math.Log10(Math.Max(1e-10, range) / 8)) + 1, 3, 10);
+        var plot = new WavefrontSurfaceControl
+        {
+            Series = series,
+            RotationDegrees = FindRowNumber(view, "旋转", 0),
+            DisplayScale = FindRowNumber(view, "显示缩放", 1),
+            DisplayAs = FindRowText(view, "显示为", "伪彩色"),
+            XAxisLabel = series?.XAxisLabel ?? "",
+            YAxisLabel = series?.YAxisLabel ?? "",
+            ZAxisLabel = series?.ValueLabel,
+            ColorBarTitle = series?.ValueLabel ?? "MTF",
+            ColorBarUnit = "",
+            ValueMinimum = series?.ValueMinimum,
+            ValueMaximum = series?.ValueMaximum,
+            ColorBarTickFormat = "0." + new string('#', digits),
+            SpatialDisplayScaleX = view.PlotOptions.SpatialDisplayScaleX,
+            SpatialDisplayScaleY = view.PlotOptions.SpatialDisplayScaleY,
+            MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
+            MinWidth = DisplayTypography.Scale(360)
+        };
+        AutomationProperties.SetName(plot, view.Name);
+        return plot;
     }
 
     private static Control BuildInterferogramPlot(AnalysisViewDto view) => new WavefrontSurfaceControl
@@ -349,19 +401,12 @@ public sealed partial class AnalysisPanel
             "",
             view.ReportText
         });
-        var report = new TextBox
-        {
-            IsReadOnly = true,
-            AcceptsReturn = true,
-            TextWrapping = TextWrapping.NoWrap,
-            Classes = { ProductFonts.NumericClass },
-            FontSize = DisplayTypography.Body,
-            Padding = new Thickness(14, 12),
-            Text = text
-        };
-        report.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
-        report.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
-        return report;
+        var report = BuildReportTextBox(text);
+        report.FontSize = DisplayTypography.Body;
+        report.Padding = new Thickness(14, 12);
+        report.BindThemeResource(TextBox.FontFamilyProperty, ProductFonts.NumericResource);
+        return view.ReportSections is { Count: > 0 } sections
+            ? BuildSeidelReportSections(view, sections, file, generatedAt, report) : report;
     }
 
     private static Control BuildZernikeCoefficientReport(
@@ -385,24 +430,10 @@ public sealed partial class AnalysisPanel
             "",
             view.ReportText
         });
-        var report = new TextBox
-        {
-            IsReadOnly = true,
-            AcceptsReturn = true,
-            TextWrapping = TextWrapping.NoWrap,
-            Classes = { ProductFonts.NumericClass },
-            FontSize = DisplayTypography.Body,
-            Padding = new Thickness(14, 12),
-            Text = text
-        };
-        report.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
-        report.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
-        var root = new Grid { RowDefinitions = new RowDefinitions("*,Auto") };
-        root.Children.Add(report);
-        var titleBlock = BuildAnalysisTitleBlock(view, document, generatedAt);
-        Grid.SetRow(titleBlock, 1);
-        root.Children.Add(titleBlock);
-        return new ResponsiveAnalysisPlotHost { Child = root };
+        var report = BuildReportTextBox(text);
+        report.FontSize = DisplayTypography.Body;
+        report.Padding = new Thickness(14, 12);
+        return report;
     }
 
     private static Control BuildCardinalPointsScene(AnalysisViewDto view, SceneDto scene)
@@ -721,7 +752,9 @@ public sealed partial class AnalysisPanel
                 .Where(row => !string.IsNullOrWhiteSpace(row.Metric))
                 .Take(4)
                 .ToArray();
-        var resultLines = overlay ? "各结构独立计算，按图例叠加显示。\n各结构指标见“数据”页；完整结果见“文本”页。"
+        var resultLines = overlay ? view.PresentationKind == AnalysisPresentationKind.YYbar
+            ? "各结构独立计算，按图例叠加显示。"
+            : "各结构独立计算，按图例叠加显示。\n各结构指标见“数据”页；完整结果见“文本”页。"
             : compactSummary?.Lines ?? (visibleRows.Length == 0
             ? "暂无摘要数据"
             : string.Join(Environment.NewLine, visibleRows.Select(row => $"{row.Metric}: {row.Value}")));
@@ -775,7 +808,7 @@ public sealed partial class AnalysisPanel
         {
             left.Children.Add(BuildAberrationFanFooterSummary(view, document));
         }
-        else if (view.PresentationKind != AnalysisPresentationKind.AngleVsImageHeight)
+        else if (view.PresentationKind is not (AnalysisPresentationKind.AngleVsImageHeight or AnalysisPresentationKind.VignettingDiagram))
         {
             if (paneMetrics is null)
             {
@@ -1145,6 +1178,84 @@ public sealed partial class AnalysisPanel
 
     private static CompactAnalysisSummary? BuildCompactAnalysisSummary(AnalysisViewDto view)
     {
+        string Row(string metric) => FindRowText(view, metric, "—");
+        string WithUnit(string metric, string unit) => Row(metric) is var value && value != "—" ? value + unit : "—";
+
+        if (view.PresentationKind == AnalysisPresentationKind.RmsFieldMap && view.Series.FirstOrDefault() is { } rmsMap)
+        {
+            var xCount = rmsMap.Points.Select(point => point.X).Distinct().Count();
+            var yCount = rmsMap.Points.Select(point => point.Y).Distinct().Count();
+            var fieldUnit = rmsMap.XUnit == AnalysisAxisUnit.Degree ? "°" : "mm";
+            var (metric, unit) = rmsMap.ValueUnit switch
+            {
+                AnalysisAxisUnit.Wave => ("波前 RMS", "波"),
+                AnalysisAxisUnit.Milliradian => ("点列 RMS 半径", "mrad"),
+                _ => ("点列 RMS 半径", "mm")
+            };
+            string Format(double? number) => number?.ToString("0.######", CultureInfo.InvariantCulture) ?? "—";
+            return new CompactAnalysisSummary(view.Name, string.Join(Environment.NewLine,
+                $"视场半宽：X {Format(view.PlotOptions.XMaximum)} {fieldUnit}，Y {Format(view.PlotOptions.YMaximum)} {fieldUnit}",
+                $"采样：{xCount} × {yCount}    显示网格：{xCount - 1} × {yCount - 1}",
+                $"{metric}：{Format(rmsMap.ValueMinimum)}–{Format(rmsMap.ValueMaximum)} {unit}"));
+        }
+
+        if (view.PresentationKind == AnalysisPresentationKind.MtfGrid)
+        {
+            var frequency = Row("地图空间频率");
+            return new CompactAnalysisSummary(view.Name, string.Join(Environment.NewLine,
+                $"视场：{Row("视场位置")}    波长：{Row("波长范围")}",
+                frequency == "—" ? $"显示：{Row("显示数据")}" : $"空间频率：{frequency}    显示：{Row("显示数据")}",
+                $"采样：{Row("计算采样")}    结果网格：{Row("结果网格")}",
+                $"数据范围：{Row("网格最小值")}–{Row("网格最大值")}"
+                    + (frequency == "—" ? "" : $"    色标：{Row("色标范围")}")));
+        }
+
+        if (view.PresentationKind == AnalysisPresentationKind.Mtf && Row("视场扫描频率") is var frequencies && frequencies != "—")
+        {
+            return new CompactAnalysisSummary(view.Name, string.Join(Environment.NewLine,
+                $"波长：{WithUnit("波长范围", " µm")}",
+                $"空间频率：{frequencies} {Row("频率单位")}",
+                "T 子午 · S 弧矢"));
+        }
+
+        if (view.PresentationKind == AnalysisPresentationKind.GridDistortion)
+        {
+            return new CompactAnalysisSummary("网格畸变", string.Join(Environment.NewLine,
+                $"视场：{Row("视场全宽")} × {Row("视场全高")} {Row("视场单位")}",
+                $"像面：{Row("像面全宽")} × {Row("像面全高")} {Row("像面单位")}",
+                $"最大畸变：{WithUnit("最大畸变 (%)", "%")}    SMIA TV 畸变：{WithUnit("SMIA-TV 畸变 (%)", "%")}",
+                $"缩放：{WithUnit("畸变显示缩放", "×")}    波长：{WithUnit("分析波长 (µm)", " µm")}"));
+        }
+
+        if (view.PresentationKind == AnalysisPresentationKind.ContrastLossMap)
+        {
+            var sampling = Row("采样");
+            var rangeMaximum = string.Equals(Row("归一化"), "True", StringComparison.OrdinalIgnoreCase)
+                ? Row("最大对比度损失") : "1.0000";
+            return new CompactAnalysisSummary("对比度损失图", string.Join(Environment.NewLine,
+                $"波长：{WithUnit("分析波长 (µm)", " µm")}    视场：({Row("视场 X")}, {Row("视场 Y")}) {Row("视场单位")}",
+                $"空间频率：{Row("空间频率")} {Row("频率单位")}    瞳面采样：{sampling} × {sampling}",
+                $"绘图范围：0.0000–{rangeMaximum}",
+                $"子午 MTF：{Row("子午 MTF")}    弧矢 MTF：{Row("弧矢 MTF")}    衍射极限：{Row("衍射极限 MTF")}"));
+        }
+
+        if (view.PresentationKind == AnalysisPresentationKind.YYbar)
+        {
+            var lines = new List<string>();
+            if (view.PlotOptions.XMinimum is { } min && view.PlotOptions.XMaximum is { } max && max > min)
+            {
+                var span = (max - min).ToString("F3", CultureInfo.InvariantCulture);
+                lines.Add($"图框边长：{span} mm");
+            }
+            lines.Add($"第一面：{FindRowText(view, "第一面", "—")}");
+            lines.Add($"最后面：{FindRowText(view, "最后面", "—")}");
+            lines.Add($"波长：{FindRowText(view, "波长 (µm)", "—")} µm");
+            return new CompactAnalysisSummary("Y–Ybar 图", string.Join(Environment.NewLine, lines));
+        }
+
+        if (view.PresentationKind == AnalysisPresentationKind.VignettingDiagram)
+            return new CompactAnalysisSummary("渐晕图", string.Empty);
+
         if (view.PresentationKind == AnalysisPresentationKind.Interferogram)
         {
             var data = view.InterferogramSummary;
@@ -1194,6 +1305,19 @@ public sealed partial class AnalysisPanel
                 + $"光线 Y 最小 = {rayYMinimum}    光线 Y 最大 = {rayYMaximum}{Environment.NewLine}"
                 + $"最大半径 = {maximumRadius}    波长 = {wavelengths}{Environment.NewLine}"
                 + legendMeaning);
+        }
+
+        if (view.PresentationKind == AnalysisPresentationKind.HuygensPsfCrossSection)
+        {
+            var direction = Row("截面方向") switch { "X" => " · X 截面", "Y" => " · Y 截面", "Both" => " · X/Y 截面", _ => "" };
+            var afocal = Row("图心单位") == "mrad";
+            var span = afocal ? $"角域宽度：{WithUnit("角域宽度 (mrad)", " mrad")}" : $"像宽：{WithUnit("像的尺寸 (µm)", " µm")}";
+            var centerReference = Row("使用质心") == "True" ? "几何质心" : "主光线";
+            return new CompactAnalysisSummary("惠更斯 PSF 截面图" + direction, string.Join(Environment.NewLine,
+                $"波长：{Row("波长范围")}    视场：(X {Row("视场 X")}, Y {Row("视场 Y")}) {Row("视场单位")}",
+                span,
+                $"斯特列尔比：{Row("峰值斯特列尔比")}",
+                $"中心坐标（{centerReference}）：(X {Row("图心 X")}, Y {Row("图心 Y")}) {Row("图心单位")}"));
         }
 
         if (IsHuygensPsfView(view))

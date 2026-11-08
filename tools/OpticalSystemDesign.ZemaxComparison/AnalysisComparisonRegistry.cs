@@ -56,6 +56,10 @@ Geometric Through Focus MTF|GeometricThroughFocusMtf|contract
 Fourier MTF vs Field|FftMtfvsField|contract
 Huygens MTF vs Field|HuygensMtfvsField|contract
 Geometric MTF vs Field|GeometricMtfvsField|contract
+FFT Surface MTF|FftSurfaceMtf
+FFT MTF Map|FftMtfMap
+Huygens Surface MTF|HuygensSurfaceMtf
+Geometric MTF Map|GeometricMtfMap
 Angle vs Image Height|IncidentAnglevsImageHeight|contract
 Angle vs Image Height - Through Pupil|IncidentAnglevsImageHeight|contract
 Angle vs Image Height - Through Field|IncidentAnglevsImageHeight|contract
@@ -150,7 +154,8 @@ Classified Data Report|
                 "Full Field Spot Diagram" or "Matrix Spot Diagram" or "Configuration Matrix Spot Diagram" or "Through Focus" or "Footprint Diagram" => ResultKind.Scatter,
                 "Image Simulation" or "Geometric Image Analysis" or "Geometric Bitmap Image Analysis" or "Light Source Analysis" or "Partially Coherent Image Analysis" or "Extended Diffraction Image Analysis" => ResultKind.Image,
                 "Jones Pupil" => ResultKind.ComplexField,
-                "RMS Field Map" or "Contrast Loss Map" or "Incoherent Irradiance" or "Foucault Analysis" or "Centroid Sphere Wavefront" or "Best Fit Sphere Wavefront" => ResultKind.Grid2D,
+                "RMS Field Map" or "Contrast Loss Map" or "Incoherent Irradiance" or "Foucault Analysis" or "Centroid Sphere Wavefront" or "Best Fit Sphere Wavefront"
+                    or "FFT Surface MTF" or "FFT MTF Map" or "Huygens Surface MTF" or "Geometric MTF Map" => ResultKind.Grid2D,
                 _ => ResultKind.Series1D
             };
             var axis = mapper.Contains("mtf", StringComparison.Ordinal) ? new Axis("SpatialFrequency", "CyclesPerMillimeter")

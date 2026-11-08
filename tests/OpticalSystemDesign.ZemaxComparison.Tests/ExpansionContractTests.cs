@@ -29,7 +29,6 @@ public sealed class ExpansionContractTests
     }
 
     [Theory]
-    [InlineData("Vignetting Diagram")]
     [InlineData("Foucault Analysis")]
     [InlineData("Partially Coherent Image Analysis")]
     public void DifferentPhysicalDefinitionsCannotBecomeNumericPasses(string key)
@@ -41,6 +40,15 @@ public sealed class ExpansionContractTests
         var request = ExtendedAnalysisContracts.Configure(entry, new()
         { CanonicalAnalysisKey = key, Apodization = "none", WorkbenchSettings = [] }, 1);
         Assert.Equal("NativeCapabilityInspectionNotAligned", request.SettingsOrigin);
+    }
+
+    [Fact]
+    public void VignettingComparisonRequiresANativeSamplingAndTextAdapter()
+    {
+        var entry = AnalysisComparisonRegistry.Get("Vignetting Diagram");
+        Assert.Equal(SupportStatus.AdapterNotImplemented, entry.Support);
+        Assert.Equal("capability-audit", entry.ZemaxSettingsMapper);
+        Assert.Empty(entry.DefaultMetrics);
     }
 
     [Fact]

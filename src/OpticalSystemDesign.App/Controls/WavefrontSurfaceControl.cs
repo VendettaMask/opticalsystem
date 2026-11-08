@@ -92,9 +92,13 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
     public string YAxisLabel { get; init; } = "Y 光瞳（归一化）";
 
+    public string? ZAxisLabel { get; init; }
+
     public double? ValueMinimum { get; init; }
 
     public double? ValueMaximum { get; init; }
+
+    public string ColorBarTickFormat { get; init; } = "0.####";
 
     internal double ViewYawDegrees
     {
@@ -537,10 +541,8 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
                     stream.EndFigure(true);
                 }
 
-                context.DrawGeometry(
-                    new SolidColorBrush(PlotColor(triangle.Value)),
-                    edgePen,
-                    geometry);
+                var fill = new SolidColorBrush(PlotColor(triangle.Value));
+                context.DrawGeometry(fill, ZAxisLabel is not null ? new Pen(fill, 0.6) : edgePen, geometry);
             }
 
             DrawSurfaceAxes(context, plot, ProjectAxis);
@@ -807,20 +809,23 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
         context.DrawLine(axisPen, origin, xEnd);
         context.DrawLine(axisPen, origin, yEnd);
         context.DrawLine(axisPen, origin, zEnd);
-        if (SpatialGeometry is not null)
+        if (ZAxisLabel is not null || SpatialGeometry is not null)
         {
-            var depthLabel = Text("Z 深度（归一化）", 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+            var depthLabel = Text(ZAxisLabel ?? "Z 深度（归一化）", 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
             context.DrawText(depthLabel, ClampLabelPosition(new Point(zEnd.X, zEnd.Y - depthLabel.Height), depthLabel, plot));
         }
 
         var xLabel = Text(XAxisLabel, 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
         var yLabel = Text(YAxisLabel, 10, ThemeBrush(ThemeResourceBindings.PlotText, Brushes.Black));
+        Point LabelPosition(Point endpoint, FormattedText label) => new(
+            endpoint.X < origin.X ? endpoint.X - label.Width - 8 : endpoint.X + 8,
+            endpoint.Y + 7);
         context.DrawText(
             xLabel,
-            ClampLabelPosition(new Point(xEnd.X - xLabel.Width, xEnd.Y + 7), xLabel, plot));
+            ClampLabelPosition(ZAxisLabel is null ? new Point(xEnd.X - xLabel.Width, xEnd.Y + 7) : LabelPosition(xEnd, xLabel), xLabel, plot));
         context.DrawText(
             yLabel,
-            ClampLabelPosition(new Point(yEnd.X, yEnd.Y + 7), yLabel, plot));
+            ClampLabelPosition(ZAxisLabel is null ? new Point(yEnd.X, yEnd.Y + 7) : LabelPosition(yEnd, yLabel), yLabel, plot));
     }
 
     private void DrawColorBar(
@@ -858,7 +863,7 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
             var y = bar.Bottom - (fraction * bar.Height);
             var pen = new Pen(new SolidColorBrush(PlotColor(fraction)), 1.3);
             context.DrawLine(pen, new Point(bar.Left - 8, y), new Point(bar.Right + 8, y));
-            var label = Text(value.ToString("0.####", CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotTick, Brushes.Black));
+            var label = Text(value.ToString(ColorBarTickFormat, CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotTick, Brushes.Black));
             context.DrawText(label, new Point(bar.Right + 13, y - (label.Height / 2)));
         }
 
@@ -877,7 +882,7 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
         {
             var fraction = index / 8.0;
             var value = minimum + ((maximum - minimum) * fraction);
-            var label = Text(value.ToString("0.####", CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotTick, Brushes.Black));
+            var label = Text(value.ToString(ColorBarTickFormat, CultureInfo.InvariantCulture), 10, ThemeBrush(ThemeResourceBindings.PlotTick, Brushes.Black));
             var y = bar.Bottom - (fraction * bar.Height) - (label.Height / 2);
             context.DrawText(label, new Point(bar.Right + 6, y));
         }

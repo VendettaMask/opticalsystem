@@ -29,7 +29,7 @@ public sealed class IconThemeIdentityTests
             foreach (var name in UsedNames())
             foreach (var size in new[] { 18, 24, 32 })
                 actual[$"{themeName}/{name}/{size}"] = RenderHash(name, themeName, size);
-            Assert.Equal(1989, actual.Count);
+            Assert.Equal(2025, actual.Count);
             var location = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_ICON_IDENTITY_EVIDENCE_DIR");
             Assert.False(string.IsNullOrEmpty(location));
             Directory.CreateDirectory(location!);
@@ -39,7 +39,9 @@ public sealed class IconThemeIdentityTests
             else
             {
                 var expected = JsonSerializer.Deserialize<SortedDictionary<string, string>>(File.ReadAllText(path))!;
-                Assert.Equal(expected, actual);
+                var added = new[] { "mtf-fourier-map", "mtf-fourier-surface", "mtf-geometric-map", "mtf-huygens-surface" };
+                Assert.Equal(expected, actual.Where(sample => expected.ContainsKey(sample.Key)));
+                Assert.All(actual.Keys.Except(expected.Keys), key => Assert.Contains(key.Split('/')[1], added));
                 File.WriteAllText(Path.Combine(location!, "unchanged-theme-final.json"), JsonSerializer.Serialize(actual));
             }
         }, CancellationToken.None);
@@ -65,7 +67,7 @@ public sealed class IconThemeIdentityTests
             var names = UsedNames();
             foreach (var theme in new[] { "Lumen", "Isekai" })
             {
-                Assert.Equal(221, ScientificIconLibrary.ThemeNames(theme).Count);
+                Assert.Equal(225, ScientificIconLibrary.ThemeNames(theme).Count);
                 foreach (var name in names)
                 {
                     Assert.True(ScientificIconLibrary.HasThemeDrawing(theme, name), $"{theme}/{name}");
@@ -81,7 +83,7 @@ public sealed class IconThemeIdentityTests
     [Theory]
     [InlineData("Lumen")]
     [InlineData("Isekai")]
-    public async Task ThemeSwitchUsesDistinctGeometryAndKeepsNineMtfMethodsReadable(string themeName)
+    public async Task ThemeSwitchUsesDistinctGeometryAndKeepsMtfDrawingsReadable(string themeName)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
@@ -91,7 +93,7 @@ public sealed class IconThemeIdentityTests
                 var hashes = new HashSet<string>();
                 foreach (var name in UsedNames().Where(name => name.StartsWith("mtf-", StringComparison.Ordinal)))
                     Assert.True(hashes.Add(RenderHash(name, themeName, size)), name);
-                Assert.Equal(9, hashes.Count);
+                Assert.Equal(13, hashes.Count);
             }
             Assert.NotEqual(RenderHash("user-guide", "Dark", 32), RenderHash("user-guide", themeName, 32));
             Assert.NotEqual(RenderHash("wavefront-map", "Dark", 32), RenderHash("wavefront-map", themeName, 32));

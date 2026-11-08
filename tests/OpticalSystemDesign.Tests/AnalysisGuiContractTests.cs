@@ -1088,7 +1088,8 @@ public sealed class AnalysisGuiContractTests
                 var grid = Assert.IsAssignableFrom<Avalonia.Controls.Grid>(border.Child);
                 Assert.Equal(AnalysisPanel.AnalysisFooterHeight, grid.MinHeight);
                 Assert.Equal(2, grid.Children.Count);
-                return Assert.IsType<Avalonia.Controls.StackPanel>(grid.Children[0]);
+                var summaryHost = Assert.IsType<Avalonia.Controls.Grid>(grid.Children[0]);
+                return Assert.IsType<Avalonia.Controls.StackPanel>(summaryHost.Children[0]);
             }
 
             var angleLeft = BuildLeft(view);
@@ -1458,7 +1459,7 @@ public sealed class AnalysisGuiContractTests
             "circle-question-mark"
         };
 
-        Assert.Equal(1_969, LocalIconLibrary.Names.Count);
+        Assert.Equal(1_973, LocalIconLibrary.Names.Count);
         Assert.All(requiredIcons, iconName => Assert.True(
             LocalIconLibrary.Contains(iconName),
             $"Local Lucide catalog is missing '{iconName}'."));
@@ -1630,7 +1631,7 @@ public sealed class AnalysisGuiContractTests
                 "扩展图像分析"
             },
             MainWindow.AnalysisRibbonCategories);
-        Assert.Equal(70, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
+        Assert.Equal(74, MainWindow.AnalysisRibbonCommandsByCategory.Sum(group => group.Value.Count));
         Assert.All(MainWindow.AnalysisRibbonCategories, category =>
         {
             Assert.NotEmpty(MainWindow.AnalysisRibbonCommandsByCategory[category]);
@@ -1638,7 +1639,7 @@ public sealed class AnalysisGuiContractTests
                 new[] { category },
                 MainWindow.AnalysisRibbonMenusByCategory[category]);
         });
-        Assert.Equal(65, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
+        Assert.Equal(69, MainWindow.AnalysisRibbonCommandsByMenu.Sum(menu => menu.Value.Count));
         var commandIds = MainWindow.AnalysisRibbonCommandIdsByMenu
             .SelectMany(menu => menu.Value)
             .ToArray();
@@ -2114,12 +2115,16 @@ public sealed class AnalysisGuiContractTests
                 "傅里叶 MTF",
                 "傅里叶离焦 MTF",
                 "傅里叶 MTF VS 视场",
+                "三维 FFT MTF",
+                "二维视场 FFT MTF",
                 "惠更斯 MTF",
                 "惠更斯离焦 MTF",
                 "惠更斯 MTF VS 视场",
+                "二维惠更斯 MTF",
                 "几何 MTF",
                 "几何离焦 MTF",
-                "几何 MTF VS 视场"
+                "几何 MTF VS 视场",
+                "二维视场几何 MTF"
             },
             MainWindow.AnalysisRibbonCommandsByMenu["MTF 曲线"]);
         Assert.Equal(
@@ -2177,7 +2182,7 @@ public sealed class AnalysisGuiContractTests
         Assert.Contains(referencedCardinalView.Rows, row =>
             row.Metric == "参考面"
             && row.Value == selectedReference.ToString(CultureInfo.InvariantCulture));
-        Assert.Equal(2, connector.BuildAnalysisView("渐晕图").SeriesList.Count);
+        Assert.Single(connector.BuildAnalysisView("渐晕图").SeriesList);
 
         var descriptors = connector.GetAnalysisParameters("点扩散函数 PSF");
         Assert.Equal(

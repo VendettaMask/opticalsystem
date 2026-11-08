@@ -26,6 +26,7 @@ public sealed partial class AnalysisPanel
         var plotOptions = view.PresentationKind switch
         {
             AnalysisPresentationKind.Mtf => view.PlotOptions with { Title = string.Empty },
+            AnalysisPresentationKind.RmsFieldMap => view.PlotOptions with { Title = string.Empty, GridOpacity = 0 },
             AnalysisPresentationKind.LateralColor => view.PlotOptions with { ShowLegend = false },
             _ => view.PlotOptions
         };
@@ -33,6 +34,7 @@ public sealed partial class AnalysisPanel
         {
             Series = view.Series,
             PlotOptions = plotOptions,
+            UseHeatmapIntervals = view.PresentationKind == AnalysisPresentationKind.RmsFieldMap,
             MinHeight = DisplayTypography.Scale(AnalysisPlotMinimumHeight),
             MinWidth = DisplayTypography.Scale(240)
         };
@@ -90,7 +92,8 @@ public sealed partial class AnalysisPanel
         IReadOnlyList<AnalysisPlotPaneDto> panes,
         int requestedColumns,
         bool defaultSquareCells = false,
-        bool alignTitleRows = false)
+        bool alignTitleRows = false,
+        bool pupilCircles = false)
     {
         var baseColumns = Math.Clamp(requestedColumns, 1, Math.Max(1, panes.Count));
         var baseRows = (int)Math.Ceiling(panes.Count / (double)baseColumns);
@@ -114,6 +117,7 @@ public sealed partial class AnalysisPanel
             {
                 Series = pane.Series,
                 PlotOptions = alignTitleRows ? pane.PlotOptions with { Title = string.Empty } : pane.PlotOptions,
+                DrawPupilCircles = pupilCircles && pane.Series.Any(series => series.ValueQuantity == AnalysisAxisQuantity.Modulation),
                 MinWidth = DisplayTypography.Scale(176),
                 MinHeight = DisplayTypography.Scale(176),
                 Margin = new Thickness(2)
@@ -153,7 +157,7 @@ public sealed partial class AnalysisPanel
             plots.Add(plot);
         }
 
-        return BuildPanePlotContent(paneGrid, panes, plots);
+        return pupilCircles ? paneGrid : BuildPanePlotContent(paneGrid, panes, plots);
     }
 
     private static bool IsRayFanView(AnalysisViewDto view)

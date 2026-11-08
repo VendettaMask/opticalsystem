@@ -1115,6 +1115,10 @@ public sealed class OpticalSystemDesignParityTests
         Assert.Contains("Fourier MTF vs Field", optic.Analyses.Names);
         Assert.Contains("Huygens MTF vs Field", optic.Analyses.Names);
         Assert.Contains("Geometric MTF vs Field", optic.Analyses.Names);
+        Assert.Contains("FFT Surface MTF", optic.Analyses.Names);
+        Assert.Contains("Huygens Surface MTF", optic.Analyses.Names);
+        Assert.Contains("FFT MTF Map", optic.Analyses.Names);
+        Assert.Contains("Geometric MTF Map", optic.Analyses.Names);
         Assert.Contains("Optical Path Difference", optic.Analyses.Names);
         Assert.Contains("Foucault Analysis", optic.Analyses.Names);
         Assert.Contains("Wavefront", optic.Analyses.Names);
@@ -1140,7 +1144,7 @@ public sealed class OpticalSystemDesignParityTests
         Assert.Contains("System Data Report", optic.Analyses.Names);
         Assert.Contains("Classified Data Report", optic.Analyses.Names);
         Assert.DoesNotContain("Through Focus MTF", optic.Analyses.Names);
-        Assert.Equal(71, optic.Analyses.Names.Count);
+        Assert.Equal(76, optic.Analyses.Names.Count);
         Assert.Equal("Spot Diagram", optic.Analyses.Create("Spot Diagram").GenerateData().Name);
     }
 

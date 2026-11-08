@@ -747,6 +747,19 @@ internal static class MtfMethodEvaluator
                 field, wavelengths, spatialFrequency, settings, dataType, defocus)).ToArray();
             return (responses.Select(item => item.Tangential).ToArray(), responses.Select(item => item.Sagittal).ToArray());
         }
+
+        return EvaluateFourierSamples(optic, field, wavelengths,
+            focus.Select(defocus => (spatialFrequency, defocus)).ToArray(), settings, dataType);
+    }
+
+    private static (double[] Tangential, double[] Sagittal) EvaluateFourierSamples(
+        Optic optic,
+        (double Hx, double Hy) field,
+        IReadOnlyList<Wavelength> wavelengths,
+        IReadOnlyList<(double Frequency, double Defocus)> samples,
+        MtfComputationSettings settings,
+        FftMtfDataType dataType)
+    {
         var pupilSampling = Math.Max(8, settings.PupilSampling);
         var referenceWavelength = wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
         var wavelengthResults = wavelengths.Select(wavelength =>
@@ -769,14 +782,14 @@ internal static class MtfMethodEvaluator
                     cellCentered: true,
                     aimAtStop: optic.RayAimingEnabled)
                 : null;
-            var results = focus.Select(defocus =>
+            var results = samples.Select(sample =>
                 DiffractionEngine.ComputeFastFftMtfAtFrequency(
                     optic,
                     field,
                     wavelength,
                     pupilSampling,
-                    spatialFrequency,
-                    defocus,
+                    sample.Frequency,
+                    sample.Defocus,
                     settings.UsePolarization,
                     wavefront,
                     polarization,
@@ -784,8 +797,8 @@ internal static class MtfMethodEvaluator
             return (Wavelength: wavelength, Results: results);
         }).ToArray();
 
-        var tangential = new double[focus.Count];
-        var sagittal = new double[focus.Count];
+        var tangential = new double[samples.Count];
+        var sagittal = new double[samples.Count];
         var totalWeight = wavelengthResults.Sum(item => item.Wavelength.Weight);
         var useEqualWeights = totalWeight <= 1e-30;
         if (useEqualWeights)
@@ -793,21 +806,21 @@ internal static class MtfMethodEvaluator
             totalWeight = Math.Max(1, wavelengthResults.Length);
         }
 
-        for (var focusIndex = 0; focusIndex < focus.Count; focusIndex++)
+        for (var sampleIndex = 0; sampleIndex < samples.Count; sampleIndex++)
         {
             var tangentialComplex = Complex.Zero;
             var sagittalComplex = Complex.Zero;
             foreach (var item in wavelengthResults)
             {
                 var weight = useEqualWeights ? 1 : item.Wavelength.Weight;
-                tangentialComplex += item.Results[focusIndex].Tangential * weight;
-                sagittalComplex += item.Results[focusIndex].Sagittal * weight;
+                tangentialComplex += item.Results[sampleIndex].Tangential * weight;
+                sagittalComplex += item.Results[sampleIndex].Sagittal * weight;
             }
 
-            tangential[focusIndex] = DataTypeValue(
+            tangential[sampleIndex] = DataTypeValue(
                 tangentialComplex / totalWeight,
                 dataType);
-            sagittal[focusIndex] = DataTypeValue(
+            sagittal[sampleIndex] = DataTypeValue(
                 sagittalComplex / totalWeight,
                 dataType);
         }
@@ -994,6 +1007,14 @@ internal static class MtfMethodEvaluator
         IReadOnlyList<double> spatialFrequencies,
         MtfComputationSettings settings)
     {
+        if (method == MtfComputationMethod.Fourier && settings.ZemaxCompatible && wavelengths.Count > 0)
+        {
+            // Frequencies at one field point use the same traced pupil for each wavelength.
+            var response = EvaluateFourierSamples(optic, field, wavelengths,
+                spatialFrequencies.Select(frequency => (frequency, 0.0)).ToArray(), settings, FftMtfDataType.Modulation);
+            return response.Tangential.Zip(response.Sagittal).ToArray();
+        }
+
         if (method == MtfComputationMethod.Geometric)
         {
             var pupils = wavelengths.Select(w => (Wavelength: w, Pupil: PrepareGeometricPupil(optic, field, w, settings, 0))).ToArray();

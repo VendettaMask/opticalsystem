@@ -10,7 +10,6 @@ public static partial class AnalysisComparisonRegistry
         {
             var mismatch = e.CanonicalAnalysisKey switch
             {
-                "Vignetting Diagram" => "Workbench plots Field Editor X/Y vignette factors; native Vignetting Diagram measures transmitted ray fraction. These are different quantities.",
                 "Foucault Analysis" => "Workbench uses a wavefront-gradient shadow approximation with an artificial rim; a native knife-edge diffraction intensity is not the same physical observable.",
                 "Partially Coherent Image Analysis" => "Workbench blends source and simulated intensities; its blend coefficient is not native source coherence. A mutual-coherence propagation model is required before equivalence can be tested.",
                 _ => null
@@ -24,7 +23,9 @@ public static partial class AnalysisComparisonRegistry
                 ResultKind = e.CanonicalAnalysisKey == "Vignetting Diagram" ? ResultKind.Series1D : ResultKind.Image,
                 RequiresTextExport = false,
                 Support = mismatch is null ? SupportStatus.AdapterNotImplemented : SupportStatus.PhysicalDefinitionMismatch,
-                Reason = (mismatch ?? "Native image output capability is inspected, but a common source, spectral, detector and radiometric contract is not yet implemented.")
+                Reason = (mismatch ?? (e.CanonicalAnalysisKey == "Vignetting Diagram"
+                    ? "Workbench traces the unvignetted ray fraction; automated comparison still requires aligned sampling settings and native text extraction."
+                    : "Native image output capability is inspected, but a common source, spectral, detector and radiometric contract is not yet implemented."))
                     + " Reset settings and native raw results are inspection evidence only; no numerical equivalence claim."
             };
         }

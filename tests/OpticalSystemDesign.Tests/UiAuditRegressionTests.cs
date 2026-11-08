@@ -236,13 +236,16 @@ public sealed class UiAuditRegressionTests
 
     [Theory]
     [InlineData("First Order", 1)]
-    [InlineData("Prescription Report", 1)]
-    [InlineData("System Data Report", 1)]
+    [InlineData("Prescription Report", null)]
+    [InlineData("System Data Report", null)]
+    [InlineData("Zernike Fringe", null)]
+    [InlineData("Zernike Standard", null)]
+    [InlineData("Zernike Annular", null)]
     [InlineData("Classified Data Report", 1)]
     [InlineData("Spot Diagram", 0)]
     [InlineData("Matrix Spot Diagram", 0)]
     [InlineData("Wavefront Map", 0)]
-    public async Task DefaultResultPageShowsActualContentRegardlessOfTitle(string key, int expectedIndex)
+    public async Task DefaultResultPageShowsActualContentRegardlessOfTitle(string key, int? expectedIndex)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(UiAuditRegressionTests));
         await session.Dispatch(async () =>
@@ -252,8 +255,26 @@ public sealed class UiAuditRegressionTests
                 app.Analyses.MergeSettings(key, null)));
             foreach (var title in new[] { result.View.Name, "任意本地化名称" })
             {
-                var tabs = BuildResult(result.View with { Name = title }, app);
-                Assert.Equal(expectedIndex, tabs.SelectedIndex);
+                var content = BuildResult(result.View with { Name = title }, app);
+                if (expectedIndex is null)
+                {
+                    var text = Assert.IsType<TextBox>(content);
+                    Assert.True(text.IsReadOnly);
+                    if (result.View.PresentationKind == AnalysisPresentationKind.TextReport)
+                    {
+                        Assert.Equal(result.View.ReportText, text.Text);
+                    }
+                    else
+                    {
+                        Assert.Equal(AnalysisOutcome.Success, result.View.Outcome);
+                        Assert.StartsWith(key + "系数数据表", text.Text);
+                        Assert.EndsWith(result.View.ReportText, text.Text);
+                    }
+                    continue;
+                }
+
+                var tabs = Assert.IsAssignableFrom<TabControl>(content);
+                Assert.Equal(expectedIndex.Value, tabs.SelectedIndex);
                 Assert.Equal(new[] { "绘图", "数据", "文本" }, tabs.Items.Cast<TabItem>().Select(tab => tab.Header));
             }
             var reportOnly = result.View with
@@ -266,13 +287,13 @@ public sealed class UiAuditRegressionTests
                 Table = null,
                 ReportText = "报告正文"
             };
-            Assert.Equal(2, BuildResult(reportOnly, app).SelectedIndex);
+            Assert.Equal(2, Assert.IsAssignableFrom<TabControl>(BuildResult(reportOnly, app)).SelectedIndex);
             return true;
         }, CancellationToken.None);
     }
 
-    private static TabControl BuildResult(AnalysisViewDto view, WorkbenchApplication app) =>
-        Assert.IsAssignableFrom<TabControl>(typeof(AnalysisPanel).GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
+    private static Control BuildResult(AnalysisViewDto view, WorkbenchApplication app) =>
+        Assert.IsAssignableFrom<Control>(typeof(AnalysisPanel).GetMethod("BuildResultContent", BindingFlags.Static | BindingFlags.NonPublic)!
             .Invoke(null, new object?[] { view, app.Documents.GetSnapshot(), DateTimeOffset.Now, null }));
 
     private static T Field<T>(AnalysisPanel panel, string name) =>

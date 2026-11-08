@@ -7,8 +7,6 @@ namespace OpticalSystemDesign.Core.Analysis;
 
 public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
 {
-    private sealed record SurfaceCoefficients(string Label, double[] Values);
-
     private static readonly string[] SeidelColumns =
         { "表面", "SPHA S1", "COMA S2", "ASTI S3", "FCUR S4", "DIST S5", "CLA (CL)", "CTR (CT)" };
     private static readonly string[] WaveColumns =
@@ -52,9 +50,10 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
             return AnalysisData.Unavailable(Name, error.Message);
         }
         var surfaces = Optic.SurfaceGroup.Items.ToArray();
-        var contributions = computed.Surfaces.Select((row, index) => new SurfaceCoefficients(
-            SurfaceLabel(surfaces[index + 1], index + 2 == surfaces.Length), row.Coefficients.ToArray())).ToList();
-        contributions.Add(new SurfaceCoefficients("累计", computed.Total.ToArray()));
+        var labels = computed.Surfaces.Select((_, index) =>
+            SurfaceLabel(surfaces[index + 1], index + 2 == surfaces.Length)).Append("累计").ToArray();
+        var total = computed.Total.ToArray();
+        var coefficients = computed.Surfaces.Select(row => row.Coefficients.ToArray()).Append(total).ToArray();
         var imageIndex = computed.ImageRefractiveIndex;
         var petzvalRadius = computed.PetzvalCurvature == 0 ? double.PositiveInfinity : 1 / computed.PetzvalCurvature;
         var values = new Dictionary<string, object>
@@ -68,21 +67,41 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
             ["OpticalInvariant"] = computed.OpticalInvariant,
             ["ImageSpaceRefractiveIndex"] = imageIndex,
             ["SurfaceCount"] = Math.Max(0, surfaces.Length - 1),
-            ["SeidelCoefficientsMillimeters"] = contributions.Select(c => c.Values.ToArray()).ToArray()
+            ["SeidelCoefficientsMillimeters"] = coefficients
         };
+        // Convert from the unrounded surface coefficients, using image-space n' and marginal u'.
         var marginalSlope = computed.MarginalSlopeImage;
-        var transverseFactor = Math.Abs(marginalSlope) > 1e-15 ? -1 / (2 * imageIndex * marginalSlope) : double.NaN;
-        var longitudinalFactor = Math.Abs(marginalSlope) > 1e-15 ? 1 / (2 * imageIndex * marginalSlope * marginalSlope) : double.NaN;
-        values["WaveAberrationCoefficients"] = contributions.Select(c => WaveCoefficients(c.Values, wavelengthMicrometers / 1000)).ToArray();
-        values["TransverseAberrationCoefficientsMillimeters"] = contributions.Select(c => RayAberrationCoefficients(c.Values, transverseFactor, -2 * transverseFactor)).ToArray();
-        values["LongitudinalAberrationCoefficientsMillimeters"] = contributions.Select(c => RayAberrationCoefficients(c.Values, longitudinalFactor, 2 * longitudinalFactor)).ToArray();
+        var canConvert = double.IsFinite(marginalSlope) && Math.Abs(marginalSlope) > 1e-15;
+        var transverseFactor = canConvert ? -1 / (2 * imageIndex * marginalSlope) : double.NaN;
+        var longitudinalFactor = canConvert ? 1 / (2 * imageIndex * marginalSlope * marginalSlope) : double.NaN;
+        var wavelengthMillimeters = wavelengthMicrometers / 1000;
+        var waves = coefficients.Select(row => WaveCoefficients(row, wavelengthMillimeters)).ToArray();
+        var transverse = coefficients.Select(row => RayAberrationCoefficients(row, transverseFactor, -2 * transverseFactor)).ToArray();
+        var longitudinal = coefficients.Select(row => RayAberrationCoefficients(row, longitudinalFactor, 2 * longitudinalFactor)).ToArray();
+        values["WaveAberrationCoefficients"] = waves;
+        values["TransverseAberrationCoefficientsMillimeters"] = transverse;
+        values["LongitudinalAberrationCoefficientsMillimeters"] = longitudinal;
 
-        var table = CoefficientTable(SeidelColumns, contributions, coefficients => coefficients);
+        var table = CoefficientTable(SeidelColumns, labels, coefficients);
+        var waveTable = CoefficientTable(WaveColumns, labels, waves);
+        AnalysisReportSection[] sections =
+        [
+            new("赛德尔像差系数", "赛德尔", "mm", table),
+            new("赛德尔像差系数（波长）", "波长", "λ", waveTable),
+            new("横向像差系数", "横向", "mm", CoefficientTable(TransverseColumns, labels, transverse)),
+            new("轴向像差系数", "轴向", "mm", CoefficientTable(LongitudinalColumns, labels, longitudinal)),
+            new("波前像差系数汇总（波长）", "波前汇总", "λ", new AnalysisTable(WaveColumns, [waveTable.Rows[^1]])),
+            new("场曲波前系数汇总（波长）", "场曲汇总", "λ", CoefficientTable(["表面", "W220S", "W220M", "W220T"], ["累计"],
+                [[(total[2] + total[3]) / (4 * wavelengthMillimeters),
+                    (2 * total[2] + total[3]) / (4 * wavelengthMillimeters),
+                    (3 * total[2] + total[3]) / (4 * wavelengthMillimeters)]]))
+        ];
         return new AnalysisData(
             Name,
             values,
             Table: table,
-            ReportText: BuildReport(values, contributions, table));
+            ReportText: BuildReport(values, sections, canConvert),
+            ReportSections: sections);
     }
 
     private Wavelength SelectWavelength(IReadOnlyList<Wavelength> wavelengths)
@@ -107,8 +126,8 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
 
     private static string BuildReport(
         IReadOnlyDictionary<string, object> values,
-        IReadOnlyList<SurfaceCoefficients> contributions,
-        AnalysisTable seidelTable)
+        IReadOnlyList<AnalysisReportSection> sections,
+        bool canConvert)
     {
         var builder = new StringBuilder();
         builder.AppendLine($"波长                    : {Number(values["WavelengthMicrometers"]),12:0.0000} µm");
@@ -118,33 +137,7 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
         builder.AppendLine($"边缘光线斜率，像空间    : {Number(values["MarginalRaySlopeImageSpace"]),12:0.0000}");
         builder.AppendLine($"佩兹伐半径              : {FormatNumber(Number(values["PetzvalRadius"]), "0.0000"),12}");
         builder.AppendLine($"光学不变量              : {Number(values["OpticalInvariant"]),12:0.0000}");
-        AppendTable(builder, "赛德尔像差系数：", seidelTable);
-
-        // Core lens lengths are millimeters. Conversion uses unrounded surface
-        // contributions and the final image-space n' and paraxial marginal u'.
-        // Ansys OpticStudio User Guide, Seidel Coefficients, conversion table.
-        var wavelengthMillimeters = Number(values["WavelengthMicrometers"]) / 1000;
-        var n = Number(values["ImageSpaceRefractiveIndex"]);
-        var u = Number(values["MarginalRaySlopeImageSpace"]);
-        var canConvert = double.IsFinite(u) && Math.Abs(u) > 1e-15;
-        var transverseFactor = canConvert ? -1 / (2 * n * u) : double.NaN;
-        var longitudinalFactor = canConvert ? 1 / (2 * n * u * u) : double.NaN;
-        var waves = CoefficientTable(WaveColumns, contributions, coefficients => WaveCoefficients(coefficients, wavelengthMillimeters));
-        AppendTable(builder, "赛德尔像差系数（波长）：", waves);
-        AppendTable(builder, "横向像差系数：", CoefficientTable(TransverseColumns, contributions,
-            coefficients => RayAberrationCoefficients(coefficients, transverseFactor, -2 * transverseFactor)));
-        AppendTable(builder, "轴向像差系数：", CoefficientTable(LongitudinalColumns, contributions,
-            coefficients => RayAberrationCoefficients(coefficients, longitudinalFactor, 2 * longitudinalFactor)));
-
-        AppendTable(builder, "波前像差系数汇总（波长）：", new AnalysisTable(WaveColumns, new[] { waves.Rows[^1] }));
-        AppendTable(builder, "场曲波前系数汇总（波长）：", CoefficientTable(
-            new[] { "表面", "W220S", "W220M", "W220T" }, new[] { contributions[^1] },
-            coefficients => new[]
-            {
-                (coefficients[2] + coefficients[3]) / (4 * wavelengthMillimeters),
-                ((2 * coefficients[2]) + coefficients[3]) / (4 * wavelengthMillimeters),
-                ((3 * coefficients[2]) + coefficients[3]) / (4 * wavelengthMillimeters)
-            }));
+        foreach (var section in sections) AppendTable(builder, section.Title + "：", section.Table);
         if (!canConvert)
         {
             builder.AppendLine();
@@ -165,9 +158,9 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
 
     private static AnalysisTable CoefficientTable(
         IReadOnlyList<string> columns,
-        IReadOnlyList<SurfaceCoefficients> contributions,
-        Func<double[], double[]> convert) => new(columns, contributions.Select(row =>
-            (IReadOnlyList<string>)new[] { row.Label }.Concat(convert(row.Values)
+        IReadOnlyList<string> labels,
+        IEnumerable<double[]> rows) => new(columns, labels.Zip(rows, (label, coefficients) =>
+            (IReadOnlyList<string>)new[] { label }.Concat(coefficients
                 .Select(value => double.IsFinite(value) ? FormatNumber(value, "0.000000") : "—")).ToArray()).ToArray());
 
     private static void AppendTable(StringBuilder builder, string title, AnalysisTable table)
@@ -175,9 +168,13 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
         builder.AppendLine();
         builder.AppendLine(title);
         builder.AppendLine();
-        foreach (var row in new[] { table.Columns }.Concat(table.Rows))
+        var rows = new[] { table.Columns }.Concat(table.Rows).ToArray();
+        var widths = Enumerable.Range(0, table.Columns.Count)
+            .Select(column => rows.Max(row => row[column].Length)).ToArray();
+        foreach (var row in rows)
         {
-            builder.AppendLine(string.Concat(row.Select((value, index) => Pad(value, index == 0 ? 8 : 14))));
+            builder.AppendLine(row[0].PadRight(6 - row[0].Count(character => character >= '\u3000')) + "  " +
+                string.Join("   ", row.Skip(1).Select((value, index) => value.PadLeft(widths[index + 1]))));
         }
     }
 
@@ -195,10 +192,6 @@ public sealed class SeidelCoefficientsAnalysis : BaseAnalysis
                 : (value == 0 ? 0.0 : value).ToString(format, CultureInfo.InvariantCulture);
     }
 
-    private static string Pad(string value, int width)
-    {
-        return value.PadRight(Math.Max(width, value.Length + 1));
-    }
 }
 
 public sealed class SeidelDiagramAnalysis : BaseAnalysis

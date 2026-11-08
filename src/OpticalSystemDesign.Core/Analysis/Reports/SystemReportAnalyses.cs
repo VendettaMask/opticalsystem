@@ -3,7 +3,7 @@ using OpticalSystemDesign.Core.Domain;
 
 namespace OpticalSystemDesign.Core.Analysis;
 
-public sealed class PrescriptionReportAnalysis : BaseAnalysis
+public sealed partial class PrescriptionReportAnalysis : BaseAnalysis
 {
     public PrescriptionReportAnalysis(Optic optic) : base(optic)
     {
@@ -40,7 +40,7 @@ public sealed class PrescriptionReportAnalysis : BaseAnalysis
             Name,
             values,
             Table: table,
-            ReportText: BuildReport("表面数据报告", values, table));
+            ReportText: BuildSurfaceReport(surfaces));
     }
 
     internal static IReadOnlyDictionary<string, object> SystemValues(Optic optic)

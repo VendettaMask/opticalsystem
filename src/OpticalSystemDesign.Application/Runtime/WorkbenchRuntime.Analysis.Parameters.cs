@@ -30,6 +30,12 @@ public partial class WorkbenchRuntime
         // captured Zemax window describes that preset only, not a Zemax-wide
         // specification.
         var distributionChoices = new[] { "hexapolar", "uniform", "sobol", "random", "line_x", "line_y", "ring" };
+        AnalysisParameterDescriptor FourierFieldFrequencyParameter(int slot) => DoubleParameter(
+            $"Frequency{slot}", $"空间频率 {slot} ({(CurrentOptic.ImageSpaceAfocal ? "cycles/mrad" : "cycles/mm")})",
+            (slot * 10).ToString(CultureInfo.InvariantCulture), 0, 10000, 1);
+        var mtfFrequencyUnit = CurrentOptic.ImageSpaceAfocal ? "cycles/mrad" : "cycles/mm";
+        var mtfFieldUnit = CurrentOptic.FieldDefinition == FieldDefinitionKind.Angle ? "°" : "mm";
+        var mtfSamplingChoices = new[] { "32", "64", "128", "256" };
         var primaryWavelengthNumber = Math.Max(
             1,
             CurrentOptic.Wavelengths.ToList().FindIndex(wavelength => wavelength.IsPrimary) + 1);
@@ -527,14 +533,14 @@ public partial class WorkbenchRuntime
             },
             "RMS Field Map" => new[]
             {
-                IntParameter("XFieldSamples", "X\u89c6\u573a\u91c7\u6837", "11", 3, 101),
-                IntParameter("YFieldSamples", "Y\u89c6\u573a\u91c7\u6837", "11", 3, 101),
-                DoubleParameter("XFieldWidth", "X\u89c6\u573a\u5927\u5c0f", "0", 0, 1_000_000, 0.1),
-                DoubleParameter("YFieldWidth", "Y\u89c6\u573a\u5927\u5c0f", "0", 0, 1_000_000, 0.1),
+                IntParameter("XFieldSamples", "X 视场采样点数", "21", 3, 101),
+                IntParameter("YFieldSamples", "Y 视场采样点数", "21", 3, 101),
+                DoubleParameter("XFieldWidth", "X 视场半宽（0 为自动）", "0", 0, 1_000_000, 0.1),
+                DoubleParameter("YFieldWidth", "Y 视场半宽（0 为自动）", "0", 0, 1_000_000, 0.1),
                 IntParameter("NumRings", "光瞳采样（GQ 环数 / RA 每边点数）", "6", 1, 1024),
                 ChoiceParameter("Method", "计算方法", "GQ", new[] { "GQ", "RA" }),
-                IntParameter("GaussianAzimuthalSamples", "GQ 角向点数", "6", 1, 72),
-                ChoiceParameter("Data", "数据", "spot", new[] { "spot", "wavefront" }),
+                IntParameter("GaussianAzimuthalSamples", "GQ 角向点数", "12", 1, 72),
+                ChoiceParameter("Data", "数据", "wavefront", new[] { "spot", "wavefront" }),
                 ChoiceParameter("Distribution", "\u91c7\u6837\u65b9\u6cd5", "hexapolar", distributionChoices),
                 ChoiceParameter(
                     "WavelengthNumber",
@@ -542,7 +548,7 @@ public partial class WorkbenchRuntime
                     "0",
                     Enumerable.Range(0, Math.Max(1, CurrentOptic.Wavelengths.Count) + 1)
                         .Select(index => index.ToString(CultureInfo.InvariantCulture)).ToArray()),
-                ChoiceParameter("Reference", "\u53c2\u7167", "centroid", new[] { "centroid", "chief" }),
+                ChoiceParameter("Reference", "\u53c2\u7167", "chief", new[] { "centroid", "chief" }),
                 BoolParameter("UsePolarization", "使用偏振", "false"),
                 BoolParameter("RemoveVignetting", "移除渐晕", "true")
             },
@@ -665,7 +671,18 @@ public partial class WorkbenchRuntime
                 IntParameter("FieldDensity", "视场密度", "10", 5, 100),
                 ChoiceParameter("ScanType", "扫描方向", "+y", new[] { "+y", "+x", "-y", "-x" })
             },
-            "Fourier MTF vs Field" or "Geometric MTF vs Field" => new[]
+            "Fourier MTF vs Field" => new[]
+            {
+                IntParameter("PupilSampling", "瞳面采样", "32", 2, 512),
+                FourierFieldFrequencyParameter(1),
+                FourierFieldFrequencyParameter(2),
+                FourierFieldFrequencyParameter(3),
+                IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
+                FourierFieldFrequencyParameter(4),
+                FourierFieldFrequencyParameter(5),
+                FourierFieldFrequencyParameter(6)
+            },
+            "Geometric MTF vs Field" => new[]
             {
                 DoubleParameter("SpatialFrequency", "空间频率 (cycles/mm)", "20", 0, 10000, 1),
                 IntParameter("PupilSampling", "瞳面/光线采样数", "32", 2, 512),
@@ -674,6 +691,45 @@ public partial class WorkbenchRuntime
                 IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, 256),
                 ChoiceParameter("Distribution", "几何光线采样分布", "uniform", distributionChoices),
                 BoolParameter("ScaleByDiffractionLimit", "几何结果乘以衍射极限包络", "true")
+            },
+            "FFT Surface MTF" => new[]
+            {
+                ChoiceParameter("Sampling", "瞳面采样", "64", mtfSamplingChoices),
+                IntParameter("FieldNumber", "视场", "1", 1, Math.Max(1, CurrentOptic.Fields.Count)),
+                IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, CurrentOptic.Wavelengths.Count),
+                BoolParameter("UsePolarization", "使用偏振", "false"),
+                ChoiceParameter("ShowAs", "显示为", "表面", new[] { "表面", "等高线", "灰度", "伪彩色" }),
+                ChoiceParameter("Type", "数据类型", "Modulation", new[] { "Modulation", "Real", "Imaginary" }),
+                ChoiceParameter("Rotation", "旋转 (°)", "0", new[] { "0", "90", "180", "270" }),
+                DoubleParameter("DisplayScale", "垂直缩放", "1", 0.1, 10, 0.1)
+            },
+            "Huygens Surface MTF" => new[]
+            {
+                ChoiceParameter("Sampling", "瞳面采样", "32", mtfSamplingChoices),
+                ChoiceParameter("ImageSampling", "图像采样", "32", mtfSamplingChoices),
+                DoubleParameter("ImageDeltaMicrometers",
+                    CurrentOptic.ImageSpaceAfocal ? "图像间隔 (mrad，0 为自动)" : "图像间隔 (µm，0 为自动)", "0", 0, 1000, 0.1),
+                BoolParameter("UsePolarization", "使用偏振", "false"),
+                IntParameter("FieldNumber", "视场", "1", 1, Math.Max(1, CurrentOptic.Fields.Count)),
+                IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, CurrentOptic.Wavelengths.Count),
+                ChoiceParameter("ShowAs", "显示为", "伪彩色", new[] { "灰度", "伪彩色" })
+            },
+            "FFT MTF Map" or "Geometric MTF Map" => new[]
+            {
+                ChoiceParameter("Sampling", "瞳面采样", "32", mtfSamplingChoices),
+                DoubleParameter("SpatialFrequency", $"空间频率 ({mtfFrequencyUnit})", "20", 0, 10000, 1),
+                IntParameter("WavelengthNumber", "波长（0 为全部）", "0", 0, CurrentOptic.Wavelengths.Count),
+                IntParameter("ReferenceFieldNumber", "参考视场（0 为原点）", "0", 0, CurrentOptic.Fields.Count),
+                ChoiceParameter("Data", "MTF 数据", "Average", CanonicalAnalysisName(analysisName) == "FFT MTF Map"
+                    ? new[] { "Tangential", "Sagittal", "Average", "Min", "Max" } : new[] { "Tangential", "Sagittal", "Average" }),
+                BoolParameter("UsePolarization", "使用偏振", "false"),
+                DoubleParameter("XFieldWidth", $"X 视场全宽 ({mtfFieldUnit}，0 为自动)", "0", 0, 1000000, 1),
+                DoubleParameter("YFieldWidth", $"Y 视场全高 ({mtfFieldUnit}，0 为自动)", "0", 0, 1000000, 1),
+                IntParameter("XFieldSamples", "X 视场采样点数", "9", 2, 101),
+                IntParameter("YFieldSamples", "Y 视场采样点数", "9", 2, 101),
+                ChoiceParameter("ShowAs", "显示为", "伪彩色", new[] { "灰度", "伪彩色" }),
+                BoolParameter("RemoveVignettingFactors", "移除渐晕因子", "true"),
+                BoolParameter("FixedColorScale", "色标固定为 0–1", "false")
             },
             "Angle vs Image Height" => new[]
             {
@@ -714,6 +770,11 @@ public partial class WorkbenchRuntime
                         .Select(surface => surface.Number.ToString(CultureInfo.InvariantCulture))
                         .Distinct(StringComparer.Ordinal)
                         .ToArray())
+            },
+            "Vignetting Diagram" => new[]
+            {
+                IntParameter("RayDensity", "光线密度", "10", 5, 128),
+                IntParameter("FieldDensity", "视场密度", "21", 2, 201)
             },
             "Relative Illumination" => new[]
             {
@@ -991,8 +1052,9 @@ public partial class WorkbenchRuntime
             },
             "Contrast Loss Map" => new[]
             {
-                ChoiceParameter("Sampling", "采样", "13", new[] { "13", "17", "25", "33", "49", "65" }),
-                DoubleParameter("Frequency", "频率 (cycles/mm，0=5%截止)", "100", 0, 10000, 1),
+                ChoiceParameter("Sampling", "瞳面采样", "49", new[] { "13", "17", "25", "33", "49", "65" }),
+                DoubleParameter("Frequency", CurrentOptic.ImageSpaceAfocal
+                    ? "空间频率 (cycles/mrad，0=5%截止)" : "空间频率 (cycles/mm，0=5%截止)", "0", 0, 10000, 1),
                 BoolParameter("Normalize", "归一化", "false"),
                 ChoiceParameter(
                     "WavelengthNumber",

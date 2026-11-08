@@ -34,7 +34,7 @@ public sealed class ArchitectureConvergenceTests
             descriptors.Select(descriptor => descriptor.CanonicalKey).Distinct(StringComparer.Ordinal).Count());
 
         var optic = Optic.CreateCookeTriplet();
-        Assert.All(optic.Analyses.Names, canonicalKey =>
+        Assert.All(optic.Analyses.Names.Where(name => !WorkbenchAnalysisCatalog.IsRetiredAnalysis(name)), canonicalKey =>
             Assert.True(
                 WorkbenchAnalysisCatalog.TryGetDescriptor(canonicalKey, out _),
                 $"Core analysis '{canonicalKey}' is missing a Workbench descriptor."));

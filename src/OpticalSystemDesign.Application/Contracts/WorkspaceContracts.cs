@@ -1154,6 +1154,8 @@ public sealed record AnalysisTableDto(
     IReadOnlyList<IReadOnlyList<string>> Rows,
     IReadOnlyList<string>? RowGroups = null);
 
+public sealed record AnalysisReportSectionDto(string Title, string Label, string Unit, AnalysisTableDto Table);
+
 public enum AnalysisPresentationKind
 {
     Standard,
@@ -1184,7 +1186,15 @@ public enum AnalysisPresentationKind
     FieldCurvature,
     AngleVsImageHeight,
     Interferogram,
-    Mtf
+    Mtf,
+    YYbar,
+    VignettingDiagram,
+    TextReport,
+    GridDistortion,
+    ContrastLossMap,
+    HuygensPsfCrossSection,
+    MtfGrid,
+    RmsFieldMap
 }
 
 public sealed record InterferogramSummaryDto(
@@ -1222,7 +1232,8 @@ public sealed record AnalysisViewDto(
     InterferogramSummaryDto? InterferogramSummary = null,
     AnalysisOutcome Outcome = AnalysisOutcome.Success,
     string? OutcomeReason = null,
-    AnalysisConfigurationScopeDto? ConfigurationScope = null);
+    AnalysisConfigurationScopeDto? ConfigurationScope = null,
+    IReadOnlyList<AnalysisReportSectionDto>? ReportSections = null);
 
 public enum AnalysisConfigurationDisplay
 {

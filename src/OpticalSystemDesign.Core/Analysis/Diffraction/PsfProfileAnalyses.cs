@@ -1,3 +1,7 @@
+using System.Globalization;
+using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Raytrace;
+
 namespace OpticalSystemDesign.Core.Analysis;
 
 public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
@@ -296,6 +300,8 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
             usePolarization: _usePolarization,
             normalize: false,
             useCentroid: _useCentroid) { AfocalIntegration = AfocalIntegration, UseCheckedFocusedPupil = UseCheckedFocusedPupil }.GenerateData();
+        if (source.Outcome == AnalysisOutcome.Success)
+            source = AddCrossSectionMetadata(source);
         var extentKey = Optic.ImageSpaceAfocal ? "ImageExtentMilliradians" : "ImageExtentMicrometers";
         var graphScaleMicrometers = source.Values.TryGetValue(extentKey, out var extent)
             ? Convert.ToDouble(extent) / 2
@@ -306,6 +312,49 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
             source,
             _profileType,
             graphScaleMicrometers: graphScaleMicrometers);
+    }
+
+    private AnalysisData AddCrossSectionMetadata(AnalysisData source)
+    {
+        var values = source.Values.ToDictionary();
+        var field = Optic.Fields.Count == 0 ? null : Optic.Fields[Math.Clamp(_fieldNumber - 1, 0, Optic.Fields.Count - 1)];
+        values["PsfFieldX"] = field?.X ?? 0.0;
+        values["PsfFieldY"] = field?.Y ?? 0.0;
+        values["PsfFieldUnit"] = Optic.FieldDefinition == FieldDefinitionKind.Angle ? "°" : "mm";
+
+        var wavelength = Optic.Wavelengths.First(wave => wave.Nanometers == (double)values["ReferenceWavelengthNanometers"]);
+        if (_wavelengthNumber > 0 || Optic.Wavelengths.Count == 1)
+            values["WavelengthRange"] = wavelength.Micrometers.ToString("F4", CultureInfo.InvariantCulture) + " µm";
+
+        var normalizedField = (Hx: (double)values["FieldHx"], Hy: (double)values["FieldHy"]);
+        var image = Optic.SurfaceGroup.Items[^1];
+        var center = (X: double.NaN, Y: double.NaN);
+        try
+        {
+            if (Optic.ImageSpaceAfocal)
+            {
+                var chief = AnalysisTrace.FinalSample(Optic, normalizedField.Hx, normalizedField.Hy, 0, 0, wavelength.Micrometers);
+                var angles = ImageSpaceAnalysisSupport.DirectionAnglesMilliradians(image, chief.Direction);
+                center = (angles.X + (double)values["GeometricCenterOffsetXMilliradians"],
+                    angles.Y + (double)values["GeometricCenterOffsetYMilliradians"]);
+            }
+            else
+            {
+                var frame = DiffractionEngine.CreateHuygensImageFrame(Optic, normalizedField, wavelength, Optic.RayAimingEnabled);
+                var position = image.CoordinateSystem.ToLocalPoint(frame.Center
+                    + frame.TangentX * ((double)values["GeometricCenterOffsetXMicrometers"] / 1000)
+                    + frame.TangentY * ((double)values["GeometricCenterOffsetYMicrometers"] / 1000));
+                center = (position.X, position.Y);
+            }
+        }
+        catch (InvalidOperationException error) when (!SequentialTraceBudgetExceededException.IsBudgetException(error))
+        {
+            // A PSF with an unavailable geometric reference can still publish its sampled profile.
+        }
+        values["PsfImageCenterX"] = center.X;
+        values["PsfImageCenterY"] = center.Y;
+        values["PsfImageCenterUnit"] = Optic.ImageSpaceAfocal ? "mrad" : "mm";
+        return source with { Values = values };
     }
 }
 

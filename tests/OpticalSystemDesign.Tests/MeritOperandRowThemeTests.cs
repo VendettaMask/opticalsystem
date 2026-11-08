@@ -1,13 +1,18 @@
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Headless;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using OpticalSystemDesign.App;
+using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Contracts;
@@ -207,6 +212,64 @@ public sealed class MeritOperandRowThemeTests
                 items[0].Code = "TRAD";
                 Render(window);
                 Assert.Same(beforeDispose, liveRow.Background);
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task WizardGeneratedRowsKeepTheirClassificationColorsInTheDockedEditor()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MeritOperandRowThemeTests));
+        await session.Dispatch(async () =>
+        {
+            using var workbench = WorkbenchApplication.Create();
+            await workbench.Documents.OpenAsync(Path.Combine(AppContext.BaseDirectory, "Fixtures", "zemax-ms-l7-high-na.ZMX"));
+            using var directory = new ReportTestDirectory();
+            var window = new MainWindow(new AppSettings { Theme = "Light", WindowWidth = 1600, WindowHeight = 980 },
+                workbench, new WorkspaceSessionStore(directory.Path));
+            var ready = false;
+            window.StartupCompleted += (_, _) => ready = true;
+            try
+            {
+                window.Show();
+                for (var attempt = 0; attempt < 200 && !ready; attempt++)
+                {
+                    await Task.Delay(10);
+                    Render(window);
+                }
+                Assert.True(ready);
+                var actions = Assert.IsType<ActionManager>(typeof(MainWindow)
+                    .GetField("_actions", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(window));
+                Assert.True(await actions.ExecuteAsync(actions.Find("show-tolerancing")));
+                Render(window);
+                var panel = Assert.Single(window.GetVisualDescendants().OfType<TolerancingPanel>());
+                var wizardButton = Assert.Single(panel.GetVisualDescendants().OfType<Button>(),
+                    button => button.Content is LocalIconLabel label
+                        && label.Children.OfType<TextBlock>().Any(text => text.Text == "公差向导"));
+                wizardButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Render(window);
+                var wizard = Assert.Single(window.OwnedWindows.OfType<ToleranceWizardWindow>());
+                Render(wizard);
+                Assert.Single(wizard.GetVisualDescendants().OfType<Button>(), button => Equals(button.Content, "确定"))
+                    .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                Render(window);
+                Assert.Contains("公差向导已生成", panel.ResultMessage);
+                var grid = Assert.Single(panel.GetVisualDescendants().OfType<DataGrid>());
+                var expected = new[] { "TRAD", "TTHI", "TIND", "TABB" };
+                var colors = new HashSet<Color>();
+                foreach (var code in expected)
+                {
+                    var row = grid.GetVisualDescendants().OfType<DataGridRow>()
+                        .First(row => row.DataContext is ToleranceOperandEditorRow item && item.Code == code);
+                    var operand = Assert.IsType<ToleranceOperandEditorRow>(row.DataContext);
+                    var visual = MeritOperandRowPalette.ResolveToleranceVisual(operand.Kind,
+                        ThemeRegistry.FromActualVariant(row.ActualThemeVariant), row.IsPointerOver, row.IsSelected, row.IsEnabled);
+                    Assert.Equal(visual.Background, Solid(Background(row).Fill));
+                    Assert.True(colors.Add(visual.Background), code);
+                }
+                AssertPixels(window, grid, [0, 2, 9]);
+                Capture(window, "tolerance-wizard-docked-light.png");
             }
             finally { window.Close(); }
         }, CancellationToken.None);

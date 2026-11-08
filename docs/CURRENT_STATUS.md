@@ -1,5 +1,11 @@
 # 当前实现与验证状态
 
+## 2026-11-08 分析页、报告与公差编辑器验证
+
+调整 Y–Ybar、渐晕、入射角与像高、表面数据、系统数据、网格畸变、对比度损失、赛德尔、Zernike 和惠更斯 PSF 截面结果页。傅里叶 MTF 随视场提供六个可独立设置的频率。新增三维 FFT MTF、二维惠更斯 MTF、二维视场 FFT MTF 和二维视场几何 MTF。二维视场 RMS 图按实际视场比例绘制完整网格。MS-L7 的公差向导生成 73 条操作数时，主窗口中仍显示整行分类色。[范围、验证及截图](../validation/rechecks/2026-11-08/analysis-pages-workbench/README.md)
+
+四项新增 MTF 已注册到比较工具，目前状态为缺少原生比较适配器。界面验证与现有 95 支镜头冻结验收分别记录。[新增图标及五主题资源](assets/icons/README.md)
+
 ## 2026-11-08 旧任务载荷退役与本地清理
 
 按用户当前托管 AutoLens、自主检索/拓扑/SPC 路线，清理本地忽略文件 6,010 个、约 9.17 GiB：上游源码重复解压副本、PowerShell 重复下载包、旧预览编译产物，以及 9 月 S4/DSearch/hybrid 的批量续跑检查点、全候选历史和旧执行依赖。没有修改产品计算代码或现行验收门槛。源码、参考图、当前回归 JSON、原始逐种子汇总、导出处方及失败/中断记录保留；DSearch-R2 的 43/60 中断记录不改成完整协议。旧回放源码保留为历史记录，其默认执行环境不再维护。见[清理与保留账目](../validation/rechecks/2026-11-08/legacy-task-retirement/summary.json)和[逐文件退役清单](../validation/rechecks/2026-11-08/legacy-task-retirement/deleted-files.json)。

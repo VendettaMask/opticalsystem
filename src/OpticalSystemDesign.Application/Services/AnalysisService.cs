@@ -91,7 +91,8 @@ internal sealed partial class AnalysisService : WorkbenchServiceBase, IAnalysisS
     {
         EnsureAvailable(analysisName);
         var available = GetParameters(analysisName).FirstOrDefault(parameter => parameter.Key == AnalysisConfigurationSelection.Key);
-        var applicable = saved?.ToDictionary(item => item.Key, item => item.Value);
+        var applicable = WorkbenchRuntime.MigrateAnalysisSettings(analysisName, saved)
+            ?.ToDictionary(item => item.Key, item => item.Value);
         if (applicable is not null && applicable.TryGetValue(AnalysisConfigurationSelection.Key, out var selection)
             && available?.Choices?.Contains(selection, StringComparer.Ordinal) != true)
             applicable[AnalysisConfigurationSelection.Key] = AnalysisConfigurationSelection.Current;

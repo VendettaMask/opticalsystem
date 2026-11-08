@@ -183,7 +183,9 @@ internal static class WorkbenchMapper
                 Core.Analysis.AnalysisOutcome.NotApplicable => Contracts.AnalysisOutcome.NotApplicable,
                 _ => throw new ArgumentOutOfRangeException(nameof(view))
             },
-            OutcomeReason: view.OutcomeReason);
+            OutcomeReason: view.OutcomeReason,
+            ReportSections: view.ReportSections?.Select(section => new AnalysisReportSectionDto(section.Title, section.Label, section.Unit,
+                new AnalysisTableDto(section.Table.Columns, section.Table.Rows, section.Table.RowGroups))).ToArray());
     }
 
     internal static AnalysisSeriesDto ToSeriesDto(AnalysisSeries series)

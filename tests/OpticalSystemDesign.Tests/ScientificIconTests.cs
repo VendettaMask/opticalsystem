@@ -30,7 +30,7 @@ public sealed class ScientificIconTests
     [Fact]
     public void EveryCatalogEntryIsNativeVectorAndUnknownNamesUseTheScientificFallback()
     {
-        Assert.Equal(1969, ScientificIconLibrary.Names.Count);
+        Assert.Equal(1973, ScientificIconLibrary.Names.Count);
         foreach (var name in LocalIconLibrary.Names.Concat(Approved))
             Assert.Contains(name, ScientificIconLibrary.Names);
         foreach (var name in ScientificIconLibrary.Names)

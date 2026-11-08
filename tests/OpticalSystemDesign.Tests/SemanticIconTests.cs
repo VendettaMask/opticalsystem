@@ -27,8 +27,8 @@ public sealed class SemanticIconTests
     {
         using var manifest = Manifest();
         var root = manifest.RootElement;
-        Assert.Equal(221, root.GetProperty("uniqueSemanticDrawings").GetInt32());
-        Assert.Equal(196, root.GetProperty("newlyAuthored").GetArrayLength());
+        Assert.Equal(225, root.GetProperty("uniqueSemanticDrawings").GetInt32());
+        Assert.Equal(200, root.GetProperty("newlyAuthored").GetArrayLength());
         Assert.Equal(25, root.GetProperty("preservedApproved").GetArrayLength());
         var names = root.GetProperty("newlyAuthored").EnumerateArray().Select(e => e.GetString()!)
             .Concat(root.GetProperty("preservedApproved").EnumerateArray().Select(e => e.GetString()!)).ToHashSet();
@@ -49,11 +49,11 @@ public sealed class SemanticIconTests
     }
 
     [Fact]
-    public void MtfMethodAndIndependentVariableAreBothEncodedInNineDedicatedNames()
+    public void MtfMethodAndIndependentVariableAreBothEncodedInDedicatedNames()
     {
         var mtf = WorkbenchAnalysisCatalog.RibbonCommands.Where(c => c.Group == "MTF 曲线").ToArray();
-        Assert.Equal(9, mtf.Length);
-        Assert.Equal(9, mtf.Select(c => c.IconName).Distinct().Count());
+        Assert.Equal(13, mtf.Length);
+        Assert.Equal(13, mtf.Select(c => c.IconName).Distinct().Count());
         foreach (var method in new[] { "fourier", "huygens", "geometric" })
         foreach (var variable in new[] { "frequency", "focus", "field" })
             Assert.Contains(mtf, c => c.IconName == $"mtf-{method}-{variable}");
@@ -65,7 +65,7 @@ public sealed class SemanticIconTests
     [InlineData("Lumen")]
     [InlineData("Isekai")]
     [InlineData("Pixel")]
-    public async Task EveryAuthoredIconRendersAndNineMtfDrawingsStayDistinctAtRealUiSizes(string themeName)
+    public async Task EveryAuthoredIconRendersAndMtfDrawingsStayDistinctAtRealUiSizes(string themeName)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));
         await session.Dispatch(() =>
@@ -102,7 +102,7 @@ public sealed class SemanticIconTests
                         using var bytes = new MemoryStream(); bitmap.Save(bytes, PngBitmapEncoderOptions.Default);
                         Assert.True(hashes.Add(Convert.ToHexString(SHA256.HashData(bytes.ToArray()))), name);
                     }
-                    Assert.Equal(9, hashes.Count);
+                    Assert.Equal(13, hashes.Count);
                 }
                 foreach (var face in Enum.GetValues<ViewCubeFace>())
                     Assert.True(ScientificIconLibrary.Contains($"view-{face.ToString().ToLowerInvariant()}"));

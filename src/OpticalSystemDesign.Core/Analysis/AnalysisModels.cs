@@ -175,6 +175,8 @@ public sealed record AnalysisTable(
     IReadOnlyList<IReadOnlyList<string>> Rows,
     IReadOnlyList<string>? RowGroups = null);
 
+public sealed record AnalysisReportSection(string Title, string Label, string Unit, AnalysisTable Table);
+
 public enum AnalysisOutcome
 {
     Success,
@@ -193,7 +195,8 @@ public sealed record AnalysisData(
     AnalysisTable? Table = null,
     string? ReportText = null,
     AnalysisOutcome Outcome = AnalysisOutcome.Success,
-    string? OutcomeReason = null)
+    string? OutcomeReason = null,
+    IReadOnlyList<AnalysisReportSection>? ReportSections = null)
 {
     public static AnalysisData Unavailable(string name, string reason) => new(name,
         new Dictionary<string, object> { ["Status"] = reason },

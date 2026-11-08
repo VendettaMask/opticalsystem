@@ -119,11 +119,17 @@ public static class DistortionMetrics
                 requireUnvignetted: true);
             return (sample.Position.X, sample.Position.Y);
         }
+        return SmiaTvFromIntercepts(Trace, xWidth / 2, yWidth / 2);
+    }
+
+    internal static double SmiaTvFromIntercepts(Func<double, double, (double X, double Y)> trace,
+        double halfWidth, double halfHeight)
+    {
         static double Distance((double X, double Y) a, (double X, double Y) b) =>
             Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
-        var left = Distance(Trace(-xWidth / 2, yWidth / 2), Trace(-xWidth / 2, -yWidth / 2));
-        var right = Distance(Trace(xWidth / 2, yWidth / 2), Trace(xWidth / 2, -yWidth / 2));
-        var middle = Distance(Trace(0, yWidth / 2), Trace(0, -yWidth / 2));
+        var left = Distance(trace(-halfWidth, halfHeight), trace(-halfWidth, -halfHeight));
+        var right = Distance(trace(halfWidth, halfHeight), trace(halfWidth, -halfHeight));
+        var middle = Distance(trace(0, halfHeight), trace(0, -halfHeight));
         if (!double.IsFinite(middle) || middle <= 1e-30)
             throw new InvalidOperationException("SMIA 中间像高为零或非有限值，不能计算畸变。");
         return RequireFinite(100 * ((left + right) / (2 * middle) - 1));

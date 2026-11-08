@@ -14,7 +14,8 @@ public sealed partial class UserGuidePanel
             "Field Curvature" or "Color Focus Shift" or "Lateral Color" or "Axial Aberration" or "Full Field Aberration" => "seidel-field",
         "Spot Diagram" or "Full Field Spot Diagram" or "Matrix Spot Diagram" or "Configuration Matrix Spot Diagram" or "Ray Fan" => "spot-aberrations",
         "Footprint Diagram" or "Vignetting Diagram" or "Pupil Aberration" => "pupil-sampling",
-        "Encircled Energy" or "Diffraction Encircled Energy" or "MTF" or "Huygens MTF" or "Geometric MTF" or "Sampled MTF" or "Contrast Loss Map" => "mtf-energy",
+        "Encircled Energy" or "Diffraction Encircled Energy" or "MTF" or "Huygens MTF" or "Geometric MTF" or "Sampled MTF"
+            or "FFT Surface MTF" or "Huygens Surface MTF" or "FFT MTF Map" or "Geometric MTF Map" or "Contrast Loss Map" => "mtf-energy",
         "Geometric Line Edge Spread" or "FFT Line Edge Spread" or "Extended Source Encircled Energy" => "line-edge",
         "RMS vs Field" or "RMS vs Wavelength" or "RMS vs Focus" or "RMS Field Map" or "RMS Wavefront vs Field" or "Through Focus" or
             "Fourier Through Focus MTF" or "Huygens Through Focus MTF" or "Geometric Through Focus MTF" or

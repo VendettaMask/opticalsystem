@@ -321,7 +321,7 @@ public sealed class RmsFieldMapAnalysis : BaseAnalysis
         bool usePolarization = false,
         bool removeVignetting = true) : base(optic)
     {
-        var defaultWidth = Math.Max(1e-9, AnalysisTrace.MaxFieldValue(optic));
+        var defaultWidth = Math.Max(1e-9, AnalysisTrace.MaxFieldValue(optic) / Math.Sqrt(2));
         _xFieldSamples = Math.Clamp(xFieldSamples, 3, 101);
         _yFieldSamples = Math.Clamp(yFieldSamples, 3, 101);
         _xFieldWidth = xFieldWidth > 0 ? xFieldWidth : defaultWidth;

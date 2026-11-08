@@ -27,7 +27,7 @@ public sealed class AnalysisAutomaticAspectCoverageTests
     {
         foreach (var kind in Enum.GetValues<AnalysisPresentationKind>().Where(kind => kind is not
             (AnalysisPresentationKind.SeidelCoefficients or AnalysisPresentationKind.ZernikeFringe
-            or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular)))
+            or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular or AnalysisPresentationKind.TextReport)))
             yield return [kind, "Lumen", "default"];
         foreach (var kind in new[] { AnalysisPresentationKind.SpotDiagram, AnalysisPresentationKind.ConfigurationMatrixSpot,
             AnalysisPresentationKind.WavefrontMap, AnalysisPresentationKind.Mtf })

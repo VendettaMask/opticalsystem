@@ -1115,6 +1115,10 @@ internal static partial class UiLocalization
         Add("几何 MTF", "Geometric MTF", "幾何 MTF");
         Add("几何离焦 MTF", "Geometric Through-Focus MTF", "幾何焦点通過 MTF");
         Add("几何 MTF VS 视场", "Geometric MTF vs. Field", "幾何 MTF vs. 視野");
+        Add("三维 FFT MTF", "3D FFT MTF", "3D FFT MTF");
+        Add("二维视场 FFT MTF", "FFT MTF Field Map", "FFT MTF 視野マップ");
+        Add("二维惠更斯 MTF", "2D Huygens MTF", "2D ホイヘンス MTF");
+        Add("二维视场几何 MTF", "Geometric MTF Field Map", "幾何 MTF 視野マップ");
         Add("光程差图", "Optical Path Difference", "光路差図");
         Add("波前图", "Wavefront Map", "波面図");
         Add("干涉图", "Interferogram", "干渉図");

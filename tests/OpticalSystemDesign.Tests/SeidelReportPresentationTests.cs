@@ -4,7 +4,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Headless;
+using Avalonia.Media;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Theming;
@@ -46,15 +48,48 @@ public sealed class SeidelReportPresentationTests
                 0, "", false, false, 0, 0, 0, 0, 17, 3, 3);
             var factory = typeof(AnalysisPanel).GetMethod("BuildSeidelCoefficientsReport",
                 BindingFlags.Static | BindingFlags.NonPublic)!;
-            var report = Assert.IsType<TextBox>(factory.Invoke(null, new object[]
+            var panel = Assert.IsType<DockPanel>(factory.Invoke(null, new object[]
             {
-                view, document, new DateTimeOffset(2026, 9, 4, 12, 0, 0, TimeSpan.Zero)
+                view, document, new DateTimeOffset(new DateTime(2026, 11, 8, 12, 0, 0, DateTimeKind.Local))
             }));
-            var window = new Window { Width = 1200, Height = 720, Content = report };
+            var tabs = Assert.Single(panel.Children.OfType<TabControl>());
+            var sections = Assert.IsAssignableFrom<IReadOnlyList<AnalysisReportSectionDto>>(view.ReportSections);
+            Assert.Equal(new[] { "赛德尔", "波长", "横向", "轴向", "波前汇总", "场曲汇总", "文本" },
+                tabs.Items.Cast<TabItem>().Select(tab => tab.Header));
+            var window = new Window { Width = 1050, Height = 720, Content = panel };
             try
             {
                 window.Show();
-                window.UpdateLayout();
+                Tick();
+                for (var index = 0; index < sections.Count; index++)
+                {
+                    tabs.SelectedIndex = index;
+                    Tick();
+                    var grid = Assert.Single(tabs.GetVisualDescendants().OfType<DataGrid>());
+                    Assert.True(grid.IsReadOnly);
+                    Assert.Equal(1, grid.FrozenColumnCount);
+                    Assert.Same(sections[index].Table.Rows, grid.ItemsSource);
+                    Assert.Equal(sections[index].Table.Columns, grid.Columns.Select(column => Assert.IsType<string>(column.Header)));
+                    grid.ScrollIntoView(sections[index].Table.Rows[^1], grid.Columns[0]);
+                    Tick();
+                    Assert.Contains(grid.GetVisualDescendants().OfType<TextBlock>(), block => block.Text == "累计" && block.FontWeight == FontWeight.SemiBold);
+                    if (index is 0 or 1) Capture(index == 0 ? "seidel-coefficients.png" : "seidel-waves.png");
+                }
+
+                panel.Width = 570;
+                tabs.SelectedIndex = 2;
+                Tick();
+                var narrow = Assert.Single(tabs.GetVisualDescendants().OfType<DataGrid>());
+                var horizontal = Assert.Single(narrow.GetVisualDescendants().OfType<ScrollBar>(),
+                    scrollBar => scrollBar.Orientation == Avalonia.Layout.Orientation.Horizontal && scrollBar.Maximum > 0);
+                narrow.ScrollIntoView(sections[2].Table.Rows[^1], narrow.Columns[^1]);
+                Tick();
+                Assert.True(horizontal.Value > 0);
+                Capture("seidel-narrow.png");
+
+                tabs.SelectedIndex = sections.Count;
+                Tick();
+                var report = Assert.IsType<TextBox>(Assert.IsType<TabItem>(tabs.Items[^1]).Content);
                 Assert.True(report.IsReadOnly);
                 Assert.Contains(view.ReportText, report.Text);
                 Assert.Contains("W040", report.Text);
@@ -65,15 +100,8 @@ public sealed class SeidelReportPresentationTests
                 Assert.Equal(ScrollBarVisibility.Auto, report.GetValue(ScrollViewer.VerticalScrollBarVisibilityProperty));
                 var scroll = Assert.Single(report.GetVisualDescendants().OfType<ScrollViewer>());
                 Assert.True(scroll.Extent.Height > scroll.Viewport.Height);
-                Capture("seidel-report-top.png");
                 scroll.Offset = new Vector(0, scroll.Extent.Height - scroll.Viewport.Height);
                 Assert.True(scroll.Offset.Y > 0);
-                window.UpdateLayout();
-                Capture("seidel-report-bottom.png");
-                window.Width = 600;
-                // Constrain the control explicitly: native resize notifications
-                // are asynchronous under the Skia headless platform.
-                report.Width = 570;
                 window.UpdateLayout();
                 Assert.True(scroll.Extent.Width > scroll.Viewport.Width);
                 scroll.Offset = new Vector(scroll.Extent.Width - scroll.Viewport.Width, scroll.Offset.Y);
@@ -87,6 +115,13 @@ public sealed class SeidelReportPresentationTests
                 window.Close();
             }
 
+            void Tick()
+            {
+                Dispatcher.UIThread.RunJobs();
+                window.UpdateLayout();
+                AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+            }
+
             void Capture(string file)
             {
                 var directory = Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SEIDEL_CAPTURE_DIR");
@@ -96,7 +131,6 @@ public sealed class SeidelReportPresentationTests
                 using var bitmap = window.CaptureRenderedFrame();
                 Assert.NotNull(bitmap);
                 bitmap.Save(Path.Combine(directory, file), PngBitmapEncoderOptions.Default);
-                File.WriteAllText(Path.Combine(directory, "seidel-report.txt"), report.Text);
             }
         }, CancellationToken.None);
     }

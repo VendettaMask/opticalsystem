@@ -33,7 +33,8 @@ public sealed record AnalysisView(
     AnalysisTable? Table = null,
     InterferogramSummaryDto? InterferogramSummary = null,
     Core.Analysis.AnalysisOutcome Outcome = Core.Analysis.AnalysisOutcome.Success,
-    string? OutcomeReason = null);
+    string? OutcomeReason = null,
+    IReadOnlyList<AnalysisReportSection>? ReportSections = null);
 
 public sealed record AnalysisRow(string Metric, string Value);
 

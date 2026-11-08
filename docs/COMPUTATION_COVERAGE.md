@@ -58,6 +58,10 @@
 | 傅里叶 MTF (MTF) | MTF、分辨率与圈入能量 |
 | 惠更斯 MTF (Huygens MTF) | MTF、分辨率与圈入能量 |
 | 几何 MTF (Geometric MTF) | MTF、分辨率与圈入能量 |
+| 三维 FFT MTF (FFT Surface MTF) | MTF、分辨率与圈入能量 |
+| 二维视场 FFT MTF (FFT MTF Map) | MTF、分辨率与圈入能量 |
+| 二维惠更斯 MTF (Huygens Surface MTF) | MTF、分辨率与圈入能量 |
+| 二维视场几何 MTF (Geometric MTF Map) | MTF、分辨率与圈入能量 |
 | 采样 MTF (Sampled MTF) | MTF、分辨率与圈入能量 |
 | 对比度损失图 (Contrast Loss Map) | MTF、分辨率与圈入能量 |
 | 光程差图 (Optical Path Difference) | 波前、OPD 与 PSF |

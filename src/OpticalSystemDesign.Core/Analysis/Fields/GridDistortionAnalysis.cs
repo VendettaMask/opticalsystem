@@ -170,9 +170,32 @@ public sealed class GridDistortionAnalysis : BaseAnalysis
             YQuantity: AnalysisAxisQuantity.ObjectHeight,
             YUnit: AnalysisAxisUnit.Millimeter));
 
+        var angularField = Optic.FieldDefinition == FieldDefinitionKind.Angle;
+        double FieldSpan(double half) => angularField ? 2 * Math.Atan(half) * 180 / Math.PI : 2 * half;
+        var smiaTv = double.NaN;
+        if (!Optic.ImageSpaceAfocal)
+        {
+            try
+            {
+                smiaTv = DistortionMetrics.SmiaTvFromIntercepts((x, y) => AnalysisTrace.TraceChiefAtLinearField(
+                    Optic, x, y, wavelength.Micrometers, coordinateModel, requireUnvignetted: true), halfWidth, halfHeight);
+            }
+            catch (InvalidOperationException error) when (!SequentialTraceBudgetExceededException.IsBudgetException(error))
+            {
+                // A missing chief ray only makes the supplemental SMIA result unavailable.
+            }
+        }
+
         return new AnalysisData(Name, new Dictionary<string, object>
         {
             ["MaximumDistortionPercent"] = maximumDistortion,
+            ["SmiaTvDistortionPercent"] = smiaTv,
+            ["GridFieldWidth"] = FieldSpan(halfWidth),
+            ["GridFieldHeight"] = FieldSpan(halfHeight),
+            ["GridFieldUnit"] = angularField ? "°" : "mm",
+            ["GridImageWidth"] = 2 * (Math.Abs(mapping.M00) * halfWidth + Math.Abs(mapping.M01) * halfHeight),
+            ["GridImageHeight"] = 2 * (Math.Abs(mapping.M10) * halfWidth + Math.Abs(mapping.M11) * halfHeight),
+            ["GridImageUnit"] = Optic.ImageSpaceAfocal ? "mrad" : "mm",
             ["GridSize"] = _numPoints,
             ["DisplayMode"] = _displayMode,
             ["WavelengthNumber"] = _wavelengthNumber,

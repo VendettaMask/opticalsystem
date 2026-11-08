@@ -63,7 +63,8 @@ public sealed class AnalysisResponsivePlotTests
 
     public static IEnumerable<object[]> PlotPresentations() => Enum.GetValues<AnalysisPresentationKind>()
         .Where(kind => kind is not (AnalysisPresentationKind.SeidelCoefficients or AnalysisPresentationKind.ZernikeFringe
-            or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular or AnalysisPresentationKind.CardinalPoints))
+            or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular
+            or AnalysisPresentationKind.CardinalPoints or AnalysisPresentationKind.TextReport))
         .Select(kind => new object[] { kind });
 
     [Theory]

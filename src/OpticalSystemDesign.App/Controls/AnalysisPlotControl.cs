@@ -36,6 +36,8 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         set => SetValue(UseSeriesColorMapProperty, value);
     }
 
+    internal bool DrawPupilCircles { get; init; }
+
     internal Color ScalarColor(AnalysisSeries series, double value) =>
         UseSeriesColorMap ? ColorFor(series.ColorMap, value)
             : ScientificColorMaps.ScalarColor(series.ColorMap, value);
@@ -199,6 +201,8 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
     private bool _panning;
     private Point _lastPointer;
     private Point? _hoverPointer;
+
+    internal bool UseHeatmapIntervals { get; init; }
 
     public AnalysisPlotControl()
     {
@@ -512,7 +516,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             .Where(item => item.Series.Kind is AnalysisSeriesKind.Heatmap or AnalysisSeriesKind.ColoredLine)
             .Select(item => item.Series)
             .FirstOrDefault();
-        var colorbarWidth = !compact
+        var colorbarWidth = !compact && !DrawPupilCircles
             && valueSeries is not null
             && !string.IsNullOrWhiteSpace(valueSeries.ValueLabel)
                 ? 92
@@ -552,6 +556,11 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             top,
             Math.Max(1, Bounds.Width - left - right),
             Math.Max(1, Bounds.Height - top - bottom));
+        if (DrawPupilCircles)
+        {
+            var side = Math.Min(plot.Width, plot.Height);
+            plot = new Rect(plot.Center.X - side / 2, plot.Center.Y - side / 2, side, side);
+        }
 
         var allPoints = axisSeries.SelectMany(item => item.Points).ToArray();
         var xMin = PlotOptions.XMinimum ?? allPoints.Min(point => point.X);
@@ -573,7 +582,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             xMax = limit;
         }
 
-        if (PlotOptions.EqualAspect)
+        if (PlotOptions.EqualAspect && !UseHeatmapIntervals)
         {
             MakeEqualAspect(plot, ref xMin, ref xMax, ref yMin, ref yMax);
         }
@@ -584,6 +593,14 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             xMax = viewport.XMaximum;
             yMin = viewport.YMinimum;
             yMax = viewport.YMaximum;
+        }
+
+        if (UseHeatmapIntervals)
+        {
+            var scale = Math.Min(plot.Width / (xMax - xMin), plot.Height / (yMax - yMin));
+            var width = (xMax - xMin) * scale;
+            var height = (yMax - yMin) * scale;
+            plot = new Rect(plot.Center.X - width / 2, plot.Center.Y - height / 2, width, height);
         }
 
         _lastPlot = plot;
@@ -659,7 +676,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
     {
         if (_hoverPointer is not Point pointer || !plot.Contains(pointer))
         {
-            if (plot.Width < 320 || plot.Height < 180)
+            if (DrawPupilCircles || plot.Width < 320 || plot.Height < 180)
             {
                 return;
             }
@@ -777,7 +794,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
                 gridColor.B)),
             1,
             PlotOptions.DottedGrid ? new DashStyle(new[] { 1.0, 3.0 }, 0) : null);
-        const int divisions = 5;
+        var divisions = UseHeatmapIntervals ? 2 : 5;
         for (var index = 0; index <= divisions; index++)
         {
             var fraction = index / (double)divisions;
@@ -874,7 +891,8 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         var pen = new Pen(brush, CurveStrokeWidth(series), DashFor(series.LineStyle));
         if (series.Kind == AnalysisSeriesKind.Heatmap)
         {
-            DrawHeatmap(context, series, points, mapX, mapY);
+            if (DrawPupilCircles) DrawPupilLoss(context, points, mapX, mapY);
+            else DrawHeatmap(context, series, points, mapX, mapY);
             return;
         }
 
@@ -932,6 +950,25 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         }
     }
 
+    private void DrawPupilLoss(DrawingContext context, IReadOnlyList<AnalysisPoint> points,
+        Func<double, double> mapX, Func<double, double> mapY)
+    {
+        var brush = ThemeBrush(ThemeResourceBindings.PlotText, TextBrush);
+        var rim = ThemePen(ThemeResourceBindings.PlotAxis, AxisPen);
+        var pupilRadius = (mapX(1) - mapX(-1)) / 2;
+        context.DrawEllipse(null, rim, new Point(mapX(0), mapY(0)), Math.Abs(pupilRadius), (mapY(-1) - mapY(1)) / 2);
+        var gridWidth = points.Select(point => point.X).Distinct().Count();
+        var maximumRadius = 0.85 * Math.Abs(pupilRadius) / Math.Max(1, gridWidth - 1);
+        var outline = new Pen(brush, 0.75);
+        foreach (var point in points)
+        {
+            if (point.Value is not { } loss || !double.IsFinite(loss)) continue;
+            var radius = Math.Max(0.55, maximumRadius * Math.Sqrt(Math.Clamp(loss, 0, 1)));
+            var center = new Point(mapX(point.X), mapY(point.Y));
+            context.DrawEllipse(radius < 1.25 ? brush : null, radius < 1.25 ? null : outline, center, radius, radius);
+        }
+    }
+
     private void DrawHeatmap(
         DrawingContext context,
         AnalysisSeries series,
@@ -950,6 +987,36 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         var maximum = series.ValueMaximum ?? values.Max();
         var xValues = valued.Select(point => point.X).Distinct().Order().ToArray();
         var yValues = valued.Select(point => point.Y).Distinct().Order().ToArray();
+        if (UseHeatmapIntervals)
+        {
+            // Endpoint samples describe vertices. The midpoint of each
+            // bilinear patch gives one color for the complete interval.
+            var samples = valued.ToDictionary(point => (point.X, point.Y), point => point.Value!.Value);
+            for (var row = 1; row < yValues.Length; row++)
+            {
+                var low = yValues[row - 1];
+                var high = yValues[row];
+                var top = mapY(high);
+                var bottom = mapY(low);
+                for (var column = 1; column < xValues.Length; column++)
+                {
+                    var left = xValues[column - 1];
+                    var right = xValues[column];
+                    if (!samples.TryGetValue((left, low), out var lowLeft) || !samples.TryGetValue((right, low), out var lowRight)
+                        || !samples.TryGetValue((left, high), out var highLeft) || !samples.TryGetValue((right, high), out var highRight))
+                        continue;
+
+                    var value = (lowLeft + lowRight + highLeft + highRight) / 4;
+                    var normalized = maximum == minimum ? 0.5 : (value - minimum) / (maximum - minimum);
+                    var a = mapX(left);
+                    var b = mapX(right);
+                    context.DrawRectangle(new SolidColorBrush(ScalarColor(series, normalized)), null,
+                        new Rect(Math.Min(a, b), top, Math.Abs(b - a), bottom - top));
+                }
+            }
+            return;
+        }
+
         var xStep = xValues.Length > 1 ? xValues.Zip(xValues.Skip(1), (left, right) => right - left).Where(step => step > 0).DefaultIfEmpty(1).Min() : 1;
         var yStep = yValues.Length > 1 ? yValues.Zip(yValues.Skip(1), (left, right) => right - left).Where(step => step > 0).DefaultIfEmpty(1).Min() : 1;
         foreach (var point in valued)

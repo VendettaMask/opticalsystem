@@ -1,4 +1,5 @@
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Analysis;
@@ -146,6 +147,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             ? wavelengths[_wavelengthNumber - 1]
             : wavelengths.FirstOrDefault(item => item.IsPrimary) ?? wavelengths[0];
         var field = fields[_fieldNumber - 1];
+        var physicalField = Optic.Fields[_fieldNumber - 1];
         double cutoff, frequency, pupilSeparation;
         try
         {
@@ -174,15 +176,29 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             tangential = Normalize(tangential, maximumRawLoss);
         }
 
+        var wavelengthNumber = Array.IndexOf(wavelengths, wavelength) + 1;
+        var (mtfT, mtfS, diffractionLimit) = (double.NaN, double.NaN, double.NaN);
+        try
+        {
+            var reference = new MtfAnalysis(Optic, numRays: 128, gridSize: 256, maximumFrequency: frequency,
+                wavelengthNumber: wavelengthNumber, fieldNumber: _fieldNumber,
+                showDiffractionLimit: true, zemaxCompatible: true).GenerateData();
+            if (reference.PlotSeries is [var tangentialMtf, var sagittalMtf, var idealMtf])
+                (mtfT, mtfS, diffractionLimit) = (tangentialMtf.Points[^1].Y, sagittalMtf.Points[^1].Y, idealMtf.Points[^1].Y);
+        }
+        catch (InvalidOperationException error) when (!SequentialTraceBudgetExceededException.IsBudgetException(error))
+        {
+            // The independently sampled FFT reference can be unavailable while the loss map is valid.
+        }
         var panes = new List<AnalysisPlotPane>
         {
-            MapPane("Sagittal Contrast Loss", sagittal.LossSeries),
-            MapPane("Tangential Contrast Loss", tangential.LossSeries)
+            MapPane("弧矢对比度损失", sagittal.LossSeries, hideAxes: true),
+            MapPane("子午对比度损失", tangential.LossSeries, hideAxes: true)
         };
         if (_showOpd)
         {
-            panes.Add(MapPane("Sagittal OPD Phase", sagittal.OpdSeries));
-            panes.Add(MapPane("Tangential OPD Phase", tangential.OpdSeries));
+            panes.Add(MapPane("弧矢 OPD 相位", sagittal.OpdSeries));
+            panes.Add(MapPane("子午 OPD 相位", tangential.OpdSeries));
         }
 
         return new AnalysisData(Name, new Dictionary<string, object>
@@ -195,11 +211,17 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             ["CutoffFrequency"] = cutoff,
             ["PupilSeparation"] = pupilSeparation,
             ["Normalize"] = _normalize,
-            ["WavelengthNumber"] = Array.IndexOf(wavelengths, wavelength) + 1,
+            ["WavelengthNumber"] = wavelengthNumber,
             ["WavelengthMicrometers"] = wavelength.Micrometers,
             ["FieldNumber"] = _fieldNumber,
             ["FieldHx"] = field.Hx,
             ["FieldHy"] = field.Hy,
+            ["ContrastFieldX"] = physicalField.X,
+            ["ContrastFieldY"] = physicalField.Y,
+            ["ContrastFieldUnit"] = Optic.FieldDefinition == FieldDefinitionKind.Angle ? "°" : "mm",
+            ["ContrastTangentialMtf"] = mtfT,
+            ["ContrastSagittalMtf"] = mtfS,
+            ["ContrastDiffractionLimit"] = diffractionLimit,
             ["ShowOPD"] = _showOpd,
             ["UnshiftedPupilPhaseSeries"] = new[] { sagittal.UnshiftedPhaseSeries, tangential.UnshiftedPhaseSeries },
             ["PhaseIndicatorDefinition"] = "Mean OPD of the two shifted pupil rays, modulo one wave",
@@ -221,6 +243,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
         var validCount = 0;
         for (var row = 0; row < _sampling; row++)
         {
+            ComputationCancellation.ThrowIfCancellationRequested();
             var py = -1 + (2.0 * row / (_sampling - 1.0));
             for (var column = 0; column < _sampling; column++)
             {
@@ -299,7 +322,7 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
             var unshiftedPhase = result.CenterWaves.HasValue ? PositiveModulo(result.CenterWaves.Value, 1) : double.NaN;
             return (result.Loss, opdPhase, unshiftedPhase);
         }
-        catch (InvalidOperationException)
+        catch (InvalidOperationException error) when (!SequentialTraceBudgetExceededException.IsBudgetException(error))
         {
             return (double.NaN, double.NaN, double.NaN);
         }
@@ -323,15 +346,17 @@ public sealed class ContrastLossMapAnalysis : BaseAnalysis
         return map with { LossSeries = series };
     }
 
-    private static AnalysisPlotPane MapPane(string title, AnalysisSeries series)
+    private static AnalysisPlotPane MapPane(string title, AnalysisSeries series, bool hideAxes = false)
     {
+        var extent = hideAxes ? 1.035 : 1;
         return new AnalysisPlotPane(title, new[] { series }, new AnalysisPlotOptions(
             Title: title,
             EqualAspect: true,
-            XMinimum: -1,
-            XMaximum: 1,
-            YMinimum: -1,
-            YMaximum: 1,
+            XMinimum: -extent,
+            XMaximum: extent,
+            YMinimum: -extent,
+            YMaximum: extent,
+            HideAxes: hideAxes,
             HideTopAndRightAxes: true,
             GridOpacity: 0.2));
     }

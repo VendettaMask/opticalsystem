@@ -6,8 +6,8 @@
     32
   ],
   "strokeWidth": 1.65,
-  "sourceUiReferences": 332,
-  "uniqueSemanticDrawings": 221,
+  "sourceUiReferences": 336,
+  "uniqueSemanticDrawings": 225,
   "preservedApproved": [
     "about",
     "analysis-aberration",
@@ -147,12 +147,16 @@
     "mtf-fourier-field",
     "mtf-fourier-focus",
     "mtf-fourier-frequency",
+    "mtf-fourier-map",
+    "mtf-fourier-surface",
     "mtf-geometric-field",
     "mtf-geometric-focus",
     "mtf-geometric-frequency",
+    "mtf-geometric-map",
     "mtf-huygens-field",
     "mtf-huygens-focus",
     "mtf-huygens-frequency",
+    "mtf-huygens-surface",
     "nonsequential-mode",
     "nonsequential-objects",
     "optical-alignment",
@@ -979,6 +983,18 @@
       "category": "MTF 分析"
     },
     {
+      "id": "mtf-fourier-map",
+      "label": "二维视场 FFT MTF",
+      "meaning": "矩形视场采样格和从中心向边缘变化的频率响应。",
+      "category": "MTF 分析"
+    },
+    {
+      "id": "mtf-fourier-surface",
+      "label": "三维 FFT MTF",
+      "meaning": "立体坐标轴、起伏的频率曲面和频谱刻线。",
+      "category": "MTF 分析"
+    },
+    {
       "id": "mtf-geometric-field",
       "label": "几何MTF VS 视场",
       "meaning": "离散场点和向边缘变化的传递曲线表示随视场扫描；会聚几何光线标识几何方法。",
@@ -997,6 +1013,12 @@
       "category": "MTF 分析"
     },
     {
+      "id": "mtf-geometric-map",
+      "label": "二维视场几何 MTF",
+      "meaning": "场点矩阵和会聚几何光线表示视场 MTF 分布。",
+      "category": "MTF 分析"
+    },
+    {
       "id": "mtf-huygens-field",
       "label": "惠更斯MTF VS 视场",
       "meaning": "离散场点和向边缘变化的传递曲线表示随视场扫描；次波圆弧标识惠更斯传播。",
@@ -1012,6 +1034,12 @@
       "id": "mtf-huygens-frequency",
       "label": "惠更斯MTF",
       "meaning": "下降的调制传递曲线表示频率响应；次波圆弧标识惠更斯传播。",
+      "category": "MTF 分析"
+    },
+    {
+      "id": "mtf-huygens-surface",
+      "label": "二维惠更斯 MTF",
+      "meaning": "双频率轴内的环形等值线表示惠更斯衍射响应。",
       "category": "MTF 分析"
     },
     {
@@ -1633,6 +1661,10 @@
     "non-sequential-clear-detectors": "detector-clear",
     "non-sequential-ray-database-viewer": "ray-database",
     "non-sequential-path-analysis": "ray-path-analysis",
-    "non-sequential-3d-layout": "layout-3d"
+    "non-sequential-3d-layout": "layout-3d",
+    "analysis-fft-mtf-map": "mtf-fourier-map",
+    "analysis-fft-surface-mtf": "mtf-fourier-surface",
+    "analysis-geometric-mtf-map": "mtf-geometric-map",
+    "analysis-huygens-surface-mtf": "mtf-huygens-surface"
   }
 }

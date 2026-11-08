@@ -77,6 +77,10 @@ public static partial class WorkbenchAnalysisCatalog
         new("analysis-geometric-mtf", "几何 MTF", "几何 MTF", "mtf-geometric-frequency", "MTF 曲线"),
         new("analysis-geometric-through-focus-mtf", "Geometric Through Focus MTF", "几何离焦 MTF", "mtf-geometric-focus", "MTF 曲线"),
         new("analysis-geometric-mtf-field", "Geometric MTF vs Field", "几何 MTF VS 视场", "mtf-geometric-field", "MTF 曲线"),
+        new("analysis-fft-surface-mtf", "FFT Surface MTF", "三维 FFT MTF", "mtf-fourier-surface", "MTF 曲线"),
+        new("analysis-fft-mtf-map", "FFT MTF Map", "二维视场 FFT MTF", "mtf-fourier-map", "MTF 曲线"),
+        new("analysis-huygens-surface-mtf", "Huygens Surface MTF", "二维惠更斯 MTF", "mtf-huygens-surface", "MTF 曲线"),
+        new("analysis-geometric-mtf-map", "Geometric MTF Map", "二维视场几何 MTF", "mtf-geometric-map", "MTF 曲线"),
         new("analysis-wavefront", "光程差图", "光程差图", "wavefront-opd", "波前"),
         new("analysis-wavefront-map", "波前图", "波前图", "wavefront-map", "波前"),
         new("analysis-interferogram", "干涉图", "干涉图", "wavefront-interferogram", "波前"),
@@ -248,14 +252,18 @@ public static partial class WorkbenchAnalysisCatalog
             "analysis-mtf",
             "analysis-fourier-through-focus-mtf",
             "analysis-fourier-mtf-field",
+            "analysis-fft-surface-mtf",
+            "analysis-fft-mtf-map",
             "-",
             "analysis-huygens-mtf",
             "analysis-huygens-through-focus-mtf",
             "analysis-huygens-mtf-field",
+            "analysis-huygens-surface-mtf",
             "-",
             "analysis-geometric-mtf",
             "analysis-geometric-through-focus-mtf",
-            "analysis-geometric-mtf-field"
+            "analysis-geometric-mtf-field",
+            "analysis-geometric-mtf-map"
         }),
         new("RMS", "RMS", "chart-line", new[]
         {

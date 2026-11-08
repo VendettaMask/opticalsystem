@@ -283,7 +283,9 @@ public sealed partial class AnalysisPanel
         return BuildReferenceStyleSettings(
             descriptors,
             keys.Take(split).ToArray(),
-            keys.Skip(split).ToArray());
+            keys.Skip(split).ToArray(),
+            stackColumnsWhenNarrow: AnalysisKey == "Fourier MTF vs Field"
+                || WorkbenchAnalysisCatalog.PresentationKind(AnalysisKey) == AnalysisPresentationKind.MtfGrid);
     }
 
     private Control BuildImageSimulationSettings(
@@ -592,7 +594,8 @@ public sealed partial class AnalysisPanel
         IReadOnlyList<string?> leftKeys,
         IReadOnlyList<string?> rightKeys,
         int additionalRows = 0,
-        Action<Grid, int>? addAdditionalRows = null)
+        Action<Grid, int>? addAdditionalRows = null,
+        bool stackColumnsWhenNarrow = false)
     {
         var byKey = descriptors.ToDictionary(descriptor => descriptor.Key);
         var settingRowCount = Math.Max(leftKeys.Count, rightKeys.Count);
@@ -620,6 +623,25 @@ public sealed partial class AnalysisPanel
             }
         }
         addAdditionalRows?.Invoke(grid, settingRowCount);
+        Control fields = grid;
+        if (stackColumnsWhenNarrow)
+        {
+            var columns = new[] { new Grid(), new Grid() };
+            foreach (var column in columns)
+            {
+                column.ColumnDefinitions = new ColumnDefinitions("*,Auto");
+                for (var row = 0; row < settingRowCount; row++)
+                    column.RowDefinitions.Add(new RowDefinition(34, GridUnitType.Pixel));
+            }
+            foreach (var child in grid.Children.ToArray())
+            {
+                var column = Grid.GetColumn(child);
+                grid.Children.Remove(child);
+                Grid.SetColumn(child, column < 3 ? column : column - 3);
+                columns[column < 3 ? 0 : 1].Children.Add(child);
+            }
+            fields = new ResponsiveSettingsGrid(columns, breakpoint: 530);
+        }
 
         var separator = new Border
         {
@@ -676,7 +698,7 @@ public sealed partial class AnalysisPanel
         return new StackPanel
         {
             HorizontalAlignment = HorizontalAlignment.Left,
-            Children = { grid, separator, footer }
+            Children = { fields, separator, footer }
         };
     }
 
@@ -920,6 +942,12 @@ public sealed partial class AnalysisPanel
         var automationTarget = control is FilePathInput file ? file.Input : control;
         AutomationProperties.SetName(automationTarget, descriptor.DisplayName);
         AutomationProperties.SetAutomationId(automationTarget, $"analysis-parameter-{descriptor.Key}");
+        if (AnalysisKey == "Fourier MTF vs Field" && descriptor.Key.StartsWith("Frequency", StringComparison.Ordinal))
+        {
+            const string help = "设为 0 可停用该频率。六项均为 0 时显示零频曲线。";
+            ToolTip.SetTip(control, help);
+            AutomationProperties.SetHelpText(automationTarget, help);
+        }
         if (descriptor.Key == "UseCheckedFocusedPupil")
         {
             const string help = "用于单波长、轴上、同轴系统的标量平面传播。固定像面网格，自动细化圆瞳积分并校验收敛。";

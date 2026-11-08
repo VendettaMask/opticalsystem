@@ -642,7 +642,7 @@ public sealed partial class Paraxial
         return Math.Abs(matrix.C) < 1e-12 ? 0 : -Math.CopySign(1, determinant) / matrix.C;
     }
 
-    private static double ParaxialRadius(OpticalSurface surface)
+    internal static double ParaxialRadius(OpticalSurface surface)
     {
         if (surface.Geometry is GridSagGeometry grid)
         {

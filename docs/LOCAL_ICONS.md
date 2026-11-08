@@ -2,13 +2,13 @@
 
 全项目设计与评审方法见[UI规范](UI_DESIGN_SPEC.md#全项目设计语言与工作方法)，功能造型仍以[图标语义规范](ICON_SEMANTIC_DESIGN.md)为准。光域后续纯投影HUD目标与当前已交付1.3材质分开记录；本轮方法同步没有重画图形或重新导出Word/网页、图库、SVG包，不改变资源版本及历史验证结论。
 
-2026-11-03 起，全程序功能图标统一使用 **Optical Scientific Outline 1.3**：32×32 源网格、1.65 线宽、圆端点和圆连接，以及 `structure`、`signal`、`secondary` 三种信息角色。普通、黑洞及像素保持基础图形；光域采用科技HUD，异世界属于剑与魔法，使用魔导书、卷轴、法阵与炼金器具，各有221款独立主题SVG。工具栏、菜单、页面操作、命令搜索和内置实验室共用原生矢量渲染；主题切换时按当前主题重新取色，主题图形按独立资源身份缓存，几何按绘制线程缓存。
+2026-11-03 起，全程序功能图标统一使用 **Optical Scientific Outline 1.3**：32×32 源网格、1.65 线宽、圆端点和圆连接，以及 `structure`、`signal`、`secondary` 三种信息角色。普通、黑洞及像素保持基础图形；光域采用科技HUD，异世界属于剑与魔法，使用魔导书、卷轴、法阵与炼金器具，各有225款独立主题SVG。工具栏、菜单、页面操作、命令搜索和内置实验室共用原生矢量渲染；主题切换时按当前主题重新取色，主题图形按独立资源身份缓存，几何按绘制线程缓存。
 
-实际 332 处入口及切换状态现在使用 221 款语义图形：196 款依据名称及对象/动作新绘，25 款保留已确认的公差 6、帮助 4、窗口管理 6 和分析分类 9 原稿。同义操作共享图形，不同分析和对象拆分专用设计。另保留 1,748 个固定 `lucide-static 1.25.0` 规范化通用 SVG 为备用，合计 1,969 个资源名；其 ISC 来源保持，不冒称本轮原创。运行时无需图标字体、JavaScript、额外 SVG 包或网络。
+实际 336 处入口及切换状态使用 225 款语义图形，其中 200 款依据名称及对象/动作新绘，25 款保留已确认的公差 6、帮助 4、窗口管理 6 和分析分类 9 原稿。同义操作共享图形，不同分析和对象拆分专用设计。另保留 1,748 个固定 `lucide-static 1.25.0` 规范化通用 SVG 为备用，合计 1,973 个资源名；其 ISC 来源保持，不冒称本轮原创。运行时无需图标字体、JavaScript、额外 SVG 包或网络。
 
-本轮交付为[按功能语义重绘的完整图库](assets/icons/index.html)、[HUD与魔法主题SVG包](assets/icons/scientific-outline-1.3.zip)和[完整黑洞主题总图](assets/icons/overview/semantic-icons-Dark.svg)：221 款、五主题 1,105 份透明 SVG，附每项设计含义及全部功能对应表。7 个视角方向也已由对应新 SVG 绘制，保留原方向命令与强调状态。干涉图、几何图像分析、帮助的旧缺失名称均已更正为专用图形。系统/控件模板符号及品牌标志不计作业务 SVG。前轮 142 种图形清点（重绘前本机基线）是重绘前的引用基线，已由本套替代。
+本轮交付为[按功能语义重绘的完整图库](assets/icons/index.html)、[HUD与魔法主题SVG包](assets/icons/scientific-outline-1.3.zip)和[完整黑洞主题总图](assets/icons/overview/semantic-icons-Dark.svg)：225 款、五主题 1,125 份透明 SVG，附每项设计含义及全部功能对应表。7 个视角方向也已由对应新 SVG 绘制，保留原方向命令与强调状态。干涉图、几何图像分析、帮助的旧缺失名称均已更正为专用图形。系统/控件模板符号及品牌标志不计作业务 SVG。前轮 142 种图形清点（重绘前本机基线）是重绘前的引用基线，已由本套替代。
 
-九项 MTF 已分别采用 `mtf-{fourier|huygens|geometric}-{frequency|focus|field}`。下降响应表示频率传递，穿焦峰表示离焦扫描，场点扇与场边响应表示随视场；频谱采样、次波圆弧和几何光线区分方法。不得再用普通折线图或扫描框共用全部入口。详见[语义设计规范](ICON_SEMANTIC_DESIGN.md)和[本轮验证](../validation/rechecks/2026-11-03/semantic-icon-redraw/README.md)。
+九项 MTF 曲线分别采用 `mtf-{fourier|huygens|geometric}-{frequency|focus|field}`。下降响应表示频率传递，穿焦峰表示离焦扫描，场点扇与场边响应表示随视场；频谱采样、次波圆弧和几何光线区分方法。三维 FFT MTF 与二维惠更斯 MTF 分别用频率曲面和频率等值图标识。二维视场 FFT 与几何 MTF 使用视场矩阵及不同的方法标记。详见[语义设计规范](ICON_SEMANTIC_DESIGN.md)和[本轮验证](../validation/rechecks/2026-11-03/semantic-icon-redraw/README.md)。
 
 仓库文件：
 
@@ -16,9 +16,9 @@
 - `scripts/data/lucide-package.json`：固定上游元数据；
 - `Assets/Icons/LUCIDE-LICENSE.txt`：ISC 许可和 Feather 署名；
 - `Assets/Icons/Scientific/Approved/*.svg`：25 个确认的原创稿；
-- `Assets/Icons/Scientific/Designed/*.svg`：196 个按实际功能新绘的专用稿；
-- `Assets/Icons/Scientific/Designed/manifest.json`：实际 221 款及 72 个分析命令的设计元数据；
-- `Assets/Icons/Scientific/Themes/{Lumen,Isekai}/*.svg`：各221款独立主题造型；
+- `Assets/Icons/Scientific/Designed/*.svg`：200 个按实际功能新绘的专用稿；
+- `Assets/Icons/Scientific/Designed/manifest.json`：实际 225 款及 76 个分析命令的设计元数据；
+- `Assets/Icons/Scientific/Themes/{Lumen,Isekai}/*.svg`：各225款独立主题造型；
 - `Assets/Icons/Scientific/Themes/manifest.json`：批准试稿、语法及材质；
 - `Assets/Icons/Scientific/Glyphs/*.svg`：1,748 个规范化备用图标；
 - `Assets/Icons/Scientific/catalog.json`：版本和来源元数据；
@@ -83,6 +83,6 @@ SVG 随标准 App 内嵌发布。解析器保留角色、组透明度和虚线�
 
 新功能专用稿在 `semantic_icon_designs.py` 中定义并输出到 `Scientific/Designed`，写明实际含义、保持角色类名及 32×32 坐标；`Approved` 保留已有确认稿，不把新稿冒称已确认。新增图元必须同步原生解析验证。备用通用稿使用 `python scripts/build-scientific-icons.py` 从固定节点目录重建；脚本正确处理 SVG 弧线的紧凑标志位，统一坐标和角色，不访问网络，不修改专用路径。
 
-按用户2026-11-05决定，旧`StandardLucide`、Game-icons与Farm-Fresh运行实现已退役；删除旧JSON/PNG、导入脚本、嵌入项及仅验证旧包的测试。`LocalIconLibrary`直接查询现行科学SVG目录，未知名称仍使用同风格问号；现用221款及五主题图形保持。
+按用户2026-11-05决定，旧`StandardLucide`、Game-icons与Farm-Fresh运行实现已退役；删除旧JSON/PNG、导入脚本、嵌入项及仅验证旧包的测试。`LocalIconLibrary`直接查询现行科学SVG目录，未知名称仍使用同风格问号；当时 221 款及五主题图形保留为 1.3 基线。
 
 旧图标的提交历史保留，必要署名与许可移至[历史来源说明](../third_party/retired-icons/README.md)，不再随现行安装包分发。Lucide来源的规范化科学SVG仍使用ISC许可，其离线生成输入移到`scripts/data`，产品不再携带旧JSON解析器或运行目录。不能把旧作者署名转移到原创稿。
