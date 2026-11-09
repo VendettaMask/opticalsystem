@@ -1,5 +1,7 @@
 # 异世界圆角旧金边框 — 2026-11-03
 
+**存储状态（2026-11-08）**：这是已被后续方案取代的阶段记录。原始用户参考、正式材质、已确认的手稿页眉/页脚版本及后续字体/DPI验收不在本次删除范围。这里保留代表画面、全部失败图、TRX与原校验记录，退役其他过程渲染；不再把整套过时画面作为当前参考。见[清理范围与逐文件记录](../../2026-11-08/process-artifact-cleanup/README.md)。
+
 用户在图内花饰位置确认后补充一张分析页参考，要求兼顾此类边框。当前增加圆角旧金包角、双层内框、顶部星芒，以及分析页侧边纸内细线装饰；保留上一张参考的图内花叶位置。
 
 ## 范围
@@ -11,18 +13,12 @@
 - 图标、其他主题、坐标布局、数值/曲线/物理配色、相机和图例筛选保持。装饰不接收指针，不用生成图替代真实光学结果。
 - 圆角边框由内置 `image_gen` 制作，提示词、源图路径和哈希见[素材记录](../../../../src/OpticalSystemDesign.App/Assets/Themes/Isekai/README.md)。侧边藤蔓为 C# 矢量路径，按 UI 线程缓存；不增加绘制时的解析或图像解码。
 
-## 实际渲染
+## 保留的阶段代表与失败画面
 
-| 页面 | 源图/导出 | 离屏界面 |
-| --- | --- | --- |
-| 惠更斯 MTF | [图](previews/Huygens-MTF.png) / [1080P](previews/Huygens-MTF-1080p.png) | [界面](previews/Huygens-MTF-live.png) |
-| 点列图 | [图](previews/Spot-Diagram.png) | [界面](previews/Spot-Diagram-live.png) |
-| 波前面 | [图](previews/Wavefront-Map.png) | [界面](previews/Wavefront-Map-live.png) |
-| 二维光路 | [图](previews/TwoDimensional-OpticalLayout.png) | [界面](previews/TwoDimensional-OpticalLayout-live.png) |
-| 三维光路 | [图](previews/ThreeDimensional-OpticalLayout.png) | [界面](previews/ThreeDimensional-OpticalLayout-live.png) |
-| 实体模型 | [图](previews/ThreeDimensional-SolidModel.png) | [界面](previews/ThreeDimensional-SolidModel-live.png) |
+- [阶段代表：Huygens-MTF](previews/Huygens-MTF.png)
+- [阶段代表：TwoDimensional-OpticalLayout](previews/TwoDimensional-OpticalLayout.png)
 
-截图来自实际产品的 C#/Avalonia/Skia 与共享 Core 结果，参考图中的曲线、数字、品牌和控件没有拷入产品。
+其他过程截图已在2026-11-08退役；原测量、测试计数、失败结论及其发生时间没有改写。后续当前绘图能力以独立的正式验证记录为准。
 
 ## 验证范围
 
@@ -36,13 +32,4 @@
 
 `git diff --check` 通过；6 份相关 Markdown 的 935 个本地链接目标检查通过，记录为 `document-links.json`。本机无 `pwsh`，未执行完整 PowerShell 文档审计。
 
-复现（仓库根目录）：
-
-```sh
-OPTICAL_SYSTEM_DESIGN_ISEKAI_CAPTURE_DIR="$PWD/validation/rechecks/2026-11-03/isekai-rounded-border/previews" \
-dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-restore \
-  --filter 'FullyQualifiedName~IsekaiDrawingMaterialTests|FullyQualifiedName~UniformDiagramExportTests|FullyQualifiedName~DiagramViewportFitTests|FullyQualifiedName~AnalysisLegendLayoutTests|FullyQualifiedName~MtfPlotTitleTests|FullyQualifiedName~AnalysisFrameDpiTests|FullyQualifiedName~ThemeResourceTests|FullyQualifiedName~ThemeRuntimeTests' \
-  --logger 'trx;LogFileName=rounded-final.trx' \
-  --results-directory validation/rechecks/2026-11-03/isekai-rounded-border \
-  /m:1 /nr:false /p:UseSharedCompilation=false
-```
+历史阶段的原地截图生成命令不再作为当前回放入口。保留原源码身份与测试记录；今后的渲染使用独立临时目录，不回填已退役阶段或把新版本截图冒充当时结果。

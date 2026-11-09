@@ -28,6 +28,8 @@ Word 实际打开确认 **111 个原生 OMML 方程**，包含真正的上标与
 
 ## 产物与范围
 
+2026-11-08 存储复查：已删除与正式DOCX全部73个内部条目一致的临时`qa/word-source.docx`，以及部分可由保留PDF重新导出的单页PNG。完整产品四格式、源图/DTO、原生Word QA PDF、页面拼图、关键页和初始异常图仍在；原验证JSON与交付身份不改写。详见[过程产物清理记录](../../2026-11-08/process-artifact-cleanup/README.md)。
+
 默认导出文件、大小和 SHA-256 见 [artifacts.json](artifacts.json)，桌面目录见 [交付收据](../../../../output/report-style-gauss28-20261102/desktop-delivery.json)。大文件保留在 `output/report-style-gauss28-20261102/Reports/`，本目录保留审计 JSON、选取的实际渲染页与源码哈希。源镜头保持不变。
 
 这是当前镜头的报告生成、数据保留与显示验证，不是新一轮商业软件数值对照，也不升级历史 Zemax/Optiland 精度结论。本轮没有全仓测试、前台桌面操作、安装、发布、提交或推送。

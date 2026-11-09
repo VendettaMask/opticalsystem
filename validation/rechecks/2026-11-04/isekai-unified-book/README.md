@@ -1,8 +1,10 @@
 # 异世界统一棕金书封与小配饰
 
+**存储状态（2026-11-08）**：这是已被后续方案取代的阶段记录。原始用户参考、正式材质、已确认的手稿页眉/页脚版本及后续字体/DPI验收不在本次删除范围。这里保留代表画面、全部失败图、TRX与原校验记录，退役其他过程渲染；不再把整套过时画面作为当前参考。见[清理范围与逐文件记录](../../2026-11-08/process-artifact-cleanup/README.md)。
+
 用户于 2026-11-04 确认以[棕金母版](../../../../docs/assets/themes/isekai/references/04-approved-gold-master-20261104.png)共用配色、边框和页签，只更换小配饰；并授权接入程序后查看。此前不同颜色的四套提案不是当前要求。
 
-## 已实现
+## 当时实现
 
 - 同一暖象牙纸、棕皮、旧金和深褐墨色；纸纹浓度降低，内角百合/藤蔓保留。
 - 实际绘图/数据/文本页签在连续书封内，使用切角双金线铭牌与底栏金饰。原生 TabControl/TabItem 的选择、键盘和双内容呈现器保留，切换主题不移除或重建绘图内容。
@@ -10,16 +12,16 @@
 - 书册避开实际 TextLayout 行边界，无空白矩形则省略。装饰不接收输入，不改参数、图例布局或科学色标。
 - 原源图 1200×900、160 DIP 图签、字体、光学结果与品牌轮廓保持。实时内层源图不叠第二道装饰框；PNG 仍输出完整 28 DIP 窄框与源图，不输出程序页签/工具栏，1×1256×956、默认配置1920×1080；报告保持原比例/物理字高。
 
-## 实际程序截图
+## 保留的阶段代表与失败画面
 
-均由真实 C# 控件和共享 Core 的 Cooke 示例结果离屏渲染，非生成概念图。以下固定时间用于可重复截图，不表示另一次光学精度认证。
+- [阶段代表：Huygens-MTF-live](previews/Huygens-MTF-live.png)
+- [阶段代表：Huygens-MTF-source](previews/Huygens-MTF-source.png)
+- [失败诊断：Spot-Diagram-Pixel-after-failure](material-checks/Spot-Diagram-Pixel-after-failure.png)
+- [失败诊断：Spot-Diagram-Pixel-before-failure](material-checks/Spot-Diagram-Pixel-before-failure.png)
+- [失败诊断：Dark-after-failure](previews/Dark-after-failure.png)
+- [失败诊断：Dark-before-failure](previews/Dark-before-failure.png)
 
-| 分析 | 当前实际界面 | 当前源图导出 |
-| --- | --- | --- |
-| 惠更斯 MTF / 星图配饰 | [界面](previews/Huygens-MTF-live.png) | [源图](previews/Huygens-MTF-source.png) |
-| 惠更斯 PSF / 炼金配饰 | [界面](previews/Huygens-PSF-live.png) | [源图](previews/Huygens-PSF-source.png) |
-| 波前 / 法阵配饰 | [界面](previews/Wavefront-Map-live.png) | [源图](previews/Wavefront-Map-source.png) |
-| 点列 / 书卷配饰 | [界面](previews/Spot-Diagram-live.png) | [源图](previews/Spot-Diagram-source.png) |
+其他过程截图已在2026-11-08退役；原测量、测试计数、失败结论及其发生时间没有改写。后续当前绘图能力以独立的正式验证记录为准。
 
 ## 验证结果与范围
 

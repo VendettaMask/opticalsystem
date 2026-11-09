@@ -1,0 +1,111 @@
+{
+  "date": "2026-11-08",
+  "sourceCommit": "3685ad3328f0a418eb49e7bb0ba62cc27253e958",
+  "deletedFiles": 27282,
+  "allocatedBytesRemoved": 1344868352,
+  "categories": {
+    "rebuildable_old_apphost": {
+      "files": 16,
+      "allocated_bytes": 2113536
+    },
+    "sha256_verified_build_copy": {
+      "files": 26229,
+      "allocated_bytes": 800833536
+    },
+    "obsolete_packaging_runtime": {
+      "files": 980,
+      "allocated_bytes": 349356032
+    },
+    "obsolete_packaging_link": {
+      "files": 12,
+      "allocated_bytes": 0
+    },
+    "rebuildable_old_binary": {
+      "files": 24,
+      "allocated_bytes": 25092096
+    },
+    "retired_search_restart_with_retained_results": {
+      "files": 13,
+      "allocated_bytes": 157208576
+    },
+    "retired_search_execution_dependency": {
+      "files": 8,
+      "allocated_bytes": 10264576
+    }
+  },
+  "remainingOldCheckpoints": [
+    {
+      "path": "artifacts/validation/quality-fix-20260926/searches/f2.8.family.json",
+      "bytes": 7705792,
+      "reason": "No complete, identity-verified substitute was established for this distinct historical record."
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/searches/f8.family.json",
+      "bytes": 7422424,
+      "reason": "No complete, identity-verified substitute was established for this distinct historical record."
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/flat-search-6d9a59a97d3446bca9744f0185b42249.family.json",
+      "bytes": 5987524,
+      "reason": "No complete, identity-verified substitute was established for this distinct historical record."
+    },
+    {
+      "path": "artifacts/validation/quality-audit-20260926/flat-search-23a2e6e738c848c19378bd449d27d16d.family.json",
+      "bytes": 6384288,
+      "reason": "No complete, identity-verified substitute was established for this distinct historical record."
+    },
+    {
+      "path": "artifacts/validation/auto-diameter-20260926/native-default.family.json",
+      "bytes": 24774020,
+      "reason": "No complete, identity-verified substitute was established for this distinct historical record."
+    }
+  ],
+  "directories": [
+    {
+      "path": "artifacts",
+      "beforeAllocatedBytes": 2249293824,
+      "afterAllocatedBytes": 1477918720
+    },
+    {
+      "path": "tests",
+      "beforeAllocatedBytes": 444854272,
+      "afterAllocatedBytes": 66002944
+    },
+    {
+      "path": "src",
+      "beforeAllocatedBytes": 227786752,
+      "afterAllocatedBytes": 144818176
+    },
+    {
+      "path": "labs",
+      "beforeAllocatedBytes": 166711296,
+      "afterAllocatedBytes": 55046144
+    },
+    {
+      "path": "validation",
+      "beforeAllocatedBytes": 8106962944,
+      "afterAllocatedBytes": 8108568576
+    },
+    {
+      "path": "output",
+      "beforeAllocatedBytes": 114098176,
+      "afterAllocatedBytes": 114098176
+    }
+  ],
+  "preserved": [
+    "All 32731 original tracked files verified byte-identical before documentation edits.",
+    "All numerical reference payloads and current regression inputs.",
+    "Original reference images and distinct screenshots, including captures inside bin directories.",
+    "Historical sources, original result summaries, exported prescriptions and distinct failure/interruption records.",
+    "Package manifests, signing metadata, test reports and the unique independent-module negative fixture.",
+    "Five unproven old checkpoints; no optical evidence is inferred from file size or age.",
+    "Existing canonical execution libraries for current AutoLens/topology/SPC and coating validation; their historical runtime identities remain unchanged.",
+    "PowerShell runtime, licenses, third-party originals and Git history."
+  ],
+  "notPerformed": [
+    "No process stopped, application restarted or desktop controlled.",
+    "No product calculation code, optical thresholds or scientific results changed.",
+    "No reference payloads were recopied into this receipt.",
+    "No commit or push performed by this cleanup task."
+  ]
+}

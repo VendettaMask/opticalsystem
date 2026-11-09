@@ -1,0 +1,205 @@
+{
+  "scope": "Storage verification only; no new optical computations, UI checks, builds or numerical acceptance runs.",
+  "sourceCommit": "3685ad3328f0a418eb49e7bb0ba62cc27253e958",
+  "deletionVerification": {
+    "tracked_files_hash_verified": 32731,
+    "tracked_hash_mismatches": [],
+    "unexpected_missing_files": [],
+    "unexpected_changed_files": [],
+    "selected_files_still_present": [],
+    "git_status": "## main...origin/main"
+  },
+  "processCheck": {
+    "active_processes": [],
+    "open_workspace_files": []
+  },
+  "trackedHashInventorySha256": "c2b92066f9dad1d48e36ffe70d3169ba89b204992328b7bd3c2b6ceb93b54105",
+  "frozenReference": {
+    "count": 2668,
+    "matched": 2668,
+    "unchanged": true,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10"
+  },
+  "verifiedCopies": 26229,
+  "checkpointPreservation": [
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/searches/f2.8.family.json",
+      "sha256": "25b37fcaa277fb342d6b542d18b07a127b7b8a576f5c0eac464308cd18dd33b9",
+      "state": "budgetExhausted",
+      "trials": 34,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "artifacts/validation/neighborhood-budget-20260926/searches/summary.json",
+        "artifacts/validation/neighborhood-budget-20260926/searches/recalculation.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/neighborhood-budget-20260926/searches/f8.family.json",
+      "sha256": "8e0e6203fa8185e0bdf2f1b29cefd73f8a923dd7bd0854e7a262a7587778c384",
+      "state": "budgetExhausted",
+      "trials": 35,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "artifacts/validation/neighborhood-budget-20260926/searches/summary.json",
+        "artifacts/validation/neighborhood-budget-20260926/searches/recalculation.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/comparison-final/f2.8-legacy/search.family.json",
+      "sha256": "f666bac5048934d4afcce85640fc962bdf81653bb414f764188c3f0a904c30f0",
+      "state": "budgetExhausted",
+      "trials": 45,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "labs/InitialStructure/benchmarks/physical-stop-search-20260927/retained-inputs.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/comparison-final/f2.8-physical/search.family.json",
+      "sha256": "b3335da7eb67b09db13e73bfe914e07dbd44bbcfb5f467435c8a5f2e8e8d2ca0",
+      "state": "budgetExhausted",
+      "trials": 44,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "labs/InitialStructure/benchmarks/physical-stop-search-20260927/retained-inputs.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/comparison-final/f8-legacy/search.family.json",
+      "sha256": "95ecb5cb31af7a92f994d84bf504af0ad6e6051ea6ae2dfa2b698a777688c675",
+      "state": "budgetExhausted",
+      "trials": 57,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "labs/InitialStructure/benchmarks/physical-stop-search-20260927/retained-inputs.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/physical-stop-search-20260927/comparison-final/f8-physical/search.family.json",
+      "sha256": "5ac9355d403846c3c2fe23e66c9efd83d65bb9359b6e54a67ee5a0aa318d303d",
+      "state": "budgetExhausted",
+      "trials": 52,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "labs/InitialStructure/benchmarks/physical-stop-search-20260927/retained-inputs.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/pupil-continuation-20260927/full/full.family.json",
+      "sha256": "a13237a31c58e44b8a7e179bd5bd7daef28a6748327a069b7dd16e851cb582dc",
+      "state": "budgetExhausted",
+      "trials": 21,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "labs/InitialStructure/benchmarks/pupil-continuation-20260927/retained-inputs.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/pupil-continuation-20260927/quick-v19/search.family.json",
+      "sha256": "8d1da2e21619658d54315851ec2e7ea0866252a622e624d3bc1dd77aa5cec44e",
+      "state": "budgetExhausted",
+      "trials": 38,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "labs/InitialStructure/benchmarks/pupil-continuation-20260927/retained-inputs.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/searches-final/f2.8.family.json",
+      "sha256": "53e99929ed7444fb35582e654c27ce19686dadf68be6afced70099921646dcce",
+      "state": "budgetExhausted",
+      "trials": 28,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "artifacts/validation/quality-fix-20260926/searches-final/summary.json",
+        "artifacts/validation/quality-fix-20260926/searches-final/recalculation.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/quality-fix-20260926/searches-final/f8.family.json",
+      "sha256": "eda58e62f8456828e760071376e0b26adb8ddf172584145fac0179aa36b65786",
+      "state": "budgetExhausted",
+      "trials": 28,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "artifacts/validation/quality-fix-20260926/searches-final/summary.json",
+        "artifacts/validation/quality-fix-20260926/searches-final/recalculation.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/searches/f2.8.family.json",
+      "sha256": "1c3906b12677f22fd263610aeb0fb263a0853c91e08ffbb9852b058a83e8f22f",
+      "state": "budgetExhausted",
+      "trials": 45,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "artifacts/validation/secant-solver-20260927/searches/summary.json",
+        "artifacts/validation/secant-solver-20260927/searches/recalculation.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/searches/f8.family.json",
+      "sha256": "d1b3fd575c2d67fcc3759faa3ef7db8d3c1c341279494c1a677d6da607ea0322",
+      "state": "budgetExhausted",
+      "trials": 55,
+      "chargedEvaluations": 10000,
+      "retainedEvidence": [
+        "artifacts/validation/secant-solver-20260927/searches/summary.json",
+        "artifacts/validation/secant-solver-20260927/searches/recalculation.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    },
+    {
+      "path": "artifacts/validation/secant-solver-20260927/wide-50000/f2.8.family.json",
+      "sha256": "6daac346666ee80e39ef2418973fc837750edcdba8e3ef5f49ccfdd22683631c",
+      "state": "budgetExhausted",
+      "trials": 175,
+      "chargedEvaluations": 50000,
+      "retainedEvidence": [
+        "artifacts/validation/secant-solver-20260927/wide-50000/summary.json",
+        "artifacts/validation/secant-solver-20260927/wide-50000/recalculation.json"
+      ],
+      "verifiedRetainedCandidates": 10
+    }
+  ],
+  "packagingComparison": {
+    "matched_files": 1552,
+    "negative_extra_files": [
+      "artifacts/validation/macos-release-20261024/independent-module-negative.app/Contents/Resources/OpticalSystemDesign.InitialStructure.App.dll"
+    ],
+    "positive_extra_files": [],
+    "different_files": []
+  },
+  "emptyGeneratedDirectoriesRemoved": 1478,
+  "priorLfsLimitation": "Nine existing LFS pointers documented in ../legacy-task-retirement/checks.json are unchanged. This task does not claim the reference corpus has been fully downloaded.",
+  "ledger": {
+    "path": "deleted-files.json.gz",
+    "sha256": "c98721dc1053752f85071a65efeb4e11335d01f9b58afb2ea041ec1ad149f42e",
+    "records": 27282,
+    "uncompressedBytes": 12063877
+  },
+  "deletionScriptSha256": "36ab3baedba278163ad3a96e8848097880fdace9358ff6163053bbcf2e60033d",
+  "documentation": {
+    "documents": 2011,
+    "brokenLinks": 0,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0,
+    "guideRepeatedParagraphGroups": 0,
+    "strictExitCode": 0,
+    "reportSha256": "864eb420b36b87c1472071c179990dc6656f57cfdd47c74de624df1a259d7f04"
+  },
+  "diffCheckExitCode": 0
+}

@@ -1,8 +1,10 @@
 # 异世界羊皮纸绘图材质 — 2026-11-03
 
+**存储状态（2026-11-08）**：这是已被后续方案取代的阶段记录。原始用户参考、正式材质、已确认的手稿页眉/页脚版本及后续字体/DPI验收不在本次删除范围。这里保留代表画面、全部失败图、TRX与原校验记录，退役其他过程渲染；不再把整套过时画面作为当前参考。见[清理范围与逐文件记录](../../2026-11-08/process-artifact-cleanup/README.md)。
+
 用户确认羊皮纸与钢笔幻想概念后，授权仅修改异世界主题，重点为分析、2D 和 3D。以下截图均来自产品实际 C#/Avalonia/Skia 绘制及共享 Core 的 Cooke 示例结果，不是生成式概念图。
 
-## 实现范围
+## 当时实现范围
 
 - 注册表仅为 Isekai 提供 `DrawingMaterial`；其他主题没有绘图材质覆盖。
 - 暖纸色、确定性的矢量纤维、墨线细框、植物角饰、星盘和指南针。画刷、笔与 UI 线程内的矢量几何/纹理缓存复用，无动画定时器或随机闪烁。
@@ -11,18 +13,12 @@
 - 2D/3D 场景在实际光学几何前绘制纸面；实体模型保留材质图例、实际像面和紧凑信息栏。光线、镜片材质、标量色图和实际几何未重绘/替换为概念图。
 - 实时与导出共用绘制。脱离可视树的导出网格显式先放纸面后放光路，避免依赖合成器的 Z 排序；图纸进入/离开材质主题时刷新自绘画布，保留交互状态。报告仍支持原强制亮色打印路径。
 
-## 实际截图
+## 保留的阶段代表与失败画面
 
-| 页面 | 源图/导出 | 离屏界面 |
-| --- | --- | --- |
-| 惠更斯 MTF | [完整源图](previews/Huygens-MTF.png) | 同一绘图路径 |
-| 点列图 | [完整源图](previews/Spot-Diagram.png) | 同一绘图路径 |
-| 波前面 | [完整源图](previews/Wavefront-Map.png) | 同一绘图路径 |
-| 二维光路 | [PNG](previews/TwoDimensional-OpticalLayout.png) | [界面](previews/TwoDimensional-OpticalLayout-live.png) |
-| 三维布局 | [PNG](previews/ThreeDimensional-OpticalLayout.png) | [界面](previews/ThreeDimensional-OpticalLayout-live.png) |
-| 实体模型 | [PNG](previews/ThreeDimensional-SolidModel.png) | [界面](previews/ThreeDimensional-SolidModel-live.png) |
+- [阶段代表：Huygens-MTF](previews/Huygens-MTF.png)
+- [阶段代表：TwoDimensional-OpticalLayout](previews/TwoDimensional-OpticalLayout.png)
 
-图像为 1× 核对输出，保留源图/当前场景尺寸；用户默认画布尺寸、独立 DPI 与报告物理大小没有改动。
+其他过程截图已在2026-11-08退役；原测量、测试计数、失败结论及其发生时间没有改写。后续当前绘图能力以独立的正式验证记录为准。
 
 ## 验证
 
@@ -43,13 +39,4 @@
 
 `git diff --check` 通过；本机没有 `pwsh`，未执行完整 PowerShell 文档审计。四份更新说明的 911 个本地链接目标检查通过，范围见 [document-links.json](document-links.json)，不包含全文重复段落/生命周期检查。
 
-复现（仓库根目录）：
-
-```sh
-OPTICAL_SYSTEM_DESIGN_ISEKAI_CAPTURE_DIR="$PWD/validation/rechecks/2026-11-03/isekai-parchment/previews" \
-dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-restore \
-  --filter 'FullyQualifiedName~IsekaiDrawingMaterialTests|FullyQualifiedName~UniformDiagramExportTests|FullyQualifiedName~DiagramViewportFitTests|FullyQualifiedName~AnalysisLegendLayoutTests|FullyQualifiedName~MtfPlotTitleTests|FullyQualifiedName~AnalysisFrameDpiTests|FullyQualifiedName~ThemeResourceTests|FullyQualifiedName~ThemeRuntimeTests' \
-  --logger 'trx;LogFileName=isekai-compositor-verified.trx' \
-  --results-directory validation/rechecks/2026-11-03/isekai-parchment \
-  /m:1 /nr:false /p:UseSharedCompilation=false
-```
+历史阶段的原地截图生成命令不再作为当前回放入口。保留原源码身份与测试记录；今后的渲染使用独立临时目录，不回填已退役阶段或把新版本截图冒充当时结果。

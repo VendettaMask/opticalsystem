@@ -1,5 +1,7 @@
 # Wide-field stage audit — 2026-09-27
 
+Local storage review (2026-11-08): this directory describes a historical experiment, not a maintained default replay command. The related old build output and the checked bulk restart files have been retired; source, regression inputs, original summaries, exported prescriptions and unique failures remain. See the [scoped deletion and preservation record](../../../../validation/rechecks/2026-11-08/remaining-task-cleanup/README.md). This is not a new numerical acceptance result.
+
 The [report](../../../../docs/INITIAL_STRUCTURE_STAGE_AUDIT_2026-09-27.md) distinguishes the shipped v15 joint-phase change, the rejected curvature-recovery experiment and an unchanged-v14 FULL-mode diagnostic. All optical results use the shared C# Core. No external optical engine or analytical fallback supplies candidate results.
 
 ## Frozen inputs and decisions
@@ -13,28 +15,11 @@ The [report](../../../../docs/INITIAL_STRUCTURE_STAGE_AUDIT_2026-09-27.md) disti
 
 The candidate objectives, area sampling, 21-field independent validation, automatic diameter policy and final acceptance limits were unchanged. `joint-phase.patch` is the numerical orchestration change retained in v15. `rejected-recovery.patch` is an experiment to apply to the frozen v14 service source; it must not be mistaken for a current product feature. Its recorded binaries used the original v14 phase selection. Experimental checkpoints carrying version 15 are scoped by their source/binary hashes and are not release artifacts.
 
-## Reproduction
+## Historical replay scope
 
-Build the normal laboratory Release output first. The default `AuditBinaries` references its test-output dependencies. To reproduce v14 comparisons, set this property to the absolute path of the recorded `artifacts/validation/stage-recovery-20260927/frozen-v14` directory. Hashes are in `verification.json`; these binaries were copied before source changes. Do not substitute v15 when reproducing the v14 probe results.
+The probe, joint solver and FULL-mode runner sources remain historical records. Their former default test-output dependencies and the `frozen-v14` runtime were retired in the earlier 2026-11-08 cleanup; those paths are no longer maintained replay commands. The saved source/binary identities, input snapshots, summaries, STAROPT exports and rejected-experiment diagnostics remain. Recorded v14 probes must not be relabeled as results from a later engine.
 
-Run the same program with `--bridge` for intermediate-stage probing, without that flag for curvature probing, or with `joint-inputs.json` and `--joint` for the five geometry entries:
-
-```sh
-dotnet run --project labs/InitialStructure/benchmarks/stage-recovery-20260927/runner/StageRecovery.csproj -c Release -p:AuditBinaries="<absolute frozen-v14 directory>" -- labs/InitialStructure/benchmarks/stage-recovery-20260927/probe-inputs.json /tmp/bridge.json --bridge
-dotnet run --project labs/InitialStructure/benchmarks/stage-recovery-20260927/runner/StageRecovery.csproj -c Release -- labs/InitialStructure/benchmarks/stage-recovery-20260927/joint-inputs.json /tmp/joint-current.json --joint
-```
-
-The probe entry is recalculated at its recorded evaluation number; recorded prefix work is not silently counted as new optimization. Probe comparison outputs intentionally retain failed-ray diagnostic RMS values. They must be interpreted alongside `HasContinuousSearchResiduals`, never as valid full-aperture image quality.
-
-The unchanged secant-solver benchmark runner provides the final current-version QUICK search and verification:
-
-```sh
-dotnet run --project labs/InitialStructure/benchmarks/secant-solver-20260927/runner/SecantSolver.csproj -c Release -- labs/InitialStructure/benchmarks/quality-audit-20260926/inputs.json /tmp/v15-searches --search
-dotnet run --project labs/InitialStructure/benchmarks/secant-solver-20260927/runner/SecantSolver.csproj -c Release -- labs/InitialStructure/benchmarks/quality-audit-20260926/inputs.json /tmp/v15-wide --wide-budget 50000
-dotnet run --project labs/InitialStructure/benchmarks/secant-solver-20260927/runner/SecantSolver.csproj -c Release -- labs/InitialStructure/benchmarks/quality-audit-20260926/inputs.json /tmp/v15-wide --verify
-```
-
-`full-runner/FullSearch.csproj` uses the same search/recalculation protocol, changing only `DesignSearch.Mode` to FULL. Bind it to frozen v14 binaries for the recorded FULL comparison. All process work uses normal benchmark outputs; the desktop application was built and verified in its default Debug/Release output directories.
+The original protocol recalculated each probe at its recorded evaluation number and kept its prefix costs separate. Failed-ray diagnostic RMS values must still be interpreted with `HasContinuousSearchResiduals`, never as valid full-aperture image quality.
 
 See `source-freeze.json` and `verification.json` for the final source and binary hashes, test counts, build logs and the distinction between reused formal tests and new laboratory checks. Frozen Optiland history and the committed Zemax baseline were not regenerated or used as runtime candidate evaluators.
 

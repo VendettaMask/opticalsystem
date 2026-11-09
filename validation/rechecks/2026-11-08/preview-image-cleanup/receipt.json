@@ -1,0 +1,1795 @@
+{
+  "date": "2026-11-08",
+  "sourceCommit": "3685ad3328f0a418eb49e7bb0ba62cc27253e958",
+  "deletedFiles": 221,
+  "allocatedBytesRemoved": 27889664,
+  "verification": {
+    "trackedFilesUnchanged": 32729,
+    "intentionallyDeletedTrackedImages": [
+      "artifacts/design-candidates/2026-11-04/isekai-gray-not-applied/quill-gray-corners.png",
+      "artifacts/design-candidates/2026-11-04/isekai-gray-not-applied/quill-gray-trims.png"
+    ],
+    "unexpectedMissing": [],
+    "unexpectedChanged": [],
+    "hashMismatches": [],
+    "retainedDuplicateAuthoritiesVerified": 214
+  },
+  "processCheck": {
+    "active_processes": [],
+    "open_workspace_files": []
+  },
+  "preservation": "Source, production assets, user references, original numerical captures, unique validation screenshots and all existing tracked images except the two explicitly withdrawn candidates are retained. Earlier uncommitted cleanup changes are preserved.",
+  "scope": "Image storage only; no rendering, product tests, commit or push. Local duplicate path roles are recorded with their retained original; this does not replace or modify validation/evidence-aliases.json.",
+  "files": [
+    {
+      "path": "artifacts/design-candidates/2026-11-04/isekai-gray-not-applied/quill-gray-corners.png",
+      "reason": "withdrawn_never_integrated_design_candidate",
+      "sha256": "16b7d08dcb973cf92794c7cfc2c991b4c39a823e96a753f7267630f1b6c5721e",
+      "bytes": 1283430,
+      "allocatedBytes": 1286144
+    },
+    {
+      "path": "artifacts/design-candidates/2026-11-04/isekai-gray-not-applied/quill-gray-trims.png",
+      "reason": "withdrawn_never_integrated_design_candidate",
+      "sha256": "c409b884dacc390a4cc93e151a6ed8ddbd83ce0d91e9bc6d1f5d2a3dc00d221b",
+      "bytes": 1099879,
+      "allocatedBytes": 1101824
+    },
+    {
+      "path": "artifacts/previews/dock-corners-20261024/output/dock-corner-comparison.png",
+      "reason": "superseded_ui_specimen",
+      "sha256": "98dcbe79a8aad7521dea17accf027e5dc6293cffb011bc5de120c1757ef51c25",
+      "bytes": 42812,
+      "allocatedBytes": 45056
+    },
+    {
+      "path": "artifacts/previews/dock-corners-20261024/output/dock-current.png",
+      "reason": "superseded_ui_specimen",
+      "sha256": "87c3982feb1fa7a49d41ec0155011f938edf86f4a2eddb378ae3e4a397d97fad",
+      "bytes": 314982,
+      "allocatedBytes": 315392
+    },
+    {
+      "path": "artifacts/previews/dock-corners-20261024/output/dock-rounded-12.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "b1d908c121bff28a07670da525b4371e786dd371f0be95f606adea3fe2895434",
+      "bytes": 317086,
+      "allocatedBytes": 319488,
+      "retainedOriginal": "artifacts/validation/dock-corners-20261024/production/dock-production-12.png"
+    },
+    {
+      "path": "artifacts/previews/dock-corners-20261024/output/dock-rounded-8.png",
+      "reason": "superseded_ui_specimen",
+      "sha256": "84dde973a7d1218e04ca25b30c903d77cbd85d80003132a2ce43734336f52930",
+      "bytes": 316301,
+      "allocatedBytes": 319488
+    },
+    {
+      "path": "artifacts/previews/font-comparison-20261023/output/font-detail-specimen.png",
+      "reason": "superseded_ui_specimen",
+      "sha256": "d007da1dee9d5b6f0577fd7a1f4959ef60ac446e8c173464df8f57493911114d",
+      "bytes": 355004,
+      "allocatedBytes": 356352
+    },
+    {
+      "path": "artifacts/previews/font-comparison-20261023/output/font-workbench-comparison.png",
+      "reason": "superseded_ui_specimen",
+      "sha256": "9122f3febacd8a6c100ef2f869a78c9e45acc3b125418c5e268fe1f72e6fbecc",
+      "bytes": 632583,
+      "allocatedBytes": 638976
+    },
+    {
+      "path": "artifacts/validation/analysis-legend-20261024/captures/Standard-True-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "cf256a90e8acb8ee546eb3c0212018b3c75d69c48a6a0e6db535101ff86552e9",
+      "bytes": 23228,
+      "allocatedBytes": 24576,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/captures/Standard-False-narrow.png"
+    },
+    {
+      "path": "artifacts/validation/analysis-legend-20261024/captures/Standard-True-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "33dee03201494f2baeabd9009074b289a1510237502a03d74722ae94d7cedc3a",
+      "bytes": 59020,
+      "allocatedBytes": 61440,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/captures/Standard-False-wide.png"
+    },
+    {
+      "path": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/Standard-True-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "35a9cb29071b5a459c6b0a9df693b82a063ad66f4bcb21c27973e1230ab61b99",
+      "bytes": 45872,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/Standard-False-narrow.png"
+    },
+    {
+      "path": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/Standard-True-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "eb444880940acfc307add671028321657a522ed6843cc1ebc03ab68a7feec7e3",
+      "bytes": 80421,
+      "allocatedBytes": 81920,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/Standard-False-wide.png"
+    },
+    {
+      "path": "artifacts/validation/analysis-legend-20261024/responsive/fitted-no-overlap.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "158d9b6cb30018a80da8e6e2429538c522ff0b04b21171aa1e6e37e17b3e6b1e",
+      "bytes": 28909,
+      "allocatedBytes": 32768,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/responsive/color-focus-640x320.png"
+    },
+    {
+      "path": "artifacts/validation/blue-theme-20260927/light-controls.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "24b4be790b0ac14330a6201fbaea3f5bfebb58475b67015b058620168deff6a6",
+      "bytes": 12133,
+      "allocatedBytes": 12288,
+      "retainedOriginal": "artifacts/validation/blue-theme-20260927/light-controls-after-theme-switch.png"
+    },
+    {
+      "path": "artifacts/validation/blue-theme-20260927/light-workspace.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "094da0a0bcdde5c90f216c8e6df807491cbd3eb8b81755d3020522012157f089",
+      "bytes": 89367,
+      "allocatedBytes": 90112,
+      "retainedOriginal": "artifacts/validation/blue-theme-20260927/light-workspace-after-theme-switch.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-export/Standard-840x620.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f61f1c8efc9b90b26012cd029bc22201466b2cc776d90d3c2417b0553edcc8cc",
+      "bytes": 167744,
+      "allocatedBytes": 167936,
+      "retainedOriginal": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-export/Standard-420x280.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-export/toolbar-WavefrontMap-420x280.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "ad0722fc42efeed6f73734b01fc3df4da290d226cd9280195fd4fa53dca26c39",
+      "bytes": 21746,
+      "allocatedBytes": 24576,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/export/toolbar-Standard-420x280.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/fitted-no-overlap.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d970432eb49fc48a153621f66e950f564ab5720b3a5a69984c905a72ff031a00",
+      "bytes": 6263,
+      "allocatedBytes": 8192,
+      "retainedOriginal": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/color-focus-640x320.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-AxialAberration.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f3f0e0f0768b64952db2bd0cb2b50d9994f8f8d13724ba27d86d1aa6dbbdce58",
+      "bytes": 6014,
+      "allocatedBytes": 8192,
+      "retainedOriginal": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-AngleVsImageHeight.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-ColorFocusShift.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f3f0e0f0768b64952db2bd0cb2b50d9994f8f8d13724ba27d86d1aa6dbbdce58",
+      "bytes": 6014,
+      "allocatedBytes": 8192,
+      "retainedOriginal": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-AngleVsImageHeight.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-FieldCurvature.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f3f0e0f0768b64952db2bd0cb2b50d9994f8f8d13724ba27d86d1aa6dbbdce58",
+      "bytes": 6014,
+      "allocatedBytes": 8192,
+      "retainedOriginal": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-AngleVsImageHeight.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-FootprintDiagram.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f3f0e0f0768b64952db2bd0cb2b50d9994f8f8d13724ba27d86d1aa6dbbdce58",
+      "bytes": 6014,
+      "allocatedBytes": 8192,
+      "retainedOriginal": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-AngleVsImageHeight.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-FullFieldSpot.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f3f0e0f0768b64952db2bd0cb2b50d9994f8f8d13724ba27d86d1aa6dbbdce58",
+      "bytes": 6014,
+      "allocatedBytes": 8192,
+      "retainedOriginal": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-AngleVsImageHeight.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-HuygensPsf.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "596b85d743b5d5ff795fdb4e70c96975d55b80264d9c89f201ecd2f347e5c73e",
+      "bytes": 4770,
+      "allocatedBytes": 8192,
+      "retainedOriginal": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-FftPsf.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-LateralColor.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f3f0e0f0768b64952db2bd0cb2b50d9994f8f8d13724ba27d86d1aa6dbbdce58",
+      "bytes": 6014,
+      "allocatedBytes": 8192,
+      "retainedOriginal": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-AngleVsImageHeight.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-RayFan.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "02a2b25239f3a3bb28ff6c2cd36208b9953cbb73dcfe3b1a7e2e95678c69d401",
+      "bytes": 15144,
+      "allocatedBytes": 16384,
+      "retainedOriginal": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-PupilAberration.png"
+    },
+    {
+      "path": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-Standard.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f3f0e0f0768b64952db2bd0cb2b50d9994f8f8d13724ba27d86d1aa6dbbdce58",
+      "bytes": 6014,
+      "allocatedBytes": 8192,
+      "retainedOriginal": "artifacts/validation/cloud-lockfile-repair-20261102/preflight-analysis-pages/presentation-AngleVsImageHeight.png"
+    },
+    {
+      "path": "artifacts/validation/dock-content-flush-20261024/navigation-skia/zoom-workspace-configuration-2.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d086bb0b8407d4eb380537ed6cb393ecf33e33363c1ff20509393df7ddf1c706",
+      "bytes": 189645,
+      "allocatedBytes": 192512,
+      "retainedOriginal": "artifacts/validation/dock-content-flush-20261024/navigation-final/zoom-workspace-configuration-2.png"
+    },
+    {
+      "path": "artifacts/validation/dock-content-flush-20261024/navigation-skia/zoom-workspace-configuration-3.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "9fcbf14f8684a67827e883058f93471bd41c04f9a35d64929493c1bb0ba2e6cc",
+      "bytes": 188330,
+      "allocatedBytes": 188416,
+      "retainedOriginal": "artifacts/validation/dock-content-flush-20261024/navigation-final/zoom-workspace-configuration-3.png"
+    },
+    {
+      "path": "artifacts/validation/dock-content-flush-20261024/workbench/workbench-Dark-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "0fb39a12da2aeab75ff1beb055302d89ad93f7a4a5592e0db7758884976216c0",
+      "bytes": 240077,
+      "allocatedBytes": 241664,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Dark-1280-13.png"
+    },
+    {
+      "path": "artifacts/validation/dock-content-flush-20261024/workbench/workbench-Isekai-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "e4568f4b8f3e1bf1c4ce6684f59233f050c23002765f754cacf74e49cf58ec62",
+      "bytes": 255950,
+      "allocatedBytes": 258048,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Isekai-1280-13.png"
+    },
+    {
+      "path": "artifacts/validation/dock-content-flush-20261024/workbench/workbench-Light-1024-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "9e432ae0961dce89857d2e33c4edbd45f3bf6c9f8f56ce90aa5b4abbb78c8dc1",
+      "bytes": 282507,
+      "allocatedBytes": 282624,
+      "retainedOriginal": "artifacts/validation/dock-content-flush-20261024/workbench/workbench-Light-1024-18-active.png"
+    },
+    {
+      "path": "artifacts/validation/dock-content-flush-20261024/workbench/workbench-Light-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "831b012a2e7fdfc996eef81f440b65d964dc139f6ac3f327b174f5c4ca18918f",
+      "bytes": 249489,
+      "allocatedBytes": 249856,
+      "retainedOriginal": "artifacts/validation/dock-content-flush-20261024/workbench/workbench-Light-1280-13-active.png"
+    },
+    {
+      "path": "artifacts/validation/dock-content-flush-20261024/workbench/workbench-Light-640-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "b68d60515f236237002e0df0aeda0d01a822b7be2c9140d0390ee3ee49de0162",
+      "bytes": 213085,
+      "allocatedBytes": 217088,
+      "retainedOriginal": "artifacts/validation/dock-content-flush-20261024/workbench/workbench-Light-640-13-active.png"
+    },
+    {
+      "path": "artifacts/validation/dock-content-flush-20261024/workbench/workbench-Pixel-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c0e24e2fc0e1417260ca50108c8bd6a08035a25e3b7b5d82a1d44211b0418aa0",
+      "bytes": 55182,
+      "allocatedBytes": 57344,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Pixel-1280-13.png"
+    },
+    {
+      "path": "artifacts/validation/dock-corners-20261024/workbench/workbench-Dark-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "0fb39a12da2aeab75ff1beb055302d89ad93f7a4a5592e0db7758884976216c0",
+      "bytes": 240077,
+      "allocatedBytes": 241664,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Dark-1280-13.png"
+    },
+    {
+      "path": "artifacts/validation/dock-corners-20261024/workbench/workbench-Isekai-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "e4568f4b8f3e1bf1c4ce6684f59233f050c23002765f754cacf74e49cf58ec62",
+      "bytes": 255950,
+      "allocatedBytes": 258048,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Isekai-1280-13.png"
+    },
+    {
+      "path": "artifacts/validation/dock-corners-20261024/workbench/workbench-Light-1024-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "6f0f52053db723411c1d80ba4d203a99560ae285306e10b2dc7f95a62a205968",
+      "bytes": 283111,
+      "allocatedBytes": 286720,
+      "retainedOriginal": "artifacts/validation/dock-corners-20261024/workbench/workbench-Light-1024-18-active.png"
+    },
+    {
+      "path": "artifacts/validation/dock-corners-20261024/workbench/workbench-Light-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "4f3e7b38046759de3b5fa86b9c61761e3dc7e95ef84d05941b651de557e68984",
+      "bytes": 249332,
+      "allocatedBytes": 249856,
+      "retainedOriginal": "artifacts/validation/dock-corners-20261024/workbench/workbench-Light-1280-13-active.png"
+    },
+    {
+      "path": "artifacts/validation/dock-corners-20261024/workbench/workbench-Light-640-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "aa6423ccc183667c172dee434120a733eb56757b6c91bb93ee492b08f5f191ac",
+      "bytes": 212923,
+      "allocatedBytes": 212992,
+      "retainedOriginal": "artifacts/validation/dock-corners-20261024/workbench/workbench-Light-640-13-active.png"
+    },
+    {
+      "path": "artifacts/validation/dock-corners-20261024/workbench/workbench-Pixel-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c0e24e2fc0e1417260ca50108c8bd6a08035a25e3b7b5d82a1d44211b0418aa0",
+      "bytes": 55182,
+      "allocatedBytes": 57344,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Pixel-1280-13.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-final/generated-480.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "dfefec4262b35ffb70f104b9e9ef84c4a74a10cde68a9fd5bae27ac44a77651c",
+      "bytes": 95976,
+      "allocatedBytes": 98304,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/generated-480.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-final/generated-600.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "1d6a5d47029bfb8ace426240412e4d45527da2a6146b109ccc917f4c09490a97",
+      "bytes": 105073,
+      "allocatedBytes": 106496,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/generated-600.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-final/targets-480.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "797f5e36ee2cffc2ca429c90872c06fe805952e812be3b95be2fed9251419ea8",
+      "bytes": 97133,
+      "allocatedBytes": 98304,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/targets-480.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-final/targets-600.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "88242ee54566c744ea209dd22217686abb917af67f590c9c71df7e1f3bf9540f",
+      "bytes": 110048,
+      "allocatedBytes": 110592,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/targets-600.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-frozen/generated-1240.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f9b231fbd11fe728fd167eb1f0bc988a502b946cce6fa17086998636de011b45",
+      "bytes": 176913,
+      "allocatedBytes": 180224,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/generated-1240.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-frozen/generated-480.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "dfefec4262b35ffb70f104b9e9ef84c4a74a10cde68a9fd5bae27ac44a77651c",
+      "bytes": 95976,
+      "allocatedBytes": 98304,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/generated-480.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-frozen/generated-600.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "1d6a5d47029bfb8ace426240412e4d45527da2a6146b109ccc917f4c09490a97",
+      "bytes": 105073,
+      "allocatedBytes": 106496,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/generated-600.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-frozen/targets-1240.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "114274dd098c5a7cbc5e175af6311728a3d563721ad438dea609331ad57513b3",
+      "bytes": 164220,
+      "allocatedBytes": 167936,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/targets-1240.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-frozen/targets-480.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "797f5e36ee2cffc2ca429c90872c06fe805952e812be3b95be2fed9251419ea8",
+      "bytes": 97133,
+      "allocatedBytes": 98304,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/targets-480.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-frozen/targets-600.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "88242ee54566c744ea209dd22217686abb917af67f590c9c71df7e1f3bf9540f",
+      "bytes": 110048,
+      "allocatedBytes": 110592,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/targets-600.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-tab-fix/form-search-plan.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "903558ca0df7a711d72b4633e1861bcdda3f44dc9be2090c5a286d2d0d7c2fd0",
+      "bytes": 178131,
+      "allocatedBytes": 180224,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/form-search-plan.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-tab-fix/generated-480.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "dfefec4262b35ffb70f104b9e9ef84c4a74a10cde68a9fd5bae27ac44a77651c",
+      "bytes": 95976,
+      "allocatedBytes": 98304,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/generated-480.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-tab-fix/generated-600.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "1d6a5d47029bfb8ace426240412e4d45527da2a6146b109ccc917f4c09490a97",
+      "bytes": 105073,
+      "allocatedBytes": 106496,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/generated-600.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-tab-fix/targets-1240.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "114274dd098c5a7cbc5e175af6311728a3d563721ad438dea609331ad57513b3",
+      "bytes": 164220,
+      "allocatedBytes": 167936,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/targets-1240.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-tab-fix/targets-480.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "797f5e36ee2cffc2ca429c90872c06fe805952e812be3b95be2fed9251419ea8",
+      "bytes": 97133,
+      "allocatedBytes": 98304,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/targets-480.png"
+    },
+    {
+      "path": "artifacts/validation/dsearch-20260926/ui-tab-fix/targets-600.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "88242ee54566c744ea209dd22217686abb917af67f590c9c71df7e1f3bf9540f",
+      "bytes": 110048,
+      "allocatedBytes": 110592,
+      "retainedOriginal": "artifacts/validation/dsearch-20260926/ui-final-corrected/targets-600.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/pixel-isolated/workbench-Pixel-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c0e24e2fc0e1417260ca50108c8bd6a08035a25e3b7b5d82a1d44211b0418aa0",
+      "bytes": 55182,
+      "allocatedBytes": 57344,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Pixel-1280-13.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-1024-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "5df5d8269183ee426e4ddf721b68155afb0ccf8d733222aabc815baeb5a81dd3",
+      "bytes": 280957,
+      "allocatedBytes": 282624,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-1024-18-active.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "e07d0853e2ba4ad99eb70a53d2402284b8f38695ab89464b1498a5610551820b",
+      "bytes": 247285,
+      "allocatedBytes": 249856,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-1280-13-active.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-640-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "145aa46964d22229f1e08ef914190903cdb57a8e67df32f84aca7094d46f74ce",
+      "bytes": 210846,
+      "allocatedBytes": 212992,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-640-13-active.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench/workbench-Dark-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "0fb39a12da2aeab75ff1beb055302d89ad93f7a4a5592e0db7758884976216c0",
+      "bytes": 240077,
+      "allocatedBytes": 241664,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Dark-1280-13.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench/workbench-Isekai-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "e4568f4b8f3e1bf1c4ce6684f59233f050c23002765f754cacf74e49cf58ec62",
+      "bytes": 255950,
+      "allocatedBytes": 258048,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Isekai-1280-13.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench/workbench-Light-1024-18-active.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "5df5d8269183ee426e4ddf721b68155afb0ccf8d733222aabc815baeb5a81dd3",
+      "bytes": 280957,
+      "allocatedBytes": 282624,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-1024-18-active.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench/workbench-Light-1024-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "5df5d8269183ee426e4ddf721b68155afb0ccf8d733222aabc815baeb5a81dd3",
+      "bytes": 280957,
+      "allocatedBytes": 282624,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-1024-18-active.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench/workbench-Light-1280-13-active.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "e07d0853e2ba4ad99eb70a53d2402284b8f38695ab89464b1498a5610551820b",
+      "bytes": 247285,
+      "allocatedBytes": 249856,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-1280-13-active.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench/workbench-Light-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "e07d0853e2ba4ad99eb70a53d2402284b8f38695ab89464b1498a5610551820b",
+      "bytes": 247285,
+      "allocatedBytes": 249856,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-1280-13-active.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench/workbench-Light-640-13-active.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "145aa46964d22229f1e08ef914190903cdb57a8e67df32f84aca7094d46f74ce",
+      "bytes": 210846,
+      "allocatedBytes": 212992,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-640-13-active.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench/workbench-Light-640-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "145aa46964d22229f1e08ef914190903cdb57a8e67df32f84aca7094d46f74ce",
+      "bytes": 210846,
+      "allocatedBytes": 212992,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Light-640-13-active.png"
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/workbench/workbench-Pixel-1280-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c0e24e2fc0e1417260ca50108c8bd6a08035a25e3b7b5d82a1d44211b0418aa0",
+      "bytes": 55182,
+      "allocatedBytes": 57344,
+      "retainedOriginal": "artifacts/validation/fonts-20261024/workbench-verified/workbench-Pixel-1280-13.png"
+    },
+    {
+      "path": "artifacts/validation/glass-catalog-sidebar-20261005/screenshots/sidebar-expanded-240.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "a6549fa8916cc63ef6350435e64dedbcd3f1b9f4e419581c8b467b844b6c3385",
+      "bytes": 87176,
+      "allocatedBytes": 90112,
+      "retainedOriginal": "artifacts/validation/glass-catalog-sidebar-hidden-20261005/screenshots/sidebar-expanded-240.png"
+    },
+    {
+      "path": "artifacts/validation/glass-catalog-sidebar-20261005/screenshots/sidebar-expanded-280.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "90150a11fd2dfd98c09cd17e653905ae770a1dd718799d4eb2f08d7664af5340",
+      "bytes": 88672,
+      "allocatedBytes": 90112,
+      "retainedOriginal": "artifacts/validation/glass-catalog-sidebar-hidden-20261005/screenshots/sidebar-expanded-280.png"
+    },
+    {
+      "path": "artifacts/validation/grin-material-editor-20261004/screenshots-before-number-format/grin-editor-dark-840-coefficients.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "50684dd858cb6dd2bf9a610b894866044c41c1f9b5d642cd8579af3ecbfe5365",
+      "bytes": 81023,
+      "allocatedBytes": 81920,
+      "retainedOriginal": "artifacts/validation/grin-material-editor-20261004/screenshots/grin-editor-dark-840-coefficients.png"
+    },
+    {
+      "path": "artifacts/validation/grin-material-editor-20261004/screenshots-before-number-format/grin-editor-dark-840-dispersion.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "9cfc674dee44a4f5ffc205e2308a747357286934a77d945f2939af0a7278a235",
+      "bytes": 81638,
+      "allocatedBytes": 81920,
+      "retainedOriginal": "artifacts/validation/grin-material-editor-20261004/screenshots/grin-editor-dark-840-dispersion.png"
+    },
+    {
+      "path": "artifacts/validation/grin-material-editor-20261004/screenshots-before-number-format/grin-editor-dark-840-invalid.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "2873a79920eee33ba4f22292915858475b23b2b7d0430380fd95deddb311a5ea",
+      "bytes": 84463,
+      "allocatedBytes": 86016,
+      "retainedOriginal": "artifacts/validation/grin-material-editor-20261004/screenshots/grin-editor-dark-840-invalid.png"
+    },
+    {
+      "path": "artifacts/validation/grin-material-editor-20261004/screenshots-before-number-format/grin-editor-light-660-coefficients.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "2757373fa03c009796799e5f8db80761cc8ef554036e8627ba3470705b36e263",
+      "bytes": 78385,
+      "allocatedBytes": 81920,
+      "retainedOriginal": "artifacts/validation/grin-material-editor-20261004/screenshots/grin-editor-light-660-coefficients.png"
+    },
+    {
+      "path": "artifacts/validation/grin-material-editor-20261004/screenshots-before-number-format/grin-editor-light-660-dispersion.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "7b55812f7304c3f9267d103ccdd06015265be39d05c17ab0a581c79a50f0b41e",
+      "bytes": 80533,
+      "allocatedBytes": 81920,
+      "retainedOriginal": "artifacts/validation/grin-material-editor-20261004/screenshots/grin-editor-light-660-dispersion.png"
+    },
+    {
+      "path": "artifacts/validation/grin-material-editor-20261004/screenshots-before-number-format/grin-editor-light-660-invalid.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "af081b33388a283f5e270cc6fe3eeac3894d69852067adea6a79f0ce38ece2bb",
+      "bytes": 82189,
+      "allocatedBytes": 86016,
+      "retainedOriginal": "artifacts/validation/grin-material-editor-20261004/screenshots/grin-editor-light-660-invalid.png"
+    },
+    {
+      "path": "artifacts/validation/grin-material-editor-20261004/screenshots-before-number-format/grin-editor-light-840-coefficients.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d6cf24c628892ef424b4a49a454d341940fe6965681dd9d79635c1934b6a712e",
+      "bytes": 80017,
+      "allocatedBytes": 81920,
+      "retainedOriginal": "artifacts/validation/grin-material-editor-20261004/screenshots/grin-editor-light-840-coefficients.png"
+    },
+    {
+      "path": "artifacts/validation/grin-material-editor-20261004/screenshots-before-number-format/grin-editor-light-840-dispersion.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "2d224a67e047c0ad0d371ef07b01d8e20260d236b24bf823286cced3a4adb5fd",
+      "bytes": 81063,
+      "allocatedBytes": 81920,
+      "retainedOriginal": "artifacts/validation/grin-material-editor-20261004/screenshots/grin-editor-light-840-dispersion.png"
+    },
+    {
+      "path": "artifacts/validation/grin-material-editor-20261004/screenshots-before-number-format/grin-editor-light-840-invalid.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "5b0d8722dc1e8417ec95d122e33c4db38c9389057a0385565777f144560dfb5c",
+      "bytes": 83231,
+      "allocatedBytes": 86016,
+      "retainedOriginal": "artifacts/validation/grin-material-editor-20261004/screenshots/grin-editor-light-840-invalid.png"
+    },
+    {
+      "path": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-dark-grin-search.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c8f9be1aa5d13d79bb51d21448bddb8cc6955f346e4bf0c606868120b22a78e1",
+      "bytes": 2130,
+      "allocatedBytes": 4096,
+      "retainedOriginal": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-dark-grin-family.png"
+    },
+    {
+      "path": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-dark-overview.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c8f9be1aa5d13d79bb51d21448bddb8cc6955f346e4bf0c606868120b22a78e1",
+      "bytes": 2130,
+      "allocatedBytes": 4096,
+      "retainedOriginal": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-dark-grin-family.png"
+    },
+    {
+      "path": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-light-grin-family.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c8f9be1aa5d13d79bb51d21448bddb8cc6955f346e4bf0c606868120b22a78e1",
+      "bytes": 2130,
+      "allocatedBytes": 4096,
+      "retainedOriginal": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-dark-grin-family.png"
+    },
+    {
+      "path": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-light-grin-search.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c8f9be1aa5d13d79bb51d21448bddb8cc6955f346e4bf0c606868120b22a78e1",
+      "bytes": 2130,
+      "allocatedBytes": 4096,
+      "retainedOriginal": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-dark-grin-family.png"
+    },
+    {
+      "path": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-light-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "86831fa58d3264c9a0fa4d06624aeaafbe4803f8574aca145008c03071f7dacc",
+      "bytes": 1479,
+      "allocatedBytes": 4096,
+      "retainedOriginal": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-dark-narrow.png"
+    },
+    {
+      "path": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-light-overview.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c8f9be1aa5d13d79bb51d21448bddb8cc6955f346e4bf0c606868120b22a78e1",
+      "bytes": 2130,
+      "allocatedBytes": 4096,
+      "retainedOriginal": "artifacts/validation/grin-operands-20261003/blank-combined-captures/operand-help-dark-grin-family.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-20261002/screenshots/operand-help-dark-grin-search.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d215edfd52c1f250a38130cba2a85d089fa8517e8adbe0ed17fbad500360c104",
+      "bytes": 111201,
+      "allocatedBytes": 114688,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261001/screenshots/operand-help-dark-grin-search.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-20261002/screenshots/operand-help-dark-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d10d3786f0f8fe5b35f4874a011d956a1e1a57d9e5033ed37db8e0ad4adc1226",
+      "bytes": 99135,
+      "allocatedBytes": 102400,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261001/screenshots/operand-help-dark-narrow.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-20261002/screenshots/operand-help-light-grin-search.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "7a548521461426f1d2946b88d2eba4dc60912bf2fafc54c0dfd20a0fe1b14152",
+      "bytes": 110838,
+      "allocatedBytes": 114688,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261001/screenshots/operand-help-light-grin-search.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-20261002/screenshots/operand-help-light-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "4804fc75f8e7ae9f84b61203c901be3aaf27629d02eec3e1ac83fb31f3beb403",
+      "bytes": 98882,
+      "allocatedBytes": 102400,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261001/screenshots/operand-help-light-narrow.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-recheck-20261001/screenshots/operand-help-dark-grin-family.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "1046af3777839130d008ebf1197d74eb7fa336650dd34c8ba1487bf9aeeac619",
+      "bytes": 130412,
+      "allocatedBytes": 131072,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261002/screenshots/operand-help-dark-grin-family.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-recheck-20261001/screenshots/operand-help-dark-grin-search.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d215edfd52c1f250a38130cba2a85d089fa8517e8adbe0ed17fbad500360c104",
+      "bytes": 111201,
+      "allocatedBytes": 114688,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261001/screenshots/operand-help-dark-grin-search.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-recheck-20261001/screenshots/operand-help-dark-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d10d3786f0f8fe5b35f4874a011d956a1e1a57d9e5033ed37db8e0ad4adc1226",
+      "bytes": 99135,
+      "allocatedBytes": 102400,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261001/screenshots/operand-help-dark-narrow.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-recheck-20261001/screenshots/operand-help-dark-overview.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d481ced8ca2ac2d926586c6c1bd7bbae07b17c5c518d30726e961d1849533a6f",
+      "bytes": 70638,
+      "allocatedBytes": 73728,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261002/screenshots/operand-help-dark-overview.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-recheck-20261001/screenshots/operand-help-light-grin-family.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "2fc6b68feee05b03be793127d446700f5096ca49f77c35f714377eb7e3d2cef2",
+      "bytes": 129425,
+      "allocatedBytes": 131072,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261002/screenshots/operand-help-light-grin-family.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-recheck-20261001/screenshots/operand-help-light-grin-search.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "7a548521461426f1d2946b88d2eba4dc60912bf2fafc54c0dfd20a0fe1b14152",
+      "bytes": 110838,
+      "allocatedBytes": 114688,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261001/screenshots/operand-help-light-grin-search.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-recheck-20261001/screenshots/operand-help-light-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "4804fc75f8e7ae9f84b61203c901be3aaf27629d02eec3e1ac83fb31f3beb403",
+      "bytes": 98882,
+      "allocatedBytes": 102400,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261001/screenshots/operand-help-light-narrow.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-hierarchy-recheck-20261001/screenshots/operand-help-light-overview.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "cd8d381eea57f3c93814658227a99cbe476b849e8266ae74216adb7b1c344090",
+      "bytes": 70073,
+      "allocatedBytes": 73728,
+      "retainedOriginal": "artifacts/validation/operand-help-hierarchy-20261002/screenshots/operand-help-light-overview.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-levels-20261002/screenshots/operand-help-dark-grin-family.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f39f7f6eb5b6cdf595f5b1132cb6af9fb22fccd770cfbc679d054d4ce955a801",
+      "bytes": 180849,
+      "allocatedBytes": 184320,
+      "retainedOriginal": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-dark-grin-family.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-levels-20261002/screenshots/operand-help-dark-grin-search.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "b668ffc8d036944027dfd8b85242f213066c00a2dd735105c2c3ec304f9b931d",
+      "bytes": 120846,
+      "allocatedBytes": 122880,
+      "retainedOriginal": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-dark-grin-search.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-levels-20261002/screenshots/operand-help-dark-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "62973190991145e0528dbe2db50db2ccf3d1c05301bb4aa0e5e0f543932873c6",
+      "bytes": 106396,
+      "allocatedBytes": 106496,
+      "retainedOriginal": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-dark-narrow.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-levels-20261002/screenshots/operand-help-dark-overview.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "1b77743c0e4547a0bf5ba2e2b0f17050167a073633a84419fd824f8c6afa578e",
+      "bytes": 92927,
+      "allocatedBytes": 94208,
+      "retainedOriginal": "artifacts/validation/grin-operands-20261003/screenshots/operand-help-dark-overview.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-levels-20261002/screenshots/operand-help-light-grin-search.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "bfc0f1c5fad183c4ef04450d76b3e8b1d41a3d3897e755fb00a2cb5f7942f386",
+      "bytes": 120337,
+      "allocatedBytes": 122880,
+      "retainedOriginal": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-light-grin-search.png"
+    },
+    {
+      "path": "artifacts/validation/operand-help-levels-20261002/screenshots/operand-help-light-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "5ac9ea74380e17de919517e113930f8a55777b1d762d7cc5cebe877b92757968",
+      "bytes": 106132,
+      "allocatedBytes": 106496,
+      "retainedOriginal": "artifacts/validation/operand-help-final-20261002/screenshots/operand-help-light-narrow.png"
+    },
+    {
+      "path": "artifacts/validation/orientation-gizmo-20261024/captures/viewer3d-OpticalLayout-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8b7f8fe5ea445a9fda7c43c2771f3b65e8bda8ebf88138594e7800169d660f76",
+      "bytes": 196759,
+      "allocatedBytes": 200704,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/orientation-gizmo-20261024/captures/viewer3d-OpticalLayout-Light-zh-CN.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "509bb0a1c26ff31d363bdb636f8d84fc7773005f1aa00c3a5318311eead8ada7",
+      "bytes": 173459,
+      "allocatedBytes": 176128,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Light-zh-CN.png"
+    },
+    {
+      "path": "artifacts/validation/orientation-gizmo-20261024/verification/baseline/viewer3d-OpticalLayout-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8b7f8fe5ea445a9fda7c43c2771f3b65e8bda8ebf88138594e7800169d660f76",
+      "bytes": 196759,
+      "allocatedBytes": 200704,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/orientation-gizmo-20261024/verification/baseline/viewer3d-OpticalLayout-Light-zh-CN.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "509bb0a1c26ff31d363bdb636f8d84fc7773005f1aa00c3a5318311eead8ada7",
+      "bytes": 173459,
+      "allocatedBytes": 176128,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Light-zh-CN.png"
+    },
+    {
+      "path": "artifacts/validation/paired-fan-spacing-20261024/before/Optical-Path-Difference-1000x340.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d382e14fa8993e87428ea3d17b21ac0d7861d7d4f3161777716540d4a649b629",
+      "bytes": 35254,
+      "allocatedBytes": 36864,
+      "retainedOriginal": "artifacts/validation/paired-fan-spacing-20261024/after/Optical-Path-Difference-1000x340.png"
+    },
+    {
+      "path": "artifacts/validation/paired-fan-spacing-20261024/before/Optical-Path-Difference-1000x460.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "11e0459878f68029d4c16f6b29f25da616e04cbffc66c8abb138a60f82562647",
+      "bytes": 43845,
+      "allocatedBytes": 45056,
+      "retainedOriginal": "artifacts/validation/paired-fan-spacing-20261024/after/Optical-Path-Difference-1000x460.png"
+    },
+    {
+      "path": "artifacts/validation/paired-fan-spacing-20261024/before/Optical-Path-Difference-600x290.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "36c1c08986b634a90ae583920c5c3ff00910c3bd6c00728007b7d692c3111331",
+      "bytes": 25162,
+      "allocatedBytes": 28672,
+      "retainedOriginal": "artifacts/validation/paired-fan-spacing-20261024/after/Optical-Path-Difference-600x290.png"
+    },
+    {
+      "path": "artifacts/validation/sidebar-transition-20260927/captures/light-collapsed.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "15e1604e6afdd6d1427ccdcb4c2e9c78cf3ba85da14f2a738376ccc37a3cde87",
+      "bytes": 22099,
+      "allocatedBytes": 24576,
+      "retainedOriginal": "artifacts/validation/sidebar-transition-20260927/captures/light-after-switch-collapsed.png"
+    },
+    {
+      "path": "artifacts/validation/sidebar-transition-20260927/captures/light-expanded.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8b997bfcc6295b4f2ac6066383498ea6ec5591f7f66c9065082b22e8cf83c67f",
+      "bytes": 66468,
+      "allocatedBytes": 69632,
+      "retainedOriginal": "artifacts/validation/sidebar-transition-20260927/captures/light-after-switch-expanded.png"
+    },
+    {
+      "path": "artifacts/validation/sidebar-transition-20260927/captures/light-hover.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "85668b7d353473fd08ce5d93bd3b331ba15480286076364bf1d0c562e96e6e93",
+      "bytes": 22621,
+      "allocatedBytes": 24576,
+      "retainedOriginal": "artifacts/validation/sidebar-transition-20260927/captures/light-after-switch-hover.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures-verified/viewer3d-OpticalLayout-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8b7f8fe5ea445a9fda7c43c2771f3b65e8bda8ebf88138594e7800169d660f76",
+      "bytes": 196759,
+      "allocatedBytes": 200704,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures-verified/viewer3d-OpticalLayout-Light-zh-CN.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "509bb0a1c26ff31d363bdb636f8d84fc7773005f1aa00c3a5318311eead8ada7",
+      "bytes": 173459,
+      "allocatedBytes": 176128,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Light-zh-CN.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures-verified/viewer3d-SolidModel-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "09b821e29c0971901fcbcdde39ca3907f2f0eb98218d8fd51826b24de40b7c0d",
+      "bytes": 227544,
+      "allocatedBytes": 229376,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-SolidModel-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures-verified/viewer3d-solid-cutaway-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8791399d0ccb38d6e9768d122a47245c5e3a8287082e8c8bc71d864b12a4ccfa",
+      "bytes": 187084,
+      "allocatedBytes": 188416,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-solid-cutaway-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures-verified/viewer3d-solid-narrow-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f583ee1a7795bbe6063e0a6c4c99c17f11dc39b04c2feca28a06fd33013a1da5",
+      "bytes": 57385,
+      "allocatedBytes": 61440,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-solid-narrow-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures-verified/viewer3d-solid-transparent-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "4226bfe6126314c0e7a3ba9d3ba82ebf7d4745aca3613ebcc8c7b92b0dfa656b",
+      "bytes": 225610,
+      "allocatedBytes": 229376,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-solid-transparent-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures-verified/viewer3d-solid-wireframe-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8d623bee10e642a63ee0dfe4f2d1953caba4f810d1b2d088a67fe73c7176ee49",
+      "bytes": 156877,
+      "allocatedBytes": 159744,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-solid-wireframe-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures/viewer3d-OpticalLayout-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8b7f8fe5ea445a9fda7c43c2771f3b65e8bda8ebf88138594e7800169d660f76",
+      "bytes": 196759,
+      "allocatedBytes": 200704,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures/viewer3d-OpticalLayout-Light-zh-CN.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "509bb0a1c26ff31d363bdb636f8d84fc7773005f1aa00c3a5318311eead8ada7",
+      "bytes": 173459,
+      "allocatedBytes": 176128,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Light-zh-CN.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures/viewer3d-SolidModel-Light-zh-CN.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "51f78454784385fd0a489c7d3063be9196b0c56a0c9425e52638224f3bb4d653",
+      "bytes": 224652,
+      "allocatedBytes": 225280,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-verified/viewer3d-SolidModel-Light-zh-CN.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures/viewer3d-solid-cutaway.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d44e82f02e287fb275c73dec5b7eff111b08890e6c164d4248e00b887e4ebef8",
+      "bytes": 184104,
+      "allocatedBytes": 184320,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-verified/viewer3d-solid-cutaway-Light-zh-CN.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures/viewer3d-solid-transparent.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "2ca67ab4b6649e41d4e95f949e2a334a917d91c031ecf2247059ca78ff065ee9",
+      "bytes": 222719,
+      "allocatedBytes": 225280,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-verified/viewer3d-solid-transparent-Light-zh-CN.png"
+    },
+    {
+      "path": "artifacts/validation/solid-glass-colors-20261024/captures/viewer3d-solid-wireframe.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f69254643962d923028c54c914b34d43b92124d3f5c270db36c7ba79440c168b",
+      "bytes": 153097,
+      "allocatedBytes": 155648,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-verified/viewer3d-solid-wireframe-Light-zh-CN.png"
+    },
+    {
+      "path": "artifacts/validation/solid-rays-20261024/captures/viewer3d-OpticalLayout-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8b7f8fe5ea445a9fda7c43c2771f3b65e8bda8ebf88138594e7800169d660f76",
+      "bytes": 196759,
+      "allocatedBytes": 200704,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/solid-rays-20261024/captures/viewer3d-OpticalLayout-Light-zh-CN.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "509bb0a1c26ff31d363bdb636f8d84fc7773005f1aa00c3a5318311eead8ada7",
+      "bytes": 173459,
+      "allocatedBytes": 176128,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Light-zh-CN.png"
+    },
+    {
+      "path": "artifacts/validation/solid-rays-20261024/captures/viewer3d-SolidModel-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "6dd8fcd423388f64c4653de5d8f4f9a6d2c77c0be122729dd59b6d05bc774278",
+      "bytes": 239591,
+      "allocatedBytes": 241664,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/verification/baseline/viewer3d-SolidModel-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/solid-rays-20261024/captures/viewer3d-SolidModel-Light-zh-CN.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d021cac36c12e08f5a1b30c5d252185308c2cc188cabdf4ef9f52d1192f66c61",
+      "bytes": 236853,
+      "allocatedBytes": 237568,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/verification/baseline/viewer3d-SolidModel-Light-zh-CN.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-headers-Dark-en-US-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "4becb3f11798df33b7a3825f5a490416dbe9712f3a57a6d64bd231df82dc9b90",
+      "bytes": 46407,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-headers-Dark-en-US-13.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-headers-Dark-en-US-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c8b4b0f17bae7665614724bf705f2eaf8c4fff172f3f820107b2c0733576ef5d",
+      "bytes": 47280,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-headers-Dark-en-US-18.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-headers-Isekai-en-US-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "50bdec4476f7f2ac265f7bd1a942d71ade5b5400880887f6f5c64c87b5a1020d",
+      "bytes": 46904,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-headers-Isekai-en-US-13.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-headers-Isekai-en-US-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8e89d960d135e18b4cfd02965d899cf6e932b2d15214392c68e9b921635f9e97",
+      "bytes": 47776,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-headers-Isekai-en-US-18.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-headers-Light-zh-CN-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "95341e79913f2b43fd60c13b58f9ca930572c54f98c9622890df32cc8ade57bc",
+      "bytes": 46887,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-headers-Light-zh-CN-13.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-headers-Light-zh-CN-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "e16411f273cee6ae6fdd270b3fd998cf4a96fa4426f1a5b8e7171eb2db98ab4b",
+      "bytes": 56800,
+      "allocatedBytes": 57344,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-headers-Light-zh-CN-18.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-headers-Lumen-zh-CN-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "896d7b92b5e10e8a4dca8f6c6556b6fd75dcdd48d531b34aa1fc1d71e0e47470",
+      "bytes": 48582,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-headers-Lumen-zh-CN-13.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-headers-Lumen-zh-CN-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "56c3d8ee313d7cf673d91056fbcdd1a80d86edd1edb75c1eac7d2be3b58f12ce",
+      "bytes": 49343,
+      "allocatedBytes": 53248,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-headers-Lumen-zh-CN-18.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-headers-Pixel-ja-JP-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "07899903673e925b6e0e863d584c8f7a7da0efb03af5e50d057b41445fc3fcde",
+      "bytes": 45836,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-headers-Pixel-ja-JP-13.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-headers-Pixel-ja-JP-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8102f9605a0b8695556139c9a50c7070c870545d7968ea1f495c112277c6e5cb",
+      "bytes": 46299,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-headers-Pixel-ja-JP-18.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-type-narrow-Dark-en-US-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c2817486ef624a135c8814dcd5eb616e13031ea4423b7040b588eca834efd197",
+      "bytes": 46180,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-type-narrow-Dark-en-US-13.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-type-narrow-Dark-en-US-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "25760fbabb3df4d203bd132fbdd3d06e637be916bdbef4e86594180ba960afc4",
+      "bytes": 47059,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-type-narrow-Dark-en-US-18.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-type-narrow-Isekai-en-US-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "38f456f24bf65ddb419a0e833e7ec1d908f581d329492c900167e84c0f108999",
+      "bytes": 46709,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-type-narrow-Isekai-en-US-13.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-type-narrow-Isekai-en-US-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8452c07b62f2b7ca5d339998e01de5e06dfdab0b66ef00683bed9da65348b245",
+      "bytes": 47603,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-type-narrow-Isekai-en-US-18.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-type-narrow-Light-zh-CN-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "df766a2577b0daef21f4efc3eb53c7b34a0b9f1a5739770437aed5000666580e",
+      "bytes": 46891,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-type-narrow-Light-zh-CN-13.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-type-narrow-Light-zh-CN-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8e6aa994594677d4090f8ffa3796d310594480fe64a34a879313ebdb1dffb41e",
+      "bytes": 56822,
+      "allocatedBytes": 57344,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-type-narrow-Light-zh-CN-18.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-type-narrow-Lumen-zh-CN-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d5de51c3f3c016e7f67e8f20e08eba5a32130b2a79c15fb9776eae444dd9805c",
+      "bytes": 48571,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-type-narrow-Lumen-zh-CN-13.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-type-narrow-Lumen-zh-CN-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "3ac2d35aa6127fbea755fdcb36072b240d4c02d8915cc3f529e54d4c9484aaa7",
+      "bytes": 49334,
+      "allocatedBytes": 53248,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-type-narrow-Lumen-zh-CN-18.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-type-narrow-Pixel-ja-JP-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "72b732a04b809fea1c7c4ebda69a2b97d2d7ceef072d8160226e6eaddac505ed",
+      "bytes": 45844,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-type-narrow-Pixel-ja-JP-13.png"
+    },
+    {
+      "path": "artifacts/validation/surface-type-alignment-20261024/captures/lens-type-narrow-Pixel-ja-JP-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "5aa6e9aff366ea013aee206bd1d8a83396011a5bace87d07509d0824b56d23bc",
+      "bytes": 46305,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/surface-type-alignment-20261024/captures-final/lens-type-narrow-Pixel-ja-JP-18.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures-font-verified/view-buttons-Light-zh-CN-1100-free-rotation.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "59840d5dcfbba0bd945a85fa4ab110233e10aaa23590353a0ad11ddafe6f339c",
+      "bytes": 236941,
+      "allocatedBytes": 237568,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final-preview/view-buttons-Light-zh-CN-1100-free-rotation.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures-font-verified/view-buttons-Light-zh-CN-1100-initial.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "61c6229d7f5d2d05ca524b2f1455f45dd36ec8c98d4a61f48b41718311cd16b0",
+      "bytes": 229591,
+      "allocatedBytes": 233472,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final-preview/view-buttons-Light-zh-CN-1100-initial.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures-font-verified/view-buttons-Light-zh-CN-1100-reset.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "a77e38604a3c14866e5c10edc9802ff4fb08ce70f3d3d16ad520d4e357f316b6",
+      "bytes": 231065,
+      "allocatedBytes": 233472,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final-preview/view-buttons-Light-zh-CN-1100-reset.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Dark-Back.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "06a21dea98a1a01db2ff3aa5c75f3f09cd74dec09447971451ebcb45705ff073",
+      "bytes": 67566,
+      "allocatedBytes": 69632,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Dark-Back.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Dark-Bottom.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "6d117c8718444cc4398826d200dc5b97573e8f568d4dd7abb3ae1c7aaeec401a",
+      "bytes": 59076,
+      "allocatedBytes": 61440,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Dark-Bottom.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Dark-Front.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "5ca63358e4517d2b97b7df5812d0fb05e022ed19a31962acb1cc05da72038694",
+      "bytes": 65757,
+      "allocatedBytes": 69632,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Dark-Front.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Dark-Left.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "c9bcfb5f48db6689dcb5ac0be2ac7872c152d57f9e3145b4f129b8b21356ffd3",
+      "bytes": 58704,
+      "allocatedBytes": 61440,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Dark-Left.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Dark-Right.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "3cb30a5bf7966301fb8e1d6c1adb774509ace45691dd8a356747f0287169fbe0",
+      "bytes": 58349,
+      "allocatedBytes": 61440,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Dark-Right.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Dark-Top.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "02608aa9cd22738a7b9ee96dcdf01687189897a51232a0c2dd0221851837147e",
+      "bytes": 59142,
+      "allocatedBytes": 61440,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Dark-Top.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Dark-dragged.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "e81eb25f59468571895e88c6e06e2d9f7393ec1bff009e7143a27a89e36aef57",
+      "bytes": 86967,
+      "allocatedBytes": 90112,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Dark-dragged.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Dark-isometric.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "f84758815963b9c0ec43fe7d2ed9f275a0355baee27540d3dc56f70e9c0b5c2e",
+      "bytes": 110082,
+      "allocatedBytes": 110592,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Dark-isometric.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Dark-pan-zoom-stretch.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "4fce6de4f4627f9e2d5a6072988b0db3bf589edae34e065db8ed792dcb8fb9f0",
+      "bytes": 103944,
+      "allocatedBytes": 106496,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Dark-pan-zoom-stretch.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Light-Back.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "21eb380cf91d20c90adc38d06a88f13f60ce9fb66341a40965257225b627c108",
+      "bytes": 67265,
+      "allocatedBytes": 69632,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Light-Back.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Light-Bottom.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8dd5ba969b4ede1f87b253c5493b72628896f66c9769852dae61b51ff82fc0c5",
+      "bytes": 58824,
+      "allocatedBytes": 61440,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Light-Bottom.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Light-Front.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "7fdc54da42c4ee05f96022ff4d656747b91d8904f01929a9617a662fe4e3cd9a",
+      "bytes": 65429,
+      "allocatedBytes": 65536,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Light-Front.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Light-Left.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "7d67407f2da68ee3de363b241a342c8a1018dd9de9d83e19c18bc0a7cdb96852",
+      "bytes": 58425,
+      "allocatedBytes": 61440,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Light-Left.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Light-Right.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "730dc8ccb8fde7b1098f3bd49e87a0251f1b508a89f7afb990ca4a00009b5c9f",
+      "bytes": 58081,
+      "allocatedBytes": 61440,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Light-Right.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Light-Top.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "35d7a5b1232334b541c3fb3e13cc9ef4c25050f5def0214cf4462b3b9ef45f62",
+      "bytes": 58913,
+      "allocatedBytes": 61440,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Light-Top.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Light-dragged.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "dcb5b86554cc3af3a166cc97bd36b65a1a14ba6e44c3bacec95c1608a16a50da",
+      "bytes": 86776,
+      "allocatedBytes": 90112,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Light-dragged.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Light-isometric.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "0539ba18cad1d2b0514b8dfcccafb8ff620620de6fc714b6671f1d51a701471e",
+      "bytes": 109851,
+      "allocatedBytes": 110592,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Light-isometric.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/axes-Light-pan-zoom-stretch.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "18a2c513b4f30ee3d9d6600935e42022a28e2184ad48861fef32482aea9e7b7c",
+      "bytes": 103698,
+      "allocatedBytes": 106496,
+      "retainedOriginal": "artifacts/validation/orientation-gizmo-20261024/captures/axes-Light-pan-zoom-stretch.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/view-buttons-Dark-en-US-400-free-rotation.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "be0005e8f9c17673f29b7628f65e52baecc3e7b978353bd34d89a6408db753b0",
+      "bytes": 76067,
+      "allocatedBytes": 77824,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final/view-buttons-Dark-en-US-400-free-rotation.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/view-buttons-Dark-en-US-400-initial.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "fde2f71025febbcfe8389bcdfde020a66ce4e7812fbe839f3700713dec24c816",
+      "bytes": 74241,
+      "allocatedBytes": 77824,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final/view-buttons-Dark-en-US-400-initial.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/view-buttons-Dark-en-US-400-reset.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d72226b12affee86110c5a3df834b33a5c24f68ef87cfa5220ec7fdcefe10831",
+      "bytes": 74684,
+      "allocatedBytes": 77824,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final/view-buttons-Dark-en-US-400-reset.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/view-buttons-Light-ja-JP-400-free-rotation.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "0d2f0b6b6bf2788eff1168810e5b1d28b87da041f7fd8dfa242feeaabc14da60",
+      "bytes": 77576,
+      "allocatedBytes": 77824,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final/view-buttons-Light-ja-JP-400-free-rotation.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/view-buttons-Light-ja-JP-400-initial.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "76d7dccdb834ddc81a57189dd9f67e6842ff0cff0e802b6bbf100c38926c291c",
+      "bytes": 75983,
+      "allocatedBytes": 77824,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final/view-buttons-Light-ja-JP-400-initial.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/view-buttons-Light-ja-JP-400-reset.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8e421cf5799db643b54cfd45609a82992ba99645887cc2fbba92dfd41990e05a",
+      "bytes": 76288,
+      "allocatedBytes": 77824,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final/view-buttons-Light-ja-JP-400-reset.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/view-buttons-Light-zh-CN-1100-free-rotation.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "4ccad68b46d29adeb36f331877789707fe9032eb4ae4a1b0943ac6cb013f48a2",
+      "bytes": 238361,
+      "allocatedBytes": 241664,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final/view-buttons-Light-zh-CN-1100-free-rotation.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/view-buttons-Light-zh-CN-1100-initial.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "0973242317333e3cff76524638f05d4c4ab306db2054e3e076bed0708f545a53",
+      "bytes": 231106,
+      "allocatedBytes": 233472,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final/view-buttons-Light-zh-CN-1100-initial.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/view-buttons-Light-zh-CN-1100-reset.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "1f62497bca6ae563d01e56a151ddd3a0adf49a44fc3d06254fd409d9ebc3e807",
+      "bytes": 232475,
+      "allocatedBytes": 233472,
+      "retainedOriginal": "artifacts/validation/view-preset-labels-20261024/captures-final/view-buttons-Light-zh-CN-1100-reset.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/viewer3d-OpticalLayout-Dark-en-US.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8b7f8fe5ea445a9fda7c43c2771f3b65e8bda8ebf88138594e7800169d660f76",
+      "bytes": 196759,
+      "allocatedBytes": 200704,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Dark-en-US.png"
+    },
+    {
+      "path": "artifacts/validation/view-preset-labels-20261024/captures/viewer3d-OpticalLayout-Light-zh-CN.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "509bb0a1c26ff31d363bdb636f8d84fc7773005f1aa00c3a5318311eead8ada7",
+      "bytes": 173459,
+      "allocatedBytes": 176128,
+      "retainedOriginal": "artifacts/validation/solid-glass-colors-20261024/captures-final/viewer3d-OpticalLayout-Light-zh-CN.png"
+    },
+    {
+      "path": "artifacts/validation/viewer-image-export-20261024/images/ThreeDimensional-OpticalLayout-420x420.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "7cf7fee9c33244d900d28f37bc9ceaaad20380c3f1a06cd7fc1d6cdcfff82456",
+      "bytes": 23104,
+      "allocatedBytes": 24576,
+      "retainedOriginal": "artifacts/validation/viewer-image-export-20261024/images-final/ThreeDimensional-OpticalLayout-420x420.png"
+    },
+    {
+      "path": "artifacts/validation/viewer-image-export-20261024/images/ThreeDimensional-SolidModel-420x620.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "0cc4643a0efc0395fedb7cab058d51e41fdaa7ac8713e58543522d795819fc97",
+      "bytes": 36078,
+      "allocatedBytes": 36864,
+      "retainedOriginal": "artifacts/validation/viewer-image-export-20261024/images-final/ThreeDimensional-SolidModel-420x620.png"
+    },
+    {
+      "path": "artifacts/validation/viewer-image-export-20261024/images/TwoDimensional-OpticalLayout-420x420.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "90c58f0178fd2c0b723fde5691cfe8ef5a7e1445f9cd527b49700ae1eb4bd378",
+      "bytes": 41369,
+      "allocatedBytes": 45056,
+      "retainedOriginal": "artifacts/validation/viewer-image-export-20261024/images-final/TwoDimensional-OpticalLayout-420x420.png"
+    },
+    {
+      "path": "artifacts/validation/viewer-image-export-20261024/images/TwoDimensional-OpticalLayout-840x620.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "fa454054d49d23544437ba461b5e9eb55a7a6f8f08b91c1c325888dfda04c17b",
+      "bytes": 94693,
+      "allocatedBytes": 98304,
+      "retainedOriginal": "artifacts/validation/viewer-image-export-20261024/images-final/TwoDimensional-OpticalLayout-840x620.png"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/bin/Release/net10.0/artifacts/validation/implementation-20260923/lab-ui/comparison.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "993e4e3ed1df3afc83a32cac384eaa84303709c9da1e7f24e2bb7a4621792670",
+      "bytes": 212772,
+      "allocatedBytes": 212992,
+      "retainedOriginal": "artifacts/validation/implementation-20260923/lab-ui/comparison.png"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/bin/Release/net10.0/artifacts/validation/implementation-20260923/lab-ui/generated-1240.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "20784e699fabf0e811bd3ba808d34ffb36f3e822822ffa5eb26b5c20b6f324ff",
+      "bytes": 169031,
+      "allocatedBytes": 172032,
+      "retainedOriginal": "artifacts/validation/implementation-20260923/lab-ui/generated-1240.png"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/bin/Release/net10.0/artifacts/validation/implementation-20260923/lab-ui/generated-480.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d439628c329bc6796dc0c58918bb326607554157a4f5350172fe37ffb2119402",
+      "bytes": 90003,
+      "allocatedBytes": 90112,
+      "retainedOriginal": "artifacts/validation/implementation-20260923/lab-ui/generated-480.png"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/bin/Release/net10.0/artifacts/validation/implementation-20260923/lab-ui/generated-600.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "7b0eb69d6a5c17d10006ab00d7c9ef84db89c1c684088baf4c88d7fc0d9aeca6",
+      "bytes": 99757,
+      "allocatedBytes": 102400,
+      "retainedOriginal": "artifacts/validation/implementation-20260923/lab-ui/generated-600.png"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/bin/Release/net10.0/artifacts/validation/implementation-20260923/lab-ui/targets-1240.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "ef467d6946e39a12a8f2451b77c1d5b8b5a6ab3b8f48d881f36f25d5d303de7f",
+      "bytes": 151783,
+      "allocatedBytes": 155648,
+      "retainedOriginal": "artifacts/validation/implementation-20260923/lab-ui/targets-1240.png"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/bin/Release/net10.0/artifacts/validation/implementation-20260923/lab-ui/targets-480.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "39cd1f8cba45dd3e2479f9c530c41d99b0f77ccfe0a1f055c11c89a740242e82",
+      "bytes": 93755,
+      "allocatedBytes": 94208,
+      "retainedOriginal": "artifacts/validation/implementation-20260923/lab-ui/targets-480.png"
+    },
+    {
+      "path": "labs/InitialStructure/tests/OptilandWorkbench.InitialStructure.Tests/bin/Release/net10.0/artifacts/validation/implementation-20260923/lab-ui/targets-600.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "8679f9e3e8ad5528ade75b50bd71cf4953dd7b247d041be8a126bd99faf0eea0",
+      "bytes": 103498,
+      "allocatedBytes": 106496,
+      "retainedOriginal": "artifacts/validation/implementation-20260923/lab-ui/targets-600.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/ConfigurationMatrixSpot-False-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "ecd0aedc50b30e4f68ad5e7e0facd195ea0bd25b6287e8680200b5fde23e5176",
+      "bytes": 56933,
+      "allocatedBytes": 57344,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/ConfigurationMatrixSpot-False-narrow.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/ConfigurationMatrixSpot-False-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "21d91131000a27a7174d716772c90246975afad47e3ba350f85150936c86e70a",
+      "bytes": 125418,
+      "allocatedBytes": 126976,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/ConfigurationMatrixSpot-False-wide.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/FieldCurvatureAndDistortion-False-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "2fa3e4ae0bf20e6561f386b545e1fc9cb28336cad6150f7cdc5628b836f9210a",
+      "bytes": 66007,
+      "allocatedBytes": 69632,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/FieldCurvatureAndDistortion-False-narrow.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/FieldCurvatureAndDistortion-False-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "d15a13ee976a21afb45771085afbfc4a511198a787126cfb9aee39aec9c496e5",
+      "bytes": 100629,
+      "allocatedBytes": 102400,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/FieldCurvatureAndDistortion-False-wide.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/MatrixSpot-False-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "cc38a2a49ba5954a3b2c9cb7aa399f1642f76980f8e1911613f5d6a461f908aa",
+      "bytes": 57539,
+      "allocatedBytes": 61440,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/MatrixSpot-False-narrow.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/MatrixSpot-False-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "af0e1ed2fa4b638cfaa2f8ce1597bf81eee2c6823ee33fceff1d46e4d06f586b",
+      "bytes": 116548,
+      "allocatedBytes": 118784,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/MatrixSpot-False-wide.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/OpticalPathDifference-False-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "ac8b4437a3d039cc545a96a5ff85c96cb582840676ab8b16da1fa8071903ff36",
+      "bytes": 34872,
+      "allocatedBytes": 36864,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/OpticalPathDifference-False-narrow.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/OpticalPathDifference-False-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "a38e6ea0b453dc80bd8d08a3a807650f51c4fc2052882d8a070b48d76bc59b61",
+      "bytes": 86858,
+      "allocatedBytes": 90112,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/OpticalPathDifference-False-wide.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/PupilAberration-False-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "14bb2b54dde797a4ded0b1955e1ce03104feacbb0d8f53f19f602ed12938f6bd",
+      "bytes": 30252,
+      "allocatedBytes": 32768,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/PupilAberration-False-narrow.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/PupilAberration-False-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "007a54499a49d8ea1a16618ff243a12166f0760bc3f4514a0ec7d4a8eab42997",
+      "bytes": 68584,
+      "allocatedBytes": 69632,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/PupilAberration-False-wide.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/RayFan-False-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "bcb805511b96769277cc9d9acb718a82645b087438ac140c004a263ba730fb94",
+      "bytes": 34458,
+      "allocatedBytes": 36864,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/RayFan-False-narrow.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/RayFan-False-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "3011e39739e79069cf50932a54cdc2975974f8606ec00d73d68673e62e417d94",
+      "bytes": 83656,
+      "allocatedBytes": 86016,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/RayFan-False-wide.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/SpotDiagram-False-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "9a455ff3f337137a7603d3f75801c9d3c366fe0d9c68830c5c00bcfee2ba30e7",
+      "bytes": 35668,
+      "allocatedBytes": 36864,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/SpotDiagram-False-narrow.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/SpotDiagram-False-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "bc7cc8fac5308d6715896ca009d046d754eecfd9549a7064dc0de20585d0d589",
+      "bytes": 79621,
+      "allocatedBytes": 81920,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/SpotDiagram-False-wide.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/Standard-False-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "35a9cb29071b5a459c6b0a9df693b82a063ad66f4bcb21c27973e1230ab61b99",
+      "bytes": 45872,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/Standard-False-narrow.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/Standard-False-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "eb444880940acfc307add671028321657a522ed6843cc1ebc03ab68a7feec7e3",
+      "bytes": 80421,
+      "allocatedBytes": 81920,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/Standard-False-wide.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/Standard-True-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "35a9cb29071b5a459c6b0a9df693b82a063ad66f4bcb21c27973e1230ab61b99",
+      "bytes": 45872,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/Standard-False-narrow.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/Standard-True-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "eb444880940acfc307add671028321657a522ed6843cc1ebc03ab68a7feec7e3",
+      "bytes": 80421,
+      "allocatedBytes": 81920,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/Standard-False-wide.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/ThroughFocusSpot-False-narrow.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "1a848cf8abb21b75579b43649a249f408f6f11bf87c00a85fffbff94311a052d",
+      "bytes": 47740,
+      "allocatedBytes": 49152,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/ThroughFocusSpot-False-narrow.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/ThroughFocusSpot-False-wide.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "86614769b247083fe2692f948d99ecb853cfc1550b54032acf79bafa8ecf7fd7",
+      "bytes": 96506,
+      "allocatedBytes": 98304,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/ThroughFocusSpot-False-wide.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/long-legend-Dark-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "b2aa8dbf44915533268526e68ae0c638930252c177b1c30d5f596a2e2abe4eed",
+      "bytes": 141705,
+      "allocatedBytes": 143360,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/long-legend-Dark-18.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/long-legend-Isekai-18.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "94c3a72f9e2350f0bfced24255ceb5ff4a9613be26386680014dfc4be31fac66",
+      "bytes": 143918,
+      "allocatedBytes": 147456,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/long-legend-Isekai-18.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/long-legend-Light-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "7290dad672b5f4287069a5e0185c413c1842175b41190ca4713754f973fa3ce1",
+      "bytes": 120082,
+      "allocatedBytes": 122880,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/long-legend-Light-13.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/long-legend-Lumen-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "934ec92088e2c3b11103070f0aac8a9b165389a7eb7971a4e7590b941db71c9c",
+      "bytes": 132168,
+      "allocatedBytes": 135168,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/long-legend-Lumen-13.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/analysis-legend-20261024/captures/long-legend-Pixel-13.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "09464f9e97fb772250839d9da6e2d367f5840dd052580c0034f4dd70422c6bf0",
+      "bytes": 95378,
+      "allocatedBytes": 98304,
+      "retainedOriginal": "artifacts/validation/analysis-legend-20261024/diagnostic-192dpi/long-legend-Pixel-13.png"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/bin/Debug/net10.0/artifacts/validation/seidel-palette-20261024/fit/presentation-SeidelDiagram.png",
+      "reason": "byte_identical_local_preview_copy",
+      "sha256": "bf193b1115fada2341d0785a85eb98127fb4ac318f18f0dbd6e2a295aa2efb12",
+      "bytes": 19289,
+      "allocatedBytes": 20480,
+      "retainedOriginal": "artifacts/validation/seidel-palette-20261024/fit/presentation-SeidelDiagram.png"
+    }
+  ],
+  "documentationCheck": {
+    "documents": 2012,
+    "brokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0,
+    "strictExitCode": 0,
+    "diffCheckExitCode": 0,
+    "reportSha256": "a9d539f9f6d5a70d5d726e1027107e57f9a1ca2ef68f16b62f29c03a98e3d432"
+  }
+}

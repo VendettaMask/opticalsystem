@@ -1,0 +1,1662 @@
+{
+  "date": "2026-11-08",
+  "sourceCommit": "3685ad3328f0a418eb49e7bb0ba62cc27253e958",
+  "scope": "Retire superseded presentation renders and disposable process artifacts. Original scientific reference payloads, current regression inputs, source, approved art, unique failures, complete report containers, licenses and prior uncommitted changes remain. This is storage verification, not new numerical or UI acceptance.",
+  "deletedFiles": 161,
+  "allocatedBytesRemoved": 230068224,
+  "categories": {
+    "superseded_ui_iteration_render": {
+      "files": 110,
+      "allocatedBytes": 153653248
+    },
+    "report_page_raster_with_retained_full_pdf": {
+      "files": 11,
+      "allocatedBytes": 839680
+    },
+    "historical_report_page_raster_with_retained_pdf": {
+      "files": 26,
+      "allocatedBytes": 3059712
+    },
+    "rebuildable_historical_audit_binary": {
+      "files": 6,
+      "allocatedBytes": 6361088
+    },
+    "retired_ui_specimen_font_dependency": {
+      "files": 4,
+      "allocatedBytes": 41590784
+    },
+    "verified_package_download_duplicate": {
+      "files": 1,
+      "allocatedBytes": 5484544
+    },
+    "verified_docx_entry_duplicate": {
+      "files": 1,
+      "allocatedBytes": 11960320
+    },
+    "incomplete_font_download": {
+      "files": 2,
+      "allocatedBytes": 7118848
+    }
+  },
+  "verification": {
+    "retainedTrackedHashesVerified": 32581,
+    "intentionalTrackedRemovals": 148,
+    "unexpectedMissing": [],
+    "unexpectedChanged": [],
+    "hashErrors": []
+  },
+  "processCheck": {
+    "active_processes": [],
+    "open_workspace_files": []
+  },
+  "retainedProofs": {
+    "docx": {
+      "retired": "output/report-style-gauss28-20261102/qa/word-source.docx",
+      "retained": "output/report-style-gauss28-20261102/Reports/Double Gauss 28 degree field_full_report.docx",
+      "entries": 73,
+      "entryHashes": {
+        "word/media/image1.png": "c15c96e5e15a2ba0098add9da9692322b9eedbb95b35c09b82f0a83fef4cec41",
+        "word/media/image2.png": "2b3f3c40524eabff18319585fdd1eaae4970c4476bc2523e2da7bd6c92c53e1c",
+        "word/media/image3.png": "096714dca8a940e34ef9cd35ce0a5b4a1bb69ea0f2768036cfb0a8ecca634cbb",
+        "word/media/image4.png": "30e2014cdfd9774a1ea217c3a83430aa365127874c148200f66324d123575d5c",
+        "word/media/image5.png": "82f6cb99ae0e45a3a4d3634ba8b4bd703df2d2d0e9f4ff27b27029d47f8c7189",
+        "word/media/image6.png": "51bdbc3f08eaaa8d4539785c69fa67c3e0312355962148d1dadae2e472831309",
+        "word/media/image7.png": "817f02cb0883561c1cfea2375be6e23e01f185c7063b2be0fd6e0d2e9a34b44d",
+        "word/media/image8.png": "928ec0561ea4244f29340158676cac3c1dc1d575ae534798b13652c201011688",
+        "word/media/image9.png": "5e2d6d6f9c5fd16398ca20037947cf79b9fa3ce66279a73dcf055554053e90f5",
+        "word/media/image10.png": "e58746db054bfff164af752a473802bb6e859c8a115359cb439bf5f2e61e169e",
+        "word/media/image11.png": "ed2f4b88ade81918fda12214daae8eb83d52838b5dacb361cba0f44bae5ec822",
+        "word/media/image12.png": "e04ecef97fcadb2fc058dfb2ad4c25cd19bb12a7f08df0e38e3f9b5f293ce8e4",
+        "word/media/image13.png": "9bc2bf68ea8c369e6eabce40040f6201052ed06cef74f5e439dec72d63f8fb98",
+        "word/media/image14.png": "2ddc77e26c25e31148f697ddda9adacd675c8fe0bb33abcfba61c88c3d833743",
+        "word/media/image15.png": "7b05d17be8d39f289455916562c0575ddba9574b9df8b6fed685f8e653bd455c",
+        "word/media/image16.png": "f9ba9f062a65ea39745dac45f2c2c02b3d9f8ce7a32cd1a1c3bd36a0f687feb3",
+        "word/media/image17.png": "4760466a3b91f2f71b0ac7e6f1db9a9c32d8f461a4a8b933dff7ca0bd5fcb842",
+        "word/media/image18.png": "fb8dfa66a7d7c39a3a098e66f0bce06505cfa973978f13c4e44cea676141c525",
+        "word/media/image19.png": "e82bf829acb5d6e81971b6aad52501150bbb55dbc3795bc2964e606573429bd0",
+        "word/media/image20.png": "42032f6d99a2b1ccae37beed10e7dfbff1a8e1804854e21dd0755039d597f3aa",
+        "word/media/image21.png": "d4fb35c1305ec054ee88765100039ce5a0da34a5d5bebadedef6a3fdda0f4928",
+        "word/media/image22.png": "2efd0570e92b630b3cb4d9572ad4d0fbfc249f81f1a1d464e86fc939dd2be77b",
+        "word/media/image23.png": "e5c82f69c89ba49086ca2e7ead2ea8afb2455990e2b2b519b7e350a0f5ab5e92",
+        "word/media/image24.png": "0e9f69c6c51ccf2db1c37cfb96def4aa3e1b56b063a70ae872c6e5c754685fa1",
+        "word/media/image25.png": "63d44e4280a8f8f22357a9589eb3e8a836b9d439f95613c3b1c4f541a7db2a58",
+        "word/media/image26.png": "397d65fabb7735127f481f71288c61b08a7c53c5e8410ac375409b59d703f4c2",
+        "word/media/image27.png": "b3b7b822d2cf8e6f037883e9a7532b0b50b837ef0ba12061d75a92cd26705237",
+        "word/media/image28.png": "1d25ad2fceed8387a7a0623f458d51e5682f1acfab44c65b33c0fa41efb08ded",
+        "word/media/image29.png": "39513eec533d7355526500077fae3ccaf6a2c852404e4af2fa2e67d3fc6513bf",
+        "word/media/image30.png": "33c74c34559c7f022bbb084c59b0cfc92fed029c72b31312d9e6115df4e87c5a",
+        "word/media/image31.png": "8a1f9844340621032052759abfaeddb5a522a69625c5ca044bd40f4799a0dcc8",
+        "word/media/image32.png": "6ea889f038d1c5d2222a03a8cc48addf44dae756bb6b05d672f4d60ec94ed942",
+        "word/media/image33.png": "05517736468e1cf388b54678c549bcbb79a12022971118eae725c91fdf8a09ae",
+        "word/media/image34.png": "6ce630f3c1741fd29a7e658ddad313adf88d8fe59b19b403717dff8271bb912c",
+        "word/media/image35.png": "340eb1e396dad8baa59109ddb925899d11c5648c2c75f49ac7220e466c554073",
+        "word/media/image36.png": "6ef219766f1c690cf3d615fb4c8a2af9aa0cdb36432a553c28331db954c224c8",
+        "word/media/image37.png": "3d02793c2e2221b758f96e2b2fb8d9d920e14937ae8ccb9b8b2d9bb441570686",
+        "word/media/image38.png": "3976a8b1e966657d4b61b78a182bf02479a57bc0f9045407a4fa681acd6b6ad9",
+        "word/media/image39.png": "73592e6dbe4a392328627d628c54e6bc9b46af0e93c6e4fbac44b8487e21ea40",
+        "word/media/image40.png": "ca5847a49bce13ee164eda38be69f10247d73b5240860f6cf5e1d73b6ae9ff25",
+        "word/media/image41.png": "01916378faac5b4e0d63e4a4609da11b90ce2250789f3e260d28ca6bbea70247",
+        "word/media/image42.png": "8dd79aac6f8d088d39f622382b689461e1b250e09158597a9f4327df95ef63ee",
+        "word/media/image43.png": "22ca2278df49559bb16e1d15171f7d3cfd4eec136d97086e9dbf5652f9df5cd3",
+        "word/media/image44.png": "430547fb24ff7164c384653a27c11c727eaca2c3341e70324c902c57fe4124ac",
+        "word/media/image45.png": "d997eb69546fd5c4c92e9ed97c29f80af345ce82dfb08d2a08567d6ee54dd72f",
+        "word/media/image46.png": "11cc49dd9f3ad4efb84d8539bcf8b0ba34e91cb3e36ad3e934889ece2243ba42",
+        "word/media/image47.png": "28b5352c0cefe3febac1e31803b021ec242d93c7f30335522fcd355105fea2a0",
+        "word/media/image48.png": "e2f54991894f779734ed616a41a6947615095548860d314c9160b2deb6b37301",
+        "word/media/image49.png": "474533199868946996151ff3bcf8907cdb0d69b1341dda2406d5eeab4d52f5ac",
+        "word/media/image50.png": "4a509cb17fbde5f91b6ebfa517884a8b3e0cdaaf53bb1e7e695ea2ca6ec133a9",
+        "word/media/image51.png": "fe4e1ac1488b8c62a0f79c35a705dc32f75ca46a95c88075b9edeaff1ebaaa5d",
+        "word/media/image52.png": "4c6c51f9d3e2fccc091f3e7d78631e128d935a0fa829b748629482a710d50dd8",
+        "word/media/image53.png": "89739cd4703e0b2e26d3879b2e186dfd6a24be792de38a905e4568a8a024bee6",
+        "word/media/image54.png": "04841d29b646a3189350d383daba4ade17019c523f615c1397f73446c56a4e00",
+        "word/media/image55.png": "294a5be09a84cf9ddca7a774411dfe27d2d18d8262f3499ba1691b62fc1bbabe",
+        "word/media/image56.png": "59271f958baf84fb8094c99501d1f0e8cc4be84be28608c7c1bfa9dcf97b1a69",
+        "word/media/image57.png": "ef7d1efede4e96dd59200f1c98bef2c173cdd00d6baee1e2b526b1d02c419003",
+        "word/media/image58.png": "02522ccf63413461c96456b2144998e9cc3503240ec7b3b456b9c377f224335a",
+        "word/media/image59.png": "46ae96197c1eeb5e624cfa0150157d3f2f18c2495a0674b3173f0a2b69ca5dba",
+        "word/media/image60.png": "722d0cb0526ff8347177f579ec56044804311b9506c6080caef395e383a08eae",
+        "word/media/image61.png": "ac19e635faf3f58e200ae9bba149e708fc2f7b70bca5664bede568b35fae5c96",
+        "word/media/image62.png": "e1da7c79774953b53a6f3b74b2b053a62c5485503e929e3cb795b01a8d328246",
+        "word/document.xml": "a0dc0740bd84ebb3c95e5752057cb26ef204d0eab99d5ab178293710b4e38f62",
+        "word/styles.xml": "563a9f54e241a61d3002fe81de86fa860eaa4378d879c578d4bc911581166fb4",
+        "word/media/brand.svg": "dfbf5bd1655003410292f89df6cc23a1a9bf1bd55568cd5c12582d6589db90b0",
+        "word/media/brand.png": "eb911340cc01259fc673d0e07f7d81cc1d199d3b9cc440ca736e4fced3412971",
+        "word/header.xml": "bd14065387e087162a1e225589112fa83b10bf58d4ce784d0d254b36c84535ba",
+        "word/_rels/header.xml.rels": "b21f22df7b597ec3098206600257eb11b73bd6a8a837a87096e0ce09eab84837",
+        "word/footer.xml": "6014dd48ec9dcfa2fe8d79662e5b5ffb9f4ce9e0375b1d8accd5739b56c01955",
+        "word/settings.xml": "bb2779a9ea2c2e23842b16ea0ac4323db39bcc909845ca918a5fc0ea3b0e06f9",
+        "word/_rels/document.xml.rels": "ed3546808610584307f978be113b903b17979ce99d7b6362d4bf704c79c618fd",
+        "_rels/.rels": "898a5c8825b854468e52e3df49ce990cb503c32eef87b07b36556e6389f77e39",
+        "[Content_Types].xml": "4fe29a474c3b4b51eb102ed30b1de0b433545150fa4842c0667ca9d38f279b80"
+      },
+      "retainedContainerSha256": "37db2e6fabcba2a160a96e697362346624243c1fda0b7d6f07261dd064ac5248"
+    },
+    "nuget": {
+      "retired": "artifacts/validation/fonts-20261024/ilgpu.1.5.3.nupkg",
+      "retained": "/Users/starlab/.nuget/packages/ilgpu/1.5.3/ilgpu.1.5.3.nupkg",
+      "sha256": "6f9df49005c861c5b31083e7ba58656f19abb85b45b86b175ade5a7b5beba35d"
+    },
+    "truncatedDownloads": [
+      {
+        "path": "artifacts/validation/fonts-20261024/SourceHanSansSC-Bold.otf",
+        "bytes": 3557349,
+        "requiredTableEnd": 16963428,
+        "sha256": "1a7b6a550433d7933f08a55bde1a3b2b7878608e07dc8e6b203e2b54bec6f108"
+      },
+      {
+        "path": "artifacts/validation/fonts-20261024/SourceHanSansSC-Bold-cdn.otf",
+        "bytes": 3558431,
+        "requiredTableEnd": 16963428,
+        "sha256": "b2643c8017ed0a6873ab2f64da3d5fd378b4902a26690a699bfa88146b037acf"
+      }
+    ],
+    "completeFont": {
+      "path": "src/OpticalSystemDesign.App/Assets/Fonts/Typography/Cjk/SourceHanSansSC-Bold.otf",
+      "sha256": "df2b90f5bcc6d01dfc964cec5f6d535d6b6aebd26ed7fd79a9c1b3f2112fcb6b"
+    }
+  },
+  "retainedStageImages": [
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/pdf/page-6.png",
+      "reason": "protected_existing_reference",
+      "sha256": "a8be053b8b847cdc264b517071d4f091cbf67d5786e4aec7ba8b0a4ff9a14618"
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/pdf/page-7.png",
+      "reason": "protected_existing_reference",
+      "sha256": "ca7e27a0975196f9607ff31319005bc0943d519f8478fa807cd38be1f8de4d2b"
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/pdf/page-8.png",
+      "reason": "protected_existing_reference",
+      "sha256": "5eae04b89fd74963e4fe9a1397a4e066a79ecfa3f5dce76a7709ffc71bc978d1"
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/pdf-page-69.png",
+      "reason": "protected_existing_reference",
+      "sha256": "682fe9d2a232c9eb3a106c0da5eb5d61a9e20703863d40aa4be72898d51c26ff"
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/pdf-page-75.png",
+      "reason": "protected_existing_reference",
+      "sha256": "d263147819b2fc51ba84349332a06cc3af5aee24b28038013587f3d73d1e4cc3"
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/word-page-75.png",
+      "reason": "protected_existing_reference",
+      "sha256": "86782882c4137f4c3b2f8392f62842c45f02300c3464b5601da04e0a97027f25"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/Huygens-MTF.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "2a569da9995a40a837dbbeba1a5947ba96ef0ee51254d84ca5736d09aaca334f"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/TwoDimensional-OpticalLayout.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "862c409824dd0a7a36a1dc2c3283d2f93fe7e2a5e44a8f1a0d584b43f9349a02"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-parchment/previews/Huygens-MTF.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "dff1406a91de1f2fc20343bae4c6ea1361a8c73c4322d81a701d7be12994d143"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-parchment/previews/TwoDimensional-OpticalLayout.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "571131a30b6db15af40e4441acdb9ecef17e7e8bfdb280ea77732ee8b901ab3f"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/Huygens-MTF.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "1c9d29074fe0dee0b874d0a0963d9d881e2f7b46bb5f226c6fa419270b96a35e"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/TwoDimensional-OpticalLayout.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "abd9f75c3957f0bd164e6f473a8211d2fde1e54714fd4c7d393d614a2b943e48"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/Huygens-MTF.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "0e1c7baf0d607511594c9fac734086706e0b3de407eec6913076bb5e90b0aa30"
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/TwoDimensional-OpticalLayout.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "9bc0e941f9073a27fe0cdfb0279a9ad0912bc4f85e4615f3698606ed3f5c2a79"
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/Huygens-MTF.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "1301c79a70c6c623b55013934463c3581fccb4b59b37ffb8a78b51ad3612b5c0"
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/workbench/workbench-1600-13.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "c5a178ef024927530a225d6f5d4e2785ba42ed433f241998b1fd56bb29d660da"
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-folio-rails/previews/Huygens-MTF-live.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "ca70a898920c52d9df0879c61a1bd659cc26699741f6a863c68f9f15b58baea8"
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-folio-rails/workbench/workbench-1600-13.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "1269bea427d1b98e0a65cf326ae450b8607eddbf070bd004ad141a7dbc0409c7"
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/Spot-Diagram-Pixel-after-failure.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "7f63831ab9ba6badae71012337d04d9198fd16e4e4be704d8ec4523555b30de2"
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/Spot-Diagram-Pixel-before-failure.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "930abdac2fede587654722b7203ff0dc5b91c3ed7ebbaa86ce6fab92cf694b24"
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/previews/Dark-after-failure.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "1e8c7d1780ae0a91bb190ccb88a364060e1991b118864295d3bf534f301c0d22"
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/previews/Dark-before-failure.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "90a58e6e44d9d0efff8ffd8c8e75058e067d201e70a46a8cc26d5b4959d8dacf"
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/previews/Huygens-MTF-live.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "8c7c9bf1d336149e53e5f2baf55bdcf9ed26cca34fded0f87508daee7defcef3"
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/previews/Huygens-MTF-source.png",
+      "reason": "representative_or_unique_failure",
+      "sha256": "643de347eecf3e3f8efd787b32dc8258a39cc34ddb1db6eb9961f87e53b6938d"
+    }
+  ],
+  "deletedFilesLedger": [
+    {
+      "path": "artifacts/code-audit/2026-09-27/probe/bin/Release/net10.0/OptilandWorkbench.Application.dll",
+      "reason": "rebuildable_historical_audit_binary",
+      "sha256": "16a382c8714212a9ef4f8656ef68336980c26ea6a6480cb1a4edb17c8d906827",
+      "bytes": 895488,
+      "allocatedBytes": 897024,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/code-audit/2026-09-27/probe/bin/Release/net10.0/OptilandWorkbench.Application.pdb",
+      "reason": "rebuildable_historical_audit_binary",
+      "sha256": "4774f004b3516ca284aded7d3be02c5fbd4662a8763c88bee57b0e516ec6b3d2",
+      "bytes": 159424,
+      "allocatedBytes": 159744,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/code-audit/2026-09-27/probe/bin/Release/net10.0/OptilandWorkbench.Core.dll",
+      "reason": "rebuildable_historical_audit_binary",
+      "sha256": "9a40e784e567244c1839b73a625dc771882b3b72cba82ac80ba0e163fd57a3fc",
+      "bytes": 4768768,
+      "allocatedBytes": 4771840,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/code-audit/2026-09-27/probe/bin/Release/net10.0/OptilandWorkbench.Core.pdb",
+      "reason": "rebuildable_historical_audit_binary",
+      "sha256": "908bcee2f047415d7df495a534c6e571736840e16c55da475631741980281207",
+      "bytes": 464104,
+      "allocatedBytes": 466944,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/code-audit/2026-09-27/probe/bin/Release/net10.0/OptilandWorkbench.Tests.dll",
+      "reason": "rebuildable_historical_audit_binary",
+      "sha256": "c2eefc1a394048c8fab1800b238f45410e746e980ae051807f8616cf298aac2f",
+      "bytes": 37888,
+      "allocatedBytes": 40960,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/code-audit/2026-09-27/probe/bin/Release/net10.0/OptilandWorkbench.Tests.pdb",
+      "reason": "rebuildable_historical_audit_binary",
+      "sha256": "f95c128a86caa7e5831f60281f9c6b065fdcdea1958cde41e0d72b79a119ff7b",
+      "bytes": 23540,
+      "allocatedBytes": 24576,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/previews/font-comparison-20261023/Fonts/DMSans.ttf",
+      "reason": "retired_ui_specimen_font_dependency",
+      "sha256": "8cd08d97e89c24d0aa92edd2f0f4c8ee6195eee9b7c9f154865a58b02f0c1c0d",
+      "bytes": 240164,
+      "allocatedBytes": 241664,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/previews/font-comparison-20261023/Fonts/JetBrainsMono-Regular.ttf",
+      "reason": "retired_ui_specimen_font_dependency",
+      "sha256": "e6fd0d7e91550b3ed2b735d4312474362c4716edc4fc0577a0f61ed782d5aed1",
+      "bytes": 270224,
+      "allocatedBytes": 270336,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/previews/font-comparison-20261023/Fonts/SourceHanSansSC-Regular.otf",
+      "reason": "retired_ui_specimen_font_dependency",
+      "sha256": "f1d8611151880c6c336aabeac4640ef434fa13cbfbf1ffe82d0a71b2a5637256",
+      "bytes": 16529832,
+      "allocatedBytes": 16531456,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/previews/font-comparison-20261023/Fonts/SourceHanSerifSC-Regular.otf",
+      "reason": "retired_ui_specimen_font_dependency",
+      "sha256": "78aa7a328fd974df2d688c8a9fd74a33d8334dfa84ab24d9d11efb2ffc464117",
+      "bytes": 24543332,
+      "allocatedBytes": 24547328,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/SourceHanSansSC-Bold-cdn.otf",
+      "reason": "incomplete_font_download",
+      "sha256": "b2643c8017ed0a6873ab2f64da3d5fd378b4902a26690a699bfa88146b037acf",
+      "bytes": 3558431,
+      "allocatedBytes": 3559424,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/SourceHanSansSC-Bold.otf",
+      "reason": "incomplete_font_download",
+      "sha256": "1a7b6a550433d7933f08a55bde1a3b2b7878608e07dc8e6b203e2b54bec6f108",
+      "bytes": 3557349,
+      "allocatedBytes": 3559424,
+      "tracked": false
+    },
+    {
+      "path": "artifacts/validation/fonts-20261024/ilgpu.1.5.3.nupkg",
+      "reason": "verified_package_download_duplicate",
+      "sha256": "6f9df49005c861c5b31083e7ba58656f19abb85b45b86b175ade5a7b5beba35d",
+      "bytes": 5482886,
+      "allocatedBytes": 5484544,
+      "tracked": false
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/pdf/page-2.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "b79d724684d0ff963b093f0c487b4b95a2126782e6c4462a7c3eb67fe3327aeb",
+      "bytes": 74995,
+      "allocatedBytes": 77824,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/pdf/page-3.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "43cee14bdbea718c8a72468c06dd4fa6227cf86f614328759640427fa96d3e8b",
+      "bytes": 94761,
+      "allocatedBytes": 98304,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/pdf/page-4.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "6ba6a9524b43f36a41a5d19fa42754d46589469c858b2d1549487d629be26caa",
+      "bytes": 110534,
+      "allocatedBytes": 110592,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/pdf/page-5.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "0b4d6a0db8e1e5f78279ce48b1ee598a2681037a76a39145c7245a42298e624b",
+      "bytes": 214725,
+      "allocatedBytes": 217088,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-02.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "4ba5d3416ea552c5d57ce27382f6fa875433635155f1c89ad1877a6b4a9e84c2",
+      "bytes": 122960,
+      "allocatedBytes": 126976,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-03.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "04251db548c0718d26ff9685f5318396c94331d8a395177cd420a415ec61647e",
+      "bytes": 105170,
+      "allocatedBytes": 106496,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-04.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "d10a606d17fe32e5d6cd6adb93fb7d33b7673dda8319e45eadcdd0aafa68abac",
+      "bytes": 174624,
+      "allocatedBytes": 176128,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-05.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "407d5dd47125fa1749d6a917cafc9816f0d5d267dc201b5c68f0b9a3350c1c32",
+      "bytes": 261044,
+      "allocatedBytes": 262144,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-06.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "49efe154b163382e9f2c6a86380b0960c480e934c5d5a2a408518b45221df9e2",
+      "bytes": 93985,
+      "allocatedBytes": 94208,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-07.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "78c02b26f2f7c2f6856a37c2ce5005811cf4a931701a0aacb8705ce24c186a97",
+      "bytes": 133620,
+      "allocatedBytes": 135168,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-08.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "cfc7b05b967402ceffb6b348b54fc8d8d82b88b468f97138f4c6d8f442c0ed7e",
+      "bytes": 39416,
+      "allocatedBytes": 40960,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-09.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "763bd975a65695c0f9b9c1dabb9aa58124a37fd993100a6eb04ede9c8e10cadc",
+      "bytes": 97618,
+      "allocatedBytes": 98304,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-10.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "ae4f66b70aaca97d3ec9292ffd3310f5c9834b7d172941eb09d1800bf5fa3726",
+      "bytes": 58854,
+      "allocatedBytes": 61440,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-11.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "88376e24ff341a2bd7fca056a6f2f965e994c92f7b53642221be4c164acbe285",
+      "bytes": 84761,
+      "allocatedBytes": 86016,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-12.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "c36d5bb9348c70419943aa0bbcee100e9d55f22e552e1f7a006afc83ca3cdb51",
+      "bytes": 105896,
+      "allocatedBytes": 106496,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-13.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "d524d163bc855ac1800eafb36064025354495eb55dc9afed80dc9c75368742ff",
+      "bytes": 76759,
+      "allocatedBytes": 77824,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-14.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "00ebc8430fe0290ef23b127f145df19763d753db4f088ccad0376131701400f1",
+      "bytes": 116755,
+      "allocatedBytes": 118784,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-15.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "2865378490859cbeb0bd4e378fecd635acfc87b2182a956645c2665d67399bf1",
+      "bytes": 162213,
+      "allocatedBytes": 163840,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-16.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "2566ca769c842a323d163c03b9ab3a64a0cbb61acbf6e96afd2baf7632ac2e50",
+      "bytes": 125759,
+      "allocatedBytes": 126976,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-17.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "c36cc2e11e8d7f43f8e7d388a9e00cc7e1de2742948f217f02e9ba3f99b94c0e",
+      "bytes": 139752,
+      "allocatedBytes": 143360,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-18.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "9c2643e7cdb272031bd857153a81e5b3b2d25fcd88e21d46e899e725d3140a1f",
+      "bytes": 128020,
+      "allocatedBytes": 131072,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-19.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "0bbfab77a30d16e962826c72fbc0b742104443f9529263edafc82ba4edc4fa46",
+      "bytes": 93300,
+      "allocatedBytes": 94208,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-20.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "ca7a28c0369e66f53f969c1e5f10720ddc6cadb232ede8d1f15322c6397d4062",
+      "bytes": 74495,
+      "allocatedBytes": 77824,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-21.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "9d9fda0062f013f4a11307e0a273574ded46dc52ff5db803c8bf8bb5859676d3",
+      "bytes": 100019,
+      "allocatedBytes": 102400,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-22.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "7ac025d9e3a23563da75c177d9875473737ff77dab51e66913417a87a859598d",
+      "bytes": 144673,
+      "allocatedBytes": 147456,
+      "tracked": true
+    },
+    {
+      "path": "output/gauss28-four-formats-20261030_153352/qa/word/page-23.png",
+      "reason": "historical_report_page_raster_with_retained_pdf",
+      "sha256": "bcd39840cc1030a82ceb483b685e52d811c068edeb92afb29187d01730726dbf",
+      "bytes": 76812,
+      "allocatedBytes": 77824,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/pdf-page-02.png",
+      "reason": "report_page_raster_with_retained_full_pdf",
+      "sha256": "d9cc23d330dc30bc67a10364c784f0cc3abd0ebff26f4c2c3af699bb438e486e",
+      "bytes": 52726,
+      "allocatedBytes": 53248,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/pdf-page-05.png",
+      "reason": "report_page_raster_with_retained_full_pdf",
+      "sha256": "dd255b572f4b52718cb7269149eae5360e1b7db76b5427bb11468826de86a23d",
+      "bytes": 43390,
+      "allocatedBytes": 45056,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/pdf-page-10.png",
+      "reason": "report_page_raster_with_retained_full_pdf",
+      "sha256": "502079f538e3a794a26fbb2ce6d7bcbba4d616bba34fb845bd6589c30064e73e",
+      "bytes": 74072,
+      "allocatedBytes": 77824,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/pdf-page-70.png",
+      "reason": "report_page_raster_with_retained_full_pdf",
+      "sha256": "7017347f62b75742bdeaa9e3997788d15a8bccd9d6e58e9b6d260a660ff74149",
+      "bytes": 98044,
+      "allocatedBytes": 98304,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/pdf-page-72.png",
+      "reason": "report_page_raster_with_retained_full_pdf",
+      "sha256": "56e13a572b33e576d02084e7afa587b1320f7604f77b706584d72ed3ccbe37be",
+      "bytes": 90358,
+      "allocatedBytes": 94208,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/word-page-02.png",
+      "reason": "report_page_raster_with_retained_full_pdf",
+      "sha256": "ac72425ffaab56b0b03f8880d93cbd507892eb432323c9439a0a911d377c96b4",
+      "bytes": 60988,
+      "allocatedBytes": 61440,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/word-page-05.png",
+      "reason": "report_page_raster_with_retained_full_pdf",
+      "sha256": "2fedc47903057c549a8becae31c6cd06718523203c9aaa8a04ea6d105681f1cd",
+      "bytes": 44506,
+      "allocatedBytes": 45056,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/word-page-10.png",
+      "reason": "report_page_raster_with_retained_full_pdf",
+      "sha256": "d7a53d594575dfe5bf5bccfb278fb1c5040d35410d02b856da5dbe5674f6d888",
+      "bytes": 75986,
+      "allocatedBytes": 77824,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/word-page-69.png",
+      "reason": "report_page_raster_with_retained_full_pdf",
+      "sha256": "9a1fb9951af982aea3e3e83b151060a9c3b138e88a536f1f421bb9c1ee97c60a",
+      "bytes": 88787,
+      "allocatedBytes": 90112,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/word-page-70.png",
+      "reason": "report_page_raster_with_retained_full_pdf",
+      "sha256": "d66b3f8826bf2b969fe6366705b7aaa78070c2261cd9ae7778699dd6b3761ffd",
+      "bytes": 100025,
+      "allocatedBytes": 102400,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/word-page-72.png",
+      "reason": "report_page_raster_with_retained_full_pdf",
+      "sha256": "b9e884bc1147090df0fa802097177edbf43bc83da7fcb0eb7f417f150f2067f2",
+      "bytes": 92946,
+      "allocatedBytes": 94208,
+      "tracked": true
+    },
+    {
+      "path": "output/report-style-gauss28-20261102/qa/word-source.docx",
+      "reason": "verified_docx_entry_duplicate",
+      "sha256": "2922d511a2224441bf28274d72a1510394caff2896ce26f446b4bb0086c9fbd8",
+      "bytes": 11958604,
+      "allocatedBytes": 11960320,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/Huygens-MTF-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "56b10c179d7be2431a8c387519db8e6376a64fc941068a573b716c8ac2552974",
+      "bytes": 2198084,
+      "allocatedBytes": 2199552,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/Huygens-MTF-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "5dd53942a15389da39779ad4d8269655adfd0067cd4328a7cbc58ce64b7d982b",
+      "bytes": 1669043,
+      "allocatedBytes": 1671168,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/Spot-Diagram-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "8fdb47a57e308c95673c8ecad47cb21a4f42633740204c652366f8715bfd067e",
+      "bytes": 2150027,
+      "allocatedBytes": 2150400,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/Spot-Diagram-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "03d511905dbaeb17be85d18bbaf2da69864f15037b9952c235fecf930dc817d0",
+      "bytes": 1621250,
+      "allocatedBytes": 1622016,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/Spot-Diagram.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "faab815b5a5582ad9c3a0e0ea52628887bc02d235936ee7a014dea698a01d4f5",
+      "bytes": 1716749,
+      "allocatedBytes": 1720320,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/ThreeDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "ab1c3b9c6c272b416d6d5debe0c693657df01a3ba7ae8a34523cf85f6c125135",
+      "bytes": 1626303,
+      "allocatedBytes": 1630208,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/ThreeDimensional-OpticalLayout.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "9b875423bd5116b7d7a28dca525245586698dcde9f16c4570f98e334ea1e6ca5",
+      "bytes": 1844960,
+      "allocatedBytes": 1847296,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/ThreeDimensional-SolidModel-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "b99916663e3a01e2b3a697896364fff1f89295faa1a979595bba283097fb3564",
+      "bytes": 1651126,
+      "allocatedBytes": 1654784,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/ThreeDimensional-SolidModel.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "defdc8101dbca6cceec09e927881ebc694859f6809c08db24ac85f50fb7da242",
+      "bytes": 1739736,
+      "allocatedBytes": 1740800,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/TwoDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "14b6b07f336894b27cb2b286b45ee96d073f12100b5a05b7719bf186e9cc23c8",
+      "bytes": 1706805,
+      "allocatedBytes": 1708032,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/Wavefront-Map-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "94263095902d3db5311f6c14c19666353b4a0c0cc09d6e5c01bb06ae1792efca",
+      "bytes": 2256567,
+      "allocatedBytes": 2256896,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/Wavefront-Map-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "d848621b4b9578da3b0126ec132c3bc01bc744a0b024d2d4295fe4d8ade77ab2",
+      "bytes": 1713905,
+      "allocatedBytes": 1716224,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-inner-ornament/previews/Wavefront-Map.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "03ebf702d151b678574e316d0b2ffcfaf8298471d9d9193227d9dace70cc8bc1",
+      "bytes": 1803896,
+      "allocatedBytes": 1806336,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-parchment/previews/Spot-Diagram.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "26d7646ed7c7af3f8f7c204f553ebfb5f6e352ae491b66b028f223a41da915b1",
+      "bytes": 365123,
+      "allocatedBytes": 368640,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-parchment/previews/ThreeDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "0eaae2bc00b44f2ca71930cd491d68b519190069434fa59245a153f2d4ffe5f6",
+      "bytes": 404480,
+      "allocatedBytes": 405504,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-parchment/previews/ThreeDimensional-OpticalLayout.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "1b951c03cbab0ebff6183c76a138413475925fa993f9156a706c1b7235ea035d",
+      "bytes": 400431,
+      "allocatedBytes": 401408,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-parchment/previews/ThreeDimensional-SolidModel-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "10222646a3c06291d3cca70063c21e526e08c92a06872ef223d0e8a234fb149a",
+      "bytes": 510226,
+      "allocatedBytes": 512000,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-parchment/previews/ThreeDimensional-SolidModel.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "118d2ea9e5786b1ae006035ce4fdf25d6808cd8e09aa0da8118bb2df5f87b01e",
+      "bytes": 502018,
+      "allocatedBytes": 503808,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-parchment/previews/TwoDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "23b9acafcaea5bf34854330f4eae70056e3a6bc276f2e5d217d31f613f0c3c9d",
+      "bytes": 464252,
+      "allocatedBytes": 466944,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-parchment/previews/Wavefront-Map.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "87848b4e5c373da2667520465f879a5f2c9c2f20530152bfaa4e40ca3bd67303",
+      "bytes": 528784,
+      "allocatedBytes": 532480,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/Huygens-MTF-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "6e531b380d2a9bb408d46c7d735b0edc3613370625b650e6e13f9c424e612d1b",
+      "bytes": 2668920,
+      "allocatedBytes": 2670592,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/Huygens-MTF-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "d3d65311f51942720264db26e184a6f87ca8cc978a1a9d18a19fad02450fb4c5",
+      "bytes": 2068623,
+      "allocatedBytes": 2072576,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/Spot-Diagram-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "5d8a41f08de75d8c398edf22cc9ebeee4b89ed6c920b913b1f1533da17b98a3c",
+      "bytes": 2630258,
+      "allocatedBytes": 2633728,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/Spot-Diagram-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "a948441d7ce23690c3d06e0feeb312de554e55c5133a7c8d1dda46b094c3def7",
+      "bytes": 2035892,
+      "allocatedBytes": 2039808,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/Spot-Diagram.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "218db27e0a11ad834cdfa18107a7fb9e50d6c90e4e4c27ada6b568e17eac9108",
+      "bytes": 2552626,
+      "allocatedBytes": 2555904,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/ThreeDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "98bcb77470d9516521d2ef21adace25178f9a2045eb0508151764838b712647f",
+      "bytes": 1928059,
+      "allocatedBytes": 1929216,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/ThreeDimensional-OpticalLayout.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "01226eb70ec6f2e772eeaa69b54c92d3bf87ce3296f859a6b4e046ba561368e9",
+      "bytes": 2621149,
+      "allocatedBytes": 2621440,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/ThreeDimensional-SolidModel-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "28b67fbb92af206c9b16f885ae88122652a40ad076bc4f5896a47837c2bc5f0b",
+      "bytes": 2027597,
+      "allocatedBytes": 2031616,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/ThreeDimensional-SolidModel.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "7585a0d5277a2696a229f7f73b7b210089b92a91368544b4ba0af2ba7b980727",
+      "bytes": 2112516,
+      "allocatedBytes": 2113536,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/TwoDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "77a49583682385aeb5119a2b48172835bc722435e0123821432f0667e4ee49d8",
+      "bytes": 2004362,
+      "allocatedBytes": 2007040,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/Wavefront-Map-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "af8aa5a677bc28a3c5d6d0c0bfbc94e2631b7b537ff09d6444b9cda5b249c822",
+      "bytes": 2688725,
+      "allocatedBytes": 2691072,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/Wavefront-Map-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "f5189af8606f8abde7fca529a977c93f863247cdf2dc4a20d7ba43614d830c25",
+      "bytes": 2085561,
+      "allocatedBytes": 2088960,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rich-frame/previews/Wavefront-Map.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "0ed870c4de0b2b2d090b517e52316b7a5948f5c194790b151c35cde09db8689c",
+      "bytes": 2610939,
+      "allocatedBytes": 2613248,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/Huygens-MTF-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "d27b3e51449c6965a6fc1f55efa310d2713e7a7883f275a017af029964c073fa",
+      "bytes": 2207421,
+      "allocatedBytes": 2207744,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/Huygens-MTF-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "fba7759a54a96df746dce1b27219987585433b2d53be41289656fac06c10d8b0",
+      "bytes": 1676967,
+      "allocatedBytes": 1679360,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/Spot-Diagram-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "ea29b525f4f36196b88ad0177bad6654bb57f8308ad1066ed8e166af142033db",
+      "bytes": 2161214,
+      "allocatedBytes": 2162688,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/Spot-Diagram-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "4fb9a702c29b578b2e00d6fc2e30c9f418231907f900afa88aa8f127ec7edfa3",
+      "bytes": 1631886,
+      "allocatedBytes": 1634304,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/Spot-Diagram.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "bb1a9360c06b4039bae011efebaacd9001e000965dab95d5a74338bf548273db",
+      "bytes": 1725445,
+      "allocatedBytes": 1728512,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/ThreeDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "3b7385a6786bf2b3f8faa3586fbddd9eba261d701d753e266d44181589e15a85",
+      "bytes": 1615872,
+      "allocatedBytes": 1617920,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/ThreeDimensional-OpticalLayout.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "fb224b327c2cdce6b8754d6808357055d4a790177fc7bbceb70184acbccb3eed",
+      "bytes": 1833836,
+      "allocatedBytes": 1835008,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/ThreeDimensional-SolidModel-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "9fa4511ae124e7e34ababb0f8a5db725273cb57dfc6a7ad810ed58c5ceec6700",
+      "bytes": 1644030,
+      "allocatedBytes": 1646592,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/ThreeDimensional-SolidModel.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "516b3e2a65d94c1121d2c2207cc14eedd18b1f6fcf3ebcfc7bea4c1c06b53717",
+      "bytes": 1732415,
+      "allocatedBytes": 1732608,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/TwoDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "bb979412679d7904afb98969278b92fad3be42896877cd3d0ed81a72ee3efe26",
+      "bytes": 1696168,
+      "allocatedBytes": 1699840,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/Wavefront-Map-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "2afb09a3b815522aa2fdcbc7ff15bb4bcf06d1677dd3db63c7f64b4a04d7eeca",
+      "bytes": 2240979,
+      "allocatedBytes": 2244608,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/Wavefront-Map-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "f59e9de301ae84e4e2eabfa8273fdcdcf42212098d9dbdadf2ae087b34be2582",
+      "bytes": 1706211,
+      "allocatedBytes": 1708032,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-03/isekai-rounded-border/previews/Wavefront-Map.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "1ab3c590cef8b6104da7ad49d7d1ead7bfb986912954dfa7a7cdcdce8b397cee",
+      "bytes": 1794419,
+      "allocatedBytes": 1798144,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/exports/Cardinal-840x620-13.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "caf5a5399cebdc4a654c791ef0f7c2dc7c6d3891dd852929fc6818c1aeb78d9a",
+      "bytes": 67469,
+      "allocatedBytes": 69632,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/exports/Standard-legend-hidden.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "a6c0607b0ebbd13a0f69a3851ca0e4e0ab98d4ecd3691cb07a8553824fccbec3",
+      "bytes": 46343,
+      "allocatedBytes": 49152,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/exports/Standard-legend-shown.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "4167b42a3fda6f44105139cc505eace41c142681d2f16c67080b3193be11e5ba",
+      "bytes": 81649,
+      "allocatedBytes": 81920,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/Huygens-MTF-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "57922334f25b05210718e3f7ea9c990039c101af82ca75c8fcafe49f9362f3cf",
+      "bytes": 1827035,
+      "allocatedBytes": 1830912,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/Huygens-MTF-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "be120a8b20e095e849d9cc48aa9c8dc5f0fd3514ae6340994ba907a30881b922",
+      "bytes": 1460559,
+      "allocatedBytes": 1462272,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/Spot-Diagram-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "2e446d66e5e1d3b1261be430ed385e47a43e319230492c9e4d62e47dae0504ae",
+      "bytes": 1749004,
+      "allocatedBytes": 1753088,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/Spot-Diagram-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "d4e0189de27a48206da5a9704640e8196834f84d91a5f0e95189dca5d390eb9f",
+      "bytes": 1401182,
+      "allocatedBytes": 1404928,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/Spot-Diagram.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "033167713fb155ecc12d7bab4c095ccbc6f925a6a02e3d52acb8ca4aa50e44a6",
+      "bytes": 1422283,
+      "allocatedBytes": 1425408,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/ThreeDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "2e643d0de6294093a03475714d2282b5b61d30da08f86cf9726b0516531c0ae4",
+      "bytes": 1329305,
+      "allocatedBytes": 1331200,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/ThreeDimensional-OpticalLayout.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "b7908eaffeb61f2c67951924754e20e5200c3c4aa39729d22f6def936ddf0024",
+      "bytes": 1496352,
+      "allocatedBytes": 1499136,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/ThreeDimensional-SolidModel-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "324327d51998ed7a804c6cacd1606d4416b6d4c2c6bf3ccda67b0e9ebd998fc2",
+      "bytes": 1377519,
+      "allocatedBytes": 1380352,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/ThreeDimensional-SolidModel.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "48d387c0937c2060d8d8d90ac470d2a45ccb30ba13653adbc566316a8976289a",
+      "bytes": 1441665,
+      "allocatedBytes": 1441792,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/TwoDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "be24e2c4ac3bf526c9034879d4514ec27754c4953183aaced4890131fa545cc4",
+      "bytes": 1396514,
+      "allocatedBytes": 1396736,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/TwoDimensional-OpticalLayout.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "996e9ff48db25b0272489df548fd873fa945d17a78e2ab29efb94c455bf9a6ce",
+      "bytes": 1534049,
+      "allocatedBytes": 1536000,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/Wavefront-Map-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "c980b615b4b102d028837e8f69b02476be368c49005fb8b6064f43a151cd25e6",
+      "bytes": 1889132,
+      "allocatedBytes": 1892352,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/Wavefront-Map-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "757baf23ae304aab4d63fabf2520db1ff405f0992dedaa5f7d916608f2661378",
+      "bytes": 1512133,
+      "allocatedBytes": 1515520,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/material-checks/Wavefront-Map.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "7d1f5cccb933fa8dd9e1e75f651679004fd6c0cc7a350af702935f627a3a1d9f",
+      "bytes": 1548504,
+      "allocatedBytes": 1552384,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/previews/Huygens-MTF-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "5c9fdac0cf59c910634bc05f24116211b3f8b0a7517bddfec659c6a1487d1a74",
+      "bytes": 1461684,
+      "allocatedBytes": 1462272,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/previews/Huygens-MTF-source.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "a4cb3993c5f48351b2aebb81a4990c1d6e4bad5d71717d697fa84d709ecb900d",
+      "bytes": 1486649,
+      "allocatedBytes": 1486848,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/previews/Huygens-PSF-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "d278fae441a507a5dd3d370fd4fa445dc13cea7d3337532ae297ca3ef8fe119a",
+      "bytes": 1126930,
+      "allocatedBytes": 1130496,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/previews/Huygens-PSF-source.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "d2857454771426668f108a55247b137e015c21ff9b4fbd9fe792adb2ea545e42",
+      "bytes": 1095076,
+      "allocatedBytes": 1097728,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/previews/Spot-Diagram-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "cb518648c951d1685bdbee25e3bc0bcf5a7b2caa57b5e6b6a1aebf53a8959bab",
+      "bytes": 1402459,
+      "allocatedBytes": 1404928,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/previews/Spot-Diagram-source.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "cd398d427d2016c4c477b03de2ed308d0f6f0881a6adaf74ca8d350cf68556c5",
+      "bytes": 1422307,
+      "allocatedBytes": 1425408,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/previews/Wavefront-Map-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "70140a1c0ef9156f733af0064e77a3a707b3c417884dc71b7793799f19f2d1f0",
+      "bytes": 1513246,
+      "allocatedBytes": 1515520,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/previews/Wavefront-Map-source.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "19e2801de13d807e2e260e3cb90ae950ad78038499eb43d0eabea54d00918561",
+      "bytes": 1548475,
+      "allocatedBytes": 1552384,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/workbench/settings-1120-18.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "8f0ec41a9f11f3c15efd28b929b9c46ae3afafcbbb3253a8b4b89d72c8eb55ac",
+      "bytes": 733379,
+      "allocatedBytes": 737280,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/workbench/settings-1600-13.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "71847e9974193467e46878fe3fe5b8bba6e5126951c8fd0a3dbe72c05d68ac78",
+      "bytes": 1262649,
+      "allocatedBytes": 1265664,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-crafted-workbench/workbench/workbench-1120-18.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "a91edde902faca391ea0a058e0dfb845dc897214872b3a6e65293206b2853fd1",
+      "bytes": 826241,
+      "allocatedBytes": 827392,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-folio-rails/previews/Huygens-PSF-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "e6fb8107e6b0efc0ec53948d8cc6c6cb23e223d7082afa79efb01baf1d2294d5",
+      "bytes": 1464363,
+      "allocatedBytes": 1466368,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-folio-rails/previews/Spot-Diagram-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "c37f83ba113bfaceca5914bcb19b25a27d6ec42bc93816b55f33e5dd785a7303",
+      "bytes": 1993340,
+      "allocatedBytes": 1994752,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-folio-rails/previews/Wavefront-Map-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "cc328bddf4e6af1f61b1e39ab44c1c3cd1aa5b4563c281bc0e6fafd1d0da8d5b",
+      "bytes": 2063233,
+      "allocatedBytes": 2064384,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-folio-rails/workbench/settings-1120-18.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "4b142d3922a10b6f4d9cc76d3d9208630c5e25cacbf6d1e522675dbc5a36f5ac",
+      "bytes": 949164,
+      "allocatedBytes": 950272,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-folio-rails/workbench/settings-1600-13.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "5564bda62448351276187f6693c8f66d2587ac32c7694829f962727c25f49fd3",
+      "bytes": 1677526,
+      "allocatedBytes": 1679360,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-folio-rails/workbench/workbench-1120-18.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "02d71498ba27d99cd4b517dfd9f403659734c525af45ae7aa8884ef1be275f4a",
+      "bytes": 1065060,
+      "allocatedBytes": 1069056,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/export-checks/Cardinal-840x620-13.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "f92d9262e0bb67defcedd31a5eb9c59902031bb8eb90df674b7fcc14bd2d98c0",
+      "bytes": 67410,
+      "allocatedBytes": 69632,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/export-checks/Standard-legend-hidden.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "36eef431eced913fb5bd8359f5774250737ae1d543422dd41af27f72113c43a0",
+      "bytes": 46230,
+      "allocatedBytes": 49152,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/export-checks/Standard-legend-shown.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "2ebed3aa460fa24b92b7586784693f7d4ca03ab2d2983280cb31f6224e6ab9a7",
+      "bytes": 81534,
+      "allocatedBytes": 81920,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/export-checks/toolbar-FftPsf-840x620.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "f9821ae8e46006fc85f44fedb9ef5dbb599283b1967dc3962382cabf4d7203a9",
+      "bytes": 56243,
+      "allocatedBytes": 57344,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/export-checks/toolbar-SpotDiagram-840x620.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "425b77d0443d4bd4747a65580782af1d92009e8e27751ba751d89d6130a1fcce",
+      "bytes": 53005,
+      "allocatedBytes": 53248,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/export-checks/toolbar-Standard-420x280.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "40e18aa113cfd518ecfb7981620d788820d9bce798a78e0ebd13a3ba8baaff53",
+      "bytes": 18814,
+      "allocatedBytes": 20480,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/export-checks/toolbar-Standard-840x620.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "e3b97b5e79b09c13fe9909c0cffb7b4b0cee68f039afd7b3307b15ceb0af304b",
+      "bytes": 62767,
+      "allocatedBytes": 65536,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/export-checks/toolbar-WavefrontMap-420x280.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "8e636a6ea3544706cba7e7e04bfee91249a21aae824c99128d42e26d15b95fcb",
+      "bytes": 17916,
+      "allocatedBytes": 20480,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/export-checks/toolbar-WavefrontMap-840x620.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "41b7b529982a164283ebe944b1195a832bf8307bc9a432f7332a4f0523c59735",
+      "bytes": 60709,
+      "allocatedBytes": 61440,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/Huygens-MTF-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "7405ab9f3d1da78b4bfc0bf62a80fbbae43b4d88803514c92a2b7104af618e4f",
+      "bytes": 1685969,
+      "allocatedBytes": 1687552,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/Huygens-MTF-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "9bf05b69affbfa8fa8e829eb58242f4773414c569a045f44452c8e3591b37aa7",
+      "bytes": 1298130,
+      "allocatedBytes": 1298432,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/Huygens-MTF.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "1970046d915a19bb723cd8bcf46c2faccc7978482b5df9e168eab753f46db148",
+      "bytes": 1341968,
+      "allocatedBytes": 1343488,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/Spot-Diagram-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "e7bd1ed6ea42a646901d9e57f6cca4ffdaf4248c689f046e836056818ddeb701",
+      "bytes": 1611850,
+      "allocatedBytes": 1613824,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/Spot-Diagram-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "00fe5aa8cf220c7333671956a8f62651e7249a9b53f268cffb8517839dd150a9",
+      "bytes": 1236769,
+      "allocatedBytes": 1236992,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/Spot-Diagram.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "45f8adf8b755aa0a347ac3279c05a24c3f1708e5a7d51433fb96b7cc6c28a1da",
+      "bytes": 1276940,
+      "allocatedBytes": 1277952,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/ThreeDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "9131a96bc378e86fa808b10cb916d7e49a1417005fbea8f1c1197ef76a9cd846",
+      "bytes": 1166503,
+      "allocatedBytes": 1167360,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/ThreeDimensional-OpticalLayout.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "d111cd0d50eda2ae437e024e5a05fe7778d24452e8c958200b4ed14c1a8e4797",
+      "bytes": 1317965,
+      "allocatedBytes": 1318912,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/ThreeDimensional-SolidModel-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "4899563b92ba3b08fb7b832157906cf8fa7df2191df49f1637ee61858819991b",
+      "bytes": 1202440,
+      "allocatedBytes": 1204224,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/ThreeDimensional-SolidModel.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "c39f7ca987325fe7c620b2388864682f6f83db2623b02d70ecb0c6376b316c53",
+      "bytes": 1259643,
+      "allocatedBytes": 1261568,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/TwoDimensional-OpticalLayout-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "cdfa7011f38b65dcb32915951a20f6b960ea4ed16ecc4f662cfbcf182ace1263",
+      "bytes": 1236530,
+      "allocatedBytes": 1236992,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/TwoDimensional-OpticalLayout.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "05ae8d1846d3a23d655c606a40ad279578890a22c0f7875295e896b4d65435a2",
+      "bytes": 1356942,
+      "allocatedBytes": 1359872,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/Wavefront-Map-1080p.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "cbb0fb17e6fa503bb87988f85a238a82f749d8908d66c47e10f59b495c898374",
+      "bytes": 1760477,
+      "allocatedBytes": 1761280,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/Wavefront-Map-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "ac8ffc652834853d2ae7990bed0c6c9828d1c34ce93d82580b1a75d80ce89f67",
+      "bytes": 1360054,
+      "allocatedBytes": 1363968,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/material-checks/Wavefront-Map.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "f918f683da057c516e94fb7666a44beaf326dcd8a768293d513f2f3198a93856",
+      "bytes": 1410536,
+      "allocatedBytes": 1413120,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/previews/Huygens-PSF-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "b3b767a3c116b859a6d184f259da3f10066f328682d45dd3bdb8450c3a05aaea",
+      "bytes": 944732,
+      "allocatedBytes": 946176,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/previews/Huygens-PSF-source.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "81e17a90a81f26bf42894d3b0aef84bc4cd9c6fffea0836f292fa1764f52cc73",
+      "bytes": 952148,
+      "allocatedBytes": 954368,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/previews/Spot-Diagram-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "f5e786be73080bc164f26ba0663e03237ca7693d132e1bbcd21cda17cc41b46a",
+      "bytes": 1237209,
+      "allocatedBytes": 1241088,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/previews/Spot-Diagram-source.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "778dc82a6c7a91e36ac9ab7cd4f9a93a31c290f3ac2586fda1f1cf5ec48e738c",
+      "bytes": 1276955,
+      "allocatedBytes": 1277952,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/previews/Wavefront-Map-live.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "2e8fb92b6bbff34cfc677676eaec7a86baa32fe05b5e5821970a8efe564139eb",
+      "bytes": 1360464,
+      "allocatedBytes": 1363968,
+      "tracked": true
+    },
+    {
+      "path": "validation/rechecks/2026-11-04/isekai-unified-book/previews/Wavefront-Map-source.png",
+      "reason": "superseded_ui_iteration_render",
+      "sha256": "3a1914478848a939581902c9c318d99fbe64acf37b1a78ce1cec19db7bac8732",
+      "bytes": 1410509,
+      "allocatedBytes": 1413120,
+      "tracked": true
+    }
+  ],
+  "nonActions": [
+    "No application was stopped or restarted.",
+    "No code, physical data, current image reference or optical acceptance threshold was changed.",
+    "No commit, push, new render or product test was performed."
+  ],
+  "frozenReference": {
+    "count": 2668,
+    "matched": 2668,
+    "unchanged": true,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10"
+  },
+  "documentation": {
+    "documents": 2012,
+    "brokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0,
+    "strictExitCode": 0,
+    "diffCheckExitCode": 0,
+    "reportSha256": "65273ac472691da826f6def7a970e2b0187a2b8c0094c121f7cd86b48fa15421"
+  },
+  "temporaryInventoryCompaction": {
+    "scope": "Completed task temporary inventories only; gzip round-trip SHA256 verified before unlink. No repository or current validation entry point changed.",
+    "files": [
+      {
+        "original": "/tmp/opticalsystem-cleanup-20261107/plan.json",
+        "retained": "/tmp/opticalsystem-cleanup-20261107/plan.json.gz",
+        "originalSha256": "0404a0e17e66185a0eaab31b907ee66319996923239d02a5b209af7da3d57b70",
+        "originalBytes": 31287029,
+        "archiveBytes": 3890678,
+        "allocatedBytesSaved": 27398144
+      },
+      {
+        "original": "/tmp/opticalsystem-retirement-20261108/confirmed/plan.json",
+        "retained": "/tmp/opticalsystem-retirement-20261108/confirmed/plan.json.gz",
+        "originalSha256": "94ff30d2710f30465d1006410e5afc134701ea122291a180899a3cc5356d35bc",
+        "originalBytes": 24000724,
+        "archiveBytes": 3258973,
+        "allocatedBytesSaved": 20742144
+      },
+      {
+        "original": "/tmp/opticalsystem-retirement-20261108/legacy/plan.json",
+        "retained": "/tmp/opticalsystem-retirement-20261108/legacy/plan.json.gz",
+        "originalSha256": "3b896e30997323059bec8d3e2896c599ce4030e4d68ef0d2421f992c2241ae1d",
+        "originalBytes": 23286722,
+        "archiveBytes": 3199112,
+        "allocatedBytesSaved": 20086784
+      },
+      {
+        "original": "/tmp/opticalsystem-retirement-20261108/legacy-records/plan.json",
+        "retained": "/tmp/opticalsystem-retirement-20261108/legacy-records/plan.json.gz",
+        "originalSha256": "54654ee011a45fcf67493a7a4d43026f454f4b12f4acb1756b562ea3af1ff363",
+        "originalBytes": 21930121,
+        "archiveBytes": 3094487,
+        "allocatedBytesSaved": 18837504
+      },
+      {
+        "original": "/tmp/opticalsystem-remaining-cleanup-20261108/plan.json",
+        "retained": "/tmp/opticalsystem-remaining-cleanup-20261108/plan.json.gz",
+        "originalSha256": "43fc9b4012c2c79efd629d857965be654188d3e8a837e48918b3ce8a64a6fb3d",
+        "originalBytes": 40739950,
+        "archiveBytes": 5210181,
+        "allocatedBytesSaved": 35528704
+      },
+      {
+        "original": "/tmp/opticalsystem-preview-cleanup-20261108/plan.json",
+        "retained": "/tmp/opticalsystem-preview-cleanup-20261108/plan.json.gz",
+        "originalSha256": "9654c037e806e28f220d3612e87a066ee005edd3bd3288467f07cff1d6f739c1",
+        "originalBytes": 14468534,
+        "archiveBytes": 2513713,
+        "allocatedBytesSaved": 11956224
+      },
+      {
+        "original": "/tmp/opticalsystem-remaining-20261108.json",
+        "retained": "/tmp/opticalsystem-remaining-20261108.json.gz",
+        "originalSha256": "313c3a4573895a2bddbbc1d1e0ebde318b850ba7657abd742cbc809b2e4b9ce3",
+        "originalBytes": 14298745,
+        "archiveBytes": 1575407,
+        "allocatedBytesSaved": 12722176
+      },
+      {
+        "original": "/tmp/opticalsystem-preview-inventory-20261108.json",
+        "retained": "/tmp/opticalsystem-preview-inventory-20261108.json.gz",
+        "originalSha256": "e478a9a8dd3471519ca6a503a091e77e19badd552f272d9ed327929921c12cf7",
+        "originalBytes": 7323343,
+        "archiveBytes": 986475,
+        "allocatedBytesSaved": 6336512
+      }
+    ],
+    "allocatedBytesSaved": 153608192
+  },
+  "combinedAllocatedBytesFreed": 383676416
+}

@@ -20,5 +20,11 @@
     }
   ],
   "refinementPrompt": "Use case: background-extraction / precise-object-edit. Edit the attached ornament sprite atlas. KEEP the exact composition, orientation, motif placement and aspect ratio. This is a GRAY QUILL INK drawing, not white/silver objects. REMOVE EVERY WHITE AND PALE FILL, including INSIDE all petals, leaves, globe, instrument, star, scrolls and the spaces between individual hatch strokes. Those areas must be genuinely TRANSPARENT, not painted white. Preserve ONLY the sharp gray contour lines and small individual gray pen hatching strokes as visible ink. Thin confident neutral-gray quill lines (#606469 to #85898D), tapered strokes and light crossed pen hatching. Remove smooth gray surface shading, metallic highlights, bevels and volume. The final asset is sparse fine gray pen strokes floating on real alpha transparency; when placed on tan paper the tan must show through every space between ink strokes, even inside lily petals and inside the globe. No background whatsoever. Do not add any new motifs, labels, letters or colour. Do not simplify the detailed recognizable designs to icons. Use transparent_background=true and actually clear all internal white patches.",
-  "note": "Historical generation provenance only. User withdrew this direction before any runtime integration."
+  "note": "Historical generation provenance only. User withdrew this direction before any runtime integration.",
+  "storageDisposition": {
+    "date": "2026-11-08",
+    "status": "image-payloads-retired",
+    "reason": "Withdrawn candidates were never integrated; process-preview cleanup keeps original prompts and SHA256 records, not redundant image payloads.",
+    "receipt": "../../../../validation/rechecks/2026-11-08/preview-image-cleanup/receipt.json"
+  }
 }

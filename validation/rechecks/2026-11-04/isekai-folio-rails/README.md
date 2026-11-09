@@ -1,5 +1,7 @@
 # 异世界分析工具栏与底栏协调
 
+**存储状态（2026-11-08）**：这是已被后续方案取代的阶段记录。原始用户参考、正式材质、已确认的手稿页眉/页脚版本及后续字体/DPI验收不在本次删除范围。这里保留代表画面、全部失败图、TRX与原校验记录，退役其他过程渲染；不再把整套过时画面作为当前参考。见[清理范围与逐文件记录](../../2026-11-08/process-artifact-cleanup/README.md)。
+
 用户明确本轮要改工具栏和底栏。保留上一轮中世纪磨毛羊皮图纸、折痕、毛边、图例及分析小配饰，未重新生成或下载素材。
 
 ## 改动
@@ -11,18 +13,12 @@
 
 本轮只画实时栏部。主程序标题/菜单/Ribbon、文档页签、源图绘制、字体、物理数据、色标、相机、原1200×900图纸和28 DIP边距不变；16:9仍暂缓。
 
-## 实际离屏渲染
+## 保留的阶段代表与失败画面
 
-由真实C#程序与Cooke示例结果绘制，生成素材只作既有装饰，不用效果图代替科学数据。
+- [阶段代表：Huygens-MTF-live](previews/Huygens-MTF-live.png)
+- [阶段代表：workbench-1600-13](workbench/workbench-1600-13.png)
 
-| 画面 | 链接 |
-| --- | --- |
-| 完整主窗口 | [13号字](workbench/workbench-1600-13.png)、[18号字](workbench/workbench-1120-18.png) |
-| 原生设置展开 | [13号字](workbench/settings-1600-13.png)、[18号字](workbench/settings-1120-18.png) |
-| 惠更斯MTF | [分析界面](previews/Huygens-MTF-live.png)、[原源图](../isekai-paper-gaps/tabs/Huygens-MTF-source.png) |
-| 惠更斯PSF | [分析界面](previews/Huygens-PSF-live.png) |
-| 波前 | [分析界面](previews/Wavefront-Map-live.png) |
-| 点列 | [分析界面](previews/Spot-Diagram-live.png) |
+其他过程截图已在2026-11-08退役；原测量、测试计数、失败结论及其发生时间没有改写。后续当前绘图能力以独立的正式验证记录为准。
 
 ## 验证
 

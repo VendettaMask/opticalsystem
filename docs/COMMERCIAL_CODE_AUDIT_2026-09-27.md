@@ -243,7 +243,7 @@ dotnet test tests/OptilandWorkbench.ZemaxComparison.Tests/OptilandWorkbench.Zema
 dotnet run -c Release --no-build --no-restore --project tools/OptilandWorkbench.Benchmarks/OptilandWorkbench.Benchmarks.csproj -- 10000 100000
 ```
 
-隔离复现程序位于 `artifacts/code-audit/2026-09-27/probe`，直接引用默认 Release Core/Application DLL，链接真实 `EditorRows.cs`；为测试内部文档服务使用仓库已有的 friend assembly 名称，但输出完全位于该隔离目录，不覆盖正式 Tests。程序只在临时路径写入并清理自己的示例文件。
+隔离复现程序位于 `artifacts/code-audit/2026-09-27/probe`，直接引用默认 Release Core/Application DLL，链接真实 `EditorRows.cs`；为测试内部文档服务使用仓库已有的 friend assembly 名称，但输出完全位于该隔离目录，不覆盖正式 Tests。程序只在临时路径写入并清理自己的示例文件。2026-11-08已清理该探针的旧DLL/PDB，源码、日志和结果保留；以下为当时的历史命令，不再宣称其旧默认依赖在当前工作区可直接执行，见[存储退役记录](../validation/rechecks/2026-11-08/process-artifact-cleanup/README.md)。
 
 ```sh
 dotnet restore artifacts/code-audit/2026-09-27/probe/AuditProbe.csproj --source /tmp -p:NuGetAudit=false

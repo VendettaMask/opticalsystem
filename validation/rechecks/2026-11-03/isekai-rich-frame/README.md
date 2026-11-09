@@ -1,8 +1,10 @@
 # 异世界完整书封与精细材质 — 2026-11-03
 
+**存储状态（2026-11-08）**：这是已被后续方案取代的阶段记录。原始用户参考、正式材质、已确认的手稿页眉/页脚版本及后续字体/DPI验收不在本次删除范围。这里保留代表画面、全部失败图、TRX与原校验记录，退役其他过程渲染；不再把整套过时画面作为当前参考。见[清理范围与逐文件记录](../../2026-11-08/process-artifact-cleanup/README.md)。
+
 用户指出上一版缺少概念图的完整边框，且暖羊皮纸、钢笔边饰与星盘都过于简单。本轮替换第一版程序化细纹/角花，增加真实材质层次与完整魔导书书封。只作用于 Isekai 的分析图、2D/3D 光路和实体模型；以下页面来自产品实际 C#/Avalonia/Skia 以及共享 Core 的 Cooke 示例，装饰素材本身使用内置图像生成工具制作。
 
-## 已实现
+## 当时实现
 
 - 深色皮革书封、旧金双压线、黄铜角帽与圆钉、连续钢笔花叶及小符文、上下星芒徽记；自然斑驳羊皮纸和带细刻度/雕花底座的黄铜星盘。
 - 三张原始 PNG 嵌入 App；[素材、提示词与哈希](../../../../src/OpticalSystemDesign.App/Assets/Themes/Isekai/README.md)随仓库维护。资源每个 UI 线程只解码一次，绘制装饰时局部开启高质量插值；未改变科学图像插值、物理曲线或光线颜色。
@@ -11,16 +13,12 @@
 - 报告复用内部源图，但外部装饰衬边不计入报告图幅；仍使用原细框、原比例和既定物理尺寸，避免文字被厚衬边挤小。强制亮色打印路径保持。
 - Light、Dark、Lumen、Pixel 没有材质覆盖；菜单与参数操作区、已批准的语义图标不因本次修订改变。
 
-## 实际截图
+## 保留的阶段代表与失败画面
 
-| 页面 | 完整 1× 源图与外框 | 真实离屏界面 | 默认 PNG 画布 |
-| --- | --- | --- | --- |
-| 惠更斯 MTF | [图](previews/Huygens-MTF.png) | [界面](previews/Huygens-MTF-live.png) | [1920×1080](previews/Huygens-MTF-1080p.png) |
-| 点列图 | [图](previews/Spot-Diagram.png) | [界面](previews/Spot-Diagram-live.png) | [1920×1080](previews/Spot-Diagram-1080p.png) |
-| 波前面 | [图](previews/Wavefront-Map.png) | [界面](previews/Wavefront-Map-live.png) | [1920×1080](previews/Wavefront-Map-1080p.png) |
-| 二维光路 | [图](previews/TwoDimensional-OpticalLayout.png) | [界面](previews/TwoDimensional-OpticalLayout-live.png) | 同一捕获路径 |
-| 三维光路 | [图](previews/ThreeDimensional-OpticalLayout.png) | [界面](previews/ThreeDimensional-OpticalLayout-live.png) | 同一捕获路径 |
-| 实体模型 | [图](previews/ThreeDimensional-SolidModel.png) | [界面](previews/ThreeDimensional-SolidModel-live.png) | 同一捕获路径 |
+- [阶段代表：Huygens-MTF](previews/Huygens-MTF.png)
+- [阶段代表：TwoDimensional-OpticalLayout](previews/TwoDimensional-OpticalLayout.png)
+
+其他过程截图已在2026-11-08退役；原测量、测试计数、失败结论及其发生时间没有改写。后续当前绘图能力以独立的正式验证记录为准。
 
 ## 验证范围
 
@@ -36,13 +34,4 @@
 
 `git diff --check` 通过；6 份相关 Markdown 的 928 个本地链接目标存在性检查通过，结果保存于 `document-links.json`。本机没有 `pwsh`，未执行完整 PowerShell 文档审计；该检查不涵盖全文重复段落或生命周期规则。
 
-复现（仓库根目录）：
-
-```sh
-OPTICAL_SYSTEM_DESIGN_ISEKAI_CAPTURE_DIR="$PWD/validation/rechecks/2026-11-03/isekai-rich-frame/previews" \
-dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-restore \
-  --filter 'FullyQualifiedName~IsekaiDrawingMaterialTests|FullyQualifiedName~UniformDiagramExportTests|FullyQualifiedName~DiagramViewportFitTests|FullyQualifiedName~AnalysisLegendLayoutTests|FullyQualifiedName~MtfPlotTitleTests|FullyQualifiedName~AnalysisFrameDpiTests|FullyQualifiedName~ThemeResourceTests|FullyQualifiedName~ThemeRuntimeTests' \
-  --logger 'trx;LogFileName=rich-frame-final.trx' \
-  --results-directory validation/rechecks/2026-11-03/isekai-rich-frame \
-  /m:1 /nr:false /p:UseSharedCompilation=false
-```
+历史阶段的原地截图生成命令不再作为当前回放入口。保留原源码身份与测试记录；今后的渲染使用独立临时目录，不回填已退役阶段或把新版本截图冒充当时结果。

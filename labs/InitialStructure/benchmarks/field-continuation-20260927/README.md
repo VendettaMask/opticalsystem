@@ -1,5 +1,7 @@
 # Full-field restart and early-field continuation evidence — 2026-09-27
 
+Local storage review (2026-11-08): this directory describes a historical experiment, not a maintained default replay command. The related old build output and the checked bulk restart files have been retired; source, regression inputs, original summaries, exported prescriptions and unique failures remain. See the [scoped deletion and preservation record](../../../../validation/rechecks/2026-11-08/remaining-task-cleanup/README.md). This is not a new numerical acceptance result.
+
 See the [implementation, references and measured limits](../../../../docs/INITIAL_STRUCTURE_JOINT_RESTART_2026-09-27.md).
 
 The retained runtime change is the full-target restart gate: complete formal Core ray data may enter the joint constrained objective while geometry bounds are violated. Hard final acceptance is unchanged. Algorithm v16 preserves the existing root plan, reduced stages and area scheduling policy 2.
@@ -11,20 +13,11 @@ The retained runtime change is the full-target restart gate: complete formal Cor
 - Search summaries and recalculations distinguish early-field experiments, restart-only prototypes and final v16 runs. Prototype files carry the original temporary algorithm identity and must not be silently treated as release checkpoints.
 - `raw-evidence.json` records raw local probe files, including discarded setup attempts. The stale-binary partial root run and the exploratory `improveBeyondTargets=true` replay are excluded from comparisons.
 
-All runtime optical quantities, dense 21-field acceptance and 41-field convergence checks call shared Core. No historical Optiland assets or Zemax captures were regenerated. Raw checkpoints, binaries, logs and TRX files are under `artifacts/validation/field-continuation-20260927/` and intentionally ignored by Git.
+All runtime optical quantities, dense 21-field acceptance and 41-field convergence checks call shared Core. No historical Optiland assets or Zemax captures were regenerated. Original diagnostics, summaries, exports, logs and TRX files remain under `artifacts/validation/field-continuation-20260927/` and are intentionally ignored by Git. Bulk restart files and execution binaries were retired in the earlier 2026-11-08 cleanup.
 
-## Reproduction
+## Historical replay scope
 
-Build the laboratory solution in Release first. The small C# runners default to its test-output dependency DLLs and accept `-p:AuditBinaries=/absolute/path` for frozen dependencies. Baseline v15 sources are at commit `7d68ed4`; compare published optical values and fingerprints, not elapsed times or randomized run IDs.
-
-```sh
-dotnet build labs/InitialStructure/OptilandWorkbench.InitialStructureLab.slnx -c Release --no-restore
-dotnet run -c Release --project labs/InitialStructure/benchmarks/field-continuation-20260927/runner/FieldContinuation.csproj -- labs/InitialStructure/benchmarks/quality-audit-20260926/inputs.json artifacts/validation/field-continuation-repeat/short --search
-dotnet run -c Release --project labs/InitialStructure/benchmarks/field-continuation-20260927/runner/FieldContinuation.csproj -- labs/InitialStructure/benchmarks/quality-audit-20260926/inputs.json artifacts/validation/field-continuation-repeat/wide --wide-budget 50000
-dotnet run -c Release --project labs/InitialStructure/benchmarks/field-continuation-20260927/runner/FieldContinuation.csproj -- labs/InitialStructure/benchmarks/quality-audit-20260926/inputs.json artifacts/validation/field-continuation-repeat/wide --verify
-```
-
-Once the baseline wide search has created `f2.8.family.json`, `runner --roots <checkpoint> <output.json>` reproduces all root solves. `restart-runner <checkpoint> <output.json> --baseline` audits all restart inputs and asserts exact replay for the affected entries. Remove `--baseline` when using the changed runtime. The runners perform orchestration and comparisons only; they contain no second optical engine.
+The small C# runners remain source records; their old default test-output and frozen-runtime dependencies are no longer maintained. Baseline v15 sources are at commit `7d68ed4`. The original `--roots`, restart audit and search/verification modes required those historical checkpoints and runtimes, which are now retired. Their published results, failure diagnostics and regression snapshots remain available above. No comparison has been regenerated with a different engine.
 
 ## Final verification
 

@@ -12,4 +12,6 @@ Build `ReportStyle.csproj` in Release with a single build worker, then run the d
 
 The bundled document renderer was attempted first; LibreOffice is absent on this Windows host. The Word-rendered PDF is an internal preview, not the product PDF. Word may resample that preview; the final DOCX retains the original PNG bytes, independently verified. Product PDF images are separately checked for identical pixels.
 
+Storage review (2026-11-08): the disposable `qa/word-source.docx` was removed after all 73 archive entries matched the retained final DOCX. `render-word.ps1` creates that copy when needed. Some standalone page PNGs were also retired; complete source/Word-rendered PDFs, contact sheets, key pages, original report containers and inspection JSON remain. See the [storage record](../../../validation/rechecks/2026-11-08/process-artifact-cleanup/README.md). No report or numerical result was regenerated.
+
 Results and scope: [verification record](../../../validation/rechecks/2026-11-02/report-style/README.md). Large sample artifacts remain under `output/report-style-gauss28-20261102/` and in the desktop directory recorded by the delivery receipt. No frontend desktop interaction, installation, publishing or remote synchronization is performed.
