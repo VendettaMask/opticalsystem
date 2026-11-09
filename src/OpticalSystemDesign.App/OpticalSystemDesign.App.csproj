@@ -33,6 +33,7 @@
     <Content Include="Assets/Brand/AppIcon.icns" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Assets/LensLibrary/**/*"
              CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest"
              Link="LensLibrary/%(RecursiveDir)%(Filename)%(Extension)" />
     <Content Include="Assets/SequentialExamples/**/*"
              Exclude="Assets/SequentialExamples/index.json"

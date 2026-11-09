@@ -1,5 +1,6 @@
 # Project collaboration instructions
 
+- User decision (2026-11-09): accepted stock lens model packs are finished library assets, like the native design lens projects. Commit and publish the verified single-file pack with the application. Build, installation, and normal use read the finished file directly. Keep conversion in the standalone tool for new inputs.
 - Public-facing product copy, release notes, user guides, and display labels may name Zemax only when describing supported import workflows. Refer to vendor prescriptions and comparisons using the file format or neutral optical terminology. Keep original source attribution, file identities, and technical evidence in their provenance records.
 
 ## Project-wide interface design workflow

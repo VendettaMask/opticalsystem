@@ -8,7 +8,7 @@
 
 镜头库原生文件路径检查既拒绝词法越界，也拒绝库内目录联接、符号链接和链接文件，避免索引中的相对路径跳到库外。
 
-桌面应用不下载、同步、解压或转换镜头文件。发布前生成只读原生库：
+应用构建和发布直接携带已验收的只读原生库。桌面按需读取对应处方。
 
 ```text
 LensLibrary/
@@ -20,7 +20,7 @@ LensLibrary/
     JCOPTIX.json
     Newport.json
     Sigma Koki.json
-    Thorlabs.json
+    Thorlabs.stocklens
 ```
 
 应用启动时读取版本 2 的 `index.json`，参数和二维预览只打开 `.staropt`。镜头库页面位于“数据库 > 镜头库”，与材料库分离。选中条目只更新预览，不改变当前设计；双击条目打开打包工程并激活镜头编辑器。搜索同时覆盖镜头名、来源、镜头类型、应用场景和设计单位。页面在有限工作区内让镜头列表和元数据各自滚动，并为光学预览保留有限画布；925 条目录不会再把右侧详情推到列表末尾，窄 Dock 下列表和详情按当前视口上下分配空间。
@@ -37,19 +37,9 @@ Dan Reiley 的 14 个旧定焦工程已将有歧义的 H-F1、H-ZF3、H-QK3L、H
 
 “数据库 > 库存镜头匹配”使用当前系统的一阶有效焦距和入瞳直径作为目标值。用户选择参与匹配的厂商、结果数、EFL 公差、EPD 公差和光焦度方向约束；候选先经过条件过滤，再按归一化 EFL/EPD 综合偏差排序。页面打开时只刷新目标参数，用户点击“开始匹配”后才在后台读取目录和执行匹配扫描；用户切换系统或重新开始匹配时，旧结果会被取消/丢弃，不会覆盖新状态。当前目标范围是“所有面（当前系统）”，完整系统没有唯一的单镜片形状，因此形状匹配不会被伪造为已生效。
 
-2026-09-01 起，库存目录随应用发布。五家厂商共 16,289 条目录头元数据已转换为版本 1 的应用自有明文 JSON，并在 `StockCatalogs` 下按厂商名字分别保存，随应用和源码版本同步；任意电脑运行同一版本都会看到同一库存目录。目录只保存料号、元件数、形状、表面类别、EFL、EPD、厂商主页和来源说明，不包含 ZMF 处方正文、价格或实时库存。
+库存目录随应用发布，当前包含六家厂商的 18,252 条记录。目录记录包含料号、元件数、形状、曲面类别、EFL、EPD、厂商主页和来源说明。Thorlabs 的目录与处方一同保存在单文件中，其余厂商的目录按厂商保存为 JSON。
 
-原有 6 条经厂商官方页面核验的记录已在转换时按厂商和料号合并，保留更丰富的名称、产品页和规格字段。应用支持载入从厂商原始处方转换并校验的 STAROPT。随软件分发处方须取得明确许可。
-
-ZMF 解析仅保留在离线维护工具 `OpticalSystemDesign.LensLibraryBuilder` 中。维护人员显式提供来源目录并更新同步资源：
-
-```powershell
-dotnet run --project tools\OpticalSystemDesign.LensLibraryBuilder -- `
-  --stock-catalog <ZMF来源目录> `
-  src\OpticalSystemDesign.App\Assets\LensLibrary\StockCatalogs
-```
-
-转换器要求五家源目录齐全，限制文件和记录大小，跳过处方正文，并分别原子替换五个厂商 JSON 文件。转换得到的数据仍继承其来源授权；改成自有 JSON 格式不代表获得重新分发许可，发布前必须审核来源许可。
+原有 6 条经厂商官方页面核验的记录已在转换时按厂商和料号合并，保留更丰富的名称、产品页和规格字段。可载入条目关联经校验的 STAROPT 处方。
 
 匹配页返回的是真实目录候选和可复算的偏差，不是自动替换。库存查看的“载入模型”会打开独立设计。
 
@@ -69,15 +59,7 @@ dotnet run --project tools\OpticalSystemDesign.LensLibraryBuilder -- `
 
 `Thorlabs.stocklens` 包含 Thorlabs 2026 年 5 月版 `THORLABS_MAY_2026.ZMF` 中全部 4,217 份 STAROPT 处方，以及 6 份从原厂产品页取得的历史镜座版处方。其余 847 个旧料号保留目录记录。库存查看器从库中按需读取所选处方，将它作为独立文档打开。编辑后可另存工程。原厂膜系文件随厂商 ZIP 提供，库内模型使用几何光线追迹。[Thorlabs 完整 Zemax 目录](https://www.thorlabs.com/software-pages/zemax)
 
-应用可从系统资源目录 `LensLibrary/StockCatalogs` 或本机 `%LOCALAPPDATA%\OpticalSystemDesign\StockLensModels` 读取 `Thorlabs.stocklens`。本机文件优先。原先的 12 个 AC127 料号也在单文件中。维护时用下列命令转换官方 ZIP 解出的 ZMF，输出文件名与厂商名一致。[原厂 ZIP](https://thin01mstroc282prod.dxcloud.episerver.net/contentassets/0ee24bcce2224cc6ae338b2bdaa9e212/zemaxcatalog.zip?v=0511073732)
-
-```powershell
-dotnet run --project tools\OpticalSystemDesign.LensLibraryBuilder -- `
-  --stock-model-pack <THORLABS_MAY_2026.ZMF 路径> `
-  src\OpticalSystemDesign.App\Assets\LensLibrary <输出目录>\Thorlabs.stocklens
-```
-
-末尾可另传已有本机模型的根目录，将目录条目声明的历史料号模型一并归档。
+这份验收成品在 `LensLibrary/StockCatalogs` 中与应用一同发布。库存查看器直接加载内置文件，原先的 12 个 AC127 料号也包含在内。随应用发布的单文件优先于同名本机库。成品 SHA-256 为 `3c1689af36fc29959c128e184318c3d272b1b240ee9a5850efbf30fdc8b40ea9`。原厂 ZIP 链接用于溯源。[原厂 ZIP](https://thin01mstroc282prod.dxcloud.episerver.net/contentassets/0ee24bcce2224cc6ae338b2bdaa9e212/zemaxcatalog.zip?v=0511073732)
 
 本次原厂 ZIP 的两次下载内容相同，ZIP 校验通过。实测 ZIP SHA-256 为 `a7c0cfe71195a7a9dc11753040d92f75153642e83186ba674ace76d93a25897f`，与网页资源记录中的 SHA-256 不同。内部 `THORLABS_MAY_2026.ZMF` 的 SHA-256 为 `64417a32ff0d20a7f43134cac1275a9c951c0d6476af8a9651a712ca6e68137b`。梯度折射率处方可打开，二维布局的 GRIN 曲线路径仍待接入。
 
@@ -88,6 +70,8 @@ dotnet run --project tools\OpticalSystemDesign.LensLibraryBuilder -- `
 匹配结果区的说明和“厂商页面”按钮按自然高度测量，表格使用剩余高度并局部裁剪，关闭重开和 MDI 平铺不再向上覆盖表头。顶部参数只在短窗口中滚动，不改变原面板划分。EFL/EPD 的 mm、偏差的 % 独立占位，长标题省略时有完整提示。详见 [容器修复](PANEL_CONTENT_LAYOUT_2026-09-27.md) 与 [主动作验证](PRIMARY_ACTIONS_AND_COMPACT_SIDEBAR_2026-09-27.md)。
 
 ## 离线构建
+
+转换器 `OpticalSystemDesign.LensLibraryBuilder` 是独立工具，用于新来源。`--stock-catalog` 把五家 ZMF 的目录头写入单独指定的输出目录。`--stock-model-pack` 将指定 ZMF 的处方转换为新的单文件库存库，可通过末尾的本机模型根目录参数合并已有历史模型。应用构建、安装和日常使用直接消费已验收的库文件。
 
 维护工具 `tools/OpticalSystemDesign.LensLibraryBuilder`：
 

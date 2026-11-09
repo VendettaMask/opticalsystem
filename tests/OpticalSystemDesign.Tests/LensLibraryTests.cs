@@ -52,12 +52,12 @@ public sealed class LensLibraryTests
                 "JCOPTIX.json",
                 "Newport.json",
                 "Sigma Koki.json",
-                "Thorlabs.json"
+                "Thorlabs.stocklens"
             },
-            Directory.EnumerateFiles(stockCatalogDirectory, "*.json")
+            Directory.EnumerateFiles(stockCatalogDirectory)
                 .Select(Path.GetFileName)
                 .Order(StringComparer.OrdinalIgnoreCase));
-        Assert.Equal(16_296, commercial.Count);
+        Assert.Equal(18_252, commercial.Count);
         Assert.Equal(
             new[] { "Daheng Optics", "Edmund Optics", "JCOPTIX", "Newport", "Sigma Koki", "Thorlabs" },
             commercial
@@ -69,7 +69,8 @@ public sealed class LensLibraryTests
         Assert.Equal(7, commercial.Count(entry => entry.Manufacturer == "JCOPTIX"));
         Assert.Equal(1_556, commercial.Count(entry => entry.Manufacturer == "Newport"));
         Assert.Equal(1_771, commercial.Count(entry => entry.Manufacturer == "Sigma Koki"));
-        Assert.Equal(3_114, commercial.Count(entry => entry.Manufacturer == "Thorlabs"));
+        Assert.Equal(5_070, commercial.Count(entry => entry.Manufacturer == "Thorlabs"));
+        Assert.Equal(4_223, commercial.Count(entry => entry.Manufacturer == "Thorlabs" && entry.CanOpenModel));
         Assert.All(commercial, entry =>
         {
             Assert.False(string.IsNullOrWhiteSpace(entry.PartNumber));
@@ -77,10 +78,16 @@ public sealed class LensLibraryTests
             Assert.False(string.IsNullOrWhiteSpace(entry.LensType));
             Assert.False(string.IsNullOrWhiteSpace(entry.ShapeCode));
             Assert.False(string.IsNullOrWhiteSpace(entry.SurfaceType));
-            Assert.True(entry.ElementCount > 0);
+            Assert.True(entry.ElementCount >= 0);
             Assert.Null(entry.NativePath);
             Assert.Null(stockLenses.GetCommercialNativeProjectPath(entry.Id));
         });
+        var thorlabs = Assert.Single(commercial, entry => entry.PartNumber == "AC127-075-B" && entry.Manufacturer == "Thorlabs");
+        Assert.True(thorlabs.HasPackedModel);
+        Assert.NotEmpty((await stockLenses.BuildCommercialPreviewAsync(thorlabs.Id))!.TwoDimensional!.LensElements);
+        await application.Documents.OpenStockLensAsync(thorlabs.Id);
+        Assert.Contains("AC127-075-B", application.Documents.GetSnapshot().Name, StringComparison.Ordinal);
+        Assert.Null(application.Documents.CurrentPath);
         var jcoptix = Assert.Single(commercial, entry => entry.PartNumber == "OLC140116M" && entry.Manufacturer == "JCOPTIX");
         Assert.Equal(15, jcoptix.EffectiveFocalLength);
         Assert.Equal(12.7, jcoptix.CatalogDiameter);

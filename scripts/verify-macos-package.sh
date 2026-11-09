@@ -12,7 +12,7 @@ for module in Core Application InitialStructure.Contracts InitialStructure.Engin
 done
 for required in OpticalSystemDesign.App OpticalSystemDesign.App.dll OpticalSystemDesign.App.runtimeconfig.json \
   libhostfxr.dylib libcoreclr.dylib libSkiaSharp.dylib libHarfBuzzSharp.dylib libAvaloniaNative.dylib \
-  LensLibrary/index.json Assets/Fonts/Typography/Source-Han-Sans-OFL.txt \
+  LensLibrary/index.json LensLibrary/StockCatalogs/Thorlabs.stocklens Assets/Fonts/Typography/Source-Han-Sans-OFL.txt \
   Assets/Fonts/Typography/DM-Sans-OFL.txt Assets/Fonts/Typography/JetBrains-Mono-OFL.txt \
   Licenses/AutoLens-LICENSE.txt Licenses/ILGPU-LICENSE.txt Licenses/TFStudio-LICENSE.txt Licenses/tmmcore-LICENSE.txt; do
   test -s "$payload/$required" || { echo "Missing payload: $required" >&2; exit 1; }

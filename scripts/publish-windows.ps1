@@ -102,6 +102,7 @@ try {
         'hostfxr.dll',
         'libSkiaSharp.dll',
         'LensLibrary\index.json',
+        'LensLibrary\StockCatalogs\Thorlabs.stocklens',
         'Assets\Brand\AppIcon.ico',
         'Assets\Fonts\OFL-LICENSE.txt',
         'Assets\Icons\LUCIDE-LICENSE.txt'

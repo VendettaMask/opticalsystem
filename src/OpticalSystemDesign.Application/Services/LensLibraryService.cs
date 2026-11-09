@@ -284,8 +284,9 @@ internal sealed class LensLibraryService : ILensLibraryService
         {
             var fileName = manufacturer + StockLensModelPack.Extension;
             var bundled = Path.Combine(LibraryDirectory, CommercialLensCatalogStore.DirectoryName, fileName);
-            var installed = _localStockModelDirectory is null ? bundled : Path.Combine(_localStockModelDirectory, fileName);
-            var path = File.Exists(installed) ? installed : bundled;
+            var path = File.Exists(bundled) || _localStockModelDirectory is null
+                ? bundled
+                : Path.Combine(_localStockModelDirectory, fileName);
             if (!File.Exists(path)) continue;
 
             try

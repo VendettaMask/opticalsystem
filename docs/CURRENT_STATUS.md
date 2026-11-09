@@ -2,7 +2,7 @@
 
 ## 2026-11-09 Thorlabs 单文件库存库
 
-Thorlabs 2026 年 5 月版 ZMF 的 4,217 份处方和 6 份历史镜座版处方保存在本机的一个 `Thorlabs.stocklens` 中。4,223 个模型均通过 STAROPT 重读及库存目录逐条打开验证。新增柱面非球面项、Qbfs 非球面和带倾斜平面端面的 Gradient 9 支持。另保留 847 条历史目录记录。[原厂来源与构建方式](LENS_LIBRARY.md#thorlabs-单文件库存库)
+Thorlabs 2026 年 5 月版 ZMF 的 4,217 份处方和 6 份历史镜座版处方保存在随应用发布的 `Thorlabs.stocklens` 中。4,223 个模型均通过 STAROPT 重读及库存目录逐条打开验证。新增柱面非球面项、Qbfs 非球面和带倾斜平面端面的 Gradient 9 支持。另保留 847 条历史目录记录。[原厂来源与使用方式](LENS_LIBRARY.md#thorlabs-单文件库存库)
 
 ## 2026-11-09 Thorlabs AC127 库存镜头处方
 
