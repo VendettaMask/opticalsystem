@@ -760,10 +760,10 @@ public sealed class Layout2DBuilder
 
         var extended = new List<Layout2DPoint>(points.Count + 2)
         {
-            new(points[0].Z, -targetExtent)
+            BuildSurfaceProfilePoint(surface, -targetExtent, -surfaceExtent)
         };
         extended.AddRange(points);
-        extended.Add(new Layout2DPoint(points[^1].Z, targetExtent));
+        extended.Add(BuildSurfaceProfilePoint(surface, targetExtent, surfaceExtent));
         return extended;
     }
 
@@ -777,11 +777,17 @@ public sealed class Layout2DBuilder
         {
             var t = index / (double)(surfaceSamples - 1);
             var y = -extent + (2.0 * extent * t);
-            var global = surface.CoordinateSystem.ToGlobalPoint(new Vector3D(0, y, SafeSag(surface, 0, y)));
-            points.Add(new Layout2DPoint(global.Z, global.Y));
+            points.Add(BuildSurfaceProfilePoint(surface, y, y));
         }
 
         return points;
+    }
+
+    private static Layout2DPoint BuildSurfaceProfilePoint(OpticalSurface surface, double localY, double sagSampleY)
+    {
+        var global = surface.CoordinateSystem.ToGlobalPoint(
+            new Vector3D(0, localY, SafeSag(surface, 0, sagSampleY)));
+        return new Layout2DPoint(global.Z, global.Y);
     }
 
     private static IReadOnlyList<Layout3DPoint> BuildSurfaceRim(

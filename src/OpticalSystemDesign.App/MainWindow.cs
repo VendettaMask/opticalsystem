@@ -162,7 +162,8 @@ public sealed partial class MainWindow : Window
             _settings,
             sessionStore,
             openProjectAsync: OpenLensLibraryProjectAsync,
-            userGuideActions: () => _actions.Actions);
+            userGuideActions: () => _actions.Actions,
+            openStockLensAsync: OpenStockLensAsync);
         RegisterActions();
         _commandSearch = new CommandSearchControl(_actions);
         _actions.ExecutionFailed += OnActionExecutionFailed;

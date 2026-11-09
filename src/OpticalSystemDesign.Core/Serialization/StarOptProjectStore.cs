@@ -183,7 +183,7 @@ public static class StarOptProjectStore
         return HasMagic(prefix);
     }
 
-    internal static StarOptProjectDocument Deserialize(byte[] bytes)
+    public static StarOptProjectDocument Deserialize(byte[] bytes)
     {
         ArgumentNullException.ThrowIfNull(bytes);
         var span = bytes.AsSpan();

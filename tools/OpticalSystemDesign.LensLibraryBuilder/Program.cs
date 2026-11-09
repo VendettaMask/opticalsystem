@@ -14,6 +14,11 @@ if (args.Length == 2 && args[0].Equals("--reindex", StringComparison.OrdinalIgno
     return await ReindexExistingLibraryAsync(Path.GetFullPath(args[1]));
 }
 
+if (args.Length is 4 or 5 && args[0].Equals("--stock-model-pack", StringComparison.OrdinalIgnoreCase))
+{
+    return await StockLensModelPackBuilder.BuildAsync(args[1], args[2], args[3], args.ElementAtOrDefault(4));
+}
+
 if (args.Length is 3 or 4 && args[0].Equals("--stock-catalog", StringComparison.OrdinalIgnoreCase))
 {
     var catalog = await StockLensCatalogConverter.ConvertAsync(
@@ -30,7 +35,8 @@ if (args.Length != 2)
     Console.Error.WriteLine(
         "Usage: OpticalSystemDesign.LensLibraryBuilder <manifest.json> <output-directory>\n"
         + "   or: OpticalSystemDesign.LensLibraryBuilder --reindex <library-directory>\n"
-        + "   or: OpticalSystemDesign.LensLibraryBuilder --stock-catalog <zmf-directory> <output-directory> [seed-catalog.json]");
+        + "   or: OpticalSystemDesign.LensLibraryBuilder --stock-catalog <zmf-directory> <output-directory> [seed-catalog.json]\n"
+        + "   or: OpticalSystemDesign.LensLibraryBuilder --stock-model-pack <source.zmf> <library-directory> <manufacturer.stocklens> [supplemental-model-directory]");
     return 2;
 }
 

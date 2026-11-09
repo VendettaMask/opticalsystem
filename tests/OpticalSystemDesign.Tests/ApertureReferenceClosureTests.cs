@@ -138,7 +138,27 @@ public sealed class ApertureReferenceClosureTests
         Assert.Contains("PARM 1 80", exported, StringComparison.Ordinal);
         var restored = Assert.IsType<ToroidalGeometry>(OpticalFormatCatalog.Import(exported, ".zmx").SurfaceGroup.Items[1].Geometry);
         Assert.Equal(geometry.Sag(1, 2), restored.Sag(1, 2), 14);
-        Assert.Throws<NotSupportedException>(() => OpticalFormatCatalog.Import(source.Replace("PARM 2 0", "PARM 2 .01", StringComparison.Ordinal), ".zmx"));
+        var asphericSource = string.Create(CultureInfo.InvariantCulture,
+            $"PARM 2 {.01 * scale:R}\nCONI -1");
+        var asphere = OpticalFormatCatalog.Import(source.Replace("PARM 2 0", asphericSource, StringComparison.Ordinal), ".zmx");
+        var asphericGeometry = Assert.IsType<ToroidalGeometry>(asphere.SurfaceGroup.Items[1].Geometry);
+        Assert.Equal(.08, asphericGeometry.Sag(0, 2), 14);
+        var roundTrip = OpticalFormatCatalog.Import(OpticalFormatCatalog.Export(asphere, ".zmx"), ".zmx");
+        Assert.Equal(asphericGeometry.Sag(1, 2), roundTrip.SurfaceGroup.Items[1].Geometry.Sag(1, 2), 14);
+        Assert.Throws<NotSupportedException>(() => OpticalFormatCatalog.Import(source.Replace("XDAT 1 0", "XDAT 1 1\nXDAT 3 .01", StringComparison.Ordinal), ".zmx"));
+    }
+
+    [Fact]
+    public void ZemaxQbfsUsesNormalDepartureFromItsBaseConic()
+    {
+        const string source = "MODE SEQ\nUNIT MM\nENPD 6\nSURF 0\nDISZ INFINITY\nSURF 1\nTYPE QED_TYPE\nCURV .1\nCONI -1\nXDAT 1 0\nXDAT 2 1\nXDAT 3 5\nXDAT 4 .1\nDISZ 10\nSURF 2";
+        var optic = OpticalFormatCatalog.Import(source, ".zmx");
+        var geometry = Assert.IsType<ForbesNormalSlopeGeometry>(optic.SurfaceGroup.Items[1].Geometry);
+        var expected = .45 + Math.Sqrt(1.09) * .36 * .64 * .1;
+        Assert.Equal(expected, geometry.Sag(3, 0), 13);
+        Assert.Equal(expected, Optic.FromSnapshot(optic.ToSnapshot()).SurfaceGroup.Items[1].Geometry.Sag(0, 3), 13);
+        Assert.Equal(expected, OpticalFormatCatalog.Import(OpticalFormatCatalog.Export(optic, ".zmx"), ".zmx")
+            .SurfaceGroup.Items[1].Geometry.Sag(3, 0), 13);
     }
 
     [Fact]

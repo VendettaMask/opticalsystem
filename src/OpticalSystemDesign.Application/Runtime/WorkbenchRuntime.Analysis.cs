@@ -928,7 +928,7 @@ public partial class WorkbenchRuntime
                 OptionalFrequency()),
             "Contrast Loss Map" => new ContrastLossMapAnalysis(
                 CurrentOptic,
-                Int("Sampling", 49),
+                Int("Sampling", 97),
                 Double("Frequency", 0),
                 Bool("Normalize", false),
                 LeadingInt("WavelengthNumber", 0),

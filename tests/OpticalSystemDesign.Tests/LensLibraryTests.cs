@@ -41,13 +41,15 @@ public sealed class LensLibraryTests
             Assert.True(lens.MaximumClearAperture >= 0);
         });
 
-        var commercial = application.Lenses.GetCommercialLenses();
+        var stockLenses = new LensLibraryService(root, Path.Combine(root, "UninstalledStockLensModels"));
+        var commercial = stockLenses.GetCommercialLenses();
         var stockCatalogDirectory = Path.Combine(root, CommercialLensCatalogStore.DirectoryName);
         Assert.Equal(
             new[]
             {
                 "Daheng Optics.json",
                 "Edmund Optics.json",
+                "JCOPTIX.json",
                 "Newport.json",
                 "Sigma Koki.json",
                 "Thorlabs.json"
@@ -55,15 +57,16 @@ public sealed class LensLibraryTests
             Directory.EnumerateFiles(stockCatalogDirectory, "*.json")
                 .Select(Path.GetFileName)
                 .Order(StringComparer.OrdinalIgnoreCase));
-        Assert.Equal(16_289, commercial.Count);
+        Assert.Equal(16_296, commercial.Count);
         Assert.Equal(
-            new[] { "Daheng Optics", "Edmund Optics", "Newport", "Sigma Koki", "Thorlabs" },
+            new[] { "Daheng Optics", "Edmund Optics", "JCOPTIX", "Newport", "Sigma Koki", "Thorlabs" },
             commercial
                 .Select(entry => entry.Manufacturer)
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .Order(StringComparer.OrdinalIgnoreCase));
         Assert.Equal(302, commercial.Count(entry => entry.Manufacturer == "Daheng Optics"));
         Assert.Equal(9_546, commercial.Count(entry => entry.Manufacturer == "Edmund Optics"));
+        Assert.Equal(7, commercial.Count(entry => entry.Manufacturer == "JCOPTIX"));
         Assert.Equal(1_556, commercial.Count(entry => entry.Manufacturer == "Newport"));
         Assert.Equal(1_771, commercial.Count(entry => entry.Manufacturer == "Sigma Koki"));
         Assert.Equal(3_114, commercial.Count(entry => entry.Manufacturer == "Thorlabs"));
@@ -76,8 +79,12 @@ public sealed class LensLibraryTests
             Assert.False(string.IsNullOrWhiteSpace(entry.SurfaceType));
             Assert.True(entry.ElementCount > 0);
             Assert.Null(entry.NativePath);
-            Assert.Null(application.Lenses.GetCommercialNativeProjectPath(entry.Id));
+            Assert.Null(stockLenses.GetCommercialNativeProjectPath(entry.Id));
         });
+        var jcoptix = Assert.Single(commercial, entry => entry.PartNumber == "OLC140116M" && entry.Manufacturer == "JCOPTIX");
+        Assert.Equal(15, jcoptix.EffectiveFocalLength);
+        Assert.Equal(12.7, jcoptix.CatalogDiameter);
+        Assert.Equal(12, jcoptix.EntrancePupilDiameter);
         Assert.Empty(Directory.EnumerateFiles(root, "*.zmx", SearchOption.AllDirectories));
         Assert.Empty(Directory.EnumerateFiles(root, "*.zar", SearchOption.AllDirectories));
         Assert.Empty(Directory.EnumerateFiles(root, "*.zip", SearchOption.AllDirectories));
@@ -252,7 +259,7 @@ public sealed class LensLibraryTests
                         CommercialEntry("stock-other", "Other Vendor", "C")
                     }),
                 Path.Combine(root, CommercialLensCatalogStore.DirectoryName));
-            var service = new LensLibraryService(root);
+            var service = new LensLibraryService(root, Path.Combine(root, "UninstalledStockLensModels"));
 
             var first = service.GetCommercialLenses();
             Directory.Delete(Path.Combine(root, CommercialLensCatalogStore.DirectoryName), recursive: true);
@@ -272,16 +279,89 @@ public sealed class LensLibraryTests
     }
 
     [Fact]
+    public async Task StockLensUsesInstalledLocalModelAndRejectsPathsOutsideModelDirectory()
+    {
+        var container = Path.Combine(Path.GetTempPath(), $"staropt-stock-local-{Guid.NewGuid():N}");
+        var root = Path.Combine(container, "library");
+        var local = Path.Combine(container, "models");
+        var model = Path.Combine(local, "JCOPTIX", "example.staropt");
+        Directory.CreateDirectory(Path.GetDirectoryName(model)!);
+        try
+        {
+            await StarOptProjectStore.SaveAsync(
+                new StarOptProjectDocument(new[] { Optic.CreateCookeTriplet() }, 0),
+                model);
+            File.Copy(model, Path.Combine(container, "outside.staropt"));
+            await CommercialLensCatalogStore.SaveDirectoryAsync(
+                new CommercialLensCatalogDocument(
+                    1,
+                    DateTimeOffset.UtcNow,
+                    new[]
+                    {
+                        CommercialEntry("installed", "JCOPTIX", "A") with { LocalModelPath = "JCOPTIX/example.staropt" },
+                        CommercialEntry("missing", "JCOPTIX", "B") with { LocalModelPath = "JCOPTIX/missing.staropt" },
+                        CommercialEntry("outside", "JCOPTIX", "C") with { LocalModelPath = "../outside.staropt" }
+                    }),
+                Path.Combine(root, CommercialLensCatalogStore.DirectoryName));
+            var service = new LensLibraryService(root, local);
+            var entries = service.GetCommercialLenses();
+
+            Assert.Equal("installed", Assert.Single(entries, entry => entry.CanOpenModel).Id);
+            Assert.Equal(model, service.GetCommercialNativeProjectPath("installed"));
+            Assert.NotNull(await service.BuildCommercialPreviewAsync("installed"));
+            Assert.Null(service.GetCommercialNativeProjectPath("missing"));
+            Assert.Null(service.GetCommercialNativeProjectPath("outside"));
+        }
+        finally
+        {
+            Directory.Delete(container, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task StockLensPackOpensSelectedPrescriptionWithoutExtractingFiles()
+    {
+        var root = Path.Combine(Path.GetTempPath(), $"staropt-stock-pack-{Guid.NewGuid():N}");
+        var stock = Path.Combine(root, CommercialLensCatalogStore.DirectoryName);
+        Directory.CreateDirectory(stock);
+        try
+        {
+            var temporaryProject = Path.Combine(root, "source.staropt");
+            var optic = Optic.CreateCookeTriplet();
+            await StarOptProjectStore.SaveAsync(new StarOptProjectDocument(new[] { optic }, 0), temporaryProject);
+            var pack = Path.Combine(stock, "Newport.stocklens");
+            await StockLensModelPack.SaveAsync(pack, new CommercialLensCatalogDocument(1, DateTimeOffset.UtcNow,
+                new[] { CommercialEntry("pack-one", "Newport", "A"), CommercialEntry("pack-two", "Newport", "B") }),
+                new Dictionary<string, string> { ["pack-one"] = temporaryProject });
+            File.Delete(temporaryProject);
+
+            using var application = WorkbenchApplication.Create(lensLibraryDirectory: root);
+            var entries = application.Lenses.GetCommercialLenses().Where(entry => entry.Manufacturer == "Newport");
+            Assert.Equal("pack-one", Assert.Single(entries, entry => entry.CanOpenModel).Id);
+            Assert.Null(application.Lenses.GetCommercialNativeProjectPath("pack-one"));
+            Assert.NotNull(await application.Lenses.BuildCommercialPreviewAsync("pack-one"));
+            await application.Documents.OpenStockLensAsync("pack-one");
+            Assert.Equal(optic.Name, application.Documents.GetSnapshot().Name);
+            Assert.Null(application.Documents.CurrentPath);
+            await Assert.ThrowsAsync<InvalidDataException>(() => application.Documents.OpenStockLensAsync("pack-two"));
+            Assert.Equal(optic.Name, application.Documents.GetSnapshot().Name);
+            Assert.Equal(pack, Assert.Single(Directory.EnumerateFiles(root, "*", SearchOption.AllDirectories)));
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
     public void RuntimeLensLibraryIsReadOnlyAndEmptyCatalogDoesNotCreateFiles()
     {
         var root = Path.Combine(Path.GetTempPath(), $"staropt-lenses-empty-{Guid.NewGuid():N}");
         try
         {
-            using var application = WorkbenchApplication.Create(
-                lensLibraryDirectory: root);
-
-            Assert.Empty(application.Lenses.GetLenses());
-            Assert.Empty(application.Lenses.GetCommercialLenses());
+            var service = new LensLibraryService(root, Path.Combine(root, "UninstalledStockLensModels"));
+            Assert.Empty(service.GetLenses());
+            Assert.Empty(service.GetCommercialLenses());
             Assert.False(Directory.Exists(root));
             Assert.DoesNotContain(
                 typeof(ILensLibraryService).GetMethods(),

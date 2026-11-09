@@ -160,7 +160,7 @@ public sealed partial class TolerancingRunWindow : Window
             Row("运行次数", _runs),
             Row("随机种子", _seed),
             Row("统计模型", _distribution)),
-        Note("每次试验同时施加全部启用公差。Zemax 默认正态模型的最小值到最大值覆盖 4σ，即中心到极限为 ±2σ。次数为 0 时不执行 Monte Carlo。"));
+        Note("每次试验同时施加全部启用公差。默认正态模型的最小值到最大值覆盖 4σ，即中心到极限为 ±2σ。次数为 0 时不执行 Monte Carlo。"));
 
     private Control DisplayTab() => Page(
         Section("报告内容",

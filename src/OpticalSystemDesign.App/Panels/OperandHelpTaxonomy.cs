@@ -66,7 +66,7 @@ internal static class OperandHelpTaxonomy
         new("flow", "数学与控制", "评价函数控制", "BLNK DMFS ENDX GOTO OOFF SKIN SKIS USYM REQS"),
         new("tolerance", "数学与控制", "公差与扩展程序", "TOLR ZPLM UDOC"),
 
-        new("local", "扩展与保留", "本程序扩展", "FNUM RADI THIC RWFE", "本程序自定义操作数，不属于 Zemax 2026 R1 的 MFE 操作数目录。"),
+        new("local", "扩展与保留", "本程序扩展", "FNUM RADI THIC RWFE", "本程序提供的自定义操作数。"),
         new("unused", "扩展与保留", "官方未用名称", "BIPF COSA HACG QOAC TRAN", "官方标记 Unused，仅保存历史文件中的名称与参数，不列入待实现功能。"),
         new("unverified", "扩展与保留", "定义待核实", "OGSS SPHD", "已核实官方 API 名称，公开计算定义尚未核实，当前不执行。")
     ];

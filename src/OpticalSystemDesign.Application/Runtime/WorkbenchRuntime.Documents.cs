@@ -132,12 +132,7 @@ public partial class WorkbenchRuntime
             await StarOptProjectStore.HasMagicAsync(path, cancellationToken).ConfigureAwait(false))
         {
             var project = await StarOptProjectStore.LoadAsync(path, cancellationToken).ConfigureAwait(false);
-            return new LoadedOpticalDocument(
-                project.Configurations[project.ActiveConfigurationIndex],
-                project.Configurations,
-                project.ActiveConfigurationIndex,
-                project.BrokenLinks,
-                project.NonSequentialDocument, project.OperandRows, project.OperandVariables, project.OperandPickups);
+            return FromStarOptProject(project);
         }
 
         if (IsNativeJsonPath(path))
@@ -166,6 +161,13 @@ public partial class WorkbenchRuntime
         var loaded = OpticalFormatCatalog.Import(text, Path.GetExtension(path));
         return new LoadedOpticalDocument(loaded, new[] { loaded }, 0);
     }
+
+    internal static LoadedOpticalDocument FromStarOptProject(StarOptProjectDocument project) => new(
+        project.Configurations[project.ActiveConfigurationIndex],
+        project.Configurations,
+        project.ActiveConfigurationIndex,
+        project.BrokenLinks,
+        project.NonSequentialDocument, project.OperandRows, project.OperandVariables, project.OperandPickups);
 
     public async Task LoadAsync(string path, CancellationToken cancellationToken = default)
     {

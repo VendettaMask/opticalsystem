@@ -1052,7 +1052,7 @@ public partial class WorkbenchRuntime
             },
             "Contrast Loss Map" => new[]
             {
-                ChoiceParameter("Sampling", "瞳面采样", "49", new[] { "13", "17", "25", "33", "49", "65" }),
+                ChoiceParameter("Sampling", "瞳面采样", "97", new[] { "13", "17", "25", "33", "49", "65", "81", "97" }),
                 DoubleParameter("Frequency", CurrentOptic.ImageSpaceAfocal
                     ? "空间频率 (cycles/mrad，0=5%截止)" : "空间频率 (cycles/mm，0=5%截止)", "0", 0, 10000, 1),
                 BoolParameter("Normalize", "归一化", "false"),

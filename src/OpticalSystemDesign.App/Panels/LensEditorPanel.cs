@@ -293,7 +293,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
         LoadSurfaceProperties(row);
         if (!canEditComponents)
         {
-            _componentSummary.Text += "（只读：暂不支持计算/编辑该 Zemax 面型）";
+            _componentSummary.Text += "（只读：该导入面型暂不支持计算或编辑）";
         }
     }
 
@@ -306,7 +306,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
 
         if (!row.GeometryComputable)
         {
-            _componentSummary.Text = $"表面 {row.Number}: {row.SurfaceType}（只读：暂不支持计算/编辑该 Zemax 面型）";
+            _componentSummary.Text = $"表面 {row.Number}: {row.SurfaceType}（只读：该导入面型暂不支持计算或编辑）";
             return;
         }
 

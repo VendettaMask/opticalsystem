@@ -30,7 +30,9 @@ public sealed partial class WorkbenchApplication : IWorkbenchApplication
         NonSequentialAnalysis = _nonSequentialAnalysisService;
         NonSequential = new NonSequentialDocumentService(_workspace, NonSequentialAnalysis);
 
-        Documents = new OpticalDocumentService(_workspace);
+        var lenses = new LensLibraryService(lensLibraryDirectory);
+        Lenses = lenses;
+        Documents = new OpticalDocumentService(_workspace, lenses);
         Prescription = new PrescriptionService(_workspace);
         Analyses = new AnalysisService(_workspace, Modes, _nonSequentialAnalysisSession);
         Visualization = new VisualizationService(_workspace, Modes, _nonSequentialLayoutSession);
@@ -41,7 +43,6 @@ public sealed partial class WorkbenchApplication : IWorkbenchApplication
         CameraImaging = new CameraImagingService(_workspace, Modes, _nonSequentialAnalysisService);
         MultiConfiguration = new MultiConfigurationService(_workspace);
         Materials = new MaterialCatalogService(_workspace, userCatalogDirectory);
-        Lenses = new LensLibraryService(lensLibraryDirectory);
         Events = _workspace;
     }
 

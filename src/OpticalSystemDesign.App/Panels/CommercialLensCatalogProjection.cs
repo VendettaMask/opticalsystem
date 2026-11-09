@@ -106,7 +106,7 @@ internal sealed record CommercialLensRow(CommercialLensEntryDto Entry)
 
     public int ElementCount => Entry.ElementCount;
 
-    public string ModelAvailability => string.IsNullOrWhiteSpace(Entry.NativePath) ? "仅目录" : "可载入";
+    public string ModelAvailability => Entry.CanOpenModel ? "可载入" : "仅目录";
 
     private static string Number(double value) =>
         double.IsFinite(value) && value != 0

@@ -419,10 +419,13 @@ public sealed class SeparableBiconicGeometry : IGeometry
 
 public sealed class ToroidalGeometry : IGeometry
 {
-    public ToroidalGeometry(double tangentialRadius, double sagittalRadius)
+    public ToroidalGeometry(double tangentialRadius, double sagittalRadius, double conic = 0,
+        IReadOnlyList<double>? coefficients = null)
     {
         TangentialRadius = tangentialRadius;
         SagittalRadius = sagittalRadius;
+        Conic = conic;
+        Coefficients = Array.AsReadOnly(coefficients?.ToArray() ?? Array.Empty<double>());
     }
 
     public string Kind => "toroidal";
@@ -431,6 +434,10 @@ public sealed class ToroidalGeometry : IGeometry
 
     public double SagittalRadius { get; }
 
+    public double Conic { get; }
+
+    public IReadOnlyList<double> Coefficients { get; }
+
     public double Sag(double x, double y)
     {
         const double epsilon = 1e-14;
@@ -438,9 +445,17 @@ public sealed class ToroidalGeometry : IGeometry
         if (!double.IsInfinity(TangentialRadius) && Math.Abs(TangentialRadius) > epsilon)
         {
             var curvature = 1.0 / TangentialRadius;
-            var root = 1.0 - (curvature * curvature * y * y);
+            var root = 1.0 - ((1 + Conic) * curvature * curvature * y * y);
             if (root < 0) return double.NaN;
             yzSag = (curvature * y * y) / (1.0 + Math.Sqrt(root));
+        }
+
+        var ySquared = y * y;
+        var power = ySquared;
+        foreach (var coefficient in Coefficients)
+        {
+            yzSag += coefficient * power;
+            power *= ySquared;
         }
 
         if (double.IsInfinity(SagittalRadius) || Math.Abs(SagittalRadius) <= epsilon)
@@ -468,6 +483,8 @@ public sealed class ToroidalGeometry : IGeometry
 
     public Vector3D SurfaceNormal(Vector3D localPoint)
     {
+        if (Conic != 0 || Coefficients.Count > 0)
+            return GeometryMath.FiniteDifferenceNormal(Sag, localPoint);
         var curvature = double.IsInfinity(TangentialRadius) || Math.Abs(TangentialRadius) <= 1e-14
             ? 0 : 1 / TangentialRadius;
         var ySlopeNumerator = curvature * localPoint.Y;
@@ -482,7 +499,7 @@ public sealed class ToroidalGeometry : IGeometry
         return normal / normal.Length;
     }
 
-    public IGeometry Clone() => new ToroidalGeometry(TangentialRadius, SagittalRadius);
+    public IGeometry Clone() => new ToroidalGeometry(TangentialRadius, SagittalRadius, Conic, Coefficients);
 }
 
 public sealed class PolynomialGeometry : IGeometry

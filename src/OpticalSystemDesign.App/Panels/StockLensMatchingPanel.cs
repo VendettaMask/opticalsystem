@@ -405,6 +405,7 @@ internal sealed class StockLensMatchingPanel : UserControl, IDisposable
         "Thorlabs" => "Thorlabs（索雷博）",
         "Edmund Optics" => "Edmund Optics（爱特蒙特）",
         "Daheng Optics" => "Daheng Optics（大恒光电）",
+        "JCOPTIX" => "JCOPTIX（晶萃光学）",
         "Newport" => "Newport",
         "Sigma Koki" => "Sigma Koki",
         _ => manufacturer

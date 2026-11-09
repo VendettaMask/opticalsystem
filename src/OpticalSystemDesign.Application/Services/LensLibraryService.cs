@@ -18,14 +18,20 @@ internal sealed class LensLibraryService : ILensLibraryService
     };
 
     private readonly object _gate = new();
+    private readonly string? _localStockModelDirectory;
+    private readonly Dictionary<string, string> _stockModelPacks = new(StringComparer.Ordinal);
     private LensLibraryCatalogDocument? _catalog;
     private CommercialLensCatalogDocument? _commercialCatalog;
     private IReadOnlyList<CommercialLensEntryDto>? _commercialEntries;
 
-    public LensLibraryService(string libraryDirectory)
+    public LensLibraryService(string libraryDirectory, string? localStockModelDirectory = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(libraryDirectory);
         LibraryDirectory = Path.GetFullPath(libraryDirectory);
+        var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        _localStockModelDirectory = localStockModelDirectory ?? (string.IsNullOrWhiteSpace(localAppData)
+            ? null
+            : Path.Combine(localAppData, "OpticalSystemDesign", "StockLensModels"));
     }
 
     public string LibraryDirectory { get; }
@@ -47,6 +53,7 @@ internal sealed class LensLibraryService : ILensLibraryService
         {
             return _commercialEntries ??= LoadCommercialCatalog().Entries
                     .Where(entry => StockLensCatalogPolicy.IncludesManufacturer(entry.Manufacturer))
+                    .Select(WithLocalModelAvailability)
                     .OrderBy(entry => entry.Manufacturer, StringComparer.OrdinalIgnoreCase)
                     .ThenBy(entry => entry.PartNumber, StringComparer.OrdinalIgnoreCase)
                     .ToArray();
@@ -79,7 +86,10 @@ internal sealed class LensLibraryService : ILensLibraryService
     public string? GetCommercialNativeProjectPath(string lensId)
     {
         var entry = GetCommercialEntry(lensId);
-        return entry is null ? null : ResolveNativeProjectPath(entry.NativePath);
+        return entry is null
+            ? null
+            : ResolveNativeProjectPath(LibraryDirectory, entry.NativePath)
+                ?? ResolveNativeProjectPath(_localStockModelDirectory, entry.LocalModelPath);
     }
 
     public async Task<SceneDto?> BuildPreviewAsync(
@@ -99,10 +109,29 @@ internal sealed class LensLibraryService : ILensLibraryService
         string lensId,
         CancellationToken cancellationToken = default)
     {
+        var project = await LoadCommercialProjectAsync(lensId, cancellationToken).ConfigureAwait(false);
+        return project is null
+            ? null
+            : await BuildPreviewFromProjectAsync(project.Value.Document, project.Value.Source, cancellationToken).ConfigureAwait(false);
+    }
+
+    internal async Task<(StarOptProjectDocument Document, string Source)?> LoadCommercialProjectAsync(
+        string lensId,
+        CancellationToken cancellationToken)
+    {
+        var entry = GetCommercialEntry(lensId);
+        if (entry?.HasPackedModel == true)
+        {
+            var archive = _stockModelPacks[lensId];
+            var document = await Task.Run(() => StockLensModelPack.LoadProject(archive, lensId), cancellationToken)
+                .ConfigureAwait(false);
+            return (document, $"{entry.PartNumber}.staropt");
+        }
+
         var nativePath = GetCommercialNativeProjectPath(lensId);
         return nativePath is null
             ? null
-            : await BuildPreviewFromProjectAsync(nativePath, cancellationToken).ConfigureAwait(false);
+            : (await StarOptProjectStore.LoadAsync(nativePath, cancellationToken).ConfigureAwait(false), nativePath);
     }
 
     private static async Task<SceneDto> BuildPreviewFromProjectAsync(
@@ -110,11 +139,19 @@ internal sealed class LensLibraryService : ILensLibraryService
         CancellationToken cancellationToken)
     {
         var project = await StarOptProjectStore.LoadAsync(nativePath, cancellationToken).ConfigureAwait(false);
+        return await BuildPreviewFromProjectAsync(project, nativePath, cancellationToken).ConfigureAwait(false);
+    }
+
+    private static async Task<SceneDto> BuildPreviewFromProjectAsync(
+        StarOptProjectDocument project,
+        string source,
+        CancellationToken cancellationToken)
+    {
         var optic = project.Configurations[project.ActiveConfigurationIndex];
         var (scene, warning) = await Task.Run(
             () => BuildPreviewScene(optic),
             cancellationToken).ConfigureAwait(false);
-        var summary = CreateSummary(optic, nativePath);
+        var summary = CreateSummary(optic, source);
         return new SceneDto(0, SceneDimension.TwoDimensional, WorkbenchMapper.ToScene2Dto(scene), null, summary,
             Warnings: warning is null ? Array.Empty<string>() : new[] { warning });
     }
@@ -158,16 +195,28 @@ internal sealed class LensLibraryService : ILensLibraryService
         }
     }
 
-    private string? ResolveNativeProjectPath(string? relativePath)
+    private CommercialLensEntryDto WithLocalModelAvailability(CommercialLensEntryDto entry)
     {
-        if (string.IsNullOrWhiteSpace(relativePath))
+        if (string.IsNullOrWhiteSpace(entry.LocalModelPath))
+        {
+            return entry;
+        }
+
+        return ResolveNativeProjectPath(_localStockModelDirectory, entry.LocalModelPath) is null
+            ? entry with { LocalModelPath = null }
+            : entry with { ModelStatus = "本机 STAROPT 模型可载入" };
+    }
+
+    private static string? ResolveNativeProjectPath(string? root, string? relativePath)
+    {
+        if (root is null || string.IsNullOrWhiteSpace(relativePath))
         {
             return null;
         }
 
         try
         {
-            var nativePath = SafeChildPath(LibraryDirectory, relativePath);
+            var nativePath = SafeChildPath(root, relativePath);
             return Path.GetExtension(nativePath).Equals(".staropt", StringComparison.OrdinalIgnoreCase)
                    && File.Exists(nativePath)
                 ? nativePath
@@ -215,18 +264,51 @@ internal sealed class LensLibraryService : ILensLibraryService
             return _commercialCatalog;
         }
 
+        CommercialLensCatalogDocument catalog;
         try
         {
-            var catalog = CommercialLensCatalogStore.LoadDirectory(LibraryDirectory);
-            return _commercialCatalog = catalog is { Version: SupportedCommercialCatalogVersion }
-                ? catalog
+            var loaded = CommercialLensCatalogStore.LoadDirectory(LibraryDirectory);
+            catalog = loaded is { Version: SupportedCommercialCatalogVersion }
+                ? loaded
                 : EmptyCommercialCatalog();
         }
         catch (Exception exception) when (
             exception is JsonException or InvalidDataException or IOException or UnauthorizedAccessException)
         {
-            return _commercialCatalog = EmptyCommercialCatalog();
+            catalog = EmptyCommercialCatalog();
         }
+
+        var entries = catalog.Entries.ToList();
+        var builtAt = catalog.BuiltAt;
+        foreach (var manufacturer in StockLensCatalogPolicy.Manufacturers)
+        {
+            var fileName = manufacturer + StockLensModelPack.Extension;
+            var bundled = Path.Combine(LibraryDirectory, CommercialLensCatalogStore.DirectoryName, fileName);
+            var installed = _localStockModelDirectory is null ? bundled : Path.Combine(_localStockModelDirectory, fileName);
+            var path = File.Exists(installed) ? installed : bundled;
+            if (!File.Exists(path)) continue;
+
+            try
+            {
+                var packed = StockLensModelPack.ReadCatalog(path);
+                var existingIds = entries.Where(entry => !entry.Manufacturer.Equals(manufacturer, StringComparison.OrdinalIgnoreCase))
+                    .Select(entry => entry.Id).ToHashSet(StringComparer.Ordinal);
+                if (packed.Entries.Any(entry => existingIds.Contains(entry.Id))) continue;
+
+                entries.RemoveAll(entry => entry.Manufacturer.Equals(manufacturer, StringComparison.OrdinalIgnoreCase));
+                entries.AddRange(packed.Entries);
+                foreach (var entry in packed.Entries.Where(entry => entry.HasPackedModel))
+                    _stockModelPacks.Add(entry.Id, path);
+                if (packed.BuiltAt > builtAt) builtAt = packed.BuiltAt;
+            }
+            catch (Exception exception) when (
+                exception is JsonException or InvalidDataException or IOException or UnauthorizedAccessException)
+            {
+                // Other manufacturers and the shipped directory remain available.
+            }
+        }
+
+        return _commercialCatalog = new CommercialLensCatalogDocument(SupportedCommercialCatalogVersion, builtAt, entries);
     }
 
     private static LensLibraryCatalogDocument EmptyCatalog() => new(

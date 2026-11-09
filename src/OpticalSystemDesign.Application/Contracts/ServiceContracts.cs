@@ -146,6 +146,8 @@ public interface IOpticalDocumentService
 
     Task OpenAsync(string path, CancellationToken cancellationToken = default);
 
+    Task OpenStockLensAsync(string lensId, CancellationToken cancellationToken = default);
+
     Task SaveAsync(string path, CancellationToken cancellationToken = default);
 
     DocumentRecoveryState GetRecoveryState();

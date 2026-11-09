@@ -79,15 +79,22 @@ internal sealed class WorkspaceCoordinator : IWorkspaceEventStream, IDisposable
                 status,
                 Runtime.CanUndo,
                 Runtime.CanRedo,
-                computable ? optic.Paraxial.EstimateEffectiveFocalLength() : double.NaN,
-                computable ? optic.Paraxial.EstimateFNumber() : double.NaN,
+                EstimateParaxial(optic.Paraxial.EstimateEffectiveFocalLength),
+                EstimateParaxial(optic.Paraxial.EstimateFNumber),
                 optic.Aperture.Value,
                 optic.SurfaceGroup.TotalTrack,
                 optic.SurfaceGroup.Items.Count,
                 optic.Fields.Count,
                 optic.Wavelengths.Count,
-                computable ? optic.Paraxial.EstimateEntrancePupilDiameter() : double.NaN,
+                EstimateParaxial(optic.Paraxial.EstimateEntrancePupilDiameter),
                 Revision != Interlocked.Read(ref _savedRevision));
+
+            double EstimateParaxial(Func<double> estimate)
+            {
+                if (!computable) return double.NaN;
+                try { return estimate(); }
+                catch (NotSupportedException) { return double.NaN; }
+            }
         }
     }
 

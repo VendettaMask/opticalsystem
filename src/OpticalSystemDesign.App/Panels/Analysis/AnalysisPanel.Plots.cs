@@ -88,12 +88,48 @@ public sealed partial class AnalysisPanel
         return layout;
     }
 
+    private static double ContrastLossColorMaximum(AnalysisViewDto view) =>
+        view.PlotPanes.SelectMany(pane => pane.Series)
+            .Where(series => series.ValueQuantity == AnalysisAxisQuantity.Modulation)
+            .Select(series => series.ValueMaximum ?? 0)
+            .DefaultIfEmpty(1)
+            .Max();
+
+    private static Control BuildContrastLossPlot(AnalysisViewDto view)
+    {
+        var colorMaximum = ContrastLossColorMaximum(view);
+        AnalysisPlotPaneDto Heatmap(AnalysisPlotPaneDto pane) => pane with
+        {
+            PlotOptions = pane.PlotOptions with
+            {
+                HideAxes = false,
+                HideTopAndRightAxes = false,
+                GridOpacity = 0,
+                XMinimum = -1,
+                XMaximum = 1,
+                YMinimum = -1,
+                YMaximum = 1
+            },
+            Series = pane.Series.Select(series => series with
+            {
+                XAxisLabel = "P_x",
+                YAxisLabel = "P_y",
+                ValueLabel = UiLocalization.Text("对比度损失图"),
+                ValueMinimum = 0,
+                ValueMaximum = colorMaximum
+            }).ToArray()
+        };
+
+        return BuildPanePlot([Heatmap(view.PlotPanes[1]), Heatmap(view.PlotPanes[0]), .. view.PlotPanes.Skip(2)],
+            view.PlotPaneColumns, pupilHeatmaps: true);
+    }
+
     private static Control BuildPanePlot(
         IReadOnlyList<AnalysisPlotPaneDto> panes,
         int requestedColumns,
         bool defaultSquareCells = false,
         bool alignTitleRows = false,
-        bool pupilCircles = false)
+        bool pupilHeatmaps = false)
     {
         var baseColumns = Math.Clamp(requestedColumns, 1, Math.Max(1, panes.Count));
         var baseRows = (int)Math.Ceiling(panes.Count / (double)baseColumns);
@@ -117,7 +153,7 @@ public sealed partial class AnalysisPanel
             {
                 Series = pane.Series,
                 PlotOptions = alignTitleRows ? pane.PlotOptions with { Title = string.Empty } : pane.PlotOptions,
-                DrawPupilCircles = pupilCircles && pane.Series.Any(series => series.ValueQuantity == AnalysisAxisQuantity.Modulation),
+                PupilHeatmap = pupilHeatmaps && pane.Series.Any(series => series.ValueQuantity == AnalysisAxisQuantity.Modulation),
                 MinWidth = DisplayTypography.Scale(176),
                 MinHeight = DisplayTypography.Scale(176),
                 Margin = new Thickness(2)
@@ -157,7 +193,7 @@ public sealed partial class AnalysisPanel
             plots.Add(plot);
         }
 
-        return pupilCircles ? paneGrid : BuildPanePlotContent(paneGrid, panes, plots);
+        return pupilHeatmaps ? paneGrid : BuildPanePlotContent(paneGrid, panes, plots);
     }
 
     private static bool IsRayFanView(AnalysisViewDto view)

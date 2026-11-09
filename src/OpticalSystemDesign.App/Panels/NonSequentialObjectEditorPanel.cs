@@ -417,7 +417,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         double minimumXHalfWidth,
         double minimumYHalfWidth)
     {
-        Field("angularDistribution", "Zemax 方向分布", distribution);
+        Field("angularDistribution", "光源方向分布", distribution);
         Field("sourceDistance", "虚拟点距离 (mm)", sourceDistance);
         Field("cosineExponent", "Cosine 指数", cosineExponent);
         Field("gaussianX", "Gaussian X 系数", gaussianX);
@@ -430,7 +430,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
 
     private void VolumeSourceDistribution(NonSequentialVolumeSourceAngularDistribution distribution)
     {
-        Field("angularDistribution", "Zemax 方向分布", distribution);
+        Field("angularDistribution", "光源方向分布", distribution);
     }
 
     private void ApplyProperties()

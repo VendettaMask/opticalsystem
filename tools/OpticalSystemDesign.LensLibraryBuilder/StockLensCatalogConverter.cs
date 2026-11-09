@@ -137,10 +137,15 @@ internal static class StockLensCatalogConverter
         return catalog;
     }
 
-    internal static IReadOnlyList<CommercialLensEntryDto> ReadFile(string path)
+    internal static IReadOnlyList<CommercialLensEntryDto> ReadFile(string path) =>
+        ReadRecords(path, includePrescription: false).Select(record => record.Entry).ToArray();
+
+    internal static IEnumerable<ZmfStockRecord> ReadRecords(string path, bool includePrescription)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(path);
         var catalogKey = Path.GetFileNameWithoutExtension(path);
+        if (includePrescription && catalogKey.StartsWith("THORLABS_", StringComparison.OrdinalIgnoreCase))
+            catalogKey = "THORLABS";
         if (!Catalogs.TryGetValue(catalogKey, out var catalog))
         {
             throw new InvalidDataException($"Unsupported stock-lens catalog: {catalogKey}.");
@@ -154,7 +159,6 @@ internal static class StockLensCatalogConverter
         }
 
         var sourceTimestamp = new DateTimeOffset(File.GetLastWriteTimeUtc(path));
-        var entries = new List<CommercialLensEntryDto>();
         var recordIndex = 0;
         while (stream.Position < stream.Length)
         {
@@ -183,14 +187,18 @@ internal static class StockLensCatalogConverter
                     $"ZMF catalog {Path.GetFileName(path)} has an invalid element count or record length.");
             }
 
-            stream.Seek(descriptionLength, SeekOrigin.Current);
+            byte[]? prescription = null;
+            if (includePrescription && !string.IsNullOrWhiteSpace(name))
+                prescription = reader.ReadBytes(checked((int)descriptionLength));
+            else
+                stream.Seek(descriptionLength, SeekOrigin.Current);
             if (!string.IsNullOrWhiteSpace(name))
             {
                 var shapeCode = shapeIndex < ShapeCodes.Length
                     ? ShapeCodes[(int)shapeIndex].ToString()
                     : "?";
                 var surfaceType = SurfaceType(aspheric, grin, toroidal);
-                entries.Add(new CommercialLensEntryDto(
+                var entry = new CommercialLensEntryDto(
                     StableId(catalogKey, name, recordIndex),
                     catalog.Manufacturer,
                     name,
@@ -215,13 +223,20 @@ internal static class StockLensCatalogConverter
                     null,
                     $"离线维护工具从 {Path.GetFileName(path)} 目录版本 {lensVersion} 的目录头转换；不包含处方正文。",
                     sourceTimestamp,
-                    FiniteOrZero(entrancePupilDiameter)));
+                    FiniteOrZero(entrancePupilDiameter));
+                yield return new ZmfStockRecord(entry, lensVersion, effectiveFocalLength, entrancePupilDiameter, prescription);
             }
             recordIndex++;
         }
 
-        return entries;
     }
+
+    internal sealed record ZmfStockRecord(
+        CommercialLensEntryDto Entry,
+        uint LensVersion,
+        double EffectiveFocalLength,
+        double EntrancePupilDiameter,
+        byte[]? Prescription);
 
     private static string DecodeName(byte[] bytes)
     {

@@ -235,7 +235,7 @@ public sealed partial class LensEditorPanel
                 PropertyNote("本页只读。当前散射模型仅支持主光线损耗近似，不等同于完整 BSDF / 杂散光追迹；尚未接入散射参数编辑。")),
             [SurfacePropertyPage.Coordinates] = PropertyStack(
                 _coordinatesSummary,
-                PropertyNote("以上为当前表面的实际全局坐标，只读。Zemax 倾斜/偏心的前后顺序、坐标返回与参考面编辑尚未接入，不将其作为等价控制。")),
+                PropertyNote("以上显示当前表面的实际全局坐标。倾斜、偏心顺序及坐标返回属于独立的处方设置。")),
             [SurfacePropertyPage.PhysicalOptics] = PropertyStack(
                 _interactionSummary,
                 PropertyNote("衍射光栅和薄透镜参数在“类型”页按面型显示。逐表面物理光学传播设置尚未实现；系统级 PSF / 波前分析不是逐面 POP 传播。")),

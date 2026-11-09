@@ -502,6 +502,7 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         Geometries.EvenAsphereGeometry => "EVENASPH",
         Geometries.OddAsphereGeometry => "ODDASPHE",
         Geometries.ToroidalGeometry => "TOROIDAL",
+        Geometries.ForbesNormalSlopeGeometry => "QED_TYPE",
         _ => throw new NotSupportedException(
             $"Zemax ZMX export cannot losslessly map geometry '{geometry.Kind}' to a supported TYPE.")
     };
@@ -615,6 +616,14 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
                 break;
             case Geometries.ToroidalGeometry toroidal:
                 lines.Add($"  PARM 1 {FormatDouble(double.IsInfinity(toroidal.SagittalRadius) ? 0 : toroidal.SagittalRadius)}");
+                WriteCoefficients(lines, toroidal.Coefficients, 2);
+                break;
+            case Geometries.ForbesNormalSlopeGeometry forbes:
+                lines.Add("  XDAT 1 0");
+                lines.Add($"  XDAT 2 {forbes.Coefficients.Count}");
+                lines.Add($"  XDAT 3 {FormatDouble(forbes.NormalizationRadius)}");
+                for (var index = 0; index < forbes.Coefficients.Count; index++)
+                    lines.Add($"  XDAT {index + 4} {FormatDouble(forbes.Coefficients[index])}");
                 break;
         }
     }

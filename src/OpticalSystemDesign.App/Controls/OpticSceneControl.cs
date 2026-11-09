@@ -90,6 +90,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         }
     }.ToImmutable();
     private static readonly IImmutableBrush LensFillBrush = new ImmutableSolidColorBrush(Color.FromArgb(104, 105, 151, 185));
+    private static readonly IImmutableBrush WaterFillBrush = new ImmutableSolidColorBrush(Color.FromArgb(110, 34, 181, 135));
     private static readonly ImmutablePen ReferencePlanePen = new(new ImmutableSolidColorBrush(Color.FromRgb(34, 48, 58)), 2.6);
     private static readonly ImmutablePen AxisPen = new(new ImmutableSolidColorBrush(Color.FromArgb(115, 134, 146, 166)), 0.8, new ImmutableDashStyle(DashStyle.Dash.Dashes, DashStyle.Dash.Offset));
     private static readonly ImmutablePen StopPen = new(new ImmutableSolidColorBrush(Color.FromRgb(33, 96, 144)), 3);
@@ -1139,7 +1140,12 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     {
         foreach (var element in elements)
         {
-            DrawFilledPolygon(context, ThemeBrush(ThemeResourceBindings.SceneLensFill, LensFillBrush), TwoDLensOutlinePen, element.Boundary, mapZ, mapY);
+            var material = element.Material.Trim();
+            var isWater = material.Equals("WATER_AK.ZTG", StringComparison.OrdinalIgnoreCase)
+                || material.Equals("WATER", StringComparison.OrdinalIgnoreCase)
+                || material.Equals("H2O", StringComparison.OrdinalIgnoreCase);
+            var fill = isWater ? WaterFillBrush : ThemeBrush(ThemeResourceBindings.SceneLensFill, LensFillBrush);
+            DrawFilledPolygon(context, fill, TwoDLensOutlinePen, element.Boundary, mapZ, mapY);
         }
     }
 

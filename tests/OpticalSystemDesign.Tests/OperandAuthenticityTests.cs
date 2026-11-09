@@ -33,7 +33,7 @@ public sealed class OperandAuthenticityTests
         using var app = WorkbenchApplication.Create("cooke");
         var type = app.Optimization.GetMeritOperandTypes().Single(t => t.Code == code);
         Assert.Equal("本程序扩展", type.Category); Assert.Contains("本程序", type.DisplayName);
-        Assert.Contains("不是 Zemax", type.Calculation); Assert.Contains("本程序自定义", type.Description);
+        Assert.Contains("本程序提供的自定义操作数", type.Calculation); Assert.Contains("本程序自定义", type.Description);
         Assert.False(type.CompatibilityOnly);
     }
 
@@ -47,7 +47,7 @@ public sealed class OperandAuthenticityTests
     {
         using var app = WorkbenchApplication.Create("cooke");
         var type = app.Optimization.GetMeritOperandTypes().Single(t => t.Code == code);
-        Assert.True(type.CompatibilityOnly); Assert.Equal("Zemax 未用名称", type.Category);
+        Assert.True(type.CompatibilityOnly); Assert.Equal("未用名称", type.Category);
         Assert.Contains("未用", type.DisplayName); Assert.Contains("不列入待实现功能", type.Calculation);
         var value = MeritFunctionCatalog.Evaluate(Optic.CreateBlank(), new() { Type = code });
         Assert.NotEmpty(value.Error); Assert.True(double.IsNaN(value.Value));
@@ -60,7 +60,7 @@ public sealed class OperandAuthenticityTests
     {
         using var app = WorkbenchApplication.Create("cooke");
         var type = app.Optimization.GetMeritOperandTypes().Single(t => t.Code == code);
-        Assert.True(type.CompatibilityOnly); Assert.Equal("Zemax 定义待核实", type.Category);
-        Assert.Contains("未取得公开计算定义", type.Calculation);
+        Assert.True(type.CompatibilityOnly); Assert.Equal("定义待核实", type.Category);
+        Assert.Contains("尚未取得公开计算定义", type.Calculation);
     }
 }

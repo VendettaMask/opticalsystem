@@ -36,7 +36,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         set => SetValue(UseSeriesColorMapProperty, value);
     }
 
-    internal bool DrawPupilCircles { get; init; }
+    internal bool PupilHeatmap { get; init; }
 
     internal Color ScalarColor(AnalysisSeries series, double value) =>
         UseSeriesColorMap ? ColorFor(series.ColorMap, value)
@@ -516,7 +516,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             .Where(item => item.Series.Kind is AnalysisSeriesKind.Heatmap or AnalysisSeriesKind.ColoredLine)
             .Select(item => item.Series)
             .FirstOrDefault();
-        var colorbarWidth = !compact && !DrawPupilCircles
+        var colorbarWidth = !compact
             && valueSeries is not null
             && !string.IsNullOrWhiteSpace(valueSeries.ValueLabel)
                 ? 92
@@ -556,12 +556,6 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             top,
             Math.Max(1, Bounds.Width - left - right),
             Math.Max(1, Bounds.Height - top - bottom));
-        if (DrawPupilCircles)
-        {
-            var side = Math.Min(plot.Width, plot.Height);
-            plot = new Rect(plot.Center.X - side / 2, plot.Center.Y - side / 2, side, side);
-        }
-
         var allPoints = axisSeries.SelectMany(item => item.Points).ToArray();
         var xMin = PlotOptions.XMinimum ?? allPoints.Min(point => point.X);
         var xMax = PlotOptions.XMaximum ?? allPoints.Max(point => point.X);
@@ -582,7 +576,8 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             xMax = limit;
         }
 
-        if (PlotOptions.EqualAspect && !UseHeatmapIntervals)
+        var fitHeatmap = UseHeatmapIntervals || PupilHeatmap;
+        if (PlotOptions.EqualAspect && !fitHeatmap)
         {
             MakeEqualAspect(plot, ref xMin, ref xMax, ref yMin, ref yMax);
         }
@@ -595,7 +590,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             yMax = viewport.YMaximum;
         }
 
-        if (UseHeatmapIntervals)
+        if (fitHeatmap)
         {
             var scale = Math.Min(plot.Width / (xMax - xMin), plot.Height / (yMax - yMin));
             var width = (xMax - xMin) * scale;
@@ -612,7 +607,12 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         double MapY(double value) => plot.Bottom - ((value - yMin) / (yMax - yMin) * plot.Height);
 
         if (!string.IsNullOrWhiteSpace(PlotOptions.Title))
-            context.DrawText(titleText, new Point(plot.Center.X - titleText.Width / 2, DisplayTypography.Scale(13)));
+        {
+            var titleY = DisplayTypography.Scale(13);
+            if (PupilHeatmap)
+                titleY = Math.Max(titleY, plot.Top - titleText.Height - DisplayTypography.Scale(14));
+            context.DrawText(titleText, new Point(plot.Center.X - titleText.Width / 2, titleY));
+        }
         using (context.PushClip(plot))
         {
             foreach (var item in visibleSeries.Where(item => item.Series.Kind is AnalysisSeriesKind.Heatmap or AnalysisSeriesKind.Raster))
@@ -676,7 +676,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
     {
         if (_hoverPointer is not Point pointer || !plot.Contains(pointer))
         {
-            if (DrawPupilCircles || plot.Width < 320 || plot.Height < 180)
+            if (PupilHeatmap || plot.Width < 320 || plot.Height < 180)
             {
                 return;
             }
@@ -794,7 +794,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
                 gridColor.B)),
             1,
             PlotOptions.DottedGrid ? new DashStyle(new[] { 1.0, 3.0 }, 0) : null);
-        var divisions = UseHeatmapIntervals ? 2 : 5;
+        var divisions = UseHeatmapIntervals || PupilHeatmap ? 2 : 5;
         for (var index = 0; index <= divisions; index++)
         {
             var fraction = index / (double)divisions;
@@ -891,8 +891,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         var pen = new Pen(brush, CurveStrokeWidth(series), DashFor(series.LineStyle));
         if (series.Kind == AnalysisSeriesKind.Heatmap)
         {
-            if (DrawPupilCircles) DrawPupilLoss(context, points, mapX, mapY);
-            else DrawHeatmap(context, series, points, mapX, mapY);
+            DrawHeatmap(context, series, points, mapX, mapY);
             return;
         }
 
@@ -950,25 +949,6 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         }
     }
 
-    private void DrawPupilLoss(DrawingContext context, IReadOnlyList<AnalysisPoint> points,
-        Func<double, double> mapX, Func<double, double> mapY)
-    {
-        var brush = ThemeBrush(ThemeResourceBindings.PlotText, TextBrush);
-        var rim = ThemePen(ThemeResourceBindings.PlotAxis, AxisPen);
-        var pupilRadius = (mapX(1) - mapX(-1)) / 2;
-        context.DrawEllipse(null, rim, new Point(mapX(0), mapY(0)), Math.Abs(pupilRadius), (mapY(-1) - mapY(1)) / 2);
-        var gridWidth = points.Select(point => point.X).Distinct().Count();
-        var maximumRadius = 0.85 * Math.Abs(pupilRadius) / Math.Max(1, gridWidth - 1);
-        var outline = new Pen(brush, 0.75);
-        foreach (var point in points)
-        {
-            if (point.Value is not { } loss || !double.IsFinite(loss)) continue;
-            var radius = Math.Max(0.55, maximumRadius * Math.Sqrt(Math.Clamp(loss, 0, 1)));
-            var center = new Point(mapX(point.X), mapY(point.Y));
-            context.DrawEllipse(radius < 1.25 ? brush : null, radius < 1.25 ? null : outline, center, radius, radius);
-        }
-    }
-
     private void DrawHeatmap(
         DrawingContext context,
         AnalysisSeries series,
@@ -1019,6 +999,9 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
 
         var xStep = xValues.Length > 1 ? xValues.Zip(xValues.Skip(1), (left, right) => right - left).Where(step => step > 0).DefaultIfEmpty(1).Min() : 1;
         var yStep = yValues.Length > 1 ? yValues.Zip(yValues.Skip(1), (left, right) => right - left).Where(step => step > 0).DefaultIfEmpty(1).Min() : 1;
+        using var tileEdges = PupilHeatmap
+            ? context.PushRenderOptions(new RenderOptions { EdgeMode = EdgeMode.Aliased })
+            : default;
         foreach (var point in valued)
         {
             var normalized = Math.Abs(maximum - minimum) <= 1e-30 ? 0.5 : (point.Value!.Value - minimum) / (maximum - minimum);
@@ -1207,27 +1190,39 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         var minimum = series.ValueMinimum ?? values.Min();
         var maximum = series.ValueMaximum ?? values.Max();
         const double width = 14;
-        var height = Math.Min(220, plot.Height * 0.7);
+        var height = PupilHeatmap ? plot.Height * 0.86 : Math.Min(220, plot.Height * 0.7);
         var left = plot.Right + 24;
         var top = plot.Center.Y - (height / 2);
         const int steps = 96;
-        for (var index = 0; index < steps; index++)
+        using (context.PushClip(new Rect(left, top, width, height)))
         {
-            var fraction = index / (double)(steps - 1);
-            var y = top + (height * (1 - fraction));
-            context.DrawRectangle(
-                new SolidColorBrush(series.Kind == AnalysisSeriesKind.Heatmap
-                    ? ScalarColor(series, fraction) : ColorFor(series.ColorMap, fraction)),
-                null,
-                new Rect(left, y, width, (height / steps) + 1));
+            for (var index = 0; index < steps; index++)
+            {
+                var fraction = index / (double)(steps - 1);
+                var y = top + height * (steps - 1 - index) / steps;
+                context.DrawRectangle(
+                    new SolidColorBrush(series.Kind == AnalysisSeriesKind.Heatmap
+                        ? ScalarColor(series, fraction) : ColorFor(series.ColorMap, fraction)),
+                    null,
+                    new Rect(left, y, width, height / steps + 1));
+            }
         }
 
         context.DrawRectangle(null, ThemePen(ThemeResourceBindings.PlotAxis, AxisPen), new Rect(left, top, width, height));
-        var maxText = CreateText(FormatTick(maximum), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
-        var minText = CreateText(FormatTick(minimum), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
-        context.DrawText(maxText, new Point(left + width + 6, top - (maxText.Height / 2)));
-        context.DrawText(minText, new Point(left + width + 6, top + height - (minText.Height / 2)));
+        var intervals = PupilHeatmap ? 4 : 1;
+        for (var index = 0; index <= intervals; index++)
+        {
+            var fraction = index / (double)intervals;
+            var tick = CreateText(FormatTick(minimum + (maximum - minimum) * fraction),
+                PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
+            context.DrawText(tick, new Point(left + width + 6, top + (height * (1 - fraction)) - tick.Height / 2));
+        }
         var label = CreateText(series.ValueLabel, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+        if (PupilHeatmap)
+        {
+            context.DrawText(label, new Point(left, top - label.Height - 6));
+            return;
+        }
         var center = new Point(left + 66, top + (height / 2));
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, center)))
         {

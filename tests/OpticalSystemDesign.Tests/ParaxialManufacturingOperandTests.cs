@@ -73,7 +73,7 @@ public sealed class ParaxialManufacturingOperandTests
             var type = Assert.Single(types, item => item.Code == code);
             Assert.False(type.CompatibilityOnly);
             Assert.DoesNotContain("不会执行", type.Calculation);
-            Assert.NotEqual("Zemax 兼容保留", type.Category);
+            Assert.NotEqual("导入保留", type.Category);
         }
         Assert.True(ZemaxOperandRegistry.Get("PARX").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));
         Assert.True(ZemaxOperandRegistry.Get("EFLA").UsesSlotAs("Int2", ZemaxOperandParameterValueKind.Wavelength));

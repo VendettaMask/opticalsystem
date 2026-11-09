@@ -35,12 +35,13 @@ public sealed class StockLensMatcherTests
     }
 
     [Fact]
-    public void PolicyContainsOnlyRequestedFiveManufacturers()
+    public void PolicyIncludesJcoptixOnlyAsAnApplicationCatalog()
     {
         Assert.Equal(
-            new[] { "Thorlabs", "Edmund Optics", "Daheng Optics", "Newport", "Sigma Koki" },
+            new[] { "Thorlabs", "Edmund Optics", "Daheng Optics", "Newport", "Sigma Koki", "JCOPTIX" },
             StockLensCatalogPolicy.Manufacturers);
         Assert.True(StockLensCatalogPolicy.IncludesCatalog("DaHeng Optics"));
+        Assert.False(StockLensCatalogPolicy.IncludesCatalog("JCOPTIX"));
         Assert.False(StockLensCatalogPolicy.IncludesCatalog("CVI MELLES GRIOT"));
     }
 

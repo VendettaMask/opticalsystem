@@ -1461,3 +1461,14 @@ RMS 点列半径 (mm)	RMS spot radius (mm)	RMS スポット半径 (mm)
 校验轴对称瞳孔积分	Check rotational pupil integral	回転対称瞳の積分を検証
 用于单波长、轴上、同轴系统的标量平面传播。固定像面网格，自动细化圆瞳积分并校验收敛。	For scalar planar propagation in on-axis, coaxial systems at one wavelength. The circular pupil integral is refined and checked for convergence on the same image grid.	単一波長の軸上・同軸系におけるスカラー平面伝搬用です。同じ像面グリッド上で円形瞳の積分を細分化し、収束を確認します。
 按需加密	Refine when needed	必要に応じてサンプリングを細分化
+主光线斜率	Chief ray slope	主光線の傾き
+以上显示当前表面的实际全局坐标。倾斜、偏心顺序及坐标返回属于独立的处方设置。	The values above show the current surface in global coordinates. Tilt and decenter order and coordinate return are separate prescription settings.	上記は現在の面の実際のグローバル座標です。傾きと偏心の適用順序および座標復帰は、独立した処方設定です。
+佩兹伐半径 (mm)	Petzval radius (mm)	ペッツバール半径 (mm)
+光学不变量	Optical invariant	光学不変量
+光源方向分布	Source angular distribution	光源の角度分布
+每次试验同时施加全部启用公差。默认正态模型的最小值到最大值覆盖 4σ，即中心到极限为 ±2σ。次数为 0 时不执行 Monte Carlo。	Each trial applies all enabled tolerances together. The default normal model spans 4σ from minimum to maximum, with limits at ±2σ from the center. With 0 trials, Monte Carlo is skipped.	各試行では有効な公差をすべて同時に適用します。既定の正規分布モデルでは、最小値から最大値までの幅は 4σ で、限界は中心から ±2σ です。試行回数が 0 の場合、モンテカルロ解析は実行されません。
+波长 (µm)	Wavelength (µm)	波長 (µm)
+物方 {0}   像方 {1}	Object space {0}   Image space {1}	物体側 {0}   像側 {1}
+表面 {0}: {1}（只读：该导入面型暂不支持计算或编辑）	Surface {0}: {1} (read-only: calculation and editing are unavailable for this imported surface type)	面 {0}: {1}（読み取り専用：このインポート面タイプの計算と編集は未対応）
+边缘光线斜率	Marginal ray slope	周辺光線の傾き
+（只读：该导入面型暂不支持计算或编辑）	(read-only: calculation and editing are unavailable for this imported surface type)	（読み取り専用：このインポート面タイプの計算と編集は未対応）

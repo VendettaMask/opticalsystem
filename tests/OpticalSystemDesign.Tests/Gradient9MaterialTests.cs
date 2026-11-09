@@ -1,4 +1,5 @@
 using OpticalSystemDesign.Validation;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Capabilities;
@@ -74,6 +75,20 @@ public sealed class Gradient9MaterialTests
             Assert.Equal(original.RefractiveIndex(new(.2,-.3,0),550),profile.RefractiveIndex(new(.2*scale,-.3*scale,0),550),14);
             Assert.Throws<NotSupportedException>(()=>material.RefractiveIndex(550));
         }
+    }
+
+    [Fact]
+    public void TiltedPlanoEntrancePreservesTheGradient9MaterialAndSlope()
+    {
+        var optic = OpticalFormatCatalog.Import(Source("MM", "SLW-1.8").Replace("PARM 3 0", "PARM 3 -.14054", StringComparison.Ordinal), ".zmx");
+        var surface = optic.SurfaceGroup.Items[1];
+        Assert.IsType<GradientIndexMaterial>(surface.MaterialAfter);
+        Assert.Equal(-.07027, surface.Geometry.Sag(0, .5), 14);
+        Assert.Empty(OpticCapabilityPreflight.Inspect(optic));
+        using var workspace = new WorkspaceCoordinator(new OpticContext(optic));
+        var document = workspace.GetDocumentSnapshot();
+        Assert.True(double.IsNaN(document.EffectiveFocalLength));
+        Assert.Equal(optic.SurfaceGroup.Items.Count, document.SurfaceCount);
     }
 
     [Fact]

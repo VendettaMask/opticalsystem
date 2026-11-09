@@ -18,6 +18,8 @@ using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
+using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -31,6 +33,54 @@ public sealed class ViewerImageExportTests
         var builder = AppBuilder.Configure<global::OpticalSystemDesign.App.App>();
         if (RenderImages) builder.UseSkia();
         return builder.UseHeadless(new AvaloniaHeadlessPlatformOptions { UseHeadlessDrawing = !RenderImages });
+    }
+
+    [Fact]
+    public async Task MiniVoltLayoutClosesTheImmersionSectionAroundItsDecenteredAxis()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerImageExportTests));
+        await session.Dispatch(async () =>
+        {
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
+            var source = Path.Combine(AppContext.BaseDirectory, "LensLibrary", "projects",
+                "zenodo-17187705-bf8936d66220.staropt");
+            var project = await StarOptProjectStore.LoadAsync(source);
+            var optic = Assert.Single(project.Configurations);
+            foreach (var surface in new[] { 15, 17, 18 })
+            {
+                var waterMaterial = Assert.IsType<TabulatedMaterial>(optic.SurfaceGroup.Items[surface].MaterialAfter);
+                Assert.Equal(1.3333272656103903, waterMaterial.RefractiveIndex(590), precision: 10);
+            }
+            using var fixture = await Fixture.Create(SceneDimension.TwoDimensional,
+                ViewerPresentationMode.OpticalLayout, 1440, 960, source);
+            var layout = fixture.Scene.Scene!.TwoDimensional!;
+            var water = Assert.Single(layout.LensElements, element =>
+                element.FrontSurfaceNumber == 15 && element.BackSurfaceNumber == 16);
+            var edges = layout.LensEdges.Where(edge =>
+                edge.FrontSurfaceNumber == water.FrontSurfaceNumber
+                && edge.BackSurfaceNumber == water.BackSurfaceNumber).ToArray();
+
+            Assert.Equal(2, edges.Length);
+            Assert.Equal(0.39200710992177884, edges.Average(edge => edge.End.Y), precision: 10);
+            Assert.All(edges, edge => Assert.Equal(edge.Start.Y, edge.End.Y, precision: 10));
+            Assert.Contains(layout.Rays, ray => ray.Segments.Any(segment => segment.TargetSurfaceNumber == 18));
+
+            if (RenderImages)
+            {
+                using var image = fixture.Viewer.CaptureViewerImage();
+                var pixels = Pixels(image);
+                var waterPixels = Enumerable.Range(0, pixels.Length / 4).Count(index =>
+                {
+                    var offset = index * 4;
+                    var blue = pixels[offset];
+                    var green = pixels[offset + 1];
+                    var red = pixels[offset + 2];
+                    return green > 200 && green - blue > 10 && blue - red > 25 && red > 145;
+                });
+                Assert.True(waterPixels > 100, $"Expected teal water fill, found {waterPixels} pixels.");
+                Save(image, "minivolt-2d-layout.png");
+            }
+        }, CancellationToken.None);
     }
 
     [ViewerImageTheory]
@@ -498,10 +548,11 @@ public sealed class ViewerImageExportTests
         public required Window Window { get; init; }
         public OpticSceneControl Scene => Viewer.GetVisualDescendants().OfType<OpticSceneControl>().Single();
         public Button Export => Viewer.GetVisualDescendants().OfType<Button>().Single(item => item.Name == "ExportViewerImage");
-        public static async Task<Fixture> Create(SceneDimension dimension, ViewerPresentationMode mode, int width = 840, int height = 620)
+        public static async Task<Fixture> Create(SceneDimension dimension, ViewerPresentationMode mode,
+            int width = 840, int height = 620, string? source = null)
         {
             var app = WorkbenchApplication.Create();
-            await app.Documents.OpenAsync(ConfigurationMatrixAnalysisTests.ZoomPath());
+            await app.Documents.OpenAsync(source ?? ConfigurationMatrixAnalysisTests.ZoomPath());
             var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(), dimension, mode);
             var fixture = new Fixture { App = app, Viewer = viewer, Window = new Window { Width = width, Height = height, Content = viewer } };
             try { fixture.Window.Show(); await fixture.WaitReady(); return fixture; }

@@ -14,7 +14,7 @@ public static class StockLensCatalogPolicy
             ["SIGMA KOKI"] = "Sigma Koki"
         };
 
-    public static IReadOnlyList<string> Manufacturers { get; } = Catalogs.Values.ToArray();
+    public static IReadOnlyList<string> Manufacturers { get; } = [.. Catalogs.Values, "JCOPTIX"];
 
     public static bool IncludesCatalog(string catalogKey) => Catalogs.ContainsKey(catalogKey);
 

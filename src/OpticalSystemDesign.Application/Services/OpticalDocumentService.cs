@@ -27,11 +27,13 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
 {
     private readonly Func<string, CancellationToken, Task<LoadedOpticalDocument>> _readDocumentAsync;
     private readonly Func<LoadedOpticalDocument, string, CancellationToken, Task> _saveDocumentAsync;
+    private readonly LensLibraryService? _lenses;
     private Task _saveTail = Task.CompletedTask;
 
-    public OpticalDocumentService(WorkspaceCoordinator workspace)
+    public OpticalDocumentService(WorkspaceCoordinator workspace, LensLibraryService? lenses = null)
         : this(workspace, WorkbenchRuntime.ReadDocumentAsync, WorkbenchRuntime.SaveDocumentAsync)
     {
+        _lenses = lenses;
     }
 
     internal OpticalDocumentService(
@@ -67,6 +69,14 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
     public Task OpenAsync(string path, CancellationToken cancellationToken = default)
         => OpenDocumentAsync(path, false, cancellationToken);
 
+    public Task OpenStockLensAsync(string lensId, CancellationToken cancellationToken = default) =>
+        OpenDocumentAsync(async token =>
+        {
+            var loaded = _lenses is null ? null : await _lenses.LoadCommercialProjectAsync(lensId, token).ConfigureAwait(false);
+            if (loaded is null) throw new InvalidDataException("当前目录条目没有可载入的本地模型。");
+            return (WorkbenchRuntime.FromStarOptProject(loaded.Value.Document), loaded.Value.Source);
+        }, documentPath: null, cancellationToken);
+
     public Task RestoreRecoveryCopyAsync(string path, CancellationToken cancellationToken = default)
     {
         if (!path.EndsWith(".staropt", StringComparison.OrdinalIgnoreCase))
@@ -96,7 +106,19 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
         return source;
     }
 
-    private async Task OpenDocumentAsync(string path, bool recovery, CancellationToken cancellationToken)
+    private Task OpenDocumentAsync(string path, bool recovery, CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        var fullPath = Path.GetFullPath(path);
+        return OpenDocumentAsync(async token =>
+            (await _readDocumentAsync(fullPath, token).ConfigureAwait(false), fullPath),
+            recovery ? null : fullPath, cancellationToken);
+    }
+
+    private async Task OpenDocumentAsync(
+        Func<CancellationToken, Task<(LoadedOpticalDocument Document, string Source)>> read,
+        string? documentPath,
+        CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         CancellationTokenSource linked;
@@ -110,13 +132,12 @@ internal sealed class OpticalDocumentService : WorkbenchServiceBase, IOpticalDoc
             documentGeneration = Workspace.DocumentGeneration;
         }
         using var lifetime = linked;
-        var fullPath = Path.GetFullPath(path);
-        var document = await _readDocumentAsync(fullPath, linked.Token).ConfigureAwait(false);
+        var (document, source) = await read(linked.Token).ConfigureAwait(false);
         linked.Token.ThrowIfCancellationRequested();
         Workspace.ReplaceDocument(
             WorkspaceChangeCategory.Document,
-            () => Runtime.ApplyLoadedDocument(document, fullPath),
-            recovery ? null : fullPath,
+            () => Runtime.ApplyLoadedDocument(document, source),
+            documentPath,
             cancellationToken,
             validateBeforeReplace: () =>
             {

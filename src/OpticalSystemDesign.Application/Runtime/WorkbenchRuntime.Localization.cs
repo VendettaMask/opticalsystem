@@ -228,7 +228,7 @@ public partial class WorkbenchRuntime
         ["Sigma"] = "Sigma",
         ["PeakNormalized"] = "归一化峰值",
         ["Pipeline"] = "仿真流程",
-        ["ZemaxImageSimulationSettings"] = "Zemax 图像仿真设置",
+        ["ZemaxImageSimulationSettings"] = "图像仿真设置",
         ["SourceMode"] = "源类型",
         ["OutputShape"] = "输出形状",
         ["FieldHeight"] = "视场高度",

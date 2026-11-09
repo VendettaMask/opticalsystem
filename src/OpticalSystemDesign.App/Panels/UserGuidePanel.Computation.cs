@@ -182,9 +182,9 @@ public sealed partial class UserGuidePanel
                 "Hold prescription, configuration, materials, field, wavelengths, reference, polarization, sampling and normalization fixed. Increase pupil/image sampling or PSF window and check stability. Include failures, truncations, geometric fallbacks and unsupported states in interpretation rather than hiding failed samples.",
                 "処方、構成、材料、視野、波長、基準、偏光、サンプリング、正規化を固定して比較します。瞳・像面サンプルや PSF 窓を増やして安定性を確認し、失敗・打切り・幾何フォールバック・未対応状態を隠さず解釈します。"),
             S("范围说明", "Scope of verification", "検証範囲",
-                "内置模型、独立公式检查、历史回归、外部软件捕获和界面截图分别验证不同事情。项目以保存的 Zemax OpticStudio 2026 R1 指定用例作为主要外部数值参考；它只覆盖捕获的文件与设置，不表示全部镜头和分析都与其他软件等价。截图用于说明操作位置，不是数值精度证据。",
-                "Model checks, independent equations, regressions, external captures and UI screenshots verify different things. The project uses captured Zemax OpticStudio 2026 R1 cases as its primary external numerical reference, limited to those files/settings. This does not establish universal equivalence. Screenshots explain operation, not numerical accuracy.",
-                "モデル検査、独立式、回帰、外部キャプチャ、画面画像は別の目的を検証します。主要な外部数値基準は保存済みの Zemax OpticStudio 2026 R1 の指定ケースで、対象ファイルと設定だけをカバーします。画像は操作説明であり数値精度の証拠ではありません。"));
+                "数值验证使用内置模型、独立公式、历史回归和外部参考用例。每个外部对照的结论适用于记录中的文件和设置。界面截图用于标明操作位置。",
+                "Numerical validation uses built-in models, independent equations, regressions, and external reference cases. Each comparison covers the recorded files and settings. Screenshots show where to find controls.",
+                "数値検証には内蔵モデル、独立した計算式、回帰試験、外部参照ケースを使用します。各比較の対象は記録にあるファイルと設定です。画面画像は操作箇所を示します。"));
     }
 
     private static GuideChapter Calculation(string id, string zh, string en, string ja,

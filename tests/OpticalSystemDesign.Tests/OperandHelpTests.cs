@@ -85,7 +85,7 @@ public sealed class OperandHelpTests
         var operands = new[]
         {
             Entry("RSCE", "RMS 点列半径", "点列定义", "像质与波前", "强度加权质心 sqrt"),
-            Entry("DIMX", "最大畸变", "畸变定义", "Zemax 兼容保留", "不会执行", compatibilityOnly: true),
+            Entry("DIMX", "最大畸变", "畸变定义", "导入保留", "不会执行", compatibilityOnly: true),
             Entry(
                 "REAX",
                 "实际光线 X",

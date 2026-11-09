@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core.Tolerancing;
 
 namespace OpticalSystemDesign.Application.Contracts;
@@ -767,7 +768,15 @@ public sealed record CommercialLensEntryDto(
     string? NativePath,
     string SourceNote,
     DateTimeOffset VerifiedAt,
-    double EntrancePupilDiameter);
+    double EntrancePupilDiameter,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] string? LocalModelPath = null)
+{
+    [JsonIgnore]
+    public bool HasPackedModel { get; init; }
+
+    [JsonIgnore]
+    public bool CanOpenModel => HasPackedModel || !string.IsNullOrWhiteSpace(NativePath) || !string.IsNullOrWhiteSpace(LocalModelPath);
+}
 
 public sealed record CommercialLensCatalogDocument(
     int Version,

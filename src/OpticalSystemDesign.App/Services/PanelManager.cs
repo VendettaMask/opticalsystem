@@ -41,12 +41,13 @@ public sealed class PanelManager : IDisposable
         AppSettings settings,
         WorkspaceSessionStore? sessionStore = null,
         Func<string, Task<bool>>? openProjectAsync = null,
-        Func<IReadOnlyList<AppAction>>? userGuideActions = null)
+        Func<IReadOnlyList<AppAction>>? userGuideActions = null,
+        Func<string, Task<bool>>? openStockLensAsync = null)
     {
         _application = application;
         _settings = settings;
         _sessionStore = sessionStore ?? new WorkspaceSessionStore();
-        Factory = new WorkspaceDockFactory(application, settings, openProjectAsync, userGuideActions);
+        Factory = new WorkspaceDockFactory(application, settings, openProjectAsync, userGuideActions, openStockLensAsync);
         Layout = Factory.CreateLayout();
         Factory.InitLayout(Layout);
         WorkspaceControl = new DockControl

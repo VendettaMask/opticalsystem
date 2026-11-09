@@ -1,5 +1,7 @@
 # Project collaboration instructions
 
+- Public-facing product copy, release notes, user guides, and display labels may name Zemax only when describing supported import workflows. Refer to vendor prescriptions and comparisons using the file format or neutral optical terminology. Keep original source attribution, file identities, and technical evidence in their provenance records.
+
 ## Project-wide interface design workflow
 
 - User decision (2026-11-04): integrate the learned `frontend-design` and `interface-design` methods into the whole product's existing design language. Read `docs/UI_DESIGN_SPEC.md` (especially the project-wide design workflow), `docs/UI_DESIGN_REVIEW.md` and the relevant theme/typography/icon contracts before substantial UI work. Keep those repository documents authoritative and usable without locally installed skills; do not create a competing `.interface-design/system.md` or new standalone design language.

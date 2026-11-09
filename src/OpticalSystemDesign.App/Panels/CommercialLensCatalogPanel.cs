@@ -16,7 +16,7 @@ namespace OpticalSystemDesign.App.Panels;
 internal sealed class CommercialLensCatalogPanel : UserControl
 {
     private readonly ILensLibraryService _lenses;
-    private readonly Func<string, Task>? _openLensProject;
+    private readonly Func<string, Task>? _openStockLens;
     private readonly ComboBox _vendor = Selector(150);
     private readonly CheckBox _useEfl = new() { Content = "有效焦距", VerticalAlignment = VerticalAlignment.Center };
     private readonly TextBox _eflMinimum = NumberBox("最小 mm");
@@ -61,10 +61,10 @@ internal sealed class CommercialLensCatalogPanel : UserControl
 
     public CommercialLensCatalogPanel(
         ILensLibraryService lenses,
-        Func<string, Task>? openLensProject = null)
+        Func<string, Task>? openStockLens = null)
     {
         _lenses = lenses;
-        _openLensProject = openLensProject;
+        _openStockLens = openStockLens;
         UiLocalization.Preserve(_title);
         ConfigureSelectors();
         ConfigureGrid();
@@ -459,13 +459,12 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         _source.Text = entry.SourceNote;
         _productPage.IsEnabled = Uri.IsWellFormedUriString(entry.ProductUrl, UriKind.Absolute);
         _dataSheet.IsEnabled = Uri.IsWellFormedUriString(entry.DataSheetUrl, UriKind.Absolute);
-        _openModel.IsEnabled = _openLensProject is not null
-            && !string.IsNullOrWhiteSpace(entry.NativePath);
+        _openModel.IsEnabled = _openStockLens is not null && entry.CanOpenModel;
         ControlAvailability.Explain(
             _openModel,
             _openModel.IsEnabled
-                ? "将随目录提供的 STAROPT 模型载入为独立设计。"
-                : "此目录条目没有获得许可并经过校验的本地光学处方。官方产品页仍可查看。");
+                ? "将本机的 STAROPT 模型载入为独立设计。"
+                : "此目录条目没有已安装的本机光学模型。官方产品页仍可查看。");
         ControlAvailability.Explain(
             _productPage,
             _productPage.IsEnabled
@@ -507,19 +506,12 @@ internal sealed class CommercialLensCatalogPanel : UserControl
         try
         {
             var entry = SelectedEntry();
-            if (entry is null || _openLensProject is null)
+            if (entry is null || _openStockLens is null)
             {
                 return;
             }
 
-            var path = await Task.Run(() => _lenses.GetCommercialNativeProjectPath(entry.Id));
-            if (path is null)
-            {
-                _count.Text = "当前目录条目没有可载入的本地模型。";
-                return;
-            }
-
-            await _openLensProject(path);
+            await _openStockLens(entry.Id);
         }
         catch (Exception exception)
         {

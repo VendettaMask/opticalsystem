@@ -17,6 +17,7 @@ LensLibrary/
   StockCatalogs/
     Daheng Optics.json
     Edmund Optics.json
+    JCOPTIX.json
     Newport.json
     Sigma Koki.json
     Thorlabs.json
@@ -26,15 +27,19 @@ LensLibrary/
 
 实像高系统若无法生成预览光线，仍显示镜头几何，不因光线预览失败而放弃整个条目。
 
+MiniVolt 收集臂与激发臂的 ZMX 引用 `WATER_AK.ZTG`。公开数据提供处方及设置文件，材料表需另行取得。镜头库与同名示例使用 20 °C、998.2067 kg/m³ 的普通液态水替代模型，按 IAPWS R9-97 式 (1) 生成 210–1100 nm 折射率表，并在处方中记录来源。收集臂在 590 nm 取 1.33332727，激发臂在 532 nm 取 1.33538038。表中仅包含实折射率。二维图将水浸层填为青绿色。[MiniVolt 原始数据](https://zenodo.org/records/17187705) · [IAPWS R9-97](https://iapws.org/technical-guidance/release/Rindex)
+
+Dan Reiley 的 14 个旧定焦工程已将有歧义的 H-F1、H-ZF3、H-QK3L、H-LAK52、H-LAF50B 和 H-ZLAF66 固定为 CDGM 2026-09 同牌号的色散数据。变焦工程 US07492524-1 的三个配置用 CDGM H-ZLAF55D 替代现行库中缺失的 H-ZLAF55A，两者玻璃代码为 835427。替代后的项目和同名示例均保存完整材料模型，镜头库索引从更新后的活动配置计算。原始 ZMX 文件列表位于 Dan Reiley 的[定焦目录](https://sites.google.com/site/danreiley/photographic-lenses-prime)和[变焦目录](https://sites.google.com/site/danreiley/photographic-lenses-zoom)。历史 H-ZLAF55A 玻璃代码见 [Edmund Optics 对照表](https://www.edmundoptics.com/ViewDocument/edmund-optics-glass-types.pdf)。
+
 ## 库存镜头查看与匹配
 
-“数据库 > 库存镜头查看”是独立于设计镜头库的厂商元件目录。当前产品范围明确限制为五家：Thorlabs（索雷博）、Edmund Optics（爱特蒙特）、Daheng Optics（大恒光电）、Newport 和 Sigma Koki；其他本机 ZMF 厂商文件不读取、不显示，也不参与匹配。查看器在后台读取库存 JSON，应用服务会缓存已过滤排序的库存目录，首次打开不会在 UI 线程同步解析 16 MB 目录；筛选结果完整计数，但表格先绑定前 500 个可见行，避免一次性渲染 16,289 条记录造成停顿。查看器可按厂商、有效焦距、入瞳直径 EPD、形状代码、曲面代码、元件数以及料号/名称筛选，并显示厂商页面、EFL、EPD、元件数和目录分类。形状使用 Zemax 的 `? / E / B / P / M`，曲面使用 `S / G / A / T`。厂商、形状、曲面、元件数和范围开关在改变时立即筛选；搜索词与范围数值采用 220 ms 延迟刷新，“搜索”用于立即执行当前条件，“重置”一次性清除全部条件。系统浏览器或本地模型载入失败时，错误显示在页面状态文本中，不抛出为 UI 未处理异常。
+“数据库 > 库存镜头查看”是独立于设计镜头库的厂商元件目录。目录收录 Thorlabs（索雷博）、Edmund Optics（爱特蒙特）、Daheng Optics（大恒光电）、Newport、Sigma Koki 和 JCOPTIX（晶萃光学）。查看器在后台读取厂商目录和已安装的单文件模型库。应用服务会缓存已过滤排序的目录，表格先绑定前 500 个可见行，并显示完整的筛选结果计数。查看器可按厂商、有效焦距、入瞳直径 EPD、形状代码、曲面代码、元件数以及料号/名称筛选，并显示厂商页面、EFL、EPD、元件数和目录分类。形状代码使用 `? / E / B / P / M`，曲面使用 `S / G / A / T`。厂商、形状、曲面、元件数和范围开关在改变时立即筛选；搜索词与范围数值采用 220 ms 延迟刷新，“搜索”用于立即执行当前条件，“重置”一次性清除全部条件。系统浏览器或本地模型载入失败时，错误显示在页面状态文本中，不抛出为 UI 未处理异常。
 
-“数据库 > 库存镜头匹配”参考 [Ansys Zemax Stock Lens Matching](https://ansyshelp.ansys.com/public/Views/Secured/Zemax/v251/en/OpticStudio_User_Guide/OpticStudio_Help/topics/Stock_Lens_Matching.html) 的候选筛选思路，但使用当前软件实际拥有的数据实现：目标值来自当前系统的一阶有效焦距和入瞳直径；用户选择五家厂商、结果数、EFL 公差、EPD 公差和光焦度方向约束；候选先经过条件过滤，再按归一化 EFL/EPD 综合偏差排序。页面打开时只刷新目标参数，用户点击“开始匹配”后才在后台读取目录和执行匹配扫描；用户切换系统或重新开始匹配时，旧结果会被取消/丢弃，不会覆盖新状态。当前目标范围是“所有面（当前系统）”，完整系统没有唯一的单镜片形状，因此形状匹配不会被伪造为已生效。
+“数据库 > 库存镜头匹配”使用当前系统的一阶有效焦距和入瞳直径作为目标值。用户选择参与匹配的厂商、结果数、EFL 公差、EPD 公差和光焦度方向约束；候选先经过条件过滤，再按归一化 EFL/EPD 综合偏差排序。页面打开时只刷新目标参数，用户点击“开始匹配”后才在后台读取目录和执行匹配扫描；用户切换系统或重新开始匹配时，旧结果会被取消/丢弃，不会覆盖新状态。当前目标范围是“所有面（当前系统）”，完整系统没有唯一的单镜片形状，因此形状匹配不会被伪造为已生效。
 
-2026-09-01 起，桌面运行时不再发现或解析当前用户的 `Documents/Zemax/Stockcat`。五家厂商共 16,289 条目录头元数据已转换为版本 1 的应用自有明文 JSON，并在 `StockCatalogs` 下按厂商名字分别保存，随应用和源码版本同步；任意电脑运行同一版本都会看到同一库存目录，不需要安装 Zemax。目录只保存料号、元件数、形状、表面类别、EFL、EPD、厂商主页和来源说明，不包含 ZMF 处方正文、价格或实时库存。
+2026-09-01 起，库存目录随应用发布。五家厂商共 16,289 条目录头元数据已转换为版本 1 的应用自有明文 JSON，并在 `StockCatalogs` 下按厂商名字分别保存，随应用和源码版本同步；任意电脑运行同一版本都会看到同一库存目录。目录只保存料号、元件数、形状、表面类别、EFL、EPD、厂商主页和来源说明，不包含 ZMF 处方正文、价格或实时库存。
 
-原有 6 条经厂商官方页面核验的记录已在转换时按厂商和料号合并，保留更丰富的名称、产品页和规格字段。所有库存条目默认不能“载入模型”；只有取得明确许可、转换为 STAROPT 并通过校验的模型才允许载入，不能依据目录规格反推并冒充厂商处方。
+原有 6 条经厂商官方页面核验的记录已在转换时按厂商和料号合并，保留更丰富的名称、产品页和规格字段。应用支持载入从厂商原始处方转换并校验的 STAROPT。随软件分发处方须取得明确许可。
 
 ZMF 解析仅保留在离线维护工具 `OpticalSystemDesign.LensLibraryBuilder` 中。维护人员显式提供来源目录并更新同步资源：
 
@@ -46,7 +51,35 @@ dotnet run --project tools\OpticalSystemDesign.LensLibraryBuilder -- `
 
 转换器要求五家源目录齐全，限制文件和记录大小，跳过处方正文，并分别原子替换五个厂商 JSON 文件。转换得到的数据仍继承其来源授权；改成自有 JSON 格式不代表获得重新分发许可，发布前必须审核来源许可。
 
-匹配页返回的是真实目录候选和可复算的偏差，不是自动替换。由于当前合法可读的 ZMF 目录头不包含可授权的光学处方、中心厚度和空气补偿数据，本阶段不执行镜片替换、空气厚度补偿、组合保存或再优化，也不提供看似可点击但没有真实作用的控件。只有将来取得明确许可的本地处方模型后，这些能力才可以接入。
+匹配页返回的是真实目录候选和可复算的偏差，不是自动替换。库存查看的“载入模型”会打开独立设计。
+
+### 晶萃光学的本机模型
+
+首批目录包含 7 个晶萃料号，共 6 种光学处方。OLC140116M 与 OLC140116 的官网 ZMX 内容相同，两个料号分别对应套筒安装版与裸片。焦距和镜片外径取自商品规格，入瞳直径取自原厂 ZMX 的 ENPD。非球面 OLS140123-T3M 的原厂 ZMX 使用 THORB 膜系标记，已核对几何处方和一阶参数，膜系光谱尚未验证。 [未镀膜平凸系列](https://www.jcoptix.com/product/161/776#OLC140116M) · [T3 非球面系列](https://www.jcoptix.com/product/198/663#OLS140123-T3M)
+
+模型离线转换和重读校验后，安装到 `%LOCALAPPDATA%\OpticalSystemDesign\StockLensModels\JCOPTIX`。文件名见 `StockCatalogs/JCOPTIX.json` 的 `LocalModelPath`。启动新版应用后，从“数据库 > 库存镜头查看”选择 JCOPTIX 和目标料号，再点“载入模型”。换电脑时，可从各料号的厂商页面下载 ZMX，用下文的单文件转换工具指定临时示例库及镜头库，再把校验后的 STAROPT 按目录声明的名称放到本机模型目录。安装包收录料号、规格和官网链接。原厂 ZMX 与转换模型保存在本机，厂商的再分发许可尚未确认。
+
+### Thorlabs AC127 消色差双胶合镜头
+
+`AC127-050` 和 `AC127-075` 的 A、B、C 三种镀膜及各自的 `-ML` 镜座版共 12 个料号，从 Thorlabs 产品页按料号取得原厂光学处方。`AC127-050-C-ML` 使用原厂 `19628-S02.zar` 内的 ZMX，其余料号使用各自产品页上的 ZMX。`THORLABS.ZMF` 目录记录提供 EFL 和 EPD，原厂 ZMX 提供曲率、厚度、玻璃、孔径和设计波长。原厂膜系定义保留在原始来源中，STAROPT 模型用于几何光线追迹。[AC127-075-B 产品页](https://www.thorlabs.com/item/AC127-075-B) · [原厂 ZMX](https://thin01mstroc282prod.dxcloud.episerver.net/globalassets/items/a/ac/ac1/ac127-075-b/7401-s03.zmx?v=0116101807)
+
+首批安装的 12 个料号现已并入下方的单文件库存库。目录条目的数据来源记录了对应的厂商原始下载地址。
+
+### Thorlabs 单文件库存库
+
+`Thorlabs.stocklens` 包含 Thorlabs 2026 年 5 月版 `THORLABS_MAY_2026.ZMF` 中全部 4,217 份 STAROPT 处方，以及 6 份从原厂产品页取得的历史镜座版处方。其余 847 个旧料号保留目录记录。库存查看器从库中按需读取所选处方，将它作为独立文档打开。编辑后可另存工程。原厂膜系文件随厂商 ZIP 提供，库内模型使用几何光线追迹。[Thorlabs 完整 Zemax 目录](https://www.thorlabs.com/software-pages/zemax)
+
+应用可从系统资源目录 `LensLibrary/StockCatalogs` 或本机 `%LOCALAPPDATA%\OpticalSystemDesign\StockLensModels` 读取 `Thorlabs.stocklens`。本机文件优先。原先的 12 个 AC127 料号也在单文件中。维护时用下列命令转换官方 ZIP 解出的 ZMF，输出文件名与厂商名一致。[原厂 ZIP](https://thin01mstroc282prod.dxcloud.episerver.net/contentassets/0ee24bcce2224cc6ae338b2bdaa9e212/zemaxcatalog.zip?v=0511073732)
+
+```powershell
+dotnet run --project tools\OpticalSystemDesign.LensLibraryBuilder -- `
+  --stock-model-pack <THORLABS_MAY_2026.ZMF 路径> `
+  src\OpticalSystemDesign.App\Assets\LensLibrary <输出目录>\Thorlabs.stocklens
+```
+
+末尾可另传已有本机模型的根目录，将目录条目声明的历史料号模型一并归档。
+
+本次原厂 ZIP 的两次下载内容相同，ZIP 校验通过。实测 ZIP SHA-256 为 `a7c0cfe71195a7a9dc11753040d92f75153642e83186ba674ace76d93a25897f`，与网页资源记录中的 SHA-256 不同。内部 `THORLABS_MAY_2026.ZMF` 的 SHA-256 为 `64417a32ff0d20a7f43134cac1275a9c951c0d6476af8a9651a712ca6e68137b`。梯度折射率处方可打开，二维布局的 GRIN 曲线路径仍待接入。
 
 ## 库存页面的当前交互与窄窗口行为
 
@@ -72,7 +105,7 @@ dotnet run \
   src/OpticalSystemDesign.App/Assets/LensLibrary
 ```
 
-当前打包库共 925 项：56 个独立显微物镜、5 个工业示例和 864 个可转换公开 Zemax 设计。显微类别只允许独立物镜；筒镜、聚光镜、Fourier 成像链和完整显微系统排除。
+当前打包库共 925 项：56 个独立显微物镜、5 个工业示例和 864 个可转换公开 ZMX 设计。显微类别只允许独立物镜；筒镜、聚光镜、Fourier 成像链和完整显微系统排除。
 
 ## 索引元数据
 

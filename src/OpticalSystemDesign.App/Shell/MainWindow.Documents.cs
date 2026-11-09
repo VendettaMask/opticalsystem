@@ -111,7 +111,13 @@ public sealed partial class MainWindow
         return !_application.Documents.GetSnapshot().IsDirty && !_panels.HasUnsavedToleranceChanges;
     }
 
-    private async Task<bool> OpenLensLibraryProjectAsync(string path)
+    private Task<bool> OpenLensLibraryProjectAsync(string path) =>
+        OpenLibraryDocumentAsync(() => _application.Documents.OpenAsync(path));
+
+    private Task<bool> OpenStockLensAsync(string lensId) =>
+        OpenLibraryDocumentAsync(() => _application.Documents.OpenStockLensAsync(lensId));
+
+    private async Task<bool> OpenLibraryDocumentAsync(Func<Task> open)
     {
         if (!await ConfirmUnsavedChangesAsync("打开镜头库中的光学系统"))
         {
@@ -119,7 +125,7 @@ public sealed partial class MainWindow
         }
 
         await _panels.SaveCurrentSessionAsync();
-        await _application.Documents.OpenAsync(path);
+        await open();
 
         return true;
     }

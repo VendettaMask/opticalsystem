@@ -704,7 +704,7 @@ internal static partial class ZemaxZmxReader
                     // from the zero-based PARM 1..N geometry coefficients.
                     var parameterIndex = parameterNumber - 1;
                     var parameterSurface = RequireSurface(current, command);
-                    if (parameterNumber >= 13 && parameterSurface.Type is "FZERNSAG" or "CHEBYSHV" or "BINARY_2" or "BINARY_3" or "BIRE__IN")
+                    if (parameterNumber >= 13 && parameterSurface.Type is "FZERNSAG" or "CHEBYSHV" or "BINARY_2" or "BINARY_3" or "BIRE__IN" or "QED_TYPE")
                     {
                         parameterSurface.ExtraData[parameterNumber - 12] = ScaleSurfaceExtraData(document,
                             parameterSurface.Type, parameterNumber - 12, RequiredDouble(tokens, 2, command));
@@ -1275,7 +1275,7 @@ internal static partial class ZemaxZmxReader
                 materialAfter = source.Type switch
                 {
                     "GRINSUR1" when source.Parameter(3) == 0 => CreateGradient1Material(source),
-                    "GRINSUR9" when source.Parameter(1) == 0 && source.Parameter(2) == 0 => CreateGradient9Material(source),
+                    "GRINSUR9" when IsSupportedGradient9(source) => CreateGradient9Material(source),
                     "BIRE__IN" when IsComputableBirefringent(source) => CreateBirefringentMaterial(optic, source, glassCatalogs),
                     "GRINSU11" when source.GridGradientProfile is not null => CreateGridGradientMaterial(source),
                     _ => ResolveGlass(optic, source, glassCatalogs)
@@ -1467,11 +1467,12 @@ internal static partial class ZemaxZmxReader
                 surface.Conic,
                 Enumerable.Range(0, 8).Select(surface.Parameter).ToArray()),
             "TOROIDAL" => CreateToroidalGeometry(surface),
+            "QED_TYPE" when surface.ExtraData.GetValueOrDefault(1) == 0 => CreateForbesNormalSlopeGeometry(surface, radius),
             "TILTSURF" => CreateTiltedGeometry(surface),
             "FZERNSAG" => CreateFringeSagGeometry(surface),
             "CHEBYSHV" => CreateChebyshevSagGeometry(surface),
             "GRINSUR1" when surface.Parameter(3) == 0 => CreateGradient1Geometry(surface, radius),
-            "GRINSUR9" when surface.Parameter(1) == 0 && surface.Parameter(2) == 0 => CreateGradient9Geometry(surface, radius),
+            "GRINSUR9" when IsSupportedGradient9(surface) => CreateGradient9Geometry(surface, radius),
             "USERSURF" when surface.TypeArguments.Equals("US_MEMS.DLL", StringComparison.OrdinalIgnoreCase) => CreateMirrorArrayGeometry(surface),
             _ => CreateOpaqueZemaxGeometry(surface)
         };
@@ -1590,10 +1591,15 @@ internal static partial class ZemaxZmxReader
             maximumPath, options);
     }
 
+    private static bool IsSupportedGradient9(ZemaxSurface surface) =>
+        double.IsInfinity(surface.Radius) || (surface.Parameter(1) == 0 && surface.Parameter(2) == 0);
+
     private static IGeometry CreateGradient9Geometry(ZemaxSurface surface, double radius)
     {
         if (surface.Parameters.Any(p => p.Key is < 0 or > 2 && p.Value != 0))
             throw new NotSupportedException("Unsupported Gradient 9 surface parameter definition.");
+        if (surface.Parameter(1) != 0 || surface.Parameter(2) != 0)
+            return new TiltedPlaneGeometry(surface.Parameter(1), surface.Parameter(2));
         return radius == 0 ? new PlaneGeometry() : new StandardGeometry(radius, surface.Conic);
     }
 
@@ -1666,19 +1672,31 @@ internal static partial class ZemaxZmxReader
 
     private static IGeometry CreateToroidalGeometry(ZemaxSurface surface)
     {
-        if (Math.Abs(surface.Conic) > 1e-14
-            || surface.Parameters.Any(p => p.Key is not (0 or 13) && p.Value != 0)
+        if (surface.Parameters.Any(p => p.Key is (< 0 or > 7) and not 13 && p.Value != 0)
             || surface.ExtraData.Any(p => p.Key != 2 && p.Value != 0))
         {
             throw new NotSupportedException(
-                $"Zemax toroidal conic or polynomial terms are not supported (SURF {surface.Number}).");
+                $"Zemax toroidal Zernike terms or unsupported parameters are present (SURF {surface.Number}).");
         }
 
         var radiusY = double.IsInfinity(surface.Radius) ? 0 : surface.Radius;
         var radiusX = Math.Abs(surface.Parameter(0)) < 1e-15
             ? double.PositiveInfinity
             : surface.Parameter(0);
-        return new ToroidalGeometry(radiusY, radiusX);
+        var coefficients = Enumerable.Range(1, 7).Select(surface.Parameter).ToArray();
+        return new ToroidalGeometry(radiusY, radiusX, surface.Conic,
+            coefficients.Any(coefficient => coefficient != 0) ? coefficients : null);
+    }
+
+    private static IGeometry CreateForbesNormalSlopeGeometry(ZemaxSurface surface, double radius)
+    {
+        var terms = surface.ExtraData.GetValueOrDefault(2);
+        var normalizationRadius = surface.ExtraData.GetValueOrDefault(3);
+        if (terms is < 1 or > 100 || terms != Math.Truncate(terms) ||
+            normalizationRadius <= 0 || surface.Parameters.Values.Any(value => value != 0))
+            return CreateOpaqueZemaxGeometry(surface);
+        return new ForbesNormalSlopeGeometry(radius, surface.Conic, normalizationRadius,
+            Enumerable.Range(4, (int)terms).Select(index => surface.ExtraData.GetValueOrDefault(index)).ToArray());
     }
 
     private static void ConfigureAperture(
@@ -2449,6 +2467,7 @@ internal static partial class ZemaxZmxReader
             "USERSURF" when zeroBasedIndex is 2 or 3 && typeArguments.Equals("US_MEMS.DLL", StringComparison.OrdinalIgnoreCase) => value * scale,
             "ODDASPHE" => ScalePowerCoefficient(value, scale, zeroBasedIndex + 1),
             "TOROIDAL" when zeroBasedIndex == 0 => value * scale,
+            "TOROIDAL" when zeroBasedIndex is >= 1 and <= 7 => ScalePowerCoefficient(value, scale, 2 * zeroBasedIndex),
             "COORDBRK" when zeroBasedIndex is 0 or 1 => value * scale,
             _ => value
         };
@@ -2459,6 +2478,7 @@ internal static partial class ZemaxZmxReader
         "BINARY_2" when index == 2 => value * document.LengthScaleToMillimeters,
         "BINARY_3" when index >= 2 && (index - 2) % 2 == 0 => ScalePowerCoefficient(value, document.LengthScaleToMillimeters, 2 * ((index - 2) / 4 + 1)),
         "FZERNSAG" when index >= 2 => value * document.LengthScaleToMillimeters,
+        "QED_TYPE" when index >= 3 => value * document.LengthScaleToMillimeters,
         "CHEBYSHV" => value / document.LengthScaleToMillimeters,
         _ => value
     };

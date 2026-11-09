@@ -15,14 +15,14 @@ internal static class MeritOperandReferenceCatalog
     {
         var canonical = (code ?? string.Empty).Trim().ToUpperInvariant();
         if (canonical is "FNUM" or "RADI" or "THIC" or "RWFE")
-            return new MeritOperandReference("本程序扩展", "本程序自定义操作数，不是 Zemax 2026 R1 的 MFE 操作数。" + CalculationFor(canonical));
+            return new MeritOperandReference("本程序扩展", "本程序提供的自定义操作数。" + CalculationFor(canonical));
         if (ZemaxOperandRegistry.IsDocumentedUnused(canonical))
-            return new MeritOperandReference("Zemax 未用名称", "官方 2026 R1 手册标记为 Unused；仅保留旧文件中的名称和参数，不列入待实现功能，不执行计算。");
+            return new MeritOperandReference("未用名称", "来源文档标记为 Unused。导入时保留名称和参数，不列入待实现功能，不执行计算。");
         if (canonical is "OGSS" or "SPHD")
-            return new MeritOperandReference("Zemax 定义待核实", "已核对官方 2026 R1 API 枚举中存在此名称，但未取得公开计算定义和实机参数证据；仅兼容保存，不能据名称猜测计算含义。");
+            return new MeritOperandReference("定义待核实", "该名称可从原文件导入和保存。尚未取得公开计算定义和参数验证证据。");
         if (compatibilityOnly)
         {
-            return new MeritOperandReference("Zemax 兼容保留", CompatibilityCalculation
+            return new MeritOperandReference("导入保留", CompatibilityCalculation
                 + (canonical == "LPTD" ? " LPTD 是 Gradient 5 的轴向单调性约束。共享 Core 已有 Gradient 5 四次轴向分布及色散、追迹和保存基础；桌面系数编辑和受支持系数优化可用；LPTD 约束残差、倾斜边界与原生验证仍未完成，不能用端点折射率差代替。" : string.Empty));
         }
 

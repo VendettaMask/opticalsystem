@@ -204,7 +204,7 @@ public sealed class AnalysisResultPresentationTests
         Assert.Contains(grid.Rows, row => row.Metric == "网格尺寸" && row.Value == "13");
         Assert.Contains("最大畸变 (%)：-0.4019", grid.ReportText);
         Assert.Contains("空间频率：69.0658", contrast.ReportText);
-        Assert.All(contrast.Series, series => Assert.Equal(49 * 49, series.Points.Count));
+        Assert.All(contrast.Series, series => Assert.Equal(97 * 97, series.Points.Count));
 
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(AnalysisResultPresentationTests));
         await session.Dispatch(() =>
@@ -218,11 +218,24 @@ public sealed class AnalysisResultPresentationTests
             });
             WithPanel(app, "Contrast Loss Map", contrast, (window, panel) =>
             {
-                AssertFooter(panel, "空间频率：69.0658 cycles/mm", "瞳面采样：49 × 49",
+                AssertFooter(panel, "空间频率：69.0658 cycles/mm", "瞳面采样：97 × 97",
                     "子午 MTF：0.8813", "弧矢 MTF：0.8813", "衍射极限：0.9364");
                 var plots = panel.GetVisualDescendants().OfType<AnalysisPlotControl>().ToArray();
                 Assert.Equal(2, plots.Length);
-                Assert.All(plots, plot => Assert.True(plot.DrawPupilCircles));
+                var maximum = contrast.PlotPanes.SelectMany(pane => pane.Series).Max(series => series.ValueMaximum);
+                Assert.All(plots, plot =>
+                {
+                    Assert.True(plot.PupilHeatmap);
+                    Assert.False(plot.PlotOptions.HideAxes);
+                    Assert.Equal(-1, plot.PlotOptions.XMinimum);
+                    Assert.Equal(1, plot.PlotOptions.YMaximum);
+                    var series = Assert.Single(plot.Series);
+                    Assert.Equal(AnalysisSeriesKind.Heatmap, series.Kind);
+                    Assert.Equal(0, series.ValueMinimum);
+                    Assert.Equal(maximum, series.ValueMaximum);
+                });
+                Assert.Equal("Tangential", Assert.Single(plots[0].Series).Name);
+                Assert.Equal("Sagittal", Assert.Single(plots[1].Series).Name);
                 Capture(window, "contrast-loss-map");
             });
         }, CancellationToken.None);

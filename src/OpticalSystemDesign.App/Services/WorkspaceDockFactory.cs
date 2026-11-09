@@ -34,6 +34,7 @@ public sealed class WorkspaceDockFactory : Factory
     private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;
     private readonly Func<string, Task<bool>>? _openProjectAsync;
+    private readonly Func<string, Task<bool>>? _openStockLensAsync;
     private readonly Func<IReadOnlyList<AppAction>> _userGuideActions;
     private readonly SurfaceSelectionService _surfaceSelection = new();
     private readonly Dictionary<string, WorkspaceDocumentDescriptor> _descriptors = new(StringComparer.Ordinal);
@@ -44,11 +45,13 @@ public sealed class WorkspaceDockFactory : Factory
         IWorkbenchApplication application,
         AppSettings settings,
         Func<string, Task<bool>>? openProjectAsync = null,
-        Func<IReadOnlyList<AppAction>>? userGuideActions = null)
+        Func<IReadOnlyList<AppAction>>? userGuideActions = null,
+        Func<string, Task<bool>>? openStockLensAsync = null)
     {
         _application = application;
         _settings = settings;
         _openProjectAsync = openProjectAsync;
+        _openStockLensAsync = openStockLensAsync;
         _userGuideActions = userGuideActions ?? (() => Array.Empty<AppAction>());
         HostWindowLocator = new Dictionary<string, Func<IHostWindow?>>
         {
@@ -732,7 +735,7 @@ public sealed class WorkspaceDockFactory : Factory
                 OpenLensLibraryProjectAsync),
             WorkspaceDocumentTypes.StockLensCatalog => new CommercialLensCatalogPanel(
                 _application.Lenses,
-                OpenLensLibraryProjectAsync),
+                _openStockLensAsync is null ? null : OpenStockLensAsync),
             WorkspaceDocumentTypes.StockLensMatching => new StockLensMatchingPanel(
                 _application.Documents,
                 _application.Lenses,
@@ -855,6 +858,16 @@ public sealed class WorkspaceDockFactory : Factory
             return;
         }
 
+        ShowLensEditor();
+    }
+
+    private async Task OpenStockLensAsync(string lensId)
+    {
+        if (await _openStockLensAsync!(lensId)) ShowLensEditor();
+    }
+
+    private void ShowLensEditor()
+    {
         OpenDocument(new WorkspaceDocumentDescriptor(
             LensDocumentId,
             WorkspaceDocumentTypes.LensEditor,

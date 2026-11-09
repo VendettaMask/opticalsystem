@@ -183,11 +183,12 @@ public static partial class ComponentSnapshotFactory
                 ["conicX"] = biconic.ConicX,
                 ["conicY"] = biconic.ConicY
             }, new Dictionary<string, string>()),
-            ToroidalGeometry toroidal => new ComponentSnapshot("toroidal", new Dictionary<string, double>
+            ToroidalGeometry toroidal => new ComponentSnapshot("toroidal", Coefficients(toroidal.Coefficients, new Dictionary<string, double>
             {
                 ["tangentialRadius"] = toroidal.TangentialRadius,
-                ["sagittalRadius"] = toroidal.SagittalRadius
-            }, new Dictionary<string, string>()),
+                ["sagittalRadius"] = toroidal.SagittalRadius,
+                ["conic"] = toroidal.Conic
+            }, "a"), new Dictionary<string, string>()),
             PolynomialGeometry polynomial => new ComponentSnapshot("polynomial", polynomial.Coefficients.ToDictionary(
                 item => $"c_{item.Key.X}_{item.Key.Y}",
                 item => item.Value), new Dictionary<string, string>()),
@@ -202,6 +203,12 @@ public static partial class ComponentSnapshotFactory
                 zernike.Coefficients,
                 new Dictionary<string, double> { ["pupilRadius"] = zernike.PupilRadius }), new Dictionary<string, string>()),
             ForbesQGeometry forbes => new ComponentSnapshot("forbes_q", Coefficients(forbes.QCoefficients, new Dictionary<string, double>
+            {
+                ["radius"] = forbes.Base.Radius,
+                ["conic"] = forbes.Base.Conic,
+                ["normalizationRadius"] = forbes.NormalizationRadius
+            }, "q"), new Dictionary<string, string>()),
+            ForbesNormalSlopeGeometry forbes => new ComponentSnapshot("forbes_normal_slope", Coefficients(forbes.Coefficients, new Dictionary<string, double>
             {
                 ["radius"] = forbes.Base.Radius,
                 ["conic"] = forbes.Base.Conic,
@@ -280,11 +287,14 @@ public static partial class ComponentSnapshotFactory
             "odd_asphere" => new OddAsphereGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), ReadCoefficients(n)),
             "biconic" => new BiconicGeometry(Get(n, "radiusX", fallbackRadius), Get(n, "radiusY", fallbackRadius), Get(n, "conicX", 0), Get(n, "conicY", 0)),
             "separable_biconic" => new SeparableBiconicGeometry(Get(n, "radiusX", fallbackRadius), Get(n, "radiusY", fallbackRadius), Get(n, "conicX", 0), Get(n, "conicY", 0)),
-            "toroidal" => new ToroidalGeometry(Get(n, "tangentialRadius", fallbackRadius), Get(n, "sagittalRadius", fallbackRadius)),
+            "toroidal" => new ToroidalGeometry(Get(n, "tangentialRadius", fallbackRadius), Get(n, "sagittalRadius", fallbackRadius),
+                Get(n, "conic", 0), ReadCoefficients(n, "a")),
             "polynomial" => new PolynomialGeometry(ReadPolynomial(n)),
             "chebyshev" => new ChebyshevGeometry(ReadPairCoefficients(n), Get(n, "normalizationX", 1), Get(n, "normalizationY", 1)),
             "zernike" => new ZernikeGeometry(ReadPairCoefficients(n), Get(n, "pupilRadius", 1)),
             "forbes_q" => new ForbesQGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), Get(n, "normalizationRadius", 1), ReadCoefficients(n, "q")),
+            "forbes_normal_slope" => new ForbesNormalSlopeGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic),
+                Get(n, "normalizationRadius", 1), ReadCoefficients(n, "q")),
             _ => new OpaqueGeometryPayload(snapshot)
         };
     }

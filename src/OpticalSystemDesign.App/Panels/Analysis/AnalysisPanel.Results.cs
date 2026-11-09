@@ -92,8 +92,7 @@ public sealed partial class AnalysisPanel
                     view.PlotPanes,
                     defaultSquareCells: IsRayFanView(view) || IsPupilAberrationView(view))
                 : view.PresentationKind == AnalysisPresentationKind.ContrastLossMap && view.PlotPanes.Count >= 2
-                    ? BuildPanePlot([view.PlotPanes[1], view.PlotPanes[0], .. view.PlotPanes.Skip(2)],
-                        view.PlotPaneColumns, pupilCircles: true)
+                    ? BuildContrastLossPlot(view)
                     : BuildPanePlot(view.PlotPanes, view.PlotPaneColumns,
                         alignTitleRows: view.PresentationKind == AnalysisPresentationKind.FieldCurvatureAndDistortion)
             : IsSeidelDiagramView(view)
@@ -1230,8 +1229,7 @@ public sealed partial class AnalysisPanel
         if (view.PresentationKind == AnalysisPresentationKind.ContrastLossMap)
         {
             var sampling = Row("采样");
-            var rangeMaximum = string.Equals(Row("归一化"), "True", StringComparison.OrdinalIgnoreCase)
-                ? Row("最大对比度损失") : "1.0000";
+            var rangeMaximum = NumericDisplayFormatter.Format(ContrastLossColorMaximum(view));
             return new CompactAnalysisSummary("对比度损失图", string.Join(Environment.NewLine,
                 $"波长：{WithUnit("分析波长 (µm)", " µm")}    视场：({Row("视场 X")}, {Row("视场 Y")}) {Row("视场单位")}",
                 $"空间频率：{Row("空间频率")} {Row("频率单位")}    瞳面采样：{sampling} × {sampling}",

@@ -443,6 +443,8 @@ public sealed partial class OpticalSurface : NotifyObject
                     Conic,
                     forbes.NormalizationRadius,
                     forbes.QCoefficients),
+                ForbesNormalSlopeGeometry forbes => new ForbesNormalSlopeGeometry(Radius, Conic,
+                    forbes.NormalizationRadius, forbes.Coefficients),
                 BiconicGeometry biconic => new BiconicGeometry(
                     Radius,
                     biconic.RadiusY,
@@ -453,7 +455,7 @@ public sealed partial class OpticalSurface : NotifyObject
                     biconic.RadiusY,
                     Conic,
                     biconic.ConicY),
-                ToroidalGeometry toroidal => new ToroidalGeometry(Radius, toroidal.SagittalRadius),
+                ToroidalGeometry toroidal => new ToroidalGeometry(Radius, toroidal.SagittalRadius, Conic, toroidal.Coefficients),
                 StandardGeometry when Math.Abs(Radius) < 1e-9 => new PlaneGeometry(),
                 StandardGeometry => new StandardGeometry(Radius, Conic),
                 PlaneGeometry when Math.Abs(Radius) >= 1e-9 => new StandardGeometry(Radius, Conic),
@@ -519,9 +521,10 @@ public sealed partial class OpticalSurface : NotifyObject
                 GridSagGeometry grid => (grid.Base.Base.Radius, grid.Base.Base.Conic),
                 OddAsphereGeometry odd => (odd.Base.Radius, odd.Base.Conic),
                 ForbesQGeometry forbes => (forbes.Base.Radius, forbes.Base.Conic),
+                ForbesNormalSlopeGeometry forbes => (forbes.Base.Radius, forbes.Base.Conic),
                 BiconicGeometry biconic => (biconic.RadiusX, biconic.ConicX),
                 SeparableBiconicGeometry biconic => (biconic.RadiusX, biconic.ConicX),
-                ToroidalGeometry toroidal => (toroidal.TangentialRadius, 0.0),
+                ToroidalGeometry toroidal => (toroidal.TangentialRadius, toroidal.Conic),
                 _ => (_radius, _conic)
             };
             SetProperty(ref _radius, parameters.Item1, nameof(Radius));
