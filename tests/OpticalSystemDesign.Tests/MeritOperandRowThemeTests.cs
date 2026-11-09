@@ -1,5 +1,6 @@
 using System.Reflection;
 using Avalonia;
+using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Headless;
@@ -217,8 +218,10 @@ public sealed class MeritOperandRowThemeTests
         }, CancellationToken.None);
     }
 
-    [Fact]
-    public async Task WizardGeneratedRowsKeepTheirClassificationColorsInTheDockedEditor()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task WizardGeneratedRowsKeepTheirClassificationColorsInTheDockedEditor(bool fromRibbon)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(MeritOperandRowThemeTests));
         await session.Dispatch(async () =>
@@ -239,14 +242,32 @@ public sealed class MeritOperandRowThemeTests
                     Render(window);
                 }
                 Assert.True(ready);
-                var actions = Assert.IsType<ActionManager>(typeof(MainWindow)
-                    .GetField("_actions", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(window));
-                Assert.True(await actions.ExecuteAsync(actions.Find("show-tolerancing")));
-                Render(window);
-                var panel = Assert.Single(window.GetVisualDescendants().OfType<TolerancingPanel>());
-                var wizardButton = Assert.Single(panel.GetVisualDescendants().OfType<Button>(),
-                    button => button.Content is LocalIconLabel label
-                        && label.Children.OfType<TextBlock>().Any(text => text.Text == "公差向导"));
+                Button wizardButton;
+                if (fromRibbon)
+                {
+                    var tabs = Assert.Single(window.GetVisualDescendants().OfType<TabControl>(), item => item.Classes.Contains("ribbon-tabs"));
+                    tabs.SelectedItem = Assert.Single(tabs.Items.OfType<TabItem>(), item => AutomationProperties.GetName(item) == "公差");
+                    Render(window);
+                    wizardButton = Assert.Single(tabs.GetVisualDescendants().OfType<Button>(),
+                        button => AutomationProperties.GetAutomationId(button) == "ribbon-show-tolerance-wizard");
+                    Assert.True(wizardButton.IsEffectivelyVisible);
+                    Capture(window, "tolerance-wizard-ribbon-light.png");
+                    wizardButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                    Assert.Single(window.OwnedWindows.OfType<ToleranceWizardWindow>()).Close();
+                    Render(window);
+                    Assert.Empty(window.GetVisualDescendants().OfType<TolerancingPanel>());
+                }
+                else
+                {
+                    var actions = Assert.IsType<ActionManager>(typeof(MainWindow)
+                        .GetField("_actions", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(window));
+                    Assert.True(await actions.ExecuteAsync(actions.Find("show-tolerancing")));
+                    Render(window);
+                    var editor = Assert.Single(window.GetVisualDescendants().OfType<TolerancingPanel>());
+                    wizardButton = Assert.Single(editor.GetVisualDescendants().OfType<Button>(),
+                        button => button.Content is LocalIconLabel label
+                            && label.Children.OfType<TextBlock>().Any(text => text.Text == "公差向导"));
+                }
                 wizardButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Render(window);
                 var wizard = Assert.Single(window.OwnedWindows.OfType<ToleranceWizardWindow>());
@@ -254,6 +275,7 @@ public sealed class MeritOperandRowThemeTests
                 Assert.Single(wizard.GetVisualDescendants().OfType<Button>(), button => Equals(button.Content, "确定"))
                     .RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Render(window);
+                var panel = Assert.Single(window.GetVisualDescendants().OfType<TolerancingPanel>());
                 Assert.Contains("公差向导已生成", panel.ResultMessage);
                 var grid = Assert.Single(panel.GetVisualDescendants().OfType<DataGrid>());
                 var expected = new[] { "TRAD", "TTHI", "TIND", "TABB" };
@@ -268,8 +290,8 @@ public sealed class MeritOperandRowThemeTests
                     Assert.Equal(visual.Background, Solid(Background(row).Fill));
                     Assert.True(colors.Add(visual.Background), code);
                 }
-                AssertPixels(window, grid, [0, 2, 9]);
-                Capture(window, "tolerance-wizard-docked-light.png");
+                if (!fromRibbon) AssertPixels(window, grid, [0, 2, 9]);
+                Capture(window, fromRibbon ? "tolerance-wizard-from-ribbon-light.png" : "tolerance-wizard-docked-light.png");
             }
             finally { window.Close(); }
         }, CancellationToken.None);

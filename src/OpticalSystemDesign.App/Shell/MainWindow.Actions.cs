@@ -173,6 +173,7 @@ public sealed partial class MainWindow
             _statusText.Text = "已打开内置光学镀膜设计模块";
         });
         _actions.Register("show-tolerancing", "显示公差面板", "面板", () => _panels.Show(WorkspacePanelId.Tolerancing));
+        _actions.Register("show-tolerance-wizard", "公差向导", "公差", () => _panels.ShowTolerancingWizardAsync(this));
         _actions.Register("run-tolerancing", "运行公差分析", "公差", () => _panels.RunTolerancingAsync(this));
         _actions.Register("show-tolerance-data-viewer", "显示公差数据查看器", "公差", _panels.ShowTolerancingDataViewer);
         _actions.Register("show-tolerance-report", "显示公差报告", "公差", _panels.ShowTolerancingReport);

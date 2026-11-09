@@ -665,6 +665,7 @@ public sealed partial class UserGuidePanel : UserControl
             ["launch-coating-design-lab"] = T("光学镀膜设计", "Optical Coating Design", "光学コーティング設計"),
             ["show-tolerancing"] = T("公差数据编辑器", "Tolerance Data Editor", "公差データエディター"),
             ["run-tolerancing"] = T("运行公差分析", "Run Tolerance Analysis", "公差解析を実行"),
+            ["show-tolerance-wizard"] = T("公差向导", "Tolerance Wizard", "公差ウィザード"),
             ["show-tolerance-data-viewer"] = T("公差数据查看器", "Tolerance Data Viewer", "公差データビューアー"),
             ["show-tolerance-report"] = T("公差报告", "Tolerance Report", "公差レポート"),
             ["show-tolerance-histogram"] = T("公差直方图", "Tolerance Histogram", "公差ヒストグラム"),

@@ -817,7 +817,7 @@ public sealed class WorkspaceDockFactory : Factory
         return control;
     }
 
-    private TolerancingPanel TolerancingEditor()
+    internal TolerancingPanel TolerancingEditor()
     {
         const string id = "document:tolerancing";
         if (!_descriptors.ContainsKey(id))

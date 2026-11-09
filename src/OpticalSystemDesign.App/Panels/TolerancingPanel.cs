@@ -453,11 +453,14 @@ public sealed partial class TolerancingPanel : UserControl, IDisposable
         }
 
         var settings = await new ToleranceWizardWindow(_prescription).ShowDialog<ToleranceWizardSettingsDto?>(owner);
-        if (settings is null)
+        if (settings is not null)
         {
-            return;
+            ApplyWizardSettings(settings);
         }
+    }
 
+    internal void ApplyWizardSettings(ToleranceWizardSettingsDto settings)
+    {
         var generated = _tolerancing.GenerateWizard(settings);
         if (settings.ReplaceExisting)
         {

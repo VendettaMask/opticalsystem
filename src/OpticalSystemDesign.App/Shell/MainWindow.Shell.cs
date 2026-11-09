@@ -121,6 +121,7 @@ public sealed partial class MainWindow
                 RibbonTab("公差", BuildRibbonPage(
                     RibbonGroup("公差分析",
                         RibbonButton("show-tolerancing", "tolerance-data-editor", "公差数据编辑器"),
+                        RibbonButton("show-tolerance-wizard", "tolerance-wizard", "公差向导"),
                         RibbonButton("run-tolerancing", "tolerance-analysis", "公差分析")),
                     RibbonGroup("公差数据可视化",
                         RibbonButton("show-tolerance-data-viewer", "tolerance-data-viewer", "公差数据查看器"),

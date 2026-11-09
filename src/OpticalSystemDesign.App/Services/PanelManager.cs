@@ -174,6 +174,18 @@ public sealed class PanelManager : IDisposable
     public void ShowTolerancingYield() =>
         OpenStable("document:tolerance-yield", WorkspaceDocumentTypes.ToleranceYield, "良率");
 
+    internal async Task ShowTolerancingWizardAsync(Window owner)
+    {
+        var settings = await new ToleranceWizardWindow(_application.Prescription).ShowDialog<ToleranceWizardSettingsDto?>(owner);
+        if (settings is null)
+        {
+            return;
+        }
+
+        Factory.TolerancingEditor().ApplyWizardSettings(settings);
+        Show(WorkspacePanelId.Tolerancing);
+    }
+
     public async Task RunTolerancingAsync(Window owner)
     {
         const string editorId = "document:tolerancing";
