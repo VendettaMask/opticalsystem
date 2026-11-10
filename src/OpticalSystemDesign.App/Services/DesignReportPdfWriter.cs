@@ -11,17 +11,18 @@ internal static partial class DesignReportPdfWriter
     internal static void Write(Stream output, DesignReportContent content, string images, CancellationToken token,
         DesignReportPdfModel? paper = null, DesignReportContent? details = null)
     {
+        using var languageScope = UiLocalization.UseLanguage(paper?.Language ?? UiLocalization.CurrentLanguage);
         var typography = new DocumentTypography();
         using var pagination = paper is null ? null : new Writer(null, typography, token, context: paper);
         if (pagination is not null) Render(pagination, content, images, token, paper, details);
         using var document = SKDocument.CreatePdf(output, new SKDocumentPdfMetadata(144f, 101)
-        { Title = content.Blocks.OfType<ReportHeading>().FirstOrDefault()?.Text ?? "光学设计报告", Author = "S.T.A.R.Labs" })
-            ?? throw new InvalidOperationException("无法创建 PDF 报告。");
+        { Title = content.Blocks.OfType<ReportHeading>().FirstOrDefault()?.Text ?? UiLocalization.Text("光学设计报告"), Author = "S.T.A.R.Labs" })
+            ?? throw new InvalidOperationException(UiLocalization.Text("无法创建 PDF 报告。"));
         using var writer = new Writer(document, typography, token, pagination?.SectionStartPages, pagination?.AppendixPage, paper, pagination?.TotalPages);
         Render(writer, content, images, token, paper, details);
         if (pagination is not null && (!pagination.SectionStartPages.SequenceEqual(writer.SectionStartPages)
             || pagination.AppendixPage != writer.AppendixPage))
-            throw new InvalidDataException("目录页码与实际分页不一致。");
+            throw new InvalidDataException(UiLocalization.Text("目录页码与实际分页不一致。"));
         token.ThrowIfCancellationRequested();
         document.Close();
     }
@@ -40,7 +41,7 @@ internal static partial class DesignReportPdfWriter
             content = details;
             writer.Section(false);
             writer.MarkAppendix();
-            writer.Text("附录 详细计算记录", 17, true, 12);
+            writer.Text(UiLocalization.Text("附录 详细计算记录"), 17, true, 12);
         }
         else writer.StartPage();
         var figure = 0;
@@ -63,7 +64,7 @@ internal static partial class DesignReportPdfWriter
                         { ReportTextStyle.Muted => new SKColor(99, 113, 134), ReportTextStyle.Warning => new SKColor(155, 53, 47), _ => SKColors.Black });
                     break;
                 case ReportContents contents:
-                    writer.Text("目录", 13, true, 10, keepNext: true);
+                    writer.Text(UiLocalization.Text("目录"), 13, true, 10, keepNext: true);
                     foreach (var entry in contents.Entries) writer.Text(entry.Text, 10.5f, false, 4, color: new SKColor(35, 92, 150));
                     break;
                 case ReportCode code:
@@ -76,10 +77,10 @@ internal static partial class DesignReportPdfWriter
                     using (var source = DesignReportImage.Open(images, picture.FileName))
                     {
                         imageBytes += source.Length;
-                        if (imageBytes > BoundedApplicationFile.MaximumExportBytes) throw new InvalidDataException("报告图片超过大小上限。");
+                        if (imageBytes > BoundedApplicationFile.MaximumExportBytes) throw new InvalidDataException(UiLocalization.Text("报告图片超过大小上限。"));
                         using var data = SKData.Create(source);
                         using var image = DesignReportImage.Decode(data);
-                        writer.Picture(image, $"图 {++figure}　{picture.Title}");
+                        writer.Picture(image, UiLocalization.Template($"图 {++figure}　{picture.Title}"));
                     }
                     break;
             }
@@ -111,7 +112,7 @@ internal static partial class DesignReportPdfWriter
                 PageWidth = wide ? 841.89f : 595.28f;
                 PageHeight = wide ? 595.28f : 841.89f;
             }
-            if (++_pages > 1000) throw new InvalidOperationException("报告超过页数上限，请减少分析项目或配置数量。");
+            if (++_pages > 1000) throw new InvalidOperationException(UiLocalization.Text("报告超过页数上限，请减少分析项目或配置数量。"));
             _canvas = document is null ? _pagination!.BeginRecording(new SKRect(0, 0, PageWidth, PageHeight))
                 : document.BeginPage(PageWidth, PageHeight);
             _canvas.Clear(SKColors.White);
@@ -119,8 +120,8 @@ internal static partial class DesignReportPdfWriter
             using var paint = new SKPaint { Color = new SKColor(99, 113, 134), IsAntialias = true };
             BrandAssets.DrawCompanyLogo(_canvas, new SKRect(Margin, 18, Margin + 100, 30), new SKColor(50, 90, 119));
             typography.Draw(_canvas, context?.Name ?? "Optical System Design", PageWidth - Margin, 22, font, paint, alignment: SKTextAlign.Right);
-            typography.Draw(_canvas, "光学设计分析报告", PageWidth - Margin, 33, font, paint, alignment: SKTextAlign.Right);
-            typography.Draw(_canvas, "Optical System Design" + (context is null ? "" : $"　·　计算快照 {context.CapturedAt:yyyy.MM.dd}"), Margin, PageHeight - 22, font, paint);
+            typography.Draw(_canvas, UiLocalization.Text("光学设计分析报告"), PageWidth - Margin, 33, font, paint, alignment: SKTextAlign.Right);
+            typography.Draw(_canvas, "Optical System Design" + (context is null ? "" : UiLocalization.Template($"　·　计算快照 {context.CapturedAt:yyyy.MM.dd}")), Margin, PageHeight - 22, font, paint);
             typography.Draw(_canvas, _pages.ToString("D2", CultureInfo.InvariantCulture) + (totalPages is null ? "" : $" / {totalPages:00}"), PageWidth - Margin, PageHeight - 22, font, paint, alignment: SKTextAlign.Right);
             using var line = new SKPaint { Color = new SKColor(217, 225, 234), StrokeWidth = 0.5f };
             _canvas.DrawLine(Margin, 37, PageWidth - Margin, 37, line);
@@ -170,7 +171,7 @@ internal static partial class DesignReportPdfWriter
             var lineHeight = Math.Max(LineHeight(bodyFont), LineHeight(headerFont));
             var header = Cells(table.Columns, headerFont);
             var headerHeight = header.Max(lines => lines.Count) * lineHeight + 10;
-            if (headerHeight + lineHeight + 10 > Bottom - Top) throw new InvalidDataException("报告表头超过页面高度。");
+            if (headerHeight + lineHeight + 10 > Bottom - Top) throw new InvalidDataException(UiLocalization.Text("报告表头超过页面高度。"));
             Reserve(headerHeight + lineHeight + 10);
             Row(header, 0, header.Max(lines => lines.Count), headerFont, true, false);
             for (var rowIndex = 0; rowIndex < table.Rows.Length; rowIndex++)

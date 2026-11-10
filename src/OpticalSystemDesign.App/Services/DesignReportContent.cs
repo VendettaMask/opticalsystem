@@ -37,12 +37,12 @@ internal sealed class DesignReportContent
     internal void Picture(string title, string fileName) => Add(new ReportPicture(title, fileName), title.Length + fileName.Length);
     internal void Table(string[] columns, IEnumerable<string[]> rows, int formulaColumn = -1)
     {
-        if (columns.Length == 0) throw new InvalidDataException("报告表格缺少列定义。");
+        if (columns.Length == 0) throw new InvalidDataException(UiLocalization.Text("报告表格缺少列定义。"));
         var values = new List<string[]>();
         Add(new ReportTable(columns, [], formulaColumn), columns.Sum(value => (long)value.Length));
         foreach (var row in rows)
         {
-            if (row.Length != columns.Length) throw new InvalidDataException("报告表格列数不一致。");
+            if (row.Length != columns.Length) throw new InvalidDataException(UiLocalization.Text("报告表格列数不一致。"));
             CheckLength(row.Sum(value => (long)value.Length));
             values.Add(row);
         }
@@ -59,7 +59,7 @@ internal sealed class DesignReportContent
     {
         _characters += characters;
         if (_characters > BoundedApplicationFile.MaximumExportBytes / 8 || Blocks.Count > 100_000)
-            throw new InvalidOperationException("报告超过大小上限，请减少分析项目或配置数量。");
+            throw new InvalidOperationException(UiLocalization.Text("报告超过大小上限，请减少分析项目或配置数量。"));
     }
 
     internal string Markdown(string imageDirectory)
@@ -79,13 +79,13 @@ internal sealed class DesignReportContent
                     text.AppendLine(paragraph.Style == ReportTextStyle.Subtitle ? $"**{Escape(paragraph.Text)}**" : Escape(paragraph.Text)).AppendLine();
                     break;
                 case ReportContents contents:
-                    text.AppendLine("## 目录\n");
+                    text.AppendLine("## " + UiLocalization.Text("目录") + "\n");
                     foreach (var entry in contents.Entries)
                         text.AppendLine($"- [{Escape(entry.Text)}](#section-{Array.IndexOf(headings, entry) + 1:D3})");
                     text.AppendLine();
                     break;
                 case ReportAppendixStart:
-                    text.AppendLine("<details>\n<summary>展开完整参数与计算记录</summary>\n");
+                    text.AppendLine("<details>\n<summary>" + UiLocalization.Text("展开完整参数与计算记录") + "</summary>\n");
                     appendix = true;
                     break;
                 case ReportCode code:
@@ -100,7 +100,7 @@ internal sealed class DesignReportContent
                     break;
                 case ReportPicture picture:
                     text.AppendLine($"![{Escape(picture.Title)}](<{Uri.EscapeDataString(imageDirectory)}/{Uri.EscapeDataString(picture.FileName)}>)").AppendLine();
-                    text.AppendLine($"*图 {++figureNumber}　{Escape(picture.Title)}*").AppendLine();
+                    text.AppendLine(UiLocalization.Template($"*图 {++figureNumber}　{Escape(picture.Title)}*")).AppendLine();
                     break;
             }
         }

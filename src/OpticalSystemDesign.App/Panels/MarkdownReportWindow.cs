@@ -174,7 +174,8 @@ internal sealed partial class MarkdownReportWindow : Window
             if (descriptor.Kind == AnalysisParameterKind.Choice)
             {
                 var choices = descriptor.Choices?.ToArray() ?? [];
-                var combo = new ComboBox { ItemsSource = choices.Select(choice => UiLocalization.Text(descriptor.ChoiceLabels?.GetValueOrDefault(choice) ?? choice)).ToArray(), SelectedIndex = Array.IndexOf(choices, value), HorizontalAlignment = HorizontalAlignment.Stretch };
+                var combo = new ComboBox { ItemsSource = choices, SelectedIndex = Array.IndexOf(choices, value), HorizontalAlignment = HorizontalAlignment.Stretch };
+                UiLocalization.BindChoices<string>(combo, choice => descriptor.ChoiceLabels?.GetValueOrDefault(choice) ?? choice);
                 input = combo; read = () => combo.SelectedIndex >= 0 ? choices[combo.SelectedIndex] : descriptor.DefaultValue;
                 if (descriptor.Key == AnalysisConfigurationSelection.Key)
                     combo.SelectionChanged += (_, _) => EditParameters(key);

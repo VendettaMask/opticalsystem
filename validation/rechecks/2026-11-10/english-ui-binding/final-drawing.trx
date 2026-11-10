@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ad9e1b67-4378-4313-9129-964ef1c1ff5d" name="@starlabdeMacBook-Air 2026-11-10 09:20:23" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-10T09:20:23.3539120+08:00" queuing="2026-11-10T09:20:23.3539120+08:00" start="2026-11-10T09:20:21.3624620+08:00" finish="2026-11-10T09:20:56.3002050+08:00" />
+  <TestSettings name="default" id="c9055d2f-9950-4324-8424-8f6e38c79be0">
+    <Deployment runDeploymentRoot="_starlabdeMacBook-Air_2026-11-10_09_20_23" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0c438204-8d6d-4565-9546-f931e36cf8d2" testId="f6eddacd-5fb3-7b81-96e7-8859ef3ec55f" testName="OpticalSystemDesign.Tests.PresentationLocalizationTests.WorkspaceAndDrawingDefaultsFollowLanguageWhileEditedFieldsRemainData(theme: &quot;Dark&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:02.7937408" startTime="2026-11-10T09:20:50.8938160+08:00" endTime="2026-11-10T09:20:53.6831260+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0c438204-8d6d-4565-9546-f931e36cf8d2" />
+    <UnitTestResult executionId="71940ff9-14e8-428f-ad7e-ab0f9f980092" testId="c7126235-0755-5103-d9d4-949c62f07fdb" testName="OpticalSystemDesign.Tests.PresentationLocalizationTests.CachedDrawingDefaultsNeverBorrowAnotherSelectedElementsText" computerName="starlabdeMacBook-Air" duration="00:00:00.3535366" startTime="2026-11-10T09:20:21.8432940+08:00" endTime="2026-11-10T09:20:22.1994650+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="71940ff9-14e8-428f-ad7e-ab0f9f980092" />
+    <UnitTestResult executionId="f04a8d8b-7a66-4b78-861b-b24bb8a46431" testId="43ddbd9c-fc89-bfb0-a1d6-1e87da716045" testName="OpticalSystemDesign.Tests.PresentationLocalizationTests.WorkspaceAndDrawingDefaultsFollowLanguageWhileEditedFieldsRemainData(theme: &quot;Isekai&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:03.8134028" startTime="2026-11-10T09:20:22.2025120+08:00" endTime="2026-11-10T09:20:50.8892500+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f04a8d8b-7a66-4b78-861b-b24bb8a46431" />
+    <UnitTestResult executionId="931f9c41-dabd-49a5-8c4c-bb1afed6b082" testId="ebbcfaef-f48a-d339-1a96-83b3fda3e6e5" testName="OpticalSystemDesign.Tests.PresentationLocalizationTests.WorkspaceAndDrawingDefaultsFollowLanguageWhileEditedFieldsRemainData(theme: &quot;Light&quot;)" computerName="starlabdeMacBook-Air" duration="00:00:02.5684627" startTime="2026-11-10T09:20:53.6834940+08:00" endTime="2026-11-10T09:20:56.2518570+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="931f9c41-dabd-49a5-8c4c-bb1afed6b082" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.PresentationLocalizationTests.WorkspaceAndDrawingDefaultsFollowLanguageWhileEditedFieldsRemainData(theme: &quot;Dark&quot;)" storage="/private/tmp/opticalsystem-english-ui-20261109/bin/release/net10.0/opticalsystemdesign.tests.dll" id="f6eddacd-5fb3-7b81-96e7-8859ef3ec55f">
+      <Execution id="0c438204-8d6d-4565-9546-f931e36cf8d2" />
+      <TestMethod codeBase="/private/tmp/opticalsystem-english-ui-20261109/bin/Release/net10.0/OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PresentationLocalizationTests" name="WorkspaceAndDrawingDefaultsFollowLanguageWhileEditedFieldsRemainData" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PresentationLocalizationTests.WorkspaceAndDrawingDefaultsFollowLanguageWhileEditedFieldsRemainData(theme: &quot;Isekai&quot;)" storage="/private/tmp/opticalsystem-english-ui-20261109/bin/release/net10.0/opticalsystemdesign.tests.dll" id="43ddbd9c-fc89-bfb0-a1d6-1e87da716045">
+      <Execution id="f04a8d8b-7a66-4b78-861b-b24bb8a46431" />
+      <TestMethod codeBase="/private/tmp/opticalsystem-english-ui-20261109/bin/Release/net10.0/OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PresentationLocalizationTests" name="WorkspaceAndDrawingDefaultsFollowLanguageWhileEditedFieldsRemainData" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PresentationLocalizationTests.WorkspaceAndDrawingDefaultsFollowLanguageWhileEditedFieldsRemainData(theme: &quot;Light&quot;)" storage="/private/tmp/opticalsystem-english-ui-20261109/bin/release/net10.0/opticalsystemdesign.tests.dll" id="ebbcfaef-f48a-d339-1a96-83b3fda3e6e5">
+      <Execution id="931f9c41-dabd-49a5-8c4c-bb1afed6b082" />
+      <TestMethod codeBase="/private/tmp/opticalsystem-english-ui-20261109/bin/Release/net10.0/OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PresentationLocalizationTests" name="WorkspaceAndDrawingDefaultsFollowLanguageWhileEditedFieldsRemainData" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.PresentationLocalizationTests.CachedDrawingDefaultsNeverBorrowAnotherSelectedElementsText" storage="/private/tmp/opticalsystem-english-ui-20261109/bin/release/net10.0/opticalsystemdesign.tests.dll" id="c7126235-0755-5103-d9d4-949c62f07fdb">
+      <Execution id="71940ff9-14e8-428f-ad7e-ab0f9f980092" />
+      <TestMethod codeBase="/private/tmp/opticalsystem-english-ui-20261109/bin/Release/net10.0/OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.PresentationLocalizationTests" name="CachedDrawingDefaultsNeverBorrowAnotherSelectedElementsText" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f6eddacd-5fb3-7b81-96e7-8859ef3ec55f" executionId="0c438204-8d6d-4565-9546-f931e36cf8d2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c7126235-0755-5103-d9d4-949c62f07fdb" executionId="71940ff9-14e8-428f-ad7e-ab0f9f980092" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="43ddbd9c-fc89-bfb0-a1d6-1e87da716045" executionId="f04a8d8b-7a66-4b78-861b-b24bb8a46431" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ebbcfaef-f48a-d339-1a96-83b3fda3e6e5" executionId="931f9c41-dabd-49a5-8c4c-bb1afed6b082" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="4" executed="4" passed="4" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)
+[xUnit.net 00:00:00.09]   Discovering: OpticalSystemDesign.Tests
+[xUnit.net 00:00:00.11]   Discovered:  OpticalSystemDesign.Tests
+[xUnit.net 00:00:00.12]   Starting:    OpticalSystemDesign.Tests
+[xUnit.net 00:00:09.66]   Finished:    OpticalSystemDesign.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

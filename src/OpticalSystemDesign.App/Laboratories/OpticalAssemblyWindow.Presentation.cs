@@ -63,6 +63,7 @@ public sealed partial class OpticalAssemblyWindow
         _grid.Columns.Add(Column("面", nameof(TableRow.Surface), 44));
         _grid.Columns.Add(Column("表面名称", nameof(TableRow.Label), 92));
         _grid.Columns.Add(Column("像类型", nameof(TableRow.Kind), 80));
+        _grid.Columns[^1].Width = DataGridLength.SizeToCells;
         _grid.Columns.Add(Column("位置 (mm)", nameof(TableRow.Position), 108));
         _grid.Columns.Add(new DataGridTextColumn
         { Header = "计算说明", Binding = new Binding(nameof(TableRow.Message)), Width = new(1, DataGridLengthUnitType.Star), MinWidth = 170 });
@@ -150,7 +151,7 @@ public sealed partial class OpticalAssemblyWindow
             _grid.RowHeight = Math.Max(32, _grid.FontSize * 1.85);
             _grid.ColumnHeaderHeight = Math.Max(34, _grid.FontSize * 2);
             foreach (var column in _grid.Columns.OfType<DataGridTextColumn>()) column.FontSize = _grid.FontSize;
-            foreach (var (index, width) in new[] { (0, 44), (1, 92), (2, 80), (3, 108) })
+            foreach (var (index, width) in new[] { (0, 44), (1, 92), (3, 108) })
                 _grid.Columns[index].Width = new(width * scale);
             main.ColumnDefinitions[0].Width = new(Math.Max(300, _grid.FontSize * 19));
         }

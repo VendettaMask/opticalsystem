@@ -1,4 +1,6 @@
 using System.Globalization;
+using System.ComponentModel;
+using Avalonia.Controls.Templates;
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
@@ -61,6 +63,15 @@ public sealed partial class OpticalAssemblyWindow : Window
     public OpticalAssemblyWindow(IWorkbenchApplication application)
     {
         _application = application;
+        UiLocalization.Preserve(_source);
+        UiLocalization.Preserve(_status);
+        UiLocalization.Preserve(_imageInfo);
+        _probeMode.ItemTemplate = new FuncDataTemplate<ModeOption>((option, _) =>
+        {
+            var label = new TextBlock { Text = option?.Label, TextWrapping = TextWrapping.Wrap };
+            UiLocalization.LocalizeChoiceLabel(label);
+            return label;
+        });
         Title = "光学装调 · 实验室";
         Width = 1260; Height = 850; MinWidth = 760; MinHeight = 600;
         WindowStartupLocation = WindowStartupLocation.CenterOwner;
@@ -72,7 +83,7 @@ public sealed partial class OpticalAssemblyWindow : Window
 
         _calculate.Click += async (_, _) => await CalculateAsync();
         _simulate.Click += async (_, _) => await SimulateAsync();
-        _cancel.Click += (_, _) => { CancelOperation(); _status.Text = "已取消计算"; };
+        _cancel.Click += (_, _) => { CancelOperation(); SetStatus("已取消计算"); };
         // DataGrid can publish a deferred selection notification after binding.
         // Do not restart the same image and cancel the calculation being awaited.
         _grid.SelectionChanged += async (_, _) =>
@@ -86,19 +97,21 @@ public sealed partial class OpticalAssemblyWindow : Window
         _probeMode.SelectionChanged += (_, _) =>
         {
             CancelOperation(); ClearImage(); UpdateModeFields(); UpdateAvailability();
-            _status.Text = "测量模式已切换，找像位置保持不变；点击“更新叉丝图像”。";
+            SetStatus("测量模式已切换，找像位置保持不变；点击“更新叉丝图像”。");
         };
         foreach (var input in new[] { _head, _collimator, _na, _length, _lineWidth, _offset, _sensor, _pupil, _distance })
             input.ValueChanged += (_, _) =>
             {
-                CancelOperation(); ClearImage(); _status.Text = "测量头参数已改变，点击“更新叉丝图像”"; UpdateAvailability();
+                CancelOperation(); ClearImage(); SetStatus("测量头参数已改变，点击“更新叉丝图像”"); UpdateAvailability();
             };
+        UiLocalization.LanguageChanged += OnLanguageChanged;
         application.Events.Changed += OnWorkspaceChanged;
         application.Modes.ModeChanged += OnModeChanged;
         Opened += async (_, _) => await CalculateAsync();
         Closed += (_, _) =>
         {
             _closed = true; CancelOperation();
+            UiLocalization.LanguageChanged -= OnLanguageChanged;
             application.Events.Changed -= OnWorkspaceChanged;
             application.Modes.ModeChanged -= OnModeChanged;
             _image.Dispose();
@@ -119,11 +132,11 @@ public sealed partial class OpticalAssemblyWindow : Window
             var result = await _application.OpticalAssembly.CalculateAsync(request, token);
             if (!IsCurrent(generation, result.SourceRevision)) return;
             _result = result; BindRows();
-            _status.Text = $"{result.Rows.Count / 2} 个实体表面；{result.Rows.Count(x => x.Status == AssemblyConjugateStatus.Finite)} 个有限共轭。平面经前置镜片后也可能存在有限的平行光共轭。";
+            SetStatus($"{result.Rows.Count / 2} 个实体表面；{result.Rows.Count(x => x.Status == AssemblyConjugateStatus.Finite)} 个有限共轭。平面经前置镜片后也可能存在有限的平行光共轭。");
             succeeded = true;
         }
-        catch (OperationCanceledException) { if (generation == _generation) _status.Text = "计算已取消"; }
-        catch (Exception ex) { if (generation == _generation) _status.Text = ex.Message; }
+        catch (OperationCanceledException) { if (generation == _generation) SetStatus("计算已取消"); }
+        catch (Exception ex) { if (generation == _generation) SetStatus(ex.Message); }
         finally { EndOperation(generation); }
         if (succeeded) await SimulateAsync();
     }
@@ -135,14 +148,14 @@ public sealed partial class OpticalAssemblyWindow : Window
         if (_result is null || _grid.SelectedItem is not TableRow selected) { UpdateAvailability(); return; }
         if (!CanPreview(selected.Row))
         {
-            _imageInfo.Text = $"表面 {selected.Row.SurfaceNumber} · {selected.Row.SurfaceLabel}\n{selected.Kind}：{UnavailableReason(selected.Row)}";
+            SetImageInfo(() => UiLocalization.Format("表面 {0} · {1}\n{2}：{3}", selected.Row.SurfaceNumber, selected.Row.SurfaceLabel, selected.Kind, TranslateDiagnostic(UnavailableReason(selected.Row))));
             UpdateAvailability(); return;
         }
         var result = _result;
         var row = selected.Row;
         _imageRow = row;
         var (generation, token) = BeginOperation();
-        _imageInfo.Text = $"表面 {row.SurfaceNumber} · {selected.Kind}：正在追踪叉丝往返光束…";
+        SetImageInfo(() => UiLocalization.Format("表面 {0} · {1}：正在追踪叉丝往返光束…", row.SurfaceNumber, selected.Kind));
         try
         {
             var focused = MeasurementMode == AssemblyMeasurementMode.Focused;
@@ -153,18 +166,11 @@ public sealed partial class OpticalAssemblyWindow : Window
             var image = await _application.OpticalAssembly.SimulateAsync(request, token);
             if (!IsCurrent(generation, image.SourceRevision)) return;
             _image.SetResult(image);
-            var positionInfo = image.HeadPosition is { } headPosition
-                ? $"附加物镜位置 {Format(headPosition)} mm（同一基准）"
-                : $"自准直仪物镜位置 {Format(image.CollimatorPosition)} mm（同一基准）";
-            var scaleLabel = image.MatchesSelectedConjugate ? "近轴倍率" : "主光线比例";
-            _imageInfo.Text = $"表面 {row.SurfaceNumber} · {row.SurfaceLabel} · {selected.Kind}\n" +
-                $"{scaleLabel} {Format(image.Magnification)}×；名义像长 {Format(image.ImageLength)} mm\n" +
-                positionInfo + "\n" +
-                $"返回 {image.ReturnedRays:N0} / {image.LaunchedRays:N0}，落入探测面 {image.RecordedRays:N0}\n{image.Message}";
-            _status.Text = image.RecordedRays > 0 ? "叉丝图像已更新；可选择其他表面，或修改当前模式的仪器参数。" : image.Message;
+            SetImageInfo(() => ImageDescription(row, image));
+            SetStatus(image.RecordedRays > 0 ? "叉丝图像已更新；可选择其他表面，或修改当前模式的仪器参数。" : image.Message);
         }
-        catch (OperationCanceledException) { if (generation == _generation) _imageInfo.Text = "图像计算已取消"; }
-        catch (Exception ex) { if (generation == _generation) _imageInfo.Text = ex.Message; }
+        catch (OperationCanceledException) { if (generation == _generation) SetImageInfo(() => UiLocalization.Text("图像计算已取消")); }
+        catch (Exception ex) { if (generation == _generation) SetImageInfo(() => TranslateDiagnostic(ex.Message)); }
         finally { EndOperation(generation); }
     }
 
@@ -199,9 +205,9 @@ public sealed partial class OpticalAssemblyWindow : Window
     private void UpdateSource() => _source.Text = _application.Documents.GetSnapshot().Name;
     private void InvalidatePrescription(string message)
     {
-        CancelOperation(); _result = null; BindRows(); ClearImage(); _status.Text = message; UpdateAvailability();
+        CancelOperation(); _result = null; BindRows(); ClearImage(); SetStatus(message); UpdateAvailability();
     }
-    private void ClearImage() { _imageRow = null; _image.SetResult(null); _imageInfo.Text = "选择顶点像或球心像；坐标刻度为探测面毫米，不随叉丝自动缩放。"; }
+    private void ClearImage() { _imageRow = null; _image.SetResult(null); SetImageInfo(() => UiLocalization.Text("选择顶点像或球心像；坐标刻度为探测面毫米，不随叉丝自动缩放。")); }
     private (int Generation, CancellationToken Token) BeginOperation()
     {
         CancelOperation(); _operation = new CancellationTokenSource(); _busy = true; UpdateAvailability();
@@ -278,13 +284,19 @@ public sealed partial class OpticalAssemblyWindow : Window
     private static DataGridTextColumn Column(string label, string property, double width) => new()
     { Header = label, Binding = new Binding(property), Width = new DataGridLength(width) };
 
-    private sealed record TableRow(OpticalAssemblyRow Row)
+    private sealed record TableRow(OpticalAssemblyRow Row) : INotifyPropertyChanged
     {
         public int Surface => Row.SurfaceNumber;
         public string Label => Row.SurfaceLabel;
-        public string Kind => Row.Kind == AssemblyConjugateKind.Vertex ? "顶点像" : "球心像";
+        public string Kind => KindLabel(Row.Kind);
         public string Position => Row.Status == AssemblyConjugateStatus.Infinity ? "∞" : Format(Row.PositionMillimeters);
-        public string Message => Row.Message;
+        public string Message => TranslateDiagnostic(Row.Message);
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void RefreshLanguage()
+        {
+            PropertyChanged?.Invoke(this, new(nameof(Kind)));
+            PropertyChanged?.Invoke(this, new(nameof(Message)));
+        }
     }
     private sealed record ModeOption(AssemblyMeasurementMode Mode, string Label)
     {

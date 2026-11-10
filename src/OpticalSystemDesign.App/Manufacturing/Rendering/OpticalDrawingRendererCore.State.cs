@@ -35,8 +35,10 @@ internal static partial class OpticalDrawingRendererCore
     private sealed class DrawingTypographyScope : IDisposable
     {
         private readonly OpticalSystemDesign.App.Services.DocumentTypography? _previous = ActiveTypography.Value;
+        private readonly IDisposable _language = OpticalSystemDesign.App.Services.UiLocalization.UseLanguage(
+            OpticalSystemDesign.App.Services.UiLocalization.CurrentLanguage);
         internal DrawingTypographyScope() => ActiveTypography.Value = new();
-        public void Dispose() => ActiveTypography.Value = _previous;
+        public void Dispose() { ActiveTypography.Value = _previous; _language.Dispose(); }
     }
 
     internal static (float Width, float Height) PageDimensions(OpticalDrawingPageSize pageSize) =>

@@ -26,10 +26,12 @@ internal static partial class UiLocalization
     {
         public required string Source { get; set; }
         public string? LastApplied { get; set; }
+        public string? Language { get; set; }
     }
 
     private sealed class ControlTranslationState
     {
+        public string? OutputLanguage { get; } = UiLocalization.OutputLanguage.Value;
         public bool Applying { get; set; }
         public bool IsAttached { get; set; } = true;
         public int OwnerThreadId { get; set; } = Environment.CurrentManagedThreadId;
@@ -45,7 +47,7 @@ internal static partial class UiLocalization
     private static readonly IReadOnlyDictionary<string, Translation> Texts = LocalCatalog.Entries
         .ToDictionary(entry => entry.Source, entry => new Translation(entry.English, entry.Japanese), StringComparer.Ordinal);
 
-    public static string CurrentLanguage { get; private set; } = Chinese;
+    public static string CurrentLanguage => OutputLanguage.Value ?? _currentLanguage;
     private static string _preferredLanguage = Chinese;
 
     internal static void ApplyThemeLanguage()
@@ -101,11 +103,12 @@ internal static partial class UiLocalization
         var fixedLanguage = ThemeRegistry.FromActualVariant(global::Avalonia.Application.Current?.ActualThemeVariant).FixedLanguage;
         var normalized = fixedLanguage ?? NormalizeLanguage(language);
         if (fixedLanguage is null) _preferredLanguage = normalized;
-        CurrentLanguage = normalized;
+        _currentLanguage = normalized;
         var culture = CultureInfo.GetCultureInfo(normalized);
         CultureInfo.CurrentUICulture = culture;
         CultureInfo.DefaultThreadCurrentUICulture = culture;
 
+        RefreshLanguageBindings();
         for (var index = TrackedControls.Count - 1; index >= 0; index--)
         {
             if (!TrackedControls[index].TryGetTarget(out var control))
@@ -161,6 +164,9 @@ internal static partial class UiLocalization
         var metricSeparator = source.IndexOf(": ", StringComparison.Ordinal);
         if (metricSeparator > 0 && Texts.TryGetValue(source[..metricSeparator], out translation))
             return (language == Japanese ? translation.Japanese : translation.English) + source[metricSeparator..];
+        var labelSeparator = source.IndexOf('：');
+        if (labelSeparator > 0 && LocalCatalog.TryGet(source[..labelSeparator], language, out local))
+            return local + (language == Japanese ? "：" : ": ") + source[(labelSeparator + 1)..];
         const string remainingSuffix = " 项见“数据”页";
         if (source.StartsWith("其余 ", StringComparison.Ordinal) && source.EndsWith(remainingSuffix, StringComparison.Ordinal)
             && int.TryParse(source[3..^remainingSuffix.Length], NumberStyles.None, CultureInfo.InvariantCulture, out var remaining))
@@ -353,6 +359,8 @@ internal static partial class UiLocalization
 
     private static void LocalizeControl(Control control)
     {
+        if (control is DataGrid grid) GridBindings.GetValue(grid, value => new(value)).Refresh();
+        if (control is ComboBox) LocalizeProperty(control, ComboBox.PlaceholderTextProperty);
         if (control is TextBlock)
         {
             LocalizeProperty(control, TextBlock.TextProperty);
@@ -390,6 +398,7 @@ internal static partial class UiLocalization
 
     private static bool IsLocalizableProperty(Control control, AvaloniaProperty property) =>
         (control is TextBlock && property == TextBlock.TextProperty)
+        || (control is ComboBox && property == ComboBox.PlaceholderTextProperty)
         || (control is Window && property == Window.TitleProperty)
         || (control is ContentControl && property == ContentControl.ContentProperty)
         || (control is HeaderedContentControl && property == HeaderedContentControl.HeaderProperty)
@@ -419,7 +428,10 @@ internal static partial class UiLocalization
             propertyState.Source = current;
         }
 
-        var translated = Text(propertyState.Source);
+        var language = state.OutputLanguage ?? _currentLanguage;
+        if (propertyState.Language == language && current == propertyState.LastApplied) return;
+        var translated = Text(propertyState.Source, language);
+        propertyState.Language = language;
         propertyState.LastApplied = translated;
         if (string.Equals(current, translated, StringComparison.Ordinal))
         {

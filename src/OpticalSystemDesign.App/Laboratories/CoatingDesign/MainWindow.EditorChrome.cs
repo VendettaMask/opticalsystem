@@ -31,6 +31,7 @@ public sealed partial class MainWindow
 
     private Control BuildCompactEditorHeader()
     {
+        UiLocalization.BindChoices(_surfaceMode);
         AutomationProperties.SetName(_surfaceMode, "表面模式"); AutomationProperties.SetName(_ignoreOtherSide, "忽略另一面");
         _surfaceMode.SelectionChanged += (_, _) => ApplySurfaceBar();
         _ignoreOtherSide.IsCheckedChanged += (_, _) => ApplySurfaceBar();
@@ -106,8 +107,8 @@ public sealed partial class MainWindow
     {
         if (_table is null || _substrate is null) return;
         string NameOf(string? id) => _session.Current.Materials.FirstOrDefault(m => m.Id == id)?.Name ?? id ?? "";
-        _substrateBoundary.Text = "▲ 基底：" + NameOf(_substrate.Text);
-        _outsideBoundary.Text = (_editingBack ? "▼ 出射介质：" : "▼ 入射介质：") + NameOf(_editingBack ? _exit?.Text : _incident.Text);
+        _substrateBoundary.Text = UiLocalization.Format("▲ 基底：{0}", NameOf(_substrate.Text));
+        _outsideBoundary.Text = UiLocalization.Format(_editingBack ? "▼ 出射介质：{0}" : "▼ 入射介质：{0}", NameOf(_editingBack ? _exit?.Text : _incident.Text));
         _substrateBoundary.FontSize = _outsideBoundary.FontSize = _table.FontSize;
         var ids = _session.Current.Materials.Concat(_materials.Films).DistinctBy(m => m.Id).OrderBy(m => m.Name).Select(m => m.Id).ToArray();
         if (!_rowMaterialIds.SequenceEqual(ids))

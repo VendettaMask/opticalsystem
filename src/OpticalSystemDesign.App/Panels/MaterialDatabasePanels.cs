@@ -693,6 +693,7 @@ internal sealed class LensLibraryPanel : UserControl
         _lenses = lenses;
         _openLensProject = openLensProject;
         _category.ItemsSource = new[] { "全部镜头", "显微物镜", "工业镜头" };
+        UiLocalization.BindChoices(_category);
         _category.SelectedIndex = 0;
         _category.SelectionChanged += (_, _) => RefreshList(selectFirst: true);
         _search.TextChanged += (_, _) => RefreshList(selectFirst: true);
@@ -702,6 +703,7 @@ internal sealed class LensLibraryPanel : UserControl
 
         Content = BuildPage();
         ReloadIndex();
+        UiLocalization.BindLanguage(this, () => { if (SelectedLens() is { } selected) RefreshSelectedMetadata(selected); });
     }
 
     private Control BuildPage()
@@ -855,21 +857,13 @@ internal sealed class LensLibraryPanel : UserControl
         }
     }
 
-    private async Task ShowSelectedLensAsync()
+    private void RefreshSelectedMetadata(LensLibraryEntryDto lens)
     {
-        var generation = ++_previewGeneration;
-        var lens = SelectedLens();
-        if (lens is null)
-        {
-            ClearDetails();
-            return;
-        }
-
         _name.Text = lens.Name;
         _source.Text = lens.SourceName;
         _sourceUrl.Text = TextOrDash(lens.SourceUrl);
         _license.Text = lens.License;
-        _format.Text = $"{lens.SourceFormat} · {lens.ImportStatus}";
+        _format.Text = $"{lens.SourceFormat} · {UiLocalization.Text(lens.ImportStatus)}";
         _efl.Text = Millimeters(lens.EffectiveFocalLength);
         _fNumber.Text = Number(lens.FNumber);
         _numericalAperture.Text = MetadataNumber(
@@ -881,25 +875,39 @@ internal sealed class LensLibraryPanel : UserControl
         _track.Text = Millimeters(lens.TotalTrack);
         _maximumAperture.Text = Millimeters(lens.MaximumClearAperture);
         _lensElements.Text = lens.LensElementCount > 0
-            ? $"{lens.LensElementCount} 片"
+            ? UiLocalization.Format("{0} 片", lens.LensElementCount)
             : "—";
         _surfaces.Text = lens.SurfaceCount.ToString(CultureInfo.InvariantCulture);
         _fields.Text = FieldDescription(lens);
-        _lensType.Text = TextOrDash(lens.LensType);
-        _application.Text = TextOrDash(lens.Application);
-        _designOrganization.Text = TextOrDash(lens.DesignOrganization);
+        _lensType.Text = KnownMetadata(lens.LensType);
+        _application.Text = KnownMetadata(lens.Application);
+        _designOrganization.Text = KnownMetadata(lens.DesignOrganization);
         _importedAt.Text = lens.ImportedAt is null
-            ? "历史条目未记录"
+            ? UiLocalization.Text("历史条目未记录")
             : lens.ImportedAt.Value.ToLocalTime().ToString(
                 "yyyy-MM-dd HH:mm:ss",
                 CultureInfo.InvariantCulture);
-        _importerVersion.Text = TextOrDash(lens.ImporterVersion);
+        _importerVersion.Text = KnownMetadata(lens.ImporterVersion);
         _wavelengths.Text = lens.WavelengthCount == 0
             ? "—"
             : lens.MinimumWavelengthNanometers == lens.MaximumWavelengthNanometers
                 ? $"{Number(lens.MinimumWavelengthNanometers)} nm"
                 : $"{Number(lens.MinimumWavelengthNanometers)}–{Number(lens.MaximumWavelengthNanometers)} nm";
         _status.Text = $"库文件：{lens.NativePath}";
+
+    }
+
+    private async Task ShowSelectedLensAsync()
+    {
+        var generation = ++_previewGeneration;
+        var lens = SelectedLens();
+        if (lens is null)
+        {
+            ClearDetails();
+            return;
+        }
+
+        RefreshSelectedMetadata(lens);
 
         try
         {
@@ -1032,17 +1040,20 @@ internal sealed class LensLibraryPanel : UserControl
     private static string MetadataNumber(double value, string basis)
     {
         var number = Number(value);
-        return number == "—" ? number : $"{number} · {TextOrDash(basis)}";
+        return number == "—" ? number : $"{number} · {UiLocalization.Text(TextOrDash(basis))}";
     }
 
     private static string MetadataMillimeters(double value, string basis)
     {
         var millimeters = Millimeters(value);
-        return millimeters == "—" ? millimeters : $"{millimeters} · {TextOrDash(basis)}";
+        return millimeters == "—" ? millimeters : $"{millimeters} · {UiLocalization.Text(TextOrDash(basis))}";
     }
 
     private static string TextOrDash(string? value) =>
         string.IsNullOrWhiteSpace(value) ? "—" : value;
+
+    private static string KnownMetadata(string? value) => value is "未分类光学系统" or "公开研究与教学" or "未注明" or "历史版本（未记录）"
+        ? UiLocalization.Text(value) : TextOrDash(value);
 
     private static string ApertureDescription(LensLibraryEntryDto lens)
     {
@@ -1076,8 +1087,8 @@ internal sealed class LensLibraryPanel : UserControl
         var maximum = Number(lens.MaximumField);
         var unit = lens.FieldDefinition == "Angle" ? "°" : " mm";
         return maximum == "—"
-            ? $"{lens.FieldCount} 个"
-            : $"{lens.FieldCount} 个 · {definition} {maximum}{unit}";
+            ? UiLocalization.Format("{0} 个", lens.FieldCount)
+            : UiLocalization.Format("{0} 个 · {1} {2}{3}", lens.FieldCount, UiLocalization.Text(definition), maximum, unit);
     }
 
     private static void Add(Grid grid, Control control, int column)

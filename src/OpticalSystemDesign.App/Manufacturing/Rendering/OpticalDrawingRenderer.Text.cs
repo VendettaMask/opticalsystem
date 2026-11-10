@@ -85,13 +85,13 @@ internal static partial class OpticalDrawingRendererCore
 
     private static string RadiusText(double radius) =>
         Math.Abs(radius) < 1e-12 || !double.IsFinite(radius)
-            ? "平面"
+            ? UiLocalization.Text("平面")
             : radius.ToString("0.###");
 
     internal static string StandardDesignation(OpticalDrawingStandard standard) => standard switch
     {
-        OpticalDrawingStandard.GbT13323_1991 => "GB/T 13323—1991 光学制图",
-        _ => "ISO 10110-1:2019 表格式"
+        OpticalDrawingStandard.GbT13323_1991 => UiLocalization.Text("GB/T 13323—1991 光学制图"),
+        _ => UiLocalization.Text("ISO 10110-1:2019 表格式")
     };
 
 }

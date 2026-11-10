@@ -197,8 +197,12 @@ public sealed partial class CameraImagingWindow : Window
         _status.Text = "选择输入、曝光与传感器参数，点击运行仿真。";
     }
 
-    private static ComboBox Choice(string name, params string[] labels) => new()
-    { Name = name, ItemsSource = labels, SelectedIndex = 0, HorizontalAlignment = HorizontalAlignment.Stretch };
+    private static ComboBox Choice(string name, params string[] labels)
+    {
+        var combo = new ComboBox { Name = name, ItemsSource = labels, SelectedIndex = 0, HorizontalAlignment = HorizontalAlignment.Stretch };
+        UiLocalization.BindChoices(combo);
+        return combo;
+    }
     private Control Number(string name, string label, decimal value, decimal min, decimal max, decimal increment)
     {
         var number = new CameraNumberInput

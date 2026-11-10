@@ -1,4 +1,5 @@
 using SkiaSharp;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Manufacturing;
 
@@ -8,7 +9,7 @@ internal static partial class OpticalDrawingRendererCore
 
     private static OpticalDrawingGb1991Template Gb1991Template(OpticalDrawingSheet sheet) =>
         OpticalDrawingTemplateCatalog.For(sheet.Standard).Specification.Gb1991
-        ?? throw new InvalidDataException("老国标模板缺少表2/表3设置。");
+        ?? throw new InvalidDataException(UiLocalization.Text("老国标模板缺少表2/表3设置。"));
 
     internal static Gb1991PageRegions Gb1991Regions(OpticalDrawingSheet sheet)
     {
@@ -47,7 +48,7 @@ internal static partial class OpticalDrawingRendererCore
         canvas.DrawRect(regions.Frame, thin);
         var scale = DrawElementGeometry(canvas, sheet, regions.Geometry, medium, dimension, axis, hatch);
         DrawGb1991Requirements(canvas, sheet, regions.Requirements, thin, medium);
-        DrawText(canvas, "技术要求：", regions.Notes.Left, regions.Notes.Top + 10, 8, SKTextAlign.Left, true);
+        DrawText(canvas, UiLocalization.Text("技术要求："), regions.Notes.Left, regions.Notes.Top + 10, 8, SKTextAlign.Left, true);
         var lineY = regions.Notes.Top + 23;
         foreach (var line in Gb1991TechnicalRequirementLines(sheet).SelectMany(line => WrapGb1991Text(line, regions.Notes.Width, 7)))
         {
@@ -64,8 +65,8 @@ internal static partial class OpticalDrawingRendererCore
         var gb = Gb1991Template(sheet);
         var y = bounds.Top;
         if (!sheet.Element.IsCemented)
-            DrawSection("对材料的要求", Gb1991MaterialSpecificationRows(sheet), gb.MaterialLabelWidthMillimeters);
-        DrawSection(sheet.Element.IsCemented ? "对胶合件的要求" : "对零件的要求",
+            DrawSection(UiLocalization.Text("对材料的要求"), Gb1991MaterialSpecificationRows(sheet), gb.MaterialLabelWidthMillimeters);
+        DrawSection(sheet.Element.IsCemented ? UiLocalization.Text("对胶合件的要求") : UiLocalization.Text("对零件的要求"),
             Gb1991PartSpecificationRows(sheet), gb.PartLabelWidthMillimeters);
         canvas.DrawRect(bounds, medium);
 
@@ -143,11 +144,11 @@ internal static partial class OpticalDrawingRendererCore
     }
 
     internal static IReadOnlyList<(string Item, string Value)> Gb1991MaterialSpecificationRows(OpticalDrawingSheet sheet) =>
-        Gb1991Template(sheet).MaterialRows.Select(row => (row.Item, ResolveGb1991Field(row.ValueBinding, sheet))).ToArray();
+        Gb1991Template(sheet).MaterialRows.Select(row => (UiLocalization.Text(row.Item), ResolveGb1991Field(row.ValueBinding, sheet))).ToArray();
 
     internal static IReadOnlyList<(string Item, string Value)> Gb1991PartSpecificationRows(OpticalDrawingSheet sheet) =>
         (sheet.Element.IsCemented ? Gb1991Template(sheet).AssemblyRows : Gb1991Template(sheet).PartRows)
-            .Select(row => (row.Item, ResolveGb1991Field(row.ValueBinding, sheet))).ToArray();
+            .Select(row => (UiLocalization.Text(row.Item), ResolveGb1991Field(row.ValueBinding, sheet))).ToArray();
 
     internal static IReadOnlyList<string> Gb1991TechnicalRequirementLines(OpticalDrawingSheet sheet)
     {
@@ -157,28 +158,28 @@ internal static partial class OpticalDrawingRendererCore
             var component = sheet.Element.Components[index];
             var material = sheet.ComponentMaterialData?.ElementAtOrDefault(index) ?? (index == 0 ? sheet.MaterialData : null);
             var label = sheet.Element.IsCemented ? $"L{index + 1} " : "";
-            lines.Add($"{label}材料：{component.Material}；{material?.Manufacturer ?? "目录未解析"}");
+            lines.Add(UiLocalization.Template($"{label}材料：{component.Material}；{material?.Manufacturer ?? UiLocalization.Text("目录未解析")}"));
             var indexTolerance = string.IsNullOrWhiteSpace(sheet.LegacyGb1991?.RefractiveIndexGrade)
                 ? $" ±{sheet.RefractiveIndexTolerance:0.000000}" : "";
             var abbeTolerance = string.IsNullOrWhiteSpace(sheet.LegacyGb1991?.AbbeNumberGrade)
                 ? $" ±{sheet.AbbeNumberTolerance:0.###}" : "";
-            lines.Add(label + (material is null ? "n[d]、V[d] 未解析"
+            lines.Add(label + (material is null ? UiLocalization.Text("n[d]、V[d] 未解析")
                 : $"n[d] {material.RefractiveIndexD:0.000000}{indexTolerance}；V[d] {material.AbbeNumber:0.###}{abbeTolerance}"));
         }
-        lines.Add("检验依据：面形 GB 2831—1981；定心 GB 7242—1987；疵病 GB 1185—1989；另有约定按技术要求。");
+        lines.Add(UiLocalization.Text("检验依据：面形 GB 2831—1981；定心 GB 7242—1987；疵病 GB 1185—1989；另有约定按技术要求。"));
         var requirements = sheet.LegacyGb1991 ?? new LegacyGb1991Requirements();
         if (new[] { requirements.RefractiveIndexGrade, requirements.AbbeNumberGrade, requirements.HomogeneityGrade,
             requirements.AbsorptionGrade, requirements.StressGrade, requirements.StriaeGrade, requirements.BubbleGrade }
             .Any(value => !string.IsNullOrWhiteSpace(value)))
-            lines.Add($"材料等级依据：{(string.IsNullOrWhiteSpace(requirements.MaterialQualityStandard) ? "未规定" : requirements.MaterialQualityStandard.Trim())}");
-        lines.Add($"光学检验区域为D0；分面要求按S面号；N、ΔN检验波长：{(requirements.FringeReferenceWavelengthNanometers is { } wavelength ? $"{wavelength:0.######} nm" : "未规定")}。");
-        lines.Add($"χ为光学表面面倾角；定心基准：{(string.IsNullOrWhiteSpace(requirements.CenteringDatum) ? "未规定" : requirements.CenteringDatum.Trim())}。");
-        lines.Add($"补充面形限值：S1 {sheet.FrontSurfaceFormNanometers:0.###} nm；S{sheet.Element.Surfaces.Count} {sheet.BackSurfaceFormNanometers:0.###} nm（不换算为N、ΔN）");
-        lines.Add($"补充表面纹理：Rq {sheet.SurfaceTextureNanometers:0.######} nm（独立于Ra）");
+            lines.Add(UiLocalization.Template($"材料等级依据：{(string.IsNullOrWhiteSpace(requirements.MaterialQualityStandard) ? UiLocalization.Text("未规定") : requirements.MaterialQualityStandard.Trim())}"));
+        lines.Add(UiLocalization.Template($"光学检验区域为D0；分面要求按S面号；N、ΔN检验波长：{(requirements.FringeReferenceWavelengthNanometers is { } wavelength ? $"{wavelength:0.######} nm" : UiLocalization.Text("未规定"))}。"));
+        lines.Add(UiLocalization.Template($"χ为光学表面面倾角；定心基准：{(string.IsNullOrWhiteSpace(requirements.CenteringDatum) ? UiLocalization.Text("未规定") : requirements.CenteringDatum.Trim())}。"));
+        lines.Add(UiLocalization.Template($"补充面形限值：S1 {sheet.FrontSurfaceFormNanometers:0.###} nm；S{sheet.Element.Surfaces.Count} {sheet.BackSurfaceFormNanometers:0.###} nm（不换算为N、ΔN）"));
+        lines.Add(UiLocalization.Template($"补充表面纹理：Rq {sheet.SurfaceTextureNanometers:0.######} nm（独立于Ra）"));
         lines.AddRange(Gb1991GeometryDefinitionLines(sheet));
         var coatings = sheet.Element.Surfaces.Select(surface => CoatingText(sheet, surface)).Distinct(StringComparer.Ordinal).ToArray();
-        lines.Add(coatings.Length == 1 ? $"镀膜：{coatings[0]}" : "镀膜：" + string.Join("；", sheet.Element.Surfaces.Select((surface, index) => $"S{index + 1} {CoatingText(sheet, surface)}")));
-        lines.Add($"边缘：{sheet.EdgeTreatment}");
+        lines.Add(coatings.Length == 1 ? UiLocalization.Template($"镀膜：{coatings[0]}") : UiLocalization.Text("镀膜：") + string.Join("；", sheet.Element.Surfaces.Select((surface, index) => $"S{index + 1} {CoatingText(sheet, surface)}")));
+        lines.Add(UiLocalization.Template($"边缘：{sheet.EdgeTreatment}"));
         if (!string.IsNullOrWhiteSpace(requirements.TechnicalRequirements))
             lines.Add(requirements.TechnicalRequirements.Trim());
         return lines;
@@ -201,16 +202,16 @@ internal static partial class OpticalDrawingRendererCore
             "gb1991.part.testPlate" => Specified(values.TestPlateGrade).ToUpperInvariant().Replace("：", ":", StringComparison.Ordinal),
             "gb1991.part.centering" => $"{sheet.CenteringToleranceArcMinutes:0.###}′",
             "gb1991.part.imperfection" => Specified(values.SurfaceImperfection),
-            "gb1991.part.prismNotApplicable" => "不适用",
+            "gb1991.part.prismNotApplicable" => UiLocalization.Text("不适用"),
             "gb1991.part.centerThickness" => $"{sheet.Element.CenterThickness:0.###}\n{sheet.CenterThicknessUpperDeviation:+0.###;-0.###;0}/{sheet.CenterThicknessLowerDeviation:+0.###;-0.###;0}",
             "gb1991.part.focalLength" => Specified(values.FocalLength),
             "gb1991.part.frontFocalDistance" => Specified(values.FrontFocalDistance),
             "gb1991.part.backFocalDistance" => Specified(values.BackFocalDistance),
             "gb1991.part.clearAperture" => TryGb1991EffectiveSemiDiameter(sheet, out var aperture, out _)
-                ? "⌀" + (aperture * 2).ToString("G12", System.Globalization.CultureInfo.InvariantCulture) : "未定义",
-            _ => throw new InvalidDataException($"未注册的老国标字段：{binding}")
+                ? "⌀" + (aperture * 2).ToString("G12", System.Globalization.CultureInfo.InvariantCulture) : UiLocalization.Text("未定义"),
+            _ => throw new InvalidDataException(UiLocalization.Template($"未注册的老国标字段：{binding}"))
         };
-        static string Specified(string? text, string fallback = "未规定") => string.IsNullOrWhiteSpace(text) ? fallback : text.Trim();
+        static string Specified(string? text, string fallback = "未规定") => string.IsNullOrWhiteSpace(text) ? UiLocalization.Text(fallback) : text.Trim();
     }
 
     private static IReadOnlyList<string> ValidateGb1991Layout(OpticalDrawingSheet sheet)
@@ -219,18 +220,18 @@ internal static partial class OpticalDrawingRendererCore
         var gb = Gb1991Template(sheet);
         var regions = Gb1991Regions(sheet);
         if (gb.MaterialRows.Count != 7 || gb.PartRows.Count != 14 || gb.AssemblyRows.Count != 11)
-            issues.Add("老国标表2/表3的材料、零件或胶合件栏目不完整。");
+            issues.Add(UiLocalization.Text("老国标表2/表3的材料、零件或胶合件栏目不完整。"));
         if (gb.TableWidthMillimeters != 40 || gb.MaterialLabelWidthMillimeters != 25 || gb.PartLabelWidthMillimeters != 15
             || gb.HeaderHeightMillimeters != 8 || gb.RowHeightMillimeters != 6)
-            issues.Add("老国标表2/表3的40/25/15 mm列宽或8/6 mm行高不符。");
+            issues.Add(UiLocalization.Text("老国标表2/表3的40/25/15 mm列宽或8/6 mm行高不符。"));
         if (regions.Geometry.Right >= regions.Requirements.Left || regions.Requirements.Bottom >= regions.Notes.Top
             || regions.Notes.Bottom >= regions.Title.Top || regions.Geometry.Width < 250)
-            issues.Add("老国标视图、右上要求表、技术要求或标题栏发生重叠。");
+            issues.Add(UiLocalization.Text("老国标视图、右上要求表、技术要求或标题栏发生重叠。"));
         if (!sheet.Element.IsCemented) CheckRows(Gb1991MaterialSpecificationRows(sheet), gb.MaterialLabelWidthMillimeters);
         CheckRows(Gb1991PartSpecificationRows(sheet), gb.PartLabelWidthMillimeters);
         var noteLines = Gb1991TechnicalRequirementLines(sheet).SelectMany(line => WrapGb1991Text(line, regions.Notes.Width, 7)).Count();
         if (23 + noteLines * 11 + Gb1991RoughnessHeight(sheet) > regions.Notes.Height)
-            issues.Add("老国标技术要求文字过长，请精简说明或另附技术文件。");
+            issues.Add(UiLocalization.Text("老国标技术要求文字过长，请精简说明或另附技术文件。"));
         issues.AddRange(ValidateGb1991Annotations(sheet));
         return issues;
 
@@ -239,7 +240,7 @@ internal static partial class OpticalDrawingRendererCore
             var width = (gb.TableWidthMillimeters - labelWidth) * MillimetersToPoints - 6;
             foreach (var (item, value) in rows)
                 if (WrapGb1991Text(value, width, 6.8f).Count > 2)
-                    issues.Add($"老国标 {item} 单元格超过两行，请将详细要求移到技术说明。");
+                    issues.Add(UiLocalization.Template($"老国标 {item} 单元格超过两行，请将详细要求移到技术说明。"));
         }
     }
 

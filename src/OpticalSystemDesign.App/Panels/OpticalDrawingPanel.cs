@@ -31,6 +31,8 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         Margin = new Thickness(0, 12, 0, 8)
     };
     private OpticalDrawingStandard _drawingStandard;
+    private OpticalDrawingSheet? _displayedSheet;
+    private OpticalSystemDrawingSheet? _displayedSystemSheet;
     private readonly TextBox _drawingNumber = Text("OPT-001");
     private readonly TextBox _partName = Text("光学元件");
     private readonly TextBox _designer = Text("设计");
@@ -113,23 +115,19 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             new StandardChoice(OpticalDrawingStandard.GbT13323_1991, "GB/T 13323—1991（老国标）")
         };
         _standardPicker.ItemsSource = standards;
-        _standardPicker.ItemTemplate = new FuncDataTemplate<StandardChoice>((choice, _) => new TextBlock
-        {
-            Text = UiLocalization.Text(choice?.DisplayName ?? string.Empty),
-            VerticalAlignment = VerticalAlignment.Center
-        });
+        UiLocalization.BindChoices<StandardChoice>(_standardPicker, choice => choice.DisplayName);
         _standardPicker.SelectedItem = standards.Single(choice => choice.Standard == _drawingStandard);
         Avalonia.Automation.AutomationProperties.SetName(_standardPicker, "制图标准");
         _logoStatus.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OpticalSystemDesignMutedTextBrush"));
         _zoomStatus.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OpticalSystemDesignMutedTextBrush"));
         _status.Bind(TextBlock.ForegroundProperty, new DynamicResourceExtension("OpticalSystemDesignMutedTextBrush"));
         _pageSize.ItemsSource = new[] { "A4 竖向", "A3 竖向" };
+        UiLocalization.BindChoices(_pageSize);
         _pageSize.SelectedIndex = 0;
-        _elementPicker.ItemTemplate = new FuncDataTemplate<ElementChoice>((choice, _) => new TextBlock
-        {
-            Text = choice?.DisplayName ?? string.Empty,
-            VerticalAlignment = VerticalAlignment.Center
-        });
+        UiLocalization.BindChoices<ElementChoice>(_elementPicker, choice => choice.Element is { } element
+            ? UiLocalization.Format(element.IsCemented ? "胶合透镜 {0}  S{1}-S{2}  {3}" : "单透镜 {0}  S{1}-S{2}  {3}",
+                element.ComponentNumbers, element.FrontSurface.Number, element.BackSurface.Number, element.Material)
+            : UiLocalization.Text(choice.DisplayName));
         _elementPicker.SelectionChanged += (_, _) => OnElementChanged();
 
         var update = CommandButton("action-recalculate", "更新预览", 104);
@@ -231,6 +229,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         };
         _events.Changed += OnWorkspaceChanged;
         RefreshElements(preserveSelection: false);
+        UiLocalization.BindLanguage(this, RefreshLanguagePreview);
     }
 
     public void Dispose()
@@ -476,7 +475,7 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         if (element is null)
         {
             _drawingNumber.Text = "OPT-SYSTEM-LAYOUT";
-            _partName.Text = "\u955c\u5934\u603b\u4f53\u5e03\u5c40";
+            UiLocalization.SetDefaultText(_partName, "镜头总体布局");
             UpdatePreview();
             return;
         }
@@ -484,8 +483,8 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         _drawingNumber.Text = element.IsCemented
             ? $"OPT-CEM-{element.ComponentNumbers.Replace("+", "-")}"
             : $"OPT-L{element.ComponentNumbers.PadLeft(2, '0')}";
-        _partName.Text = $"{element.Material} \u5149\u5b66\u5143\u4ef6";
-        _coating.Text = CoatingText(element);
+        UiLocalization.SetDefaultText(_partName, $"{element.Material} 光学元件");
+        UiLocalization.SetDefaultText(_coating, CoatingText(element));
         UpdatePreview();
     }
 
@@ -502,6 +501,40 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             || coating.Equals("None", StringComparison.OrdinalIgnoreCase)
                 ? null
                 : $"{surface} {coating}";
+    }
+
+    private void RefreshLanguagePreview()
+    {
+        if (_disposed) return;
+        byte[]? bytes = null;
+        if (_displayedSheet is { } sheet)
+        {
+            _displayedSheet = sheet with
+            {
+                PartName = UiLocalization.DisplayedDefault(_partName, sheet.PartName),
+                Designer = UiLocalization.DisplayedDefault(_designer, sheet.Designer),
+                Reviewer = UiLocalization.DisplayedDefault(_reviewer, sheet.Reviewer),
+                Coating = UiLocalization.DisplayedDefault(_coating, sheet.Coating),
+                EdgeTreatment = UiLocalization.DisplayedDefault(_edgeTreatment, sheet.EdgeTreatment)
+            };
+            bytes = OpticalDrawingRenderer.RenderPreview(_displayedSheet);
+        }
+        else if (_displayedSystemSheet is { } system)
+        {
+            _displayedSystemSheet = system with
+            {
+                PartName = UiLocalization.DisplayedDefault(_partName, system.PartName),
+                Designer = UiLocalization.DisplayedDefault(_designer, system.Designer),
+                Reviewer = UiLocalization.DisplayedDefault(_reviewer, system.Reviewer)
+            };
+            bytes = OpticalDrawingRenderer.RenderSystemPreview(_displayedSystemSheet);
+        }
+        if (bytes is null) return;
+        using var stream = new MemoryStream(bytes);
+        var bitmap = new Bitmap(stream);
+        _preview.Source = bitmap;
+        _previewBitmap?.Dispose();
+        _previewBitmap = bitmap;
     }
 
     private async void UpdatePreview()
@@ -556,6 +589,8 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
                     _preview.Source = systemBitmap;
                     _previewBitmap?.Dispose();
                     _previewBitmap = systemBitmap;
+                    _displayedSystemSheet = systemSheet;
+                    _displayedSheet = null;
                     _status.Text = "\u603b\u4f53\u5e03\u5c40\u9884\u89c8\u5df2\u66f4\u65b0";
                 });
                 return;
@@ -579,6 +614,8 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
             _preview.Source = bitmap;
             _previewBitmap?.Dispose();
             _previewBitmap = bitmap;
+            _displayedSheet = sheet;
+            _displayedSystemSheet = null;
             _status.Text = "预览已更新";
         }
         catch (Exception exception)
@@ -848,8 +885,8 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
     private static string StandardNote(OpticalDrawingStandard standard) => standard switch
     {
         OpticalDrawingStandard.GbT13323_1991 =>
-            "当前图样：GB/T 13323—1991；半径标名义值，精度按ΔR及N/ΔN填写。粗糙度Ra使用μm，补充Rq使用nm，互不换算；空项未规定。",
-        _ => "当前图样：ISO 10110 系列表格式；6/- 表示未规定激光损伤阈值。"
+            UiLocalization.Text("当前图样：GB/T 13323—1991；半径标名义值，精度按ΔR及N/ΔN填写。粗糙度Ra使用μm，补充Rq使用nm，互不换算；空项未规定。"),
+        _ => UiLocalization.Text("当前图样：ISO 10110 系列表格式；6/- 表示未规定激光损伤阈值。")
     };
 
     private static string Value(TextBox textBox, string fallback) =>
@@ -861,11 +898,12 @@ public sealed class OpticalDrawingPanel : UserControl, IDisposable
         return new string(value.Select(character => invalid.Contains(character) ? '_' : character).ToArray());
     }
 
-    private static TextBox Text(string value) => new()
+    private static TextBox Text(string value)
     {
-        Text = value,
-        MinHeight = 30
-    };
+        var input = new TextBox { MinHeight = 30 };
+        UiLocalization.SetDefaultText(input, value);
+        return input;
+    }
 
     private static NumericUpDown OptionalNumber(decimal maximum, decimal increment)
     {

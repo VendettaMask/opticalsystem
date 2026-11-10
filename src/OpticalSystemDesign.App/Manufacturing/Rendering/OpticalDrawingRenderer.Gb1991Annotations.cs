@@ -2,6 +2,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.Application.Contracts;
 using SkiaSharp;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Manufacturing;
 
@@ -11,7 +12,7 @@ internal static partial class OpticalDrawingRendererCore
         Math.Abs(radius) < 1e-12 || !double.IsFinite(radius) ? "R∞" : "R" + Math.Abs(radius).ToString("G12", CultureInfo.InvariantCulture);
 
     private static string Gb1991RadiusIndication(SurfaceRowDto surface) =>
-        (IsGb1991Asphere(surface) ? "基底" : "") + Gb1991RadiusDimensionText(surface.Radius);
+        (IsGb1991Asphere(surface) ? UiLocalization.Text("基底") : "") + Gb1991RadiusDimensionText(surface.Radius);
 
     private static bool IsGb1991Asphere(SurfaceRowDto surface) =>
         surface.GeometryDefinition?.Kind is "even_asphere" or "odd_asphere" or "forbes_q"
@@ -33,18 +34,18 @@ internal static partial class OpticalDrawingRendererCore
         {
             var aperture = surface.DrawingAperture;
             if (aperture is null && surface.ApertureKind is not ("无" or "none" or ""))
-                error = $"表面{surface.Number}缺少物理孔径尺寸快照，不能仅按显示名称填写D0。";
+                error = UiLocalization.Template($"表面{surface.Number}缺少物理孔径尺寸快照，不能仅按显示名称填写D0。");
             else if (aperture is { Kind: not ("none" or "circular") })
-                error = $"表面{surface.Number}含非居中圆形孔径，当前老国标透镜图不能将其简化为圆形D0。";
+                error = UiLocalization.Template($"表面{surface.Number}含非居中圆形孔径，当前老国标透镜图不能将其简化为圆形D0。");
             var local = surface.SemiDiameter;
             if (aperture is { Kind: "circular" })
             {
                 if (aperture.CircularRadius is not { } circular || !double.IsFinite(circular) || circular <= 0)
-                    error = $"表面{surface.Number}的圆形孔径尺寸缺失或无效。";
+                    error = UiLocalization.Template($"表面{surface.Number}的圆形孔径尺寸缺失或无效。");
                 else local = Math.Min(local, circular);
             }
             if (!double.IsFinite(local) || local <= 0)
-                error = $"表面{surface.Number}的有效半口径必须为正有限值。";
+                error = UiLocalization.Template($"表面{surface.Number}的有效半口径必须为正有限值。");
             if (error is not null) return false;
             radius = Math.Min(radius, local);
         }
@@ -61,7 +62,7 @@ internal static partial class OpticalDrawingRendererCore
             var profile = BuildGb1991MechanicalProfile(component, z);
             z = profile.BackVertexZ;
             var edge = profile.Back[^1].Z - profile.Front[^1].Z;
-            lines.Add($"{(sheet.Element.IsCemented ? $"L{index + 1} " : "")}图示边缘厚度（参考）：t={edge:0.######} mm，直径{profile.ProfileSemiDiameter * 2:0.######} mm。");
+            lines.Add(UiLocalization.Template($"{(sheet.Element.IsCemented ? $"L{index + 1} " : "")}图示边缘厚度（参考）：t={edge:0.######} mm，直径{profile.ProfileSemiDiameter * 2:0.######} mm。"));
         }
         for (var index = 0; index < sheet.Element.Surfaces.Count; index++)
         {
@@ -73,20 +74,20 @@ internal static partial class OpticalDrawingRendererCore
                 .OrderBy(pair => int.Parse(pair.Key.AsSpan(1), CultureInfo.InvariantCulture)).ToArray() ?? [];
             if (kind == "forbes_q")
             {
-                lines.Add($"S{index + 1} 非球面（Forbes Q）：{sheet.LegacyGb1991?.AsphericDefinitionReference}");
-                lines.Add("面型参数（r、z以mm计）：" + string.Join("；", surface.GeometryDefinition!.Numbers
+                lines.Add(UiLocalization.Template($"S{index + 1} 非球面（Forbes Q）：{sheet.LegacyGb1991?.AsphericDefinitionReference}"));
+                lines.Add(UiLocalization.Text("面型参数（r、z以mm计）：") + string.Join("；", surface.GeometryDefinition!.Numbers
                     .Where(pair => pair.Key is not ("radius" or "conic"))
                     .OrderBy(pair => pair.Key, StringComparer.Ordinal).Select(pair => $"{pair.Key}={Exact(pair.Value)}")));
             }
             else
             {
                 var polynomial = kind == "even_asphere" ? "+Σa(2i+2)·r^(2i+2)" : kind == "odd_asphere" ? "+Σa(i+1)·r^(i+1)" : "";
-                lines.Add($"S{index + 1} 非球面：z=c·r²/[1+√(1-(1+k)c²r²)]{polynomial}；r、z以mm计，c=1/R（R∞时c=0）。");
+                lines.Add(UiLocalization.Template($"S{index + 1} 非球面：z=c·r²/[1+√(1-(1+k)c²r²)]{polynomial}；r、z以mm计，c=1/R（R∞时c=0）。"));
                 if (coefficients.Length > 0)
                     lines.Add($"i=0…{coefficients.Length - 1}；" + string.Join("；", coefficients.Select((pair, i) =>
                         $"a{(kind == "even_asphere" ? 2 * (i + 1) : i + 1)}={Exact(pair.Value)}")));
             }
-            lines.Add($"S{index + 1} 基底{(Math.Abs(surface.Radius) < 1e-12 || !double.IsFinite(surface.Radius) ? "R∞" : $"R={Exact(surface.Radius)} mm")}；k={Exact(surface.Conic)}；原点为本面顶点，z沿光轴，r为径向坐标。");
+            lines.Add(UiLocalization.Template($"S{index + 1} 基底{(Math.Abs(surface.Radius) < 1e-12 || !double.IsFinite(surface.Radius) ? "R∞" : $"R={Exact(surface.Radius)} mm")}；k={Exact(surface.Conic)}；原点为本面顶点，z沿光轴，r为径向坐标。"));
         }
         return lines;
         static string Exact(double value) => value.ToString("G17", CultureInfo.InvariantCulture);
@@ -99,8 +100,8 @@ internal static partial class OpticalDrawingRendererCore
         var requirements = sheet.LegacyGb1991 ?? new LegacyGb1991Requirements();
         return new[]
         {
-            new Gb1991RoughnessAnnotation($"S1–S{sheet.Element.Surfaces.Count}光学面", requirements.OpticalSurfaceRaMicrometers, requirements.OpticalRaSamplingLengthMillimeters),
-            new Gb1991RoughnessAnnotation("其余表面", requirements.OtherSurfaceRaMicrometers, requirements.OtherRaSamplingLengthMillimeters)
+            new Gb1991RoughnessAnnotation(UiLocalization.Template($"S1–S{sheet.Element.Surfaces.Count}光学面"), requirements.OpticalSurfaceRaMicrometers, requirements.OpticalRaSamplingLengthMillimeters),
+            new Gb1991RoughnessAnnotation(UiLocalization.Text("其余表面"), requirements.OtherSurfaceRaMicrometers, requirements.OtherRaSamplingLengthMillimeters)
         };
     }
 
@@ -109,14 +110,14 @@ internal static partial class OpticalDrawingRendererCore
 
     private static void DrawGb1991Roughness(SKCanvas canvas, OpticalDrawingSheet sheet, float left, float y, SKPaint thin)
     {
-        DrawText(canvas, "表面粗糙度（Ra：μm；取样长度l：mm）：", left, y, 7, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("表面粗糙度（Ra：μm；取样长度l：mm）："), left, y, 7, SKTextAlign.Left);
         y += 25;
         foreach (var item in Gb1991RoughnessAnnotations(sheet))
         {
             DrawText(canvas, item.Scope, left, y, 7, SKTextAlign.Left);
             if (item.RaMicrometers is not { } ra)
             {
-                DrawText(canvas, "未规定", left + 82, y, 7, SKTextAlign.Left);
+                DrawText(canvas, UiLocalization.Text("未规定"), left + 82, y, 7, SKTextAlign.Left);
                 y += 12;
                 continue;
             }
@@ -128,7 +129,7 @@ internal static partial class OpticalDrawingRendererCore
             canvas.DrawLine(x, tip, x + 8, tip - 13.856f, thin);
             canvas.DrawLine(x + 8, tip - 13.856f, x + 78, tip - 13.856f, thin);
             DrawText(canvas, "Ra " + ra.ToString("G12", CultureInfo.InvariantCulture), x + 11, tip - 16, 7, SKTextAlign.Left);
-            DrawText(canvas, item.SamplingLengthMillimeters is { } length ? "l=" + length.ToString("G12", CultureInfo.InvariantCulture) : "l 未规定",
+            DrawText(canvas, item.SamplingLengthMillimeters is { } length ? "l=" + length.ToString("G12", CultureInfo.InvariantCulture) : UiLocalization.Text("l 未规定"),
                 x + 12, tip - 4, 6.5f, SKTextAlign.Left);
             y += 25;
         }
@@ -141,11 +142,11 @@ internal static partial class OpticalDrawingRendererCore
         foreach (var item in Gb1991RoughnessAnnotations(sheet))
         {
             Positive(item.RaMicrometers, item.Scope + " Ra");
-            Positive(item.SamplingLengthMillimeters, item.Scope + "取样长度");
+            Positive(item.SamplingLengthMillimeters, item.Scope + UiLocalization.Text("取样长度"));
             if (item.SamplingLengthMillimeters is not null && item.RaMicrometers is null)
-                issues.Add(item.Scope + "填写取样长度时必须同时填写Ra。");
+                issues.Add(item.Scope + UiLocalization.Text("填写取样长度时必须同时填写Ra。"));
         }
-        Positive(requirements.FringeReferenceWavelengthNanometers, "检验波长");
+        Positive(requirements.FringeReferenceWavelengthNanometers, UiLocalization.Text("检验波长"));
         if (!TryGb1991EffectiveSemiDiameter(sheet, out _, out var apertureError)) issues.Add(apertureError!);
         if (!string.IsNullOrWhiteSpace(requirements.TestPlateGrade))
         {
@@ -157,7 +158,7 @@ internal static partial class OpticalDrawingRendererCore
                 var match = Regex.Match(entry, "^S([1-9][0-9]*):([AB])$", RegexOptions.CultureInvariant);
                 return !match.Success || !int.TryParse(match.Groups[1].Value, out var face)
                     || face > sheet.Element.Surfaces.Count || !faces.Add(face);
-            }))) issues.Add("ΔR样板等级须为A或B；分面可填S1:A；S2:B，不是mm半径公差。");
+            }))) issues.Add(UiLocalization.Text("ΔR样板等级须为A或B；分面可填S1:A；S2:B，不是mm半径公差。"));
         }
         var z = 0d;
         foreach (var component in sheet.Element.Components)
@@ -165,16 +166,16 @@ internal static partial class OpticalDrawingRendererCore
             var profile = BuildGb1991MechanicalProfile(component, z);
             z = profile.BackVertexZ;
             if (Math.Abs(profile.ProfileSemiDiameter * 2 - component.Diameter) > 1e-6)
-                issues.Add($"元件{component.ElementNumber}的机械口径超出可用面型或出现表面相交，不能裁切轮廓后仍按原直径出老国标图。");
+                issues.Add(UiLocalization.Template($"元件{component.ElementNumber}的机械口径超出可用面型或出现表面相交，不能裁切轮廓后仍按原直径出老国标图。"));
         }
         if (sheet.Element.Surfaces.Any(surface => surface.GeometryDefinition?.Kind == "forbes_q")
             && string.IsNullOrWhiteSpace(requirements.AsphericDefinitionReference))
-            issues.Add("Forbes Q非球面须填写面型定义或受控图纸引用，不能仅凭基底R出图。");
+            issues.Add(UiLocalization.Text("Forbes Q非球面须填写面型定义或受控图纸引用，不能仅凭基底R出图。"));
         return issues;
         void Positive(double? value, string name)
         {
             if (value is { } number && (!double.IsFinite(number) || number <= 0))
-                issues.Add(name + "必须为正有限值；未规定时留空。");
+                issues.Add(name + UiLocalization.Text("必须为正有限值；未规定时留空。"));
         }
     }
 }

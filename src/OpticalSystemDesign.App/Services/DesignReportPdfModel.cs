@@ -7,17 +7,18 @@ namespace OpticalSystemDesign.App.Services;
 /// <summary>Shared report metadata, original images and native results for all four writers.</summary>
 internal sealed class DesignReportPdfModel(string name, string fileName, DateTimeOffset capturedAt)
 {
+    internal string Language { get; } = UiLocalization.CurrentLanguage;
     internal string Name { get; } = name;
     internal string FileName { get; } = fileName;
     internal DateTimeOffset CapturedAt { get; } = capturedAt;
     internal List<(int Number, OpticalDocumentSnapshot Document)> Configurations { get; } = [];
     internal List<DesignReportPdfSection> Sections { get; } = [];
     internal string Fields { get; set; } = "";
-    internal string FieldLabel { get; set; } = "视场坐标";
+    internal string FieldLabel { get; set; } = UiLocalization.Text("视场坐标");
     internal string Wavelengths { get; set; } = "";
 
     internal static string Number(double value) => double.IsFinite(value)
-        ? value.ToString("0.####", CultureInfo.InvariantCulture) : "不可用";
+        ? value.ToString("0.####", CultureInfo.InvariantCulture) : UiLocalization.Text("不可用");
 
     internal static string ReadableValue(string value) => Regex.Replace(value,
         @"(?<![\p{L}\d])[-+]?\d+\.\d{5,}(?:[eE][-+]?\d+)?", match =>
@@ -27,7 +28,7 @@ internal sealed class DesignReportPdfModel(string name, string fileName, DateTim
     internal static ReportTable? NumericalTable(AnalysisViewDto view)
     {
         if (view.Table is { } table)
-            return new(table.Columns.ToArray(), table.Rows.Select(row => row.ToArray()).ToArray(),
+            return new(table.Columns.Select(UiLocalization.Text).ToArray(), table.Rows.Select(row => row.ToArray()).ToArray(),
                 view.PresentationKind is AnalysisPresentationKind.ZernikeFringe or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular ? 3 : -1);
         if (view.PresentationKind is not (AnalysisPresentationKind.ZernikeFringe
             or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular)) return null;
@@ -36,7 +37,7 @@ internal sealed class DesignReportPdfModel(string name, string fileName, DateTim
         var coefficients = view.Rows.Where(row => Regex.IsMatch(row.Metric, @"^Z\d+\s*\(n="))
             .Select(row => new[] { row.Metric, ReadableValue(row.Value) }).ToArray();
         if (coefficients.Length == 0) throw new InvalidDataException("系数分析没有提供完整数值表。");
-        return new(["系数 (n, m)", "值（波）"], coefficients);
+        return new([UiLocalization.Text("系数 (n, m)"), UiLocalization.Text("值（波）")], coefficients);
     }
 
     internal static IEnumerable<string[]> KeyMetrics(AnalysisViewDto view)
@@ -51,7 +52,7 @@ internal sealed class DesignReportPdfModel(string name, string fileName, DateTim
                 && !Regex.IsMatch(Regex.Replace(row.Metric, @"\([^)]*\)|（[^）]*）", ""), @"[A-Za-z]{4,}")
                 && !row.Metric.Contains("序号", StringComparison.Ordinal))
             .OrderBy(row => priorities.Any(key => row.Metric.Contains(key, StringComparison.OrdinalIgnoreCase)) ? 0 : 1)
-            .Take(5).Select(row => new[] { row.Metric, ReadableValue(row.Value) });
+            .Take(5).Select(row => new[] { UiLocalization.AnalysisMetric(row.Metric), ReadableValue(row.Value) });
     }
 
     internal static string Condition(AnalysisParameterDescriptor parameter, IReadOnlyDictionary<string, string> settings)
@@ -80,14 +81,15 @@ internal sealed class DesignReportPdfModel(string name, string fileName, DateTim
         };
         if (readable.Equals("true", StringComparison.OrdinalIgnoreCase)) readable = "是";
         if (readable.Equals("false", StringComparison.OrdinalIgnoreCase)) readable = "否";
-        return $"{label}：{readable}";
+        return UiLocalization.Text(label) + (UiLocalization.CurrentLanguage == UiLocalization.English ? ": " : "：")
+            + ((parameter.Kind is AnalysisParameterKind.Choice or AnalysisParameterKind.Boolean || readable != value) ? UiLocalization.Text(readable) : readable);
     }
 }
 
 internal sealed class DesignReportPdfSection(int configuration, string title)
 {
     internal int Configuration { get; } = configuration;
-    internal string Title { get; } = title;
+    internal string Title { get; } = UiLocalization.Text(title);
     internal bool Landscape { get; set; }
     internal List<string> Images { get; } = [];
     internal List<string[]> Metrics { get; } = [];
@@ -106,14 +108,14 @@ internal sealed class DesignReportPdfSection(int configuration, string title)
         Metrics.AddRange(DesignReportPdfModel.KeyMetrics(view));
         var detectorWindow = view.Rows.Where(row => row.Metric is "探测器窗口来源" or "探测器范围").ToArray();
         if (detectorWindow.Length > 0)
-            Conditions += " · " + string.Join(" · ", detectorWindow.Select(row => row.Metric + "：" + DesignReportPdfModel.ReadableValue(row.Value)));
+            Conditions += " · " + string.Join(" · ", detectorWindow.Select(row => UiLocalization.AnalysisMetric(row.Metric) + ": " + DesignReportPdfModel.ReadableValue(row.Value)));
         Table = DesignReportPdfModel.NumericalTable(view);
         if (!hasPlot && Table is null)
-            Table = new(["项目", "数值"], view.Rows.Select(row => new[] { row.Metric, row.Value }).ToArray());
+            Table = new([UiLocalization.Text("项目"), UiLocalization.Text("数值")], view.Rows.Select(row => new[] { UiLocalization.AnalysisMetric(row.Metric), row.Value }).ToArray());
         if (view.PresentationKind is AnalysisPresentationKind.ZernikeFringe or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular)
-            FormulaNote = "W(ρ, θ) = Σ c_j Z_j(ρ, θ)。ρ 为归一化瞳孔半径，θ 为方位角，系数单位为波。"
+            FormulaNote = UiLocalization.Text("W(ρ, θ) = Σ c_j Z_j(ρ, θ)。ρ 为归一化瞳孔半径，θ 为方位角，系数单位为波。")
                 + (view.PresentationKind == AnalysisPresentationKind.ZernikeAnnular
-                    ? $"ε = {settings.GetValueOrDefault("ObscurationRatio", "0.5")}；u = (2ρ² − 1 − ε²) / (1 − ε²)，ε ≤ ρ ≤ 1。公式采用本次环形瞳孔的实际归一化。"
-                    : view.PresentationKind == AnalysisPresentationKind.ZernikeStandard ? "0 ≤ ρ ≤ 1；Standard 基底采用单位 RMS 归一化。" : "0 ≤ ρ ≤ 1；Fringe 基底不加 Standard 归一化因子。");
+                    ? UiLocalization.Template($"ε = {settings.GetValueOrDefault("ObscurationRatio", "0.5")}；u = (2ρ² − 1 − ε²) / (1 − ε²)，ε ≤ ρ ≤ 1。公式采用本次环形瞳孔的实际归一化。")
+                    : view.PresentationKind == AnalysisPresentationKind.ZernikeStandard ? UiLocalization.Text("0 ≤ ρ ≤ 1；Standard 基底采用单位 RMS 归一化。") : UiLocalization.Text("0 ≤ ρ ≤ 1；Fringe 基底不加 Standard 归一化因子。"));
     }
 }

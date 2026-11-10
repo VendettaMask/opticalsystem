@@ -157,8 +157,10 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
     {
         var options = _prescription.GetOptions();
         _backendPicker.ItemsSource = options.Backends;
+        UiLocalization.BindChoices(_backendPicker);
         _backendPicker.SelectionChanged += (_, _) => ScheduleSystemUpdate();
         _apertureKindPicker.ItemsSource = options.ApertureKinds;
+        UiLocalization.BindChoices(_apertureKindPicker);
         _apertureKindPicker.SelectionChanged += (_, _) =>
         {
             UpdateApertureValueState();
@@ -166,6 +168,7 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         };
         _apertureValue.ValueChanged += (_, _) => ScheduleSystemUpdate();
         _fieldDefinitionPicker.ItemsSource = options.FieldDefinitions;
+        UiLocalization.BindChoices(_fieldDefinitionPicker);
         _fieldDefinitionPicker.SelectionChanged += (_, _) =>
         {
             _objectSpaceTelecentric.IsEnabled = _fieldDefinitionPicker.SelectedIndex != 0;
@@ -181,16 +184,13 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
         _imageSpaceAfocal.IsCheckedChanged += (_, _) => ScheduleSystemUpdate();
         _apodizationPicker.ItemsSource = options.ApodizationKinds;
         // Display the three Zemax names without conflating their persisted keys with legacy models.
-        _apodizationPicker.ItemTemplate = new FuncDataTemplate<string>((kind, _) => new TextBlock
-        {
-            Text = kind switch
+        UiLocalization.BindChoices<string>(_apodizationPicker, kind => kind switch
             {
                 "均匀（Zemax）" => "均匀",
                 "高斯（Zemax）" => "高斯",
                 "余弦立方（Zemax）" => "余弦立方",
                 _ => kind
-            }
-        });
+            });
         _apodizationPicker.SelectionChanged += (_, _) =>
         {
             if (!_refreshing)
@@ -782,9 +782,8 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
             colorDot.Background = new SolidColorBrush(SpectralColorMap.FromVisibleNanometers(nextNanometers));
             if (summaryDisplay is not null)
             {
-                summaryDisplay.Text = $"{NumericDisplayFormatter.Format(nextNanometers / 1000)} μm · " +
-                    $"权重 {NumericDisplayFormatter.Format(nextWeight)}"
-                    + (primary.IsChecked == true ? " · 主波长" : string.Empty);
+                summaryDisplay.Text = UiLocalization.Format("{0} μm · 权重 {1}", NumericDisplayFormatter.Format(nextNanometers / 1000), NumericDisplayFormatter.Format(nextWeight))
+                    + (primary.IsChecked == true ? " · " + UiLocalization.Text("主波长") : string.Empty);
             }
 
             ApplyLocalChange(() => _prescription.UpdateWavelength(new WavelengthRowDto(
@@ -817,6 +816,11 @@ public sealed partial class SystemPropertiesPanel : UserControl, IDisposable, ID
             _expandedWavelengths,
             indicator: colorDot);
         summaryDisplay = card.Summary;
+        UiLocalization.Preserve(summaryDisplay);
+        UiLocalization.BindLanguage(summaryDisplay, () => summaryDisplay.Text =
+            UiLocalization.Format("{0} μm · 权重 {1}", NumericDisplayFormatter.Format(DecimalValue(nanometers, wavelength.Nanometers) / 1000),
+                NumericDisplayFormatter.Format(DecimalValue(weight, wavelength.Weight)))
+            + (primary.IsChecked == true ? " · " + UiLocalization.Text("主波长") : string.Empty));
         return card.Card;
     }
 

@@ -16,7 +16,7 @@ var entries = LocalizationExtractor.ReadSeeds(seedFiles).GroupBy(x => x.Source, 
 foreach (var name in new[] { "optical-terms.json", "ui-translations.json" })
     if (File.Exists(Path.Combine(folder, name)))
         foreach (var entry in JsonSerializer.Deserialize<TranslationEntry[]>(File.ReadAllText(Path.Combine(folder, name)))!) entries[entry.Source] = entry;
-foreach (var name in new[] { "optical-terms.tsv", "ui-translations.tsv" })
+foreach (var name in new[] { "optical-terms.tsv", "ui-translations.tsv", "ui-presentation-translations.tsv" })
     if (File.Exists(Path.Combine(folder, name)))
         foreach (var line in File.ReadAllLines(Path.Combine(folder, name)).Where(x => !string.IsNullOrWhiteSpace(x) && !x.StartsWith('#')))
         {
@@ -25,8 +25,8 @@ foreach (var name in new[] { "optical-terms.tsv", "ui-translations.tsv" })
             var entry = new TranslationEntry(columns[0], columns.Length == 4 ? columns[3] : columns[0], columns[1], columns[2]);
             entries[entry.Source] = entry;
         }
-var occurrences = files.Where(x => !Path.GetFileName(x.Path).StartsWith("UiLocalization", StringComparison.Ordinal))
-    .SelectMany(x => LocalizationExtractor.Extract(x.Text, x.Path)).OrderBy(x => x.Path, StringComparer.Ordinal).ThenBy(x => x.Line).ToArray();
+var occurrences = LocalizationExtractor.Extract(files.Where(x => !Path.GetFileName(x.Path).StartsWith("UiLocalization", StringComparison.Ordinal)))
+    .OrderBy(x => x.Path, StringComparer.Ordinal).ThenBy(x => x.Line).ToArray();
 // Known structured labels are translated by the retained local formatting adapters.
 var invariantPath = Path.Combine(folder, "invariant-text.tsv");
 var invariants = File.Exists(invariantPath) ? File.ReadAllLines(invariantPath).Where(x => !string.IsNullOrWhiteSpace(x) && !x.StartsWith('#'))

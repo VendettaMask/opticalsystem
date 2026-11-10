@@ -22,6 +22,7 @@ internal static partial class DesignReportWordWriter
     internal static void Write(Stream output, DesignReportContent content, string images, CancellationToken token,
         DesignReportPdfModel? paper = null, DesignReportContent? details = null)
     {
+        using var languageScope = UiLocalization.UseLanguage(paper?.Language ?? UiLocalization.CurrentLanguage);
         var typography = new DocumentTypography();
         if (paper is not null)
         {
@@ -29,7 +30,7 @@ internal static partial class DesignReportWordWriter
             content = presentation.Content();
             if (details is { Blocks.Count: > 0 })
             {
-                content.Blocks.Add(new ReportPageStart("附录 完整参数与计算记录", "", presentation.Pages.Count + 1));
+                content.Blocks.Add(new ReportPageStart(UiLocalization.Text("附录 完整参数与计算记录"), "", presentation.Pages.Count + 1));
                 content.Append(details);
             }
         }
@@ -79,7 +80,7 @@ internal static partial class DesignReportWordWriter
                     body.Add(Paragraph(paragraph.Text, paragraph.Style.ToString()));
                     break;
                 case ReportContents contents:
-                    body.Add(Paragraph("目录", "Heading2"));
+                    body.Add(Paragraph(UiLocalization.Text("目录"), "Heading2"));
                     foreach (var entry in contents.Entries)
                         body.Add(new XElement(W + "p", new XElement(W + "pPr", new XElement(W + "pStyle", Attribute("val", "Contents"))),
                             new XElement(W + "hyperlink", Attribute("anchor", $"section{Array.IndexOf(headings, entry) + 1:D3}"),
@@ -100,7 +101,7 @@ internal static partial class DesignReportWordWriter
                     using (var source = DesignReportImage.Open(images, picture.FileName))
                     {
                         imageBytes += source.Length;
-                        if (imageBytes > BoundedApplicationFile.MaximumExportBytes) throw new InvalidDataException("报告图片超过大小上限。");
+                        if (imageBytes > BoundedApplicationFile.MaximumExportBytes) throw new InvalidDataException(UiLocalization.Text("报告图片超过大小上限。"));
                         using var data = SKData.Create(source);
                         using var image = DesignReportImage.Decode(data);
                         if (!imageIds.TryGetValue(picture.FileName, out var identity))
@@ -114,7 +115,7 @@ internal static partial class DesignReportWordWriter
                         }
                         var (id, number) = identity;
                         body.Add(Picture(picture.Title, id, ++drawingNumber, image.Width, image.Height));
-                        body.Add(Paragraph(coverPage ? picture.Title : $"图 {++figureNumber}　{picture.Title}", "Caption"));
+                        body.Add(Paragraph(coverPage ? picture.Title : UiLocalization.Template($"图 {++figureNumber}　{picture.Title}"), "Caption"));
                     }
                     break;
             }
@@ -273,15 +274,15 @@ internal static class DesignReportImage
 {
     internal static FileStream Open(string directory, string fileName)
     {
-        if (Path.GetFileName(fileName) != fileName) throw new InvalidDataException("报告图片路径无效。");
+        if (Path.GetFileName(fileName) != fileName) throw new InvalidDataException(UiLocalization.Text("报告图片路径无效。"));
         return BoundedApplicationFile.OpenRead(Path.Combine(directory, fileName), BoundedApplicationFile.MaximumImageDataBytes, "Report image");
     }
 
     internal static SKImage Decode(SKData data)
     {
-        var image = SKImage.FromEncodedData(data) ?? throw new InvalidDataException("报告图片无效。");
+        var image = SKImage.FromEncodedData(data) ?? throw new InvalidDataException(UiLocalization.Text("报告图片无效。"));
         if (image.Width <= 0 || image.Height <= 0 || image.Width > 32768 || image.Height > 32768 || (long)image.Width * image.Height > 33_554_432)
-        { image.Dispose(); throw new InvalidDataException("报告图片超过尺寸上限。"); }
+        { image.Dispose(); throw new InvalidDataException(UiLocalization.Text("报告图片超过尺寸上限。")); }
         return image;
     }
 

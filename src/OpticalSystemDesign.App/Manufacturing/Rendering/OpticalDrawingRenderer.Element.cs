@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using OpticalSystemDesign.Application.Contracts;
 using SkiaSharp;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Manufacturing;
 
@@ -171,7 +172,7 @@ internal static partial class OpticalDrawingRendererCore
                 MapZ(profile.BackVertexZ)));
         }
         canvas.DrawLine(area.Left + 8, centerY, area.Right - 8, centerY, axis);
-        DrawText(canvas, "光轴", area.Right - 9, centerY - 5, 6.2f, SKTextAlign.Right);
+        DrawText(canvas, UiLocalization.Text("光轴"), area.Right - 9, centerY - 5, 6.2f, SKTextAlign.Right);
         foreach (var geometry in componentGeometry)
         {
             var width = Math.Max(24, geometry.BackVertex - geometry.FrontVertex - 4);

@@ -5,6 +5,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Theming;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Controls;
 
@@ -223,11 +224,9 @@ public sealed class LocalIconLabel : StackPanel
             Height = iconSize,
             VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center
         });
-        Children.Add(new TextBlock
-        {
-            Text = text,
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center
-        });
+        var label = new TextBlock { Text = text, VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center };
+        UiLocalization.LocalizeChoiceLabel(label);
+        Children.Add(label);
     }
 }
 

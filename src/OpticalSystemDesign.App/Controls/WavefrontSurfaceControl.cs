@@ -25,6 +25,7 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
 
     public WavefrontSurfaceControl()
     {
+        UiLocalization.BindLanguage(this, InvalidateVisual);
         ScientificColorMaps.Track(this);
         ClipToBounds = true;
         Focusable = true;
@@ -1042,7 +1043,7 @@ public sealed class WavefrontSurfaceControl : Control, IInteractiveCanvasAutomat
     private static FormattedText Text(string value, double size, IBrush brush)
     {
         return new FormattedText(
-            value,
+            UiLocalization.Text(value),
             CultureInfo.CurrentCulture,
             FlowDirection.LeftToRight,
             DisplayTypography.Typeface(),

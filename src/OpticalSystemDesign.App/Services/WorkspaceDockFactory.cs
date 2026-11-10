@@ -57,6 +57,22 @@ public sealed class WorkspaceDockFactory : Factory
         {
             [nameof(IDockWindow)] = () => new HostWindow()
         };
+        UiLocalization.BindLanguage(this, RefreshLanguageTitles);
+    }
+
+    private void RefreshLanguageTitles()
+    {
+        if (RootLayout is null) return;
+        foreach (var dockable in EnumerateDockables(RootLayout))
+        {
+            var source = _descriptors.TryGetValue(dockable.Id, out var descriptor) ? descriptor.Title
+                : dockable.Id switch
+                {
+                    SystemToolId => _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential ? "非序列设置" : "系统选项",
+                    ToolDockId => "系统选项", DocumentDockId => "文档", MainLayoutId => "工作区", _ => null
+                };
+            if (source is not null) dockable.Title = UiLocalization.Text(source);
+        }
     }
 
     public event EventHandler? LayoutChanged;
@@ -278,10 +294,11 @@ public sealed class WorkspaceDockFactory : Factory
             {
                 if (dockable is Document && _descriptors.TryGetValue(dockable.Id, out var descriptor)
                     && descriptor.TypeId is WorkspaceDocumentTypes.Analysis or WorkspaceDocumentTypes.OpticalDrawing)
-                    dockable.Title = descriptor.Title;
+                    dockable.Title = UiLocalization.Text(descriptor.Title);
                 dockable.Context = ResolveContent(dockable.Id);
             }
         }
+        RefreshLanguageTitles();
     }
 
     public void RegisterDescriptors(IEnumerable<WorkspaceDocumentDescriptor> descriptors, string? activeDocumentId = null)
@@ -333,7 +350,7 @@ public sealed class WorkspaceDockFactory : Factory
             if (existing.Id == descriptor.Id && descriptor.TypeId != WorkspaceDocumentTypes.OpticalDrawing)
             {
                 _descriptors[descriptor.Id] = descriptor;
-                if (descriptor.TypeId == WorkspaceDocumentTypes.Analysis) existing.Title = descriptor.Title;
+                if (descriptor.TypeId == WorkspaceDocumentTypes.Analysis) existing.Title = UiLocalization.Text(descriptor.Title);
             }
 
             SetActiveDockable(existing);
@@ -410,7 +427,7 @@ public sealed class WorkspaceDockFactory : Factory
         }
 
         // Preserve the retained page's saved position and ID, including legacy-only layouts.
-        libraries[0].Title = title;
+        libraries[0].Title = UiLocalization.Text(title);
         var duplicateIds = libraries.Skip(1).Select(document => document.Id).ToHashSet(StringComparer.Ordinal);
         if (duplicateIds.Count == 0)
         {
@@ -660,7 +677,7 @@ public sealed class WorkspaceDockFactory : Factory
         {
             Id = descriptor.Id,
             DockGroup = DocumentDockGroup,
-            Title = descriptor.Title,
+            Title = UiLocalization.Text(descriptor.Title),
             CanClose = descriptor.TypeId is not WorkspaceDocumentTypes.LensEditor
                 and not WorkspaceDocumentTypes.NonSequentialObjectEditor,
             CanFloat = true,

@@ -1,0 +1,166 @@
+{
+  "date": "2026-11-10T09:21:39.492959+08:00",
+  "baseCommit": "51d4218b5f7113e69a5135809d48605f966811df",
+  "scope": "Presentation binding and language-snapshot export only; no optical algorithm or user-session changes",
+  "catalog": {
+    "entries": 4096,
+    "occurrences": 3782,
+    "missing": 0,
+    "errors": 0
+  },
+  "mainRegression": {
+    "total": "44",
+    "executed": "44",
+    "passed": "44",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "finalDrawingRegression": {
+    "total": "4",
+    "executed": "4",
+    "passed": "4",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "sourceSha256": {
+    "localization/invariant-text.tsv": "3d9939fe94b3090f8813a47b304e38231ae33c1d3a940d7106bb5a5959d38a66",
+    "localization/ui-presentation-translations.tsv": "6014aa7a624a8894073ad169e27bd2ff489043e6cf5c4d6ee3067dd901d28542",
+    "localization/ui-translations.tsv": "59f898416ff06fb9c38d9a4d6d7327093a77f0cac98a9e4dfa3a8eefac99ab85",
+    "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json": "aa86848ad03d97000133a3eb8876de62b19daf020e1ea67e6fd8e868f5be3fe3",
+    "src/OpticalSystemDesign.App/Assets/Localization/ui.invariants.json": "b6f420610a7a637a58d9a3e89f84e67c62d7fd27633fb54fcc3d094fd8229e2c",
+    "src/OpticalSystemDesign.App/Assets/Reports/EngineeringReport.html": "49cf213e0691b2a00dfc5401aa1a5fca5cafabd6cfddd2acc1eedf1d28f1cdab",
+    "src/OpticalSystemDesign.App/Controls/AnalysisPlotControl.cs": "34661712d77463ed04b0e84edd4078ca9b3d413266fffd534ade508654e5b68a",
+    "src/OpticalSystemDesign.App/Controls/LocalIcon.cs": "0db53484c2901ea2180f0b36ecce3be4d90048da6fda6a081b0707002252f177",
+    "src/OpticalSystemDesign.App/Controls/WavefrontSurfaceControl.cs": "547ce5a8d697f91e38366d1714b032f011e69c142d5d7bbae2d893910230070d",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.cs": "daf7b7f09ba678e03b9324b49d7a401864744e1198b6730ae291c6f69ab2c21d",
+    "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Commands.cs": "9efb824452498d484925612e9baaddab8a5043e91670cc0eae37b84bf7d91ff9",
+    "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Duplex.cs": "bebbff57548b4616b2c2a90405ce91132a562a8ec6802339d911dc4b7f960c5f",
+    "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.EditorChrome.cs": "aa4efd03f89fa605234e7e805b746596edd57bf1af0a272e0d2f06b87bae42e4",
+    "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Localization.cs": "9ea09d895d53faf0d5e71ae7a96fa67ed1f24c971b1bf2ba93caf2e46d1ca47b",
+    "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs": "13dc741ddb238b9744481bd975a6bbc4f355f8d60c51a2c1dd50419b56f3cb3a",
+    "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.cs": "982873a395d15edb3bc4c0d7fcfefa1a55281ec59f5deb5f3215968bb7cdab39",
+    "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Dimensions.cs": "b0d40ab5480d1a5c9d7cab173a638447045cedf61cd1d93a23a913121e5fd37b",
+    "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Element.cs": "f5949ae829b6a1977b8398a4a170da5f823ef135a4a2af81d3c41c9f4c66923a",
+    "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Gb1991.cs": "49d2aa3fbc6db9e3265adc4c73c5d3f35e99b3051a0c293a1eca1f962b380e41",
+    "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Gb1991Annotations.cs": "3deb954c6dafa578d1f54ceb5b66f550213093de25cc09641ad61c1278092e5a",
+    "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Specifications.cs": "6a1cd0183994a1f28b2d3c0989969ecafd917566a76f373592f328deb5b67379",
+    "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.Text.cs": "652fa9d2135c9231356aac43101fcd2eadc6a1403119470dc89029fbfe410eb5",
+    "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRenderer.TitleBlock.cs": "c5dd06eda687e545e62901d2130bef1be577afd10fd04d6f0729e88dda579b50",
+    "src/OpticalSystemDesign.App/Manufacturing/Rendering/OpticalDrawingRendererCore.State.cs": "7088781f831f9e0e8dcf8d35d50324140c9b02957249666c8c86942613ddc730",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Parameters.cs": "c423e965dcc228435d4ce5e82f166ee6cadf7e80f55c86a0b9635deaf8f93efb",
+    "src/OpticalSystemDesign.App/Panels/Analysis/AnalysisPanel.Results.cs": "a85d1249e2a70ef289306b14142e36f2fb291fbaaa6d46d0f5b67f235e430eda",
+    "src/OpticalSystemDesign.App/Panels/MarkdownReportWindow.cs": "5949ba0bd44d9f45dba2cb4c7c51507a578de3e61a0361eb81213a300015e1da",
+    "src/OpticalSystemDesign.App/Panels/MaterialDatabasePanels.cs": "803dd6447516c6a75f466d114778733ddf9d41be3fe8b5841c03898f5a357865",
+    "src/OpticalSystemDesign.App/Panels/NonSequentialObjectEditorPanel.cs": "3bf9a0f9c44b9a5df5c06c97d6133e4e3841fe1f74732e51eb43aed6bd11650c",
+    "src/OpticalSystemDesign.App/Panels/OpticalDrawingPanel.cs": "f8d268349e27c805e1a8891341eb09f7337b4a009b13f742318f8a842ecca7ed",
+    "src/OpticalSystemDesign.App/Panels/OptimizationPanel.cs": "68df9f418b2763ac482c2f8c7005e5fac8862246d14dc504f3f867569b082705",
+    "src/OpticalSystemDesign.App/Panels/SystemPropertiesPanel.cs": "02ccfb798541a4d43d7669855999d50db0fc391d716aa8b883a3acbbb4d24038",
+    "src/OpticalSystemDesign.App/Services/DesignReportContent.cs": "0c241cf0e4d09485509ea0c79150021cb8bccc3abe8fa4a8e4cfe305f256d975",
+    "src/OpticalSystemDesign.App/Services/DesignReportHtmlWriter.Paper.cs": "9546e1cbecfd0a68269887536dd4eb4352e3b3e30ec64cac2728c022a06dc720",
+    "src/OpticalSystemDesign.App/Services/DesignReportHtmlWriter.cs": "6bd566ca888d275b8178bff2cb4c7a921c32729bfa7ab3bcf63e0ed101007181",
+    "src/OpticalSystemDesign.App/Services/DesignReportMarkdownWriter.cs": "2f9b41858cfe48fc46897edf3ab051d4e1bca75aea984893b7fe0fd5d5017588",
+    "src/OpticalSystemDesign.App/Services/DesignReportPdfModel.cs": "396295ec8c499baa4d87e3ec150eb69de5d992579d3b9092c626f93c1fbcfe70",
+    "src/OpticalSystemDesign.App/Services/DesignReportPdfWriter.Paper.cs": "fbd5601d707e95ada519960f4a842f813571d518fdeb1200e0e874b161840574",
+    "src/OpticalSystemDesign.App/Services/DesignReportPdfWriter.cs": "9c0d069561d594e4183eabe3518923428faf0698a8b31de71f44e908a31ea370",
+    "src/OpticalSystemDesign.App/Services/DesignReportPresentation.cs": "cca1feefdbd0410c22d8fab954f110ff1f3e205f68459d64f411c68bc3b2bcf1",
+    "src/OpticalSystemDesign.App/Services/DesignReportWordWriter.cs": "c3945fe1ffeb09e867c9bdb3b4b9d83d7694127c747676c4b36b6344232d0bf2",
+    "src/OpticalSystemDesign.App/Services/LocalUiCatalog.cs": "fd84c9207186e1c7f775a57d39f5c2863c6804e4944f2a4e876b82fd13ae2fee",
+    "src/OpticalSystemDesign.App/Services/MarkdownReportExporter.cs": "a525a3a882b982bf95ae2d2e06610049d564c637c1f830ac66f6f66f4e35f151",
+    "src/OpticalSystemDesign.App/Services/ReportImageRenderer.cs": "c3470a1af4592891ac0c4367c62fe0d2176c2d0617d35683eb5b8d9ed13ae4a0",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.Bindings.cs": "9dfba1024062900a6e6315324c63669d1ea6294960f20796736d4a96616bec5f",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.cs": "fb47923e12358d86cd4f07d04064525cb7d4eeb6774ec4fb1457834501c62c25",
+    "src/OpticalSystemDesign.App/Services/WorkspaceDockFactory.cs": "29156f7078d85c8a21e9e283103bd788f49e330a8b7db362433eedf161b24e80",
+    "tests/OpticalSystemDesign.Tests/LocalUiCatalogTests.cs": "b38b4739a95b35a657be35502faed4cdf8802ce887ac5c90128ceaaf33624f22",
+    "tests/OpticalSystemDesign.Tests/OpticalAlignmentLocalizationTests.cs": "56a48a57e272ac0e6b018a55550323948aa13f5b8cd2a6dda378077ea84eeea6",
+    "tests/OpticalSystemDesign.Tests/PresentationLocalizationTests.cs": "05a31d527257c7331c5e19422bdf68e1f7a6f95540db8e4f641047f427f62aa9",
+    "tests/OpticalSystemDesign.Tests/ReportLocalizationTests.cs": "0ec71a61b26c61bf28e2a3c5e1f93952b13a75493a2c42931a827b545881bf80",
+    "tools/OpticalSystemDesign.Localization/LocalizationExtractor.cs": "a10d5108980230e00f13baf2f567ece73c2ada8a97c3434b3a5b9f357975484b",
+    "tools/OpticalSystemDesign.Localization/Program.cs": "0b7c36d158c7296193f44bbbcae6b5950072730b8e62db5bd9d15b33bd512a77",
+    "tools/OpticalSystemDesign.Localization/TranslationValidation.cs": "33a3519ab6a4d21c76e62cc9f5eb75c1bab839dc8791948145b013b74b7a9f8e"
+  },
+  "artifactsSha256": {
+    "drawing-workspace-english.png": "720c39cce2af3cfbb83e4b52599ced926f97584317285c0bd2d1d50a7dcc1070",
+    "report-english.pdf": "17b54f29fdd24fd99100d3473f76efc87773d4cc4a54b50bbff22f1787ffa920",
+    "final-localization.trx": "b6f61800044e7208adf8b189e5af3ee0de78fc71271160c3ca398307efbae48a",
+    "drawing-english.pdf": "48de27f03e52059c85024ec1a08b4f1a0bb924e04ded31e766b6d1ac20c68393",
+    "final-drawing.trx": "599a697a66abe1dd557fee1e06731233add3be10ed4718c6636ee67dfda9f7a9",
+    "wavefront-english.png": "d4d5cebd44dab92c564e9f7b7f3518391d3926ce86406d5001b2848bf6e8defd"
+  },
+  "documentation": {
+    "scope": [
+      "docs/CURRENT_STATUS.md",
+      "docs/LOCALIZATION.md",
+      "docs/UI_DESIGN_REVIEW.md",
+      "validation/rechecks/2026-11-10/english-ui-binding/README.md"
+    ],
+    "localTargetsChecked": 1048,
+    "missingTargets": [],
+    "fullPowerShellDocumentationAudit": false,
+    "note": "PowerShell unavailable; scoped link-target and fence checks only."
+  },
+  "preservedData": [
+    "Object IDs and stored names including Chinese defaults",
+    "Material names and raw manufacturer comments",
+    "Numeric data and optical prescription",
+    "Selection identities and existing calculation result DTOs"
+  ],
+  "pixelReview": [
+    "Native English wavefront source image",
+    "Native English ISO engineering drawing PDF and actual headless workspace",
+    "Native English report page and extracted text"
+  ],
+  "reportFormatsChecked": [
+    "PDF",
+    "HTML",
+    "Word",
+    "Markdown"
+  ],
+  "initialCorrections": [
+    "Missing grouped metric prefixes",
+    "Five interferogram metrics",
+    "Dynamic coating lock button",
+    "Legacy wavelength capitalization",
+    "Selected singlet/cemented label",
+    "Legacy GB standard note"
+  ],
+  "validationEnvironmentNotes": [
+    "No user desktop was controlled or restarted",
+    "Auto-review timeouts on final verification were followed by bounded verification attempts; a VSTest localhost socket required elevation",
+    "Avalonia telemetry was disabled for the sandbox build using the installed target condition; not a product project change"
+  ],
+  "distinctPassingTests": 45,
+  "pdfTextChecks": [
+    {
+      "file": "report-english.pdf",
+      "pages": 4,
+      "cjkCharacters": 0
+    },
+    {
+      "file": "drawing-english.pdf",
+      "pages": 1,
+      "cjkCharacters": 0
+    }
+  ]
+}

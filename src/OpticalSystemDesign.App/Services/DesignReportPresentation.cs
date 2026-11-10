@@ -19,6 +19,7 @@ internal sealed class DesignReportPresentation
 
     internal static DesignReportPresentation Create(DesignReportPdfModel report)
     {
+        using var languageScope = UiLocalization.UseLanguage(report.Language);
         var layout = new DesignReportPresentation(report);
         var cover = new DesignReportContent();
         cover.Paragraph("OPTICAL DESIGN & ANALYSIS", ReportTextStyle.Muted);
@@ -26,18 +27,18 @@ internal sealed class DesignReportPresentation
         var primaryLayout = report.Sections.FirstOrDefault(section => section.CoverImage && section.Images.Count > 0);
         if (primaryLayout is not null) cover.Picture(primaryLayout.Title, primaryLayout.Images[0]);
         if (report.Configurations.FirstOrDefault().Document is { } source)
-            cover.Table(["有效焦距 EFL / mm", "F 数", "系统总长 / mm", "入瞳直径 / mm"],
+            cover.Table([UiLocalization.Text("有效焦距 EFL / mm"), UiLocalization.Text("F 数"), UiLocalization.Text("系统总长 / mm"), UiLocalization.Text("入瞳直径 / mm")],
                 [[DesignReportPdfModel.Number(source.EffectiveFocalLength), DesignReportPdfModel.Number(source.FNumber),
                     DesignReportPdfModel.Number(source.TotalTrack), DesignReportPdfModel.Number(source.EntrancePupilDiameter)]]);
-        cover.Paragraph($"计算快照　{report.CapturedAt:yyyy-MM-dd HH:mm}　·　{report.Configurations.Count} 个配置　·　{report.Sections.Count} 个分析项目\n完成：{report.Sections.Count(section => section.Failure is null)} 项；未完成或不适用：{report.Sections.Count(section => section.Failure is not null)} 项。", ReportTextStyle.Muted);
-        cover.Paragraph(report.FieldLabel + "：" + report.Fields + "\n波长：" + report.Wavelengths, ReportTextStyle.Muted);
-        if (report.Sections.Count == 0) cover.Paragraph("系统参数", ReportTextStyle.Muted);
-        layout.Add(report.Name + "\n光学设计分析报告", "", cover, cover: true);
+        cover.Paragraph(UiLocalization.Template($"计算快照　{report.CapturedAt:yyyy-MM-dd HH:mm}　·　{report.Configurations.Count} 个配置　·　{report.Sections.Count} 个分析项目\n完成：{report.Sections.Count(section => section.Failure is null)} 项；未完成或不适用：{report.Sections.Count(section => section.Failure is not null)} 项。"), ReportTextStyle.Muted);
+        cover.Paragraph(report.FieldLabel + "：" + report.Fields + UiLocalization.Text("\n波长：") + report.Wavelengths, ReportTextStyle.Muted);
+        if (report.Sections.Count == 0) cover.Paragraph(UiLocalization.Text("系统参数"), ReportTextStyle.Muted);
+        layout.Add(report.Name + UiLocalization.Text("\n光学设计分析报告"), "", cover, cover: true);
         var contents = new List<DesignReportContent>();
         for (var index = 0; index < report.Sections.Count; index += 23)
         {
             var body = new DesignReportContent(); contents.Add(body);
-            layout.Add(index == 0 ? "目录" : "目录 · 续", $"{index / 23 + 1} / {(report.Sections.Count + 22) / 23}　·　{report.Sections.Count} 个项目", body);
+            layout.Add(index == 0 ? UiLocalization.Text("目录") : UiLocalization.Text("目录 · 续"), UiLocalization.Template($"{index / 23 + 1} / {(report.Sections.Count + 22) / 23}　·　{report.Sections.Count} 个项目"), body);
         }
         if (report.Sections.Count > 0)
         {
@@ -45,15 +46,15 @@ internal sealed class DesignReportPresentation
             {
                 var document = configuration.Document;
                 var body = new DesignReportContent();
-                body.Table(["系统参数", "值"], [
-                    ["源文件", report.FileName], ["EFL / mm", DesignReportPdfModel.Number(document.EffectiveFocalLength)],
+                body.Table([UiLocalization.Text("系统参数"), UiLocalization.Text("值")], [
+                    [UiLocalization.Text("源文件"), report.FileName], ["EFL / mm", DesignReportPdfModel.Number(document.EffectiveFocalLength)],
                     ["F/#", DesignReportPdfModel.Number(document.FNumber)], ["TTL / mm", DesignReportPdfModel.Number(document.TotalTrack)],
-                    ["入瞳直径 / mm", DesignReportPdfModel.Number(document.EntrancePupilDiameter)],
-                    [report.FieldLabel, report.Fields], ["波长", report.Wavelengths],
-                    ["计算时间", report.CapturedAt.ToString("yyyy-MM-dd HH:mm:ss zzz", CultureInfo.InvariantCulture)]
+                    [UiLocalization.Text("入瞳直径 / mm"), DesignReportPdfModel.Number(document.EntrancePupilDiameter)],
+                    [report.FieldLabel, report.Fields], [UiLocalization.Text("波长"), report.Wavelengths],
+                    [UiLocalization.Text("计算时间"), report.CapturedAt.ToString("yyyy-MM-dd HH:mm:ss zzz", CultureInfo.InvariantCulture)]
                 ]);
-                body.Paragraph("所有图表与数值来自导出开始时的同一工程快照。各分析采用所选设置，参数及原始输出保存在计算记录中。", ReportTextStyle.Muted);
-                layout.Add("系统概要", "配置 " + configuration.Number, body, configuration: configuration.Number);
+                body.Paragraph(UiLocalization.Text("所有图表与数值来自导出开始时的同一工程快照。各分析采用所选设置，参数及原始输出保存在计算记录中。"), ReportTextStyle.Muted);
+                layout.Add(UiLocalization.Text("系统概要"), UiLocalization.Text("配置 ") + configuration.Number, body, configuration: configuration.Number);
             }
         }
         for (var index = 0; index < report.Sections.Count; index++)
@@ -62,7 +63,7 @@ internal sealed class DesignReportPresentation
             layout.SectionPages.Add(layout.Pages.Count + 1);
             if (section.Failure is { } failure)
             {
-                var body = new DesignReportContent(); body.Paragraph("未完成：" + failure, ReportTextStyle.Warning);
+                var body = new DesignReportContent(); body.Paragraph(UiLocalization.Text("未完成：") + failure, ReportTextStyle.Warning);
                 layout.Add(section.Title, section.Conditions, body, index + 1, section.Configuration);
                 continue;
             }
@@ -78,22 +79,22 @@ internal sealed class DesignReportPresentation
             }
             else
             {
-                var table = section.Table ?? new ReportTable(["项目", "数值"], section.Metrics.ToArray());
+                var table = section.Table ?? new ReportTable([UiLocalization.Text("项目"), UiLocalization.Text("数值")], section.Metrics.ToArray());
                 var chunks = TablePages(table).ToArray();
                 for (var part = 0; part < chunks.Length; part++)
                 {
                     var body = new DesignReportContent();
-                    body.Paragraph($"数值结果　{part + 1} / {chunks.Length}　·　共 {table.Rows.Length} 行", ReportTextStyle.Muted);
+                    body.Paragraph(UiLocalization.Template($"数值结果　{part + 1} / {chunks.Length}　·　共 {table.Rows.Length} 行"), ReportTextStyle.Muted);
                     body.Blocks.Add(chunks[part]);
                     if (section.FormulaNote.Length > 0) body.Paragraph(section.FormulaNote, ReportTextStyle.Muted);
-                    layout.Add(section.Title + (part == 0 ? "" : " · 续"), section.Conditions, body, index + 1, section.Configuration);
+                    layout.Add(section.Title + (part == 0 ? "" : UiLocalization.Text(" · 续")), section.Conditions, body, index + 1, section.Configuration);
                 }
             }
         }
         for (var index = 0; index < report.Sections.Count; index++)
         {
             var section = report.Sections[index];
-            var title = (report.Configurations.Count > 1 ? $"配置 {section.Configuration} · " : "") + section.Title;
+            var title = (report.Configurations.Count > 1 ? UiLocalization.Template($"配置 {section.Configuration} · ") : "") + section.Title;
             contents[index / 23].Blocks.Add(new ReportDirectoryEntry(title, index + 1, layout.SectionPages[index]));
         }
         return layout;
@@ -112,7 +113,7 @@ internal sealed class DesignReportPresentation
 
     private void Add(string title, string subtitle, DesignReportContent body, int section = 0, int configuration = 1, bool cover = false)
     {
-        if (Pages.Count >= 1000) throw new InvalidOperationException("报告超过页数上限，请减少分析项目或配置数量。");
+        if (Pages.Count >= 1000) throw new InvalidOperationException(UiLocalization.Text("报告超过页数上限，请减少分析项目或配置数量。"));
         Pages.Add(new(title, subtitle, Pages.Count + 1, section, configuration, cover, body));
     }
 

@@ -1011,12 +1011,14 @@ public sealed partial class AnalysisPanel
                 MinWidth = 104
             };
         }
-        return new ComboBox
+        var combo = new ComboBox
         {
             ItemsSource = choices,
             SelectedItem = choices.Contains(value) ? value : descriptor.DefaultValue,
             MinWidth = 104
         };
+        UiLocalization.BindChoices(combo);
+        return combo;
     }
 
     private void RefreshConfigurationParameters()

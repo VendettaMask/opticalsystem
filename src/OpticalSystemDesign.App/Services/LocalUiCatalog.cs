@@ -54,7 +54,7 @@ internal sealed class LocalUiCatalog
                 offset = match.Index + match.Length;
             }
             pattern += EscapeLiteral(sourceTemplate[offset..]) + "\\z";
-            templates.Add((entry, new Regex(pattern, RegexOptions.Singleline | RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(20)),
+            templates.Add((entry, new Regex(pattern, RegexOptions.CultureInvariant | (sourceTemplate.Contains('\n') ? RegexOptions.Singleline : RegexOptions.None), TimeSpan.FromMilliseconds(20)),
                 sourceTemplate[..matches[0].Index].Split('\n')[0].TrimEnd('\r'), indices.ToArray()));
         }
         _templates = templates.OrderByDescending(x => x.Item3.Length).ToArray();

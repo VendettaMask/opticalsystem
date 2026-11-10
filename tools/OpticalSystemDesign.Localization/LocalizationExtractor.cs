@@ -13,22 +13,50 @@ public static class LocalizationExtractor
     private static readonly HashSet<string> Properties = ["Text", "Content", "Header", "Title", "PlaceholderText", "Watermark"];
     private static readonly Dictionary<string, int[]> Calls = new(StringComparer.Ordinal)
     {
-        ["Text"] = [0], ["Format"] = [0], ["SetTip"] = [1], ["SetName"] = [1], ["SetHelpText"] = [1],
+        ["Text"] = [0], ["Format"] = [0], ["Template"] = [0], ["SetDefaultText"] = [1], ["SetTip"] = [1], ["SetName"] = [1], ["SetHelpText"] = [1],
         ["RibbonButton"] = [2], ["RibbonTab"] = [0], ["RibbonGroup"] = [0], ["Register"] = [1, 2]
     };
 
     public static IReadOnlyList<UiOccurrence> Extract(string source, string path)
     {
-        var root = CSharpSyntaxTree.ParseText(source).GetRoot();
+        return Extract(CSharpSyntaxTree.ParseText(source).GetRoot(), path, []);
+    }
+
+    public static IReadOnlyList<UiOccurrence> Extract(IEnumerable<(string Path, string Text)> files)
+    {
+        var parsed = files.Select(file => (file.Path, Root: CSharpSyntaxTree.ParseText(file.Text).GetRoot())).ToArray();
+        static string TypeKey(TypeDeclarationSyntax type) => string.Join(".", type.Ancestors().Reverse()
+            .Select(node => node switch
+            {
+                BaseNamespaceDeclarationSyntax ns => ns.Name.ToString(),
+                TypeDeclarationSyntax parent => parent.Identifier.ValueText,
+                _ => null
+            }).OfType<string>().Append(type.Identifier.ValueText));
+        var partials = parsed.SelectMany(file => file.Root.DescendantNodes().OfType<TypeDeclarationSyntax>())
+            .Where(type => type.Modifiers.Any(SyntaxKind.PartialKeyword))
+            .GroupBy(TypeKey).ToDictionary(group => group.Key,
+                group => group.SelectMany(type => type.Members.OfType<MethodDeclarationSyntax>()).ToArray());
+        return parsed.SelectMany(file => Extract(file.Root, file.Path,
+            file.Root.DescendantNodes().OfType<TypeDeclarationSyntax>()
+                .Where(type => type.Modifiers.Any(SyntaxKind.PartialKeyword))
+                .SelectMany(type => partials[TypeKey(type)]))).ToArray();
+    }
+
+    private static IReadOnlyList<UiOccurrence> Extract(SyntaxNode root, string path,
+        IEnumerable<MethodDeclarationSyntax> companionMethods)
+    {
         var calls = Calls.ToDictionary(x => x.Key, x => x.Value.ToHashSet(), StringComparer.Ordinal);
         // Infer local label helpers from parameter flow, rather than treating every string as UI.
-        var methods = root.DescendantNodes().OfType<MethodDeclarationSyntax>().ToArray();
+        var methods = root.DescendantNodes().OfType<MethodDeclarationSyntax>().Concat(companionMethods).Distinct()
+            .Select(method => (Node: (SyntaxNode)method, method.Identifier, method.ParameterList))
+            .Concat(root.DescendantNodes().OfType<LocalFunctionStatementSyntax>()
+                .Select(method => (Node: (SyntaxNode)method, method.Identifier, method.ParameterList))).ToArray();
         for (var round = 0; round < 8; round++)
         {
             var changed = false;
             foreach (var method in methods)
             {
-                foreach (var expression in Sinks(method, calls))
+                foreach (var expression in Sinks(method.Node, calls))
                 {
                     if (expression is not IdentifierNameSyntax parameter) continue;
                     var index = method.ParameterList.Parameters.Select((p, i) => (Parameter: p, Index: i))
@@ -98,13 +126,20 @@ public static class LocalizationExtractor
                 foreach (var item in items) yield return item;
             }
         }
+        foreach (var creation in root.DescendantNodes().OfType<ObjectCreationExpressionSyntax>())
+            if (creation.Type.ToString() == "LocalIconLabel" && creation.ArgumentList?.Arguments.Count > 1)
+                yield return creation.ArgumentList.Arguments[1].Expression;
         foreach (var invocation in root.DescendantNodes().OfType<InvocationExpressionSyntax>())
         {
             var name = invocation.Expression is MemberAccessExpressionSyntax member ? member.Name.Identifier.ValueText : invocation.Expression.ToString();
+            if (invocation.Expression.ToString() == "CompactLabel.Parameter" && invocation.ArgumentList.Arguments.Count > 0)
+                yield return invocation.ArgumentList.Arguments[0].Expression;
+            if (invocation.Expression.ToString() == "LaboratoryPresentation.Hint" && invocation.ArgumentList.Arguments.Count > 0)
+                yield return invocation.ArgumentList.Arguments[0].Expression;
             if (name == "Add" && invocation.Expression.ToString().EndsWith(".Items.Add", StringComparison.Ordinal)
                 && invocation.ArgumentList.Arguments.Count == 1) yield return invocation.ArgumentList.Arguments[0].Expression;
             if (!calls.TryGetValue(name, out var indices)) continue;
-            if (name is "Text" or "Format" && !invocation.Expression.ToString().StartsWith("UiLocalization.", StringComparison.Ordinal)) continue;
+            if (name is "Text" or "Format" or "Template" or "SetDefaultText" && !invocation.Expression.ToString().StartsWith("UiLocalization.", StringComparison.Ordinal)) continue;
             foreach (var index in indices)
                 if (index < invocation.ArgumentList.Arguments.Count) yield return invocation.ArgumentList.Arguments[index].Expression;
         }

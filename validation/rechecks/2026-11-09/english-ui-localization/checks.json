@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-09",
+  "baseCommit": "51d4218b5f7113e69a5135809d48605f966811df",
+  "scope": "English UI presentation and local catalog extraction; no optical computation changes",
+  "catalog": {
+    "entries": 3416,
+    "addedEntries": 154,
+    "changedSources": [
+      "H/L表示当前膜料；数字为参考波长处QW系数。支持(HL)^4、0.5H、{材料ID}及Inc | … | Sub。"
+    ],
+    "extractedOccurrences": 3261,
+    "missing": 0,
+    "errors": 0,
+    "previouslyMissedBySingleFileExtraction": 110,
+    "canonicalTechnicalDeclarations": [
+      "CMCO",
+      "TMCO",
+      "F / d / C"
+    ]
+  },
+  "headlessTests": {
+    "total": "26",
+    "executed": "26",
+    "passed": "26",
+    "failed": "0",
+    "error": "0",
+    "timeout": "0",
+    "aborted": "0",
+    "inconclusive": "0",
+    "passedButRunAborted": "0",
+    "notRunnable": "0",
+    "notExecuted": "0",
+    "disconnected": "0",
+    "warning": "0",
+    "completed": "0",
+    "inProgress": "0",
+    "pending": "0"
+  },
+  "pipelineControls": 8,
+  "themesAndScaling": {
+    "Light": 1,
+    "Dark": 1.5,
+    "Isekai": 2
+  },
+  "retainedCapture": "alignment-english.png",
+  "reportedReference": "reported-mixed-language.png",
+  "sourceSha256": {
+    "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json": "33d4fea36b0a840d2bb223dea15fab59c164e3a4df3d5f7fc8a7806a0702bb42",
+    "src/OpticalSystemDesign.App/Assets/Localization/ui.invariants.json": "6f15a889fe890271b127e14f72d56c25e5bbbf49f873b0897d8cca81c7a4b33d",
+    "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.cs": "982873a395d15edb3bc4c0d7fcfefa1a55281ec59f5deb5f3215968bb7cdab39",
+    "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Presentation.cs": "13dc741ddb238b9744481bd975a6bbc4f355f8d60c51a2c1dd50419b56f3cb3a",
+    "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Localization.cs": "9ea09d895d53faf0d5e71ae7a96fa67ed1f24c971b1bf2ba93caf2e46d1ca47b",
+    "tools/OpticalSystemDesign.Localization/LocalizationExtractor.cs": "a0deea57d7a282d302cf573ef0219e8550c3bef7577342e71a39a60d404f6711",
+    "tools/OpticalSystemDesign.Localization/Program.cs": "1909a9422840cb5d4dab20e500569f8c51fc570ac026a314abcd55a1d9c58c9b",
+    "tools/OpticalSystemDesign.Localization/TranslationValidation.cs": "33a3519ab6a4d21c76e62cc9f5eb75c1bab839dc8791948145b013b74b7a9f8e",
+    "tests/OpticalSystemDesign.Tests/OpticalAlignmentLocalizationTests.cs": "56a48a57e272ac0e6b018a55550323948aa13f5b8cd2a6dda378077ea84eeea6",
+    "tests/OpticalSystemDesign.Tests/LocalUiCatalogTests.cs": "b38b4739a95b35a657be35502faed4cdf8802ce887ac5c90128ceaaf33624f22"
+  },
+  "notPerformed": [
+    "full product test suite",
+    "all product dynamic UI states",
+    "new optical accuracy certification",
+    "foreground UI control",
+    "user application restart",
+    "commit or push"
+  ],
+  "documentation": {
+    "documents": 2015,
+    "brokenLinks": 0,
+    "guideBrokenLinks": 0,
+    "markdownFenceIssues": 0,
+    "localOnlyLinks": 0,
+    "guideRepeatedParagraphGroups": 0,
+    "strictExitCode": 0
+  },
+  "diffCheckExitCode": 0
+}

@@ -15,7 +15,7 @@ public static class TranslationValidation
         foreach (var (language, value) in new[] { ("zh-CN", entry.Chinese), ("en-US", entry.English), ("ja-JP", entry.Japanese) })
         {
             if (string.IsNullOrWhiteSpace(value)) { errors.Add($"{language}: empty translation"); continue; }
-            if (language == "en-US" && Regex.Replace(value, @"\{[^{}]*\}", "").Any(c => c is >= '\u4e00' and <= '\u9fff'))
+            if (language == "en-US" && Slots.Replace(value, "").Any(c => c is >= '\u4e00' and <= '\u9fff'))
                 errors.Add($"{language}: untranslated Chinese UI text");
             if (!Tokens(Slots, entry.Source, true).SequenceEqual(Tokens(Slots, value, true))) errors.Add($"{language}: placeholder mismatch");
             var sourceText = Slots.Replace(Links.Replace(entry.Source, ""), "");

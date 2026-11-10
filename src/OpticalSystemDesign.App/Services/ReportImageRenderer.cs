@@ -19,6 +19,7 @@ internal sealed class ReportImageRenderer(Border host)
     {
         return await Dispatcher.UIThread.InvokeAsync(async () =>
         {
+            using var languageScope = UiLocalization.UseLanguage(request.Language ?? UiLocalization.CurrentLanguage);
             cancellationToken.ThrowIfCancellationRequested();
             var files = new List<string>();
             try
@@ -57,12 +58,12 @@ internal sealed class ReportImageRenderer(Border host)
                     }
                     else
                     {
-                        var content = analysis.View.ReportText;
+                        var content = UiLocalization.AnalysisReport(analysis.View.ReportText);
                         if (string.IsNullOrWhiteSpace(content) && analysis.View.Table is { } table)
-                            content = string.Join("\n", new[] { string.Join(" | ", table.Columns) }
+                            content = string.Join("\n", new[] { string.Join(" | ", table.Columns.Select(UiLocalization.Text)) }
                                 .Concat(table.Rows.Select(row => string.Join(" | ", row))));
                         if (string.IsNullOrWhiteSpace(content))
-                            content = string.Join("\n", analysis.View.Rows.Select(row => $"{row.Metric}: {row.Value}"));
+                            content = string.Join("\n", analysis.View.Rows.Select(row => $"{UiLocalization.AnalysisMetric(row.Metric)}: {row.Value}"));
                         var lines = content.Replace("\r", "").Split('\n');
                         var pages = lines.Chunk(44).ToArray();
                         for (var i = 0; i < pages.Length; i++)

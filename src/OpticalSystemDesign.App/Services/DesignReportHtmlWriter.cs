@@ -11,10 +11,11 @@ internal static partial class DesignReportHtmlWriter
     internal static void Write(Stream output, DesignReportContent content, string images, CancellationToken token,
         DesignReportPdfModel? paper = null, DesignReportContent? details = null)
     {
+        using var languageScope = UiLocalization.UseLanguage(paper?.Language ?? UiLocalization.CurrentLanguage);
         if (paper is not null) { WritePaper(output, paper, images, details, token); return; }
         var typography = new DocumentTypography();
         using var writer = new StreamWriter(output, new UTF8Encoding(false), 8192, leaveOpen: true);
-        var title = content.Blocks.OfType<ReportHeading>().FirstOrDefault()?.Text ?? "光学设计报告";
+        var title = content.Blocks.OfType<ReportHeading>().FirstOrDefault()?.Text ?? UiLocalization.Text("光学设计报告");
         var subtitle = content.Blocks.OfType<ReportParagraph>().FirstOrDefault(paragraph => paragraph.Style == ReportTextStyle.Subtitle)?.Text;
         if (!string.IsNullOrWhiteSpace(subtitle)) title = subtitle + " - " + title;
         var headings = content.Blocks.OfType<ReportHeading>().Where(heading => heading.Level == 2).ToArray();
@@ -31,10 +32,10 @@ internal static partial class DesignReportHtmlWriter
                 writer.Write("<img alt=\"S.T.A.R.Labs\" src=\"data:image/svg+xml;base64," + Convert.ToBase64String(bytes.ToArray()) + "\">");
             }
         }
-        writer.Write("<span>OPTICAL SYSTEM DESIGN</span></div><nav aria-label=\"报告目录\"><p class=\"nav-label\">报告目录</p>");
+        writer.Write($"<span>OPTICAL SYSTEM DESIGN</span></div><nav aria-label=\"{Encode(UiLocalization.Text("报告目录"))}\"><p class=\"nav-label\">{Encode(UiLocalization.Text("报告目录"))}</p>");
         for (var i = 0; i < headings.Length; i++)
             writer.Write($"<a href=\"#section-{i + 1:D3}\">{Encode(headings[i].Text)}</a>");
-        writer.Write("</nav><p class=\"edition\">光学设计报告<br>离线文档 · 内嵌图片</p></aside><main><header class=\"document-header\">OPTICAL SYSTEM DESIGN <span>DESIGN REPORT</span></header>");
+        writer.Write($"</nav><p class=\"edition\">{Encode(UiLocalization.Text("光学设计报告"))}<br>{Encode(UiLocalization.Text("离线文档 · 内嵌图片"))}</p></aside><main><header class=\"document-header\">OPTICAL SYSTEM DESIGN <span>DESIGN REPORT</span></header>");
         var section = 0; var figure = 0; var appendix = false;
         long imageBytes = 0;
         foreach (var block in content.Blocks)
@@ -51,13 +52,13 @@ internal static partial class DesignReportHtmlWriter
                     writer.Write($"<p class=\"text-{paragraph.Style.ToString().ToLowerInvariant()}\">{Encode(paragraph.Text).Replace("\n", "<br>", StringComparison.Ordinal)}</p>");
                     break;
                 case ReportContents contents:
-                    writer.Write("<section class=\"print-contents\"><h2>目录</h2><ol>");
+                    writer.Write($"<section class=\"print-contents\"><h2>{Encode(UiLocalization.Text("目录"))}</h2><ol>");
                     foreach (var entry in contents.Entries)
                         writer.Write($"<li><a href=\"#section-{Array.IndexOf(headings, entry) + 1:D3}\">{Encode(entry.Text)}</a></li>");
                     writer.Write("</ol></section>");
                     break;
                 case ReportAppendixStart:
-                    writer.Write("<details class=\"appendix\" open><summary>完整参数与计算记录</summary><div>");
+                    writer.Write($"<details class=\"appendix\" open><summary>{Encode(UiLocalization.Text("完整参数与计算记录"))}</summary><div>");
                     appendix = true;
                     break;
                 case ReportCode code:
@@ -80,18 +81,18 @@ internal static partial class DesignReportHtmlWriter
                     using (var source = DesignReportImage.Open(images, picture.FileName))
                     {
                         imageBytes += source.Length;
-                        if (imageBytes > BoundedApplicationFile.MaximumExportBytes) throw new InvalidDataException("报告图片超过大小上限。");
+                        if (imageBytes > BoundedApplicationFile.MaximumExportBytes) throw new InvalidDataException(UiLocalization.Text("报告图片超过大小上限。"));
                         using var data = SKData.Create(source);
                         using var image = DesignReportImage.Decode(data);
                         writer.Write("<figure><img loading=\"eager\" alt=\"" + Encode(picture.Title) + "\" src=\"data:image/png;base64,");
                         writer.Write(Convert.ToBase64String(data.AsSpan()));
-                        writer.Write($"\"><figcaption>图 {++figure}　{Encode(picture.Title)}</figcaption></figure>");
+                        writer.Write($"\"><figcaption>{Encode(UiLocalization.Template($"图 {++figure}　{picture.Title}"))}</figcaption></figure>");
                     }
                     break;
             }
         }
         if (appendix) writer.Write("</div></details>");
-        writer.Write("<footer>Optical System Design · 光学设计报告</footer></main></div></body></html>");
+        writer.Write($"<footer>Optical System Design · {Encode(UiLocalization.Text("光学设计报告"))}</footer></main></div></body></html>");
         token.ThrowIfCancellationRequested();
         writer.Flush();
     }

@@ -32,6 +32,9 @@ public sealed partial class MainWindow
     {
         AutomationProperties.SetName(_duplexEnabled, "启用双面设计"); AutomationProperties.SetName(_symmetricFilms, "对称双面");
         AutomationProperties.SetName(_optimizeSurface, "优化表面"); AutomationProperties.SetName(_evaluationSurface, "评价对象");
+        UiLocalization.BindChoices(_optimizeSurface);
+        UiLocalization.BindChoices(_evaluationSurface);
+        UiLocalization.BindChoices(_duplexProtocol);
         AutomationProperties.SetName(_duplexProtocol, "双面优化流程");
         _duplexProtocol.SelectionChanged += (_, _) => { if (!_loading) Changed(); };
         _duplexEnabled.IsCheckedChanged += (_, _) => ChangeDuplexMode();
@@ -95,7 +98,7 @@ public sealed partial class MainWindow
             + (_symmetricFilms.IsChecked == true ? "；" + UiLocalization.Text("对称双面（背面 = 正面）") : "")
             : UiLocalization.Text("旧单面验收：正面；整片显示设置不改变原验收对象。");
     }
-    private void OnEditorLanguageChanged(object? sender, EventArgs args) => UpdateDuplexControls();
+    private void OnEditorLanguageChanged(object? sender, EventArgs args) { UpdateDuplexControls(); RefreshLayerEditorPresentation(); }
     private void SwitchFilmEditor(bool back)
     {
         if (_editingBack) _backEditorRows = _rows.ToArray(); else _frontEditorRows = _rows.ToArray();

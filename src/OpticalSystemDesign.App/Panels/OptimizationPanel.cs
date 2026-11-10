@@ -452,7 +452,9 @@ public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettin
     private static DataGridTextColumn TextColumn(string header, string property, double width, bool readOnly = false) => new()
     {
         Header = header,
-        Binding = new Binding(property) { Mode = readOnly ? BindingMode.OneWay : BindingMode.TwoWay },
+        Binding = property == nameof(MeritOperandEditorRow.Error)
+            ? UiLocalization.TranslateBinding(new Binding(property))
+            : new Binding(property) { Mode = readOnly ? BindingMode.OneWay : BindingMode.TwoWay },
         Width = new DataGridLength(width),
         IsReadOnly = readOnly
     };

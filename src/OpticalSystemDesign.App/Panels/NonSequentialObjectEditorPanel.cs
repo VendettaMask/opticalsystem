@@ -64,6 +64,15 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         _grid.SelectionChanged += (_, _) => LoadSelection();
         _events.Changed += OnWorkspaceChanged;
         Refresh(false);
+        UiLocalization.BindLanguage(this, RefreshSelectionSummary);
+        foreach (var picker in new[] { _reference, _container })
+            picker.ItemTemplate = new Avalonia.Controls.Templates.FuncDataTemplate<ObjectChoice>((item, _) =>
+            {
+                var label = UiLocalization.Preserve(new TextBlock());
+                UiLocalization.BindLanguage(label, () => label.Text = item is null ? string.Empty
+                    : item.Id is null ? UiLocalization.Text("全局") : item.Label);
+                return label;
+            });
     }
 
     public void Dispose()
@@ -221,6 +230,13 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         return border;
     }
 
+    private void RefreshSelectionSummary()
+    {
+        if (_grid.SelectedItem is ObjectRow row)
+            _summary.Text = UiLocalization.Format("对象 {0} · {1} · {2}", row.Number,
+                UiLocalization.Text(row.Role), UiLocalization.Text(row.Summary));
+    }
+
     private void LoadSelection()
     {
         _loading = true;
@@ -297,7 +313,7 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
                     if (data.ImportNotes is { } notes) _parameters.Children.Add(new Expander { Header = UiLocalization.Text("文件导入说明"), Content = new TextBlock { Text = notes, TextWrapping = TextWrapping.Wrap }, HorizontalContentAlignment = HorizontalAlignment.Stretch });
                 }
             }
-            _summary.Text = $"对象 {row.Number} · {row.Role} · {row.Summary}";
+            RefreshSelectionSummary();
         }
         finally
         {
@@ -659,7 +675,9 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
     private static DataGridTextColumn TextColumn(string header, string property, double width, bool readOnly = false) => new()
     {
         Header = header,
-        Binding = new Binding(property) { Mode = readOnly ? BindingMode.OneWay : BindingMode.TwoWay },
+        Binding = property is nameof(ObjectRow.Role) or nameof(ObjectRow.Summary)
+            ? UiLocalization.TranslateBinding(new Binding(property))
+            : new Binding(property) { Mode = readOnly ? BindingMode.OneWay : BindingMode.TwoWay },
         IsReadOnly = readOnly,
         Width = new DataGridLength(width)
     };

@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using OpticalSystemDesign.Application.Contracts;
 using SkiaSharp;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Manufacturing;
 
@@ -16,11 +17,11 @@ internal static partial class OpticalDrawingRendererCore
         var frontSag = Math.Abs(OpticalManufacturingModel.Sag(
             element.FrontSurface,
             Math.Min(semiDiameter, ManufacturingSurfaceExtent(element.FrontSurface)))
-            ?? throw new InvalidOperationException("前表面制造轮廓不可计算。"));
+            ?? throw new InvalidOperationException(UiLocalization.Text("前表面制造轮廓不可计算。")));
         var backSag = Math.Abs(OpticalManufacturingModel.Sag(
             element.BackSurface,
             Math.Min(semiDiameter, ManufacturingSurfaceExtent(element.BackSurface)))
-            ?? throw new InvalidOperationException("后表面制造轮廓不可计算。"));
+            ?? throw new InvalidOperationException(UiLocalization.Text("后表面制造轮廓不可计算。")));
         var axialExtent = Math.Max(0.1, element.CenterThickness + frontSag + backSag);
         var maximum = Math.Min(
             330 / (diameter * MillimetersToPoints),
@@ -146,9 +147,9 @@ internal static partial class OpticalDrawingRendererCore
         canvas.DrawLine(materialX, y, materialX, y + height, thin);
         canvas.DrawLine(rightX, y, rightX, y + height, thin);
 
-        DrawText(canvas, columns[0].Title, x + (leftWidth / 2), y + 16, 9, SKTextAlign.Center, true);
-        DrawText(canvas, columns[1].Title, materialX + (materialWidth / 2), y + 16, 9, SKTextAlign.Center, true);
-        DrawText(canvas, columns[2].Title, rightX + ((width - leftWidth - materialWidth) / 2), y + 16, 9, SKTextAlign.Center, true);
+        DrawText(canvas, UiLocalization.Text(columns[0].Title), x + (leftWidth / 2), y + 16, 9, SKTextAlign.Center, true);
+        DrawText(canvas, UiLocalization.Text(columns[1].Title), materialX + (materialWidth / 2), y + 16, 9, SKTextAlign.Center, true);
+        DrawText(canvas, UiLocalization.Text(columns[2].Title), rightX + ((width - leftWidth - materialWidth) / 2), y + 16, 9, SKTextAlign.Center, true);
 
         var bodyTop = y + headerHeight + 14;
         var leftLines = SurfaceSpecificationLines(sheet, sheet.Element.FrontSurface, isFront: true);
@@ -289,14 +290,14 @@ internal static partial class OpticalDrawingRendererCore
         var issues = new List<string>();
         if (template.Page.TitleTop <= template.Page.SpecificationTop)
         {
-            issues.Add($"模板 {template.Id} 的标题栏不能位于规格表之前。");
+            issues.Add(UiLocalization.Template($"模板 {template.Id} 的标题栏不能位于规格表之前。"));
         }
 
         foreach (var binding in template.FieldBindings)
         {
             if (!CanResolveTemplateField(binding))
             {
-                issues.Add($"模板 {template.Id} 包含未注册字段绑定：{binding}");
+                issues.Add(UiLocalization.Template($"模板 {template.Id} 包含未注册字段绑定：{binding}"));
             }
         }
 
@@ -312,7 +313,7 @@ internal static partial class OpticalDrawingRendererCore
                         sheet.Element.Surfaces[index],
                         isFront: index == 0),
                     bodyHeight,
-                    $"模板 {template.Id} 胶合面 S{index + 1}");
+                    UiLocalization.Template($"模板 {template.Id} 胶合面 S{index + 1}"));
             }
 
             for (var index = 0; index < sheet.Element.Components.Count; index++)
@@ -322,7 +323,7 @@ internal static partial class OpticalDrawingRendererCore
                 CheckColumn(
                     ComponentMaterialSpecificationLines(sheet, sheet.Element.Components[index], material),
                     bodyHeight,
-                    $"模板 {template.Id} 胶合材料 L{index + 1}");
+                    UiLocalization.Template($"模板 {template.Id} 胶合材料 L{index + 1}"));
             }
 
             return issues;
@@ -333,9 +334,9 @@ internal static partial class OpticalDrawingRendererCore
             case "iso-three-column":
                 {
                     var bodyHeight = specificationHeight - template.Specification.HeaderHeight - 14;
-                    CheckColumn(SurfaceSpecificationLines(sheet, sheet.Element.FrontSurface, isFront: true), bodyHeight, $"{template.Id} 左表面");
-                    CheckColumn(MaterialSpecificationLines(sheet), bodyHeight, $"{template.Id} 材料");
-                    CheckColumn(SurfaceSpecificationLines(sheet, sheet.Element.BackSurface, isFront: false), bodyHeight, $"{template.Id} 右表面");
+                    CheckColumn(SurfaceSpecificationLines(sheet, sheet.Element.FrontSurface, isFront: true), bodyHeight, UiLocalization.Template($"{template.Id} 左表面"));
+                    CheckColumn(MaterialSpecificationLines(sheet), bodyHeight, UiLocalization.Template($"{template.Id} 材料"));
+                    CheckColumn(SurfaceSpecificationLines(sheet, sheet.Element.BackSurface, isFront: false), bodyHeight, UiLocalization.Template($"{template.Id} 右表面"));
                     break;
                 }
 
@@ -350,7 +351,7 @@ internal static partial class OpticalDrawingRendererCore
         {
             if (!ColumnLinesFit(lines.Count, availableHeight))
             {
-                issues.Add($"{label} 的字段行无法放入规格表单元格。");
+                issues.Add(UiLocalization.Template($"{label} 的字段行无法放入规格表单元格。"));
             }
         }
     }
@@ -401,7 +402,7 @@ internal static partial class OpticalDrawingRendererCore
             "surface.radius.value" => RadiusText(RequireSurface(surface, binding).Radius),
             "element.clearAperture" => $"⌀e  {sheet.Element.ClearSemiDiameter * 2:0.###}",
             "element.clearAperture.value" => $"⌀{sheet.Element.ClearSemiDiameter * 2:0.###}",
-            "surface.edgeTreatment" => $"边缘  {sheet.EdgeTreatment}",
+            "surface.edgeTreatment" => UiLocalization.Template($"边缘  {sheet.EdgeTreatment}"),
             "surface.coating" => $"λ  {CoatingText(sheet, RequireSurface(surface, binding))}",
 
             "iso.surface.3.form" => $"3/  {SurfaceFormNanometers(context):0.#} nm",
@@ -412,13 +413,13 @@ internal static partial class OpticalDrawingRendererCore
             "iso.material.1.bubblesAndInclusions" => $"1/  {sheet.BubblesAndInclusions}",
             "iso.material.2.homogeneityAndStriae" => $"2/  {sheet.HomogeneityAndStriae}",
 
-            "material.manufacturer" => $"制造商  {material?.Manufacturer ?? "当前玻璃库"}",
-            "material.name" => $"玻璃牌号  {sheet.Element.Material}",
+            "material.manufacturer" => UiLocalization.Template($"制造商  {material?.Manufacturer ?? UiLocalization.Text("当前玻璃库")}"),
+            "material.name" => UiLocalization.Template($"玻璃牌号  {sheet.Element.Material}"),
             "material.refractiveIndexD" => material is null
-                ? "n[d]  未解析"
+                ? UiLocalization.Text("n[d]  未解析")
                 : $"n[d]  {material.RefractiveIndexD:0.000000} ±{sheet.RefractiveIndexTolerance:0.000000}",
             "material.abbeNumber" => material is null
-                ? "V[d]  未解析"
+                ? UiLocalization.Text("V[d]  未解析")
                 : $"V[d]  {material.AbbeNumber:0.###} ±{sheet.AbbeNumberTolerance:0.###}",
 
             "component.material.name" => $"GLASS  {RequireComponent(component, binding).Material}",

@@ -1,0 +1,53 @@
+{
+  "runner": "Python, equivalent command controls from VerifyPipeline.ps1 (PowerShell unavailable)",
+  "results": [
+    {
+      "name": "baseline-sync",
+      "exitCode": 0,
+      "expectedSuccess": true,
+      "passed": true
+    },
+    {
+      "name": "baseline-check",
+      "exitCode": 0,
+      "expectedSuccess": true,
+      "passed": true
+    },
+    {
+      "name": "missing-label",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true
+    },
+    {
+      "name": "missing-label-sync",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true
+    },
+    {
+      "name": "stale-catalog",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true
+    },
+    {
+      "name": "changed-unit",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true
+    },
+    {
+      "name": "conflicting-term",
+      "exitCode": 1,
+      "expectedSuccess": false,
+      "passed": true
+    },
+    {
+      "name": "restored-check",
+      "exitCode": 0,
+      "expectedSuccess": true,
+      "passed": true
+    }
+  ]
+}

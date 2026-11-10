@@ -129,10 +129,12 @@ public sealed partial class MainWindow
     {
         var glyph = new LocalIcon { IconName = icon, Width = 16, Height = 16, VerticalAlignment = VerticalAlignment.Center };
         glyph.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextSecondary);
+        var label = new TextBlock { Text = text, VerticalAlignment = VerticalAlignment.Center };
+        UiLocalization.LocalizeChoiceLabel(label);
         return new StackPanel
         {
             Orientation = Orientation.Horizontal, Spacing = 6,
-            Children = { glyph, new TextBlock { Text = text, VerticalAlignment = VerticalAlignment.Center } }
+            Children = { glyph, label }
         };
     }
 

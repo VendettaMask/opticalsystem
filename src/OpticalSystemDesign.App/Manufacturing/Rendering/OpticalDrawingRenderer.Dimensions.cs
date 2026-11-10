@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 using SkiaSharp;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Manufacturing;
 
@@ -182,7 +183,7 @@ internal static partial class OpticalDrawingRendererCore
         var sag = OpticalManufacturingModel.Sag(surface, height);
         return sag is { } value && double.IsFinite(value)
             ? value
-            : throw new InvalidOperationException($"表面 {surface.Number} 的制造轮廓超出实际面型定义域，不能用零矢高替代。");
+            : throw new InvalidOperationException(UiLocalization.Template($"表面 {surface.Number} 的制造轮廓超出实际面型定义域，不能用零矢高替代。"));
     }
 
     private static int NormalizeManufacturingSampleCount(int surfaceSamples)

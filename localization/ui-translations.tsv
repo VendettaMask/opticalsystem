@@ -914,7 +914,7 @@ X {0} · Y {1} · 权重 {2}	X {0} · Y {1} · Weight {2}	X {0} · Y {1} · 重�
 布局未保存：{0}	Layout not saved: {0}	レイアウト未保存：{0}
 库存目录加载失败：{0}	Stock catalog loading failed: {0}	在庫カタログ読み込み失敗：{0}
 库存镜头匹配失败：{0}	Stock lens matching failed: {0}	在庫レンズマッチング失敗：{0}
-H/L表示当前膜料；数字为参考波长处QW系数。支持(HL)^4、0.5H、{材料ID}及Inc | … | Sub。	H/L denote the current film materials; numbers are QW factors at the reference wavelength. Supports (HL)^4, 0.5H, {材料ID} and Inc | … | Sub.	H/Lは現在の膜材料、数値は基準波長でのQW係数です。(HL)^4、0.5H、{材料ID}、Inc | … | Subに対応します。
+H/L表示当前膜料；数字为参考波长处QW系数。支持(HL)^4、0.5H、{材料ID}及Inc | … | Sub。	H/L denote the current film materials; numbers are QW factors at the reference wavelength. Supports (HL)^4, 0.5H, {MaterialID} and Inc | … | Sub.	H/Lは現在の膜材料、数値は基準波長でのQW係数です。(HL)^4、0.5H、{材料ID}、Inc | … | Subに対応します。
 RMS 和系统评价函数按上限验收，MTF 按下限验收。逐视场模式要求同一次补偿后的所有定义视场同时合格，包含权重为 0 的视场。	RMS and system merit use upper acceptance limits, and MTF uses a lower limit. Per-field mode requires every defined field to pass after the same compensation, including fields with weight 0.	RMS とシステム評価値は上限、MTF は下限で判定します。視野別モードでは同じ補償後に全定義視野が同時に適合する必要があり、重み0の視野も含みます。
 SFR 直接使用浮点线性像元数据，预览不参与计算。采用选定视场的局部恒定标量 PSF；未包含全视场畸变、偏振、CFA、ADC 或 ISP。有限 PSF 显式按截取能量归一化，并显示能量及窗口检查。结果不代表 ISO 12233 合规认证。	SFR uses floating-point linear pixels directly; previews do not enter the calculation. Uses a locally constant scalar PSF at the selected field, without full-field distortion, polarization, CFA, ADC or ISP. The finite PSF is explicitly normalized by captured energy, with energy and window checks. Results do not certify ISO 12233 compliance.	SFRは浮動小数点の線形画素を直接使用し、プレビューは計算に使用しません。選択視野の局所一定スカラーPSFを使用し、全視野歪曲・偏光・CFA・ADC・ISPは含みません。有限PSFを捕捉エネルギーで明示的に正規化し、エネルギーと窓の確認を表示します。ISO 12233適合認証ではありません。
 STL 文件本身不保存单位，请明确选择源文件单位。导入后统一换算为毫米。	STL files do not store units. Select the source units explicitly; imported geometry is converted to millimeters.	STLファイルには単位がありません。元ファイルの単位を明示してください。読み込み後はミリメートルに統一します。
@@ -1472,3 +1472,159 @@ RMS 点列半径 (mm)	RMS spot radius (mm)	RMS スポット半径 (mm)
 表面 {0}: {1}（只读：该导入面型暂不支持计算或编辑）	Surface {0}: {1} (read-only: calculation and editing are unavailable for this imported surface type)	面 {0}: {1}（読み取り専用：このインポート面タイプの計算と編集は未対応）
 边缘光线斜率	Marginal ray slope	周辺光線の傾き
 （只读：该导入面型暂不支持计算或编辑）	(read-only: calculation and editing are unavailable for this imported surface type)	（読み取り専用：このインポート面タイプの計算と編集は未対応）
+
+# 2026-11-09: labels and status messages reached through partial UI helpers.
+ESF 半窗 (px)	ESF half-window (px)	ESF 半幅 (px)
+ESF 半窗 (像元)	ESF half-window (pixels)	ESF 半幅（画素）
+ISP 设置已改变，请重新运行。	ISP settings changed; run again.	ISP 設定が変更されました。再実行してください。
+PSF 半径 (像元)	PSF radius (pixels)	PSF 半径（画素）
+ROI X	ROI X	ROI X
+ROI Y	ROI Y	ROI Y
+ROI 宽	ROI width	ROI 幅
+ROI 高	ROI height	ROI 高さ
+三维场景已打开；A 保留，请运行 B。	3D scene opened; A is retained. Run B.	3D シーンを開きました。A は保持されています。B を実行してください。
+为选中材质指定反射率 CSV	Assign reflectance CSV to selected material	選択した材料に反射率 CSV を割り当てる
+亮格带宽辐亮度 (W/m²/sr)	Bright-cell band radiance (W/m²/sr)	明部セルの帯域放射輝度 (W/m²/sr)
+亮格辐亮度 (W/m²/sr)	Bright-cell radiance (W/m²/sr)	明部セルの放射輝度 (W/m²/sr)
+传感器参数已导入；A 保留原参数，请运行新的 B。	Sensor parameters imported; A retains its original parameters. Run a new B.	センサーパラメータを読み込みました。A は元のパラメータを保持しています。新しい B を実行してください。
+位置 (mm)	Position (mm)	位置 (mm)
+使用正式 MTF 方法评价。FFT 不自动回退为几何方法；计算失败计入不合格。最终评估应提高采样并检查结果是否收敛。	Evaluate using the selected MTF method. FFT does not fall back to a geometric method; calculation failures count as failures. Increase sampling and check convergence for final evaluation.	選択した MTF 法で評価します。FFT は幾何法に自動切替せず、計算失敗は不合格に含めます。最終評価ではサンプリングを増やし、収束を確認してください。
+偏移量：	Offset:	オフセット：
+像元每边采样	Samples per pixel edge	画素辺あたりのサンプル数
+像类型	Image type	像の種類
+光谱响应已导入并替代固定 QE；A 保留原响应，请运行新的 B。	Spectral response imported, replacing fixed QE; A retains its original response. Run a new B.	分光応答を読み込み、固定 QE を置き換えました。A は元の応答を保持しています。新しい B を実行してください。
+光谱已导入；A 保留。选择连续光谱积分后运行新的 B。	Spectrum imported; A is retained. Select continuous spectral integration and run a new B.	スペクトルを読み込みました。A は保持されています。連続スペクトル積分を選択し、新しい B を実行してください。
+全部解锁	Unlock all	すべてロック解除
+全部锁定	Lock all	すべてロック
+关闭未完成：{0}	Closing incomplete: {0}	終了未完了：{0}
+分视场验收	Per-field acceptance	視野ごとの合否判定
+勾选某个视场以单独设置下限；未勾选的视场沿用统一下限。反向极限也使用这些单独下限；反向增量按各视场名义值减去允许下降量。	Select a field to set its own lower limit; other fields use the common limit. Inverse limits use these individual limits too; inverse increments subtract the allowed decrease from each field's nominal value.	視野を選択して個別の下限を設定します。未選択の視野には共通の下限を使用します。逆算限界にも個別下限を使用し、逆算増分は各視野の公称値から許容低下量を引きます。
+单波段波长 (nm)	Single-band wavelength (nm)	単一帯域の波長 (nm)
+参数已改变，请运行 B；A 对照保留。	Parameters changed; run B. Reference A is retained.	パラメータが変更されました。B を実行してください。比較用 A は保持されています。
+叉丝总长 (mm)	Reticle length (mm)	レチクル全長 (mm)
+反转	Reverse	反転
+可调量	Adjustable parameter	調整可能なパラメータ
+同步当前设置并重新运行	Sync current settings and rerun	現在の設定を同期して再実行
+噪声设置已改变，请重新运行。	Noise settings changed; run again.	ノイズ設定が変更されました。再実行してください。
+场景反射率模式已改变；A 保留，请重新运行 B。	Scene reflectance mode changed; A is retained. Rerun B.	シーンの反射率モードが変更されました。A は保持されています。B を再実行してください。
+基础 ISP	Basic ISP	基本 ISP
+复制到另一面	Copy to other side	反対面にコピー
+完整传感器宽 (px)	Full sensor width (px)	センサー全幅 (px)
+完整传感器高 (px)	Full sensor height (px)	センサー全高 (px)
+完整图像宽 (px)	Full image width (px)	画像全幅 (px)
+完整图像高 (px)	Full image height (px)	画像全高 (px)
+实际感光面积比例	Active photosensitive area fraction	実際の感光面積比
+宽 (px)	Width (px)	幅 (px)
+导入光源光谱 CSV	Import source spectrum CSV	光源スペクトル CSV を読み込む
+导入场景反射率 CSV	Import scene reflectance CSV	シーン反射率 CSV を読み込む
+左列（从 0 起）	Left column (from 0)	左端列（0 始まり）
+已恢复单材质输入，A 对照保留。	Single-material input restored; reference A is retained.	単一材料入力を復元しました。比較用 A は保持されています。
+已恢复固定三波段 QE；A 对照保留。	Fixed three-band QE restored; reference A is retained.	固定 3 帯域 QE を復元しました。比較用 A は保持されています。
+恢复草稿尚未写入，原文件已保留：{0}	Recovery draft not written; original file retained: {0}	復旧用ドラフトは未保存です。元のファイルを保持しました：{0}
+打开三维相机场景	Open 3D camera scene	3D カメラシーンを開く
+探测面宽度 (mm)	Detector width (mm)	検出面の幅 (mm)
+斜边倾角 (°)	Slanted-edge angle (°)	傾斜エッジ角 (°)
+方向	Direction	方向
+无法创建镀膜恢复草稿：{0}	Cannot create coating recovery draft: {0}	コーティング復旧用ドラフトを作成できません：{0}
+暗格带宽辐亮度 (W/m²/sr)	Dark-cell band radiance (W/m²/sr)	暗部セルの帯域放射輝度 (W/m²/sr)
+暗格辐亮度 (W/m²/sr)	Dark-cell radiance (W/m²/sr)	暗部セルの放射輝度 (W/m²/sr)
+曝光与传感器	Exposure and sensor	露光とセンサー
+最大积分间隔 (nm)	Maximum integration interval (nm)	最大積分間隔 (nm)
+材质分区已导入；PNG 尚需为各 ID 指定反射率。A 保留，请运行新的 B。	Material regions imported; assign reflectance to each PNG ID. A is retained. Run a new B.	材料領域を読み込みました。PNG の各 ID に反射率を指定してください。A は保持されています。新しい B を実行してください。
+材质反射率已更新，A 的标签与反射率保持不变。	Material reflectance updated; A's labels and reflectance are unchanged.	材料の反射率を更新しました。A のラベルと反射率は変わりません。
+格边长 (mm)	Cell size (mm)	セル辺長 (mm)
+棋盘列数	Checkerboard columns	チェッカーボードの列数
+棋盘行数	Checkerboard rows	チェッカーボードの行数
+模式已改变，请重新生成全幅图。	Mode changed; regenerate the full-frame image.	モードが変更されました。全画面画像を再生成してください。
+模式已改变，请重新生成场景像。	Mode changed; regenerate the scene image.	モードが変更されました。シーン画像を再生成してください。
+模式已改变，请重新生成斜边。	Mode changed; regenerate the slanted edge.	モードが変更されました。傾斜エッジを再生成してください。
+每块完整行数	Full rows per block	ブロックあたりの完全行数
+法线半窗口 (px)	Normal-direction half-window (px)	法線方向の半幅 (px)
+波长编号（0=多波长）	Wavelength number (0=polychromatic)	波長番号（0=多波長）
+测量模式	Measurement mode	測定モード
+测量波长 (nm)	Measurement wavelength (nm)	測定波長 (nm)
+添加层	Add layer	層を追加
+添加补偿器	Add compensator	補償器を追加
+源光谱积分阶数	Source spectral integration order	光源スペクトル積分次数
+界面透射设置已改变，请运行 B。	Interface transmission settings changed; run B.	界面透過設定が変更されました。B を実行してください。
+瞳孔采样	Pupil sampling	瞳サンプリング
+瞳面采样	Pupil-plane sampling	瞳面サンプリング
+示例三维场景已载入，请运行 B。	Example 3D scene loaded; run B.	サンプル 3D シーンを読み込みました。B を実行してください。
+积分终点 (nm)	Integration end (nm)	積分終点 (nm)
+积分起点 (nm)	Integration start (nm)	積分始点 (nm)
+空间频率 (cycles/mm)	Spatial frequency (cycles/mm)	空間周波数 (cycles/mm)
+线宽 (mm)	Line width (mm)	線幅 (mm)
+自准直仪焦距 (mm)	Autocollimator focal length (mm)	オートコリメーター焦点距離 (mm)
+草稿无法恢复，已保留以便检查：{0} · {1}	Draft could not be restored and was retained for inspection: {0} · {1}	ドラフトを復元できないため、確認用に保持しました：{0} · {1}
+补偿方式	Compensation method	補償方式
+表面名称	Surface name	面の名前
+表面编号	Surface number	面番号
+视场 {0}  X={1}  Y={2}	Field {0}  X={1}  Y={2}	視野 {0}  X={1}  Y={2}
+计算方法	Calculation method	計算方法
+设置已改变，请重新运行。	Settings changed; run again.	設定が変更されました。再実行してください。
+请先清空背面膜系并解除对称，再切回旧单面模式；背面数据保持。	Clear the rear coating and unlink symmetry before returning to legacy single-side mode; rear-side data is retained.	旧単面モードに戻す前に裏面の膜構成を消去し、対称リンクを解除してください。裏面データは保持されています。
+输入与光学	Input and optics	入力と光学系
+逐视场验收（所有视场同时合格）	Per-field acceptance (all fields must pass)	視野ごとの合否判定（すべての視野が合格）
+采用候选	Apply candidate	候補を適用
+镀膜实验尚未保存，操作已取消：{0}	Coating experiment is unsaved; operation cancelled: {0}	コーティング実験が未保存のため、操作を中止しました：{0}
+镜头已改变，请重新生成全幅图。	Lens changed; regenerate the full-frame image.	レンズが変更されました。全画面画像を再生成してください。
+镜头已改变，请重新生成场景像。	Lens changed; regenerate the scene image.	レンズが変更されました。シーン画像を再生成してください。
+镜头已改变，请重新生成斜边。	Lens changed; regenerate the slanted edge.	レンズが変更されました。傾斜エッジを再生成してください。
+附加可调量	Additional adjustable parameters	追加の調整可能パラメータ
+附加补偿器	Additional compensator	追加補償器
+靶标 X 旋转 (°)	Target X rotation (°)	ターゲット X 回転 (°)
+靶标 Y 旋转 (°)	Target Y rotation (°)	ターゲット Y 回転 (°)
+靶标 Z 旋转 (°)	Target Z rotation (°)	ターゲット Z 回転 (°)
+靶标中心 X (mm)	Target center X (mm)	ターゲット中心 X (mm)
+靶标中心 Y (mm)	Target center Y (mm)	ターゲット中心 Y (mm)
+靶标到第一镜面 (mm)	Target to first surface (mm)	ターゲットから最初の面まで (mm)
+靶标距离 (mm)	Target distance (mm)	ターゲット距離 (mm)
+顶行（从 0 起）	Top row (from 0)	上端行（0 始まり）
+高 (px)	Height (px)	高さ (px)
+# Optical alignment: fixed labels and Core diagnostic presentation; data stays unchanged.
+附加物镜焦距 (mm)	Auxiliary objective focal length (mm)	補助対物レンズ焦点距離 (mm)
+测量 NA（近轴）	Measurement NA (paraxial)	測定 NA（近軸）
+找像位置偏移 (mm)	Focus position offset (mm)	合焦位置オフセット (mm)
+仪器通光直径 (mm)	Instrument clear aperture (mm)	装置の有効径 (mm)
+物镜到入口顶点距离 (mm)	Objective to entrance vertex (mm)	対物レンズから入射頂点まで (mm)
+基于当前打开的镜头（含未保存修改） · 位置以第一实体表面顶点为零，沿设计 +Z 为正	Uses the open lens, including unsaved edits · Positions start at the first physical surface vertex; design +Z is positive	未保存の変更を含む現在のレンズを使用 · 最初の実体面の頂点を原点とし、設計 +Z を正とします
+理想薄透镜测量头；镜组使用真实曲面往返追迹。显示几何像与归一化亮度，不含衍射、镀膜强度及实际仪器标定。	Ideal thin-lens measurement head with round-trip tracing through the actual lens surfaces. Shows geometric images and normalized brightness; excludes diffraction, coating intensity and instrument calibration.	理想薄レンズ測定ヘッドを用い、実際のレンズ面で往復光線追跡を行います。幾何像と正規化輝度を表示し、回折、コーティング強度、実機校正は含みません。
+顶点像	Vertex image	頂点像
+球心像	Center-of-curvature image	曲率中心像
+附加物镜位置 {0} mm（同一基准）	Auxiliary objective position {0} mm (same datum)	補助対物レンズ位置 {0} mm（同一基準）
+自准直仪物镜位置 {0} mm（同一基准）	Autocollimator objective position {0} mm (same datum)	オートコリメーター対物レンズ位置 {0} mm（同一基準）
+近轴倍率	Paraxial magnification	近軸倍率
+主光线比例	Chief-ray scale	主光線の比率
+附加测量物镜	Auxiliary measurement objective	補助測定対物レンズ
+无穷远（平行光）	Infinity (collimated light)	無限遠（平行光）
+正在计算；可先取消	Calculation in progress; cancel it first	計算中です。先に中止できます
+请切换到顺序模式并打开镜头	Switch to sequential mode and open a lens	順次モードに切り替えてレンズを開いてください
+请先计算并选择一个表面共轭	Calculate and select a surface conjugate first	先に計算し、面の共役を選択してください
+当前没有进行中的计算	No calculation is running	実行中の計算はありません
+所选共轭在无穷远，请切换到无穷远（平行光）模式。	The selected conjugate is at infinity; switch to Infinity (collimated light) mode.	選択した共役は無限遠です。無限遠（平行光）モードに切り替えてください。
+请填写所有数值参数。	Enter all numeric parameters.	すべての数値パラメータを入力してください。
+需要 1–256 个实体表面（不含物面和像面）。	Requires 1–256 physical surfaces, excluding object and image surfaces.	物体面と像面を除く 1–256 個の実体面が必要です。
+相邻介质折射率相同；本模型无界面反射像	Adjacent media have equal refractive indices; this model has no interface reflection image	隣接媒質の屈折率が等しいため、このモデルでは界面反射像はありません
+近轴探测光线未到达目标面	Paraxial probe rays did not reach the target surface	近軸探査光線が対象面に到達しませんでした
+共轭在无穷远；需平行光设置	Conjugate at infinity; collimated-light setup required	共役は無限遠です。平行光設定が必要です
+共轭接近奇点或探测步长未收敛	Conjugate is near a singularity or the probe step has not converged	共役が特異点付近にあるか、探査ステップが収束していません
+近轴找像位置；有限孔径像见右侧预览	Paraxial focus position; see the preview for the finite-aperture image	近軸合焦位置です。有限開口の像はプレビューを参照してください
+首版测量头要求外部介质为空气	This measurement head requires air as the external medium	この測定ヘッドでは外部媒質が空気である必要があります
+测量物镜将进入镜组；请增大测量物镜焦距/工作距离	The measurement objective would enter the lens group; increase its focal length or working distance	測定対物レンズがレンズ群内に入ります。焦点距離または作動距離を増やしてください
+自准直仪物镜将进入镜组；请增大仪器到入口顶点的距离	The autocollimator objective would enter the lens group; increase the distance to the entrance vertex	オートコリメーター対物レンズがレンズ群内に入ります。入射頂点までの距離を増やしてください
+附加测量物镜模式。	Auxiliary measurement objective mode.	補助測定対物レンズモード。
+无穷远模式：平行出射，所选共轭为 ∞。	Infinity mode: collimated output; the selected conjugate is at ∞.	無限遠モード：平行光出射、選択した共役は ∞ です。
+无穷远模式：所选共轭为有限位置，当前未对焦到此共轭；返回像可能模糊或受遮挡。	Infinity mode: the selected conjugate is finite and is not focused; the return image may be blurred or obscured.	無限遠モード：選択した共役は有限位置にあり、合焦していません。戻り像がぼけたり遮られたりする場合があります。
+没有光线落入探测范围；检查孔径和测量头参数。	No rays reached the detector; check the aperture and measurement head parameters.	検出範囲に到達した光線がありません。開口と測定ヘッドのパラメータを確認してください。
+几何往返追迹；理想仪器、归一化亮度，不含衍射及镀膜亮度。	Geometric round-trip tracing with an ideal instrument and normalized brightness; excludes diffraction and coating intensity.	理想装置と正規化輝度による幾何学的往復光線追跡。回折とコーティング強度は含みません。
+首版仅支持共轴系统；表面 {0} 含偏心或倾斜	This version supports coaxial systems only; surface {0} is decentered or tilted	このバージョンは共軸系のみ対応しています。面 {0} に偏心または傾きがあります
+表面 {0} 非球面/特殊面型；首版仅支持球面和平面	Surface {0} is aspheric or special; this version supports spherical and planar surfaces only	面 {0} は非球面または特殊面です。このバージョンは球面と平面のみ対応しています
+表面 {0} 的特殊交互模型暂不支持	The special interaction model on surface {0} is not supported	面 {0} の特殊相互作用モデルは未対応です
+表面 {0} 为前置反射面，遮挡当前观察路径	Surface {0} is a preceding reflector blocking the current viewing path	面 {0} は手前の反射面であり、現在の観察経路を遮っています
+首版不支持折返或负厚度处方	This version does not support folded paths or negative thicknesses	このバージョンは折り返し光路や負の厚さに対応していません
+表面 {0} 的材料未解析	The material at surface {0} is unresolved	面 {0} の材料が解決されていません
+测量头、叉丝或探测范围参数无效。	Invalid measurement head, reticle or detector range parameters.	測定ヘッド、レチクルまたは検出範囲のパラメータが無効です。
+附加测量物镜参数无效。	Invalid auxiliary measurement objective parameters.	補助測定対物レンズのパラメータが無効です。
+无穷远模式的通光直径或仪器距离无效。	Invalid clear aperture or instrument distance for infinity mode.	無限遠モードの有効径または装置距離が無効です。
+光学装调实验室需要打开顺序镜头设计。	Open a sequential lens design to use the optical alignment laboratory.	光学組立調整ラボを使用するには、順次レンズ設計を開いてください。
+镜头已经改变，请重新计算找像位置。	The lens has changed; recalculate the focus positions.	レンズが変更されました。合焦位置を再計算してください。

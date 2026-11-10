@@ -49,16 +49,16 @@ internal static partial class DesignReportPdfWriter
                             {
                                 imageBytes += source.Length;
                                 if (imageBytes > OpticalSystemDesign.Application.Services.BoundedApplicationFile.MaximumExportBytes)
-                                    throw new InvalidDataException("报告图片超过大小上限。");
+                                    throw new InvalidDataException(UiLocalization.Text("报告图片超过大小上限。"));
                                 using var data = SKData.Create(source); using var image = DesignReportImage.Decode(data);
                                 if (page.Cover) _y = Math.Max(_y, 200);
-                                UniformPicture(image, page.Cover ? picture.Title : $"图 {++figure}　{picture.Title}", 14);
+                                UniformPicture(image, page.Cover ? picture.Title : UiLocalization.Template($"图 {++figure}　{picture.Title}"), 14);
                             }
                             break;
                     }
                 }
                 if (includeAppendix && report.Sections.Count > 0 && page == layout.Pages.Last(candidate => candidate.Content.Blocks.Any(block => block is ReportDirectoryEntry)))
-                    DirectoryEntry(new("附录 详细计算记录", report.Sections.Count + 1, 0));
+                    DirectoryEntry(new(UiLocalization.Text("附录 详细计算记录"), report.Sections.Count + 1, 0));
             }
         }
 

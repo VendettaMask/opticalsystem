@@ -6,6 +6,7 @@ internal static class DesignReportMarkdownWriter
 {
     internal static string Write(DesignReportPdfModel report, DesignReportContent details, string imageDirectory)
     {
+        using var languageScope = UiLocalization.UseLanguage(report.Language);
         var result = new StringBuilder(); var figure = 0;
         result.AppendLine($"![S.T.A.R.Labs](<{Uri.EscapeDataString(imageDirectory)}/company-logo.svg>)\n");
         var layout = DesignReportPresentation.Create(report);
@@ -15,12 +16,12 @@ internal static class DesignReportMarkdownWriter
             if (page.SectionNumber > 0 && layout.SectionPages[page.SectionNumber - 1] != page.Number) continue;
             result.AppendLine($"<a id=\"page-{page.Number:D2}\"></a>\n");
             if (page.SectionNumber > 0) result.AppendLine($"<a id=\"section-{page.SectionNumber:D3}\"></a>\n");
-            result.Append(page.Cover ? "# " : "## ").AppendLine(Escape((page.SectionNumber == 0 && page.Subtitle.StartsWith("配置 ", StringComparison.Ordinal) ? page.Subtitle + " · " : "") + page.Title.Replace('\n', ' '))).AppendLine();
+            result.Append(page.Cover ? "# " : "## ").AppendLine(Escape((page.SectionNumber == 0 && page.Subtitle.StartsWith(UiLocalization.Text("配置 "), StringComparison.Ordinal) ? page.Subtitle + " · " : "") + page.Title.Replace('\n', ' '))).AppendLine();
             if (page.SectionNumber > 0)
             {
-                result.AppendLine($"配置 {page.Configuration}　·　{Escape(page.Subtitle)}\n");
+                result.AppendLine(UiLocalization.Template($"配置 {page.Configuration}　·　{Escape(page.Subtitle)}\n"));
                 var section = report.Sections[page.SectionNumber - 1];
-                if (section.Failure is { } failure) result.AppendLine("**未完成：" + Escape(failure) + "**\n");
+                if (section.Failure is { } failure) result.AppendLine(UiLocalization.Text("**未完成：") + Escape(failure) + "**\n");
                 else
                 {
                     foreach (var image in section.Images) Picture(image, section.Title);
@@ -30,7 +31,7 @@ internal static class DesignReportMarkdownWriter
                             [section.Metrics.Take(3).Select(pair => pair[1]).ToArray()]));
                     }
                     else if (section.Table is { } table) Table(table);
-                    else Table(new(["项目", "数值"], section.Metrics.ToArray()));
+                    else Table(new([UiLocalization.Text("项目"), UiLocalization.Text("数值")], section.Metrics.ToArray()));
                     if (section.FormulaNote.Length > 0) result.AppendLine(Escape(section.FormulaNote)).AppendLine();
                 }
             }
@@ -48,7 +49,7 @@ internal static class DesignReportMarkdownWriter
         }
         if (details.Blocks.Count > 0)
         {
-            result.AppendLine("## 附录 完整参数与计算记录\n");
+            result.AppendLine("## " + UiLocalization.Text("附录 完整参数与计算记录") + "\n");
             var appendix = new DesignReportContent(); appendix.BeginAppendix(); appendix.Append(details);
             result.Append(appendix.Markdown(imageDirectory));
         }
@@ -57,7 +58,7 @@ internal static class DesignReportMarkdownWriter
         void Picture(string file, string title)
         {
             result.AppendLine($"![{Escape(title)}](<{Uri.EscapeDataString(imageDirectory)}/{Uri.EscapeDataString(file)}>)\n");
-            result.AppendLine($"*图 {++figure}　{Escape(title)}*\n");
+            result.AppendLine(UiLocalization.Template($"*图 {++figure}　{Escape(title)}*\n"));
         }
         void Table(ReportTable table)
         {

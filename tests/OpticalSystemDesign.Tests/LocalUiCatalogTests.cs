@@ -37,6 +37,7 @@ public sealed class LocalUiCatalogTests
     [InlineData("厚度 1.25 nm", "Thickness 1.25 mm", "膜厚 1.25 nm", "unit")]
     [InlineData("来源 https://example.test/a", "Source https://example.test/b", "出典 https://example.test/a", "URL")]
     [InlineData("n = n0 + nr2·r²；说明", "n = n0 + nr3·r³; note", "n = n0 + nr2·r²。説明", "formula")]
+    [InlineData("输入 {材料ID}", "Enter {材料ID}", "入力 {材料ID}", "untranslated")]
     public void InvalidTranslationsAreRejected(string source, string english, string japanese, string reason) =>
         Assert.Contains(TranslationValidation.Validate(new(source, source, english, japanese)), error => error.Contains(reason, StringComparison.Ordinal));
 
@@ -80,6 +81,21 @@ public sealed class LocalUiCatalogTests
             Assert.Contains(entries, item => item.Source == text);
         foreach (var text in new[] { "注释不是界面", "不是界面文字", "material-id", "tab-id" }) Assert.DoesNotContain(entries, item => item.Source == text);
         Assert.All(entries, item => Assert.True(item.Line > 0));
+    }
+
+    [Fact]
+    public void ExtractorFollowsHelpersAcrossPartialFilesWithoutBorrowingUnrelatedClasses()
+    {
+        var sources = new (string Path, string Text)[]
+        {
+            ("View.cs", "namespace App; partial class View { object Field(string caption, object input) => new TextBlock { Text = caption }; }"),
+            ("View.Layout.cs", "namespace App; partial class View { void Build() { Field(\"测量模式\", control); } }"),
+            ("Other.cs", "namespace Other; partial class View { void Build() { Field(\"用户数据\", control); } }"),
+            ("Data.cs", "namespace App; partial class Data { void Build() { Field(\"材料标识\", control); } }")
+        };
+        var entries = LocalizationExtractor.Extract(sources);
+        Assert.Contains(entries, entry => entry.Source == "测量模式" && entry.Path == "View.Layout.cs" && entry.Line == 1);
+        Assert.DoesNotContain(entries, entry => entry.Source is "用户数据" or "材料标识");
     }
 
     [Theory]

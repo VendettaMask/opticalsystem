@@ -206,6 +206,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
 
     public AnalysisPlotControl()
     {
+        UiLocalization.BindLanguage(this, InvalidateVisual);
         ScientificColorMaps.Track(this);
         ClipToBounds = true;
         Focusable = true;
@@ -540,14 +541,14 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
         left = DisplayTypography.Scale(left);
         bottom = DisplayTypography.Scale(bottom);
         right = DisplayTypography.Scale(right);
-        var titleText = CreateText(PlotOptions.Title, PlotTextSize,
+        var titleText = CreateText(UiLocalization.Text(PlotOptions.Title), PlotTextSize,
             ThemeBrush(ThemeResourceBindings.PlotText, TextBrush), FontWeight.SemiBold);
         titleText.MaxTextWidth = Math.Max(1, Bounds.Width - left - right);
         if (!string.IsNullOrWhiteSpace(PlotOptions.Title))
             top = Math.Max(top, titleText.Height + DisplayTypography.Scale(18));
         if (!PlotOptions.HideAxes)
         {
-            var xCaption = CreateText(primaryXAxisLabel, PlotTextSize, Brushes.Black);
+            var xCaption = CreateText(UiLocalization.Text(primaryXAxisLabel), PlotTextSize, Brushes.Black);
             xCaption.MaxTextWidth = Math.Max(1, Bounds.Width - left - right);
             bottom = Math.Max(bottom, DisplayTypography.Scale(XAxisLabelOffset(PlotOptions.HideTickLabels) + 8) + xCaption.Height);
         }
@@ -750,11 +751,11 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             lines.Add(sample.Point.Label);
         }
 
-        lines.Add($"{xLabel}: {AnalysisAxisFormatting.FormatValue(sample.Point.X, sample.Series.XUnit)}");
-        lines.Add($"{yLabel}: {AnalysisAxisFormatting.FormatValue(sample.Point.Y, sample.Series.YUnit)}");
+        lines.Add($"{UiLocalization.Text(xLabel)}: {AnalysisAxisFormatting.FormatValue(sample.Point.X, sample.Series.XUnit)}");
+        lines.Add($"{UiLocalization.Text(yLabel)}: {AnalysisAxisFormatting.FormatValue(sample.Point.Y, sample.Series.YUnit)}");
         if (sample.Point.Value.HasValue)
         {
-            lines.Add($"值: {AnalysisAxisFormatting.FormatValue(sample.Point.Value.Value, sample.Series.ValueUnit)}");
+            lines.Add($"{UiLocalization.Text("值")}: {AnalysisAxisFormatting.FormatValue(sample.Point.Value.Value, sample.Series.ValueUnit)}");
         }
         else if (sample.Point.Red.HasValue && sample.Point.Green.HasValue && sample.Point.Blue.HasValue)
         {
@@ -1217,7 +1218,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
                 PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotTick, TickBrush));
             context.DrawText(tick, new Point(left + width + 6, top + (height * (1 - fraction)) - tick.Height / 2));
         }
-        var label = CreateText(series.ValueLabel, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+        var label = CreateText(UiLocalization.Text(series.ValueLabel), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
         if (PupilHeatmap)
         {
             context.DrawText(label, new Point(left, top - label.Height - 6));
@@ -1333,7 +1334,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             series.XAxisLabel,
             series.XQuantity,
             series.XUnit);
-        var xLabel = CreateText(xLabelText, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+        var xLabel = CreateText(UiLocalization.Text(xLabelText), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
         xLabel.MaxTextWidth = Math.Max(1, plot.Width);
         context.DrawText(
             xLabel,
@@ -1345,7 +1346,7 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
             series.YAxisLabel,
             series.YQuantity,
             series.YUnit);
-        var yLabel = CreateText(yLabelText, PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
+        var yLabel = CreateText(UiLocalization.Text(yLabelText), PlotTextSize, ThemeBrush(ThemeResourceBindings.PlotText, TextBrush));
         yLabel.MaxTextWidth = Math.Max(1, plot.Height);
         var center = new Point(Math.Max(yLabel.Height / 2 + 2, DisplayTypography.Scale(17)), plot.Center.Y);
         using (context.PushTransform(Matrix.CreateRotation(-Math.PI / 2, center)))

@@ -2,6 +2,7 @@ using System.Globalization;
 using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Services;
 
@@ -9,7 +10,7 @@ internal sealed record ReportExportProgress(int Completed, int Total, string Ite
 internal sealed record ReportExportResult(string ReportPath, int Succeeded, int Failed);
 internal sealed record ReportImageRequest(AnalysisResultDto? Analysis, SceneDto? Scene,
     OpticalDocumentSnapshot Document, DateTimeOffset CapturedAt, string Title,
-    bool ForPrint = false, bool Landscape = false);
+    bool ForPrint = false, bool Landscape = false, string? Language = null);
 internal delegate Task<IReadOnlyList<string>> ReportImageWriter(
     ReportImageRequest request, string directory, string stem, CancellationToken cancellationToken);
 
@@ -35,6 +36,8 @@ internal static class MarkdownReportExporter
         MarkdownReportSettings settings, string outputDirectory, ReportImageWriter writeImages,
         IProgress<ReportExportProgress>? progress = null, CancellationToken cancellationToken = default)
     {
+        var outputLanguage = UiLocalization.CurrentLanguage;
+        using var languageScope = UiLocalization.UseLanguage(outputLanguage);
         settings = settings.Copy();
         var extension = settings.Format switch
         {
@@ -42,7 +45,7 @@ internal static class MarkdownReportExporter
             DesignReportFormat.Pdf => ".pdf",
             DesignReportFormat.Markdown => ".md",
             DesignReportFormat.Html => ".html",
-            _ => throw new InvalidOperationException("请选择有效的报告格式。")
+            _ => throw new InvalidOperationException(UiLocalization.Text("请选择有效的报告格式。"))
         };
         cancellationToken.ThrowIfCancellationRequested();
         var workspace = snapshot.Workspace;
@@ -75,9 +78,9 @@ internal static class MarkdownReportExporter
         var appendix = new DesignReportContent();
         var outcomes = new List<string[]>();
         var currentConfiguration = 0;
-        var pdf = new DesignReportPdfModel(source.Name, source.Path is null ? "未保存工程" : Path.GetFileName(source.Path), snapshot.CapturedAt)
+        var pdf = new DesignReportPdfModel(source.Name, source.Path is null ? UiLocalization.Text("未保存工程") : Path.GetFileName(source.Path), snapshot.CapturedAt)
         {
-            FieldLabel = string.Equals(workspace.Prescription.GetSystemSettings().FieldDefinition, "Angle", StringComparison.OrdinalIgnoreCase) ? "视场角 / °" : "视场坐标",
+            FieldLabel = string.Equals(workspace.Prescription.GetSystemSettings().FieldDefinition, "Angle", StringComparison.OrdinalIgnoreCase) ? UiLocalization.Text("视场角 / °") : UiLocalization.Text("视场坐标"),
             Fields = string.Join("；", workspace.Prescription.GetFields().Select(field => $"({DesignReportPdfModel.Number(field.X)}, {DesignReportPdfModel.Number(field.Y)})")),
             Wavelengths = string.Join(" / ", workspace.Prescription.GetWavelengths().Select(wave => DesignReportPdfModel.Number(wave.Nanometers))) + " nm"
         };
@@ -93,24 +96,24 @@ internal static class MarkdownReportExporter
                 currentConfiguration = configuration + 1;
                 pdf.Configurations.Add((currentConfiguration, document));
                 var prefix = $"c{configuration + 1:D3}";
-                text.Heading($"配置 {configuration + 1}", 2, newPage: true);
-                progress?.Report(new(completed, total, "系统参数概览"));
+                text.Heading(UiLocalization.Template($"配置 {configuration + 1}"), 2, newPage: true);
+                progress?.Report(new(completed, total, UiLocalization.Text("系统参数概览")));
                 AppendSystemSummary(text, document);
                 completed++;
                 foreach (var dimension in new[] { SceneDimension.TwoDimensional, SceneDimension.ThreeDimensional })
                 {
                     if (dimension == SceneDimension.TwoDimensional ? !settings.Include2DLayout : !settings.Include3DLayout) continue;
-                    var title = dimension == SceneDimension.TwoDimensional ? "二维布局" : "三维布局";
+                    var title = dimension == SceneDimension.TwoDimensional ? UiLocalization.Text("二维布局") : UiLocalization.Text("三维布局");
                     await Item(title, async () =>
                     {
                         var scene = await workspace.Visualization.BuildSceneAsync(dimension, cancellationToken).ConfigureAwait(false);
                         pdfSection!.CoverImage = dimension == SceneDimension.TwoDimensional;
-                        pdfSection!.Conditions = "长度单位：mm · 标准布局视角";
+                        pdfSection!.Conditions = UiLocalization.Text("长度单位：mm · 标准布局视角");
                         pdfSection.Metrics.AddRange(new[]
                         {
-                            new[] { "有效焦距 / mm", DesignReportPdfModel.Number(document.EffectiveFocalLength) },
-                            new[] { "F 数", DesignReportPdfModel.Number(document.FNumber) },
-                            new[] { "系统总长 / mm", DesignReportPdfModel.Number(document.TotalTrack) }
+                            new[] { UiLocalization.Text("有效焦距 / mm"), DesignReportPdfModel.Number(document.EffectiveFocalLength) },
+                            new[] { UiLocalization.Text("F 数"), DesignReportPdfModel.Number(document.FNumber) },
+                            new[] { UiLocalization.Text("系统总长 / mm"), DesignReportPdfModel.Number(document.TotalTrack) }
                         });
                         await Images(new(null, scene, document, snapshot.CapturedAt, title), $"{prefix}-{dimension}");
                     });
@@ -118,7 +121,7 @@ internal static class MarkdownReportExporter
                 for (var i = 0; i < analyses.Length; i++)
                 {
                     var key = analyses[i];
-                    var title = WorkbenchAnalysisCatalog.DisplayName(key);
+                    var title = UiLocalization.Text(WorkbenchAnalysisCatalog.DisplayName(key));
                     await Item(title, async () =>
                     {
                         settings.AnalysisParameters.TryGetValue(key, out var configured);
@@ -130,19 +133,21 @@ internal static class MarkdownReportExporter
                         // never to a previously saved UI output path.
                         if (descriptors.Any(parameter => parameter.Key == "OutputFile" && parameter.Kind == AnalysisParameterKind.File))
                             merged["OutputFile"] = Path.Combine(images, $"{prefix}-output-{i + 1:D3}.png");
-                        appendix.Heading($"配置 {configuration + 1} {title} 计算记录", 3);
-                        appendix.Paragraph("分析设置");
-                        appendix.Table(["参数", "值"], workspace.Analyses.GetParameters(key, merged).Select(parameter => new[]
+                        appendix.Heading(UiLocalization.Template($"配置 {configuration + 1} {title} 计算记录"), 3);
+                        appendix.Paragraph(UiLocalization.Text("分析设置"));
+                        appendix.Table([UiLocalization.Text("参数"), UiLocalization.Text("值")], workspace.Analyses.GetParameters(key, merged).Select(parameter => new[]
                         {
-                            $"{parameter.DisplayName} ({parameter.Key})",
-                            parameter.Key == "OutputFile" ? "报告附件目录" : merged.GetValueOrDefault(parameter.Key, parameter.DefaultValue)
+                            $"{UiLocalization.Text(parameter.DisplayName)} ({parameter.Key})",
+                            parameter.Key == "OutputFile" ? UiLocalization.Text("报告附件目录") : parameter.Kind is AnalysisParameterKind.Choice or AnalysisParameterKind.Boolean
+                                ? UiLocalization.Text(parameter.ChoiceLabels?.GetValueOrDefault(merged.GetValueOrDefault(parameter.Key, parameter.DefaultValue)) ?? merged.GetValueOrDefault(parameter.Key, parameter.DefaultValue))
+                                : merged.GetValueOrDefault(parameter.Key, parameter.DefaultValue)
                         }));
                         var result = await workspace.Analyses.RunAsync(new(Guid.NewGuid(), 1, key, merged), cancellationToken).ConfigureAwait(false);
                         if (result.View.Outcome != AnalysisOutcome.Success)
                             throw new InvalidOperationException(result.View.OutcomeReason ?? result.View.Outcome.ToString());
-                        appendix.Paragraph($"计算来源：{result.ExecutorId}；请求指纹：{result.RequestFingerprint}", ReportTextStyle.Muted);
+                        appendix.Paragraph(UiLocalization.Template($"计算来源：{result.ExecutorId}；请求指纹：{result.RequestFingerprint}"), ReportTextStyle.Muted);
                         if (result.View.ConfigurationScope is { } scope)
-                            appendix.Paragraph($"分析配置：{string.Join(", ", scope.ConfigurationNumbers)}；显示方式：{scope.Display}。");
+                            appendix.Paragraph(UiLocalization.Template($"分析配置：{string.Join(", ", scope.ConfigurationNumbers)}；显示方式：{scope.Display}。"));
                         var hasPlot = AnalysisPanel.HasReportPlot(result);
                         pdfSection!.ApplyAnalysis(result.View, descriptors, merged, hasPlot);
                         if (hasPlot)
@@ -154,32 +159,32 @@ internal static class MarkdownReportExporter
             cancellationToken.ThrowIfCancellationRequested();
             progress?.Report(new(completed, total, settings.Format switch
             {
-                DesignReportFormat.Word => "写入 Word 报告",
-                DesignReportFormat.Pdf => "写入 PDF 报告",
-                DesignReportFormat.Html => "写入 HTML 报告",
-                _ => "写入 Markdown 报告"
+                DesignReportFormat.Word => UiLocalization.Text("写入 Word 报告"),
+                DesignReportFormat.Pdf => UiLocalization.Text("写入 PDF 报告"),
+                DesignReportFormat.Html => UiLocalization.Text("写入 HTML 报告"),
+                _ => UiLocalization.Text("写入 Markdown 报告")
             }));
-            text.Heading("导出结果", 2);
-            text.Paragraph($"成功项目：{succeeded}；失败或不适用项目：{failed}。");
-            if (outcomes.Count > 0) text.Table(["配置", "项目", "执行状态"], outcomes);
+            text.Heading(UiLocalization.Text("导出结果"), 2);
+            text.Paragraph(UiLocalization.Template($"成功项目：{succeeded}；失败或不适用项目：{failed}。"));
+            if (outcomes.Count > 0) text.Table([UiLocalization.Text("配置"), UiLocalization.Text("项目"), UiLocalization.Text("执行状态")], outcomes);
             if (appendix.Blocks.Count > 0)
             {
-                text.Heading("附录 完整参数与计算记录", 2, newPage: true);
+                text.Heading(UiLocalization.Text("附录 完整参数与计算记录"), 2, newPage: true);
                 text.BeginAppendix();
                 text.Append(appendix);
             }
             var report = new DesignReportContent();
-            report.Heading("光学设计报告", 1);
+            report.Heading(UiLocalization.Text("光学设计报告"), 1);
             report.Paragraph(source.Name, ReportTextStyle.Subtitle);
-            report.Paragraph("当前工程的系统概览、布局与所选光学分析。各图表和数据均来自导出开始时的同一工程快照。", ReportTextStyle.Muted);
-            report.Heading("报告概览", 2);
-            report.Table(["报告信息", "内容"], [
-                ["导出时间", snapshot.CapturedAt.ToString("yyyy-MM-dd HH:mm:ss zzz", CultureInfo.InvariantCulture)],
-                ["源文件", source.Path ?? "未保存工程"], ["工程修订", $"{source.Revision}；包含未保存修改：{(source.IsDirty ? "是" : "否")}"],
-                ["配置范围", string.Join("、", configurations.Select(value => (value + 1).ToString(CultureInfo.InvariantCulture)))],
-                ["所选分析", analyses.Length == 0 ? "仅系统概览与所选布局" : string.Join("、", analyses.Select(WorkbenchAnalysisCatalog.DisplayName))],
-                ["执行概况", $"{succeeded} 项完成；{failed} 项失败或不适用"],
-                ["软件版本", $"Optical System Design {typeof(MarkdownReportExporter).Assembly.GetName().Version}"]]);
+            report.Paragraph(UiLocalization.Text("当前工程的系统概览、布局与所选光学分析。各图表和数据均来自导出开始时的同一工程快照。"), ReportTextStyle.Muted);
+            report.Heading(UiLocalization.Text("报告概览"), 2);
+            report.Table([UiLocalization.Text("报告信息"), UiLocalization.Text("内容")], [
+                [UiLocalization.Text("导出时间"), snapshot.CapturedAt.ToString("yyyy-MM-dd HH:mm:ss zzz", CultureInfo.InvariantCulture)],
+                [UiLocalization.Text("源文件"), source.Path ?? UiLocalization.Text("未保存工程")], [UiLocalization.Text("工程修订"), UiLocalization.Template($"{source.Revision}；包含未保存修改：{(source.IsDirty ? UiLocalization.Text("是") : UiLocalization.Text("否"))}")],
+                [UiLocalization.Text("配置范围"), string.Join("、", configurations.Select(value => (value + 1).ToString(CultureInfo.InvariantCulture)))],
+                [UiLocalization.Text("所选分析"), analyses.Length == 0 ? UiLocalization.Text("仅系统概览与所选布局") : string.Join("、", analyses.Select(key => UiLocalization.Text(WorkbenchAnalysisCatalog.DisplayName(key))))],
+                [UiLocalization.Text("执行概况"), UiLocalization.Template($"{succeeded} 项完成；{failed} 项失败或不适用")],
+                [UiLocalization.Text("软件版本"), $"Optical System Design {typeof(MarkdownReportExporter).Assembly.GetName().Version}"]]);
             report.Contents(text.Blocks.OfType<ReportHeading>());
             report.Append(text);
             var stagedReport = Path.Combine(stage, "report" + extension);
@@ -206,7 +211,7 @@ internal static class MarkdownReportExporter
             }
             File.Move(stagedReport, reportPath, overwrite: false);
             publishedReport = true;
-            progress?.Report(new(total, total, "导出完成"));
+            progress?.Report(new(total, total, UiLocalization.Text("导出完成")));
             return new(reportPath, succeeded, failed);
         }
         finally
@@ -223,14 +228,14 @@ internal static class MarkdownReportExporter
             text.Heading(title, 3);
             pdfSection = new(currentConfiguration, title);
             pdf.Sections.Add(pdfSection);
-            try { await action(); succeeded++; outcomes.Add([currentConfiguration.ToString(CultureInfo.InvariantCulture), title, "完成"]); }
+            try { await action(); succeeded++; outcomes.Add([currentConfiguration.ToString(CultureInfo.InvariantCulture), title, UiLocalization.Text("完成")]); }
             catch (OperationCanceledException) { throw; }
             catch (Exception error)
             {
                 failed++;
                 pdfSection.Failure = error.Message;
-                text.Paragraph($"未完成：{error.Message}", ReportTextStyle.Warning);
-                outcomes.Add([currentConfiguration.ToString(CultureInfo.InvariantCulture), title, "未完成：" + error.Message]);
+                text.Paragraph(UiLocalization.Template($"未完成：{error.Message}"), ReportTextStyle.Warning);
+                outcomes.Add([currentConfiguration.ToString(CultureInfo.InvariantCulture), title, UiLocalization.Text("未完成：") + error.Message]);
             }
             completed++;
             progress?.Report(new(completed, total, title));
@@ -238,9 +243,10 @@ internal static class MarkdownReportExporter
 
         async Task Images(ReportImageRequest request, string imageStem, DesignReportContent? destination = null)
         {
+            request = request with { Language = outputLanguage };
             request = request with { ForPrint = settings.Format == DesignReportFormat.Pdf, Landscape = pdfSection?.Landscape == true };
             var files = await writeImages(request, images, imageStem, cancellationToken).ConfigureAwait(false);
-            if (files.Count == 0) throw new InvalidOperationException("未生成截图。");
+            if (files.Count == 0) throw new InvalidOperationException(UiLocalization.Text("未生成截图。"));
             foreach (var file in files)
             {
                 pdfSection?.Images.Add(Path.GetFileName(file));
@@ -251,10 +257,10 @@ internal static class MarkdownReportExporter
 
     private static void AppendSystemSummary(DesignReportContent text, OpticalDocumentSnapshot document)
     {
-        text.Heading("系统参数", 3);
-        text.Table(["参数", "值"], [
+        text.Heading(UiLocalization.Text("系统参数"), 3);
+        text.Table([UiLocalization.Text("参数"), UiLocalization.Text("值")], [
             ["EFL / mm", Number(document.EffectiveFocalLength)], ["F/#", Number(document.FNumber)],
-            ["TTL / mm", Number(document.TotalTrack)], ["入瞳直径 / mm", Number(document.EntrancePupilDiameter)]]);
+            ["TTL / mm", Number(document.TotalTrack)], [UiLocalization.Text("入瞳直径 / mm"), Number(document.EntrancePupilDiameter)]]);
     }
 
     private static void AppendAnalysis(DesignReportContent text, DesignReportContent appendix, AnalysisViewDto view)
@@ -263,34 +269,34 @@ internal static class MarkdownReportExporter
         {
             if (table.Rows.Count > 80)
             {
-                text.Paragraph($"数值表节选：前 12 行，共 {table.Rows.Count} 行。完整数值表见附录。", ReportTextStyle.Muted);
-                text.Table(table.Columns.ToArray(), table.Rows.Take(12).Select(row => row.ToArray()));
+                text.Paragraph(UiLocalization.Template($"数值表节选：前 12 行，共 {table.Rows.Count} 行。完整数值表见附录。"), ReportTextStyle.Muted);
+                text.Table(table.Columns.Select(UiLocalization.Text).ToArray(), table.Rows.Take(12).Select(row => row.ToArray()));
             }
-            else text.Table(table.Columns.ToArray(), table.Rows.Select(row => row.ToArray()));
+            else text.Table(table.Columns.Select(UiLocalization.Text).ToArray(), table.Rows.Select(row => row.ToArray()));
             // The paper presentation may use a complete plot instead of its associated
             // sample table. Keep every original table in the records in all cases.
-            appendix.Table(table.Columns.ToArray(), table.Rows.Select(row => row.ToArray()),
+            appendix.Table(table.Columns.Select(UiLocalization.Text).ToArray(), table.Rows.Select(row => row.ToArray()),
                 view.PresentationKind is AnalysisPresentationKind.ZernikeFringe or AnalysisPresentationKind.ZernikeStandard or AnalysisPresentationKind.ZernikeAnnular ? 3 : -1);
         }
         else if (view.Rows.Count > 0)
         {
-            text.Table(["指标", "数值"], view.Rows.Take(8).Select(row => new[] { row.Metric, row.Value }));
+            text.Table([UiLocalization.Text("指标"), UiLocalization.Text("数值")], view.Rows.Take(8).Select(row => new[] { UiLocalization.AnalysisMetric(row.Metric), row.Value }));
             if (view.Rows.Count > 8)
             {
-                text.Paragraph($"正文显示前 8 项，共 {view.Rows.Count} 项。完整指标见附录。", ReportTextStyle.Muted);
+                text.Paragraph(UiLocalization.Template($"正文显示前 8 项，共 {view.Rows.Count} 项。完整指标见附录。"), ReportTextStyle.Muted);
             }
         }
         if (view.Rows.Count > 0)
-            appendix.Table(["指标", "数值"], view.Rows.Select(row => new[] { row.Metric, row.Value }));
+            appendix.Table([UiLocalization.Text("指标"), UiLocalization.Text("数值")], view.Rows.Select(row => new[] { UiLocalization.AnalysisMetric(row.Metric), row.Value }));
         if (!string.IsNullOrWhiteSpace(view.ReportText))
         {
-            appendix.Code(view.ReportText, "text");
+            appendix.Code(UiLocalization.AnalysisReport(view.ReportText), "text");
         }
     }
 
     internal static string Escape(string? value) => (value ?? "").Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;")
         .Replace("|", "&#124;").Replace("[", "&#91;").Replace("]", "&#93;").Replace("\r", "").Replace("\n", "<br>");
-    private static string Number(double value) => double.IsNaN(value) ? "不可用" : value.ToString("G12", CultureInfo.InvariantCulture);
+    private static string Number(double value) => double.IsNaN(value) ? UiLocalization.Text("不可用") : value.ToString("G12", CultureInfo.InvariantCulture);
 
     private static void RetireOwned(string path, string root)
     {

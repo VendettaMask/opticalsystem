@@ -142,6 +142,7 @@ public sealed partial class AnalysisPanel
             Classes = { ProductFonts.NumericClass },
             Text = text
         };
+        UiLocalization.BindLanguage(report, () => report.Text = UiLocalization.AnalysisReport(text));
         report.SetValue(ScrollViewer.HorizontalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
         report.SetValue(ScrollViewer.VerticalScrollBarVisibilityProperty, ScrollBarVisibility.Auto);
         return report;
@@ -676,7 +677,7 @@ public sealed partial class AnalysisPanel
         grid.Columns.Add(new DataGridTextColumn
         {
             Header = "指标",
-            Binding = new Binding(nameof(AnalysisRowDto.Metric)),
+            Binding = UiLocalization.TranslateBinding(new Binding(nameof(AnalysisRowDto.Metric)), analysisMetric: true),
             Width = new DataGridLength(180)
         });
         grid.Columns.Add(new DataGridTextColumn

@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using OpticalSystemDesign.Application.Contracts;
 using SkiaSharp;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Manufacturing;
 
@@ -48,12 +49,12 @@ internal static partial class OpticalDrawingRendererCore
             6.2f,
             SKTextAlign.Center,
             true);
-        DrawText(canvas, "设计", approvalX + 7, y + approvalRow + 13, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("设计"), approvalX + 7, y + approvalRow + 13, 6.4f, SKTextAlign.Left);
         DrawFittedText(canvas, sheet.Designer, approvalSplit + 5, y + approvalRow + 13, detailX - approvalSplit - 10, 6.4f, SKTextAlign.Left);
-        DrawText(canvas, "审核", approvalX + 7, y + (approvalRow * 2) + 13, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("审核"), approvalX + 7, y + (approvalRow * 2) + 13, 6.4f, SKTextAlign.Left);
         DrawFittedText(canvas, sheet.Reviewer, approvalSplit + 5, y + (approvalRow * 2) + 13, detailX - approvalSplit - 10, 6.4f, SKTextAlign.Left);
-        DrawText(canvas, "批准", approvalX + 7, y + (approvalRow * 3) + 13, 6.4f, SKTextAlign.Left);
-        DrawText(canvas, "投影：第一角法", approvalSplit + 5, y + (approvalRow * 3) + 13, 6.1f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("批准"), approvalX + 7, y + (approvalRow * 3) + 13, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("投影：第一角法"), approvalSplit + 5, y + (approvalRow * 3) + 13, 6.1f, SKTextAlign.Left);
 
         var titleRow = 27f;
         var numberRow = 24f;
@@ -62,8 +63,8 @@ internal static partial class OpticalDrawingRendererCore
         var revisionX = x + width - 45;
         canvas.DrawLine(revisionX, y, revisionX, y + titleRow + numberRow, thin);
         DrawFittedText(canvas, sheet.PartName, detailX + 8, y + 18, revisionX - detailX - 16, 10.5f, SKTextAlign.Left, true);
-        DrawText(canvas, $"版本 {sheet.Revision}", revisionX + 5, y + 17, 6.4f, SKTextAlign.Left);
-        DrawText(canvas, "图号", detailX + 7, y + titleRow + 15, 6.3f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Template($"版本 {sheet.Revision}"), revisionX + 5, y + 17, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("图号"), detailX + 7, y + titleRow + 15, 6.3f, SKTextAlign.Left);
         DrawFittedText(canvas, sheet.DrawingNumber, detailX + 48, y + titleRow + 17, revisionX - detailX - 54, 9.5f, SKTextAlign.Left, true);
         DrawText(canvas, sheet.PageSize == OpticalDrawingPageSize.A3 ? "A3" : "A4", revisionX + 15, y + titleRow + 17, 9, SKTextAlign.Center, true);
 
@@ -71,9 +72,9 @@ internal static partial class OpticalDrawingRendererCore
         var bottomWidth = detailWidth / 3;
         canvas.DrawLine(detailX + bottomWidth, bottomTop, detailX + bottomWidth, y + height, thin);
         canvas.DrawLine(detailX + (bottomWidth * 2), bottomTop, detailX + (bottomWidth * 2), y + height, thin);
-        DrawText(canvas, "尺寸：mm", detailX + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
-        DrawText(canvas, $"比例：{scaleDesignation}", detailX + bottomWidth + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
-        DrawText(canvas, "页码：1 / 1", detailX + (bottomWidth * 2) + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("尺寸：mm"), detailX + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Template($"比例：{scaleDesignation}"), detailX + bottomWidth + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("页码：1 / 1"), detailX + (bottomWidth * 2) + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
     }
     private static void DrawSystemTitleBlock(
         SKCanvas canvas,
@@ -117,12 +118,12 @@ internal static partial class OpticalDrawingRendererCore
             6.2f,
             SKTextAlign.Center,
             true);
-        DrawText(canvas, "\u8bbe\u8ba1", approvalX + 7, y + approvalRow + 13, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("\u8bbe\u8ba1"), approvalX + 7, y + approvalRow + 13, 6.4f, SKTextAlign.Left);
         DrawFittedText(canvas, sheet.Designer, approvalSplit + 5, y + approvalRow + 13, detailX - approvalSplit - 10, 6.4f, SKTextAlign.Left);
-        DrawText(canvas, "\u5ba1\u6838", approvalX + 7, y + (approvalRow * 2) + 13, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("\u5ba1\u6838"), approvalX + 7, y + (approvalRow * 2) + 13, 6.4f, SKTextAlign.Left);
         DrawFittedText(canvas, sheet.Reviewer, approvalSplit + 5, y + (approvalRow * 2) + 13, detailX - approvalSplit - 10, 6.4f, SKTextAlign.Left);
-        DrawText(canvas, "\u6279\u51c6", approvalX + 7, y + (approvalRow * 3) + 13, 6.4f, SKTextAlign.Left);
-        DrawText(canvas, "\u6295\u5f71\uff1a\u7b2c\u4e00\u89d2\u6cd5", approvalSplit + 5, y + (approvalRow * 3) + 13, 6.1f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("\u6279\u51c6"), approvalX + 7, y + (approvalRow * 3) + 13, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("\u6295\u5f71\uff1a\u7b2c\u4e00\u89d2\u6cd5"), approvalSplit + 5, y + (approvalRow * 3) + 13, 6.1f, SKTextAlign.Left);
 
         const float titleRow = 27;
         const float numberRow = 24;
@@ -131,8 +132,8 @@ internal static partial class OpticalDrawingRendererCore
         var revisionX = x + width - 45;
         canvas.DrawLine(revisionX, y, revisionX, y + titleRow + numberRow, thin);
         DrawFittedText(canvas, sheet.PartName, detailX + 8, y + 18, revisionX - detailX - 16, 10.5f, SKTextAlign.Left, true);
-        DrawText(canvas, $"\u7248\u672c {sheet.Revision}", revisionX + 5, y + 17, 6.4f, SKTextAlign.Left);
-        DrawText(canvas, "\u56fe\u53f7", detailX + 7, y + titleRow + 15, 6.3f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Template($"\u7248\u672c {sheet.Revision}"), revisionX + 5, y + 17, 6.4f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("\u56fe\u53f7"), detailX + 7, y + titleRow + 15, 6.3f, SKTextAlign.Left);
         DrawFittedText(canvas, sheet.DrawingNumber, detailX + 48, y + titleRow + 17, revisionX - detailX - 54, 9.5f, SKTextAlign.Left, true);
         DrawText(canvas, sheet.PageSize == OpticalDrawingPageSize.A3 ? "A3" : "A4", revisionX + 15, y + titleRow + 17, 9, SKTextAlign.Center, true);
 
@@ -140,9 +141,9 @@ internal static partial class OpticalDrawingRendererCore
         var bottomWidth = detailWidth / 3;
         canvas.DrawLine(detailX + bottomWidth, bottomTop, detailX + bottomWidth, y + height, thin);
         canvas.DrawLine(detailX + (bottomWidth * 2), bottomTop, detailX + (bottomWidth * 2), y + height, thin);
-        DrawText(canvas, "\u5c3a\u5bf8\uff1amm", detailX + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
-        DrawText(canvas, $"\u6bd4\u4f8b\uff1a{scaleDesignation}", detailX + bottomWidth + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
-        DrawText(canvas, "\u9875\u7801\uff1a1 / 1", detailX + (bottomWidth * 2) + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("\u5c3a\u5bf8\uff1amm"), detailX + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Template($"\u6bd4\u4f8b\uff1a{scaleDesignation}"), detailX + bottomWidth + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
+        DrawText(canvas, UiLocalization.Text("\u9875\u7801\uff1a1 / 1"), detailX + (bottomWidth * 2) + 7, bottomTop + 14, 6.5f, SKTextAlign.Left);
     }
 
 
