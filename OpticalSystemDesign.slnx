@@ -9,7 +9,9 @@
     <Project Path="tests/OpticalSystemDesign.ZemaxComparison.Tests/OpticalSystemDesign.ZemaxComparison.Tests.csproj" />
     <Project Path="tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj" />
   </Folder>
-  <Folder Name="/modules/">
+  <Folder Name="/labs/">
+    <Project Path="labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/OpticalSystemDesign.CameraImaging.Engine.csproj" />
+    <Project Path="labs/OpticalAssembly/src/OpticalSystemDesign.OpticalAssembly.Engine/OpticalSystemDesign.OpticalAssembly.Engine.csproj" />
     <Project Path="labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Contracts/OpticalSystemDesign.InitialStructure.Contracts.csproj" />
     <Project Path="labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/OpticalSystemDesign.InitialStructure.Engine.csproj" />
     <Project Path="labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Persistence/OpticalSystemDesign.InitialStructure.Persistence.csproj" />

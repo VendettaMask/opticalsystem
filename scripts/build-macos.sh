@@ -125,7 +125,7 @@ head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True
 dirty = bool(subprocess.check_output(['git', 'status', '--porcelain', '--untracked-files=normal'], cwd=root, text=True).strip())
 record = dict(Version=version, Runtime='osx-arm64', TestPackage=test=='true', SourceCommit=head,
               SourceDirty=dirty, ValidationHooks=False, Signed=False, MacCodeSignature='AdHoc', Notarized=False,
-              ModulesInProcess=True, RequiredModules=['InitialStructure','CoatingDesign'],
+              ModulesInProcess=True, RequiredModules=['InitialStructure','CoatingDesign','CameraImaging','OpticalAssembly'],
               ProductAppId='OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A',
               ReleaseId=f'{version}-osx-arm64-{uuid.uuid4().hex[:12]}',
               OtaBuildSequence=int(os.environ.get('GITHUB_RUN_ID', '0')),

@@ -35,11 +35,23 @@
         "resolved": "3.119.4",
         "contentHash": "XOpbx/4CReO2wYsq2s6rbvdauc6dntG4Zv499sHGTJ87bwZaFXszFkwql3+FIZMc8kUPeaj3Mx2ezIJmo8a1Kg=="
       },
+      "opticalsystemdesign.cameraimaging.engine": {
+        "type": "Project",
+        "dependencies": {
+          "OpticalSystemDesign.Core": "[1.0.4, )"
+        }
+      },
       "opticalsystemdesign.core": {
         "type": "Project",
         "dependencies": {
           "ILGPU": "[1.5.3, )",
           "ILGPU.Algorithms": "[1.5.3, )"
+        }
+      },
+      "opticalsystemdesign.opticalassembly.engine": {
+        "type": "Project",
+        "dependencies": {
+          "OpticalSystemDesign.Core": "[1.0.4, )"
         }
       }
     }

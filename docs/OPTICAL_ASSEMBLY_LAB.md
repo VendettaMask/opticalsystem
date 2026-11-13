@@ -32,7 +32,7 @@
 
 ## 计算依据和内核复用
 
-计算实现位于正式共享 Core 的 `Analysis/Assembly/AssemblyConjugates.cs`，实验室窗口只消费 Application DTO。所有曲面求交、光线传播、反射、折射、材料折射率均调用原有 `OpticalSurface.TraceRayValue`、交互模型和材料模型；没有复制 Snell 定律或建立实验室专用追迹器，没有 Python 产品依赖。
+共轭求解与叉丝回程计算由光学装调引擎负责，实验室窗口通过 Application 取得结果。曲面求交、光线传播、反射、折射和材料折射率沿用共享 Core 的 `OpticalSurface.TraceRayValue`、交互模型和材料模型。[装调引擎](../labs/OpticalAssembly/src/OpticalSystemDesign.OpticalAssembly.Engine)
 
 找像位置用共享真实光线内核的高度/角度小扰动求一阶共轭：顶点条件为目标面交点高度为零；球心条件为光线在目标球面法向入射。采用原步长、半步长、四分之一步长，两次 Richardson 外推去除探测光线的二阶步长误差，并检查两次结果收敛；先外推残差导数、再求位置，避免真实无穷远共轭被探测光线的球差误判为有限大数或失败。这是共享内核结果的数值求导，不是另一套光学近似追迹器。这个结果明确是近轴找像位置，不宣称是有限孔径下经过最佳焦面优化的位置。有限孔径、指定离焦的实际几何返回像由完整往返路径另行采样。
 

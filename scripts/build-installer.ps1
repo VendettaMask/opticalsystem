@@ -68,7 +68,8 @@ if ($signing) {
     foreach ($name in @('OpticalSystemDesign.App.exe', 'OpticalSystemDesign.App.dll',
         'OpticalSystemDesign.Application.dll', 'OpticalSystemDesign.Core.dll',
         'OpticalSystemDesign.InitialStructure.Contracts.dll', 'OpticalSystemDesign.InitialStructure.Engine.dll',
-        'OpticalSystemDesign.InitialStructure.Persistence.dll', 'OpticalSystemDesign.CoatingDesign.Engine.dll', 'OpticalSystemDesign.Modules.dll')) {
+        'OpticalSystemDesign.InitialStructure.Persistence.dll', 'OpticalSystemDesign.CoatingDesign.Engine.dll',
+        'OpticalSystemDesign.CameraImaging.Engine.dll', 'OpticalSystemDesign.OpticalAssembly.Engine.dll', 'OpticalSystemDesign.Modules.dll')) {
         Invoke-WindowsFileSigning -Configuration $signing -Path (Join-Path $package.Directory $name)
     }
 }
@@ -87,7 +88,7 @@ $metadata = [ordered]@{ FormatVersion = 1; ReleaseId = $releaseId; Version = $Ap
     OtaBuildSequence = [long]$env:GITHUB_RUN_ID;
     ProductAppId = $ProductAppId; SourceCommit = $head; SourceDirty = $dirty;
     Signed = [bool]$signing; TestPackage = [bool]$UnsignedTestPackage; ValidationHooks = [bool]$EnableValidationHooks;
-    RequiredModules = @('InitialStructure', 'CoatingDesign'); ModulesInProcess = $true;
+    RequiredModules = @('InitialStructure', 'CoatingDesign', 'CameraImaging', 'OpticalAssembly'); ModulesInProcess = $true;
     InstallerScriptSha256 = (Get-FileHash -LiteralPath (Join-Path $repositoryRoot 'packaging/windows/OpticalSystemDesign.iss')).Hash.ToLowerInvariant();
     RecoveryScriptSha256 = (Get-FileHash -LiteralPath (Join-Path $repositoryRoot 'packaging/windows/InstallationRecovery.iss')).Hash.ToLowerInvariant();
     InstallationPolicyScriptSha256 = (Get-FileHash -LiteralPath (Join-Path $repositoryRoot 'packaging/windows/InstallationPolicy.iss')).Hash.ToLowerInvariant();

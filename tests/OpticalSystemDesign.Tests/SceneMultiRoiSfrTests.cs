@@ -96,7 +96,7 @@ public sealed class SceneMultiRoiSfrTests
         var tilt = 5 * Math.PI / 180;
         var detectorEdge = new LinearSfrEdgeGeometry(255.1473, 423.5, -.0010580379060533289, -.504,
             Math.Cos(tilt), -Math.Sin(tilt), -5, 1, 1);
-        var reference = GeometricMtfAnalysis.EvaluateSceneEdge(optic, new(14, 14, 2000, 100_000),
+        var reference = SceneEdgeMtf.EvaluateSceneEdge(optic, new(14, 14, 2000, 100_000),
             [new(587.6, 1, 1, .1)], detectorEdge, 3, 1, pupilAxisSamples: 17);
 
         Assert.Equal(100_000, reference.Field.ObjectDistanceMillimeters);

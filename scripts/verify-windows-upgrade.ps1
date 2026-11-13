@@ -13,6 +13,12 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
 $metadata = Get-Content -Raw -LiteralPath $ReleaseMetadata | ConvertFrom-Json
+$moduleLibraries = @('InitialStructure.Contracts', 'InitialStructure.Engine', 'InitialStructure.Persistence', 'CoatingDesign.Engine', 'Modules')
+if ($metadata.PSObject.Properties.Name -contains 'RequiredModules') {
+    if ($metadata.RequiredModules -contains 'CameraImaging') { $moduleLibraries += 'CameraImaging.Engine' }
+    if ($metadata.RequiredModules -contains 'OpticalAssembly') { $moduleLibraries += 'OpticalAssembly.Engine' }
+}
+$expectedModuleLibraries = @($moduleLibraries | ForEach-Object { "OpticalSystemDesign.$_" } | Sort-Object) -join ','
 if (-not $metadata.TestPackage -or $metadata.ProductAppId -notlike 'OpticalSystemDesign-UpgradeValidation-*') {
     throw 'Validation requires an isolated unsigned test package. The production installation must never be used.'
 }
@@ -59,7 +65,8 @@ function Run-Product {
     if ($metadata.PSObject.Properties.Name -contains 'RequiredModules' -and
         $Executable.Contains([IO.Path]::DirectorySeparatorChar + $metadata.ReleaseId + [IO.Path]::DirectorySeparatorChar)) {
         Assert-Check "$Label-mandatory-modules" ($result.ModulesInProcess -and
-            ($result.Modules -join ',') -eq ($metadata.RequiredModules -join ',') -and $result.ModuleLibraries.Count -eq 5) $result.ModuleLibraries
+            ($result.Modules -join ',') -eq ($metadata.RequiredModules -join ',') -and
+            (@($result.ModuleLibraries | Sort-Object) -join ',') -eq $expectedModuleLibraries) $result.ModuleLibraries
         foreach ($library in $result.ModuleLibraries) {
             Assert-Check "$Label-$library-installed" (Test-Path -LiteralPath (Join-Path (Split-Path -Parent $Executable) ($library + '.dll'))) $library
         }
@@ -151,7 +158,7 @@ Assert-Check 'missing-payload-repaired' ((Run-Setup $SetupPath 'missing-payload'
 Assert-Check 'missing-file-restored-exactly' ((File-Hash $missingFile) -eq $missingHash) $missingHash
 
 if ($metadata.PSObject.Properties.Name -contains 'RequiredModules') {
-    foreach ($module in @('InitialStructure.Contracts', 'InitialStructure.Engine', 'InitialStructure.Persistence', 'CoatingDesign.Engine', 'Modules')) {
+    foreach ($module in $moduleLibraries) {
         $moduleFile = [IO.Path]::GetFullPath((Join-Path (Split-Path -Parent $currentExe) "OpticalSystemDesign.$module.dll"))
         if (-not $moduleFile.StartsWith($install + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Invalid test-owned module target.' }
         $moduleHash = File-Hash $moduleFile

@@ -17,7 +17,7 @@
 | 传播 | `Propagation` | 均匀介质、旧入口方向近似及 Gradient 1～5 连续积分；正式顺序显式光线、限定共轴连续一阶与瞄准、桌面材料编辑和受支持系数变量已接入。完整分析/偏振覆盖及原生 GRIN 映射仍不完整，见 [编辑与限制](GRIN_MATERIAL_EDITOR_2026-10-04.md) |
 | 镀膜/散射 | `Coatings`、`Scattering`、`NonSequential` | 旧 Experimental 经验损耗与物理薄膜、正式 BSDF 分开。NSC 已有 Lambertian/实测 BRDF/BTDF 的 Evaluate、Sample、Pdf、固定材料轴及多次方向散射；Speos/Zemax 格式与 XYZ 校准仅限各自声明版本、条件和支持域，见 [NSC 指南](NON_SEQUENTIAL_TRACING.md) |
 | 真实薄膜与内置镀膜模块 | `CoherentThinFilmSolver`、`ThinFilmSpectrum`、`labs/CoatingDesign` | 同进程必装；真实 n/k、角度/S/P/R/T/A、模板、有限结构搜索、公差、实验回读及四类面板停靠。全板显示已计基板吸收、裸背面和非相干内反射，前面设计验收保持独立。物理膜层接入正式追迹；实验显式应用到当前镜头的 UI、任意目标解析综合及各向异性仍未完成。见 [计算契约](COATING_DESIGN_LAB.md) |
-| 相机与 SFR | `Analysis/Imaging`、相机应用服务 | 三维直射/有界标量衍射及 NSC 功率进入传感器/RAW/ISP，冻结 A/B、分级采样和回放；局部单色/镜头多波长斜边与完整瞳孔对照另有原协议。[物方棋盘](SCENE_SLANTED_EDGE_SFR.md)支持预算内完整传感器逐源谱、浮点/Gray16 和原图多 ROI 水平/竖直斜边、质量/法线与回放，不经过 QE/ISP。原例完整幅面、独立工具、正式对照及 ROM/黑盒仍按[独立计划](ANSYS_SCENE_SFR_IMPLEMENTATION_PLAN_2026-11-02.md)验收 |
+| 相机与 SFR | `labs/CameraImaging`、相机应用服务 | 三维直射/有界标量衍射及 NSC 功率进入传感器/RAW/ISP，冻结 A/B、分级采样和回放；局部单色/镜头多波长斜边与完整瞳孔对照另有原协议。[物方棋盘](SCENE_SLANTED_EDGE_SFR.md)支持预算内完整传感器逐源谱、浮点/Gray16 和原图多 ROI 水平/竖直斜边、质量/法线与回放，不经过 QE/ISP。原例完整幅面、独立工具、正式对照及 ROM/黑盒仍按[独立计划](ANSYS_SCENE_SFR_IMPLEMENTATION_PLAN_2026-11-02.md)验收 |
 | 初始结构 | 内置模块、共享 Core | 托管 AutoLens、自主拓扑、一阶准备、兼容镜头检索、受约束补偿、SPC 单层分支/自动准备、自主胶合调度、检查点/方案库/报告已接入。自动口径、递归 SPC、条件生成及更广结构支持仍开放，见 [当前范围](INITIAL_STRUCTURE_LAB_PLAN.md) |
 | 分析 | `Analysis` | Core 规范目录、Workbench 单一描述符和按顺序/非序列模式隔离的两套入口；独立畸变入口已合并到场曲/畸变，旧离焦 MTF 名称统一到 Fourier 入口，报告菜单含 5 个真实入口；目录以 `AnalysisCatalog.Names` 为准 |
 | 优化 | `Optimization` | 变量、操作数、缩放和五种按真实实现命名的本地搜索；未实现的 BFGS、L-BFGS-B、COBYLA、DE/CMA-ES、信赖域 LM 和 Glass Expert 明确返回不支持，不映射为别的算法。ZMX 评价函数可保留受支持的行与原始参数；执行数量、模式、原生列和数值认证缺口只在 [操作数规范](ZEMAX_OPERAND_SUPPORT.md) 维护，兼容保留不等于完整数值支持 |

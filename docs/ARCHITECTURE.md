@@ -147,11 +147,24 @@ MainWindow
 
 会话保存 Dock 图、文档描述符、分析设置、实例 ID、活动文档、锁定状态和浮动边界，不保存大型计算结果。布局修改经 500 ms 防抖保存并在退出时刷新。损坏会话会备份并回退；未知分析会跳过；空浮动窗口会过滤。
 
-## 光学镀膜设计实验室
+## 内置实验室
+
+「实验室」菜单下的四项功能在主程序进程内运行，随同一个安装包交付。各实验室的专用计算引擎位于 `labs/<模块>/src`。
+
+| 实验室 | 目录 | 专用计算 |
+| --- | --- | --- |
+| AI 初始结构 | [`labs/InitialStructure`](../labs/InitialStructure) | 初始结构生成、搜索与筛选 |
+| 光学镀膜设计 | [`labs/CoatingDesign`](../labs/CoatingDesign) | 膜系设计、优化与目标判定 |
+| 相机成像仿真 | [`labs/CameraImaging`](../labs/CameraImaging) | 相机场景渲染、传感器响应与标定、RAW/ISP、斜边 SFR |
+| 光学装调 | [`labs/OpticalAssembly`](../labs/OpticalAssembly) | 装调共轭、找像与叉丝回程仿真 |
+
+共享的曲面求交、光线追迹、材料、薄膜物理和衍射计算由 `src/OpticalSystemDesign.Core` 提供。Application 与 Modules 负责工作区快照、应用服务和显示数据映射。实验室窗口位于 `src/OpticalSystemDesign.App/Laboratories`。跨层集成测试在主测试工程运行，初始结构和镀膜另有各自的领域测试项目。
+
+### 光学镀膜设计
 
 `labs/CoatingDesign` 保存内部 Engine 和测试，`.coating.json` schema 1 仍是模块自己的实验格式。UI 已移入 `src/OpticalSystemDesign.App/Laboratories/CoatingDesign`，由 `IntegratedLaboratories` 创建同进程、受主窗口管理的窗口；不存在外部启动器或独立 App。主程序引用 Modules 和必要领域库，App 本身仍不直接引用 Core。Engine 复用 Core 的材料、薄膜求解、优化器、取消、公差与原子文件；Modules 通过规范映射输出显示 DTO，UI 直接共享主程序主题和字体。模板、残差、候选、采样收敛和目标判定属于流程层，不产生第二套光学实现。
 
-后台深拷贝输入，按实验 ID 与代次提交；输入失效、取消、切换实验使旧回调无效。保存结果核对输入哈希，打开用冻结材料复算。主程序关闭统一协调取消、等待和未保存确认。两个模块拥有各自编辑状态和测试集，但构成一个必装产品。已实现能力与真实未达标示例见[镀膜计算契约](COATING_DESIGN_LAB.md)，最新工程验收见[统一交付](BUILT_IN_MODULES_2026-10-13.md)；早期数值资料见[历史验收](../validation/coating/README.md)。
+后台深拷贝输入，按实验 ID 与代次提交。输入失效、取消和切换实验会使旧回调失效。保存结果核对输入哈希，打开用冻结材料复算。主程序关闭统一协调取消、等待和未保存确认。[镀膜计算契约](COATING_DESIGN_LAB.md) · [初始结构与镀膜统一交付记录](BUILT_IN_MODULES_2026-10-13.md) · [早期数值验收](../validation/coating/README.md)
 
 2026-10-02：`ZernikeMetrics` 在正式 Core 汇总共享 OPD、Fringe/Standard/Annular 拟合与原始样本统计；操作数与分析报告共用，不在应用层复制波前计算。Noll 编号和稳定环形递推的适用范围及验证见[第二十四批](ZEMAX_OPERAND_SUPPORT.md#2026-10-02-第二十四批-zern-与共享拟合修正部分完成)。
 

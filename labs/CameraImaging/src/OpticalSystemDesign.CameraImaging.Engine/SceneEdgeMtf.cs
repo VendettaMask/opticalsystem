@@ -16,7 +16,7 @@ public sealed record SceneEdgeMtfField(double ObjectXMillimeters, double ObjectY
 public sealed record SceneEdgeMtfReference(SceneEdgeMtfField Field, int PupilAxisSamples, int LaunchedRays,
     int AcceptedRays, IReadOnlyList<SfrSample> Optical, IReadOnlyList<SfrSample> WithPixelAperture);
 
-public sealed partial class GeometricMtfAnalysis
+public static class SceneEdgeMtf
 {
     public const string SceneEdgeAlgorithm = "GeometricMtfSceneEdge/1; continuous finite entrance-pupil chief-ray field; projected geometric OTF; diffraction off; square active area";
 
@@ -123,7 +123,7 @@ public sealed partial class GeometricMtfAnalysis
             var intensities = wave.Rays.Select(r => r.Intensity).ToArray();
             // Keep lateral-colour phase at the same object point. Weight the DC by source contrast and traced throughput.
             var weight = wave.Wavelength.Weight * intensities.Sum();
-            var response = ComputeOtf(projected, intensities, frequency, noDiffraction);
+            var response = GeometricMtfAnalysis.ComputeOtf(projected, intensities, frequency, noDiffraction);
             for (var i = 0; i < otf.Length; i++) otf[i] += weight * response[i];
             dc += weight;
         }

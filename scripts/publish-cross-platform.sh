@@ -20,7 +20,7 @@ for runtime in win-x64 win-arm64; do
     --self-contained "$SELF_CONTAINED"
 
   publish_root="src/OpticalSystemDesign.App/bin/$CONFIGURATION/net10.0/$runtime/publish"
-  for module in InitialStructure.Contracts InitialStructure.Engine InitialStructure.Persistence CoatingDesign.Engine Modules; do
+  for module in InitialStructure.Contracts InitialStructure.Engine InitialStructure.Persistence CoatingDesign.Engine CameraImaging.Engine OpticalAssembly.Engine Modules; do
     test -s "$publish_root/OpticalSystemDesign.$module.dll" || {
       echo "Required built-in module missing: $module" >&2
       exit 1

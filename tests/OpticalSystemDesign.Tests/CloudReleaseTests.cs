@@ -326,7 +326,7 @@ public sealed class CloudReleaseTests
                 ["ValidationHooks"] = false,
                 ["Signed"] = false,
                 ["ModulesInProcess"] = true,
-                ["RequiredModules"] = new[] { "InitialStructure", "CoatingDesign" },
+                ["RequiredModules"] = new[] { "InitialStructure", "CoatingDesign", "CameraImaging", "OpticalAssembly" },
                 ["ProductAppId"] = "OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A",
                 ["SourceCommit"] = new string('a', 40),
                 ["ReleaseId"] = $"{Version}-win-x64-0123456789ab"

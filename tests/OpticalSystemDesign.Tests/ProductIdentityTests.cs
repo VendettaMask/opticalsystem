@@ -12,7 +12,8 @@ public sealed class ProductIdentityTests
     public void ProductCodeBuildAndLaunchInputsDoNotUseTheRetiredBrand()
     {
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
-        var roots = new[] { "src", "labs/InitialStructure/src", "labs/CoatingDesign/src", "packaging", "scripts", ".github" };
+        var roots = new[] { "src", "labs/InitialStructure/src", "labs/CoatingDesign/src", "labs/CameraImaging/src",
+            "labs/OpticalAssembly/src", "packaging", "scripts", ".github" };
         var inputs = roots.SelectMany(directory => EvidenceFiles.EnumerateFiles(Path.Combine(root, directory), "*", SearchOption.AllDirectories))
             .Concat(EvidenceFiles.EnumerateFiles(root))
             .Where(path => !path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Any(part => part is "bin" or "obj"))
@@ -41,7 +42,7 @@ public sealed class ProductIdentityTests
         }
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
         var solution = XDocument.Load(Path.Combine(root, "OpticalSystemDesign.slnx"));
-        Assert.Equal(19, solution.Descendants("Project").Count());
+        Assert.Equal(22, solution.Descendants("Project").Count());
         Assert.All(solution.Descendants("Project"), project => Assert.True(EvidenceFiles.Exists(
             Path.Combine(root, project.Attribute("Path")!.Value))));
     }

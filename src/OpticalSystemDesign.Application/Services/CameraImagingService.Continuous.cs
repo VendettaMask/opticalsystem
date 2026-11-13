@@ -1,6 +1,4 @@
 using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Core;
-using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Analysis.Imaging;
 
 namespace OpticalSystemDesign.Application.Services;
@@ -51,33 +49,4 @@ internal sealed partial class CameraImagingService
         Array.AsReadOnly(plan.Nodes.Select(n => new CameraIntegrationNode(n.WavelengthNanometers, n.WeightNanometers,
             n.IrradianceWattsPerSquareMeterPerNanometer, n.Reflectance, n.RedQe, n.GreenQe, n.BlueQe)).ToArray()),
         plan.IlluminantIrradiance, plan.ReflectedIrradiance, PixelSamplesPerAxis: samplesPerAxis);
-
-    private static (RgbImage Image, string Mode, int Fallbacks) Propagate(Optic optic, RgbImage source,
-        CameraImagingRequest request, CameraSensorSettings sensor, IReadOnlyList<double> wavelengths, int samplesPerAxis = 1)
-    {
-        var image = ImageSimulationEngine.Simulate(optic, source, new ImageSimulationConfig
-        {
-            ImageWidth = request.Width,
-            ImageHeight = request.Height,
-            OutputWidth = request.Width + 16 * samplesPerAxis,
-            OutputHeight = request.Height + 16 * samplesPerAxis,
-            PixelSizeMillimeters = sensor.PixelPitchMicrometers * .001,
-            FieldHeight = request.Height * sensor.PixelPitchMicrometers * .001,
-            Padding = 8 * samplesPerAxis,
-            PsfSize = 16 * samplesPerAxis,
-            PsfGridColumns = 3,
-            PsfGridRows = 3,
-            NumRays = 12,
-            Components = 3,
-            DistortionGridSize = 5,
-            DistortionPolynomialDegree = 3,
-            WavelengthsMicrometers = wavelengths.Select(w => w / 1000).ToArray(),
-            AberrationMode = request.Aberration.ToString(),
-            UseRelativeIllumination = true
-        });
-        var active = new double[wavelengths.Count, request.Height, request.Width];
-        for (var c = 0; c < wavelengths.Count; c++) for (var y = 0; y < request.Height; y++) for (var x = 0; x < request.Width; x++)
-            active[c, y, x] = image.Simulated[c, y + 8 * samplesPerAxis, x + 8 * samplesPerAxis];
-        return (new(active), image.EffectiveAberrationMode, image.GeometricFallbackCount);
-    }
 }

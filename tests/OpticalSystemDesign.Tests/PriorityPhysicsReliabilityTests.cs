@@ -1,6 +1,7 @@
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis.Imaging;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Coordinates;
 using OpticalSystemDesign.Core.Interactions;
@@ -15,12 +16,12 @@ namespace OpticalSystemDesign.Tests;
 public sealed class PriorityPhysicsReliabilityTests
 {
     [Theory]
-    [InlineData(32, 16, .08)]
-    [InlineData(16, 32, .16)]
-    public void RectangularSensorUsesItsVerticalPhysicalHalfExtent(int width, int height, double expected)
+    [InlineData(16, .08)]
+    [InlineData(32, .16)]
+    public void SensorFieldUsesItsVerticalPhysicalHalfExtent(int height, double expected)
     {
         var optic = Optic.CreateCookeTriplet();
-        CameraImagingService.ConfigureSensorField(optic, new CameraImagingRequest(Width: width, Height: height), 10);
+        CameraImageOptics.ConfigureSensorField(optic, height, 10);
         Assert.Equal(expected, Assert.Single(optic.Fields).Y, 12);
     }
 

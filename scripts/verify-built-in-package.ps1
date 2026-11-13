@@ -47,8 +47,8 @@ $report = Join-Path $output 'native-product.json'
 $process = Start-Process -FilePath $exe -ArgumentList @('--verify-installation', ('"{0}"' -f $report)) -WorkingDirectory $output -WindowStyle Hidden -Wait -PassThru
 Assert-Check 'self-contained-executable' ($process.ExitCode -eq 0 -and (Test-Path -LiteralPath $report)) $process.ExitCode
 $native = Get-Content -LiteralPath $report -Raw | ConvertFrom-Json
-Assert-Check 'both-modules-in-main-process' ($native.Success -and $native.ModulesInProcess -and
-    ($native.Modules -join ',') -eq 'InitialStructure,CoatingDesign' -and $native.ModuleLibraries.Count -eq 5 -and -not $native.UserDataWritten) $native
+Assert-Check 'laboratories-in-main-process' ($native.Success -and $native.ModulesInProcess -and
+    ($native.Modules -join ',') -eq 'InitialStructure,CoatingDesign,CameraImaging,OpticalAssembly' -and $native.ModuleLibraries.Count -eq 7 -and -not $native.UserDataWritten) $native
 
 foreach ($library in $native.ModuleLibraries) {
     $path = [IO.Path]::GetFullPath((Join-Path $copy ($library + '.dll')))

@@ -67,11 +67,11 @@
 
 | 能力 | 可复用实现 | 新流程缺口 |
 | --- | --- | --- |
-| 物理场景与逆向几何成像 | [DirectCameraScene](../src/OpticalSystemDesign.Core/Analysis/Imaging/DirectCameraScene.cs)、[DirectCameraRenderer](../src/OpticalSystemDesign.Core/Analysis/Imaging/DirectCameraRenderer.cs) | 接入标准靶标、相机姿态和批量实验；补齐适用范围检查 |
-| 棋盘与发光面 | [EmissiveCheckerboard](../src/OpticalSystemDesign.Core/Analysis/Imaging/EmissiveCheckerboard.cs) 已在一张实际表面上分区发光，旧反射棋盘保持身份 | 原例姿态、源光谱/单位与相机条件的完整核对及验收继续开放，不能再把分区发光列为未实现 |
-| 逐波段功率 | [SpectralDetectorPower](../src/OpticalSystemDesign.Core/Analysis/Imaging/SpectralDetectorPower.cs) 与 M2 出口保留完整 W/pixel、W/m²、共用标尺 Gray16，不经过电子/显示处理 | 原例完整幅面的预算继续开放 |
+| 物理场景与逆向几何成像 | [DirectCameraScene](../labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/DirectCameraScene.cs)、[DirectCameraRenderer](../labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/DirectCameraRenderer.cs) | 接入标准靶标、相机姿态和批量实验；补齐适用范围检查 |
+| 棋盘与发光面 | [EmissiveCheckerboard](../labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/EmissiveCheckerboard.cs) 已在一张实际表面上分区发光，旧反射棋盘保持身份 | 原例姿态、源光谱/单位与相机条件的完整核对及验收继续开放，不能再把分区发光列为未实现 |
+| 逐波段功率 | [SpectralDetectorPower](../labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/SpectralDetectorPower.cs) 与 M2 出口保留完整 W/pixel、W/m²、共用标尺 Gray16，不经过电子/显示处理 | 原例完整幅面的预算继续开放 |
 | 场景服务 | [SceneSfr](../src/OpticalSystemDesign.Application/Services/CameraImagingService.SceneSfr.cs) 与独立全幅批次支持冻结镜头、逐波长/有限源谱、全局预算及回放；旧 Scene3D 链保持原协议 | 原例完整幅面、原场景/源单位与几何适用性仍开放 |
-| 场景衍射 | [DiffractionCameraRenderer](../src/OpticalSystemDesign.Core/Analysis/Imaging/DiffractionCameraRenderer.cs) | 独立完成衍射模式验证，不能当作原文几何基线的替代 |
+| 场景衍射 | [DiffractionCameraRenderer](../labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/DiffractionCameraRenderer.cs) | 独立完成衍射模式验证，不能当作原文几何基线的替代 |
 | SFR 计算 | 原始浮点全幅图上的本机多 ROI、近竖直/近水平、独立质量结果及实测法线已接入，不用靶标或参考拟合图像 | 独立工具逐 ROI 比较、曲边扩展与原文测量验收仍开放 |
 | 光学参考 | 正式几何、FFT、Huygens MTF 分析 | 建立 ROI 像面位置到视场和实际测量方向的对应 |
 | 保存与重放 | `.scene-sfr.zip`、`.scene-linear.zip` 与伴随 `.scene-sfr-rois.json` 分别保留单 ROI、逐源谱完整像元、多 ROI 成功/失败与原图重测；旧协议不升级 | 完整原例相机、ROM 和独立比较记录仍待后续 |

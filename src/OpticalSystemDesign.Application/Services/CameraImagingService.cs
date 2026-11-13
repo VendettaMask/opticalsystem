@@ -7,7 +7,6 @@ using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Analysis.Imaging;
-using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Serialization;
@@ -132,13 +131,13 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
                 var encoded = imageBytes is not null
                     ? ImageFileLoader.LoadRgb(imageBytes)
                     : ImageSimulationEngine.CreateSourceImage((ImageSimulationSourcePattern)request.Source, sampleRequest.Width, sampleRequest.Height);
-                var source = ResizeLinear(encoded, sampleRequest.Width, sampleRequest.Height, samplesPerAxis > 1);
+                var source = CameraImageOptics.ResizeLinear(encoded, sampleRequest.Width, sampleRequest.Height, samplesPerAxis > 1);
                 var optical = source; var opticalMode = "Ideal optical control"; var fallbacks = 0;
                 if (optic is not null)
                 {
                     if (optic.SurfaceGroup.Items.Count < 4) throw new InvalidOperationException("请先打开有效顺序镜头，或使用理想光学对照。");
                     // Set an image-plane sampling field on the independent snapshot, in the actual sensor dimensions.
-                    ConfigureSensorField(optic, request, sensor.PixelPitchMicrometers);
+                    CameraImageOptics.ConfigureSensorField(optic, request.Height, sensor.PixelPitchMicrometers);
                 }
                 CameraSensorResult sensorResult;
                 if (plan is not null)
@@ -146,7 +145,8 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
                     var modes = new HashSet<string>();
                     Func<RgbImage, double, RgbImage>? propagation = optic is null ? null : (mask, wavelength) =>
                     {
-                        var image = Propagate(optic, mask, sampleRequest, opticalSensor, new[] { wavelength }, samplesPerAxis);
+                        var image = CameraImageOptics.Propagate(optic, mask, sampleRequest.Width, sampleRequest.Height,
+                            opticalSensor.PixelPitchMicrometers, request.Aberration.ToString(), new[] { wavelength }, samplesPerAxis);
                         modes.Add(image.Mode); fallbacks += image.Fallbacks; return image.Image;
                     };
                     var integrated = materialPlan is null ? CameraContinuousSpectrum.Integrate(source, sensor, plan, propagation, pixelSampling)
@@ -159,7 +159,8 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
                 {
                     if (optic is not null)
                     {
-                        var image = Propagate(optic, source, sampleRequest, opticalSensor, CameraSensorPipeline.BandWavelengthsNanometers, samplesPerAxis);
+                        var image = CameraImageOptics.Propagate(optic, source, sampleRequest.Width, sampleRequest.Height,
+                            opticalSensor.PixelPitchMicrometers, request.Aberration.ToString(), CameraSensorPipeline.BandWavelengthsNanometers, samplesPerAxis);
                         optical = image.Image; opticalMode = image.Mode; fallbacks = image.Fallbacks;
                     }
                     sensorResult = CameraSensorPipeline.Simulate(optical, sensor, isp, ToCore(request.SpectralResponse), pixelSampling);
@@ -178,13 +179,6 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
                         + PixelScope(pixelSampling),
                     materialPlan is not null ? Diagnostics(request.MaterialScene!, materialPlan, materialSampling!, samplesPerAxis) : plan is null ? null : Diagnostics(plan, samplesPerAxis), captured);
             }, linked.Token).ConfigureAwait(false);
-    }
-
-    internal static void ConfigureSensorField(Optic optic, CameraImagingRequest request, double pixelPitchMicrometers)
-    {
-        optic.FieldDefinition = FieldDefinitionKind.ParaxialImageHeight;
-        optic.Fields.Clear();
-        optic.Fields.Add(new FieldPoint { Y = request.Height * pixelPitchMicrometers * 0.001 / 2 });
     }
 
     public Task ExportAsync(CameraImagingResult result, string path, CameraImagingResult? comparison = null,
@@ -352,30 +346,6 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
     private static string PixelScope(CameraPixelSampling? p) => p is null || p.SamplesPerAxis == 1
         ? " Detector: legacy pixel-center sampling."
         : FormattableString.Invariant($" Detector: {p.SamplesPerAxis}x{p.SamplesPerAxis} optical cells/pixel; centered square active area, fill factor {p.FillFactor:G17}; overlap-weighted midpoint irradiance quadrature before CFA/noise; QE refers to {(p.QeIncludesFillFactor ? "whole-pixel area (no repeated fill-factor loss)" : "active area (charge multiplied by fill factor)")}. Finite sampling, not a convergence certificate.");
-
-    private static RgbImage ResizeLinear(RgbImage source, int width, int height, bool cellCenters = false)
-    {
-        var result = new double[3, height, width];
-        for (var y = 0; y < height; y++)
-        {
-            ComputationCancellation.ThrowIfCancellationRequested();
-            var sy = cellCenters ? Math.Clamp((y + .5) * source.Height / height - .5, 0, source.Height - 1)
-                : (double)y * (source.Height - 1) / (height - 1); var y0 = (int)sy; var y1 = Math.Min(y0 + 1, source.Height - 1);
-            for (var x = 0; x < width; x++)
-            {
-                var sx = cellCenters ? Math.Clamp((x + .5) * source.Width / width - .5, 0, source.Width - 1)
-                    : (double)x * (source.Width - 1) / (width - 1); var x0 = (int)sx; var x1 = Math.Min(x0 + 1, source.Width - 1);
-                for (var c = 0; c < 3; c++)
-                {
-                    var top = Linear(y0, x0) * (1 - sx + x0) + Linear(y0, x1) * (sx - x0);
-                    var bottom = Linear(y1, x0) * (1 - sx + x0) + Linear(y1, x1) * (sx - x0);
-                    result[c, y, x] = top * (1 - sy + y0) + bottom * (sy - y0);
-                    double Linear(int yy, int xx) => CameraSensorPipeline.SrgbToLinear(source[c, yy, xx]);
-                }
-            }
-        }
-        return new(result);
-    }
 
     private static CameraImage Display(RgbImage image, bool opticalPreview = false)
     {

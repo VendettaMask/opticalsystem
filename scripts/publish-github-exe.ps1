@@ -35,7 +35,7 @@ $packages = @($files | ForEach-Object {
         $record.Signed -isnot [bool] -or $record.Signed -or
         $record.ModulesInProcess -isnot [bool] -or -not $record.ModulesInProcess -or
         $record.ProductAppId -cne 'OpticalSystemDesign-8D387EA8-F349-447F-B5D3-B58E27F46D4A' -or
-        (@($record.RequiredModules | Sort-Object) -join ',') -cne 'CoatingDesign,InitialStructure' -or
+        (@($record.RequiredModules | Sort-Object) -join ',') -cne 'CameraImaging,CoatingDesign,InitialStructure,OpticalAssembly' -or
         $record.SourceCommit -cnotmatch '^[0-9a-f]{40}$' -or
         $record.ReleaseId -cnotmatch ('^' + [regex]::Escape("$version-$runtime-") + '[0-9a-f]{12}$')) {
         throw "Invalid build identity: $runtime"

@@ -149,7 +149,7 @@ STAROPT 容器版本、工程负载版本、Optic 快照版本是不同概念。
 
 ## 9. 初始结构实验室
 
-光学装调实验室另走主程序内独立窗口：`MainWindow.OpticalAssembly.cs` → `Laboratories/OpticalAssemblyWindow.cs` → Application 的 `OpticalAssemblyService` → 正式 Core 的 `Analysis/Assembly/AssemblyConjugates.cs`。Core 复用既有 `OpticalSurface.TraceRayValue` 和薄透镜交互模型，窗口使用 DTO；`AssemblyReticleView` 只渲染固定毫米坐标的光线计数网格。`AssemblyMeasurementMode` / Core `AssemblyProbeMode` 显式区分附加物镜与无穷远配置；无穷远模式不创建附加物镜，结果分别携带自准直仪位置、可空的附加物镜位置和共轭匹配状态。找像由共享内核残差导数外推求解。功能边界和测试见 [光学装调实验室](OPTICAL_ASSEMBLY_LAB.md)。
+光学装调实验室另走主程序内独立窗口：`MainWindow.OpticalAssembly.cs` → `Laboratories/OpticalAssemblyWindow.cs` → Application 的 `OpticalAssemblyService` → `labs/OpticalAssembly` 的 `AssemblyConjugates`。装调引擎复用既有 `OpticalSurface.TraceRayValue` 和薄透镜交互模型，窗口使用 DTO；`AssemblyReticleView` 只渲染固定毫米坐标的光线计数网格。`AssemblyMeasurementMode` / Core `AssemblyProbeMode` 显式区分附加物镜与无穷远配置；无穷远模式不创建附加物镜，结果分别携带自准直仪位置、可空的附加物镜位置和共轭匹配状态。找像由共享内核残差导数外推求解。功能边界和测试见 [光学装调实验室](OPTICAL_ASSEMBLY_LAB.md)。
 
 当前桌面入口在 `Laboratories/InitialStructure/MainWindow.Workflow.cs`：预检查、生成、恢复和追加细化统一调用 `FlatStartSearchService`。形式枚举、v19 渐进恢复、预算和完整目标验收位于内部 Engine；`FlatStartSearchCheckpointStore` 保存有界、带校验的 family checkpoint。当前源文件定位可运行：
 

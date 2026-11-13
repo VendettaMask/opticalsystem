@@ -178,7 +178,8 @@ public sealed class ProductDependencyArchitectureTests
 
     private static IEnumerable<string> ProductSourceRoots(string root) =>
         new[] { Path.Combine(root, "src"), Path.Combine(root, "labs", "InitialStructure", "src"),
-            Path.Combine(root, "labs", "CoatingDesign", "src") };
+            Path.Combine(root, "labs", "CoatingDesign", "src"), Path.Combine(root, "labs", "CameraImaging", "src"),
+            Path.Combine(root, "labs", "OpticalAssembly", "src") };
 
     internal static string RepositoryRoot()
     {

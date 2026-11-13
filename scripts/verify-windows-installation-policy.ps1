@@ -76,7 +76,8 @@ $payload = Join-Path $output 'fixture payload'
 [void][IO.Directory]::CreateDirectory((Join-Path $payload 'Assets\Brand'))
 foreach ($name in @('OpticalSystemDesign.App.exe', 'OpticalSystemDesign.Application.dll', 'README.txt',
     'OpticalSystemDesign.InitialStructure.Contracts.dll', 'OpticalSystemDesign.InitialStructure.Engine.dll',
-    'OpticalSystemDesign.InitialStructure.Persistence.dll', 'OpticalSystemDesign.CoatingDesign.Engine.dll', 'OpticalSystemDesign.Modules.dll')) {
+    'OpticalSystemDesign.InitialStructure.Persistence.dll', 'OpticalSystemDesign.CoatingDesign.Engine.dll',
+    'OpticalSystemDesign.CameraImaging.Engine.dll', 'OpticalSystemDesign.OpticalAssembly.Engine.dll', 'OpticalSystemDesign.Modules.dll')) {
     [IO.File]::WriteAllText((Join-Path $payload $name), "Non-launchable isolated setup-policy fixture: $name", [Text.UTF8Encoding]::new($false))
 }
 Copy-Item -LiteralPath (Join-Path $repositoryRoot 'src\OpticalSystemDesign.App\Assets\Brand\AppIcon.ico') -Destination (Join-Path $payload 'Assets\Brand\AppIcon.ico')

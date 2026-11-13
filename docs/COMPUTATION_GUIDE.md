@@ -36,7 +36,7 @@
 | 相机 | 光学像按像元面积、曝光、波长和绝对 QE 转为光电子，再经噪声、满阱、ADC 与 ISP。RGB 不是实测光谱，连续模式积分输入光谱。 | [相机](CAMERA_IMAGING_LAB.md) |
 | 初始结构 | 托管 AutoLens 的 Adam/专用训练损失与通用 RMS 分开；自主拓扑、检索迁移、SPC/胶合调度采用各自协议并共享 Core。候选仍须原规格独立验收，实际设备、回退和预算单列。 | [当前范围](INITIAL_STRUCTURE_LAB_PLAN.md)、[设备](AUTOLENS_GPU.md) |
 | 斜边 SFR | 在线性像元图上拟合/投影单 ROI，区分有限 PSF、独立完整瞳孔及含像元 MTF；多波长按实际镜头权重合成强度和复 OTF，不平均各波长 MTF 幅值。此局部校验不等于物方场景/ROM 工作流。 | [SFR 契约](MONOCHROME_SLANTED_EDGE_SFR.md) |
-| 装调 | 共享实光线残差的微扰导数与外推给出近轴共轭；叉丝像是有限孔径的几何回程预览，亮度归一化，不含正式镀膜/杂散光功率，不是通用装调矩阵求逆。 | [共轭与预览](../src/OpticalSystemDesign.Core/Analysis/Assembly/AssemblyConjugates.cs) |
+| 装调 | 共享实光线残差的微扰导数与外推给出近轴共轭；叉丝像是有限孔径的几何回程预览，亮度归一化，不含正式镀膜/杂散光功率，不是通用装调矩阵求逆。 | [共轭与预览](../labs/OpticalAssembly/src/OpticalSystemDesign.OpticalAssembly.Engine/AssemblyConjugates.cs) |
 
 ## 判断结果是否可靠
 

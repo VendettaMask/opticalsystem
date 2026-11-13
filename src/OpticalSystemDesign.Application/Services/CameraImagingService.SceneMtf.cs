@@ -32,7 +32,7 @@ internal sealed partial class CameraImagingService
                         return new SceneRoiMtfComparison(region, null, "ROI did not pass image measurement quality.");
                     try
                     {
-                        var reference = GeometricMtfAnalysis.EvaluateSceneEdge(optic, settings.Chart!,
+                        var reference = SceneEdgeMtf.EvaluateSceneEdge(optic, settings.Chart!,
                             plan.Tasks[task.TaskIndex].Nodes, region.Geometry, settings.PixelPitchMicrometers,
                             settings.FillFactor, pupilAxisSamples, cancellationToken);
                         return new SceneRoiMtfComparison(region, reference, null);
@@ -44,7 +44,7 @@ internal sealed partial class CameraImagingService
                 }).ToArray();
                 return new SceneTaskMtfComparison(task.TaskIndex, task.Name, task.IrradianceSha256, Array.AsReadOnly(regions));
             }).ToArray();
-            return new CameraSceneMtfReport(GeometricMtfAnalysis.SceneEdgeAlgorithm, measured.Algorithm,
+            return new CameraSceneMtfReport(SceneEdgeMtf.SceneEdgeAlgorithm, measured.Algorithm,
                 measured.SourceManifestSha256, measured.LensSha256, pupilAxisSamples, Array.AsReadOnly(tasks));
         }, cancellationToken).ConfigureAwait(false);
     }

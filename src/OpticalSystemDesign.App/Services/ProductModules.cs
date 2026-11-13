@@ -15,7 +15,9 @@ internal static class ProductModules
     {
         var product = typeof(MainWindow).Assembly;
         if (typeof(Laboratories.InitialStructure.MainWindow).Assembly != product
-            || typeof(Laboratories.CoatingDesign.MainWindow).Assembly != product)
+            || typeof(Laboratories.CoatingDesign.MainWindow).Assembly != product
+            || typeof(Laboratories.CameraImagingWindow).Assembly != product
+            || typeof(Laboratories.OpticalAssemblyWindow).Assembly != product)
             throw new InvalidDataException("设计模块必须内置于主程序。");
         var libraries = new[]
         {
@@ -23,9 +25,11 @@ internal static class ProductModules
             typeof(FlatStartRunLibrary).Assembly,
             typeof(OpticalSystemDesign.InitialStructure.Contracts.InitialStructureSpecification).Assembly,
             typeof(DesignService).Assembly,
+            typeof(OpticalSystemDesign.Core.Analysis.Imaging.CameraSensorPipeline).Assembly,
+            typeof(OpticalSystemDesign.Core.Analysis.Assembly.AssemblyConjugates).Assembly,
             typeof(Modules.InitialStructurePresentation).Assembly
         };
-        return new(["InitialStructure", "CoatingDesign"],
+        return new(["InitialStructure", "CoatingDesign", "CameraImaging", "OpticalAssembly"],
             libraries.Select(assembly => assembly.GetName().Name!).ToArray(), true);
     }
 }

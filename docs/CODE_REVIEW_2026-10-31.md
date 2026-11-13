@@ -41,8 +41,8 @@
 | 优先顺序 | 功能 | 当前实际边界与证据 |
 |---|---|---|
 | 1 | 正式散射/BSDF 与完整杂散光到传感器链路 | [ScatteringModels.cs](../src/OpticalSystemDesign.Core/Scattering/ScatteringModels.cs)第 29、61 行只扣减主光线强度，不改变方向；没有 BSDF Evaluate/Sample/Pdf。NSC 的复杂膜系分裂、相干/偏振探测与散射事件仍缺，不能因已有顺序 Jones/薄膜求解器就算接通。见[NSC 路线图](NONSEQUENTIAL_ZEMAX_PARITY_ROADMAP.md)。 |
-| 2 | 复用任意 NSC 追迹会话生成相机 RAW/ISP 的桌面入口 | [NonSequentialCameraSensor.Capture](../src/OpticalSystemDesign.Core/NonSequential/NonSequentialCameraSensor.cs)已有库接口，但 Application/App 没有调用它；会话快照身份、工程保存/模式协调和用户入口未接。现有三维相机直射路径是另一条已接通的有限场景流程。 |
-| 3 | 三维相机支持常见非球面、折返和复杂镀膜镜头 | [DirectCameraRenderer.cs](../src/OpticalSystemDesign.Core/Analysis/Imaging/DirectCameraRenderer.cs)第 134–147 行明确限制共轴、非折返、球面/平面、圆孔径、透射、None/SimpleCoating，拒绝非零圆锥、GRIN、反射等。共享 Core 的其他追迹功能已支持其中部分类型，不代表三维成像已支持。 |
+| 2 | 复用任意 NSC 追迹会话生成相机 RAW/ISP 的桌面入口 | [NonSequentialCameraSensor.Capture](../labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/NonSequentialCameraSensor.cs)已有库接口，但 Application/App 没有调用它；会话快照身份、工程保存/模式协调和用户入口未接。现有三维相机直射路径是另一条已接通的有限场景流程。 |
+| 3 | 三维相机支持常见非球面、折返和复杂镀膜镜头 | [DirectCameraRenderer.cs](../labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/DirectCameraRenderer.cs)第 134–147 行明确限制共轴、非折返、球面/平面、圆孔径、透射、None/SimpleCoating，拒绝非零圆锥、GRIN、反射等。共享 Core 的其他追迹功能已支持其中部分类型，不代表三维成像已支持。 |
 | 4 | 初始结构的胶合自主调度和真正 SPC 分支优化 | 编译、参数绑定和物理验收已有基础，[AutonomousSearchService.cs](../labs/InitialStructure/src/OpticalSystemDesign.InitialStructure.Engine/AutonomousSearchService.cs)第 582–583 行仍拒绝带胶合界面的自主计划。库检索并未补完此调度。 |
 | 5 | 初始结构自动口径分配、准备阶段精确续跑与完整产品交付 | [新计划](INITIAL_STRUCTURE_SEARCH_IMPLEMENTATION_PLAN_2026-10-30.md)第 145–148 行的 M3.3–M3.6 仍未完成。已有最终准备报告/计划保存和后续搜索检查点，不能等同于准备中间状态可恢复；并行性能专项、完整淘汰原因/报告/兼容流程也仍有待办。 |
 | 6 | 任意多材料膜系综合、针插入和通用拓扑变化 | 当前自动生成主要围绕 Low/High 两种材料的镜段/腔原型及匹配；[DesignService.GeneralSearch.cs](../labs/CoatingDesign/src/OpticalSystemDesign.CoatingDesign.Engine/DesignService.GeneralSearch.cs)与[通用约束说明](COATING_GENERAL_FIXES_2026-10-30.md)没有提供任意多材料针插入、通用层增删/分裂或全局最优求解。连续膜厚优化和逐项目标保护已实现，不能列为未做。困难真实规格仍有未达标结果，但一次搜索失败也不证明不存在解。 |

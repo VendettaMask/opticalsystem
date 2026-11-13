@@ -123,4 +123,4 @@ Cooke 离轴整体 Z 平移 100 mm，修复前峰值从 0.03784596230 降到 0.0
 
 [四页 PDF 修复与结果对比报告](../output/pdf/Zemax_Workbench_Comparison_Repair_2026-10-08.pdf)已生成并逐页检查，包含六镜头历史矩阵、修复前后误差、完整验收和剩余任务。生成器 `tools/create_calculation_path_report.py` 只排版现有正式 Core 证据，并校验测试身份、冻结输入、源码和二进制，不实现光学计算。
 
-原 `reports/Zemax_Workbench_Six_Lens_Comparison_Report_2026-10-08.docx` 保持不变。本机的 Word 逐页渲染器因缺少可用 LibreOffice 无法执行，不能把未渲染的 Word 改稿当作已验收成品；本轮更新以仓库正文和 PDF 交付。
+当前精度验收按「文件 → 示例」中的完整镜头范围汇总。[95 支逐镜头对照与验证台账](../validation/rechecks/2026-11-08/menu-all95-current-replay/README.md)

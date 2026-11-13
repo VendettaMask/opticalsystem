@@ -46,11 +46,11 @@
 
 ## 桌面工作台
 
-镜头编辑器、二维和三维布局及分析页支持停靠、分栏与浮动。主程序、AI 初始结构和光学镀膜设计共用 C#/.NET 光学计算内核，两个设计模块都可从 **实验室** 菜单打开。
+镜头编辑器、二维和三维布局及分析页支持停靠、分栏与浮动。**实验室** 菜单提供 AI 初始结构、光学镀膜设计、相机成像仿真和光学装调。四项功能内置于主程序，共用 C#/.NET 光学计算内核，随同一个安装包交付。
 
 界面支持简体中文、英语和日语，提供普通、暗夜、光域、异世界和像素五种主题。异世界主题采用英文界面和 Almendra 字体。各主题使用项目自绘的[科学 SVG 图标](docs/LOCAL_ICONS.md)。
 
-从 **文件 → 示例** 浏览 [14 类、95 支顺序镜头](docs/USER_GUIDE.md#镜头示例)。[当前状态](docs/CURRENT_STATUS.md)汇集功能更新、逐镜头数值对照和验证记录。
+从 **文件 → 示例** 浏览 [14 类、95 支顺序镜头](docs/USER_GUIDE.md#镜头示例)。这 95 支镜头构成精度验收基准，可查阅[逐镜头数值对照](validation/rechecks/2026-11-08/menu-all95-current-replay/README.md)和[当前状态](docs/CURRENT_STATUS.md)。
 
 ## 功能一览
 
@@ -130,7 +130,7 @@
 | Windows ARM64 | `win-arm64` · EXE |
 | Mac Apple Silicon（M 系列） | `osx-arm64` · DMG |
 
-安装包内含 .NET 运行时、AI 初始结构、光学镀膜设计和应用字体。版本记录随安装包发布。
+安装包内含 .NET 运行时、四个内置实验室和应用字体。版本记录随安装包发布。
 
 ### 使用 Windows 安装包
 
@@ -181,7 +181,7 @@ dotnet test OpticalSystemDesign.slnx -c Release --no-build --no-restore /m:1 /nr
 | `src/OpticalSystemDesign.Application` | 无 UI 的应用服务、事务、工作区与 DTO 映射 |
 | `src/OpticalSystemDesign.App` | 桌面工作台、内置模块 UI 与恢复入口 |
 | `src/OpticalSystemDesign.Modules` | 内置模块显示适配，复用共享计算与规范 DTO |
-| `labs/InitialStructure`、`labs/CoatingDesign` | 初始结构与镀膜设计的领域库、流程和测试 |
+| [`labs/`](docs/ARCHITECTURE.md#内置实验室) | 四个内置实验室的专用计算引擎 |
 | `tests/`、`tools/` | 回归测试、离线验证与维护工具 |
 | `docs/` | 当前指南、功能契约与带日期的阶段报告 |
 | `validation/`、受版本管理的 `artifacts/` | 保留文件、设置、版本及哈希身份的验证证据 |

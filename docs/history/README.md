@@ -161,7 +161,8 @@
 - [镀膜历史验收](../../validation/coating/README.md) 与 [上游源和授权](../../third_party/coating-reference/README.md)。
 - [Optiland 冻结辅助历史](../../validation/history/optiland-0.5.8/README.md)：仅回归/溯源，不再生成外部对照。
 - [主要 Zemax 数值权威](../ZEMAX_BASELINE_CONFIGURATION_BOUNDARY.md)：仅认证捕获文件、设置和版本。
-- [既有六镜头报告](../../reports/Zemax_Workbench_Six_Lens_Comparison_Report_2026-10-08.docx) 与 [当日修复 PDF](../../output/pdf/Zemax_Workbench_Comparison_Repair_2026-10-08.pdf)：历史报告原件，不改写成新验收。
+- [2026-10-08 计算路径修复 PDF](../../output/pdf/Zemax_Workbench_Comparison_Repair_2026-10-08.pdf)
+- [当前 95 支示例镜头精度台账](../../validation/rechecks/2026-11-08/menu-all95-current-replay/README.md)
 
 原始报告、许可证、来源声明和冻结数据保持原字节。当前文档若引用本地安装包或截图，会明确它没有随 Git 分发；已缺失的历史产物只记录原路径和缺失状态，不伪造文件。清单与核验结果见 [文档审计账本](../validation/DOCUMENTATION_AUDIT_2026-10-13.json)。
 

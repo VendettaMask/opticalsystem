@@ -7,7 +7,7 @@ mkdir -p "$output"
 output="$(cd "$output" && pwd)"
 bundle="$(cd "$bundle" && pwd)"
 payload="$bundle/Contents/MacOS"
-for module in Core Application InitialStructure.Contracts InitialStructure.Engine InitialStructure.Persistence CoatingDesign.Engine Modules; do
+for module in Core Application InitialStructure.Contracts InitialStructure.Engine InitialStructure.Persistence CoatingDesign.Engine CameraImaging.Engine OpticalAssembly.Engine Modules; do
   test -s "$payload/OpticalSystemDesign.$module.dll" || { echo "Missing built-in library: $module" >&2; exit 1; }
 done
 for required in OpticalSystemDesign.App OpticalSystemDesign.App.dll OpticalSystemDesign.App.runtimeconfig.json \
@@ -43,7 +43,7 @@ import hashlib, json, pathlib, plistlib, sys
 bundle, output = map(pathlib.Path, sys.argv[1:])
 report = json.loads((output/'native-product.json').read_text())
 assert report['Success'] and report['Architecture']=='Arm64' and report['ModulesInProcess']
-assert report['Modules']==['InitialStructure','CoatingDesign'] and len(report['ModuleLibraries'])==5
+assert report['Modules']==['InitialStructure','CoatingDesign','CameraImaging','OpticalAssembly'] and len(report['ModuleLibraries'])==7
 assert report['MacOtaNativeBridgeVerified']
 assert not report['UserDataWritten'] and not report['GuiVerified']
 info = plistlib.loads((bundle/'Contents/Info.plist').read_bytes())
@@ -59,7 +59,7 @@ files = {str(p.relative_to(bundle)):hashlib.file_digest(p.open('rb'), 'sha256').
          for p in sorted(bundle.rglob('*')) if p.is_file()}
 (output/'bundle-manifest.json').write_text(json.dumps(files,indent=2)+'\n')
 (output/'summary.json').write_text(json.dumps(dict(Architecture='Arm64', ManifestFiles=len(files),
-    SelfContained=True, BothModulesInProcess=True, NativeCodeSignaturesVerified=True,
+    SelfContained=True, ModulesInProcess=True, NativeCodeSignaturesVerified=True,
     DeveloperIdSigned=False, Notarized=False, MacOtaBundled=True, MacOtaFramework='Sparkle 2.10.1',
     GuiVerified=False, UserDataWritten=False),indent=2)+'\n')
 print(f'Verified Apple Silicon package: {len(files)} files; both built-in modules in the main process.')

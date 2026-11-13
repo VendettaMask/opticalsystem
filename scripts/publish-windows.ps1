@@ -85,7 +85,8 @@ try {
         'OpticalSystemDesign.InitialStructure.Contracts.dll',
         'OpticalSystemDesign.InitialStructure.Engine.dll',
         'OpticalSystemDesign.InitialStructure.Persistence.dll',
-        'OpticalSystemDesign.CoatingDesign.Engine.dll', 'OpticalSystemDesign.Modules.dll',
+        'OpticalSystemDesign.CoatingDesign.Engine.dll', 'OpticalSystemDesign.CameraImaging.Engine.dll',
+        'OpticalSystemDesign.OpticalAssembly.Engine.dll', 'OpticalSystemDesign.Modules.dll',
         'ILGPU.dll',
         'ILGPU.Algorithms.dll',
         'Licenses\TFStudio-LICENSE.txt',
@@ -126,7 +127,7 @@ try {
         -Destination (Join-Path $stagingDirectory 'README.txt')
 
     $identity = [ordered]@{ FormatVersion = 1; ProductAppId = $ProductAppId; Version = $AppVersion; Runtime = $Runtime;
-        RequiredModules = @('InitialStructure', 'CoatingDesign'); ModulesInProcess = $true }
+        RequiredModules = @('InitialStructure', 'CoatingDesign', 'CameraImaging', 'OpticalAssembly'); ModulesInProcess = $true }
     [IO.File]::WriteAllText((Join-Path $stagingDirectory 'release.identity.json'),
         ($identity | ConvertTo-Json), [Text.UTF8Encoding]::new($false))
 

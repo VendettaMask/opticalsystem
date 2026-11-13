@@ -1,7 +1,10 @@
 using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.App;
+using OpticalSystemDesign.App.Laboratories;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis.Assembly;
+using OpticalSystemDesign.Core.Analysis.Imaging;
 using CoatingDesignWindow = OpticalSystemDesign.App.Laboratories.CoatingDesign.MainWindow;
 using InitialStructureWindow = OpticalSystemDesign.App.Laboratories.InitialStructure.MainWindow;
 
@@ -10,14 +13,18 @@ namespace OpticalSystemDesign.Tests;
 public sealed class BuiltInModuleDeliveryTests
 {
     [Fact]
-    public void BothWorkspacesBelongToTheMainExecutableAssembly()
+    public void AllFourLaboratoriesBelongToTheMainExecutableAssembly()
     {
         Assert.Same(typeof(MainWindow).Assembly, typeof(InitialStructureWindow).Assembly);
         Assert.Same(typeof(MainWindow).Assembly, typeof(CoatingDesignWindow).Assembly);
+        Assert.Same(typeof(MainWindow).Assembly, typeof(CameraImagingWindow).Assembly);
+        Assert.Same(typeof(MainWindow).Assembly, typeof(OpticalAssemblyWindow).Assembly);
         var modules = ProductModules.Verify();
         Assert.True(modules.InProcess);
-        Assert.Equal(new[] { "InitialStructure", "CoatingDesign" }, modules.Modules);
-        Assert.Equal(5, modules.Libraries.Distinct().Count());
+        Assert.Equal(new[] { "InitialStructure", "CoatingDesign", "CameraImaging", "OpticalAssembly" }, modules.Modules);
+        Assert.Equal(7, modules.Libraries.Distinct().Count());
+        Assert.Equal("OpticalSystemDesign.CameraImaging.Engine", typeof(CameraSensorPipeline).Assembly.GetName().Name);
+        Assert.Equal("OpticalSystemDesign.OpticalAssembly.Engine", typeof(AssemblyConjugates).Assembly.GetName().Name);
     }
 
     [Fact]
@@ -26,10 +33,17 @@ public sealed class BuiltInModuleDeliveryTests
         var root = ProductDependencyArchitectureTests.RepositoryRoot();
         var solution = EvidenceFiles.ReadAllText(Path.Combine(root, "OpticalSystemDesign.slnx"));
         var project = EvidenceFiles.ReadAllText(Path.Combine(root, "src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj"));
+        var application = EvidenceFiles.ReadAllText(Path.Combine(root, "src/OpticalSystemDesign.Application/OpticalSystemDesign.Application.csproj"));
         foreach (var module in new[] { "InitialStructure.Engine", "InitialStructure.Persistence", "CoatingDesign.Engine" })
         {
             Assert.Contains("OpticalSystemDesign." + module, solution);
             Assert.Contains("OpticalSystemDesign." + module, project);
+        }
+        foreach (var lab in new[] { "CameraImaging", "OpticalAssembly" })
+        {
+            var labProject = $"labs/{lab}/src/OpticalSystemDesign.{lab}.Engine/OpticalSystemDesign.{lab}.Engine.csproj";
+            Assert.Contains(labProject, solution);
+            Assert.Contains(labProject, application);
         }
         Assert.Contains("OpticalSystemDesign.CoatingDesign.Tests", solution);
         Assert.Contains("OpticalSystemDesign.InitialStructure.Tests", solution);
@@ -78,13 +92,15 @@ public sealed class BuiltInModuleDeliveryTests
     }
 
     [Fact]
-    public void SearchAndCoatingUseTheSameProductCore()
+    public void LaboratoryEnginesUseTheSameProductCore()
     {
         var core = typeof(Optic).Assembly.GetName().Name;
         foreach (var library in new[]
         {
             typeof(OpticalSystemDesign.InitialStructure.Engine.FlatStartSearchService).Assembly,
-            typeof(OpticalSystemDesign.CoatingDesign.Engine.DesignService).Assembly
+            typeof(OpticalSystemDesign.CoatingDesign.Engine.DesignService).Assembly,
+            typeof(CameraSensorPipeline).Assembly,
+            typeof(AssemblyConjugates).Assembly
         })
             Assert.Contains(library.GetReferencedAssemblies(), reference => reference.Name == core);
     }
