@@ -1,5 +1,6 @@
 # Project collaboration instructions
 
+- User decision (2026-11-16): the GitHub repository homepage uses English in `README.md`. Keep the Simplified Chinese version in `README_ZH.md`, with a language link at the top of each page.
 - User decision (2026-11-13): use the 95 lenses under File → Samples as the numerical acceptance matrix. Summarize product-wide numerical comparisons from that matrix and link targeted rechecks to the applicable lens and analysis settings.
 - User decision (2026-11-13): place laboratory-specific computation under `labs/InitialStructure`, `labs/CoatingDesign`, `labs/CameraImaging`, and `labs/OpticalAssembly`. All four are built into the desktop product. Keep shared optics in Core, workspace adapters in Application or Modules, and the windows in App.
 - User decision (2026-11-09): accepted stock lens model packs are finished library assets, like the native design lens projects. Commit and publish the verified single-file pack with the application. Build, installation, and normal use read the finished file directly. Keep conversion in the standalone tool for new inputs.
