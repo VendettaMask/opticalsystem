@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="8102872d-b553-411e-943b-91b56728d471" name="optics@LAPTOP-G4BBBCS0 2026-11-20 15:15:31" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-20T15:15:31.5799322+08:00" queuing="2026-11-20T15:15:31.5799323+08:00" start="2026-11-20T15:15:27.2337996+08:00" finish="2026-11-20T15:15:37.1278849+08:00" />
+  <TestSettings name="default" id="de155e1c-005f-487b-87ae-cc7297244a8f">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-20_15_15_31" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="dc7abd9f-fafa-4ff7-b101-87eb9bbdefd5" testId="be417fc4-d926-5c27-832b-18a7837e57cf" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.2259796" startTime="2026-11-20T15:15:31.5698151+08:00" endTime="2026-11-20T15:15:32.7859803+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dc7abd9f-fafa-4ff7-b101-87eb9bbdefd5">
+      <Output>
+        <ErrorInfo>
+          <Message>Light backdrop at (50, 530): 125,187,229,255</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 96&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 73&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 37&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="70116bcc-0fd8-43a9-9fcd-0b594729921d" testId="0f364e2f-a0b4-9cee-4d56-d24b3d43a33f" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.3776383" startTime="2026-11-20T15:15:29.1864222+08:00" endTime="2026-11-20T15:15:31.5538376+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="70116bcc-0fd8-43a9-9fcd-0b594729921d" />
+    <UnitTestResult executionId="2e996f1d-521c-40c2-8a2b-78fe4bd9abf4" testId="fd53dfe8-2172-358f-04cf-f85cf084c509" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.2349383" startTime="2026-11-20T15:15:35.7970865+08:00" endTime="2026-11-20T15:15:37.0321898+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2e996f1d-521c-40c2-8a2b-78fe4bd9abf4" />
+    <UnitTestResult executionId="d6d0f85e-3fdc-42c1-8233-d02253826dd7" testId="794fc168-4dca-5581-32ce-86e7a395dae5" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.5288244" startTime="2026-11-20T15:15:32.7898458+08:00" endTime="2026-11-20T15:15:34.3146694+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d6d0f85e-3fdc-42c1-8233-d02253826dd7" />
+    <UnitTestResult executionId="5e8028ef-4d56-4cc2-bfdf-78f19007b3b2" testId="e9b9dc0e-5215-dd8c-ccd1-b367e77f0694" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4821184" startTime="2026-11-20T15:15:34.3150313+08:00" endTime="2026-11-20T15:15:35.7969608+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5e8028ef-4d56-4cc2-bfdf-78f19007b3b2" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fd53dfe8-2172-358f-04cf-f85cf084c509">
+      <Execution id="2e996f1d-521c-40c2-8a2b-78fe4bd9abf4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelDarkBackdropCoversSheetAndFittedViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0f364e2f-a0b4-9cee-4d56-d24b3d43a33f">
+      <Execution id="70116bcc-0fd8-43a9-9fcd-0b594729921d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelDarkBackdropCoversSheetAndFittedViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e9b9dc0e-5215-dd8c-ccd1-b367e77f0694">
+      <Execution id="5e8028ef-4d56-4cc2-bfdf-78f19007b3b2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelDarkBackdropCoversSheetAndFittedViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="be417fc4-d926-5c27-832b-18a7837e57cf">
+      <Execution id="dc7abd9f-fafa-4ff7-b101-87eb9bbdefd5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelDarkBackdropCoversSheetAndFittedViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="794fc168-4dca-5581-32ce-86e7a395dae5">
+      <Execution id="d6d0f85e-3fdc-42c1-8233-d02253826dd7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelDarkBackdropCoversSheetAndFittedViewportGaps" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="be417fc4-d926-5c27-832b-18a7837e57cf" executionId="dc7abd9f-fafa-4ff7-b101-87eb9bbdefd5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f364e2f-a0b4-9cee-4d56-d24b3d43a33f" executionId="70116bcc-0fd8-43a9-9fcd-0b594729921d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd53dfe8-2172-358f-04cf-f85cf084c509" executionId="2e996f1d-521c-40c2-8a2b-78fe4bd9abf4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="794fc168-4dca-5581-32ce-86e7a395dae5" executionId="d6d0f85e-3fdc-42c1-8233-d02253826dd7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e9b9dc0e-5215-dd8c-ccd1-b367e77f0694" executionId="5e8028ef-4d56-4cc2-bfdf-78f19007b3b2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="4" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.59]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.59]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.61]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:05.24]       Light backdrop at (50, 530): 125,187,229,255&#xD;
+[xUnit.net 00:00:05.24]       Stack Trace:&#xD;
+[xUnit.net 00:00:05.24]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(96,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y)&#xD;
+[xUnit.net 00:00:05.24]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(73,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:05.24]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.24]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:05.24]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.24]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:05.24]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:05.24]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(37,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme)&#xD;
+[xUnit.net 00:00:05.24]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.49]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T15:15:32.7875898+08:00">
+        <Text>[xUnit.net 00:00:05.24]     OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: "Isekai") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

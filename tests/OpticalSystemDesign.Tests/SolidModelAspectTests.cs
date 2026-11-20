@@ -26,6 +26,85 @@ public sealed class SolidModelAspectTests
     public static AppBuilder BuildAvaloniaApp() => DiagramViewportFitTests.BuildAvaloniaApp();
 
     [Theory]
+    [InlineData("Light")]
+    [InlineData("Dark")]
+    [InlineData("Lumen")]
+    [InlineData("Isekai")]
+    [InlineData("Pixel")]
+    public async Task SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(string theme)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SolidModelAspectTests));
+        await session.Dispatch(async () =>
+        {
+            var settings = new AppSettings { DiagramAspectRatio = "16:9" };
+            ImageExportResolution.Configure(settings);
+            DisplayTypography.Configure(settings);
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
+            using var app = WorkbenchApplication.Create("cooke");
+            using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(),
+                SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel);
+            var window = new Window { Width = 1900, Height = 1100, Content = viewer };
+            try
+            {
+                window.Show(); await Ready(window, viewer);
+                var scene = Assert.Single(viewer.GetVisualDescendants().OfType<OpticSceneControl>());
+                var host = Assert.Single(viewer.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
+                var sheet = Assert.IsType<UniformDiagramPage>(host.Child);
+                var frame = Assert.Single(host.GetVisualDescendants().OfType<AnalysisImageFrame>());
+                var pose = CameraState(scene);
+                var source = scene.Scene;
+                using var image = viewer.CaptureViewerImage(1);
+                Save(image, $"solid-backdrop-{theme}-export.png");
+                var inset = (int)ThemeDrawingSurface.FrameInset(viewer);
+                AssertDarkPixel(image, inset + 50, inset + 300);
+                AssertDarkPixel(image, image.PixelSize.Width - inset - 51, inset + 300);
+
+                foreach (var (width, height, fit) in new[]
+                {
+                    (1900, 1100, true), (900, 1200, true), (1900, 1100, false)
+                })
+                {
+                    window.Width = width; window.Height = height;
+                    host.FitToViewport = fit;
+                    Tick(window);
+                    using var backdrop = new RenderTargetBitmap(
+                        new PixelSize((int)Math.Ceiling(host.Bounds.Width), (int)Math.Ceiling(host.Bounds.Height)),
+                        new Vector(96, 96));
+                    backdrop.Render(host);
+                    // Use the arranged sheet bounds so themed frames stay outside the samples.
+                    var sheetBounds = new Rect(sheet.Bounds.Size).TransformToAABB(sheet.TransformToVisual(host)!.Value);
+                    var y = (int)sheetBounds.Center.Y;
+                    AssertDarkPixel(backdrop, (int)(sheetBounds.Left + sheetBounds.Width / 16), y);
+                    AssertDarkPixel(backdrop, (int)(sheetBounds.Right - sheetBounds.Width / 16), y);
+                    var frameBounds = new Rect(frame.Bounds.Size).TransformToAABB(frame.TransformToVisual(host)!.Value);
+                    if (frameBounds.Left > 8) AssertDarkPixel(backdrop, (int)(frameBounds.Left / 2), y);
+                    if (frameBounds.Top > 8)
+                        AssertDarkPixel(backdrop, backdrop.PixelSize.Width / 2, (int)(frameBounds.Top / 2));
+                    if (fit) Save(backdrop, $"solid-backdrop-{theme}-{width}-viewport.png");
+                    if (fit && width == 1900)
+                    {
+                        using var live = window.CaptureRenderedFrame();
+                        if (live is not null) Save(live, $"solid-backdrop-{theme}-window.png");
+                    }
+                    Assert.Same(source, scene.Scene);
+                    Assert.Equal(pose, CameraState(scene));
+                }
+            }
+            finally { window.Close(); ImageExportResolution.Configure(new()); }
+        }, CancellationToken.None);
+    }
+
+    private static void AssertDarkPixel(Bitmap image, int x, int y)
+    {
+        var pixel = new byte[4];
+        var pinned = GCHandle.Alloc(pixel, GCHandleType.Pinned);
+        try { image.CopyPixels(new PixelRect(x, y, 1, 1), pinned.AddrOfPinnedObject(), 4, 4); }
+        finally { pinned.Free(); }
+        Assert.Equal(255, pixel[3]);
+        Assert.True(pixel.Take(3).All(channel => channel < 80), $"Light backdrop at ({x}, {y}): {string.Join(',', pixel)}");
+    }
+
+    [Theory]
     [InlineData("Light", OpticSceneRenderMode.Solid, false, true)]
     [InlineData("Lumen", OpticSceneRenderMode.Solid, false, true)]
     [InlineData("Isekai", OpticSceneRenderMode.Solid, false, true)]

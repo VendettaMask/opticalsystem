@@ -78,7 +78,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 {
     // Static drawing resources are shared by controls on different UI dispatchers.
     // Keep them immutable so a later window/session cannot inherit thread-owned media.
-    private static readonly IImmutableBrush SolidModelBackgroundBrush = new LinearGradientBrush
+    internal static readonly IImmutableBrush SolidModelBackgroundBrush = new LinearGradientBrush
     {
         StartPoint = RelativePoint.TopLeft,
         EndPoint = RelativePoint.BottomRight,

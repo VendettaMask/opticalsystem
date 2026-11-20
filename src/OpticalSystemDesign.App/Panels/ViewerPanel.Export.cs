@@ -162,7 +162,8 @@ public sealed partial class ViewerPanel
             };
             // Detached export trees have no compositor child-sorting pass.
             // Record the paper before the image so it cannot cover the model.
-            ThemeDrawingSurface.AddPaper(sheet, _scene);
+            if (_presentationMode != ViewerPresentationMode.SolidModel)
+                ThemeDrawingSurface.AddPaper(sheet, _scene);
             sheet.Children.Add(page);
             sheet.Measure(new Size(sheet.Width, sheet.Height));
             sheet.Arrange(new Rect(0, 0, sheet.Width, sheet.Height));

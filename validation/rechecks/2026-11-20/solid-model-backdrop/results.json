@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-20",
+  "scope": "Solid model backdrop, fitted/actual-size gaps and PNG composition",
+  "total": 16,
+  "passed": 16,
+  "failed": 0,
+  "defaultAppBuild": "0 warnings, 0 errors",
+  "testOutput": "tmp/solid-model-backdrop-tests-20261120",
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs",
+      "sha256": "1ce85f43e46f67de9e2ea6608614a05e962510977d0dd6401ec700b9ef8bd106"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/UniformDiagramPage.cs",
+      "sha256": "9da01ac337c57162c35acd725ce34faba217df9997085832268d292f23005f97"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs",
+      "sha256": "1dd91c8bc1539dced301b4cf6b8cb6406c4aa7b9e12221d7b6c6acb33a258cd0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs",
+      "sha256": "38f39299568343a0cdcd2e0ecbc82ab35d80b5c3751c4ecdd14c17003c95e171"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/SolidModelAspectTests.cs",
+      "sha256": "345041ca5ac04d0d7d540eea5e539e0bcd5ca73487c2e662005e750d2a87b593"
+    }
+  ]
+}

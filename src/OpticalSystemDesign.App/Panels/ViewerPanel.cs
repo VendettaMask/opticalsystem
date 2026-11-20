@@ -187,7 +187,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             root.Children.Add(workspace);
             // Keep the complete compact model/legend/metadata layout at one
             // fixed size. A wider sheet only adds outer space, never a new camera.
-            _diagramPage = new UniformDiagramPage(root, new Border(), preservePlotGeometry: true, captionHeight: 0);
+            _diagramPage = new UniformDiagramPage(root, new Border(), preservePlotGeometry: true, captionHeight: 0,
+                background: OpticSceneControl.SolidModelBackgroundBrush);
         }
         Content = BuildDiagramWorkspace();
 
@@ -204,6 +205,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
     private Control BuildDiagramWorkspace()
     {
         var host = new ResponsiveAnalysisPlotHost { Name = "ViewerDiagramScroll", Child = _diagramPage };
+        if (_presentationMode == ViewerPresentationMode.SolidModel)
+            host.Background = OpticSceneControl.SolidModelBackgroundBrush;
         _diagramModeButton.BindHost(host);
         _diagramModeButton.Height = 28;
         _diagramModeButton.Margin = new Thickness(8, 4);

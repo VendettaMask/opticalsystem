@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="737a9afd-4c6a-401c-8908-54376e1f5ed1" name="optics@LAPTOP-G4BBBCS0 2026-11-20 15:09:32" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-20T15:09:32.4955252+08:00" queuing="2026-11-20T15:09:32.4955253+08:00" start="2026-11-20T15:09:28.0466780+08:00" finish="2026-11-20T15:09:39.6553104+08:00" />
+  <TestSettings name="default" id="95df4615-502b-43d5-b6bf-4dbfaf7bd3fd">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-20_15_09_32" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="5866c8be-eb0a-4e74-92e5-282939aeee5b" testId="be417fc4-d926-5c27-832b-18a7837e57cf" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.1973965" startTime="2026-11-20T15:09:32.4790116+08:00" endTime="2026-11-20T15:09:34.6548236+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5866c8be-eb0a-4e74-92e5-282939aeee5b">
+      <Output>
+        <ErrorInfo>
+          <Message>Light backdrop at (78, 328): 128,194,234,255</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 90&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 57&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 37&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9439b585-f655-4772-bdf9-0db15ef10ee1" testId="e9b9dc0e-5215-dd8c-ccd1-b367e77f0694" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.7917228" startTime="2026-11-20T15:09:36.2628457+08:00" endTime="2026-11-20T15:09:38.0530908+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9439b585-f655-4772-bdf9-0db15ef10ee1">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 255&#xD;
+Actual:   218</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 89&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 72&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 37&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="57e8eb6f-f547-4cbc-ad05-50311b26fe1b" testId="0f364e2f-a0b4-9cee-4d56-d24b3d43a33f" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.6284538" startTime="2026-11-20T15:09:29.8268252+08:00" endTime="2026-11-20T15:09:32.4553567+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="57e8eb6f-f547-4cbc-ad05-50311b26fe1b">
+      <Output>
+        <ErrorInfo>
+          <Message>Light backdrop at (51, 301): 220,249,255,255</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 90&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 57&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 37&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2208a264-8c64-402c-8cdf-b170bbfa5190" testId="fd53dfe8-2172-358f-04cf-f85cf084c509" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.4809385" startTime="2026-11-20T15:09:38.0547640+08:00" endTime="2026-11-20T15:09:39.5355359+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2208a264-8c64-402c-8cdf-b170bbfa5190">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: 255&#xD;
+Actual:   218</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 89&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 72&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 37&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="263e32d8-40b9-4135-a1eb-61822ad6d325" testId="794fc168-4dca-5581-32ce-86e7a395dae5" testName="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.6041704" startTime="2026-11-20T15:09:34.6593711+08:00" endTime="2026-11-20T15:09:36.2605613+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="263e32d8-40b9-4135-a1eb-61822ad6d325">
+      <Output>
+        <ErrorInfo>
+          <Message>Light backdrop at (51, 301): 255,255,255,255</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 90&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 57&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs:line 37&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fd53dfe8-2172-358f-04cf-f85cf084c509">
+      <Execution id="2208a264-8c64-402c-8cdf-b170bbfa5190" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelDarkBackdropCoversSheetAndFittedViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="0f364e2f-a0b4-9cee-4d56-d24b3d43a33f">
+      <Execution id="57e8eb6f-f547-4cbc-ad05-50311b26fe1b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelDarkBackdropCoversSheetAndFittedViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e9b9dc0e-5215-dd8c-ccd1-b367e77f0694">
+      <Execution id="9439b585-f655-4772-bdf9-0db15ef10ee1" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelDarkBackdropCoversSheetAndFittedViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="be417fc4-d926-5c27-832b-18a7837e57cf">
+      <Execution id="5866c8be-eb0a-4e74-92e5-282939aeee5b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelDarkBackdropCoversSheetAndFittedViewportGaps" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="794fc168-4dca-5581-32ce-86e7a395dae5">
+      <Execution id="263e32d8-40b9-4135-a1eb-61822ad6d325" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.SolidModelAspectTests" name="SolidModelDarkBackdropCoversSheetAndFittedViewportGaps" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="be417fc4-d926-5c27-832b-18a7837e57cf" executionId="5866c8be-eb0a-4e74-92e5-282939aeee5b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e9b9dc0e-5215-dd8c-ccd1-b367e77f0694" executionId="9439b585-f655-4772-bdf9-0db15ef10ee1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f364e2f-a0b4-9cee-4d56-d24b3d43a33f" executionId="57e8eb6f-f547-4cbc-ad05-50311b26fe1b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fd53dfe8-2172-358f-04cf-f85cf084c509" executionId="2208a264-8c64-402c-8cdf-b170bbfa5190" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="794fc168-4dca-5581-32ce-86e7a395dae5" executionId="263e32d8-40b9-4135-a1eb-61822ad6d325" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="5" passed="0" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.38]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.42]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.44]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:04.10]       Light backdrop at (51, 301): 220,249,255,255&#xD;
+[xUnit.net 00:00:04.11]       Stack Trace:&#xD;
+[xUnit.net 00:00:04.11]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(90,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y)&#xD;
+[xUnit.net 00:00:04.11]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(57,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:04.11]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:04.11]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:04.11]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:04.11]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:04.11]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:04.11]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(37,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme)&#xD;
+[xUnit.net 00:00:04.11]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.30]       Light backdrop at (78, 328): 128,194,234,255&#xD;
+[xUnit.net 00:00:06.30]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.30]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(90,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y)&#xD;
+[xUnit.net 00:00:06.30]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(57,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.30]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.30]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:06.30]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.30]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:06.30]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:06.30]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(37,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme)&#xD;
+[xUnit.net 00:00:06.30]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.91]       Light backdrop at (51, 301): 255,255,255,255&#xD;
+[xUnit.net 00:00:07.91]       Stack Trace:&#xD;
+[xUnit.net 00:00:07.91]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(90,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y)&#xD;
+[xUnit.net 00:00:07.91]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(57,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:07.91]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.91]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:07.91]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.91]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:07.91]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:07.91]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(37,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme)&#xD;
+[xUnit.net 00:00:07.91]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.70]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:09.70]       Expected: 255&#xD;
+[xUnit.net 00:00:09.70]       Actual:   218&#xD;
+[xUnit.net 00:00:09.70]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.70]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(89,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y)&#xD;
+[xUnit.net 00:00:09.70]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(72,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:09.70]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.70]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:09.70]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.70]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:09.70]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.70]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(37,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme)&#xD;
+[xUnit.net 00:00:09.70]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.18]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:11.18]       Expected: 255&#xD;
+[xUnit.net 00:00:11.18]       Actual:   218&#xD;
+[xUnit.net 00:00:11.18]       Stack Trace:&#xD;
+[xUnit.net 00:00:11.18]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(89,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.AssertDarkPixel(Bitmap image, Int32 x, Int32 y)&#xD;
+[xUnit.net 00:00:11.18]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(72,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.&lt;&gt;c__DisplayClass2_0.&lt;&lt;SolidModelDarkBackdropCoversSheetAndFittedViewportGaps&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:11.18]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.18]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:11.18]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.18]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:11.18]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.18]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\SolidModelAspectTests.cs(37,0): at OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(String theme)&#xD;
+[xUnit.net 00:00:11.18]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:11.19]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T15:09:32.4590685+08:00">
+        <Text>[xUnit.net 00:00:04.10]     OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: "Pixel") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T15:09:34.6554529+08:00">
+        <Text>[xUnit.net 00:00:06.30]     OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: "Isekai") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T15:09:36.2613510+08:00">
+        <Text>[xUnit.net 00:00:07.91]     OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: "Light") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T15:09:38.0534665+08:00">
+        <Text>[xUnit.net 00:00:09.70]     OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: "Dark") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T15:09:39.5358727+08:00">
+        <Text>[xUnit.net 00:00:11.18]     OpticalSystemDesign.Tests.SolidModelAspectTests.SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(theme: "Lumen") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

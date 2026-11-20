@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.Media;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 
@@ -22,7 +23,8 @@ internal sealed class UniformDiagramPage : Grid
     private Size _viewport;
     private double _automaticWidth;
 
-    internal UniformDiagramPage(Control plot, Control caption, bool preservePlotGeometry = false, double captionHeight = CaptionHeight)
+    internal UniformDiagramPage(Control plot, Control caption, bool preservePlotGeometry = false,
+        double captionHeight = CaptionHeight, IBrush? background = null)
     {
         Name = "UniformDiagramPage";
         Width = DiagramSheetLayout.Width;
@@ -40,7 +42,7 @@ internal sealed class UniformDiagramPage : Grid
         SetRow(caption, 1);
         Children.Add(caption);
         ThemeDrawingSurface.ApplyResources(this, transparentPlot: true);
-        ThemeDrawingSurface.AddPaper(this);
+        if (background is null) ThemeDrawingSurface.AddPaper(this);
         _overflow = new Border
         {
             IsVisible = false,
@@ -57,7 +59,8 @@ internal sealed class UniformDiagramPage : Grid
         _overflow.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.PlotBackground);
         SetRowSpan(_overflow, 2);
         Children.Add(_overflow);
-        this.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.PlotBackground);
+        if (background is null) this.BindThemeResource(Panel.BackgroundProperty, ThemeResourceBindings.PlotBackground);
+        else Background = background;
         AttachedToVisualTree += (_, _) =>
         {
             DiagramSheetLayout.Changed += UpdateSheet;
