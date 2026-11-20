@@ -2094,6 +2094,12 @@
     "Japanese": "{0}\n{1}分岐 · {2}{3}\n現在のフィルターを非順序3Dレイアウトと検出器ビューアーの入力に設定しました。各ページを更新すると反映します。"
   },
   {
+    "Source": "{0}\n{1} 个分支 · {2}{3}\n当前筛选应用于完整分析会话的探测器和路径统计；3D布局使用独立布局会话。",
+    "Chinese": "{0}\n{1} 个分支 · {2}{3}\n当前筛选应用于完整分析会话的探测器和路径统计；3D布局使用独立布局会话。",
+    "English": "{0}\n{1} branches · {2}{3}\nThe current filter applies to detectors and path statistics in the full analysis session; the 3D layout uses its own layout session.",
+    "Japanese": "{0}\n{1} 分岐 · {2}{3}\n現在のフィルターは完全な解析セッションの検出器と経路統計に適用され、3Dレイアウトは独立したレイアウトセッションを使用します。"
+  },
+  {
     "Source": "{0}\n{1} 顶点 · {2} 三角形 · {3}\nSHA-256 {4}",
     "Chinese": "{0}\n{1} 顶点 · {2} 三角形 · {3}\nSHA-256 {4}",
     "English": "{0}\n{1} vertices · {2} triangles · {3}\nSHA-256 {4}",
@@ -5784,6 +5790,12 @@
     "Japanese": "すべて同期"
   },
   {
+    "Source": "全部启用光源",
+    "Chinese": "全部启用光源",
+    "English": "All enabled sources",
+    "Japanese": "すべての有効な光源"
+  },
+  {
     "Source": "全部形状",
     "Chinese": "全部形状",
     "English": "All Shapes",
@@ -6586,6 +6598,18 @@
     "Chinese": "分支",
     "English": "Branches",
     "Japanese": "分岐"
+  },
+  {
+    "Source": "分支 ID",
+    "Chinese": "分支 ID",
+    "English": "Branch ID",
+    "Japanese": "分岐 ID"
+  },
+  {
+    "Source": "分支及父子路径",
+    "Chinese": "分支及父子路径",
+    "English": "Branch, parent and children",
+    "Japanese": "分岐と親子経路"
   },
   {
     "Source": "分析",
@@ -9642,6 +9666,12 @@
     "Japanese": "目標を設定 → 形態探索 → 候補を比較 → 改良"
   },
   {
+    "Source": "定位分支",
+    "Chinese": "定位分支",
+    "English": "Locate branch",
+    "Japanese": "分岐を検索"
+  },
+  {
     "Source": "定位最差试验",
     "Chinese": "定位最差试验",
     "English": "Go to worst trial",
@@ -10488,6 +10518,12 @@
     "Japanese": "非順序結果を出力"
   },
   {
+    "Source": "射线 {0:N0}/{1:N0} · 分支 {2:N0} · {3:F1} s",
+    "Chinese": "射线 {0:N0}/{1:N0} · 分支 {2:N0} · {3:F1} s",
+    "English": "Rays {0:N0}/{1:N0} · Branches {2:N0} · {3:F1} s",
+    "Japanese": "光線 {0:N0}/{1:N0} · 分岐 {2:N0} · {3:F1} s"
+  },
+  {
     "Source": "射线数",
     "Chinese": "射线数",
     "English": "Ray Count",
@@ -11146,6 +11182,12 @@
     "Chinese": "已是第一行",
     "English": "Already at the first row",
     "Japanese": "最初の行です"
+  },
+  {
+    "Source": "已暂停",
+    "Chinese": "已暂停",
+    "English": "Paused",
+    "Japanese": "一時停止中"
   },
   {
     "Source": "已有父方案",
@@ -14526,6 +14568,12 @@
     "Japanese": "初期構造ラボ"
   },
   {
+    "Source": "暂停",
+    "Chinese": "暂停",
+    "English": "Pause",
+    "Japanese": "一時停止"
+  },
+  {
     "Source": "暂无共轭结果",
     "Chinese": "暂无共轭结果",
     "English": "No conjugate results",
@@ -16534,6 +16582,12 @@
     "Chinese": "正在运行灵敏度和 Monte Carlo 公差分析…",
     "English": "Running Sensitivity and Monte Carlo Tolerance Analysis…",
     "Japanese": "感度・Monte Carlo公差解析を実行中…"
+  },
+  {
+    "Source": "正在追迹",
+    "Chinese": "正在追迹",
+    "English": "Tracing",
+    "Japanese": "追跡中"
   },
   {
     "Source": "正在追迹…",
@@ -21762,6 +21816,12 @@
     "Japanese": "検索語または対応状態フィルターを調整してください。"
   },
   {
+    "Source": "请输入有效分支 ID。",
+    "Chinese": "请输入有效分支 ID。",
+    "English": "Enter a valid branch ID.",
+    "Japanese": "有効な分岐 ID を入力してください。"
+  },
+  {
     "Source": "请输入有效参数后生成场景像。",
     "Chinese": "请输入有效参数后生成场景像。",
     "English": "Enter valid parameters before generating the scene image.",
@@ -22630,6 +22690,12 @@
     "Chinese": "追迹控制",
     "English": "Trace Control",
     "Japanese": "追跡制御"
+  },
+  {
+    "Source": "追迹结果自动保存到受管理的临时数据库，探测器、数据库和路径分析读取完整分析会话；3D布局单独准备布局光线。数据库路径留空即可。",
+    "Chinese": "追迹结果自动保存到受管理的临时数据库，探测器、数据库和路径分析读取完整分析会话；3D布局单独准备布局光线。数据库路径留空即可。",
+    "English": "Trace results are saved automatically to a managed temporary database. Detectors, the database viewer and path analysis use the full analysis session; the 3D layout prepares its own layout rays. Leave the database path blank to use this storage.",
+    "Japanese": "追跡結果は管理された一時データベースに自動保存されます。検出器、データベース表示、経路解析は完全な解析セッションを使用し、3Dレイアウトは専用の光線を準備します。この保存先を使う場合はデータベースのパスを空欄にしてください。"
   },
   {
     "Source": "追迹结果自动保存到受管理的临时数据库，探测器、路径分析和3D布局将读取同一批光线。数据库路径留空即可。",

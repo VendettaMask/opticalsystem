@@ -423,6 +423,15 @@ public sealed record NonSequentialTraceRunRequestDto(
     int? RayCountOverride = null,
     IReadOnlyList<Guid>? SourceObjectIds = null);
 
+public sealed record NonSequentialTraceProgressDto(
+    long LaunchedRays,
+    long TotalSourceRays,
+    long CompletedBranches,
+    long Segments,
+    TimeSpan Elapsed,
+    bool IsPaused,
+    bool IsCompleted);
+
 /// <summary>Whole-trace statistics before path selection. Repeated interactions are counted separately.</summary>
 public sealed record NonSequentialBsdfStatistics(long SampleCount, double IncomingPowerWatts, double ReflectedPowerWatts,
     double AbsorbedPowerWatts, double CosineSum, double CosineSquaredSum, double MinimumPdf, double MaximumPdf,
@@ -592,6 +601,12 @@ public sealed record NonSequentialRayDatabasePageDto(
     int PageSize,
     bool IsStale,
     IReadOnlyList<NonSequentialRayBranchDto> Branches);
+
+public sealed record NonSequentialRayBranchDetailsDto(
+    NonSequentialRayBranchDto Branch,
+    NonSequentialRayBranchDto? Parent,
+    IReadOnlyList<NonSequentialRayBranchDto> Children,
+    long TotalChildren);
 
 public sealed record NonSequentialPathSummaryDto(
     string Path,

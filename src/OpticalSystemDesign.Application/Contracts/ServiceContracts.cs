@@ -111,6 +111,12 @@ public interface INonSequentialAnalysisService
 
     Task ClearDetectorsAsync(CancellationToken cancellationToken = default);
 
+    NonSequentialTraceProgressDto? GetTraceProgress();
+
+    void PauseTrace();
+
+    void ResumeTrace();
+
     NonSequentialRayDatabaseDto OpenRayDatabase(string path, string? pathFilterExpression = null);
 
     NonSequentialRayDatabaseDto InspectRayDatabase(
@@ -125,6 +131,11 @@ public interface INonSequentialAnalysisService
         int pageIndex = 0,
         int pageSize = 100,
         string? pathFilterExpression = null,
+        CancellationToken cancellationToken = default);
+
+    NonSequentialRayBranchDetailsDto GetRayDatabaseBranch(
+        string path,
+        long branchId,
         CancellationToken cancellationToken = default);
 
     NonSequentialDetectorViewDto GetDetectorView(

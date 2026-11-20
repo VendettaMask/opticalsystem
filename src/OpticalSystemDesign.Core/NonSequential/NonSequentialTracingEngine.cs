@@ -52,6 +52,10 @@ public sealed record NonSequentialDocumentTraceRequest(
     IReadOnlyList<Guid>? SourceObjectIds = null)
 {
     internal NonSequentialTraceWork? Work { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore]
+    public NonSequentialTraceControl? Control { get; init; }
+    [System.Text.Json.Serialization.JsonIgnore]
+    public IProgress<NonSequentialTraceProgress>? Progress { get; init; }
 }
 internal sealed class NonSequentialTraceWork
 {
@@ -228,8 +232,12 @@ public sealed partial class NonSequentialDocumentTracer
         double minimumPdf = double.PositiveInfinity, maximumPdf = 0;
         double bsdfTransmitted = 0; long reflectedSamples = 0, transmittedSamples = 0;
         long materialSamples = 0; double materialXSum = 0, materialYSum = 0;
+        var progressClock = System.Diagnostics.Stopwatch.StartNew();
+        var lastProgress = TimeSpan.FromMilliseconds(-100);
+        long launchedRays = 0;
         while (queue.Count > 0 || hasSource)
         {
+            Checkpoint();
             ComputationCancellation.ThrowIfCancellationRequested();
             if (queue.Count == 0)
             {
@@ -242,6 +250,7 @@ public sealed partial class NonSequentialDocumentTracer
                 var assemblyMedium=opticalAssemblies.Select(o=>((OpticalAssemblyParameters)o.Parameters).MediumAt(document.ToLocalPoint(o.Id,source.Ray.Origin))).FirstOrDefault(m=>m is not null);
                 if(initialInside.Length==0 && assemblyMedium is null && opticalAssemblies.Length>0)assemblyMedium=((OpticalAssemblyParameters)opticalAssemblies[0].Parameters).Ambient;
                 sourcePower += source.Ray.Intensity;
+                launchedRays++;
                 if (request.Work is { } launchedWork) launchedWork.LaunchedRays++;
                 NonSequentialFieldState? inputField = null;
                 if (fieldTracing)
@@ -272,6 +281,7 @@ public sealed partial class NonSequentialDocumentTracer
             var completed = false;
             for (var segmentIndex = 0; segmentIndex < settings.MaximumSegmentsPerRay; segmentIndex++)
             {
+                Checkpoint();
                 ComputationCancellation.ThrowIfCancellationRequested();
                 if(hasOpticalAssemblies && state.Segments.Count>=settings.MaximumSegmentsPerRay){termination=NonSequentialTerminationReason.MaximumSegments;truncatedPower+=state.Ray.Intensity;completed=true;break;}
                 if (!state.Ray.CanTrace)
@@ -685,6 +695,7 @@ public sealed partial class NonSequentialDocumentTracer
         }
 
         var frames = detectors.Values.Select(item => item.ToFrame()).ToArray();
+        ReportProgress(completed: true);
         return new NonSequentialDocumentTraceResult(
             branches,
             frames,
@@ -695,6 +706,25 @@ public sealed partial class NonSequentialDocumentTracer
             bsdfSamples == 0 ? null : new(bsdfSamples, bsdfIncoming, bsdfReflected, bsdfAbsorbed,
                 cosineSum, cosineSquaredSum, minimumPdf, maximumPdf, bsdfTransmitted, reflectedSamples, transmittedSamples,
                 materialSamples, materialXSum, materialYSum));
+
+        void Checkpoint()
+        {
+            if (request.Control is { IsPaused: true } control)
+            {
+                ReportProgress();
+                control.Wait(ComputationCancellation.Current);
+                ReportProgress();
+            }
+            if (request.Progress is not null && progressClock.Elapsed - lastProgress >= TimeSpan.FromMilliseconds(100))
+                ReportProgress();
+        }
+
+        void ReportProgress(bool completed = false)
+        {
+            lastProgress = progressClock.Elapsed;
+            request.Progress?.Report(new(launchedRays, sourceCount, totalBranchCount, totalSegmentCount,
+                progressClock.Elapsed, request.Control?.IsPaused == true, completed));
+        }
 
         void Emit(NonSequentialRayBranch branch)
         {

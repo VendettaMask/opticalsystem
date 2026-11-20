@@ -147,6 +147,14 @@ public sealed class FullReliabilityCoreTests
             new(0, 0, 1), new(0, 0, 1), 587.6, 1, 1, 1, 1, null);
         using (var writer = new NonSequentialRayDatabaseWriter(stream, NonSequentialRayDatabaseHeader.Create(Scene([])), true))
         {
+            if (nullSegment)
+            {
+                Assert.Throws<InvalidDataException>(() => writer.OnBranch(
+                    new(1, null, 0, null, [null!], NonSequentialTerminationReason.Escaped, 1, 587.6)));
+                Assert.Equal(0, writer.BranchCount);
+                Assert.Equal(0, writer.SegmentCount);
+                return;
+            }
             writer.OnBranch(new(1, null, 0, null, [nullSegment ? null! : segment], NonSequentialTerminationReason.Escaped, 1, 587.6));
             writer.Complete();
         }

@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using Avalonia.Threading;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
@@ -73,6 +74,9 @@ internal sealed class NonSequentialTraceControlWindow : Window
 {
     private readonly INonSequentialAnalysisService _service;
     private readonly INonSequentialDocumentService _documentService;
+    private readonly Button _pause = new() { Content = "暂停", IsEnabled = false, Name = "nsc-trace-pause" };
+    private readonly ProgressBar _progress = new() { Minimum = 0, Maximum = 100, IsVisible = false, Name = "nsc-trace-progress" };
+    private readonly DispatcherTimer _progressTimer = new() { Interval = TimeSpan.FromMilliseconds(100) };
     private readonly CheckBox _polarization = new() { Content = "偏振追迹（Jones / Stokes）" };
     private readonly CheckBox _coherent = new() { Content = "相干探测（同波长、同相干组）" };
     private readonly ComboBox _source = new();
@@ -82,7 +86,7 @@ internal sealed class NonSequentialTraceControlWindow : Window
         ItemsSource = Enum.GetValues<NonSequentialSplittingMode>(),
         SelectedItem = NonSequentialSplittingMode.FullFresnel
     };
-    private readonly TextBox _rayCount = new() { PlaceholderText = "留空则使用光源对象设置" };
+    private readonly TextBox _rayCount = new() { PlaceholderText = "留空则使用光源对象设置", Name = "nsc-trace-count" };
     private readonly TextBox _seed = new() { Text = "1" };
     private readonly TextBox _segments = new() { Text = "1000" };
     private readonly TextBox _branches = new() { Text = "1000000" };
@@ -90,7 +94,7 @@ internal sealed class NonSequentialTraceControlWindow : Window
     private readonly TextBox _retained = new() { Text = "2000" };
     private readonly TextBox _filter = new() { PlaceholderText = "例如 SEQ(Q1,H3,R3,D8)" };
     private readonly TextBox _path = new() { PlaceholderText = "选择 .starrdb 保存位置" };
-    private readonly TextBlock _status = new() { TextWrapping = Avalonia.Media.TextWrapping.Wrap };
+    private readonly TextBlock _status = new() { TextWrapping = Avalonia.Media.TextWrapping.Wrap, Name = "nsc-trace-status" };
     private CancellationTokenSource? _cancellation;
 
     public NonSequentialTraceControlWindow(
@@ -116,24 +120,34 @@ internal sealed class NonSequentialTraceControlWindow : Window
         browse.Click += async (_, _) => await BrowseAsync();
         var pathGrid = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto"), ColumnSpacing = 8, Children = { _path, browse } };
         Grid.SetColumn(browse, 1);
-        var clearAndTrace = new Button { Content = "清空并追迹", MinWidth = 100 };
+        var clearAndTrace = new Button { Content = "清空并追迹", MinWidth = 100, Name = "nsc-trace-start" };
         var traceOnly = new Button { Content = "仅追迹", MinWidth = 88 };
+        _pause.Click += (_, _) =>
+        {
+            if (_service.GetTraceProgress()?.IsPaused == true) _service.ResumeTrace();
+            else _service.PauseTrace();
+        };
+        _progressTimer.Tick += (_, _) => UpdateTraceProgress();
+        Closed += (_, _) =>
+        {
+            _cancellation?.Cancel();
+            _progressTimer.Stop();
+        };
         var clear = new Button { Content = "仅清空", MinWidth = 88 };
         var traceCommands = new[] { clearAndTrace, traceOnly, clear };
         clearAndTrace.Click += async (_, _) => await RunAsync(NonSequentialTraceCommand.ClearAndTrace, traceCommands);
         traceOnly.Click += async (_, _) => await RunAsync(NonSequentialTraceCommand.TraceOnly, traceCommands);
         clear.Click += async (_, _) => await RunAsync(NonSequentialTraceCommand.ClearOnly, traceCommands);
-        var cancel = new Button { Content = "取消", MinWidth = 88 };
+        var cancel = new Button { Content = "取消", MinWidth = 88, Name = "nsc-trace-cancel" };
         cancel.Click += (_, _) => _cancellation?.Cancel();
         var close = new Button { Content = "关闭", MinWidth = 88 };
         close.Click += (_, _) => Close();
-        Content = new StackPanel
+        var fields = new StackPanel
         {
-            Margin = new Avalonia.Thickness(18),
             Spacing = 10,
             Children =
             {
-                new TextBlock { Text = "追迹结果自动保存到受管理的临时数据库，探测器、路径分析和3D布局将读取同一批光线。数据库路径留空即可。", TextWrapping = Avalonia.Media.TextWrapping.Wrap },
+                new TextBlock { Text = "追迹结果自动保存到受管理的临时数据库，探测器、数据库和路径分析读取完整分析会话；3D布局单独准备布局光线。数据库路径留空即可。", TextWrapping = Avalonia.Media.TextWrapping.Wrap },
                 Row("光源", _source),
                 _analysis,
                 _polarization, _coherent,
@@ -145,10 +159,21 @@ internal sealed class NonSequentialTraceControlWindow : Window
                 Row("最小相对能量", _minimumPower),
                 Row("最多保留分支", _retained),
                 Row("路径筛选", _filter),
-                Row("另存数据库", pathGrid),
-                _status,
-                new StackPanel { Orientation = Orientation.Horizontal, HorizontalAlignment = HorizontalAlignment.Right, Spacing = 8, Children = { cancel, clear, traceOnly, clearAndTrace, close } }
+                Row("另存数据库", pathGrid)
             }
+        };
+        var commands = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Right };
+        foreach (var button in new[] { _pause, cancel, clear, traceOnly, clearAndTrace, close })
+        {
+            button.Margin = new Avalonia.Thickness(4);
+            commands.Children.Add(button);
+        }
+        var footer = new StackPanel { Spacing = 8, Children = { _status, _progress, commands } };
+        DockPanel.SetDock(footer, Avalonia.Controls.Dock.Bottom);
+        Content = new DockPanel
+        {
+            Margin = new Avalonia.Thickness(18),
+            Children = { footer, new ScrollViewer { Content = fields, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Disabled } }
         };
         ThemeChrome.ApplyDialogDecoration(this);
         ShowSession();
@@ -202,6 +227,10 @@ internal sealed class NonSequentialTraceControlWindow : Window
         _status.Text = "正在追迹…";
         var cancellation = new CancellationTokenSource();
         _cancellation = cancellation;
+        _progress.IsVisible = command != NonSequentialTraceCommand.ClearOnly;
+        _progress.Value = 0;
+        _pause.IsEnabled = _progress.IsVisible;
+        _progressTimer.Start();
         try
         {
             if (command != NonSequentialTraceCommand.ClearOnly)
@@ -244,10 +273,26 @@ internal sealed class NonSequentialTraceControlWindow : Window
         }
         finally
         {
+            _progressTimer.Stop();
+            _pause.IsEnabled = false;
+            _pause.Content = UiLocalization.Text("暂停");
+            _progress.IsVisible = false;
             if (ReferenceEquals(_cancellation, cancellation)) _cancellation = null;
             cancellation.Dispose();
             foreach (var button in commandButtons) button.IsEnabled = true;
         }
+    }
+
+    private void UpdateTraceProgress()
+    {
+        if (_service.GetTraceProgress() is not { } progress) return;
+        _pause.Content = UiLocalization.Text(progress.IsPaused ? "继续" : "暂停");
+        _progress.Value = progress.TotalSourceRays == 0 ? 0
+            : 100d * progress.LaunchedRays / progress.TotalSourceRays;
+        _status.Text = UiLocalization.Text(progress.IsPaused ? "已暂停" : "正在追迹")
+            + " · " + string.Format(CultureInfo.CurrentCulture,
+                UiLocalization.Text("射线 {0:N0}/{1:N0} · 分支 {2:N0} · {3:F1} s"),
+                progress.LaunchedRays, progress.TotalSourceRays, progress.CompletedBranches, progress.Elapsed.TotalSeconds);
     }
 
     private void ShowSession()
@@ -262,7 +307,7 @@ internal sealed class NonSequentialTraceControlWindow : Window
     private static Control Row(string label, Control editor)
     {
         var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("120,*"), ColumnSpacing = 8 };
-        grid.Children.Add(new TextBlock { Text = label, VerticalAlignment = VerticalAlignment.Center });
+        grid.Children.Add(new TextBlock { Text = label, VerticalAlignment = VerticalAlignment.Center, TextWrapping = Avalonia.Media.TextWrapping.Wrap });
         Grid.SetColumn(editor, 1);
         grid.Children.Add(editor);
         return grid;
@@ -270,19 +315,23 @@ internal sealed class NonSequentialTraceControlWindow : Window
 
     private sealed record SourceChoice(Guid? Id, string Label)
     {
-        public override string ToString() => Label;
+        public override string ToString() => Id is null ? UiLocalization.Text("全部启用光源") : Label;
     }
 }
 
 internal sealed class NonSequentialRayDatabaseWindow : Window
 {
+    internal Task InitialLoad { get; }
+
     private readonly INonSequentialAnalysisService _service;
     private readonly string _path;
     private readonly TextBox _filter = new() { PlaceholderText = "Q/H/R/S/B/T/D/M/W、A/E/X、! & |、SEQ(...)" };
     private readonly TextBlock _header = new() { TextWrapping = Avalonia.Media.TextWrapping.Wrap };
     private readonly DataGrid _grid = new() { AutoGenerateColumns = false, IsReadOnly = true };
-    private readonly DataGrid _branchGrid = new() { AutoGenerateColumns = false, IsReadOnly = true };
+    private readonly DataGrid _branchGrid = new() { AutoGenerateColumns = false, IsReadOnly = true, Name = "nsc-branch-grid" };
     private readonly TextBox _page = new() { Text = "1", Width = 64 };
+    private readonly TextBox _branchId = new() { PlaceholderText = "分支 ID", Width = 100, Name = "nsc-branch-id" };
+    private readonly StackPanel _pageBar;
     private CancellationTokenSource? _loadCancellation;
     private CancellationTokenSource? _pageCancellation;
     private bool _closed;
@@ -325,21 +374,39 @@ internal sealed class NonSequentialRayDatabaseWindow : Window
         previous.Click += (_, _) => ChangePage(-1);
         var next = new Button { Content = "下一页" };
         next.Click += (_, _) => ChangePage(1);
-        var pageBar = new StackPanel
+        var locate = new Button { Content = "定位分支", Name = "nsc-branch-locate" };
+        locate.Click += async (_, _) => await LocateBranchAsync();
+        var parent = new Button { Content = "父分支", Name = "nsc-branch-parent" };
+        parent.Click += async (_, _) =>
+        {
+            if (_branchGrid.SelectedItem is BranchRow row && long.TryParse(row.ParentId, out var id))
+            {
+                _branchId.Text = id.ToString(CultureInfo.InvariantCulture);
+                await LocateBranchAsync();
+            }
+        };
+        _branchGrid.SelectionChanged += (_, _) =>
+        {
+            if (_branchGrid.SelectedItem is BranchRow row)
+                _branchId.Text = row.Id.ToString(CultureInfo.InvariantCulture);
+        };
+        _branchGrid.DoubleTapped += async (_, _) => await LocateBranchAsync();
+        var pageBar = _pageBar = new StackPanel
         {
             Orientation = Orientation.Horizontal,
             Spacing = 8,
             Margin = new Avalonia.Thickness(0, 0, 0, 8),
-            Children = { previous, new TextBlock { Text = "页码", VerticalAlignment = VerticalAlignment.Center }, _page, next }
+            Children = { previous, new TextBlock { Text = "页码", VerticalAlignment = VerticalAlignment.Center }, _page, next,
+                _branchId, locate, parent }
         };
         var tabs = new TabControl
         {
-            SelectedIndex = showPathAnalysis ? 1 : 0,
             ItemsSource = new object[]
             {
                 new TabItem { Header = "光线数据库", Content = new DockPanel { Children = { Dock(pageBar, Avalonia.Controls.Dock.Top), _branchGrid } } },
                 new TabItem { Header = "路径分析", Content = _grid }
-            }
+            },
+            SelectedIndex = showPathAnalysis ? 1 : 0
         };
         Content = new DockPanel
         {
@@ -355,7 +422,7 @@ internal sealed class NonSequentialRayDatabaseWindow : Window
             _loadCancellation?.Dispose();
             _pageCancellation?.Dispose();
         };
-        _ = LoadAsync();
+        InitialLoad = LoadAsync();
     }
 
     private async Task LoadAsync()
@@ -368,6 +435,8 @@ internal sealed class NonSequentialRayDatabaseWindow : Window
         _loadCancellation?.Cancel();
         _loadCancellation?.Dispose();
         var cancellation = _loadCancellation = new CancellationTokenSource();
+        _pageBar.IsEnabled = false;
+        _branchGrid.IsEnabled = false;
         try
         {
             _header.Text = "正在读取光线数据库…";
@@ -379,7 +448,7 @@ internal sealed class NonSequentialRayDatabaseWindow : Window
             _service.SelectRayDatabase(_path, filter);
             _header.Text = $"{database.Path}\n{database.BranchCount:N0} 个分支 · {database.CreatedUtc.LocalDateTime:G}"
                 + (database.IsStale ? " · 结果已过期：场景与当前工程不一致" : " · 与当前场景一致")
-                + "\n当前筛选已作为非序列 3D 布局和探测器查看器的数据源；刷新对应页面即可联动。";
+                + "\n当前筛选应用于完整分析会话的探测器和路径统计；3D布局使用独立布局会话。";
             _grid.ItemsSource = database.Paths.Select(item => new PathRow(item)).ToArray();
             await LoadPageAsync();
         }
@@ -392,6 +461,14 @@ internal sealed class NonSequentialRayDatabaseWindow : Window
             _header.Text = $"数据库读取失败：{exception.Message}";
             _grid.ItemsSource = Array.Empty<PathRow>();
             _branchGrid.ItemsSource = Array.Empty<BranchRow>();
+        }
+        finally
+        {
+            if (!_closed && generation == _loadGeneration)
+            {
+                _pageBar.IsEnabled = true;
+                _branchGrid.IsEnabled = true;
+            }
         }
     }
 
@@ -426,6 +503,39 @@ internal sealed class NonSequentialRayDatabaseWindow : Window
             if (_closed || generation != _pageGeneration) return;
             _header.Text += $"\n分页读取失败：{exception.Message}";
             _branchGrid.ItemsSource = Array.Empty<BranchRow>();
+        }
+    }
+
+    private async Task LocateBranchAsync()
+    {
+        var generation = ++_pageGeneration;
+        _pageCancellation?.Cancel();
+        _pageCancellation?.Dispose();
+        _pageCancellation = null;
+        if (!long.TryParse(_branchId.Text, NumberStyles.Integer, CultureInfo.InvariantCulture, out var id) || id <= 0)
+        {
+            _header.Text = UiLocalization.Text("请输入有效分支 ID。");
+            return;
+        }
+        var cancellation = _pageCancellation = new CancellationTokenSource();
+        try
+        {
+            var family = await Task.Run(() => _service.GetRayDatabaseBranch(_path, id, cancellation.Token), cancellation.Token);
+            if (_closed || cancellation.IsCancellationRequested || generation != _pageGeneration) return;
+            var branches = new List<NonSequentialRayBranchDto>();
+            if (family.Parent is { } parent) branches.Add(parent);
+            branches.Add(family.Branch);
+            branches.AddRange(family.Children);
+            var rows = branches.Select(branch => new BranchRow(branch)).ToArray();
+            _branchGrid.ItemsSource = rows;
+            _branchGrid.SelectedItem = rows.Single(row => row.Id == family.Branch.Id);
+            _header.Text = UiLocalization.Text("分支及父子路径")
+                + FormattableString.Invariant($" · {id} · {family.Children.Count}/{family.TotalChildren}");
+        }
+        catch (OperationCanceledException) when (cancellation.IsCancellationRequested) { }
+        catch (Exception exception)
+        {
+            if (!_closed && generation == _pageGeneration) _header.Text = exception.Message;
         }
     }
 

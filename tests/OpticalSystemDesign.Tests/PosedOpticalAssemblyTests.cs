@@ -175,13 +175,7 @@ public sealed class PosedOpticalAssemblyTests
     [Theory] [InlineData("air")] [InlineData("immersion")]
     public void ExistingV20AssemblyScenesKeepTheirFrozenHashAndCanBeTraced(string name)
     {
-        static string Repository([System.Runtime.CompilerServices.CallerFilePath]string source="")
-        {
-            for(var directory=new DirectoryInfo(Path.GetDirectoryName(source)!);directory is not null;directory=directory.Parent)
-                if(EvidenceFiles.Exists(Path.Combine(directory.FullName,"OpticalSystemDesign.slnx")))return directory.FullName;
-            throw new DirectoryNotFoundException("Repository for retained assembly regression input.");
-        }
-        var root=Path.Combine(Repository(),"validation/rechecks/2026-11-01/cemented-immersion/final-controls");
+        var root=Path.Combine(ProductDependencyArchitectureTests.RepositoryRoot(),"validation/rechecks/2026-11-01/cemented-immersion/final-controls");
         var project=StarOptProjectStore.Deserialize(EvidenceFiles.ReadAllBytes(Path.Combine(root,name+".staropt")));var scene=project.NonSequentialDocument!;
         using var stream=EvidenceFiles.OpenRead(Path.Combine(root,name+".starrdb"));using var database=new NonSequentialRayDatabaseReader(stream);
         Assert.False(((OpticalAssemblyParameters)scene.Objects[0].Parameters).HasExtendedSurfaces);

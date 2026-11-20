@@ -1,5 +1,6 @@
 using System.Collections;
 using Avalonia.Controls;
+using Avalonia.LogicalTree;
 using Avalonia.Headless;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
@@ -41,7 +42,13 @@ public sealed class BinaryZemaxBsdfWindowTests
                 if (!zemax) { Assert.Equal("unused declaration", Find<TextBox>("nsc-bsdf-zemax-wave").Text); Find<TextBox>("nsc-bsdf-zemax-wave").Text = "550"; }
                 await app.NonSequentialAnalysis.TraceAsync(new(SplittingMode: NonSequentialSplittingMode.FullFresnel));
                 camera = new CameraImagingWindow(app) { Width = 1200, Height = 1000 }; camera.Show(); camera.UpdateLayout();
-                T Camera<T>(string name) where T : Control => camera.GetVisualDescendants().OfType<T>().Single(c => c.Name == "camera-" + name);
+                T Camera<T>(string name) where T : Control
+                {
+                    var control = camera.GetLogicalDescendants().OfType<T>().Single(c => c.Name == "camera-" + name);
+                    foreach (var section in control.GetLogicalAncestors().OfType<Expander>()) section.IsExpanded = true;
+                    camera.UpdateLayout();
+                    return control;
+                }
                 Camera<ComboBox>("source").SelectedIndex = (int)CameraSource.NonSequentialDetector; Camera<ComboBox>("nsc-detector").SelectedIndex = 1; Camera<TextBox>("nsc-filter").Text = "B2 & D4";
                 Assert.True(await camera.CaptureNscAsync()); Assert.True(await camera.ImportResponseFromPathAsync(Path.Combine(CameraSensorFileTests.Examples, "example-qe.csv")));
                 Camera<CheckBox>("noise").IsChecked = false; await camera.RunAsync(); var run = Assert.IsType<CameraImagingResult>(camera.Result);

@@ -688,3 +688,14 @@ RMS 波数	RMS Waves	RMS 波数
 机械外圆轴	Mechanical Outer-cylinder Axis	機械外周円筒軸
 光学元件	Optical Element	光学部品
 当前图样：GB/T 13323—1991；半径标名义值，精度按ΔR及N/ΔN填写。粗糙度Ra使用μm，补充Rq使用nm，互不换算；空项未规定。	Current drawing: GB/T 13323—1991; radii are nominal, with accuracy specified by ΔR and N/ΔN. Ra uses μm and additional Rq uses nm; no conversion between them. Blank fields are unspecified.	現在の図面：GB/T 13323—1991。半径は公称値で、精度は ΔR と N/ΔN で指定します。粗さ Ra は μm、追加 Rq は nm を使用し、相互換算しません。空欄は未指定です。
+暂停	Pause	一時停止
+已暂停	Paused	一時停止中
+正在追迹	Tracing	追跡中
+分支 ID	Branch ID	分岐 ID
+定位分支	Locate branch	分岐を検索
+请输入有效分支 ID。	Enter a valid branch ID.	有効な分岐 ID を入力してください。
+分支及父子路径	Branch, parent and children	分岐と親子経路
+全部启用光源	All enabled sources	すべての有効な光源
+射线 {0:N0}/{1:N0} · 分支 {2:N0} · {3:F1} s	Rays {0:N0}/{1:N0} · Branches {2:N0} · {3:F1} s	光線 {0:N0}/{1:N0} · 分岐 {2:N0} · {3:F1} s
+追迹结果自动保存到受管理的临时数据库，探测器、数据库和路径分析读取完整分析会话；3D布局单独准备布局光线。数据库路径留空即可。	Trace results are saved automatically to a managed temporary database. Detectors, the database viewer and path analysis use the full analysis session; the 3D layout prepares its own layout rays. Leave the database path blank to use this storage.	追跡結果は管理された一時データベースに自動保存されます。検出器、データベース表示、経路解析は完全な解析セッションを使用し、3Dレイアウトは専用の光線を準備します。この保存先を使う場合はデータベースのパスを空欄にしてください。
+{0}\n{1} 个分支 · {2}{3}\n当前筛选应用于完整分析会话的探测器和路径统计；3D布局使用独立布局会话。	{0}\n{1} branches · {2}{3}\nThe current filter applies to detectors and path statistics in the full analysis session; the 3D layout uses its own layout session.	{0}\n{1} 分岐 · {2}{3}\n現在のフィルターは完全な解析セッションの検出器と経路統計に適用され、3Dレイアウトは独立したレイアウトセッションを使用します。

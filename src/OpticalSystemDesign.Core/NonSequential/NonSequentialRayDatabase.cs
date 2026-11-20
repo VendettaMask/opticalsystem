@@ -245,7 +245,7 @@ public sealed class NonSequentialRayDatabaseWriter : INonSequentialTraceSink, ID
     private readonly record struct ChunkIndex(long Offset, int BranchCount, int UncompressedLength, int CompressedLength);
 }
 
-public sealed class NonSequentialRayDatabaseReader : IDisposable
+public sealed partial class NonSequentialRayDatabaseReader : IDisposable
 {
     private const int FileHeaderLength = 52;
     private const int ChunkHeaderLength = 48;
@@ -259,6 +259,7 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
     private readonly IReadOnlyList<ChunkIndex> _index;
     private readonly object _streamGate = new();
     private readonly HashSet<Guid> _objectIds;
+    private readonly Lazy<string> _branchIndexIdentity;
 
     public NonSequentialRayDatabaseReader(Stream stream, bool leaveOpen = false)
     {
@@ -271,6 +272,7 @@ public sealed class NonSequentialRayDatabaseReader : IDisposable
         _leaveOpen = leaveOpen;
         (Header, _index, BranchCount) = ReadStructure();
         _objectIds = Header.Objects.Select(item => item.Id).ToHashSet();
+        _branchIndexIdentity = new(ComputeBranchIndexIdentity);
     }
 
     public NonSequentialRayDatabaseHeader Header { get; }

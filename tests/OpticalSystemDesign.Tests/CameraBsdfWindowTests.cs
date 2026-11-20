@@ -1,5 +1,6 @@
 using System.Collections;
 using Avalonia.Controls;
+using Avalonia.LogicalTree;
 using Avalonia.Headless;
 using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
@@ -50,7 +51,13 @@ public sealed class CameraBsdfWindowTests
                 }
                 await app.NonSequentialAnalysis.TraceAsync(new(SplittingMode: NonSequentialSplittingMode.FullFresnel));
                 camera = new CameraImagingWindow(app) { Width = 1200, Height = 860 }; camera.Show(); camera.UpdateLayout();
-                T Camera<T>(string name) where T : Control => camera.GetVisualDescendants().OfType<T>().Single(c => c.Name == "camera-" + name);
+                T Camera<T>(string name) where T : Control
+                {
+                    var control = camera.GetLogicalDescendants().OfType<T>().Single(c => c.Name == "camera-" + name);
+                    foreach (var section in control.GetLogicalAncestors().OfType<Expander>()) section.IsExpanded = true;
+                    camera.UpdateLayout();
+                    return control;
+                }
                 Camera<ComboBox>("source").SelectedIndex = (int)CameraSource.NonSequentialDetector;
                 Camera<TextBox>("nsc-filter").Text = "S2 & D3";
                 Assert.True(await camera.CaptureNscAsync());

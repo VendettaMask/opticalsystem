@@ -1,0 +1,362 @@
+{
+  "Schema": 1,
+  "Date": "2026-11-20",
+  "RecordedUtc": "2026-11-20T06:05:36.1071311+00:00",
+  "BaseCommit": "2c84b1f09d2744b5f6d14d8d84023afa5d10220a",
+  "Scope": "Existing non-sequential feature defects, workflow integration and regression repair.",
+  "Build": {
+    "Command": "dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false",
+    "Warnings": 0,
+    "Errors": 0
+  },
+  "Tests": {
+    "Runner": "dotnet vstest tests/OpticalSystemDesign.Tests/bin/Release/net10.0/OpticalSystemDesign.Tests.dll",
+    "Filter": "FullyQualifiedName~OpticalSystemDesign.Tests.BinaryZemaxBsdfChainTests.|FullyQualifiedName~OpticalSystemDesign.Tests.BinaryZemaxBsdfNscTests.|FullyQualifiedName~OpticalSystemDesign.Tests.BinaryZemaxBsdfTests.|FullyQualifiedName~OpticalSystemDesign.Tests.BinaryZemaxBsdfWindowTests.|FullyQualifiedName~OpticalSystemDesign.Tests.BsdfTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CameraBsdfChainTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CameraBsdfWindowTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CameraNonSequentialServiceTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CameraNonSequentialWindowTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CommercialBsdfCalibrationChainTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CommercialBsdfCalibrationTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CommercialBsdfChainTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CommercialBsdfNativeTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CommercialBsdfNscTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CommercialBsdfRuntimeGapTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CommercialBsdfRuntimeWhiteTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CommercialBsdfTests.|FullyQualifiedName~OpticalSystemDesign.Tests.CommercialBsdfWindowTests.|FullyQualifiedName~OpticalSystemDesign.Tests.FullReliabilityCoreTests.|FullyQualifiedName~OpticalSystemDesign.Tests.LogMeasuredBsdfChainTests.|FullyQualifiedName~OpticalSystemDesign.Tests.LogMeasuredBsdfTests.|FullyQualifiedName~OpticalSystemDesign.Tests.MeasuredBsdfChainTests.|FullyQualifiedName~OpticalSystemDesign.Tests.MeasuredBsdfNscTests.|FullyQualifiedName~OpticalSystemDesign.Tests.MeasuredBsdfTests.|FullyQualifiedName~OpticalSystemDesign.Tests.MeasuredBsdfWindowTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialBsdfTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialCameraSensorTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialDesignArchiveTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialDesignTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialDesignWindowTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialDocumentTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialExecutionTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialExecutionWindowTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialFieldViewerWindowTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialFieldViewTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialIntegrationTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialPolarizationTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialRayTracerTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialStrayLightTests.|FullyQualifiedName~OpticalSystemDesign.Tests.NonSequentialTeachingSampleTests.|FullyQualifiedName~OpticalSystemDesign.Tests.OpticalAssemblyApplicationTests.|FullyQualifiedName~OpticalSystemDesign.Tests.OpticalAssemblyTests.|FullyQualifiedName~OpticalSystemDesign.Tests.OpticalAssemblyWindowTests.|FullyQualifiedName~OpticalSystemDesign.Tests.PosedOpticalAssemblyApplicationTests.|FullyQualifiedName~OpticalSystemDesign.Tests.PosedOpticalAssemblyTests.|FullyQualifiedName~OpticalSystemDesign.Tests.SpeosV11NscTests.",
+    "Total": 434,
+    "Passed": 434,
+    "Failed": 0,
+    "Skipped": 0,
+    "StartUtc": "2026-11-20T14:03:09.3242937+08:00",
+    "FinishUtc": "2026-11-20T14:05:01.8963961+08:00",
+    "Artifact": "nsc-final.trx.gz",
+    "TrxSha256": "9ea0d7e6616fb8f9829334c6208606dd87cbe5e52a19199c82c553b2145319c9",
+    "ArchiveSha256": "1c37cc23716594450bc9679b608f4c8fc8c77f51f2433f1c93b10e249e5abfa9",
+    "Classes": [
+      {
+        "Class": "BinaryZemaxBsdfChainTests",
+        "Passed": 4,
+        "Total": 4
+      },
+      {
+        "Class": "BinaryZemaxBsdfNscTests",
+        "Passed": 1,
+        "Total": 1
+      },
+      {
+        "Class": "BinaryZemaxBsdfTests",
+        "Passed": 28,
+        "Total": 28
+      },
+      {
+        "Class": "BinaryZemaxBsdfWindowTests",
+        "Passed": 2,
+        "Total": 2
+      },
+      {
+        "Class": "BsdfTests",
+        "Passed": 11,
+        "Total": 11
+      },
+      {
+        "Class": "CameraBsdfChainTests",
+        "Passed": 3,
+        "Total": 3
+      },
+      {
+        "Class": "CameraBsdfWindowTests",
+        "Passed": 1,
+        "Total": 1
+      },
+      {
+        "Class": "CameraNonSequentialServiceTests",
+        "Passed": 7,
+        "Total": 7
+      },
+      {
+        "Class": "CameraNonSequentialWindowTests",
+        "Passed": 3,
+        "Total": 3
+      },
+      {
+        "Class": "CommercialBsdfCalibrationChainTests",
+        "Passed": 3,
+        "Total": 3
+      },
+      {
+        "Class": "CommercialBsdfCalibrationTests",
+        "Passed": 7,
+        "Total": 7
+      },
+      {
+        "Class": "CommercialBsdfChainTests",
+        "Passed": 3,
+        "Total": 3
+      },
+      {
+        "Class": "CommercialBsdfNativeTests",
+        "Passed": 6,
+        "Total": 6
+      },
+      {
+        "Class": "CommercialBsdfNscTests",
+        "Passed": 3,
+        "Total": 3
+      },
+      {
+        "Class": "CommercialBsdfRuntimeGapTests",
+        "Passed": 14,
+        "Total": 14
+      },
+      {
+        "Class": "CommercialBsdfRuntimeWhiteTests",
+        "Passed": 5,
+        "Total": 5
+      },
+      {
+        "Class": "CommercialBsdfTests",
+        "Passed": 17,
+        "Total": 17
+      },
+      {
+        "Class": "CommercialBsdfWindowTests",
+        "Passed": 1,
+        "Total": 1
+      },
+      {
+        "Class": "FullReliabilityCoreTests",
+        "Passed": 37,
+        "Total": 37
+      },
+      {
+        "Class": "LogMeasuredBsdfChainTests",
+        "Passed": 3,
+        "Total": 3
+      },
+      {
+        "Class": "LogMeasuredBsdfTests",
+        "Passed": 10,
+        "Total": 10
+      },
+      {
+        "Class": "MeasuredBsdfChainTests",
+        "Passed": 4,
+        "Total": 4
+      },
+      {
+        "Class": "MeasuredBsdfNscTests",
+        "Passed": 8,
+        "Total": 8
+      },
+      {
+        "Class": "MeasuredBsdfTests",
+        "Passed": 15,
+        "Total": 15
+      },
+      {
+        "Class": "MeasuredBsdfWindowTests",
+        "Passed": 1,
+        "Total": 1
+      },
+      {
+        "Class": "NonSequentialBsdfTests",
+        "Passed": 7,
+        "Total": 7
+      },
+      {
+        "Class": "NonSequentialCameraSensorTests",
+        "Passed": 13,
+        "Total": 13
+      },
+      {
+        "Class": "NonSequentialDesignArchiveTests",
+        "Passed": 4,
+        "Total": 4
+      },
+      {
+        "Class": "NonSequentialDesignTests",
+        "Passed": 8,
+        "Total": 8
+      },
+      {
+        "Class": "NonSequentialDesignWindowTests",
+        "Passed": 3,
+        "Total": 3
+      },
+      {
+        "Class": "NonSequentialDocumentTests",
+        "Passed": 29,
+        "Total": 29
+      },
+      {
+        "Class": "NonSequentialExecutionTests",
+        "Passed": 5,
+        "Total": 5
+      },
+      {
+        "Class": "NonSequentialExecutionWindowTests",
+        "Passed": 3,
+        "Total": 3
+      },
+      {
+        "Class": "NonSequentialFieldViewerWindowTests",
+        "Passed": 2,
+        "Total": 2
+      },
+      {
+        "Class": "NonSequentialFieldViewTests",
+        "Passed": 5,
+        "Total": 5
+      },
+      {
+        "Class": "NonSequentialIntegrationTests",
+        "Passed": 4,
+        "Total": 4
+      },
+      {
+        "Class": "NonSequentialPolarizationTests",
+        "Passed": 15,
+        "Total": 15
+      },
+      {
+        "Class": "NonSequentialRayTracerTests",
+        "Passed": 23,
+        "Total": 23
+      },
+      {
+        "Class": "NonSequentialStrayLightTests",
+        "Passed": 38,
+        "Total": 38
+      },
+      {
+        "Class": "NonSequentialTeachingSampleTests",
+        "Passed": 13,
+        "Total": 13
+      },
+      {
+        "Class": "OpticalAssemblyApplicationTests",
+        "Passed": 4,
+        "Total": 4
+      },
+      {
+        "Class": "OpticalAssemblyTests",
+        "Passed": 25,
+        "Total": 25
+      },
+      {
+        "Class": "OpticalAssemblyWindowTests",
+        "Passed": 2,
+        "Total": 2
+      },
+      {
+        "Class": "PosedOpticalAssemblyApplicationTests",
+        "Passed": 5,
+        "Total": 5
+      },
+      {
+        "Class": "PosedOpticalAssemblyTests",
+        "Passed": 27,
+        "Total": 27
+      },
+      {
+        "Class": "SpeosV11NscTests",
+        "Passed": 2,
+        "Total": 2
+      }
+    ]
+  },
+  "Localization": "check: 4107 local translations, 3795 UI occurrences, 0 missing, 0 errors.",
+  "Ui": {
+    "Interaction": "Actual Avalonia windows and buttons, rendered off-screen with the product styles and fonts.",
+    "Captures": [
+      {
+        "File": "trace-controls-Light.png",
+        "Theme": "Light",
+        "Language": "zh-CN",
+        "Dpi": 96,
+        "Sha256": "f728e72c8b6582fdc30e6907839e635d423cf0d183d6cb4c69e98d9f7bfdc7fe"
+      },
+      {
+        "File": "trace-controls-Dark.png",
+        "Theme": "Dark",
+        "Language": "ja-JP",
+        "Dpi": 144,
+        "Sha256": "944ad9d4239515c5a6f7aa8edfa369fca2ef525647284ecb544667ac9dd5dd95"
+      },
+      {
+        "File": "trace-controls-Isekai.png",
+        "Theme": "Isekai",
+        "Language": "en-US",
+        "Dpi": 192,
+        "Sha256": "82dc565484f84e70e1b368d10f39dd940c357ac52f2c847b87e79d2cc9eab651"
+      }
+    ]
+  },
+  "Sources": [
+    {
+      "Path": "localization/ui-presentation-translations.tsv",
+      "Sha256": "0de317bbf9ce797e5be15ad833add9ed243ffe2eba39a7c7e2692743292e2fa0"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json",
+      "Sha256": "c2333bffb690e2b9f3d4424e9628f773a635aa937718c61592722717f5258035"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.App/Panels/NonSequentialStrayLightWindows.cs",
+      "Sha256": "c12c938f5a0010bf682c77910d0c57ea800299c0e330978d93227fc8c6fc2f35"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/ServiceContracts.cs",
+      "Sha256": "07bcac31f5e8e728453c0206204a10f1f2d1014a8fbac85a3d41d94ac3d9fdb5"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "Sha256": "b42b77606699aeced4c0d975f4e86e74e239f0888075c87b90b589cccfe75f14"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialAnalysisService.cs",
+      "Sha256": "f4c0b7a4f1421480da132cc5ce740678c6dd8bf235770726913434c853f150eb"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Application/Services/NonSequentialAnalysisService.Execution.cs",
+      "Sha256": "9a78ebc85a6b3c66b6d0337843d7f4d4a19f9d6245b13d34172cf9cb2f8de9e5"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialRayDatabase.Branches.cs",
+      "Sha256": "71a2750952ed24afc65ca7713abe18cbc1bd87f6c037c15a0047de9ae9fb85b4"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialRayDatabase.cs",
+      "Sha256": "9f072cb8e6e73126a4f2ff146a7949bfda6eb20c51035b8703203d2dbd004abd"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTraceControl.cs",
+      "Sha256": "650c57c17d86d62c0d39f61af7c945473a93e9d15f012bdfba07e1d8ae5b6086"
+    },
+    {
+      "Path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialTracingEngine.cs",
+      "Sha256": "13f31718444379db54de2814f82bc0e571ae0c092abaa356cae745a225b983af"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/BinaryZemaxBsdfWindowTests.cs",
+      "Sha256": "2964cf853fccd4dca4dc86f8c74e7a64351650196c9ec09d0e2e78191d084686"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CameraBsdfWindowTests.cs",
+      "Sha256": "76846b540165631bb6657ffb5bf1dc97523d876659442fb8bc47dfa34c039960"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/CommercialBsdfWindowTests.cs",
+      "Sha256": "25e5b3f23aa67dec50f7b463e50d2740207d6f8369cc5c6f8c505165a2518103"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/FullReliabilityCoreTests.cs",
+      "Sha256": "bbee197d2e1b8b9a2809850512ae9b3e4502e71f755bb8ff7e8634ad484ecfd1"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/MeasuredBsdfWindowTests.cs",
+      "Sha256": "60bbad319815dcc8cadaa80a9e199fcf9772af307f6032770bc1cc2370ec76be"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/NonSequentialExecutionTests.cs",
+      "Sha256": "1f6f6ca30ca0f80057394f3bbad6d622f46d87d49c0b6f09fcf8e85e7b294745"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/NonSequentialExecutionWindowTests.cs",
+      "Sha256": "4bbff7f4ac45b4352e93210ff5be6001497952309d33e2b4e6af789dd0009a53"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/PosedOpticalAssemblyTests.cs",
+      "Sha256": "59ebd5ff26cccaf07d30c3ff4b1d377b4938144ded705706d8ba69ebf46ad80a"
+    }
+  ]
+}

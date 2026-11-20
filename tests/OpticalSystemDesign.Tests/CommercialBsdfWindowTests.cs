@@ -2,6 +2,7 @@ using System.Collections;
 using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -39,7 +40,13 @@ public sealed class CommercialBsdfWindowTests
                 Assert.Equal(new BsdfMaterialAxisDto(0, 1, 0), app.NonSequential.GetDocument().Objects.Single(o => o.Id == setup.Plane).SurfaceBsdf!.MaterialAxis);
                 await app.NonSequentialAnalysis.TraceAsync(new(SplittingMode: NonSequentialSplittingMode.FullFresnel));
                 camera = new CameraImagingWindow(app) { Width = 1200, Height = 1000 }; camera.Show(); camera.UpdateLayout();
-                T Camera<T>(string name) where T : Control => camera.GetVisualDescendants().OfType<T>().Single(c => c.Name == "camera-" + name);
+                T Camera<T>(string name) where T : Control
+                {
+                    var control = camera.GetLogicalDescendants().OfType<T>().Single(c => c.Name == "camera-" + name);
+                    foreach (var section in control.GetLogicalAncestors().OfType<Expander>()) section.IsExpanded = true;
+                    camera.UpdateLayout();
+                    return control;
+                }
                 Camera<ComboBox>("source").SelectedIndex = (int)CameraSource.NonSequentialDetector; Camera<ComboBox>("nsc-detector").SelectedIndex = 1;
                 Camera<TextBox>("nsc-filter").Text = "B2 & D4"; Assert.True(await camera.CaptureNscAsync());
                 Assert.True(await camera.ImportResponseFromPathAsync(Path.Combine(CameraSensorFileTests.Examples, "example-qe.csv")));

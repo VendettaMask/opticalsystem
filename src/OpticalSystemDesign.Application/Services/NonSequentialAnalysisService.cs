@@ -46,6 +46,7 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
             _cacheGeneration++;
             _filterIndexCache = null;
             _detectorFrameCache = null;
+            _branchIndex = null;
         }
         NotifySessionObservers(SessionChanged, GetCurrentSession(), nameof(SessionChanged));
     }
@@ -233,6 +234,23 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
                 ?? throw new InvalidOperationException("光线数据库路径没有父目录。");
             Directory.CreateDirectory(directory);
             var temporaryPath = Path.Combine(directory, $".{Path.GetFileName(targetPath)}.{Guid.NewGuid():N}.tmp");
+            var control = new NonSequentialTraceControl();
+            var reportExecution = ReferenceEquals(targetSession, _analysisSession);
+            IProgress<NonSequentialTraceProgress>? progress = null;
+            if (reportExecution)
+            {
+                lock (_executionGate)
+                {
+                    _activeTraceControl = control;
+                    _traceProgress = null;
+                }
+                progress = new TraceProgressObserver(value =>
+                {
+                    lock (_executionGate)
+                        _traceProgress = new(value.LaunchedRays, value.TotalSourceRays, value.CompletedBranches,
+                            value.Segments, value.Elapsed, value.IsPaused, value.IsCompleted);
+                });
+            }
             try
             {
                 NonSequentialDocumentTraceResult result;
@@ -285,7 +303,11 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
                             MaximumActiveBranches: request.MaximumActiveBranches,
                             MinimumRelativeIntensity: request.MinimumRelativeIntensity,
                             RayCountOverride: request.RayCountOverride,
-                            SourceObjectIds: sourceIds),
+                            SourceObjectIds: sourceIds)
+                        {
+                            Control = control,
+                            Progress = progress
+                        },
                         sink);
                     linkedCancellation.Token.ThrowIfCancellationRequested();
                     writer.Complete();
@@ -385,6 +407,14 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
             }
             finally
             {
+                if (reportExecution)
+                {
+                    lock (_executionGate)
+                    {
+                        _activeTraceControl = null;
+                        _traceProgress = null;
+                    }
+                }
                 if (File.Exists(temporaryPath)) File.Delete(temporaryPath);
             }
         }, linkedCancellation.Token).ConfigureAwait(false);
