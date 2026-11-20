@@ -84,6 +84,12 @@ internal static class WorkbenchMapper
         StandardGratingGeometry => "标准曲面光栅",
         EvenAsphereGeometry => "偶次非球面",
         OddAsphereGeometry => "奇次非球面",
+        NormalizedPolynomialGeometry polynomial => polynomial.Basis switch
+        {
+            SagPolynomialBasis.EvenRadial => "扩展偶次非球面",
+            SagPolynomialBasis.Radial => "扩展奇次非球面",
+            _ => "扩展 XY 多项式"
+        },
         BiconicGeometry => "双圆锥",
         ToroidalGeometry => "环形面",
         PolynomialGeometry => "XY 多项式",

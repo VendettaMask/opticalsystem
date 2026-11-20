@@ -324,7 +324,10 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
                 ? Math.CopySign(double.PositiveInfinity, (double)(_thinLensFocalLength.Value ?? 1))
                 : (double)(_thinLensFocalLength.Value ?? 50),
             _stopSurface.IsChecked == true,
-            _surfaceCoating.Text));
+            _surfaceCoating.Text,
+            Polynomial: PolynomialUpdate(),
+            BiconicRadiusX: _biconicProperties.IsVisible ? PropertyNumber(_biconicRadiusX.Text, allowInfinity: true) : null,
+            BiconicConicX: _biconicProperties.IsVisible ? PropertyNumber(_biconicConicX.Text) : null));
         }
         catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or NotSupportedException)
         {

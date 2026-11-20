@@ -205,6 +205,18 @@ public partial class WorkbenchRuntime
                 surface.Radius = radius;
                 surface.Geometry = new BiconicGeometry(radius, radius, surface.Conic, surface.Conic);
                 break;
+            case "Extended Asphere":
+            case "Extended Odd Asphere":
+            case "Extended Polynomial":
+                var basis = geometryKind switch
+                {
+                    "Extended Asphere" => SagPolynomialBasis.EvenRadial,
+                    "Extended Odd Asphere" => SagPolynomialBasis.Radial,
+                    _ => SagPolynomialBasis.Cartesian
+                };
+                surface.Geometry = new NormalizedPolynomialGeometry(
+                    surface.Radius, surface.Conic, Math.Max(1, surface.SemiDiameter), basis, 0, []);
+                break;
             case "Toroidal":
                 surface.Radius = radius;
                 surface.Geometry = new ToroidalGeometry(radius, radius);
@@ -249,6 +261,12 @@ public partial class WorkbenchRuntime
         StandardGratingGeometry => "Standard Grating",
         EvenAsphereGeometry => "Even Asphere",
         OddAsphereGeometry => "Odd Asphere",
+        NormalizedPolynomialGeometry polynomial => polynomial.Basis switch
+        {
+            SagPolynomialBasis.EvenRadial => "Extended Asphere",
+            SagPolynomialBasis.Radial => "Extended Odd Asphere",
+            _ => "Extended Polynomial"
+        },
         BiconicGeometry => "Biconic",
         ToroidalGeometry => "Toroidal",
         PolynomialGeometry => "Polynomial",

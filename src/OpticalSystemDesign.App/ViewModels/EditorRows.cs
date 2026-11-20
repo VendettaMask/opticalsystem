@@ -45,6 +45,7 @@ public sealed class SurfaceEditorRow
         SurfaceType = SurfaceTypeForGeometry(GeometryKind);
         GeometryComputable = source.GeometryComputable;
         Inspection = source.Inspection;
+        GeometryDefinition = source.GeometryDefinition;
         MechanicalSemiDiameter = source.MechanicalSemiDiameter ?? SemiDiameter;
         ExtensionZone = source.ChipZone ?? 0;
         ThermalExpansionPpmPerC = source.ThermalExpansionPpmPerC;
@@ -163,6 +164,7 @@ public sealed class SurfaceEditorRow
     public bool CanOptimize { get; }
     public bool GeometryComputable { get; }
     public SurfaceInspectionDto? Inspection { get; }
+    public SurfaceGeometryDefinitionDto? GeometryDefinition { get; }
     public string SurfaceRole { get; }
     public bool ShowSurfaceRole => Number == 0 || IsLastSurface || IsStop;
     public string SurfaceType { get; }

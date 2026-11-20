@@ -49,6 +49,7 @@ public sealed record SequentialLensDocument(string Name, IReadOnlyList<Sequentia
             throw new NotSupportedException("此文本格式尚未映射分段气压，请保存 STAROPT 或 ZMX。");
         if (!retainExtendedGeometry && optic.SurfaceGroup.Items.Any(surface =>
                 surface.Geometry is Geometries.TiltedPlaneGeometry or Geometries.FringeSagGeometry or Geometries.ChebyshevSagGeometry or Geometries.TernaryMirrorArrayGeometry or Geometries.IrregularGeometry or Geometries.GridSagGeometry or Geometries.ConcentricZoneGeometry
+                    or Geometries.NormalizedPolynomialGeometry or Geometries.BiconicGeometry
                     || surface.InteractionModel is Interactions.ParaxialLensInteractionModel or Interactions.RuledGratingInteractionModel or Interactions.DiffractivePhaseInteractionModel or Interactions.BirefringentInteractionModel
                     || surface.MaterialAfter is Materials.UniaxialMaterial || surface.MaterialBefore is Materials.UniaxialMaterial))
             throw new NotSupportedException("此文本格式尚未映射该面的完整几何；请保存 STAROPT 或 ZMX，避免丢失斜率和多项式系数。");
@@ -501,6 +502,13 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
         Geometries.StandardGeometry => "STANDARD",
         Geometries.EvenAsphereGeometry => "EVENASPH",
         Geometries.OddAsphereGeometry => "ODDASPHE",
+        Geometries.BiconicGeometry => "BICONICX",
+        Geometries.NormalizedPolynomialGeometry polynomial => polynomial.Basis switch
+        {
+            Geometries.SagPolynomialBasis.EvenRadial => "XASPHERE",
+            Geometries.SagPolynomialBasis.Radial => "XOSPHERE",
+            _ => "XPOLYNOM"
+        },
         Geometries.ToroidalGeometry => "TOROIDAL",
         Geometries.ForbesNormalSlopeGeometry => "QED_TYPE",
         _ => throw new NotSupportedException(
@@ -563,6 +571,16 @@ public sealed class ZemaxZmxExporter : IOpticalFormatExporter
     {
         switch (geometry)
         {
+            case Geometries.BiconicGeometry biconic:
+                lines.Add($"  PARM 1 {FormatDouble(double.IsInfinity(biconic.RadiusX) ? 0 : biconic.RadiusX)}");
+                lines.Add($"  PARM 2 {FormatDouble(biconic.ConicX)}");
+                break;
+            case Geometries.NormalizedPolynomialGeometry polynomial:
+                lines.Add($"  XDAT 1 {polynomial.TermCount}");
+                lines.Add($"  XDAT 2 {FormatDouble(polynomial.NormalizationRadius)}");
+                for (var index = 0; index < polynomial.Coefficients.Count; index++)
+                    lines.Add($"  XDAT {index + 3} {FormatDouble(polynomial.Coefficients[index])}");
+                break;
             case Geometries.TernaryMirrorArrayGeometry array:
                 WriteCoefficients(lines, [array.PixelsX, array.PixelsY, array.WidthX, array.WidthY,
                     array.TiltRadians[0] * 180 / Math.PI, array.TiltRadians[1] * 180 / Math.PI,

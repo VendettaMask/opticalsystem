@@ -20,6 +20,7 @@
 
 - [计算指南](COMPUTATION_GUIDE.md)、[数学附录](COMPUTATION_FORMULAS.md)、[目录覆盖](COMPUTATION_COVERAGE.md)
 - [格式和插件](FILE_FORMATS_AND_PLUGINS.md)、[STAROPT 版本](STAROPT_FILE_FORMAT.md)、[操作数支持](ZEMAX_OPERAND_SUPPORT.md)
+- [顺序面型支持与导入](SEQUENTIAL_SURFACE_SUPPORT.md)
 - [CDGM官网2026年9月目录：合并、字段与39项验证](../validation/rechecks/2026-11-04/material-library-details/README.md)，仅对应这一批材料库更新，不代替全仓或全部镜头精度认证。
 - [优化算法](OPTIMIZATION_ALGORITHMS.md)、[公差](TOLERANCING.md)、[制造图纸](MANUFACTURING_DRAWINGS.md)
 - [设计报告](MARKDOWN_REPORT_EXPORT.md)、[内置模块交付](BUILT_IN_MODULES_2026-10-13.md)

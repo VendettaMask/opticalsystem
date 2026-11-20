@@ -193,6 +193,7 @@ public sealed partial class LensEditorPanel
         _gratingProperties.Children.Add(PropertyRow("周期 (μm)：", WithInfinity(_gratingPeriod, _infiniteGratingPeriod)));
         _gratingProperties.Children.Add(PropertyRow("槽角 (°)：", _gratingAngle));
         _thinLensProperties.Children.Add(PropertyRow("焦距 (mm)：", WithInfinity(_thinLensFocalLength, _infiniteThinLensFocalLength)));
+        BuildPolynomialProperties();
 
         var typePage = new WrapPanel { Name = "SurfaceTypePage", Orientation = Orientation.Horizontal };
         var typeFields = PropertyStack(
@@ -202,7 +203,9 @@ public sealed partial class LensEditorPanel
             PropertyRow("表面透明度：", UnavailablePicker("100%")),
             PropertyRow("行颜色：", UnavailablePicker("默认颜色")),
             _gratingProperties,
-            _thinLensProperties);
+            _thinLensProperties,
+            _biconicProperties,
+            _polynomialProperties);
         typeFields.Width = 350;
         typeFields.Margin = new Thickness(0, 0, 22, 10);
         typePage.Children.Add(typeFields);
@@ -346,6 +349,7 @@ public sealed partial class LensEditorPanel
 
     private void LoadSurfaceProperties(SurfaceEditorRow row)
     {
+        LoadPolynomialProperties(row);
         _gradientIndexEditor.IsEnabled = row.GeometryComputable && row.Number > 0 && !row.IsLastSurface
             && double.IsFinite(row.Thickness) && row.Thickness > 0 && !row.Material.Equals("MIRROR", StringComparison.OrdinalIgnoreCase);
         var gradientReason = _gradientIndexEditor.IsEnabled ? null : "GRIN 材料需要具有有限正厚度及下一边界的可计算透射面。";
@@ -377,6 +381,9 @@ public sealed partial class LensEditorPanel
 
     private void UpdateGeometryPropertyVisibility()
     {
+        _polynomialProperties.IsVisible = _geometryPicker.SelectedItem is "扩展偶次非球面" or "扩展奇次非球面" or "扩展 XY 多项式";
+        _polynomialCount.Maximum = _geometryPicker.SelectedItem is "扩展 XY 多项式" ? 230 : 240;
+        _biconicProperties.IsVisible = _geometryPicker.SelectedItem is "双圆锥";
         _gratingProperties.IsVisible = _geometryPicker.SelectedItem is "平面光栅" or "标准曲面光栅";
         _thinLensProperties.IsVisible = !_gratingProperties.IsVisible
             && _grid.SelectedItem is SurfaceEditorRow { InteractionKind: "薄透镜" or "反射薄透镜" };

@@ -99,6 +99,9 @@ internal static class SurfaceSnapshotCompatibility
             case "even_asphere":
             case "fringe_sag":
             case "odd_asphere":
+            case "extended_asphere":
+            case "extended_odd_asphere":
+            case "extended_polynomial":
             case "forbes_q":
                 radius = Get(numbers, "radius", 0);
                 conic = Get(numbers, "conic", 0);

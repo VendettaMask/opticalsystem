@@ -42,6 +42,9 @@ public static class OpticSnapshotValidator
         "standard",
         "even_asphere",
         "odd_asphere",
+        "extended_asphere",
+        "extended_odd_asphere",
+        "extended_polynomial",
         "biconic",
         "separable_biconic",
         "toroidal",
@@ -1233,6 +1236,18 @@ public static class OpticSnapshotValidator
             RequireNumberKey(component, "boundaryRadius", path); RequireNumberKey(component, "breakSag", path);
             if (component.Numbers["boundaryRadius"] <= 0 || component.Numbers["breakSag"] is not (0 or 1))
                 Invalid(path, "invalid concentric geometry boundary");
+        }
+        if (role == ComponentRole.Geometry && component.Kind is "extended_asphere" or "extended_odd_asphere" or "extended_polynomial")
+        {
+            foreach (var key in new[] { "radius", "conic", "normalizationRadius" })
+                RequireNumberKey(component, key, path);
+            var maximum = component.Kind == "extended_polynomial" ? 230 : 240;
+            var activeCount = RequireEncodedCount(component, "termCount", 0, maximum, path);
+            var storedCount = RequireEncodedCount(component, "coefficientCount", activeCount, maximum, path);
+            if (component.Numbers["normalizationRadius"] <= 0)
+                Invalid(path, "Normalized polynomials require a positive normalization radius.");
+            for (var index = 0; index < storedCount; index++)
+                RequireNumberKey(component, $"c{index}", path);
         }
         if (role == ComponentRole.Geometry && component.Kind == "fringe_sag")
         {

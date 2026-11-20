@@ -704,7 +704,8 @@ internal static partial class ZemaxZmxReader
                     // from the zero-based PARM 1..N geometry coefficients.
                     var parameterIndex = parameterNumber - 1;
                     var parameterSurface = RequireSurface(current, command);
-                    if (parameterNumber >= 13 && parameterSurface.Type is "FZERNSAG" or "CHEBYSHV" or "BINARY_2" or "BINARY_3" or "BIRE__IN" or "QED_TYPE")
+                    if (parameterNumber >= 13 && (IsExtendedPolynomial(parameterSurface.Type)
+                        || parameterSurface.Type is "FZERNSAG" or "CHEBYSHV" or "BINARY_2" or "BINARY_3" or "BIRE__IN" or "QED_TYPE"))
                     {
                         parameterSurface.ExtraData[parameterNumber - 12] = ScaleSurfaceExtraData(document,
                             parameterSurface.Type, parameterNumber - 12, RequiredDouble(tokens, 2, command));
@@ -1002,7 +1003,8 @@ internal static partial class ZemaxZmxReader
             {
                 if (operand.AuxiliaryIndex >= 0 && TryParseDouble(operand.Value, out var value))
                 {
-                    if (operand.AuxiliaryIndex >= 12 && configured.Type is "FZERNSAG" or "CHEBYSHV" or "BINARY_2" or "BINARY_3" or "BIRE__IN")
+                    if (operand.AuxiliaryIndex >= 12 && (IsExtendedPolynomial(configured.Type)
+                        || configured.Type is "FZERNSAG" or "CHEBYSHV" or "BINARY_2" or "BINARY_3" or "BIRE__IN"))
                     {
                         var index = operand.AuxiliaryIndex - 11;
                         configured.ExtraData[index] = ScaleSurfaceExtraData(document, configured.Type, index, value);
@@ -1087,7 +1089,8 @@ internal static partial class ZemaxZmxReader
         var original = document.Surfaces.ToDictionary(s => s.Number);
         var done = new HashSet<(int Surface, int Parameter)>();
         var active = new HashSet<(int Surface, int Parameter)>();
-        bool Extra(ZemaxSurface s, int p) => p >= 12 && s.Type is "FZERNSAG" or "CHEBYSHV" or "BINARY_2" or "BINARY_3" or "BIRE__IN";
+        bool Extra(ZemaxSurface s, int p) => p >= 12 && (IsExtendedPolynomial(s.Type)
+            || s.Type is "FZERNSAG" or "CHEBYSHV" or "BINARY_2" or "BINARY_3" or "BIRE__IN");
         double Get(ZemaxSurface s, int p) => Extra(s, p) ? s.ExtraData.GetValueOrDefault(p - 11) : s.Parameters.GetValueOrDefault(p);
         double Scale(ZemaxSurface s, int p, double v) => Extra(s, p)
             ? ScaleSurfaceExtraData(document, s.Type, p - 11, v) : ScaleSurfaceParameter(document, s.Type, p, v, s.TypeArguments);
@@ -1402,9 +1405,11 @@ internal static partial class ZemaxZmxReader
     private static bool HasSurfacePower(ZemaxSurface surface) =>
         (surface.Type == "PARAXIAL" && surface.Parameter(0) != 0)
         || (double.IsFinite(surface.Radius) && Math.Abs(surface.Radius) > 1e-12)
-        || (surface.Type.Equals("TOROIDAL", StringComparison.OrdinalIgnoreCase)
+        || (surface.Type is "TOROIDAL" or "BICONICX"
             && double.IsFinite(surface.Parameter(0))
-            && Math.Abs(surface.Parameter(0)) > 1e-12);
+            && Math.Abs(surface.Parameter(0)) > 1e-12)
+        || (IsExtendedPolynomial(surface.Type) && surface.ExtraData.Any(parameter =>
+            parameter.Key >= 3 && parameter.Key <= surface.ExtraData.GetValueOrDefault(1) + 2 && parameter.Value != 0));
 
     private static void ApplyCoordinateBreak(
         ZemaxSurface source,
@@ -1467,6 +1472,8 @@ internal static partial class ZemaxZmxReader
                 surface.Conic,
                 Enumerable.Range(0, 8).Select(surface.Parameter).ToArray()),
             "TOROIDAL" => CreateToroidalGeometry(surface),
+            "BICONICX" => CreateBiconic(surface),
+            "XASPHERE" or "XOSPHERE" or "XPOLYNOM" => CreateExtendedPolynomial(surface, radius),
             "QED_TYPE" when surface.ExtraData.GetValueOrDefault(1) == 0 => CreateForbesNormalSlopeGeometry(surface, radius),
             "TILTSURF" => CreateTiltedGeometry(surface),
             "FZERNSAG" => CreateFringeSagGeometry(surface),
@@ -2467,6 +2474,7 @@ internal static partial class ZemaxZmxReader
             "USERSURF" when zeroBasedIndex is 2 or 3 && typeArguments.Equals("US_MEMS.DLL", StringComparison.OrdinalIgnoreCase) => value * scale,
             "ODDASPHE" => ScalePowerCoefficient(value, scale, zeroBasedIndex + 1),
             "TOROIDAL" when zeroBasedIndex == 0 => value * scale,
+            "BICONICX" when zeroBasedIndex == 0 => value * scale,
             "TOROIDAL" when zeroBasedIndex is >= 1 and <= 7 => ScalePowerCoefficient(value, scale, 2 * zeroBasedIndex),
             "COORDBRK" when zeroBasedIndex is 0 or 1 => value * scale,
             _ => value
@@ -2475,6 +2483,7 @@ internal static partial class ZemaxZmxReader
 
     private static double ScaleSurfaceExtraData(ZemaxDocument document, string type, int index, double value) => type switch
     {
+        "XASPHERE" or "XOSPHERE" or "XPOLYNOM" when index >= 2 => value * document.LengthScaleToMillimeters,
         "BINARY_2" when index == 2 => value * document.LengthScaleToMillimeters,
         "BINARY_3" when index >= 2 && (index - 2) % 2 == 0 => ScalePowerCoefficient(value, document.LengthScaleToMillimeters, 2 * ((index - 2) / 4 + 1)),
         "FZERNSAG" when index >= 2 => value * document.LengthScaleToMillimeters,

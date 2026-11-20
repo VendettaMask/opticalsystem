@@ -169,6 +169,12 @@ public static partial class ComponentSnapshotFactory
                 ["radius"] = odd.Base.Radius,
                 ["conic"] = odd.Base.Conic
             }), new Dictionary<string, string>()),
+            NormalizedPolynomialGeometry polynomial => new ComponentSnapshot(polynomial.Kind, Coefficients(polynomial.Coefficients, new()
+            {
+                ["radius"] = polynomial.Base.Radius, ["conic"] = polynomial.Base.Conic,
+                ["normalizationRadius"] = polynomial.NormalizationRadius, ["termCount"] = polynomial.TermCount,
+                ["coefficientCount"] = polynomial.Coefficients.Count
+            }), new()),
             BiconicGeometry biconic => new ComponentSnapshot("biconic", new Dictionary<string, double>
             {
                 ["radiusX"] = biconic.RadiusX,
@@ -285,6 +291,14 @@ public static partial class ComponentSnapshotFactory
             "standard" => new StandardGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic)),
             "even_asphere" => new EvenAsphereGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), ReadCoefficients(n)),
             "odd_asphere" => new OddAsphereGeometry(Get(n, "radius", fallbackRadius), Get(n, "conic", fallbackConic), ReadCoefficients(n)),
+            "extended_asphere" or "extended_odd_asphere" or "extended_polynomial" => new NormalizedPolynomialGeometry(
+                n["radius"], n["conic"], n["normalizationRadius"], snapshot.Kind switch
+                {
+                    "extended_asphere" => SagPolynomialBasis.EvenRadial,
+                    "extended_odd_asphere" => SagPolynomialBasis.Radial,
+                    _ => SagPolynomialBasis.Cartesian
+                }, (int)n["termCount"],
+                Enumerable.Range(0, (int)n["coefficientCount"]).Select(index => n[$"c{index}"]).ToArray()),
             "biconic" => new BiconicGeometry(Get(n, "radiusX", fallbackRadius), Get(n, "radiusY", fallbackRadius), Get(n, "conicX", 0), Get(n, "conicY", 0)),
             "separable_biconic" => new SeparableBiconicGeometry(Get(n, "radiusX", fallbackRadius), Get(n, "radiusY", fallbackRadius), Get(n, "conicX", 0), Get(n, "conicY", 0)),
             "toroidal" => new ToroidalGeometry(Get(n, "tangentialRadius", fallbackRadius), Get(n, "sagittalRadius", fallbackRadius),

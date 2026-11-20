@@ -149,6 +149,12 @@ internal static partial class UiLocalization
         }
 
         if (LocalCatalog.TryGet(source, language, out var local)) return local;
+        var surfaceSeparator = source.IndexOf(": ", StringComparison.Ordinal);
+        if (language != Chinese && source.StartsWith("表面 ", StringComparison.Ordinal)
+            && surfaceSeparator > 3
+            && int.TryParse(source[3..surfaceSeparator], NumberStyles.None, CultureInfo.InvariantCulture, out _)
+            && LocalCatalog.TryGet(source[(surfaceSeparator + 2)..], language, out var surfaceType))
+            return (language == Japanese ? "面 " : "Surface ") + source[3..(surfaceSeparator + 2)] + surfaceType;
         if (LocalCatalog.TryTemplate(source, language, out local)) return local;
         if (language == Chinese) return source;
 

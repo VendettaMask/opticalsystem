@@ -35,7 +35,7 @@ public sealed class SurfacePropertiesPanelTests
     [Fact]
     public async Task StandardSurfaceIncludesPlanesAndKeepsRadiusThroughApplyUndoAndFileReload()
     {
-        using var session = HeadlessUnitTestSession.StartNew(typeof(SurfacePropertiesPanelTests));
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SurfacePropertiesPanelTests));
         await session.Dispatch(async () =>
         {
             using var application = WorkbenchApplication.Create("cooke");
@@ -447,6 +447,78 @@ public sealed class SurfacePropertiesPanelTests
 
     private static T Find<T>(Control root, string name) where T : Control =>
         root.GetVisualDescendants().OfType<T>().Single(control => control.Name == name);
+
+    [Theory]
+    [InlineData(600)]
+    [InlineData(1000)]
+    public async Task ExtendedSurfaceControlsApplyCoefficientsAndBiconicAxes(int width)
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SurfacePropertiesPanelTests));
+        await session.Dispatch(() =>
+        {
+            using var application = WorkbenchApplication.Create("cooke");
+            using var editor = new LensEditorPanel(application.Prescription, application.Events, new SurfaceSelectionService());
+            var window = new Window { Width = width, Height = 780, Content = editor };
+            try
+            {
+                ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
+                window.Show();
+                Render(window);
+                Click(Find<Button>(editor, "SurfacePropertiesToggle"));
+                Render(window);
+                var picker = Find<ComboBox>(editor, "SurfaceGeometry");
+                picker.SelectedItem = "扩展偶次非球面";
+                Render(window);
+                var radius = Find<TextBox>(editor, "PolynomialNormalizationRadius");
+                var count = Find<NumericUpDown>(editor, "PolynomialTermCount");
+                var coefficients = Find<TextBox>(editor, "PolynomialCoefficients");
+                radius.Text = "5";
+                count.Value = 2;
+                coefficients.Text = ".001 -2e-5 7e-9";
+                Click(Find<Button>(editor, "ApplySurfaceProperties"));
+                Render(window);
+                var definition = application.Prescription.GetSurfaces()[1].GeometryDefinition!;
+                Assert.Equal("extended_asphere", definition.Kind);
+                Assert.Equal(5, definition.Numbers["normalizationRadius"]);
+                Assert.Equal(-2e-5, definition.Numbers["c1"]);
+                Assert.Equal(7e-9, definition.Numbers["c2"]);
+                Assert.Equal(2, count.Value);
+                foreach (var theme in new[] { "Light", "Dark", IsekaiTheme.SettingsValue, PixelTheme.SettingsValue, LumenTheme.SettingsValue })
+                {
+                    ThemeApplicationService.Apply(global::Avalonia.Application.Current!, theme);
+                    Render(window);
+                    Assert.True(Find<StackPanel>(editor, "SurfacePolynomialProperties").IsVisible);
+                    Assert.InRange(coefficients.Bounds.Width, 1, 350);
+                    Assert.IsAssignableFrom<ISolidColorBrush>(coefficients.Background);
+                    if (theme == IsekaiTheme.SettingsValue)
+                        Assert.Contains(editor.GetVisualDescendants().OfType<TextBlock>(),
+                            block => block.Text == "Surface 1: Extended Even Asphere");
+                    coefficients.BringIntoView();
+                    Render(window);
+                    Capture(window, $"extended-polynomial-{width}-{theme}.png");
+                }
+                picker.SelectedItem = "双圆锥";
+                Render(window);
+                Assert.False(Find<StackPanel>(editor, "SurfacePolynomialProperties").IsVisible);
+                Assert.True(Find<StackPanel>(editor, "SurfaceBiconicProperties").IsVisible);
+                Find<TextBox>(editor, "BiconicRadiusX").Text = "40";
+                Find<TextBox>(editor, "BiconicConicX").Text = "-.6";
+                var yRadius = application.Prescription.GetSurfaces()[1].Radius;
+                Click(Find<Button>(editor, "ApplySurfaceProperties"));
+                Render(window);
+                definition = application.Prescription.GetSurfaces()[1].GeometryDefinition!;
+                Assert.Equal("biconic", definition.Kind);
+                Assert.Equal(40, definition.Numbers["radiusX"]);
+                Assert.Equal(-.6, definition.Numbers["conicX"]);
+                Assert.Equal(yRadius, definition.Numbers["radiusY"]);
+            }
+            finally
+            {
+                window.Close();
+                ThemeApplicationService.Apply(global::Avalonia.Application.Current!, "Light");
+            }
+        }, CancellationToken.None);
+    }
 
     private static void Click(Button button) => button.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 

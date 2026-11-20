@@ -644,6 +644,11 @@ public sealed partial class Paraxial
 
     internal static double ParaxialRadius(OpticalSurface surface)
     {
+        if (surface.Geometry is NormalizedPolynomialGeometry polynomial)
+        {
+            var polynomialCurvature = polynomial.VertexMeridionalCurvature;
+            return polynomialCurvature == 0 ? double.PositiveInfinity : 1 / polynomialCurvature;
+        }
         if (surface.Geometry is GridSagGeometry grid)
         {
             var gridCurvature = grid.VertexMeridionalCurvature;

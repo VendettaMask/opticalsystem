@@ -335,7 +335,10 @@ internal sealed partial class PrescriptionService : WorkbenchServiceBase, IPresc
             update.IsStop,
             update.Coating,
             update.SemiDiameterFixed,
-            update.SemiDiameter));
+            update.SemiDiameter,
+            update.Polynomial,
+            update.BiconicRadiusX,
+            update.BiconicConicX));
     }
 
     public void AddField() => MutateTransactional(WorkspaceChangeCategory.Field, Runtime.AddField);

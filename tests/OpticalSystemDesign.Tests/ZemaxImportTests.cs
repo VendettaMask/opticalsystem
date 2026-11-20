@@ -1884,7 +1884,7 @@ public sealed class ZemaxImportTests
     public void ZemaxExportRejectsUnmappedGeometryAndAperturesInsteadOfDowngradingToStandard()
     {
         var geometryOptic = Optic.CreateCookeTriplet();
-        geometryOptic.SurfaceGroup.Items[1].Geometry = new BiconicGeometry(40, 30, -0.2, -0.4);
+        geometryOptic.SurfaceGroup.Items[1].Geometry = new SeparableBiconicGeometry(40, 30, -0.2, -0.4);
 
         var geometryError = Assert.Throws<NotSupportedException>(() =>
             OpticalFormatCatalog.Export(geometryOptic, ".zmx"));

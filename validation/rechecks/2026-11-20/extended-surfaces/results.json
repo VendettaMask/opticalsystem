@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-20",
+  "timezone": "Asia/Shanghai",
+  "scope": "First batch of sequential surface support; independent formula and focused regression checks, not external numerical certification.",
+  "surfaceTypes": [
+    "BICONICX",
+    "XASPHERE",
+    "XOSPHERE",
+    "XPOLYNOM"
+  ],
+  "build": {
+    "configuration": "Release",
+    "output": "standard project output",
+    "appAndDependenciesBuiltByTestCommand": true,
+    "debugBuild": "Earlier Debug copy was blocked by the running user application. No user process was stopped."
+  },
+  "finalRun": {
+    "report": "final-surface-tests.trx",
+    "total": 130,
+    "passed": 130,
+    "failed": 0,
+    "notExecuted": 0,
+    "command": "dotnet test tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-restore -m:1 -nr:false -v:minimal -p:UseSharedCompilation=false --filter \"FullyQualifiedName~ExtendedSurfaceImportTests|FullyQualifiedName~SurfacePropertiesServiceTests|FullyQualifiedName~SurfacePropertiesPanelTests|FullyQualifiedName~ZemaxImportParameterAndSurfaceMappingTests|FullyQualifiedName~ZemaxCrossColumnPickupTests|FullyQualifiedName~SpecialSagSurfaceTests|FullyQualifiedName~SurfaceComponentMappingTests|FullyQualifiedName~CadExportReliabilityTests|FullyQualifiedName~ZemaxExportRejectsUnmappedGeometryAndAperturesInsteadOfDowngradingToStandard|FullyQualifiedName~OpticalSystemDesignParityTests.Biconic|FullyQualifiedName~UiLocalizationTests\" --logger \"trx;LogFileName=final-surface-tests.trx\" --results-directory validation/rechecks/2026-11-20/extended-surfaces"
+  },
+  "coverage": [
+    "Independent sag formula, finite-difference normals, solver hits, Snell refraction and meridional focal length.",
+    "MM, CM and IN source units; high-order active coefficients; inactive coefficient preservation.",
+    "Native project and ZMX text round trips; multi-configuration parameter overrides and pickups.",
+    "Typed parameter updates, primary Y versus independent X mapping, transactional invalid-input rejection and undo.",
+    "Real parameter controls at 600 and 1000 DIP across Light, Dark, Isekai, Pixel and Lumen, rendered off-screen.",
+    "Dynamic English surface footer on Isekai theme switch."
+  ],
+  "reviewedImages": [
+    "rendered/extended-polynomial-1000-Light.png",
+    "rendered/extended-polynomial-600-Isekai.png"
+  ],
+  "screenshots": [
+    {
+      "path": "rendered/extended-polynomial-1000-Dark.png",
+      "sha256": "a7f424f4e376139a8edc12485340c67dd271341b14245d8c298e8ec90af9d596"
+    },
+    {
+      "path": "rendered/extended-polynomial-1000-Isekai.png",
+      "sha256": "54e944d9b59215be90e46807ab77e89214c2283ada5a15c1d5cb1c233a84166d"
+    },
+    {
+      "path": "rendered/extended-polynomial-1000-Light.png",
+      "sha256": "38e7c0adb9aaa73e3643aec81ead006aed2cff1daceb925232a18d4577eca379"
+    },
+    {
+      "path": "rendered/extended-polynomial-1000-Lumen.png",
+      "sha256": "4e17422aa191dd901e3de0a278656c81aa77d6dfa8b370e743a8343c245b4071"
+    },
+    {
+      "path": "rendered/extended-polynomial-1000-Pixel.png",
+      "sha256": "c36b274cd5e1631cfa08222b3625bec495ce12e60ffe5bf511721948a0e9054a"
+    },
+    {
+      "path": "rendered/extended-polynomial-600-Dark.png",
+      "sha256": "a7fa87eb48524529ff18a35d6a8e13106c0820a1b07a107338d2b15364d45045"
+    },
+    {
+      "path": "rendered/extended-polynomial-600-Isekai.png",
+      "sha256": "0056954abbdbd161c71682df2fb2cb5f3ebf6b39d2078fe701a520e9f12f815d"
+    },
+    {
+      "path": "rendered/extended-polynomial-600-Light.png",
+      "sha256": "8515713acd8a3c44b82583981fd51ba358ec6cd4132859c5b0013547905d926c"
+    },
+    {
+      "path": "rendered/extended-polynomial-600-Lumen.png",
+      "sha256": "1ed7189ef7d2449af4e50198e4f84c0b986cdc65b2b46a9242d5416f4846aab6"
+    },
+    {
+      "path": "rendered/extended-polynomial-600-Pixel.png",
+      "sha256": "77091ae73fe7571f909d6a638443b0e5d3159b97d1f5d5e661bc0b5370117024"
+    }
+  ],
+  "limitations": [
+    "No new external application captures or point-by-point external numerical comparison.",
+    "No rerun of the complete 95-menu-example acceptance matrix or complete repository test suite.",
+    "A nonzero odd-radial linear term has no well-defined vertex normal or paraxial curvature; this is rejected.",
+    "Cartesian tilt or XY coupling remains traceable, but the scalar paraxial model explicitly rejects those configurations.",
+    "Dedicated GPU derivatives and coefficient-variable optimization are not added by this batch.",
+    "Other surface families remain listed as pending or limited in docs/SEQUENTIAL_SURFACE_SUPPORT.md.",
+    "Off-screen interface checks do not claim foreground native interaction or an audit of every existing placeholder."
+  ],
+  "earlierFailures": {
+    "reportsRetained": true,
+    "note": "Do not add repeated-run totals. Initial failures concerned control realization/headless initialization and stale expectations for already-supported imported surface mappings; final reruns passed."
+  },
+  "concurrentWork": {
+    "note": "The checkout also contains independent archive and camera work. Its other modifications were preserved.",
+    "incidentalBuildFixes": [
+      "Added Application.Services using directives to archive artifact/tolerancing partials for BoundedApplicationFile.",
+      "Qualified Avalonia.Controls.Dock and guarded nullable archive target filename in ProjectArchiveWindow."
+    ]
+  },
+  "localizationCheck": {
+    "exitCode": 1,
+    "output": [
+      "Untranslated UI: 已打开归档结果。 (src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Archive.cs:43)",
+      "check: 4155 local translations, 3852 UI occurrences, 1 missing, 1 errors."
+    ],
+    "scopeNote": "Global static scan includes concurrently edited archive UI. The new surface controls have translations and focused rendered checks."
+  },
+  "reports": [
+    {
+      "path": "final-surface-tests.trx",
+      "total": 130,
+      "passed": 130,
+      "failed": 0,
+      "sha256": "888a11f3f0a02ebe4649b9abd30fba2d172587f3783aab93f041159b3e527279"
+    },
+    {
+      "path": "initial-surface-tests.trx",
+      "total": 128,
+      "passed": 122,
+      "failed": 6,
+      "sha256": "c6084e678b1e1dcf1efe3a4fcd4107a92c98f037f3e3fc1942584188eb8ac4a7"
+    },
+    {
+      "path": "parameter-zero-recheck.trx",
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "sha256": "02510dfa7ad8292ae99efaf7f0d9d252dd8902638cd9e7534cfe1f6d4054ccea"
+    },
+    {
+      "path": "rendered-surface-tests.trx",
+      "total": 128,
+      "passed": 127,
+      "failed": 1,
+      "sha256": "efd87223fdbad85ec480b4c17c43db2b19b5648322a4617d2f8d32d2ad48f4fc"
+    }
+  ],
+  "sourceHashes": [
+    {
+      "path": "src/OpticalSystemDesign.Core/Geometries/NormalizedPolynomialGeometry.cs",
+      "sha256": "a11bfcc6588a384d8423e3fb31de8b89c23b7000d40ad5e8639efce80a074d4f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.ExtendedSurfaces.cs",
+      "sha256": "089f1936d22c869426587f14fed41566b95af002a36217b9fd7c179c235a0faa"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/ZemaxZmxReader.cs",
+      "sha256": "552bedeb0f73f27484631c9f3139e5e987d10c41580c9c60e93acec8c2bb5c7c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/CommercialFormatIO.cs",
+      "sha256": "814206a83347c46800a7fa2f0202a65789e81339c41bf1276c0167bf425b0325"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/ComponentSnapshot.cs",
+      "sha256": "1ae367cf30f97a8a8f6944e70f4943d4b42d49ea6980bb56f326ce1c4c8e59ba"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/OpticSnapshotValidator.cs",
+      "sha256": "12fbf79da094ba828adbb12dcd9fc958d4fc61e75f2aa950b8d94cca051b4de6"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/SurfaceSnapshotCompatibility.cs",
+      "sha256": "937952b4802bf740d9ffb5225060650cc655b4026d6f33bc753dffa0cf02e3c4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Domain/OpticalSurface.cs",
+      "sha256": "01f317bbeec62e737260737cc746abbb2f3ac0b9305f0566c6889979a1c4f12c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Services/Paraxial.cs",
+      "sha256": "4ca6ff4ef29c3aa1058dbef2c224d3a8b27e2019a371e207e691c5ff5afa24c0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "bcdfd21e10e810bfd58f55f0c43c703a7c617ed6143e20e279e92c4e7beacb99"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.cs",
+      "sha256": "606af6a0628457e37f61cc5753a91b6afaddff0ed59df26d2629ed02a9729cef"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Localization.cs",
+      "sha256": "5a7c16d3f9b6c6937b6aaadc9430749c5d7f93dfd42aadc5755f0a3c3fb36939"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Components.cs",
+      "sha256": "2be9822def6b59f81b5d99fb6e2e1d4f59fb617c5b6a774524b2935fff153201"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Runtime/WorkbenchRuntime.Prescription.cs",
+      "sha256": "8a684ac83b2f4b5481f1cc2d4ac3606d5154b0281a78fa1b96e50c8efe6d51e4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/PrescriptionService.cs",
+      "sha256": "20283240115ece78d500a0f4484ab7af0d95a2c5b5112d37c2bb488962a782de"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/Mapping/WorkbenchMapper.cs",
+      "sha256": "f642d8380f86fa111992ccf187d29e70b245823bc66ff7e4b59212b9efe4d3a7"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.PolynomialProperties.cs",
+      "sha256": "dc59e3efbc220f39e2aaadf293a8b8fb2a487a2bf0c7ed81d28773e6831abad4"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.SurfaceProperties.cs",
+      "sha256": "ab108ab7b70e2ea96bf7b99b7ad884a27983e905555df72f154a121178d09738"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/LensEditorPanel.cs",
+      "sha256": "3ce98c6804d60b8aa1c08b2b5208f1542ccd454f5fa9fd904857fc7918321ff0"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/ViewModels/EditorRows.cs",
+      "sha256": "79419f2af8e89037e9bdfb0696cbcc66e254a0281bcb00fd1b38e74e2a02bacc"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "sha256": "23ccd6dea6240f787d99ee0b731617164312cb531f3a09fff5855df755dc102c"
+    },
+    {
+      "path": "localization/ui-presentation-translations.tsv",
+      "sha256": "c74d1ea9208311a173821bdc630ffd6dda7933f94538697454af5245fab7ee20"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json",
+      "sha256": "05f7694184f3ad19460c5e9810442f0f2a5405167a91f614ab9cf55c686d1d85"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ExtendedSurfaceImportTests.cs",
+      "sha256": "86e23aba4e239b7a604315c285a9e85eabb996331fd527d908dd54524c4239b1"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/SurfacePropertiesPanelTests.cs",
+      "sha256": "d48cde1674d5f6e25da51ae26bb431364a329613614d4e0cc78a69f07dd07cc3"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ZemaxImportTests.cs",
+      "sha256": "f55e04606e8a2c00c8e5ff1dad2f8bbca6dbf41e03f62489810e87763875ef06"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ZemaxImportParameterAndSurfaceMappingTests.cs",
+      "sha256": "412d2a1c3d6e6bda10160c7cd5bc92078b9ed7b5406f508b607c587c3fceefb7"
+    }
+  ]
+}

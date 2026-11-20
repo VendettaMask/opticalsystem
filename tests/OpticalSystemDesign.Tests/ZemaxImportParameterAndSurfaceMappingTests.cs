@@ -29,13 +29,35 @@ public sealed class ZemaxImportParameterAndSurfaceMappingTests
               PARM 2 -3.5
             SURF 2
             """);
+        var restored = Optic.FromSnapshot(optic.ToSnapshot());
+        if (type is "BINARY_2" or "FZERNSAG")
+        {
+            foreach (var candidate in new[] { optic, restored })
+            {
+                var surface = candidate.SurfaceGroup.Items[1];
+                var coefficients = surface.Geometry switch
+                {
+                    EvenAsphereGeometry even => even.Coefficients,
+                    FringeSagGeometry fringe => fringe.Base.Coefficients,
+                    _ => throw new InvalidOperationException("Expected an executable aspheric base.")
+                };
+                Assert.Equal(.25, coefficients[0], 12);
+                Assert.Equal(-.0035, coefficients[1], 12);
+                if (type == "BINARY_2")
+                {
+                    var phase = Assert.IsType<OpticalSystemDesign.Core.Interactions.DiffractivePhaseInteractionModel>(surface.InteractionModel);
+                    Assert.Equal(value, Assert.IsType<OpticalSystemDesign.Core.Phase.NormalizedRadialPhaseProfile>(phase.Profile).Order);
+                }
+                else Assert.False(Assert.IsType<FringeSagGeometry>(surface.Geometry).Extrapolate);
+            }
+            return;
+        }
         var geometry = Assert.IsType<OpaqueGeometryPayload>(optic.SurfaceGroup.Items[1].Geometry);
-        Assert.Equal(value, geometry.Payload.Numbers["parm0"]);
+        Assert.Equal(type == "BIRE__IN" ? value * 10 : value, geometry.Payload.Numbers["parm0"]);
         Assert.Equal(2.5, geometry.Payload.Numbers["parm1"]);
         Assert.Equal(-3.5, geometry.Payload.Numbers["parm2"]);
-        var restored = Optic.FromSnapshot(optic.ToSnapshot());
         var saved = Assert.IsType<OpaqueGeometryPayload>(restored.SurfaceGroup.Items[1].Geometry);
-        Assert.Equal(value, saved.Payload.Numbers["parm0"]);
+        Assert.Equal(geometry.Payload.Numbers["parm0"], saved.Payload.Numbers["parm0"]);
         Assert.Equal(geometry.OriginalType, saved.OriginalType);
     }
 

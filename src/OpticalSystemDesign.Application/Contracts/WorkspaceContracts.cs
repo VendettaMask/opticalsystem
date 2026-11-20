@@ -903,6 +903,8 @@ public sealed record CoatingLayerEditDto(
     bool MultiplierVariable = false, bool IndexVariable = false, bool ExtinctionVariable = false,
     int? SourceLayer = null);
 
+public sealed record NormalizedPolynomialUpdateDto(double NormalizationRadius, int TermCount, IReadOnlyList<double> Coefficients);
+
 public sealed record SurfaceComponentUpdateDto(
     string GeometryKind,
     string ApertureKind,
@@ -913,7 +915,10 @@ public sealed record SurfaceComponentUpdateDto(
     bool? IsStop = null,
     string? Coating = null,
     bool? SemiDiameterFixed = null,
-    double? SemiDiameter = null);
+    double? SemiDiameter = null,
+    NormalizedPolynomialUpdateDto? Polynomial = null,
+    double? BiconicRadiusX = null,
+    double? BiconicConicX = null);
 
 public sealed record FieldRowDto(
     int Index,

@@ -179,7 +179,10 @@ public partial class WorkbenchRuntime
         bool? isStop = null,
         string? coating = null,
         bool? semiDiameterFixed = null,
-        double? semiDiameter = null)
+        double? semiDiameter = null,
+        Contracts.NormalizedPolynomialUpdateDto? polynomial = null,
+        double? biconicRadiusX = null,
+        double? biconicConicX = null)
     {
         if (surface is null)
         {
@@ -205,6 +208,23 @@ public partial class WorkbenchRuntime
 
         CaptureCurrentState();
         ApplyGeometry(surface, geometryKind);
+        if (polynomial is not null)
+        {
+            if (surface.Geometry is not NormalizedPolynomialGeometry normalized)
+                throw new ArgumentException("归一化多项式参数需要扩展多项式面型。");
+            surface.Geometry = new NormalizedPolynomialGeometry(surface.Radius, surface.Conic,
+                polynomial.NormalizationRadius, normalized.Basis, polynomial.TermCount, polynomial.Coefficients);
+        }
+        if (biconicRadiusX.HasValue || biconicConicX.HasValue)
+        {
+            if (surface.Geometry is not BiconicGeometry biconic)
+                throw new ArgumentException("X 方向曲率参数需要双圆锥面型。");
+            var radiusX = biconicRadiusX ?? biconic.RadiusX;
+            var conicX = biconicConicX ?? biconic.ConicX;
+            if (double.IsNaN(radiusX) || !double.IsFinite(conicX))
+                throw new ArgumentException("双圆锥 X 半径和圆锥系数无效。");
+            surface.Geometry = new BiconicGeometry(radiusX, surface.Radius, conicX, surface.Conic);
+        }
         SyncInteractionForEditedGeometry(surface, thinLensFocalLength);
         ApplyGratingParameters(
             surface,

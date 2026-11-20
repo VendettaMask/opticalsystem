@@ -438,6 +438,8 @@ public sealed partial class OpticalSurface : NotifyObject
                 GridSagGeometry grid => new GridSagGeometry(Radius, Conic, grid.Base.Coefficients, grid.Columns, grid.Rows,
                     grid.SpacingX, grid.SpacingY, grid.DecenterX, grid.DecenterY, grid.Linear, grid.Points),
                 OddAsphereGeometry odd => new OddAsphereGeometry(Radius, Conic, odd.Coefficients),
+                NormalizedPolynomialGeometry polynomial => new NormalizedPolynomialGeometry(
+                    Radius, Conic, polynomial.NormalizationRadius, polynomial.Basis, polynomial.TermCount, polynomial.Coefficients),
                 ForbesQGeometry forbes => new ForbesQGeometry(
                     Radius,
                     Conic,
@@ -446,10 +448,10 @@ public sealed partial class OpticalSurface : NotifyObject
                 ForbesNormalSlopeGeometry forbes => new ForbesNormalSlopeGeometry(Radius, Conic,
                     forbes.NormalizationRadius, forbes.Coefficients),
                 BiconicGeometry biconic => new BiconicGeometry(
+                    biconic.RadiusX,
                     Radius,
-                    biconic.RadiusY,
-                    Conic,
-                    biconic.ConicY),
+                    biconic.ConicX,
+                    Conic),
                 SeparableBiconicGeometry biconic => new SeparableBiconicGeometry(
                     Radius,
                     biconic.RadiusY,
@@ -490,6 +492,7 @@ public sealed partial class OpticalSurface : NotifyObject
         IrregularGeometry irregular => irregular.Base,
         GridSagGeometry grid => grid.Base.Base,
         OddAsphereGeometry odd => odd.Base,
+        NormalizedPolynomialGeometry polynomial => polynomial.Base,
         ForbesQGeometry forbes => forbes.Base,
         _ => null
     };
@@ -520,9 +523,10 @@ public sealed partial class OpticalSurface : NotifyObject
                 IrregularGeometry irregular => (irregular.Base.Radius, irregular.Base.Conic),
                 GridSagGeometry grid => (grid.Base.Base.Radius, grid.Base.Base.Conic),
                 OddAsphereGeometry odd => (odd.Base.Radius, odd.Base.Conic),
+                NormalizedPolynomialGeometry polynomial => (polynomial.Base.Radius, polynomial.Base.Conic),
                 ForbesQGeometry forbes => (forbes.Base.Radius, forbes.Base.Conic),
                 ForbesNormalSlopeGeometry forbes => (forbes.Base.Radius, forbes.Base.Conic),
-                BiconicGeometry biconic => (biconic.RadiusX, biconic.ConicX),
+                BiconicGeometry biconic => (biconic.RadiusY, biconic.ConicY),
                 SeparableBiconicGeometry biconic => (biconic.RadiusX, biconic.ConicX),
                 ToroidalGeometry toroidal => (toroidal.TangentialRadius, toroidal.Conic),
                 _ => (_radius, _conic)
