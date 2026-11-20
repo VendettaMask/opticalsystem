@@ -1,0 +1,56 @@
+{
+  "Schema": 1,
+  "Date": "2026-11-20",
+  "BaseCommit": "93c3028243cb72d82b7c54294d5c6d846f6a7a35",
+  "Scope": "Windows source launcher SDK discovery and exit status.",
+  "InstalledSdk": "10.0.300",
+  "Build": {
+    "Command": "dotnet build tests/OpticalSystemDesign.Tests/OpticalSystemDesign.Tests.csproj -c Release --no-restore /m:1 /nr:false",
+    "Warnings": 0,
+    "Errors": 0
+  },
+  "Tests": {
+    "Total": 4,
+    "Passed": 4,
+    "Failed": 0,
+    "Cases": [
+      {
+        "testName": "OpticalSystemDesign.Tests.DesktopLauncherTests.WindowsLauncherChecksThePinnedSdkWithASparsePath(scenario: \"standard\")",
+        "outcome": "Passed"
+      },
+      {
+        "testName": "OpticalSystemDesign.Tests.LayeringArchitectureTests.DesktopLaunchersRestorePackagesBeforeCleaningBuildOutputs",
+        "outcome": "Passed"
+      },
+      {
+        "testName": "OpticalSystemDesign.Tests.DesktopLauncherTests.WindowsLauncherChecksThePinnedSdkWithASparsePath(scenario: \"explicit-root\")",
+        "outcome": "Passed"
+      },
+      {
+        "testName": "OpticalSystemDesign.Tests.DesktopLauncherTests.WindowsLauncherChecksThePinnedSdkWithASparsePath(scenario: \"incompatible-sdk\")",
+        "outcome": "Passed"
+      }
+    ],
+    "Artifact": "tests.trx.gz",
+    "TrxSha256": "59119d5aa07d5826439111b45d7659e01d683e89f351eadfffc3b2669736b760",
+    "ArchiveSha256": "981077b7821032c6d7b594dddedfd17c5869d56950e04395ced409fd16718c8b"
+  },
+  "IntermediateRegression": {
+    "Artifact": "intermediate-return-code.trx.gz",
+    "Observation": "An incompatible SDK was correctly reported, but direct cmd /c execution returned zero before the main-subroutine fix."
+  },
+  "Sources": [
+    {
+      "Path": "Run-OpticalSystemDesign.cmd",
+      "Sha256": "cb7bb97823423dfe39537b50b79b9bc1165901a1bbdda51b07e95542f410f5f5"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/DesktopLauncherTests.cs",
+      "Sha256": "a51bed3af4a1f0bddaba1637855c37dc67bb98686e06909867c1cb369fd5be57"
+    },
+    {
+      "Path": "tests/OpticalSystemDesign.Tests/LayeringArchitectureTests.cs",
+      "Sha256": "60c249e0a084f56faa450e7e59435d89cc75455614c186e2aa93207d59aee2a7"
+    }
+  ]
+}

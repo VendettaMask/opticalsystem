@@ -74,6 +74,8 @@ Windows 使用 `Run-OpticalSystemDesign.cmd`，macOS 使用 `Run-OpticalSystemDe
 dotnet run --project src/OpticalSystemDesign.App/OpticalSystemDesign.App.csproj -c Release --no-build
 ```
 
+Windows 脚本按 `DOTNET_ROOT_X64`、`DOTNET_ROOT`、PATH、64 位/当前程序安装目录和用户 `.dotnet` 目录查找 `dotnet.exe`，在仓库目录验证 `global.json` 所需的 SDK。找到后，依赖还原、清理、构建和启动共用该可执行文件。运行 `.\Run-OpticalSystemDesign.cmd --check` 可单独查看选中的路径和 SDK 版本；此模式检查完成后直接退出。
+
 macOS 的 `.command` 启动脚本须保留可执行位（Git 文件模式 `100755`）。若 Finder 提示“无法执行，因为你没有正确的访问权限”，在仓库根目录执行 `chmod +x Run-OpticalSystemDesign.command` 后再双击；该脚本会还原依赖、清理并重建默认 Debug 输出，然后启动主程序。
 
 脚本依次还原依赖、清理构建输出、构建并启动主程序。AI 初始结构、光学镀膜设计、相机成像仿真和光学装调均从主程序「实验室」菜单打开。Windows 与 macOS 安装包校验四个实验室的计算库和同进程入口。

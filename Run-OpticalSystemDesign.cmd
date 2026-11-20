@@ -1,39 +1,65 @@
 @echo off
 setlocal
+call :main "%~1"
+exit /b %ERRORLEVEL%
+
+:main
 
 cd /d "%~dp0"
 set "PROJECT=src\OpticalSystemDesign.App\OpticalSystemDesign.App.csproj"
 set "AVALONIA_TELEMETRY_OPTOUT=1"
 
-where dotnet >nul 2>nul
-if errorlevel 1 (
-    echo .NET SDK was not found.
-    echo Install .NET SDK 10 or later and try again.
+set "DOTNET_EXE="
+set "FIRST_DOTNET_EXE="
+if defined DOTNET_ROOT_X64 call :try_dotnet "%DOTNET_ROOT_X64%\dotnet.exe"
+if defined DOTNET_ROOT call :try_dotnet "%DOTNET_ROOT%\dotnet.exe"
+for /f "delims=" %%D in ('"%SystemRoot%\System32\where.exe" dotnet.exe 2^>nul') do call :try_dotnet "%%D"
+if defined ProgramW6432 call :try_dotnet "%ProgramW6432%\dotnet\dotnet.exe"
+if defined ProgramFiles call :try_dotnet "%ProgramFiles%\dotnet\dotnet.exe"
+if defined USERPROFILE call :try_dotnet "%USERPROFILE%\.dotnet\dotnet.exe"
+
+if not defined DOTNET_EXE (
+    echo A .NET SDK compatible with global.json was not found.
+    echo Install the SDK specified by global.json and try again.
+    echo.
+    type "global.json"
+    if defined FIRST_DOTNET_EXE (
+        echo.
+        echo Installed SDKs:
+        "%FIRST_DOTNET_EXE%" --list-sdks
+    )
+    if /i "%~1"=="--check" exit /b 1
     pause
     exit /b 1
 )
+
+echo .NET host: %DOTNET_EXE%
+echo SDK:
+"%DOTNET_EXE%" --version
+if not "%ERRORLEVEL%"=="0" exit /b 1
+if /i "%~1"=="--check" exit /b 0
 
 echo Preparing Optical System Design ^(S.T.A.R. Labs^)...
 echo Project: %PROJECT%
 echo.
 
 echo [1/4] Restoring package dependencies...
-dotnet restore "%PROJECT%" --nologo --verbosity minimal
-if errorlevel 1 goto restore_failed
+"%DOTNET_EXE%" restore "%PROJECT%" --nologo --verbosity minimal
+if not "%ERRORLEVEL%"=="0" goto restore_failed
 
 echo.
 echo [2/4] Cleaning previous build outputs...
-dotnet clean "%PROJECT%" --nologo --verbosity minimal
-if errorlevel 1 goto clean_failed
+"%DOTNET_EXE%" clean "%PROJECT%" --nologo --verbosity minimal
+if not "%ERRORLEVEL%"=="0" goto clean_failed
 
 echo.
 echo [3/4] Rebuilding the application...
-dotnet build "%PROJECT%" --no-restore --nologo --verbosity minimal
-if errorlevel 1 goto build_failed
+"%DOTNET_EXE%" build "%PROJECT%" --no-restore --nologo --verbosity minimal
+if not "%ERRORLEVEL%"=="0" goto build_failed
 
 echo.
 echo [4/4] Starting the rebuilt application...
-dotnet run --project "%PROJECT%" --no-build
+"%DOTNET_EXE%" run --project "%PROJECT%" --no-build
 set "EXITCODE=%ERRORLEVEL%"
 goto report
 
@@ -64,3 +90,12 @@ if "%EXITCODE%"=="0" (
 
 pause
 exit /b %EXITCODE%
+
+:try_dotnet
+if defined DOTNET_EXE exit /b 0
+if not exist "%~1" exit /b 0
+if not defined FIRST_DOTNET_EXE set "FIRST_DOTNET_EXE=%~1"
+"%~1" --version >nul 2>nul
+if not "%ERRORLEVEL%"=="0" exit /b 0
+set "DOTNET_EXE=%~1"
+exit /b 0

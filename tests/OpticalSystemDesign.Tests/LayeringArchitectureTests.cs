@@ -105,9 +105,9 @@ public sealed class LayeringArchitectureTests
         var unixLauncher = EvidenceFiles.ReadAllText(Path.Combine(repositoryRoot, "Run-OpticalSystemDesign.command"));
 
         Assert.True(
-            windowsLauncher.IndexOf("dotnet restore", StringComparison.Ordinal) <
-            windowsLauncher.IndexOf("dotnet clean", StringComparison.Ordinal));
-        Assert.Contains("dotnet build \"%PROJECT%\" --no-restore", windowsLauncher, StringComparison.Ordinal);
+            windowsLauncher.IndexOf("\"%DOTNET_EXE%\" restore", StringComparison.Ordinal) <
+            windowsLauncher.IndexOf("\"%DOTNET_EXE%\" clean", StringComparison.Ordinal));
+        Assert.Contains("\"%DOTNET_EXE%\" build \"%PROJECT%\" --no-restore", windowsLauncher, StringComparison.Ordinal);
         Assert.True(
             unixLauncher.IndexOf("restore \"$PROJECT\"", StringComparison.Ordinal) <
             unixLauncher.IndexOf("clean \"$PROJECT\"", StringComparison.Ordinal));
