@@ -592,9 +592,10 @@ public sealed class Viewer3DGeometryTests
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(Viewer3DGeometryTests));
         await session.Dispatch(async () =>
         {
-            // This existing native-control geometry contract uses the original
-            // sheet; automatic/manual aspect behavior has independent tests.
-            ImageExportResolution.Configure(new() { DiagramAspectRatio = DiagramSheetLayout.Standard });
+            // Layouts keep their original sheet; Solid Model uses its current
+            // Auto viewport contract, with native controls outside the scale.
+            ImageExportResolution.Configure(new() { DiagramAspectRatio = mode == ViewerPresentationMode.SolidModel
+                ? DiagramSheetLayout.Automatic : DiagramSheetLayout.Standard });
             var previousLanguage = UiLocalization.CurrentLanguage;
             UiLocalization.Apply(language);
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
@@ -665,10 +666,16 @@ public sealed class Viewer3DGeometryTests
                     diagramScroll.Offset = default;
                     Tick(window);
                     var sheet = viewer.GetVisualDescendants().OfType<UniformDiagramPage>().Single();
-                    Assert.Equal(UniformDiagramPage.SheetWidth, sheet.Bounds.Width);
+                    if (mode == ViewerPresentationMode.OpticalLayout)
+                        Assert.Equal(UniformDiagramPage.SheetWidth, sheet.Bounds.Width);
                     Assert.Equal(UniformDiagramPage.SheetHeight, sheet.Bounds.Height);
                 }
-                var pointer = scene.TranslatePoint(new Point(40, scene.Bounds.Height * 0.4), window)!.Value;
+                var sceneBounds = VisualBounds(scene);
+                // Native overlays retain their size while the model viewport
+                // resizes. Start inside the canvas's visible left margin.
+                var pointer = new Point(sceneBounds.Left + 4, sceneBounds.Top + sceneBounds.Height * 0.4);
+                Tick(window);
+                Assert.Same(scene, window.InputHitTest(pointer));
                 window.MouseDown(pointer, MouseButton.Left);
                 window.MouseMove(pointer + new Vector(35, 15));
                 window.MouseUp(pointer + new Vector(35, 15), MouseButton.Left); Tick(window);
@@ -695,8 +702,10 @@ public sealed class Viewer3DGeometryTests
                 // sheet must not reduce button hit targets or configured fonts.
                 Assert.InRange(toolbar.TransformToVisual(viewer)!.Value.M11, .999, 1.001);
                 Assert.True(VisualBounds(scene).Top < VisualBounds(toolbar).Top);
-                Assert.InRange(VisualBounds(toolbar).Left, VisualBounds(scene).Left + 72, VisualBounds(scene).Right);
-                Assert.InRange(VisualBounds(toolbar).Right, VisualBounds(scene).Left, VisualBounds(scene).Right - 72);
+                // The native toolbar rounds to screen pixels; the fitted model
+                // rectangle can end at a fractional pixel in Auto mode.
+                Assert.InRange(VisualBounds(toolbar).Left, VisualBounds(scene).Left + 71, VisualBounds(scene).Right + 1);
+                Assert.InRange(VisualBounds(toolbar).Right, VisualBounds(scene).Left - 1, VisualBounds(scene).Right - 71);
                 Assert.True(VisualBounds(toolbar).Bottom <= VisualBounds(scene).Bottom - 40);
                 if (mode == ViewerPresentationMode.SolidModel)
                 {

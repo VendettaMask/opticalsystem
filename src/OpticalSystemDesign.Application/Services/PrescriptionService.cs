@@ -236,6 +236,7 @@ internal sealed partial class PrescriptionService : WorkbenchServiceBase, IPresc
             hasRadiusPickup |= mceRadius;
             hasThicknessPickup |= mceThickness;
             hasSemiDiameterPickup |= mceSemi;
+            var previousMaterial = target.Material;
             target.Label = surface.Label;
             if (!hasRadiusPickup) target.Radius = surface.Radius;
             if (!isImageSurface && !hasThicknessPickup)
@@ -256,7 +257,10 @@ internal sealed partial class PrescriptionService : WorkbenchServiceBase, IPresc
             target.IsStop = surface.IsStop;
             target.RadiusVariable = surface.RadiusVariable && !hasRadiusPickup;
             target.ThicknessVariable = !isImageSurface && surface.ThicknessVariable && !hasThicknessPickup;
-            var editedProperties = new List<string?> { nameof(OpticalSurface.Material), nameof(OpticalSurface.Coating), nameof(OpticalSurface.IsStop) };
+            var editedProperties = new List<string?> { nameof(OpticalSurface.Coating), nameof(OpticalSurface.IsStop) };
+            // Comment and numeric edits must retain specialized interaction models.
+            if (!string.Equals(previousMaterial, target.Material, StringComparison.OrdinalIgnoreCase))
+                editedProperties.Add(nameof(OpticalSurface.Material));
             if (!mceRadius) editedProperties.Add(nameof(OpticalSurface.Radius));
             if (!mceConic) editedProperties.Add(nameof(OpticalSurface.Conic));
             if (!isImageSurface && !mceThickness) editedProperties.Add(nameof(OpticalSurface.Thickness));

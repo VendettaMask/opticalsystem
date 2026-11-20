@@ -254,7 +254,7 @@ public interface IAnalysisService
 
 public interface IVisualizationService
 {
-    VisualizationOptionsDto GetVisualizationOptions(int? configurationIndex = null);
+    VisualizationOptionsDto GetVisualizationOptions(int? configurationIndex = null, bool includeAllConfigurations = false);
 
     Task<SceneDto> BuildSceneAsync(SceneDimension dimension, CancellationToken cancellationToken = default);
 

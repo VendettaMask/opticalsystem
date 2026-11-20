@@ -505,6 +505,8 @@ internal static partial class UiLocalization
         Add("显示镜片内部剖面", "Show lens cross sections", "レンズ内部の断面を表示");
 
         Add("选择二维图显示的结构", "Choose the configuration shown in the 2D view", "2D ビューに表示する構成を選択");
+        Add("所有结构", "All configurations", "すべての構成");
+        Add("结构 #", "Configuration #", "構成 #");
         Add("仅切换此二维图显示的结构，不改变活动结构。", "Changes this 2D view only; the active configuration stays unchanged.", "この 2D ビューのみ切り替え、アクティブ構成は変更しません。");
         Add("选择三维图显示的结构", "Choose the configuration shown in the 3D view", "3D ビューに表示する構成を選択");
         Add("仅切换此三维图显示的结构，不改变活动结构。", "Changes this 3D view only; the active configuration stays unchanged.", "この 3D ビューのみ切り替え、アクティブ構成は変更しません。");

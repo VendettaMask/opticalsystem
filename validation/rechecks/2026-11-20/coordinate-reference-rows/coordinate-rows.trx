@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="fedcdd41-ca4b-46c5-9a30-9c96ed966c27" name="optics@LAPTOP-G4BBBCS0 2026-11-20 15:45:44" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-20T15:45:44.7847058+08:00" queuing="2026-11-20T15:45:44.7847059+08:00" start="2026-11-20T15:45:41.1546314+08:00" finish="2026-11-20T15:45:55.2994102+08:00" />
+  <TestSettings name="default" id="d092dcd2-a725-4cc1-b46e-44007829f666">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-20_15_45_44" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="7b6f54ce-1e1b-40c6-b284-d805c10e9437" testId="5d74033c-2c22-3236-a9bc-fd79ba438dd0" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0989313" startTime="2026-11-20T15:45:55.0078688+08:00" endTime="2026-11-20T15:45:55.1066354+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7b6f54ce-1e1b-40c6-b284-d805c10e9437">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs:line 44&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(String themeName) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs:line 32&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fdfd7106-76dc-47e2-922d-17f1c7e068a5" testId="972b46dd-057a-7dcb-9b49-1bea55c5e501" testName="OpticalSystemDesign.Tests.LensEditorLayoutTests.NumericEditorAlignsTextToTheRight" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0761695" startTime="2026-11-20T15:45:43.2701518+08:00" endTime="2026-11-20T15:45:43.3351061+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fdfd7106-76dc-47e2-922d-17f1c7e068a5" />
+    <UnitTestResult executionId="09568b0f-c9e6-4155-8913-7de8bec3c544" testId="5c95b35a-d549-8da8-0dbb-a2c00cc80be6" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0896704" startTime="2026-11-20T15:45:55.1072561+08:00" endTime="2026-11-20T15:45:55.1966902+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="09568b0f-c9e6-4155-8913-7de8bec3c544">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs:line 44&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(String themeName) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs:line 32&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6fc721aa-781e-4d12-bca6-ff060d1b8914" testId="8b5e0078-0353-43a4-9a4f-a0468cc00c97" testName="OpticalSystemDesign.Tests.LensEditorLayoutTests.NumericDataGridColumnCentersHeaderAndKeepsCellsRightAligned" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0132820" startTime="2026-11-20T15:45:43.3421252+08:00" endTime="2026-11-20T15:45:43.3485921+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6fc721aa-781e-4d12-bca6-ff060d1b8914" />
+    <UnitTestResult executionId="c702c923-93b6-4e7b-b14a-a36bde7f6a71" testId="fc8f7c46-4448-9cb3-1537-5bedb70b6511" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Pixel&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000025" startTime="2026-11-20T15:45:55.1989721+08:00" endTime="2026-11-20T15:45:55.1990377+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c702c923-93b6-4e7b-b14a-a36bde7f6a71" />
+    <UnitTestResult executionId="5ced3709-0214-42e6-8cef-d0a6893bb24e" testId="7c1029fd-1422-4dae-8318-4c61561bfef6" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0001187" startTime="2026-11-20T15:45:55.1973879+08:00" endTime="2026-11-20T15:45:55.1974770+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5ced3709-0214-42e6-8cef-d0a6893bb24e" />
+    <UnitTestResult executionId="8edec8f1-1581-4ca9-8ecb-85ce4f3bb6cb" testId="49732e10-59d5-edea-8f2d-efc8539696b5" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.1172764" startTime="2026-11-20T15:45:54.8001235+08:00" endTime="2026-11-20T15:45:54.9142207+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8edec8f1-1581-4ca9-8ecb-85ce4f3bb6cb">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs:line 44&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(String themeName) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs:line 32&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="94a06739-bb9f-4ef1-a8e3-a0d815deed6e" testId="3e1459b7-da87-03ae-6935-73f0acde448d" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Isekai&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0005536" startTime="2026-11-20T15:45:55.1972441+08:00" endTime="2026-11-20T15:45:55.1973188+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="94a06739-bb9f-4ef1-a8e3-a0d815deed6e" />
+    <UnitTestResult executionId="f5a13949-4334-4809-9c09-0d28ecb7bbe7" testId="b20ac65f-6ee6-b7a5-77da-631b3ccf54cf" testName="OpticalSystemDesign.Tests.LensMaterialRowThemeTests.EveryMaterialRowKeepsBlueThroughSelectionEditsRecyclingAndFileSwitches" computerName="LAPTOP-G4BBBCS0" duration="00:00:11.2363293" startTime="2026-11-20T15:45:43.3503735+08:00" endTime="2026-11-20T15:45:54.5884887+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f5a13949-4334-4809-9c09-0d28ecb7bbe7" />
+    <UnitTestResult executionId="4844b9c7-b43b-4fb2-80fc-1a9e250b305d" testId="a8684c8c-db11-72fb-c199-7c3444f562c2" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Light&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0924497" startTime="2026-11-20T15:45:54.9147579+08:00" endTime="2026-11-20T15:45:55.0073599+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4844b9c7-b43b-4fb2-80fc-1a9e250b305d">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs:line 44&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(String themeName) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs:line 32&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="266c62a7-9c0b-4fe0-981b-0d3c359154e3" testId="2cdff774-fec4-690d-211c-13d14d4da665" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.2014242" startTime="2026-11-20T15:45:54.5909528+08:00" endTime="2026-11-20T15:45:54.7969296+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="266c62a7-9c0b-4fe0-981b-0d3c359154e3">
+      <Output>
+        <ErrorInfo>
+          <Message>System.InvalidOperationException : Sequence contains no matching element</Message>
+          <StackTrace>   at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+   at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+   at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs:line 44&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(String themeName) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs:line 32&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="52b529af-d0f9-408b-9a8d-d1fc4c8d02ca" testId="66e8f16b-272e-bf91-feaa-f538202799d6" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Dark&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000024" startTime="2026-11-20T15:45:55.1976527+08:00" endTime="2026-11-20T15:45:55.1976890+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="52b529af-d0f9-408b-9a8d-d1fc4c8d02ca" />
+    <UnitTestResult executionId="13b6b6c0-db1e-4441-8918-17b06408f8cc" testId="71a26d4f-0fa5-90f0-96de-01948912e3cf" testName="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Lumen&quot;)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.0000059" startTime="2026-11-20T15:45:55.1975497+08:00" endTime="2026-11-20T15:45:55.1975846+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="13b6b6c0-db1e-4441-8918-17b06408f8cc" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fc8f7c46-4448-9cb3-1537-5bedb70b6511">
+      <Execution id="c702c923-93b6-4e7b-b14a-a36bde7f6a71" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="ReferencePaletteKeepsBodyTextReadableInAllStates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="7c1029fd-1422-4dae-8318-4c61561bfef6">
+      <Execution id="5ced3709-0214-42e6-8cef-d0a6893bb24e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="ReferencePaletteKeepsBodyTextReadableInAllStates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5d74033c-2c22-3236-a9bc-fd79ba438dd0">
+      <Execution id="7b6f54ce-1e1b-40c6-b284-d805c10e9437" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="49732e10-59d5-edea-8f2d-efc8539696b5">
+      <Execution id="8edec8f1-1581-4ca9-8ecb-85ce4f3bb6cb" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensMaterialRowThemeTests.EveryMaterialRowKeepsBlueThroughSelectionEditsRecyclingAndFileSwitches" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b20ac65f-6ee6-b7a5-77da-631b3ccf54cf">
+      <Execution id="f5a13949-4334-4809-9c09-0d28ecb7bbe7" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensMaterialRowThemeTests" name="EveryMaterialRowKeepsBlueThroughSelectionEditsRecyclingAndFileSwitches" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensEditorLayoutTests.NumericDataGridColumnCentersHeaderAndKeepsCellsRightAligned" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="8b5e0078-0353-43a4-9a4f-a0468cc00c97">
+      <Execution id="6fc721aa-781e-4d12-bca6-ff060d1b8914" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensEditorLayoutTests" name="NumericDataGridColumnCentersHeaderAndKeepsCellsRightAligned" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.LensEditorLayoutTests.NumericEditorAlignsTextToTheRight" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="972b46dd-057a-7dcb-9b49-1bea55c5e501">
+      <Execution id="fdfd7106-76dc-47e2-922d-17f1c7e068a5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.LensEditorLayoutTests" name="NumericEditorAlignsTextToTheRight" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="2cdff774-fec4-690d-211c-13d14d4da665">
+      <Execution id="266c62a7-9c0b-4fe0-981b-0d3c359154e3" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Isekai&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="3e1459b7-da87-03ae-6935-73f0acde448d">
+      <Execution id="94a06739-bb9f-4ef1-a8e3-a0d815deed6e" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="ReferencePaletteKeepsBodyTextReadableInAllStates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Dark&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="66e8f16b-272e-bf91-feaa-f538202799d6">
+      <Execution id="52b529af-d0f9-408b-9a8d-d1fc4c8d02ca" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="ReferencePaletteKeepsBodyTextReadableInAllStates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.ReferencePaletteKeepsBodyTextReadableInAllStates(themeName: &quot;Lumen&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="71a26d4f-0fa5-90f0-96de-01948912e3cf">
+      <Execution id="13b6b6c0-db1e-4441-8918-17b06408f8cc" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="ReferencePaletteKeepsBodyTextReadableInAllStates" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Pixel&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5c95b35a-d549-8da8-0dbb-a2c00cc80be6">
+      <Execution id="09568b0f-c9e6-4155-8913-7de8bec3c544" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: &quot;Light&quot;)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="a8684c8c-db11-72fb-c199-7c3444f562c2">
+      <Execution id="4844b9c7-b43b-4fb2-80fc-1a9e250b305d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.CoordinateReferenceRowTests" name="RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="5d74033c-2c22-3236-a9bc-fd79ba438dd0" executionId="7b6f54ce-1e1b-40c6-b284-d805c10e9437" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="972b46dd-057a-7dcb-9b49-1bea55c5e501" executionId="fdfd7106-76dc-47e2-922d-17f1c7e068a5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5c95b35a-d549-8da8-0dbb-a2c00cc80be6" executionId="09568b0f-c9e6-4155-8913-7de8bec3c544" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8b5e0078-0353-43a4-9a4f-a0468cc00c97" executionId="6fc721aa-781e-4d12-bca6-ff060d1b8914" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fc8f7c46-4448-9cb3-1537-5bedb70b6511" executionId="c702c923-93b6-4e7b-b14a-a36bde7f6a71" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7c1029fd-1422-4dae-8318-4c61561bfef6" executionId="5ced3709-0214-42e6-8cef-d0a6893bb24e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49732e10-59d5-edea-8f2d-efc8539696b5" executionId="8edec8f1-1581-4ca9-8ecb-85ce4f3bb6cb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3e1459b7-da87-03ae-6935-73f0acde448d" executionId="94a06739-bb9f-4ef1-a8e3-a0d815deed6e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b20ac65f-6ee6-b7a5-77da-631b3ccf54cf" executionId="f5a13949-4334-4809-9c09-0d28ecb7bbe7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a8684c8c-db11-72fb-c199-7c3444f562c2" executionId="4844b9c7-b43b-4fb2-80fc-1a9e250b305d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2cdff774-fec4-690d-211c-13d14d4da665" executionId="266c62a7-9c0b-4fe0-981b-0d3c359154e3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="66e8f16b-272e-bf91-feaa-f538202799d6" executionId="52b529af-d0f9-408b-9a8d-d1fc4c8d02ca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="71a26d4f-0fa5-90f0-96de-01948912e3cf" executionId="13b6b6c0-db1e-4441-8918-17b06408f8cc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="13" executed="13" passed="8" failed="5" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.75]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.74]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.77]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:13.33]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:13.33]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.33]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:13.33]            at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:13.33]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs(44,0): at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.33]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.33]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.33]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.33]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:13.33]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.33]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs(32,0): at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(String themeName)&#xD;
+[xUnit.net 00:00:13.33]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.45]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:13.45]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.45]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:13.45]            at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:13.45]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs(44,0): at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.45]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.45]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:13.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.45]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs(32,0): at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(String themeName)&#xD;
+[xUnit.net 00:00:13.45]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.54]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:13.54]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.54]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:13.54]            at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:13.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs(44,0): at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.54]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.54]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.54]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.54]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:13.54]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.54]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs(32,0): at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(String themeName)&#xD;
+[xUnit.net 00:00:13.54]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.64]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:13.64]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.64]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:13.64]            at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:13.64]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs(44,0): at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.64]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.64]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.64]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.64]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:13.64]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.64]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs(32,0): at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(String themeName)&#xD;
+[xUnit.net 00:00:13.64]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.73]       System.InvalidOperationException : Sequence contains no matching element&#xD;
+[xUnit.net 00:00:13.73]       Stack Trace:&#xD;
+[xUnit.net 00:00:13.73]            at System.Linq.ThrowHelper.ThrowNoMatchException()&#xD;
+[xUnit.net 00:00:13.73]            at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)&#xD;
+[xUnit.net 00:00:13.73]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs(44,0): at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.&lt;&gt;c__DisplayClass1_0.&lt;&lt;RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.73]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:13.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.73]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:13.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.73]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\CoordinateReferenceRowTests.cs(32,0): at OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(String themeName)&#xD;
+[xUnit.net 00:00:13.73]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:13.73]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T15:45:54.7984496+08:00">
+        <Text>[xUnit.net 00:00:13.33]     OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: "Lumen") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T15:45:54.9147009+08:00">
+        <Text>[xUnit.net 00:00:13.45]     OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: "Isekai") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T15:45:55.0077978+08:00">
+        <Text>[xUnit.net 00:00:13.54]     OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: "Light") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T15:45:55.1071813+08:00">
+        <Text>[xUnit.net 00:00:13.64]     OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: "Dark") [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T15:45:55.1969986+08:00">
+        <Text>[xUnit.net 00:00:13.73]     OpticalSystemDesign.Tests.CoordinateReferenceRowTests.RealReferenceRowsRetainTheirColourThroughStatesNamesRecyclingAndReopen(themeName: "Pixel") [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

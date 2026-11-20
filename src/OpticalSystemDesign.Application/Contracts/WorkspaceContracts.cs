@@ -847,7 +847,8 @@ public sealed record SurfaceRowDto(
     double? ThermalExpansionPpmPerC = null,
     double? ChipZone = null,
     SurfaceGeometryDefinitionDto? GeometryDefinition = null,
-    SurfaceDrawingApertureDto? DrawingAperture = null);
+    SurfaceDrawingApertureDto? DrawingAperture = null,
+    bool IsCoordinateReference = false);
 
 /// <summary>Non-localized physical aperture identity; only centered circular dimensions
 /// are projected here. Other shapes must never be inferred from a displayed name.</summary>
@@ -1332,7 +1333,8 @@ public sealed record VisualizationRequestDto(
     bool DeleteVignetted = true,
     bool MarginalAndChiefOnly = false,
     bool IncludeStaleNonSequentialRays = false,
-    int? ConfigurationIndex = null);
+    int? ConfigurationIndex = null,
+    bool IncludeAllConfigurations = false);
 
 public sealed record ScenePoint2Dto(double Z, double Y);
 
@@ -1399,19 +1401,22 @@ public sealed record SceneSurface2Dto(
     bool IsStop,
     bool IsReferencePlane,
     IReadOnlyList<ScenePoint2Dto> Points,
-    bool IsStandaloneStop = false);
+    bool IsStandaloneStop = false,
+    int ConfigurationNumber = 1);
 
 public sealed record SceneLensEdge2Dto(
     int FrontSurfaceNumber,
     int BackSurfaceNumber,
     ScenePoint2Dto Start,
-    ScenePoint2Dto End);
+    ScenePoint2Dto End,
+    int ConfigurationNumber = 1);
 
 public sealed record SceneLensElement2Dto(
     int FrontSurfaceNumber,
     int BackSurfaceNumber,
     string Material,
-    IReadOnlyList<ScenePoint2Dto> Boundary);
+    IReadOnlyList<ScenePoint2Dto> Boundary,
+    int ConfigurationNumber = 1);
 
 public sealed record SceneRay2Dto(
     int RayNumber,
@@ -1422,7 +1427,8 @@ public sealed record SceneRay2Dto(
     bool Vignetted,
     double FinalIntensity,
     IReadOnlyList<ScenePoint2Dto> Points,
-    IReadOnlyList<SceneRaySegment2Dto> Segments);
+    IReadOnlyList<SceneRaySegment2Dto> Segments,
+    int ConfigurationNumber = 1);
 
 public sealed record Scene2Dto(
     IReadOnlyList<SceneSurface2Dto> Surfaces,
@@ -1446,7 +1452,8 @@ public sealed record SceneSurface3Dto(
     bool IsStandaloneStop = false,
     SceneSurfaceRenderRole RenderRole = SceneSurfaceRenderRole.OpticalSurface,
     double? DisplayWavelengthNanometers = null,
-    bool IsImageSurface = false);
+    bool IsImageSurface = false,
+    int ConfigurationNumber = 1);
 
 public sealed record SceneLensElement3Dto(
     int FrontSurfaceNumber,
@@ -1457,7 +1464,8 @@ public sealed record SceneLensElement3Dto(
     IReadOnlyList<ScenePoint3Dto> BackRim,
     IReadOnlyList<SceneSurfaceFace3Dto> FrontFaces,
     IReadOnlyList<SceneSurfaceFace3Dto> BackFaces,
-    IReadOnlyList<ScenePoint3Dto> MeridianBoundary);
+    IReadOnlyList<ScenePoint3Dto> MeridianBoundary,
+    int ConfigurationNumber = 1);
 
 public sealed record SceneRay3Dto(
     int RayNumber,
@@ -1468,7 +1476,8 @@ public sealed record SceneRay3Dto(
     bool Vignetted,
     double FinalIntensity,
     IReadOnlyList<ScenePoint3Dto> Points,
-    IReadOnlyList<SceneRaySegment3Dto> Segments);
+    IReadOnlyList<SceneRaySegment3Dto> Segments,
+    int ConfigurationNumber = 1);
 
 public sealed record Scene3Dto(
     IReadOnlyList<SceneSurface3Dto> Surfaces,
@@ -1488,7 +1497,9 @@ public sealed record NonSequentialLayoutResultDto(
     bool RaysLoaded,
     string? DatabasePath);
 
-public sealed record SceneConfigurationDto(int Number, int Count);
+public sealed record SceneConfigurationDto(int Number, int Count, bool IncludesAll = false);
+
+public sealed record SceneConfigurationSummaryDto(int Number, OpticalDocumentSnapshot Summary);
 
 public sealed record SceneDto(
     long SourceRevision,
@@ -1498,7 +1509,8 @@ public sealed record SceneDto(
     OpticalDocumentSnapshot Summary,
     NonSequentialLayoutResultDto? NonSequentialLayoutResult = null,
     IReadOnlyList<string>? Warnings = null,
-    SceneConfigurationDto? Configuration = null);
+    SceneConfigurationDto? Configuration = null,
+    IReadOnlyList<SceneConfigurationSummaryDto>? ConfigurationSummaries = null);
 
 public enum CadExportFormat
 {

@@ -87,6 +87,9 @@ public sealed partial class ViewerPanel
         if (_glassLegend.IsVisible)
         {
             var entries = new WrapPanel { Orientation = Orientation.Horizontal };
+            if (_scene.Scene is { Configuration.IncludesAll: true } allScene
+                && _scene.RayColorMode == OpticSceneRayColorMode.Configuration)
+                entries.Children.Add(PlotCaption.ConfigurationLegend(allScene));
             foreach (var source in _glassLegendItems.Children.OfType<StackPanel>())
             {
                 var swatch = (Border)source.Children[0];

@@ -10,6 +10,7 @@ using Avalonia.Styling;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.App.ViewModels;
 using OpticalSystemDesign.Application.Contracts;
 
@@ -134,6 +135,7 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
                         ThemeResourceBindings.RibbonTabHover))
             }
         });
+        grid.Styles.Add(new CoordinateReferenceRowStyles());
         grid.LoadingRow += (_, eventArgs) =>
         {
             if (eventArgs.Row.DataContext is SurfaceEditorRow row)
@@ -516,8 +518,11 @@ public sealed partial class LensEditorPanel : UserControl, IDisposable, IDisplay
     private static bool HasOpticalMaterial(SurfaceEditorRow row) =>
         row.HasOpticalMaterial;
 
-    private static void ApplyMaterialRowClass(DataGridRow dataGridRow, SurfaceEditorRow row) =>
-        dataGridRow.Classes.Set("glass-material-row", row.HasOpticalMaterial);
+    private static void ApplyMaterialRowClass(DataGridRow dataGridRow, SurfaceEditorRow row)
+    {
+        dataGridRow.Classes.Set("glass-material-row", row.HasOpticalMaterial && !row.IsCoordinateReference);
+        dataGridRow.Classes.Set(CoordinateReferenceRowStyles.RowClass, row.IsCoordinateReference);
+    }
 
     private static NumericUpDown Number(double width, decimal minimum, decimal maximum, decimal increment, decimal value) => new()
     {

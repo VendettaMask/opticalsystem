@@ -51,9 +51,11 @@ public sealed class SurfaceEditorRow
         ThermalExpansionPpmPerC = source.ThermalExpansionPpmPerC;
         CanOptimize = Number > 0 && !isLastSurface;
         IsLastSurface = isLastSurface;
+        IsCoordinateReference = source.IsCoordinateReference;
     }
 
     public int Number { get; }
+    public bool IsCoordinateReference { get; }
 
     internal static string SurfaceTypeForGeometry(string geometryKind) =>
         geometryKind is "平面" or "标准球面/圆锥" ? "标准面" : geometryKind;
@@ -218,7 +220,8 @@ public sealed class SurfaceEditorRow
         Inspection,
         RadiusSolve,
         ThermalExpansionPpmPerC: ThermalExpansionPpmPerC,
-        ChipZone: ExtensionZone);
+        ChipZone: ExtensionZone,
+        IsCoordinateReference: IsCoordinateReference);
 
     public override string ToString() => $"{Number}: {Label}";
 }

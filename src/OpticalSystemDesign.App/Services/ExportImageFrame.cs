@@ -118,8 +118,20 @@ internal static class ExportImageFrame
                 content.Bounds.Width * sourceScale, content.Bounds.Height * sourceScale));
             if (material is not null) return;
             var stroke = BorderWidth * sourceScale;
-            context.DrawRectangle(null, new Pen(brush, stroke),
-                new Rect(stroke / 2, stroke / 2, Bounds.Width - stroke, Bounds.Height - stroke));
+            // Bleed one hollow path beyond the raster boundary. A joined stroked
+            // rectangle can leave a partly transparent corner at arbitrary Auto
+            // widths and fractional export scales, even with integer pixel bounds.
+            var bleed = stroke;
+            var frame = new GeometryGroup
+            {
+                FillRule = FillRule.EvenOdd,
+                Children =
+                {
+                    new RectangleGeometry(new Rect(-bleed, -bleed, Bounds.Width + 2 * bleed, Bounds.Height + 2 * bleed)),
+                    new RectangleGeometry(new Rect(stroke, stroke, Bounds.Width - 2 * stroke, Bounds.Height - 2 * stroke))
+                }
+            };
+            context.DrawGeometry(brush, null, frame);
         }
     }
 }

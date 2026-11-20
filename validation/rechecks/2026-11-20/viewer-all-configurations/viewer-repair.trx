@@ -1,0 +1,434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="c255768f-26cd-46f1-9393-f7b1adffad37" name="optics@LAPTOP-G4BBBCS0 2026-11-20 16:49:52" runUser="LAPTOP-G4BBBCS0\optics" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-11-20T16:49:52.3391476+08:00" queuing="2026-11-20T16:49:52.3391477+08:00" start="2026-11-20T16:49:48.1101870+08:00" finish="2026-11-20T16:51:27.4012015+08:00" />
+  <TestSettings name="default" id="3fb852af-64a0-4c00-927a-bb8ba7355c29">
+    <Deployment runDeploymentRoot="optics_LAPTOP-G4BBBCS0_2026-11-20_16_49_52" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="111e8940-6219-404c-9b97-aa41e869d58b" testId="056d6fc1-755b-e843-78e5-4402cffffef4" testName="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 600)" computerName="LAPTOP-G4BBBCS0" duration="00:00:06.3111140" startTime="2026-11-20T16:50:31.3096273+08:00" endTime="2026-11-20T16:50:37.6210139+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="111e8940-6219-404c-9b97-aa41e869d58b" />
+    <UnitTestResult executionId="cce339dc-9474-4187-b860-f64d432c4693" testId="e32f7291-b4f1-8700-8f23-29280538db0a" testName="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1100, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:12.6166069" startTime="2026-11-20T16:50:53.7535565+08:00" endTime="2026-11-20T16:51:06.3691275+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cce339dc-9474-4187-b860-f64d432c4693" />
+    <UnitTestResult executionId="09e2319f-e83c-4678-ba28-95b5b7e5ad9b" testId="baede464-d999-7d92-61be-655212bb6a5d" testName="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 600)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.7136368" startTime="2026-11-20T16:50:17.5350815+08:00" endTime="2026-11-20T16:50:19.2474033+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="09e2319f-e83c-4678-ba28-95b5b7e5ad9b" />
+    <UnitTestResult executionId="7ea58e4e-c4a7-49bd-87a6-fe7d98fb3655" testId="ac2c494d-ca5f-1729-7c5d-69d2991ec177" testName="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1100, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.1090795" startTime="2026-11-20T16:51:09.7269845+08:00" endTime="2026-11-20T16:51:13.8379383+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7ea58e4e-c4a7-49bd-87a6-fe7d98fb3655" />
+    <UnitTestResult executionId="437f6d5f-4f7c-4b00-b7ec-e6ceba3281b4" testId="6ba0a6af-f9ec-d70d-7760-f2f1969cfe8b" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.4001781" startTime="2026-11-20T16:49:49.8729471+08:00" endTime="2026-11-20T16:49:52.2915897+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="437f6d5f-4f7c-4b00-b7ec-e6ceba3281b4">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [126, 91, 55, 255]&#xD;
+Actual:   [125, 90, 55, 255]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 153&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 97&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b09cccce-f568-4169-85b4-ba8c75bd3a8b" testId="329b316c-7d54-8190-286a-0d49269f4507" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.1215863" startTime="2026-11-20T16:49:57.8652414+08:00" endTime="2026-11-20T16:50:02.9868724+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b09cccce-f568-4169-85b4-ba8c75bd3a8b">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+                    ↓ (pos 2)&#xD;
+Expected: [126, 91, 55, 255]&#xD;
+Actual:   [126, 91, 54, 255]&#xD;
+                    ↑ (pos 2)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 153&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 97&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ad0eaf44-4048-4b3b-bef4-169de2dca8f8" testId="74259a35-9021-8c10-55f8-d67b352f2896" testName="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 360)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.2838549" startTime="2026-11-20T16:50:30.0258267+08:00" endTime="2026-11-20T16:50:31.3094893+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ad0eaf44-4048-4b3b-bef4-169de2dca8f8" />
+    <UnitTestResult executionId="c6b05f62-3496-475e-b798-5949f2489bb6" testId="6d02565f-d2d3-4422-2ec2-94935ec23c66" testName="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1000)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.2608202" startTime="2026-11-20T16:50:19.2478356+08:00" endTime="2026-11-20T16:50:20.5084872+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c6b05f62-3496-475e-b798-5949f2489bb6" />
+    <UnitTestResult executionId="07dcb23b-4d71-4980-9342-a685b1d8fa0a" testId="4d859bba-383d-3ddf-1d4a-c573165ef2e4" testName="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1000)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.0226167" startTime="2026-11-20T16:50:15.5114610+08:00" endTime="2026-11-20T16:50:17.5337165+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07dcb23b-4d71-4980-9342-a685b1d8fa0a" />
+    <UnitTestResult executionId="0783841d-bc3b-47d9-a00a-50aa59adebd6" testId="794c2c3f-b513-2821-0b48-37b99daaea22" testName="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 400, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.2305705" startTime="2026-11-20T16:50:37.6217993+08:00" endTime="2026-11-20T16:50:41.8523726+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0783841d-bc3b-47d9-a00a-50aa59adebd6" />
+    <UnitTestResult executionId="edaee226-2bcb-4b51-bf32-eaa82e4fc345" testId="759fcc25-cb4a-36bf-dba4-5e9e6bf8317f" testName="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 400, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:11.8989331" startTime="2026-11-20T16:50:41.8528353+08:00" endTime="2026-11-20T16:50:53.7521344+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="edaee226-2bcb-4b51-bf32-eaa82e4fc345">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.InRange() Failure: Value not in range&#xD;
+Range:  (0.73170731707317072 - 326.78048780487808)&#xD;
+Actual: 327</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.Viewer3DGeometryTests.&lt;&gt;c__DisplayClass13_0.&lt;&lt;ViewButtonsShowLabelsAndTrackTheActualCamera&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Viewer3DGeometryTests.cs:line 706&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(ViewerPresentationMode mode, String theme, String language, Int32 width, Double fontSize) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Viewer3DGeometryTests.cs:line 593&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="643db554-62a4-4e81-9464-af1bf66014be" testId="fcfb6e2f-eeae-2e18-442e-f189523f327d" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.3530118" startTime="2026-11-20T16:49:56.5143745+08:00" endTime="2026-11-20T16:49:57.8634457+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="643db554-62a4-4e81-9464-af1bf66014be">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [126, 91, 55, 255]&#xD;
+Actual:   [125, 90, 55, 255]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 153&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 97&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="fd8d7d86-0685-4484-845c-faf8050fcc20" testId="dca4335a-1db1-ba0c-164a-8649576cab1e" testName="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 360)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.8213322" startTime="2026-11-20T16:50:22.8822922+08:00" endTime="2026-11-20T16:50:24.7036251+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fd8d7d86-0685-4484-845c-faf8050fcc20" />
+    <UnitTestResult executionId="cce0c9d4-6f5b-4bc6-8b88-4d4ea43886d5" testId="55bfef86-1c5d-0995-91ed-155ad757d133" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.1168704" startTime="2026-11-20T16:50:03.9360127+08:00" endTime="2026-11-20T16:50:05.0525894+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cce0c9d4-6f5b-4bc6-8b88-4d4ea43886d5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [126, 91, 55, 255]&#xD;
+Actual:   [125, 90, 55, 255]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 153&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 97&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5b420cd3-e0e3-4131-a7dd-1d795c11916d" testId="6cea4209-2a42-0e09-d132-5d71036b9c4c" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)" computerName="LAPTOP-G4BBBCS0" duration="00:00:00.9470639" startTime="2026-11-20T16:50:02.9883824+08:00" endTime="2026-11-20T16:50:03.9347987+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5b420cd3-e0e3-4131-a7dd-1d795c11916d">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+           ↓ (pos 0)&#xD;
+Expected: [126, 91, 55, 255]&#xD;
+Actual:   [125, 90, 55, 255]&#xD;
+           ↑ (pos 0)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 153&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 97&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0c2e6ba2-231c-4087-a273-428bbbfcd16d" testId="e455172f-2c78-a88e-70e6-ab1aae7068f1" testName="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 400, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:11.7545204" startTime="2026-11-20T16:51:13.8386915+08:00" endTime="2026-11-20T16:51:25.5928117+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0c2e6ba2-231c-4087-a273-428bbbfcd16d" />
+    <UnitTestResult executionId="41fffea9-5410-4b0c-8214-9b58d3899690" testId="d4af8df1-bedb-9187-c898-b7060eede013" testName="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1000)" computerName="LAPTOP-G4BBBCS0" duration="00:00:10.4517575" startTime="2026-11-20T16:50:05.0582603+08:00" endTime="2026-11-20T16:50:15.5100350+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="41fffea9-5410-4b0c-8214-9b58d3899690">
+      <Output>
+        <ErrorInfo>
+          <Message>Model 0.7314099959366112, 40.73140999593661, 2459, 836.192, window 0, 0, 1800, 700, viewport 1800, 660, scale 0.7314099959366112, sheet 1, 1, 2459, 900</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ViewerConfigurationTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerConfigurationTests.cs:line 242&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(SceneDimension dimension, ViewerPresentationMode presentationMode, String theme, String language, Int32 width) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerConfigurationTests.cs:line 159&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1e6d287d-36f2-4abd-986c-ee3109191b6f" testId="b55606f1-9ec0-b6c8-45df-2e69899b2e61" testName="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 360)" computerName="LAPTOP-G4BBBCS0" duration="00:00:05.3212369" startTime="2026-11-20T16:50:24.7041384+08:00" endTime="2026-11-20T16:50:30.0252204+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1e6d287d-36f2-4abd-986c-ee3109191b6f" />
+    <UnitTestResult executionId="fd34be16-fa5e-4387-8c6f-5d36f425bfca" testId="44090bb1-6b86-abf0-6505-8eea507fab6b" testName="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True)" computerName="LAPTOP-G4BBBCS0" duration="00:00:04.2159612" startTime="2026-11-20T16:49:52.3166956+08:00" endTime="2026-11-20T16:49:56.5098117+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fd34be16-fa5e-4387-8c6f-5d36f425bfca">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.Equal() Failure: Collections differ&#xD;
+                    ↓ (pos 2)&#xD;
+Expected: [126, 91, 55, 255]&#xD;
+Actual:   [126, 91, 54, 255]&#xD;
+                    ↑ (pos 2)</Message>
+          <StackTrace>   at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs:line 24&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 153&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext() in D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs:line 87&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+--- End of stack trace from previous location ---&#xD;
+   at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway) in D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs:line 97&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c9d1fca6-0240-4121-a4b5-d282b09cba56" testId="4034af47-7877-020c-a188-43624fbf9c9d" testName="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 400, fontSize: 13)" computerName="LAPTOP-G4BBBCS0" duration="00:00:03.3571666" startTime="2026-11-20T16:51:06.3698836+08:00" endTime="2026-11-20T16:51:09.7265966+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c9d1fca6-0240-4121-a4b5-d282b09cba56" />
+    <UnitTestResult executionId="6f154659-4a3d-4707-ba08-2901d81ddd91" testId="9cfcd985-6800-93f5-76de-2722d7b104c2" testName="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 600)" computerName="LAPTOP-G4BBBCS0" duration="00:00:02.3728970" startTime="2026-11-20T16:50:20.5086362+08:00" endTime="2026-11-20T16:50:22.8817853+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6f154659-4a3d-4707-ba08-2901d81ddd91" />
+    <UnitTestResult executionId="53ed1df2-c888-42ad-9d39-21f94eb0cdd2" testId="5f35850f-7a82-cd55-0d99-3f774e16a4dc" testName="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 400, fontSize: 18)" computerName="LAPTOP-G4BBBCS0" duration="00:00:01.6503357" startTime="2026-11-20T16:51:25.5935128+08:00" endTime="2026-11-20T16:51:27.2437096+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="53ed1df2-c888-42ad-9d39-21f94eb0cdd2" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6cea4209-2a42-0e09-d132-5d71036b9c4c">
+      <Execution id="5b420cd3-e0e3-4131-a7dd-1d795c11916d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="329b316c-7d54-8190-286a-0d49269f4507">
+      <Execution id="b09cccce-f568-4169-85b4-ba8c75bd3a8b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 400, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="794c2c3f-b513-2821-0b48-37b99daaea22">
+      <Execution id="0783841d-bc3b-47d9-a00a-50aa59adebd6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.Viewer3DGeometryTests" name="ViewButtonsShowLabelsAndTrackTheActualCamera" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1000)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="d4af8df1-bedb-9187-c898-b7060eede013">
+      <Execution id="41fffea9-5410-4b0c-8214-9b58d3899690" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerConfigurationTests" name="ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 400, fontSize: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="5f35850f-7a82-cd55-0d99-3f774e16a4dc">
+      <Execution id="53ed1df2-c888-42ad-9d39-21f94eb0cdd2" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.Viewer3DGeometryTests" name="ViewButtonsShowLabelsAndTrackTheActualCamera" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 400, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e455172f-2c78-a88e-70e6-ab1aae7068f1">
+      <Execution id="0c2e6ba2-231c-4087-a273-428bbbfcd16d" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.Viewer3DGeometryTests" name="ViewButtonsShowLabelsAndTrackTheActualCamera" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1000)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6d02565f-d2d3-4422-2ec2-94935ec23c66">
+      <Execution id="c6b05f62-3496-475e-b798-5949f2489bb6" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerConfigurationTests" name="ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 400, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4034af47-7877-020c-a188-43624fbf9c9d">
+      <Execution id="c9d1fca6-0240-4121-a4b5-d282b09cba56" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.Viewer3DGeometryTests" name="ViewButtonsShowLabelsAndTrackTheActualCamera" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="6ba0a6af-f9ec-d70d-7760-f2f1969cfe8b">
+      <Execution id="437f6d5f-4f7c-4b00-b7ec-e6ceba3281b4" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1000)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="4d859bba-383d-3ddf-1d4a-c573165ef2e4">
+      <Execution id="07dcb23b-4d71-4980-9342-a685b1d8fa0a" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerConfigurationTests" name="ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1100, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="ac2c494d-ca5f-1729-7c5d-69d2991ec177">
+      <Execution id="7ea58e4e-c4a7-49bd-87a6-fe7d98fb3655" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.Viewer3DGeometryTests" name="ViewButtonsShowLabelsAndTrackTheActualCamera" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="55bfef86-1c5d-0995-91ed-155ad757d133">
+      <Execution id="cce0c9d4-6f5b-4bc6-8b88-4d4ea43886d5" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 600)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="9cfcd985-6800-93f5-76de-2722d7b104c2">
+      <Execution id="6f154659-4a3d-4707-ba08-2901d81ddd91" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerConfigurationTests" name="ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="44090bb1-6b86-abf0-6505-8eea507fab6b">
+      <Execution id="fd34be16-fa5e-4387-8c6f-5d36f425bfca" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 360)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="74259a35-9021-8c10-55f8-d67b352f2896">
+      <Execution id="ad0eaf44-4048-4b3b-bef4-169de2dca8f8" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerConfigurationTests" name="ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: &quot;Light&quot;, language: &quot;zh-CN&quot;, width: 1100, fontSize: 13)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="e32f7291-b4f1-8700-8f23-29280538db0a">
+      <Execution id="cce339dc-9474-4187-b860-f64d432c4693" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.Viewer3DGeometryTests" name="ViewButtonsShowLabelsAndTrackTheActualCamera" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: TwoDimensional, presentationMode: OpticalLayout, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 600)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="baede464-d999-7d92-61be-655212bb6a5d">
+      <Execution id="09e2319f-e83c-4678-ba28-95b5b7e5ad9b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerConfigurationTests" name="ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 600)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="056d6fc1-755b-e843-78e5-4402cffffef4">
+      <Execution id="111e8940-6219-404c-9b97-aa41e869d58b" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerConfigurationTests" name="ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: &quot;Light&quot;, language: &quot;ja-JP&quot;, width: 400, fontSize: 18)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="759fcc25-cb4a-36bf-dba4-5e9e6bf8317f">
+      <Execution id="edaee226-2bcb-4b51-bf32-eaa82e4fc345" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.Viewer3DGeometryTests" name="ViewButtonsShowLabelsAndTrackTheActualCamera" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: OpticalLayout, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 360)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="dca4335a-1db1-ba0c-164a-8649576cab1e">
+      <Execution id="fd8d7d86-0685-4484-845c-faf8050fcc20" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerConfigurationTests" name="ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: &quot;Dark&quot;, language: &quot;en-US&quot;, width: 360)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="b55606f1-9ec0-b6c8-45df-2e69899b2e61">
+      <Execution id="1e6d287d-36f2-4abd-986c-ee3109191b6f" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerConfigurationTests" name="ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh" />
+    </UnitTest>
+    <UnitTest name="OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False)" storage="d:\optical system design\opticalsystem\tests\opticalsystemdesign.tests\bin\release\net10.0\opticalsystemdesign.tests.dll" id="fcfb6e2f-eeae-2e18-442e-f189523f327d">
+      <Execution id="643db554-62a4-4e81-9464-af1bf66014be" />
+      <TestMethod codeBase="D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\bin\Release\net10.0\OpticalSystemDesign.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="OpticalSystemDesign.Tests.ViewerImageExportTests" name="ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="056d6fc1-755b-e843-78e5-4402cffffef4" executionId="111e8940-6219-404c-9b97-aa41e869d58b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e32f7291-b4f1-8700-8f23-29280538db0a" executionId="cce339dc-9474-4187-b860-f64d432c4693" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="baede464-d999-7d92-61be-655212bb6a5d" executionId="09e2319f-e83c-4678-ba28-95b5b7e5ad9b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ac2c494d-ca5f-1729-7c5d-69d2991ec177" executionId="7ea58e4e-c4a7-49bd-87a6-fe7d98fb3655" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6ba0a6af-f9ec-d70d-7760-f2f1969cfe8b" executionId="437f6d5f-4f7c-4b00-b7ec-e6ceba3281b4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="329b316c-7d54-8190-286a-0d49269f4507" executionId="b09cccce-f568-4169-85b4-ba8c75bd3a8b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="74259a35-9021-8c10-55f8-d67b352f2896" executionId="ad0eaf44-4048-4b3b-bef4-169de2dca8f8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6d02565f-d2d3-4422-2ec2-94935ec23c66" executionId="c6b05f62-3496-475e-b798-5949f2489bb6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4d859bba-383d-3ddf-1d4a-c573165ef2e4" executionId="07dcb23b-4d71-4980-9342-a685b1d8fa0a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="794c2c3f-b513-2821-0b48-37b99daaea22" executionId="0783841d-bc3b-47d9-a00a-50aa59adebd6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="759fcc25-cb4a-36bf-dba4-5e9e6bf8317f" executionId="edaee226-2bcb-4b51-bf32-eaa82e4fc345" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fcfb6e2f-eeae-2e18-442e-f189523f327d" executionId="643db554-62a4-4e81-9464-af1bf66014be" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dca4335a-1db1-ba0c-164a-8649576cab1e" executionId="fd8d7d86-0685-4484-845c-faf8050fcc20" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="55bfef86-1c5d-0995-91ed-155ad757d133" executionId="cce0c9d4-6f5b-4bc6-8b88-4d4ea43886d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6cea4209-2a42-0e09-d132-5d71036b9c4c" executionId="5b420cd3-e0e3-4131-a7dd-1d795c11916d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e455172f-2c78-a88e-70e6-ab1aae7068f1" executionId="0c2e6ba2-231c-4087-a273-428bbbfcd16d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d4af8df1-bedb-9187-c898-b7060eede013" executionId="41fffea9-5410-4b0c-8214-9b58d3899690" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b55606f1-9ec0-b6c8-45df-2e69899b2e61" executionId="1e6d287d-36f2-4abd-986c-ee3109191b6f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="44090bb1-6b86-abf0-6505-8eea507fab6b" executionId="fd34be16-fa5e-4387-8c6f-5d36f425bfca" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4034af47-7877-020c-a188-43624fbf9c9d" executionId="c9d1fca6-0240-4121-a4b5-d282b09cba56" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9cfcd985-6800-93f5-76de-2722d7b104c2" executionId="6f154659-4a3d-4707-ba08-2901d81ddd91" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5f35850f-7a82-cd55-0d99-3f774e16a4dc" executionId="53ed1df2-c888-42ad-9d39-21f94eb0cdd2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="列表中未列出的结果" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="所有已加载的结果" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="22" executed="22" passed="14" failed="8" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.4+50e68bbb8b (64-bit .NET 10.0.8)&#xD;
+[xUnit.net 00:00:00.37]   Discovering: OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.36]   Discovered:  OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:01.39]   Starting:    OpticalSystemDesign.Tests&#xD;
+[xUnit.net 00:00:03.83]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:03.83]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:03.83]       Expected: [126, 91, 55, 255]&#xD;
+[xUnit.net 00:00:03.83]       Actual:   [125, 90, 55, 255]&#xD;
+[xUnit.net 00:00:03.83]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:03.83]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.83]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(24,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:03.83]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(153,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:03.83]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.83]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:03.83]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.83]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:03.83]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.83]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(97,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway)&#xD;
+[xUnit.net 00:00:03.83]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.05]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:08.05]                           ↓ (pos 2)&#xD;
+[xUnit.net 00:00:08.05]       Expected: [126, 91, 55, 255]&#xD;
+[xUnit.net 00:00:08.05]       Actual:   [126, 91, 54, 255]&#xD;
+[xUnit.net 00:00:08.05]                           ↑ (pos 2)&#xD;
+[xUnit.net 00:00:08.05]       Stack Trace:&#xD;
+[xUnit.net 00:00:08.05]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(24,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:08.05]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(153,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:08.05]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.05]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:08.05]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.05]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:08.05]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.05]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(97,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway)&#xD;
+[xUnit.net 00:00:08.05]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.40]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:09.40]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:09.40]       Expected: [126, 91, 55, 255]&#xD;
+[xUnit.net 00:00:09.40]       Actual:   [125, 90, 55, 255]&#xD;
+[xUnit.net 00:00:09.40]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:09.40]       Stack Trace:&#xD;
+[xUnit.net 00:00:09.40]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(24,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:09.40]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(153,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:09.40]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.40]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:09.40]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.40]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:09.40]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:09.40]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(97,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway)&#xD;
+[xUnit.net 00:00:09.40]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.52]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:14.52]                           ↓ (pos 2)&#xD;
+[xUnit.net 00:00:14.52]       Expected: [126, 91, 55, 255]&#xD;
+[xUnit.net 00:00:14.52]       Actual:   [126, 91, 54, 255]&#xD;
+[xUnit.net 00:00:14.52]                           ↑ (pos 2)&#xD;
+[xUnit.net 00:00:14.52]       Stack Trace:&#xD;
+[xUnit.net 00:00:14.52]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(24,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:14.52]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(153,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:14.52]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.52]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:14.52]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.52]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:14.52]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:14.52]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(97,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway)&#xD;
+[xUnit.net 00:00:14.52]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.47]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:15.47]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:15.47]       Expected: [126, 91, 55, 255]&#xD;
+[xUnit.net 00:00:15.47]       Actual:   [125, 90, 55, 255]&#xD;
+[xUnit.net 00:00:15.47]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:15.47]       Stack Trace:&#xD;
+[xUnit.net 00:00:15.47]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(24,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:15.47]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(153,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:15.47]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.47]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:15.47]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.47]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:15.47]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:15.47]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(97,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway)&#xD;
+[xUnit.net 00:00:15.47]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.59]       Assert.Equal() Failure: Collections differ&#xD;
+[xUnit.net 00:00:16.59]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:16.59]       Expected: [126, 91, 55, 255]&#xD;
+[xUnit.net 00:00:16.59]       Actual:   [125, 90, 55, 255]&#xD;
+[xUnit.net 00:00:16.59]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:16.59]       Stack Trace:&#xD;
+[xUnit.net 00:00:16.59]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Shared\ExportImageAssertions.cs(24,0): at OpticalSystemDesign.Tests.ExportImageAssertions.HasCompleteBorder(Bitmap image)&#xD;
+[xUnit.net 00:00:16.59]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(153,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:16.59]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.59]         D:\optical system design\opticalsystem\tests\Shared\SafeHeadlessUnitTestSession.cs(87,0): at OpticalSystemDesign.Tests.SafeHeadlessUnitTestSession.&lt;&gt;c__DisplayClass9_0.&lt;&lt;Dispatch&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:16.59]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.59]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:16.59]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:16.59]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerImageExportTests.cs(97,0): at OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(SceneDimension dimension, ViewerPresentationMode mode, Int32 width, Int32 height, Boolean cutaway)&#xD;
+[xUnit.net 00:00:16.59]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:27.05]       Model 0.7314099959366112, 40.73140999593661, 2459, 836.192, window 0, 0, 1800, 700, viewport 1800, 660, scale 0.7314099959366112, sheet 1, 1, 2459, 900&#xD;
+[xUnit.net 00:00:27.05]       Stack Trace:&#xD;
+[xUnit.net 00:00:27.05]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerConfigurationTests.cs(242,0): at OpticalSystemDesign.Tests.ViewerConfigurationTests.&lt;&gt;c__DisplayClass5_0.&lt;&lt;ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:00:27.05]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:27.05]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:00:27.05]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:27.05]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ViewerConfigurationTests.cs(159,0): at OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(SceneDimension dimension, ViewerPresentationMode presentationMode, String theme, String language, Int32 width)&#xD;
+[xUnit.net 00:00:27.05]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:05.29]       Assert.InRange() Failure: Value not in range&#xD;
+[xUnit.net 00:01:05.29]       Range:  (0.73170731707317072 - 326.78048780487808)&#xD;
+[xUnit.net 00:01:05.29]       Actual: 327&#xD;
+[xUnit.net 00:01:05.29]       Stack Trace:&#xD;
+[xUnit.net 00:01:05.29]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Viewer3DGeometryTests.cs(706,0): at OpticalSystemDesign.Tests.Viewer3DGeometryTests.&lt;&gt;c__DisplayClass13_0.&lt;&lt;ViewButtonsShowLabelsAndTrackTheActualCamera&gt;b__0&gt;d.MoveNext()&#xD;
+[xUnit.net 00:01:05.29]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:05.29]            at Avalonia.Headless.HeadlessUnitTestSession.&lt;&gt;c__DisplayClass12_0`1.&lt;DispatchCore&gt;b__0()&#xD;
+[xUnit.net 00:01:05.29]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:05.29]         D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\Viewer3DGeometryTests.cs(593,0): at OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(ViewerPresentationMode mode, String theme, String language, Int32 width, Double fontSize)&#xD;
+[xUnit.net 00:01:05.29]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:01:38.78]   Finished:    OpticalSystemDesign.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T16:49:52.2951435+08:00">
+        <Text>[xUnit.net 00:00:03.83]     OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T16:49:56.5103195+08:00">
+        <Text>[xUnit.net 00:00:08.04]     OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 420, height: 620, cutaway: True) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T16:49:57.8641751+08:00">
+        <Text>[xUnit.net 00:00:09.40]     OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T16:50:02.9873835+08:00">
+        <Text>[xUnit.net 00:00:14.52]     OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: SolidModel, width: 840, height: 720, cutaway: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T16:50:03.9352679+08:00">
+        <Text>[xUnit.net 00:00:15.47]     OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: TwoDimensional, mode: OpticalLayout, width: 840, height: 620, cutaway: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T16:50:05.0528713+08:00">
+        <Text>[xUnit.net 00:00:16.59]     OpticalSystemDesign.Tests.ViewerImageExportTests.ExportRetainsTheViewportAndMetadataButExcludesControlsAndFocus(dimension: ThreeDimensional, mode: OpticalLayout, width: 420, height: 420, cutaway: False) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T16:50:15.5103553+08:00">
+        <Text>[xUnit.net 00:00:27.04]     OpticalSystemDesign.Tests.ViewerConfigurationTests.ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(dimension: ThreeDimensional, presentationMode: SolidModel, theme: "Light", language: "zh-CN", width: 1000) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="LAPTOP-G4BBBCS0" outcome="Error" timestamp="2026-11-20T16:50:53.7524619+08:00">
+        <Text>[xUnit.net 00:01:05.29]     OpticalSystemDesign.Tests.Viewer3DGeometryTests.ViewButtonsShowLabelsAndTrackTheActualCamera(mode: SolidModel, theme: "Light", language: "ja-JP", width: 400, fontSize: 18) [FAIL]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

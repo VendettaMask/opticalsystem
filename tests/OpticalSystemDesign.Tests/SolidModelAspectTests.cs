@@ -31,7 +31,7 @@ public sealed class SolidModelAspectTests
     [InlineData("Lumen")]
     [InlineData("Isekai")]
     [InlineData("Pixel")]
-    public async Task SolidModelDarkBackdropCoversSheetAndFittedViewportGaps(string theme)
+    public async Task SolidModelRetainsThemeMaterialAndCoversOuterViewportGaps(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SolidModelAspectTests));
         await session.Dispatch(async () =>
@@ -56,8 +56,11 @@ public sealed class SolidModelAspectTests
                 using var image = viewer.CaptureViewerImage(1);
                 Save(image, $"solid-backdrop-{theme}-export.png");
                 var inset = (int)ThemeDrawingSurface.FrameInset(viewer);
-                AssertDarkPixel(image, inset + 50, inset + 300);
-                AssertDarkPixel(image, image.PixelSize.Width - inset - 51, inset + 300);
+                if (theme != "Isekai")
+                {
+                    AssertDarkPixel(image, inset + 50, inset + 300);
+                    AssertDarkPixel(image, image.PixelSize.Width - inset - 51, inset + 300);
+                }
 
                 foreach (var (width, height, fit) in new[]
                 {
@@ -74,8 +77,11 @@ public sealed class SolidModelAspectTests
                     // Use the arranged sheet bounds so themed frames stay outside the samples.
                     var sheetBounds = new Rect(sheet.Bounds.Size).TransformToAABB(sheet.TransformToVisual(host)!.Value);
                     var y = (int)sheetBounds.Center.Y;
-                    AssertDarkPixel(backdrop, (int)(sheetBounds.Left + sheetBounds.Width / 16), y);
-                    AssertDarkPixel(backdrop, (int)(sheetBounds.Right - sheetBounds.Width / 16), y);
+                    if (theme != "Isekai")
+                    {
+                        AssertDarkPixel(backdrop, (int)(sheetBounds.Left + sheetBounds.Width / 16), y);
+                        AssertDarkPixel(backdrop, (int)(sheetBounds.Right - sheetBounds.Width / 16), y);
+                    }
                     var frameBounds = new Rect(frame.Bounds.Size).TransformToAABB(frame.TransformToVisual(host)!.Value);
                     if (frameBounds.Left > 8) AssertDarkPixel(backdrop, (int)(frameBounds.Left / 2), y);
                     if (frameBounds.Top > 8)
@@ -112,7 +118,7 @@ public sealed class SolidModelAspectTests
     [InlineData("Lumen", OpticSceneRenderMode.Wireframe, false, true)]
     [InlineData("Isekai", OpticSceneRenderMode.Transparent, true, true)]
     [InlineData("Light", OpticSceneRenderMode.Solid, true, false)]
-    public async Task AspectOnlyChangesOuterSpaceAndKeepsModelRaysCameraPanZoomAndInnerPixels(
+    public async Task ViewportExpandsAcrossPageWhileKeepingGeometryCameraAndExportPixels(
         string theme, OpticSceneRenderMode renderMode, bool cutaway, bool raysVisible)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(SolidModelAspectTests));
@@ -132,7 +138,7 @@ public sealed class SolidModelAspectTests
                 var host = Assert.Single(viewer.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
                 var sheet = Assert.IsType<UniformDiagramPage>(host.Child);
                 Assert.Equal("Auto", DiagramSheetLayout.AspectRatio);
-                Assert.Equal(1600, sheet.Width);
+                Assert.Equal(ExpectedWidth(host, "Auto"), sheet.Width);
                 Assert.Empty(sheet.GetVisualDescendants().OfType<CompanyLogoControl>());
                 var source = scene.Scene; Assert.NotNull(source?.ThreeDimensional);
                 var model = source!.ThreeDimensional!; var rays = model.Rays;
@@ -146,36 +152,41 @@ public sealed class SolidModelAspectTests
                 SendKey(scene, Key.Add); SendKey(scene, Key.Right); SendKey(scene, Key.Down, KeyModifiers.Shift);
                 Tick(window);
                 var pose = CameraState(scene); Assert.NotEqual(1, pose.Zoom); Assert.NotEqual(default, pose.Pan);
-                var size = scene.Bounds.Size;
                 var materials = scene.GlassMaterials.ToArray();
-                using var reference = ScenePixels(scene); var pixelHash = Hash(reference);
-                // The last fractional row blends with its parent's background.
-                // Compare every complete viewport row through the export path.
-                var completeRows = (int)Math.Floor(size.Height);
-                var opaqueReference = Hash(reference, new PixelRect(0, 0, reference.PixelSize.Width, completeRows));
-                foreach (var (mode, width, expectedWidth) in new[]
+                foreach (var (mode, width) in new[]
                 {
-                    ("Auto", 1900, 1600), ("Auto", 900, 1200), ("Auto", 1900, 1600),
-                    ("16:9", 900, 1600), ("16:9", 1900, 1600),
-                    ("4:3", 1900, 1200), ("4:3", 900, 1200), ("Auto", 1900, 1600)
+                    ("Auto", 1900), ("Auto", 900), ("Auto", 1900),
+                    ("16:9", 900), ("16:9", 1900),
+                    ("4:3", 1900), ("4:3", 900), ("Auto", 1900)
                 })
                 {
                     settings.DiagramAspectRatio = mode; ImageExportResolution.Configure(settings);
                     window.Width = width; Tick(window);
+                    var expectedWidth = ExpectedWidth(host, mode);
                     Assert.Equal(expectedWidth, sheet.Width); Assert.False(sheet.HasOverflow);
                     Assert.Same(source, scene.Scene); Assert.Same(model, scene.Scene!.ThreeDimensional);
                     Assert.Same(rays, scene.Scene.ThreeDimensional!.Rays);
                     Assert.Equal(sourceJson, JsonSerializer.Serialize(scene.Scene));
                     Assert.Equal(document, app.Documents.GetRecoveryState()); Assert.Equal(revision, app.Events.Revision);
-                    Assert.Equal(pose, CameraState(scene)); Assert.Equal(size, scene.Bounds.Size);
+                    Assert.Equal(pose, CameraState(scene));
+                    Assert.InRange(scene.Bounds.Width, sheet.Width - 64, sheet.Width);
                     Assert.Equal(renderMode, scene.RenderMode); Assert.Equal(cutaway, scene.CutawayEnabled);
                     Assert.Equal(raysVisible, scene.ShowRays); Assert.Equal(materials, scene.GlassMaterials);
-                    using var pixels = ScenePixels(scene); Assert.Equal(pixelHash, Hash(pixels));
+                    using var reference = ScenePixels(scene);
+                    var completeRows = (int)Math.Floor(scene.Bounds.Height);
+                    var opaqueReference = Hash(reference, new PixelRect(0, 0, reference.PixelSize.Width, completeRows));
+                    if (mode == "Auto")
+                    {
+                        var modelBounds = new Rect(scene.Bounds.Size).TransformToAABB(scene.TransformToVisual(host)!.Value);
+                        var insetInWindow = ThemeDrawingSurface.FrameInset(viewer) * host.ContentScale;
+                        Assert.InRange(modelBounds.Left, 0, insetInWindow + 4);
+                        Assert.InRange(host.Viewport.Width - modelBounds.Right, 0, insetInWindow + 4);
+                    }
                     var bounds = new Rect(sheet.Bounds.Size).TransformToAABB(sheet.TransformToVisual(host)!.Value);
                     Assert.True(bounds.Left >= -1 && bounds.Top >= -1 && bounds.Right <= host.Viewport.Width + 1 && bounds.Bottom <= host.Viewport.Height + 1);
                     using var image = viewer.CaptureViewerImage(1);
                     var inset = (int)ThemeDrawingSurface.FrameInset(viewer);
-                    Assert.Equal(expectedWidth + 2 * inset, image.PixelSize.Width);
+                    Assert.Equal((int)expectedWidth + 2 * inset, image.PixelSize.Width);
                     var modelRect = new PixelRect((image.PixelSize.Width - reference.PixelSize.Width) / 2,
                         inset, reference.PixelSize.Width, completeRows);
                     var exportedPixels = Hash(image, modelRect);
@@ -186,7 +197,8 @@ public sealed class SolidModelAspectTests
                         Console.WriteLine($"{theme}/{renderMode}: scene {scene.Bounds}, source {reference.PixelSize}, image {image.PixelSize}, model {modelRect}");
                     }
                     Assert.Equal(opaqueReference, exportedPixels);
-                    Assert.Equal(pose, CameraState(scene)); Assert.Equal(size, scene.Bounds.Size);
+                    Assert.Equal(pose, CameraState(scene));
+                    Assert.InRange(scene.Bounds.Width, sheet.Width - 64, sheet.Width);
                     if (mode == "Auto")
                     {
                         Save(image, $"model-{theme}-{renderMode}-{cutaway}-{raysVisible}-{(width == 1900 ? "wide" : "narrow")}.png");
@@ -195,10 +207,11 @@ public sealed class SolidModelAspectTests
                     }
                 }
                 host.FitToViewport = false; Tick(window);
-                window.Width = 900; Tick(window);
-                Assert.Equal(1, host.ContentScale); Assert.Equal(1200, sheet.Width);
-                Assert.Equal(pose, CameraState(scene)); Assert.Equal(size, scene.Bounds.Size);
-                Assert.True(host.Extent.Width > host.Viewport.Width);
+                window.Width = 900; window.Height = 600; Tick(window);
+                Assert.Equal(1, host.ContentScale); Assert.Equal(ExpectedWidth(host, "Auto"), sheet.Width);
+                Assert.Equal(pose, CameraState(scene));
+                Assert.InRange(scene.Bounds.Width, sheet.Width - 64, sheet.Width);
+                Assert.True(host.Extent.Height > host.Viewport.Height);
             }
             finally { window.Close(); ImageExportResolution.Configure(new()); }
         }, CancellationToken.None);
@@ -241,6 +254,14 @@ public sealed class SolidModelAspectTests
             }
             finally { window.Close(); ImageExportResolution.Configure(new()); }
         }, CancellationToken.None);
+    }
+
+    private static double ExpectedWidth(ResponsiveAnalysisPlotHost host, string mode)
+    {
+        if (mode != "Auto") return mode == "16:9" ? 1600 : 1200;
+        var frame = host.GetVisualDescendants().OfType<AnalysisImageFrame>().Single();
+        var inset = frame.DrawingInset;
+        return Math.Round(Math.Clamp(900 * (host.Viewport.Width - 2 * inset) / (host.Viewport.Height - 2 * inset), 320, 7200));
     }
 
     private sealed record Camera(double Yaw, double Pitch, double Zoom, Vector Pan);

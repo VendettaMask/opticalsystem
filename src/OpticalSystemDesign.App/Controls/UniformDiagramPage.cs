@@ -19,12 +19,13 @@ internal sealed class UniformDiagramPage : Grid
     private readonly Control _plotHost;
     private readonly Control _caption;
     private readonly double _captionHeight;
+    private readonly bool _fillViewportAspect;
     private readonly Border _overflow;
     private Size _viewport;
     private double _automaticWidth;
 
     internal UniformDiagramPage(Control plot, Control caption, bool preservePlotGeometry = false,
-        double captionHeight = CaptionHeight, IBrush? background = null)
+        double captionHeight = CaptionHeight, IBrush? background = null, bool fillViewportAspect = false)
     {
         Name = "UniformDiagramPage";
         Width = DiagramSheetLayout.Width;
@@ -32,6 +33,7 @@ internal sealed class UniformDiagramPage : Grid
         HorizontalAlignment = HorizontalAlignment.Left;
         VerticalAlignment = VerticalAlignment.Top;
         _captionHeight = captionHeight;
+        _fillViewportAspect = fillViewportAspect;
         RowDefinitions = new RowDefinitions($"{SheetHeight - captionHeight},{captionHeight}");
         ClipToBounds = true;
         UseLayoutRounding = false;
@@ -73,7 +75,9 @@ internal sealed class UniformDiagramPage : Grid
     {
         if (DiagramSheetLayout.AspectRatio == DiagramSheetLayout.Automatic && _viewport.Width > 0 && _viewport.Height > 0)
         {
-            _automaticWidth = DiagramSheetLayout.AutomaticWidth(_viewport, _automaticWidth);
+            _automaticWidth = _fillViewportAspect
+                ? Math.Round(Math.Clamp(SheetHeight * _viewport.Width / _viewport.Height, 320, 7200))
+                : DiagramSheetLayout.AutomaticWidth(_viewport, _automaticWidth);
             Width = _automaticWidth;
         }
         else

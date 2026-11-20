@@ -1,0 +1,300 @@
+{
+  "date": "2026-11-20",
+  "scope": "All configurations in 2D/3D/Solid Model and full-width actual Solid Model viewport",
+  "sourceCommit": "8bdf6c2bd90e958ee907192aee71164f66f69bd6",
+  "sourceDirty": true,
+  "build": {
+    "configuration": "Release",
+    "output": "default App and Tests",
+    "warnings": 0,
+    "errors": 0,
+    "log": "build-delivery.log"
+  },
+  "verification": {
+    "broadRegression": {
+      "total": 135,
+      "passed": 135,
+      "failed": 0,
+      "file": "viewer-final.trx",
+      "appAssemblySha256": "4708f56bd7055bcdee35329de13af56b9baad95dd72dfe12b4213be229c7bca7",
+      "scope": "Viewers, PNG export, 3D geometry/interaction, viewport fitting and analysis DPI/frame"
+    },
+    "finalLegendAndFilterDelta": {
+      "total": 38,
+      "passed": 38,
+      "failed": 0,
+      "file": "viewer-legend-delivery.trx",
+      "scope": "Final source: configuration selection, independent Core parity, legends with/without materials, manual colour updates, shared selector fallback and Solid Model aspect/export tests"
+    },
+    "overlapPolicy": "38 final cases include 37 cases from the broad run plus one new no-material legend case; runs are not added as independent counts. The final delta changes legend updates and selector fallback only.",
+    "finalAppAssemblySha256": "fa675b48bd60b2a0e32c59c1aa2649d250183e52fcc54d607e443242d0260343",
+    "localization": {
+      "translations": 4159,
+      "occurrences": 3860,
+      "missing": 0,
+      "errors": 0
+    }
+  },
+  "fixtures": [
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/SequentialExamples/Zoom systems/Zoom lens.zmx",
+      "sha256": "7103aaf9130acc1b94a864267348ce1df6a7651910adc07379a9321a4670adc9",
+      "configurations": 3,
+      "purpose": "Core geometry/ray and metric parity with individual configurations; no numerical tolerance changes"
+    },
+    {
+      "identity": "Existing Cooke UI fixture",
+      "purpose": "Layout, material, camera and pixel/export regressions only; not numerical certification"
+    }
+  ],
+  "boundaries": [
+    "Background/off-screen validation only; did not control or restart the running user app.",
+    "No full 95-lens precision matrix or fresh vendor numerical capture.",
+    "No remote sync/publication in this change.",
+    "Common-coordinate overlay; arbitrary subsets and per-configuration offsets are not implemented."
+  ],
+  "runs": [
+    {
+      "file": "viewer-first.trx",
+      "counters": {
+        "total": "0",
+        "executed": "0",
+        "passed": "0",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "4e816f34afeac090056d15a2926e5208d6ccfe9853ca700c79571d7ca02937fb"
+    },
+    {
+      "file": "viewer-second.trx",
+      "counters": {
+        "total": "37",
+        "executed": "37",
+        "passed": "29",
+        "failed": "8",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "ba9197b55c92e5ac4a868328269070809334a3d9361d2d4ed6199278eec6b26e"
+    },
+    {
+      "file": "viewer-delivery.trx",
+      "counters": {
+        "total": "126",
+        "executed": "126",
+        "passed": "123",
+        "failed": "3",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "71f7b3bfaa55b2422550b6b6f463208c3f24e65412b651e6a94005fe345546e7"
+    },
+    {
+      "file": "viewer-repair.trx",
+      "counters": {
+        "total": "22",
+        "executed": "22",
+        "passed": "14",
+        "failed": "8",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "25421f22bb12b0e476bdcb6c49fde2577c6b217149f8e6d117d6eab99598cceb"
+    },
+    {
+      "file": "viewer-repair-final.trx",
+      "counters": {
+        "total": "22",
+        "executed": "22",
+        "passed": "22",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "c401711a07c631a2e6bda053c673f1b5152781c48f6db74c78c03f63259fb70c"
+    },
+    {
+      "file": "viewer-final.trx",
+      "counters": {
+        "total": "135",
+        "executed": "135",
+        "passed": "135",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "ce9c45a36de17a3c39af36c6ea1f92524d13506125470a71a571b7ff820abce3"
+    },
+    {
+      "file": "viewer-legend-delivery.trx",
+      "counters": {
+        "total": "38",
+        "executed": "38",
+        "passed": "38",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "sha256": "3f895dba78a424b692b13cce5081860e9462fca44879e62e94545a0cb30b8eaf"
+    }
+  ],
+  "sources": [
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/WorkspaceContracts.cs",
+      "sha256": "bef1815b14ccd8a46146afcecac77e12682f4331bda6a3283b66bfc2a4f8fe1a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/ServiceContracts.cs",
+      "sha256": "aacbe45140c4e87ed37206a8498023d328a7c83f8ef45e04e6e7b0a4650cffd5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/VisualizationService.cs",
+      "sha256": "c6c0f114cd792a0772237559f17072d4ef665c86b7feb2843bc07fa02b45429d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.cs",
+      "sha256": "37dc4bea8e0e207b7298b7630f80772a3a6becf14fbb0b1deb50c92eb809c0e1"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/ViewerPanel.Export.cs",
+      "sha256": "62524e43bb9afd2f882aad8d34f0dd35e881cfe765bfa2021786470de6337dba"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/OpticSceneControl.cs",
+      "sha256": "44ae96c8c1a9614925d40339243793062e0365e19e628e46e819760f90694664"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/UniformDiagramPage.cs",
+      "sha256": "5d186da4e292dd74e509c48c5dc95e09408db4813b1f861e6c932ea60ab12ffa"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Controls/PlotCaption.cs",
+      "sha256": "a0769f487685c409f0067f0850e06e114d94f5d1f92684a75b191b43c54c2064"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/ExportImageFrame.cs",
+      "sha256": "c6a383f4b0d82ef4c808862d54726e208f07e1b223f1ee3e7c0733ec13467c57"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/UiLocalization.cs",
+      "sha256": "ca28e7785df5f2ed75ed45415b9790ff25a046f3a6094874a2990c354a82ed54"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json",
+      "sha256": "3e1bf70ac69fad5915d765974ebd8eef0ba78ae1bfe1a8fc5b3eebfeb73a9d64"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ViewerConfigurationTests.cs",
+      "sha256": "6661202f3901ffbfc0bc83a691ce3fa3567bb7b3e78a1781fb903407251199f4"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/Viewer3DGeometryTests.cs",
+      "sha256": "939556125480d0c6aab71ea673a82595be0ef46f47a7bc9514c3613c60ba5778"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/SolidModelAspectTests.cs",
+      "sha256": "8a7915460240179af30e94a24534ab879e5efa6f818fb2bf5d1997700203a97e"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "build-delivery.log",
+      "sha256": "153e3198ab0f8aaadac566282db758522842a544ed1da9a87a8893175f22e9ad"
+    },
+    {
+      "path": "localization.log",
+      "sha256": "481de72c85cf2973d0dd48681ad03fa7623f1c0fa4485fd0d46bf78bdc227142"
+    },
+    {
+      "path": "solid-model-expanded-all.png",
+      "sha256": "f31f313afb8a2890f1736f429e3883a0ed4e2bf7b03782656e8ee448a9fe9b7f"
+    },
+    {
+      "path": "viewer-TwoDimensional-OpticalLayout-configuration-Light-zh-CN-1000-all.png",
+      "sha256": "dc587269ba5eaba93309cdfe660aa8b626c020f8c92d7b3972ab742918e432b9"
+    },
+    {
+      "path": "viewer-ThreeDimensional-OpticalLayout-configuration-Light-zh-CN-1000-all.png",
+      "sha256": "2b5f557947c9ac46dc75ea60cf3f8bd683509d9e3186bbb2e6ec38e2ab5b0402"
+    },
+    {
+      "path": "viewer-ThreeDimensional-SolidModel-configuration-Dark-en-US-360-all.png",
+      "sha256": "1c9616fd18f50f2c631aef14feab946a78e6d2967a50a4797e091910a6d324bd"
+    },
+    {
+      "path": "model-Isekai-Solid-False-True-wide-window.png",
+      "sha256": "442c7f0d5d9a964f15ce7f9a6a6324d0c387ccdd1c537baddf71edf0b09c3998"
+    }
+  ]
+}

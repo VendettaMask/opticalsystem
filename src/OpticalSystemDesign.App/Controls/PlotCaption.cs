@@ -15,7 +15,7 @@ internal static class PlotCaption
 {
     internal const double MinimumHeight = 132;
 
-    internal static Border ForLayoutScene(SceneDto scene, DateTimeOffset generatedAt)
+    internal static Border ForLayoutScene(SceneDto scene, DateTimeOffset generatedAt, bool colorByConfiguration = false)
     {
         var twoDimensional = scene.Dimension == SceneDimension.TwoDimensional;
         var nonSequential = scene.ThreeDimensional is { } model
@@ -26,7 +26,9 @@ internal static class PlotCaption
         summary.Children.Add(Label(generatedAt.LocalDateTime.ToString("yyyy/MM/dd HH:mm:ss"),
             DisplayTypography.Caption, ThemeResourceBindings.TextMuted));
         if (scene.Configuration is { Count: > 1 } configuration)
-            summary.Children.Add(Label($"结构：{configuration.Number} / {configuration.Count}",
+            summary.Children.Add(Label(configuration.IncludesAll
+                ? $"{UiLocalization.Text("所有结构")} ({configuration.Count})"
+                : $"结构：{configuration.Number} / {configuration.Count}",
                 DisplayTypography.Caption, ThemeResourceBindings.TextMuted));
         var metrics = new Grid
         {
@@ -40,9 +42,9 @@ internal static class PlotCaption
             ("Z 范围", $"{NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMin)} … {NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMax)} mm")
         } : new[]
         {
-            ("有效焦距", NumericDisplayFormatter.Format(scene.Summary.EffectiveFocalLength) + " mm"),
-            ("F 数", NumericDisplayFormatter.Format(scene.Summary.FNumber)),
-            ("系统总长", NumericDisplayFormatter.Format(scene.Summary.TotalTrack) + " mm")
+            ("有效焦距", MetricRange(scene, item => item.EffectiveFocalLength) + " mm"),
+            ("F 数", MetricRange(scene, item => item.FNumber)),
+            ("系统总长", MetricRange(scene, item => item.TotalTrack) + " mm")
         };
         for (var row = 0; row < values.Length; row++)
         {
@@ -56,12 +58,48 @@ internal static class PlotCaption
             metrics.Children.Add(value);
         }
         summary.Children.Add(metrics);
+        if (scene.Configuration is { IncludesAll: true })
+        {
+            var legend = ConfigurationLegend(scene);
+            legend.IsVisible = colorByConfiguration;
+            summary.Children.Add(legend);
+        }
         if (nonSequential)
             summary.Children.Add(Label(LayoutStateSummary(scene.NonSequentialLayoutResult).Trim(),
                 DisplayTypography.Caption, ThemeResourceBindings.TextMuted));
         var caption = Create(summary, scene.Summary, twoDimensional ? "Viewer2DCompanyLogo" : "Viewer3DCompanyLogo");
         caption.Name = twoDimensional ? "Viewer2DFooter" : "Viewer3DFooter";
         return caption;
+    }
+
+    internal static string ConfigurationMetricsSummary(SceneDto scene) =>
+        $"{UiLocalization.Text("有效焦距")} {MetricRange(scene, item => item.EffectiveFocalLength)} mm    "
+        + $"{UiLocalization.Text("F 数")} {MetricRange(scene, item => item.FNumber)}    "
+        + $"{UiLocalization.Text("系统总长")} {MetricRange(scene, item => item.TotalTrack)} mm";
+
+    private static string MetricRange(SceneDto scene, Func<OpticalDocumentSnapshot, double> select)
+    {
+        var values = (scene.ConfigurationSummaries?.Select(item => item.Summary) ?? new[] { scene.Summary })
+            .Select(select).ToArray();
+        if (values.Any(value => !double.IsFinite(value))) return "—";
+        var min = values.Min(); var max = values.Max();
+        return min == max ? NumericDisplayFormatter.Format(min)
+            : $"{NumericDisplayFormatter.Format(min)} … {NumericDisplayFormatter.Format(max)}";
+    }
+
+    internal static WrapPanel ConfigurationLegend(SceneDto scene)
+    {
+        var legend = new WrapPanel { Name = "ViewerConfigurationLegend" };
+        foreach (var item in scene.ConfigurationSummaries ?? [])
+        {
+            var entry = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 5, Margin = new Thickness(0, 0, 12, 0) };
+            entry.Children.Add(new Border { Width = 9, Height = 9, CornerRadius = new CornerRadius(5),
+                Background = new SolidColorBrush(OpticSceneControl.ConfigurationColor(item.Number)), VerticalAlignment = VerticalAlignment.Center });
+            entry.Children.Add(Label($"{UiLocalization.Text("结构")} {item.Number}", DisplayTypography.Caption, ThemeResourceBindings.TextSecondary));
+            ToolTip.SetTip(entry, ConfigurationMetricsSummary(new SceneDto(scene.SourceRevision, scene.Dimension, null, null, item.Summary)));
+            legend.Children.Add(entry);
+        }
+        return legend;
     }
 
     internal static string LayoutStateSummary(NonSequentialLayoutResultDto? result) => result switch

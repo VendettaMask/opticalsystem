@@ -1,4 +1,5 @@
 using Avalonia;
+using System.Text.Json;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Headless;
@@ -151,13 +152,14 @@ public sealed class ViewerConfigurationTests
     [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel, "Light", "zh-CN", 1000)]
     [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel, "Dark", "en-US", 360)]
     [InlineData(SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel, "Light", "ja-JP", 600)]
-    public async Task ToolbarSelectsOnlyIndividualConfigurationsAndFitsBesideRefresh(
+    public async Task ToolbarSelectsIndividualOrAllConfigurationsAndFitsBesideRefresh(
         SceneDimension dimension, ViewerPresentationMode presentationMode, string theme, string language, int width)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerConfigurationTests));
         await session.Dispatch(async () =>
         {
             var previousLanguage = UiLocalization.CurrentLanguage;
+            ImageExportResolution.Configure(new()); DisplayTypography.Configure(new());
             UiLocalization.Apply(language);
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);
             using var app = WorkbenchApplication.Create();
@@ -170,7 +172,7 @@ public sealed class ViewerConfigurationTests
                 await WaitForScene(viewer, window, 1);
                 var picker = Picker(viewer);
                 Assert.True(picker.IsVisible);
-                Assert.Equal(new[] { "1 / 3", "2 / 3", "3 / 3" }, picker.Items.Cast<object>().Select(item => item.ToString()));
+                Assert.Equal(new[] { "1 / 3", "2 / 3", "3 / 3", UiLocalization.Text("所有结构") }, picker.Items.Cast<object>().Select(item => UiLocalization.Text(item.ToString()!)));
                 var refresh = viewer.GetVisualDescendants().OfType<Button>()
                     .Single(button => button.Name == "ViewerSynchronizeButton");
                 Assert.Same(refresh.Parent, picker.Parent);
@@ -207,6 +209,52 @@ public sealed class ViewerConfigurationTests
                 UiLocalization.Apply(UiLocalization.Chinese); Tick(window);
                 Assert.Equal("结构", AutomationProperties.GetName(picker));
                 Assert.Equal(2, picker.SelectedIndex);
+                UiLocalization.Apply(language); Tick(window);
+                picker.SelectedIndex = 3;
+                await WaitForScene(viewer, window, 0);
+                var all = Scene(viewer)!;
+                Assert.True(all.Configuration!.IncludesAll);
+                Assert.Equal(3, all.ConfigurationSummaries!.Count);
+                Assert.Equal(revision, app.Events.Revision);
+                Assert.Equal(0, app.MultiConfiguration.GetNavigationState().ActiveIndex);
+                var model = Assert.Single(viewer.GetVisualDescendants().OfType<OpticSceneControl>());
+                Assert.Equal(OpticSceneRayColorMode.Configuration, model.RayColorMode);
+                using var exported = viewer.CaptureViewerImage(1);
+                Assert.True(exported.PixelSize.Width > 0);
+                Capture(window, $"{captureName}-all.png");
+                var autoApply = (CheckBox)typeof(ViewerPanel).GetField("_autoApply", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.GetValue(viewer)!;
+                var colorMode = (ComboBox)typeof(ViewerPanel).GetField("_colorModePicker", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.GetValue(viewer)!;
+                autoApply.IsChecked = false;
+                colorMode.SelectedIndex = 0; Tick(window);
+                Assert.Same(all, model.Scene);
+                Assert.DoesNotContain(viewer.GetVisualDescendants().OfType<WrapPanel>(),
+                    control => control.Name == "ViewerConfigurationLegend" && control.IsEffectivelyVisible);
+                colorMode.SelectedIndex = 2; Tick(window);
+                Assert.Contains(viewer.GetVisualDescendants().OfType<WrapPanel>(),
+                    control => control.Name == "ViewerConfigurationLegend" && control.IsEffectivelyVisible);
+                Assert.Same(all, model.Scene);
+                if (presentationMode == ViewerPresentationMode.SolidModel && width == 1000)
+                {
+                    var renderMode = viewer.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "Viewer3DRenderMode");
+                    var cutaway = viewer.GetVisualDescendants().OfType<CheckBox>().Single(c => c.Name == "Viewer3DCutaway");
+                    foreach (var index in new[] { 1, 2, 0 })
+                    {
+                        renderMode.SelectedIndex = index; cutaway.IsChecked = index == 1;
+                        Tick(window);
+                        using var variant = viewer.CaptureViewerImage(1);
+                        Assert.Same(all, model.Scene);
+                        Assert.NotEmpty(model.GlassMaterials);
+                    }
+                    window.Width = 1800;
+                    await Task.Delay(25); Tick(window); Tick(window);
+                    var host = Assert.Single(viewer.GetVisualDescendants().OfType<ResponsiveAnalysisPlotHost>());
+                    var bounds = new Rect(model.Bounds.Size).TransformToAABB(model.TransformToVisual(window)!.Value);
+                    Assert.InRange(bounds.Left, 0, 4);
+                    Assert.True(Math.Abs(window.Width - bounds.Right) <= 4,
+                        $"Model {bounds}, window {window.Bounds}, viewport {host.Viewport}, scale {host.ContentScale}, sheet {host.Child!.Bounds}");
+                    Assert.Same(all, model.Scene);
+                    Capture(window, "solid-model-expanded-all.png");
+                }
             }
             finally { window.Close(); UiLocalization.Apply(previousLanguage); }
             return true;
@@ -241,12 +289,17 @@ public sealed class ViewerConfigurationTests
                 await WaitForScene(viewer, window, 3);
                 Assert.Equal(2, Picker(viewer).SelectedIndex);
                 app.MultiConfiguration.Add(); Tick(window);
-                Assert.Equal(4, Picker(viewer).ItemCount);
+                Assert.Equal(5, Picker(viewer).ItemCount);
                 Picker(viewer).SelectedIndex = 3;
                 await WaitForScene(viewer, window, 4);
                 Assert.True(app.Documents.Undo()); Tick(window);
                 await WaitForScene(viewer, window, 1);
-                Assert.Equal(3, Picker(viewer).ItemCount);
+                Assert.Equal(4, Picker(viewer).ItemCount);
+                Picker(viewer).SelectedIndex = 3;
+                await WaitForScene(viewer, window, 0);
+                app.MultiConfiguration.Activate(2); Tick(window);
+                await WaitForScene(viewer, window, 0);
+                Assert.Equal(3, Scene(viewer)!.ConfigurationSummaries!.Count);
                 viewer.IsLocked = true;
                 app.Documents.NewBlank(); Tick(window);
                 Assert.Null(Scene(viewer));
@@ -263,6 +316,136 @@ public sealed class ViewerConfigurationTests
 
     private static ComboBox Picker(ViewerPanel viewer) => viewer.GetVisualDescendants().OfType<ComboBox>()
         .Single(control => control.Name is "Viewer2DConfigurationPicker" or "Viewer3DConfigurationPicker");
+
+    [Theory]
+    [InlineData(SceneDimension.TwoDimensional)]
+    [InlineData(SceneDimension.ThreeDimensional)]
+    public async Task AllConfigurationsPreserveEachOriginalPathSurfaceIdentityAndMetrics(SceneDimension dimension)
+    {
+        using var app = WorkbenchApplication.Create();
+        await app.Documents.OpenAsync(ConfigurationMatrixAnalysisTests.ZoomPath());
+        app.MultiConfiguration.Activate(1);
+        var revision = app.Events.Revision;
+        var request = new VisualizationRequestDto(dimension, IncludeAllWavelengths: true, RayCount: 3);
+        var single = new List<SceneDto>();
+        for (var index = 0; index < 3; index++)
+            single.Add(await app.Visualization.BuildSceneAsync(request with { ConfigurationIndex = index }));
+        var combined = await app.Visualization.BuildSceneAsync(request with { IncludeAllConfigurations = true });
+        Assert.Equal(new SceneConfigurationDto(0, 3, true), combined.Configuration);
+        Assert.Equal(revision, combined.SourceRevision);
+        Assert.Equal(revision, app.Events.Revision);
+        Assert.Equal(1, app.MultiConfiguration.GetNavigationState().ActiveIndex);
+        Assert.True(double.IsNaN(combined.Summary.EffectiveFocalLength));
+        Assert.Equal(single.Select(scene => (scene.Summary.EffectiveFocalLength, scene.Summary.FNumber, scene.Summary.TotalTrack)),
+            combined.ConfigurationSummaries!.Select(item => (item.Summary.EffectiveFocalLength, item.Summary.FNumber, item.Summary.TotalTrack)));
+        foreach (var item in single)
+        {
+            var number = item.Configuration!.Number;
+            if (dimension == SceneDimension.TwoDimensional)
+            {
+                var expected = item.TwoDimensional!; var actual = combined.TwoDimensional!;
+                Assert.Equal(JsonSerializer.Serialize(expected.Surfaces), JsonSerializer.Serialize(actual.Surfaces.Where(surface => surface.ConfigurationNumber == number)));
+                Assert.Equal(JsonSerializer.Serialize(expected.LensElements), JsonSerializer.Serialize(actual.LensElements.Where(element => element.ConfigurationNumber == number)));
+                Assert.Equal(JsonSerializer.Serialize(expected.LensEdges), JsonSerializer.Serialize(actual.LensEdges.Where(edge => edge.ConfigurationNumber == number)));
+                Assert.Equal(JsonSerializer.Serialize(expected.Rays), JsonSerializer.Serialize(actual.Rays.Where(ray => ray.ConfigurationNumber == number)));
+            }
+            else
+            {
+                var expected = item.ThreeDimensional!; var actual = combined.ThreeDimensional!;
+                Assert.Equal(JsonSerializer.Serialize(expected.Surfaces), JsonSerializer.Serialize(actual.Surfaces.Where(surface => surface.ConfigurationNumber == number)));
+                Assert.Equal(JsonSerializer.Serialize(expected.LensElements), JsonSerializer.Serialize(actual.LensElements.Where(element => element.ConfigurationNumber == number)));
+                Assert.Equal(JsonSerializer.Serialize(expected.Rays), JsonSerializer.Serialize(actual.Rays.Where(ray => ray.ConfigurationNumber == number)));
+            }
+        }
+        if (dimension == SceneDimension.TwoDimensional)
+        {
+            Assert.Equal(single.Min(scene => scene.TwoDimensional!.ZMin), combined.TwoDimensional!.ZMin);
+            Assert.Equal(single.Max(scene => scene.TwoDimensional!.ZMax), combined.TwoDimensional!.ZMax);
+            Assert.Equal(combined.TwoDimensional!.Surfaces.Count,
+                combined.TwoDimensional.Surfaces.DistinctBy(surface => (surface.ConfigurationNumber, surface.SurfaceNumber)).Count());
+        }
+        else
+        {
+            Assert.Equal(single.Min(scene => scene.ThreeDimensional!.ZMin), combined.ThreeDimensional!.ZMin);
+            Assert.Equal(single.Max(scene => scene.ThreeDimensional!.ZMax), combined.ThreeDimensional!.ZMax);
+            Assert.Equal(combined.ThreeDimensional!.Surfaces.Count,
+                combined.ThreeDimensional.Surfaces.DistinctBy(surface => (surface.ConfigurationNumber, surface.SurfaceNumber)).Count());
+        }
+        using var cancelled = new CancellationTokenSource(); cancelled.Cancel();
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => app.Visualization.BuildSceneAsync(
+            request with { IncludeAllConfigurations = true }, cancelled.Token));
+        await Assert.ThrowsAsync<ArgumentException>(() => app.Visualization.BuildSceneAsync(
+            request with { IncludeAllConfigurations = true, ConfigurationIndex = 0 }));
+    }
+
+    [Fact]
+    public async Task AllConfigurationSelectorsOfferOnlySharedIndices()
+    {
+        using var app = WorkbenchApplication.Create();
+        await app.Documents.OpenAsync(ConfigurationMatrixAnalysisTests.ZoomPath());
+        app.MultiConfiguration.Activate(1);
+        app.Prescription.RemoveField(2); app.Prescription.RemoveWavelength(2);
+        app.MultiConfiguration.Activate(0);
+        var options = app.Visualization.GetVisualizationOptions(includeAllConfigurations: true);
+        Assert.Equal(2, options.Fields.Count); Assert.Equal(2, options.Wavelengths.Count);
+        var scene = await app.Visualization.BuildSceneAsync(new VisualizationRequestDto(SceneDimension.ThreeDimensional,
+            IncludeAllConfigurations: true, IncludeAllWavelengths: true));
+        Assert.Equal(3, scene.ConfigurationSummaries!.Count);
+        Assert.Equal(new[] { 0, 1 }, scene.ThreeDimensional!.Rays.Where(ray => ray.ConfigurationNumber == 2)
+            .Select(ray => ray.WavelengthIndex).Distinct().Order());
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerConfigurationTests));
+        await session.Dispatch(async () =>
+        {
+            ImageExportResolution.Configure(new()); DisplayTypography.Configure(new());
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
+            using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(),
+                SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel);
+            var window = new Window { Content = viewer, Width = 900, Height = 650 };
+            try
+            {
+                window.Show(); Tick(window); await WaitForScene(viewer, window, 1);
+                var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+                var fields = (ComboBox)typeof(ViewerPanel).GetField("_fieldPicker", flags)!.GetValue(viewer)!;
+                var waves = (ComboBox)typeof(ViewerPanel).GetField("_wavelengthPicker", flags)!.GetValue(viewer)!;
+                fields.SelectedIndex = 3; waves.SelectedIndex = 3;
+                Picker(viewer).SelectedIndex = 3;
+                await WaitForScene(viewer, window, 0);
+                Assert.Equal(0, fields.SelectedIndex); Assert.Equal(0, waves.SelectedIndex);
+                Assert.Equal(3, fields.ItemCount); Assert.Equal(3, waves.ItemCount);
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task AllConfigurationLegendIsVisibleWithoutGlassMaterials()
+    {
+        using var session = SafeHeadlessUnitTestSession.StartNew(typeof(ViewerConfigurationTests));
+        await session.Dispatch(async () =>
+        {
+            ImageExportResolution.Configure(new()); DisplayTypography.Configure(new());
+            ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
+            using var app = WorkbenchApplication.Create();
+            app.MultiConfiguration.Add();
+            using var viewer = new ViewerPanel(app.Visualization, app.Events, new SurfaceSelectionService(),
+                SceneDimension.ThreeDimensional, ViewerPresentationMode.SolidModel);
+            var window = new Window { Content = viewer, Width = 900, Height = 650 };
+            try
+            {
+                window.Show(); Tick(window);
+                await WaitForScene(viewer, window, 1);
+                Picker(viewer).SelectedIndex = 2;
+                await WaitForScene(viewer, window, 0);
+                var scene = Assert.Single(viewer.GetVisualDescendants().OfType<OpticSceneControl>());
+                Assert.Empty(scene.GlassMaterials);
+                var legend = viewer.GetVisualDescendants().OfType<Border>().Single(control => control.Name == "Viewer3DGlassLegend");
+                Assert.True(legend.IsVisible);
+                var entries = Assert.Single(legend.GetVisualDescendants().OfType<WrapPanel>(), control => control.Name == "ViewerConfigurationLegend");
+                Assert.Equal(2, entries.Children.Count);
+            }
+            finally { window.Close(); }
+        }, CancellationToken.None);
+    }
     private static SceneDto? Scene(ViewerPanel viewer) => viewer.GetVisualDescendants().OfType<OpticSceneControl>().Single().Scene;
     private static Rect InWindow(Control control, Window window) => new(control.TranslatePoint(default, window)!.Value, control.Bounds.Size);
     private static void Tick(Window window)

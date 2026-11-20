@@ -38,7 +38,8 @@ public enum OpticSceneRenderMode
 public enum OpticSceneRayColorMode
 {
     Field,
-    Wavelength
+    Wavelength,
+    Configuration
 }
 
 public enum OpticSceneVisualStyle
@@ -142,7 +143,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     private Scene3Dto? _materialColorScene;
     private IReadOnlyList<GlassMaterialLegendEntry> _glassMaterials = [];
     private Dictionary<string, Color> _glassColors = new(StringComparer.OrdinalIgnoreCase);
-    private readonly Dictionary<int, Color> _glassSurfaceColors = new();
+    private readonly Dictionary<(int Configuration, int Surface), Color> _glassSurfaceColors = new();
 
     internal IReadOnlyList<GlassMaterialLegendEntry> GlassMaterials
     {
@@ -171,8 +172,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             foreach (var element in scene?.LensElements ?? [])
             {
                 if (!_glassColors.TryGetValue(element.Material.Trim(), out var color)) continue;
-                _glassSurfaceColors.TryAdd(element.FrontSurfaceNumber, color);
-                _glassSurfaceColors.TryAdd(element.BackSurfaceNumber, color);
+                _glassSurfaceColors.TryAdd((element.ConfigurationNumber, element.FrontSurfaceNumber), color);
+                _glassSurfaceColors.TryAdd((element.ConfigurationNumber, element.BackSurfaceNumber), color);
             }
             return _glassMaterials;
         }
@@ -956,10 +957,10 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             solidModelStyle,
             HighlightedSurfaceNumber);
         var elementSurfaceNumbers = scene.LensElements
-            .SelectMany(element => new[] { element.FrontSurfaceNumber, element.BackSurfaceNumber })
+            .SelectMany(element => new[] { (element.ConfigurationNumber, element.FrontSurfaceNumber), (element.ConfigurationNumber, element.BackSurfaceNumber) })
             .ToHashSet();
         var surfacesToDraw = RenderMode != OpticSceneRenderMode.Wireframe
-            ? scene.Surfaces.Where(surface => !elementSurfaceNumbers.Contains(surface.SurfaceNumber)).ToArray()
+            ? scene.Surfaces.Where(surface => !elementSurfaceNumbers.Contains((surface.ConfigurationNumber, surface.SurfaceNumber))).ToArray()
             : scene.Surfaces;
         var objectSurfaces = surfacesToDraw
             .Where(surface => surface.RenderRole != SceneSurfaceRenderRole.OpticalSurface)
@@ -1075,21 +1076,17 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             DrawPolyline(context, pen, surface.Points, mapZ, mapY);
         }
 
-        var highlighted = surfaces.FirstOrDefault(surface => surface.SurfaceNumber == highlightedSurfaceNumber);
-        if (highlighted is null)
+        foreach (var highlighted in surfaces.Where(surface => surface.SurfaceNumber == highlightedSurfaceNumber))
         {
-            return;
+            if (highlighted.IsStandaloneStop)
+            {
+                DrawApertureStop(context, highlighted, mapZ, mapY, SelectedSurfaceHaloPen);
+                DrawApertureStop(context, highlighted, mapZ, mapY, SelectedSurfacePen);
+                continue;
+            }
+            DrawPolyline(context, SelectedSurfaceHaloPen, highlighted.Points, mapZ, mapY);
+            DrawPolyline(context, SelectedSurfacePen, highlighted.Points, mapZ, mapY);
         }
-
-        if (highlighted.IsStandaloneStop)
-        {
-            DrawApertureStop(context, highlighted, mapZ, mapY, SelectedSurfaceHaloPen);
-            DrawApertureStop(context, highlighted, mapZ, mapY, SelectedSurfacePen);
-            return;
-        }
-
-        DrawPolyline(context, SelectedSurfaceHaloPen, highlighted.Points, mapZ, mapY);
-        DrawPolyline(context, SelectedSurfacePen, highlighted.Points, mapZ, mapY);
     }
 
     private static void DrawApertureStop(
@@ -1178,7 +1175,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                 path.WavelengthNanometers,
                 path.Vignetted,
                 RayLineWidth,
-                RayOpacityFor(path.FinalIntensity, referenceIntensity));
+                RayOpacityFor(path.FinalIntensity, referenceIntensity), path.ConfigurationNumber);
             foreach (var segment in path.Segments)
             {
                 var oriented = OrientSegment(segment);
@@ -1297,7 +1294,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
     {
         var faces = new List<ProjectedFace>();
         var viewDirection = ViewDirection(yaw, pitch);
-        var surfacesByNumber = surfaces.ToDictionary(surface => surface.SurfaceNumber);
+        var surfacesByNumber = surfaces.ToDictionary(surface => (surface.ConfigurationNumber, surface.SurfaceNumber));
         var glassBySurface = elements
             .Select(element => new
             {
@@ -1307,19 +1304,19 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             })
             .SelectMany(item => new[]
             {
-                new KeyValuePair<int, GlassRenderParameters>(item.Element.FrontSurfaceNumber, item.Parameters),
-                new KeyValuePair<int, GlassRenderParameters>(item.Element.BackSurfaceNumber, item.Parameters)
+                new KeyValuePair<(int, int), GlassRenderParameters>((item.Element.ConfigurationNumber, item.Element.FrontSurfaceNumber), item.Parameters),
+                new KeyValuePair<(int, int), GlassRenderParameters>((item.Element.ConfigurationNumber, item.Element.BackSurfaceNumber), item.Parameters)
             })
             .GroupBy(item => item.Key)
             .ToDictionary(group => group.Key, group => group.First().Value);
-        var renderedSurfaceNumbers = new HashSet<int>();
+        var renderedSurfaceNumbers = new HashSet<(int, int)>();
         foreach (var element in elements)
         {
-            var glass = glassBySurface.GetValueOrDefault(element.FrontSurfaceNumber,
+            var glass = glassBySurface.GetValueOrDefault((element.ConfigurationNumber, element.FrontSurfaceNumber),
                 new GlassRenderParameters(element.RefractiveIndex, 4, null))
                 with
             { Tint = GlassColorFor(element.Material) };
-            if (renderedSurfaceNumbers.Add(element.FrontSurfaceNumber))
+            if (renderedSurfaceNumbers.Add((element.ConfigurationNumber, element.FrontSurfaceNumber)))
             {
                 AddElementSurfaceFaces(
                     faces,
@@ -1333,7 +1330,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                     depth);
             }
 
-            if (renderedSurfaceNumbers.Add(element.BackSurfaceNumber))
+            if (renderedSurfaceNumbers.Add((element.ConfigurationNumber, element.BackSurfaceNumber)))
             {
                 AddElementSurfaceFaces(
                     faces,
@@ -1350,7 +1347,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
         foreach (var element in elements)
         {
-            var glass = glassBySurface.GetValueOrDefault(element.FrontSurfaceNumber,
+            var glass = glassBySurface.GetValueOrDefault((element.ConfigurationNumber, element.FrontSurfaceNumber),
                 new GlassRenderParameters(element.RefractiveIndex, 4, null))
                 with
             { Tint = GlassColorFor(element.Material) };
@@ -1540,10 +1537,10 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
     private static double ElementThickness(
         Layout3DLensElement element,
-        IReadOnlyDictionary<int, Layout3DSurfacePrimitive> surfacesByNumber)
+        IReadOnlyDictionary<(int, int), Layout3DSurfacePrimitive> surfacesByNumber)
     {
-        if (surfacesByNumber.TryGetValue(element.FrontSurfaceNumber, out var front) &&
-            surfacesByNumber.TryGetValue(element.BackSurfaceNumber, out var back) &&
+        if (surfacesByNumber.TryGetValue((element.ConfigurationNumber, element.FrontSurfaceNumber), out var front) &&
+            surfacesByNumber.TryGetValue((element.ConfigurationNumber, element.BackSurfaceNumber), out var back) &&
             TrySurfaceCenter(front, out var frontCenter) &&
             TrySurfaceCenter(back, out var backCenter))
         {
@@ -1641,14 +1638,13 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
             {
                 _ = GlassMaterials;
                 var materialPen = !surface.IsReferencePlane && !surface.IsStandaloneStop
-                    && _glassSurfaceColors.TryGetValue(surface.SurfaceNumber, out var tint)
+                    && _glassSurfaceColors.TryGetValue((surface.ConfigurationNumber, surface.SurfaceNumber), out var tint)
                         ? new Pen(new SolidColorBrush(tint), 1.15) : null;
                 Draw3DSurface(context, surface, project, showMeridians, cutawayEnabled, solidModelStyle, materialPen);
             }
         }
 
-        var highlighted = surfaces.FirstOrDefault(surface => surface.SurfaceNumber == highlightedSurfaceNumber);
-        if (highlighted is not null)
+        foreach (var highlighted in surfaces.Where(surface => surface.SurfaceNumber == highlightedSurfaceNumber))
         {
             Draw3DSurface(context, highlighted, project, showMeridians, cutawayEnabled, solidModelStyle, SelectedSurfaceHaloPen);
             Draw3DSurface(context, highlighted, project, showMeridians, cutawayEnabled, solidModelStyle, SelectedSurfacePen);
@@ -1695,7 +1691,7 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
                 ray.WavelengthNanometers,
                 ray.Vignetted,
                 RayLineWidth,
-                RayOpacityFor(ray.FinalIntensity, referenceIntensity));
+                RayOpacityFor(ray.FinalIntensity, referenceIntensity), ray.ConfigurationNumber);
             foreach (var segment in ray.Segments)
             {
                 var oriented = OrientSegment(segment);
@@ -1826,7 +1822,8 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
         double wavelengthNanometers,
         bool vignetted,
         double thickness,
-        double opacity)
+        double opacity,
+        int configurationNumber = 1)
     {
         if (vignetted)
         {
@@ -1835,9 +1832,12 @@ public sealed class OpticSceneControl : Control, IInteractiveCanvasAutomationSou
 
         var color = RayColorMode == OpticSceneRayColorMode.Wavelength
             ? SpectralColorMap.FromNanometers(wavelengthNanometers)
-            : RayColors[Math.Abs(fieldIndex) % RayColors.Length];
+            : RayColors[Math.Abs(RayColorMode == OpticSceneRayColorMode.Configuration
+                ? configurationNumber - 1 : fieldIndex) % RayColors.Length];
         return new Pen(new SolidColorBrush(color, opacity), thickness);
     }
+
+    internal static Color ConfigurationColor(int number) => RayColors[Math.Abs(number - 1) % RayColors.Length];
 
     internal static double RayOpacityFor(double intensity, double referenceIntensity) =>
         double.IsFinite(intensity) && double.IsFinite(referenceIntensity) && referenceIntensity > 0

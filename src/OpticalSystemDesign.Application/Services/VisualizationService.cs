@@ -50,7 +50,7 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
             RayCount: dimension == SceneDimension.TwoDimensional ? 3 : 5), cancellationToken);
     }
 
-    public VisualizationOptionsDto GetVisualizationOptions(int? configurationIndex = null)
+    public VisualizationOptionsDto GetVisualizationOptions(int? configurationIndex = null, bool includeAllConfigurations = false)
     {
         lock (Gate)
         {
@@ -68,11 +68,15 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
 
             var navigation = Runtime.GetMultiConfigurationNavigation();
             var optic = SelectOptic(configurationIndex);
+            var configurations = includeAllConfigurations
+                ? Runtime.CreateMeritConfigurationContext().Configurations : new[] { optic };
+            var surfaceNumbers = optic.SurfaceGroup.Items.Select(surface => surface.Number)
+                .Where(number => configurations.All(item => item.SurfaceGroup.Items.Any(surface => surface.Number == number))).ToArray();
             return new VisualizationOptionsDto(
-                optic.SurfaceGroup.Items.Select(surface => surface.Number).ToArray(),
-                optic.Fields.Select((field, index) =>
+                surfaceNumbers,
+                optic.Fields.Take(configurations.Min(item => item.Fields.Count)).Select((field, index) =>
                     new VisualizationSelectorOptionDto(index, field.Label)).ToArray(),
-                optic.Wavelengths.Select((wavelength, index) =>
+                optic.Wavelengths.Take(configurations.Min(item => item.Wavelengths.Count)).Select((wavelength, index) =>
                     new VisualizationSelectorOptionDto(
                         index,
                         $"{wavelength.Label}  {wavelength.Nanometers:0.####} nm")).ToArray(),
@@ -100,6 +104,7 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
         OpticalDocumentSnapshot summary;
         SceneConfigurationDto? configuration;
         bool resolveAutomaticApertures;
+        IReadOnlyList<Optic>? allSnapshots = null;
         CancellationTokenSource linked;
         lock (Gate)
         {
@@ -111,6 +116,13 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
             snapshot = Optic.FromSnapshot((nonSequentialSnapshot is null
                 ? SelectOptic(request.ConfigurationIndex) : Runtime.CurrentOptic).ToSnapshot());
             var navigation = Runtime.GetMultiConfigurationNavigation();
+            if (nonSequentialSnapshot is null && request.IncludeAllConfigurations)
+            {
+                if (request.ConfigurationIndex.HasValue)
+                    throw new ArgumentException("Choose one configuration or all configurations, not both.", nameof(request));
+                allSnapshots = Runtime.CreateMeritConfigurationContext().Configurations
+                    .Select(optic => Optic.FromSnapshot(optic.ToSnapshot())).ToArray();
+            }
             configuration = nonSequentialSnapshot is null
                 ? new SceneConfigurationDto((request.ConfigurationIndex ?? navigation.ActiveIndex) + 1, navigation.Count)
                 : null;
@@ -121,7 +133,7 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
         }
 
         return nonSequentialSnapshot is null
-            ? BuildSceneWorkerAsync(snapshot, sourceRevision, summary, request, linked, configuration!, resolveAutomaticApertures)
+            ? BuildSceneWorkerAsync(snapshot, sourceRevision, summary, request, linked, configuration!, resolveAutomaticApertures, allSnapshots)
             : BuildNonSequentialSceneWorkerAsync(
                 snapshot,
                 nonSequentialSnapshot,
@@ -191,7 +203,8 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
         VisualizationRequestDto request,
         CancellationTokenSource linked,
         SceneConfigurationDto configuration,
-        bool resolveAutomaticApertures)
+        bool resolveAutomaticApertures,
+        IReadOnlyList<Optic>? allSnapshots)
     {
         using (linked)
         {
@@ -199,48 +212,109 @@ internal sealed class VisualizationService : WorkbenchServiceBase, IVisualizatio
             {
                 linked.Token.ThrowIfCancellationRequested();
                 using var cancellationScope = ComputationCancellation.Push(linked.Token);
-                // Inactive configurations have not necessarily had their
-                // automatic apertures resolved by the workspace yet.
-                if (resolveAutomaticApertures) AutomaticSemiDiameterSolver.Update(snapshot);
-                // Geometry, rays and footer must describe the same frozen optic.
-                var computable = Core.Capabilities.OpticCapabilityPreflight.Inspect(snapshot).Count == 0;
-                summary = summary with
+                if (allSnapshots is not null)
                 {
-                    Name = snapshot.Name,
-                    EffectiveFocalLength = computable ? snapshot.Paraxial.EstimateEffectiveFocalLength() : double.NaN,
-                    FNumber = computable ? snapshot.Paraxial.EstimateFNumber() : double.NaN,
-                    ApertureValue = snapshot.Aperture.Value,
-                    TotalTrack = snapshot.SurfaceGroup.TotalTrack,
-                    SurfaceCount = snapshot.SurfaceGroup.Items.Count,
-                    FieldCount = snapshot.Fields.Count,
-                    WavelengthCount = snapshot.Wavelengths.Count,
-                    EntrancePupilDiameter = computable ? snapshot.Paraxial.EstimateEntrancePupilDiameter() : double.NaN
-                };
-                var builder = new Layout2DBuilder(snapshot);
-                var options = new LayoutBuildOptions(
-                    request.FirstSurface,
-                    request.LastSurface,
-                    request.FieldIndex,
-                    request.WavelengthIndex,
-                    request.IncludeAllWavelengths,
-                    request.RayCount,
-                    request.LowerPupil,
-                    request.UpperPupil,
-                    request.DeleteVignetted,
-                    request.MarginalAndChiefOnly);
-                if (request.Dimension == SceneDimension.TwoDimensional)
-                {
-                    var scene = builder.Build(options: options);
-                    linked.Token.ThrowIfCancellationRequested();
-                    return new SceneDto(sourceRevision, request.Dimension, ToScene2Dto(scene), null, summary,
-                        Configuration: configuration);
+                    var scenes = new List<SceneDto>();
+                    for (var index = 0; index < allSnapshots.Count; index++)
+                    {
+                        linked.Token.ThrowIfCancellationRequested();
+                        scenes.Add(BuildSequentialScene(allSnapshots[index], sourceRevision, summary, request,
+                            new SceneConfigurationDto(index + 1, allSnapshots.Count),
+                            index + 1 != configuration.Number, linked.Token));
+                    }
+                    return CombineConfigurations(scenes, summary, sourceRevision, request.Dimension);
                 }
-
-                var scene3 = builder.Build3D(options: options);
-                linked.Token.ThrowIfCancellationRequested();
-                return new SceneDto(sourceRevision, request.Dimension, null, ToScene3Dto(scene3), summary,
-                    Configuration: configuration);
+                return BuildSequentialScene(snapshot, sourceRevision, summary, request, configuration,
+                    resolveAutomaticApertures, linked.Token);
             }, linked.Token).ConfigureAwait(false);
         }
+    }
+
+    private static SceneDto BuildSequentialScene(Optic snapshot, long sourceRevision,
+        OpticalDocumentSnapshot summary, VisualizationRequestDto request, SceneConfigurationDto configuration,
+        bool resolveAutomaticApertures, CancellationToken cancellationToken)
+    {
+        // Inactive configurations have not necessarily had their
+        // automatic apertures resolved by the workspace yet.
+        if (resolveAutomaticApertures) AutomaticSemiDiameterSolver.Update(snapshot);
+        // Geometry, rays and footer must describe the same frozen optic.
+        var computable = Core.Capabilities.OpticCapabilityPreflight.Inspect(snapshot).Count == 0;
+        summary = summary with
+        {
+            Name = snapshot.Name,
+            EffectiveFocalLength = computable ? snapshot.Paraxial.EstimateEffectiveFocalLength() : double.NaN,
+            FNumber = computable ? snapshot.Paraxial.EstimateFNumber() : double.NaN,
+            ApertureValue = snapshot.Aperture.Value,
+            TotalTrack = snapshot.SurfaceGroup.TotalTrack,
+            SurfaceCount = snapshot.SurfaceGroup.Items.Count,
+            FieldCount = snapshot.Fields.Count,
+            WavelengthCount = snapshot.Wavelengths.Count,
+            EntrancePupilDiameter = computable ? snapshot.Paraxial.EstimateEntrancePupilDiameter() : double.NaN
+        };
+        var builder = new Layout2DBuilder(snapshot);
+        var options = new LayoutBuildOptions(
+            request.FirstSurface,
+            request.LastSurface,
+            request.FieldIndex,
+            request.WavelengthIndex,
+            request.IncludeAllWavelengths,
+            request.RayCount,
+            request.LowerPupil,
+            request.UpperPupil,
+            request.DeleteVignetted,
+            request.MarginalAndChiefOnly);
+        if (request.Dimension == SceneDimension.TwoDimensional)
+        {
+            var scene = builder.Build(options: options);
+            cancellationToken.ThrowIfCancellationRequested();
+            var mapped = ToScene2Dto(scene);
+            mapped = mapped with
+            {
+                Surfaces = mapped.Surfaces.Select(item => item with { ConfigurationNumber = configuration.Number }).ToArray(),
+                LensElements = mapped.LensElements.Select(item => item with { ConfigurationNumber = configuration.Number }).ToArray(),
+                LensEdges = mapped.LensEdges.Select(item => item with { ConfigurationNumber = configuration.Number }).ToArray(),
+                Rays = mapped.Rays.Select(item => item with { ConfigurationNumber = configuration.Number }).ToArray()
+            };
+            return new SceneDto(sourceRevision, request.Dimension, mapped, null, summary,
+                Configuration: configuration);
+        }
+
+        var scene3 = builder.Build3D(options: options);
+        cancellationToken.ThrowIfCancellationRequested();
+        var mapped3 = ToScene3Dto(scene3);
+        mapped3 = mapped3 with
+        {
+            Surfaces = mapped3.Surfaces.Select(item => item with { ConfigurationNumber = configuration.Number }).ToArray(),
+            LensElements = mapped3.LensElements.Select(item => item with { ConfigurationNumber = configuration.Number }).ToArray(),
+            Rays = mapped3.Rays.Select(item => item with { ConfigurationNumber = configuration.Number }).ToArray()
+        };
+        return new SceneDto(sourceRevision, request.Dimension, null, mapped3, summary,
+            Configuration: configuration);
+    }
+
+    private static SceneDto CombineConfigurations(IReadOnlyList<SceneDto> scenes,
+        OpticalDocumentSnapshot summary, long sourceRevision, SceneDimension dimension)
+    {
+        // Each primitive retains its real surface/ray number plus its configuration
+        // identity. Never reconnect surfaces or ray paths across configurations.
+        var two = scenes.Select(scene => scene.TwoDimensional).OfType<Scene2Dto>().ToArray();
+        var three = scenes.Select(scene => scene.ThreeDimensional).OfType<Scene3Dto>().ToArray();
+        return new SceneDto(sourceRevision, dimension,
+            two.Length == 0 ? null : new Scene2Dto(
+                two.SelectMany(scene => scene.Surfaces).ToArray(),
+                two.SelectMany(scene => scene.LensElements).ToArray(),
+                two.SelectMany(scene => scene.LensEdges).ToArray(),
+                two.SelectMany(scene => scene.Rays).ToArray(),
+                two.Min(scene => scene.ZMin), two.Max(scene => scene.ZMax), two.Max(scene => scene.YExtent)),
+            three.Length == 0 ? null : new Scene3Dto(
+                three.SelectMany(scene => scene.Surfaces).ToArray(),
+                three.SelectMany(scene => scene.LensElements).ToArray(),
+                three.SelectMany(scene => scene.Rays).ToArray(),
+                three.Max(scene => scene.XExtent), three.Max(scene => scene.YExtent),
+                three.Min(scene => scene.ZMin), three.Max(scene => scene.ZMax)),
+            summary with { EffectiveFocalLength = double.NaN, FNumber = double.NaN, TotalTrack = double.NaN },
+            Configuration: new SceneConfigurationDto(0, scenes.Count, IncludesAll: true),
+            ConfigurationSummaries: scenes.Select(scene => new SceneConfigurationSummaryDto(
+                scene.Configuration!.Number, scene.Summary)).ToArray());
     }
 }

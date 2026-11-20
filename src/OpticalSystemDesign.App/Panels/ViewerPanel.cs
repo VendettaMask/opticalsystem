@@ -6,6 +6,7 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
@@ -127,7 +128,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         InitializeImageExport();
 
         RefreshSelectorOptions(preserveSelection: false);
-        _colorModePicker.ItemsSource = new[] { "视场 #", "波长 #" };
+        _colorModePicker.ItemsSource = new[] { "视场 #", "波长 #", "结构 #" };
         _colorModePicker.SelectedIndex = 0;
         _scalePicker.ItemsSource = new[] { "启用", "关闭" };
         _scalePicker.SelectedIndex = 0;
@@ -185,9 +186,9 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         {
             root.Children.Add(_summaryBar);
             root.Children.Add(workspace);
-            // Keep the complete compact model/legend/metadata layout at one
-            // fixed size. A wider sheet only adds outer space, never a new camera.
-            _diagramPage = new UniformDiagramPage(root, new Border(), preservePlotGeometry: true, captionHeight: 0,
+            // The model viewport uses the whole page width. Auto follows the
+            // available aspect; the camera still projects geometry uniformly.
+            _diagramPage = new UniformDiagramPage(root, new Border(), captionHeight: 0, fillViewportAspect: true,
                 background: OpticSceneControl.SolidModelBackgroundBrush);
         }
         Content = BuildDiagramWorkspace();
@@ -417,6 +418,9 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
     private void UpdateGlassLegend()
     {
         _glassLegendItems.Children.Clear();
+        if (_scene.Scene is { Configuration.IncludesAll: true } allScene
+            && _scene.RayColorMode == OpticSceneRayColorMode.Configuration)
+            _glassLegendItems.Children.Add(PlotCaption.ConfigurationLegend(allScene));
         var entries = _dimension == SceneDimension.ThreeDimensional ? _scene.GlassMaterials : [];
         foreach (var entry in entries)
         {
@@ -449,7 +453,7 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             ToolTip.SetTip(item, entry.Material);
             _glassLegendItems.Children.Add(item);
         }
-        _glassLegend.IsVisible = entries.Count > 0;
+        _glassLegend.IsVisible = _glassLegendItems.Children.Count > 0;
     }
 
     private Control BuildSettingsOverlay()
@@ -485,6 +489,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
         {
             if (_updatingSettings || _disposed) return;
             _configurationIndex = SelectedValue(_configurationPicker);
+            if (_configurationIndex == -1) _colorModePicker.SelectedIndex = 2;
+            ApplyDisplaySettings();
             RefreshSelectorOptions(preserveSelection: true);
             ClearScene();
             QueueRefresh(TimeSpan.Zero);
@@ -620,9 +626,12 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
 
     private void ApplyDisplaySettings()
     {
-        _scene.RayColorMode = _colorModePicker.SelectedIndex == 1
-            ? OpticSceneRayColorMode.Wavelength
-            : OpticSceneRayColorMode.Field;
+        _scene.RayColorMode = _colorModePicker.SelectedIndex switch
+        {
+            1 => OpticSceneRayColorMode.Wavelength,
+            2 => OpticSceneRayColorMode.Configuration,
+            _ => OpticSceneRayColorMode.Field
+        };
         _scene.VerticalStretch = (double)(_yStretch.Value ?? 1);
         _scene.ShowRayArrows = _rayArrows.IsChecked == true;
         var lineWidth = _lineWidthPicker.SelectedIndex switch
@@ -636,6 +645,10 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             : lineWidth;
         _summaryBar.IsVisible = _suppressFrame.IsChecked != true;
         _scene.ShowScaleBar = _scalePicker.SelectedIndex != 1 && _suppressFrame.IsChecked != true;
+        UpdateGlassLegend();
+        foreach (var legend in _summaryBar.GetVisualDescendants().OfType<WrapPanel>()
+                     .Where(control => control.Name == "ViewerConfigurationLegend"))
+            legend.IsVisible = _scene.RayColorMode == OpticSceneRayColorMode.Configuration;
     }
 
     private VisualizationRequestDto CreateRequest()
@@ -661,7 +674,8 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             DeleteVignetted: _deleteVignetted.IsChecked == true,
             MarginalAndChiefOnly: _marginalAndChiefOnly.IsChecked == true,
             IncludeStaleNonSequentialRays: _showStaleLayoutRays.IsChecked == true,
-            ConfigurationIndex: _modes?.CurrentMode == OpticalWorkbenchMode.NonSequential ? null : _configurationIndex);
+            ConfigurationIndex: _modes?.CurrentMode == OpticalWorkbenchMode.NonSequential || _configurationIndex == -1 ? null : _configurationIndex,
+            IncludeAllConfigurations: _modes?.CurrentMode != OpticalWorkbenchMode.NonSequential && _configurationIndex == -1);
     }
 
     private void RefreshSelectorOptions(bool preserveSelection)
@@ -675,14 +689,16 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
             || _configurationIndex >= options.ConfigurationCount)
             _configurationIndex = null;
         if (_configurationIndex.HasValue)
-            options = _visualization.GetVisualizationOptions(_configurationIndex);
+            options = _visualization.GetVisualizationOptions(_configurationIndex == -1 ? null : _configurationIndex,
+                includeAllConfigurations: _configurationIndex == -1);
 
         var wasUpdatingSettings = _updatingSettings;
         _updatingSettings = true;
         try
         {
             _configurationPicker.ItemsSource = Enumerable.Range(0, options.ConfigurationCount)
-                .Select(index => new SelectorItem(index, $"{index + 1} / {options.ConfigurationCount}")).ToArray();
+                .Select(index => new SelectorItem(index, $"{index + 1} / {options.ConfigurationCount}"))
+                .Append(new SelectorItem(-1, "所有结构")).ToArray();
             SelectValue(_configurationPicker, _configurationIndex ?? options.ActiveConfigurationIndex);
             _configurationPicker.IsVisible = _modes?.CurrentMode != OpticalWorkbenchMode.NonSequential
                 && options.ConfigurationCount > 1;
@@ -700,13 +716,15 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
                 .Concat(options.Fields.Select(item => new SelectorItem(item.Index, item.Label)))
                 .ToArray();
             _fieldPicker.ItemsSource = fields;
-            SelectValue(_fieldPicker, preserveSelection ? previousField : null);
+            SelectValue(_fieldPicker, preserveSelection && options.Fields.Any(item => item.Index == previousField)
+                ? previousField : null);
 
             var wavelengths = new[] { new SelectorItem(null, "所有") }
                 .Concat(options.Wavelengths.Select(item => new SelectorItem(item.Index, item.Label)))
                 .ToArray();
             _wavelengthPicker.ItemsSource = wavelengths;
-            SelectValue(_wavelengthPicker, preserveSelection ? previousWavelength : null);
+            SelectValue(_wavelengthPicker, preserveSelection && options.Wavelengths.Any(item => item.Index == previousWavelength)
+                ? previousWavelength : null);
         }
         finally
         {
@@ -949,13 +967,17 @@ public sealed partial class ViewerPanel : UserControl, IDisposable
                         + $"Z 范围 {NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMin)} 至 "
                         + $"{NumericDisplayFormatter.Format(scene.ThreeDimensional.ZMax)} mm"
                         + PlotCaption.LayoutStateSummary(scene.NonSequentialLayoutResult)
-                    : (scene.Configuration is { Count: > 1 } configuration
+                    : scene.Configuration is { IncludesAll: true } all
+                        ? $"{UiLocalization.Text("所有结构")} ({all.Count})    "
+                            + PlotCaption.ConfigurationMetricsSummary(scene)
+                        : (scene.Configuration is { Count: > 1 } configuration
                         ? $"{UiLocalization.Text("结构")} {configuration.Number} / {configuration.Count}    " : string.Empty)
                         + $"有效焦距 {NumericDisplayFormatter.Format(scene.Summary.EffectiveFocalLength)} mm    "
                         + $"F 数 {NumericDisplayFormatter.Format(scene.Summary.FNumber)}    "
                         + $"系统总长 {NumericDisplayFormatter.Format(scene.Summary.TotalTrack)} mm";
                 if (UsesLayoutCaption)
-                    _summaryBar.Child = PlotCaption.ForLayoutScene(scene, DateTimeOffset.Now);
+                    _summaryBar.Child = PlotCaption.ForLayoutScene(scene, DateTimeOffset.Now,
+                        _scene.RayColorMode == OpticSceneRayColorMode.Configuration);
             });
         }
         catch (OperationCanceledException)
