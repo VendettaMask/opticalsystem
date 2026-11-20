@@ -23,7 +23,7 @@ public enum WorkspacePanelId
     MultiConfiguration
 }
 
-public sealed class PanelManager : IDisposable
+public sealed partial class PanelManager : IDisposable
 {
     private readonly IWorkbenchApplication _application;
     private readonly AppSettings _settings;

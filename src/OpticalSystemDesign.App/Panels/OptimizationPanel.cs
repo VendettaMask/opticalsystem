@@ -15,7 +15,7 @@ using OpticalSystemDesign.Application.Formatting;
 
 namespace OpticalSystemDesign.App.Panels;
 
-public sealed class OptimizationPanel : UserControl, IDisposable, IDisplaySettingsAware
+public sealed partial class OptimizationPanel : UserControl, IDisposable, IDisplaySettingsAware
 {
     private readonly IPrescriptionService _prescription;
     private readonly IOptimizationService _optimization;

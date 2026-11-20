@@ -16,22 +16,7 @@ public sealed partial class CameraImagingWindow
         var operation = new CancellationTokenSource(); _operation = operation; _busy = true; UpdateAvailability();
         try
         {
-            var sensor = ReadSensor();
-            var isp = new CameraIspParameters(_isp.IsChecked == true, V("wb-r"), V("wb-g"), V("wb-b"), V("gamma"), V("denoise"), V("sharpen"));
-            var (width, height) = SelectedSize;
-            var request = new CameraImagingRequest((CameraSource)_source.SelectedIndex, _sourceFile, width, height,
-                (CameraOptics)_optics.SelectedIndex, (CameraAberration)_aberration.SelectedIndex, sensor, isp,
-                _spectralResponse, _sensorIdentity, (CameraSpectralModel)_spectralModel.SelectedIndex, _illuminant, _reflectance,
-                new(V("spectrum-min"), V("spectrum-max"), V("spectrum-step")), IsScene3D ? CameraSceneMode.Uniform : (CameraSceneMode)_sceneMode.SelectedIndex, IsScene3D ? null : _materialScene,
-                ReadPixelSampling(), IsScene3D ? ReadScene3D() : null, IsScene3D ? new((int)V("scene3d-rings"), (int)V("scene3d-arms"), _scene3DFresnel.IsChecked == true,
-                    _aberration.SelectedIndex == (int)CameraAberration.Diffraction
-                        ? new((int)V("scene3d-pupil-grid"), (int)V("scene3d-subdivide"), (int)V("scene3d-psf-radius"), (int)V("scene3d-guard")) : null) : null);
-            if (IsNsc)
-            {
-                var input = _nscInput ?? throw new InvalidOperationException("请先读取非序列探测器结果。");
-                request = request with { Width = input.Detector.PixelsX, Height = input.Detector.PixelsY,
-                    NscDetector = input, SceneMode = CameraSceneMode.Uniform, MaterialScene = null, PixelSampling = null };
-            }
+            var request = CaptureRequest();
             var result = UsingExperimentInputs
                 ? await _application.CameraImaging.RecomputeAsync(_experimentRun!, request, operation.Token)
                 : await _application.CameraImaging.SimulateAsync(request, operation.Token);

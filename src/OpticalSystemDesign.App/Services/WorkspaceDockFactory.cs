@@ -17,7 +17,7 @@ using Orientation = Dock.Model.Core.Orientation;
 
 namespace OpticalSystemDesign.App.Services;
 
-public sealed class WorkspaceDockFactory : Factory
+public sealed partial class WorkspaceDockFactory : Factory
 {
     public const string RootId = "workspace:root";
     public const string MainLayoutId = "workspace:main";

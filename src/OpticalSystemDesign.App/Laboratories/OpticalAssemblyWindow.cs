@@ -88,7 +88,7 @@ public sealed partial class OpticalAssemblyWindow : Window
         // Do not restart the same image and cancel the calculation being awaited.
         _grid.SelectionChanged += async (_, _) =>
         {
-            if (!_bindingRows && (_grid.SelectedItem as TableRow)?.Row != _imageRow)
+            if (!_bindingRows && !_viewingArchive && (_grid.SelectedItem as TableRow)?.Row != _imageRow)
                 await SimulateAsync();
         };
         _sort.IsCheckedChanged += (_, _) => BindRows();
@@ -122,6 +122,7 @@ public sealed partial class OpticalAssemblyWindow : Window
 
     internal async Task CalculateAsync()
     {
+        _viewingArchive = false;
         if (_closed) return;
         InvalidatePrescription("正在计算各面顶点像与球心像…");
         var (generation, token) = BeginOperation();

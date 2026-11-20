@@ -250,6 +250,9 @@ public sealed partial class MainWindow
                 RibbonSequentialExamplesButton()));
         }
 
+        groups.Add(RibbonGroup("工程归档",
+            RibbonButton("create-project-archive", "file-export", "创建归档"),
+            RibbonButton("restore-project-archive", "file-import", "恢复归档")));
         _undoButton = RibbonButton("undo", "action-undo", "撤销");
         _redoButton = RibbonButton("redo", "action-redo", "重做");
         var snapshot = _application.Documents.GetSnapshot();

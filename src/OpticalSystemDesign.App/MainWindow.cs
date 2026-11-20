@@ -199,6 +199,12 @@ public sealed partial class MainWindow : Window
         {
             if (_startupDocumentPath is not null)
             {
+                if (_startupDocumentPath.EndsWith(".starpack", StringComparison.OrdinalIgnoreCase))
+                {
+                    await _panels.InitializeAsync();
+                    await OpenProjectArchiveAsync(_startupDocumentPath);
+                    return;
+                }
                 await _application.Documents.OpenAsync(_startupDocumentPath);
             }
 

@@ -33,6 +33,7 @@ public sealed partial class WorkbenchApplication : IWorkbenchApplication
         var lenses = new LensLibraryService(lensLibraryDirectory);
         Lenses = lenses;
         Documents = new OpticalDocumentService(_workspace, lenses);
+        ProjectArchives = new ProjectArchiveService(_workspace, Documents, Modes, NonSequentialAnalysis);
         Prescription = new PrescriptionService(_workspace);
         Analyses = new AnalysisService(_workspace, Modes, _nonSequentialAnalysisSession);
         Visualization = new VisualizationService(_workspace, Modes, _nonSequentialLayoutSession);
@@ -47,6 +48,7 @@ public sealed partial class WorkbenchApplication : IWorkbenchApplication
     }
 
     public IOpticalDocumentService Documents { get; }
+    public IProjectArchiveService ProjectArchives { get; }
     public IPerformanceTestService Performance { get; }
 
     public IWorkbenchModeService Modes { get; }

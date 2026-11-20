@@ -379,6 +379,7 @@ public interface ILensLibraryService
 
 public interface IWorkbenchApplication : IDisposable
 {
+    IProjectArchiveService ProjectArchives { get; }
     DesignReportSnapshot CaptureReportSnapshot();
 
     IPerformanceTestService Performance { get; }

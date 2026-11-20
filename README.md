@@ -87,7 +87,7 @@ Open **File → Samples** to browse 95 sequential lenses in 14 categories. These
     </td>
     <td width="50%" valign="top">
       <h3>🛠️ Projects, materials, and manufacturing data</h3>
-      <p>Use the material and lens libraries and save projects as .staropt files. Export prescription and analysis CSV files, PNGs, Word/PDF/Markdown/HTML design reports, manufacturing drawings, and faceted STEP. The file guide lists the available ZMX, SEQ, and LEN exchange fields.</p>
+      <p>Use the material and lens libraries and save projects as .staropt files. Create a single .starpack archive with project inputs, laboratory records, and selected results for sharing and restoration. Export prescription and analysis CSV files, PNGs, Word/PDF/Markdown/HTML design reports, manufacturing drawings, and faceted STEP. The file guide lists the available ZMX, SEQ, and LEN exchange fields.</p>
       <a href="docs/FILE_FORMATS_AND_PLUGINS.md">Files and exchange formats</a> · <a href="docs/MARKDOWN_REPORT_EXPORT.md">Design reports →</a>
     </td>
   </tr>

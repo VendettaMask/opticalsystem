@@ -696,6 +696,39 @@ RMS 波数	RMS Waves	RMS 波数
 请输入有效分支 ID。	Enter a valid branch ID.	有効な分岐 ID を入力してください。
 分支及父子路径	Branch, parent and children	分岐と親子経路
 全部启用光源	All enabled sources	すべての有効な光源
+STARPACK 工程归档	STARPACK Project Archive	STARPACK プロジェクトアーカイブ
+{0} MiB	{0} MiB	{0} MiB
+{0} 个文件 · {1:N2} MiB	{0} files · {1:N2} MiB	{0} ファイル · {1:N2} MiB
+创建工程归档	Create Project Archive	プロジェクトアーカイブを作成
+创建归档	Create Archive	アーカイブを作成
+刷新清单	Refresh List	一覧を更新
+可选	Optional	任意
+完整归档	Complete Archive	完全なアーカイブ
+工程归档	Project Archive	プロジェクトアーカイブ
+工程归档已创建。	Project archive created.	プロジェクトアーカイブを作成しました。
+工程归档已恢复，可打开所选资料。	Project archive restored. Select a file to open.	プロジェクトアーカイブを復元しました。開く資料を選択してください。
+归档操作已取消。	Archive operation cancelled.	アーカイブ操作をキャンセルしました。
+必要输入随工程收集，计算结果可按需选择。	Required inputs are collected with the project. Select the results to include.	必要な入力をプロジェクトと共に収集します。含める計算結果を選択してください。
+必需	Required	必須
+恢复后应用窗口布局	Apply window layout after restoration	復元後にウィンドウ配置を適用
+恢复工程归档	Restore Project Archive	プロジェクトアーカイブを復元
+恢复归档	Restore Archive	アーカイブを復元
+打开所选资料	Open Selected File	選択した資料を開く
+文件已恢复：	File restored: 	ファイルを復元しました：
+文件缺失，请重新定位	File missing. Locate it to continue.	ファイルが見つかりません。場所を指定してください。
+正在创建归档	Creating archive	アーカイブを作成中
+正在恢复归档	Restoring archive	アーカイブを復元中
+正在收集文件	Collecting files	ファイルを収集中
+添加归档文件	Add Archive Files	アーカイブにファイルを追加
+添加文件	Add Files	ファイルを追加
+设计归档	Design Archive	設計アーカイブ
+请选择归档目标。	Choose an archive destination.	アーカイブの保存先を選択してください。
+选择恢复位置	Choose Restoration Location	復元先を選択
+选择新的工程文件夹，恢复后打开项目。	Choose a new project folder. The project opens after restoration.	新しいプロジェクトフォルダーを選択してください。復元後にプロジェクトを開きます。
+重新定位	Locate File	ファイルの場所を指定
+重新定位归档文件	Locate Archive File	アーカイブファイルの場所を指定
+已打开归档结果。	Archived results opened.	アーカイブの結果を開きました。
+归档文件请使用 .starpack 后缀。	Use the .starpack extension for the archive file.	アーカイブファイルの拡張子は .starpack にしてください。
 射线 {0:N0}/{1:N0} · 分支 {2:N0} · {3:F1} s	Rays {0:N0}/{1:N0} · Branches {2:N0} · {3:F1} s	光線 {0:N0}/{1:N0} · 分岐 {2:N0} · {3:F1} s
 追迹结果自动保存到受管理的临时数据库，探测器、数据库和路径分析读取完整分析会话；3D布局单独准备布局光线。数据库路径留空即可。	Trace results are saved automatically to a managed temporary database. Detectors, the database viewer and path analysis use the full analysis session; the 3D layout prepares its own layout rays. Leave the database path blank to use this storage.	追跡結果は管理された一時データベースに自動保存されます。検出器、データベース表示、経路解析は完全な解析セッションを使用し、3Dレイアウトは専用の光線を準備します。この保存先を使う場合はデータベースのパスを空欄にしてください。
 {0}\n{1} 个分支 · {2}{3}\n当前筛选应用于完整分析会话的探测器和路径统计；3D布局使用独立布局会话。	{0}\n{1} branches · {2}{3}\nThe current filter applies to detectors and path statistics in the full analysis session; the 3D layout uses its own layout session.	{0}\n{1} 分岐 · {2}{3}\n現在のフィルターは完全な解析セッションの検出器と経路統計に適用され、3Dレイアウトは独立したレイアウトセッションを使用します。
@@ -708,3 +741,4 @@ RMS 波数	RMS Waves	RMS 波数
 X 圆锥系数	X Conic Constant	X円錐定数
 按 A1、A2…顺序输入，以空格或换行分隔。有效项数之后的系数保留。	Enter A1, A2… in order, separated by spaces or new lines. Coefficients after the active term count are retained.	A1、A2…の順に空白または改行で区切って入力します。有効項数より後の係数も保存します。
 Y 半径和 Y 圆锥系数在镜头数据表中编辑。	Edit the Y radius and Y conic constant in the lens data table.	Y半径とY円錐定数はレンズデータ表で編集します。
+已载入归档输入。	Archive inputs loaded.	アーカイブの入力を読み込みました。

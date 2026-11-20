@@ -30,6 +30,7 @@ public sealed partial class MainWindow
             FileTypeFilter = new[]
             {
                 NativeOpticFileType,
+                ArchiveFileType,
                 OpticJsonFileType,
                 CommercialOpticFileType,
                 PlainSequentialFileType,
@@ -38,6 +39,11 @@ public sealed partial class MainWindow
         });
         if (files.Count > 0)
         {
+            if (files[0].Path.LocalPath.EndsWith(".starpack", StringComparison.OrdinalIgnoreCase))
+            {
+                await OpenProjectArchiveAsync(files[0].Path.LocalPath);
+                return;
+            }
             if (!await ConfirmUnsavedChangesAsync("打开另一个光学系统"))
             {
                 return;

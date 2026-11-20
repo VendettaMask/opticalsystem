@@ -1,5 +1,9 @@
 # 文件格式与插件
 
+## 单文件工程归档
+
+“文件 → 工程归档”创建和恢复 `.starpack`，收集当前未保存工程、外部输入、实验室资料及选定结果。STARPACK v1 使用 ZIP64、资源清单和 SHA-256 内容去重；恢复到新文件夹后打开其中的 `main.staropt`，并重绑输入路径。日常保存继续使用 `.staropt`。操作、格式和读取预算见[工程归档](PROJECT_ARCHIVES.md)。
+
 非序列“优化与公差”可保存自有完整实验 ZIP（`OpticalSystemDesign.NscExperiment` v1），包含单份 STAROPT 源场景/内嵌网格、完整引用材料/别名、冻结方案与结果及 SHA-256 清单；重放不依赖当前工作区/原 STL 或用户材料目录。256 MiB 总包/展开预算，材料/方案各 4 MiB，严格版本/字段/协议及原子写入。轻量方案 JSON 仍要求原项目。复场 CSV 另含单波长/组/模态/分量/单位和有效掩码，空相位不补零。用户已要求跳过需 Zemax 的原生项，未覆盖商业语义不因此变为支持；详见[当前非序列契约](NONSEQUENTIAL_PHYSICS_DESIGN_IMPORT_2026-11-04.md)。
 
 非序列对象页现有专用“导入 Zemax NSC”检查入口，保存原始 ZMX 字节、全部记录及逐对象/资产诊断；只允许已完整映射的明示基本子集事务应用。完整商业 NSC、ZAR/ZOS、混合端口、DLL/CAD/布尔及逐面属性仍有缺口；不将无损读取清单算成可执行全量导入。普通顺序 ZMX 打开/交换行为保持。详见[支持矩阵](NONSEQUENTIAL_PHYSICS_DESIGN_IMPORT_2026-11-04.md#zemax-nsc-支持矩阵与真实检查)。

@@ -87,7 +87,7 @@
     </td>
     <td width="50%" valign="top">
       <h3>🛠️ 工程、材料与制造资料</h3>
-      <p>使用材料库和镜头库，以 .staropt 保存工程。导出处方和分析 CSV、PNG 图像、Word/PDF/Markdown/HTML 设计报告、制造图纸和分面 STEP。文件指南列出 ZMX、SEQ、LEN 的交换格式与字段。</p>
+      <p>使用材料库和镜头库，以 .staropt 保存工程。将工程输入、实验记录和所选结果创建为单文件 .starpack 归档，供分享和恢复。导出处方和分析 CSV、PNG 图像、Word/PDF/Markdown/HTML 设计报告、制造图纸和分面 STEP。文件指南列出 ZMX、SEQ、LEN 的交换格式与字段。</p>
       <a href="docs/FILE_FORMATS_AND_PLUGINS.md">文件与交换格式</a> · <a href="docs/MARKDOWN_REPORT_EXPORT.md">设计报告 →</a>
     </td>
   </tr>

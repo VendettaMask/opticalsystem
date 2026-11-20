@@ -139,15 +139,22 @@ public static class BoundedFile
         }
     }
 
-    public static async Task WriteAtomicAsync(
+    public static Task WriteAtomicAsync(
         string path,
         long maximumBytes,
         string description,
         Func<Stream, CancellationToken, Task> writeAsync,
         CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(writeAsync);
         ValidateMaximumBytes(maximumBytes);
+        return WriteStreamingAtomicAsync(path, maximumBytes, description, writeAsync, cancellationToken);
+    }
+
+    public static async Task WriteStreamingAtomicAsync(string path, long maximumBytes, string description,
+        Func<Stream, CancellationToken, Task> writeAsync, CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(writeAsync);
+        if (maximumBytes <= 0) throw new ArgumentOutOfRangeException(nameof(maximumBytes));
         var (fullPath, temporaryPath) = PrepareAtomicWrite(path);
         try
         {

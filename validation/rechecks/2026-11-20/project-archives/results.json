@@ -1,0 +1,223 @@
+{
+  "schema": 1,
+  "date": "2026-11-20",
+  "scope": "Functional archive acceptance only; full optical precision matrix not run.",
+  "repositoryHead": "0d2f2acc74ed76b98a44dec0bf7c466dd1afa0f0",
+  "sourceState": "Shared working tree; archive implementation is represented by source hashes below.",
+  "platform": "Windows x64",
+  "sdk": "10.0.300",
+  "format": "STARPACK v1 / ZIP64",
+  "build": {
+    "command": "dotnet build OpticalSystemDesign.slnx -c Release --no-restore /m:1 /nr:false",
+    "exitCode": 0,
+    "warnings": 0,
+    "errors": 0,
+    "log": "solution-build.log.gz"
+  },
+  "localization": {
+    "command": "OpticalSystemDesign.Localization check .",
+    "translations": 4157,
+    "occurrences": 3853,
+    "missing": 0,
+    "errors": 0
+  },
+  "runs": [
+    {
+      "name": "archive",
+      "filter": "FullyQualifiedName~OpticalSystemDesign.Tests.ProjectArchiveTests.|FullyQualifiedName~OpticalSystemDesign.Tests.ProjectArchiveWindowTests.",
+      "passed": 26,
+      "failed": 0,
+      "total": 26,
+      "result": "starpack-functional-final.trx.gz",
+      "rawSha256": "6283727a5d75ad0a0768e3e978195a6a6760ef33b7d760fb4994d3a209f55c8b"
+    },
+    {
+      "name": "document-regressions",
+      "filter": "FullyQualifiedName~OpticalSystemDesign.Tests.DocumentRevisionAndSaveTests.|FullyQualifiedName~OpticalSystemDesign.Tests.DocumentFormatBoundaryTests.|FullyQualifiedName=OpticalSystemDesign.Tests.ReliabilityHardeningTests.BoundedFileRejectsOversizedInputBeforeReadingIt|FullyQualifiedName=OpticalSystemDesign.Tests.ReliabilityHardeningTests.AtomicBoundedWritePreservesExistingFileWhenOutputIsRejected",
+      "passed": 27,
+      "failed": 0,
+      "total": 27,
+      "result": "starpack-document-regressions.trx.gz",
+      "rawSha256": "4f3e4a9256fbaea8cddaccd5f7ad544c477e6c9bbcae3a4b6482ee78d8d523d9"
+    }
+  ],
+  "totalPassed": 53,
+  "fullPrecisionMatrixRun": false,
+  "largeFileVerification": "ZIP64 offsets above 4 GiB checked with a virtual sparse stream; streaming write uses an 8 GiB budget with a small payload. No multi-GiB performance run.",
+  "nativeUi": [
+    "Light zh-CN 96 DPI",
+    "Dark ja-JP 144 DPI",
+    "Isekai en-US 192 DPI"
+  ],
+  "otherOperatingSystemsRun": false,
+  "sources": [
+    {
+      "path": "localization/ui-presentation-translations.tsv",
+      "sha256": "5f0d3cd297a0cc151f751b77632b8741d389cdfb723de16a3b7ee9bc82409a45"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Assets/Localization/ui.catalog.json",
+      "sha256": "21d591b8908f278759e0c71525312a1643c02bdfe1f471aac308fe99716de18c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Actions.cs",
+      "sha256": "401fb33853516fc91ef74b8643df1b847f068b823017b0684e9cf4b9ccf9dc71"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.Archive.cs",
+      "sha256": "c04b4952966bef7780f2dec82cac014e35d77d878216d2ea921610e5f7404414"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/CoatingDesign/MainWindow.Archive.cs",
+      "sha256": "d946eae87cba39c01c7c128e00abe6c4bc49f1bf243822f48d351bb88a102d69"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/AutonomousTopologyWindow.Archive.cs",
+      "sha256": "e7f29a054fc3abb79a31d3a039c120d4e7c5c079f2cec0aa825d08230a805e2a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/InitialStructure/MainWindow.Archive.cs",
+      "sha256": "5b3f7a14a5eb3aa0b902f98dfe62367c98d7e6185fcc90d8533fdfcb7045cbb6"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.Archive.cs",
+      "sha256": "aaed7ae0f17698e2ac5e904a3cde0d85f32f430c340e4738c7061ea59e91e912"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Laboratories/OpticalAssemblyWindow.cs",
+      "sha256": "b9113ce1080a6ffa9da6792d23c365cb73abb1d818695fb6ac4442d7979f7cad"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/MainWindow.cs",
+      "sha256": "591fa78ab0987bcf3ce32b0c77a6f1550a3b3752c55641a28dd0fd875c825e22"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/OptimizationPanel.Archive.cs",
+      "sha256": "4419e6160f7ed9ca9c18ec12c9f697af10f22bea85a673ece50cd3d84de27ef2"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/OptimizationPanel.cs",
+      "sha256": "c2bdc5664c87bb4be9020389cef23e34b3734969072e25b779639373a5b7d32b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/ProjectArchiveWindow.cs",
+      "sha256": "28e8a0a1cde7f2a43f88880481b7f5067735516ade3da3a781dd00a196d5ecfd"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Panels/TolerancingPanel.Archive.cs",
+      "sha256": "fe39d85ccf073a42411e37a0dd3a6c519ded013d3753424ac03b2a213b8276cc"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/PanelManager.Archive.cs",
+      "sha256": "a5b9ec2d5577d500f28ea43b9a2f44213d289350472280db12355d8ba10b39df"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/PanelManager.cs",
+      "sha256": "6e00dc32a590fbfb50e27e98db840587ef7efad51c25e530d55c9f38b1baf8c6"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/ProjectArchiveArtifacts.cs",
+      "sha256": "79820c3b9a6b567d42830044d49cb114672b71d60fa23dc8894e6965504d3daa"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Services/WorkspaceDockFactory.cs",
+      "sha256": "ea5112343bf49c64b9fd3c36f0a510dd79066583a90a35213d4dc9e9092c482f"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Actions.cs",
+      "sha256": "66208ff2739f15cd19072b02ea7a92f2bb683210d64d378b8b6d2c2f73bbf353"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Archive.cs",
+      "sha256": "ce1cb9ad42cc0f959b067ec4d79ebb1462daa907324d8789804811aa951c0da6"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Documents.cs",
+      "sha256": "3df5601ed1d0219018baa3445d1843bb49e5c1c128719e4d0cc8b207869c45c2"
+    },
+    {
+      "path": "src/OpticalSystemDesign.App/Shell/MainWindow.Shell.cs",
+      "sha256": "c8cd143e3bf3588e301f403bfef80e303645472a8b175edcb335279046a755cf"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/ProjectArchiveContracts.cs",
+      "sha256": "0b00012ac99c10cf0ef9b5fa8ae3379cc2c3dc890ff7b3a6d36385cca752013d"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Contracts/ServiceContracts.cs",
+      "sha256": "e6996d3693cf2f98f8997614e44c92de761640a27bac8ae2a1bfd195cad010aa"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/ProjectArchiveService.cs",
+      "sha256": "7664a1d4877a3ee530a773c62657b55a423b4dd472b059d42b70eab6cea75747"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Application/Services/WorkbenchApplication.cs",
+      "sha256": "45899cfb860e014ea629fb23912bb1042d513148c1c5049c825cdffd226b8ae5"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/FileIO/BoundedFile.cs",
+      "sha256": "5f1d90cec70bb0657d86548ebfbb3499b4b5558c4258421f39de2a1bdb38768a"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDesignArchive.cs",
+      "sha256": "6d6ae7eb7fff1b4b9454e3a0b7eb910bfdea0acc3409dde42f645271a0fd100c"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/NonSequential/NonSequentialDesignArchiveStore.cs",
+      "sha256": "e8c0364146cc670c460b502b30afacf62ba0dcf2cadc8dd20d569acaf8653e6b"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/ProjectArchive.cs",
+      "sha256": "09b7d4dd3f08c042b89301b2d18be706075fc6bff1f194cd851641ee6e690149"
+    },
+    {
+      "path": "src/OpticalSystemDesign.Core/Serialization/ProjectArchiveStore.cs",
+      "sha256": "a660cfc33a89730b83b46276c172a7ffcefdae1b17d399bc58312a7e423d3620"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/NonSequentialDesignArchiveTests.cs",
+      "sha256": "b62697dedf082b7d9a391ba21b4e87ce8d528b05a897d17c40c6810b4ff21e31"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ProjectArchiveTests.cs",
+      "sha256": "73821854880702527befa473ff88aea41371c0d61090adbef7b781effa217e02"
+    },
+    {
+      "path": "tests/OpticalSystemDesign.Tests/ProjectArchiveWindowTests.cs",
+      "sha256": "901eb61df396e61959d6870c4b06e0e777810e68636e855a8eac5debc29c62b1"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "create-Light.png",
+      "bytes": 43325,
+      "sha256": "414a4f13ffd8452cda40bc9169edd83300670abf68ffa3270e24a15a0216b435"
+    },
+    {
+      "path": "restored-Dark.png",
+      "bytes": 80857,
+      "sha256": "bc082474e761443ccb55e65f398e0389b5a94dcee143e8bbf12c75d6d306ddd4"
+    },
+    {
+      "path": "restored-Isekai.png",
+      "bytes": 95960,
+      "sha256": "fb352ea75c46fc53d4a608c1ca18ec0e228102a408e4f0054fc5d1151f89e54d"
+    },
+    {
+      "path": "starpack-functional-final.trx.gz",
+      "bytes": 4981,
+      "sha256": "dbb44957a939c0f6cf8425261bf35e571103d6b01584d52e2aa7450e4e1ee9d3"
+    },
+    {
+      "path": "starpack-document-regressions.trx.gz",
+      "bytes": 5007,
+      "sha256": "9fb6a667a8ad96951d458c93a2912751966c12a1e1fce6dbc3c7088e23fec405"
+    },
+    {
+      "path": "solution-build.log.gz",
+      "bytes": 831,
+      "sha256": "6196856d14d13838cde454993363fbf5680220b4747ca7e5fd2a60eeca745245"
+    }
+  ]
+}
