@@ -22,7 +22,9 @@ public static partial class DirectCameraRenderer
         if (settings.Width < 4 || settings.Height < 4 || settings.Width > 16384 || settings.Height > 16384
             || sourceBandCounts.Count is < 1 or > 16 || sourceBandCounts.Any(n => n is < 1 or > 16)
             || physicalSurfaceCount is < 1 or > 256 || settings.PupilRings is < 1 or > MaximumPupilRings || settings.PupilArms is < 4 or > 32
-            || !double.IsFinite(settings.PixelPitchMicrometers) || settings.PixelPitchMicrometers is < .1 or > 100)
+            || !double.IsFinite(settings.PixelPitchMicrometers) || settings.PixelPitchMicrometers is < .1 or > 100
+            || !Enum.IsDefined(settings.PupilSampling)
+            || settings.PupilSampling == CameraPupilSampling.AreaStratifiedDisk && settings.PupilRings * settings.PupilArms % 2 != 0)
             throw new ArgumentException("Invalid complete-sensor batch settings.");
         var pixelNodes = CameraPixelAperture.Quadrature(settings.PixelSampling).Count;
         var pixels = checked((long)settings.Width * settings.Height); var nodes = sourceBandCounts.Sum();

@@ -13,8 +13,11 @@ using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Analysis.Imaging;
 
+public enum CameraPupilSampling { GaussianRings, AreaStratifiedDisk }
+
 public sealed record DirectCameraRenderSettings(int Width, int Height, double PixelPitchMicrometers,
-    CameraPixelSampling? PixelSampling = null, int PupilRings = 2, int PupilArms = 8, bool BareInterfaceFresnel = true);
+    CameraPixelSampling? PixelSampling = null, int PupilRings = 2, int PupilArms = 8, bool BareInterfaceFresnel = true,
+    CameraPupilSampling PupilSampling = CameraPupilSampling.GaussianRings);
 public sealed record DirectCameraRenderResult(SpectralDetectorPower DetectorPower, RgbImage VisibleReflectance,
     long LaunchedRays, long PassedLensRays, long SceneHitRays, long SurfaceInteractions,
     long ShadowQueries, long ShadowedLightSamples, double PupilPlaneZMillimeters, double PupilPlaneRadiusMillimeters);
@@ -50,7 +53,7 @@ public static partial class DirectCameraRenderer
             throw new NotSupportedException("三维直射首版不支持切趾或偏振设置，请显式关闭后运行。");
         Inspect(surfaces, scene.WavelengthsNanometers);
         var pixelNodes = CameraPixelAperture.Quadrature(settings.PixelSampling);
-        var pupilNodes = ApertureSampler.GenerateGaussianQuadrature(settings.PupilRings, settings.PupilArms);
+        var pupilNodes = CameraPupilQuadrature.Generate(settings);
         var rayBudget = checked((long)settings.Width * settings.Height * pixelNodes.Count * pupilNodes.Count * scene.WavelengthsNanometers.Count);
         if (rayBudget > MaximumRays || rayBudget * (surfaces.Length - 2) > MaximumSurfaceInteractions)
             throw new ArgumentException("三维场景追迹超过光线/表面工作上限，请降低分辨率或采样。");

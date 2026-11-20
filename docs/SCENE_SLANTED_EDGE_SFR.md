@@ -1,6 +1,6 @@
 # 物方棋盘与线性场景斜边
 
-截至 2026-11-05，已接入 M1 单 ROI、M2 预算内全幅逐源谱，以及 M3 的原始线性图多 ROI 测量与两类边缘方向，遵循[Ansys 工作流计划](ANSYS_SCENE_SFR_IMPLEMENTATION_PLAN_2026-11-02.md)。正式几何参考、MTF Mapper 同图复核与采样梯级见[本轮验收记录](../validation/rechecks/2026-11-05/scene-mtf/README.md)。原文 5000×3000 和 ROM 继续开放。[M1](../validation/rechecks/2026-11-02/ansys-scene-sfr/README.md)、[M2](../validation/rechecks/2026-11-02/scene-linear-batch/README.md)与[多 ROI 记录](../validation/rechecks/2026-11-03/scene-multi-roi-sfr/README.md)各保留自身范围。
+截至 2026-11-20，已接入 M1 单 ROI、M2 预算内全幅逐源谱，以及 M3 的原始线性图多 ROI 测量与两类边缘方向，遵循[Ansys 工作流计划](ANSYS_SCENE_SFR_IMPLEMENTATION_PLAN_2026-11-02.md)。正式几何参考与首次独立复核见[11 月 5 日记录](../validation/rechecks/2026-11-05/scene-mtf/README.md)，面积分层采样的修复与复验见[11 月 20 日记录](../validation/rechecks/2026-11-20/scene-mtf-sampling/README.md)。原文 5000×3000 和 ROM 继续开放。[M1](../validation/rechecks/2026-11-02/ansys-scene-sfr/README.md)、[M2](../validation/rechecks/2026-11-02/scene-linear-batch/README.md)与[多 ROI 记录](../validation/rechecks/2026-11-03/scene-multi-roi-sfr/README.md)各保留自身范围。
 
 ## 使用入口
 
@@ -31,6 +31,10 @@
 ## 全幅逐波段
 
 此页有独立、显式的靶标和完整传感器参数。默认 128×128、3 µm、每像元 1 点、2×4 瞳面节点，用于流程检查。宽、高和像元尺寸直接定义完整物理传感器，不代表原文相机。所有任务冻结同一个镜头、像面、棋盘和像元；分块按完整行输出，横纵坐标和瞳面包络始终按整幅传感器计算。没有中央 ROI 拼图或每块重新居中。
+
+新建全幅任务默认选用“面积分层圆盘”：总节点数为“瞳面采样组数”乘“每组节点数”，使用等面积径向分层、黄金角分布及中心对称点对，避免整圈高斯节点同时跨过硬孔径边界。总节点数须为偶数，光线与表面传播预算不变；被遮挡节点的贡献为零，不按通光比例重新归一。真实镜头、像元、场景、立体角和界面损失计算保持原路径。默认的低节点数仍仅用于流程检查，选用此方法本身不产生收敛判定。
+
+“高斯同心环 · 旧实验”保留原节点及 `SceneLinearBatch/1` 身份。新方法使用独立 `SceneLinearBatch/2` 身份。接口请求省略 `PupilSampling` 时仍表示旧方法，旧请求序列化也省略其默认值，保留已有清单和 ROI 伴随文件的摘要。打开文件恢复其方法；按冻结条件复算沿用文件方法，切换方法则清除当前图像及其 ROI 结果。单 ROI 诊断、局部 PSF 和普通三维相机的原采样默认值保持各自既有范围。
 
 “当前镜头各波长分别生成”保留每条波长行，包括零权重行。选中“将镜头权重作为物方源辐亮度倍率”时，节点辐亮度为输入带宽辐亮度乘原权重；不把权重归一化，也不沿用局部 PSF 的像面相对能量语义。取消该选项时，各任务使用相同声明辐亮度。零倍率任务保留黑色全幅数据及原始行身份。
 

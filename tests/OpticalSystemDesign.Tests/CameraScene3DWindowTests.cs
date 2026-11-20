@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Headless;
+using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -27,7 +28,7 @@ public sealed class CameraScene3DWindowTests
             var window = new CameraImagingWindow(app) { Width = 1080, Height = 820 };
             try
             {
-                window.Show(); var controls = window.GetVisualDescendants().OfType<Control>().ToArray();
+                window.Show(); var controls = window.GetLogicalDescendants().OfType<Control>().ToArray();
                 ComboBox Choice(string name) => controls.OfType<ComboBox>().Single(c => c.Name == "camera-" + name);
                 NumericUpDown Number(string name) => controls.OfType<NumericUpDown>().Single(c => c.Name == "camera-" + name);
                 Choice("spectral-model").SelectedIndex = (int)CameraSpectralModel.Continuous;

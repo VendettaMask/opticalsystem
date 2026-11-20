@@ -7,6 +7,7 @@ using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Laboratories;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Services;
+using OpticalSystemDesign.Core.Analysis.Imaging;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -40,8 +41,13 @@ public sealed class SceneLinearBatchWindowTests
                 foreach (var (key, value) in new (string, decimal)[] { ("distance", 100), ("cell", 2), ("columns", 4), ("rows", 4),
                     ("x", 0), ("y", 1), ("width", 32), ("height", 40), ("pitch", 10), ("rings", 1), ("arms", 4), ("strips", 7) }) Number(key).Value = value;
                 window.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "camera-scene-batch-mode").SelectedIndex = mode;
+                var sampling = window.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "camera-scene-batch-pupil-sampling");
+                Assert.Equal(1, sampling.SelectedIndex);
+                sampling.SelectedIndex = mode == 0 ? 1 : 0;
                 await window.RunSceneBatchToPathAsync(path);
                 var artifact = window.SceneBatchArtifact!; Assert.NotNull(artifact); Assert.NotNull(window.SceneBatchImage);
+                Assert.Equal(mode == 0 ? CameraPupilSampling.AreaStratifiedDisk : CameraPupilSampling.GaussianRings,
+                    artifact.Manifest.Plan.Request.PupilSampling);
                 Assert.Equal(3, artifact.Manifest.Outputs.Count); Assert.Equal(32 * 40, window.SceneBatchImage!.PowerWatts.Count);
                 Assert.Equal(mode == 0 ? 3 : 24, artifact.Manifest.Plan.Work.SpectralNodes);
                 var tasks = window.GetVisualDescendants().OfType<ComboBox>().Single(c => c.Name == "camera-scene-batch-task");
@@ -50,16 +56,24 @@ public sealed class SceneLinearBatchWindowTests
                 if (mode == 0) Assert.All(window.SceneBatchImage.PowerWatts, v => Assert.Equal(0, v));
                 await app.Documents.OpenAsync(DoubleGaussSfrTests.StandardLens); Dispatcher.UIThread.RunJobs(); Assert.Null(window.SceneBatchArtifact);
                 Assert.True(await window.OpenSceneBatchFromPathAsync(path));
+                Assert.Equal((int)artifact.Manifest.Plan.Request.PupilSampling, sampling.SelectedIndex);
                 await app.Documents.OpenAsync(SlantedEdgeSfrTests.ReferenceLens); Dispatcher.UIThread.RunJobs();
                 Assert.Equal(artifact.Manifest.Plan.LensSha256, window.SceneBatchArtifact!.Manifest.Plan.LensSha256);
                 await window.RunSceneBatchToPathAsync(replay, true);
                 Assert.Equal(artifact.Manifest.Files.Select(f => f.Sha256), window.SceneBatchArtifact!.Manifest.Files.Select(f => f.Sha256));
+                sampling.SelectedIndex = 1 - sampling.SelectedIndex;
+                Assert.Null(window.SceneBatchArtifact);
+                Assert.True(await window.OpenSceneBatchFromPathAsync(path));
                 Dispatcher.UIThread.RunJobs(); window.UpdateLayout(); AvaloniaHeadlessPlatform.ForceRenderTimerTick();
                 var evidence = Environment.GetEnvironmentVariable("SCENE_LINEAR_EVIDENCE");
                 if (!string.IsNullOrWhiteSpace(evidence))
                 {
                     Directory.CreateDirectory(evidence);
-                    var scroller = inner.GetVisualDescendants().OfType<ScrollViewer>().First(); scroller.ScrollToEnd();
+                    var scroller = inner.GetVisualDescendants().OfType<ScrollViewer>().First(); scroller.ScrollToHome();
+                    Dispatcher.UIThread.RunJobs(); window.UpdateLayout(); AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+                    using (var settingsFrame = window.CaptureRenderedFrame())
+                        settingsFrame?.Save(Path.Combine(evidence, theme.ToLowerInvariant() + "-full-frame-settings.png"), PngBitmapEncoderOptions.Default);
+                    scroller.ScrollToEnd();
                     Dispatcher.UIThread.RunJobs(); window.UpdateLayout(); AvaloniaHeadlessPlatform.ForceRenderTimerTick();
                     using var frame = window.CaptureRenderedFrame(); frame?.Save(Path.Combine(evidence, theme.ToLowerInvariant() + "-full-frame-page.png"), PngBitmapEncoderOptions.Default);
                 }

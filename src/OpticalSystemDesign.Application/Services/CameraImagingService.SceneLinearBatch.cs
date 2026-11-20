@@ -74,17 +74,23 @@ internal sealed partial class CameraImagingService
         // 8,388,608 double-value budget; storage is independent of display RGB and the old 64 MiB JSON archive.
         var values = checked(work.Pixels * (tasks.Sum(t => t.Nodes.Count) + tasks.Count(t => t.Nodes.Count > 1) + tasks.Length));
         var failure = work.Failure ?? (values > SpectralDetectorPower.MaximumPixelBands ? "全部任务浮点数据超过既有 8388608 数值预算。" : null);
-        return new(CameraSceneLinearBatchPlan.FormatIdentifier, 1, CameraSceneLinearBatchPlan.CurrentAlgorithm, document,
+        var algorithm = request.PupilSampling == CameraPupilSampling.GaussianRings
+            ? CameraSceneLinearBatchPlan.CurrentAlgorithm : CameraSceneLinearBatchPlan.AreaStratifiedAlgorithm;
+        return new(CameraSceneLinearBatchPlan.FormatIdentifier, 1, algorithm, document,
             lens, SfrHash(lens), request, Array.AsReadOnly(tasks), work, values, failure is null, failure);
     }
 
     private static DirectCameraRenderSettings LinearBatchSettings(CameraSceneLinearBatchRequest request) => new(request.Width, request.Height,
-        request.PixelPitchMicrometers, new(request.PixelSamplesPerAxis, request.FillFactor), request.PupilRings, request.PupilArms, request.BareInterfaceFresnel);
+        request.PixelPitchMicrometers, new(request.PixelSamplesPerAxis, request.FillFactor), request.PupilRings, request.PupilArms,
+        request.BareInterfaceFresnel, request.PupilSampling);
 
     private static (CameraSceneLinearBatchPlan Plan, Optic Optic) ValidateLinearPlan(CameraSceneLinearBatchPlan plan)
     {
         ArgumentNullException.ThrowIfNull(plan);
-        if (plan.Format != CameraSceneLinearBatchPlan.FormatIdentifier || plan.SchemaVersion != 1 || plan.Algorithm != CameraSceneLinearBatchPlan.CurrentAlgorithm
+        var expectedAlgorithm = plan.Request?.PupilSampling == CameraPupilSampling.AreaStratifiedDisk
+            ? CameraSceneLinearBatchPlan.AreaStratifiedAlgorithm : CameraSceneLinearBatchPlan.CurrentAlgorithm;
+        if (plan.Format != CameraSceneLinearBatchPlan.FormatIdentifier || plan.SchemaVersion != 1 || plan.Algorithm != expectedAlgorithm
+            || plan.Request is null || !Enum.IsDefined(plan.Request.PupilSampling)
             || plan.LensSnapshotJson is null || SfrHash(plan.LensSnapshotJson) != plan.LensSha256 || plan.SourceDocument is null)
             throw new InvalidDataException("Invalid frozen full-sensor plan identity.");
         var optic = RestoreLens(plan.LensSnapshotJson);

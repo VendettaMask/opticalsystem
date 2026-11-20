@@ -1,0 +1,91 @@
+{
+  "date": "2026-11-20",
+  "lens": "Objectives/Double Gauss 28 degree field.zmx",
+  "scope": "64x64, 3 um, 100 m, 587.6 nm, finite scene, frozen image plane, 0-0.10 cycles/pixel engineering control",
+  "new_method_cases": 10,
+  "new_method_roi_combinations": 13,
+  "new_method_tool_passed": 13,
+  "new_method_formal_passed": 13,
+  "legacy_cases": 2,
+  "legacy_failed_convergence_preserved": true,
+  "coarse_new_method_failures_preserved": true,
+  "unique_targeted_tests": 47,
+  "test_runs_overlap_not_additive": {
+    "focused-final": {
+      "passed": 47,
+      "failed": 0,
+      "sha256": "64b02aa2de41895144ff16c7c1df52db4901bb8f48ab9a7e8a049ae9302e1615"
+    },
+    "guard-final": {
+      "passed": 7,
+      "failed": 0,
+      "sha256": "fb8f69e2ab8d0f2cd773567e60c6de48506907ab21c85e012ee333d89cd31af3"
+    },
+    "ui-final": {
+      "passed": 2,
+      "failed": 0,
+      "sha256": "76a6461c6348c5d59d8df8d92b9bf192d396c2568e36e8cdf22c1a4fc650fedb"
+    }
+  },
+  "default_app_build_passed": true,
+  "default_app_build_warnings": 0,
+  "default_app_build_errors": 0,
+  "final_default_test_directory_verification": false,
+  "final_test_output": "tests/OpticalSystemDesign.Tests/bin/SceneMtf20261120",
+  "native_windows_opened": 0,
+  "user_app_restarts": 0,
+  "processes_stopped": 0,
+  "original_full_resolution_verified": false,
+  "rom_verified": false,
+  "all95_precision_claim": false,
+  "nyquist_full_band_pass_claim": false,
+  "source_sha256": {
+    "labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/CameraPupilQuadrature.cs": "0848a335c37cd60926d41ff1cf48545a6b105af42b6fd1aacc8bf2537e9c3914",
+    "labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/DirectCameraRenderer.cs": "b23b07229c09e7019febdaa520a9082b0703cd0573727f68b4a7e7ca35127b4a",
+    "labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/DirectCameraRenderer.Batch.cs": "ebd40a5487d815dd4b3936722f539ead8823255c8253bb9c4f4dc168bcbf0bd5",
+    "src/OpticalSystemDesign.Application/Contracts/CameraSceneLinearBatchContracts.cs": "b34dc81e69477dd75c214ff31bd11cde6a75ff3d75fb84ea3c9fca6bf9807faa",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.SceneLinearBatch.cs": "4e4c21e3c1b3670813ec0c02ebdda0137be11b3f34c5205e3802e47ba0d6afcb",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneBatch.cs": "5e28c6995f07613f1a9f5e85002ef259beaf5fdb03faad524d64bad18a9eaeac",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.CameraPixelSampling.cs": "7e27e05cfe658ea1fdeacb3b740ee9e25773e9d2680312859528d1796c9a13c3",
+    "tests/OpticalSystemDesign.Tests/CameraPupilQuadratureTests.cs": "818e3e6413da141210be74087754c71164a94badb8d197aa9d287c4156df5a7a",
+    "tests/OpticalSystemDesign.Tests/SceneLinearBatchWindowTests.cs": "517164d38f38b732ab5133ccca72bff120ac953839b6687d590b797ceaefc800",
+    "tests/OpticalSystemDesign.Tests/CameraScene3DWindowTests.cs": "d7f9763be4b3aaf85fe23b4233cca015dfadc6c07cf0ee8a72d8e71d3f96280e",
+    "tools/diagnostics/SceneMtf20261120/Program.cs": "876f238445acc6217ae71f6aa20d0a835fe2721bf83dc05751c0a244e8b6bf1d",
+    "tools/diagnostics/SceneMtf20261120/check_sampling.py": "490354749e60794ccadae98c0e8ae0482527b6afa47b667f75f739238fa7a40a"
+  },
+  "checked_binaries_sha256": {
+    "OpticalSystemDesign.Tests.dll": "f42995b48bee5fa61d7cb7d9e80a4a16a1c9c302126ba48103a5c20f13df6ecb",
+    "OpticalSystemDesign.App.dll": "db5a19cae2bac32f2838818b5ca93da781895e4f9a74e784fbc784f539412db9",
+    "OpticalSystemDesign.Application.dll": "d005926ba1b0cd28c77746b0b44f0ec5a72b2032ca43426f30bac73d5dcba455",
+    "OpticalSystemDesign.CameraImaging.Engine.dll": "dba1050c80719d7e74bbca0840c19f752ad48455fec28cd5fad0307d9a8d1435",
+    "OpticalSystemDesign.Core.dll": "9c7e6f87efdeb914544ddf9f112495dfa008a904f8b8fdeed8e759d1a3c3bfae"
+  },
+  "evidence_sha256": {
+    "sampling.json": "5a77c18be0b78efe5905653d1dbd0c6694e95698a4ebcc98d227578a70f7770d",
+    "cross-check.json": "4f13ffaedeeb92dda8ceeee61f0edc52bdd748b0e68df2ff52184636385e0a73",
+    "probe.json": "fbf07fd0bd9208769154a89556dfcbc2f296c875f728d5ffc5a86d6a3ac1ecca",
+    "app-build-final.log": "2c37fe9cadd05ec736a658597a672875c0f49d33b5241257afb1f610a9997b5b",
+    "trial-comparison.json": "ba548fa620b585c1d6a21832781c918b70a979c79d239c0aab2e20bebdc3448b"
+  },
+  "working_source_sha256": {
+    "labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/CameraPupilQuadrature.cs": "0848a335c37cd60926d41ff1cf48545a6b105af42b6fd1aacc8bf2537e9c3914",
+    "labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/DirectCameraRenderer.cs": "83a90539ebb685458870a82b6b4f3275e461c18de8faca9b2ecb18f2d93665f2",
+    "labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/DirectCameraRenderer.Batch.cs": "3b2d01241898ba0c60c352674fed8b07e90024cf9ef5884c3fa8d60311ef46b9",
+    "src/OpticalSystemDesign.Application/Contracts/CameraSceneLinearBatchContracts.cs": "b34dc81e69477dd75c214ff31bd11cde6a75ff3d75fb84ea3c9fca6bf9807faa",
+    "src/OpticalSystemDesign.Application/Services/CameraImagingService.SceneLinearBatch.cs": "4e4c21e3c1b3670813ec0c02ebdda0137be11b3f34c5205e3802e47ba0d6afcb",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneBatch.cs": "cef5d7a938df76556804edbb02d3aa250d483d2242252fd4f71d84a49ecbbe04",
+    "src/OpticalSystemDesign.App/Services/UiLocalization.CameraPixelSampling.cs": "7e27e05cfe658ea1fdeacb3b740ee9e25773e9d2680312859528d1796c9a13c3",
+    "tests/OpticalSystemDesign.Tests/CameraPupilQuadratureTests.cs": "818e3e6413da141210be74087754c71164a94badb8d197aa9d287c4156df5a7a",
+    "tests/OpticalSystemDesign.Tests/SceneLinearBatchWindowTests.cs": "517164d38f38b732ab5133ccca72bff120ac953839b6687d590b797ceaefc800",
+    "tests/OpticalSystemDesign.Tests/CameraScene3DWindowTests.cs": "d7f9763be4b3aaf85fe23b4233cca015dfadc6c07cf0ee8a72d8e71d3f96280e",
+    "tools/diagnostics/SceneMtf20261120/Program.cs": "c17d4670982ea450c3c0f462efc0e4b7a46d28cb3776f711e389223562853014",
+    "tools/diagnostics/SceneMtf20261120/check_sampling.py": "490354749e60794ccadae98c0e8ae0482527b6afa47b667f75f739238fa7a40a"
+  },
+  "source_hash_note": "source_sha256 hashes staged Git source bytes; working_source_sha256 retains the validated working bytes before Git CRLF-to-LF normalization. Frozen optical evidence is not normalized.",
+  "git_eol_normalized_sources": [
+    "labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/DirectCameraRenderer.cs",
+    "labs/CameraImaging/src/OpticalSystemDesign.CameraImaging.Engine/DirectCameraRenderer.Batch.cs",
+    "src/OpticalSystemDesign.App/Laboratories/CameraImagingWindow.SceneBatch.cs",
+    "tools/diagnostics/SceneMtf20261120/Program.cs"
+  ]
+}

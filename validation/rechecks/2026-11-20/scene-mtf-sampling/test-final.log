@@ -1,0 +1,20 @@
+  OpticalSystemDesign.Core -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.Core.dll
+  OpticalSystemDesign.CameraImaging.Engine -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.CameraImaging.Engine.dll
+  OpticalSystemDesign.OpticalAssembly.Engine -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.OpticalAssembly.Engine.dll
+  OpticalSystemDesign.Application -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.Application.dll
+  OpticalSystemDesign.InitialStructure.Contracts -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.InitialStructure.Contracts.dll
+  OpticalSystemDesign.InitialStructure.Engine -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.InitialStructure.Engine.dll
+  OpticalSystemDesign.CoatingDesign.Engine -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.CoatingDesign.Engine.dll
+  OpticalSystemDesign.Modules -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.Modules.dll
+  OpticalSystemDesign.InitialStructure.Persistence -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.InitialStructure.Persistence.dll
+  OpticalSystemDesign.App -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.App.dll
+  OpticalSystemDesign.LensLibraryBuilder -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.LensLibraryBuilder.dll
+  OpticalSystemDesign.ZemaxLibraryImporter -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\ZemaxLibraryImporter.dll
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\ProjectArchiveTests.cs(60,24): warning xUnit2031: Do not use a Where clause to filter before calling Assert.Single. Use the overload of Assert.Single that accepts a filtering function. (https://xunit.net/xunit.analyzers/rules/xUnit2031) [D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj]
+  OpticalSystemDesign.Tests -> D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\OpticalSystemDesign.Tests.dll
+  Exception: D:\optical system design\opticalsystem\tools\validation\EvidenceAliases.ps1:156
+  Line |
+   156 |              throw 'Generated output must be separate from captured ev …
+       |              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+       | Generated output must be separate from captured evidence.
+D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj(255,5): error MSB3073: 命令“pwsh -NoProfile -File "D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests/../../tools/validation/EvidenceAliases.ps1" -Mode Materialize -RepositoryRoot "D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests/../.." -DestinationRoot "D:\optical system design\opticalsystem\artifacts\scene-mtf-tests-20261120\." -FixtureLayout -FetchLfs -ProjectPath "D:\optical system design\opticalsystem\tests\OpticalSystemDesign.Tests\OpticalSystemDesign.Tests.csproj"”已退出，代码为 1。

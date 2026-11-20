@@ -36,6 +36,15 @@ internal static partial class UiLocalization
         add("点光源功率倍率", "Light Power Scale", "点光源パワー倍率");
         add("瞳面径向环数", "Pupil Rings", "瞳の径方向点数");
         add("每环方位点数", "Points per Ring", "各環の方位点数");
+        add("瞳面采样方法", "Pupil Sampling Method", "瞳のサンプリング方式");
+        add("瞳面采样组数", "Pupil Sample Groups", "瞳サンプル群数");
+        add("每组节点数", "Nodes per Group", "各群の点数");
+        add("高斯同心环 · 旧实验", "Gaussian Rings · Legacy", "ガウス同心環・従来実験");
+        add("面积分层圆盘", "Area-stratified Disk", "面積層化円盤");
+        add("面积分层使用组数与每组节点数的乘积作为总节点数；保留实际孔径遮挡和全局预算。采样加密后仍需检查收敛。",
+            "Area stratification uses groups × nodes per group as the total node count. Real aperture clipping and the global budget remain active. Check convergence after refinement.",
+            "面積層化の総点数は群数×各群の点数です。実開口の遮蔽と全体計算量の上限を維持します。高密度化後も収束を確認してください。");
+        add("瞳面采样方法已改变，请重新生成全幅实验。", "Pupil sampling changed. Regenerate the full-frame experiment.", "瞳のサンプリング方式が変わりました。全画面実験を再生成してください。");
         add("计算裸界面 Fresnel 损失", "Bare Interface Fresnel Loss", "裸界面のFresnel損失");
         add("衍射瞳面每边采样", "Pupil Grid", "回折瞳グリッド");
         add("每像元场景细分", "Scene Subdivision", "シーン細分");

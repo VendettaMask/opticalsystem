@@ -1,0 +1,30 @@
+area-4 edge tool True formal True {'max_abs': 0.026176130796084718, 'rms': 0.017516091424956283, 'mtf50_abs_cycles_per_pixel': 0.0025713574934508876}
+area-8 edge tool True formal True {'max_abs': 0.03868782495531242, 'rms': 0.0247966092456519, 'mtf50_abs_cycles_per_pixel': 0.00363189741378038}
+area-16 edge tool True formal True {'max_abs': 0.040728176825304774, 'rms': 0.021662382812595325, 'mtf50_abs_cycles_per_pixel': 0.0030658837775919684}
+area-24 edge tool True formal True {'max_abs': 0.0379107511213056, 'rms': 0.0194016412494035, 'mtf50_abs_cycles_per_pixel': 0.0027212124503657315}
+area-24 window-12 tool True formal True {'max_abs': 0.037980433598604146, 'rms': 0.019617568341796, 'mtf50_abs_cycles_per_pixel': 0.002743450479601381}
+area-24 window-20 tool True formal True {'max_abs': 0.03780341839888213, 'rms': 0.019305799931774413, 'mtf50_abs_cycles_per_pixel': 0.0027242811542210893}
+area-24 roi-short tool True formal True {'max_abs': 0.037756994501918495, 'rms': 0.019500472767462442, 'mtf50_abs_cycles_per_pixel': 0.002743283526557283}
+area-32 edge tool True formal True {'max_abs': 0.04136843441867427, 'rms': 0.021665770282014163, 'mtf50_abs_cycles_per_pixel': 0.003051501031698059}
+pixel-centre edge tool True formal True {'max_abs': 0.04662586000196667, 'rms': 0.029821966456987755, 'mtf50_abs_cycles_per_pixel': 0.004404014928630323}
+pixel-4 edge tool True formal True {'max_abs': 0.03964822897354786, 'rms': 0.025331750707475415, 'mtf50_abs_cycles_per_pixel': 0.0037124566766237738}
+angle-7 edge tool True formal True {'max_abs': 0.036736552752201834, 'rms': 0.018440141341434665, 'mtf50_abs_cycles_per_pixel': 0.0025634062473604002}
+phase-quarter edge tool True formal True {'max_abs': 0.037503475289904054, 'rms': 0.019101931544771293, 'mtf50_abs_cycles_per_pixel': 0.0026737626020905125}
+gaussian-24 edge tool True formal True {'max_abs': 0.0060977018898604185, 'rms': 0.0032970728895931165, 'mtf50_abs_cycles_per_pixel': 0.00043661664909762365}
+gaussian-32 edge tool True formal False {'max_abs': 0.07080700871202533, 'rms': 0.03675991119548293, 'mtf50_abs_cycles_per_pixel': 0.00542056195029858}
+horizontal edge tool True formal True {'max_abs': 0.03076213722763388, 'rms': 0.015232914715502963, 'mtf50_abs_cycles_per_pixel': 0.002105106227693776}
+area-4 -> area-8 False {'max_abs': 0.027682939398889772, 'rms': 0.009639430834168477, 'mtf50_abs_cycles_per_pixel': 0.0010618301543517117}
+area-8 -> area-16 True {'max_abs': 0.006679230366213318, 'rms': 0.004197355434882161, 'mtf50_abs_cycles_per_pixel': 0.0005632188331364113}
+area-16 -> area-24 True {'max_abs': 0.0031505380794105142, 'rms': 0.0023238620232007203, 'mtf50_abs_cycles_per_pixel': 0.00033610041043589944}
+area-24 -> area-32 True {'max_abs': 0.0034218432331546977, 'rms': 0.0023145880819552362, 'mtf50_abs_cycles_per_pixel': 0.0003257374915372202}
+pixel-centre -> area-8 True {'max_abs': 0.007961793457570365, 'rms': 0.0050271133401477855, 'mtf50_abs_cycles_per_pixel': 0.0007723183960531149}
+area-8 -> pixel-4 True {'max_abs': 0.0010162735180056504, 'rms': 0.0005409798097121354, 'mtf50_abs_cycles_per_pixel': 8.076130787813829e-05}
+area-4 -> pixel-4 False {'max_abs': 0.028699212916895422, 'rms': 0.010129909174449288, 'mtf50_abs_cycles_per_pixel': 0.00114259146222985}
+pixel-centre -> area-16 True {'max_abs': 0.012968424146107882, 'rms': 0.008693146886141485, 'mtf50_abs_cycles_per_pixel': 0.0013355372291895262}
+area-24 -> angle-7 True {'max_abs': 0.0015609075024072272, 'rms': 0.0010575473843890723, 'mtf50_abs_cycles_per_pixel': 0.00016586940227386604}
+area-24 -> phase-quarter True {'max_abs': 0.00043959829395934236, 'rms': 0.00030275086829567317, 'mtf50_abs_cycles_per_pixel': 4.6535460887855984e-05}
+area-24 -> horizontal True {'max_abs': 0.007213602480474368, 'rms': 0.0042678388146260545, 'mtf50_abs_cycles_per_pixel': 0.0006216717604604766}
+gaussian-24 -> gaussian-32 False {'max_abs': 0.07690704672166115, 'rms': 0.04005623144668955, 'mtf50_abs_cycles_per_pixel': 0.005857188374378805}
+area-24/edge -> area-24/window-12 True {'max_abs': 0.0006620094297796753, 'rms': 0.0003956508271473569, 'mtf50_abs_cycles_per_pixel': 2.2238029235649437e-05}
+area-24/edge -> area-24/window-20 True {'max_abs': 0.0005841091264076059, 'rms': 0.000312368993219745, 'mtf50_abs_cycles_per_pixel': 3.068703855357846e-06}
+area-24/edge -> area-24/roi-short True {'max_abs': 0.0002513226849958361, 'rms': 0.00015229674314080012, 'mtf50_abs_cycles_per_pixel': 2.0331322603789337e-05}

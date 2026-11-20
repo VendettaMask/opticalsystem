@@ -14,10 +14,13 @@ namespace OpticalSystemDesign.App.Laboratories;
 public sealed partial class CameraImagingWindow
 {
     private readonly Dictionary<string, CameraNumberInput> _sceneBatchNumbers = [];
+    private readonly Dictionary<string, TextBlock> _sceneBatchLabels = [];
     private readonly ComboBox _sceneBatchMode = new() { Name = "camera-scene-batch-mode", Width = 310,
         ItemsSource = new[] { "当前镜头各波长分别生成", "原文三种源谱形状 · 当前镜头", "文件中的自定义源" }, SelectedIndex = 0 };
     private readonly CheckBox _sceneBatchWeights = new() { Content = "将镜头权重作为物方源辐亮度倍率", IsChecked = true };
     private readonly CheckBox _sceneBatchFresnel = new() { Content = "裸界面 Fresnel 损失", IsChecked = true };
+    private readonly ComboBox _sceneBatchPupilSampling = new() { Name = "camera-scene-batch-pupil-sampling", Width = 310,
+        ItemsSource = new[] { "高斯同心环 · 旧实验", "面积分层圆盘" }, SelectedIndex = 1 };
     private readonly Button _sceneBatchRun = new() { Name = "camera-scene-batch-run", Content = "生成全幅线性实验" };
     private readonly Button _sceneBatchReplay = new() { Content = "按冻结条件另存复算" };
     private readonly Button _sceneBatchOpen = new() { Content = "打开全幅线性实验" };
@@ -47,7 +50,8 @@ public sealed partial class CameraImagingWindow
             var input = new CameraNumberInput { Name = "camera-scene-batch-" + key, Value = value, Minimum = min, Maximum = max,
                 Increment = integer ? 1 : .1m, IntegerOnly = integer, Width = 108, FormatString = "0.########" };
             AutomationProperties.SetName(input, label); _sceneBatchNumbers[key] = input;
-            fields.Children.Add(new StackPanel { Spacing = 4, Margin = new(0, 0, 16, 10), Children = { new TextBlock { Text = label }, input } });
+            var caption = new TextBlock { Text = label }; _sceneBatchLabels[key] = caption;
+            fields.Children.Add(new StackPanel { Spacing = 4, Margin = new(0, 0, 16, 10), Children = { caption, input } });
             input.ValueChanged += (_, _) => { if (!_sceneBatchApplying) ClearSceneBatch("条件已改变，请重新生成全幅实验。"); };
             input.PropertyChanged += (_, e) => { if (e.Property == NumericUpDown.TextProperty && !_sceneBatchApplying) ClearSceneBatch("请核对全幅实验参数。"); };
         }
@@ -63,6 +67,14 @@ public sealed partial class CameraImagingWindow
         Number("fill", "实际感光面积比例", 1, .0001m, 1);
         Number("pixels", "像元每边采样", 1, 1, 4, true); Number("rings", "瞳面径向环数", 2, 1, DirectCameraRenderer.MaximumPupilRings, true); Number("arms", "每环方位点数", 4, 4, 32, true);
         Number("order", "源光谱积分阶数", 2, 2, 3, true); Number("strips", "每块完整行数", 16, 1, 256, true);
+        AutomationProperties.SetName(_sceneBatchPupilSampling, "瞳面采样方法");
+        ToolTip.SetTip(_sceneBatchPupilSampling, "面积分层使用组数与每组节点数的乘积作为总节点数；保留实际孔径遮挡和全局预算。采样加密后仍需检查收敛。");
+        UpdateSceneBatchSamplingLabels();
+        _sceneBatchPupilSampling.SelectionChanged += (_, _) =>
+        {
+            UpdateSceneBatchSamplingLabels();
+            if (!_sceneBatchApplying) ClearSceneBatch("瞳面采样方法已改变，请重新生成全幅实验。");
+        };
         _sceneBatchRun.Classes.Add("accent");
         foreach (var check in new[] { _sceneBatchWeights, _sceneBatchFresnel })
             check.IsCheckedChanged += (_, _) => { if (!_sceneBatchApplying) ClearSceneBatch("光源或界面设置已改变。"); };
@@ -82,13 +94,24 @@ public sealed partial class CameraImagingWindow
         {
             new TextBlock { Text = "全幅线性成像与逐波段任务", FontWeight = FontWeight.Bold, FontSize = 18 },
             new TextBlock { Text = "同一冻结镜头、场景与完整传感器，分别生成各源谱的图像。浮点数据直接保存为功率和辐照度，附带同一标尺的 16 位线性 PNG。默认采样用于流程检查；正式 MTF 与收敛另行验证。", TextWrapping = TextWrapping.Wrap },
-            _sceneBatchMode, _sceneBatchWeights, fields, _sceneBatchFresnel, _sceneBatchBudget,
+            _sceneBatchMode, _sceneBatchWeights,
+            new TextBlock { Text = "瞳面采样方法" }, _sceneBatchPupilSampling, fields, _sceneBatchFresnel, _sceneBatchBudget,
             LaboratoryPresentation.Commands(_sceneBatchRun, _sceneBatchCancel, _sceneBatchOpen, _sceneBatchReplay),
             _sceneBatchProgress, _sceneBatchInfo, _sceneBatchTask, _sceneBatchPreview
         } });
     }
 
     private static bool SceneBatchInteger(string key) => key is "columns" or "rows" or "width" or "height" or "pixels" or "rings" or "arms" or "order" or "strips";
+    private void UpdateSceneBatchSamplingLabels()
+    {
+        var area = _sceneBatchPupilSampling.SelectedIndex == (int)CameraPupilSampling.AreaStratifiedDisk;
+        foreach (var (key, label) in new[] { ("rings", area ? "瞳面采样组数" : "瞳面径向环数"),
+            ("arms", area ? "每组节点数" : "每环方位点数") })
+        {
+            _sceneBatchLabels[key].Text = label;
+            AutomationProperties.SetName(_sceneBatchNumbers[key], label);
+        }
+    }
     private CameraSceneLinearBatchRequest ReadSceneBatchRequest()
     {
         if (_sceneBatchMode.SelectedIndex == 2 && _sceneBatchExplicitSources is null)
@@ -98,7 +121,8 @@ public sealed partial class CameraImagingWindow
         return new(new((int)V("columns"), (int)V("rows"), V("cell"), V("distance"), V("x"), V("y"), V("rx"), V("ry"), V("rz")),
             (int)V("width"), (int)V("height"), V("pitch"), (int)V("pixels"), V("fill"), (int)V("rings"), (int)V("arms"), _sceneBatchFresnel.IsChecked == true,
             (SceneLinearBatchMode)_sceneBatchMode.SelectedIndex, _sceneBatchWeights.IsChecked == true, V("bright"), V("dark"), (int)V("order"),
-            _sceneBatchMode.SelectedIndex == 2 ? _sceneBatchExplicitSources : null, (int)V("strips"), _sceneBatchRequestedPngMaximum);
+            _sceneBatchMode.SelectedIndex == 2 ? _sceneBatchExplicitSources : null, (int)V("strips"), _sceneBatchRequestedPngMaximum,
+            (CameraPupilSampling)_sceneBatchPupilSampling.SelectedIndex);
     }
 
     private void UpdateSceneBatchControls()
@@ -225,6 +249,7 @@ public sealed partial class CameraImagingWindow
                     ("bright", r.BrightBandRadiance), ("dark", r.DarkBandRadiance), ("width", r.Width), ("height", r.Height), ("pitch", r.PixelPitchMicrometers),
                     ("pixels", r.PixelSamplesPerAxis), ("fill", r.FillFactor), ("rings", r.PupilRings), ("arms", r.PupilArms), ("order", r.SpectralQuadratureOrder), ("strips", r.RowsPerStrip) }) _sceneBatchNumbers[key].Value = (decimal)value;
                 _sceneBatchMode.SelectedIndex = (int)r.Mode; _sceneBatchWeights.IsChecked = r.UseLensWeightsAsSourceMultipliers; _sceneBatchFresnel.IsChecked = r.BareInterfaceFresnel;
+                _sceneBatchPupilSampling.SelectedIndex = (int)r.PupilSampling;
             }
             finally { _sceneBatchApplying = false; }
             _sceneBatchFrozen = true; await PresentSceneBatchAsync(artifact); return true;

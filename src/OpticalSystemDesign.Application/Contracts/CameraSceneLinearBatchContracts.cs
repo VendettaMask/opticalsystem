@@ -1,4 +1,5 @@
 using OpticalSystemDesign.Core.Analysis.Imaging;
+using System.Text.Json.Serialization;
 
 namespace OpticalSystemDesign.Application.Contracts;
 
@@ -11,7 +12,9 @@ public sealed record CameraSceneLinearBatchRequest(EmissiveCheckerboardSettings?
     double FillFactor = 1, int PupilRings = 2, int PupilArms = 4, bool BareInterfaceFresnel = true,
     SceneLinearBatchMode Mode = SceneLinearBatchMode.CurrentLensWavelengths, bool UseLensWeightsAsSourceMultipliers = true,
     double BrightBandRadiance = 1, double DarkBandRadiance = .1, int SpectralQuadratureOrder = 2,
-    IReadOnlyList<SceneLinearSource>? Sources = null, int RowsPerStrip = 16, double? PngMaximumIrradiance = null);
+    IReadOnlyList<SceneLinearSource>? Sources = null, int RowsPerStrip = 16, double? PngMaximumIrradiance = null,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    CameraPupilSampling PupilSampling = CameraPupilSampling.GaussianRings);
 public sealed record SceneLinearFrozenTask(SceneLinearSource Source, IReadOnlyList<SceneEmissionNode> Nodes,
     double? ShapeAreaNanometers, double? InputShapeMaximum);
 public sealed record CameraSceneLinearBatchPlan(string Format, int SchemaVersion, string Algorithm,
@@ -21,6 +24,7 @@ public sealed record CameraSceneLinearBatchPlan(string Format, int SchemaVersion
 {
     public const string FormatIdentifier = "OpticalSystemDesign.SceneLinearBatch";
     public const string CurrentAlgorithm = "SceneLinearBatch/1; shared geometric transport; " + SceneEmissionSpectrum.Algorithm;
+    public const string AreaStratifiedAlgorithm = "SceneLinearBatch/2; area-stratified opposite-pair disk/1; shared geometric transport; " + SceneEmissionSpectrum.Algorithm;
 }
 public sealed record SceneLinearFile(string Path, string Kind, long Bytes, string Sha256, int TaskIndex, int? NodeIndex = null);
 public sealed record SceneLinearTaskOutput(string PowerPath, string IrradiancePath, string PngPath,
