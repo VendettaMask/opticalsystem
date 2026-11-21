@@ -314,17 +314,17 @@ internal static class NonSequentialVisualizationBuilder
 
     private static Vector3D[][] OpticalAssembly(OpticalSystemDesign.Core.NonSequential.OpticalAssemblyParameters assembly)
     {
-        const int angular=24,radial=4;var result=new List<Vector3D[]>();var rims=new List<Vector3D[]>();
-        for(int faceIndex=0;faceIndex<assembly.Interfaces.Count;faceIndex++)
+        const int angular = 24, radial = 4; var result = new List<Vector3D[]>(); var rims = new List<Vector3D[]>();
+        for (int faceIndex = 0; faceIndex < assembly.Interfaces.Count; faceIndex++)
         {
-            var rings=Enumerable.Range(0,radial+1).Select(i=>Enumerable.Range(0,angular).Select(j=>
-                assembly.EvaluateSurfacePoint(faceIndex,(double)i/radial,2*Math.PI*j/angular)).ToArray()).ToArray();
-            for(int i=0;i<radial;i++)for(int j=0;j<angular;j++)result.Add([rings[i][j],rings[i][(j+1)%angular],rings[i+1][(j+1)%angular],rings[i+1][j]]);
+            var rings = Enumerable.Range(0, radial + 1).Select(i => Enumerable.Range(0, angular).Select(j =>
+                assembly.EvaluateSurfacePoint(faceIndex, (double)i / radial, 2 * Math.PI * j / angular)).ToArray()).ToArray();
+            for (int i = 0; i < radial; i++) for (int j = 0; j < angular; j++) result.Add([rings[i][j], rings[i][(j + 1) % angular], rings[i + 1][(j + 1) % angular], rings[i + 1][j]]);
             rims.Add(rings[^1]);
         }
-        for(int i=0;i<rims.Count-1;i++)
-            if(!assembly.IsAmbientRegion(i))
-                for(int j=0;j<angular;j++)result.Add([rims[i][j],rims[i][(j+1)%angular],rims[i+1][(j+1)%angular],rims[i+1][j]]);
+        for (int i = 0; i < rims.Count - 1; i++)
+            if (!assembly.IsAmbientRegion(i))
+                for (int j = 0; j < angular; j++) result.Add([rims[i][j], rims[i][(j + 1) % angular], rims[i + 1][(j + 1) % angular], rims[i + 1][j]]);
         return result.ToArray();
     }
 

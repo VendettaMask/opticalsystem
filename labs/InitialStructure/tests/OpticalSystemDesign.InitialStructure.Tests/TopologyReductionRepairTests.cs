@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -7,6 +6,7 @@ using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
@@ -160,8 +160,8 @@ public sealed class TopologyReductionRepairTests
         Options = old.Options with
         { MaximumTrials = 1, CheckStageFeasibility = true, Local = old.Options.Local with { RequireDescent = true }, Full = old.Options.Full with { RequireDescent = true } }
     };
-    private static Task<AutonomousSearchCheckpoint> Recorded(int seed = 42) => new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(Root(),
-        $"validation/rechecks/2026-10-27/autonomous-comparison-m6/m6-m2-endpoint-{seed}-C/run.autonomous.json"));
+    private static Task<AutonomousSearchCheckpoint> Recorded(int seed = 42) => new AutonomousSearchCheckpointStore().LoadAsync(EvidenceFiles.Resolve(Path.Combine(Root(),
+        $"validation/rechecks/2026-10-27/autonomous-comparison-m6/m6-m2-endpoint-{seed}-C/run.autonomous.json")));
     private static string Root()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);

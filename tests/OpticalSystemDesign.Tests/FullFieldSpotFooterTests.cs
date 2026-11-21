@@ -157,8 +157,11 @@ public sealed class FullFieldSpotFooterTests
                     using var frame = window.CaptureRenderedFrame(); Assert.NotNull(frame);
                     frame.Save(Path.Combine(directory, theme + ".png"), PngBitmapEncoderOptions.Default);
                 }
-                var angular = view with { FullFieldSpotSummary = new(1.25, 2.5, 10, AxisUnit.Milliradian,
-                    SpotReferenceKind.Centroid, SpotColorGrouping.Field, 5, false) };
+                var angular = view with
+                {
+                    FullFieldSpotSummary = new(1.25, 2.5, 10, AxisUnit.Milliradian,
+                    SpotReferenceKind.Centroid, SpotColorGrouping.Field, 5, false)
+                };
                 Assert.Contains("mrad", SummaryText(BuildFooter(angular)));
                 Assert.Contains("图例对应于视场", SummaryText(BuildFooter(angular)));
                 Assert.Contains("参考：质心", SummaryText(BuildFooter(angular)));

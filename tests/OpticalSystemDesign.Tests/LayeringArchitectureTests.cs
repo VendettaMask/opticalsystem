@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.Reflection;
 using OpticalSystemDesign.App;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -250,6 +250,9 @@ public sealed class LayeringArchitectureTests
                 .Select((line, index) => (Path: path, Line: line, LineNumber: index + 1)))
             .Where(item => item.Line.Contains("IsekaiTheme", StringComparison.Ordinal)
                 || item.Line.Contains("\"Isekai\"", StringComparison.Ordinal))
+            // A translation value is data, not a branch selecting theme behavior.
+            .Where(item => !System.Text.RegularExpressions.Regex.IsMatch(item.Line,
+                "^\\s*Add\\(\\\"[^\\\"]+\\\",\\s*\\\"Isekai\\\",\\s*\\\"[^\\\"]+\\\"\\);\\s*$"))
             .Select(item => $"{Path.GetRelativePath(appRoot, item.Path).Replace('\\', '/')}:{item.LineNumber}: {item.Line.Trim()}")
             .ToArray();
 
@@ -295,19 +298,27 @@ public sealed class LayeringArchitectureTests
         var engineeringOrThemeFiles = new HashSet<string>(StringComparer.Ordinal)
         {
             "Controls/AnalysisPlotControl.cs",
+            "Controls/LinearRoiImageView.cs",
             "Controls/DielectricGlassMaterial.cs",
             "Controls/FoucaultPlotControl.cs",
             "Controls/FullFieldAberrationControl.cs",
             "Controls/LocalIcon.cs",
             "Controls/OpticSceneControl.cs",
+            "Controls/OpticSceneControl.SurfaceDrawing.cs",
             "Controls/SeidelDiagramControl.cs",
             "Controls/SpectralColorMap.cs",
             "Controls/WavefrontSurfaceControl.cs",
             "Laboratories/AssemblyReticleView.cs",
+            "Laboratories/CoatingDesign/CoatingStackGeometryPlot.cs",
+            "Laboratories/CoatingDesign/MainWindow.Geometry.cs",
+            "Laboratories/CoatingDesign/SpectrumPlot.cs",
+            "Laboratories/InitialStructure/TopologyStructurePlot.cs",
             "Panels/Analysis/AnalysisPanel.Plots.cs",
             "Panels/Analysis/AnalysisSemanticColors.cs",
             "Panels/MeritOperandRowPalette.cs",
             "Panels/OptimizationPanel.cs",
+            "Services/ExportImageFrame.cs",
+            "Services/ScientificColorMaps.cs",
             "SplashWindow.cs"
         };
         var themeOwnedPrefixes = new[]

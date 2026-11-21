@@ -29,7 +29,9 @@ public sealed partial class CameraImagingWindow
             if (run is null || report is null || _busy) return;
             var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
             {
-                Title = "导出采样报告", SuggestedFileName = "camera-sampling.json", DefaultExtension = "json",
+                Title = "导出采样报告",
+                SuggestedFileName = "camera-sampling.json",
+                DefaultExtension = "json",
                 FileTypeChoices = new[] { new FilePickerFileType("JSON") { Patterns = new[] { "*.json" } } }
             });
             if (file is null || _closed) return;

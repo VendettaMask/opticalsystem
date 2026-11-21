@@ -69,12 +69,22 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
         var series = template with { Points = template.Points.Select((point, index) => point with { Y = values[index] }).ToArray() };
         var metadata = new Dictionary<string, object>
         {
-            ["Method"] = "FFT", ["PupilSampling"] = _sampling, ["WorkingFNumber"] = fNumber,
-            ["UnaberratedPeakRatio"] = idealPeak, ["StrehlRatio"] = strehl, ["AxisFourierReadout"] = true,
-            ["StreamedFourierPupil"] = diagnostics, ["WavelengthNumber"] = _wavelengthNumber,
-            ["FieldNumber"] = _fieldNumber, ["UsePolarization"] = false, ["Normalized"] = false,
-            ["UseRayAiming"] = false, ["Row"] = _row, ["ProfileType"] = _type,
-            ["GraphScaleMicrometers"] = _graphScaleMicrometers, ["ProfileIdealPeak"] = 1d
+            ["Method"] = "FFT",
+            ["PupilSampling"] = _sampling,
+            ["WorkingFNumber"] = fNumber,
+            ["UnaberratedPeakRatio"] = idealPeak,
+            ["StrehlRatio"] = strehl,
+            ["AxisFourierReadout"] = true,
+            ["StreamedFourierPupil"] = diagnostics,
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["FieldNumber"] = _fieldNumber,
+            ["UsePolarization"] = false,
+            ["Normalized"] = false,
+            ["UseRayAiming"] = false,
+            ["Row"] = _row,
+            ["ProfileType"] = _type,
+            ["GraphScaleMicrometers"] = _graphScaleMicrometers,
+            ["ProfileIdealPeak"] = 1d
         };
         return domain with { Values = metadata, Series = null, SeriesList = [series] };
     }
@@ -162,14 +172,19 @@ public sealed class FftPsfCrossSectionAnalysis : BaseAnalysis
         var unit = results[0].Profile.Unit;
         var source = new AnalysisData(Name, new Dictionary<string, object>
         {
-            ["Method"] = "FFT", ["PupilSampling"] = _sampling, ["GridSize"] = transform,
+            ["Method"] = "FFT",
+            ["PupilSampling"] = _sampling,
+            ["GridSize"] = transform,
             ["StoredPupilSize"] = results.Select(r => r.Profile.StoredPupilSize).ToArray(),
             ["WorkingFNumber"] = results.Average(r => r.Profile.WorkingFNumber),
             ["UnaberratedPeakRatio"] = totalReference / results.Sum(r => weighted ? r.Wave.Weight : 1),
-            ["AxisFourierReadout"] = true, ["StrehlRatio"] = horizontal[center].Y,
+            ["AxisFourierReadout"] = true,
+            ["StrehlRatio"] = horizontal[center].Y,
             ["PeakStrehlRatio"] = "Not evaluated outside the requested axes",
-            ["WavelengthNumber"] = _wavelengthNumber, ["FieldNumber"] = _fieldNumber,
-            ["UsePolarization"] = false, ["Normalized"] = false,
+            ["WavelengthNumber"] = _wavelengthNumber,
+            ["FieldNumber"] = _fieldNumber,
+            ["UsePolarization"] = false,
+            ["Normalized"] = false,
             ["UseRayAiming"] = results.Select(r => r.Profile.UseRayAiming).ToArray(),
             ["StopAimingFallbackUsed"] = results.Any(r => r.Profile.StopAimingFallbackUsed),
             ["ImageSpaceAfocal"] = Optic.ImageSpaceAfocal,
@@ -299,7 +314,8 @@ public sealed class HuygensPsfCrossSectionAnalysis : BaseAnalysis
             displayAs: "截面",
             usePolarization: _usePolarization,
             normalize: false,
-            useCentroid: _useCentroid) { AfocalIntegration = AfocalIntegration, UseCheckedFocusedPupil = UseCheckedFocusedPupil }.GenerateData();
+            useCentroid: _useCentroid)
+        { AfocalIntegration = AfocalIntegration, UseCheckedFocusedPupil = UseCheckedFocusedPupil }.GenerateData();
         if (source.Outcome == AnalysisOutcome.Success)
             source = AddCrossSectionMetadata(source);
         var extentKey = Optic.ImageSpaceAfocal ? "ImageExtentMilliradians" : "ImageExtentMicrometers";

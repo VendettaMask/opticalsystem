@@ -6,6 +6,8 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="../../validation/zemax/2026-r1/afocal-repair-2026-10-24/captures/**/*" Link="Fixtures/afocal-repair/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../validation/zemax/2026-r1/afocal-riflescope-2026-10-19/captures/**/*" Link="Fixtures/afocal-riflescope/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/riflescope-mtf-field-2026-10-31/reference.zip" Link="Fixtures/riflescope-mtf-field/reference.zip" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../validation/zemax/2026-r1/riflescope-mtf-field-2026-10-31/manifest.json" Link="Fixtures/riflescope-mtf-field/manifest.json" CopyToOutputDirectory="PreserveNewest" />
     <Compile Include="../../tools/diagnostics/RiflescopeMtfField20261031/NativeCurves.cs" Link="RiflescopeNativeCurves.cs" />

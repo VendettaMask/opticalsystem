@@ -41,16 +41,16 @@ public sealed class FringeSagGeometry : IGeometry
     public Vector3D SurfaceNormal(Vector3D point)
     {
         var normal = Base.SurfaceNormal(point);
-        var u=(point.X-DecenterX)/NormalizationRadius;var v=(point.Y-DecenterY)/NormalizationRadius;
-        if (!Extrapolate && u*u+v*v>1) return normal;
-        var sx=-normal.X/normal.Z;var sy=-normal.Y/normal.Z;
-        for(var i=0;i<FringeCoefficients.Count;i++)
+        var u = (point.X - DecenterX) / NormalizationRadius; var v = (point.Y - DecenterY) / NormalizationRadius;
+        if (!Extrapolate && u * u + v * v > 1) return normal;
+        var sx = -normal.X / normal.Z; var sy = -normal.Y / normal.Z;
+        for (var i = 0; i < FringeCoefficients.Count; i++)
         {
-            if(FringeCoefficients[i]==0) continue;
-            var (_,dx,dy)=FringeZernikeBasis.Evaluate(i,u,v);
-            sx+=FringeCoefficients[i]*dx/NormalizationRadius;sy+=FringeCoefficients[i]*dy/NormalizationRadius;
+            if (FringeCoefficients[i] == 0) continue;
+            var (_, dx, dy) = FringeZernikeBasis.Evaluate(i, u, v);
+            sx += FringeCoefficients[i] * dx / NormalizationRadius; sy += FringeCoefficients[i] * dy / NormalizationRadius;
         }
-        var result=new Vector3D(-sx,-sy,1);return result/result.Length;
+        var result = new Vector3D(-sx, -sy, 1); return result / result.Length;
     }
     public IntersectionResult DistanceToIntersection(Vector3D origin, Vector3D direction) =>
         StandardGeometry.NewtonSolveDistance(origin, direction, Sag, SurfaceNormal);

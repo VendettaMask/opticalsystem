@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
@@ -7,6 +6,7 @@ using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Capabilities;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison.Configuration;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
 using OpticalSystemDesign.ZemaxComparison.Normalization;

@@ -48,8 +48,14 @@ public sealed partial class MainWindow
         AutomationProperties.SetName(_includeBackSurface, "计入基板与背面");
         _includeBackSurface.IsCheckedChanged += (_, _) => Changed();
         ToolTip.SetTip(_includeBackSurface, "整块基板光谱包含基板吸收、裸背面及内部多次反射；设计指标仍按前表面验收。");
-        return new Expander { Header = "介质与基板设置", Name = "CoatingGeometrySettings", Margin = new Thickness(8, 0, 8, 8),
-            HorizontalContentAlignment = HorizontalAlignment.Stretch, Content = settings };
+        return new Expander
+        {
+            Header = "介质与基板设置",
+            Name = "CoatingGeometrySettings",
+            Margin = new Thickness(8, 0, 8, 8),
+            HorizontalContentAlignment = HorizontalAlignment.Stretch,
+            Content = settings
+        };
     }
 
     private MaterialSnapshot SelectMaterial(AutoCompleteBox box)
@@ -88,7 +94,8 @@ public sealed partial class MainWindow
                 { Side = "背面", FaceNumber = backLayers.Length - i };
             }).ToArray();
             _stackAnalysisView.SetSnapshot(new(_name.Text ?? "", incident.Name, substrate.Name, exit.Name,
-                thickness, wavelength, angle, Array.AsReadOnly(films), _uiRevision) { BackLayers = Array.AsReadOnly(rear) });
+                thickness, wavelength, angle, Array.AsReadOnly(films), _uiRevision)
+            { BackLayers = Array.AsReadOnly(rear) });
         }
         catch (Exception error) when (error is ArgumentException or InvalidDataException or KeyNotFoundException)
         { _stackAnalysisView.ShowUnavailable(error.Message); }

@@ -13,8 +13,8 @@ internal static class CornellAstmBsdfReader
         var lines = text.Split('\n').Select(l => l.Trim()).Where(l => l.Length != 0).ToArray();
         string Field(string key)
         {
-            var matches=lines.Where(l=>l.StartsWith(key+" ",StringComparison.Ordinal)).ToArray();
-            return matches.Length==1?matches[0][(key.Length+1)..].Trim():throw new InvalidDataException("Cornell 光谱文件缺少唯一字段 "+key);
+            var matches = lines.Where(l => l.StartsWith(key + " ", StringComparison.Ordinal)).ToArray();
+            return matches.Length == 1 ? matches[0][(key.Length + 1)..].Trim() : throw new InvalidDataException("Cornell 光谱文件缺少唯一字段 " + key);
         }
         if (!Field("LAB_NAME").StartsWith("Cornell University", StringComparison.Ordinal) || Field("SYSTEM_NAME") != "Cornell/Kodak gonioreflectometer" || Field("MEAS_NAME") != "BRDF")
             throw new InvalidDataException("仅支持有已核实弧度/辐射度约定的 Cornell 光谱 BRDF 配置；不猜测其他 ASTM 单位。");
@@ -40,14 +40,14 @@ internal static class CornellAstmBsdfReader
             rows.Add(row);
         }
         if (rows.Select(r => (r[0], r[1], r[2], r[3])).Distinct().Count() != count) throw new InvalidDataException("Cornell 光谱存在重复方向。");
-        var incidents=rows.Select(r=>r[0]).Distinct().ToArray();
-        if(options.AstmIncidentThetaDegrees is { } selectedIncidence)
+        var incidents = rows.Select(r => r[0]).Distinct().ToArray();
+        if (options.AstmIncidentThetaDegrees is { } selectedIncidence)
         {
             // Original angles have six decimal places in radians. This tolerance
             // only identifies a declared original node; there is no angle resampling.
-            var matches=incidents.Where(a=>double.IsFinite(selectedIncidence)&&Math.Abs(a*180/Math.PI-selectedIncidence)<=5e-5).ToArray();
-            if(matches.Length!=1)throw new InvalidDataException("Cornell 入射角须唯一匹配原实测节点；不选择最近角或外推。");
-            rows=rows.Where(r=>r[0]==matches[0]).ToList();
+            var matches = incidents.Where(a => double.IsFinite(selectedIncidence) && Math.Abs(a * 180 / Math.PI - selectedIncidence) <= 5e-5).ToArray();
+            if (matches.Length != 1) throw new InvalidDataException("Cornell 入射角须唯一匹配原实测节点；不选择最近角或外推。");
+            rows = rows.Where(r => r[0] == matches[0]).ToList();
         }
         double Phi(double radians) { var p = radians % (2 * Math.PI); return (p < 0 ? p + 2 * Math.PI : p) * 180 / Math.PI; }
         var sides = options.Sides == BsdfImportSides.BothDeclaredIdentical ? new[] { BsdfSide.Front, BsdfSide.Back } : new[] { options.Sides == BsdfImportSides.Front ? BsdfSide.Front : BsdfSide.Back };
@@ -80,10 +80,10 @@ internal static class CornellAstmBsdfReader
         }
         if (logarithmic is not null)
             return new(Field("SAMPLE_NAME"), Path.GetFileName(path), sha, points, sourceFormat: "CornellAstmSpectralLog/1",
-                importNotes: $"Cornell/Kodak measured spectral BRDF; original {count} directions, {waves.Length} bands; selected {rows.Count} directions, {string.Join(",",selected.Select(w=>w.ToString("G17",CultureInfo.InvariantCulture)))} nm. All selected original knots retained. Periodic log1p interpolation in azimuth (singleton rings constant), log1p bilinear in cosine/azimuth. Explicit scale {logarithmic.ScalePerSteradian.ToString("G17",CultureInfo.InvariantCulture)} sr^-1 is an interpolation convention, not measurement uncertainty. No added ideal specular peak, power rescaling or extrapolation. Unmeasured polar caps have zero computational support, not certified physical zero. No XYZ calibration approval implied.",
+                importNotes: $"Cornell/Kodak measured spectral BRDF; original {count} directions, {waves.Length} bands; selected {rows.Count} directions, {string.Join(",", selected.Select(w => w.ToString("G17", CultureInfo.InvariantCulture)))} nm. All selected original knots retained. Periodic log1p interpolation in azimuth (singleton rings constant), log1p bilinear in cosine/azimuth. Explicit scale {logarithmic.ScalePerSteradian.ToString("G17", CultureInfo.InvariantCulture)} sr^-1 is an interpolation convention, not measurement uncertainty. No added ideal specular peak, power rescaling or extrapolation. Unmeasured polar caps have zero computational support, not certified physical zero. No XYZ calibration approval implied.",
                 angularSupport: BsdfAngularSupport.MeasuredPolarRangeZeroOutside, logInterpolation: logarithmic);
         return new(Field("SAMPLE_NAME"), Path.GetFileName(path), sha, points, sourceFormat: "CornellAstmSpectral/1",
-            importNotes: $"Cornell/Kodak measured radiometric spectral BRDF; original {count} directions, {waves.Length} bands; selected {rows.Count} directions at {string.Join(",",rows.Select(r=>r[0].ToString("G17",CultureInfo.InvariantCulture)).Distinct())} incident radians, {string.Join(",", selected.Select(w=>w.ToString("G17",CultureInfo.InvariantCulture)))} nm. Radians converted explicitly. Each ring's periodic linear azimuth interpolation retained on its union (a single-sample ring is constant); linear in cosine between measured polar rings. This interpolation is not independent measurement of gaps. No added ideal specular peak. Unmeasured polar caps are zero by explicit support convention, not certified zero physical scattering. No XYZ calibration approval implied.",
+            importNotes: $"Cornell/Kodak measured radiometric spectral BRDF; original {count} directions, {waves.Length} bands; selected {rows.Count} directions at {string.Join(",", rows.Select(r => r[0].ToString("G17", CultureInfo.InvariantCulture)).Distinct())} incident radians, {string.Join(",", selected.Select(w => w.ToString("G17", CultureInfo.InvariantCulture)))} nm. Radians converted explicitly. Each ring's periodic linear azimuth interpolation retained on its union (a single-sample ring is constant); linear in cosine between measured polar rings. This interpolation is not independent measurement of gaps. No added ideal specular peak. Unmeasured polar caps are zero by explicit support convention, not certified zero physical scattering. No XYZ calibration approval implied.",
             angularSupport: BsdfAngularSupport.MeasuredPolarRangeZeroOutside);
     }
 }

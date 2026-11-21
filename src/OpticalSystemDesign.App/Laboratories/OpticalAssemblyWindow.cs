@@ -1,9 +1,9 @@
-using System.Globalization;
 using System.ComponentModel;
-using Avalonia.Controls.Templates;
+using System.Globalization;
 using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
+using Avalonia.Controls.Templates;
 using Avalonia.Data;
 using Avalonia.Layout;
 using Avalonia.Media;

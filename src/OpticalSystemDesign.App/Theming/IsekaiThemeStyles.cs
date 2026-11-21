@@ -67,22 +67,28 @@ internal sealed class IsekaiThemeStyles : Styles
                 var command = Command(s);
                 command = hovered ? command.Class(":pointerover") : command.Not(x => x.Class(":pointerover"));
                 return command.Template().OfType<ContentPresenter>().Name("PART_ContentPresenter");
-            }) { Setters =
+            })
+            {
+                Setters =
             {
                 new Setter(ContentPresenter.BackgroundProperty, hovered ? new SolidColorBrush(Color.Parse("#2071502C")) : Brushes.Transparent),
                 new Setter(ContentPresenter.ForegroundProperty, paperInk),
                 new Setter(ContentPresenter.BorderBrushProperty, Brushes.Transparent)
-            } });
+            }
+            });
             Add(new Style(s =>
             {
                 var command = Command(s);
                 command = hovered ? command.Class(":pointerover") : command.Not(x => x.Class(":pointerover"));
                 return command.Template().OfType<Border>().Name("RootBorder");
-            }) { Setters =
+            })
+            {
+                Setters =
             {
                 new Setter(Border.BackgroundProperty, hovered ? new SolidColorBrush(Color.Parse("#2071502C")) : Brushes.Transparent),
                 new Setter(Border.BorderBrushProperty, Brushes.Transparent)
-            } });
+            }
+            });
         }
         var disabledInk = new SolidColorBrush(Color.Parse("#A18A68"));
         Add(new Style(s => Command(s).Class(":disabled"))
@@ -99,10 +105,13 @@ internal sealed class IsekaiThemeStyles : Styles
         // The marker follows the selected Isekai policy, including its preview
         // in an otherwise unchanged settings dialog. Other themes never add it.
         Selector Locked(Selector? s) => s.Is<Control>().Class(ThemeRegistry.LockedSettingClass).Class(":disabled");
-        Add(new Style(s => Locked(s)) { Setters =
+        Add(new Style(s => Locked(s))
+        {
+            Setters =
         {
             new Setter(TemplatedControl.ForegroundProperty, ink)
-        } });
+        }
+        });
         Add(new Style(s => Locked(s).Descendant().OfType<TextBlock>())
         { Setters = { new Setter(TextBlock.ForegroundProperty, ink) } });
         Add(new Style(s => Locked(s).Descendant().OfType<LocalIcon>())
@@ -115,12 +124,14 @@ internal sealed class IsekaiThemeStyles : Styles
         { Setters = { new Setter(Shape.FillProperty, ink) } });
         Add(new Style(s => s.OfType<DropDownButton>().Class(ThemeRegistry.LockedSettingClass).Class(":disabled")
             .Template().OfType<ContentPresenter>().Name("PART_ContentPresenter"))
-        { Setters =
+        {
+            Setters =
         {
             new Setter(ContentPresenter.BackgroundProperty, LockedSettingSurface),
             new Setter(ContentPresenter.BorderBrushProperty, LockedSettingBorder),
             new Setter(ContentPresenter.ForegroundProperty, ink)
-        } });
+        }
+        });
     }
     private void DocumentTextStyles(IBrush ink, bool? selected)
     {

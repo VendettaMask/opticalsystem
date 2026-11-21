@@ -66,8 +66,12 @@ internal sealed partial class CameraImagingService
             EmissiveCheckerboard.Validate(chart, quadrature.Nodes.Select(n => new EmissiveCheckerboardBand(n.WavelengthNanometers, n.BrightRadiance, n.DarkRadiance)).ToArray());
             return new SceneLinearFrozenTask(source, quadrature.Nodes, quadrature.ShapeAreaNanometers, quadrature.InputShapeMaximum);
         }).ToArray();
-        request = request with { Chart = chart, Sources = request.Mode == SceneLinearBatchMode.ExplicitSources
-            ? Array.AsReadOnly(tasks.Select(t => t.Source).ToArray()) : null };
+        request = request with
+        {
+            Chart = chart,
+            Sources = request.Mode == SceneLinearBatchMode.ExplicitSources
+            ? Array.AsReadOnly(tasks.Select(t => t.Source).ToArray()) : null
+        };
         var settings = LinearBatchSettings(request);
         var work = DirectCameraRenderer.PlanBatch(settings, tasks.Select(t => t.Nodes.Count).ToArray(), optic.SurfaceGroup.Items.Count - 2);
         // Per-node power, multi-node task sum power, and one task irradiance plane. Keep the existing

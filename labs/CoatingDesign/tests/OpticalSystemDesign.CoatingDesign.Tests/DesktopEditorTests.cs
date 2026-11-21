@@ -1,6 +1,6 @@
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Headless;
+using Avalonia.Input;
 using OpticalSystemDesign.App.Laboratories.CoatingDesign;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Materials;
@@ -83,7 +83,7 @@ public sealed partial class DesktopTests
                     Click(window, "撤销"); await window.PendingOperation;
                     Assert.Equal(new double[] { 55, 60, 70, 80 }, Rows().Select(r => r.ToLayer().ThicknessNm));
                 }
-                finally { window.Close(); }
+                finally { await CloseAsync(window); }
             });
         }
         finally { Directory.Delete(directory, true); }
@@ -124,7 +124,7 @@ public sealed partial class DesktopTests
                 Assert.Null(window.CurrentExperiment.Result);
                 Capture(window, "coating-linked-thickness-history");
             }
-            finally { window.Close(); }
+            finally { await CloseAsync(window); }
         });
     }
 }

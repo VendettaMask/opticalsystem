@@ -299,10 +299,17 @@ public static class FixedTopologyOptimizer
             {
                 suspended = checkpoint(new()
                 {
-                    PhaseFingerprint = phaseFingerprint, Adam = state, LearningRate = rate, Work = Work(),
-                    AcceptedUpdates = updates, Steps = steps.ToImmutableArray(), InitialEvaluation = initial,
-                    EndpointEvaluation = endpoint, Diagnostics = diagnostics.ToImmutableArray(),
-                    SuppressFallbackAtCurrentPoint = suppressFallback, TryFallbackNext = tryFallbackNext
+                    PhaseFingerprint = phaseFingerprint,
+                    Adam = state,
+                    LearningRate = rate,
+                    Work = Work(),
+                    AcceptedUpdates = updates,
+                    Steps = steps.ToImmutableArray(),
+                    InitialEvaluation = initial,
+                    EndpointEvaluation = endpoint,
+                    Diagnostics = diagnostics.ToImmutableArray(),
+                    SuppressFallbackAtCurrentPoint = suppressFallback,
+                    TryFallbackNext = tryFallbackNext
                 });
             }
             finally

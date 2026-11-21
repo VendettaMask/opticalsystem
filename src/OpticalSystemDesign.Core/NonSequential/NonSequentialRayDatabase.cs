@@ -654,9 +654,12 @@ public static class NonSequentialSceneHasher
         Array.AsReadOnly(document.Objects.SelectMany(item => item.Parameters switch
         {
             PlaneRectangleParameters p => new[] { p.MaterialBefore, p.MaterialAfter },
-            SphereParameters p => new[] { p.Material }, CylinderParameters p => new[] { p.Material },
-            BoxParameters p => new[] { p.Material }, StandardLensParameters p => new[] { p.Material },
-            MeshObjectParameters p => new[] { p.Material }, _ => Array.Empty<string>()
+            SphereParameters p => new[] { p.Material },
+            CylinderParameters p => new[] { p.Material },
+            BoxParameters p => new[] { p.Material },
+            StandardLensParameters p => new[] { p.Material },
+            MeshObjectParameters p => new[] { p.Material },
+            _ => Array.Empty<string>()
         }).Concat(document.Objects.Where(o => o.Parameters.Waveplate is not null).Select(o => o.Parameters.Waveplate!.ExtraordinaryMaterial))
         .Append(document.AmbientMaterial).Distinct(StringComparer.OrdinalIgnoreCase).Order(StringComparer.OrdinalIgnoreCase).ToArray());
 

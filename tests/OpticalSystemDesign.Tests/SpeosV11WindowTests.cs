@@ -15,7 +15,9 @@ namespace OpticalSystemDesign.Tests;
 public sealed class SpeosV11WindowTests
 {
     [Theory]
-    [InlineData(false, false)] [InlineData(true, false)] [InlineData(false, true)]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
     public async Task V11AndXyzImportsReachTheCameraWithFrozenPhysicalInputsOffscreen(bool zemax, bool manual)
     {
         using var host = SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));

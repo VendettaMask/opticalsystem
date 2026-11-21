@@ -55,8 +55,8 @@ public sealed class SemanticIconTests
         Assert.Equal(13, mtf.Length);
         Assert.Equal(13, mtf.Select(c => c.IconName).Distinct().Count());
         foreach (var method in new[] { "fourier", "huygens", "geometric" })
-        foreach (var variable in new[] { "frequency", "focus", "field" })
-            Assert.Contains(mtf, c => c.IconName == $"mtf-{method}-{variable}");
+            foreach (var variable in new[] { "frequency", "focus", "field" })
+                Assert.Contains(mtf, c => c.IconName == $"mtf-{method}-{variable}");
     }
 
     [Theory]

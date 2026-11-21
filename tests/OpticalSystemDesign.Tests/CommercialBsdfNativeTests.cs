@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Scattering;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -43,7 +43,9 @@ public sealed class CommercialBsdfNativeTests
         }
         Record("native-v11-coefficient-comparison", new { data.SourceSha256, data.DataSha256, MaximumAbsoluteError = maximum, Samples = 15, DirectionalCertification = false });
     }
-    [Theory] [InlineData(false)] [InlineData(true)]
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
     public void ThetaSamplingMatchesIndependentHemisphereCdfAndMoments(bool projected)
     {
         var points = new List<MeasuredBsdfPoint>();

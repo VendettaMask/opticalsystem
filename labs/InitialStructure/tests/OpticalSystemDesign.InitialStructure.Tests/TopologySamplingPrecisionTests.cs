@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Differentiation;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
@@ -112,8 +112,8 @@ public sealed class TopologySamplingPrecisionTests
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
         while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
-        var state = await new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(root!.FullName,
-            "validation/rechecks/2026-10-27/topology-transmission-priority/final-paired-runs/repr-qualified4-wide21-42-C-both/run.autonomous.json"));
+        var state = await new AutonomousSearchCheckpointStore().LoadAsync(EvidenceFiles.Resolve(Path.Combine(root!.FullName,
+            "validation/rechecks/2026-10-27/topology-transmission-priority/final-paired-runs/repr-qualified4-wide21-42-C-both/run.autonomous.json")));
         var candidate = state.Candidates.Single(item => item.Topology.Elements.Length == 3);
         var source = TopologyCompiler.Compile(candidate.Topology, state.Plan.Constraints);
         var requests = state.Events.Single(item => item.Phase == AutonomousSearchPhase.Full).Optimization!.Variables;

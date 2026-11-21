@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
@@ -9,6 +8,7 @@ using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -19,7 +19,10 @@ public sealed class AnalysisSurfaceAndReferenceTests
     private static string Snapshot(Optic optic) => JsonSerializer.Serialize(optic.ToSnapshot(), Json);
 
     [Theory]
-    [InlineData("Optical Path Difference")] [InlineData("Wavefront")] [InlineData("PSF")] [InlineData("MTF")]
+    [InlineData("Optical Path Difference")]
+    [InlineData("Wavefront")]
+    [InlineData("PSF")]
+    [InlineData("MTF")]
     public void InvalidSurfaceIsRejectedWithoutChangingTheSource(string key)
     {
         var optic = Example(); var frozen = Snapshot(optic);
@@ -28,7 +31,10 @@ public sealed class AnalysisSurfaceAndReferenceTests
     }
 
     [Theory]
-    [InlineData("Optical Path Difference")] [InlineData("Wavefront")] [InlineData("PSF")] [InlineData("MTF")]
+    [InlineData("Optical Path Difference")]
+    [InlineData("Wavefront")]
+    [InlineData("PSF")]
+    [InlineData("MTF")]
     public void SelectingARealIntermediateImageChangesTheActualResult(string key)
     {
         var optic = Lens(); var frozen = Snapshot(optic);
@@ -41,7 +47,8 @@ public sealed class AnalysisSurfaceAndReferenceTests
     }
 
     [Theory]
-    [InlineData(50d)] [InlineData(-50d)]
+    [InlineData(50d)]
+    [InlineData(-50d)]
     public void TheSelectedLensRetainsItsPowerAndHasItsAnalyticalRealOrVirtualFocus(double focalLength)
     {
         var optic = Lens(focalLength); var frozen = Snapshot(optic);
@@ -58,7 +65,8 @@ public sealed class AnalysisSurfaceAndReferenceTests
     }
 
     [Theory]
-    [InlineData(ApertureKind.FloatByStopSize)] [InlineData(ApertureKind.NumericalAperture)]
+    [InlineData(ApertureKind.FloatByStopSize)]
+    [InlineData(ApertureKind.NumericalAperture)]
     public void BeforeStopUsesTheOriginalPupilAndAnIndependentDummyStop(ApertureKind aperture)
     {
         var optic = Lens(); optic.SurfaceGroup.Items[1].IsStop = false;
@@ -118,7 +126,8 @@ public sealed class AnalysisSurfaceAndReferenceTests
     }
 
     [Theory]
-    [InlineData(ReferenceOpdMode.Absolute)] [InlineData(ReferenceOpdMode.Absolute2)]
+    [InlineData(ReferenceOpdMode.Absolute)]
+    [InlineData(ReferenceOpdMode.Absolute2)]
     public void FocalAbsoluteUsesPhaseInclusiveImageOpticalPathWithoutSphereCorrection(ReferenceOpdMode mode)
     {
         var optic = Example(); optic.ReferenceOpd = mode; var frozen = Snapshot(optic);
@@ -148,7 +157,9 @@ public sealed class AnalysisSurfaceAndReferenceTests
     }
 
     [Theory]
-    [InlineData(ReferenceOpdMode.Absolute)] [InlineData(ReferenceOpdMode.Absolute2)] [InlineData(ReferenceOpdMode.Infinity)]
+    [InlineData(ReferenceOpdMode.Absolute)]
+    [InlineData(ReferenceOpdMode.Absolute2)]
+    [InlineData(ReferenceOpdMode.Infinity)]
     public void DisplayReferenceDoesNotReplaceTheDiffractionPupilPhase(ReferenceOpdMode mode)
     {
         var optic = Lens(); var wave = optic.Wavelengths.First(w => w.IsPrimary);
@@ -170,7 +181,8 @@ public sealed class AnalysisSurfaceAndReferenceTests
     }
 
     [Theory]
-    [InlineData(ReferenceOpdMode.Absolute)] [InlineData(ReferenceOpdMode.Absolute2)]
+    [InlineData(ReferenceOpdMode.Absolute)]
+    [InlineData(ReferenceOpdMode.Absolute2)]
     public void AnAbsoluteDisplayCannotBeSuppliedAsPreparedDiffractionPhase(ReferenceOpdMode mode)
     {
         var optic = Lens(); optic.ReferenceOpd = mode;
@@ -187,8 +199,13 @@ public sealed class AnalysisSurfaceAndReferenceTests
         var primary = optic.Wavelengths.Select((w, i) => (w, i)).First(p => p.w.IsPrimary).i + 1;
         var other = primary == 1 ? 2 : 1;
         AnalysisData Map(int wave, bool usePrimary) => runtime.BuildAnalysisData("Wavefront", new Dictionary<string, string>
-        { ["Sampling"] = "32", ["FieldNumber"] = "3", ["WavelengthNumber"] = wave.ToString(),
-            ["UseExitPupilShape"] = "False", ["ReferenceToPrimary"] = usePrimary.ToString() });
+        {
+            ["Sampling"] = "32",
+            ["FieldNumber"] = "3",
+            ["WavelengthNumber"] = wave.ToString(),
+            ["UseExitPupilShape"] = "False",
+            ["ReferenceToPrimary"] = usePrimary.ToString()
+        });
         Assert.Equal(Numbers(Map(primary, false)), Numbers(Map(primary, true)));
         Assert.NotEqual(Numbers(Map(other, false)), Numbers(Map(other, true)));
         var referred = Map(other, true);

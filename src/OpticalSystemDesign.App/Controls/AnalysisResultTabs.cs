@@ -34,7 +34,8 @@ internal sealed class AnalysisResultTabs : TabControl
             {
                 var presenter = new ContentPresenter
                 {
-                    Name = name, IsVisible = name == "PART_SelectedContentHost",
+                    Name = name,
+                    IsVisible = name == "PART_SelectedContentHost",
                     HorizontalContentAlignment = HorizontalAlignment.Stretch,
                     VerticalContentAlignment = VerticalAlignment.Stretch
                 };
@@ -47,7 +48,10 @@ internal sealed class AnalysisResultTabs : TabControl
             navigation.Bind(DockPanel.DockProperty, tabs.GetObservable(TabStripPlacementProperty), BindingPriority.Template);
             var frame = new AnalysisImageFrame
             {
-                Name = "AnalysisResultBookFrame", Child = grid, ResultBookOnly = true, IntegrateWithWorkspaceBinding = true
+                Name = "AnalysisResultBookFrame",
+                Child = grid,
+                ResultBookOnly = true,
+                IntegrateWithWorkspaceBinding = true
             };
             var layout = new BookLayout(tabs, navigation) { Child = frame };
             void Refresh()

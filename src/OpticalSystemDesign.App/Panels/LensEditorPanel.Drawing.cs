@@ -2,8 +2,8 @@ using Avalonia;
 using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Layout;
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.ViewModels;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Panels;
 

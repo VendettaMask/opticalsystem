@@ -28,8 +28,17 @@ internal static class FieldConflictBenchmarks
         {
             var proposal = policy.Propose(before, q, binding, Enumerable.Range(0, q.Length).ToArray(), fraction);
             var after = objective.Evaluate(proposal.Coordinates, includeConstraintTangents: true);
-            rows.Add(new { Fraction = fraction, proposal.Coordinates, proposal.Rank, after.Available, after.Failure, Accepted = policy.Accept(before, after),
-                After = after.ConstraintTangents, Residuals = after.Residuals });
+            rows.Add(new
+            {
+                Fraction = fraction,
+                proposal.Coordinates,
+                proposal.Rank,
+                after.Available,
+                after.Failure,
+                Accepted = policy.Accept(before, after),
+                After = after.ConstraintTangents,
+                Residuals = after.Residuals
+            });
         }
         var axial = new List<object>();
         for (var sample = 1; sample <= 20; sample++)
@@ -46,9 +55,20 @@ internal static class FieldConflictBenchmarks
         var pupils = OpticalSystemDesign.Core.Raytrace.ApertureSampler.GenerateGaussianQuadrature(4, 16).ToArray();
         var optical = OpticalSystemDesign.Core.Differentiation.DifferentiableOpticalMetrics.EvaluateAtFields(source.CreateOptic(), binding.CoreParameters,
             new[] { (0.0, 0.0), (0.0, 2.0 / 3), (0.0, 1.0) }, pupils, usePhysicalStop: true);
-        await Write(output, "spot-rays.json", optical.Fields.Select(field => new { field.NormalizedFieldY,
-            Rms = field.RmsRadiusMillimeters.Value, Rays = field.Rays.Select((ray, index) => new { Wave = index / pupils.Length,
-                PupilX = pupils[index % pupils.Length].X, PupilY = pupils[index % pupils.Length].Y, X = ray.X.Value, Y = ray.Y.Value, ray.Weight }) }));
+        await Write(output, "spot-rays.json", optical.Fields.Select(field => new
+        {
+            field.NormalizedFieldY,
+            Rms = field.RmsRadiusMillimeters.Value,
+            Rays = field.Rays.Select((ray, index) => new
+            {
+                Wave = index / pupils.Length,
+                PupilX = pupils[index % pupils.Length].X,
+                PupilY = pupils[index % pupils.Length].Y,
+                X = ray.X.Value,
+                Y = ray.Y.Value,
+                ray.Weight
+            })
+        }));
         await Write(output, "diagnosis.json", new { objective.ResidualIds, Before = before, Coordinates = q, Variables = endpoint.Variables, Rows = rows, ActualRays = quota.RayCount });
         return 0;
     }
@@ -182,10 +202,17 @@ internal static class FieldConflictBenchmarks
             if (ContentFingerprint.Compute(endpoint.Variables) != ContentFingerprint.Compute(variables)
                 || ContentFingerprint.Compute(endpoint.Targets) != ContentFingerprint.Compute(targets)
                 || ContentFingerprint.Compute(endpoint.Constraints) != ContentFingerprint.Compute(constraints)) throw new InvalidDataException("Original bounds/gates changed.");
-            policy = new() { MaximumFunctionEvaluations = 600, MaximumGradientEvaluations = 100, MaximumTracedRays = 2_000_000,
-                MaximumStageTracedRays = 400_000, FinalValidationRayReserve = 800_000, TimeLimit = TimeSpan.FromSeconds(60),
+            policy = new()
+            {
+                MaximumFunctionEvaluations = 600,
+                MaximumGradientEvaluations = 100,
+                MaximumTracedRays = 2_000_000,
+                MaximumStageTracedRays = 400_000,
+                FinalValidationRayReserve = 800_000,
+                TimeLimit = TimeSpan.FromSeconds(60),
                 Local = JsonSerializer.Deserialize<FixedTopologyOptions>(input.RootElement.GetProperty("Local").GetRawText(), TopologySamplingBenchmarks.Json)!,
-                Full = JsonSerializer.Deserialize<FixedTopologyOptions>(input.RootElement.GetProperty("Full").GetRawText(), TopologySamplingBenchmarks.Json)! };
+                Full = JsonSerializer.Deserialize<FixedTopologyOptions>(input.RootElement.GetProperty("Full").GetRawText(), TopologySamplingBenchmarks.Json)!
+            };
             source = TopologyCompiler.Compile(endpoint.Topology, constraints);
         }
         else

@@ -51,19 +51,19 @@ public sealed class MeritOperandRowPaletteTests
     {
         // Independent WCAG luminance calculation, including actual theme text rather than generic white.
         foreach (var theme in ThemeRegistry.ConcreteThemes)
-        foreach (var code in MeritFunctionCatalog.Types.Select(t => t.Code).Append("UNKNOWN"))
-        foreach (var selected in new[] { false, true })
-        foreach (var hovered in new[] { false, true })
-        foreach (var error in new[] { false, true })
-        {
-            var visual = MeritOperandRowPalette.ResolveVisual(code, theme, error, hovered, selected);
-            Assert.Equal(theme.Palette!.TextPrimary, visual.Foreground);
-            Assert.True(Contrast(visual.Foreground, visual.Background) >= 4.5,
-                $"{theme.SettingsValue}/{code}/selected={selected}/hover={hovered}/error={error}: {visual}");
-            if (code is "DIVI" or "DIVB")
-                Assert.NotEqual(MeritOperandRowPalette.ResolveVisual(code, theme).Background,
-                    MeritOperandRowPalette.ResolveVisual(code, theme, hasError: true).Background);
-        }
+            foreach (var code in MeritFunctionCatalog.Types.Select(t => t.Code).Append("UNKNOWN"))
+                foreach (var selected in new[] { false, true })
+                    foreach (var hovered in new[] { false, true })
+                        foreach (var error in new[] { false, true })
+                        {
+                            var visual = MeritOperandRowPalette.ResolveVisual(code, theme, error, hovered, selected);
+                            Assert.Equal(theme.Palette!.TextPrimary, visual.Foreground);
+                            Assert.True(Contrast(visual.Foreground, visual.Background) >= 4.5,
+                                $"{theme.SettingsValue}/{code}/selected={selected}/hover={hovered}/error={error}: {visual}");
+                            if (code is "DIVI" or "DIVB")
+                                Assert.NotEqual(MeritOperandRowPalette.ResolveVisual(code, theme).Background,
+                                    MeritOperandRowPalette.ResolveVisual(code, theme, hasError: true).Background);
+                        }
     }
 
     [Fact]
@@ -84,15 +84,15 @@ public sealed class MeritOperandRowPaletteTests
         Assert.Equal(6, kinds.Select(k => MeritOperandRowPalette.ToleranceCategoryFor(k).Id).Distinct().Count());
         Assert.Equal(kinds.Length, kinds.Select(k => MeritOperandRowPalette.ResolveToleranceVisual(k, light).Background).Distinct().Count());
         foreach (var theme in ThemeRegistry.ConcreteThemes)
-        foreach (var kind in kinds)
-        foreach (var selected in new[] { false, true })
-        foreach (var hovered in new[] { false, true })
-        {
-            var appearance = MeritOperandRowPalette.ResolveToleranceVisual(kind, theme, hovered, selected);
-            Assert.Equal(theme.Palette!.TextPrimary, appearance.Foreground);
-            Assert.True(Contrast(appearance.Foreground, appearance.Background) >= 4.5,
-                $"{theme.SettingsValue}/{kind}/{hovered}/{selected}");
-        }
+            foreach (var kind in kinds)
+                foreach (var selected in new[] { false, true })
+                    foreach (var hovered in new[] { false, true })
+                    {
+                        var appearance = MeritOperandRowPalette.ResolveToleranceVisual(kind, theme, hovered, selected);
+                        Assert.Equal(theme.Palette!.TextPrimary, appearance.Foreground);
+                        Assert.True(Contrast(appearance.Foreground, appearance.Background) >= 4.5,
+                            $"{theme.SettingsValue}/{kind}/{hovered}/{selected}");
+                    }
     }
 
     private static double Contrast(Color a, Color b)

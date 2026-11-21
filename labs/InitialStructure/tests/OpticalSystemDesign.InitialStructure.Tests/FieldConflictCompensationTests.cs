@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Differentiation;
@@ -6,6 +5,7 @@ using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
@@ -201,8 +201,8 @@ public sealed class FieldConflictCompensationTests
     private static async Task<(AutonomousSearchCheckpoint State, CompiledTopology Source, BoundTopologyParameters Binding, FixedTopologyObjective Objective)> Fixture()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory); while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent;
-        var state = await new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(directory!.FullName,
-            "validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/run.autonomous.json"));
+        var state = await new AutonomousSearchCheckpointStore().LoadAsync(EvidenceFiles.Resolve(Path.Combine(directory!.FullName,
+            "validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/run.autonomous.json")));
         var candidate = state.Candidates.Single(c => c.Topology.Elements.Length == 2);
         var source = TopologyCompiler.Compile(candidate.Topology, state.Plan.Constraints);
         var binding = TopologyParameterBinder.Bind(source, state.Events.Last(e => e.Optimization is not null).Optimization!.Variables);

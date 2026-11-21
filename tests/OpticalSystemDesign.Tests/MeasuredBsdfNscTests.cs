@@ -14,15 +14,24 @@ public sealed class MeasuredBsdfNscTests
     internal static NonSequentialDocument Scene(double r, double t, int count = 8192)
     {
         var scene = NonSequentialBsdfTests.Scene(r, count); var plane = scene.Objects[1];
-        scene.Replace(plane.Id, plane with { SurfaceBsdf = new(NonSequentialBsdfKind.Measured, 0, MeasuredBsdfTests.Constant(r, t)),
-            Parameters = new PlaneRectangleParameters(1, 1, t > 0 ? NonSequentialSurfaceBehavior.Refractive : NonSequentialSurfaceBehavior.Reflective) });
-        var detector = scene.Objects[2]; scene.Replace(detector.Id, detector with { LocalCoordinateSystem = new(new(0, 0, -.064)),
-            Parameters = new DetectorRectangleParameters(.128, .128, 32, 32, false, true) });
+        scene.Replace(plane.Id, plane with
+        {
+            SurfaceBsdf = new(NonSequentialBsdfKind.Measured, 0, MeasuredBsdfTests.Constant(r, t)),
+            Parameters = new PlaneRectangleParameters(1, 1, t > 0 ? NonSequentialSurfaceBehavior.Refractive : NonSequentialSurfaceBehavior.Reflective)
+        });
+        var detector = scene.Objects[2]; scene.Replace(detector.Id, detector with
+        {
+            LocalCoordinateSystem = new(new(0, 0, -.064)),
+            Parameters = new DetectorRectangleParameters(.128, .128, 32, 32, false, true)
+        });
         return scene;
     }
 
     [Theory]
-    [InlineData(.2, .5)] [InlineData(0, 1)] [InlineData(0, 0)] [InlineData(.4, 0)]
+    [InlineData(.2, .5)]
+    [InlineData(0, 1)]
+    [InlineData(0, 0)]
+    [InlineData(.4, 0)]
     public void MixedBrdfBtdfConservePowerAndMatchIndependentDetectorViewFactor(double r, double t)
     {
         var scene = Scene(r, t); var result = new NonSequentialDocumentTracer().Trace(scene, Optic.CreateBlank().Materials);
@@ -49,8 +58,10 @@ public sealed class MeasuredBsdfNscTests
         var source = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay) with
         { LocalCoordinateSystem = new(new(0, 0, -2)), Parameters = new SourceRayParameters(1) };
         var box = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.Box) with
-        { Parameters = new BoxParameters(1000, 1000, 1, "test n=1.7", NonSequentialSurfaceBehavior.Refractive),
-            SurfaceBsdf = new(NonSequentialBsdfKind.Measured, 0, MeasuredBsdfTests.Constant(0, 1)) };
+        {
+            Parameters = new BoxParameters(1000, 1000, 1, "test n=1.7", NonSequentialSurfaceBehavior.Refractive),
+            SurfaceBsdf = new(NonSequentialBsdfKind.Measured, 0, MeasuredBsdfTests.Constant(0, 1))
+        };
         var detector = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.DetectorRectangle) with
         { LocalCoordinateSystem = new(new(0, 0, 2)), Parameters = new DetectorRectangleParameters(1000, 1000, 1, 1) };
         var scene = new NonSequentialDocument("Interface control", [new("550", 550, 1, true)], [source, box, detector], "Vacuum");
@@ -111,9 +122,12 @@ public sealed class MeasuredBsdfNscTests
         foreach (var item in scene.Objects.ToArray())
         {
             var old = item.LocalCoordinateSystem; var p = old.Origin;
-            scene.Replace(item.Id, item with { LocalCoordinateSystem = new(
+            scene.Replace(item.Id, item with
+            {
+                LocalCoordinateSystem = new(
                 new(p.X * Math.Cos(angle) + p.Z * Math.Sin(angle), p.Y, -p.X * Math.Sin(angle) + p.Z * Math.Cos(angle)),
-                old.RotationXDegrees, old.RotationYDegrees + degrees, old.RotationZDegrees) });
+                old.RotationXDegrees, old.RotationYDegrees + degrees, old.RotationZDegrees)
+            });
         }
         var result = new NonSequentialDocumentTracer().Trace(scene, Optic.CreateBlank().Materials);
         Assert.InRange(Math.Abs(result.EnergyBalance.AccountedPowerWatts / result.EnergyBalance.SourcePowerWatts - 1), 0, 1e-12);

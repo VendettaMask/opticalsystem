@@ -194,14 +194,14 @@ public sealed partial class UserGuidePanel : UserControl
             block.Children.Add(new SelectableTextBlock
             {
                 Text = Current(section.Title),
-                FontSize = 18,
+                FontSize = DisplayTypography.WindowTitle,
                 FontWeight = FontWeight.SemiBold,
                 TextWrapping = TextWrapping.Wrap
             });
             block.Children.Add(new SelectableTextBlock
             {
                 Text = Current(section.Body),
-                FontSize = 15,
+                FontSize = DisplayTypography.GuideLead,
                 TextWrapping = TextWrapping.Wrap,
                 LineHeight = 27
             });
@@ -232,7 +232,7 @@ public sealed partial class UserGuidePanel : UserControl
         {
             var gallery = new StackPanel { Spacing = 24 };
             var galleryTitle = Current(T("界面示例", "Interface examples", "画面例"));
-            gallery.Children.Add(new TextBlock { Text = galleryTitle, FontSize = 18, FontWeight = FontWeight.SemiBold });
+            gallery.Children.Add(new TextBlock { Text = galleryTitle, FontSize = DisplayTypography.WindowTitle, FontWeight = FontWeight.SemiBold });
             foreach (var screen in screens) gallery.Children.Add(new UserGuideScreenshot(screen, CurrentLanguage()));
             _sections.Children.Add(gallery);
             AddSectionLink(galleryTitle, gallery);

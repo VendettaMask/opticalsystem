@@ -34,7 +34,8 @@ public sealed partial class DesignService
         { anchor = relative; anchorAssessment = relativeAssessment; direction = "relative-deficit"; }
         var combinedRun = main.Run with
         {
-            Evaluations = main.Run.Evaluations + comparison.Run.Evaluations, StopReason = "CertifiedTargetDirectionComparison",
+            Evaluations = main.Run.Evaluations + comparison.Run.Evaluations,
+            StopReason = "CertifiedTargetDirectionComparison",
             TargetRepairBaselineDirection = direction,
             TargetDirectionTrials = [
                 new("original-scale", raw.Layers, raw.Result!.Metrics, raw.Result.Merit, raw.Result.Passed, main.Run.Iterations, main.Run.Evaluations, main.Run.StopReason, direction == "original-scale"),
@@ -311,9 +312,20 @@ public sealed partial class DesignService
         if (best.Result!.Passed) polishStop = "Passed";
         else if (goal < 0) polishStop = "NoRemainingGuidedTarget";
         return (best.Layers, best.Result!.Merit, main.Run with
-        { Evaluations = main.Run.Evaluations + extraEvaluations, GeneralWork = work.Snapshot(), TargetProtectionPhase = "pareto-target-correction",
-            TargetRepairStartLayers = anchor.Layers, TargetRepairViolationCeilings = anchorAssessment.Violations, TargetRepairGoalIndex = firstGoal, TargetRepairTrials = history.ToArray(),
-            TargetRepairStopReason = repairStop, TargetRepairContinuationStartLayers = continuationStart, TargetRepairContinuationCeilings = continuationCeilings,
-            TargetParetoStopReason = polishStop, TargetRepairWindows = windows.ToArray(), TargetRefinementIterationLimit = maximumIterations });
+        {
+            Evaluations = main.Run.Evaluations + extraEvaluations,
+            GeneralWork = work.Snapshot(),
+            TargetProtectionPhase = "pareto-target-correction",
+            TargetRepairStartLayers = anchor.Layers,
+            TargetRepairViolationCeilings = anchorAssessment.Violations,
+            TargetRepairGoalIndex = firstGoal,
+            TargetRepairTrials = history.ToArray(),
+            TargetRepairStopReason = repairStop,
+            TargetRepairContinuationStartLayers = continuationStart,
+            TargetRepairContinuationCeilings = continuationCeilings,
+            TargetParetoStopReason = polishStop,
+            TargetRepairWindows = windows.ToArray(),
+            TargetRefinementIterationLimit = maximumIterations
+        });
     }
 }

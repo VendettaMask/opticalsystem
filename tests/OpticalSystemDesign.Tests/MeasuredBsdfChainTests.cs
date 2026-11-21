@@ -57,8 +57,14 @@ public sealed class MeasuredBsdfChainTests
         var opened = await app.CameraImaging.OpenExperimentAsync(path); var replay = await app.CameraImaging.RecomputeAsync(opened.B);
         Assert.Equal(run.PhotoElectrons, replay.PhotoElectrons); Assert.Equal(run.RawDn, replay.RawDn); Assert.Equal(run.Developed.Rgb24, replay.Developed.Rgb24);
         Assert.Equal(model.MeasuredData.DataSha256, replay.Request.NscDetector!.SurfaceBsdfs![0].Model.MeasuredData!.DataSha256);
-        MeasuredBsdfTests.Record("camera-chain", new { PowerWatts = input.Bands.Sum(b => b.PixelPowerWatts.Sum()), MaximumPhotonConversionError = max,
-            input.BsdfStatistics, ExactFrozenRawIspReplay = true, Source = "Synthetic analytical control, not a measured reference or certification" });
+        MeasuredBsdfTests.Record("camera-chain", new
+        {
+            PowerWatts = input.Bands.Sum(b => b.PixelPowerWatts.Sum()),
+            MaximumPhotonConversionError = max,
+            input.BsdfStatistics,
+            ExactFrozenRawIspReplay = true,
+            Source = "Synthetic analytical control, not a measured reference or certification"
+        });
     }
 
     [Fact]

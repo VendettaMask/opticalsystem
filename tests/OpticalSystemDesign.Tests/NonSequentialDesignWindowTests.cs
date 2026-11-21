@@ -46,7 +46,8 @@ public sealed class NonSequentialDesignWindowTests
         }, CancellationToken.None);
     }
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task DesignImportAndPhysicsControlsAreReachableOffscreen(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));

@@ -13,9 +13,12 @@ public sealed class DisplayPolarizationTests
     public void DisplayUsesActualCorePolarizationsWithoutChangingTheOriginalResult(double angle, ThinFilmPolarization polarization)
     {
         var d = Examples.Create(DesignKind.HighReflector);
-        d = d with { Target = d.Target with { AngleDegrees = angle, Polarization = polarization },
+        d = d with
+        {
+            Target = d.Target with { AngleDegrees = angle, Polarization = polarization },
             Layers = [new(d.HighId, 65), new(d.LowId, 95), new(d.HighId, 70)],
-            Settings = d.Settings with { PreviewIntervals = 40 } };
+            Settings = d.Settings with { PreviewIntervals = 40 }
+        };
         var service = new DesignService(); d = service.Evaluate(d);
         var frozen = System.Text.Json.JsonSerializer.Serialize(d, Experiment.JsonOptions);
         var display = service.EvaluateDisplayPolarizations(d);

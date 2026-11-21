@@ -54,7 +54,7 @@ public static class AutonomousDesignFiles
         if (candidate.Topology.HasTransitionElements || !candidate.Assessment.Completed)
             throw new InvalidDataException("Only an independently assessed, non-transition candidate can be exported.");
         var compiled = TopologyCompiler.Compile(candidate.Topology, constraints);
-        if (candidate.Assessment.OpticFingerprint != compiled.OpticFingerprint)
+        if (!compiled.MatchesOpticFingerprint(candidate.Assessment.OpticFingerprint))
             throw new InvalidDataException("Candidate assessment does not describe its current physical prescription.");
         var fullPath = Path.GetFullPath(path);
         if (!fullPath.EndsWith(StarOptProjectStore.Extension, StringComparison.OrdinalIgnoreCase)) fullPath += StarOptProjectStore.Extension;

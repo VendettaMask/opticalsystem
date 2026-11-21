@@ -6,8 +6,8 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
-using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.CoatingDesign.Engine;
 
 namespace OpticalSystemDesign.App.Laboratories.CoatingDesign;

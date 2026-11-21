@@ -641,8 +641,13 @@ public sealed class ToleranceWizardWindow : Window
 
     private static Button HelpButton()
     {
-        var button = new Button { Content = new OpticalSystemDesign.App.Controls.LocalIcon
-            { IconName = "help-topic", Width = 18, Height = 18 }, Width = 30, Height = 28 };
+        var button = new Button
+        {
+            Content = new OpticalSystemDesign.App.Controls.LocalIcon
+            { IconName = "help-topic", Width = 18, Height = 18 },
+            Width = 30,
+            Height = 28
+        };
         ControlAvailability.Set(button, false, "此向导暂不提供独立帮助窗口。");
         return button;
     }

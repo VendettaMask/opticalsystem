@@ -73,8 +73,10 @@ public partial class WorkbenchRuntime
                         Operands = _operands,
                         AdditionalCompensators = CompensationDefinitions(number).Select(row => row with { Configuration = 0 }).ToArray(),
                         ConfigurationSettings = null,
-                        YieldLimit = ConfigurationLimit(number), MtfSettings = ConfigurationMtf(number),
-                        Mode = ToleranceAnalysisMode.Sensitivity, CompensationIterations = 0
+                        YieldLimit = ConfigurationLimit(number),
+                        MtfSettings = ConfigurationMtf(number),
+                        Mode = ToleranceAnalysisMode.Sensitivity,
+                        CompensationIterations = 0
                     }, surface => SurfaceFringePerturbation.ApertureRadius(reference[surface]), joint: true);
                     OpticCapabilityPreflight.EnsureSupported(optic, OpticCapabilityOperation.Tolerancing);
 

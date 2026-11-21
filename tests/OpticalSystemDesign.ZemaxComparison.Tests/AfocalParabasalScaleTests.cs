@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Reflection;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Validation;
 using Xunit.Abstractions;
 
 namespace OpticalSystemDesign.ZemaxComparison.Tests;

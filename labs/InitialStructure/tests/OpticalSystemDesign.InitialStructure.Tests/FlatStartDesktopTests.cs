@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Collections.Specialized;
 using Avalonia;
 using Avalonia.Controls;
@@ -18,6 +17,7 @@ using OpticalSystemDesign.Core.Visualization;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 

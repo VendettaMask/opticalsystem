@@ -5,8 +5,8 @@ using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Media.Immutable;
 using Avalonia.Media.Imaging;
+using Avalonia.Media.Immutable;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Formatting;
@@ -1064,8 +1064,11 @@ public sealed class AnalysisPlotControl : Control, IInteractiveCanvasAutomationS
                 // A writable bitmap's deferred upload can outlive this render call.
                 var pin = System.Runtime.InteropServices.GCHandle.Alloc(rgba, System.Runtime.InteropServices.GCHandleType.Pinned);
                 Bitmap bitmap;
-                try { bitmap = new Bitmap(Avalonia.Platform.PixelFormat.Bgra8888, Avalonia.Platform.AlphaFormat.Opaque,
-                    pin.AddrOfPinnedObject(), new PixelSize(xValues.Length, yValues.Length), new Vector(96, 96), xValues.Length * 4); }
+                try
+                {
+                    bitmap = new Bitmap(Avalonia.Platform.PixelFormat.Bgra8888, Avalonia.Platform.AlphaFormat.Opaque,
+                    pin.AddrOfPinnedObject(), new PixelSize(xValues.Length, yValues.Length), new Vector(96, 96), xValues.Length * 4);
+                }
                 finally { pin.Free(); }
                 using var imageLifetime = bitmap;
                 using var sampling = context.PushRenderOptions(new RenderOptions { BitmapInterpolationMode = BitmapInterpolationMode.None });

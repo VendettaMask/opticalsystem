@@ -1,7 +1,7 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Coatings;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.CoatingDesign.Tests;
 
@@ -19,9 +19,17 @@ public sealed class DenseExtremaTests
         // independently of the asymmetric real entrance/exit admittances.
         input = input with
         {
-            Target = input.Target with { MinimumNm = wave * .65, MaximumNm = wave * 1.6, FwhmNm = wave * .5,
-                FwhmToleranceNm = wave * .35, CenterToleranceNm = .5, BlockingOd = .1, MaximumLayers = 1,
-                StopBands = [new(wave * .66, wave * .69), new(wave * 1.5, wave * 1.58)] },
+            Target = input.Target with
+            {
+                MinimumNm = wave * .65,
+                MaximumNm = wave * 1.6,
+                FwhmNm = wave * .5,
+                FwhmToleranceNm = wave * .35,
+                CenterToleranceNm = .5,
+                BlockingOd = .1,
+                MaximumLayers = 1,
+                StopBands = [new(wave * .66, wave * .69), new(wave * 1.5, wave * 1.58)]
+            },
             Layers = [new(input.HighId, (wave + offset) / (2 * index), false)]
         };
         var service = new DesignService();

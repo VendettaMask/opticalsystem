@@ -8,9 +8,12 @@ namespace OpticalSystemDesign.InitialStructure.Persistence;
 
 public static class ParaxialSeedSearchFiles
 {
-    private static readonly JsonSerializerOptions Json = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    private static readonly JsonSerializerOptions Json = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
-        Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) } };
+        Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+    };
 
     public static Task SaveAsync(ParaxialSeedSearchResult result, string path, CancellationToken token = default) =>
         BoundedFile.WriteAtomicAsync(path, InitialStructureLimits.MaximumManifestBytes, "first-order seed preparation",

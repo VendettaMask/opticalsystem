@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

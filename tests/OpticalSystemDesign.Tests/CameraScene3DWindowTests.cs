@@ -16,7 +16,8 @@ namespace OpticalSystemDesign.Tests;
 public sealed class CameraScene3DWindowTests
 {
     [Theory]
-    [InlineData("Light", "zh-CN")] [InlineData("Dark", "en-US")]
+    [InlineData("Light", "zh-CN")]
+    [InlineData("Dark", "en-US")]
     public async Task SceneSelectionActiveAreaABImportReplayAndCancellationWorkOffscreen(string theme, string language)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));

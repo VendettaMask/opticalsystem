@@ -217,7 +217,7 @@ public sealed partial class MainWindow
         ribbonLayer.Children.Add(new ThemeChromeOverlay { Role = ThemeChromeRole.Ribbon, RibbonTabs = tabs });
         ribbonLayer.Children.Add(tabs);
         ribbonLayer.Children.Add(new ThemeChromeOverlay
-            { Role = ThemeChromeRole.Ribbon, RibbonTabs = tabs, ForegroundDecoration = true });
+        { Role = ThemeChromeRole.Ribbon, RibbonTabs = tabs, ForegroundDecoration = true });
         var ribbon = new Border
         {
             Child = ribbonLayer,
@@ -676,7 +676,8 @@ public sealed partial class MainWindow
         grid.Children.Remove(previous);
         grid.Children.Insert(0, new AnalysisCategoryIcon(iconName)
         {
-            Width = DisplayTypography.Scale(22), Height = DisplayTypography.Scale(22),
+            Width = DisplayTypography.Scale(22),
+            Height = DisplayTypography.Scale(22),
             VerticalAlignment = VerticalAlignment.Center
         });
         return grid;

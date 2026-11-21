@@ -27,4 +27,4 @@ CFG 来源保留在[原始捕获](../all-output-visual-comparison/double-gauss/z
 
 [新增面积回归](../../../../tests/OpticalSystemDesign.Tests/ExtendedSourceAreaTests.cs)使用独立解析控制：-1倍理想中继把均匀2mm方形源成像，半径不超过1mm时的圈入能量应为 `πr² / 4mm²`。覆盖1/5/11区域密度、瞄准开/关、单像素与均匀源等价、只有轴上视场的物理缩放、超出已定义视场、非均匀像素的质心、真实孔径裁切、无焦单位、零亮度及取消。
 
-[直接调用结果](checks.json)中的16组检查通过（13组新面积案例及3组既有能量检查），另完成真实应用结果映射和离屏PNG，见[断言及抓图日志](checks-direct.log)。[默认Release构建](build-release.log)零警告、零错误。随后独立VSTest工程因90秒内无法连接testhost而中止，见[原日志](tests-vstest.log)和[TRX](extended-source-area.trx)；不能据此声称完整VSTest运行通过。不把重复执行累计成新案例数量。本轮只针对扩展源及相关能量路径，没有运行完整95镜头矩阵或四种报告格式导出。
+[直接调用结果](checks.json)中的16组检查通过（13组新面积案例及3组既有能量检查），另完成真实应用结果映射和离屏PNG，见[断言及抓图日志](checks-direct.log)。[默认Release构建](../afocal-lateral-color/app-build.log)零警告、零错误。随后独立VSTest工程因90秒内无法连接testhost而中止，见[原日志](tests-vstest.log)和[TRX](extended-source-area.trx)；不能据此声称完整VSTest运行通过。不把重复执行累计成新案例数量。本轮只针对扩展源及相关能量路径，没有运行完整95镜头矩阵或四种报告格式导出。

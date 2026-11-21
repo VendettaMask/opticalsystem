@@ -42,13 +42,26 @@ internal static class RmsFieldDiagnostics
                 {
                     var hit = history.FirstOrDefault(s => s.SurfaceNumber == stop.Number);
                     var local = hit is null ? (OpticalSystemDesign.Core.Backend.Vector3D?)null : stop.CoordinateSystem.ToLocalPoint(hit.Position);
-                    return new { index = i, pupil = pupil[i], targetX = targets[i].X, targetY = targets[i].Y,
-                        launch = bundle.Rays[i], stop = local,
+                    return new
+                    {
+                        index = i,
+                        pupil = pupil[i],
+                        targetX = targets[i].X,
+                        targetY = targets[i].Y,
+                        launch = bundle.Rays[i],
+                        stop = local,
                         stopResidual = local is { } p ? double.Hypot(p.X - targets[i].X, p.Y - targets[i].Y) : double.PositiveInfinity,
-                        history };
+                        history
+                    };
                 }).ToArray();
-                fields.Add(new { index, normalizedFieldY = hy, degrees = hy * request.MaximumFieldRadius,
-                    aliveLaunches = bundle.Rays.Count(r => r.Intensity > 0), rays });
+                fields.Add(new
+                {
+                    index,
+                    normalizedFieldY = hy,
+                    degrees = hy * request.MaximumFieldRadius,
+                    aliveLaunches = bundle.Rays.Count(r => r.Intensity > 0),
+                    rays
+                });
                 if (index is 0 or >= 13)
                 {
                     var phase = Math.PI / 12;
@@ -62,15 +75,26 @@ internal static class RmsFieldDiagnostics
                     {
                         var last = history.Last();
                         var direction = image.CoordinateSystem.ToLocalDirection(last.Direction);
-                        return new { X = Math.Atan2(direction.X, direction.Z) * 1000,
-                            Y = Math.Atan2(direction.Y, direction.Z) * 1000, Weight = alternate.Rays[i].Intensity };
+                        return new
+                        {
+                            X = Math.Atan2(direction.X, direction.Z) * 1000,
+                            Y = Math.Atan2(direction.Y, direction.Z) * 1000,
+                            Weight = alternate.Rays[i].Intensity
+                        };
                     }).ToArray();
                     var weight = points.Sum(p => p.Weight);
                     var cx = points.Sum(p => p.Weight * p.X) / weight;
                     var cy = points.Sum(p => p.Weight * p.Y) / weight;
                     var rms = Math.Sqrt(points.Sum(p => p.Weight * (Math.Pow(p.X - cx, 2) + Math.Pow(p.Y - cy, 2))) / weight);
-                    angularVariants.Add(new { index, phaseRadians = phase, nodeCount = rotated.Length,
-                        alive = alternate.Rays.Count(r => r.Intensity > 0), rmsMilliradians = rms, points });
+                    angularVariants.Add(new
+                    {
+                        index,
+                        phaseRadians = phase,
+                        nodeCount = rotated.Length,
+                        alive = alternate.Rays.Count(r => r.Intensity > 0),
+                        rmsMilliradians = rms,
+                        points
+                    });
                 }
             }
         }

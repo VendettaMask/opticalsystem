@@ -1,9 +1,9 @@
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
-using OpticalSystemDesign.Core.Visualization;
 using OpticalSystemDesign.Core.Differentiation;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Visualization;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 

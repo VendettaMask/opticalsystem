@@ -1,5 +1,5 @@
-using Avalonia.Controls;
 using Avalonia.Automation;
+using Avalonia.Controls;
 using Avalonia.LogicalTree;
 using OpticalSystemDesign.App.Laboratories.CoatingDesign;
 using OpticalSystemDesign.CoatingDesign.Engine;
@@ -44,7 +44,8 @@ public sealed partial class DesktopTests
                     var layerTable = WindowControls(window).OfType<DataGrid>().Single(g => g.Name == "CoatingLayerTable");
                     layerTable.CellEditEnded += (_, e) => inputChanges.Add($"CellEditEnded: {e.EditAction}; {e.Column.Header}");
                     var computeClicks = 0;
-                    Find<Button>(window, "计算 / 复验").Click += (_, _) => computeClicks++;
+                    var designMenu = Assert.IsType<MenuFlyout>(Find<DropDownButton>(window, "设计选项").Flyout);
+                    designMenu.Items.OfType<MenuItem>().Single(item => item.Name == "CoatingCompute_evaluate").Click += (_, _) => computeClicks++;
                     foreach (var input in WindowControls(window).Concat(window.SettingsContent.GetLogicalDescendants()).OfType<Control>().Distinct())
                         input.PropertyChanged += (_, e) =>
                         {

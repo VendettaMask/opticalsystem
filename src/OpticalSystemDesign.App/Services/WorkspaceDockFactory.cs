@@ -69,7 +69,10 @@ public sealed partial class WorkspaceDockFactory : Factory
                 : dockable.Id switch
                 {
                     SystemToolId => _application.Modes.CurrentMode == OpticalWorkbenchMode.NonSequential ? "非序列设置" : "系统选项",
-                    ToolDockId => "系统选项", DocumentDockId => "文档", MainLayoutId => "工作区", _ => null
+                    ToolDockId => "系统选项",
+                    DocumentDockId => "文档",
+                    MainLayoutId => "工作区",
+                    _ => null
                 };
             if (source is not null) dockable.Title = UiLocalization.Text(source);
         }

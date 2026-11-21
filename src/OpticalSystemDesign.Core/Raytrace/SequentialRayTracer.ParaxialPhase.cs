@@ -1,8 +1,8 @@
 using System.Collections.Concurrent;
 using OpticalSystemDesign.Core.Backend;
-using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.Geometries;
+using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Propagation;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Services;

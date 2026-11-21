@@ -6,9 +6,9 @@ using Avalonia.Data;
 using Avalonia.Headless;
 using Avalonia.Media.Imaging;
 using Avalonia.VisualTree;
-using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Laboratories;
 using OpticalSystemDesign.App.Manufacturing;
+using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
@@ -37,7 +37,7 @@ public sealed class PresentationLocalizationTests
         using var language = UiLocalization.UseLanguage(UiLocalization.English);
         Assert.Equal("Scale: 1.250", UiLocalization.Template($"比例：{1.25:0.000}"));
         Assert.Equal("{1.250}", UiLocalization.Template($"{{{1.25:0.000}}}"));
-        Assert.Equal("Edge: 材料", UiLocalization.Template($"边缘：{ "材料" }"));
+        Assert.Equal("Edge: 材料", UiLocalization.Template($"边缘：{"材料"}"));
         Assert.Equal("1.25 / 1.250", UiLocalization.Template(FormattableStringFactory.Create("{0:0.00} / {0:0.000}", 1.25)));
         Assert.DoesNotContain("主波长", UiLocalization.Text("0.55 µm\n主波长"));
     }

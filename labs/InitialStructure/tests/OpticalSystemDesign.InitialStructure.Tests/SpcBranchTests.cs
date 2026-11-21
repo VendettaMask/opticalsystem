@@ -172,9 +172,19 @@ public sealed class SpcBranchTests
     internal static AutonomousSearchPlan Plan() => new()
     {
         Seeds = [SpcTransitionTests.Parent().Topology with { Name = "SPC existing authored singlet" }],
-        Options = new() { Seed = 42, InsertionMaterials = ["N-BK7", "N-F2"], Expansion = new() { EnableInsertion = true, EnableMaterial = true },
-            Local = new() { ComputeMode = DesignComputeMode.Cpu, PerformFinalAssessment = false, GateCompensationVersion = 4,
-                Sampling = new() { FieldsPerDirection = 3, PupilRings = 2, PupilArms = 8, IncludeBoundaryClearance = true, IncludeBoundaryMaximum = true } } }
+        Options = new()
+        {
+            Seed = 42,
+            InsertionMaterials = ["N-BK7", "N-F2"],
+            Expansion = new() { EnableInsertion = true, EnableMaterial = true },
+            Local = new()
+            {
+                ComputeMode = DesignComputeMode.Cpu,
+                PerformFinalAssessment = false,
+                GateCompensationVersion = 4,
+                Sampling = new() { FieldsPerDirection = 3, PupilRings = 2, PupilArms = 8, IncludeBoundaryClearance = true, IncludeBoundaryMaximum = true }
+            }
+        }
     };
     internal static ParaxialSeedSearchOptions Budget() => new() { MaximumFunctionEvaluations = 600, MaximumTracedRays = 2_000_000, TimeLimit = TimeSpan.FromSeconds(120) };
 }

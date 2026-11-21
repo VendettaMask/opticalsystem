@@ -1,8 +1,8 @@
+using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
-using OpticalSystemDesign.Application.Runtime;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -112,8 +112,13 @@ public sealed class AfocalRmsReferenceTests
         var table = new ZernikeAnalysis(optic, ZernikeAnalysisKind.Fringe, numRings: 12,
             numTerms: 37, wavelengthNumber: 2, fieldNumber: 3).GenerateData();
         var sweep = new WorkbenchRuntime(optic).BuildAnalysisData("Zernike vs Field",
-            new Dictionary<string, string> { ["FieldDensity"] = "4", ["NumRings"] = "12",
-                ["ZernikeTerms"] = "8", ["WavelengthNumber"] = "2" });
+            new Dictionary<string, string>
+            {
+                ["FieldDensity"] = "4",
+                ["NumRings"] = "12",
+                ["ZernikeTerms"] = "8",
+                ["WavelengthNumber"] = "2"
+            });
         var expected = (double[])table.Values["CoefficientsWaves"];
         Assert.Equal(8, sweep.PlotSeries.Count);
         Assert.Equal(8, sweep.Values["DisplayedZernikeTerms"]);

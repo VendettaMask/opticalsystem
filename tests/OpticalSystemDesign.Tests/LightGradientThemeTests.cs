@@ -135,17 +135,17 @@ public sealed class LightGradientThemeTests
         var ribbon = tabs.GetVisualAncestors().OfType<Border>().First();
         var title = Assert.Single(window.GetVisualDescendants().OfType<MainWindowTitleBar>());
         foreach (var surface in new[] { ribbon, title })
-        foreach (var fraction in new[] { .25, .55, .85 })
-        {
-            // Compare actual rendered rows above the text/icons. A hard white
-            // stroke makes the first row much brighter than the glass below it.
-            var top = surface.TranslatePoint(new Point(surface.Bounds.Width * fraction, .5), window)!.Value;
-            var below = surface.TranslatePoint(new Point(surface.Bounds.Width * fraction, 3.5), window)!.Value;
-            var edge = pixels.GetPixel((int)top.X, (int)top.Y);
-            var fill = pixels.GetPixel((int)below.X, (int)below.Y);
-            Assert.True(edge.Red - fill.Red <= 8 && edge.Green - fill.Green <= 8 && edge.Blue - fill.Blue <= 8,
-                $"Bright header seam on {surface.GetType().Name} at {top}: {edge} over {fill}.");
-        }
+            foreach (var fraction in new[] { .25, .55, .85 })
+            {
+                // Compare actual rendered rows above the text/icons. A hard white
+                // stroke makes the first row much brighter than the glass below it.
+                var top = surface.TranslatePoint(new Point(surface.Bounds.Width * fraction, .5), window)!.Value;
+                var below = surface.TranslatePoint(new Point(surface.Bounds.Width * fraction, 3.5), window)!.Value;
+                var edge = pixels.GetPixel((int)top.X, (int)top.Y);
+                var fill = pixels.GetPixel((int)below.X, (int)below.Y);
+                Assert.True(edge.Red - fill.Red <= 8 && edge.Green - fill.Green <= 8 && edge.Blue - fill.Blue <= 8,
+                    $"Bright header seam on {surface.GetType().Name} at {top}: {edge} over {fill}.");
+            }
     }
 
     private static void AssertSidebarBackdrop(Window window, DockPanel root, SKBitmap pixels)
@@ -158,8 +158,12 @@ public sealed class LightGradientThemeTests
         {
             var chain = sidebar.GetVisualAncestors().Prepend(sidebar).OfType<Control>().Select(control => new
             {
-                Type = control.GetType().Name, control.Name,
-                control.Bounds.X, control.Bounds.Y, control.Bounds.Width, control.Bounds.Height,
+                Type = control.GetType().Name,
+                control.Name,
+                control.Bounds.X,
+                control.Bounds.Y,
+                control.Bounds.Width,
+                control.Bounds.Height,
                 Template = (control.TemplatedParent as Control)?.GetType().Name,
                 Background = (control switch
                 {

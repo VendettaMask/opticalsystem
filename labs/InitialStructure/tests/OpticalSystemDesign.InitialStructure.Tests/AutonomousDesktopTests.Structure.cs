@@ -59,7 +59,9 @@ public sealed partial class AutonomousDesktopTests
                 var plot = Find<TopologyStructurePlot>(window, "AutonomousStructurePlot");
                 Assert.NotNull(plot.Data); var data = plot.Data;
                 var selected = (TopologyCandidateRow)Find<DataGrid>(window, "AutonomousCandidates").SelectedItem!;
-                Assert.Equal(selected.Candidate.Assessment.OpticFingerprint, data.OpticFingerprint);
+                var compiled = TopologyCompiler.Compile(selected.Candidate.Topology, window.CurrentCheckpoint!.Plan.Constraints);
+                Assert.True(compiled.MatchesOpticFingerprint(selected.Candidate.Assessment.OpticFingerprint));
+                Assert.Equal(compiled.OpticFingerprint, data.OpticFingerprint);
                 Assert.Equal(state, ContentFingerprint.Compute(window.CurrentCheckpoint!));
                 using (var navigation = SequentialTraceMeasurement.Begin())
                 {

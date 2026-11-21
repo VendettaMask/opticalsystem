@@ -66,7 +66,7 @@ internal sealed partial class NonSequentialDetectorAccumulator
                 var bins = pair.Value; var values = Enumerable.Range(0, count).Select(i => bins.First[i].SquaredNorm + bins.Second[i].SquaredNorm).ToArray();
                 modes.Add(new(pair.Key.Group, Array.AsReadOnly(bins.First.Select(NonSequentialComplexVector.From).ToArray()),
                     Array.AsReadOnly(bins.Second.Select(NonSequentialComplexVector.From).ToArray()))
-                    { SummedRayAmplitudes = Snapshot(bins.Amplitudes), HitCounts = Snapshot(bins.Hits) });
+                { SummedRayAmplitudes = Snapshot(bins.Amplitudes), HitCounts = Snapshot(bins.Hits) });
                 var total = values.Sum(); var incident = bins.Power.Sum();
                 for (var i = 0; i < count; i++)
                 {
@@ -78,7 +78,7 @@ internal sealed partial class NonSequentialDetectorAccumulator
                 }
             }
             result.Add(wave.Key, new(Array.AsReadOnly(raw), Array.AsReadOnly(power), _parameters.NormalizeCoherentPower && count > 1)
-                { Modes = Array.AsReadOnly(modes.ToArray()) });
+            { Modes = Array.AsReadOnly(modes.ToArray()) });
         }
         return new ReadOnlyDictionary<int, NonSequentialCoherentFrame>(result);
     }

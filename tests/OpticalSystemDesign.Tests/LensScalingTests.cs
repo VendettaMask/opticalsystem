@@ -1,4 +1,7 @@
 using System.Text.Json;
+using OpticalSystemDesign.App.ViewModels;
+using OpticalSystemDesign.Application.Contracts;
+using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Backend;
@@ -9,16 +12,15 @@ using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Phase;
 using OpticalSystemDesign.Core.Serialization;
 using OpticalSystemDesign.Core.Services;
-using OpticalSystemDesign.Application.Contracts;
-using OpticalSystemDesign.Application.Services;
-using OpticalSystemDesign.App.ViewModels;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class LensScalingTests
 {
     [Theory]
-    [InlineData(.5)] [InlineData(2)] [InlineData(10)]
+    [InlineData(.5)]
+    [InlineData(2)]
+    [InlineData(10)]
     public void WholeLensScalesPhysicalDimensionsAndFocalLength(double factor)
     {
         var original = Optic.CreateCookeTriplet();
@@ -41,11 +43,20 @@ public sealed class LensScalingTests
     }
 
     [Theory]
-    [InlineData("even")] [InlineData("odd")] [InlineData("extended")]
-    [InlineData("biconic")] [InlineData("toroid")] [InlineData("forbes")]
-    [InlineData("normal-slope")] [InlineData("polynomial")] [InlineData("chebyshev")]
-    [InlineData("chebyshev-sag")] [InlineData("zernike")] [InlineData("irregular")]
-    [InlineData("fringe-sag")] [InlineData("grid-sag")]
+    [InlineData("even")]
+    [InlineData("odd")]
+    [InlineData("extended")]
+    [InlineData("biconic")]
+    [InlineData("toroid")]
+    [InlineData("forbes")]
+    [InlineData("normal-slope")]
+    [InlineData("polynomial")]
+    [InlineData("chebyshev")]
+    [InlineData("chebyshev-sag")]
+    [InlineData("zernike")]
+    [InlineData("irregular")]
+    [InlineData("fringe-sag")]
+    [InlineData("grid-sag")]
     public void SurfaceSagObeysDimensionalSimilarity(string kind)
     {
         IGeometry shape = kind switch
@@ -125,7 +136,12 @@ public sealed class LensScalingTests
     }
 
     [Theory]
-    [InlineData(0)] [InlineData(-2)] [InlineData(double.NaN)] [InlineData(double.PositiveInfinity)] [InlineData(1e-300)] [InlineData(double.MaxValue)]
+    [InlineData(0)]
+    [InlineData(-2)]
+    [InlineData(double.NaN)]
+    [InlineData(double.PositiveInfinity)]
+    [InlineData(1e-300)]
+    [InlineData(double.MaxValue)]
     public void InvalidScalingLeavesOriginalUntouched(double factor)
     {
         var optic = Optic.CreateCookeTriplet(); var before = Json(optic.ToSnapshot());
@@ -220,8 +236,10 @@ public sealed class LensScalingTests
     }
 
     [Theory]
-    [InlineData(LensLengthUnit.Millimeter, 1)] [InlineData(LensLengthUnit.Centimeter, 10)]
-    [InlineData(LensLengthUnit.Meter, 1000)] [InlineData(LensLengthUnit.Inch, 25.4)]
+    [InlineData(LensLengthUnit.Millimeter, 1)]
+    [InlineData(LensLengthUnit.Centimeter, 10)]
+    [InlineData(LensLengthUnit.Meter, 1000)]
+    [InlineData(LensLengthUnit.Inch, 25.4)]
     public void UnitEntryAndOverflowValidationUseActualPhysicalLengths(LensLengthUnit unit, double millimeters)
     {
         using var app = WorkbenchApplication.Create("cooke");
@@ -234,6 +252,6 @@ public sealed class LensScalingTests
     }
 
     private static string Json(OpticSnapshot snapshot) => JsonSerializer.Serialize(snapshot, new JsonSerializerOptions
-        { NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals });
+    { NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals });
     private static void Near(double expected, double actual) => Assert.True(Math.Abs(expected - actual) <= 1e-9 * Math.Max(1, Math.Abs(expected)), $"Expected {expected:G17}; actual {actual:G17}");
 }

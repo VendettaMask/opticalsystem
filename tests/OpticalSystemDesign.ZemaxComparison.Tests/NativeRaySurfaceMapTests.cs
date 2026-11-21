@@ -36,8 +36,10 @@ public sealed class NativeRaySurfaceMapTests
             var entry = AnalysisComparisonRegistry.Get("Single Ray Trace");
             var request = new CanonicalAnalysisRequest
             {
-                CanonicalAnalysisKey = entry.CanonicalAnalysisKey, Apodization = "Uniform",
-                WorkbenchSettings = [], SurfaceCount = 5
+                CanonicalAnalysisKey = entry.CanonicalAnalysisKey,
+                Apodization = "Uniform",
+                WorkbenchSettings = [],
+                SurfaceCount = 5
             };
             NumericResult Read(double indexRatio)
             {
@@ -126,7 +128,10 @@ public sealed class NativeRaySurfaceMapTests
             var entry = AnalysisComparisonRegistry.Get("Single Ray Trace");
             var request = new CanonicalAnalysisRequest
             {
-                CanonicalAnalysisKey = entry.CanonicalAnalysisKey, Apodization = "Uniform", WorkbenchSettings = [], SurfaceCount = 4
+                CanonicalAnalysisKey = entry.CanonicalAnalysisKey,
+                Apodization = "Uniform",
+                WorkbenchSettings = [],
+                SurfaceCount = 4
             };
             const string cells = " 0 0 0 0 0 1 0 0 -1 0 0";
             var report = Path.ChangeExtension(native, ".txt");
@@ -175,7 +180,10 @@ public sealed class NativeRaySurfaceMapTests
             var entry = AnalysisComparisonRegistry.Get("Single Ray Trace");
             var request = new CanonicalAnalysisRequest
             {
-                CanonicalAnalysisKey = entry.CanonicalAnalysisKey, Apodization = "Uniform", WorkbenchSettings = [], SurfaceCount = 4
+                CanonicalAnalysisKey = entry.CanonicalAnalysisKey,
+                Apodization = "Uniform",
+                WorkbenchSettings = [],
+                SurfaceCount = 4
             };
             Assert.Null(ResultNormalizer.Zemax(native, entry, request).UnreportedNativeRayPathSurfaces);
             var expected = ResultNormalizer.Zemax(native, entry, request, workbench);

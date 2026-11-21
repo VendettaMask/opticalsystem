@@ -295,7 +295,7 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
 
     private void ValidateMaterials(CoreDocument document)
     {
-        if(!document.Objects.Any(o=>o.Parameters is Core.NonSequential.OpticalAssemblyParameters g && g.Interfaces[0].MaterialBefore.Text.GetValueOrDefault("name", "Air")==document.AmbientMaterial))
+        if (!document.Objects.Any(o => o.Parameters is Core.NonSequential.OpticalAssemblyParameters g && g.Interfaces[0].MaterialBefore.Text.GetValueOrDefault("name", "Air") == document.AmbientMaterial))
             _ = Runtime.CurrentOptic.Materials.Resolve(document.AmbientMaterial);
         foreach (var material in document.Objects.SelectMany(MaterialNames).Distinct(StringComparer.OrdinalIgnoreCase))
         {
@@ -333,7 +333,7 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
         item.LocalCoordinateSystem.RotationYDegrees,
         item.LocalCoordinateSystem.RotationZDegrees,
         item.Parameters is Core.NonSequential.OpticalAssemblyParameters group
-            ? string.Join(" / ",group.Interfaces.SelectMany(f=>new[]{f.MaterialBeforeName,f.MaterialAfterName}).Distinct())
+            ? string.Join(" / ", group.Interfaces.SelectMany(f => new[] { f.MaterialBeforeName, f.MaterialAfterName }).Distinct())
             : MaterialNames(item).FirstOrDefault() ?? string.Empty,
         ToDto(item.Parameters, document),
         Summary(item.Parameters) + (item.SurfaceBsdf is { } bsdf ? bsdf.MeasuredData is { } d ? $" · BSDF {d.Name}" : $" · Lambertian ρ={bsdf.Reflectance:G5}" : ""),
@@ -362,7 +362,7 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
         CoreSphereParameters sphere => $"R {sphere.RadiusMillimeters:0.###} mm",
         CoreCylinderParameters cylinder => $"R {cylinder.RadiusMillimeters:0.###} × {cylinder.LengthMillimeters:0.###} mm",
         CoreBoxParameters box => $"{box.WidthMillimeters:0.###} × {box.HeightMillimeters:0.###} × {box.LengthMillimeters:0.###} mm",
-        Core.NonSequential.OpticalAssemblyParameters group => $"{group.Interfaces.Count} 个原始界面 · 独立口径/介质/镀膜"+(group.HasExtendedSurfaces?" · 非球面/独立坐标":""),
+        Core.NonSequential.OpticalAssemblyParameters group => $"{group.Interfaces.Count} 个原始界面 · 独立口径/介质/镀膜" + (group.HasExtendedSurfaces ? " · 非球面/独立坐标" : ""),
         CoreStandardLensParameters lens => $"CT {lens.CenterThicknessMillimeters:0.###}，SD {lens.SemiDiameterMillimeters:0.###} mm",
         CoreMeshObjectParameters mesh => $"STL 资产 {mesh.MeshAssetId:N}，{mesh.Behavior}",
         CoreDetectorRectangleParameters detector => $"{detector.WidthMillimeters:0.###} × {detector.HeightMillimeters:0.###} mm，{detector.PixelsX} × {detector.PixelsY}",
@@ -467,8 +467,8 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
         CoreMeshObjectParameters mesh when document is not null => ToMeshDto(document.FindMeshAsset(mesh.MeshAssetId), mesh),
         CoreDetectorRectangleParameters detector => new DetectorRectangleParameters(
             detector.WidthMillimeters, detector.HeightMillimeters, detector.PixelsX, detector.PixelsY,
-            detector.FrontOnly, detector.Absorb,detector.IncidentSurface, detector.NormalizeCoherentPower)
-                { RecordColor = detector.RecordColor, PolarizationComponent = detector.PolarizationComponent },
+            detector.FrontOnly, detector.Absorb, detector.IncidentSurface, detector.NormalizeCoherentPower)
+        { RecordColor = detector.RecordColor, PolarizationComponent = detector.PolarizationComponent },
         _ => throw new InvalidDataException($"Unsupported non-sequential parameter type '{value.GetType().Name}'.")
     };
 
@@ -543,8 +543,8 @@ internal sealed partial class NonSequentialDocumentService : WorkbenchServiceBas
             mesh.MeshAssetId, ToCore(mesh.Behavior), mesh.Material, mesh.TwoSided),
         DetectorRectangleParameters detector => new CoreDetectorRectangleParameters(
             detector.WidthMillimeters, detector.HeightMillimeters, detector.PixelsX, detector.PixelsY,
-            detector.FrontOnly, detector.Absorb,detector.IncidentSurface, detector.NormalizeCoherentPower)
-                { RecordColor = detector.RecordColor, PolarizationComponent = detector.PolarizationComponent },
+            detector.FrontOnly, detector.Absorb, detector.IncidentSurface, detector.NormalizeCoherentPower)
+        { RecordColor = detector.RecordColor, PolarizationComponent = detector.PolarizationComponent },
         _ => throw new InvalidDataException($"Unsupported non-sequential parameter DTO '{value.GetType().Name}'.")
     };
 

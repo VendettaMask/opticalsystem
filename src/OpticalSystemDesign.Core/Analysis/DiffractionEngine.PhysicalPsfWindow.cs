@@ -38,7 +38,9 @@ public static partial class DiffractionEngine
                 }
             return metadata with
             {
-                Values = intensity, GridSize = displaySize, SampleSpacingMicrometers = imagePitch,
+                Values = intensity,
+                GridSize = displaySize,
+                SampleSpacingMicrometers = imagePitch,
                 CroppedImageCenterIndex = (displaySize - 1) / 2
             };
         }

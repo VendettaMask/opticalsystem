@@ -24,6 +24,7 @@ internal sealed record ThemeDefinition(
     public ScientificIconPalette IconPalette { get; init; } = ScientificIconPalette.Light;
     public IThemeDrawingMaterial? DrawingMaterial { get; init; }
     public bool LocksFontFamily { get; init; }
+    public bool UsesAnalysisCategoryArtwork { get; init; }
     public string? FixedLanguage { get; init; }
 
     public ResourceDictionary BuildResources()
@@ -93,6 +94,7 @@ internal static class ThemeRegistry
         IsDarkLike: true)
     {
         IconPalette = ScientificIconPalette.IsekaiArcane,
+        UsesAnalysisCategoryArtwork = true,
         DrawingMaterial = IsekaiDrawingMaterial.Instance,
         LocksFontFamily = true,
         FixedLanguage = UiLocalization.English
@@ -128,7 +130,8 @@ internal static class ThemeRegistry
         LumenTheme.ApplyAccentResources,
         IsDarkLike: true)
     {
-        IconPalette = ScientificIconPalette.LumenHud
+        IconPalette = ScientificIconPalette.LumenHud,
+        UsesAnalysisCategoryArtwork = true
     };
 
     private static readonly ThemeDefinition System = new(

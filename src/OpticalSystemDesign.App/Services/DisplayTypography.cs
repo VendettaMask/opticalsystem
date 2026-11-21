@@ -18,6 +18,8 @@ public static class DisplayTypography
 
     public static double FontSize => _fontSize;
     public static double SplashTitle => Scale(29);
+    public static double GuideTitle => Scale(30);
+    public static double GuideLead => Scale(15);
     public static double EmptyStateIcon => Scale(27);
     public static double PageTitle => Scale(22);
     public static double LargeTitle => Scale(20);

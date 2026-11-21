@@ -8,8 +8,8 @@ using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Analysis.Imaging;
 using OpticalSystemDesign.Core.FileIO;
-using OpticalSystemDesign.Core.Services;
 using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Core.Services;
 using SkiaSharp;
 
 namespace OpticalSystemDesign.Application.Services;
@@ -36,8 +36,11 @@ internal sealed partial class CameraImagingService(WorkspaceCoordinator workspac
         if (run.Inputs.EngineVersion == CameraExperiment.LegacyEngineVersion && run.Request.PixelSampling is not null)
             throw new InvalidDataException("旧模型记录不允许包含新增像元面积采样设置。");
         var inputs = FreezeInputs(run.Inputs);
-        if (request is not null) inputs = inputs with { EngineVersion = request.Source == CameraSource.NonSequentialDetector
-            ? CameraExperiment.NonSequentialEngineVersion : ExperimentEngineVersion };
+        if (request is not null) inputs = inputs with
+        {
+            EngineVersion = request.Source == CameraSource.NonSequentialDetector
+            ? CameraExperiment.NonSequentialEngineVersion : ExperimentEngineVersion
+        };
         if (request is { Source: CameraSource.ExternalImage } && (inputs.ExternalImageBytes is null
             || request.SourceFile != run.Request.SourceFile))
         {

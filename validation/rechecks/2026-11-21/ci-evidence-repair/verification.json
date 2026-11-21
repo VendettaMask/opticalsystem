@@ -1,0 +1,489 @@
+{
+  "recordedUtc": "2026-11-21T12:38:18.7568156Z",
+  "sourceCommit": "fad8288ebe49a871d04921a6cedcc376420b8c27",
+  "isolatedRoot": "D:\\Projects\\opticalsystem-ci-repair-20261121",
+  "status": "incomplete-awaiting-numerical-scope",
+  "pushed": false,
+  "repackaged": false,
+  "evidenceConsolidation": {
+    "groups": 375,
+    "aliases": 1285,
+    "removedBytes": 30497890,
+    "linksUpdated": [
+      "validation/rechecks/2026-11-05/all-example-accuracy-followup/README.md",
+      "validation/rechecks/2026-11-05/all-example-accuracy-grid-zoom/README.md",
+      "validation/rechecks/2026-11-07/curvature-image-space-reference/README.md",
+      "validation/rechecks/2026-11-07/menu-remaining-eight/README.md",
+      "validation/rechecks/2026-11-08/analysis-pages-workbench/README.md",
+      "validation/rechecks/2026-11-21/afocal-axial-aberration/README.md",
+      "validation/rechecks/2026-11-21/extended-source-area/README.md",
+      "validation/rechecks/2026-11-21/surface-drawing/README.md",
+      "validation/rechecks/2026-11-21/zemax-variable-import/remaining-variables.md"
+    ]
+  },
+  "evidenceVerification": {
+    "groups": 3067,
+    "aliases": 10026,
+    "removedDuplicateBytes": 3161293545.0,
+    "scannedFiles": 23917,
+    "nonEmptyDuplicateGroups": 0,
+    "manifestSha256": "a59635ed9735138b187739329ad4930cff296d614d902073977dd7556e83a83d",
+    "valid": true
+  },
+  "aliasGuards": {
+    "passed": 13,
+    "failed": 0,
+    "opticalTests": false,
+    "cases": [
+      {
+        "passed": true,
+        "name": "Valid canonical and absent aliases"
+      },
+      {
+        "passed": true,
+        "name": "Fixture view retains exact binary bytes"
+      },
+      {
+        "passed": true,
+        "name": "Historical view restores both original logical roles"
+      },
+      {
+        "passed": true,
+        "name": "Canonical corruption rejected"
+      },
+      {
+        "passed": true,
+        "name": "Recreated physical alias rejected"
+      },
+      {
+        "passed": true,
+        "name": "Traversal rejected before materialization"
+      },
+      {
+        "passed": true,
+        "name": "Aliasing a canonical path rejected"
+      },
+      {
+        "passed": true,
+        "name": "Destination cannot be captured source"
+      },
+      {
+        "passed": true,
+        "name": "New unregistered content duplicate rejected"
+      },
+      {
+        "passed": true,
+        "name": "Project fixture mapping restores only needed aliases"
+      },
+      {
+        "passed": true,
+        "name": "Scoped historical view retains the selected logical roles"
+      },
+      {
+        "passed": true,
+        "name": "Historical selection traversal rejected"
+      },
+      {
+        "passed": true,
+        "name": "Deferred fixture materialization still verifies raw hashes"
+      }
+    ]
+  },
+  "storageGuards": {
+    "opticalTests": false,
+    "passed": 8,
+    "failed": 0,
+    "cases": [
+      {
+        "passed": true,
+        "name": "Two logical roles retain the original aggregate through one stored file"
+      },
+      {
+        "passed": true,
+        "name": "Corrupt authority cannot pass either logical role"
+      },
+      {
+        "passed": true,
+        "name": "Reintroduced duplicate cannot hide behind storage mapping"
+      },
+      {
+        "passed": true,
+        "name": "Storage traversal rejected"
+      },
+      {
+        "passed": true,
+        "name": "Storage mapping cannot alter frozen expected hash"
+      },
+      {
+        "passed": true,
+        "name": "Committed map and single authority validate both original roles"
+      },
+      {
+        "passed": true,
+        "name": "Working map cannot certify a different committed map"
+      },
+      {
+        "passed": true,
+        "name": "Index validates its own exact map identity"
+      }
+    ]
+  },
+  "frozenGuards": [
+    {
+      "name": "exact bytes pass",
+      "passed": true
+    },
+    {
+      "name": "EOL difference cannot hide behind unchanged=true",
+      "passed": true
+    },
+    {
+      "name": "changed content cannot hide behind unchanged=true",
+      "passed": true
+    },
+    {
+      "name": "incorrect count",
+      "passed": true
+    },
+    {
+      "name": "duplicate path",
+      "passed": true
+    },
+    {
+      "name": "escaping path",
+      "passed": true
+    },
+    {
+      "name": "incorrect aggregate",
+      "passed": true
+    },
+    {
+      "name": "missing file",
+      "passed": true
+    },
+    {
+      "name": "explicit relocation preserves original aggregate and exact bytes",
+      "passed": true
+    },
+    {
+      "name": "no implicit fallback without relocation map",
+      "passed": true
+    },
+    {
+      "name": "relocation map must be pinned",
+      "passed": true
+    },
+    {
+      "name": "modified map cannot bypass pinned hash",
+      "passed": true
+    },
+    {
+      "name": "map must bind the original manifest aggregate",
+      "passed": true
+    },
+    {
+      "name": "relocation cannot substitute a new content hash",
+      "passed": true
+    },
+    {
+      "name": "unknown relocation source",
+      "passed": true
+    },
+    {
+      "name": "duplicate relocation source",
+      "passed": true
+    },
+    {
+      "name": "invalid relocation destination: ../outside.bin",
+      "passed": true
+    },
+    {
+      "name": "invalid relocation destination: /absolute.bin",
+      "passed": true
+    },
+    {
+      "name": "invalid relocation destination: C:/absolute.bin",
+      "passed": true
+    },
+    {
+      "name": "invalid relocation destination: dir\\reference.bin",
+      "passed": true
+    },
+    {
+      "name": "invalid relocation destination: line\nbreak.bin",
+      "passed": true
+    },
+    {
+      "name": "missing relocated bytes",
+      "passed": true
+    },
+    {
+      "name": "relocated EOL difference is not normalized",
+      "passed": true
+    },
+    {
+      "name": "relocated changed content is rejected",
+      "passed": true
+    },
+    {
+      "name": "relocation cannot hide a recreated original path",
+      "passed": true
+    },
+    {
+      "name": "two logical entries cannot share one destination",
+      "passed": true
+    },
+    {
+      "name": "relocation cannot collide with an unmapped frozen entry",
+      "passed": true
+    },
+    {
+      "name": "relocation cannot traverse a working link",
+      "passed": true
+    }
+  ],
+  "gitFrozenGuards": [
+    {
+      "name": "exact working and committed bytes pass",
+      "passed": true,
+      "expectedSuccess": true,
+      "exitCode": 0,
+      "gitMatched": 1,
+      "workingMatched": 1,
+      "source": "HEAD"
+    },
+    {
+      "name": "working bytes alone cannot hide Git EOL normalization",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 0,
+      "workingMatched": 1,
+      "source": "HEAD"
+    },
+    {
+      "name": "repaired index passes before commit",
+      "passed": true,
+      "expectedSuccess": true,
+      "exitCode": 0,
+      "gitMatched": 1,
+      "workingMatched": 1,
+      "source": "Index"
+    },
+    {
+      "name": "staging a repair does not certify the old commit",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 0,
+      "workingMatched": 1,
+      "source": "HEAD"
+    },
+    {
+      "name": "committed original CRLF passes without changing manifest",
+      "passed": true,
+      "expectedSuccess": true,
+      "exitCode": 0,
+      "gitMatched": 1,
+      "workingMatched": 1,
+      "source": "HEAD"
+    },
+    {
+      "name": "correct commit cannot hide modified working bytes",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 1,
+      "workingMatched": 0,
+      "source": "HEAD"
+    },
+    {
+      "name": "untracked original cannot certify a missing Git blob",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 0,
+      "workingMatched": 1,
+      "source": "HEAD"
+    },
+    {
+      "name": "binary blob remains exact without decoding or EOL conversion",
+      "passed": true,
+      "expectedSuccess": true,
+      "exitCode": 0,
+      "gitMatched": 1,
+      "workingMatched": 1,
+      "source": "HEAD"
+    },
+    {
+      "name": "replacement manifest cannot bypass pinned aggregate",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1
+    },
+    {
+      "name": "rename without explicit map still fails",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 0,
+      "workingMatched": 0,
+      "source": "Index"
+    },
+    {
+      "name": "unstaged map cannot certify Git index",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 1,
+      "workingMatched": 1,
+      "source": "Index"
+    },
+    {
+      "name": "explicit staged relocation passes exact byte checks",
+      "passed": true,
+      "expectedSuccess": true,
+      "exitCode": 0,
+      "gitMatched": 1,
+      "workingMatched": 1,
+      "source": "Index"
+    },
+    {
+      "name": "staged relocation cannot certify pre-migration HEAD",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 0,
+      "workingMatched": 1,
+      "source": "HEAD"
+    },
+    {
+      "name": "committed relocation preserves frozen logical aggregate",
+      "passed": true,
+      "expectedSuccess": true,
+      "exitCode": 0,
+      "gitMatched": 1,
+      "workingMatched": 1,
+      "source": "HEAD"
+    },
+    {
+      "name": "committed relocation cannot hide modified working bytes",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 1,
+      "workingMatched": 0,
+      "source": "HEAD"
+    },
+    {
+      "name": "correct relocated working bytes cannot hide changed index blob",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 0,
+      "workingMatched": 1,
+      "source": "Index"
+    },
+    {
+      "name": "untracked relocated bytes cannot certify missing index blob",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 0,
+      "workingMatched": 1,
+      "source": "Index"
+    },
+    {
+      "name": "correct working map cannot hide changed Git map",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 1,
+      "workingMatched": 1,
+      "source": "Index"
+    },
+    {
+      "name": "relocation cannot hide original path retained in Git",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 0,
+      "workingMatched": 1,
+      "source": "Index"
+    },
+    {
+      "name": "same blob hash in a Git symlink cannot certify relocated evidence",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 0,
+      "workingMatched": 1,
+      "source": "Index"
+    },
+    {
+      "name": "same map hash in a Git symlink is rejected",
+      "passed": true,
+      "expectedSuccess": false,
+      "exitCode": 1,
+      "gitMatched": 1,
+      "workingMatched": 1,
+      "source": "Index"
+    },
+    {
+      "name": "repaired index passes after all negative controls",
+      "passed": true,
+      "expectedSuccess": true,
+      "exitCode": 0,
+      "gitMatched": 1,
+      "workingMatched": 1,
+      "source": "Index"
+    }
+  ],
+  "formatter": "original dotnet format --no-restore --verify-no-changes passed",
+  "localization": "check: 4341 local translations, 3952 UI occurrences, 0 missing, 0 errors.",
+  "strictBuild": "default Release solution build: 0 warnings, 0 errors before final mechanical formatting",
+  "initialFirstFocused": {
+    "total": 32,
+    "passed": 32,
+    "failed": 0,
+    "notExecuted": 0,
+    "completed": 32
+  },
+  "initialContractsBeforeLastRepairs": {
+    "total": 792,
+    "passed": 777,
+    "failed": 6,
+    "notExecuted": 0,
+    "completed": 783
+  },
+  "initialLastSevenFocused": {
+    "total": 7,
+    "passed": 4,
+    "failed": 3,
+    "notExecuted": 0,
+    "completed": 7
+  },
+  "coatingEntryAndHoldout": {
+    "total": 12,
+    "passed": 11,
+    "failed": 1,
+    "notExecuted": 0,
+    "completed": 12
+  },
+  "architectureLatest": {
+    "total": 17,
+    "passed": 14,
+    "failed": 3,
+    "notExecuted": 0,
+    "completed": 17
+  },
+  "pendingScope": "AGENTS.md:224 retires independent 123456.ZMX precision work; required CI still runs it. User clarification requested; no CI scope changed.",
+  "stagedFrozenIdentity": {
+    "source": "Index",
+    "count": 2668,
+    "matched": 2668,
+    "expectedAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "actualAggregateSha256": "3a5fde98e1c881700f00be1c62d6ab4ff6f4feacc90454046ed787e80bf28c10",
+    "unchanged": true
+  }
+}

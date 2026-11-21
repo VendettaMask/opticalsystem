@@ -2,8 +2,8 @@ using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Apodization;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
 using Xunit.Abstractions;
@@ -142,8 +142,12 @@ public sealed class AfocalHuygensSamplingChecksTests(ITestOutputHelper output)
 
     private static Dictionary<string, string> Settings() => new()
     {
-        ["AfocalIntegration"] = "收敛校验圆瞳积分", ["PupilSampling"] = "8", ["ImageSampling"] = "16",
-        ["ImageDeltaMilliradians"] = ".08", ["WavelengthNumber"] = "1", ["FieldNumber"] = "1"
+        ["AfocalIntegration"] = "收敛校验圆瞳积分",
+        ["PupilSampling"] = "8",
+        ["ImageSampling"] = "16",
+        ["ImageDeltaMilliradians"] = ".08",
+        ["WavelengthNumber"] = "1",
+        ["FieldNumber"] = "1"
     };
     private sealed class AngularPower : IApodizationModel
     {

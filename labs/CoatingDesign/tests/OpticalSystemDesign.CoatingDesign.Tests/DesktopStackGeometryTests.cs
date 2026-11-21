@@ -32,7 +32,7 @@ public sealed partial class DesktopTests
                 DisplayTypography.Configure(new AppSettings { Theme = theme, FontSize = fontSize });
                 Assert.IsType<global::OpticalSystemDesign.App.App>(Avalonia.Application.Current).ApplyTheme(theme); UiLocalization.Apply(UiLocalization.Chinese);
                 var window = new MainWindow(new LaboratoryFileDialogs(() => Task.FromResult<string?>(null), () => Task.FromResult<string?>(path), () => Task.FromResult<string?>(null)))
-                    { Width = 1200, Height = 900, ChooseUnsavedChanges = DiscardChanges };
+                { Width = 1200, Height = 900, ChooseUnsavedChanges = DiscardChanges };
                 try
                 {
                     window.Show(); Tick(window); Click(window, "打开实验"); await window.PendingOperation; Tick(window);

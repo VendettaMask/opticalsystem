@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison;
 using OpticalSystemDesign.ZemaxComparison.Reporting;
 

@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -6,6 +5,7 @@ using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
@@ -191,8 +191,8 @@ public sealed class DelanoMaterializationTests
 
     internal static async Task<(AutonomousSearchPlan Plan, ParaxialSeedSearchOptions Options)> Wide()
     {
-        var plan = await AutonomousDesignFiles.LoadPlanAsync(Path.Combine(Root(),
-            "validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/task.topology-plan.json"));
+        var plan = await AutonomousDesignFiles.LoadPlanAsync(EvidenceFiles.Resolve(Path.Combine(Root(),
+            "validation/rechecks/2026-10-28/three-to-two-continuation/selected-runs/reduce-3-2-42-C-geometry/task.topology-plan.json")));
         using var file = JsonDocument.Parse(await EvidenceFiles.ReadAllBytesAsync(Path.Combine(Root(),
             "validation/rechecks/2026-10-29/bounded-initial-structure/protocol.json")));
         return (plan, file.RootElement.GetProperty("ImprovedPreparation").Deserialize<ParaxialSeedSearchOptions>(Json)!);

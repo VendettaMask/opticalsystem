@@ -27,7 +27,10 @@ public sealed class NativeFocalImageDomainTests
             var entry = AnalysisComparisonRegistry.Get("MTF");
             var request = new CanonicalAnalysisRequest
             {
-                CanonicalAnalysisKey = "MTF", Apodization = "Uniform", WorkbenchSettings = [], MaximumFieldRadius = 1
+                CanonicalAnalysisKey = "MTF",
+                Apodization = "Uniform",
+                WorkbenchSettings = [],
+                MaximumFieldRadius = 1
             };
             var error = Assert.Throws<InvalidDataException>(() => ResultNormalizer.Zemax(native, entry, request, workbench));
             Assert.Contains("no image-plane frequency scale", error.Message);
@@ -84,7 +87,9 @@ public sealed class NativeFocalImageDomainTests
             var entry = AnalysisComparisonRegistry.Get("MTF");
             var request = new CanonicalAnalysisRequest
             {
-                CanonicalAnalysisKey = "MTF", Apodization = "Uniform", WorkbenchSettings = []
+                CanonicalAnalysisKey = "MTF",
+                Apodization = "Uniform",
+                WorkbenchSettings = []
             };
             var error = Assert.Throws<InvalidDataException>(() => ResultNormalizer.Zemax(native, entry, request, workbench));
             Assert.Contains("no image-plane frequency scale", error.Message);

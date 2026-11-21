@@ -65,7 +65,7 @@ public sealed class FocusedHuygensSamplingTests
         var coordinates = surface.CoordinateSystem;
         surface.CoordinateSystem = coordinates with { Origin = coordinates.Origin with { X = .01 } };
         var profile = new HuygensPsfCrossSectionAnalysis(optic, 16, 16, .003, wavelengthNumber: 1)
-            { UseCheckedFocusedPupil = true }.GenerateData();
+        { UseCheckedFocusedPupil = true }.GenerateData();
         Assert.Equal(AnalysisOutcome.Unavailable, profile.Outcome);
         Assert.Empty(profile.PlotSeries);
     }

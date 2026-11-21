@@ -1,14 +1,16 @@
-using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Analysis.Imaging;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class SlantedEdgeSfrTests
 {
     [Theory]
-    [InlineData(1, .2)] [InlineData(-1, -.31)] [InlineData(1, .45)]
+    [InlineData(1, .2)]
+    [InlineData(-1, -.31)]
+    [InlineData(1, .45)]
     public void IndependentGaussianEdgeRecoversAngleMtfAndPhysicalFrequency(int polarity, double phase)
     {
         const double sigma = 1.2;

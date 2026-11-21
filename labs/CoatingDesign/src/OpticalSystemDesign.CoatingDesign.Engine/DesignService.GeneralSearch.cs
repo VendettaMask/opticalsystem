@@ -167,27 +167,34 @@ public sealed partial class DesignService
                 GeneralSeed? explorer = null;
                 for (var round = 1; round <= 2; round++)
                 {
-                var continuation = GeneralStructureFeedback(d, materials, parents, work, progress, token, explorer); feedback = continuation.Record with { Round = round };
-                evaluations += feedback.Matching.Sum(m => m.Run.Evaluations) + feedback.Screening.Sum(s => s.Run.Evaluations);
-                iterations += feedback.Matching.Sum(m => m.Run.Iterations) + feedback.Screening.Sum(s => s.Run.Iterations);
-                if (continuation.Seeds.Length > 0)
-                {
-                    var challenger = GeneralPool(continuation.Seeds, 1).Single();
-                    var baseline = selected!;
-                    var trial = Optimize(d with { Layers = challenger.Layers, Result = null, Candidates = null, Tolerance = null }, progress, token);
-                    work.Add(trial.Result!.Run.GeneralWork); evaluations += trial.Result.Run.Evaluations; iterations += trial.Result.Run.Iterations;
-                    var accepted = JointStructureFeedbackImprovement(trial, baseline);
-                    feedback = feedback with { BaselineLayers = baseline.Layers, BaselineMetrics = baseline.Result!.Metrics,
-                        BaselineBlockingOd = t.StopBands!.Select(b => MinimumOd(baseline.Result.Spectrum, b)).ToArray(),
-                        FullStartLayers = challenger.Layers, FullResultLayers = trial.Layers, FullPrototype = challenger.Origin,
-                        RefinementRun = trial.Result.Run, Accepted = accepted };
-                    candidates.Add(new(challenger.Name, trial.Layers, trial.Result.Merit, trial.Result.Passed, trial.Result.Run) { OriginPrototype = challenger.Origin });
-                    explorer = Describe(challenger.Name, trial.Layers, challenger.Origin);
-                    if (accepted) { selected = trial; selectedAssessment = AssessGeneral(trial, trial.Result.Spectrum); }
-                    else work.DenseRejections++;
-                }
-                feedbackWindows.Add(feedback);
-                if (continuation.Seeds.Length == 0) break;
+                    var continuation = GeneralStructureFeedback(d, materials, parents, work, progress, token, explorer); feedback = continuation.Record with { Round = round };
+                    evaluations += feedback.Matching.Sum(m => m.Run.Evaluations) + feedback.Screening.Sum(s => s.Run.Evaluations);
+                    iterations += feedback.Matching.Sum(m => m.Run.Iterations) + feedback.Screening.Sum(s => s.Run.Iterations);
+                    if (continuation.Seeds.Length > 0)
+                    {
+                        var challenger = GeneralPool(continuation.Seeds, 1).Single();
+                        var baseline = selected!;
+                        var trial = Optimize(d with { Layers = challenger.Layers, Result = null, Candidates = null, Tolerance = null }, progress, token);
+                        work.Add(trial.Result!.Run.GeneralWork); evaluations += trial.Result.Run.Evaluations; iterations += trial.Result.Run.Iterations;
+                        var accepted = JointStructureFeedbackImprovement(trial, baseline);
+                        feedback = feedback with
+                        {
+                            BaselineLayers = baseline.Layers,
+                            BaselineMetrics = baseline.Result!.Metrics,
+                            BaselineBlockingOd = t.StopBands!.Select(b => MinimumOd(baseline.Result.Spectrum, b)).ToArray(),
+                            FullStartLayers = challenger.Layers,
+                            FullResultLayers = trial.Layers,
+                            FullPrototype = challenger.Origin,
+                            RefinementRun = trial.Result.Run,
+                            Accepted = accepted
+                        };
+                        candidates.Add(new(challenger.Name, trial.Layers, trial.Result.Merit, trial.Result.Passed, trial.Result.Run) { OriginPrototype = challenger.Origin });
+                        explorer = Describe(challenger.Name, trial.Layers, challenger.Origin);
+                        if (accepted) { selected = trial; selectedAssessment = AssessGeneral(trial, trial.Result.Spectrum); }
+                        else work.DenseRejections++;
+                    }
+                    feedbackWindows.Add(feedback);
+                    if (continuation.Seeds.Length == 0) break;
                 }
             }
         }
@@ -204,7 +211,8 @@ public sealed partial class DesignService
                 { selected = verified; selectedAssessment = assessment; }
             }
             candidates.AddRange(finalists.Select(s => new Candidate(s.Name, s.Layers, s.Assessment.Merit,
-                validations.FirstOrDefault(v => LayerIdentity(v.Layers) == LayerIdentity(s.Layers))?.Passed ?? false) { OriginPrototype = s.Origin }));
+                validations.FirstOrDefault(v => LayerIdentity(v.Layers) == LayerIdentity(s.Layers))?.Passed ?? false)
+            { OriginPrototype = s.Origin }));
         }
         var run = new RunRecord("通用约束/Pareto结构竞争 + 多根透射匹配 + 光学相位优化", GeneralCoatingProtocol,
             "有界预算完成；仅原密集复验决定达标", evaluations, iterations, d.Settings.RandomSeed)

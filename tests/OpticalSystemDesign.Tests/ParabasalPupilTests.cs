@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -21,8 +21,12 @@ public sealed class ParabasalPupilTests
         var result = new OpticalSystemDesign.Application.Runtime.WorkbenchRuntime(optic).BuildAnalysisData("Optical Path Difference",
             new Dictionary<string, string>
             {
-                ["NumberOfRays"] = "20", ["FieldNumber"] = "2", ["WavelengthNumber"] = wavelength.ToString(),
-                ["VignettedPupil"] = "True", ["CheckApertures"] = "True", ["UseRayAiming"] = "False"
+                ["NumberOfRays"] = "20",
+                ["FieldNumber"] = "2",
+                ["WavelengthNumber"] = wavelength.ToString(),
+                ["VignettedPupil"] = "True",
+                ["CheckApertures"] = "True",
+                ["UseRayAiming"] = "False"
             });
         var panes = result.PlotPanes!;
         Assert.Equal(2, panes.Count);

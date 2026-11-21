@@ -33,21 +33,21 @@ public sealed record XyzRadiometricCalibration(string Name, string Observer, str
             throw new InvalidDataException("XYZ 需要有来源、观察者、照明条件、单位声明及非负或有域约束的光谱映射。");
         var bands = Bands.OrderBy(b => b.WavelengthNanometers).ToArray(); if (bands.Select(b => b.WavelengthNanometers).Distinct().Count() != bands.Length) throw new InvalidDataException("XYZ 校准波长重复。");
         var positive = PositiveModel?.Freeze(bands.Length);
-        var absolute=AbsoluteRbfModel?.Freeze(bands.Length);
-        if(absolute is not null&&(positive is not null||evidence?.AbsoluteRbfModelSha256 is null||evidence.Gamut is null||evidence.Conditions is null||bands.Any(b=>b.X!=0||b.Y!=0||b.Z!=0)
-            ||Observer!=evidence.Conditions.Observer||Illuminant!=evidence.Conditions.Illuminant||absolute.Nodes.Any(p=>!evidence.Gamut.Contains(p.X,p.Y,p.Z))
-            ||bands.Any(b=>b.WavelengthNanometers<evidence.Conditions.MinimumWavelengthNanometers||b.WavelengthNanometers>evidence.Conditions.MaximumWavelengthNanometers)))throw new InvalidDataException("绝对XYZ模型缺少有效域、条件或光谱证据。");
-        if(absolute?.Digest()!=evidence?.AbsoluteRbfModelSha256)throw new InvalidDataException("绝对XYZ模型摘要不一致。");
+        var absolute = AbsoluteRbfModel?.Freeze(bands.Length);
+        if (absolute is not null && (positive is not null || evidence?.AbsoluteRbfModelSha256 is null || evidence.Gamut is null || evidence.Conditions is null || bands.Any(b => b.X != 0 || b.Y != 0 || b.Z != 0)
+            || Observer != evidence.Conditions.Observer || Illuminant != evidence.Conditions.Illuminant || absolute.Nodes.Any(p => !evidence.Gamut.Contains(p.X, p.Y, p.Z))
+            || bands.Any(b => b.WavelengthNanometers < evidence.Conditions.MinimumWavelengthNanometers || b.WavelengthNanometers > evidence.Conditions.MaximumWavelengthNanometers))) throw new InvalidDataException("绝对XYZ模型缺少有效域、条件或光谱证据。");
+        if (absolute?.Digest() != evidence?.AbsoluteRbfModelSha256) throw new InvalidDataException("绝对XYZ模型摘要不一致。");
         if (positive is not null && (evidence?.PositiveModelSha256 is null || evidence.Gamut is null || evidence.Conditions is null || bands.Any(b => b.X != 0 || b.Y != 0 || b.Z != 0)
             || Observer != evidence.Conditions.Observer || Illuminant != evidence.Conditions.Illuminant
             || bands.Any(b => b.WavelengthNanometers < evidence.Conditions.MinimumWavelengthNanometers || b.WavelengthNanometers > evidence.Conditions.MaximumWavelengthNanometers)
             || positive.Nodes.Any(p => !evidence.Gamut.Contains(p.X, p.Y, p.Z)))) throw new InvalidDataException("XYZ 正值颜色模型缺少有效的域/条件证据。");
         if (positive?.Digest() != evidence?.PositiveModelSha256) throw new InvalidDataException("XYZ 正值颜色模型摘要不一致。");
         if (evidence is not null && (!evidence.Provenance.ObserverAndIlluminantVerified || evidence.Bands.Any(b => !b.Passed) || !bands.Select(b => b.WavelengthNanometers).SequenceEqual(evidence.Bands.Select(b => b.WavelengthNanometers))
-            || evidence.CalibrationBandsSha256 != XyzRadiometricCalibrator.BandsDigest(bands, evidence.Gamut, positive, evidence.Conditions,absolute)
+            || evidence.CalibrationBandsSha256 != XyzRadiometricCalibrator.BandsDigest(bands, evidence.Gamut, positive, evidence.Conditions, absolute)
             || evidence.Gamut is { } gamut && bands.Any(b => gamut.Minimum(b) < 0)))
             throw new InvalidDataException("XYZ 拟合校准缺少通过的独立验证或已核实的测量条件。");
-        return this with { Bands = Array.AsReadOnly(bands), FitEvidence = evidence, PositiveModel = positive,AbsoluteRbfModel=absolute };
+        return this with { Bands = Array.AsReadOnly(bands), FitEvidence = evidence, PositiveModel = positive, AbsoluteRbfModel = absolute };
     }
 }
 

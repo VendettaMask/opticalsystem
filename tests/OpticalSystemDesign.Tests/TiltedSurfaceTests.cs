@@ -70,7 +70,9 @@ public sealed class TiltedSurfaceTests
         Assert.False(geometry.DistanceToIntersection(target + direction, direction).IsHit);
     }
     [Theory]
-    [InlineData("MM", 1)] [InlineData("CM", 10)] [InlineData("IN", 25.4)]
+    [InlineData("MM", 1)]
+    [InlineData("CM", 10)]
+    [InlineData("IN", 25.4)]
     public void ImportSnapshotAndZmxRoundtripKeepDimensionlessTangentsAndUnchangedFollowingFrame(string unit, double scale)
     {
         var optic = Import($"""
@@ -99,9 +101,9 @@ public sealed class TiltedSurfaceTests
     [Fact]
     public void FiniteObjectHeightLiesOnItsTiltedObjectSurface()
     {
-        var optic=Import("MODE SEQ\nUNIT MM\nENPD 2\nFTYP 1 0 1 1 0 0 1\nYFLN 3\nSURF 0\nTYPE TILTSURF\nPARM 2 -.5\nDISZ 10\nSURF 1\nSTOP\nDISZ 5\nSURF 2");
-        var ray=optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0,1,0,0,.55).Rays.Single();
-        Assert.InRange(Math.Abs(ray.Origin.Z-(-10-1.5)),0,1e-12);
+        var optic = Import("MODE SEQ\nUNIT MM\nENPD 2\nFTYP 1 0 1 1 0 0 1\nYFLN 3\nSURF 0\nTYPE TILTSURF\nPARM 2 -.5\nDISZ 10\nSURF 1\nSTOP\nDISZ 5\nSURF 2");
+        var ray = optic.SequentialRayTracer.RayGenerator.GenerateGeneric(0, 1, 0, 0, .55).Rays.Single();
+        Assert.InRange(Math.Abs(ray.Origin.Z - (-10 - 1.5)), 0, 1e-12);
     }
 
     [Theory]
@@ -121,5 +123,5 @@ public sealed class TiltedSurfaceTests
         Assert.False(surface.Geometry.DistanceToIntersection(point + new Vector3D(0, 0, 1e-8), new(0, 0, 1)).IsHit);
     }
 
-    private static Optic Import(string source)=>OpticalFormatCatalog.Import(source,".zmx");
+    private static Optic Import(string source) => OpticalFormatCatalog.Import(source, ".zmx");
 }

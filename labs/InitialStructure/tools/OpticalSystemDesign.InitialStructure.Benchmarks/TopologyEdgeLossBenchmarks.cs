@@ -1,10 +1,10 @@
 using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Differentiation;
+using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
 

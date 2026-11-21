@@ -563,8 +563,11 @@ public static partial class DiffractionEngine
         // uses the faster axis; a requested pitch was resolved from the RMS cone.
         // Apply these intervals before tracing, never by resizing intensity.
         var scale = imageDelta > 0 ? rmsFNumber : Math.Min(axes.Tangential, axes.Sagittal);
-        return (grid with { Stretch = grid.Stretch * (axes.Sagittal / scale),
-            StretchY = grid.Stretch * (axes.Tangential / scale) }, scale);
+        return (grid with
+        {
+            Stretch = grid.Stretch * (axes.Sagittal / scale),
+            StretchY = grid.Stretch * (axes.Tangential / scale)
+        }, scale);
     }
 
     internal static (Complex Tangential, Complex Sagittal) ComputeFastFftMtfAtFrequency(
@@ -1518,9 +1521,12 @@ public static partial class DiffractionEngine
         if (optic.ImageSpaceAfocal)
         {
             if (!usePolarization)
-                wavefront = wavefront with { Samples = wavefront.Samples.Select(sample =>
+                wavefront = wavefront with
+                {
+                    Samples = wavefront.Samples.Select(sample =>
                     sample.Intensity > 0 && sample.LaunchIntensity is { } launch
-                        ? sample with { Intensity = launch } : sample).ToArray() };
+                        ? sample with { Intensity = launch } : sample).ToArray()
+                };
             var afocalRaw = HuygensFarFieldSummation(
                 wavefront,
                 wavelength,

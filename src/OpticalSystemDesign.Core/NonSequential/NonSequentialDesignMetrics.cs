@@ -19,8 +19,14 @@ internal static class NonSequentialDesignMetrics
             var y = moments.Sum(m => m.PowerWatts * m.CentroidYMillimeters) / power;
             var vx = moments.Sum(m => m.PowerWatts * (m.RmsXMillimeters * m.RmsXMillimeters + Math.Pow(m.CentroidXMillimeters - x, 2))) / power;
             var vy = moments.Sum(m => m.PowerWatts * (m.RmsYMillimeters * m.RmsYMillimeters + Math.Pow(m.CentroidYMillimeters - y, 2))) / power;
-            return kind switch { NonSequentialMetric.CentroidX => x, NonSequentialMetric.CentroidY => y,
-                NonSequentialMetric.RmsX => Math.Sqrt(Math.Max(0, vx)), NonSequentialMetric.RmsY => Math.Sqrt(Math.Max(0, vy)), _ => Math.Sqrt(Math.Max(0, vx + vy)) };
+            return kind switch
+            {
+                NonSequentialMetric.CentroidX => x,
+                NonSequentialMetric.CentroidY => y,
+                NonSequentialMetric.RmsX => Math.Sqrt(Math.Max(0, vx)),
+                NonSequentialMetric.RmsY => Math.Sqrt(Math.Max(0, vy)),
+                _ => Math.Sqrt(Math.Max(0, vx + vy))
+            };
         }
         double Stokes(Func<NonSequentialStokesFrame, IReadOnlyList<double>> select) => frame.StokesByWavelength is { } s
             ? s.Where(p => target.WavelengthNumber == 0 || p.Key == target.WavelengthNumber).Sum(p => select(p.Value).Sum())
@@ -36,7 +42,9 @@ internal static class NonSequentialDesignMetrics
             NonSequentialMetric.CoherentPower => frame.CoherentByWavelength is { } c
                 ? c.Where(p => target.WavelengthNumber == 0 || target.WavelengthNumber == p.Key).Sum(p => p.Value.PowerWatts.Sum())
                 : doc.TraceSettings.CoherentDetection ? 0 : throw new NotSupportedException("相干目标需要声明相干探测。"),
-            NonSequentialMetric.StokesQ => Stokes(s => s.Q), NonSequentialMetric.StokesU => Stokes(s => s.U), NonSequentialMetric.StokesV => Stokes(s => s.V),
+            NonSequentialMetric.StokesQ => Stokes(s => s.Q),
+            NonSequentialMetric.StokesU => Stokes(s => s.U),
+            NonSequentialMetric.StokesV => Stokes(s => s.V),
             _ => throw new ArgumentException("Unknown non-sequential objective.")
         };
         if (!double.IsFinite(value)) throw new ArithmeticException("Invalid detector objective value.");
@@ -44,7 +52,8 @@ internal static class NonSequentialDesignMetrics
         {
             NonSequentialMetric.CentroidX or NonSequentialMetric.CentroidY or NonSequentialMetric.RmsX or NonSequentialMetric.RmsY or NonSequentialMetric.RmsRadius => "mm",
             NonSequentialMetric.MeanIrradiance or NonSequentialMetric.PeakIrradiance => "W/mm²",
-            NonSequentialMetric.RelativeUniformityRms => "1", _ => "W"
+            NonSequentialMetric.RelativeUniformityRms => "1",
+            _ => "W"
         };
         return new(target, unit, value, Math.Abs(value - target.Target) <= target.Tolerance);
     }

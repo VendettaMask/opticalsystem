@@ -247,7 +247,10 @@ public sealed class SurfaceDrawingRenderTests
             ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
             var view = new OpticSceneControl
             {
-                Scene = scene, ShowRays = false, RenderMode = mode, CutawayEnabled = cutaway,
+                Scene = scene,
+                ShowRays = false,
+                RenderMode = mode,
+                CutawayEnabled = cutaway,
                 ViewMode = threeD ? OpticSceneViewMode.ThreeDimensional : OpticSceneViewMode.TwoDimensional,
                 VisualStyle = solid ? OpticSceneVisualStyle.SolidModel : OpticSceneVisualStyle.OpticalLayout
             };

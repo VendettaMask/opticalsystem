@@ -86,14 +86,19 @@ public sealed partial class MainWindow : Window
         var layerHeading = BuildCompactEditorHeader();
         var editorControls = new ScrollViewer
         {
-            Name = "CoatingEditorControlsScroll", MaxHeight = 200,
-            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+            Name = "CoatingEditorControlsScroll",
+            MaxHeight = 200,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
             Content = layerHeading
         };
         var geometryFooter = new ScrollViewer
         {
-            Name = "CoatingEditorGeometryFooter", MaxHeight = 220, Content = BuildStackGeometryPanel(),
-            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Auto
+            Name = "CoatingEditorGeometryFooter",
+            MaxHeight = 220,
+            Content = BuildStackGeometryPanel(),
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto
         };
         void SizeEditorControls()
         {
@@ -172,10 +177,15 @@ public sealed partial class MainWindow : Window
         var panel = new TabControl { Name = "CoatingSettingsTabs", HorizontalContentAlignment = HorizontalAlignment.Stretch };
         void Page(string title, Control content) => panel.Items.Add(new TabItem
         {
-            Header = title, FontSize = DisplayTypography.Body, FontWeight = FontWeight.Medium, Padding = new Thickness(12, 8), Content = new ScrollViewer
+            Header = title,
+            FontSize = DisplayTypography.Body,
+            FontWeight = FontWeight.Medium,
+            Padding = new Thickness(12, 8),
+            Content = new ScrollViewer
             {
                 Content = new Border { Padding = new Thickness(16), Child = content },
-                HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Auto
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto
             }
         });
         var targets = new StackPanel { Spacing = 8 };
@@ -195,12 +205,16 @@ public sealed partial class MainWindow : Window
         _narrowFields.Children.Add(Field("截止波段 (nm)，例 490-510;590-610", _stopBands));
         targets.Children.Add(_narrowFields);
         Page("设计目标", targets);
-        var media = new StackPanel { Spacing = 10, Children =
+        var media = new StackPanel
+        {
+            Spacing = 10,
+            Children =
         {
             Field("入射介质（透明）", _incident), Field("基板（搜索选择）", _substrate),
             Field("低折射率 / 第一膜料", _low), Field("高折射率 / 第二膜料", _high),
             new Expander { Header = "材料来源与计算边界", Content = _materialSource, HorizontalAlignment = HorizontalAlignment.Stretch }
-        } };
+        }
+        };
         Page("介质与膜料", media);
         var advanced = new StackPanel { Spacing = 8 };
         advanced.Children.Add(Number("dmin", "最小膜厚 (nm)")); advanced.Children.Add(Number("dmax", "最大膜厚 (nm)"));

@@ -30,9 +30,13 @@ internal sealed partial class CameraImagingService
             var sensor = baseline.Sensor with
             {
                 BlackLevel = (int)Math.Round(estimate.BlackLevelDn, MidpointRounding.AwayFromZero),
-                ReadNoiseElectrons = estimate.ReadNoiseElectrons, DarkElectronsPerSecond = estimate.DarkElectronsPerSecond,
-                DsnuElectrons = estimate.DsnuElectrons, PrnuPercent = estimate.PrnuPercent,
-                GainDnPerElectron = capture.GainDnPerElectron, BitDepth = capture.BitDepth, Pattern = capture.Pattern
+                ReadNoiseElectrons = estimate.ReadNoiseElectrons,
+                DarkElectronsPerSecond = estimate.DarkElectronsPerSecond,
+                DsnuElectrons = estimate.DsnuElectrons,
+                PrnuPercent = estimate.PrnuPercent,
+                GainDnPerElectron = capture.GainDnPerElectron,
+                BitDepth = capture.BitDepth,
+                Pattern = capture.Pattern
             };
             cancellationToken.ThrowIfCancellationRequested();
             return ValidateProfile(new(SensorFormat, 1, capture.Name, capture.Source

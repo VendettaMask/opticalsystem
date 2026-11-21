@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.App.Panels;
+using OpticalSystemDesign.Application.Contracts;
 
 namespace OpticalSystemDesign.App.Services;
 

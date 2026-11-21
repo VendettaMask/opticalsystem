@@ -45,7 +45,7 @@ public sealed partial class DesktopTests
                     Assert.Equal(version, (await ExperimentStore.OpenAsync(source)).Settings.DesignProtocolVersion);
                     Assert.Equal(version == 2 ? 2 : (int?)null, (await ExperimentStore.OpenAsync(source)).Target.Structure?.PrototypeFamilyVersion);
                 }
-                finally { window.Close(); }
+                finally { await CloseAsync(window); }
             });
         }
         finally

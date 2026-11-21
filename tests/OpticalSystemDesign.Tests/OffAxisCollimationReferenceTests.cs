@@ -1,17 +1,21 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class OffAxisCollimationReferenceTests
 {
     [Theory]
-    [InlineData(1, 0)] [InlineData(2, 0)] [InlineData(3, 0)]
-    [InlineData(1, 3)] [InlineData(2, 3)] [InlineData(3, 3)]
+    [InlineData(1, 0)]
+    [InlineData(2, 0)]
+    [InlineData(3, 0)]
+    [InlineData(1, 3)]
+    [InlineData(2, 3)]
+    [InlineData(3, 3)]
     public void CompleteOffAxisOpdFansMatchIndependentConjugatePhaseControls(int wave, int mode)
     {
         var optic = Example();
@@ -40,8 +44,12 @@ public sealed class OffAxisCollimationReferenceTests
     }
 
     [Theory]
-    [InlineData(1, 0)] [InlineData(2, 0)] [InlineData(3, 0)]
-    [InlineData(1, 1)] [InlineData(2, 1)] [InlineData(3, 1)]
+    [InlineData(1, 0)]
+    [InlineData(2, 0)]
+    [InlineData(3, 0)]
+    [InlineData(1, 1)]
+    [InlineData(2, 1)]
+    [InlineData(3, 1)]
     public void FocalPointCollimatorHasOnePlanePhaseForAllParallelOutgoingRays(int wave, double hy)
     {
         var optic = Example(); var wavelength = optic.Wavelengths[wave - 1];

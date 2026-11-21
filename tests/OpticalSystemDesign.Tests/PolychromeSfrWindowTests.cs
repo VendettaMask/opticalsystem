@@ -18,7 +18,8 @@ public sealed class PolychromeSfrWindowTests
     public static AppBuilder BuildAvaloniaApp() => CameraSfrWindowTests.BuildAvaloniaApp();
 
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task LensSpectrumModeDisplaysFrozenWeightsExportsCompletePlotAndClearsOnModeChange(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(PolychromeSfrWindowTests));

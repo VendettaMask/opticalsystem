@@ -30,8 +30,11 @@ public sealed class CameraMaterialServiceTests
         var a = await app.CameraImaging.SimulateAsync(request);
         callerLabels[0] = 2; callerCurve[0] = callerCurve[0] with { Value = 1 };
         Assert.Equal(0, a.Request.MaterialScene!.MaterialIds[0]); Assert.Equal(.05, a.Request.MaterialScene.Materials[0].Reflectance!.Samples[0].Value);
-        var uniform = await app.CameraImaging.SimulateAsync(request with { SceneMode = CameraSceneMode.Uniform,
-            Reflectance = await app.CameraImaging.ImportReflectanceAsync(Path.Combine(CameraSensorFileTests.Examples, "reflectance-neutral.csv")) });
+        var uniform = await app.CameraImaging.SimulateAsync(request with
+        {
+            SceneMode = CameraSceneMode.Uniform,
+            Reflectance = await app.CameraImaging.ImportReflectanceAsync(Path.Combine(CameraSensorFileTests.Examples, "reflectance-neutral.csv"))
+        });
         Assert.Null(uniform.Integration!.Materials); Assert.Equal(3, a.Integration!.Materials!.Count);
         Assert.Equal(256, a.Integration.Materials.Sum(m => m.SampledPixels)); Assert.Contains("Label-area", a.Integration.ReflectanceMeaning);
         var output = files.Path("materials-AB.zip"); await app.CameraImaging.ExportAsync(uniform, output, a);
@@ -55,8 +58,14 @@ public sealed class CameraMaterialServiceTests
     }
 
     [Theory]
-    [InlineData("missing")] [InlineData("unknown")] [InlineData("duplicate-id")] [InlineData("unknown-label")]
-    [InlineData("kind")] [InlineData("dimensions")] [InlineData("version")] [InlineData("duplicate-key")]
+    [InlineData("missing")]
+    [InlineData("unknown")]
+    [InlineData("duplicate-id")]
+    [InlineData("unknown-label")]
+    [InlineData("kind")]
+    [InlineData("dimensions")]
+    [InlineData("version")]
+    [InlineData("duplicate-key")]
     public async Task InvalidSceneSchemasAndLabelAssignmentsAreRejected(string kind)
     {
         using var files = new CameraSensorFileTests.TemporaryFiles(); using var app = WorkbenchApplication.Create();
@@ -77,8 +86,10 @@ public sealed class CameraMaterialServiceTests
     }
 
     [Theory]
-    [InlineData(1, 1, 1, 255, true)] [InlineData(16, 16, 16, 255, false)]
-    [InlineData(0, 1, 0, 255, false)] [InlineData(0, 0, 0, 128, false)]
+    [InlineData(1, 1, 1, 255, true)]
+    [InlineData(16, 16, 16, 255, false)]
+    [InlineData(0, 1, 0, 255, false)]
+    [InlineData(0, 0, 0, 128, false)]
     public async Task PngUsesExactOpaqueEightBitGrayIdsAndNeverGuessesPhotoMaterials(byte r, byte g, byte b, byte alpha, bool valid)
     {
         using var files = new CameraSensorFileTests.TemporaryFiles(); using var app = WorkbenchApplication.Create();
@@ -110,12 +121,18 @@ public sealed class CameraMaterialServiceTests
         var error = uniform.PhotoElectrons.Zip(segmented.PhotoElectrons, (a, b) => Math.Abs(a - b)).Max();
         Assert.InRange(error, 0, 1e-8); Assert.Equal(uniform.RawDn, segmented.RawDn); Assert.Equal(before, app.Documents.GetSnapshot());
         Assert.Equal(9, segmented.Integration!.Nodes.Count); Assert.Equal(256, segmented.Integration.Materials!.Single().SampledPixels);
-        CameraContinuousSpectrumTests.Record("material-shared-lens-linearity", new { MaximumChargeDifference = error,
-            IdenticalRaw = uniform.RawDn.SequenceEqual(segmented.RawDn), PrescriptionUnchanged = before == app.Documents.GetSnapshot(), Nodes = segmented.Integration.Nodes.Count });
+        CameraContinuousSpectrumTests.Record("material-shared-lens-linearity", new
+        {
+            MaximumChargeDifference = error,
+            IdenticalRaw = uniform.RawDn.SequenceEqual(segmented.RawDn),
+            PrescriptionUnchanged = before == app.Documents.GetSnapshot(),
+            Nodes = segmented.Integration.Nodes.Count
+        });
     }
 
     [Theory]
-    [InlineData(false)] [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(true)]
     public async Task SixteenBitAndAnimatedPngAreRejectedBeforeAnyIdConversion(bool animation)
     {
         using var files = new CameraSensorFileTests.TemporaryFiles(); using var app = WorkbenchApplication.Create();

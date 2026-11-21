@@ -25,9 +25,14 @@ public static partial class TopologyOperators
                 TopologyFailureCode.NoSpace, "Cemented growth requires ordinary positive center thickness.");
             var lens = new LensElement
             {
-                Id = newId, FrontSurfaceId = left.BackSurfaceId, BackSurfaceId = newId + ":back",
-                FrontZMillimeters = left.BackZMillimeters, ThicknessMillimeters = thickness, Material = material,
-                Front = left.Back, Back = left.Back
+                Id = newId,
+                FrontSurfaceId = left.BackSurfaceId,
+                BackSurfaceId = newId + ":back",
+                FrontZMillimeters = left.BackZMillimeters,
+                ThicknessMillimeters = thickness,
+                Material = material,
+                Front = left.Back,
+                Back = left.Back
             };
             var child = parent with
             {

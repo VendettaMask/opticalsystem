@@ -77,7 +77,9 @@ public sealed class AssemblyWorkspaceTests
         }, CancellationToken.None).WaitAsync(TimeSpan.FromMinutes(2));
     }
 
-    [Theory] [InlineData("Light")] [InlineData("Dark")]
+    [Theory]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task RealConjugatesReticleAndSelectionSurviveTabsSplittersAndParameterInvalidation(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(LaboratoryPresentationTests));

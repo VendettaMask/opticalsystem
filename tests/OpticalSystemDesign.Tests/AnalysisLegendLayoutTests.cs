@@ -285,8 +285,11 @@ public sealed class AnalysisLegendLayoutTests
                 ["Frequency5"] = "0",
                 ["Frequency6"] = "0"
             }));
-            view = view with { PresentationKind = WorkbenchAnalysisCatalog.PresentationKind(
-                WorkbenchAnalysisCatalog.CanonicalKey(analysis)) };
+            view = view with
+            {
+                PresentationKind = WorkbenchAnalysisCatalog.PresentationKind(
+                WorkbenchAnalysisCatalog.CanonicalKey(analysis))
+            };
             Assert.Equal(AnalysisPresentationKind.Mtf, view.PresentationKind);
             Assert.Equal(AnalysisOutcome.Success, view.Outcome);
             Assert.True(view.PlotOptions.ShowLegend);

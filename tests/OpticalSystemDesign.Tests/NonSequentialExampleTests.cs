@@ -54,7 +54,9 @@ public sealed class NonSequentialExampleTests
             if (!result.CanApply) Assert.Contains(result.Diagnostics, d => d.Blocking);
             return new
             {
-                example.RelativePath, result.CanApply, ObjectCount = result.Objects.Count,
+                example.RelativePath,
+                result.CanApply,
+                ObjectCount = result.Objects.Count,
                 Blocking = result.Diagnostics.Where(d => d.Blocking).GroupBy(d => d.Code)
                     .ToDictionary(g => g.Key, g => g.Count()),
                 MissingAssets = result.Assets.Where(a => !a.Exists).Select(a => a.Reference).ToArray()
@@ -110,7 +112,11 @@ public sealed class NonSequentialExampleTests
             application.NonSequential.AddObject(NonSequentialObjectKind.SourceRay);
             var settings = new AppSettings
             {
-                Theme = theme, Language = language, WorkbenchMode = "NonSequential", WindowWidth = 1600, WindowHeight = 1000
+                Theme = theme,
+                Language = language,
+                WorkbenchMode = "NonSequential",
+                WindowWidth = 1600,
+                WindowHeight = 1000
             };
             var window = new MainWindow(settings, application, new WorkspaceSessionStore(files.Path("workspace")));
             var original = application.Documents.GetRecoveryState();

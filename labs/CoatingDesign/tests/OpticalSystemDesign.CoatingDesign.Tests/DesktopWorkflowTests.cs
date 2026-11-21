@@ -3,9 +3,9 @@ using Avalonia.Controls;
 using Avalonia.Headless;
 using Avalonia.Input;
 using Avalonia.Input.Raw;
-using UnsavedChangesChoice = OpticalSystemDesign.App.UnsavedChangesChoice;
 using OpticalSystemDesign.App.Laboratories.CoatingDesign;
 using OpticalSystemDesign.CoatingDesign.Engine;
+using UnsavedChangesChoice = OpticalSystemDesign.App.UnsavedChangesChoice;
 
 namespace OpticalSystemDesign.CoatingDesign.Tests;
 

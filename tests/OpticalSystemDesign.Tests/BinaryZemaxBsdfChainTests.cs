@@ -6,7 +6,9 @@ namespace OpticalSystemDesign.Tests;
 public sealed class BinaryZemaxBsdfChainTests
 {
     [Theory]
-    [InlineData("binary")] [InlineData("zemax-r")] [InlineData("zemax-t")]
+    [InlineData("binary")]
+    [InlineData("zemax-r")]
+    [InlineData("zemax-t")]
     public async Task ImportedFilesUseOnePhotonConversionAndFrozenRawIspReplay(string format)
     {
         using var app = WorkbenchApplication.Create(); using var files = new CameraSensorFileTests.TemporaryFiles(); var setup = await MeasuredBsdfChainTests.Setup(app, files);

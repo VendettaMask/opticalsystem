@@ -71,8 +71,11 @@ public sealed class NonSequentialIntegrationTests
         using var app = WorkbenchApplication.Create(); var source = app.NonSequential.AddObject(Dto.NonSequentialObjectKind.SourceRay);
         var detector = app.NonSequential.AddObject(Dto.NonSequentialObjectKind.DetectorRectangle);
         var s = app.NonSequential.GetDocument().Objects.Single(o => o.Id == source);
-        app.NonSequential.UpdateObject(Update(s) with { Parameters = ((Dto.SourceRayParameters)s.Parameters) with
-            { Physics = new(new(false, 1, 1, 0, 90), "laser", 37) } });
+        app.NonSequential.UpdateObject(Update(s) with
+        {
+            Parameters = ((Dto.SourceRayParameters)s.Parameters) with
+            { Physics = new(new(false, 1, 1, 0, 90), "laser", 37) }
+        });
         var d = app.NonSequential.GetDocument().Objects.Single(o => o.Id == detector);
         app.NonSequential.UpdateObject(Update(d) with { Z = 10, Parameters = new Dto.DetectorRectangleParameters(4, 4, 4, 4, true, true, NormalizeCoherentPower: true) });
         app.NonSequential.UpdatePhysicsSettings(true, true);

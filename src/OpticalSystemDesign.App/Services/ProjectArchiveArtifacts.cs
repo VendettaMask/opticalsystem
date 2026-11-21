@@ -15,7 +15,9 @@ internal static class ProjectArchiveArtifacts
     internal static readonly JsonSerializerOptions Json = new()
     {
         NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
-        Converters = { new JsonStringEnumConverter() }, MaxDepth = 64, WriteIndented = false
+        Converters = { new JsonStringEnumConverter() },
+        MaxDepth = 64,
+        WriteIndented = false
     };
     internal static async Task<ProjectArchiveFileDto> WriteAsync<T>(string directory, string relative, string kind, T value,
         bool result = false, CancellationToken token = default)

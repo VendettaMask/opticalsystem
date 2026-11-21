@@ -1351,8 +1351,11 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                     element.FrontFaces,
                     element.FrontSurfaceNumber,
                     highlightedSurfaceNumber,
-                    glass with { Tint = SurfaceColorFor(surfacesByNumber.GetValueOrDefault(
-                        (element.ConfigurationNumber, element.FrontSurfaceNumber))?.SurfaceColor) ?? glass.Tint },
+                    glass with
+                    {
+                        Tint = SurfaceColorFor(surfacesByNumber.GetValueOrDefault(
+                        (element.ConfigurationNumber, element.FrontSurfaceNumber))?.SurfaceColor) ?? glass.Tint
+                    },
                     viewDirection,
                     cutawayEnabled,
                     transparent,
@@ -1367,8 +1370,11 @@ public sealed partial class OpticSceneControl : Control, IInteractiveCanvasAutom
                     element.BackFaces,
                     element.BackSurfaceNumber,
                     highlightedSurfaceNumber,
-                    glass with { Tint = SurfaceColorFor(surfacesByNumber.GetValueOrDefault(
-                        (element.ConfigurationNumber, element.BackSurfaceNumber))?.SurfaceColor) ?? glass.Tint },
+                    glass with
+                    {
+                        Tint = SurfaceColorFor(surfacesByNumber.GetValueOrDefault(
+                        (element.ConfigurationNumber, element.BackSurfaceNumber))?.SurfaceColor) ?? glass.Tint
+                    },
                     viewDirection,
                     cutawayEnabled,
                     transparent,

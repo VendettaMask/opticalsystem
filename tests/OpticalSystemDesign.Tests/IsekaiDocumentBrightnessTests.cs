@@ -77,11 +77,11 @@ public sealed class IsekaiDocumentBrightnessTests
                     using var pixels = SKBitmap.Decode(stream);
                     var samples = new List<SKColor>();
                     for (var x = .65; x < .8; x += .005)
-                    for (var y = .25; y < .75; y += .05)
-                    {
-                        var point = toolbar.TranslatePoint(new Point(toolbar.Bounds.Width * x, toolbar.Bounds.Height * y), window)!.Value;
-                        samples.Add(pixels.GetPixel((int)(point.X * scaling), (int)(point.Y * scaling)));
-                    }
+                        for (var y = .25; y < .75; y += .05)
+                        {
+                            var point = toolbar.TranslatePoint(new Point(toolbar.Bounds.Width * x, toolbar.Bounds.Height * y), window)!.Value;
+                            samples.Add(pixels.GetPixel((int)(point.X * scaling), (int)(point.Y * scaling)));
+                        }
                     var rgb = new[] { samples.Average(p => p.Red), samples.Average(p => p.Green), samples.Average(p => p.Blue) };
                     reference ??= rgb;
                     for (var channel = 0; channel < 3; channel++) Assert.InRange(Math.Abs(rgb[channel] - reference[channel]), 0, 1);

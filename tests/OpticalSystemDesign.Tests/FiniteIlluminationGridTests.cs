@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
@@ -8,6 +7,7 @@ using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Optimization;
 using OpticalSystemDesign.Core.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

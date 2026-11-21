@@ -102,14 +102,17 @@ public static partial class ZemaxNonSequentialReader
                     var pol = rows.FirstOrDefault(r => r.Keyword == "NSCS" && r.Values[0] == "6");
                     var physics = pol is null ? emitter.Physics : new NonSequentialSourcePhysics(new SystemPolarization(
                         Integer(pol.Values[1]) != 0, Number(pol.Values[2]), Number(pol.Values[3]), Number(pol.Values[4]), Number(pol.Values[5])), PhaseDegrees: Number(pol.Values[6]))
-                        { UseSobolSampling = pol.Values[10] == "1" };
+                    { UseSobolSampling = pol.Values[10] == "1" };
                     var spectrum = rows.FirstOrDefault(r => r.Keyword == "NSCS" && r.Values[0] == "7" && r.Values.ElementAtOrDefault(1) == "3");
                     if (spectrum is not null && Integer(spectrum.Values[2]) != 0)
                     {
                         if (Integer(spectrum.Values[2]) != 1) throw new InvalidDataException("此光源的颜色模型尚未支持；未替换其光谱。");
-                        physics = (physics ?? new()) with { Spectrum = NonSequentialColorimetry.FitSpectrum(Number(spectrum.Values[3]), Number(spectrum.Values[4]), Number(spectrum.Values[5]),
+                        physics = (physics ?? new()) with
+                        {
+                            Spectrum = NonSequentialColorimetry.FitSpectrum(Number(spectrum.Values[3]), Number(spectrum.Values[4]), Number(spectrum.Values[5]),
                             Number(spectrum.Values[6]) * 1000, Number(spectrum.Values[7]) * 1000, Integer(spectrum.Values[8])),
-                            SpectrumProtocol = NonSequentialColorimetry.SpectrumFitProtocol };
+                            SpectrumProtocol = NonSequentialColorimetry.SpectrumFitProtocol
+                        };
                         issues.Add(new(spectrum.Line, source.Number, "TristimulusSpectrumFit", "XYZ 颜色采用已记录的非负光谱拟合；XYZ 不能唯一确定光谱，尚未认证原软件逐像素颜色一致性。", Blocking: false));
                     }
                     mapped = mapped with { Parameters = emitter with { Physics = physics } };
@@ -123,8 +126,14 @@ public static partial class ZemaxNonSequentialReader
                     var vector = new Vector3D(Number(axis.Values[1]), Number(axis.Values[2]), Number(axis.Values[3]));
                     if (vector.Length == 0) vector = new(0, 0, 1);
                     var material = poseValues.ElementAtOrDefault(6) ?? throw new InvalidDataException("晶体缺少材料。");
-                    mapped = mapped with { Parameters = mapped.Parameters with { Waveplate = new(Material(material + "-E"), vector / vector.Length)
-                        { TraceReflections = Integer(crystal.Values[2]) == 0 } } };
+                    mapped = mapped with
+                    {
+                        Parameters = mapped.Parameters with
+                        {
+                            Waveplate = new(Material(material + "-E"), vector / vector.Length)
+                            { TraceReflections = Integer(crystal.Values[2]) == 0 }
+                        }
+                    };
                 }
                 objects[i] = source with { MappedObject = mapped };
 

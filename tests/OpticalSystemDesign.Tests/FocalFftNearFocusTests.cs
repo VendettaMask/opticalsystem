@@ -15,9 +15,14 @@ public sealed class FocalFftNearFocusTests
         var runtime = new WorkbenchRuntime(Import(fixture));
         var settings = new Dictionary<string, string>
         {
-            ["Sampling"] = "64", ["PupilSampling"] = "32", ["Display"] = "128",
-            ["WavelengthNumber"] = "1", ["FieldNumber"] = "1", ["ImageDeltaMicrometers"] = "0.25",
-            ["MaximumDistanceMicrometers"] = "5", ["MaximumFrequency"] = "50"
+            ["Sampling"] = "64",
+            ["PupilSampling"] = "32",
+            ["Display"] = "128",
+            ["WavelengthNumber"] = "1",
+            ["FieldNumber"] = "1",
+            ["ImageDeltaMicrometers"] = "0.25",
+            ["MaximumDistanceMicrometers"] = "5",
+            ["MaximumFrequency"] = "50"
         };
         foreach (var mode in new[] { "Fixed", "Adaptive", "Automatic" })
         {
@@ -56,9 +61,15 @@ public sealed class FocalFftNearFocusTests
         var runtime = new WorkbenchRuntime(Import(fixture));
         var settings = new Dictionary<string, string>
         {
-            ["Sampling"] = "64", ["PupilSampling"] = "32", ["Display"] = "128", ["WavelengthNumber"] = "1",
-            ["FieldNumber"] = "1", ["ImageDeltaMicrometers"] = "0.25", ["MaximumDistanceMicrometers"] = "5",
-            ["MaximumFrequency"] = "50", ["FourierSamplingMode"] = "Fixed"
+            ["Sampling"] = "64",
+            ["PupilSampling"] = "32",
+            ["Display"] = "128",
+            ["WavelengthNumber"] = "1",
+            ["FieldNumber"] = "1",
+            ["ImageDeltaMicrometers"] = "0.25",
+            ["MaximumDistanceMicrometers"] = "5",
+            ["MaximumFrequency"] = "50",
+            ["FourierSamplingMode"] = "Fixed"
         };
         foreach (var name in new[] { "PSF", "MTF", "FFT PSF Cross Section", "Diffraction Encircled Energy" })
         {

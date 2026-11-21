@@ -13,7 +13,10 @@ public sealed class CameraMaterialSpectrumTests
         * 9e-12 * .01 * 1e-9 * (700d * 700 - 400d * 400) / (2 * Hc);
 
     [Theory]
-    [InlineData(BayerPattern.RGGB)] [InlineData(BayerPattern.BGGR)] [InlineData(BayerPattern.GRBG)] [InlineData(BayerPattern.GBRG)]
+    [InlineData(BayerPattern.RGGB)]
+    [InlineData(BayerPattern.BGGR)]
+    [InlineData(BayerPattern.GRBG)]
+    [InlineData(BayerPattern.GBRG)]
     public void EachMaterialAndBayerPixelMatchesIndependentPhotonIntegral(BayerPattern pattern)
     {
         var plan = CameraContinuousSpectrum.BuildMaterialPlan(CameraContinuousSpectrumTests.Light(), Split(), CameraContinuousSpectrumTests.Qe, new());
@@ -28,9 +31,13 @@ public sealed class CameraMaterialSpectrumTests
         var summary = plan.DescribeSampling(8, 8);
         Assert.Equal(32, summary.PixelCountsById[0]); Assert.Equal(32, summary.PixelCountsById[1]);
         Assert.Equal(.015, summary.MeanReflectedIrradiance, 12);
-        CameraContinuousSpectrumTests.Record("material-photon-" + pattern, new { ExpectedLeftRed = WhiteCharge(0, .2),
+        CameraContinuousSpectrumTests.Record("material-photon-" + pattern, new
+        {
+            ExpectedLeftRed = WhiteCharge(0, .2),
             ActualLeftRed = result.PhotoElectrons[Enumerable.Range(0, 64).First(i => i % 8 < 4 && CameraSensorPipeline.ColorAt(pattern, i / 8, i % 8) == 0)],
-            ExpectedRightRed = WhiteCharge(0, .8), summary.MeanReflectedIrradiance });
+            ExpectedRightRed = WhiteCharge(0, .8),
+            summary.MeanReflectedIrradiance
+        });
     }
 
     [Fact]
@@ -50,9 +57,15 @@ public sealed class CameraMaterialSpectrumTests
         Assert.Equal(WhiteCharge(1, .25), result.PhotoElectrons[3], 9); // light crosses into the zero-reflectance source region
         Assert.Equal(WhiteCharge(0, .75), result.PhotoElectrons[4], 9);
         Assert.Equal(.25, result.OpticalPreview[0, 0, 3], 12); Assert.Equal(.75, result.OpticalPreview[0, 0, 4], 12);
-        CameraContinuousSpectrumTests.Record("material-boundary-blur", new { Nodes = plan.Common.Nodes.Count, OpticalCalls = calls,
-            ExpectedDarkSideEdge = WhiteCharge(1, .25), ActualDarkSideEdge = result.PhotoElectrons[3],
-            ExpectedBrightSideEdge = WhiteCharge(0, .75), ActualBrightSideEdge = result.PhotoElectrons[4] });
+        CameraContinuousSpectrumTests.Record("material-boundary-blur", new
+        {
+            Nodes = plan.Common.Nodes.Count,
+            OpticalCalls = calls,
+            ExpectedDarkSideEdge = WhiteCharge(1, .25),
+            ActualDarkSideEdge = result.PhotoElectrons[3],
+            ExpectedBrightSideEdge = WhiteCharge(0, .75),
+            ActualBrightSideEdge = result.PhotoElectrons[4]
+        });
     }
 
     [Fact]

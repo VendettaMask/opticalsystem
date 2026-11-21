@@ -28,8 +28,17 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
     private BsdfImportSides _bsdfImportSide = BsdfImportSides.Front;
     private BsdfImportOptions _bsdfImportOptions = new();
     private readonly Dictionary<string, string> _bsdfImportText = new()
-    { ["bsdf-zemax-wave"] = "550", ["bsdf-astm-incidence"] = "", ["bsdf-zemax-ni"] = "1", ["bsdf-zemax-nt"] = "1", ["bsdf-zemax-xyz"] = "",
-      ["bsdf-speos-angle"] = "10", ["bsdf-speos-height"] = "0", ["bsdf-speos-base"] = "550", ["bsdf-astm-log-scale"] = "0.000001" };
+    {
+        ["bsdf-zemax-wave"] = "550",
+        ["bsdf-astm-incidence"] = "",
+        ["bsdf-zemax-ni"] = "1",
+        ["bsdf-zemax-nt"] = "1",
+        ["bsdf-zemax-xyz"] = "",
+        ["bsdf-speos-angle"] = "10",
+        ["bsdf-speos-height"] = "0",
+        ["bsdf-speos-base"] = "550",
+        ["bsdf-astm-log-scale"] = "0.000001"
+    };
     private bool _loading;
     private bool _disposed;
 
@@ -132,8 +141,8 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
                 var result = _service.ConvertFromSequential();
                 _summary.Text = $"已转换 {result.ObjectCount} 个对象。{string.Join(" ", result.Warnings)}";
             }
-            catch(Exception error) when(error is InvalidOperationException or InvalidDataException or ArgumentException or NotSupportedException)
-            { _summary.Text=error.Message; }
+            catch (Exception error) when (error is InvalidOperationException or InvalidDataException or ArgumentException or NotSupportedException)
+            { _summary.Text = error.Message; }
         };
         var content = new WrapPanel
         {
@@ -253,9 +262,9 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             _container.ItemsSource = choices;
             _reference.SelectedItem = choices.FirstOrDefault(item => item.Id == row.ReferenceId) ?? choices[0];
             _container.SelectedItem = choices.FirstOrDefault(item => item.Id == row.ContainerId) ?? choices[0];
-            _kind.ItemsSource=_service.GetObjectKinds().Append(row.Kind).Distinct().ToArray();
+            _kind.ItemsSource = _service.GetObjectKinds().Append(row.Kind).Distinct().ToArray();
             _kind.SelectedItem = row.Kind;
-            ControlAvailability.Set(_kind,row.Kind is not (NonSequentialObjectKind.Mesh or NonSequentialObjectKind.OpticalAssembly), "导入或转换对象保留其几何类型；可修改位置与显示设置。");
+            ControlAvailability.Set(_kind, row.Kind is not (NonSequentialObjectKind.Mesh or NonSequentialObjectKind.OpticalAssembly), "导入或转换对象保留其几何类型；可修改位置与显示设置。");
             _visible.IsChecked = row.Visible;
             AddParameterFields(row.Parameters);
             if (row.Kind is NonSequentialObjectKind.PlaneRectangle or NonSequentialObjectKind.Sphere
@@ -369,12 +378,12 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
                 Field("width", "宽度 (mm)", p.WidthMillimeters); Field("height", "高度 (mm)", p.HeightMillimeters); Field("length", "长度 (mm)", p.LengthMillimeters);
                 Field("material", "材料", p.Material); Field("behavior", "交互", p.Behavior); break;
             case OpticalAssemblyParameters p:
-                _parameters.Children.Add(new TextBlock { Text="完整顺序光学组件。各面处方随工程冻结；修改处方后重新转换。",TextWrapping=TextWrapping.Wrap });
-                foreach(var face in p.Assembly.Interfaces)
+                _parameters.Children.Add(new TextBlock { Text = "完整顺序光学组件。各面处方随工程冻结；修改处方后重新转换。", TextWrapping = TextWrapping.Wrap });
+                foreach (var face in p.Assembly.Interfaces)
                 {
-                    _parameters.Children.Add(new TextBlock { Name=$"nsc-interface-{face.SourceSurfaceNumber}", Text=$"S{face.SourceSurfaceNumber} {face.SourceLabel} · z={face.VertexZMillimeters:G8} mm · SD={face.SemiDiameterMillimeters:G6} / 机械半径={face.MechanicalSemiDiameterMillimeters:G6} mm · 旋转={face.RollDegrees:G6}° · {face.MaterialBeforeName} → {face.MaterialAfterName} · {face.Coating.Kind} · {(face.Aperture?.Kind??"无显式光阑")}",TextWrapping=TextWrapping.Wrap });
-                    if(face.Frame is { } frame)
-                        _parameters.Children.Add(new TextBlock { Name=$"nsc-frame-{face.SourceSurfaceNumber}", Text=$"{face.GeometryKind} · {face.SurfaceGeometry!.Coefficients.Count} 个系数 · XYZ=({frame.Origin.X:G8}, {frame.Origin.Y:G8}, {frame.Origin.Z:G8}) mm · 轴=({frame.AxisZ.X:G6}, {frame.AxisZ.Y:G6}, {frame.AxisZ.Z:G6})",TextWrapping=TextWrapping.Wrap });
+                    _parameters.Children.Add(new TextBlock { Name = $"nsc-interface-{face.SourceSurfaceNumber}", Text = $"S{face.SourceSurfaceNumber} {face.SourceLabel} · z={face.VertexZMillimeters:G8} mm · SD={face.SemiDiameterMillimeters:G6} / 机械半径={face.MechanicalSemiDiameterMillimeters:G6} mm · 旋转={face.RollDegrees:G6}° · {face.MaterialBeforeName} → {face.MaterialAfterName} · {face.Coating.Kind} · {(face.Aperture?.Kind ?? "无显式光阑")}", TextWrapping = TextWrapping.Wrap });
+                    if (face.Frame is { } frame)
+                        _parameters.Children.Add(new TextBlock { Name = $"nsc-frame-{face.SourceSurfaceNumber}", Text = $"{face.GeometryKind} · {face.SurfaceGeometry!.Coefficients.Count} 个系数 · XYZ=({frame.Origin.X:G8}, {frame.Origin.Y:G8}, {frame.Origin.Z:G8}) mm · 轴=({frame.AxisZ.X:G6}, {frame.AxisZ.Y:G6}, {frame.AxisZ.Z:G6})", TextWrapping = TextWrapping.Wrap });
                 }
                 break;
             case StandardLensParameters p:
@@ -459,13 +468,16 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
             if (parameters is SourceParameters source && kind == row.Kind)
             {
                 var group = S("coherenceGroup").Trim();
-                parameters = source with { Physics = (source.Physics ?? new()) with
+                parameters = source with
                 {
-                    Polarization = new OpticalSystemDesign.Core.Rays.SystemPolarization(B("unpolarized"), D("jx"), D("jy"), D("px"), D("py"),
+                    Physics = (source.Physics ?? new()) with
+                    {
+                        Polarization = new OpticalSystemDesign.Core.Rays.SystemPolarization(B("unpolarized"), D("jx"), D("jy"), D("px"), D("py"),
                         E<OpticalSystemDesign.Core.Rays.PolarizationReferenceAxis>("polAxis")),
-                    CoherenceGroup = group.Length == 0 ? null : group,
-                    PhaseDegrees = D("sourcePhase")
-                } };
+                        CoherenceGroup = group.Length == 0 ? null : group,
+                        PhaseDegrees = D("sourcePhase")
+                    }
+                };
             }
             _service.UpdateObject(row.ToUpdate() with
             {
@@ -613,7 +625,8 @@ public sealed class NonSequentialObjectEditorPanel : UserControl, IDisposable, I
         if (TopLevel.GetTopLevel(this) is not Window owner) return;
         var files = await owner.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
         {
-            Title = "导入 BSDF 文件", AllowMultiple = false,
+            Title = "导入 BSDF 文件",
+            AllowMultiple = false,
             FileTypeFilter = [new FilePickerFileType("BSDF") { Patterns = ["*.csv", "*.brdf", "*.anisotropicbsdf", "*.bsdf", "*.BSDF", "*.txt", "*.astm"] }]
         });
         if (files.Count > 0) await ImportMeasuredBsdfFromPathAsync(files[0].Path.LocalPath);

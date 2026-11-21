@@ -25,6 +25,11 @@ internal sealed record ThemeChromeStyle(
 
 internal sealed class ThemeChromeProfile
 {
+    internal static BoxShadows GlassSectionShadow { get; } = BoxShadows.Parse(
+        "0 1 3 0 #08396EA8, inset 0 1 0 0 #D8FFFFFF, inset 0 -1 0 0 #6078B5E8");
+    internal static BoxShadows GlassFrameShadow { get; } = BoxShadows.Parse(
+        "inset 0 2 5 0 #20FFFFFF, inset 0 -1 4 0 #0C538DC5");
+
     private readonly IReadOnlyDictionary<ThemeChromeRole, ThemeChromeStyle> _styles;
 
     private ThemeChromeProfile(IReadOnlyDictionary<ThemeChromeRole, ThemeChromeStyle> styles)

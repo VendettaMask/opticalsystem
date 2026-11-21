@@ -83,10 +83,11 @@ internal sealed partial class CameraImagingService
         var power = NscPower(input);
         return input with
         {
-            Wavelengths = Array.AsReadOnly(input.Wavelengths.ToArray()), Warnings = Array.AsReadOnly(input.Warnings.ToArray()),
+            Wavelengths = Array.AsReadOnly(input.Wavelengths.ToArray()),
+            Warnings = Array.AsReadOnly(input.Warnings.ToArray()),
             SourceObjectIds = Array.AsReadOnly(input.SourceObjectIds.ToArray()),
             SurfaceBsdfs = input.SurfaceBsdfs is null ? null : Array.AsReadOnly(input.SurfaceBsdfs.Select(m => m with
-                { Model = NonSequentialBsdfMapper.ToDto(NonSequentialBsdfMapper.ToCore(m.Model))! }).ToArray()),
+            { Model = NonSequentialBsdfMapper.ToDto(NonSequentialBsdfMapper.ToCore(m.Model))! }).ToArray()),
             Bands = Array.AsReadOnly(input.Bands.Select((b, i) => b with { PixelPowerWatts = power.Bands[i].PixelBandPowerWatts }).ToArray())
         };
     }

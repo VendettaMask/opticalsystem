@@ -1,7 +1,7 @@
 using System.Collections;
 using Avalonia.Controls;
-using Avalonia.LogicalTree;
 using Avalonia.Headless;
+using Avalonia.LogicalTree;
 using Avalonia.Media.Imaging;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
@@ -16,7 +16,8 @@ namespace OpticalSystemDesign.Tests;
 public sealed class BinaryZemaxBsdfWindowTests
 {
     [Theory]
-    [InlineData(false)] [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(true)]
     public async Task BinaryAndZemaxImportsReachTheCameraWithExplicitUnitsOffscreen(bool zemax)
     {
         using var host = SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));

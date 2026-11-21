@@ -15,7 +15,9 @@ public sealed partial class LensEditorPanel
     private readonly NumericUpDown _polynomialCount = new() { Name = "PolynomialTermCount", Minimum = 0, Maximum = 240, Increment = 1, FormatString = "0" };
     private readonly TextBox _polynomialCoefficients = new()
     {
-        Name = "PolynomialCoefficients", AcceptsReturn = true, Height = 90,
+        Name = "PolynomialCoefficients",
+        AcceptsReturn = true,
+        Height = 90,
         TextWrapping = Avalonia.Media.TextWrapping.Wrap
     };
     private readonly TextBox _biconicRadiusX = new() { Name = "BiconicRadiusX" };

@@ -44,7 +44,8 @@ public sealed class MeasuredBsdfData
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] public SpeosSpectralDefinition? SpeosSpectral { get; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)] public BsdfAngularSupport AngularSupport { get; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] public MeasuredBsdfLogInterpolation? LogInterpolation { get; }
-    [JsonIgnore] public int PayloadPointCount => Points.Count + (SpeosPeak?.Points.Count ?? 0) + (ZemaxXyz?.XPoints.Count ?? 0) + (ZemaxXyz?.ZPoints.Count ?? 0)
+    [JsonIgnore]
+    public int PayloadPointCount => Points.Count + (SpeosPeak?.Points.Count ?? 0) + (ZemaxXyz?.XPoints.Count ?? 0) + (ZemaxXyz?.ZPoints.Count ?? 0)
         + ((ZemaxXyz?.Calibration.PositiveModel?.Nodes.Count ?? 0) + (ZemaxXyz?.Calibration.AbsoluteRbfModel?.Nodes.Count ?? 0)) * (ZemaxXyz?.Calibration.Bands.Count ?? 0);
     [JsonIgnore] public string ComputationProtocol => ZemaxXyz?.Calibration.AbsoluteRbfModel is not null ? AbsoluteRbfXyzProtocol : LogInterpolation is not null ? LogInterpolationProtocol : AngularSupport != BsdfAngularSupport.FullHemisphere ? PolarSupportProtocol : ZemaxXyz?.Calibration.PositiveModel is not null ? PositiveXyzProtocol : ZemaxXyz?.Calibration.FitEvidence?.Gamut is not null ? GamutXyzProtocol : SpeosSpectral?.RuntimeWhite == true ? SpeosRuntimeWhiteProtocol : SpeosSpectral?.ThetaLinear == true ? SpeosThetaProtocol : SpeosPeak is not null || ZemaxXyz is not null || SpeosSpectral is not null ? EnhancedProtocol : ZemaxDefinition is not null || StoredQuantity != BsdfStoredQuantity.Bsdf ? SpecularProtocol : Coordinates != BsdfCoordinates.IncidentPlane || SourceFormat is not null ? FixedAxisProtocol : Protocol;
     internal IMeasuredBsdfDistribution Grid { get; }

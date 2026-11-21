@@ -18,8 +18,11 @@ internal sealed partial class CameraImagingService
     private const int MaximumExperimentBytes = 256 * 1024 * 1024;
     private static readonly JsonSerializerOptions ExperimentJsonOptions = new()
     {
-        MaxDepth = 64, WriteIndented = false, RespectRequiredConstructorParameters = true,
-        PropertyNameCaseInsensitive = true, UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
+        MaxDepth = 64,
+        WriteIndented = false,
+        RespectRequiredConstructorParameters = true,
+        PropertyNameCaseInsensitive = true,
+        UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
         Converters = { new JsonStringEnumConverter(allowIntegerValues: false) }
     };
     private static readonly JsonSerializerOptions LensJsonOptions = new()

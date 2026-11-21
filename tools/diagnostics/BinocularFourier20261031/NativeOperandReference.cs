@@ -124,11 +124,27 @@ internal static class NativeOperandReference
                 var y = series.GetProperty("y").EnumerateArray().Select(v => v[direction].GetDouble()).ToArray();
                 var maximum = y.Zip(reconstructed, (a, b) => Math.Abs(a - b)).Max();
                 var natural = Interpolate(coordinates, nodes[frequency].Select(v => v[direction]).ToArray(), x, capturedBoundary: false);
-                naturalControls.Add(new { config, sampling, frequency = Frequencies[frequency], direction,
-                    maximumAbsoluteError = y.Zip(natural, (a, b) => Math.Abs(a - b)).Max() });
-                proofs.Add(new { config, sampling, frequency = Frequencies[frequency], direction, points = y.Length, maximumAbsoluteError = maximum,
-                    rawCurve = Path.Combine(captured, "data.json"), rawCurveSha256 = Hash(Path.Combine(captured, "data.json")),
-                    rawNodes = Path.Combine(folder, "fourier-operands.json"), rawNodesSha256 = Hash(Path.Combine(folder, "fourier-operands.json")) });
+                naturalControls.Add(new
+                {
+                    config,
+                    sampling,
+                    frequency = Frequencies[frequency],
+                    direction,
+                    maximumAbsoluteError = y.Zip(natural, (a, b) => Math.Abs(a - b)).Max()
+                });
+                proofs.Add(new
+                {
+                    config,
+                    sampling,
+                    frequency = Frequencies[frequency],
+                    direction,
+                    points = y.Length,
+                    maximumAbsoluteError = maximum,
+                    rawCurve = Path.Combine(captured, "data.json"),
+                    rawCurveSha256 = Hash(Path.Combine(captured, "data.json")),
+                    rawNodes = Path.Combine(folder, "fourier-operands.json"),
+                    rawNodesSha256 = Hash(Path.Combine(folder, "fourier-operands.json"))
+                });
                 Console.WriteLine($"Display proof C{config}/N{sampling}/F{Frequencies[frequency]}/{direction}: {maximum:R}");
                 if (maximum > 1e-10) throw new InvalidDataException("Native display interpolation was not established");
             }
@@ -143,10 +159,21 @@ internal static class NativeOperandReference
                 Path.Combine(repository, $"artifacts/validation/binocular-fourier-cause-20261031/single-frequency-native/c{config}-n{sampling}"), highOnly: true);
         }
         var proofPath = Path.Combine(root, "native-display-proof.json");
-        JsonFiles.Write(proofPath, new { method = "IndependentDenseCubicWithCapturedDisplayBoundary", productCoreUsed = false,
-            leftBoundary = "s''(0)=0", rightBoundary = "s'(1)-s''(1)/3=y(1)", proofTolerance = 1e-10, proofs });
-        JsonFiles.Write(Path.Combine(root, "native-display-natural-control.json"), new { acceptedReference = false,
-            reason = "Natural right boundary does not reproduce the captured native display; never substitute this control for missing native data", naturalControls });
+        JsonFiles.Write(proofPath, new
+        {
+            method = "IndependentDenseCubicWithCapturedDisplayBoundary",
+            productCoreUsed = false,
+            leftBoundary = "s''(0)=0",
+            rightBoundary = "s'(1)-s''(1)/3=y(1)",
+            proofTolerance = 1e-10,
+            proofs
+        });
+        JsonFiles.Write(Path.Combine(root, "native-display-natural-control.json"), new
+        {
+            acceptedReference = false,
+            reason = "Natural right boundary does not reproduce the captured native display; never substitute this control for missing native data",
+            naturalControls
+        });
         foreach (var config in new[] { 1, 2 }) foreach (var sampling in new[] { 128, 256 })
         {
             var relative = config == 1 && sampling == 128 ? "node-control/nodes" : $"operands-c{config}/c{config}-n{sampling}";
@@ -157,12 +184,26 @@ internal static class NativeOperandReference
             {
                 var t = Interpolate(coordinates, nodes[index].Select(v => v[0]).ToArray(), displayCoordinates!);
                 var s = Interpolate(coordinates, nodes[index].Select(v => v[1]).ToArray(), displayCoordinates!);
-                return new { index, frequencyCyclesPerMilliradian = frequency, x = displayCoordinates,
-                    y = t.Zip(s, (a, b) => new[] { a, b }).ToArray() };
+                return new
+                {
+                    index,
+                    frequencyCyclesPerMilliradian = frequency,
+                    x = displayCoordinates,
+                    y = t.Zip(s, (a, b) => new[] { a, b }).ToArray()
+                };
             }).ToArray();
-            JsonFiles.Write(Path.Combine(target, "curve.json"), new { provenance = "NativeOperandsWithValidatedDisplayInterpolation", config, sampling,
-                rawNodes = relative + "/fourier-operands.json", rawNodesSha256 = Hash(Path.Combine(folder, "fourier-operands.json")),
-                splineProofSha256 = Hash(proofPath), calculatedFieldCount = 10, productCoreUsed = false, dataSeries = all });
+            JsonFiles.Write(Path.Combine(target, "curve.json"), new
+            {
+                provenance = "NativeOperandsWithValidatedDisplayInterpolation",
+                config,
+                sampling,
+                rawNodes = relative + "/fourier-operands.json",
+                rawNodesSha256 = Hash(Path.Combine(folder, "fourier-operands.json")),
+                splineProofSha256 = Hash(proofPath),
+                calculatedFieldCount = 10,
+                productCoreUsed = false,
+                dataSeries = all
+            });
             foreach (var name in new[] { "model.json", "fourier-fields.json", "fourier-operands.json", "environment.json", "polygon-dependencies.json" })
                 File.Copy(Path.Combine(folder, name), Path.Combine(target, name), true);
             File.Copy(request, Path.Combine(target, "request.json"), true);

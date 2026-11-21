@@ -1,3 +1,6 @@
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Headless;
@@ -10,9 +13,6 @@ using OpticalSystemDesign.App.Panels;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 
 namespace OpticalSystemDesign.Tests;
 

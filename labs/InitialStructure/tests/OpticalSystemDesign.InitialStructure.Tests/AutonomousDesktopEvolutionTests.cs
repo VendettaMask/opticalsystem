@@ -2,8 +2,8 @@ using Avalonia.Controls;
 using OpticalSystemDesign.App.Laboratories.InitialStructure;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.InitialStructure.Contracts;
-using OpticalSystemDesign.InitialStructure.Persistence;
 using OpticalSystemDesign.InitialStructure.Engine;
+using OpticalSystemDesign.InitialStructure.Persistence;
 using OpticalSystemDesign.Tests;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;

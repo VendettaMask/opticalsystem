@@ -14,12 +14,20 @@ public static class TopologyValidator
         var fields = TopologyEvaluationPlan.Fields(source, 21);
         // Protocol identity describes the algorithm/settings, not libm's last bits in generated samples.
         // Actual acceptance continues to generate and trace the original shared Core sample set.
-        return ContentFingerprint.Compute(new { Identity = "autonomous-physical-validation-v2", targets,
-            StructuralConstraints = source.Constraints, fields,
+        return ContentFingerprint.Compute(new
+        {
+            Identity = "autonomous-physical-validation-v2",
+            targets,
+            StructuralConstraints = source.Constraints,
+            fields,
             Pupils = new { Algorithm = "Core.GaussianQuadrature.v1", RadialSamples = 10, AzimuthalSamples = 32, Obscuration = 0d },
             Checks = new { Algorithm = "center-and-unit-rim-v1", AzimuthalSamples = 32 },
-            ProfileRadialSamples = 64, Backend = "CPU", Reference = "common-polychromatic-centroid",
-            DistortionReference = "primary-chief/current-image-paraxial", IncludeSurfaceTransmission = false });
+            ProfileRadialSamples = 64,
+            Backend = "CPU",
+            Reference = "common-polychromatic-centroid",
+            DistortionReference = "primary-chief/current-image-paraxial",
+            IncludeSurfaceTransmission = false
+        });
     }
 
     internal static string GetNativeLegacyProtocolFingerprint(CompiledTopology source, TopologyTargets targets)

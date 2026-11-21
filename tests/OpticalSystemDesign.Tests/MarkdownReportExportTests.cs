@@ -1,8 +1,8 @@
-using OpticalSystemDesign.Validation;
 using System.Text.RegularExpressions;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Application.Services;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

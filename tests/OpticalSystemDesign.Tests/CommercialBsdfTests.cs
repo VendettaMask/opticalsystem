@@ -12,13 +12,13 @@ public sealed class CommercialBsdfTests
     {
         var points = new List<MeasuredBsdfPoint>();
         foreach (var side in Enum.GetValues<BsdfSide>()) foreach (var w in new[] { 400d, 700d }) foreach (var ti in new[] { 0d, 60d, 90d })
-        foreach (var pi in new[] { 0d, 90d, 180d, 270d, 360d }) foreach (var to in new[] { 0d, 60d, 90d }) foreach (var po in new[] { 0d, 90d, 180d, 270d, 360d })
-        {
-            var mi = ti == 90 ? 0 : Math.Cos(ti * Math.PI / 180); var mu = to == 90 ? 0 : Math.Cos(to * Math.PI / 180);
-            var factor = (1 + .1 * (1 - mi) * Math.Cos(2 * pi * Math.PI / 180)) * (1 + .8 * (1 - mu) * G(po));
-            var r = .2 + .1 * (w - 400) / 300; var t = .5 - .1 * (w - 400) / 300;
-            points.Add(new(side, w, ti, to, po, r * factor / Math.PI, t * factor / Math.PI, pi));
-        }
+            foreach (var pi in new[] { 0d, 90d, 180d, 270d, 360d }) foreach (var to in new[] { 0d, 60d, 90d }) foreach (var po in new[] { 0d, 90d, 180d, 270d, 360d })
+            {
+                var mi = ti == 90 ? 0 : Math.Cos(ti * Math.PI / 180); var mu = to == 90 ? 0 : Math.Cos(to * Math.PI / 180);
+                var factor = (1 + .1 * (1 - mi) * Math.Cos(2 * pi * Math.PI / 180)) * (1 + .8 * (1 - mu) * G(po));
+                var r = .2 + .1 * (w - 400) / 300; var t = .5 - .1 * (w - 400) / 300;
+                points.Add(new(side, w, ti, to, po, r * factor / Math.PI, t * factor / Math.PI, pi));
+            }
         return new("Synthetic fixed material axes", "fixed.csv", new string('d', 64), points, coordinates: BsdfCoordinates.FixedMaterialAxes, sourceFormat: "NativeCsvFixedAxes/2");
     }
     internal static string Speos(bool anisotropic, double[]? materialRotations = null, bool constantAzimuth = false, double referenceTheta = 0)
@@ -62,7 +62,8 @@ public sealed class CommercialBsdfTests
         new(0, 0, 1), 550, materialXAxis: axis ?? new(1, 0, 0));
 
     [Theory]
-    [InlineData(false)] [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(true)]
     public void SpeosTextProfilesUseFileEnergyAndCorrectAngularConventions(bool anisotropic)
     {
         using var files = new CameraSensorFileTests.TemporaryFiles(); var path = files.Path(anisotropic ? "synthetic.anisotropicbsdf" : "synthetic.brdf");
@@ -120,7 +121,9 @@ public sealed class CommercialBsdfTests
     }
 
     [Theory]
-    [InlineData(90)] [InlineData(180)] [InlineData(360)]
+    [InlineData(90)]
+    [InlineData(180)]
+    [InlineData(360)]
     public void CommercialSymmetryAndNonuniformRotationGridsKeepThePeriodicCell(int extent)
     {
         using var files = new CameraSensorFileTests.TemporaryFiles(); var path = files.Path("symmetry.anisotropicbsdf");
@@ -145,8 +148,14 @@ public sealed class CommercialBsdfTests
     }
 
     [Theory]
-    [InlineData("binary")] [InlineData("intensity")] [InlineData("sides")] [InlineData("negative")] [InlineData("active")] [InlineData("short")]
-    [InlineData("combined-energy")] [InlineData("header")]
+    [InlineData("binary")]
+    [InlineData("intensity")]
+    [InlineData("sides")]
+    [InlineData("negative")]
+    [InlineData("active")]
+    [InlineData("short")]
+    [InlineData("combined-energy")]
+    [InlineData("header")]
     public void UnsupportedAndMalformedCommercialFilesFailExplicitly(string defect)
     {
         using var files = new CameraSensorFileTests.TemporaryFiles(); var path = files.Path("bad.brdf"); var text = Speos(false);

@@ -28,7 +28,8 @@ public sealed class CalculationPathPanelTests
         {
             using var app = WorkbenchApplication.Create("cooke");
             using var panel = new AnalysisPanel(app.Analyses, app.Visualization, app.Documents, app.Events,
-                new AppSettings(), name) { IsLocked = true };
+                new AppSettings(), name)
+            { IsLocked = true };
             const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
             typeof(AnalysisPanel).GetField("_initialRunRequested", flags)!.SetValue(panel, true);
             ((CheckBox)typeof(AnalysisPanel).GetField("_parameterAutoApply", flags)!.GetValue(panel)!).IsChecked = false;
@@ -67,7 +68,8 @@ public sealed class CalculationPathPanelTests
         {
             using var app = WorkbenchApplication.Create("cooke");
             using var panel = new AnalysisPanel(app.Analyses, app.Visualization, app.Documents, app.Events,
-                new AppSettings(), name) { IsLocked = true };
+                new AppSettings(), name)
+            { IsLocked = true };
             const BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
             typeof(AnalysisPanel).GetField("_initialRunRequested", flags)!.SetValue(panel, true);
             ((CheckBox)typeof(AnalysisPanel).GetField("_parameterAutoApply", flags)!.GetValue(panel)!).IsChecked = false;

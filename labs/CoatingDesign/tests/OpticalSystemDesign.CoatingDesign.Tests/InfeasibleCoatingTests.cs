@@ -1,9 +1,9 @@
-using OpticalSystemDesign.Validation;
 using System.Reflection;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Materials;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.CoatingDesign.Tests;
 
@@ -90,7 +90,10 @@ public sealed class InfeasibleCoatingTests
         }
     }
 
-    private static MethodInfo Private(string name) => typeof(DesignService).GetMethod(name, BindingFlags.NonPublic | BindingFlags.Static)!;
+    private static MethodInfo Private(string name) => typeof(DesignService)
+        .GetMethods(BindingFlags.NonPublic | BindingFlags.Static)
+        .Single(method => method.Name == name && (name != "GeneralConstraintSystem"
+            || method.GetParameters().Length == 5 && method.GetParameters()[1].ParameterType == typeof(CoherentThinFilmSolver)));
     private static (double[] Values, double[,] Derivatives, ThinFilmSample[] Samples) System(Experiment d, double[] grid)
     {
         var materials = d.Materials.ToDictionary(m => m.Id, m => m.Resolve(new MaterialRegistry()));

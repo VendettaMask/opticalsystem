@@ -645,13 +645,13 @@ public sealed class NonSequentialDocument
         {
             ValidateObject(item, byId, meshAssetsById);
         }
-        var assemblies=_objects.Select(o=>o.Parameters).OfType<OpticalAssemblyParameters>().ToArray();
-        if(assemblies.Any(g=>!g.Ambient.Name.Equals(AmbientMaterial,StringComparison.OrdinalIgnoreCase))
-            || assemblies.Skip(1).Any(g=>NonSequentialOpticalInterface.Identity(g.Interfaces[0].MaterialBefore)!=NonSequentialOpticalInterface.Identity(assemblies[0].Interfaces[0].MaterialBefore)))
+        var assemblies = _objects.Select(o => o.Parameters).OfType<OpticalAssemblyParameters>().ToArray();
+        if (assemblies.Any(g => !g.Ambient.Name.Equals(AmbientMaterial, StringComparison.OrdinalIgnoreCase))
+            || assemblies.Skip(1).Any(g => NonSequentialOpticalInterface.Identity(g.Interfaces[0].MaterialBefore) != NonSequentialOpticalInterface.Identity(assemblies[0].Interfaces[0].MaterialBefore)))
             throw new InvalidDataException("复合光学组件的完整外部介质必须与场景一致。");
-        var ports=_objects.Select(o=>o.Parameters).OfType<DetectorRectangleParameters>().Where(d=>d.IncidentSurface is not null).Select(d=>d.IncidentSurface!).ToArray();
-        if(assemblies.Sum(g=>g.Interfaces.Sum(f=>(long)f.PayloadEntries))+ports.Sum(f=>(long)f.PayloadEntries)>524288
-            ||assemblies.Sum(g=>g.Interfaces.Sum(f=>f.PayloadCharacters))+ports.Sum(f=>f.PayloadCharacters)>32*1024*1024)
+        var ports = _objects.Select(o => o.Parameters).OfType<DetectorRectangleParameters>().Where(d => d.IncidentSurface is not null).Select(d => d.IncidentSurface!).ToArray();
+        if (assemblies.Sum(g => g.Interfaces.Sum(f => (long)f.PayloadEntries)) + ports.Sum(f => (long)f.PayloadEntries) > 524288
+            || assemblies.Sum(g => g.Interfaces.Sum(f => f.PayloadCharacters)) + ports.Sum(f => f.PayloadCharacters) > 32 * 1024 * 1024)
             throw new InvalidDataException("非序列场景的光学组件载荷超出预算。");
         ValidateAcyclicLinks(byId, item => item.ReferenceObjectId, "参考");
         ValidateAcyclicLinks(byId, item => item.ContainingObjectId, "包含");
@@ -701,7 +701,7 @@ public sealed class NonSequentialDocument
         }
 
         ValidateParameters(item.Name, item.Parameters, meshAssetsById);
-        if(item.Parameters is OpticalAssemblyParameters && (item.SurfaceBsdf is not null || item.ContainingObjectId is not null))
+        if (item.Parameters is OpticalAssemblyParameters && (item.SurfaceBsdf is not null || item.ContainingObjectId is not null))
             throw new InvalidDataException("复合光学组件使用逐面光学属性，不接受对象级 BSDF 或包含介质覆盖。");
         item.SurfaceBsdf?.Validate(item.Parameters);
     }
@@ -906,8 +906,8 @@ public sealed class NonSequentialDocument
             case DetectorRectangleParameters detector:
                 RequirePositive(detector.WidthMillimeters, detector.HeightMillimeters);
                 if (detector.PolarizationComponent is < 0 or > 9) throw new InvalidDataException("探测器偏振分量必须在0到9之间。");
-                if(detector.IncidentSurface is { } port && (port.Frame is not null || port.SurfaceGeometry is not null || port.RadiusMillimeters!=0 || port.Film is not Coatings.NoneCoatingModel
-                    || NonSequentialOpticalInterface.Identity(port.MaterialBefore)!=NonSequentialOpticalInterface.Identity(port.MaterialAfter)))
+                if (detector.IncidentSurface is { } port && (port.Frame is not null || port.SurfaceGeometry is not null || port.RadiusMillimeters != 0 || port.Film is not Coatings.NoneCoatingModel
+                    || NonSequentialOpticalInterface.Identity(port.MaterialBefore) != NonSequentialOpticalInterface.Identity(port.MaterialAfter)))
                     throw new InvalidDataException("入射像面探测端口只接受无独立光学作用的平面；镀膜或介质界面须显式建模。");
                 if (detector.PixelsX <= 0 || detector.PixelsX > MaximumDetectorDimension
                     || detector.PixelsY <= 0 || detector.PixelsY > MaximumDetectorDimension

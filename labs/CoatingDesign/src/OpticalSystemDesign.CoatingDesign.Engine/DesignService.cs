@@ -199,10 +199,13 @@ public sealed partial class DesignService
             { DesignProtocol = d.Duplex is null ? Protocol(d) : d.Duplex.OptimizationVersion == 2 ? DuplexAnalyticProtocol : DuplexDesignProtocol },
             d.Duplex is not null ? Merit(DuplexResiduals(d, samples))
                 : d.Settings.DesignProtocolVersion == 4 ? AssessGeneral(d, samples).Merit : ObjectiveMerit(d, Objective(d, solver!, ObjectiveGrid(d))), warnings.ToArray())
-        { MaterialSuitability = suitability, SpectrumMetricsVersion = ThinFilmSpectrum.MetricsVersion,
+        {
+            MaterialSuitability = suitability,
+            SpectrumMetricsVersion = ThinFilmSpectrum.MetricsVersion,
             SamplingProtocol = t.Kind == DesignKind.NarrowBand ? DenseSamplingProtocol : null,
             ExtremaRefinementEvaluations = t.Kind == DesignKind.NarrowBand ? extremaEvaluations : null,
-            ExtremaRefinementComplete = t.Kind == DesignKind.NarrowBand ? extremaComplete : null };
+            ExtremaRefinementComplete = t.Kind == DesignKind.NarrowBand ? extremaComplete : null
+        };
         return d with { Result = result, Tolerance = d.Tolerance?.Fingerprint == d.Fingerprint() ? d.Tolerance : null };
 
         ThinFilmSample[] Scan(int count)

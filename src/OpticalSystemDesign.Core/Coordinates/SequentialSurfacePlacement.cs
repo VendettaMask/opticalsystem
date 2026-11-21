@@ -14,8 +14,12 @@ public sealed record CoordinateBreakParameters(double X, double Y, double TiltX,
     public double Value(int parameter) => parameter switch { 0 => X, 1 => Y, 2 => TiltX, 3 => TiltY, 4 => TiltZ, _ => throw new ArgumentOutOfRangeException(nameof(parameter)) };
     public CoordinateBreakParameters WithValue(int parameter, double value) => parameter switch
     {
-        0 => this with { X = value }, 1 => this with { Y = value }, 2 => this with { TiltX = value },
-        3 => this with { TiltY = value }, 4 => this with { TiltZ = value }, _ => throw new ArgumentOutOfRangeException(nameof(parameter))
+        0 => this with { X = value },
+        1 => this with { Y = value },
+        2 => this with { TiltX = value },
+        3 => this with { TiltY = value },
+        4 => this with { TiltZ = value },
+        _ => throw new ArgumentOutOfRangeException(nameof(parameter))
     };
     public CoordinateSystem Apply(CoordinateSystem incoming)
     {

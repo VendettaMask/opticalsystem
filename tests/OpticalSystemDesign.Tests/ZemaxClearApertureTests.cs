@@ -1,7 +1,7 @@
 using OpticalSystemDesign.Core;
+using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
 using OpticalSystemDesign.Core.Backend;
-using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.FileIO;
 
 namespace OpticalSystemDesign.Tests;

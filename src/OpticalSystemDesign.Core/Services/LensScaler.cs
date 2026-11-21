@@ -73,10 +73,14 @@ public static class LensScaler
                         ? double.PositiveInfinity : Multiply(surface.Thickness, f),
                     SemiDiameter = semiDiameter,
                     MechanicalSemiDiameter = surface.MechanicalSemiDiameter is { } mechanical ? Multiply(mechanical, f) : null,
-                    ChipZone = Multiply(surface.ChipZone, f), Components = components, CoordinateSystem = frame,
+                    ChipZone = Multiply(surface.ChipZone, f),
+                    Components = components,
+                    CoordinateSystem = frame,
                     Placement = surface.Placement is { } placement ? placement with
                     {
-                        X = Multiply(placement.X, f), Y = Multiply(placement.Y, f), Z = Multiply(placement.Z, f),
+                        X = Multiply(placement.X, f),
+                        Y = Multiply(placement.Y, f),
+                        Z = Multiply(placement.Z, f),
                         ObjectDistanceAtImport = Multiply(placement.ObjectDistanceAtImport, f),
                         Break = placement.Break is { } operation ? operation with { X = Multiply(operation.X, f), Y = Multiply(operation.Y, f) } : null
                     } : null
@@ -106,7 +110,7 @@ public static class LensScaler
                 ? snapshot.Fields.Select(field => field with { XAngleDegrees = Multiply(field.XAngleDegrees, factor), YAngleDegrees = Multiply(field.YAngleDegrees, factor) }).ToList()
                 : snapshot.Fields,
             RadiusPickups = snapshot.RadiusPickups?.Select(p => p with
-                { Scale = Multiply(p.Scale, F(p.TargetSurface) / F(p.SourceSurface)), Offset = Multiply(p.Offset, F(p.TargetSurface)) }).ToList(),
+            { Scale = Multiply(p.Scale, F(p.TargetSurface) / F(p.SourceSurface)), Offset = Multiply(p.Offset, F(p.TargetSurface)) }).ToList(),
             ThicknessPickups = ScalePickups(snapshot.ThicknessPickups, F),
             SemiDiameterPickups = ScalePickups(snapshot.SemiDiameterPickups, F),
             SolveSettings = snapshot.SolveSettings is { } solve
@@ -142,8 +146,11 @@ public static class LensScaler
     }
 
     private static List<SurfaceValuePickupSnapshot>? ScalePickups(List<SurfaceValuePickupSnapshot>? pickups, Func<int, double> factor) =>
-        pickups?.Select(p => p with { Scale = Multiply(p.Scale, factor(p.TargetSurface) / factor(p.SourceSurface)),
-            Offset = Multiply(p.Offset, factor(p.TargetSurface)) }).ToList();
+        pickups?.Select(p => p with
+        {
+            Scale = Multiply(p.Scale, factor(p.TargetSurface) / factor(p.SourceSurface)),
+            Offset = Multiply(p.Offset, factor(p.TargetSurface))
+        }).ToList();
 
     private static double Length(double value, double factor) => double.IsInfinity(value) ? value : Multiply(value, factor);
 
@@ -193,8 +200,10 @@ public static class LensScaler
         if (key.StartsWith("c_", StringComparison.Ordinal)) return kind == "polynomial" ? 1 - PairDegree(key) : 1;
         if (Index(key, "c", out var c)) return kind switch
         {
-            "even_asphere" => 1 - 2 * (c + 1), "odd_asphere" => -c,
-            "chebyshev_sag" => -1, _ => 1
+            "even_asphere" => 1 - 2 * (c + 1),
+            "odd_asphere" => -c,
+            "chebyshev_sag" => -1,
+            _ => 1
         };
         if (Index(key, "a", out var a)) return 1 - 2 * (a + 1);
         if (Index(key, "q", out _) || Index(key, "z", out _)) return 1;
@@ -217,13 +226,16 @@ public static class LensScaler
         if (component.Kind is not ("refractive" or "reflective" or "coordinate_reference" or "birefringent_interface"
             or "thin_lens" or "paraxial_lens" or "ruled_grating" or "diffractive"))
             throw new NotSupportedException($"光线交互 {component.Kind} 尚无完整缩放规则，未修改镜头。");
-        return component with { Numbers = component.Numbers.ToDictionary(p => p.Key, p => p.Key switch
+        return component with
+        {
+            Numbers = component.Numbers.ToDictionary(p => p.Key, p => p.Key switch
         {
             "focalLength" or "axisDisplayLength" => Multiply(p.Value, factor),
             "powerX" or "powerY" or "linesPerMicrometer" or "grooveFrequency" => Multiply(p.Value, 1 / factor),
             "isReflective" or "ignoredSurface" or "isExit" or "opdMode" or "order" => p.Value,
             _ => throw new NotSupportedException($"交互参数 {p.Key} 尚无缩放规则。")
-        }) };
+        })
+        };
     }
 
     private static bool Index(string key, string prefix, out int index) => int.TryParse(key.AsSpan(Math.Min(prefix.Length, key.Length)),

@@ -23,7 +23,7 @@
 - [每支镜头与固定光线的统计](BY_LENS.md)
 - [四支相关菜单镜头的逐请求未通过清单](REMAINING_FOCUSED.md)
 - [全 95 支剩余 628 项请求及误差、原因](remaining-requests.csv)
-- [剩余 108 组固定光线及参考缺口](remaining-fixed-rays.csv)
+- [剩余 108 组固定光线及参考缺口](../../2026-11-06/grid-sag-zero-power/remaining-fixed-rays.csv)
 - [本轮判定变化](verdict-changes.json)和[验收摘要](summary.json)
 
 反射变焦的 64/128 瞳孔试算相对冻结 32 档仍有差异，固定矩阵保留各自原档位。前轮已通过的自适应 FFT 专项与固定采样的相位欠采样结论分别保留。[反射变焦采样试算](numeric-controls.json) · [前轮自适应 FFT 专项](../fourier-physical-pupil/README.md)

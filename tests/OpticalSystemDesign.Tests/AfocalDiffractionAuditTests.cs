@@ -1,10 +1,10 @@
+using System.Globalization;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Domain;
 using OpticalSystemDesign.Core.FileIO;
-using System.Globalization;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -111,10 +111,10 @@ public sealed class AfocalDiffractionAuditTests
     public void RiflescopeAutomaticMtfValidatesEveryFieldAndWavelengthWithoutRelaxingPhaseGate()
     {
         var runtime = new WorkbenchRuntime(Riflescope());
-        var fixedGrid = runtime.BuildAnalysisData("MTF", new Dictionary<string,string>
+        var fixedGrid = runtime.BuildAnalysisData("MTF", new Dictionary<string, string>
         { ["FourierSamplingMode"] = "Fixed", ["Sampling"] = "64" });
         Assert.Equal(AnalysisOutcome.Unavailable, fixedGrid.Outcome);
-        var recovered = runtime.BuildAnalysisData("MTF", new Dictionary<string,string>
+        var recovered = runtime.BuildAnalysisData("MTF", new Dictionary<string, string>
         { ["Sampling"] = "64", ["FourierMaximumSampling"] = "1024" });
         Assert.Equal(AnalysisOutcome.Success, recovered.Outcome);
         var validation = Assert.IsType<FourierValidationReport>(recovered.Values["FourierSamplingValidation"]);

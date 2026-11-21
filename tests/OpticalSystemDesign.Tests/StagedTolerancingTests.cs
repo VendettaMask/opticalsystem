@@ -115,8 +115,11 @@ public sealed class StagedTolerancingTests
         }).IsValid);
         var baseline = await app.Tolerancing.RunAsync(request with
         {
-            Criterion = ToleranceCriterion.RmsSpotRadius, MtfSettings = null, StageObjectives = null,
-            Mode = ToleranceAnalysisMode.SkipSensitivity, AdditionalCompensators = [center]
+            Criterion = ToleranceCriterion.RmsSpotRadius,
+            MtfSettings = null,
+            StageObjectives = null,
+            Mode = ToleranceAnalysisMode.SkipSensitivity,
+            AdditionalCompensators = [center]
         });
         var result = await app.Tolerancing.RunAsync(request);
         var trial = Assert.Single(result.TrialRows);

@@ -3,8 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Media.Immutable;
-using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.App.Controls;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Theming;
 

@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison.Configuration;
 using OpticalSystemDesign.ZemaxComparison.Metrics;
 using OpticalSystemDesign.ZemaxComparison.Normalization;
@@ -54,7 +54,7 @@ public sealed class AfocalFftProfilePointwiseTests(ITestOutputHelper output)
             var expected = ExtendedResultNormalizer.Zemax(Path.Combine(directory, "data.json"), request);
             var matched = ComparisonMetrics.Align(actual.Series.Single(), expected.Series.Single(), []);
             var metric = ComparisonMetrics.Calculate("curve:0", "Dimensionless", matched, gate);
-            var violations = matched.Workbench.Zip(matched.Zemax, (a, b) => Math.Abs(a-b) > gate.Absolute+gate.Relative*Math.Abs(b)).Count(b => b);
+            var violations = matched.Workbench.Zip(matched.Zemax, (a, b) => Math.Abs(a - b) > gate.Absolute + gate.Relative * Math.Abs(b)).Count(b => b);
             output.WriteLine(JsonSerializer.Serialize(new { id, request.Fingerprint, violations, metric }, JsonFiles.Options));
 
             Assert.Equal(Conclusion.Pass, metric.Conclusion);

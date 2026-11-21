@@ -1,5 +1,5 @@
-using Avalonia.Media;
 using System.Collections.Concurrent;
+using Avalonia.Media;
 
 namespace OpticalSystemDesign.App.Theming;
 
@@ -46,7 +46,7 @@ internal sealed record ScientificIconPalette(Color Structure, Color Signal, Colo
 
     internal static ScientificIconPalette LumenHud { get; } = new(
         Color.Parse("#6C8D9D"), Color.Parse("#78DCFF"), Color.Parse("#C4F5FF"))
-        { Finish = ScientificIconFinish.SteelHud };
+    { Finish = ScientificIconFinish.SteelHud };
     internal static ScientificIconPalette IsekaiArcane { get; } = new(
         Color.Parse("#A18B5F"), Color.Parse("#EACC8B"), Color.Parse("#A6B48B"));
 

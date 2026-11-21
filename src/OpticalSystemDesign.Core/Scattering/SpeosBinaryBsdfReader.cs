@@ -90,7 +90,8 @@ internal static class SpeosBinaryBsdfReader
                 {
                     inputKeys[lobe] = new(); maxima[lobe] = new();
                     var nr = Count(65); var rotations = Values(nr); Line(nr.ToString(CultureInfo.InvariantCulture)); Line(string.Join(" ", rotations.Select(N))); int count = 0;
-                    foreach (var a in rotations) { var ni = Count(64); var inc = Values(ni); count = checked(count + ni); Line(ni.ToString(CultureInfo.InvariantCulture)); Line(string.Join(" ", inc.Select(N))); foreach (var i in inc) inputKeys[lobe].Add((a, i, 0)); } counts.Add(lobe, count);
+                    foreach (var a in rotations) { var ni = Count(64); var inc = Values(ni); count = checked(count + ni); Line(ni.ToString(CultureInfo.InvariantCulture)); Line(string.Join(" ", inc.Select(N))); foreach (var i in inc) inputKeys[lobe].Add((a, i, 0)); }
+                    counts.Add(lobe, count);
                 }
                 foreach (var lobe in active)
                 {

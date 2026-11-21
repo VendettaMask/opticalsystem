@@ -1,10 +1,10 @@
-using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text.Json;
 using OpticalSystemDesign.Application.Runtime;
 using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Validation;
 using OpticalSystemDesign.ZemaxComparison.Configuration;
 using OpticalSystemDesign.ZemaxComparison.Normalization;
 
@@ -38,7 +38,7 @@ public sealed class WideSchmidtNativeRepairTests
         var source = Path.Combine(Root, "src/OpticalSystemDesign.App/Assets/SequentialExamples", lens);
         Assert.Equal(sourceSha256, Hash(source));
         var folder = Path.Combine(Fixtures, id);
-        var request = JsonFiles.Read<CanonicalAnalysisRequest>(Path.Combine(folder, "request.json"));
+        var request = JsonFiles.Read<CanonicalAnalysisRequest>(EvidenceFiles.Resolve(Path.Combine(folder, "request.json")));
         var optic = OpticalFormatCatalog.Import(EvidenceFiles.ReadAllText(source), ".zmx");
         var data = new WorkbenchRuntime(optic).BuildAnalysisData(request.CanonicalAnalysisKey, request.WorkbenchSettings);
         var output = Path.Combine(Path.GetTempPath(), "wide-schmidt-native-" + Guid.NewGuid().ToString("N"));
@@ -48,7 +48,7 @@ public sealed class WideSchmidtNativeRepairTests
             var path = Path.Combine(output, "data.json"); JsonFiles.Write(path, data);
             var entry = AnalysisComparisonRegistry.Get(request.CanonicalAnalysisKey);
             var actual = ResultNormalizer.Workbench(path, entry, request);
-            var native = ResultNormalizer.Zemax(Path.Combine(folder, "data.json"), entry, request);
+            var native = ResultNormalizer.Zemax(EvidenceFiles.Resolve(Path.Combine(folder, "data.json")), entry, request);
             var run = new AnalysisRun { Key = request.CanonicalAnalysisKey, Directory = id, Request = request };
             var policy = ComparisonConfiguration.Load(Policy);
             ComparisonRunner.Compare(run, entry, policy.Analyses[request.CanonicalAnalysisKey], actual, native, output);

@@ -110,20 +110,20 @@ public partial class WorkbenchRuntime
         var surface = optic.SurfaceGroup.Items.Single(s => s.Number == binding.SurfaceNumber);
         var kind = binding.ModelParameter is not null ? OptimizationVariableKind.ModelGlassCoefficient : binding.ShapeParameter is { } shape ? ShapeVariableKind(shape)
             : binding.GradientParameter is not null ? OptimizationVariableKind.GradientIndexCoefficient : binding.Layer > 0 ? binding.Parameter switch
-        {
-            CoatingLayerParameter.Multiplier => OptimizationVariableKind.CoatingMultiplier,
-            CoatingLayerParameter.IndexOffset => OptimizationVariableKind.CoatingIndexOffset,
-            _ => OptimizationVariableKind.CoatingExtinctionOffset
-        } : binding.Operand?.Kind switch
-        {
-            MultiConfigurationOperandKind.Curvature => OptimizationVariableKind.Curvature,
-            MultiConfigurationOperandKind.Conic => OptimizationVariableKind.Conic,
-            MultiConfigurationOperandKind.SemiDiameter => OptimizationVariableKind.SemiDiameter,
-            MultiConfigurationOperandKind.ShapeCoefficient => ShapeVariableKind(binding.Operand.Parameter!),
-            MultiConfigurationOperandKind.GradientIndexCoefficient => OptimizationVariableKind.GradientIndexCoefficient,
-            MultiConfigurationOperandKind.ModelGlassCoefficient => OptimizationVariableKind.ModelGlassCoefficient,
-            _ => binding.IsCurvature ? OptimizationVariableKind.Radius : surface.Number == 0 ? OptimizationVariableKind.ObjectDistance : OptimizationVariableKind.Thickness
-        };
+            {
+                CoatingLayerParameter.Multiplier => OptimizationVariableKind.CoatingMultiplier,
+                CoatingLayerParameter.IndexOffset => OptimizationVariableKind.CoatingIndexOffset,
+                _ => OptimizationVariableKind.CoatingExtinctionOffset
+            } : binding.Operand?.Kind switch
+            {
+                MultiConfigurationOperandKind.Curvature => OptimizationVariableKind.Curvature,
+                MultiConfigurationOperandKind.Conic => OptimizationVariableKind.Conic,
+                MultiConfigurationOperandKind.SemiDiameter => OptimizationVariableKind.SemiDiameter,
+                MultiConfigurationOperandKind.ShapeCoefficient => ShapeVariableKind(binding.Operand.Parameter!),
+                MultiConfigurationOperandKind.GradientIndexCoefficient => OptimizationVariableKind.GradientIndexCoefficient,
+                MultiConfigurationOperandKind.ModelGlassCoefficient => OptimizationVariableKind.ModelGlassCoefficient,
+                _ => binding.IsCurvature ? OptimizationVariableKind.Radius : surface.Number == 0 ? OptimizationVariableKind.ObjectDistance : OptimizationVariableKind.Thickness
+            };
         var value = binding.ModelParameter is { } modelParameter ? ModelGlassParameters.Read(surface, modelParameter)
             : binding.ShapeParameter is { } shapeParameter ? SurfaceShapeParameters.Read(surface, shapeParameter)
             : binding.GradientParameter is { } parameter ? GradientIndexParameters.Read(surface, parameter) : binding.Layer > 0 ? CoatingLayerMetrics.Layer(surface, binding.Layer).Adjustment.Value(binding.Parameter)

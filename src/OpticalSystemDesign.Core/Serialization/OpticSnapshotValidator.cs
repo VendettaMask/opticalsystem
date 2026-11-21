@@ -279,12 +279,17 @@ public static class OpticSnapshotValidator
                 if (snapshot.SchemaVersion < 7) Invalid($"$.surfaces[{index}].shapeVariables", "shape variables require schema version 7");
                 try
                 {
-                    var model = new OpticalSurface { Radius = surface.Radius, Conic = surface.Conic,
+                    var model = new OpticalSurface
+                    {
+                        Radius = surface.Radius,
+                        Conic = surface.Conic,
                         Geometry = surface.Components?.Geometry is { } geometry
                             ? ComponentSnapshotFactory.ToGeometry(geometry, surface.Radius, surface.Conic)
                             : new Geometries.StandardGeometry(surface.Radius, surface.Conic),
                         InteractionModel = ComponentSnapshotFactory.ToInteraction(surface.Components?.Interaction, surface.IsReflective),
-                        Placement = surface.Placement, ShapeVariables = shapeVariables };
+                        Placement = surface.Placement,
+                        ShapeVariables = shapeVariables
+                    };
                     foreach (var parameter in shapeVariables) _ = Services.SurfaceShapeParameters.Read(model, parameter);
                 }
                 catch (ArgumentException) { Invalid($"$.surfaces[{index}].shapeVariables", "invalid, duplicate or unavailable shape coefficient"); }

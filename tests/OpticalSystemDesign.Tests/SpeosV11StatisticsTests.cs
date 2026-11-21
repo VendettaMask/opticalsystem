@@ -5,7 +5,10 @@ namespace OpticalSystemDesign.Tests;
 
 public sealed class SpeosV11StatisticsTests
 {
-    [Theory] [InlineData(400)] [InlineData(550)] [InlineData(700)]
+    [Theory]
+    [InlineData(400)]
+    [InlineData(550)]
+    [InlineData(700)]
     public void RuntimeWhiteReflectionTransmissionMatchesIndependentSharedCellIntegrals(double wave)
     {
         var data = SpeosV11XyzTests.Read(SpeosV11XyzTests.SpeosText(both: true), new(14, .01, 550));
@@ -63,7 +66,12 @@ public sealed class SpeosV11StatisticsTests
         return new("Independent Lambertian peak power control", "synthetic", new string('0', 64), zero, coordinates: fixedAxes ? BsdfCoordinates.FixedMaterialAxes : BsdfCoordinates.IncidentPlane,
             sourceFormat: "AnalyticSlopeTransportControl/1", speosPeak: new(1, 1, null, points));
     }
-    [Theory] [InlineData(false, 15)] [InlineData(false, 45)] [InlineData(false, 85)] [InlineData(true, 45)] [InlineData(true, 85)]
+    [Theory]
+    [InlineData(false, 15)]
+    [InlineData(false, 45)]
+    [InlineData(false, 85)]
+    [InlineData(true, 45)]
+    [InlineData(true, 85)]
     public void SlopeJacobianAndRecoveredSourceCdfMatchIndependentAnalyticLaw(bool transmission, double theta)
     {
         var model = new MeasuredBsdf(PowerControl(transmission)); var c = SpeosV11XyzTests.Context(theta); var rng = new Random(71289); const int count = 16384;

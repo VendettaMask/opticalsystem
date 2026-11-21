@@ -42,7 +42,7 @@ internal static class DesignReportMarkdownWriter
                     case ReportDirectoryEntry entry: result.AppendLine($"- [{entry.SectionNumber:D2}　{Escape(entry.Title)}](#section-{entry.SectionNumber:D3})"); break;
                     case ReportTable table: Table(table); break;
                     case ReportParagraph paragraph: result.AppendLine(Escape(paragraph.Text)).AppendLine(); break;
-                    // The drawing is already linked in its own chapter, so Markdown doesn't duplicate the cover image.
+                        // The drawing is already linked in its own chapter, so Markdown doesn't duplicate the cover image.
                 }
             }
             result.AppendLine();

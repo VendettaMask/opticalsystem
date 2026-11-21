@@ -3,14 +3,14 @@ using System.Text.Json;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
-using Avalonia.Platform.Storage;
 using Avalonia.LogicalTree;
+using Avalonia.Platform.Storage;
 using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.Application.Contracts;
 using OpticalSystemDesign.Core.NonSequential;
 using OpticalSystemDesign.Core.Optimization;
-using NscDomain = OpticalSystemDesign.Core.NonSequential.NonSequentialVariableDomain;
 using DockSide = Avalonia.Controls.Dock;
+using NscDomain = OpticalSystemDesign.Core.NonSequential.NonSequentialVariableDomain;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -70,17 +70,24 @@ internal sealed class NonSequentialDesignWindow : Window
             ("总源光线预算", _budget), ("每源射线数", _rays), ("训练种子", _training), ("验证种子", _validation),
             ("截断功率上限", _truncated), ("公差样本数", _samples), ("制造种子", _manufacturing), ("每样本补偿追迹上限", _compensation) })
         { settings.Children.Add(Label(pair.Item1, pair.Item2)); _editable.Add(pair.Item2); }
-        var tabs = new TabControl { ItemsSource = new[]
+        var tabs = new TabControl
+        {
+            ItemsSource = new[]
         {
             new TabItem { Header = "变量与补偿", Content = new DockPanel { Children =
                 { Top(addVariable), new ScrollViewer { Content = _variables, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto } } } },
             new TabItem { Header = "探测器目标", Content = new DockPanel { Children =
                 { Top(addTarget), new ScrollViewer { Content = _targets, HorizontalScrollBarVisibility = Avalonia.Controls.Primitives.ScrollBarVisibility.Auto } } } },
             new TabItem { Header = "结果", Content = _results }
-        } };
+        }
+        };
         var root = new DockPanel { Margin = new Thickness(12), LastChildFill = true };
-        root.Children.Add(Top(new StackPanel { Spacing = 8, Children = { bar, settings,
-            new TextBlock { Text = "位置与光斑尺寸使用实际光线落点。优化后用独立种子验证；公差保留全部制造抽样和失败原因。所有追迹与补偿共用总预算。", TextWrapping = Avalonia.Media.TextWrapping.Wrap } } }));
+        root.Children.Add(Top(new StackPanel
+        {
+            Spacing = 8,
+            Children = { bar, settings,
+            new TextBlock { Text = "位置与光斑尺寸使用实际光线落点。优化后用独立种子验证；公差保留全部制造抽样和失败原因。所有追迹与补偿共用总预算。", TextWrapping = Avalonia.Media.TextWrapping.Wrap } }
+        }));
         DockPanel.SetDock(_status, DockSide.Bottom); root.Children.Add(_status); root.Children.Add(tabs); Content = root;
         _editable.Add(addVariable); _editable.Add(addTarget); _editable.Add(optimize); _editable.Add(tolerance); _editable.Add(open);
         _editable.Add(archive); _editable.Add(replay);
@@ -210,7 +217,7 @@ internal sealed class NonSequentialDesignWindow : Window
         if (file is not null) await File.WriteAllTextAsync(file, JsonSerializer.Serialize(new { Plan = _lastPlan, Result = _lastResult }, Json));
     }
     private async Task<string?> SaveAsync(string title, string name) => (await StorageProvider.SaveFilePickerAsync(new()
-        { Title = title, SuggestedFileName = name, DefaultExtension = "json" }))?.Path.LocalPath;
+    { Title = title, SuggestedFileName = name, DefaultExtension = "json" }))?.Path.LocalPath;
     private Button Command(string text, Func<Task> action)
     {
         var b = new Button { Content = text, Margin = new Thickness(0, 0, 6, 4) };
@@ -230,7 +237,8 @@ internal sealed class NonSequentialDesignWindow : Window
         private readonly TextBox _low = Box("-1"), _high = Box("1"), _step = Box("0.01"), _scale = Box("0.01");
         private readonly CheckBox _tolerance = new() { Content = "公差" }, _compensator = new() { Content = "补偿" };
         private readonly ComboBox _distribution = new() { ItemsSource = Enum.GetValues<NonSequentialToleranceDistribution>(), SelectedIndex = 1, Width = 110 };
-        public Control View { get; } public bool Compensator => _compensator.IsChecked == true; public bool Toleranced => _tolerance.IsChecked == true;
+        public Control View { get; }
+        public bool Compensator => _compensator.IsChecked == true; public bool Toleranced => _tolerance.IsChecked == true;
         public VariableRow(NonSequentialDocumentDto doc, NonSequentialDesignVariable? v, NonSequentialToleranceVariable? t, bool comp)
         {
             var objects = doc.Objects.Select(o => new Choice(o.Id, $"{o.ObjectNumber} {o.Name}")).ToArray();
@@ -247,8 +255,13 @@ internal sealed class NonSequentialDesignWindow : Window
             if (v is not null) { _domain.SelectedItem = v.Domain; Parameters(); _parameter.SelectedItem = v.Parameter; _low.Text = F(v.LowerBound); _high.Text = F(v.UpperBound); _step.Text = F(v.Step); }
             _tolerance.IsChecked = t is not null; _compensator.IsChecked = comp;
             if (t is not null) { _scale.Text = F(t.Scale); _distribution.SelectedItem = t.Distribution; }
-            View = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 5, Children = { Label("对象", _object), Label("变量类型", _domain), Label("参数 / 轴", _parameter),
-                Label("下限", _low), Label("上限", _high), Label("步长", _step), Label("", _compensator), Label("", _tolerance), Label("分布", _distribution), Label("σ / 均匀半宽", _scale) } };
+            View = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing = 5,
+                Children = { Label("对象", _object), Label("变量类型", _domain), Label("参数 / 轴", _parameter),
+                Label("下限", _low), Label("上限", _high), Label("步长", _step), Label("", _compensator), Label("", _tolerance), Label("分布", _distribution), Label("σ / 均匀半宽", _scale) }
+            };
         }
         public NonSequentialDesignVariable Read() => new((_object.SelectedItem as Choice)?.Id ?? throw new ArgumentException("请选择变量对象。"),
             (NscDomain)_domain.SelectedItem!, (string?)_parameter.SelectedItem ?? throw new ArgumentException("请选择参数。"), Number(_low), Number(_high), Number(_step));
@@ -266,8 +279,13 @@ internal sealed class NonSequentialDesignWindow : Window
             var sources = doc.Objects.Where(o => o.Parameters is Application.Contracts.SourceParameters).Select(o => new Choice(o.Id, $"{o.ObjectNumber} {o.Name}")).Prepend(new(null, "全部光源")).ToArray();
             _source = new() { ItemsSource = sources, SelectedItem = sources.FirstOrDefault(o => o.Id == t?.SourceObjectId) ?? sources[0], Width = 160 };
             if (t is not null) { _metric.SelectedItem = t.Metric; _target.Text = F(t.Target); _tolerance.Text = F(t.Tolerance); _weight.Text = F(t.Weight); _wave.Text = t.WavelengthNumber.ToString(); _pixel.Text = t.PixelIndex.ToString(); _path.Text = t.PathFilter; }
-            View = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 5, Children = { Label("探测器", _detector), Label("指标", _metric), Label("目标", _target), Label("允许偏差", _tolerance),
-                Label("权重", _weight), Label("波长（0=全部）", _wave), Label("像素（从0起）", _pixel), Label("光源筛选", _source), Label("路径筛选", _path) } };
+            View = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing = 5,
+                Children = { Label("探测器", _detector), Label("指标", _metric), Label("目标", _target), Label("允许偏差", _tolerance),
+                Label("权重", _weight), Label("波长（0=全部）", _wave), Label("像素（从0起）", _pixel), Label("光源筛选", _source), Label("路径筛选", _path) }
+            };
         }
         public NonSequentialDesignTarget Read() => new((_detector.SelectedItem as Choice)?.Id ?? throw new ArgumentException("请选择探测器。"),
             (NonSequentialMetric)_metric.SelectedItem!, Number(_target), Number(_tolerance), Number(_weight), Int(_wave), Int(_pixel),

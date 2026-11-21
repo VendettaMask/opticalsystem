@@ -14,7 +14,8 @@ namespace OpticalSystemDesign.Tests;
 public sealed class CameraSceneDiffractionWindowTests
 {
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task DiffractionModeMixedABSavedSettingsReplayAndCancellationWorkOffscreen(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(CameraImagingWindowTests));

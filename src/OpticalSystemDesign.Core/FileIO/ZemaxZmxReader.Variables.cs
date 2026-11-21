@@ -154,56 +154,56 @@ internal static partial class ZemaxZmxReader
             ? ScaleSurfaceExtraData(document, source.Type, number - 12, 1)
             : ScaleSurfaceParameter(document, source.Type, number - 1, 1, source.TypeArguments);
         foreach (var target in document.Surfaces)
-        foreach (var (parameter, pickup) in target.ParameterPickups)
-        for (var configuration = 0; configuration < configurations.Count; configuration++)
-        {
-            if (document.ConfigurationOperands.Any(operand => operand.Target == target.Number && operand.ConfigurationIndex == configuration
-                && (operand.Command == "PRAM" && operand.AuxiliaryIndex == parameter
-                    || parameter >= 12 && operand.Command == "EDVA" && operand.AuxiliaryIndex == parameter - 12))) continue;
-            var source = document.Surfaces.FirstOrDefault(surface => surface.Number == pickup.SourceSurface);
-            if (source is null) continue;
-            var sourceIndex = sourceNumbers[configuration].ToList().IndexOf(source.Number);
-            var sourceNumber = pickup.SourceColumn == 0 ? parameter + 1 : pickup.SourceColumn - 5;
-            var sourceRow = pickup.SourceColumn switch
-            {
-                0 or >= 5 and <= 17 => ParameterRow(source, sourceNumber, configuration),
-                1 => new(MultiConfigurationOperandKind.Curvature, sourceIndex),
-                2 => new(MultiConfigurationOperandKind.Thickness, sourceIndex),
-                3 => new(MultiConfigurationOperandKind.Conic, sourceIndex),
-                4 => new(MultiConfigurationOperandKind.SemiDiameter, sourceIndex),
-                _ => null
-            };
-            var targetRow = ParameterRow(target, parameter + 1, configuration);
-            try
-            {
-                if (sourceRow is null || targetRow is null || pickup.SourceColumn == 1)
-                    throw new NotSupportedException("parameter pickup has no supported live coefficient mapping");
-                _ = sourceRow.Read(configurations[configuration]); _ = targetRow.Read(configurations[configuration]);
-                var sourceSurface = configurations[configuration].SurfaceGroup.Items[sourceIndex];
-                if (!SupportsImportedBaseVariable(sourceSurface, sourceRow.Kind))
-                    throw new NotSupportedException("parameter pickup source is unavailable on the imported geometry");
-                if (sourceRow.Kind == MultiConfigurationOperandKind.SemiDiameter && (!sourceSurface.SemiDiameterFixed || sourceSurface.SemiDiameterMaximum))
-                    throw new NotSupportedException("parameter pickup depends on an automatic ray-envelope semi-diameter");
-                var sourceUnit = pickup.SourceColumn switch { 2 or 4 => document.LengthScaleToMillimeters, 3 => 1, _ => Unit(source, sourceNumber) };
-                var targetUnit = Unit(target, parameter + 1);
-                var scale = pickup.Scale * targetUnit / sourceUnit; var offset = pickup.Offset * targetUnit;
-                if (!double.IsFinite(scale) || !double.IsFinite(offset)) throw new NotSupportedException("parameter pickup unit conversion is not finite");
-                if (!rows.Contains(sourceRow)) rows.Add(sourceRow); if (!rows.Contains(targetRow)) rows.Add(targetRow);
-                result.Add(new(configuration, targetRow, configuration, sourceRow, scale, offset));
-                if (configuration > 0) links.Add(new(configuration, targetRow.SurfaceNumber, targetRow.Property));
-            }
-            catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or NotSupportedException)
-            {
-                ImportVariableWarning(configurations[configuration], target, "PPAR", parameter + 1, exception.Message);
-                if (sourceRow is not null && sourceIndex >= 0)
+            foreach (var (parameter, pickup) in target.ParameterPickups)
+                for (var configuration = 0; configuration < configurations.Count; configuration++)
                 {
-                    var sourceSurface = configurations[configuration].SurfaceGroup.Items[sourceIndex];
-                    sourceSurface.BlockedVariableProperties = [.. sourceSurface.BlockedVariableProperties, sourceRow.Property];
-                    if (sourceRow.Kind == MultiConfigurationOperandKind.SemiDiameter && (!sourceSurface.SemiDiameterFixed || sourceSurface.SemiDiameterMaximum))
-                        BlockTraceVariables(configurations[configuration]);
+                    if (document.ConfigurationOperands.Any(operand => operand.Target == target.Number && operand.ConfigurationIndex == configuration
+                        && (operand.Command == "PRAM" && operand.AuxiliaryIndex == parameter
+                            || parameter >= 12 && operand.Command == "EDVA" && operand.AuxiliaryIndex == parameter - 12))) continue;
+                    var source = document.Surfaces.FirstOrDefault(surface => surface.Number == pickup.SourceSurface);
+                    if (source is null) continue;
+                    var sourceIndex = sourceNumbers[configuration].ToList().IndexOf(source.Number);
+                    var sourceNumber = pickup.SourceColumn == 0 ? parameter + 1 : pickup.SourceColumn - 5;
+                    var sourceRow = pickup.SourceColumn switch
+                    {
+                        0 or >= 5 and <= 17 => ParameterRow(source, sourceNumber, configuration),
+                        1 => new(MultiConfigurationOperandKind.Curvature, sourceIndex),
+                        2 => new(MultiConfigurationOperandKind.Thickness, sourceIndex),
+                        3 => new(MultiConfigurationOperandKind.Conic, sourceIndex),
+                        4 => new(MultiConfigurationOperandKind.SemiDiameter, sourceIndex),
+                        _ => null
+                    };
+                    var targetRow = ParameterRow(target, parameter + 1, configuration);
+                    try
+                    {
+                        if (sourceRow is null || targetRow is null || pickup.SourceColumn == 1)
+                            throw new NotSupportedException("parameter pickup has no supported live coefficient mapping");
+                        _ = sourceRow.Read(configurations[configuration]); _ = targetRow.Read(configurations[configuration]);
+                        var sourceSurface = configurations[configuration].SurfaceGroup.Items[sourceIndex];
+                        if (!SupportsImportedBaseVariable(sourceSurface, sourceRow.Kind))
+                            throw new NotSupportedException("parameter pickup source is unavailable on the imported geometry");
+                        if (sourceRow.Kind == MultiConfigurationOperandKind.SemiDiameter && (!sourceSurface.SemiDiameterFixed || sourceSurface.SemiDiameterMaximum))
+                            throw new NotSupportedException("parameter pickup depends on an automatic ray-envelope semi-diameter");
+                        var sourceUnit = pickup.SourceColumn switch { 2 or 4 => document.LengthScaleToMillimeters, 3 => 1, _ => Unit(source, sourceNumber) };
+                        var targetUnit = Unit(target, parameter + 1);
+                        var scale = pickup.Scale * targetUnit / sourceUnit; var offset = pickup.Offset * targetUnit;
+                        if (!double.IsFinite(scale) || !double.IsFinite(offset)) throw new NotSupportedException("parameter pickup unit conversion is not finite");
+                        if (!rows.Contains(sourceRow)) rows.Add(sourceRow); if (!rows.Contains(targetRow)) rows.Add(targetRow);
+                        result.Add(new(configuration, targetRow, configuration, sourceRow, scale, offset));
+                        if (configuration > 0) links.Add(new(configuration, targetRow.SurfaceNumber, targetRow.Property));
+                    }
+                    catch (Exception exception) when (exception is ArgumentException or InvalidOperationException or NotSupportedException)
+                    {
+                        ImportVariableWarning(configurations[configuration], target, "PPAR", parameter + 1, exception.Message);
+                        if (sourceRow is not null && sourceIndex >= 0)
+                        {
+                            var sourceSurface = configurations[configuration].SurfaceGroup.Items[sourceIndex];
+                            sourceSurface.BlockedVariableProperties = [.. sourceSurface.BlockedVariableProperties, sourceRow.Property];
+                            if (sourceRow.Kind == MultiConfigurationOperandKind.SemiDiameter && (!sourceSurface.SemiDiameterFixed || sourceSurface.SemiDiameterMaximum))
+                                BlockTraceVariables(configurations[configuration]);
+                        }
+                    }
                 }
-            }
-        }
         return result;
     }
 

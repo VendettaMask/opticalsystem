@@ -11,8 +11,12 @@ namespace OpticalSystemDesign.InitialStructure.Tests;
 
 public sealed class AutonomousCementedTests
 {
-    internal static readonly JsonSerializerOptions Json = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals, Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) } };
+    internal static readonly JsonSerializerOptions Json = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
+        Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+    };
 
     [Theory]
     [InlineData("N-BK7")]
@@ -86,8 +90,11 @@ public sealed class AutonomousCementedTests
     public void SharedVariablesAreUniqueAndAnyProtectedOwnerFreezesTheCommonFace()
     {
         var plan = Plan(); var seed = CementedTopologyTests.Example();
-        plan = plan with { Seeds = [seed with { Elements = seed.Elements.SetItem(1, seed.Elements[1] with { Protected = true }) }],
-            Options = plan.Options with { FixedTopologyOnly = true, AxialCompensation = new(), CompensateConic = true, MaximumTrials = 1 } };
+        plan = plan with
+        {
+            Seeds = [seed with { Elements = seed.Elements.SetItem(1, seed.Elements[1] with { Protected = true }) }],
+            Options = plan.Options with { FixedTopologyOnly = true, AxialCompensation = new(), CompensateConic = true, MaximumTrials = 1 }
+        };
         var done = AutonomousSearchService.Run(AutonomousSearchService.Create("protected-shared", plan));
         var stages = done.Events.Where(e => e.Optimization is not null).ToArray(); Assert.NotEmpty(stages);
         foreach (var stage in stages)
@@ -101,8 +108,11 @@ public sealed class AutonomousCementedTests
     [Fact]
     public void F4ConflictRemainsZeroWorkAndForeignKernelsRemainReadOnly()
     {
-        var plan = Plan(); var f4 = plan with { Targets = plan.Targets with { FNumber = 4 },
-            Seeds = [plan.Seeds[0] with { Stop = new("stop", 0, 6.25) }] };
+        var plan = Plan(); var f4 = plan with
+        {
+            Targets = plan.Targets with { FNumber = 4 },
+            Seeds = [plan.Seeds[0] with { Stop = new("stop", 0, 6.25) }]
+        };
         using var rays = SequentialTraceMeasurement.Begin(); var done = AutonomousSearchService.Run(AutonomousSearchService.Create("f4", f4));
         Assert.Equal(0, rays.RayCount); Assert.Equal(0, done.Consumed.FunctionEvaluations); Assert.Empty(done.AcceptedArchive);
         Assert.Contains(done.Events, e => e.Outcome == "OriginalExternalStopApertureConflict");
@@ -119,8 +129,11 @@ public sealed class AutonomousCementedTests
     [InlineData(true, 1)]
     public void OriginalInsertionPermissionAndElementCountStillGovernScheduling(bool allowed, int count)
     {
-        var plan = Plan(); plan = plan with { Constraints = plan.Constraints with { MaximumElementCount = count },
-            Options = plan.Options with { MaximumTrials = 2, Expansion = plan.Options.Expansion! with { EnableInsertion = allowed } } };
+        var plan = Plan(); plan = plan with
+        {
+            Constraints = plan.Constraints with { MaximumElementCount = count },
+            Options = plan.Options with { MaximumTrials = 2, Expansion = plan.Options.Expansion! with { EnableInsertion = allowed } }
+        };
         var done = AutonomousSearchService.Run(AutonomousSearchService.Create("permissions", plan));
         Assert.DoesNotContain(done.Events, e => e.Operation == "cemented-insert");
         Assert.All(done.Candidates, c => Assert.Null(c.Topology.CementedInterfaces));
@@ -129,8 +142,11 @@ public sealed class AutonomousCementedTests
     [Fact]
     public void LegacyCementedSchedulingStillRequiresTheExplicitVersionedPolicy()
     {
-        var plan = Plan(); plan = plan with { Seeds = [CementedTopologyTests.Example()],
-            Options = plan.Options with { Expansion = plan.Options.Expansion! with { Cemented = null } } };
+        var plan = Plan(); plan = plan with
+        {
+            Seeds = [CementedTopologyTests.Example()],
+            Options = plan.Options with { Expansion = plan.Options.Expansion! with { Cemented = null } }
+        };
         Assert.Throws<NotSupportedException>(() => AutonomousSearchService.Create("no-opt-in", plan));
     }
 
@@ -155,10 +171,20 @@ public sealed class AutonomousCementedTests
     public void ReusedCementedGroupsGrowWithoutCollidingWithPriorTrialIdentities()
     {
         var model = CementedTopologyTests.Example();
-        model = model with { Elements = [model.Elements[0] with { Id = "trial-0-cemented" }, model.Elements[1] with { Id = "trial-1-cemented" }],
-            CementedInterfaces = new() { Interfaces = [new("trial-0-cemented", "trial-1-cemented", "common")] } };
-        var plan = Plan(); plan = plan with { Seeds = [model], Options = plan.Options with { MaximumTrials = 2,
-            Expansion = plan.Options.Expansion! with { Cemented = new() { MaximumGroupElements = 3, ThicknessMultipliers = [1] } } } };
+        model = model with
+        {
+            Elements = [model.Elements[0] with { Id = "trial-0-cemented" }, model.Elements[1] with { Id = "trial-1-cemented" }],
+            CementedInterfaces = new() { Interfaces = [new("trial-0-cemented", "trial-1-cemented", "common")] }
+        };
+        var plan = Plan(); plan = plan with
+        {
+            Seeds = [model],
+            Options = plan.Options with
+            {
+                MaximumTrials = 2,
+                Expansion = plan.Options.Expansion! with { Cemented = new() { MaximumGroupElements = 3, ThicknessMultipliers = [1] } }
+            }
+        };
         var state = AutonomousSearchService.Run(AutonomousSearchService.Create("reused-group", plan));
         Assert.Contains(state.Events, e => e.Operation == "cemented-insert" && e.Endpoint?.Elements.Length == 3);
         Assert.DoesNotContain(state.Events, e => e.Operation == "cemented-insert" && e.Outcome == "EditRejected");
@@ -168,14 +194,38 @@ public sealed class AutonomousCementedTests
     {
         var plan = SpcBranchTests.Plan(); var local = new AutonomousSearchOptions().Local with
         { Sampling = plan.Options.Local.Sampling, MaximumUpdates = 3, MaximumFunctionEvaluations = 20, MaximumGradientEvaluations = 20 };
-        return plan with { Options = plan.Options with { Seed = seed, SeedPreparation = null,
-            Expansion = new() { Cemented = new() { ThicknessMultipliers = [1] }, EnableInsertion = true, EnableMaterial = true,
-                EnableDeletion = false, EnableGradualDeletion = false, EnableSplit = false, EnableMerge = false, EnableProfile = false },
-            InsertionMaterials = ["N-F2"], MaximumTrials = 3, BranchesPerParent = 4,
-            MaximumFunctionEvaluations = 300, MaximumGradientEvaluations = 200, MaximumTracedRays = 3_000_000,
-            MaximumStageTracedRays = 500_000, FinalValidationRayReserve = 100_000, TimeLimit = TimeSpan.FromSeconds(120),
-            Recovery = plan.Options.Recovery with { MaximumFunctionEvaluations = 24, TimeLimit = TimeSpan.FromSeconds(10) },
-            Local = local, Full = local with { MaximumUpdates = 4 }, AxialCompensation = new() } };
+        return plan with
+        {
+            Options = plan.Options with
+            {
+                Seed = seed,
+                SeedPreparation = null,
+                Expansion = new()
+                {
+                    Cemented = new() { ThicknessMultipliers = [1] },
+                    EnableInsertion = true,
+                    EnableMaterial = true,
+                    EnableDeletion = false,
+                    EnableGradualDeletion = false,
+                    EnableSplit = false,
+                    EnableMerge = false,
+                    EnableProfile = false
+                },
+                InsertionMaterials = ["N-F2"],
+                MaximumTrials = 3,
+                BranchesPerParent = 4,
+                MaximumFunctionEvaluations = 300,
+                MaximumGradientEvaluations = 200,
+                MaximumTracedRays = 3_000_000,
+                MaximumStageTracedRays = 500_000,
+                FinalValidationRayReserve = 100_000,
+                TimeLimit = TimeSpan.FromSeconds(120),
+                Recovery = plan.Options.Recovery with { MaximumFunctionEvaluations = 24, TimeLimit = TimeSpan.FromSeconds(10) },
+                Local = local,
+                Full = local with { MaximumUpdates = 4 },
+                AxialCompensation = new()
+            }
+        };
     }
 
     internal static void AssertEquivalent(AutonomousSearchCheckpoint a, AutonomousSearchCheckpoint b)

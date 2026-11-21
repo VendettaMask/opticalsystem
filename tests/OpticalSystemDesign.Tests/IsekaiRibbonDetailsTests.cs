@@ -42,8 +42,12 @@ public sealed class IsekaiRibbonDetailsTests
                 Command("format-font", "格式与字体"), Command("settings-language", "语言", true) };
             var page = (Control)Invoke("BuildRibbonPage", new object[] { new[]
                 { Group(commands[..1]), Group(commands[1..4]), Group(commands[4..5]), Group(commands[5..]) } });
-            var tabs = new TabControl { SelectedIndex = 1, ItemsSource = new[]
-                { Tab("文件", new Border { Height = 42 }), Tab("设置", page), Tab("视图", new Border { Height = 42 }) } };
+            var tabs = new TabControl
+            {
+                SelectedIndex = 1,
+                ItemsSource = new[]
+                { Tab("文件", new Border { Height = 42 }), Tab("设置", page), Tab("视图", new Border { Height = 42 }) }
+            };
             var frame = MainWindow.BuildRibbonFrame(tabs);
             var root = MainWindow.BuildShellLayout(frame, new Border(), new Border { Height = 0 });
             var window = new Window { Width = 1600, Height = 220, Content = root };

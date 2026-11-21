@@ -44,11 +44,17 @@ public static partial class SurfaceShapeParameters
         if (key[0] == 'f')
         {
             var frame = surface.Placement!.Break!;
-            surface.Placement = surface.Placement with { Break = key switch
+            surface.Placement = surface.Placement with
             {
-                "f0" => frame with { X = value }, "f1" => frame with { Y = value }, "f2" => frame with { TiltX = value },
-                "f3" => frame with { TiltY = value }, _ => frame with { TiltZ = value }
-            } };
+                Break = key switch
+                {
+                    "f0" => frame with { X = value },
+                    "f1" => frame with { Y = value },
+                    "f2" => frame with { TiltX = value },
+                    "f3" => frame with { TiltY = value },
+                    _ => frame with { TiltZ = value }
+                }
+            };
             return;
         }
         if (surface.Geometry is TiltedPlaneGeometry tilted)
@@ -78,18 +84,27 @@ public static partial class SurfaceShapeParameters
 
     private static (bool ExtraData, int Number) AdditionalNativeField(string key) => key switch
     {
-        "r0" => (false, 1), "r1" => (false, 2), "b0" => (false, 3),
-        "t0" => (false, 1), "t1" => (false, 2),
+        "r0" => (false, 1),
+        "r1" => (false, 2),
+        "b0" => (false, 3),
+        "t0" => (false, 1),
+        "t1" => (false, 2),
         "f0" or "f1" or "f2" or "f3" or "f4" => (false, int.Parse(key.AsSpan(1)) + 1),
         _ => (true, 3 + 4 * int.Parse(key.AsSpan(1)) + (key[0] == 's' ? 2 : 0))
     };
 
     private static string AdditionalLabel(string key) => key switch
     {
-        "r0" => "Outer zone radius", "r1" => "Outer zone conic", "b0" => "Zone boundary radius",
-        "t0" => "X tangent", "t1" => "Y tangent",
-        "f0" => "Coordinate break X", "f1" => "Coordinate break Y", "f2" => "Coordinate break tilt X",
-        "f3" => "Coordinate break tilt Y", "f4" => "Coordinate break tilt Z",
+        "r0" => "Outer zone radius",
+        "r1" => "Outer zone conic",
+        "b0" => "Zone boundary radius",
+        "t0" => "X tangent",
+        "t1" => "Y tangent",
+        "f0" => "Coordinate break X",
+        "f1" => "Coordinate break Y",
+        "f2" => "Coordinate break tilt X",
+        "f3" => "Coordinate break tilt Y",
+        "f4" => "Coordinate break tilt Z",
         _ => $"{(key[0] == 'p' ? "Inner" : "Outer")} phase {int.Parse(key.AsSpan(1)) + 1}"
     };
 

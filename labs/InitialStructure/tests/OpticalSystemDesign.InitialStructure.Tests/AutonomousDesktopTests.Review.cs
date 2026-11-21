@@ -1,5 +1,5 @@
-using Avalonia.Controls;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Laboratories.InitialStructure;
 using OpticalSystemDesign.App.Services;
@@ -21,11 +21,26 @@ public sealed partial class AutonomousDesktopTests
             var language = UiLocalization.CurrentLanguage;
             var reportLanguage = UiLocalization.Chinese;
             var portfolioPath = files.Path("portable.design-portfolio.json"); var studyPath = files.Path("record.design-study.json");
-            var window = new AutonomousTopologyWindow(new() { RunDirectory = files.Root, InitialPlan = Plan(),
-                OpenPicker = (_, kind) => Task.FromResult<string?>(kind switch { "record" => AutonomousDesignReviewTests.Original(),
-                    "design-portfolio" => portfolioPath, "design-study" => studyPath, _ => null }),
-                SavePicker = (_, kind) => Task.FromResult<string?>(kind switch { "design-portfolio" => portfolioPath,
-                    "design-study" => studyPath, "design-report" => files.Path(reportLanguage + ".md"), "optic" => files.Path("selected.staropt"), _ => null }) });
+            var window = new AutonomousTopologyWindow(new()
+            {
+                RunDirectory = files.Root,
+                InitialPlan = Plan(),
+                OpenPicker = (_, kind) => Task.FromResult<string?>(kind switch
+                {
+                    "record" => AutonomousDesignReviewTests.Original(),
+                    "design-portfolio" => portfolioPath,
+                    "design-study" => studyPath,
+                    _ => null
+                }),
+                SavePicker = (_, kind) => Task.FromResult<string?>(kind switch
+                {
+                    "design-portfolio" => portfolioPath,
+                    "design-study" => studyPath,
+                    "design-report" => files.Path(reportLanguage + ".md"),
+                    "optic" => files.Path("selected.staropt"),
+                    _ => null
+                })
+            });
             try
             {
                 window.Show();

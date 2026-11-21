@@ -102,8 +102,11 @@ internal sealed partial class CameraImagingService
         ValidateOrigin(profile.Origin);
         if (profile.Sensor is null) throw new InvalidDataException("传感器参数不能为空。");
         CameraSensorPipeline.Validate(ToCore(profile.Sensor), new());
-        return profile with { SpectralResponse = FreezeResponse(profile.SpectralResponse),
-            Calibration = profile.Calibration is null ? null : FreezeCalibration(profile.Calibration) };
+        return profile with
+        {
+            SpectralResponse = FreezeResponse(profile.SpectralResponse),
+            Calibration = profile.Calibration is null ? null : FreezeCalibration(profile.Calibration)
+        };
     }
 
     private static CameraResponseCurve? FreezeResponse(CameraResponseCurve? curve)

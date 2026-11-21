@@ -735,10 +735,16 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
             request.Space == NonSequentialDetectorSpace.Position ? "mm" : "deg",
             valueUnit, values, xProfile, yProfile, statistics,
             reader.IsStale(document, materials) || selectedSessionIsStale,
-            Path.GetFullPath(path)) { DataType = request.DataType, Space = request.Space, FieldSelection = fieldView?.Selection, ValidPixels = fieldView?.Valid,
-                Rgb = detector.RecordColor && request.Space == NonSequentialDetectorSpace.Position
+            Path.GetFullPath(path))
+        {
+            DataType = request.DataType,
+            Space = request.Space,
+            FieldSelection = fieldView?.Selection,
+            ValidPixels = fieldView?.Valid,
+            Rgb = detector.RecordColor && request.Space == NonSequentialDetectorSpace.Position
                     && request.DataType is NonSequentialDetectorDataType.PixelPower or NonSequentialDetectorDataType.IncoherentIrradiance
-                    ? NonSequentialColorimetry.DetectorRgb(frame, document, request.WavelengthNumber) : null };
+                    ? NonSequentialColorimetry.DetectorRgb(frame, document, request.WavelengthNumber) : null
+        };
     }
 
     private static string CreateTraceConfigurationFingerprint(
@@ -903,9 +909,12 @@ internal sealed partial class NonSequentialAnalysisService : WorkbenchServiceBas
                 else if (frame.StokesByWavelength?.TryGetValue(wavelength, out var stokes) == true)
                     fieldPixels = request.DataType switch
                     {
-                        NonSequentialDetectorDataType.StokesI => stokes.I, NonSequentialDetectorDataType.StokesQ => stokes.Q,
-                        NonSequentialDetectorDataType.StokesU => stokes.U, NonSequentialDetectorDataType.StokesV => stokes.V,
-                        NonSequentialDetectorDataType.LongitudinalPower => stokes.LongitudinalPowerWatts, _ => null
+                        NonSequentialDetectorDataType.StokesI => stokes.I,
+                        NonSequentialDetectorDataType.StokesQ => stokes.Q,
+                        NonSequentialDetectorDataType.StokesU => stokes.U,
+                        NonSequentialDetectorDataType.StokesV => stokes.V,
+                        NonSequentialDetectorDataType.LongitudinalPower => stokes.LongitudinalPowerWatts,
+                        _ => null
                     };
                 if (fieldPixels is not null) for (var index = 0; index < length; index++) values[index] += fieldPixels[index];
                 continue;

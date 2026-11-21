@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Platform.Storage;
+using OpticalSystemDesign.App.Services;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -9,7 +10,7 @@ public sealed partial class UserGuidePanel
 {
     private readonly Button _pdfExport = new() { Name = "UserGuideExportPdf", Content = "PDF" };
     private readonly Button _pdfCancel = new() { Name = "UserGuideCancelPdf", IsVisible = false };
-    private readonly TextBlock _pdfStatus = new() { Name = "UserGuidePdfStatus", TextWrapping = Avalonia.Media.TextWrapping.Wrap, MaxWidth = 250, FontSize = 12 };
+    private readonly TextBlock _pdfStatus = new() { Name = "UserGuidePdfStatus", TextWrapping = Avalonia.Media.TextWrapping.Wrap, MaxWidth = 250, FontSize = DisplayTypography.BodySmall };
     private CancellationTokenSource? _pdfCancellation;
     private bool _pdfPicking;
     private Control PdfControls()

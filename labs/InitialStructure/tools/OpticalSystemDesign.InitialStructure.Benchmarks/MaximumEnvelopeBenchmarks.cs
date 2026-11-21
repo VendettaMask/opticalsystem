@@ -71,9 +71,17 @@ internal static class MaximumEnvelopeBenchmarks
         {
             await File.WriteAllTextAsync(Path.Combine(output, "envelope.json"), JsonSerializer.Serialize(new
             {
-                EndpointSha256 = protocol.RootElement.GetProperty("EndpointSha256").GetString(), result.Variables, source.Topology.Fields, source.Topology.Wavelengths,
-                Sampling = options.Sampling, BoundRayQuota = 500_000, BoundSeconds = 60, ActualRays = quota.RayCount,
-                Seconds = timer.Elapsed.TotalSeconds, Probes = probes, Failures = failures
+                EndpointSha256 = protocol.RootElement.GetProperty("EndpointSha256").GetString(),
+                result.Variables,
+                source.Topology.Fields,
+                source.Topology.Wavelengths,
+                Sampling = options.Sampling,
+                BoundRayQuota = 500_000,
+                BoundSeconds = 60,
+                ActualRays = quota.RayCount,
+                Seconds = timer.Elapsed.TotalSeconds,
+                Probes = probes,
+                Failures = failures
             }, TopologySamplingBenchmarks.Json));
         }
         return probes.Count == 36 && failures.All(s => s.Contains("excluded by original bound")) ? 0 : 1;

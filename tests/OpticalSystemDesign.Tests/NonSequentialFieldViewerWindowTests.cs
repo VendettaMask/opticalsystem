@@ -17,7 +17,8 @@ namespace OpticalSystemDesign.Tests;
 public sealed class NonSequentialFieldViewerWindowTests
 {
     [Theory]
-    [InlineData("Light")] [InlineData("Dark")]
+    [InlineData("Light")]
+    [InlineData("Dark")]
     public async Task ActualFieldAndStokesMapsRenderWithTypedUnitsMasksAndSafeSelectionChanges(string theme)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(HeadlessTestApplication));

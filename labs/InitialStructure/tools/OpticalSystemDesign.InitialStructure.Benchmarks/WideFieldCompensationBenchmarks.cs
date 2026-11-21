@@ -1,6 +1,6 @@
 using System.Diagnostics;
-using System.Text.Json;
 using System.Security.Cryptography;
+using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Differentiation;
 using OpticalSystemDesign.Core.Raytrace;

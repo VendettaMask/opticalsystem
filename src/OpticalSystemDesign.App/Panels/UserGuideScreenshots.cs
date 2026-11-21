@@ -7,6 +7,7 @@ using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -73,17 +74,17 @@ internal sealed class UserGuideScreenshot : Border
             Padding = new Thickness(0),
             BorderThickness = new Thickness(1),
             Background = Brushes.Transparent,
-            CornerRadius = new CornerRadius(6),
             HorizontalContentAlignment = HorizontalAlignment.Stretch,
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
         enlarge.BindThemeResource(BorderBrushProperty, ThemeResourceBindings.Border);
+        enlarge.BindThemeResource(Button.CornerRadiusProperty, ThemeChromeResources.CornerRadius(ThemeChromeRole.ControlFrame));
         enlarge.Click += async (_, _) => await Enlarge(title);
         AutomationProperties.SetName(enlarge, title + " · " + L("放大截图", "Enlarge screenshot", "画面を拡大"));
         AutomationProperties.SetName(_image, title);
-        var caption = new TextBlock { Text = title, FontSize = 12, TextWrapping = TextWrapping.Wrap };
+        var caption = new TextBlock { Text = title, FontSize = DisplayTypography.BodySmall, TextWrapping = TextWrapping.Wrap };
         caption.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextSecondary);
-        var note = new TextBlock { Text = L("点击放大 ↗", "Enlarge ↗", "拡大 ↗"), FontSize = 11, VerticalAlignment = VerticalAlignment.Center };
+        var note = new TextBlock { Text = L("点击放大 ↗", "Enlarge ↗", "拡大 ↗"), FontSize = DisplayTypography.RibbonText, VerticalAlignment = VerticalAlignment.Center };
         note.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.MutedText);
         var captionRow = new Grid { ColumnDefinitions = new("*,Auto"), ColumnSpacing = 14 };
         captionRow.Children.Add(caption); captionRow.Children.Add(note); Grid.SetColumn(note, 1);

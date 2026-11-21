@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
-using OpticalSystemDesign.Core.Tolerancing;
 using OpticalSystemDesign.Core.Domain;
+using OpticalSystemDesign.Core.Tolerancing;
 
 namespace OpticalSystemDesign.Application.Contracts;
 

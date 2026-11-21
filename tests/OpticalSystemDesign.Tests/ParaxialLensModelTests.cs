@@ -1,6 +1,5 @@
-using OpticalSystemDesign.Validation;
-using System.Text.Json;
 using System.Globalization;
+using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Capabilities;
@@ -8,54 +7,104 @@ using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Geometries;
 using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
 public sealed class ParaxialLensModelTests
 {
     [Theory]
-    [InlineData("dual-air-0", 1)] [InlineData("dual-air-1", 1)]
-    [InlineData("dual-glass-0", 1)] [InlineData("dual-glass-1", 1)]
-    [InlineData("dual-mirror-0", 1)] [InlineData("dual-mirror-1", 1)]
-    [InlineData("dual-air-1", 10)] [InlineData("dual-mirror-0", 25.4)]
-    [InlineData("xy-infinite-air", 1)] [InlineData("xy-infinite-glass", 1)]
-    [InlineData("xy-finite-air", 1)] [InlineData("xy-finite-glass", 1)] [InlineData("xy-strong-air", 1)]
-    [InlineData("xy-finite-air", 10)] [InlineData("xy-strong-air", 25.4)]
-    [InlineData("bire-tilted-0", 1)] [InlineData("bire-axial-0", 1)] [InlineData("bire-glass-0", 1)]
-    [InlineData("bire-tilted-1", 1)] [InlineData("bire-axial-1", 1)] [InlineData("bire-glass-1", 1)]
-    [InlineData("bire-tilted-1", 10)] [InlineData("bire-glass-1", 25.4)]
-    [InlineData("infinite-mode1", 1)] [InlineData("infinite-mode2", 1)]
-    [InlineData("infinite-mode0", 1)] [InlineData("infinite-mode0", 10)]
-    [InlineData("finite-mode1", 1)] [InlineData("finite-mode2", 1)]
-    [InlineData("aberrated-mode1", 1)] [InlineData("aberrated-mode2", 1)]
-    [InlineData("infinite-mode1", 10)] [InlineData("finite-mode1", 10)] [InlineData("aberrated-mode1", 10)]
-    [InlineData("plane-air-order-1", 1)] [InlineData("plane-air-order1", 1)]
-    [InlineData("plane-glass-order-1", 1)] [InlineData("plane-glass-order1", 1)]
-    [InlineData("plane-mirror-order-1", 1)] [InlineData("plane-mirror-order1", 1)]
-    [InlineData("curved-air-order-1", 1)] [InlineData("curved-air-order1", 1)]
-    [InlineData("curved-mirror-order-1", 1)] [InlineData("curved-mirror-order1", 1)]
-    [InlineData("plane-glass-order1", 10)] [InlineData("curved-mirror-order-1", 25.4)]
-    [InlineData("binary-plane--1", 1)] [InlineData("binary-plane-1", 1)]
-    [InlineData("binary-curved--1", 1)] [InlineData("binary-curved-1", 1)]
-    [InlineData("binary-glass--1", 1)] [InlineData("binary-glass-1", 1)]
-    [InlineData("binary-mirror--1", 1)] [InlineData("binary-mirror-1", 1)]
-    [InlineData("hologram-transmission-0", 1)] [InlineData("hologram-transmission-1", 1)]
-    [InlineData("hologram-reflection-0", 1)] [InlineData("hologram-reflection-1", 1)]
-    [InlineData("binary-curved-1", 10)] [InlineData("binary-glass--1", 25.4)]
-    [InlineData("hologram-transmission-1", 10)] [InlineData("hologram-reflection-1", 25.4)]
-    [InlineData("irregular-0", 1)] [InlineData("irregular-1", 1)]
-    [InlineData("irregular-1", 10)] [InlineData("irregular-1", 25.4)]
-    [InlineData("grid-random", 1)] [InlineData("grid-smooth", 1)]
-    [InlineData("grid-linear", 1)] [InlineData("grid-estimated", 1)]
-    [InlineData("toroid-50-80", 1)] [InlineData("toroid-50--80", 1)]
-    [InlineData("toroid--50-80", 1)] [InlineData("toroid--50--80", 1)]
-    [InlineData("toroid-0-80", 1)] [InlineData("toroid-50-0", 1)] [InlineData("toroid-50-100000", 1)]
-    [InlineData("toroid-50-80", 10)] [InlineData("toroid-50--80", 10)]
-    [InlineData("toroid--50-80", 10)] [InlineData("toroid--50--80", 10)]
-    [InlineData("toroid-0-80", 10)] [InlineData("toroid-50-0", 10)] [InlineData("toroid-50-100000", 10)]
-    [InlineData("toroid-50-80", 25.4)] [InlineData("toroid-50--80", 25.4)]
-    [InlineData("toroid--50-80", 25.4)] [InlineData("toroid--50--80", 25.4)]
-    [InlineData("toroid-0-80", 25.4)] [InlineData("toroid-50-0", 25.4)] [InlineData("toroid-50-100000", 25.4)]
+    [InlineData("dual-air-0", 1)]
+    [InlineData("dual-air-1", 1)]
+    [InlineData("dual-glass-0", 1)]
+    [InlineData("dual-glass-1", 1)]
+    [InlineData("dual-mirror-0", 1)]
+    [InlineData("dual-mirror-1", 1)]
+    [InlineData("dual-air-1", 10)]
+    [InlineData("dual-mirror-0", 25.4)]
+    [InlineData("xy-infinite-air", 1)]
+    [InlineData("xy-infinite-glass", 1)]
+    [InlineData("xy-finite-air", 1)]
+    [InlineData("xy-finite-glass", 1)]
+    [InlineData("xy-strong-air", 1)]
+    [InlineData("xy-finite-air", 10)]
+    [InlineData("xy-strong-air", 25.4)]
+    [InlineData("bire-tilted-0", 1)]
+    [InlineData("bire-axial-0", 1)]
+    [InlineData("bire-glass-0", 1)]
+    [InlineData("bire-tilted-1", 1)]
+    [InlineData("bire-axial-1", 1)]
+    [InlineData("bire-glass-1", 1)]
+    [InlineData("bire-tilted-1", 10)]
+    [InlineData("bire-glass-1", 25.4)]
+    [InlineData("infinite-mode1", 1)]
+    [InlineData("infinite-mode2", 1)]
+    [InlineData("infinite-mode0", 1)]
+    [InlineData("infinite-mode0", 10)]
+    [InlineData("finite-mode1", 1)]
+    [InlineData("finite-mode2", 1)]
+    [InlineData("aberrated-mode1", 1)]
+    [InlineData("aberrated-mode2", 1)]
+    [InlineData("infinite-mode1", 10)]
+    [InlineData("finite-mode1", 10)]
+    [InlineData("aberrated-mode1", 10)]
+    [InlineData("plane-air-order-1", 1)]
+    [InlineData("plane-air-order1", 1)]
+    [InlineData("plane-glass-order-1", 1)]
+    [InlineData("plane-glass-order1", 1)]
+    [InlineData("plane-mirror-order-1", 1)]
+    [InlineData("plane-mirror-order1", 1)]
+    [InlineData("curved-air-order-1", 1)]
+    [InlineData("curved-air-order1", 1)]
+    [InlineData("curved-mirror-order-1", 1)]
+    [InlineData("curved-mirror-order1", 1)]
+    [InlineData("plane-glass-order1", 10)]
+    [InlineData("curved-mirror-order-1", 25.4)]
+    [InlineData("binary-plane--1", 1)]
+    [InlineData("binary-plane-1", 1)]
+    [InlineData("binary-curved--1", 1)]
+    [InlineData("binary-curved-1", 1)]
+    [InlineData("binary-glass--1", 1)]
+    [InlineData("binary-glass-1", 1)]
+    [InlineData("binary-mirror--1", 1)]
+    [InlineData("binary-mirror-1", 1)]
+    [InlineData("hologram-transmission-0", 1)]
+    [InlineData("hologram-transmission-1", 1)]
+    [InlineData("hologram-reflection-0", 1)]
+    [InlineData("hologram-reflection-1", 1)]
+    [InlineData("binary-curved-1", 10)]
+    [InlineData("binary-glass--1", 25.4)]
+    [InlineData("hologram-transmission-1", 10)]
+    [InlineData("hologram-reflection-1", 25.4)]
+    [InlineData("irregular-0", 1)]
+    [InlineData("irregular-1", 1)]
+    [InlineData("irregular-1", 10)]
+    [InlineData("irregular-1", 25.4)]
+    [InlineData("grid-random", 1)]
+    [InlineData("grid-smooth", 1)]
+    [InlineData("grid-linear", 1)]
+    [InlineData("grid-estimated", 1)]
+    [InlineData("toroid-50-80", 1)]
+    [InlineData("toroid-50--80", 1)]
+    [InlineData("toroid--50-80", 1)]
+    [InlineData("toroid--50--80", 1)]
+    [InlineData("toroid-0-80", 1)]
+    [InlineData("toroid-50-0", 1)]
+    [InlineData("toroid-50-100000", 1)]
+    [InlineData("toroid-50-80", 10)]
+    [InlineData("toroid-50--80", 10)]
+    [InlineData("toroid--50-80", 10)]
+    [InlineData("toroid--50--80", 10)]
+    [InlineData("toroid-0-80", 10)]
+    [InlineData("toroid-50-0", 10)]
+    [InlineData("toroid-50-100000", 10)]
+    [InlineData("toroid-50-80", 25.4)]
+    [InlineData("toroid-50--80", 25.4)]
+    [InlineData("toroid--50-80", 25.4)]
+    [InlineData("toroid--50--80", 25.4)]
+    [InlineData("toroid-0-80", 25.4)]
+    [InlineData("toroid-50-0", 25.4)]
+    [InlineData("toroid-50-100000", 25.4)]
     public void RaysAndPhaseMatchIndependentNativeControlsIncludingMediaAndFiniteConjugates(string id, double scale)
     {
         var fixtureName = id.StartsWith("toroid-") ? "toroidal-native-v1.json" : id.StartsWith("bire-") ? "birefringent-native-v1.json" : id.StartsWith("xy-") ? "paraxial-xy-native-v1.json" : id.StartsWith("dual-") ? "dual-zone-native-v2.json" : id == "infinite-mode0" ? "paraxial-collimated-native-v1.json" : id.Contains("mode") ? "paraxial-phase-native-v1.json"
@@ -99,8 +148,12 @@ public sealed class ParaxialLensModelTests
                     var code = input.GetProperty("code").GetString()!;
                     var actual = code switch
                     {
-                        "REAX" => position.X, "REAY" => position.Y, "REAZ" => position.Z,
-                        "REAA" => direction.X, "REAB" => direction.Y, "REAC" => direction.Z,
+                        "REAX" => position.X,
+                        "REAY" => position.Y,
+                        "REAZ" => position.Z,
+                        "REAA" => direction.X,
+                        "REAB" => direction.Y,
+                        "REAC" => direction.Z,
                         "OPTH" => sample.PhaseInclusiveOpticalPathLength!.Value - first.PhaseInclusiveOpticalPathLength!.Value,
                         _ => throw new InvalidDataException(code)
                     };
@@ -127,8 +180,13 @@ public sealed class ParaxialLensModelTests
                 // EFFL's wave is int2, not int1: these captured EFFL rows explicitly requested wave 0 (primary).
                 var wave = p.GetProperty("int2").GetInt32();
                 var trace = optic.Paraxial.MarginalRay(optic.Wavelengths[Math.Max(0, wave - 1)].Micrometers);
-                var actual = code switch { "EFFL" => optic.Paraxial.EstimateEffectiveFocalLength(), "PARY" => trace.Heights[2][0],
-                    "PATY" => trace.Slopes[2][0], _ => throw new InvalidDataException(code) };
+                var actual = code switch
+                {
+                    "EFFL" => optic.Paraxial.EstimateEffectiveFocalLength(),
+                    "PARY" => trace.Heights[2][0],
+                    "PATY" => trace.Slopes[2][0],
+                    _ => throw new InvalidDataException(code)
+                };
                 Assert.InRange(Math.Abs(actual - row.GetProperty("value").GetDouble()), 0, 1e-10);
             }
         }
@@ -144,8 +202,11 @@ public sealed class ParaxialLensModelTests
             if (tokens.Length < 2) return line;
             var command = tokens[0]; if (command == "TYPE") type = tokens[1];
             if (command == "UNIT") { tokens[1] = scale == 10 ? "CM" : "IN"; return string.Join(' ', tokens); }
-            void Change(int i, double factor) { if (double.TryParse(tokens[i], CultureInfo.InvariantCulture, out var value) && double.IsFinite(value))
-                tokens[i] = (value * factor).ToString("R", CultureInfo.InvariantCulture); }
+            void Change(int i, double factor)
+            {
+                if (double.TryParse(tokens[i], CultureInfo.InvariantCulture, out var value) && double.IsFinite(value))
+                    tokens[i] = (value * factor).ToString("R", CultureInfo.InvariantCulture);
+            }
             if (command is "ENPD" or "DISZ" or "DIAM" or "MEMA") Change(1, 1 / scale);
             if (command == "CURV") Change(1, scale);
             if (command is "XFLN" or "YFLN" && finiteField) for (var i = 1; i < tokens.Length; i++) Change(i, 1 / scale);
@@ -207,7 +268,9 @@ public sealed class ParaxialLensModelTests
         Assert.True(samples.Max(s => s.CumulativeOpticalPathLength) - samples.Min(s => s.CumulativeOpticalPathLength) > 1e-3);
     }
 
-    [Theory] [InlineData(0)] [InlineData(3)]
+    [Theory]
+    [InlineData(0)]
+    [InlineData(3)]
     public void UnverifiedConjugateModesRemainOpaque(int mode)
     {
         var optic = OpticalFormatCatalog.Import(Source(mode).Replace("DISZ INFINITY", "DISZ 200"), ".zmx");

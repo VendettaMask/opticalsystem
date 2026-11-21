@@ -56,8 +56,16 @@ public static class AutonomousDesignReport
         }
         if (study.Preparation is { } prep)
         {
-            Title(3, "准备累计费用"); Json(new { prep.Consumed, prep.Options, PendingPhase = prep.Pending?.Name,
-                Reservation = prep.Pending?.Reservation, InFlight = prep.Pending?.InFlight, prep.PersistenceElapsed, prep.LostReservations });
+            Title(3, "准备累计费用"); Json(new
+            {
+                prep.Consumed,
+                prep.Options,
+                PendingPhase = prep.Pending?.Name,
+                Reservation = prep.Pending?.Reservation,
+                InFlight = prep.Pending?.InFlight,
+                prep.PersistenceElapsed,
+                prep.LostReservations
+            });
         }
         else if (study.Prepared is { } prepared)
         { Title(3, "准备累计费用"); Json(new { prepared.Work, prepared.Options, prepared.MatrixRequests }); }

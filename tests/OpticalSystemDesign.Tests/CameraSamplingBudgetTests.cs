@@ -13,7 +13,8 @@ public sealed class CameraSamplingBudgetTests
     {
         var planes = Enumerable.Range(0, objects).Select(i => NonSequentialObjectDefinition.Create(NonSequentialObjectKind.PlaneRectangle) with
         {
-            LocalCoordinateSystem = new(new(i == 0 || overlap ? 0 : 1000 * i, 0, -100)), Parameters = new PlaneRectangleParameters(100, 100)
+            LocalCoordinateSystem = new(new(i == 0 || overlap ? 0 : 1000 * i, 0, -100)),
+            Parameters = new PlaneRectangleParameters(100, 100)
         }).ToArray();
         return new(new("exact-support control", [new("green", 550, 1, true)], planes),
             planes.Select(p => new DirectSceneMaterial(p.Id, [0], [dark ? 0 : 1])).ToArray(), []);

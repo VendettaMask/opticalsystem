@@ -7,6 +7,7 @@ using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Styling;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 
 namespace OpticalSystemDesign.App.Panels;
 
@@ -14,12 +15,12 @@ public sealed partial class UserGuidePanel
 {
     internal const double ReadingWidth = 720;
     private readonly ComboBox _kindFilter = new() { Name = "UserGuideKindFilter", HorizontalAlignment = HorizontalAlignment.Stretch, SelectedIndex = 1 };
-    private readonly TextBlock _chapterKind = new() { Name = "UserGuideChapterKind", FontSize = 11, FontWeight = FontWeight.SemiBold };
+    private readonly TextBlock _chapterKind = new() { Name = "UserGuideChapterKind", FontSize = DisplayTypography.RibbonText, FontWeight = FontWeight.SemiBold };
     private readonly StackPanel _sectionJump = new() { Name = "UserGuideSectionLinks", Spacing = 2 };
     private readonly ScrollViewer _sectionScroller = new() { HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled, VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
-    private readonly TextBlock _guideHeading = new() { FontSize = 17, FontWeight = FontWeight.SemiBold };
-    private readonly TextBlock _guideSubtitle = new() { FontSize = 11, TextWrapping = TextWrapping.Wrap };
-    private readonly TextBlock _tocHeading = new() { FontSize = 11, FontWeight = FontWeight.SemiBold };
+    private readonly TextBlock _guideHeading = new() { FontSize = DisplayTypography.EmptyStateTitle, FontWeight = FontWeight.SemiBold };
+    private readonly TextBlock _guideSubtitle = new() { FontSize = DisplayTypography.RibbonText, TextWrapping = TextWrapping.Wrap };
+    private readonly TextBlock _tocHeading = new() { FontSize = DisplayTypography.RibbonText, FontWeight = FontWeight.SemiBold };
     private readonly Expander _inlineContents = new() { Name = "UserGuideInlineContents", IsExpanded = false, HorizontalAlignment = HorizontalAlignment.Stretch };
     private readonly Button _navigationToggle = new() { Name = "UserGuideNavigationToggle" };
     private readonly Button _previousChapter = new() { Name = "UserGuidePrevious" };
@@ -42,24 +43,24 @@ public sealed partial class UserGuidePanel
         _guideSubtitle.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextMuted);
         _tocHeading.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextMuted);
         _chapterKind.BindThemeResource(TextBlock.ForegroundProperty, ThemeResourceBindings.TextAccent);
-        _path.FontSize = 11;
+        _path.FontSize = DisplayTypography.RibbonText;
         _path.TextWrapping = TextWrapping.NoWrap;
         _path.TextTrimming = TextTrimming.CharacterEllipsis;
         _path.VerticalAlignment = VerticalAlignment.Center;
-        _title.FontSize = 30;
+        _title.FontSize = DisplayTypography.GuideTitle;
         _title.LineHeight = 40;
-        _summary.FontSize = 15;
+        _summary.FontSize = DisplayTypography.GuideLead;
         _summary.LineHeight = 26;
         _summary.Margin = new Thickness(0, 0, 0, 6);
         _sections.Spacing = 34;
-        _resultCount.FontSize = 11;
-        _search.FontSize = 12;
+        _resultCount.FontSize = DisplayTypography.RibbonText;
+        _search.FontSize = DisplayTypography.BodySmall;
         _search.MinHeight = 34;
         _search.Padding = new Thickness(10, 7);
-        _search.CornerRadius = new CornerRadius(6);
+        _search.BindThemeResource(TextBox.CornerRadiusProperty, ThemeChromeResources.CornerRadius(ThemeChromeRole.ControlFrame));
         _search.BorderThickness = new Thickness(1);
         _search.BindThemeResource(BorderBrushProperty, ThemeResourceBindings.Border);
-        _kindFilter.FontSize = 12;
+        _kindFilter.FontSize = DisplayTypography.BodySmall;
         _kindFilter.MinHeight = 32;
         _kindFilter.BorderThickness = new Thickness(0);
         _kindFilter.Background = Brushes.Transparent;
@@ -78,13 +79,13 @@ public sealed partial class UserGuidePanel
         _navigationBorder.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         var header = new Grid { ColumnDefinitions = new("Auto,*,Auto"), ColumnSpacing = 14, Margin = new Thickness(16, 6) };
         _navigationToggle.Classes.Add("guideQuiet");
-        _navigationToggle.FontSize = 12;
+        _navigationToggle.FontSize = DisplayTypography.BodySmall;
         _navigationToggle.Padding = new Thickness(8, 4);
         _navigationToggle.MinHeight = 28;
         header.Children.Add(_navigationToggle); header.Children.Add(_path); Grid.SetColumn(_path, 1);
         var actions = PdfControls(); header.Children.Add(actions); Grid.SetColumn(actions, 2);
         _pdfExport.Classes.Add("guideQuiet");
-        _pdfExport.FontSize = 20;
+        _pdfExport.FontSize = DisplayTypography.LargeTitle;
         _pdfExport.Width = 30;
         _pdfExport.MinWidth = 30;
         _pdfExport.Height = 28;
@@ -100,7 +101,7 @@ public sealed partial class UserGuidePanel
         footerFrame.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
         _inlineContents.BorderThickness = new Thickness(0);
         _inlineContents.Padding = new Thickness(0);
-        _inlineContents.FontSize = 12;
+        _inlineContents.FontSize = DisplayTypography.BodySmall;
         _inlineContents.BindThemeResource(ForegroundProperty, ThemeResourceBindings.TextMuted);
         _sectionScroller.Content = _sectionJump;
         _tocLinksHost = new Border();
@@ -170,7 +171,7 @@ public sealed partial class UserGuidePanel
         _inlineContents.Header = Current(T("本章内容", "On this page", "この章の内容"));
         _navigationToggle.Content = Current(T("目录", "Contents", "目次"));
         _pdfExport.Content = new OpticalSystemDesign.App.Controls.LocalIcon
-            { IconName = "action-more", Width = 20, Height = 20 };
+        { IconName = "action-more", Width = 20, Height = 20 };
         AutomationProperties.SetName(_pdfExport, Current(T("更多操作：导出", "More actions: export", "その他の操作：出力")));
         ToolTip.SetTip(_pdfExport, Current(T("更多操作", "More actions", "その他の操作")));
         _pdfCancel.Content = Current(T("取消", "Cancel", "取消"));

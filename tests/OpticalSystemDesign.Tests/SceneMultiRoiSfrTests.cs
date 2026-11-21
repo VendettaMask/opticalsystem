@@ -13,7 +13,10 @@ namespace OpticalSystemDesign.Tests;
 public sealed class SceneMultiRoiSfrTests
 {
     [Theory]
-    [InlineData(.087, false)] [InlineData(-.123, false)] [InlineData(.087, true)] [InlineData(-.123, true)]
+    [InlineData(.087, false)]
+    [InlineData(-.123, false)]
+    [InlineData(.087, true)]
+    [InlineData(-.123, true)]
     public void NonSquareOffsetTransposeAndPolarityPreserveProfilesAndDetectorGeometry(double slope, bool reverse)
     {
         const int width = 192, height = 144; var pixels = new double[width * height];
@@ -160,7 +163,7 @@ public sealed class SceneMultiRoiSfrTests
             await Assert.ThrowsAnyAsync<OperationCanceledException>(() => app.CameraImaging.SaveSceneLinearRoisAsync(report, reportPath, cts.Token));
             Assert.Equal(retained, await File.ReadAllBytesAsync(reportPath));
             await Assert.ThrowsAsync<InvalidDataException>(() => app.CameraImaging.OpenSceneLinearRoisAsync(artifact with
-                { Manifest = artifact.Manifest with { Png = artifact.Manifest.Png with { CommonMaximumWattsPerSquareMeter = 123 } } }, reportPath));
+            { Manifest = artifact.Manifest with { Png = artifact.Manifest.Png with { CommonMaximumWattsPerSquareMeter = 123 } } }, reportPath));
             // Even a report re-signed through the public writer must match a fresh measurement of its identified pixels.
             var changed = JsonNode.Parse(JsonSerializer.Serialize(report))!;
             changed["Tasks"]![0]!["Regions"]![0]!["Edge"]!["Measurement"]!["Curve"]![1]!["Response"] = .123;

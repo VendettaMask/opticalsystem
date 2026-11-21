@@ -62,11 +62,15 @@ public sealed partial class MainWindow
                 ShowOpticalAssembly(); _opticalAssemblyWindow!.OpenArchiveInput(file.SourcePath); return;
             case "assembly-result":
                 ShowOpticalAssembly(); _opticalAssemblyWindow!.OpenArchiveResult(file.SourcePath); return;
-            case "coating-input": case "coating-result":
+            case "coating-input":
+            case "coating-result":
                 await Laboratories.OpenCoatingDesign().OpenArchiveAsync(file.SourcePath); return;
-            case "initial-input": case "initial-result":
+            case "initial-input":
+            case "initial-result":
                 await Laboratories.OpenInitialStructure().OpenArchiveAsync(file.SourcePath, file.Kind == "initial-result"); return;
-            case "autonomous-input": case "autonomous-result": case "preparation-result":
+            case "autonomous-input":
+            case "autonomous-result":
+            case "preparation-result":
                 await Laboratories.OpenInitialStructure().OpenAutonomousForArchive().OpenArchiveAsync(file.SourcePath, file.Kind != "autonomous-input"); return;
             case "workspace": _panels.ApplyArchiveLayout(file.SourcePath); return;
             case "tolerances":
@@ -83,8 +87,13 @@ public sealed partial class MainWindow
         if (extension is ".json" or ".csv" or ".txt" or ".md" or ".tsv")
         {
             var content = BoundedApplicationFile.ReadAllText(file.SourcePath, BoundedApplicationFile.MaximumSettingsBytes, "Archive text preview");
-            var window = new Window { Title = Path.GetFileName(file.SourcePath), Width = 900, Height = 650,
-                Content = UiLocalization.Preserve(new TextBox { Text = content, IsReadOnly = true, AcceptsReturn = true }) };
+            var window = new Window
+            {
+                Title = Path.GetFileName(file.SourcePath),
+                Width = 900,
+                Height = 650,
+                Content = UiLocalization.Preserve(new TextBox { Text = content, IsReadOnly = true, AcceptsReturn = true })
+            };
             ThemeChrome.ApplyDialogDecoration(window); window.Show(this); return;
         }
         _statusText.Text = UiLocalization.Text("文件已恢复：") + file.SourcePath;

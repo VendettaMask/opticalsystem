@@ -80,12 +80,19 @@ public sealed partial class TolerancingPanel
         var close = new Button { Content = "关闭", HorizontalAlignment = HorizontalAlignment.Right, Margin = new Thickness(0, 8, 0, 0) };
         var text = new TextBox
         {
-            Text = BuildSampleReplayText(replay), IsReadOnly = true, AcceptsReturn = true, TextWrapping = TextWrapping.Wrap
+            Text = BuildSampleReplayText(replay),
+            IsReadOnly = true,
+            AcceptsReturn = true,
+            TextWrapping = TextWrapping.Wrap
         };
         DockPanel.SetDock(close, Avalonia.Controls.Dock.Bottom);
         var window = new Window
         {
-            Title = "公差样件复算", Width = 720, Height = 540, MinWidth = 440, MinHeight = 300,
+            Title = "公差样件复算",
+            Width = 720,
+            Height = 540,
+            MinWidth = 440,
+            MinHeight = 300,
             WindowStartupLocation = WindowStartupLocation.CenterOwner,
             Content = new DockPanel { Margin = new Thickness(12), Children = { close, text } }
         };

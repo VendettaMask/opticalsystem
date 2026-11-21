@@ -45,6 +45,17 @@ public sealed class CompiledTopology
     public string TopologyFingerprint { get; }
     public string BindingFingerprint { get; }
     public string OpticFingerprint { get; }
+    public bool MatchesOpticFingerprint(string fingerprint) => fingerprint == OpticFingerprint
+        || HistoricalOpticFingerprints.Matches(_snapshot, fingerprint);
+    internal IEnumerable<(int Schema, bool RetiredCatalog, string Binding)> HistoricalBindings() =>
+        HistoricalOpticFingerprints.Variants(_snapshot).Select(variant => (variant.Schema, variant.RetiredCatalog,
+            ContentFingerprint.Compute(new
+            {
+                Identity = AutonomousTopologyIdentity.Name,
+                topology = Topology,
+                constraints = Constraints,
+                OpticFingerprint = ContentFingerprint.Compute(variant.Snapshot)
+            })));
     public double GlobalToCoreZOffset => -Topology.Reference.ZMillimeters;
     public OpticSnapshot Snapshot => CreateOptic().ToSnapshot();
     public Optic CreateOptic() => Optic.FromSnapshot(_snapshot);

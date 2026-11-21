@@ -40,8 +40,11 @@ public sealed class FftPsfNormalizationTests
         var wave = optic.Wavelengths[0];
         var pupil = WavefrontEngine.GenerateChiefRayUniform(optic, (0, 0), wave, 32,
             cellCentered: true, zemaxCentered: true, referenceWavelength: wave);
-        var aberrated = pupil with { Samples = pupil.Samples.Select(s => s with
-            { OpdWaves = .2 * s.NormalizedPupilX }).ToArray() };
+        var aberrated = pupil with
+        {
+            Samples = pupil.Samples.Select(s => s with
+            { OpdWaves = .2 * s.NormalizedPupilX }).ToArray()
+        };
         var actual = DiffractionEngine.ComputeFftPsf(optic, (0, 0), wave, 32, 64,
             cellCenteredPupil: true, zemaxFftSampling: true, preparedWavefront: aberrated,
             referenceWavelength: wave);

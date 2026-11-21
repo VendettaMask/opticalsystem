@@ -594,8 +594,11 @@ public sealed class Viewer3DGeometryTests
         {
             // Layouts keep their original sheet; Solid Model uses its current
             // Auto viewport contract, with native controls outside the scale.
-            ImageExportResolution.Configure(new() { DiagramAspectRatio = mode == ViewerPresentationMode.SolidModel
-                ? DiagramSheetLayout.Automatic : DiagramSheetLayout.Standard });
+            ImageExportResolution.Configure(new()
+            {
+                DiagramAspectRatio = mode == ViewerPresentationMode.SolidModel
+                ? DiagramSheetLayout.Automatic : DiagramSheetLayout.Standard
+            });
             var previousLanguage = UiLocalization.CurrentLanguage;
             UiLocalization.Apply(language);
             ThemeApplicationService.Apply(Avalonia.Application.Current!, theme);

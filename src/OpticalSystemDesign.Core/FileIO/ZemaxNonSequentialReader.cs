@@ -153,7 +153,8 @@ public static partial class ZemaxNonSequentialReader
         var kind = NonSequentialObjectKind.PlaneRectangle; NonSequentialObjectParameters parameters; var max = 0;
         switch (type)
         {
-            case "NSC_SRCR": case "NSC_SRCE":
+            case "NSC_SRCR":
+            case "NSC_SRCE":
                 max = 15; kind = type == "NSC_SRCR" ? NonSequentialObjectKind.SourceRectangle : NonSequentialObjectKind.SourceEllipse;
                 var distribution = P(9, 0) != 0 ? NonSequentialSurfaceSourceAngularDistribution.Cosine
                     : P(10, 0) != 0 || P(11, 0) != 0 ? NonSequentialSurfaceSourceAngularDistribution.Gaussian

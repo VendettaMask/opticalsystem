@@ -1,6 +1,6 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.CoatingDesign.Engine;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.CoatingDesign.Tests;
 
@@ -40,7 +40,8 @@ public sealed class NonlinearCoatingRegressionTests
             }
             Assert.InRange(w.PassbandCorrectionIterations, 1, 2 * window);
             Assert.InRange(w.PassbandQualityIterations - w.PassbandCorrectionIterations, 1, 2 * window);
-            Assert.True(w.TargetRepairIterations + w.TargetParetoPolishIterations + w.PassbandQualityIterations <= d.Settings.MaximumIterations);
+            Assert.True(w.TargetRepairIterations + w.TargetParetoPolishIterations + w.PassbandQualityIterations <= d.Settings.MaximumIterations,
+                $"repair={w.TargetRepairIterations}, polish={w.TargetParetoPolishIterations}, quality={w.PassbandQualityIterations}, limit={d.Settings.MaximumIterations}");
             Assert.NotNull(r.Run.PassbandCorrectionStartLayers); Assert.NotNull(r.Run.PassbandCorrectionAttempts);
             Assert.True(r.Metrics.PeakTransmittance >= control.Result!.Metrics.PeakTransmittance);
             Assert.True(Math.Abs(r.Metrics.FwhmNanometers!.Value - d.Target.FwhmNm) <= Math.Abs(control.Result.Metrics.FwhmNanometers!.Value - d.Target.FwhmNm));

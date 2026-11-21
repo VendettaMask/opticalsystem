@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Differentiation;
@@ -6,6 +5,7 @@ using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
@@ -157,9 +157,11 @@ public sealed class TopologyEdgeLossTests
         Assert.DoesNotContain("IncludeBoundaryClearance", JsonSerializer.Serialize(new TopologyTrainingSampling()));
         Assert.True(AutonomousDesignExamples.ThreeElement().Options.Full.Sampling.IncludeBoundaryClearance);
         using var quota = SequentialTraceMeasurement.BeginCpuBudget(800_000);
-        var actual = TopologyValidator.Validate(TopologyCompiler.Compile(candidate.Topology, state.Plan.Constraints), state.Plan.Targets);
+        var compiled = TopologyCompiler.Compile(candidate.Topology, state.Plan.Constraints);
+        var actual = TopologyValidator.Validate(compiled, state.Plan.Targets);
         Assert.True(actual.Completed); Assert.False(actual.MeetsTargets);
-        Assert.Equal(candidate.Assessment.ProtocolFingerprint, actual.ProtocolFingerprint);
+        Assert.True(TopologyValidator.MatchesProtocol(compiled, state.Plan.Targets, candidate.Assessment.ProtocolFingerprint));
+        Assert.Equal(TopologyValidator.GetProtocolFingerprint(compiled, state.Plan.Targets), actual.ProtocolFingerprint);
         Assert.Equal(candidate.Assessment.Targets, actual.Targets);
         var failed = Assert.Single(actual.Violations);
         Assert.Equal("field:34:check-lost", failed.Code); Assert.Equal(15, failed.Actual); Assert.Equal(0, failed.Limit);
@@ -178,8 +180,8 @@ public sealed class TopologyEdgeLossTests
     {
         var root = new DirectoryInfo(AppContext.BaseDirectory);
         while (root is not null && !EvidenceFiles.Exists(Path.Combine(root.FullName, "AGENTS.md"))) root = root.Parent;
-        var state = await new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(root!.FullName,
-            "validation/rechecks/2026-10-27/representative-reduction/qualified-control-verified/repr-qualified4-wide21-42-C-fixed/run.autonomous.json"));
+        var state = await new AutonomousSearchCheckpointStore().LoadAsync(EvidenceFiles.Resolve(Path.Combine(root!.FullName,
+            "validation/rechecks/2026-10-27/representative-reduction/qualified-control-verified/repr-qualified4-wide21-42-C-fixed/run.autonomous.json")));
         return (state, state.Candidates.Where(item => item.Topology.Elements.Length == 3 && item.Assessment.Completed).OrderBy(item => item.Score).First());
     }
     private static void Evidence(string name, object value)

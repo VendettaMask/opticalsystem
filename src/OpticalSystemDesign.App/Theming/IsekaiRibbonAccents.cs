@@ -79,8 +79,12 @@ internal static class IsekaiRibbonAccents
                 .SelectMany(g => g.Elements()).Select(element => element.Name.LocalName switch
                 {
                     "path" => Avalonia.Media.Geometry.Parse((string)element.Attribute("d")!),
-                    "circle" => (Geometry)new EllipseGeometry { Center = new Point(Number(element, "cx"), Number(element, "cy")),
-                        RadiusX = Number(element, "r"), RadiusY = Number(element, "r") },
+                    "circle" => (Geometry)new EllipseGeometry
+                    {
+                        Center = new Point(Number(element, "cx"), Number(element, "cy")),
+                        RadiusX = Number(element, "r"),
+                        RadiusY = Number(element, "r")
+                    },
                     _ => throw new InvalidOperationException("Unsupported Ribbon engraving primitive")
                 }).ToArray();
             Bounds = Geometry.Select(g => g.Bounds).Aggregate((a, b) => a.Union(b));

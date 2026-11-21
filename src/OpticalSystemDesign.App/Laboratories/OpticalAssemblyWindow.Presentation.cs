@@ -99,8 +99,12 @@ public sealed partial class OpticalAssemblyWindow
         var imageNotes = new ScrollViewer { Content = _imageInfo, MaxHeight = 150, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled };
         _imageDetails = new Expander
         {
-            Name = "AssemblyImageDetails", Header = "图像信息", IsExpanded = true, Content = imageNotes,
-            HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Stretch
+            Name = "AssemblyImageDetails",
+            Header = "图像信息",
+            IsExpanded = true,
+            Content = imageNotes,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            HorizontalContentAlignment = HorizontalAlignment.Stretch
         };
         var preview = new Grid { Name = "AssemblyPreviewCard", RowDefinitions = new("Auto,*,Auto") };
         preview.Children.Add(HeaderBand(new Grid { Margin = new(10, 7), Children = { LaboratoryPresentation.Heading("返回叉丝像", "alignment-reticle") } }));
@@ -198,8 +202,11 @@ public sealed partial class OpticalAssemblyWindow
         foreach (var control in controls) content.Children.Add(control);
         return new Expander
         {
-            Header = LaboratoryPresentation.Heading(title, icon), Content = content, IsExpanded = expanded,
-            HorizontalAlignment = HorizontalAlignment.Stretch, HorizontalContentAlignment = HorizontalAlignment.Stretch
+            Header = LaboratoryPresentation.Heading(title, icon),
+            Content = content,
+            IsExpanded = expanded,
+            HorizontalAlignment = HorizontalAlignment.Stretch,
+            HorizontalContentAlignment = HorizontalAlignment.Stretch
         };
     }
     private static Control EmptyState(string icon, string title, string? message)
@@ -208,7 +215,11 @@ public sealed partial class OpticalAssemblyWindow
         glyph.BindThemeResource(LocalIcon.StrokeProperty, ThemeResourceBindings.TextMuted);
         return new StackPanel
         {
-            MaxWidth = 340, Margin = new(20), Spacing = 10, HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center,
+            MaxWidth = 340,
+            Margin = new(20),
+            Spacing = 10,
+            HorizontalAlignment = HorizontalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
             Children = { glyph, new TextBlock { Text = title, FontWeight = FontWeight.SemiBold, TextAlignment = TextAlignment.Center, TextWrapping = TextWrapping.Wrap },
                 LaboratoryPresentation.Muted(new TextBlock { Text = message, TextAlignment = TextAlignment.Center, TextWrapping = TextWrapping.Wrap }) }
         };

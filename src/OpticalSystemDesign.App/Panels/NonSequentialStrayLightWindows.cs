@@ -796,30 +796,30 @@ internal sealed class NonSequentialDetectorViewerPanel : UserControl, IDisposabl
         _reloadingChoices = true;
         try
         {
-        var selectedDetector = (_detector.SelectedItem as DetectorChoice)?.Id;
-        var selectedWavelength = (_wavelength.SelectedItem as WavelengthChoice)?.Number ?? 0;
-        var document = _documentService.GetDocument();
-        var detectors = document.Objects
-            .Where(item => item.Enabled && item.Kind == NonSequentialObjectKind.DetectorRectangle)
-            .Select(item => new DetectorChoice(item.Id, $"{item.ObjectNumber} - {item.Name}"))
-            .ToArray();
-        _detector.ItemsSource = detectors;
-        _detector.SelectedItem = detectors.FirstOrDefault(item => item.Id == selectedDetector)
-            ?? detectors.FirstOrDefault();
-        var wavelengths = document.Wavelengths
-            .Select(item => new WavelengthChoice(item.Index + 1, $"{item.Index + 1} - {item.Label} {item.Nanometers:G7} nm"))
-            .Prepend(new WavelengthChoice(0, "全部波长"))
-            .ToArray();
-        _wavelength.ItemsSource = wavelengths;
-        _wavelength.SelectedItem = wavelengths.FirstOrDefault(item => item.Number == selectedWavelength)
-            ?? wavelengths[0];
-        var selectedGroup = (_coherenceGroup.SelectedItem as CoherenceChoice)?.Id;
-        var groups = document.Objects.Where(o => o.Enabled && o.Parameters is SourceParameters)
-            .GroupBy(o => ((SourceParameters)o.Parameters).Physics?.CoherenceGroup ?? o.Id.ToString("N"), StringComparer.Ordinal)
-            .Select(g => new CoherenceChoice(g.Key, ((SourceParameters)g.First().Parameters).Physics?.CoherenceGroup ?? $"{g.First().ObjectNumber} {g.First().Name}（独立）"))
-            .Prepend(new CoherenceChoice(null, "自动（仅单组）")).ToArray();
-        _coherenceGroup.ItemsSource = groups;
-        _coherenceGroup.SelectedItem = groups.FirstOrDefault(g => g.Id == selectedGroup) ?? groups[0];
+            var selectedDetector = (_detector.SelectedItem as DetectorChoice)?.Id;
+            var selectedWavelength = (_wavelength.SelectedItem as WavelengthChoice)?.Number ?? 0;
+            var document = _documentService.GetDocument();
+            var detectors = document.Objects
+                .Where(item => item.Enabled && item.Kind == NonSequentialObjectKind.DetectorRectangle)
+                .Select(item => new DetectorChoice(item.Id, $"{item.ObjectNumber} - {item.Name}"))
+                .ToArray();
+            _detector.ItemsSource = detectors;
+            _detector.SelectedItem = detectors.FirstOrDefault(item => item.Id == selectedDetector)
+                ?? detectors.FirstOrDefault();
+            var wavelengths = document.Wavelengths
+                .Select(item => new WavelengthChoice(item.Index + 1, $"{item.Index + 1} - {item.Label} {item.Nanometers:G7} nm"))
+                .Prepend(new WavelengthChoice(0, "全部波长"))
+                .ToArray();
+            _wavelength.ItemsSource = wavelengths;
+            _wavelength.SelectedItem = wavelengths.FirstOrDefault(item => item.Number == selectedWavelength)
+                ?? wavelengths[0];
+            var selectedGroup = (_coherenceGroup.SelectedItem as CoherenceChoice)?.Id;
+            var groups = document.Objects.Where(o => o.Enabled && o.Parameters is SourceParameters)
+                .GroupBy(o => ((SourceParameters)o.Parameters).Physics?.CoherenceGroup ?? o.Id.ToString("N"), StringComparer.Ordinal)
+                .Select(g => new CoherenceChoice(g.Key, ((SourceParameters)g.First().Parameters).Physics?.CoherenceGroup ?? $"{g.First().ObjectNumber} {g.First().Name}（独立）"))
+                .Prepend(new CoherenceChoice(null, "自动（仅单组）")).ToArray();
+            _coherenceGroup.ItemsSource = groups;
+            _coherenceGroup.SelectedItem = groups.FirstOrDefault(g => g.Id == selectedGroup) ?? groups[0];
         }
         finally { _reloadingChoices = false; }
     }

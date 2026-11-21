@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Controls;
-using Ellipse = Avalonia.Controls.Shapes.Ellipse;
 using Avalonia.Headless;
 using Avalonia.Input;
 using Avalonia.LogicalTree;
@@ -9,6 +8,7 @@ using Avalonia.VisualTree;
 using OpticalSystemDesign.App.Laboratories.CoatingDesign;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.CoatingDesign.Engine;
+using Ellipse = Avalonia.Controls.Shapes.Ellipse;
 
 namespace OpticalSystemDesign.CoatingDesign.Tests;
 

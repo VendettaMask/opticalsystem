@@ -64,15 +64,25 @@ internal sealed class ProjectArchiveWindow : Window
         Grid.SetColumn(browse, 1);
         var tools = new WrapPanel { ItemSpacing = 8, LineSpacing = 6, Children = { _preset, add, locate, refresh, inspect, _layout } };
         _files.ItemTemplate = new FuncDataTemplate<ArchiveRow>((row, _) => row is null ? new Border() : RowControl(row, !restoring));
-        var top = new StackPanel { Spacing = 10, Margin = new(0, 0, 0, 12), Children =
+        var top = new StackPanel
+        {
+            Spacing = 10,
+            Margin = new(0, 0, 0, 12),
+            Children =
         {
             new TextBlock { Text = restoring ? "选择新的工程文件夹，恢复后打开项目。" : "必要输入随工程收集，计算结果可按需选择。", TextWrapping = Avalonia.Media.TextWrapping.Wrap },
             targetRow, tools
-        } };
-        var bottom = new StackPanel { Spacing = 8, Margin = new(0, 12, 0, 0), Children =
+        }
+        };
+        var bottom = new StackPanel
+        {
+            Spacing = 8,
+            Margin = new(0, 12, 0, 0),
+            Children =
         {
             _status, _progress, new WrapPanel { HorizontalAlignment = HorizontalAlignment.Right, ItemSpacing = 8, LineSpacing = 6, Children = { cancel, _execute } }
-        } };
+        }
+        };
         DockPanel.SetDock(top, Avalonia.Controls.Dock.Top); DockPanel.SetDock(bottom, Avalonia.Controls.Dock.Bottom);
         Content = new DockPanel { Margin = new(18), Children = { top, bottom, _files } };
         ThemeChrome.ApplyDialogDecoration(this);
@@ -168,8 +178,13 @@ internal sealed class ProjectArchiveWindow : Window
     {
         if (_archive is null)
         {
-            var file = await StorageProvider.SaveFilePickerAsync(new() { Title = UiLocalization.Text("创建工程归档"), DefaultExtension = "starpack",
-                SuggestedFileName = Path.GetFileName(_target.Text), FileTypeChoices = new[] { new FilePickerFileType("STARPACK") { Patterns = new[] { "*.starpack" } } } });
+            var file = await StorageProvider.SaveFilePickerAsync(new()
+            {
+                Title = UiLocalization.Text("创建工程归档"),
+                DefaultExtension = "starpack",
+                SuggestedFileName = Path.GetFileName(_target.Text),
+                FileTypeChoices = new[] { new FilePickerFileType("STARPACK") { Patterns = new[] { "*.starpack" } } }
+            });
             if (file is not null) _target.Text = file.Path.LocalPath;
         }
         else

@@ -61,9 +61,14 @@ public sealed class PupilEnvelopeTests
         using var measurement = SequentialTraceMeasurement.Begin();
         var result = ParaxialRestorer.Run(source, flat, requests, plan.Targets, new()
         {
-            FixedStopEnvelopeVersion = 1, UseAutomaticMatrixDerivatives = true, RestorePupilMagnification = true,
-            UseGeometryConstraintTangents = true, MaximumAcceptedSteps = 4, MaximumFunctionEvaluations = 8,
-            TimeLimit = TimeSpan.FromSeconds(10), ProfileRadialSamples = 64
+            FixedStopEnvelopeVersion = 1,
+            UseAutomaticMatrixDerivatives = true,
+            RestorePupilMagnification = true,
+            UseGeometryConstraintTangents = true,
+            MaximumAcceptedSteps = 4,
+            MaximumFunctionEvaluations = 8,
+            TimeLimit = TimeSpan.FromSeconds(10),
+            ProfileRadialSamples = 64
         });
         Assert.NotNull(result.InitialEnvelopeDeficitMillimeters); Assert.NotNull(result.EndpointEnvelopeDeficitMillimeters);
         Assert.InRange(result.Work.FunctionEvaluations, 2, 8); Assert.True(result.Work.JacobianBuilds > 0);

@@ -71,8 +71,11 @@ public sealed class ParaxialSeedSearchTests
             if (Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_SEED_SEARCH_EVIDENCE") is { Length: > 0 } evidence)
             {
                 Directory.CreateDirectory(evidence); File.Copy(path, Path.Combine(evidence, "first-order-preparation.json"), true);
-                await AutonomousDesignFiles.SavePlanAsync(plan with { Seeds = result.Seeds,
-                    Options = plan.Options with { SeedPreparation = options, PoolDiversity = new() } },
+                await AutonomousDesignFiles.SavePlanAsync(plan with
+                {
+                    Seeds = result.Seeds,
+                    Options = plan.Options with { SeedPreparation = options, PoolDiversity = new() }
+                },
                     Path.Combine(evidence, "prepared-first-order.topology-plan.json"));
             }
         }
@@ -100,18 +103,28 @@ public sealed class ParaxialSeedSearchTests
         using var trace = SequentialTraceMeasurement.Begin();
         Assert.Throws<ArgumentException>(() => ParaxialSeedSearch.Run(plan, options with { Version = 2 }));
         Assert.Throws<ArgumentException>(() => AutonomousSearchService.Create("invalid-diversity", plan with { Options = plan.Options with { PoolDiversity = new() { Version = 2 } } }));
-        Assert.Throws<ArgumentException>(() => ParaxialSeedSearch.Run(plan with { Seeds = [plan.Seeds[0] with
+        Assert.Throws<ArgumentException>(() => ParaxialSeedSearch.Run(plan with
+        {
+            Seeds = [plan.Seeds[0] with
             { Elements = plan.Seeds[0].Elements.SetItem(0, plan.Seeds[0].Elements[0] with { Transition = true }) }],
-            Constraints = plan.Constraints with { AllowTransitionElements = true } }, options));
+            Constraints = plan.Constraints with { AllowTransitionElements = true }
+        }, options));
         Assert.Equal(0, trace.RayCount);
     }
 
     internal static AutonomousSearchPlan Plan()
     {
         var plan = AutonomousDesignExamples.ThreeElement();
-        return plan with { Options = plan.Options with { AxialCompensation = null },
-            Seeds = [plan.Seeds[0] with { Fields = [new("Axis", 0, 0)] }] };
+        return plan with
+        {
+            Options = plan.Options with { AxialCompensation = null },
+            Seeds = [plan.Seeds[0] with { Fields = [new("Axis", 0, 0)] }]
+        };
     }
-    private static readonly JsonSerializerOptions Json = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals, Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) } };
+    private static readonly JsonSerializerOptions Json = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
+        Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+    };
 }

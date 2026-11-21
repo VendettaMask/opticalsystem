@@ -19,9 +19,17 @@ public static partial class SpcBranchSearch
         var state = input; var s = state.Spc!; var plan = state.Plan; var options = state.Options; var policy = options.Spc!;
         if (state.Status == SeedPreparationStatus.Running && state.Pending is { InFlight: true } lost)
         {
-            state = state with { Consumed = SeedPreparationSearch.Add(state.Consumed, lost.Reservation), Pending = null,
-                LostReservations = state.LostReservations + 1, StopReason = "UnsettledReservationCharged", Stage = "Finished",
-                Status = SeedPreparationStatus.Interrupted, Spc = s with { Phase = SpcPreparationPhase.Finished }, Revision = state.Revision + 1 };
+            state = state with
+            {
+                Consumed = SeedPreparationSearch.Add(state.Consumed, lost.Reservation),
+                Pending = null,
+                LostReservations = state.LostReservations + 1,
+                StopReason = "UnsettledReservationCharged",
+                Stage = "Finished",
+                Status = SeedPreparationStatus.Interrupted,
+                Spc = s with { Phase = SpcPreparationPhase.Finished },
+                Revision = state.Revision + 1
+            };
             state = state with { Result = PreparationResult(state) }; persist(state); return state;
         }
         var beforeRays = state.Consumed.TracedRays; var beforeElapsed = state.Consumed.Elapsed;
@@ -39,8 +47,11 @@ public static partial class SpcBranchSearch
                 if (plan.Seeds.Any(t => StructureSearchDiagnostics.ExternalStopAperturePrecheck(t).ProvenInfeasible)) return Finish("OriginalExternalStopApertureConflict");
                 if (plan.Options.FixedTopologyOnly == true || plan.Options.QualifiedReductionOnly == true || plan.Options.Expansion?.EnableInsertion == false)
                     return Finish("OriginalInsertionPermissionConflict");
-                s = s with { Order = plan.Seeds.Select((_, i) => (i, rank: random.NextUnitDouble())).OrderBy(x => x.rank)
-                    .Take(policy.MaximumParents).Select(x => x.i).ToImmutableArray() };
+                s = s with
+                {
+                    Order = plan.Seeds.Select((_, i) => (i, rank: random.NextUnitDouble())).OrderBy(x => x.rank)
+                    .Take(policy.MaximumParents).Select(x => x.i).ToImmutableArray()
+                };
                 Save();
             }
             using var cpu = new SequentialGpuSession(DesignComputeMode.Cpu, token);
@@ -172,8 +183,11 @@ public static partial class SpcBranchSearch
                             physical = Materialize(parent.Topology, site.Id, id + "-spc", x[^2] * .01, x[^1] * .01, thickness,
                                 plan.Constraints.MinimumAirGapMillimeters, initialGlass, plan.Constraints);
                         }
-                        else physical = s.PhysicalOutput with { Elements = s.PhysicalOutput.Elements.Select(e => e.Id == id + "-spc"
-                            ? e with { ThicknessMillimeters = PositiveThickness(e.FrontZMillimeters, thickness) } : e).ToImmutableArray() };
+                        else physical = s.PhysicalOutput with
+                        {
+                            Elements = s.PhysicalOutput.Elements.Select(e => e.Id == id + "-spc"
+                            ? e with { ThicknessMillimeters = PositiveThickness(e.FrontZMillimeters, thickness) } : e).ToImmutableArray()
+                        };
                         stageName = "Thickness:" + policy.ThicknessMultipliers[s.ThicknessCursor];
                     }
                     else
@@ -187,10 +201,24 @@ public static partial class SpcBranchSearch
                     var remaining = Math.Min(options.MaximumFunctionEvaluations - state.Consumed.FunctionEvaluations - 1,
                         policy.MaximumGradientEvaluations - state.Consumed.GradientEvaluations);
                     if (remaining < 1) throw new Limit("PhysicalCompensationBudget");
-                    s = s with { PhysicalSource = physical, PhysicalOutput = null, PhysicalStageName = stageName, PhysicalBase = Work(), StageBase = Work(), PhysicalContinuation = null,
-                        PhysicalOptions = plan.Options.Local with { MaximumUpdates = Math.Min(policy.PhysicalUpdatesPerStage, remaining - 1),
-                            MaximumFunctionEvaluations = Math.Min(remaining, policy.PhysicalUpdatesPerStage + 1), MaximumGradientEvaluations = Math.Min(remaining, policy.PhysicalUpdatesPerStage + 1),
-                            ComputeMode = DesignComputeMode.Cpu, PerformFinalAssessment = false, TimeLimit = options.TimeLimit } };
+                    s = s with
+                    {
+                        PhysicalSource = physical,
+                        PhysicalOutput = null,
+                        PhysicalStageName = stageName,
+                        PhysicalBase = Work(),
+                        StageBase = Work(),
+                        PhysicalContinuation = null,
+                        PhysicalOptions = plan.Options.Local with
+                        {
+                            MaximumUpdates = Math.Min(policy.PhysicalUpdatesPerStage, remaining - 1),
+                            MaximumFunctionEvaluations = Math.Min(remaining, policy.PhysicalUpdatesPerStage + 1),
+                            MaximumGradientEvaluations = Math.Min(remaining, policy.PhysicalUpdatesPerStage + 1),
+                            ComputeMode = DesignComputeMode.Cpu,
+                            PerformFinalAssessment = false,
+                            TimeLimit = options.TimeLimit
+                        }
+                    };
                     Advance(SpcPreparationPhase.PhysicalOptimization); continue;
                 }
                 if (s.Phase == SpcPreparationPhase.PhysicalOptimization)
@@ -219,16 +247,23 @@ public static partial class SpcBranchSearch
                     var thickness = s.ThicknessCursor < policy.ThicknessMultipliers.Length;
                     var lastThickness = thickness && s.ThicknessCursor + 1 == policy.ThicknessMultipliers.Length;
                     var better = thickness || s.BestAssessment is null || Rank(assessment) < Rank(s.BestAssessment);
-                    s = s with { Stages = s.Stages.Add(stage), ThicknessCursor = s.ThicknessCursor + (thickness ? 1 : 0),
-                        MaterialCursor = s.MaterialCursor + (thickness ? 0 : 1), MaterialBase = lastThickness ? s.PhysicalOutput : s.MaterialBase,
-                        BestPhysical = better ? s.PhysicalOutput : s.BestPhysical, BestAssessment = better ? assessment : s.BestAssessment };
+                    s = s with
+                    {
+                        Stages = s.Stages.Add(stage),
+                        ThicknessCursor = s.ThicknessCursor + (thickness ? 1 : 0),
+                        MaterialCursor = s.MaterialCursor + (thickness ? 0 : 1),
+                        MaterialBase = lastThickness ? s.PhysicalOutput : s.MaterialBase,
+                        BestPhysical = better ? s.PhysicalOutput : s.BestPhysical,
+                        BestAssessment = better ? assessment : s.BestAssessment
+                    };
                     AddPool(branchId + ":stage-" + s.Stages.Length, s.PhysicalOutput, assessment);
                     Advance(SpcPreparationPhase.PhysicalSetup); continue;
                 }
                 throw new InvalidDataException("Unsupported SPC phase.");
 
                 SpcParentEvidence ParentEvidence(string outcome) => new(id, outcome, original, s.StationaryParent, s.Variables,
-                    s.ParentMinimum, s.Saddle, s.SiteId) { OriginalAssessment = s.OriginalAssessment, StationaryAssessment = s.ParentAssessment };
+                    s.ParentMinimum, s.Saddle, s.SiteId)
+                { OriginalAssessment = s.OriginalAssessment, StationaryAssessment = s.ParentAssessment };
                 void RejectParent(string outcome)
                 {
                     var parents = s.Parents.Add(ParentEvidence(outcome)); var branches = s.Branches; var pool = s.Pool; var order = s.Order; var next = s.ParentCursor + 1;
@@ -239,13 +274,35 @@ public static partial class SpcBranchSearch
                     var branch = new SpcOptimizedBranch(branchId, id, s.Sign, outcome, s.InitialCoordinates,
                         s.BranchMinimum?.Coordinates.ToImmutableArray() ?? s.InitialCoordinates, s.InitialValue?.Value, s.BranchMinimum?.Evaluation.Value,
                         s.Stages, s.BestPhysical, s.BestAssessment)
-                    { NullMinimum = s.BranchCertificate, NullGradient = s.BranchMinimum?.Evaluation.Gradient.ToImmutableArray() ?? [],
-                        NullInteriorStationary = s.BranchCertificate?.InteriorStationary ?? false, NullOptimizationStopReason = s.BranchMinimum?.StopReason };
+                    {
+                        NullMinimum = s.BranchCertificate,
+                        NullGradient = s.BranchMinimum?.Evaluation.Gradient.ToImmutableArray() ?? [],
+                        NullInteriorStationary = s.BranchCertificate?.InteriorStationary ?? false,
+                        NullOptimizationStopReason = s.BranchMinimum?.StopReason
+                    };
                     var branches = s.Branches.Add(branch);
-                    if (s.Sign < 0) s = s with { Sign = 1, Branches = branches, Phase = SpcPreparationPhase.StartBranch,
-                        InitialCoordinates = [], InitialValue = null, BranchMinimum = null, BranchCertificate = null, ThicknessCursor = 0, MaterialCursor = 0,
-                        PhysicalSource = null, PhysicalOptions = null, PhysicalContinuation = null, PhysicalOutput = null, MaterialBase = null,
-                        BestPhysical = null, BestAssessment = null, Stages = [], Curvature = null, Coarse = null };
+                    if (s.Sign < 0) s = s with
+                    {
+                        Sign = 1,
+                        Branches = branches,
+                        Phase = SpcPreparationPhase.StartBranch,
+                        InitialCoordinates = [],
+                        InitialValue = null,
+                        BranchMinimum = null,
+                        BranchCertificate = null,
+                        ThicknessCursor = 0,
+                        MaterialCursor = 0,
+                        PhysicalSource = null,
+                        PhysicalOptions = null,
+                        PhysicalContinuation = null,
+                        PhysicalOutput = null,
+                        MaterialBase = null,
+                        BestPhysical = null,
+                        BestAssessment = null,
+                        Stages = [],
+                        Curvature = null,
+                        Coarse = null
+                    };
                     else s = new() { Order = s.Order, ParentCursor = s.ParentCursor + 1, Parents = s.Parents, Branches = branches, Pool = s.Pool };
                     Save();
                 }
@@ -270,11 +327,24 @@ public static partial class SpcBranchSearch
         {
             if (state.Pending is not null) return;
             CheckPause(); Check(0, 0);
-            state = state with { Pending = new() { Name = "SPC:" + s.Phase, Source = plan.Seeds[s.Order.IsEmpty ? 0 : s.Order[Math.Min(s.ParentCursor, s.Order.Length - 1)]],
-                Variables = s.Variables, PhaseBase = Work(), InFlight = true, Reservation = new()
-                { FunctionEvaluations = Math.Max(0, Math.Min(functions, options.MaximumFunctionEvaluations - state.Consumed.FunctionEvaluations)),
-                    GradientEvaluations = Math.Max(0, Math.Min(gradients, policy.MaximumGradientEvaluations - state.Consumed.GradientEvaluations)),
-                    TracedRays = options.MaximumTracedRays - beforeRays - rays.RayCount, Elapsed = options.TimeLimit > Work().Elapsed ? options.TimeLimit - Work().Elapsed : TimeSpan.Zero } } };
+            state = state with
+            {
+                Pending = new()
+                {
+                    Name = "SPC:" + s.Phase,
+                    Source = plan.Seeds[s.Order.IsEmpty ? 0 : s.Order[Math.Min(s.ParentCursor, s.Order.Length - 1)]],
+                    Variables = s.Variables,
+                    PhaseBase = Work(),
+                    InFlight = true,
+                    Reservation = new()
+                    {
+                        FunctionEvaluations = Math.Max(0, Math.Min(functions, options.MaximumFunctionEvaluations - state.Consumed.FunctionEvaluations)),
+                        GradientEvaluations = Math.Max(0, Math.Min(gradients, policy.MaximumGradientEvaluations - state.Consumed.GradientEvaluations)),
+                        TracedRays = options.MaximumTracedRays - beforeRays - rays.RayCount,
+                        Elapsed = options.TimeLimit > Work().Elapsed ? options.TimeLimit - Work().Elapsed : TimeSpan.Zero
+                    }
+                }
+            };
             Save(SeedPreparationStatus.Running, clearReservation: false, checkPause: false); CheckPause();
         }
         void CheckPause()
@@ -283,9 +353,18 @@ public static partial class SpcBranchSearch
         void Save(SeedPreparationStatus status = SeedPreparationStatus.Ready, bool clearReservation = true, bool checkPause = true)
         {
             timer.Stop(); deadline.CancelAfter(Timeout.InfiniteTimeSpan);
-            state = state with { Spc = s, Stage = s.Phase == SpcPreparationPhase.Finished ? "Finished" : "Spc:" + s.Phase,
-                Cursor = state.Cursor + 1, RandomState = random.State, Consumed = Work(), Status = status,
-                Pending = clearReservation ? null : state.Pending, Revision = state.Revision + 1, PersistenceElapsed = persistence };
+            state = state with
+            {
+                Spc = s,
+                Stage = s.Phase == SpcPreparationPhase.Finished ? "Finished" : "Spc:" + s.Phase,
+                Cursor = state.Cursor + 1,
+                RandomState = random.State,
+                Consumed = Work(),
+                Status = status,
+                Pending = clearReservation ? null : state.Pending,
+                Revision = state.Revision + 1,
+                PersistenceElapsed = persistence
+            };
             if (s.Phase == SpcPreparationPhase.Finished) state = state with { Result = PreparationResult(state) };
             var saving = Stopwatch.StartNew();
             try { persist(state); }
@@ -344,15 +423,27 @@ public static partial class SpcBranchSearch
         }
         TopologyAssessment Assess(DesignTopology topology)
         {
-            Check(1, 0); Reserve(1, 0); state = state with { Consumed = state.Consumed with { FunctionEvaluations = state.Consumed.FunctionEvaluations + 1,
-                ValidationEvaluations = state.Consumed.ValidationEvaluations + 1 } };
+            Check(1, 0); Reserve(1, 0); state = state with
+            {
+                Consumed = state.Consumed with
+                {
+                    FunctionEvaluations = state.Consumed.FunctionEvaluations + 1,
+                    ValidationEvaluations = state.Consumed.ValidationEvaluations + 1
+                }
+            };
             var result = TopologyValidator.Validate(TopologyCompiler.Compile(topology, plan.Constraints), plan.Targets, token);
             state = state with { Consumed = state.Consumed with { GeometryProbes = state.Consumed.GeometryProbes + result.GeometryProbes } };
             token.ThrowIfCancellationRequested(); if (SequentialTraceMeasurement.CpuBudgetReached) throw new Limit("RayBudget"); return result;
         }
-        void Account(FixedTopologyWork work) => state = state with { Consumed = state.Consumed with
-        { FunctionEvaluations = s.PhysicalBase.FunctionEvaluations + work.FunctionEvaluations, GradientEvaluations = s.PhysicalBase.GradientEvaluations + work.GradientEvaluations,
-            GeometryProbes = s.PhysicalBase.GeometryProbes + work.GeometryProbes } };
+        void Account(FixedTopologyWork work) => state = state with
+        {
+            Consumed = state.Consumed with
+            {
+                FunctionEvaluations = s.PhysicalBase.FunctionEvaluations + work.FunctionEvaluations,
+                GradientEvaluations = s.PhysicalBase.GradientEvaluations + work.GradientEvaluations,
+                GeometryProbes = s.PhysicalBase.GeometryProbes + work.GeometryProbes
+            }
+        };
     }
 
     private static bool Manufacturing(TopologyAssessment a) => a.Completed && !a.Violations.Any(v => v.Code.StartsWith("geometry:", StringComparison.Ordinal));
@@ -360,19 +451,34 @@ public static partial class SpcBranchSearch
     internal static ParaxialSeedSearchResult PreparationResult(SeedPreparationCheckpoint state)
     {
         var s = state.Spc!;
-        var branchResult = new SpcBranchSearchResult { Algorithm = "initial-structure-spc-preparation-v1", ProtocolFingerprint = state.ProtocolFingerprint,
-            StopReason = state.StopReason ?? state.Status.ToString(), Work = state.Consumed, Parents = s.Parents, Branches = s.Branches,
-            QualifiedBranchIds = s.Branches.Where(b => b.Outcome == "QualifiedOriginalSpecification" && b.Assessment?.MeetsTargets == true).Select(b => b.Id).ToImmutableArray() };
+        var branchResult = new SpcBranchSearchResult
+        {
+            Algorithm = "initial-structure-spc-preparation-v1",
+            ProtocolFingerprint = state.ProtocolFingerprint,
+            StopReason = state.StopReason ?? state.Status.ToString(),
+            Work = state.Consumed,
+            Parents = s.Parents,
+            Branches = s.Branches,
+            QualifiedBranchIds = s.Branches.Where(b => b.Outcome == "QualifiedOriginalSpecification" && b.Assessment?.MeetsTargets == true).Select(b => b.Id).ToImmutableArray()
+        };
         var eligible = state.Status == SeedPreparationStatus.Completed && state.Stage == "Finished" && state.Consumed.Elapsed <= state.Options.TimeLimit;
         var pool = s.Pool.Where(c => c.Assessment is { Completed: true, MeetsTargets: true } && !c.Topology.HasTransitionElements).ToArray();
         // Keep the original qualified parent. A grown candidate enters the seed portfolio only if its RMS improves all no-more-complex alternatives.
         var nondominated = pool.Where(c => !pool.Any(other => other.Id != c.Id && other.Topology.Elements.Length <= c.Topology.Elements.Length
             && other.Score <= c.Score && (other.Topology.Elements.Length < c.Topology.Elements.Length || other.Score < c.Score)))
             .OrderBy(c => c.Topology.Elements.Length).ThenBy(c => c.Score).ThenBy(c => c.Id, StringComparer.Ordinal).Take(state.Options.RetainedSeeds);
-        return new() { Algorithm = branchResult.Algorithm, ProtocolFingerprint = state.ProtocolFingerprint, SourcePlan = state.Plan, Options = state.Options,
-            Spc = branchResult, Work = state.Consumed, Seeds = eligible ? nondominated.Select(c => c.Topology).ToImmutableArray() : [],
+        return new()
+        {
+            Algorithm = branchResult.Algorithm,
+            ProtocolFingerprint = state.ProtocolFingerprint,
+            SourcePlan = state.Plan,
+            Options = state.Options,
+            Spc = branchResult,
+            Work = state.Consumed,
+            Seeds = eligible ? nondominated.Select(c => c.Topology).ToImmutableArray() : [],
             Termination = state.Status == SeedPreparationStatus.Suspended ? ParaxialSeedTermination.Cancelled : state.Status == SeedPreparationStatus.TimeLimit ? ParaxialSeedTermination.TimeLimit
-                : state.Status is SeedPreparationStatus.Interrupted or SeedPreparationStatus.BudgetExhausted ? ParaxialSeedTermination.BudgetExhausted : ParaxialSeedTermination.Completed };
+                : state.Status is SeedPreparationStatus.Interrupted or SeedPreparationStatus.BudgetExhausted ? ParaxialSeedTermination.BudgetExhausted : ParaxialSeedTermination.Completed
+        };
     }
 
     internal static void ValidatePreparation(SeedPreparationCheckpoint state, SeedPreparationCheckpoint expected)
@@ -397,7 +503,7 @@ public static partial class SpcBranchSearch
         {
             var compiled = TopologyCompiler.Compile(candidate.Topology, state.Plan.Constraints);
             if (!candidate.Assessment.Completed || !candidate.Assessment.MeetsTargets || candidate.Topology.HasTransitionElements
-                || candidate.Assessment.OpticFingerprint != compiled.OpticFingerprint
+                || !compiled.MatchesOpticFingerprint(candidate.Assessment.OpticFingerprint)
                 || candidate.Assessment.Fields.Length != TopologyEvaluationPlan.Fields(compiled, 21).Length || !candidate.Assessment.Violations.IsEmpty
                 || ContentFingerprint.Compute(candidate.Assessment.Targets) != ContentFingerprint.Compute(state.Plan.Targets)
                 || ContentFingerprint.Compute(candidate.Assessment.StructuralConstraints) != ContentFingerprint.Compute(state.Plan.Constraints)
@@ -456,8 +562,11 @@ public static partial class SpcBranchSearch
             foreach (var before in original.Elements)
             {
                 var after = topology.Elements.Single(e => e.Id == before.Id);
-                var normalized = after with { Front = after.Front with { Profile = after.Front.Profile with { CurvaturePerMillimeter = before.Front.Profile.CurvaturePerMillimeter } },
-                    Back = after.Back with { Profile = after.Back.Profile with { CurvaturePerMillimeter = before.Back.Profile.CurvaturePerMillimeter } } };
+                var normalized = after with
+                {
+                    Front = after.Front with { Profile = after.Front.Profile with { CurvaturePerMillimeter = before.Front.Profile.CurvaturePerMillimeter } },
+                    Back = after.Back with { Profile = after.Back.Profile with { CurvaturePerMillimeter = before.Back.Profile.CurvaturePerMillimeter } }
+                };
                 if (ContentFingerprint.Compute(before) != ContentFingerprint.Compute(normalized)
                     || before.Protected && ContentFingerprint.Compute(before) != ContentFingerprint.Compute(after))
                     throw new InvalidDataException("SPC changed a retained aperture, material, position, protected face or profile permission.");

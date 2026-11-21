@@ -47,23 +47,23 @@ internal sealed class SpeosThetaDistribution : IMeasuredBsdfDistribution
         if (_parts.Length != _theta.Length * _phi.Length * (HasBothSides ? 2 : 1) || peaks is not null && peaks.Count != _parts.Length)
             throw new InvalidDataException("Speos input grid has missing slices.");
         foreach (var values in peak is null ? new[] { points } : new[] { points, peak.Points })
-        foreach (var group in values.GroupBy(p => (p.Side, p.IncidentThetaDegrees)))
-        {
-            var first = group.Where(p => p.IncidentPhiDegrees == _phi[0]).ToArray();
-            var last = group.Where(p => p.IncidentPhiDegrees == _phi[^1]).ToArray();
-            var a = new SpeosThetaSlice(first, _projected); var b = new SpeosThetaSlice(last, _projected);
-            foreach (var p in group) foreach (var t in new[] { false, true })
-                if (!MeasuredBsdfGrid.Close(a.Eval(t, MeasuredBsdfGrid.Cos(p.OutgoingThetaDegrees), p.OutgoingPhiDegrees * Math.PI / 180), b.Eval(t, MeasuredBsdfGrid.Cos(p.OutgoingThetaDegrees), p.OutgoingPhiDegrees * Math.PI / 180)))
-                    throw new InvalidDataException("Speos input seam differs.");
-            if (group.Key.IncidentThetaDegrees == 0)
-                foreach (var rotation in group.GroupBy(p => p.IncidentPhiDegrees))
-                {
-                    var normal = new SpeosThetaSlice(rotation.ToArray(), _projected);
-                    foreach (var p in group) foreach (var t in new[] { false, true })
-                        if (!MeasuredBsdfGrid.Close(a.Eval(t, MeasuredBsdfGrid.Cos(p.OutgoingThetaDegrees), p.OutgoingPhiDegrees * Math.PI / 180), normal.Eval(t, MeasuredBsdfGrid.Cos(p.OutgoingThetaDegrees), p.OutgoingPhiDegrees * Math.PI / 180)))
-                            throw new InvalidDataException("Speos normal-incidence input rotations differ.");
-                }
-        }
+            foreach (var group in values.GroupBy(p => (p.Side, p.IncidentThetaDegrees)))
+            {
+                var first = group.Where(p => p.IncidentPhiDegrees == _phi[0]).ToArray();
+                var last = group.Where(p => p.IncidentPhiDegrees == _phi[^1]).ToArray();
+                var a = new SpeosThetaSlice(first, _projected); var b = new SpeosThetaSlice(last, _projected);
+                foreach (var p in group) foreach (var t in new[] { false, true })
+                    if (!MeasuredBsdfGrid.Close(a.Eval(t, MeasuredBsdfGrid.Cos(p.OutgoingThetaDegrees), p.OutgoingPhiDegrees * Math.PI / 180), b.Eval(t, MeasuredBsdfGrid.Cos(p.OutgoingThetaDegrees), p.OutgoingPhiDegrees * Math.PI / 180)))
+                        throw new InvalidDataException("Speos input seam differs.");
+                if (group.Key.IncidentThetaDegrees == 0)
+                    foreach (var rotation in group.GroupBy(p => p.IncidentPhiDegrees))
+                    {
+                        var normal = new SpeosThetaSlice(rotation.ToArray(), _projected);
+                        foreach (var p in group) foreach (var t in new[] { false, true })
+                            if (!MeasuredBsdfGrid.Close(a.Eval(t, MeasuredBsdfGrid.Cos(p.OutgoingThetaDegrees), p.OutgoingPhiDegrees * Math.PI / 180), normal.Eval(t, MeasuredBsdfGrid.Cos(p.OutgoingThetaDegrees), p.OutgoingPhiDegrees * Math.PI / 180)))
+                                throw new InvalidDataException("Speos normal-incidence input rotations differ.");
+                    }
+            }
         var low = spectrum.Lobes.Max(l => l.Wavelengths[0]); var high = spectrum.Lobes.Min(l => l.Wavelengths[^1]);
         if (low > high) throw new InvalidDataException("Speos R/T spectra have no common wavelength range.");
         foreach (var part in _parts) foreach (var wave in spectrum.Lobes.SelectMany(l => l.Wavelengths).Append(low).Append(high).Where(w => w >= low && w <= high).Distinct())
@@ -129,26 +129,26 @@ internal sealed class SpeosThetaDistribution : IMeasuredBsdfDistribution
             ? new[] { (axis[0], axis[0]) } : axis.Zip(axis.Skip(1), (a, b) => (a, b));
         var waves = _spectrum.Lobes.SelectMany(l => l.Wavelengths).Append(low).Append(high).Where(w => w >= low && w <= high).Distinct().ToArray();
         foreach (var side in _parts.Select(p => p.Side).Distinct())
-        foreach (var cell in Cells(_theta)) foreach (var azimuth in Cells(_phi))
-        {
-            Services.ComputationCancellation.ThrowIfCancellationRequested();
-            var theta = (cell.Low + cell.High) * Math.PI / 360;
-            var phi = (azimuth.Low + azimuth.High) * Math.PI / 360;
-            var reference = RuntimeReference(new(new(Math.Sin(theta) * Math.Cos(phi), Math.Sin(theta) * Math.Sin(phi), Math.Cos(theta)), new(0, 0, 1), low, side, new(1, 0, 0)));
-            var corners = _parts.Where(p => p.Side == side && (p.Theta == cell.Low || p.Theta == cell.High) && (p.Phi == azimuth.Low || p.Phi == azimuth.High)).ToArray();
-            if (corners.Any(p => reference.Diffuse.R == 0 && p.Diffuse.R > 0 || reference.Diffuse.T == 0 && p.Diffuse.T > 0))
-                throw new InvalidDataException("Runtime White 的漫反射参考为零而相邻节点非零；不能推断共用缩放。");
-            foreach (var wave in waves)
+            foreach (var cell in Cells(_theta)) foreach (var azimuth in Cells(_phi))
             {
-                var r = Scales(reference, false, wave); var t = Scales(reference, true, wave);
-                foreach (var part in corners)
+                Services.ComputationCancellation.ThrowIfCancellationRequested();
+                var theta = (cell.Low + cell.High) * Math.PI / 360;
+                var phi = (azimuth.Low + azimuth.High) * Math.PI / 360;
+                var reference = RuntimeReference(new(new(Math.Sin(theta) * Math.Cos(phi), Math.Sin(theta) * Math.Sin(phi), Math.Cos(theta)), new(0, 0, 1), low, side, new(1, 0, 0)));
+                var corners = _parts.Where(p => p.Side == side && (p.Theta == cell.Low || p.Theta == cell.High) && (p.Phi == azimuth.Low || p.Phi == azimuth.High)).ToArray();
+                if (corners.Any(p => reference.Diffuse.R == 0 && p.Diffuse.R > 0 || reference.Diffuse.T == 0 && p.Diffuse.T > 0))
+                    throw new InvalidDataException("Runtime White 的漫反射参考为零而相邻节点非零；不能推断共用缩放。");
+                foreach (var wave in waves)
                 {
-                    var energy = ScaledMass(part, false, r) + ScaledMass(part, true, t);
-                    if (!double.IsFinite(energy) || energy > 1 + 32 * 2.2204460492503131e-16)
-                        throw new InvalidDataException("Runtime White 在插值单元角点产生 R+T>1；不缩放掩盖非被动数据。");
+                    var r = Scales(reference, false, wave); var t = Scales(reference, true, wave);
+                    foreach (var part in corners)
+                    {
+                        var energy = ScaledMass(part, false, r) + ScaledMass(part, true, t);
+                        if (!double.IsFinite(energy) || energy > 1 + 32 * 2.2204460492503131e-16)
+                            throw new InvalidDataException("Runtime White 在插值单元角点产生 R+T>1；不缩放掩盖非被动数据。");
+                    }
                 }
             }
-        }
     }
     private (Vector3D X, Vector3D Y) Frame(BsdfContext c)
     {

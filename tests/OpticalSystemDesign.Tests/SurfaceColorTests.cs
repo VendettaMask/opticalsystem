@@ -173,7 +173,10 @@ public sealed class SurfaceColorTests
             ThemeApplicationService.Apply(Avalonia.Application.Current!, "Light");
             var view = new OpticSceneControl
             {
-                Scene = source, ShowRays = false, RenderMode = mode, CutawayEnabled = cutaway,
+                Scene = source,
+                ShowRays = false,
+                RenderMode = mode,
+                CutawayEnabled = cutaway,
                 ViewMode = threeD ? OpticSceneViewMode.ThreeDimensional : OpticSceneViewMode.TwoDimensional,
                 VisualStyle = solid ? OpticSceneVisualStyle.SolidModel : OpticSceneVisualStyle.OpticalLayout
             };

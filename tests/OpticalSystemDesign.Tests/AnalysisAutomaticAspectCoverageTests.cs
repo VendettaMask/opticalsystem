@@ -172,10 +172,22 @@ public sealed class AnalysisAutomaticAspectCoverageTests
             var sampling = analysis == "MTF" ? "256" : "64";
             var requested = new Dictionary<string, string>
             {
-                ["Sampling"] = sampling, ["PupilSampling"] = sampling, ["ImageSampling"] = "32", ["NumRays"] = "32",
-                ["PlotPointCount"] = "16", ["WavelengthNumber"] = "1", ["NumberOfSteps"] = "3",
-                ["Steps"] = "3", ["FieldDensity"] = "3", ["MaximumFrequency"] = "100", ["Frequency1"] = "10",
-                ["Frequency2"] = "20", ["Frequency3"] = "30", ["Frequency4"] = "0", ["Frequency5"] = "0", ["Frequency6"] = "0"
+                ["Sampling"] = sampling,
+                ["PupilSampling"] = sampling,
+                ["ImageSampling"] = "32",
+                ["NumRays"] = "32",
+                ["PlotPointCount"] = "16",
+                ["WavelengthNumber"] = "1",
+                ["NumberOfSteps"] = "3",
+                ["Steps"] = "3",
+                ["FieldDensity"] = "3",
+                ["MaximumFrequency"] = "100",
+                ["Frequency1"] = "10",
+                ["Frequency2"] = "20",
+                ["Frequency3"] = "30",
+                ["Frequency4"] = "0",
+                ["Frequency5"] = "0",
+                ["Frequency6"] = "0"
             };
             // Use each analysis's declared UI choices/ranges; these small inputs
             // exercise presentation and are not optical-precision acceptance settings.
@@ -243,8 +255,15 @@ public sealed class AnalysisAutomaticAspectCoverageTests
     private static string ScientificData(Control control) => control switch
     {
         AnalysisPlotControl plot => JsonSerializer.Serialize(new { plot.Series, plot.PlotOptions }),
-        WavefrontSurfaceControl surface => JsonSerializer.Serialize(new { surface.Series, surface.SpatialGeometry, surface.SpatialDisplayScales,
-            surface.ValueMinimum, surface.ValueMaximum, surface.ContourLevels }),
+        WavefrontSurfaceControl surface => JsonSerializer.Serialize(new
+        {
+            surface.Series,
+            surface.SpatialGeometry,
+            surface.SpatialDisplayScales,
+            surface.ValueMinimum,
+            surface.ValueMaximum,
+            surface.ContourLevels
+        }),
         FoucaultPlotControl plot => JsonSerializer.Serialize(plot.Series),
         FullFieldAberrationControl plot => JsonSerializer.Serialize(new { plot.Series, plot.XFieldWidth, plot.YFieldWidth, plot.FieldCenterX, plot.FieldCenterY }),
         SeidelDiagramControl plot => JsonSerializer.Serialize(new { plot.Table, plot.MaximumAberration, plot.GridInterval }),

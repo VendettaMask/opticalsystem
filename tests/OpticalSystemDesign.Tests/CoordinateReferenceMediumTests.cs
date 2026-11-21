@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Backend;
@@ -8,6 +7,7 @@ using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.Core.Serialization;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -26,12 +26,18 @@ public sealed class CoordinateReferenceMediumTests
     }
 
     [Theory]
-    [InlineData("bire-tilted-0", false)] [InlineData("bire-tilted-0", true)]
-    [InlineData("bire-tilted-1", false)] [InlineData("bire-tilted-1", true)]
-    [InlineData("bire-axial-0", false)] [InlineData("bire-axial-0", true)]
-    [InlineData("bire-axial-1", false)] [InlineData("bire-axial-1", true)]
-    [InlineData("bire-glass-0", false)] [InlineData("bire-glass-0", true)]
-    [InlineData("bire-glass-1", false)] [InlineData("bire-glass-1", true)]
+    [InlineData("bire-tilted-0", false)]
+    [InlineData("bire-tilted-0", true)]
+    [InlineData("bire-tilted-1", false)]
+    [InlineData("bire-tilted-1", true)]
+    [InlineData("bire-axial-0", false)]
+    [InlineData("bire-axial-0", true)]
+    [InlineData("bire-axial-1", false)]
+    [InlineData("bire-axial-1", true)]
+    [InlineData("bire-glass-0", false)]
+    [InlineData("bire-glass-0", true)]
+    [InlineData("bire-glass-1", false)]
+    [InlineData("bire-glass-1", true)]
     public void RotatedReferencePlanesPreserveCrystalMomentumAndNativeOpticalPath(string id, bool batched)
     {
         using var fixture = JsonDocument.Parse(EvidenceFiles.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "birefringent-native-v1.json")));
@@ -63,8 +69,12 @@ public sealed class CoordinateReferenceMediumTests
                     var code = p.GetProperty("code").GetString();
                     var actual = code switch
                     {
-                        "REAX" => position.X, "REAY" => position.Y, "REAZ" => position.Z,
-                        "REAA" => direction.X, "REAB" => direction.Y, "REAC" => direction.Z,
+                        "REAX" => position.X,
+                        "REAY" => position.Y,
+                        "REAZ" => position.Z,
+                        "REAA" => direction.X,
+                        "REAB" => direction.Y,
+                        "REAC" => direction.Z,
                         "OPTH" => sample.PhaseInclusiveOpticalPathLength!.Value - first.PhaseInclusiveOpticalPathLength!.Value,
                         _ => throw new InvalidDataException(code)
                     };
@@ -75,7 +85,9 @@ public sealed class CoordinateReferenceMediumTests
         }
     }
 
-    [Theory] [InlineData(false)] [InlineData(true)]
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
     public void ReferencePlanesRetainTheGradientVolumeFrameAndLocalIntegrationPosition(bool batched)
     {
         var original = OpticalFormatCatalog.Import("MODE SEQ\nENPD .2\nSURF 0\nDISZ INFINITY\nSURF 1\nTYPE GRINSUR1\nPARM 1 .05\nPARM 2 1.5\nPARM 3 -.083\nPARM 4 0\nDISZ 4\nSURF 2\nDISZ 1\nSURF 3", ".zmx");
@@ -117,15 +129,23 @@ public sealed class CoordinateReferenceMediumTests
             var component = entrance.Components!;
             var reference = entrance with
             {
-                Label = "Rotated volume reference", Radius = 0, Conic = 0, Thickness = length, IsStop = false,
+                Label = "Rotated volume reference",
+                Radius = 0,
+                Conic = 0,
+                Thickness = length,
+                IsStop = false,
                 CoordinateSystem = new(coordinates.OriginX + .03, coordinates.OriginY - .02, coordinates.OriginZ + i * length, 13 * i, -7 * i, 19 * i),
                 SemiDiameterDefinesPhysicalAperture = false,
                 Components = component with
                 {
-                    GeometryKind = "plane", Geometry = ComponentSnapshot.Empty("plane"),
-                    MaterialBefore = component.MaterialAfter, MaterialBeforeComponent = component.MaterialAfterComponent,
-                    InteractionKind = "coordinate_reference", Interaction = ComponentSnapshot.Empty("coordinate_reference"),
-                    PhysicalApertureKind = null, PhysicalAperture = null
+                    GeometryKind = "plane",
+                    Geometry = ComponentSnapshot.Empty("plane"),
+                    MaterialBefore = component.MaterialAfter,
+                    MaterialBeforeComponent = component.MaterialAfterComponent,
+                    InteractionKind = "coordinate_reference",
+                    Interaction = ComponentSnapshot.Empty("coordinate_reference"),
+                    PhysicalApertureKind = null,
+                    PhysicalAperture = null
                 }
             };
             surfaces.Insert(entranceIndex + i, reference);

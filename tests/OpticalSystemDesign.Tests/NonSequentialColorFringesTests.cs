@@ -79,9 +79,15 @@ public sealed class NonSequentialColorFringesTests
             var result = ZemaxNonSequentialReader.Read(path);
             Assert.Equal(File.ReadAllBytes(path), result.OriginalBytes()); Assert.NotEmpty(result.Objects); count++;
             Assert.Equal(result.CanApply, result.Document is not null && !result.Diagnostics.Any(d => d.Blocking));
-            audit.Add(new { Path = Path.GetRelativePath(directory, path), result.SourceSha256, result.CanApply,
-                Objects = result.Objects.Count, Records = result.Records.Count,
-                Blocking = result.Diagnostics.Where(d => d.Blocking).GroupBy(d => d.Code).ToDictionary(g => g.Key, g => g.Count()) });
+            audit.Add(new
+            {
+                Path = Path.GetRelativePath(directory, path),
+                result.SourceSha256,
+                result.CanApply,
+                Objects = result.Objects.Count,
+                Records = result.Records.Count,
+                Blocking = result.Diagnostics.Where(d => d.Blocking).GroupBy(d => d.Code).ToDictionary(g => g.Key, g => g.Count())
+            });
         }
         Assert.Equal(106, count);
         var capture = Environment.GetEnvironmentVariable("NSC_COLOR_CAPTURE_DIR");
@@ -108,7 +114,10 @@ public sealed class NonSequentialColorFringesTests
     }
 
     [Theory]
-    [InlineData(0, 0)] [InlineData(.25, .5)] [InlineData(.5, 1)] [InlineData(1, 0)]
+    [InlineData(0, 0)]
+    [InlineData(.25, .5)]
+    [InlineData(.5, 1)]
+    [InlineData(1, 0)]
     public void WaveplateJonesTransportMatchesCrossedAnalyzerClosedForm(double waves, double expected)
     {
         var field = NonSequentialFieldState.Create(Z, new(new(false, 0, 1)), "beam");
@@ -121,7 +130,9 @@ public sealed class NonSequentialColorFringesTests
     }
 
     [Theory]
-    [InlineData(0, 0)] [InlineData(45, .5)] [InlineData(90, 1)]
+    [InlineData(0, 0)]
+    [InlineData(45, .5)]
+    [InlineData(90, 1)]
     public void DetectorAnalyzerUsesItsOwnRotatedAxesAndDoesNotDestroyThroughFlux(double angle, double expected)
     {
         var source = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRay) with { Parameters = new SourceRayParameters { Physics = new(new(false, 0, 1)) } };
@@ -220,7 +231,9 @@ public sealed class NonSequentialColorFringesTests
 public sealed class NonSequentialColorFringesViewerTests
 {
     [Theory]
-    [InlineData("Light", "zh-CN", 1)] [InlineData("Dark", "ja-JP", 1.5)] [InlineData("Isekai", "en-US", 2)]
+    [InlineData("Light", "zh-CN", 1)]
+    [InlineData("Dark", "ja-JP", 1.5)]
+    [InlineData("Isekai", "en-US", 2)]
     public async Task ActualViewerShowsPhysicalRgbAndKeepsItsScalarControlsAndPngConsistent(string theme, string language, double scaling)
     {
         using var session = SafeHeadlessUnitTestSession.StartNew(typeof(global::OpticalSystemDesign.App.App));
@@ -299,16 +312,16 @@ public sealed class NonSequentialColorFringesViewerTests
             try { image.CopyPixels(new PixelRect(image.PixelSize), handle.AddrOfPinnedObject(), bytes.Length, image.PixelSize.Width * 4); }
             finally { handle.Free(); }
             foreach (var row in new[] { 7, 17, 27, 37, 47, 57, 67, 77, 87 })
-            foreach (var column in new[] { 13, 33, 53, 73, 93 })
-            {
-                var point = plot.Series.Single().Points[row * 100 + column];
-                var x = (int)(rectangle.Left + (point.X - V("XMinimum")) / (V("XMaximum") - V("XMinimum")) * rectangle.Width);
-                var y = (int)(rectangle.Bottom - (point.Y - V("YMinimum")) / (V("YMaximum") - V("YMinimum")) * rectangle.Height);
-                var index = (y * image.PixelSize.Width + x) * 4;
-                Assert.InRange(Math.Abs(bytes[index] - Math.Round(point.Blue!.Value * 255)), 0, 2);
-                Assert.InRange(Math.Abs(bytes[index + 1] - Math.Round(point.Green!.Value * 255)), 0, 2);
-                Assert.InRange(Math.Abs(bytes[index + 2] - Math.Round(point.Red!.Value * 255)), 0, 2);
-            }
+                foreach (var column in new[] { 13, 33, 53, 73, 93 })
+                {
+                    var point = plot.Series.Single().Points[row * 100 + column];
+                    var x = (int)(rectangle.Left + (point.X - V("XMinimum")) / (V("XMaximum") - V("XMinimum")) * rectangle.Width);
+                    var y = (int)(rectangle.Bottom - (point.Y - V("YMinimum")) / (V("YMaximum") - V("YMinimum")) * rectangle.Height);
+                    var index = (y * image.PixelSize.Width + x) * 4;
+                    Assert.InRange(Math.Abs(bytes[index] - Math.Round(point.Blue!.Value * 255)), 0, 2);
+                    Assert.InRange(Math.Abs(bytes[index + 1] - Math.Round(point.Green!.Value * 255)), 0, 2);
+                    Assert.InRange(Math.Abs(bytes[index + 2] - Math.Round(point.Red!.Value * 255)), 0, 2);
+                }
         }
         finally { plot.PlotOptions = options; }
     }

@@ -16,8 +16,10 @@ public static class LensLengthUnits
 
     public static string Symbol(this LensLengthUnit unit) => unit switch
     {
-        LensLengthUnit.Millimeter => "mm", LensLengthUnit.Centimeter => "cm",
-        LensLengthUnit.Meter => "m", LensLengthUnit.Inch => "in",
+        LensLengthUnit.Millimeter => "mm",
+        LensLengthUnit.Centimeter => "cm",
+        LensLengthUnit.Meter => "m",
+        LensLengthUnit.Inch => "in",
         _ => throw new ArgumentOutOfRangeException(nameof(unit))
     };
 }

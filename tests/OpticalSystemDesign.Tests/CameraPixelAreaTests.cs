@@ -10,8 +10,10 @@ namespace OpticalSystemDesign.Tests;
 public sealed class CameraPixelAreaTests
 {
     [Theory]
-    [InlineData(BayerPattern.RGGB)] [InlineData(BayerPattern.BGGR)]
-    [InlineData(BayerPattern.GRBG)] [InlineData(BayerPattern.GBRG)]
+    [InlineData(BayerPattern.RGGB)]
+    [InlineData(BayerPattern.BGGR)]
+    [InlineData(BayerPattern.GRBG)]
+    [InlineData(BayerPattern.GBRG)]
     public void AreaAveragePrecedesPhysicalPixelCfaSelection(BayerPattern pattern)
     {
         var values = new double[3, 16, 16];
@@ -28,7 +30,8 @@ public sealed class CameraPixelAreaTests
     }
 
     [Theory]
-    [InlineData(2)] [InlineData(4)]
+    [InlineData(2)]
+    [InlineData(4)]
     public void WholePixelQeDoesNotCountFillLossTwiceButActiveAreaQeDoes(int n)
     {
         var source = CameraContinuousSpectrumTests.White(4 * n); var sensor = CameraContinuousSpectrumTests.Clean;
@@ -59,7 +62,11 @@ public sealed class CameraPixelAreaTests
     }
 
     [Theory]
-    [InlineData(1, .5)] [InlineData(3, 1)] [InlineData(4, 0)] [InlineData(4, 1.01)] [InlineData(2, double.NaN)]
+    [InlineData(1, .5)]
+    [InlineData(3, 1)]
+    [InlineData(4, 0)]
+    [InlineData(4, 1.01)]
+    [InlineData(2, double.NaN)]
     public void UnsupportedSamplingIsRejectedBeforeAllocation(int n, double fill)
         => Assert.Throws<ArgumentException>(() => CameraPixelAperture.OutputDimensions(16, 16, new(n, fill)));
 
@@ -78,7 +85,8 @@ public sealed class CameraPixelAreaTests
     }
 
     [Theory]
-    [InlineData(false)] [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(true)]
     public void ContinuousAndMaterialIntegrationSelectTheOutputCfaAfterAreaAveraging(bool activeQe)
     {
         var plan = CameraContinuousSpectrum.BuildPlan(CameraContinuousSpectrumTests.Light(), CameraContinuousSpectrumTests.Reflectance(), CameraContinuousSpectrumTests.Qe, new());
@@ -167,13 +175,17 @@ public sealed class CameraPixelAreaTests
             Optics: CameraOptics.Ideal, SpectralResponse: response, PixelSampling: new(2, .25, false))));
         var center = await app.CameraImaging.SimulateAsync(new(Width: 8, Height: 8, Optics: CameraOptics.Ideal, SpectralResponse: response));
         await Assert.ThrowsAsync<ArgumentException>(() => app.CameraImaging.SimulateAsync(center.Request with { PixelSampling = new(2, .25) }));
-        var a = await app.CameraImaging.RecomputeAsync(center with { Request = center.Request with { PixelSampling = new(2, .25) },
-            Inputs = center.Inputs! with { EngineVersion = CameraExperiment.PixelAreaEngineVersion } });
+        var a = await app.CameraImaging.RecomputeAsync(center with
+        {
+            Request = center.Request with { PixelSampling = new(2, .25) },
+            Inputs = center.Inputs! with { EngineVersion = CameraExperiment.PixelAreaEngineVersion }
+        });
         Assert.Equal(64, a.PhotoElectrons.Count);
     }
 
     [Theory]
-    [InlineData(false)] [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(true)]
     public async Task ContinuousAreaExperimentsFreezeSamplingAndMaterialCellCounts(bool materials)
     {
         using var app = WorkbenchApplication.Create(); using var files = new CameraSensorFileTests.TemporaryFiles();
@@ -186,8 +198,11 @@ public sealed class CameraPixelAreaTests
             SceneMode: materials ? CameraSceneMode.MaterialMap : CameraSceneMode.Uniform, MaterialScene: materials ? scene : null,
             PixelSampling: new(2, .25));
         var center = await app.CameraImaging.SimulateAsync(request with { PixelSampling = null });
-        var a = await app.CameraImaging.RecomputeAsync(center with { Request = request with { Sensor = center.Request.Sensor, Isp = center.Request.Isp },
-            Inputs = center.Inputs! with { EngineVersion = CameraExperiment.PixelAreaEngineVersion } });
+        var a = await app.CameraImaging.RecomputeAsync(center with
+        {
+            Request = request with { Sensor = center.Request.Sensor, Isp = center.Request.Isp },
+            Inputs = center.Inputs! with { EngineVersion = CameraExperiment.PixelAreaEngineVersion }
+        });
         Assert.Equal(64, a.PhotoElectrons.Count); Assert.Equal(8, a.Source.Width); Assert.Equal(2, a.Integration!.PixelSamplesPerAxis);
         if (materials) Assert.Equal(256, Assert.Single(a.Integration.Materials!).SampledPixels);
         var path = files.Path("continuous-area.zip"); await app.CameraImaging.SaveExperimentAsync(new(CameraExperiment.FormatIdentifier, 1, a), path);

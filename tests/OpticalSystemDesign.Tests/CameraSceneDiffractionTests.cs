@@ -18,7 +18,9 @@ namespace OpticalSystemDesign.Tests;
 public sealed class CameraSceneDiffractionTests
 {
     [Theory]
-    [InlineData(450)] [InlineData(550)] [InlineData(650)]
+    [InlineData(450)]
+    [InlineData(550)]
+    [InlineData(650)]
     public void AbsoluteSquarePupilMatchesIndependentFraunhoferPeakAndFirstZero(double wavelength)
     {
         const int n = 24; const double z = 1000; const double width = 1;
@@ -95,13 +97,19 @@ public sealed class CameraSceneDiffractionTests
         var json = new System.Text.Json.JsonSerializerOptions { NumberHandling = System.Text.Json.Serialization.JsonNumberHandling.AllowNamedFloatingPointLiterals };
         Assert.Equal(System.Text.Json.JsonSerializer.Serialize(before, json), System.Text.Json.JsonSerializer.Serialize(lens.ToSnapshot(), json));
         Assert.True(a.Image.DetectorPower.TotalPowerWatts < a.Diffraction.CollectedPowerWatts);
-        CameraContinuousSpectrumTests.Record("diffraction-surface-control", new { a.Diffraction, a.Image.DetectorPower.TotalPowerWatts,
-            OutOfFocusPower = outOfFocus.Image.DetectorPower.TotalPowerWatts, ShadowPower = shadow.Image.DetectorPower.TotalPowerWatts });
+        CameraContinuousSpectrumTests.Record("diffraction-surface-control", new
+        {
+            a.Diffraction,
+            a.Image.DetectorPower.TotalPowerWatts,
+            OutOfFocusPower = outOfFocus.Image.DetectorPower.TotalPowerWatts,
+            ShadowPower = shadow.Image.DetectorPower.TotalPowerWatts
+        });
     }
 
     internal static CameraImagingRequest Request(ICameraImagingService service) => CameraScene3DTests.Request(service, 8, 8) with
     {
-        Aberration = CameraAberration.Diffraction, Render3D = new(Diffraction: new(8, 1, 3, 12))
+        Aberration = CameraAberration.Diffraction,
+        Render3D = new(Diffraction: new(8, 1, 3, 12))
     };
 
     [Fact]
@@ -125,9 +133,13 @@ public sealed class CameraSceneDiffractionTests
         Assert.InRange(Math.Abs(a.Image.DetectorPower.TotalPowerWatts / b.Image.DetectorPower.TotalPowerWatts - 1), 0, .005);
         Assert.InRange(b.Image.DetectorPower.TotalPowerWatts / b.Diffraction.CollectedPowerWatts, .75, 1.001);
         Assert.Equal(1, b.Diffraction.SurfaceSamples);
-        CameraContinuousSpectrumTests.Record("traced-airy-shape", new { pitch, FirstZeroRatio = values[11 * 23 + 22] / center,
+        CameraContinuousSpectrumTests.Record("traced-airy-shape", new
+        {
+            pitch,
+            FirstZeroRatio = values[11 * 23 + 22] / center,
             EnergyFraction = b.Image.DetectorPower.TotalPowerWatts / b.Diffraction.CollectedPowerWatts,
-            PupilConvergence = a.Image.DetectorPower.TotalPowerWatts / b.Image.DetectorPower.TotalPowerWatts - 1 });
+            PupilConvergence = a.Image.DetectorPower.TotalPowerWatts / b.Image.DetectorPower.TotalPowerWatts - 1
+        });
     }
 
     [Fact]

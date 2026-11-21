@@ -21,8 +21,13 @@ public sealed record AutonomousDesignStudy
     public static AutonomousDesignStudy Capture(string name, AutonomousSearchCheckpoint? main = null,
         SeedPreparationCheckpoint? preparation = null, ParaxialSeedSearchResult? prepared = null)
     {
-        var result = new AutonomousDesignStudy { Name = name, Main = main, Preparation = preparation,
-            Prepared = main is null && preparation is null ? prepared : null };
+        var result = new AutonomousDesignStudy
+        {
+            Name = name,
+            Main = main,
+            Preparation = preparation,
+            Prepared = main is null && preparation is null ? prepared : null
+        };
         result = result with { SourceFingerprint = Fingerprint(result) };
         Validate(result);
         return result;
@@ -97,18 +102,41 @@ public sealed record AutonomousDesignReview(AutonomousDesignStudy Study, Immutab
         }
         var prepared = study.Prepared ?? study.Preparation?.Result;
         if (prepared is null && study.Preparation is { Spc: { } partialSpc } spcCheckpoint)
-            prepared = new() { SourcePlan = spcCheckpoint.Plan, Options = spcCheckpoint.Options, ProtocolFingerprint = spcCheckpoint.ProtocolFingerprint,
-                Termination = ParaxialSeedTermination.Cancelled, Work = spcCheckpoint.Consumed,
-                Spc = new() { Algorithm = "initial-structure-spc-preparation-v1", ProtocolFingerprint = spcCheckpoint.ProtocolFingerprint,
-                    StopReason = spcCheckpoint.Status.ToString(), Work = spcCheckpoint.Consumed, Parents = partialSpc.Parents, Branches = partialSpc.Branches } };
+            prepared = new()
+            {
+                SourcePlan = spcCheckpoint.Plan,
+                Options = spcCheckpoint.Options,
+                ProtocolFingerprint = spcCheckpoint.ProtocolFingerprint,
+                Termination = ParaxialSeedTermination.Cancelled,
+                Work = spcCheckpoint.Consumed,
+                Spc = new()
+                {
+                    Algorithm = "initial-structure-spc-preparation-v1",
+                    ProtocolFingerprint = spcCheckpoint.ProtocolFingerprint,
+                    StopReason = spcCheckpoint.Status.ToString(),
+                    Work = spcCheckpoint.Consumed,
+                    Parents = partialSpc.Parents,
+                    Branches = partialSpc.Branches
+                }
+            };
         if (prepared is null && study.Preparation is { Mode: not "Cold", EngineState: { } saved } partial)
         {
             // Decode only completed evidence already present in this schema-1 snapshot.
             // Never call Run/Result/final validation to make an unfinished record look complete.
-            prepared = new() { SourcePlan = partial.Plan, Options = partial.Options, ProtocolFingerprint = partial.ProtocolFingerprint,
-                Termination = ParaxialSeedTermination.Cancelled, Work = partial.Consumed, Attempts = Array<ParaxialSeedAttempt>("attempts") };
-            if (partial.Mode == "Retrieval") prepared = prepared with { Retrieval = new()
-            { LibraryFingerprint = ContentFingerprint.Compute(partial.Options.Retrieval!.Library), StopReason = partial.Status.ToString(), Trials = Array<LensRetrievalTrial>("trials") } };
+            prepared = new()
+            {
+                SourcePlan = partial.Plan,
+                Options = partial.Options,
+                ProtocolFingerprint = partial.ProtocolFingerprint,
+                Termination = ParaxialSeedTermination.Cancelled,
+                Work = partial.Consumed,
+                Attempts = Array<ParaxialSeedAttempt>("attempts")
+            };
+            if (partial.Mode == "Retrieval") prepared = prepared with
+            {
+                Retrieval = new()
+                { LibraryFingerprint = ContentFingerprint.Compute(partial.Options.Retrieval!.Library), StopReason = partial.Status.ToString(), Trials = Array<LensRetrievalTrial>("trials") }
+            };
             if (partial.Mode == "Competition")
             {
                 var items = saved.TryGetProperty("candidates", out var data) ? data.EnumerateArray().Select(item =>
@@ -118,12 +146,24 @@ public sealed record AutonomousDesignReview(AutonomousDesignStudy Study, Immutab
                         item.GetProperty("topology").Deserialize<DesignTopology>(AutonomousDesignStudyFiles.Json),
                         item.GetProperty("completedStages").GetInt32(), item.GetProperty("assessment").Deserialize<TopologyAssessment>(AutonomousDesignStudyFiles.Json),
                         item.GetProperty("work").Deserialize<AutonomousSearchWork>(AutonomousDesignStudyFiles.Json)!)).ToImmutableArray() : [];
-                prepared = prepared with { Competition = new() { ProtocolFingerprint = partial.ProtocolFingerprint, StopReason = partial.Status.ToString(),
-                    Candidates = items, Rounds = Array<StructureCompetitionRound>("rounds"), SelectedIds = Array<string>("activeIds") } };
+                prepared = prepared with
+                {
+                    Competition = new()
+                    {
+                        ProtocolFingerprint = partial.ProtocolFingerprint,
+                        StopReason = partial.Status.ToString(),
+                        Candidates = items,
+                        Rounds = Array<StructureCompetitionRound>("rounds"),
+                        SelectedIds = Array<string>("activeIds")
+                    }
+                };
             }
-            if (partial.Mode == "Evolution") prepared = prepared with { Evolution = new("initial-structure-evolution-v1", partial.ProtocolFingerprint,
+            if (partial.Mode == "Evolution") prepared = prepared with
+            {
+                Evolution = new("initial-structure-evolution-v1", partial.ProtocolFingerprint,
                 partial.Status.ToString(), Array<StructureEvolutionParent>("parents"), Array<StructureEvolutionTrial>("trials"),
-                Array<QualifiedEvolutionDesign>("archive"), [], Array<StructurePhaseCost>("costs")) };
+                Array<QualifiedEvolutionDesign>("archive"), [], Array<StructurePhaseCost>("costs"))
+            };
             ImmutableArray<T> Array<T>(string name) => saved.TryGetProperty(name, out var value)
                 ? value.Deserialize<ImmutableArray<T>>(AutonomousDesignStudyFiles.Json) : [];
         }
@@ -236,7 +276,7 @@ public sealed record AutonomousDesignReview(AutonomousDesignStudy Study, Immutab
                 // A recorded transition/phase assessment keeps its own original exploratory permissions.
                 // They are used for read-only identity checks, never substituted into the task or formal acceptance.
                 var compiled = TopologyCompiler.Compile(candidate.Topology, allowIntermediate ? assessment.StructuralConstraints : study.Plan.Constraints);
-                if (assessment.OpticFingerprint != compiled.OpticFingerprint
+                if (!compiled.MatchesOpticFingerprint(assessment.OpticFingerprint)
                     || !allowIntermediate && !original
                     || assessment.MeetsTargets && (!assessment.Completed || !assessment.Violations.IsEmpty || assessment.Fields.IsEmpty)
                     || !TopologyValidator.MatchesProtocol(compiled, allowIntermediate ? assessment.Targets : study.Plan.Targets, assessment.ProtocolFingerprint))

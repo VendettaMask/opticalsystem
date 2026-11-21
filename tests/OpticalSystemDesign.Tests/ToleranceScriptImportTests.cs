@@ -58,7 +58,9 @@ public sealed class ToleranceScriptImportTests
             Assert.Equal(new[] { 2, 6 }, result.Compensators.Select(row => row.SurfaceNumber));
             var options = TolerancingPanel.ApplyScriptOptions(TolerancingRunWindow.DefaultOptions() with
             {
-                Criterion = ToleranceCriterion.Mtf, YieldLimit = .4, Mode = ToleranceAnalysisMode.InverseLimit
+                Criterion = ToleranceCriterion.Mtf,
+                YieldLimit = .4,
+                Mode = ToleranceAnalysisMode.InverseLimit
             }, result);
             Assert.Equal(0, options.YieldLimit);
             Assert.Equal(ToleranceAnalysisMode.Sensitivity, options.Mode);

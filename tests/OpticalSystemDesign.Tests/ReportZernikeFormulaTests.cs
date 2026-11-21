@@ -1,8 +1,8 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
+using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.Application.Services;
 using OpticalSystemDesign.Core.Analysis;
-using OpticalSystemDesign.App.Services;
 using SkiaSharp;
 
 namespace OpticalSystemDesign.Tests;
@@ -53,20 +53,20 @@ public sealed class ReportZernikeFormulaTests
     public void PublishedPolynomialMatchesTheActualBasisIncludingAnnularNormalization(bool standard, bool annular, double epsilon)
     {
         for (var n = 0; n <= 8; n++)
-        for (var m = -n; m <= n; m += 2)
-        {
-            var expression = ZernikeFitEngine.PolynomialExpression(n, m, standard, annular, epsilon);
-            var c = new[] { new ZernikeCoefficient(1, n, m, 1) };
-            foreach (var fraction in new[] { .15, .45, .85 })
+            for (var m = -n; m <= n; m += 2)
             {
-                var radius = epsilon + (1 - epsilon) * fraction; const double theta = .43;
-                var expected = annular ? ZernikeFitEngine.EvaluateAnnular(c, radius * Math.Cos(theta), radius * Math.Sin(theta), epsilon)
-                    : standard ? ZernikeFitEngine.EvaluateStandard(c, radius * Math.Cos(theta), radius * Math.Sin(theta))
-                    : ZernikeFitEngine.Evaluate(c, radius * Math.Cos(theta), radius * Math.Sin(theta));
-                var actual = EvaluateExpression(expression, radius, theta, epsilon);
-                Assert.True(Math.Abs(actual - expected) < 2e-8, $"{expression}: {actual:G16} != {expected:G16}");
+                var expression = ZernikeFitEngine.PolynomialExpression(n, m, standard, annular, epsilon);
+                var c = new[] { new ZernikeCoefficient(1, n, m, 1) };
+                foreach (var fraction in new[] { .15, .45, .85 })
+                {
+                    var radius = epsilon + (1 - epsilon) * fraction; const double theta = .43;
+                    var expected = annular ? ZernikeFitEngine.EvaluateAnnular(c, radius * Math.Cos(theta), radius * Math.Sin(theta), epsilon)
+                        : standard ? ZernikeFitEngine.EvaluateStandard(c, radius * Math.Cos(theta), radius * Math.Sin(theta))
+                        : ZernikeFitEngine.Evaluate(c, radius * Math.Cos(theta), radius * Math.Sin(theta));
+                    var actual = EvaluateExpression(expression, radius, theta, epsilon);
+                    Assert.True(Math.Abs(actual - expected) < 2e-8, $"{expression}: {actual:G16} != {expected:G16}");
+                }
             }
-        }
     }
 
     // Independent parsing checks that the published expression, rather than an internal descriptor, is numerically usable.

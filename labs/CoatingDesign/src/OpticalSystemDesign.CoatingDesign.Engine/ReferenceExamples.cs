@@ -35,12 +35,20 @@ public static class ReferenceExamples
         // Reference designs declare no merit function or acceptance targets. Keep the product's
         // existing target defaults as editable local comparison targets, without asserting a pass.
         var baseline = Examples.Create(kind);
-        var result = baseline with { Id = Guid.NewGuid(), Name = design.Name,
+        var result = baseline with
+        {
+            Id = Guid.NewGuid(),
+            Name = design.Name,
             Target = baseline.Target with { CenterNm = design.ReferenceWavelength, MaximumLayers = Math.Max(baseline.Target.MaximumLayers, design.FrontLayers.Length) },
-            IncidentId = design.IncidentMedium, SubstrateId = design.Substrate.Material, LowId = low, HighId = high,
-            Materials = materials, Layers = design.FrontLayers.Select(l => new FilmLayer(l.Material, l.Thickness, !l.Locked)).ToArray(),
+            IncidentId = design.IncidentMedium,
+            SubstrateId = design.Substrate.Material,
+            LowId = low,
+            HighId = high,
+            Materials = materials,
+            Layers = design.FrontLayers.Select(l => new FilmLayer(l.Material, l.Thickness, !l.Locked)).ToArray(),
             ReferenceExample = new(design.Id, SourceCommit, design.Name, design.Notes, design.Substrate.Thickness,
-                design.ExitMedium, design.SurfaceMode, design.MfEvalMode) };
+                design.ExitMedium, design.SurfaceMode, design.MfEvalMode)
+        };
         result.Validate(); return result;
     }
     private static MaterialSnapshot Capture(SourceMaterial m)
@@ -57,7 +65,7 @@ public static class ReferenceExamples
         var source = $"TFStudio {SourceCommit} / materialDatabase.js；{m.Description}";
         if (tabulated || m.KTable.Length > 0) source += "；PCHIP，域外延用端点（非实测）";
         return MaterialLibrary.Capture(material, source, m.RangeNm[0], m.RangeNm[1]) with
-            { Id = m.Id, HoldTabulatedEndpoints = tabulated, DisplayColor = m.Color };
+        { Id = m.Id, HoldTabulatedEndpoints = tabulated, DisplayColor = m.Color };
     }
     private sealed record SourceData(SourceMaterial[] Materials, SourceDesign[] Examples);
     private sealed record SourceMaterial(string Id, string Name, string Description, string Color, double[] RangeNm,

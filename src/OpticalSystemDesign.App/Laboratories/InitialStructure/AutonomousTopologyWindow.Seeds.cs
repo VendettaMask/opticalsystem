@@ -1,5 +1,5 @@
-using Avalonia.Controls;
 using System.Collections.Immutable;
+using Avalonia.Controls;
 using Avalonia.Threading;
 using OpticalSystemDesign.App.Services;
 using OpticalSystemDesign.InitialStructure.Contracts;
@@ -108,16 +108,16 @@ public sealed partial class AutonomousTopologyWindow
         var plan = ReadPlan();
         var options = ReadSeedOptions(plan.Options.SeedPreparation ?? new());
         plan = plan with { Options = plan.Options with { SeedPreparation = options } };
-        var generation=++_generation;
+        var generation = ++_generation;
         try
         {
             await _session.RunAsync(plan, false, _ => { }, preparationProgress: (stage, functions) => Dispatcher.UIThread.Post(() =>
             {
-                if (!_closed&&generation==_generation) _status.Text = UiLocalization.Text(options.Spc is not null ? "正在准备SPC分支" : options.ColdStart is not null ? "正在冷启动构造与补偿"
+                if (!_closed && generation == _generation) _status.Text = UiLocalization.Text(options.Spc is not null ? "正在准备SPC分支" : options.ColdStart is not null ? "正在冷启动构造与补偿"
                     : options.Retrieval is not null ? "正在检索镜头库" : "正在准备一阶起点") + $" · {stage} · {functions}";
             }), prepareOnly: true);
         }
-        finally{_generation++;}
+        finally { _generation++; }
         _draft = plan;
         if (_session.PreparationCheckpoint is { Stage: "Finished", ContinueIntoMain: false })
             await PresentPreparedDraftAsync();
@@ -158,11 +158,23 @@ public sealed partial class AutonomousTopologyWindow
         if (number.Value is not { } seconds || !decimal.TryParse(number.Text, out var text) || text != seconds)
             throw new ArgumentException(UiLocalization.Text("请填写有效数字"));
         if (_choices["AutonomousSpc"].IsChecked == true)
-            return original with { Spc = (original.Spc ?? new()) with { MaximumGradientEvaluations = Whole("AutonomousSpcGradients") },
-                ColdStart = null, Retrieval = null, Evolution = null, Competition = null, Generation = null, ImageScreening = null, FixedStopRecoveryVersion = null,
-                MaximumTracedRays = Whole("AutonomousSpcRays"), MaximumStarts = Whole("AutonomousSeedStarts"), RetainedSeeds = Whole("AutonomousSeedRetained"),
-                MaximumFunctionEvaluations = Whole("AutonomousSeedFunctions"), MaximumEvaluationsPerStart = Whole("AutonomousSeedPerStart"),
-                TimeLimit = seconds == (decimal)original.TimeLimit.TotalSeconds ? original.TimeLimit : TimeSpan.FromSeconds((double)seconds) };
+            return original with
+            {
+                Spc = (original.Spc ?? new()) with { MaximumGradientEvaluations = Whole("AutonomousSpcGradients") },
+                ColdStart = null,
+                Retrieval = null,
+                Evolution = null,
+                Competition = null,
+                Generation = null,
+                ImageScreening = null,
+                FixedStopRecoveryVersion = null,
+                MaximumTracedRays = Whole("AutonomousSpcRays"),
+                MaximumStarts = Whole("AutonomousSeedStarts"),
+                RetainedSeeds = Whole("AutonomousSeedRetained"),
+                MaximumFunctionEvaluations = Whole("AutonomousSeedFunctions"),
+                MaximumEvaluationsPerStart = Whole("AutonomousSeedPerStart"),
+                TimeLimit = seconds == (decimal)original.TimeLimit.TotalSeconds ? original.TimeLimit : TimeSpan.FromSeconds((double)seconds)
+            };
         return original with
         {
             Spc = null,

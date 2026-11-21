@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -11,6 +10,7 @@ using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Propagation;
 using OpticalSystemDesign.Core.Raytrace;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 
@@ -50,8 +50,15 @@ public sealed class GridGradientPhaseTests
     }
 
     [Theory]
-    [InlineData(0)] [InlineData(1)] [InlineData(2)] [InlineData(3)]
-    [InlineData(4)] [InlineData(5)] [InlineData(6)] [InlineData(7)] [InlineData(8)]
+    [InlineData(0)]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(3)]
+    [InlineData(4)]
+    [InlineData(5)]
+    [InlineData(6)]
+    [InlineData(7)]
+    [InlineData(8)]
     public void IndependentGridRaysAndPhaseUseTheOriginalRayGates(int caseIndex)
     {
         using var fixture = Fixture(); var f = fixture.RootElement; var c = f.GetProperty("cases")[caseIndex];
@@ -86,8 +93,12 @@ public sealed class GridGradientPhaseTests
                 var code = p.GetProperty("code").GetString();
                 var actual = code switch
                 {
-                    "REAX" => point.X, "REAY" => point.Y, "REAZ" => point.Z,
-                    "REAA" => direction.X, "REAB" => direction.Y, "REAC" => direction.Z,
+                    "REAX" => point.X,
+                    "REAY" => point.Y,
+                    "REAZ" => point.Z,
+                    "REAA" => direction.X,
+                    "REAB" => direction.Y,
+                    "REAC" => direction.Z,
                     "OPTH" => sample.PhaseInclusiveOpticalPathLength!.Value - reference,
                     _ => throw new InvalidDataException(code)
                 };
@@ -115,7 +126,9 @@ public sealed class GridGradientPhaseTests
         }
     }
 
-    [Theory] [InlineData(1)] [InlineData(-1)]
+    [Theory]
+    [InlineData(1)]
+    [InlineData(-1)]
     public void HomogeneousGridPreservesUnitDirectionsAndOpticalPath(int sign)
     {
         var values = new double[6 * 6 * 6 * 11]; for (var i = 0; i < values.Length; i += 11) values[i] = 1.7;

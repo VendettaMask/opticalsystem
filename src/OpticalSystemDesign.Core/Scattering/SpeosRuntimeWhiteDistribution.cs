@@ -17,8 +17,12 @@ internal sealed class SpeosRuntimeWhiteDistribution : IMeasuredBsdfDistribution
         _power = new(points, coordinates, quantity, spectrum, peak);
         // A nonzero reference shape is needed even where the measured spectrum is zero but
         // White Specular supplies power from its declared base wavelength.
-        var flat = spectrum with { RuntimeWhite = false, Lobes = spectrum.Lobes.Select(l => l with
-            { Fractions = Array.AsReadOnly(l.Fractions.Select(_ => l.StoredFraction).ToArray()) }).ToArray() };
+        var flat = spectrum with
+        {
+            RuntimeWhite = false,
+            Lobes = spectrum.Lobes.Select(l => l with
+            { Fractions = Array.AsReadOnly(l.Fractions.Select(_ => l.StoredFraction).ToArray()) }).ToArray()
+        };
         _shape = new(points, coordinates, quantity, flat, peak with { WhiteReferenceNanometers = null });
     }
     public BsdfEnergy Integrate(BsdfContext c) => _power.Integrate(c);

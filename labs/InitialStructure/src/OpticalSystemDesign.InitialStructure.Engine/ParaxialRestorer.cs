@@ -67,16 +67,7 @@ public static class ParaxialRestorer
             if (requests.Any(request => request.SurfaceId == child.Topology.Image.Id
                 || request.Kind is not (OpticalDesignParameterKind.Curvature or OpticalDesignParameterKind.AxialPosition)))
                 throw new ArgumentException("First-order recovery fixes image/reference/stop and releases only permitted lens curvatures or axial positions.");
-            fingerprint = ContentFingerprint.Compute(new
-            {
-                Identity = restoreEnvelope ? "autonomous-paraxial-envelope-v1" : constrainedGeometry ? "autonomous-paraxial-recovery-geometry-v1" : restorePupil ? "autonomous-paraxial-recovery-pupil-v4" : options.UseAutomaticMatrixDerivatives == true ? "autonomous-paraxial-recovery-ad-v2" : "autonomous-paraxial-recovery-v1",
-                Parent = parent.BindingFingerprint,
-                Child = child.BindingFingerprint,
-                requests,
-                targets,
-                options,
-                Reference = "fixed-reference-to-image/y-mm,u-dy-dz/A,f-target*C/child-q0"
-            });
+            fingerprint = ProtocolFingerprint(parent.BindingFingerprint, child.BindingFingerprint, requests, targets, options);
             if (requests.Length > 0)
             {
                 binding = TopologyParameterBinder.Bind(child, requests, exactMechanicalFrame: restoreEnvelope);
@@ -432,6 +423,31 @@ public static class ParaxialRestorer
             return perpendicular > options.RelativeRankTolerance ? 2 : 1;
         }
     }
+
+    public static bool MatchesProtocolFingerprint(CompiledTopology parent, CompiledTopology child,
+        IEnumerable<TopologyVariableRequest> variables, TopologyTargets targets, ParaxialRecoveryOptions options, string fingerprint)
+    {
+        var requests = variables.Take(65).ToImmutableArray();
+        if (ProtocolFingerprint(parent.BindingFingerprint, child.BindingFingerprint, requests, targets, options) == fingerprint) return true;
+        var children = child.HistoricalBindings().ToDictionary(item => (item.Schema, item.RetiredCatalog), item => item.Binding);
+        return parent.HistoricalBindings().Any(item => children.TryGetValue((item.Schema, item.RetiredCatalog), out var binding)
+            && ProtocolFingerprint(item.Binding, binding, requests, targets, options) == fingerprint);
+    }
+
+    private static string ProtocolFingerprint(string parent, string child, ImmutableArray<TopologyVariableRequest> requests,
+        TopologyTargets targets, ParaxialRecoveryOptions options) => ContentFingerprint.Compute(new
+        {
+            Identity = options.FixedStopEnvelopeVersion == 1 ? "autonomous-paraxial-envelope-v1"
+            : options.UseGeometryConstraintTangents == true ? "autonomous-paraxial-recovery-geometry-v1"
+            : options.RestorePupilMagnification == true ? "autonomous-paraxial-recovery-pupil-v4"
+            : options.UseAutomaticMatrixDerivatives == true ? "autonomous-paraxial-recovery-ad-v2" : "autonomous-paraxial-recovery-v1",
+            Parent = parent,
+            Child = child,
+            requests,
+            targets,
+            options,
+            Reference = "fixed-reference-to-image/y-mm,u-dy-dz/A,f-target*C/child-q0"
+        });
 
     private static string ReferenceIdentity(CompiledTopology source) => ContentFingerprint.Compute(new
     {

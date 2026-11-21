@@ -41,8 +41,9 @@ public static class CameraPixelAperture
         var weights = n == 2 ? new[] { .5, .5 }
             : new[] { .17392742256872692869, .32607257743127307131, .32607257743127307131, .17392742256872692869 };
         var half = Math.Sqrt(sampling!.FillFactor) / 2;
-        return Array.AsReadOnly((from y in Enumerable.Range(0, n) from x in Enumerable.Range(0, n)
-            select new CameraPixelQuadratureNode(nodes[x] * half, nodes[y] * half, weights[x] * weights[y])).ToArray());
+        return Array.AsReadOnly((from y in Enumerable.Range(0, n)
+                                 from x in Enumerable.Range(0, n)
+                                 select new CameraPixelQuadratureNode(nodes[x] * half, nodes[y] * half, weights[x] * weights[y])).ToArray());
     }
 
     public static RgbImage Average(RgbImage samples, CameraPixelSampling? sampling)

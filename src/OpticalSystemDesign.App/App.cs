@@ -464,7 +464,7 @@ public sealed class App : Avalonia.Application
         AddDockIconStyles();
         Styles.Add(new BlueThemeStyles());
         Styles.Add(new LumenThemeStyles());
-        Styles.Add(new IsekaiThemeStyles());
+        ThemeApplicationService.InstallSharedStyles(Styles);
         Styles.Add(new BlackHoleDarkThemeStyles());
     }
 

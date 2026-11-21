@@ -63,12 +63,20 @@ public static partial class MonochromeSlantedEdge
         }
         var full = CombineSpectralOtf(otfs, weights);
         var optical = frame.Measurement.Curve.Select((p, i) => p with { Response = full[i] }).ToArray();
-        var integrated = frame.Measurement.Curve.Select((p, i) => p with { Response = full[i]
-            * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * nx) * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * ny) }).ToArray();
-        return frame with { Spectrum = spectrum, ReferenceWavelengthNanometers = reference.Nanometers,
-            FullPupilMtf = Array.AsReadOnly(optical), FullPupilPixelIntegratedMtf = Array.AsReadOnly(integrated),
+        var integrated = frame.Measurement.Curve.Select((p, i) => p with
+        {
+            Response = full[i]
+            * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * nx) * SlantedEdgeSfr.Sinc(p.CyclesPerPixel * ny)
+        }).ToArray();
+        return frame with
+        {
+            Spectrum = spectrum,
+            ReferenceWavelengthNanometers = reference.Nanometers,
+            FullPupilMtf = Array.AsReadOnly(optical),
+            FullPupilPixelIntegratedMtf = Array.AsReadOnly(integrated),
             MaximumSfrFullPupilDifference = frame.Measurement.Curve.Zip(integrated, (a, b) => Math.Abs(a.Response - b.Response)).Max(),
-            MaximumWindowFullPupilDifference = frame.OpticalMtf.Zip(optical, (a, b) => Math.Abs(a.Response - b.Response)).Max() };
+            MaximumWindowFullPupilDifference = frame.OpticalMtf.Zip(optical, (a, b) => Math.Abs(a.Response - b.Response)).Max()
+        };
     }
 
     internal static void AccumulateSpectralPsf(double[,] sum, double[,] band, double weight)

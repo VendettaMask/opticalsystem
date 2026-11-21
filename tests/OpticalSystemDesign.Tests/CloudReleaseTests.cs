@@ -1,6 +1,6 @@
-using OpticalSystemDesign.Validation;
 using System.Diagnostics;
 using System.Text.Json;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.Tests;
 

@@ -36,6 +36,6 @@
 
 Core、App 和数值核查使用同一个 Core SHA-256 `9c73db9d1a606e1f5fa1eafba6a063c1a52b7d9343d2395e9a85c2f22dc64e03`。81 项 Core／App 定向测试和 18 项对照工具测试通过。[Core／App 回执](core-verified.trx) · [对照工具回执](comparison-final.trx)
 
-全量核对沿用原请求指纹及阈值，并逐条保留非通过结果的请求、配置、分析、阻断原因和误差指标。[汇总](summary.json) · [逐镜头](by-lens.csv) · [判定变动](verdict-changes.csv) · [逐项剩余请求](remaining-requests.csv) · [固定光线余项](remaining-fixed-rays.csv)
+全量核对沿用原请求指纹及阈值，并逐条保留非通过结果的请求、配置、分析、阻断原因和误差指标。[汇总](summary.json) · [逐镜头](by-lens.csv) · [判定变动](verdict-changes.csv) · [逐项剩余请求](remaining-requests.csv) · [固定光线余项](../menu-folded-grin/remaining-fixed-rays.csv)
 
 剩余 563 项分别为 25 项接近、67 项差异、415 项不可比和 56 项求值错误。差异较集中的镜头包括 Grid GRIN 原冻结低采样请求 15 项、MEMS 6 项、分光立方体 6 项、反射变焦 5 项。Grid GRIN 的后续收敛参考及独立通过结论继续按各自设置记账。[既有 Grid GRIN 收敛验证](../../2026-11-06/grid-grin-bounded-fft-reference/README.md)

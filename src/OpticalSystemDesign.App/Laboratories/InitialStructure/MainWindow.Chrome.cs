@@ -44,8 +44,12 @@ public sealed partial class MainWindow
         foreach (var action in actions) action.Click += (_, _) => popup.Hide();
         return Named(new DropDownButton
         {
-            Content = title, Flyout = popup, FontSize = DisplayTypography.BodySmall,
-            MinHeight = 34, Padding = new(10, 5), Margin = new(0, 0, 6, 4)
+            Content = title,
+            Flyout = popup,
+            FontSize = DisplayTypography.BodySmall,
+            MinHeight = 34,
+            Padding = new(10, 5),
+            Margin = new(0, 0, 6, 4)
         }, id, title);
     }
 

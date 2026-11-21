@@ -6,8 +6,12 @@ public static partial class ComponentSnapshotFactory
 {
     private static ComponentSnapshot FromModelGlass(ModelGlassMaterial model) => new("model_glass", new()
     {
-        ["nd"] = model.Nd, ["vd"] = model.Vd, ["dpgf"] = model.DPgF,
-        ["varyNd"] = model.VaryNd ? 1 : 0, ["varyVd"] = model.VaryVd ? 1 : 0, ["varyDPgF"] = model.VaryDPgF ? 1 : 0
+        ["nd"] = model.Nd,
+        ["vd"] = model.Vd,
+        ["dpgf"] = model.DPgF,
+        ["varyNd"] = model.VaryNd ? 1 : 0,
+        ["varyVd"] = model.VaryVd ? 1 : 0,
+        ["varyDPgF"] = model.VaryDPgF ? 1 : 0
     }, new() { ["name"] = model.Name, ["protocol"] = ModelGlassMaterial.Protocol });
 
     internal static ModelGlassMaterial ToModelGlass(ComponentSnapshot snapshot)

@@ -12,7 +12,7 @@
 | 傅里叶 MTF 随视场 | 默认 10 至 60 cycles/mm 六个独立输入。单项 0 停用，六项均为 0 时显示零频。旧单频预设保留原频率。20 cycles/mm 单频与多频结果逐点一致。[设置](fourier-mtf-vs-field-settings.png) · [绘图](fourier-mtf-vs-field.png) |
 | 四项 MTF 曲面与场图 | 曲面按选定视场显示双空间频率，场图按固定空间频率扫描 X、Y 视场。场图可固定 0–1 色标，也可按数据范围着色。[三维 FFT](fft-surface-mtf.png) · [二维惠更斯](huygens-surface-mtf.png) · [二维视场 FFT](fft-mtf-map.png) · [二维视场几何](geometric-mtf-map.png) |
 | 二维视场 RMS | 默认 21 × 21 个波前采样点形成 20 × 20 个完整色块。颜色取相邻四个节点的平均，原始采样点仍可读。MS-L7 自动半宽为 10.6066 mm。[绘图](rms-field-map.png) |
-| 公差操作数 | 在主窗口用 MS-L7 运行公差向导，验证生成的 73 条操作数在 DataGrid 模板中显示分类底色。[编辑器](tolerance-wizard-docked-light.png) |
+| 公差操作数 | 在主窗口用 MS-L7 运行公差向导，验证生成的 73 条操作数在 DataGrid 模板中显示分类底色。[编辑器](../../2026-11-09/tolerance-wizard-ribbon/tolerance-wizard-docked-light.png) |
 
 新增四项 MTF 的比较工具条目记录二维网格类型及原生分析身份，当前无数值比较适配器。原有 95 支菜单镜头冻结验收保持独立。本页截图为 MS-L7 定向复核。
 

@@ -47,8 +47,17 @@ public sealed partial class CameraImagingWindow
         var fields = new WrapPanel { Orientation = Orientation.Horizontal };
         void Number(string key, string label, int value, int min, int max)
         {
-            var input = new CameraNumberInput { Name = "camera-roi-" + key, Value = value, Minimum = min, Maximum = max,
-                Increment = 1, IntegerOnly = true, FormatString = "0", Width = 90 };
+            var input = new CameraNumberInput
+            {
+                Name = "camera-roi-" + key,
+                Value = value,
+                Minimum = min,
+                Maximum = max,
+                Increment = 1,
+                IntegerOnly = true,
+                FormatString = "0",
+                Width = 90
+            };
             AutomationProperties.SetName(input, label); _sceneRoiNumbers.Add(key, input);
             fields.Children.Add(new StackPanel { Margin = new Thickness(0, 0, 12, 6), Spacing = 3, Children = { new TextBlock { Text = label }, input } });
         }
@@ -81,16 +90,23 @@ public sealed partial class CameraImagingWindow
         _sceneRoiSave.Click += async (_, _) =>
         {
             var report = _sceneRoiReport; if (report is null) return;
-            var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions { Title = "保存多 ROI 测量记录", SuggestedFileName = "camera.scene-sfr-rois.json",
-                FileTypeChoices = [new("ROI 测量记录") { Patterns = ["*.scene-sfr-rois.json"] }] });
+            var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+            {
+                Title = "保存多 ROI 测量记录",
+                SuggestedFileName = "camera.scene-sfr-rois.json",
+                FileTypeChoices = [new("ROI 测量记录") { Patterns = ["*.scene-sfr-rois.json"] }]
+            });
             if (file is null || _closed) return;
             try { await _application.CameraImaging.SaveSceneLinearRoisAsync(report, file.Path.LocalPath); }
             catch (Exception ex) { if (!_closed) _sceneRoiInfo.Text = "保存失败：" + ex.Message; }
         };
         _sceneRoiOpen.Click += async (_, _) =>
         {
-            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions { Title = "打开对应完整线性图的 ROI 记录",
-                FileTypeFilter = [new("ROI 测量记录") { Patterns = ["*.scene-sfr-rois.json"] }] });
+            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = "打开对应完整线性图的 ROI 记录",
+                FileTypeFilter = [new("ROI 测量记录") { Patterns = ["*.scene-sfr-rois.json"] }]
+            });
             if (files.Count > 0) await OpenSceneRoisAsync(files[0].Path.LocalPath);
         };
         var png = new Button { Content = "PNG", Name = "camera-roi-png" };
@@ -100,14 +116,22 @@ public sealed partial class CameraImagingWindow
             try
             {
                 using var bitmap = CaptureSceneRoiImage();
-                var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions { Title = "导出 ROI 曲线", SuggestedFileName = "scene-rois.png",
-                    DefaultExtension = "png", FileTypeChoices = [new("PNG") { Patterns = ["*.png"] }] });
+                var file = await StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+                {
+                    Title = "导出 ROI 曲线",
+                    SuggestedFileName = "scene-rois.png",
+                    DefaultExtension = "png",
+                    FileTypeChoices = [new("PNG") { Patterns = ["*.png"] }]
+                });
                 if (file is not null) AnalysisPanel.SavePlotImage(bitmap, file.Path.LocalPath);
             }
             catch (Exception ex) { if (!_closed) _sceneRoiInfo.Text = "导出失败：" + ex.Message; }
         };
         UpdateSceneRoiControls();
-        return Scroll(new StackPanel { Spacing = 10, Children =
+        return Scroll(new StackPanel
+        {
+            Spacing = 10,
+            Children =
         {
             LaboratoryPresentation.Commands(_sceneRoiTask, _sceneRoiAllTasks, _sceneRoiRun, _sceneRoiCancel, _sceneRoiSave, _sceneRoiOpen),
             _sceneRoiInfo,
@@ -115,7 +139,8 @@ public sealed partial class CameraImagingWindow
             _sceneRoiImage, _sceneRoiList,
             LaboratoryPresentation.Commands(_sceneRoiName, _sceneRoiDirection, _sceneRoiAdd, _sceneRoiUpdate, _sceneRoiDelete), fields, _sceneRoiDetail,
             LaboratoryPresentation.Commands(_sceneRoiProfile, png, AnalysisPanel.CreateCurveWidthButton(_sceneRoiGraph)), _sceneRoiGraph
-        } });
+        }
+        });
     }
 
     private void EditSceneRoi(bool update)

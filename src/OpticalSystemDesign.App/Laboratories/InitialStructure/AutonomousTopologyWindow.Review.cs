@@ -21,8 +21,14 @@ public sealed partial class AutonomousTopologyWindow
     private readonly TextBlock _reviewOverview = Named(Text("载入记录后查看准备过程、原规格验收和淘汰原因。"), "AutonomousReviewOverview");
     private readonly TextBox _reviewName = Named(new TextBox { PlaceholderText = "方案名称", MaxLength = 160 }, "AutonomousReviewName");
     private readonly ComboBox _portfolioEntries = Named(new ComboBox { MinWidth = 160, MaxWidth = 360 }, "AutonomousPortfolioEntries");
-    private readonly TextBox _reviewDetails = Named(new TextBox { IsReadOnly = true, AcceptsReturn = true,
-        TextWrapping = Avalonia.Media.TextWrapping.Wrap, MinHeight = 140, MaxHeight = 300 }, "AutonomousReviewDetails");
+    private readonly TextBox _reviewDetails = Named(new TextBox
+    {
+        IsReadOnly = true,
+        AcceptsReturn = true,
+        TextWrapping = Avalonia.Media.TextWrapping.Wrap,
+        MinHeight = 140,
+        MaxHeight = 300
+    }, "AutonomousReviewDetails");
     private DataGrid? _reviewCandidates, _reviewDecisions;
     private TabControl? _autonomousTabs;
     private TabItem? _structureTab;

@@ -8,7 +8,8 @@ namespace OpticalSystemDesign.Tests;
 public sealed class SfrPupilReferenceTests
 {
     [Theory]
-    [InlineData(.023, -.017)] [InlineData(-.031, .011)]
+    [InlineData(.023, -.017)]
+    [InlineData(-.031, .011)]
     public void PhysicalChirpWindowMatchesIndependentComplexSum(double dx, double dy)
     {
         const int n = 7, m = 17;
@@ -25,7 +26,9 @@ public sealed class SfrPupilReferenceTests
     }
 
     [Theory]
-    [InlineData(1, 0)] [InlineData(0, -1)] [InlineData(.6, -.8)]
+    [InlineData(1, 0)]
+    [InlineData(0, -1)]
+    [InlineData(.6, -.8)]
     public void FullSquarePupilHasIndependentTriangularOverlap(double nx, double ny)
     {
         const int n = 8;
@@ -87,8 +90,14 @@ public sealed class SfrPupilReferenceTests
     }
 
     [Theory]
-    [InlineData(true, 1)] [InlineData(true, 2)] [InlineData(true, 3)]
-    [InlineData(false, 1)] [InlineData(false, 2)] [InlineData(false, 3)] [InlineData(false, 4)] [InlineData(false, 5)]
+    [InlineData(true, 1)]
+    [InlineData(true, 2)]
+    [InlineData(true, 3)]
+    [InlineData(false, 1)]
+    [InlineData(false, 2)]
+    [InlineData(false, 3)]
+    [InlineData(false, 4)]
+    [InlineData(false, 5)]
     public void ActualLensFieldsAgreeWithIndependentFullPupilAndConverge(bool gauss, int field)
     {
         var optic = OpticalFormatCatalog.Import(File.ReadAllText(gauss ? DoubleGaussSfrTests.StandardLens : SlantedEdgeSfrTests.ReferenceLens), ".zmx");
@@ -102,14 +111,37 @@ public sealed class SfrPupilReferenceTests
         {
             Directory.CreateDirectory(dir);
             File.WriteAllText(Path.Combine(dir, $"{(gauss ? "double-gauss" : "123456")}-field-{field}.json"),
-                System.Text.Json.JsonSerializer.Serialize(new { run.Baseline.Settings, run.SamplingConverged,
-                    run.Baseline.Measurement.Mtf50CyclesPerPixel, run.Baseline.MaximumSfrReferenceDifference,
-                    run.Baseline.MaximumSfrFullPupilDifference, run.Baseline.MaximumWindowFullPupilDifference, run.Baseline.RelativePsfReadoutIntegral,
-                    Curve = run.Baseline.Measurement.Curve.Select((p, i) => new { p.CyclesPerPixel, p.CyclesPerMillimeter, Sfr = p.Response,
-                        WindowMtf = run.Baseline.OpticalMtf[i].Response, WindowPixelMtf = run.Baseline.PixelIntegratedMtf[i].Response,
-                        FullMtf = run.Baseline.FullPupilMtf![i].Response, FullPixelMtf = run.Baseline.FullPupilPixelIntegratedMtf![i].Response }),
-                    Sampling = run.Sampling.Select(c => new { c.Axis, c.WithinCriteria, c.MaximumImageDifference, c.MaximumSfrDifference,
-                        c.MaximumMtfDifference, c.MaximumFullPupilMtfDifference, c.RelativeReadoutIntegralDifference, c.Message }) },
+                System.Text.Json.JsonSerializer.Serialize(new
+                {
+                    run.Baseline.Settings,
+                    run.SamplingConverged,
+                    run.Baseline.Measurement.Mtf50CyclesPerPixel,
+                    run.Baseline.MaximumSfrReferenceDifference,
+                    run.Baseline.MaximumSfrFullPupilDifference,
+                    run.Baseline.MaximumWindowFullPupilDifference,
+                    run.Baseline.RelativePsfReadoutIntegral,
+                    Curve = run.Baseline.Measurement.Curve.Select((p, i) => new
+                    {
+                        p.CyclesPerPixel,
+                        p.CyclesPerMillimeter,
+                        Sfr = p.Response,
+                        WindowMtf = run.Baseline.OpticalMtf[i].Response,
+                        WindowPixelMtf = run.Baseline.PixelIntegratedMtf[i].Response,
+                        FullMtf = run.Baseline.FullPupilMtf![i].Response,
+                        FullPixelMtf = run.Baseline.FullPupilPixelIntegratedMtf![i].Response
+                    }),
+                    Sampling = run.Sampling.Select(c => new
+                    {
+                        c.Axis,
+                        c.WithinCriteria,
+                        c.MaximumImageDifference,
+                        c.MaximumSfrDifference,
+                        c.MaximumMtfDifference,
+                        c.MaximumFullPupilMtfDifference,
+                        c.RelativeReadoutIntegralDifference,
+                        c.Message
+                    })
+                },
                     new System.Text.Json.JsonSerializerOptions { WriteIndented = true }));
         }
     }

@@ -23,7 +23,9 @@ public sealed class NonSequentialPolarizationTests
     private static NonSequentialDocumentTraceResult Trace(NonSequentialDocument doc) => new NonSequentialDocumentTracer().Trace(doc, Optic.CreateBlank().Materials);
 
     [Theory]
-    [InlineData(0, 2)] [InlineData(180, 0)] [InlineData(90, 1)]
+    [InlineData(0, 2)]
+    [InlineData(180, 0)]
+    [InlineData(90, 1)]
     public void CoherentRaysRetainPhaseAndDeclaredPixelNormalization(double phase, double expected)
     {
         var doc = Doc(Ray("laser", new(false, 1, 0)), Ray("laser", new(false, 1, 0), phase), Detector());
@@ -62,10 +64,22 @@ public sealed class NonSequentialPolarizationTests
     {
         const double angle = .01; var k = new Vector3D(Math.Sin(angle), 0, Math.Cos(angle));
         var first = Ray("wave", new(false, 0, 1), x: -.1); var second = Ray("wave", new(false, 0, 1), x: .1);
-        first = first with { Parameters = ((SourceRayParameters)first.Parameters) with { LocalDirection = k,
-            Physics = new(new(false, 0, 1), "wave", -360 * .1 * Math.Sin(angle) / .00055) } };
-        second = second with { Parameters = ((SourceRayParameters)second.Parameters) with { LocalDirection = k,
-            Physics = new(new(false, 0, 1), "wave", 360 * .1 * Math.Sin(angle) / .00055) } };
+        first = first with
+        {
+            Parameters = ((SourceRayParameters)first.Parameters) with
+            {
+                LocalDirection = k,
+                Physics = new(new(false, 0, 1), "wave", -360 * .1 * Math.Sin(angle) / .00055)
+            }
+        };
+        second = second with
+        {
+            Parameters = ((SourceRayParameters)second.Parameters) with
+            {
+                LocalDirection = k,
+                Physics = new(new(false, 0, 1), "wave", 360 * .1 * Math.Sin(angle) / .00055)
+            }
+        };
         var frame = Trace(Doc(first, second, Detector())).Detectors.Single();
         Assert.Equal(2, frame.CoherentByWavelength![1].PowerWatts[0], 9);
     }
@@ -100,15 +114,20 @@ public sealed class NonSequentialPolarizationTests
     }
 
     [Theory]
-    [InlineData(true)] [InlineData(false)]
+    [InlineData(true)]
+    [InlineData(false)]
     public void BareDielectricAtBrewsterAngleUsesPolarizedFluxAndConservesEnergy(bool pPolarized)
     {
         var materials = Optic.CreateBlank().Materials; const double n = 1.5; materials.Register(new OpticalSystemDesign.Core.Materials.ConstantIndexMaterial("ClearGlass", n));
         var theta = Math.Atan(n); var ray = Ray("beam", new(false, pPolarized ? 1 : 0, pPolarized ? 0 : 1));
-        ray = ray with { LocalCoordinateSystem = new(new(0, 0, -10)), Parameters = ((SourceRayParameters)ray.Parameters) with
-            { LocalDirection = new(Math.Sin(theta), 0, Math.Cos(theta)) } };
+        ray = ray with
+        {
+            LocalCoordinateSystem = new(new(0, 0, -10)),
+            Parameters = ((SourceRayParameters)ray.Parameters) with
+            { LocalDirection = new(Math.Sin(theta), 0, Math.Cos(theta)) }
+        };
         var boundary = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.PlaneRectangle) with
-            { Parameters = new PlaneRectangleParameters(100, 100, NonSequentialSurfaceBehavior.Refractive, "Air", "ClearGlass") };
+        { Parameters = new PlaneRectangleParameters(100, 100, NonSequentialSurfaceBehavior.Refractive, "Air", "ClearGlass") };
         var detector = Detector() with { Parameters = new DetectorRectangleParameters(100, 100, 1, 1) };
         var doc = Doc(ray, boundary, detector); var trace = new NonSequentialDocumentTracer().Trace(doc, materials);
         var rs = (1 - n * n) / (1 + n * n); var expected = pPolarized ? 1 : 1 - rs * rs;
@@ -124,7 +143,7 @@ public sealed class NonSequentialPolarizationTests
         var theta = Math.PI / 3; var ray = Ray("beam", new(false, 1, 1)) with { LocalCoordinateSystem = new(new(0, 0, -1)) };
         ray = ray with { Parameters = ((SourceRayParameters)ray.Parameters) with { LocalDirection = new(Math.Sin(theta), 0, Math.Cos(theta)) } };
         var boundary = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.PlaneRectangle) with
-            { Parameters = new PlaneRectangleParameters(100, 100, NonSequentialSurfaceBehavior.Refractive, "ClearGlass", "Air") };
+        { Parameters = new PlaneRectangleParameters(100, 100, NonSequentialSurfaceBehavior.Refractive, "ClearGlass", "Air") };
         var detector = Detector() with { LocalCoordinateSystem = new(new(0, 0, -10)), Parameters = new DetectorRectangleParameters(100, 100, 1, 1, FrontOnly: false) };
         var doc = new NonSequentialDocument("TIR", [new("d", 550, 1, true)], [ray, boundary, detector], "ClearGlass", new(UsePolarization: true, CoherentDetection: true));
         var result = new NonSequentialDocumentTracer().Trace(doc, materials); var frame = result.Detectors.Single();
@@ -156,8 +175,11 @@ public sealed class NonSequentialPolarizationTests
     public void PolychromaticSourceSamplesDeclaredWeightsWithoutCrossWavelengthInterference()
     {
         var ray = NonSequentialObjectDefinition.Create(NonSequentialObjectKind.SourceRectangle) with
-        { Parameters = new SourceRectangleParameters(.1, .1, 0, WavelengthNumber: 0, AnalysisRayCount: 10000,
-            AngularDistribution: NonSequentialSurfaceSourceAngularDistribution.VirtualPoint) { Physics = new(new(false, 1, 0), "laser") } };
+        {
+            Parameters = new SourceRectangleParameters(.1, .1, 0, WavelengthNumber: 0, AnalysisRayCount: 10000,
+            AngularDistribution: NonSequentialSurfaceSourceAngularDistribution.VirtualPoint)
+            { Physics = new(new(false, 1, 0), "laser") }
+        };
         var doc = new NonSequentialDocument("spectrum", [new("a", 450, 1, true), new("zero", 550, 0, false), new("b", 650, 3, false)],
             [ray, Detector()], traceSettings: new(UsePolarization: true, CoherentDetection: true));
         var result = Trace(doc); var frame = result.Detectors.Single();
@@ -168,7 +190,8 @@ public sealed class NonSequentialPolarizationTests
     }
 
     [Theory]
-    [InlineData(false)] [InlineData(true)]
+    [InlineData(false)]
+    [InlineData(true)]
     public void PolarizedMultilayerAssemblyPreservesReciprocalTransmissionWhenReversingTheFilm(bool unpolarized)
     {
         var optic = OpticalAssemblyTests.Prescription(glasses: 1);

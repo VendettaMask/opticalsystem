@@ -1,11 +1,11 @@
-using OpticalSystemDesign.Validation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using OpticalSystemDesign.Core.Raytrace;
-using OpticalSystemDesign.InitialStructure.Engine.Optimization;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
+using OpticalSystemDesign.InitialStructure.Engine.Optimization;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
@@ -137,7 +137,7 @@ public sealed class ParaxialGeometryRecoveryTests
     }
 
     private static async Task<AutonomousSearchCheckpoint> Recorded() => await new AutonomousSearchCheckpointStore().LoadAsync(
-        Path.Combine(Root(), "validation/rechecks/2026-10-27/autonomous-recovery-progress/recovery-True-resumed.autonomous.json"));
+        EvidenceFiles.Resolve(Path.Combine(Root(), "validation/rechecks/2026-10-27/autonomous-recovery-progress/recovery-True-resumed.autonomous.json")));
     private static string Root()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);

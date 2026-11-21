@@ -10,8 +10,8 @@ using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Materials;
 using OpticalSystemDesign.Core.Multiconfig;
 using OpticalSystemDesign.Core.Optimization;
-using OpticalSystemDesign.Core.Propagation;
 using OpticalSystemDesign.Core.Phase;
+using OpticalSystemDesign.Core.Propagation;
 using OpticalSystemDesign.Core.Serialization;
 
 namespace OpticalSystemDesign.Core.FileIO;

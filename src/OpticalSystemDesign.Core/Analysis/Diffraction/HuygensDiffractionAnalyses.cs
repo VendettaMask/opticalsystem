@@ -456,9 +456,12 @@ public sealed class HuygensMtfAnalysis : BaseAnalysis
                 // transform the sum. Combining already-modulated color curves
                 // loses OTF phase and lateral color (and lacks complex OTFs).
                 PsfResult psf;
-                try { psf = HuygensPsfSynthesis.Compute(Optic, field, wavelengths,
+                try
+                {
+                    psf = HuygensPsfSynthesis.Compute(Optic, field, wavelengths,
                     _numRays, _imageSize, sharedPixelPitchMillimeters, afocalIntegration: AfocalIntegration,
-                    maximumSamplingOperations: remainingSamplingOperations).Psf; }
+                    maximumSamplingOperations: remainingSamplingOperations).Psf;
+                }
                 catch (AnalysisDataUnavailableException error) when (error.Data[HuygensSamplingDiagnostics.ExceptionKey] is HuygensSamplingDiagnostics)
                 {
                     var componentChecks = error.Data[HuygensSamplingDiagnostics.PreviousChecksKey] as IReadOnlyList<HuygensSamplingDiagnostics>

@@ -10,7 +10,7 @@
 | 不可比 | 428 | 429 |
 | 求值错误 | 28 | 28 |
 
-原通过项无回退。15 条独立无焦请求全部通过。251 组逐面追迹中 143 组通过、108 组不可比，涉及 259,395 个逐面比较。176 项定向回归通过。 [汇总](summary.json) [逐镜头](by-lens.csv) [逐请求状态变化](verdict-changes.csv) [511 条未通过请求](remaining-requests.csv) [Core 测试](core-release.trx) [比较器测试](comparison-release.trx)
+原通过项无回退。15 条独立无焦请求全部通过。251 组逐面追迹中 143 组通过、108 组不可比，涉及 259,395 个逐面比较。176 项定向回归通过。 [汇总](summary.json) [逐镜头](../huygens-image-local-pupil/by-lens.csv) [逐请求状态变化](verdict-changes.csv) [511 条未通过请求](remaining-requests.csv) [Core 测试](core-release.trx) [比较器测试](comparison-release.trx)
 
 32 条差异包括 12 条 Huygens、8 条光程差、4 条单光线、3 条一阶参数、3 条包围能量、1 张波前图和 1 条场曲与畸变。Elliptical reflector 320 degree light cone 仍因物方锥角口径 `OBNA` 子类型 1 不受支持而无法导入。 [逐条原因](remaining-requests.csv)
 

@@ -13,7 +13,10 @@ public sealed class SpeosV11ChainTests
         var replay = await app.CameraImaging.RecomputeAsync(opened.B); Assert.Equal(opened.B.PhotoElectrons, replay.PhotoElectrons); Assert.Equal(opened.B.RawDn, replay.RawDn); Assert.Equal(opened.B.Developed.Rgb24, replay.Developed.Rgb24);
     }
     [Theory]
-    [InlineData("v11-binary")] [InlineData("speos-white")] [InlineData("xyz-r")] [InlineData("xyz-t")]
+    [InlineData("v11-binary")]
+    [InlineData("speos-white")]
+    [InlineData("xyz-r")]
+    [InlineData("xyz-t")]
     public async Task ImportedFilesUseOnePhotonConversionAndFrozenRawIspReplay(string format)
     {
         using var app = WorkbenchApplication.Create(); using var files = new CameraSensorFileTests.TemporaryFiles(); var setup = await MeasuredBsdfChainTests.Setup(app, files);

@@ -10,7 +10,10 @@ namespace OpticalSystemDesign.Tests;
 public sealed class CameraPupilQuadratureTests
 {
     [Theory]
-    [InlineData(8)] [InlineData(16)] [InlineData(24)] [InlineData(32)]
+    [InlineData(8)]
+    [InlineData(16)]
+    [InlineData(24)]
+    [InlineData(32)]
     public void StratificationIntegratesDiskAreaMomentsAndClippedAnnuliWithoutRenormalizing(int density)
     {
         var nodes = CameraPupilQuadrature.Generate(new(4, 4, 3, PupilRings: density, PupilArms: 16,
@@ -74,7 +77,7 @@ public sealed class CameraPupilQuadratureTests
             Assert.Equal(request.PupilSampling, reopened.Manifest.Plan.Request.PupilSampling);
             await app.Documents.OpenAsync(DoubleGaussSfrTests.StandardLens);
             var replay = await app.CameraImaging.RunSceneLinearBatchAsync(reopened.Manifest.Plan with
-                { Request = reopened.Manifest.Plan.Request with { RowsPerStrip = 3 } }, b);
+            { Request = reopened.Manifest.Plan.Request with { RowsPerStrip = 3 } }, b);
             Assert.Equal(original.Manifest.Files.Select(f => f.Sha256), replay.Manifest.Files.Select(f => f.Sha256));
             Assert.Equal(plan.Work.Rays, original.Manifest.CompletedRays);
             var x = await app.CameraImaging.ReadSceneLinearTaskAsync(original, 0);
@@ -82,11 +85,11 @@ public sealed class CameraPupilQuadratureTests
             Assert.True(x.PowerWatts.Max() > 0);
             for (var i = 0; i < x.PowerWatts.Count; i++) Assert.Equal(x.PowerWatts[i], y.PowerWatts[i] * 2);
             await Assert.ThrowsAsync<InvalidDataException>(() => app.CameraImaging.RunSceneLinearBatchAsync(plan with
-                { Algorithm = CameraSceneLinearBatchPlan.CurrentAlgorithm }, b));
+            { Algorithm = CameraSceneLinearBatchPlan.CurrentAlgorithm }, b));
             await Assert.ThrowsAsync<InvalidDataException>(() => app.CameraImaging.RunSceneLinearBatchAsync(plan with
-                { Request = plan.Request with { PupilSampling = CameraPupilSampling.GaussianRings } }, b));
+            { Request = plan.Request with { PupilSampling = CameraPupilSampling.GaussianRings } }, b));
             await Assert.ThrowsAsync<InvalidDataException>(() => app.CameraImaging.RunSceneLinearBatchAsync(plan with
-                { Request = plan.Request with { PupilSampling = (CameraPupilSampling)99 } }, b));
+            { Request = plan.Request with { PupilSampling = (CameraPupilSampling)99 } }, b));
         }
         finally { File.Delete(fixture); File.Delete(a); File.Delete(b); }
     }

@@ -37,11 +37,14 @@ public static class NonSequentialDesignParameters
             item = v.Domain switch
             {
                 NonSequentialVariableDomain.Position => item with { LocalCoordinateSystem = pose with { Origin = Replace(pose.Origin, v.Parameter, value) } },
-                NonSequentialVariableDomain.Rotation => item with { LocalCoordinateSystem = v.Parameter switch
-                    { "X" => pose with { RotationXDegrees = value }, "Y" => pose with { RotationYDegrees = value }, "Z" => pose with { RotationZDegrees = value }, _ => throw new ArgumentException("Rotation axis must be X/Y/Z.") } },
+                NonSequentialVariableDomain.Rotation => item with
+                {
+                    LocalCoordinateSystem = v.Parameter switch
+                    { "X" => pose with { RotationXDegrees = value }, "Y" => pose with { RotationYDegrees = value }, "Z" => pose with { RotationZDegrees = value }, _ => throw new ArgumentException("Rotation axis must be X/Y/Z.") }
+                },
                 NonSequentialVariableDomain.ObjectParameter => WithParameter(item, v.Parameter, value),
                 NonSequentialVariableDomain.SourcePhase when item.Parameters is SourceParameters p && v.Parameter == "PhaseDegrees" => item with
-                    { Parameters = p with { Physics = (p.Physics ?? new()) with { PhaseDegrees = value } } },
+                { Parameters = p with { Physics = (p.Physics ?? new()) with { PhaseDegrees = value } } },
                 _ => throw new ArgumentException("Unsupported variable domain.")
             };
             changes[v.ObjectId] = item;
@@ -68,5 +71,5 @@ public static class NonSequentialDesignParameters
     }
     private static double Component(Vector3D p, string axis) => axis switch { "X" => p.X, "Y" => p.Y, "Z" => p.Z, _ => throw new ArgumentException("Position axis must be X/Y/Z.") };
     private static Vector3D Replace(Vector3D p, string axis, double value) => axis switch
-        { "X" => new(value, p.Y, p.Z), "Y" => new(p.X, value, p.Z), "Z" => new(p.X, p.Y, value), _ => throw new ArgumentException("Position axis must be X/Y/Z.") };
+    { "X" => new(value, p.Y, p.Z), "Y" => new(p.X, value, p.Z), "Z" => new(p.X, p.Y, value), _ => throw new ArgumentException("Position axis must be X/Y/Z.") };
 }

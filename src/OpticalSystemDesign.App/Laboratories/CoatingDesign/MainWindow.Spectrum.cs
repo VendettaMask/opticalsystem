@@ -12,6 +12,7 @@ using Avalonia.Platform.Storage;
 using Avalonia.Styling;
 using OpticalSystemDesign.App.Controls;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 using OpticalSystemDesign.CoatingDesign.Engine;
 using OpticalSystemDesign.Core.FileIO;
 using OpticalSystemDesign.Modules;
@@ -43,7 +44,8 @@ public sealed partial class MainWindow
                 button.IsCheckedChanged += (_, _) => _plot.SetCurveVisible(quantity, polarization, button.IsChecked == true);
                 row.Children.Add(button); _curveButtons.Add((quantity, button));
             }
-            var group = new Border { Child = row, BorderThickness = new Thickness(1), CornerRadius = new CornerRadius(6), Padding = new Thickness(5, 2), Margin = new Thickness(0, 0, 6, 4) };
+            var group = new Border { Child = row, BorderThickness = new Thickness(1), Padding = new Thickness(5, 2), Margin = new Thickness(0, 0, 6, 4) };
+            group.BindThemeResource(Border.CornerRadiusProperty, ThemeChromeResources.CornerRadius(ThemeChromeRole.SurfaceCard));
             group.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.SubtleSurface);
             group.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
             commands.Children.Add(group);

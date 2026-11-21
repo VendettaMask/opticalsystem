@@ -17,7 +17,9 @@ public static class NonSequentialDesignArchiveStore
     public const long MaximumBytes = BoundedFile.MaximumExportBytes;
     private static readonly JsonSerializerOptions Json = new()
     {
-        WriteIndented = true, MaxDepth = 64, UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
+        WriteIndented = true,
+        MaxDepth = 64,
+        UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow,
         RespectRequiredConstructorParameters = true,
         NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals,
         Converters = { new JsonStringEnumConverter(allowIntegerValues: false) }
@@ -29,8 +31,11 @@ public static class NonSequentialDesignArchiveStore
     {
         cancellationToken.ThrowIfCancellationRequested();
         materials = materials.CreateSnapshot();
-        sourceProject = sourceProject with { Configurations = sourceProject.Configurations.Select(c => c.Clone()).ToArray(),
-            NonSequentialDocument = sourceProject.NonSequentialDocument?.Clone() };
+        sourceProject = sourceProject with
+        {
+            Configurations = sourceProject.Configurations.Select(c => c.Clone()).ToArray(),
+            NonSequentialDocument = sourceProject.NonSequentialDocument?.Clone()
+        };
         var doc = sourceProject.NonSequentialDocument
             ?? throw new ArgumentException("实验需要完整的非序列场景。");
         ValidatePlan(doc, materials, plan, kind);
@@ -46,7 +51,8 @@ public static class NonSequentialDesignArchiveStore
         _ = RestoreMaterials(doc, modelRecords); // Reject models that would need the original user's catalogue.
         var data = new Dictionary<string, byte[]>(StringComparer.Ordinal)
         {
-            ["plan.json"] = Encode(plan), ["materials.json"] = Encode(modelRecords)
+            ["plan.json"] = Encode(plan),
+            ["materials.json"] = Encode(modelRecords)
         };
         if (optimization is not null || tolerance is not null)
             data.Add("result.json", Encode(new NonSequentialDesignRecordedRun(optimization is null ? null : NonSequentialOptimizationRecord.From(optimization), tolerance)));

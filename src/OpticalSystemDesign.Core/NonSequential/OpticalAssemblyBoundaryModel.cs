@@ -119,11 +119,11 @@ internal sealed class OpticalAssemblyBoundaryModel
         return nearest;
     }
 
-    public Vector3D SurfacePoint(int faceIndex,double radiusFraction,double azimuth)
+    public Vector3D SurfacePoint(int faceIndex, double radiusFraction, double azimuth)
     {
-        var cap=_caps[faceIndex];var radius=cap.Face.MechanicalSemiDiameterMillimeters*radiusFraction;
-        return cap.Face.Frame!.Origin+(cap.U*Math.Cos(azimuth)+cap.V*Math.Sin(azimuth))*radiusFraction
-            +cap.Face.Frame.AxisZ*cap.Face.Geometry.Sag(radius,0);
+        var cap = _caps[faceIndex]; var radius = cap.Face.MechanicalSemiDiameterMillimeters * radiusFraction;
+        return cap.Face.Frame!.Origin + (cap.U * Math.Cos(azimuth) + cap.V * Math.Sin(azimuth)) * radiusFraction
+            + cap.Face.Frame.AxisZ * cap.Face.Geometry.Sag(radius, 0);
     }
 
     private OpticalAssemblyBoundaryHit? CapHit(int index, Vector3D origin, Vector3D direction)

@@ -62,8 +62,8 @@ public static class StarOptProjectStore
                 : document.Configurations.Any(optic => optic.SurfaceGroup.Items.Any(surface => surface.ShapeVariables.Count > 0))
                 || document.BrokenLinks?.Any(link => Services.SurfaceShapeParameters.IsShapeProperty(link.Property)) == true ? 23
                 : RequiresNonSequentialPhysics(document.NonSequentialDocument) ? 22
-                : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true}) == true ? 21
-                : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters {IncidentSurface:not null}) == true ? 20
+                : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters { HasExtendedSurfaces: true }) == true ? 21
+                : document.NonSequentialDocument?.Objects.Any(o => o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters { IncidentSurface: not null }) == true ? 20
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.AbsoluteRbfXyzProtocol) == true ? 19
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.LogInterpolationProtocol) == true ? 18
                 : document.NonSequentialDocument?.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.PolarSupportProtocol) == true ? 17
@@ -303,9 +303,9 @@ public static class StarOptProjectStore
             throw new InvalidDataException("Positive XYZ colour transfer requires STAROPT project version 16.");
         if (project.FormatVersion < 17 && nonSequentialDocument.Objects.Any(o => o.SurfaceBsdf?.MeasuredData?.ComputationProtocol == Scattering.MeasuredBsdfData.PolarSupportProtocol))
             throw new InvalidDataException("Measured polar support requires STAROPT project version 17.");
-        if (project.FormatVersion < 20 && nonSequentialDocument.Objects.Any(o=>o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters {IncidentSurface:not null}))
+        if (project.FormatVersion < 20 && nonSequentialDocument.Objects.Any(o => o.Parameters is OpticalAssemblyParameters or DetectorRectangleParameters { IncidentSurface: not null }))
             throw new InvalidDataException("Optical assemblies require project version 20.");
-        if (project.FormatVersion < 21 && nonSequentialDocument.Objects.Any(o=>o.Parameters is OpticalAssemblyParameters {HasExtendedSurfaces:true}))
+        if (project.FormatVersion < 21 && nonSequentialDocument.Objects.Any(o => o.Parameters is OpticalAssemblyParameters { HasExtendedSurfaces: true }))
             throw new InvalidDataException("Aspheric/per-surface optical frames require project version 21.");
         if (project.FormatVersion < 22 && RequiresNonSequentialPhysics(nonSequentialDocument))
             throw new InvalidDataException("NSC polarization/coherent data require project version 22.");

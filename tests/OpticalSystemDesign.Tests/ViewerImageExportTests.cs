@@ -427,9 +427,16 @@ public sealed class ViewerImageExportTests
             var swatch = (Border)items.Children.OfType<StackPanel>().Last().Children[0];
             var reference = new Border
             {
-                Width = swatch.Width, Height = swatch.Height, Background = legend.Background,
-                Child = new Border { Background = swatch.Background, BorderBrush = swatch.BorderBrush,
-                    BorderThickness = swatch.BorderThickness, CornerRadius = swatch.CornerRadius }
+                Width = swatch.Width,
+                Height = swatch.Height,
+                Background = legend.Background,
+                Child = new Border
+                {
+                    Background = swatch.Background,
+                    BorderBrush = swatch.BorderBrush,
+                    BorderThickness = swatch.BorderThickness,
+                    CornerRadius = swatch.CornerRadius
+                }
             };
             reference.Measure(new Size(swatch.Width, swatch.Height));
             reference.Arrange(new Rect(0, 0, swatch.Width, swatch.Height));

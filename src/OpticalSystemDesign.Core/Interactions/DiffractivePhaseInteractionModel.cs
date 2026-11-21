@@ -19,9 +19,11 @@ public sealed class DiffractivePhaseInteractionModel(IPhaseProfile profile, bool
             factor * dx, factor * dy, Profile.Efficiency);
     }
     public ParaxialRay Interact(ParaxialRay ray, SurfaceInteractionContext context) => ray with
-    { Angle = (context.RefractiveIndexBefore * ray.Angle
+    {
+        Angle = (context.RefractiveIndexBefore * ray.Angle
         + context.WavelengthNanometers * 1e-6 / (2 * Math.PI) * Profile.ParaxialGradient(ray.Height, context.WavelengthNanometers))
-            / context.RefractiveIndexAfter };
+            / context.RefractiveIndexAfter
+    };
     public IInteractionModel Clone() => new DiffractivePhaseInteractionModel(Profile.Clone(), IsReflective);
 }
 
@@ -42,9 +44,13 @@ internal static class ScalarSurfaceDiffraction
             : (tangent + (reflective ? -1 : 1) * Math.Sqrt(radicand) * normal) / after;
         if (!double.IsFinite(path) || !double.IsFinite(dx) || !double.IsFinite(dy))
             throw new ArithmeticException("衍射相位或梯度不是有限值。");
-        return new(ray with { Direction = direction, IsNormalized = true,
+        return new(ray with
+        {
+            Direction = direction,
+            IsNormalized = true,
             OpticalPathDifference = ray.OpticalPathDifference + path,
-            Intensity = radicand < 0 ? 0 : ray.Intensity * efficiency },
+            Intensity = radicand < 0 ? 0 : ray.Intensity * efficiency
+        },
             reflective ? RayInteractionKind.Reflected : RayInteractionKind.Transmitted);
     }
     private static double Dot(Vector3D a, Vector3D b) => a.X * b.X + a.Y * b.Y + a.Z * b.Z;

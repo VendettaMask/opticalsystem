@@ -130,7 +130,9 @@ public sealed partial class ManufacturabilityPanel
     {
         _metricGrid.ItemsSource = report.GeometryMetrics.Select(metric => metric with
         {
-            Item = ManufacturingText(metric.Item), Value = ManufacturingText(metric.Value), Note = ManufacturingText(metric.Note)
+            Item = ManufacturingText(metric.Item),
+            Value = ManufacturingText(metric.Value),
+            Note = ManufacturingText(metric.Note)
         }).ToArray();
         _elementCount.Text = report.Elements.Count.ToString(CultureInfo.CurrentCulture);
         _passCount.Text = report.PassCount.ToString(CultureInfo.CurrentCulture);
@@ -183,8 +185,11 @@ public sealed partial class ManufacturabilityPanel
         badgeText.BindThemeResource(TextBlock.ForegroundProperty, foreground);
         var badge = new Border
         {
-            CornerRadius = new CornerRadius(5), Padding = new Thickness(9, 4), Child = badgeText,
-            Margin = new Thickness(8, 0, 0, 0), VerticalAlignment = VerticalAlignment.Top
+            CornerRadius = new CornerRadius(5),
+            Padding = new Thickness(9, 4),
+            Child = badgeText,
+            Margin = new Thickness(8, 0, 0, 0),
+            VerticalAlignment = VerticalAlignment.Top
         };
         badge.BindThemeResource(Border.BackgroundProperty, surface);
         var identity = new Grid { ColumnDefinitions = new ColumnDefinitions("*,Auto") };
@@ -202,7 +207,8 @@ public sealed partial class ManufacturabilityPanel
         var measured = Muted(ManufacturingText(finding.MeasuredValue));
         var recommendation = new SelectableTextBlock
         {
-            Text = ManufacturingText(finding.Recommendation), TextWrapping = TextWrapping.Wrap
+            Text = ManufacturingText(finding.Recommendation),
+            TextWrapping = TextWrapping.Wrap
         };
         var content = new StackPanel
         {
@@ -223,7 +229,8 @@ public sealed partial class ManufacturabilityPanel
         caption.MinHeight = DisplayTypography.Scale(29);
         return new StackPanel
         {
-            Width = DisplayTypography.Scale(160), Spacing = 5,
+            Width = DisplayTypography.Scale(160),
+            Spacing = 5,
             Margin = new Thickness(0, 0, 14, 4),
             Children = { caption, input }
         };
@@ -241,7 +248,8 @@ public sealed partial class ManufacturabilityPanel
     {
         var heading = new Border
         {
-            Padding = new Thickness(16, 13), BorderThickness = new Thickness(0, 0, 0, 1),
+            Padding = new Thickness(16, 13),
+            BorderThickness = new Thickness(0, 0, 0, 1),
             Child = new StackPanel { Spacing = 4, Children = { Title(title), Muted(description) } }
         };
         heading.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
@@ -258,8 +266,10 @@ public sealed partial class ManufacturabilityPanel
     {
         var card = new Border
         {
-            CornerRadius = new CornerRadius(10), BorderThickness = new Thickness(1),
-            Padding = new Thickness(padding), Child = child
+            CornerRadius = new CornerRadius(10),
+            BorderThickness = new Thickness(1),
+            Padding = new Thickness(padding),
+            Child = child
         };
         card.BindThemeResource(Border.BackgroundProperty, ThemeResourceBindings.Surface);
         card.BindThemeResource(Border.BorderBrushProperty, ThemeResourceBindings.Border);
@@ -268,12 +278,17 @@ public sealed partial class ManufacturabilityPanel
 
     private static TextBlock Count(string name) => new()
     {
-        Name = name, Text = "—", FontSize = DisplayTypography.PageTitle, FontWeight = FontWeight.SemiBold
+        Name = name,
+        Text = "—",
+        FontSize = DisplayTypography.PageTitle,
+        FontWeight = FontWeight.SemiBold
     };
 
     private static TextBlock Title(string text) => new()
     {
-        Text = text, FontWeight = FontWeight.SemiBold, TextWrapping = TextWrapping.Wrap
+        Text = text,
+        FontWeight = FontWeight.SemiBold,
+        TextWrapping = TextWrapping.Wrap
     };
 
     private static TextBlock Muted(string text)

@@ -19,7 +19,7 @@ internal sealed class AnalysisBookWorkspace : Decorator
     {
         _toolbar = toolbar;
         _bar = new BookToolbar(this) { Name = "AnalysisBookToolbar", Child = toolbar };
-        _bar.Resources.ThemeDictionaries[IsekaiTheme.Variant] = IsekaiDrawingMaterial.ManuscriptCommandResources();
+        ThemeApplicationService.ConfigureAnalysisCommandResources(_bar.Resources);
         DockPanel.SetDock(_bar, Avalonia.Controls.Dock.Top);
         var root = new DockPanel { Children = { _bar, result } };
         Child = new AnalysisImageFrame { Name = "AnalysisWorkspaceBookFrame", Child = root, ResultBookOnly = true };

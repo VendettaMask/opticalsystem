@@ -23,7 +23,10 @@ public sealed class NativeLengthUnitContractTests
             File.WriteAllText(model, """{"units":{"LensUnits":"Millimeters"}}""");
             void WriteReceipt(string originalUnit, bool savedInput) => File.WriteAllText(receipt, JsonSerializer.Serialize(new
             {
-                originalUnit, convertedUnit = "Millimeters", method = "OpticStudio.Tools.OpenScale.ScaleByUnits", savedInput
+                originalUnit,
+                convertedUnit = "Millimeters",
+                method = "OpticStudio.Tools.OpenScale.ScaleByUnits",
+                savedInput
             }));
             WriteReceipt(sourceUnit, false);
             NativeLengthUnitContract.Validate(data, request);

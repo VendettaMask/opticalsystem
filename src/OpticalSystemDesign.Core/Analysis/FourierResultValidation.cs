@@ -1,5 +1,5 @@
-using OpticalSystemDesign.Core.Services;
 using System.Text.Json.Serialization;
+using OpticalSystemDesign.Core.Services;
 
 namespace OpticalSystemDesign.Core.Analysis;
 
@@ -330,8 +330,12 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                 {
                     var reason = unavailable is AnalysisDataUnavailableException dataUnavailable
                         ? dataUnavailable.Reason : unavailable.Message;
-                    steps.Add(new(n, false, null, null) { UsesDensePhysicalPupil = densePhysicalPupil,
-                        UsesPhysicalPsfWindow = physicalPsfWindow, UnavailableReason = reason });
+                    steps.Add(new(n, false, null, null)
+                    {
+                        UsesDensePhysicalPupil = densePhysicalPupil,
+                        UsesPhysicalPsfWindow = physicalPsfWindow,
+                        UnavailableReason = reason
+                    });
                     previous = null;
                     previousResolved = false;
                     continue;
@@ -399,9 +403,12 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                     continue;
                 }
                 var error = previous is null ? ((double Rms, double Max)?)null : Difference(previous, projected);
-                steps.Add(new(n, resolved, error?.Rms, error?.Max) { UsesDensePhysicalPupil = densePhysicalPupil,
+                steps.Add(new(n, resolved, error?.Rms, error?.Max)
+                {
+                    UsesDensePhysicalPupil = densePhysicalPupil,
                     UsesPhysicalPsfWindow = physicalPsfWindow,
-                    MaximumPupilPhaseStepWaves = phase.Count > 0 ? phase.Max(p => p.MaximumStepWaves) : null });
+                    MaximumPupilPhaseStepWaves = phase.Count > 0 ? phase.Max(p => p.MaximumStepWaves) : null
+                });
                 if (previousResolved && resolved && error is { } delta && Accept(delta))
                 {
                     var candidate = options.Mode == FourierSamplingMode.ValidateRequested ? Project(original, original) : projected;
@@ -426,9 +433,11 @@ public sealed class FourierResultValidationAnalysis : BaseAnalysis
                     : usedDensePupil ? DensePupilProtocol : Protocol, options.Mode, requested, actual,
                     options.MaximumPupilSampling, options.RelativeRmsAccuracy, options.AbsoluteAccuracy, valid, steps.ToArray(), reason)
                 {
-                    EvaluatedNominalPupilCells = work, MaximumNominalPupilCells = options.MaximumNominalPupilCells,
+                    EvaluatedNominalPupilCells = work,
+                    MaximumNominalPupilCells = options.MaximumNominalPupilCells,
                     EvaluatedStreamedPupilNodes = streamedNodes,
-                    RequestedRelativeRmsDeviation = requestedError?.Rms, RequestedMaximumAbsoluteDeviation = requestedError?.Max
+                    RequestedRelativeRmsDeviation = requestedError?.Rms,
+                    RequestedMaximumAbsoluteDeviation = requestedError?.Max
                 }
             };
             return data with { Values = values };

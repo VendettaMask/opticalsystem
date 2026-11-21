@@ -37,26 +37,26 @@ internal sealed class LocalUiCatalog
             .ToDictionary(group => group.Key, group => group.Select(x => x.Entry).ToArray(), StringComparer.Ordinal);
         var templates = new List<(LocalUiTranslation, Regex, string, int[])>();
         foreach (var entry in entries)
-        foreach (var sourceTemplate in new[] { entry.Source, entry.Chinese, entry.English, entry.Japanese }.Distinct())
-        {
-            var matches = Slots.Matches(sourceTemplate);
-            if (matches.Count == 0) continue;
-            // Only fixed UI sentences are candidates. A bare value or unit is never a template.
-            var fixedText = Slots.Replace(sourceTemplate, "");
-            if (!fixedText.Any(c => c is >= '\u4e00' and <= '\u9fff') && fixedText.Count(char.IsAsciiLetter) < 3) continue;
-            var pattern = "\\A";
-            var offset = 0;
-            var indices = new List<int>();
-            foreach (Match match in matches)
+            foreach (var sourceTemplate in new[] { entry.Source, entry.Chinese, entry.English, entry.Japanese }.Distinct())
             {
-                pattern += EscapeLiteral(sourceTemplate[offset..match.Index]) + "(.*?)";
-                indices.Add(int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture));
-                offset = match.Index + match.Length;
+                var matches = Slots.Matches(sourceTemplate);
+                if (matches.Count == 0) continue;
+                // Only fixed UI sentences are candidates. A bare value or unit is never a template.
+                var fixedText = Slots.Replace(sourceTemplate, "");
+                if (!fixedText.Any(c => c is >= '\u4e00' and <= '\u9fff') && fixedText.Count(char.IsAsciiLetter) < 3) continue;
+                var pattern = "\\A";
+                var offset = 0;
+                var indices = new List<int>();
+                foreach (Match match in matches)
+                {
+                    pattern += EscapeLiteral(sourceTemplate[offset..match.Index]) + "(.*?)";
+                    indices.Add(int.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture));
+                    offset = match.Index + match.Length;
+                }
+                pattern += EscapeLiteral(sourceTemplate[offset..]) + "\\z";
+                templates.Add((entry, new Regex(pattern, RegexOptions.CultureInvariant | (sourceTemplate.Contains('\n') ? RegexOptions.Singleline : RegexOptions.None), TimeSpan.FromMilliseconds(20)),
+                    sourceTemplate[..matches[0].Index].Split('\n')[0].TrimEnd('\r'), indices.ToArray()));
             }
-            pattern += EscapeLiteral(sourceTemplate[offset..]) + "\\z";
-            templates.Add((entry, new Regex(pattern, RegexOptions.CultureInvariant | (sourceTemplate.Contains('\n') ? RegexOptions.Singleline : RegexOptions.None), TimeSpan.FromMilliseconds(20)),
-                sourceTemplate[..matches[0].Index].Split('\n')[0].TrimEnd('\r'), indices.ToArray()));
-        }
         _templates = templates.OrderByDescending(x => x.Item3.Length).ToArray();
     }
 

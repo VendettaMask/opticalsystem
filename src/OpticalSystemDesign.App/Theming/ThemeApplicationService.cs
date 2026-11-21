@@ -13,6 +13,11 @@ namespace OpticalSystemDesign.App.Theming;
 /// </summary>
 internal static class ThemeApplicationService
 {
+    internal static void InstallSharedStyles(Avalonia.Styling.Styles styles) => styles.Add(new IsekaiThemeStyles());
+
+    internal static void ConfigureAnalysisCommandResources(IResourceDictionary resources) =>
+        resources.ThemeDictionaries[IsekaiTheme.Variant] = IsekaiDrawingMaterial.ManuscriptCommandResources();
+
     private static readonly ConditionalWeakTable<global::Avalonia.Application, AppliedResources> Applied = new();
 
     public static ThemeDefinition Apply(

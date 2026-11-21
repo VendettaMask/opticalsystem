@@ -1,4 +1,3 @@
-using OpticalSystemDesign.Validation;
 using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -7,6 +6,7 @@ using OpticalSystemDesign.Core.Raytrace;
 using OpticalSystemDesign.InitialStructure.Contracts;
 using OpticalSystemDesign.InitialStructure.Engine;
 using OpticalSystemDesign.InitialStructure.Persistence;
+using OpticalSystemDesign.Validation;
 
 namespace OpticalSystemDesign.InitialStructure.Tests;
 
@@ -99,7 +99,10 @@ public sealed class ParaxialRecoveryRepairTests
         Assert.InRange(Math.Abs(automatic.EndpointFocalCError!.Value), 0, plan.Options.Recovery.FocalCTolerance);
         using var recorded = JsonDocument.Parse(await EvidenceFiles.ReadAllBytesAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/preparation.json")));
         var expected = recorded.RootElement.GetProperty("Deletions")[2].GetProperty("Recovery");
-        Assert.Equal(expected.GetProperty("ProtocolFingerprint").GetString(), old.ProtocolFingerprint);
+        var historicalProtocol = expected.GetProperty("ProtocolFingerprint").GetString()!;
+        Assert.True(ParaxialRestorer.MatchesProtocolFingerprint(parent, child, requests, plan.Targets, plan.Options.Recovery, historicalProtocol));
+        Assert.False(ParaxialRestorer.MatchesProtocolFingerprint(parent, child, requests, plan.Targets,
+            plan.Options.Recovery with { UseAutomaticMatrixDerivatives = true }, historicalProtocol));
         Assert.NotEqual(old.ProtocolFingerprint, automatic.ProtocolFingerprint);
         var blocked = ParaxialRestorer.Run(parent, child, requests, plan.Targets with { MinimumEdgeThicknessMillimeters = 1000 },
             plan.Options.Recovery with { UseAutomaticMatrixDerivatives = true });
@@ -175,7 +178,7 @@ public sealed class ParaxialRecoveryRepairTests
     [Fact]
     public async Task ConicCompensationIsSeparateFromBranchesAndItsOpticalTangentsMatchDifferences()
     {
-        var recorded = await new AutonomousSearchCheckpointStore().LoadAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/pupil-runs/four-to-three-42-C-pupil/run.autonomous.json"));
+        var recorded = await new AutonomousSearchCheckpointStore().LoadAsync(EvidenceFiles.Resolve(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/pupil-runs/four-to-three-42-C-pupil/run.autonomous.json")));
         var parent = recorded.Candidates.Single(candidate => candidate.Id == "seed-0");
         var child = recorded.Candidates.Where(candidate => candidate.Topology.Elements.Length == 3).OrderBy(candidate => candidate.Score).First().Topology;
         var plan = recorded.Plan with { Options = recorded.Plan.Options with { CompensateConic = true } };
@@ -225,7 +228,7 @@ public sealed class ParaxialRecoveryRepairTests
         Assert.Contains(rows, row => variables.Select((variable, index) => (variable, index)).Any(item => item.variable.Kind == OpticalDesignParameterKind.Conic && Math.Abs(row.Derivatives[item.index]) > 1e-5));
         Evidence("conic-gradients", results);
     }
-    private static async Task<AutonomousSearchPlan> Plan() => await AutonomousDesignFiles.LoadPlanAsync(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/baseline.topology-plan.json"));
+    private static async Task<AutonomousSearchPlan> Plan() => await AutonomousDesignFiles.LoadPlanAsync(EvidenceFiles.Resolve(Path.Combine(Root(), "validation/rechecks/2026-10-27/four-to-three-recovery/prepared/baseline.topology-plan.json")));
     private static string Root() { var directory = new DirectoryInfo(AppContext.BaseDirectory); while (directory is not null && !EvidenceFiles.Exists(Path.Combine(directory.FullName, "AGENTS.md"))) directory = directory.Parent; return directory!.FullName; }
     private static void Evidence(string name, object value)
     { if (Environment.GetEnvironmentVariable("OPTICAL_SYSTEM_DESIGN_RECOVERY_EVIDENCE") is not { } directory) return; Directory.CreateDirectory(directory); File.WriteAllText(Path.Combine(directory, name + ".json"), JsonSerializer.Serialize(value, new JsonSerializerOptions { WriteIndented = true, NumberHandling = JsonNumberHandling.AllowNamedFloatingPointLiterals })); }

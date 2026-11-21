@@ -8,6 +8,7 @@ using Avalonia.Automation;
 using Avalonia.Controls;
 using Avalonia.Media;
 using OpticalSystemDesign.App.Services;
+using OpticalSystemDesign.App.Theming;
 using SkiaSharp;
 
 namespace OpticalSystemDesign.App.Panels;
@@ -101,7 +102,7 @@ internal static class UserGuideMath
 
 internal sealed class UserGuideMathView : Control
 {
-    public static readonly StyledProperty<IBrush> ForegroundProperty = AvaloniaProperty.Register<UserGuideMathView, IBrush>(nameof(Foreground), Brushes.Black);
+    public static readonly StyledProperty<IBrush> ForegroundProperty = AvaloniaProperty.Register<UserGuideMathView, IBrush>(nameof(Foreground), new SolidColorBrush(ThemePalette.Light.TextPrimary));
     private readonly UserGuideMath.Artwork _artwork;
     private readonly (Geometry Shape, Matrix Matrix)[] _outlines;
     internal const double EmSize = 21;

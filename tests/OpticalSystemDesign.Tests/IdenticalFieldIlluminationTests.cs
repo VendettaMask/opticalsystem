@@ -1,11 +1,11 @@
 using OpticalSystemDesign.Core;
 using OpticalSystemDesign.Core.Analysis;
 using OpticalSystemDesign.Core.Apertures;
+using OpticalSystemDesign.Core.Backend;
 using OpticalSystemDesign.Core.Coatings;
 using OpticalSystemDesign.Core.Domain;
-using OpticalSystemDesign.Core.Backend;
-using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.FileIO;
+using OpticalSystemDesign.Core.Interactions;
 using OpticalSystemDesign.Core.Rays;
 using OpticalSystemDesign.Core.Services;
 
